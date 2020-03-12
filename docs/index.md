@@ -1,7 +1,7 @@
 --- 
 title: "통계 프로그래밍 언어"
 author: "한국한의학연구원, 구본초"
-date: "`r Sys.Date()`"
+date: "2020-03-12"
 documentclass: krantz
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
@@ -18,40 +18,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r setup, include=FALSE}
-options(
-  htmltools.dir.version = FALSE, formatR.indent = 2,
-  width = 55, digits = 4, warnPartialMatchAttr = FALSE, warnPartialMatchDollar = FALSE
-)
-options(bookdown.post.latex = function(x) {
-  # only build a skeleton for the online version
-  if (Sys.getenv('BOOKDOWN_FULL_PDF', '') == 'false') return(bookdown:::strip_latex_body(
-    x, '\nThis PDF is only a skeleton. Please either read the free online HTML version, or purchase a hard-copy of this book.\n'
-    ))
-  # fix syntax highlighting:
-  # \FunctionTok{tufte:}\AttributeTok{:tufte_html: default} ->
-  # \FunctionTok{tufte::tufte_html:}\AttributeTok{ default}
-  x = gsub('(\\\\FunctionTok\\{[^:]+:)(})(\\\\AttributeTok\\{)(:[^:]+:)', '\\1\\4\\2\\3', x)
-  # an ugly hack for Table 16.1 (Pandoc's widths are not good)
-  # if (length(grep('0.47\\\\columnwidth', x)) == 0) stop('Table 16.1 not found')
-  x = gsub('( & \\\\begin\\{minipage\\}\\[[tb]]\\{)0.47(\\\\columnwidth})', '\\10.65\\2', x)
-  x = gsub('(^\\\\begin\\{minipage\\}\\[[tb]]\\{)0.47(\\\\columnwidth})', '\\10.33\\2', x)
-  if (length(i <- grep('^\\\\begin\\{longtable\\}', x)) == 0) return(x)
-  i1 = bookdown:::next_nearest(i, which(x == '\\toprule'))
-  i2 = bookdown:::next_nearest(i, which(x == '\\endfirsthead'))
-  x[i1 - 1] = paste0(x[i1 - 1], '\n\\begin{tabular}{', gsub('[^lcr]', '', gsub('.*\\[]', '', x[i])), '}')
-  x[i] = '\\begin{table}'
-  x[x == '\\end{longtable}'] = '\\end{tabular}\n\\end{table}'
-  x[x == '\\endhead'] = ''
-  x = x[-unlist(mapply(seq, i1, i2, SIMPLIFY = FALSE))]
-  x
-})
-lapply(c('xfun'), function(pkg) {
-  if (system.file(package = pkg) == '') install.packages(pkg)
-})
-if (!xfun::loadable('sigma', new_session = TRUE)) source('https://install-github.me/jjallaire/sigma')
-source("init-funs/global-init.R", encoding = "UTF-8")
-```
+
 
 # Course Overview{-#overview}
 
@@ -110,53 +77,93 @@ source("init-funs/global-init.R", encoding = "UTF-8")
 
 ### 강의 계획{#course-schedule .unnumbered}
 
-```{r make-schedule-tab, echo=FALSE}
-week <- paste("Week", 1:15)
-course_desc <- c("R 소개, R/R Studio 설치, R 패키지 설치, R 맛보기 및 markdown 문서 만들기",
-                 "R 자료형: 스칼라, 벡터, 리스트",
-                 "R 자료형: 행렬 및 배열",
-                 "R 자료형: 팩터, 테이블, 데이터 프레임",
-                 "R 자료형: 문자열과 정규 표현식",
-                 "데이터 프레임 가공 및 시각화 I",
-                 "데이터 프레임 가공 및 시각화 II",
-                 "중간고사",
-                 "데이터 프레임 가공 및 시각화 III",
-                 "R 프로그래밍: 조건문, 반복문, 함수",
-                 "통계시뮬레이션 I: 표본분포 및 중심극한정리",
-                 "통계시뮬레이션 2: 신뢰구간과 가설검정",
-                 "R을 이용한 기초통계 분석",
-                 "R markdown 활용",
-                 "기말고사"
-                 )
-homework <- c("과제 1",
-              "",
-              "과제 2",
-              "",
-              "과제 3",
-              "",
-              "과제 4",
-              "",
-              "",
-              "과제 5",
-              "",
-              "과제 6",
-              "",
-              "과제 7",
-              "")
-tab_sch <- data.frame(week, course_desc, homework)
-names(tab_sch) <- c("주차", "강의 내용", "과제")
-
-options(kableExtra.html.bsTable = T)
-kable(tab_sch,
-      align = "clc",
-      escape = FALSE, 
-      booktabs = T, caption = "강의 계획표") %>%
-  kable_styling(bootstrap_options = c("condensed", "striped"),
-                position = "center", 
-                font_size = 10, 
-                latex_options = c("striped", "HOLD_position")) %>% 
-  column_spec(2, width = "6cm")
-```
+<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:make-schedule-tab)강의 계획표</caption>
+ <thead>
+  <tr>
+   <th style="text-align:center;"> 주차 </th>
+   <th style="text-align:left;"> 강의 내용 </th>
+   <th style="text-align:center;"> 과제 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:center;"> Week 1 </td>
+   <td style="text-align:left;width: 6cm; "> R 소개, R/R Studio 설치, R 패키지 설치, R 맛보기 및 markdown 문서 만들기 </td>
+   <td style="text-align:center;"> 과제 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> Week 2 </td>
+   <td style="text-align:left;width: 6cm; "> R 자료형: 스칼라, 벡터, 리스트 </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> Week 3 </td>
+   <td style="text-align:left;width: 6cm; "> R 자료형: 행렬 및 배열 </td>
+   <td style="text-align:center;"> 과제 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> Week 4 </td>
+   <td style="text-align:left;width: 6cm; "> R 자료형: 팩터, 테이블, 데이터 프레임 </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> Week 5 </td>
+   <td style="text-align:left;width: 6cm; "> R 자료형: 문자열과 정규 표현식 </td>
+   <td style="text-align:center;"> 과제 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> Week 6 </td>
+   <td style="text-align:left;width: 6cm; "> 데이터 프레임 가공 및 시각화 I </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> Week 7 </td>
+   <td style="text-align:left;width: 6cm; "> 데이터 프레임 가공 및 시각화 II </td>
+   <td style="text-align:center;"> 과제 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> Week 8 </td>
+   <td style="text-align:left;width: 6cm; "> 중간고사 </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> Week 9 </td>
+   <td style="text-align:left;width: 6cm; "> 데이터 프레임 가공 및 시각화 III </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> Week 10 </td>
+   <td style="text-align:left;width: 6cm; "> R 프로그래밍: 조건문, 반복문, 함수 </td>
+   <td style="text-align:center;"> 과제 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> Week 11 </td>
+   <td style="text-align:left;width: 6cm; "> 통계시뮬레이션 I: 표본분포 및 중심극한정리 </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> Week 12 </td>
+   <td style="text-align:left;width: 6cm; "> 통계시뮬레이션 2: 신뢰구간과 가설검정 </td>
+   <td style="text-align:center;"> 과제 6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> Week 13 </td>
+   <td style="text-align:left;width: 6cm; "> R을 이용한 기초통계 분석 </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> Week 14 </td>
+   <td style="text-align:left;width: 6cm; "> R markdown 활용 </td>
+   <td style="text-align:center;"> 과제 7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> Week 15 </td>
+   <td style="text-align:left;width: 6cm; "> 기말고사 </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+</tbody>
+</table>
 
 
 <!-- ```{r include=FALSE} -->
