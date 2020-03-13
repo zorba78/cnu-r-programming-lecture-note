@@ -22,12 +22,13 @@
    - 방대한 개발 및 사용 생태계 형성 
    - 강력한 그래픽 기능
 
-> **Tips: 유용한 웹 사이트**
->
-> - R과 관련한 거의 모든 문제는 Googling (구글을 이용한 검색)을 통해 해결 가능
-> - 다음 사이트는 꼭 즐겨찾기 추가!!
->    - [Stack Overflow](https://stackoverflow.com)
->    - [RPubs](https://rpubs.com/)
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">**유용한 웹 사이트**: R과 관련한 거의 모든 문제는 Googling (구글을 이용한 검색)을 통해 해결 가능(검색주제 + "in R" or "in R software")하고 많은 해답들이 아래 열거한 웹 페이지에 게시되어 있음. 
+
+- R 프로그래밍에 대한 Q&A: [Stack Overflow](https://stackoverflow.com)
+- R 관련 웹 문서 모음: [Rpubs](https://rpubs.com/)
+- R package에 대한 raw source code 제공: [Github](https://github.com)
+- R을 이용한 통계 분석: [Statistical tools for high-throughput data analysis (STHDA)](http://www.sthda.com/english/)
+</div>\EndKnitrBlock{rmdtip}
 
 
 ## R 설치하기 {#installation}
@@ -38,76 +39,179 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 2. 좌측 R Logo 하단 Download 아래 CRAN 클릭
 
-<img src="figures/Rorg-main-add.png" width="80%" style="display: block; margin: auto;" />
+<img src="figures/Rorg-main-add.png" width="90%" style="display: block; margin: auto;" />
 
+<br/>
 
 3. 클릭 후 연결한 페이지를 스크롤 후 Korea 아래 링크^[해당 링크들은 접속 시점에 따라 변경될 수 있음] 클릭 
 
 
-<img src="figures/CRAN-korea-01.png" width="80%" style="display: block; margin: auto;" />
+<img src="figures/CRAN-korea-01.png" width="90%" style="display: block; margin: auto;" />
 
+<br/>
 
 4. 클릭 후 세 가지 운영체제(Linux, Mac OS X, Windowns)에 따른 R 버전 선택 가능^[본 노트는 Windows 버전 설치만 다룸]
 
 
-<img src="figures/Rinstall-01.png" width="80%" style="display: block; margin: auto;" />
+<img src="figures/Rinstall-01.png" width="90%" style="display: block; margin: auto;" />
+
+<br/>
 
 5. **Downloads R for Windows** 링크 클릭하면 다음과 같은 화면으로 이동
 
-<img src="figures/Rinstall-02.png" width="80%" style="display: block; margin: auto;" />
+<img src="figures/Rinstall-02.png" width="90%" style="display: block; margin: auto;" />
 
-6. 위 화면에서 **base** 링크 클릭 후 아래 화면에서 **Downloads R 3.4.2 for Windows** 를 클릭 후 설치 파일을 임의의 디렉토리에 저장 및 실행
+<br/>
 
-<img src="figures/Rinstall-03.png" width="80%" style="display: block; margin: auto;" />
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">다음 하위폴더에 대한 간략 설멍
+
+- **`base`**: R 실행 프로그램
+- **`contrib`**: R package의 바이너리 파일
+- **`Rtools`**: R package 개발 및 배포를 위한 프로그램
+</div>\EndKnitrBlock{rmdtip}
+
+<br/>
+
+6. 위 화면에서 **base** 링크 클릭 후 아래 화면에서 **Downloads R 3.x.x for Windows** 를 클릭 후 설치 파일을 임의의 디렉토리에 저장 및 실행
+
+<img src="figures/Rinstall-03.png" width="90%" style="display: block; margin: auto;" />
+
+<br/>
 
 
-> **Tip**: 3개 subdirectories에 대한 간략 설멍
->
->    - `base`: R 실행 프로그램 
->    - `contrib`: R package의 바이너리 파일 
->    - `Rtools`: R package 개발 및 배포를 위한 프로그램
+7. 다운로드한 파일을 실행하면 아래와 같은 대화창이 나타남
+    - 한국어 선택 $\rightarrow$ 환영 화면에서 [다음(N)>] 클릭
+
+<img src="figures/R-install-F01.png" width="90%" style="display: block; margin: auto;" />
+
+<br/>
+
+8. GNU 라이센스에 대한 설명 및 동의 여부([다음(N)>]) 클릭
+
+<img src="figures/R-install-F02.png" width="90%" style="display: block; margin: auto;" />
+
+<br/>
+
+9. 설치 디렉토리 설정 및 구성요소 설지 여부
+    - 원하는 디렉토리 설정(예: `C:\R\R-3.x.x`)
+    - 기본 프로그램("Core Files"), 32 또는 64 bit 용 설치 파일, R console 한글 번역 모두 체크 뒤 [다음(N)>] 클릭
+
+<img src="figures/R-install-F03.png" width="90%" style="display: block; margin: auto;" />
+
+<img src="figures/R-install-F04.png" width="90%" style="display: block; margin: auto;" />
+
+<br/>
+
+10. R 스타트업 옵션 지정
+   - 기본값("No" check-button)으로도 설치 진행 가능
+   - 본 문서에서는 스타트업 옵션 변경으로 진행
+
+<img src="figures/R-install-F05.png" width="90%" style="display: block; margin: auto;" />
+
+<br/>
+
+11. 화면표시방식(디스플레이 모드) 설정 변경
+   - MDI: 한 윈도우 내에서 script 편집창, 출력, 도움말 창 사용
+   - SDI: 다중 창에서 각각 script 편집창, 출력, 도움말 등을 독립적으로 열기
+
+<img src="figures/R-install-F06.png" width="90%" style="display: block; margin: auto;" />
+
+<br/>
+
+12. 도움말 형식에서 HTML 도움말 기반 선택
+
+<img src="figures/R-install-F07.png" width="90%" style="display: block; margin: auto;" />
+
+<br/>
+
+13. 시작메뉴 폴더 선택
+   - "바로가기"를 생성할 시작 메뉴 폴더 지정 후 [다음(N)>] 클릭 후 설치 진행
+   - 하단 "시작메뉴 폴더 만들지 않음" 체크박스 표시 시 시작메뉴에 "바로가기" 아이콘이 생성되지 않음(실행에 전혀 지장 없음)
+
+<img src="figures/R-install-F08.png" width="90%" style="display: block; margin: auto;" />
+
+<br/>
+
+14. 추가 옵션 지정: 바탕화면 아이콘 생성 등 추가적 작업 옵션 체크 후 [다음(N)>] 클릭 $\rightarrow$ 설치 진행
+   - 설치된 R 버전 정보 레지스트리 저장 여부 
+   - `.Rdata` 확장자를 R 실행파일과 자동 연계
+
+<img src="figures/R-install-F09.png" width="90%" style="display: block; margin: auto;" />
+
+<br/>
+
+15. 설치 완료 후 바탕화면의 R 아이콘을 더블클릭하면 Rgui가 실행
+
+<div class="figure" style="text-align: center">
+<img src="figures/Rgui.png" alt="Windows에서 R 실행화면(콘솔 창, SDI 모드)" width="100%" />
+<p class="caption">(\#fig:r-console)Windows에서 R 실행화면(콘솔 창, SDI 모드)</p>
+</div>
+
+## R 시작 및 작동 체크{#r-check}
+
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**실습**: 설치된 R을 실행 후 보이는 R 콘솔(consle) 창에서 명령어를 실행하고 결과 확인</div>\EndKnitrBlock{rmdimportant}
+
+그림 Figure \@ref(fig:r-console) 에서 `>` 기호는 R의 명령 프롬프트(prompt) 임
+
+1. 문자열 출력
 
 
-<!-- 8. 다운로드한 파일을 실행하면 아래와 같은 대화창이 나타남 -->
-<!--     - 한국어 선택 $\rightarrow$ 환영 화면에서 [다음(N)>] 클릭 -->
+```r
+#문자열 출력
+print("Hello R") #문자열
+```
 
-<!-- \begin{figure}[H] -->
-<!-- { -->
-<!--   \centering -->
-<!--   \includegraphics[width = 14cm, height = 11cm]{Figures/R-install-F01.png} -->
-<!--   \caption[R 설치과정 01]{R 설치과정 01}\label{fig:R-install-06} -->
-<!-- } -->
-<!-- \end{figure}  -->
+```
+[1] "Hello R"
+```
 
-<!-- 9. GNU 라이센스에 대한 설명 및 동의 여부([다음(N)>]) 클릭 (그림 \ref{fig:R-install-07}) -->
+> `#` 기호는 주석의 시작을 의미하고 실제로 실행되지 않음 같은 행에서 `#` 뒤 내용의 코드 역시 실행되지 않음
 
-<!-- \begin{figure}[H] -->
-<!-- { -->
-<!--   \centering -->
-<!--   \includegraphics[width = 8cm, height = 8cm]{Figures/R-install-F02.png} -->
-<!--   \caption[R GNU general license]{R GNU general license}\label{fig:R-install-07} -->
-<!-- } -->
-<!-- \end{figure}  -->
+2. `a` 라는 변수에 숫자 9, `b`라는 변수에 숫자 4를 할당 후 출력
 
-<!-- 10. 설치 디렉토리 설정 및 구성요소 설지 여부 -->
-<!--     - 원하는 디렉토리 설정(예: `C:\R\R-3.4.2`) (그림 \ref{fig:R-install-08}) -->
-<!--     - 기본 프로그램("Core Files"), 32 또는 64 bit 용 설치 파일, R console 한글 번역 모두 체크 뒤 [다음(N)>] 클릭 (그림 \ref{fig:R-install-09}) -->
 
-<!-- \begin{figure}[H] -->
-<!-- { -->
-<!--   \centering -->
-<!--   \includegraphics[width = 15cm, height = 10cm]{Figures/R-install-F03.png} -->
-<!--   \caption[R 설치 디렉토리 설정]{R 설치 디렉토리 설정}\label{fig:R-install-08} -->
-<!-- } -->
-<!-- \end{figure}      -->
+```r
+# 수치형 값(scalar)을 변수에 할당(assign)
+# 여러 명령어를 한줄에 입력할 때에는 세미콜론(;)으로 구분
+a = 9; b = 4
+a
+```
 
-<!-- \begin{figure}[H] -->
-<!-- { -->
-<!--   \centering -->
-<!--   \includegraphics[width = 8cm, height = 8cm]{Figures/R-install-F04.png} -->
-<!--   \caption[R 구성요소 설치]{R 구성요소 설치}\label{fig:R-install-09} -->
-<!-- } -->
-<!-- \end{figure} -->
+```
+[1] 9
+```
+
+```r
+b
+```
+
+```
+[1] 4
+```
+
+3. 변수 `a`와 `b`의 사칙연산
+
+```r
+a+b; a-b; a*b; a/b
+```
+
+```
+[1] 13
+```
+
+```
+[1] 5
+```
+
+```
+[1] 36
+```
+
+```
+[1] 2.25
+```
+
+
 
 
 

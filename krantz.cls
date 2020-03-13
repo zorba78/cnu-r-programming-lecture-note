@@ -158,7 +158,7 @@
 \newcommand\ContributorAffiliationFont{\reset@font\fontsize{10}{12}\raggedright\selectfont}
 \newcommand\ContributorNameFont{\reset@font\fontsize{10}{12}\bfseries\raggedright\selectfont}
 
-\newcommand\TitlePageTitleFont{\fontsize{24}{28}\bfseries\selectfont}
+\newcommand\TitlePageTitleFont{\fontsize{24}{28}\slshape\bfseries\selectfont}
 \newcommand\PageNumFont{\reset@font\fontsize{10}{12}\selectfont}
 \newcommand\ChapNumFont{\reset@font\fontsize{24}{24}\bfseries\selectfont}
 \newcommand\ChapTitleFont{\reset@font\fontsize{18}{20}\slshape\selectfont}
@@ -350,12 +350,12 @@
 \top@cornermarks
   {\@the@page\RunningHeadFont
     \hfill
-\if@mainmatter\thechapter\enspace\fi\leftmark
+\if@mainmatter\ifnum\value{chapter}>0 \thechapter\enspace\fi\fi\leftmark
     }}
 \def\odd@head{%
 \top@cornermarks
   \hfil{\RunningHeadFont
-\if@mainmatter\thesection\enspace\else\fi\rightmark
+\if@mainmatter\ifnum\value{section}>0 \thesection\enspace\fi\fi\rightmark
     }
 \hfill
     \@the@page
@@ -1667,17 +1667,12 @@
 \@namedef{tabular*}#1{%
  \setlength\dimen@{#1}%
    \edef\@halignto{to\the\dimen@}\@tabular}
-
-
 \def\tch#1{\TableColHeadFont #1\llstrut\hfill}
 \def\tsh#1{\TableSubheadFont #1\hfill}
 \newcommand\llstrut{\rule[-6pt]{0pt}{14pt}}
 \newcommand\flstrut{\rule{0pt}{10pt}}
 \newcommand\tabletitlestrut{\rule{0pt}{20pt}}
-
 \def\Boxhead#1{\par\addvspace{3pt plus2pt}\noindent{\centering\bfseries#1\par}\vskip3pt}
-
-
 \newbox\tempbox%
 \newdimen\tempdimen%
 %
@@ -1694,12 +1689,9 @@
 \noindent\fboxsep6pt\fboxrule.5pt\hspace*{0pt}\fbox{\box\tempbox}
 \par\addvspace{12pt plus2pt}}%
 %
-
-
 \def\grayink{\special{color cmyk 0 0 0 0.2}}
 \def\blackink{\special{color cmyk 0 0 0 1.0}} %
 \def\whiteink{\special{color cmyk 0 0 0 0}} % 0%
-
 \newenvironment{shadebox}{%
 \setbox\tempbox\hbox\bgroup\vbox\bgroup\leftskip12pt\rightskip\leftskip\vspace*{12pt}}{\par\addvspace{-6pt}
 \egroup\egroup\par\addvspace{15pt}
@@ -1708,7 +1700,6 @@
 \noindent{\hbox to \wd\tempbox{\vbox to \ht\tempbox{\hsize\textwidth{\special{color push}\grayink\noindent\vrule height\tempdimen width\textwidth
 \special{color pop}\blackink}}}}%
 \llap{\unhbox\tempbox}\par\addvspace{20pt}}
-
 %%%%%%%%%% Note %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newbox\tempbox
 \newdimen\notewidth
@@ -1718,7 +1709,6 @@
    \global\notewidth\wd\tempbox
 }{%
 		\par\addvspace{6pt}}
-
 \def\notes#1#2{\par\noindent\@hangfrom{\hbox to \notewidth{\bf #1\hss}}#2\par}
 %%%%%%%%%%%%%%%% wherelist %%%%%%%%%%%%%%%%
 \newbox\wherebox
@@ -1771,7 +1761,6 @@
 %
 %
 \def\VT{\par\addvspace{3.5pt}\noindent}
-
 \def\VH#1{{\normalfont\fontsize{12.5}{14.5}\itshape\centering\selectfont #1\par}\addvspace{5.5pt}}
 %
 \newenvironment{VT1}{\VfFont%
@@ -1791,36 +1780,28 @@
                         \let\makelabel\glosslabel}}
                {\endlist}
 \newcommand\glosslabel[1]{\hspace\labelsep\normalfont\bfseries #1:}
-
 %%%%%%%%%%%%
 \newif\iffnalpha
 \global\fnalphafalse
-
 \newskip\listtextleftmargin\listtextleftmargin 20pt%24pt
 \newskip\listtextleftmarginii\listtextleftmarginii0pt% 24pt
 \newskip\listtextleftmarginiii\listtextleftmarginiii0pt% 24pt
-
 \newskip\listtextrightmargin\listtextrightmargin12pt%.5pc
 \newskip\listlabelleftskip \listlabelleftskip4pt%3.3pt
 \newskip\listlabelleftskipii \listlabelleftskipii0pt%3.3pt
 \newskip\listlabelleftskipiii \listlabelleftskipiii0pt%3.3pt
-
 \newskip\abovelistskipi\abovelistskipi6pt plus2pt
 \newskip\belowlistskipi\belowlistskipi6pt plus2pt
 \newskip\abovelistskipii\abovelistskipii0pt plus2pt
 \newskip\belowlistskipii\belowlistskipii0pt plus2pt
 \newskip\abovelistskipiii\abovelistskipiii0pt plus2pt
 \newskip\belowlistskipiii\belowlistskipiii0pt plus2pt
-
 \newskip\labelsepi \labelsepi6pt
 \newskip\labelsepii \labelsepii6pt
 \newskip\labelsepiii \labelsepiii6pt%\z@
-
 \newskip\itemsepi \itemsepi0pt%10pt
 \newskip\itemsepii \itemsepii0pt
 \newskip\itemsepiii \itemsepiii0pt
-
-
 \newdimen\enumdimwd
 \newif\iflabelrightalign\labelrightaligntrue
 \newdimen\enumdim%
@@ -1859,7 +1840,6 @@
 %
 \def\enumerate{\@ifnextchar[{\@enumerate}{\@enumerate[\csname label\@enumctr\endcsname]}}%%
 %
-
 \def\@enumerate[#1]{\par
       \ifnum \@enumdepth >3 \@toodeep
       \else
@@ -1904,9 +1884,7 @@
 %
 \def\endenumerate{\@topsepadd\csname belowlistskip\romannumeral\the\@enumdepth\endcsname\endlist}%
 %
-
 \def\textlistlabel{}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newdimen\concolwidth
 \newbox\stempbox
@@ -1917,7 +1895,6 @@
   \ifdim\concolwidth>\columnwidth \vspace*{3pt} \else \fi
   \noindent{\vbox{\hangindent12pt\ContributorAffiliationFont #2}}\vskip-1\p@
   \noindent{\vbox{\hangindent12pt\ContributorAffiliationFont #3}}}}
-
 %%\def\contributors{%
 %%  \twocolumn[\contributorshead]
 %%  \pagestyle{empty}
@@ -1927,17 +1904,13 @@
 %%  \vbox{}\vskip2pc
 %%  {\centering\HeadFont CONTRIBUTORS\vskip2\p@}
 %%  \noindent\rule{\textwidth}{1\p@}\vskip25\p@}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
     \hbox{}\thispagestyle{empty}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
-
 \frenchspacing
 \tolerance=5000
 \raggedbottom
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \@centertabletitlefalse
 %\HeadingsBookChapter
 \HeadingsChapterSection

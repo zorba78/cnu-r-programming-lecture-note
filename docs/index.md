@@ -1,7 +1,8 @@
 --- 
 title: "통계 프로그래밍 언어"
 author: "한국한의학연구원, 구본초"
-date: "2020-03-12"
+date: "2020-03-14"
+knit: "bookdown::render_book"
 documentclass: krantz
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
@@ -22,13 +23,15 @@ editor_options:
 
 # Course Overview{-#overview}
 
-본 문서는 2020년도 1학기 정보통계학과에서 개설한 "통계 프로그래밍 언어" 강의를 위해 개발한 강의 노트이며, Yihui Xie가 개발한 **bookdown** 패키지 [@R-bookdown]를 활용하여 생성한 문서이고 Google Chrome 또는 Firefox 브라우저에 최적화 됨. 아울러 충남대학교 정보통계학과 이상인 교수님의 2019년도 2학기 "통계패키지활용" 강의 노트와 동국대학교 ICT빅데이터학부 김진석 교수님의 [R 프로그래밍 및 실습](http://datamining.dongguk.ac.kr/lectures/R/_book/index.html) 강의 자료 내용을 참고함. 
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">본 문서는 2020년도 1학기 정보통계학과에서 개설한 "통계 프로그래밍 언어" 강의를 위해 개발한 강의 노트이며, Yihui Xie가 개발한 **bookdown** 패키지 [@R-bookdown]를 활용하여 생성한 문서이고 Google Chrome 또는 Firefox 브라우저에 최적화 됨. 아울러 충남대학교 정보통계학과 이상인 교수님의 2019년도 2학기 "통계패키지활용" 강의 노트와 동국대학교 ICT빅데이터학부 김진석 교수님의 [R 프로그래밍 및 실습](http://datamining.dongguk.ac.kr/lectures/R/_book/index.html) 강의 자료 내용을 참고함. 
 
-본 강의 노트는 주 단위로 업데이트될 예정임. 
+본 강의 노트는 주 단위로 업데이트될 예정임. </div>\EndKnitrBlock{rmdnote}
+
 
 ### 강의소개{#intro-lec .unnumbered}
 
->R은 뉴질랜드 오클랜드 대학의 Robert Gentleman 과 Ross Ihaka 가 AT&T 벨 연구소에서 개발한 S 언어를 기반으로 개발한 GNU 환경의 통계 계산 및 프로그래밍 언어이다. 현재 R 소프트웨어는 통계학 뿐 아니라 데이터 과학을 포함한 의학, 생물학 등 다양한 분야에서 활용되고 있으며 특히 통계 소프트웨어 개발과 데이터 분석에 많이 활용되고 있다. 본 강의는 데이터 분석을 위한 R의 기초 문법과 통계학 입문에서 학습한 몇 가지 중요한 통계적 이론에 대한 시뮬레이션 방법을 다룬다. 아울러 R package를 활용한 데이터 헨들링 및 시각화 그리고 Rmarkdown을 활용한 재현가능(reproducible)한 문서 작성법에 대해 학습하고자 한다. 
+R은 뉴질랜드 오클랜드 대학의 Robert Gentleman 과 Ross Ihaka 가 AT&T 벨 연구소에서 개발한 S 언어를 기반으로 개발한 GNU 환경의 통계 계산 및 프로그래밍 언어이다. 현재 R 소프트웨어는 통계학 뿐 아니라 데이터 과학을 포함한 의학, 생물학 등 다양한 분야에서 활용되고 있으며 특히 통계 소프트웨어 개발과 데이터 분석에 많이 활용되고 있다. 본 강의는 데이터 분석을 위한 R의 기초 문법과 통계학 입문에서 학습한 몇 가지 중요한 통계적 이론에 대한 시뮬레이션 방법을 다룬다. 아울러 R package를 활용한 데이터 헨들링 및 시각화 그리고 Rmarkdown을 활용한 재현가능(reproducible)한 문서 작성법에 대해 학습하고자 한다. 
+
 
 ### 교과 목표{#purpose-course .unnumbered}
 
@@ -37,6 +40,8 @@ editor_options:
 > - **R 시뮬레이션을 통한 통계학 기초 이론 확인**
 > - **R을 이용한 데이터 분석 실습**
 > - **R markdown을 이용한 재현가능(reproducible)한 보고서 작성 방법 습득**
+
+
 
 ### 선수과목{#pre-course .unnumbered}
 

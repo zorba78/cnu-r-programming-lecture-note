@@ -1,27 +1,32 @@
 bookdown::gitbook:
+  dev: svglite
   css: css/style.css
   split_by: section
-  table_css: false
   config:
     toc:
-      collapse: true
+      collapse: none
       before: |
          <li><a href="./">통계 프로그래밍 언어</a></li>
-    download: [pdf]
+    download: [pdf, epub]
+    edit: https://github.com/zorba78/cnu-r-programming-lecture-note/%s
     sharing:
       github: yes
       facebook: no
 bookdown::pdf_book:
   includes:
     in_header: latex/preamble-krantz.tex
+    after_body: latex/after_body.tex
   keep_tex: yes
+  dev: "cairo_pdf"
   latex_engine: xelatex
   citation_package: natbib
   template: null
-  pandoc_args: [--top-level-division=chapter, --wrap=none]
+  pandoc_args: --top-level-division=chapter
   toc_depth: 3
   toc_unnumbered: no
   toc_appendix: yes
   highlight_bw: yes
   quote_footer: ["\\VA{", "}{}"]
-
+bookdown::epub_book:
+  dev: svglite
+  stylesheet: css/style.css
