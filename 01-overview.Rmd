@@ -1,9 +1,16 @@
----
-output: html_document
-editor_options: 
-  chunk_output_type: console
----
 \mainmatter
+
+```{r chunk-setup, echo=FALSE, message=FALSE}
+knitr::opts_chunk$set(size="footnotesize",
+                      comment = NA,
+                      highlight = TRUE)
+def.chunk.hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
+})
+# options(width = 85)
+```
 
 
 # (PART) Get Started {-}
@@ -186,13 +193,21 @@ knitr::include_graphics('figures/Rgui.png', dpi = NA)
 
 ## R 시작 및 작동 체크{#r-check}
 
-```{block2, type='rmdimportant'}
+```{block2, type='rmdimportant', size="normalsize"}
 **실습**: 설치된 R을 실행 후 보이는 R 콘솔(consle) 창에서 명령어를 실행하고 결과 확인
 ```
 
 그림 Figure \@ref(fig:r-console) 에서 `>` 기호는 R의 명령 프롬프트(prompt) 임
 
-1. 문자열 출력
+1. 현재 R session 정보(R 설치 버전, locale, 로딩 packages) 출력
+
+```{r check-00, echo=TRUE, comment=NA}
+# R의 설치 버전 및 현재 설정된 locale(언어, 시간대) 및 로딩된 R package 정보 출력
+sessionInfo() 
+```
+
+
+2. 문자열 출력
 
 ```{r check-01, echo=TRUE, comment=NA}
 #문자열 출력
@@ -201,7 +216,7 @@ print("Hello R") #문자열
 
 > `#` 기호는 주석의 시작을 의미하고 실제로 실행되지 않음 같은 행에서 `#` 뒤 내용의 코드 역시 실행되지 않음
 
-2. `a` 라는 변수에 숫자 9, `b`라는 변수에 숫자 7를 할당 후 출력
+3. `a` 라는 변수에 숫자 9, `b`라는 변수에 숫자 7를 할당 후 출력
 
 ```{r check-02, echo=TRUE, comment=NA}
 # 수치형 값(scalar)을 변수에 할당(assign)
@@ -211,12 +226,14 @@ a
 b
 ```
 
-3. 변수 `a`와 `b`의 사칙연산
+4. 변수 `a`와 `b`의 사칙연산
+
 ```{r check-03, echo=TRUE, comment=NA}
 a+b; a-b; a*b; a/b
 ```
 
-4. R 그래픽 맛보기: 정규분포로부터 난수 100개 생성 후 생성된 데이터에 대한 히스토그램 작성
+5. R 그래픽 맛보기: 정규분포로부터 난수 100개 생성 후 생성된 데이터에 대한 히스토그램 작성
+
 ```{r check-04, fig.align='center', fig.show='hold', echo=TRUE, fig.cap="정규분포 100개의 히스토그램"}
 # 난수 생성 시 값은 매번 달라지기 때문에 seed를 주어 일정값이 생성되도록 고정
 # "="과 "<-"는 모두 동일한 기능을 가진 할당 연산자임
@@ -231,15 +248,139 @@ R 명령어 또는 전체 프로그램 소스 실행 시 매우 빈번히 오류
 ```
 
 
-```{r}
+```{r tab-help, echo=FALSE, message=FALSE}
+require(tidyverse)
+require(rmarkdown)
+require(knitr)
+require(kableExtra)
+
+`도움말 보기 명령어` <- c("`help` 또는 `?`", 
+                  "`help.search` 또는 `??`", 
+                  "`example`", 
+                  "`vignette`")
+`설명` <- c("도움말 시스템 호출", 
+            "주어진 문자열을 포함한 문서 검색",
+            "topic의 도움말 페이지에 있는 examples section 실행", 
+            "topic의 pdf 또는 html 레퍼런스 메뉴얼 불러오기")
+`사용법` <- c("`help(함수명)`", 
+           "`help.search(pattern)`", 
+           "`example(함수명)`", 
+           "`vignette(패키지명 또는 패턴)`")
+tab <- data.frame(`도움말 보기 명령어`, 
+                  `설명`, 
+                  `사용법`, 
+                  check.names = F)
+options(kableExtra.html.bsTable = T)
+knitr::opts_knit$set(kable.force.latex = FALSE)
+kable(tab,
+      align = "lll",
+      escape = FALSE, 
+      booktabs = T, caption = "R help 관련 명령어 리스트") %>%
+  kable_styling(bootstrap_options = c("condensed", "striped"),
+                position = "center", 
+                font_size = 10, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(2, width = "5cm")
+```
+
+```{block2, type='rmdtip'}
+**Vignette** 의 활용
+
+- `vignette()`에서 제공하는 문서는 데이터를 기반으로 사용하고자 하는 패키지의 실제 활용 예시를 작성한 문서이기 때문에 초보자들이 R 패키지 활용에 대한 접근성을 높혀줌.
+- `browseVignettes()` 명령어를 통해 vignette을 제공하는 R 패키지 및 해당 vignette 문서 확인 가능 
 
 ```
 
+## R script 편집기 사용{#rconsle-script}
 
+```{block2, type='rmdimportant', size="normalsize"}
+**실습**: R 설치 후 Rgui 에서 제공하는 편집기(R editor)에 명령어를 입력하고 실행
+
+```
+
+설치된 R을 실행 후 상단 pull-down 메뉴에서 [**File**] $\rightarrow$ [**새 스크립트**]를 선택하면 아래 그림과 같이 편집창(R 인스톨 시 SDI 옵션 기준)이 나타남
+
+```{r r-console-edit, fig.align='center', echo=FALSE, fig.show='hold', out.width='100%'}
+knitr::include_graphics('figures/r-console-edit.png', dpi = NA)
+```
+
+편집기 창에 다음 명령어 입력
+
+```{r check-edit, echo=TRUE, eval=FALSE, comment=NA, tidy=TRUE}
+# R에 내장된 cars 데이터셋 불러오기
+# cars dataset에 포함된 변수들의 기초통계량 출력
+# 2차원 산점도 
+data(cars)
+help(cars) # cars 데이터셋에 대한 설명 help 창에 출력
+head(cars) # cars 데이터셋 처음 6개 행 데이터 출력
+summary(cars) # cars 데이터셋 요약
+plot(cars) # 변수가 2개인 경우 산점도 출력
+```
+
+- 편집창에서 한 줄을 실행시키려면 명령어가 입력된 줄에서 **[Ctrl]** + **[R]** 입력
+- 편집창에 입력한 모든 명령어를 실행시키려면 모든 줄을 선택(마우스 또는 [Shift] + $\downarrow$)
+
+
+```{r check-edit-out, echo=FALSE, comment=NA, fig.cap="cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄."}
+# R에 내장된 cars 데이터셋 불러오기
+# cars dataset에 포함된 변수들의 기초통계량 출력
+# 2차원 산점도 
+data(cars)
+# help(cars)
+head(cars)
+summary(cars) 
+plot(cars) 
+```
+
+- R은 명령어를 입력하고 실행결과를 확인하는 대화형(interpreter) 방식
+- 콘솔창에서 $\uparrow$/$\downarrow$를 누르면 이전/이후 실행 명령 기록 확인 가능
+- 여러 줄 이상 R 명령어라든가 반복적, 장기간 작업을 수행해야 할 경우 R 명령어로 구성된 스크립트 작성 후 일괄 실행하는 것이 일반적
+- 여러 다중 명령 코딩 시 콘솔창에 직접 입력하는 것은 비효율적이므로 스크립트 에디터를 사용
+- 위 예시처럼 R 에디터 사용할 수 있으나 가독성 및 코딩 효율이 떨어짐
+- 과거 많이 사용됐던 R 에디터: [WinEdt](http://www.winedt.com), [Tinn-R](https://sourceforge.net/projects/tinn-r/), [Vim](http://www.vim.org/scripts/script.php?script_id=2628)
+- 현재 가장 범용적 R 에디터: **Rstudio**
+
+## RStudio{#r-studio}
+
+- [RStudio](https://rstudio.com/): R 통합 분석/개발 환경(integrated development environment, IDE)으로 현재 가장 대중적으로 사용되고 있는 R 사용 환경
+- 명령 곤솔 외 파일 편집, 데이터 객체, 명령 기록(.history), 그래프 등에 쉽게 접근 가능
+- RStudio 독자적인 개발 환경 제공: Rmarkdown, Rnotebook, Shiny Web Application 등 다양한 R 환경을 제공
+- 버전관리(git, subversion)를 통해 project 관리 가능
+- **무료** 및 유료 소프트웨어 제공
+
+### RStudio 설치하기{#rstudio-install}
+
+1. 웹 브라우저를 통해 https://rstudio.com 접속 후 상단 [DOWNLOAD](https://rstudio.com/products/rstudio/download/) 링크 클릭
+
+```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='100%'}
+knitr::include_graphics('figures/rstudio-homepage.png', dpi = NA)
+```
+
+2. Desktop 또는 Server 버전 중 택일
+
+   - 서버용 설치를 위해서는 Server 클릭 $\rightarrow$ 소규모 자료 분석용으로는 불필요
+   - 여기서는 **Desktop** 버전 선택 후 다음 링크로 이동
+  
+```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='100%'}
+knitr::include_graphics('figures/rstudio-download.png', dpi = NA)
+```
+
+3. 운영체제에 맞는 Rstudio installer 다운로드(여기서는 Windows 버전 다운로드)
+
+```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='100%'}
+knitr::include_graphics('figures/r-studio-download-02.png', dpi = NA)
+```
+
+4. RStudio installer 다운로드 시 파일이 저장된 폴더에서 보통 `RStudio-xx.xx.xxx.exe` 형식의 파일명 확인
+   - 더블 클릭 후 실행
+   - **[다음>]** 몇 번 클릭 후 설치 종료
+
+```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='100%'}
+knitr::include_graphics('figures/Rstudio-installer.png', dpi = NA)
+```
 
 
 `r if (knitr::is_html_output()) '
 # References {-}
 '`
-   
 

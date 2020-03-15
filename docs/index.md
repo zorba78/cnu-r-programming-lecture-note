@@ -1,7 +1,7 @@
 --- 
 title: "통계 프로그래밍 언어"
 author: "한국한의학연구원, 구본초"
-date: "2020-03-14"
+date: "2020-03-16"
 knit: "bookdown::render_book"
 documentclass: krantz
 bibliography: [book.bib, packages.bib]
@@ -23,9 +23,10 @@ editor_options:
 
 # Course Overview{-#overview}
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">본 문서는 2020년도 1학기 정보통계학과에서 개설한 "통계 프로그래밍 언어" 강의를 위해 개발한 강의 노트이며, Yihui Xie가 개발한 **bookdown** 패키지 [@R-bookdown]를 활용하여 생성한 문서이고 Google Chrome 또는 Firefox 브라우저에 최적화 됨. 아울러 충남대학교 정보통계학과 이상인 교수님의 2019년도 2학기 "통계패키지활용" 강의 노트와 동국대학교 ICT빅데이터학부 김진석 교수님의 [R 프로그래밍 및 실습](http://datamining.dongguk.ac.kr/lectures/R/_book/index.html) 강의 자료 내용을 참고함. 
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">본 문서는 2020년도 1학기 정보통계학과에서 개설한 "통계 프로그래밍 언어" 강의를 위해 개발한 강의 노트이며, Yihui Xie가 개발한 **bookdown** 패키지 [@R-bookdown]를 활용하여 생성한 문서이고 Google Chrome 또는 Firefox 브라우저에 최적화 됨. 아울러 충남대학교 정보통계학과 이상인 교수님의 2019년도 2학기 "통계패키지활용" 강의 노트와 동국대학교 ICT빅데이터학부 김진석 교수님의 [R 프로그래밍 및 실습](http://datamining.dongguk.ac.kr/lectures/R/_book/index.html) 강의 자료 내용을 본 강의노트 작성에 참고함.  
 
-본 강의 노트는 주 단위로 업데이트될 예정임. </div>\EndKnitrBlock{rmdnote}
+본 강의 노트는 주 단위로 업데이트될 예정이며, https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인할 수 있고, 해당 페이지에서 pdf 파일 다운로드가 가능함. 
+</div>\EndKnitrBlock{rmdnote}
 
 
 ### 강의소개{#intro-lec .unnumbered}
