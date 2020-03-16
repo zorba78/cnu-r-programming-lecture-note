@@ -249,11 +249,10 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.3      bookdown_0.16   digest_0.6.23   mime_0.9       
- [5] magrittr_1.5    evaluate_0.14   highr_0.8       rlang_0.4.4    
- [9] stringi_1.4.5   rmarkdown_2.1   tools_3.6.2     stringr_1.4.0  
-[13] markdown_1.1    xfun_0.12       yaml_2.2.1      compiler_3.6.2 
-[17] htmltools_0.4.0 knitr_1.28     
+ [1] compiler_3.6.2  magrittr_1.5    bookdown_0.16   tools_3.6.2    
+ [5] htmltools_0.4.0 yaml_2.2.1      Rcpp_1.0.3      stringi_1.4.5  
+ [9] rmarkdown_2.1   highr_0.8       knitr_1.28      stringr_1.4.0  
+[13] xfun_0.12       digest_0.6.25   rlang_0.4.5     evaluate_0.14  
 ```
 
  \normalsize
@@ -345,7 +344,7 @@ hist(x) # 히스토그램
 ```
 
 <div class="figure" style="text-align: center">
-<img src="01-overview_files/figure-epub3/check-04-1.svg" alt="정규분포 100개의 히스토그램"  />
+<img src="01-overview_files/figure-html/check-04-1.svg" alt="정규분포 100개의 히스토그램" width="672" />
 <p class="caption">(\#fig:check-04)정규분포 100개의 히스토그램</p>
 </div>
 
@@ -463,7 +462,7 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
 ```
 
 <div class="figure">
-<img src="01-overview_files/figure-epub3/check-edit-out-1.svg" alt="cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄."  />
+<img src="01-overview_files/figure-html/check-edit-out-1.svg" alt="cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄." width="672" />
 <p class="caption">(\#fig:check-edit-out)cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄.</p>
 </div>
 
@@ -739,10 +738,14 @@ Pull-down 메뉴에서 `[Tools]` $\rightarrow$ `[Global Options...]`를 선택
 
  \normalsize
 
-- **Ensure that source file end with newline**: 
-- **String trailing horizontal whitespace when saving**: 
-- **Restore last cursor position when opening file**: 
-- **Default text encoding**: 
+- **Ensure that source file end with newline**
+- **String trailing horizontal whitespace when saving**
+- **Restore last cursor position when opening file**
+- **Default text encoding**: 소스 에디터의 기본 설정 인코딩 설정 변경
+   - RStudio의 Windows 버전 기본 text encoding은 `CP949` 임
+   - Linux나 Mac OS의 경우 한글은 `UTF-8`로 인코딩이 설정되어 있음. 
+   - R 언어는 Linux 환경에서 개발되었기 때문에 `UTF-8` 인코딩과 호환성이 더 좋음
+   - 스크립트 파일의 한글이 깨질 때는 `[File] -> [Reopen with Encoding...]`에서 encoding 방식 변경
 
 **Appearance**: RStudio 전체 폰트, 폰트 크기, theme 설정
 
@@ -751,6 +754,10 @@ Pull-down 메뉴에서 `[Tools]` $\rightarrow$ `[Global Options...]`를 선택
 <img src="figures/rstudio-appearance.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
+
+- 본인의 취향에 맞게 폰트 및 테마(theme) 설정
+- 취향 $\rightarrow$ 가독성이 제일 좋고 편안한 theme
+
 
 **Pane Layout**: RStudio 구성 패널들의 위치 및 항목 등을 수정/추가/삭제(4개 페널은 항시 유지)
 
