@@ -249,10 +249,11 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] compiler_3.6.2  magrittr_1.5    bookdown_0.16   tools_3.6.2    
- [5] htmltools_0.4.0 yaml_2.2.1      Rcpp_1.0.3      stringi_1.4.5  
- [9] rmarkdown_2.1   highr_0.8       knitr_1.28      stringr_1.4.0  
-[13] xfun_0.12       digest_0.6.23   rlang_0.4.4     evaluate_0.14  
+ [1] Rcpp_1.0.3      bookdown_0.16   digest_0.6.23   mime_0.9       
+ [5] magrittr_1.5    evaluate_0.14   highr_0.8       rlang_0.4.4    
+ [9] stringi_1.4.5   rmarkdown_2.1   tools_3.6.2     stringr_1.4.0  
+[13] markdown_1.1    xfun_0.12       yaml_2.2.1      compiler_3.6.2 
+[17] htmltools_0.4.0 knitr_1.28     
 ```
 
  \normalsize
@@ -344,7 +345,7 @@ hist(x) # 히스토그램
 ```
 
 <div class="figure" style="text-align: center">
-<img src="01-overview_files/figure-html/check-04-1.svg" alt="정규분포 100개의 히스토그램" width="672" />
+<img src="01-overview_files/figure-epub3/check-04-1.svg" alt="정규분포 100개의 히스토그램"  />
 <p class="caption">(\#fig:check-04)정규분포 100개의 히스토그램</p>
 </div>
 
@@ -462,7 +463,7 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
 ```
 
 <div class="figure">
-<img src="01-overview_files/figure-html/check-edit-out-1.svg" alt="cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄." width="672" />
+<img src="01-overview_files/figure-epub3/check-edit-out-1.svg" alt="cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄."  />
 <p class="caption">(\#fig:check-edit-out)cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄.</p>
 </div>
 
@@ -537,7 +538,10 @@ RStudio는 아래 그림과 같이 4개 창으로 구성^[각 창의 위치는 �
 
 \footnotesize
 
-
+<div class="figure" style="text-align: center">
+<img src="figures/Rstudio-cap1.png" alt="RStudio 화면구성: 우하단 그림은 http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html 에서 발췌" width="90%" />
+<p class="caption">(\#fig:rstudio-windows)RStudio 화면구성: 우하단 그림은 http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html 에서 발췌</p>
+</div>
 
  \normalsize
 
@@ -758,11 +762,61 @@ Pull-down 메뉴에서 `[Tools]` $\rightarrow$ `[Global Options...]`를 선택
 
 ## R 주요 패키지 설치{#r-package-installation}
 
-## RStudio 프로젝트 생성{#rstudio-project}
+1. RStudio 메뉴 `[Tools]` $\rightarrow$ `[Install packages]` 클릭 후 생성된 팝업 창에서 설치하고자 하는 패키지 입력 후 설치
+2. RStudio `Packages` 창에서 `[Install]` 버튼 누르고 설치(위와 동일)
+3. R 콘솔 또는 스크립트 창에서 `install.packages()` 함수를 사용해서 패키지 설치
+
+### R 패키기 Path 지정{#r-package-path}
+
+### R 패키지 불러오기{#r-package-load}
+
+1. `library()` vs. `require()`
+    - `library()`: 불러오고자 하는 패키지가 시스템에 존재하지 않는 경우 에러 메세지 출력(에러 이후 명령어들이 실행되지 않음)
+    - `require()`: 패키지가 시스템에 존재하지 않는 경우 경고 메세지 출력(경고 이후 명령어 정상적으로 실행)
+
+2. 다중 패키지 동시에 불러오기
+    - RStudio `Packages` 창에서 설치하고자 하는 패키지 선택 버튼 클릭하면 R workspace로 해당 패키지 로드 가능
+    - 스크립트 이용
+    
+\footnotesize
+
+
+```r
+pkgName <- c("MASS", "tidyverse", "ggthemes", "readxl", 
+             "kableExtra", "ztable", "car", "lsmeans", 
+             "rmarkdown", "knitr")
+# 'lapply()': 벡터, 리스트 또는 표현식에 함수를 적용하여 그 결과를 리스트로 반환
+lapply(pkgName, require, character.only = T) 
+```
+
+ \normalsize
+
+
+## RStudio 프로젝트 생성{#rstudio-create-project}
+
+### RStudio 프로젝트{#rstudio-project}
+
+1. 프로젝트 
+    - 물리적 측면: 최종 산출물(문서)를 생성하기 위한 데이터, 사진, 그림 등을 모아 놓은 폴더
+    - 논리적 측면: R 세션 및 작업의 버전 관리
+
+2. 프로젝트의 필요성
+    - 자료의 정합성 보장
+    - 다양한 확장자를 갖는 한 폴더 내에 뒤섞일 때 곤란해 질 수 있음 
+    - 실제 분석 및 그래프 생성에 사용한 정확한 프로그램 또는 코드 연결이 어려움
+  
+3. 좋은 프로젝트 구성을 위한 방법
+    - 원자료(raw data)의 보호: 가급적 자료를 읽기 전용(read only) 형태로 다루기
+    - 데이터 정제(data wrangling 또는 data munging)를 위한 스크립트와 정제 자료를 보관하는 읽기 전용 데이터 디렉토리 생성
+    - 작성한 스크립트로 생성한 모든 산출물(테이블, 그래프 등)을 "일회용품"처럼 처리 $\rightarrow$ 스크립트로 재현 가능
+    - 한 프로젝트 내 각기 다른 분석마다 다른 하위 디렉토리에 출력결과 저장하는 것이 유용
+
+3. RStudio 새로운 프로젝트 생성
+    - RStudio의 가장 강력하고 유용한 기능
+    - 새로운 프로젝트 생성: RStudio 메뉴에서 `[File]` $\rightarrow$ `[New Project]` 선택하면 아래와 같은 팝업 메뉴 생성
+
 
 ## R Markdown (맛보기){#r-markdown-get-start}
-
-
 
 
 
