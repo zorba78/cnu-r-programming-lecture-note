@@ -307,6 +307,13 @@
 \bibliographystyle{apalike}
 
 \title{통계 프로그래밍 언어}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{2020년도 1학기 충남대학교 정보통계학과 강의 노트}
 \author{한국한의학연구원, 구본초}
 \date{2020-03-16}
 
@@ -820,7 +827,7 @@ R 다운로드 사이트: \url{https://www.r-project.org} 또는 \url{https://cr
 \textbf{실습}: 설치된 R을 실행 후 보이는 R 콘솔(consle) 창에서 명령어를 실행하고 결과 확인
 \EndKnitrBlock{rmdimportant}
 
-그림 Figure \ref{fig:r-console} 에서 \texttt{\textgreater{}} 기호는 R의 명령 프롬프트(prompt) 임
+Figure \ref{fig:r-console} 에서 \texttt{\textgreater{}} 기호는 R의 명령 프롬프트(prompt) 임
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -857,7 +864,7 @@ loaded via a namespace (and not attached):
  [1] compiler_3.6.2  magrittr_1.5    bookdown_0.16   tools_3.6.2    
  [5] htmltools_0.4.0 yaml_2.2.1      Rcpp_1.0.3      stringi_1.4.5  
  [9] rmarkdown_2.1   knitr_1.28      stringr_1.4.0   xfun_0.12      
-[13] digest_0.6.25   rlang_0.4.5     evaluate_0.14  
+[13] digest_0.6.23   rlang_0.4.4     evaluate_0.14  
 \end{verbatim}
 
 \normalsize
@@ -1153,7 +1160,7 @@ R 명령어 또는 전체 프로그램 소스 실행 시 매우 빈번히 오류
 
 \footnotesize
 
-\begin{center}\includegraphics[width=1\linewidth]{figures/rstudio-homepage} \end{center}
+\begin{center}\includegraphics[width=0.8\linewidth]{figures/rstudio-homepage} \end{center}
 
 \normalsize
 
@@ -1174,7 +1181,7 @@ R 명령어 또는 전체 프로그램 소스 실행 시 매우 빈번히 오류
 
 \footnotesize
 
-\begin{center}\includegraphics[width=1\linewidth]{figures/rstudio-download} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{figures/rstudio-download} \end{center}
 
 \normalsize
 
@@ -1188,7 +1195,7 @@ R 명령어 또는 전체 프로그램 소스 실행 시 매우 빈번히 오류
 
 \footnotesize
 
-\begin{center}\includegraphics[width=1\linewidth]{figures/r-studio-download-02} \end{center}
+\begin{center}\includegraphics[width=0.6\linewidth]{figures/r-studio-download-02} \end{center}
 
 \normalsize
 
@@ -1210,7 +1217,254 @@ R 명령어 또는 전체 프로그램 소스 실행 시 매우 빈번히 오류
 
 \footnotesize
 
-\begin{center}\includegraphics[width=1\linewidth]{figures/Rstudio-installer} \end{center}
+\begin{center}\includegraphics{figures/Rstudio-installer} \end{center}
+
+\normalsize
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  바탕화면 혹은 시작 프로그램에 새로 설치된 RStudio 아이콘 클릭 후 아래와 같은 프로그램 창이 나타나면 설치 성공
+\end{enumerate}
+
+\footnotesize
+
+\begin{center}\includegraphics[width=0.8\linewidth]{figures/Rstudio-init} \end{center}
+
+\normalsize
+
+\hypertarget{rstudio-component}{%
+\subsection{RStudio IDE 화면 구성}\label{rstudio-component}}
+
+RStudio는 아래 그림과 같이 4개 창으로 구성\footnote{각 창의 위치는 세팅 구성에 따라 달라질 수 있음. 창 구성 방법은 RStudio 환경 옵션 설정에서 설명함.}
+
+\footnotesize
+
+\normalsize
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  콘솔(console)
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  R 명령어 실행공간(RGui, 정확하게는 R 설치 디렉토리에서 ``\textasciitilde/R/R.x.x/bin/x64/Rterm.exe'' 가 구동되고 있는 공간)
+\item
+  R script 또는 콘솔 창에서 작성한 명령어(프로그램) 실행 및 그 결과 출력
+\item
+  경고, 에러/로그 등의 메세지 확인
+\end{itemize}
+
+\footnotesize
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{figures/rstudio-console} 
+
+}
+
+\caption{RStudio 콘솔창에서 명령어 실행 후 출력결과 화면}\label{fig:rstudio-console}
+\end{figure}
+
+\normalsize
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  스크립트(script) (Figure \ref{fig:rstudio-new-script})
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  R 명령어 입력 공간으로 일괄처리(batch processing) 가능
+\item
+  새로운 스크립트 창 열기
+
+  \begin{itemize}
+  \tightlist
+  \item
+    아래 그림과 같이 pull-down 메뉴 좌측 상단 아이콘 클릭 후 {[}R script{]} 선택
+  \item
+    \texttt{{[}File{]}} \(\rightarrow\) \texttt{{[}New\ File{]}} \(\rightarrow\) \texttt{{[}R\ Script{]}} 선택
+  \item
+    단축 키: \texttt{{[}Ctrl{]}\ +\ {[}Shift{]}\ +\ {[}N{]}}
+  \end{itemize}
+\item
+  일괄 명령어 처리를 위한 RStudio 제공 단축 키
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{{[}Ctrl{]}\ +\ {[}Enter{]}}: 선택한 블럭 내 명령어 실행
+  \item
+    \texttt{{[}Alt{]}\ +\ {[}Enter{]}}: 선택 없이 커서가 위치한 라인의 명령어 실행
+  \end{itemize}
+\item
+  R 스크립트 이외 R Markdown, R Notebook, Shiny web application 등 새 문서의 목적에 따라 다양한 종류의 소스 파일 생성 가능
+\end{itemize}
+
+\footnotesize
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{figures/rstudio-open-new-script} 
+
+}
+
+\caption{RStudio 스크립트 새로 열기}\label{fig:rstudio-new-script}
+\end{figure}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}
+RStudio는 코딩 및 소스 작성의 효율성을 위해 여러 가지 단축 키를 제공하고 있음. 단축키는 아래 그림과 같이 pull down 메뉴 \texttt{{[}Tools{]}} 또는 \texttt{{[}Help{]}}에서 \texttt{{[}Keyboard\ shortcut\ help{]}} 또는 \texttt{{[}Alt{]}\ +\ {[}Shift{]}\ +\ {[}K{]}} 단축키를 통해 확인할 수 있음. 또는 Rstudio cheatsheet에서 단축키에 대한 정보를 제공하는데 pull down 메뉴 \texttt{{[}Help{]}} \(\rightarrow\) \texttt{{[}Cheatsheets{]}} \(\rightarrow\) \texttt{{[}RStudio\ IDE\ Cheat\ Sheet{]}}을 선택하면 각 아이콘 및 메뉴 기능에 대한 개괄적 설명 확인 가능함.
+\EndKnitrBlock{rmdtip}
+
+\normalsize
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  환경/명령기록(Environment/History) (Figure \ref{fig:rstudio-env})
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Environment}: 현재 R 작업환경에 저장되어 있는 객체의 특성 및 값 등을 요약 제시
+
+  \begin{itemize}
+  \tightlist
+  \item
+    좌측 아래 화살표 버튼 클릭: 해당 객체의 상세 정보 확인
+  \item
+    우측 사각형 버튼 또는 객체(데이터셋명) 클릭: 객체가 데이터셋(데이터프레임)인 경우 스프레드 시트 형태로 데이터셋 확인
+  \end{itemize}
+\end{itemize}
+
+\footnotesize
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{figures/rstudio-environment} 
+
+}
+
+\caption{RStudio Environment 창 객체 상세 정보 및 스프레드 시트 출력 결과}\label{fig:rstudio-env}
+\end{figure}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  History: R 콘솔에서 실행된 명령어(스크립트)들의 이력 확인
+\end{itemize}
+
+\footnotesize
+
+\begin{center}\includegraphics[width=0.9\linewidth]{figures/Rstudio-historywin} \end{center}
+
+\normalsize
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  File/Plots/Packages/Help/Viewer
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  File: Windows 파일 탐색기와 유사한 기능 제공
+
+  \begin{itemize}
+  \tightlist
+  \item
+    파일 및 폴더 생성, 삭제/파일 및 폴더명 수정, 그리고 작업경로 설정
+  \end{itemize}
+\end{itemize}
+
+\footnotesize
+
+\begin{center}\includegraphics[width=0.9\linewidth]{figures/Rstudio-file} \end{center}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Plots}: 생성한 그래프 출력
+
+  \begin{itemize}
+  \tightlist
+  \item
+    작업 중 생성한 그래프 이력이 Plots 창에 저장: \(\leftarrow\) 이전, \(\rightarrow\) 최근
+  \item
+    \textbf{\texttt{Zoom}}: 클릭 시 해당 그래프의 팝업창이 생성되고 팝업창의 크기 조정을 통해 그래프의 축소/확대 가능
+  \item
+    \textbf{\texttt{Export}}: 선택한 그래프를 이미지 파일(\texttt{.png}, \texttt{.jpeg}, \texttt{.pdf} 등)로 저장할 수 있고, 클립보드로 복사 가능
+  \end{itemize}
+\end{itemize}
+
+\footnotesize
+
+\begin{center}\includegraphics[width=0.9\linewidth]{figures/RStudio-plotwin} \end{center}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Packages}: 현재 컴퓨터에 설치된 R 패키지 목록 출력
+
+  \begin{itemize}
+  \tightlist
+  \item
+    신규 설치 및 업데이트 가능
+  \end{itemize}
+\end{itemize}
+
+\footnotesize
+
+\begin{center}\includegraphics[width=0.9\linewidth]{figures/RStudio-packagewin} \end{center}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Help}: \texttt{help(topic)} 입력 시 도움말 창이 출력되는 공간
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{help}\NormalTok{(lm)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\footnotesize
+
+\begin{center}\includegraphics[width=0.9\linewidth]{figures/RStudio-helpwin} \end{center}
 
 \normalsize
 

@@ -221,7 +221,7 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**실습**: 설치된 R을 실행 후 보이는 R 콘솔(consle) 창에서 명령어를 실행하고 결과 확인</div>\EndKnitrBlock{rmdimportant}
 
-그림 Figure \@ref(fig:r-console) 에서 `>` 기호는 R의 명령 프롬프트(prompt) 임
+Figure \@ref(fig:r-console) 에서 `>` 기호는 R의 명령 프롬프트(prompt) 임
 
 1. 현재 R session 정보(R 설치 버전, locale, 로딩 packages) 출력
 
@@ -249,11 +249,10 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.3      bookdown_0.16   digest_0.6.25   mime_0.9       
- [5] magrittr_1.5    evaluate_0.14   highr_0.8       rlang_0.4.5    
- [9] stringi_1.4.5   rmarkdown_2.1   tools_3.6.2     stringr_1.4.0  
-[13] markdown_1.1    xfun_0.12       yaml_2.2.1      compiler_3.6.2 
-[17] htmltools_0.4.0 knitr_1.28     
+ [1] compiler_3.6.2  magrittr_1.5    bookdown_0.16   tools_3.6.2    
+ [5] htmltools_0.4.0 yaml_2.2.1      Rcpp_1.0.3      stringi_1.4.5  
+ [9] rmarkdown_2.1   highr_0.8       knitr_1.28      stringr_1.4.0  
+[13] xfun_0.12       digest_0.6.23   rlang_0.4.4     evaluate_0.14  
 ```
 
  \normalsize
@@ -345,7 +344,7 @@ hist(x) # 히스토그램
 ```
 
 <div class="figure" style="text-align: center">
-<img src="01-overview_files/figure-epub3/check-04-1.svg" alt="정규분포 100개의 히스토그램"  />
+<img src="01-overview_files/figure-html/check-04-1.svg" alt="정규분포 100개의 히스토그램" width="672" />
 <p class="caption">(\#fig:check-04)정규분포 100개의 히스토그램</p>
 </div>
 
@@ -463,7 +462,7 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
 ```
 
 <div class="figure">
-<img src="01-overview_files/figure-epub3/check-edit-out-1.svg" alt="cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄."  />
+<img src="01-overview_files/figure-html/check-edit-out-1.svg" alt="cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄." width="672" />
 <p class="caption">(\#fig:check-edit-out)cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄.</p>
 </div>
 
@@ -491,7 +490,7 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
 
 \footnotesize
 
-<img src="figures/rstudio-homepage.png" width="100%" style="display: block; margin: auto;" />
+<img src="figures/rstudio-homepage.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -502,7 +501,7 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
   
 \footnotesize
 
-<img src="figures/rstudio-download.png" width="100%" style="display: block; margin: auto;" />
+<img src="figures/rstudio-download.png" width="70%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -510,7 +509,7 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
 
 \footnotesize
 
-<img src="figures/r-studio-download-02.png" width="100%" style="display: block; margin: auto;" />
+<img src="figures/r-studio-download-02.png" width="60%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -520,9 +519,252 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
 
 \footnotesize
 
-<img src="figures/Rstudio-installer.png" width="100%" style="display: block; margin: auto;" />
+<img src="figures/Rstudio-installer.png" style="display: block; margin: auto;" />
 
  \normalsize
+
+5. 바탕화면 혹은 시작 프로그램에 새로 설치된 RStudio 아이콘 클릭 후 아래와 같은 프로그램 창이 나타나면 설치 성공
+
+\footnotesize
+
+<img src="figures/Rstudio-init.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+### RStudio IDE 화면 구성{#rstudio-component}
+
+RStudio는 아래 그림과 같이 4개 창으로 구성^[각 창의 위치는 세팅 구성에 따라 달라질 수 있음. 창 구성 방법은 RStudio 환경 옵션 설정에서 설명함.]
+
+\footnotesize
+
+
+
+ \normalsize
+
+**1. 콘솔(console)**
+
+- R 명령어 실행공간(RGui, 정확하게는 R 설치 디렉토리에서  "~/R/R.x.x/bin/x64/Rterm.exe" 가 구동되고 있는 공간)
+- R script 또는 콘솔 창에서 작성한 명령어(프로그램) 실행 및 그 결과 출력
+- 경고, 에러/로그 등의 메세지 확인
+
+\footnotesize
+
+<div class="figure" style="text-align: center">
+<img src="figures/rstudio-console.png" alt="RStudio 콘솔창에서 명령어 실행 후 출력결과 화면" width="80%" />
+<p class="caption">(\#fig:rstudio-console)RStudio 콘솔창에서 명령어 실행 후 출력결과 화면</p>
+</div>
+
+ \normalsize
+
+
+**2. 스크립트(script)** (Figure \@ref(fig:rstudio-new-script))
+
+- R 명령어 입력 공간으로 일괄처리(batch processing) 가능
+- 새로운 스크립트 창 열기
+   - 아래 그림과 같이 pull-down 메뉴 좌측 상단 아이콘 클릭 후 [R script] 선택 
+   - `[File]` $\rightarrow$ `[New File]` $\rightarrow$ `[R Script]` 선택
+   - 단축 키: `[Ctrl] + [Shift] + [N]`
+- 일괄 명령어 처리를 위한 RStudio 제공 단축 키
+   - `[Ctrl] + [Enter]`: 선택한 블럭 내 명령어 실행
+   - `[Alt] + [Enter]`: 선택 없이 커서가 위치한 라인의 명령어 실행
+- R 스크립트 이외 R Markdown, R Notebook, Shiny web application 등 새 문서의 목적에 따라 다양한 종류의 소스 파일 생성 가능
+- 저장된 R 스크립트 파일은 `파일명.R`로 저장됨
+- 파일 실행 방법
+   - 실행하고자 하는 파일을 읽은 후(`[File]` $\rightarrow$ `[Open File]` + 파일명 선택 또는 `파일명.R` 더블 클릭) 입력된 모든 라인을 선택한 뒤 `[Ctrl] + [Enter]`
+   - 파일 읽은 후 `[Ctrl] + [Shift] + [S]` (현재 열려있는 `*.R` 파일에 대해) 또는 `[Ctrl] + [Shift] + [Enter]`
+
+\footnotesize
+
+<div class="figure" style="text-align: center">
+<img src="figures/rstudio-open-new-script.png" alt="RStudio 스크립트 새로 열기" width="80%" />
+<p class="caption">(\#fig:rstudio-new-script)RStudio 스크립트 새로 열기</p>
+</div>
+
+ \normalsize
+
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">RStudio는 코딩 및 소스 작성의 효율성을 위해 여러 가지 단축 키를 제공하고 있음. 단축키는 아래 그림과 같이 pull down 메뉴 `[Tools]` 또는 `[Help]`에서 `[Keyboard shortcut help]` 또는 `[Alt] + [Shift] + [K]` 단축키를 통해 확인할 수 있음. 또는 Rstudio cheatsheet에서 단축키에 대한 정보를 제공하는데 pull down 메뉴 `[Help]` $\rightarrow$ `[Cheatsheets]` $\rightarrow$ `[RStudio IDE Cheat Sheet]`을 선택하면 각 아이콘 및 메뉴 기능에 대한 개괄적 설명 확인 가능함. 
+</div>\EndKnitrBlock{rmdtip}
+
+ \normalsize
+
+**3. 환경/명령기록(Environment/History)** (Figure \@ref(fig:rstudio-env))
+
+- **Environment**: 현재 R 작업환경에 저장되어 있는 객체의 특성 및 값 등을 요약 제시
+   - 좌측 아래 화살표 버튼 클릭: 해당 객체의 상세 정보 확인
+   - 우측 사각형 버튼 또는 객체(데이터셋명) 클릭: 객체가 데이터셋(데이터프레임)인 경우 스프레드 시트 형태로 데이터셋 확인
+
+\footnotesize
+
+<div class="figure" style="text-align: center">
+<img src="figures/rstudio-environment.png" alt="RStudio Environment 창 객체 상세 정보 및 스프레드 시트 출력 결과" width="90%" />
+<p class="caption">(\#fig:rstudio-env)RStudio Environment 창 객체 상세 정보 및 스프레드 시트 출력 결과</p>
+</div>
+
+ \normalsize
+
+- History: R 콘솔에서 실행된 명령어(스크립트)들의 이력 확인
+
+\footnotesize
+
+<img src="figures/Rstudio-historywin.png" width="90%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+**4. File/Plots/Packages/Help/Viewer**
+
+- File: Windows 파일 탐색기와 유사한 기능 제공
+   - 파일 및 폴더 생성, 삭제/파일 및 폴더명 수정, 그리고 작업경로 설정
+      
+\footnotesize
+
+<img src="figures/Rstudio-file.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+- **Plots**: 생성한 그래프 출력
+   - 작업 중 생성한 그래프 이력이 Plots 창에 저장: $\leftarrow$ 이전, $\rightarrow$ 최근
+   - **`Zoom`**: 클릭 시 해당 그래프의 팝업창이 생성되고 팝업창의 크기 조정을 통해 그래프의 축소/확대 가능
+   - **`Export`**: 선택한 그래프를 이미지 파일(`.png`, `.jpeg`, `.pdf` 등)로 저장할 수 있고, 클립보드로 복사 가능
+
+\footnotesize
+
+<img src="figures/RStudio-plotwin.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+- **Packages**: 현재 컴퓨터에 설치된 R 패키지 목록 출력
+   - 신규 설치 및 업데이트 가능
+
+\footnotesize
+
+<img src="figures/RStudio-packagewin.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+- **Help**: `help(topic)` 입력 시 도움말 창이 출력되는 공간
+
+\footnotesize
+
+
+```r
+help(lm)
+```
+
+ \normalsize
+
+\footnotesize
+
+<img src="figures/RStudio-helpwin.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+### RStudio 환경 설정{#rstudio-glob-options}
+
+Pull-down 메뉴에서 `[Tools]` $\rightarrow$ `[Global Options...]`를 선택
+
+\footnotesize
+
+<img src="figures/rstudio-glob-menu.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+
+**General**: RStudio 운용 관련 전반적 설정 세팅
+
+\footnotesize
+
+<img src="figures/rstudio-glob-option.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+- **R version**: 만약 컴퓨터에 두 개 이상 다른 R 버전이 설치되어 있는 경우 `[Change]` 클릭 후 설정 변경 가능
+- **Default Working directory**: 작업 디렉토리 지정([`Browse`] 클릭 후 임의 폴더 설정 가능)
+- **Restore most recently opened project at startup**: RStudio 실행 시 가장 최근에 작업한 프로젝트로 이동
+- **Restore previously open source documents at startup**: RStudio 실행 시 현재 프로젝트에서 가장 최근에 작업한 소스코드 문서를 함께 열어줌. 
+- **Restore .RData into workspace at startup**: 작업 디렉토리에 존재하는 `.RData` 파일을 RStudio 실행 시 불러옴
+- **Save workspace to .RData on exit**: R workspace 자동 저장(`.RData`) 여부
+- **Always save history (even when not saving .RData) **: R 실행 명령 history 저장 여부(Always/Never/Ask) 
+- **Remove duplicate entries in history**: history 저장 시 중복 명령 제거 여부
+
+**Code: Editing**: 들여쓰기, 자동 줄바꿈 등 코드 편집에 대한 전반적 설정
+
+\footnotesize
+
+<img src="figures/rstudio-code-edit-option.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+- **Insert spaces for tab**: `[Tab]` 키를 눌렀을 때 공백(space) 개수 결정(본 강의노트: `Tab width = 4`)
+- **Auto-detect code indentation**: 코들 들여쓰기 자동 감지 
+- **Insert matching parens/quotes**: 따옴표, 괄호 입력 시 커서를 따옴표/괄호 사이로 자동 이동
+- **Auto-indent code after paset**: 
+- **Vertically align arguments in auto-indent**: 
+- **Soft-wrap R source file**: 
+- **Continue comment when inserting new line**: 
+- **Surround selection on text insertino**: 
+- **Focus console after executing from source**: 
+
+**Code: Display**: 스크립트(소스) 에디터 표시 화면 설정
+
+\footnotesize
+
+<img src="figures/rstudio-code-display.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+- **Highlight selected word**: 
+- **Highlight selected line**: 
+- **Show line numbers**: 
+- **Show margin**: 
+- **Show whitespace characters**: 
+- **Show indent guides**: 
+- **Blinking cursor**: 
+- **Show syntax highlighting in console output**: 
+- **Allow scroll past end of document**: 
+- **Allow drag and drop of text**: 
+- **Highlight R function calls**: 
+
+**Code: Saving**: 스크립트(소스) 에디터 저장 설정
+
+\footnotesize
+
+<img src="figures/rstudio-code-saving.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+- **Ensure that source file end with newline**: 
+- **String trailing horizontal whitespace when saving**: 
+- **Restore last cursor position when opening file**: 
+- **Default text encoding**: 
+
+**Appearance**: RStudio 전체 폰트, 폰트 크기, theme 설정
+
+\footnotesize
+
+<img src="figures/rstudio-appearance.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+**Pane Layout**: RStudio 구성 패널들의 위치 및 항목 등을 수정/추가/삭제(4개 페널은 항시 유지)
+
+\footnotesize
+
+<img src="figures/rstudio-pane-layout.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+## R 주요 패키지 설치{#r-package-installation}
+
+## RStudio 프로젝트 생성{#rstudio-project}
+
+## R Markdown (맛보기){#r-markdown-get-start}
+
+
+
+
 
 
 

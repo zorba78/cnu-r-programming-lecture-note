@@ -1,5 +1,6 @@
 --- 
 title: "통계 프로그래밍 언어"
+subtitle: "2020년도 1학기 충남대학교 정보통계학과 강의 노트"
 author: "한국한의학연구원, 구본초"
 date: "2020-03-16"
 knit: "bookdown::render_book"
@@ -12,7 +13,7 @@ graphics: yes
 lot: yes
 lof: yes
 fontsize: 11pt
-description: "2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트"
+description: "2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능"
 site: bookdown::bookdown_site
 github-repo: zorba78/cnu-r-programming-lecture-note
 editor_options: 
