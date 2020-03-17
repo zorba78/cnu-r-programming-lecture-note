@@ -236,7 +236,7 @@ sessionInfo()
 ```
 
 ```
-R version 3.6.2 (2019-12-12)
+R version 3.6.3 (2020-02-29)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 Running under: Windows 10 x64 (build 18363)
 
@@ -253,8 +253,8 @@ attached base packages:
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.3      bookdown_0.18.1 digest_0.6.25   mime_0.9       
  [5] magrittr_1.5    evaluate_0.14   highr_0.8       rlang_0.4.5    
- [9] stringi_1.4.6   rmarkdown_2.1   tools_3.6.2     stringr_1.4.0  
-[13] markdown_1.1    xfun_0.12       yaml_2.2.1      compiler_3.6.2 
+ [9] stringi_1.4.6   rmarkdown_2.1   tools_3.6.3     stringr_1.4.0  
+[13] markdown_1.1    xfun_0.12       yaml_2.2.1      compiler_3.6.3 
 [17] htmltools_0.4.0 knitr_1.28     
 ```
 
@@ -369,15 +369,6 @@ hist(x) # 히스토그램
 <br/>
 
 \footnotesize
-
-
-```
-Warning: 패키지 'rmarkdown'는 R 버전 3.6.3에서 작성되었습니다
-```
-
-```
-Warning: 패키지 'knitr'는 R 버전 3.6.3에서 작성되었습니다
-```
 
 <table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:tab-help)R help 관련 명령어 리스트</caption>
@@ -983,7 +974,7 @@ getwd()
 ```
 
 ```
-[1] "C:/r-library"                       "C:/Program Files/R/R-3.6.2/library"
+[1] "C:/r-library"                       "C:/Program Files/R/R-3.6.3/library"
 ```
 
  \normalsize
