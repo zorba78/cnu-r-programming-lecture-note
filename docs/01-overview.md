@@ -221,9 +221,11 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**실습**: 설치된 R을 실행 후 보이는 R 콘솔(consle) 창에서 명령어를 실행하고 결과 확인</div>\EndKnitrBlock{rmdimportant}
 
-Figure \@ref(fig:r-console) 에서 `>` 기호는 R의 명령 프롬프트(prompt) 임
+Figure \@ref(fig:r-console) 에서 `>` 기호는 R의 명령 프롬프트(command prompt) 임 
 
-1. 현재 R session 정보(R 설치 버전, locale, 로딩 packages) 출력
+   - $\rightarrow$ 컴퓨터가 사용자 명령을 기다리고 있다는 기호
+
+1. 현재 R session^[현재 실행되고 있는 R의 작업공간] 정보(R 설치 버전, locale, 로딩 packages) 출력
 
 \footnotesize
 
@@ -249,14 +251,16 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] compiler_3.6.2  magrittr_1.5    bookdown_0.16   tools_3.6.2    
- [5] htmltools_0.4.0 yaml_2.2.1      Rcpp_1.0.3      stringi_1.4.5  
- [9] rmarkdown_2.1   highr_0.8       knitr_1.28      stringr_1.4.0  
-[13] xfun_0.12       digest_0.6.25   rlang_0.4.5     evaluate_0.14  
+ [1] Rcpp_1.0.3      bookdown_0.18.1 digest_0.6.25   mime_0.9       
+ [5] magrittr_1.5    evaluate_0.14   highr_0.8       rlang_0.4.5    
+ [9] stringi_1.4.6   rmarkdown_2.1   tools_3.6.2     stringr_1.4.0  
+[13] markdown_1.1    xfun_0.12       yaml_2.2.1      compiler_3.6.2 
+[17] htmltools_0.4.0 knitr_1.28     
 ```
 
  \normalsize
 
+<br/>
 
 2. 문자열 출력
 
@@ -302,6 +306,8 @@ b
 
  \normalsize
 
+<br/>
+
 4. 변수 `a`와 `b`의 사칙연산
 
 \footnotesize
@@ -329,6 +335,8 @@ a+b; a-b; a*b; a/b
 
  \normalsize
 
+<br/>
+
 5. R 그래픽 맛보기: 정규분포로부터 난수 100개 생성 후 생성된 데이터에 대한 히스토그램 작성
 
 \footnotesize
@@ -344,11 +352,13 @@ hist(x) # 히스토그램
 ```
 
 <div class="figure" style="text-align: center">
-<img src="01-overview_files/figure-html/check-04-1.svg" alt="정규분포 100개의 히스토그램" width="672" />
+<img src="01-overview_files/figure-epub3/check-04-1.svg" alt="정규분포 100개의 히스토그램"  />
 <p class="caption">(\#fig:check-04)정규분포 100개의 히스토그램</p>
 </div>
 
  \normalsize
+
+<br/>
 
 \footnotesize
 
@@ -356,8 +366,18 @@ hist(x) # 히스토그램
 
  \normalsize
 
+<br/>
 
 \footnotesize
+
+
+```
+Warning: 패키지 'rmarkdown'는 R 버전 3.6.3에서 작성되었습니다
+```
+
+```
+Warning: 패키지 'knitr'는 R 버전 3.6.3에서 작성되었습니다
+```
 
 <table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:tab-help)R help 관련 명령어 리스트</caption>
@@ -393,6 +413,8 @@ hist(x) # 히스토그램
 </table>
 
  \normalsize
+
+<br/>
 
 \footnotesize
 
@@ -462,7 +484,7 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
 ```
 
 <div class="figure">
-<img src="01-overview_files/figure-html/check-edit-out-1.svg" alt="cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄." width="672" />
+<img src="01-overview_files/figure-epub3/check-edit-out-1.svg" alt="cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄."  />
 <p class="caption">(\#fig:check-edit-out)cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄.</p>
 </div>
 
@@ -585,6 +607,7 @@ RStudio는 아래 그림과 같이 4개 창으로 구성^[각 창의 위치는 �
 
  \normalsize
 
+<br/>
 
 \footnotesize
 
@@ -679,7 +702,10 @@ Pull-down 메뉴에서 `[Tools]` $\rightarrow$ `[Global Options...]`를 선택
 
 \footnotesize
 
-<img src="figures/rstudio-glob-option.png" width="80%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="figures/rstudio-glob-option.png" alt="R General option 팝업 창" width="80%" />
+<p class="caption">(\#fig:rstudio-glob-option)R General option 팝업 창</p>
+</div>
 
  \normalsize
 
@@ -691,6 +717,102 @@ Pull-down 메뉴에서 `[Tools]` $\rightarrow$ `[Global Options...]`를 선택
 - **Save workspace to .RData on exit**: R workspace 자동 저장(`.RData`) 여부
 - **Always save history (even when not saving .RData) **: R 실행 명령 history 저장 여부(Always/Never/Ask) 
 - **Remove duplicate entries in history**: history 저장 시 중복 명령 제거 여부
+
+작업폴더(Working Directory)는 현재 R session에서 사용하는 기본 폴더로서 R 소스파일 및 데이터의 저장 및 로딩시 기본이 되는 폴더임. 
+
+- 소스파일이나 데이터를 불러들일 때 작업 폴더에 있는 파일은 경로명을 지정하지 않고 파일명만 사용해도 됨
+- 작업폴더가 아닌 곳에 있는 파일을 불러들일 때는 경로명까지 써 주어야함.
+- R 데이터를 저장할때도 파일명만 쓰면 기본적으로 작업폴더에 저장되며, 다른 폴더에 저장하기 위해서는 경로명까지 써 주어야 함.
+
+처음 컴퓨터에 RStudio를 설치하면 Working directory는 Windows 사용자 폴더(예: `user`)의 `Document` 폴더가 기본값으로 설정되어 있음. 기본 작업폴더를 변경하려면 Figure \@ref(fig:rstudio-glob-option)에서 설정 가능. 
+
+현재 R session의 작업 디렉토리 설정 방법
+
+- `[Session] -> [Set Working Directoy] -> [Choose Directory]`에서 설정
+
+\footnotesize
+
+<img src="figures/rstudio-wd-setting.JPG" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+R 콘솔에서 다음과 같은 명령어로 작업폴더를 확인 및 변경 가능
+
+\footnotesize
+
+
+```r
+getwd() # 작업폴더 확인
+```
+
+```
+[1] "D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note"
+```
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+setwd("..") # 차상위 폴더로 이동 
+getwd()
+```
+
+```
+[1] "D:/Current-Workspace/Lecture"
+```
+
+```r
+setwd("../..") # 차차상위 폴더로 이동
+getwd()
+```
+
+```
+[1] "D:/"
+```
+
+```r
+setwd("D:/Current-Workspace/Lecture/misc/") # 절대 폴더 명 입력
+setwd("..")
+# dir() # 폴더 내 파일 명 출력
+getwd()
+```
+
+```
+[1] "D:/Current-Workspace/Lecture"
+```
+
+```r
+setwd("misc") # Current-Workspace 하위폴더인 misc 으로 이동
+getwd()
+```
+
+```
+[1] "D:/Current-Workspace/Lecture/misc"
+```
+
+```r
+setwd("D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note/")
+getwd()
+```
+
+```
+[1] "D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note"
+```
+
+ \normalsize
+
+
+\footnotesize
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하는 구분자는 `\`인데, R에서 `\`는 특수문자로 간주하기 때문에 Windows 의 폴더명을 그대로 사용 시 에러 메세지를 출력함. 이를 해결하기 위해 Windows 경로명을 그대로 복사한 경우 경로 구분자 `\` 대신 `\\`로 변경
+
+**실습**:  `C:\r-project`를 컴퓨터에 생성 후 해당 폴더를 default 작업폴더로 설정</div>\EndKnitrBlock{rmdcaution}
+
+ \normalsize
+
+<br/>
 
 **Code: Editing**: 들여쓰기, 자동 줄바꿈 등 코드 편집에 대한 전반적 설정
 
@@ -767,13 +889,179 @@ Pull-down 메뉴에서 `[Tools]` $\rightarrow$ `[Global Options...]`를 선택
 
  \normalsize
 
-## R 주요 패키지 설치{#r-package-installation}
 
-1. RStudio 메뉴 `[Tools]` $\rightarrow$ `[Install packages]` 클릭 후 생성된 팝업 창에서 설치하고자 하는 패키지 입력 후 설치
-2. RStudio `Packages` 창에서 `[Install]` 버튼 누르고 설치(위와 동일)
-3. R 콘솔 또는 스크립트 창에서 `install.packages()` 함수를 사용해서 패키지 설치
+\footnotesize
 
-### R 패키기 Path 지정{#r-package-path}
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**실습**: 개인 취향에 맞게 RStudio 에디터 및 theme을 변경해 보자!!</div>\EndKnitrBlock{rmdimportant}
+
+ \normalsize
+
+
+### RStudio 프로젝트{#rstudio-project}
+
+1. 프로젝트 
+    - 물리적 측면: 최종 산출물(문서)를 생성하기 위한 데이터, 사진, 그림 등을 모아 놓은 폴더
+    - 논리적 측면: R session 및 작업의 버전 관리
+
+2. 프로젝트의 필요성
+    - 자료의 정합성 보장
+    - 다양한 확장자를 갖는 파일들이 한 폴더 내에 뒤섞일 때 곤란해 질 수 있음 
+    - 실제 분석 및 그래프 생성에 사용한 정확한 프로그램 또는 코드 연결이 어려움
+  
+3. 좋은 프로젝트 구성을 위한 방법
+    - 원자료(raw data)의 보호: 가급적 자료를 읽기 전용(read only) 형태로 다루기
+    - 데이터 정제(data wrangling 또는 data munging)를 위한 스크립트와 정제 자료를 보관하는 읽기 전용 데이터 디렉토리 생성
+    - 작성한 스크립트로 생성한 모든 산출물(테이블, 그래프 등)을 "일회용품"처럼 처리 $\rightarrow$ 스크립트로 재현 가능
+    - 한 프로젝트 내 각기 다른 분석마다 다른 하위 디렉토리에 출력결과 저장하는 것이 유용
+
+3. RStudio 새로운 프로젝트 생성
+    - RStudio의 강력하고 유용한 기능
+    - 새로운 프로젝트 생성: RStudio 메뉴에서 `[File]` $\rightarrow$ `[New Project]` 선택하면 아래와 같은 팝업 메뉴 생성
+
+\footnotesize
+
+<img src="figures/R-newproject-01.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+4. 위 그림에서 `New Directory`를 선택하면 아래와 같은 팝업 창이 나타나면 아래와 같은 프로젝트 유형이 나타남. 여기서는 `New Project` 선택
+
+\footnotesize
+
+<img src="figures/R-newproject-02.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+5. 다음 팝업창에서 새로운 프로젝트의 폴더명을 지정 후 `Create Project` 클릭
+   - 아래 `[Create projects as subdirectories of]`에서 생성하고자 하는 프로젝트의 상위 디렉토리 설정 $\rightarrow$ 보통 RStudio의 기본 작업폴더로 설정
+
+\footnotesize
+
+<img src="figures/R-newproject-03.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+6. 현재 R session 종료 후 새로운 프로젝트로 session 화면이 열리면 프로젝트 생성 완료
+
+\footnotesize
+
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**실습**: 프로젝트 생성
+
+   - 위에서 설정한 작업폴더 내에 `학번-r-programming` 프로젝트 생성
+   - 생성한 프로젝트 폴더 내에 `docs`, `figures`, `script` 폴더 생성
+</div>\EndKnitrBlock{rmdimportant}
+
+ \normalsize
+
+
+## R 패키지{#r-package}
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">**R 패키지(package)**: 특수 목적을 위한 로직으로 구성된 코드들의 집합으로 R에서 구동되는 분석툴을 통칭
+
+   - CRAN을 통해 배포: 3자가 이용하기 쉬움 $\rightarrow$ R 시스템 환경에서 패키지는 가장 중요한 역할
+   - CRAN [available package by name](https://cran.r-project.org/web/packages/available_packages_by_date.html) 또는 [available package by    date](https://cran.r-project.org/web/packages/available_packages_by_name.html)에서 현재 등재된 패키지 리스트 확인 가능
+   - R console에서 `available.packages()` 함수를 통해서도 확인 가능
+   - 현재 CRAN 기준(2020-03-17) 배포된 패키지의 개수는 16045 개임
+
+**목적**: RStudio 환경에서 패키지를 설치하고 불러오기</div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+### R 패키지 경로 확인 및 변경{#r-package-path}
+
+- 패키지 설치 시 일반적으로 R 환경에서 기본값으로 지정한 라이브러리 폴더에 저장
+- 패키지 설치 전 R 패키지 설치 경로(path) 지정
+- `.libPaths()` 함수를 통해 현재 설정된 패키지 저장 경로 확인
+
+\footnotesize
+
+
+```r
+.libPaths()
+```
+
+```
+[1] "C:/r-library"                       "C:/Program Files/R/R-3.6.2/library"
+```
+
+ \normalsize
+
+- 일반적으로 첫 번째 경로를 디폴트 라이브러리 폴더로 사용
+- 사용자 지정 라이브러리 경로를 설정 하려면 아래와 같은 절차로 진행
+
+> **실습: c:/r-library 폴더를 패키지 경로로 지정**
+
+1) `C:\`에서 [새로 만들기(W)] -> [폴더(F)] 선택 후 생성 폴더 이름을 `r-library`로 변경
+
+2) 윈도우즈 `[제어판] -> [시스템 및 보안] -> [시스템] -> [고급 시스템 설정]` 클릭
+
+\footnotesize
+
+<img src="figures/window-env-system.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+3) `[환경변수(N)...]` 선택 후 시스템 변수에서 `[새로 만들기(W)...]` 클릭
+
+\footnotesize
+
+<img src="figures/window-env-var.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+4) 아래 그림과 같이 변수 이름(N)에 `R_LIBS`, 변수 값(V)에 해당 디렉토리 경로 `C:\r-library` 입력 후 확인 버튼 클릭
+
+\footnotesize
+
+<img src="figures/window-new-system-var.png" width="90%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+5) 현재 RStudio 종료 후 재실행한 다음 콘솔창에 `.libPaths()` 입력 후 라이브러리 경로 확인
+
+<!-- ```{r lib-path-test, comment=NA, tidy=TRUE} -->
+<!-- .libPaths() -->
+<!-- ``` -->
+
+### R 패키지 설치하기{#r-package-install}
+
+- RStudio 메뉴 `[Tools]` $\rightarrow$ `[Install packages]` 클릭 후 생성된 팝업 창에서 설치하고자 하는 패키지 입력 후 설치
+
+\footnotesize
+
+<img src="figures/rstudio-package-install.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+- RStudio `Packages` 창에서 `[Install]` 버튼 누르면 위와 동일한 팝업창이 나타남(위와 동일)
+
+\footnotesize
+
+<img src="figures/rstudio-pack-win-02.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+- R 콘솔 또는 스크립트 창에서 `install.packages(package_name)` 함수를 사용해서 패키지 설치
+
+\footnotesize
+
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**실습**: `install.packages()` 함수를 이용해 `tidyverse` 패키지 설치</div>\EndKnitrBlock{rmdimportant}
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+install.packages("tidyverse")
+```
+
+ \normalsize
+
+> 위 명령어를 실행하면 `tidyverse` 패키지 뿐 아니라 연관된 패키지들이 동시에 설치됨
+
 
 ### R 패키지 불러오기{#r-package-load}
 
@@ -784,46 +1072,464 @@ Pull-down 메뉴에서 `[Tools]` $\rightarrow$ `[Global Options...]`를 선택
 2. 다중 패키지 동시에 불러오기
     - RStudio `Packages` 창에서 설치하고자 하는 패키지 선택 버튼 클릭하면 R workspace로 해당 패키지 로드 가능
     - 스크립트 이용
+
+\footnotesize
+
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**실습**: `tidyverse` 패키지 불러오기</div>\EndKnitrBlock{rmdimportant}
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+require(tidyverse)
+```
+
+```
+필요한 패키지를 로딩중입니다: tidyverse
+```
+
+```
+-- Attaching packages ---------------------------------------------------------------------------------- tidyverse 1.3.0 --
+```
+
+```
+√ ggplot2 3.3.0     √ purrr   0.3.3
+√ tibble  2.1.3     √ dplyr   0.8.5
+√ tidyr   1.0.2     √ stringr 1.4.0
+√ readr   1.3.1     √ forcats 0.5.0
+```
+
+```
+-- Conflicts ------------------------------------------------------------------------------------- tidyverse_conflicts() --
+x dplyr::filter()     masks stats::filter()
+x dplyr::group_rows() masks kableExtra::group_rows()
+x dplyr::lag()        masks stats::lag()
+```
+
+ \normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">실무에서 R의 활용능력은 패키지 활용 여부에 달려 있음. 즉, 목적에 맞는 업무를 수행하기 위해 가장 적합한 패키지를 찾고 활용하느냐에 따라 R 활용능력의 차이를 보임. 앞서 언급한 바와 같이 CRAN에 등록된 패키지는 16000 개가 넘지만, 이 중 많이 활용되고 있는 패키지의 수는 약 200 ~ 300 개 내외이고, 실제 데이터 분석 시 10 ~ 20개 정도의 패키지가 사용됨. 앞 예제에서 설치하고 불러온 `tidyverse` 패키지는 Hadley Wickham [@tidyverse2019]이 개발한 데이터 전처리 및 시각화 패키지 번들이고, 현재 R 프로그램 환경에 지대한 영향을 미침. 본 강의 "데이터프레임 가공 및 시각화"에서 해당 패키지 활용 방법을 배울 예정</div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+## R 기초 문법{#r-basic}
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">본 절에서 다루는 R 문법은 R 입문 시 객체(object)의 명명 규칙과 R 콘솔 창에서 가장 빈번하게 사용되는 기초적인 명령어만 다룰 예정임. 심화 내용은 2-3주 차에 다룰 예정임. </div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+- R은 객체지향언어(object-oriented language)
+   - 객체(object): 숫자, 데이터셋, 단어, 테이블, 분석결과 등 모든 것을 칭함
+   - "객체지향"의 의미는 R의 모든 명령어는 객체를 대상으로 이루어진다는 것을 의미
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">알아두면 유용한(콘솔창에서 매우 많이 사용되는) 명령어 및 단축키
+
+- `ls()`: 현재 R 작업공간에 저장된 모든 객체 리스트 출력
+- `rm(object_name)`: `object_name`에 해당하는 객체 삭제
+- `rm(list = ls())`: R 작업공간에 저장된 모든 객체들을 일괄 삭제
+- 단축키 `[Ctrl] + [L]`: R 콘솔 창 일괄 청소
+- 단축키 `[Ctrl] + [Shift] + [F10]`: R session 초기화
+
+**예시**</div>\EndKnitrBlock{rmdtip}
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+x <- 7
+y <- 1:30 #1에서 30까지 정수 입력
+ls() #현재 작업공간 내 객체명 출력
+```
+
+```
+ [1] "a"                  "b"                  "cars"              
+ [4] "def.chunk.hook"     "fig_cap"            "tab"               
+ [7] "x"                  "y"                  "도움말 보기 명령어"
+[10] "사용법"             "설명"              
+```
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+rm(x) # 객체 x 삭제
+ls()
+```
+
+```
+ [1] "a"                  "b"                  "cars"              
+ [4] "def.chunk.hook"     "fig_cap"            "tab"               
+ [7] "y"                  "도움말 보기 명령어" "사용법"            
+[10] "설명"              
+```
+
+```r
+rm(a,b) # 객체 a,b 동시 삭제
+ls()
+```
+
+```
+[1] "cars"               "def.chunk.hook"     "fig_cap"           
+[4] "tab"                "y"                  "도움말 보기 명령어"
+[7] "사용법"             "설명"              
+```
+
+```r
+# rm(list = ls()) # 모든 객체 삭제
+```
+
+ \normalsize
+
+#### R 객체 입력 방법 및 변수 설정 규칙{#r-object-nam-rule .unnumbered}
+
+객체를 할당하는 두 가지 방법:`=`, `<-`
+
+- 두 할당 지시자의 차이점
+   - `=`: 명령의 최상 수준에서만 사용 가능
+   - `<-`: 어디서든 사용 가능
+   - 함수 호출과 동시에 변수에 값을 할당할 목적으로는 `<-`만 사용 가능
+
+\footnotesize
+
+
+```r
+# mean(): 입력 벡터의 평균 계산
+mean(y <- 1:5)
+```
+
+```
+[1] 3
+```
+
+```r
+y
+```
+
+```
+[1] 1 2 3 4 5
+```
+
+```r
+mean(x = 1:5)
+```
+
+```
+[1] 3
+```
+
+```r
+x
+```
+
+```
+Error in eval(expr, envir, enclos): 객체 'x'를 찾을 수 없습니다
+```
+
+ \normalsize
+
+객체 또는 변수의 명명 규칙
+
+- 알파벳, 한글, 숫자, `_`, `.`의 조합으로 구성 가능(`-`은 사용 불가)
+- 변수명의 알파벳, 한글, `.`로 시작 가능
+- `.`로 시작한 경우 뒤에 숫자 올 수 없음(숫자로 인지)
+- 대소문자 구분
     
 \footnotesize
 
 
 ```r
-pkgName <- c("MASS", "tidyverse", "ggthemes", "readxl", 
-             "kableExtra", "ztable", "car", "lsmeans", 
-             "rmarkdown", "knitr")
-# 'lapply()': 벡터, 리스트 또는 표현식에 함수를 적용하여 그 결과를 리스트로 반환
-lapply(pkgName, require, character.only = T) 
+# 1:10은 1부터 10까지 정수 생성
+# 'c()'는 벡터 생성 함수
+x <- c(1:10) 
+# 1:10으로 구성된 행렬 생성
+X <- matrix(c(1:10), nrow = 2, ncol = 5, byrow = T)
+x
+```
+
+```
+ [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+```r
+X
+```
+
+```
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    2    3    4    5
+[2,]    6    7    8    9   10
+```
+
+```r
+# 논리형 객체
+.x <- TRUE
+.x
+```
+
+```
+[1] TRUE
+```
+
+```r
+# 알파벳 + 숫자
+a1 <- seq(from = 1, to = 10, by = 2)
+# 한글 변수명
+가수 <- c("Damian Rice", "Beatles", "최백호", "Queen", "Carlos Gardel", "BTS", "조용필")
+가수
+```
+
+```
+[1] "Damian Rice"   "Beatles"       "최백호"        "Queen"        
+[5] "Carlos Gardel" "BTS"           "조용필"       
+```
+
+ \normalsize
+
+3. 잘못된 객체 또는 변수 명명 예시
+
+\footnotesize
+
+
+```r
+3x <- 7
+```
+
+```
+Error: <text>:1:2: 예상하지 못한 기호(symbol)입니다.
+1: 3x
+     ^
+```
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+_x <- c("M", "M", "F")
+```
+
+```
+Error: <text>:1:1: 예상하지 못한 입력입니다.
+1: _
+    ^
+```
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+.3 <- 10
+```
+
+```
+Error in 0.3 <- 10: 대입에 유효하지 않은 (do_set) 좌변입니다
 ```
 
  \normalsize
 
 
-## RStudio 프로젝트 생성{#rstudio-create-project}
-
-### RStudio 프로젝트{#rstudio-project}
-
-1. 프로젝트 
-    - 물리적 측면: 최종 산출물(문서)를 생성하기 위한 데이터, 사진, 그림 등을 모아 놓은 폴더
-    - 논리적 측면: R 세션 및 작업의 버전 관리
-
-2. 프로젝트의 필요성
-    - 자료의 정합성 보장
-    - 다양한 확장자를 갖는 한 폴더 내에 뒤섞일 때 곤란해 질 수 있음 
-    - 실제 분석 및 그래프 생성에 사용한 정확한 프로그램 또는 코드 연결이 어려움
-  
-3. 좋은 프로젝트 구성을 위한 방법
-    - 원자료(raw data)의 보호: 가급적 자료를 읽기 전용(read only) 형태로 다루기
-    - 데이터 정제(data wrangling 또는 data munging)를 위한 스크립트와 정제 자료를 보관하는 읽기 전용 데이터 디렉토리 생성
-    - 작성한 스크립트로 생성한 모든 산출물(테이블, 그래프 등)을 "일회용품"처럼 처리 $\rightarrow$ 스크립트로 재현 가능
-    - 한 프로젝트 내 각기 다른 분석마다 다른 하위 디렉토리에 출력결과 저장하는 것이 유용
-
-3. RStudio 새로운 프로젝트 생성
-    - RStudio의 가장 강력하고 유용한 기능
-    - 새로운 프로젝트 생성: RStudio 메뉴에서 `[File]` $\rightarrow$ `[New Project]` 선택하면 아래와 같은 팝업 메뉴 생성
-
-
 ## R Markdown (맛보기){#r-markdown-get-start}
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">[R 기초 문법] 절과 마찬가지로 R Markdown을 이용해 최소한의 문서(`html` 문서)를 작성하고 생성하는 방법에 대해 기술함. R Markdown에 대한 보다 상세한 내용은 본 수업의 마지막 주차에 다룰 예정임. </div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+1. R Markdown은 R 코드와 분석 결과(표, 그림 등)을 포함한 문서 또는 컨텐츠를 제작하는 도구로 일반적으로 아래 열거한 형태로 활용함
+   - 문서 또는 논문(`pdf`, `html`, `docx`)
+   - 프리젠테이션(`pdf`, `html`, `pptx`)
+   - 웹 또는 블로그
+
+2. 재현가능(reproducible)한 분석 및 연구^[과학적 연구의 결과물을 오픈소스로 내놓고 누구라도 검증 가능] 가능
+   - 신뢰성 있는 문서 작성
+   - `Copy & paste`를 하지 않고 효율적 작업 가능
+   
+3. R Markdown 문서를 통해 최종 결과물(`pdf`, `html`, `docx`)이 도출되는 process
+   - 현재 공식적인 프로세스는 `knitr` + `rmarkdown` + `pandoc` + `RStudio` + `github`
+
+\footnotesize
+
+<div class="figure" style="text-align: center">
+<img src="figures/rmarkdown-flow.png" alt="R Markdown의 최종 결과물 산출과정(http://applied-r.com/project-reporting-template/)" width="60%" />
+<p class="caption">(\#fig:rmarkdown-flow)R Markdown의 최종 결과물 산출과정(http://applied-r.com/project-reporting-template/)</p>
+</div>
+
+ \normalsize
+
+#### R Markdown 문서 시작하기{#create-rmd-file .unnumbered}
+
+- **R Markdown** 문서 생성: `[File] -> [New File] -> [R Markdown..]`을 선택
+
+\footnotesize
+
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">RStudio를 처음 설치하고 위와 같이 진행할 경우 아래와 같은 패키지 설치 여부를 묻는 팝업 창이 나타남. 패키지 설치 여부에 `[Yes]`를 클릭하면 R Markdown 문서 생성을 위해 필요한 패키지들이 자동으로 설치</div>\EndKnitrBlock{rmdcaution}
+
+ \normalsize
+
+\footnotesize
+
+<img src="figures/rmarkdown-new-01.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+- 설치 완료 후 R Markdown으로 생성할 최종 문서 유형 선택 질의 창이 나타남. 아래 창에서 제목(Title)과 저자(Author) 이름 입력 후 `[OK]` 버튼 클릭(`Document`, `html` 문서 선택)
+
+\footnotesize
+
+<img src="figures/rmarkdown-new-02.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+- 아래 그림과 같이 새로운 문서 창이 생성되고 `test.Rmd` 파일로 저장^[[RStudio 프로젝트]에서 생성한 폴더 내에 파일 저장]
+
+\footnotesize
+
+<img src="figures/rmarkdown-new-03.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+- 문서 상단에 `Knit` 아이콘을 클릭 후 `Knit to HTML` 클릭 또는 문서 아무 곳에 커서를 위치하고 단축키 `[Ctrl] + [Shift] + [K]` 입력
+
+\footnotesize
+
+<img src="figures/rmarkdown-new-04.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+- `knitr` + `R Markdown` + `pandoc` $\rightarrow$ `html` 파일 생성 결과
+
+\footnotesize
+
+<div class="figure" style="text-align: center">
+<img src="figures/rmarkdown-new-out.png" alt="test.html 문서 화면(저장 폴더 내 `test.html`을 크롬 브라우저로 실행)" width="80%" />
+<p class="caption">(\#fig:rmarkdown-new-out)test.html 문서 화면(저장 폴더 내 `test.html`을 크롬 브라우저로 실행)</p>
+</div>
+
+ \normalsize
+
+#### R Markdown 문서 구성
+
+R Markdown 문서는 아래 그림과 같이 **YAML**, **Markdown 텍스트**, **Code Chunk** 세 부분으로 구성됨. 
+
+\footnotesize
+
+<img src="figures/rmarkdown-part.png" width="80%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+**1. YAML (YAML Ain't Markup Language)**
+
+- R Markdown 문서의 metadata로 문서의 맨 처음에 항상 포함되어야 함. 
+- R Markdown 문서의 최종 출력 형태, 제목, 저자, 날짜 등의 정보 등을 포함
+- YAML 언어에 대한 사용 예시는 @xie-2016 의 [Appendix B.2](https://bookdown.org/yihui/bookdown/r-markdown.html) 참고
+- 최소 형태의 YAML 예시 
+
+```YAML
+---
+title: "Hello R Markdown"
+author: "Zorba"
+date: "2020-03-17"
+output: html_document
+---
+```
+
+**2. Markdown 텍스트**
+
+- Markdown 문법은 15주 차 강의에서 배울 예정임
+- [R Markdown 레퍼런스 가이드](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) 참조
+- 그림 삽입: `![](path/filename)`
+
+````markdown
+그립 삽입 구문
+![](figures/son.jpg)   
+````
+
+
+![](figures/son.jpg) 
+
+
+**3. Code Chunk**
+
+- 실제 R code가 실행되는 부분임
+- Code chunk 실행 시 다양한 옵션들이 있으나 이 부분 역시 15주 차 강의에서 간략히 다룰 예정임
+- Code chunk는  ```` ```{r} ````로 시작되며 `r`은 code 언어 이름을 나타냄.
+- Code chunk는 ```` ``` ```` 로 종료
+- Chunk option에 대한 상세 내용은 https://yihui.org/knitr/options/ 또는 [R Markdown 레퍼런스 가이드](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) 참조
+
+````markdown
+Code chunk 예시
+
+Xie의 R Markdown: The Definitive Guide에서 발췌
+
+```{r}
+fit = lm(dist ~ speed, data = cars)
+b   = coef(fit)
+plot(cars)
+abline(fit)
+```
+````
+\footnotesize
+
+
+```r
+fit = lm(dist ~ speed, data = cars)
+b   = coef(fit)
+plot(cars)
+abline(fit)
+```
+
+![](01-overview_files/figure-epub3/unnamed-chunk-43-1.svg)<!-- -->
+
+ \normalsize
+
+- Code chunk에서 외부 그림 파일 불러오기(@xie-2018 에서 예시 발췌) 
+
+\footnotesize
+
+
+```r
+knitr::include_graphics(rep('figures/knit-logo.png', 3))
+```
+
+<img src="figures/knit-logo.png" width="32.8%" /><img src="figures/knit-logo.png" width="32.8%" /><img src="figures/knit-logo.png" width="32.8%" />
+
+ \normalsize
+
+
+
+\footnotesize
+
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**Homework 1**: R Markdown 문서에 아래 내용을 포함한 문서를 `html` 파일 형식으로 출력 후 제출
+
+   - 간략한 자기소개 및 "통계 프로그래밍 언어" 수업에 대한 본인만의 목표 기술
+   - 본인이 setting 한 RStudio 구성 캡쳐 화면을 그림 파일로 저장하고 R Markdown 문서에 삽입(화면 캡쳐 시 생성 프로젝트 내 폴더 내용 반드시 포함)
+   - 패키지 `ggplot2`를 불러오고 `cars` 데이터셋의 2차원 산점도(**hint**: `help(geom_point)` 또는 googling 활용)를 문서에 포함
+</div>\EndKnitrBlock{rmdimportant}
+
+ \normalsize
+
+
+
+
+
+
+
 
 
 

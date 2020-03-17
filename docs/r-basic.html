@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1.6 R 기초 문법 | 통계 프로그래밍 언어</title>
+  <meta name="description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
+  <meta name="generator" content="bookdown 0.18.1 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1.6 R 기초 문법 | 통계 프로그래밍 언어" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
+  <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1.6 R 기초 문법 | 통계 프로그래밍 언어" />
+  
+  <meta name="twitter:description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
+  
+
+<meta name="author" content="한국한의학연구원, 구본초" />
+
+
+<meta name="date" content="2020-03-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="r-package.html"/>
+<link rel="next" href="r-markdown-get-start.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="css\style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">통계 프로그래밍 언어</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Overview</a></li>
+<li class="part"><span><b>I Get Started</b></span></li>
+<li class="chapter" data-level="1" data-path="intro-chap.html"><a href="intro-chap.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1.1</b> R 설치하기</a></li>
+<li class="chapter" data-level="1.2" data-path="r-check.html"><a href="r-check.html"><i class="fa fa-check"></i><b>1.2</b> R 시작 및 작동 체크</a></li>
+<li class="chapter" data-level="1.3" data-path="rconsle-script.html"><a href="rconsle-script.html"><i class="fa fa-check"></i><b>1.3</b> R script 편집기 사용</a></li>
+<li class="chapter" data-level="1.4" data-path="r-studio.html"><a href="r-studio.html"><i class="fa fa-check"></i><b>1.4</b> RStudio</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="r-studio.html"><a href="r-studio.html#rstudio-install"><i class="fa fa-check"></i><b>1.4.1</b> RStudio 설치하기</a></li>
+<li class="chapter" data-level="1.4.2" data-path="r-studio.html"><a href="r-studio.html#rstudio-component"><i class="fa fa-check"></i><b>1.4.2</b> RStudio IDE 화면 구성</a></li>
+<li class="chapter" data-level="1.4.3" data-path="r-studio.html"><a href="r-studio.html#rstudio-glob-options"><i class="fa fa-check"></i><b>1.4.3</b> RStudio 환경 설정</a></li>
+<li class="chapter" data-level="1.4.4" data-path="r-studio.html"><a href="r-studio.html#rstudio-project"><i class="fa fa-check"></i><b>1.4.4</b> RStudio 프로젝트</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="r-package.html"><a href="r-package.html"><i class="fa fa-check"></i><b>1.5</b> R 패키지</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="r-package.html"><a href="r-package.html#r-package-path"><i class="fa fa-check"></i><b>1.5.1</b> R 패키지 경로 확인 및 변경</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-package.html"><a href="r-package.html#r-package-install"><i class="fa fa-check"></i><b>1.5.2</b> R 패키지 설치하기</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-package.html"><a href="r-package.html#r-package-load"><i class="fa fa-check"></i><b>1.5.3</b> R 패키지 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basic.html"><a href="r-basic.html"><i class="fa fa-check"></i><b>1.6</b> R 기초 문법</a></li>
+<li class="chapter" data-level="1.7" data-path="r-markdown-get-start.html"><a href="r-markdown-get-start.html"><i class="fa fa-check"></i><b>1.7</b> R Markdown (맛보기)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계 프로그래밍 언어</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-basic" class="section level2">
+<h2><span class="header-section-number">1.6</span> R 기초 문법</h2>
+
+
+<div class="rmdnote">
+본 절에서 다루는 R 문법은 R 입문 시 객체(object)의 명명 규칙과 R 콘솔 창에서 가장 빈번하게 사용되는 기초적인 명령어만 다룰 예정임. 심화 내용은 2-3주 차에 다룰 예정임.
+</div>
+
+
+<ul>
+<li>R은 객체지향언어(object-oriented language)
+<ul>
+<li>객체(object): 숫자, 데이터셋, 단어, 테이블, 분석결과 등 모든 것을 칭함</li>
+<li>“객체지향”의 의미는 R의 모든 명령어는 객체를 대상으로 이루어진다는 것을 의미</li>
+</ul></li>
+</ul>
+
+
+<div class="rmdtip">
+<p>알아두면 유용한(콘솔창에서 매우 많이 사용되는) 명령어 및 단축키</p>
+<ul>
+<li><code>ls()</code>: 현재 R 작업공간에 저장된 모든 객체 리스트 출력</li>
+<li><code>rm(object_name)</code>: <code>object_name</code>에 해당하는 객체 삭제</li>
+<li><code>rm(list = ls())</code>: R 작업공간에 저장된 모든 객체들을 일괄 삭제</li>
+<li>단축키 <code>[Ctrl] + [L]</code>: R 콘솔 창 일괄 청소</li>
+<li>단축키 <code>[Ctrl] + [Shift] + [F10]</code>: R session 초기화</li>
+</ul>
+<strong>예시</strong>
+</div>
+
+
+
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1">x &lt;-<span class="st"> </span><span class="dv">7</span></a>
+<a class="sourceLine" id="cb41-2" title="2">y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">30</span> <span class="co">#1에서 30까지 정수 입력</span></a>
+<a class="sourceLine" id="cb41-3" title="3"><span class="kw">ls</span>() <span class="co">#현재 작업공간 내 객체명 출력</span></a></code></pre></div>
+<pre><code> [1] &quot;a&quot;                  &quot;b&quot;                  &quot;cars&quot;              
+ [4] &quot;def.chunk.hook&quot;     &quot;fig_cap&quot;            &quot;tab&quot;               
+ [7] &quot;x&quot;                  &quot;y&quot;                  &quot;도움말 보기 명령어&quot;
+[10] &quot;사용법&quot;             &quot;설명&quot;              </code></pre>
+
+
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="kw">rm</span>(x) <span class="co"># 객체 x 삭제</span></a>
+<a class="sourceLine" id="cb43-2" title="2"><span class="kw">ls</span>()</a></code></pre></div>
+<pre><code> [1] &quot;a&quot;                  &quot;b&quot;                  &quot;cars&quot;              
+ [4] &quot;def.chunk.hook&quot;     &quot;fig_cap&quot;            &quot;tab&quot;               
+ [7] &quot;y&quot;                  &quot;도움말 보기 명령어&quot; &quot;사용법&quot;            
+[10] &quot;설명&quot;              </code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="kw">rm</span>(a,b) <span class="co"># 객체 a,b 동시 삭제</span></a>
+<a class="sourceLine" id="cb45-2" title="2"><span class="kw">ls</span>()</a></code></pre></div>
+<pre><code>[1] &quot;cars&quot;               &quot;def.chunk.hook&quot;     &quot;fig_cap&quot;           
+[4] &quot;tab&quot;                &quot;y&quot;                  &quot;도움말 보기 명령어&quot;
+[7] &quot;사용법&quot;             &quot;설명&quot;              </code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1"><span class="co"># rm(list = ls()) # 모든 객체 삭제</span></a></code></pre></div>
+
+<div id="r-object-nam-rule" class="section level4 unnumbered">
+<h4>R 객체 입력 방법 및 변수 설정 규칙</h4>
+<p>객체를 할당하는 두 가지 방법:<code>=</code>, <code>&lt;-</code></p>
+<ul>
+<li>두 할당 지시자의 차이점
+<ul>
+<li><code>=</code>: 명령의 최상 수준에서만 사용 가능</li>
+<li><code>&lt;-</code>: 어디서든 사용 가능</li>
+<li>함수 호출과 동시에 변수에 값을 할당할 목적으로는 <code>&lt;-</code>만 사용 가능</li>
+</ul></li>
+</ul>
+
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1"><span class="co"># mean(): 입력 벡터의 평균 계산</span></a>
+<a class="sourceLine" id="cb48-2" title="2"><span class="kw">mean</span>(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a></code></pre></div>
+<pre><code>[1] 3</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1">y</a></code></pre></div>
+<pre><code>[1] 1 2 3 4 5</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1"><span class="kw">mean</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a></code></pre></div>
+<pre><code>[1] 3</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1">x</a></code></pre></div>
+<pre><code>Error in eval(expr, envir, enclos): 객체 &#39;x&#39;를 찾을 수 없습니다</code></pre>
+
+<p>객체 또는 변수의 명명 규칙</p>
+<ul>
+<li>알파벳, 한글, 숫자, <code>_</code>, <code>.</code>의 조합으로 구성 가능(<code>-</code>은 사용 불가)</li>
+<li>변수명의 알파벳, 한글, <code>.</code>로 시작 가능</li>
+<li><code>.</code>로 시작한 경우 뒤에 숫자 올 수 없음(숫자로 인지)</li>
+<li>대소문자 구분</li>
+</ul>
+
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1"><span class="co"># 1:10은 1부터 10까지 정수 생성</span></a>
+<a class="sourceLine" id="cb56-2" title="2"><span class="co"># &#39;c()&#39;는 벡터 생성 함수</span></a>
+<a class="sourceLine" id="cb56-3" title="3">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) </a>
+<a class="sourceLine" id="cb56-4" title="4"><span class="co"># 1:10으로 구성된 행렬 생성</span></a>
+<a class="sourceLine" id="cb56-5" title="5">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>), <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">5</span>, <span class="dt">byrow =</span> T)</a>
+<a class="sourceLine" id="cb56-6" title="6">x</a></code></pre></div>
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1">X</a></code></pre></div>
+<pre><code>     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    2    3    4    5
+[2,]    6    7    8    9   10</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1"><span class="co"># 논리형 객체</span></a>
+<a class="sourceLine" id="cb60-2" title="2">.x &lt;-<span class="st"> </span><span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb60-3" title="3">.x</a></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1"><span class="co"># 알파벳 + 숫자</span></a>
+<a class="sourceLine" id="cb62-2" title="2">a1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">by =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb62-3" title="3"><span class="co"># 한글 변수명</span></a>
+<a class="sourceLine" id="cb62-4" title="4">가수 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Damian Rice&quot;</span>, <span class="st">&quot;Beatles&quot;</span>, <span class="st">&quot;최백호&quot;</span>, <span class="st">&quot;Queen&quot;</span>, <span class="st">&quot;Carlos Gardel&quot;</span>, <span class="st">&quot;BTS&quot;</span>, <span class="st">&quot;조용필&quot;</span>)</a>
+<a class="sourceLine" id="cb62-5" title="5">가수</a></code></pre></div>
+<pre><code>[1] &quot;Damian Rice&quot;   &quot;Beatles&quot;       &quot;최백호&quot;        &quot;Queen&quot;        
+[5] &quot;Carlos Gardel&quot; &quot;BTS&quot;           &quot;조용필&quot;       </code></pre>
+
+<ol start="3" style="list-style-type: decimal">
+<li>잘못된 객체 또는 변수 명명 예시</li>
+</ol>
+
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1">3x &lt;-<span class="st"> </span><span class="dv">7</span></a></code></pre></div>
+<pre><code>Error: &lt;text&gt;:1:2: 예상하지 못한 기호(symbol)입니다.
+1: 3x
+     ^</code></pre>
+
+
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1">_x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>)</a></code></pre></div>
+<pre><code>Error: &lt;text&gt;:1:1: 예상하지 못한 입력입니다.
+1: _
+    ^</code></pre>
+
+
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1"><span class="fl">.3</span> &lt;-<span class="st"> </span><span class="dv">10</span></a></code></pre></div>
+<pre><code>Error in 0.3 &lt;- 10: 대입에 유효하지 않은 (do_set) 좌변입니다</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="r-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-markdown-get-start.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/01-overview.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["cnu-r-programming.pdf", "cnu-r-programming.epub"],
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
