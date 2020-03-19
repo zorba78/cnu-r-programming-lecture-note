@@ -251,10 +251,11 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] compiler_3.6.3  magrittr_1.5    bookdown_0.18.1 htmltools_0.4.0
- [5] tools_3.6.3     yaml_2.2.1      Rcpp_1.0.3      stringi_1.4.6  
- [9] rmarkdown_2.1   highr_0.8       knitr_1.28      stringr_1.4.0  
-[13] digest_0.6.25   xfun_0.12       rlang_0.4.5     evaluate_0.14  
+ [1] Rcpp_1.0.3      bookdown_0.18.1 digest_0.6.25   mime_0.9       
+ [5] magrittr_1.5    evaluate_0.14   highr_0.8       rlang_0.4.5    
+ [9] stringi_1.4.6   rmarkdown_2.1   tools_3.6.3     stringr_1.4.0  
+[13] markdown_1.1    xfun_0.12       yaml_2.2.1      compiler_3.6.3 
+[17] htmltools_0.4.0 knitr_1.28     
 ```
 
  \normalsize
@@ -351,7 +352,7 @@ hist(x) # 히스토그램
 ```
 
 <div class="figure" style="text-align: center">
-<img src="01-overview_files/figure-html/check-04-1.svg" alt="정규분포 100개의 히스토그램" width="672" />
+<img src="01-overview_files/figure-epub3/check-04-1.svg" alt="정규분포 100개의 히스토그램"  />
 <p class="caption">(\#fig:check-04)정규분포 100개의 히스토그램</p>
 </div>
 
@@ -474,7 +475,7 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
 ```
 
 <div class="figure">
-<img src="01-overview_files/figure-html/check-edit-out-1.svg" alt="cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄." width="672" />
+<img src="01-overview_files/figure-epub3/check-edit-out-1.svg" alt="cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄."  />
 <p class="caption">(\#fig:check-edit-out)cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄.</p>
 </div>
 
@@ -1083,7 +1084,7 @@ require(tidyverse)
 ```
 
 ```
--- Attaching packages ------------------------------------------------------------------------------------------------------------------------------- tidyverse 1.3.0 --
+-- Attaching packages --------------------------------------------------------------------- tidyverse 1.3.0 --
 ```
 
 ```
@@ -1094,7 +1095,7 @@ require(tidyverse)
 ```
 
 ```
--- Conflicts ---------------------------------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
+-- Conflicts ------------------------------------------------------------------------ tidyverse_conflicts() --
 x dplyr::filter()     masks stats::filter()
 x dplyr::group_rows() masks kableExtra::group_rows()
 x dplyr::lag()        masks stats::lag()
@@ -1488,7 +1489,7 @@ plot(cars)
 abline(fit)
 ```
 
-<img src="01-overview_files/figure-html/unnamed-chunk-43-1.svg" width="672" />
+![](01-overview_files/figure-epub3/unnamed-chunk-43-1.svg)<!-- -->
 
  \normalsize
 
