@@ -1084,7 +1084,7 @@ require(tidyverse)
 ```
 
 ```
--- Attaching packages --------------------------------------------------------------------- tidyverse 1.3.0 --
+-- Attaching packages --------------------------------------------------------------------------------- tidyverse 1.3.0 --
 ```
 
 ```
@@ -1095,7 +1095,7 @@ require(tidyverse)
 ```
 
 ```
--- Conflicts ------------------------------------------------------------------------ tidyverse_conflicts() --
+-- Conflicts ------------------------------------------------------------------------------------ tidyverse_conflicts() --
 x dplyr::filter()     masks stats::filter()
 x dplyr::group_rows() masks kableExtra::group_rows()
 x dplyr::lag()        masks stats::lag()
@@ -1465,6 +1465,7 @@ output: html_document
 - Code chunk 실행 시 다양한 옵션들이 있으나 이 부분 역시 15주 차 강의에서 간략히 다룰 예정임
 - Code chunk는  ```` ```{r} ````로 시작되며 `r`은 code 언어 이름을 나타냄.
 - Code chunk는 ```` ``` ```` 로 종료
+- R Markdown 문서 작성 시 단축키 `[Ctrl] + [Alt] + [I]`를 입력하면 Chunk 입력창이 자동 생성됨
 - Chunk option에 대한 상세 내용은 https://yihui.org/knitr/options/ 또는 [R Markdown 레퍼런스 가이드](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) 참조
 
 ````markdown
