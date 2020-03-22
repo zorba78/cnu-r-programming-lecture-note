@@ -236,7 +236,7 @@ sessionInfo()
 ```
 
 ```
-R version 3.6.3 (2020-02-29)
+R version 3.6.2 (2019-12-12)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 Running under: Windows 10 x64 (build 18363)
 
@@ -251,10 +251,10 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.3      bookdown_0.18.1 digest_0.6.25   mime_0.9       
+ [1] Rcpp_1.0.3      bookdown_0.16   digest_0.6.25   mime_0.9       
  [5] magrittr_1.5    evaluate_0.14   highr_0.8       rlang_0.4.5    
- [9] stringi_1.4.6   rmarkdown_2.1   tools_3.6.3     stringr_1.4.0  
-[13] markdown_1.1    xfun_0.12       yaml_2.2.1      compiler_3.6.3 
+ [9] stringi_1.4.5   rmarkdown_2.1   tools_3.6.2     stringr_1.4.0  
+[13] markdown_1.1    xfun_0.12       yaml_2.2.1      compiler_3.6.2 
 [17] htmltools_0.4.0 knitr_1.28     
 ```
 
@@ -737,62 +737,25 @@ getwd() # 작업폴더 확인
 ```
 
 ```
-[1] "D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note"
+[1] "D:/Rworkspace/cnu-r-programming-lecture-note"
 ```
 
  \normalsize
 
-\footnotesize
-
-
-```r
-setwd("..") # 차상위 폴더로 이동 
-getwd()
-```
-
-```
-[1] "D:/Current-Workspace/Lecture"
-```
-
-```r
-setwd("../..") # 차차상위 폴더로 이동
-getwd()
-```
-
-```
-[1] "D:/"
-```
-
-```r
-setwd("D:/Current-Workspace/Lecture/misc/") # 절대 폴더 명 입력
-setwd("..")
-# dir() # 폴더 내 파일 명 출력
-getwd()
-```
-
-```
-[1] "D:/Current-Workspace/Lecture"
-```
-
-```r
-setwd("misc") # Current-Workspace 하위폴더인 misc 으로 이동
-getwd()
-```
-
-```
-[1] "D:/Current-Workspace/Lecture/misc"
-```
-
-```r
-setwd("D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note/")
-getwd()
-```
-
-```
-[1] "D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note"
-```
-
- \normalsize
+<!-- ```{r error=TRUE} -->
+<!-- setwd("..") # 차상위 폴더로 이동  -->
+<!-- getwd() -->
+<!-- setwd("../..") # 차차상위 폴더로 이동 -->
+<!-- getwd() -->
+<!-- setwd("D:/Current-Workspace/Lecture/misc/") # 절대 폴더 명 입력 -->
+<!-- setwd("..") -->
+<!-- # dir() # 폴더 내 파일 명 출력 -->
+<!-- getwd() -->
+<!-- setwd("misc") # Current-Workspace 하위폴더인 misc 으로 이동 -->
+<!-- getwd() -->
+<!-- setwd("D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note/") -->
+<!-- getwd() -->
+<!-- ``` -->
 
 
 \footnotesize
@@ -974,9 +937,8 @@ getwd()
 ```
 
 ```
-[1] "C:/r-library"                             
-[2] "C:/Users/user/Documents/R/win-library/3.6"
-[3] "C:/Program Files/R/R-3.6.3/library"       
+[1] "C:/Users/user/Documents/R/win-library/3.6"
+[2] "C:/Program Files/R/R-3.6.2/library"       
 ```
 
  \normalsize
@@ -1084,18 +1046,18 @@ require(tidyverse)
 ```
 
 ```
--- Attaching packages --------------------------------------------------------------------------------- tidyverse 1.3.0 --
+─ Attaching packages ──────────────────────────────────────────────── tidyverse 1.3.0 ─
 ```
 
 ```
-√ ggplot2 3.3.0     √ purrr   0.3.3
-√ tibble  2.1.3     √ dplyr   0.8.5
-√ tidyr   1.0.2     √ stringr 1.4.0
-√ readr   1.3.1     √ forcats 0.5.0
+<U+2713> ggplot2 3.2.1     <U+2713> purrr   0.3.3
+<U+2713> tibble  2.1.3     <U+2713> dplyr   0.8.3
+<U+2713> tidyr   1.0.0     <U+2713> stringr 1.4.0
+<U+2713> readr   1.3.1     <U+2713> forcats 0.4.0
 ```
 
 ```
--- Conflicts ------------------------------------------------------------------------------------ tidyverse_conflicts() --
+─ Conflicts ───────────────────────────────────────────────── tidyverse_conflicts() ─
 x dplyr::filter()     masks stats::filter()
 x dplyr::group_rows() masks kableExtra::group_rows()
 x dplyr::lag()        masks stats::lag()
@@ -1490,7 +1452,7 @@ plot(cars)
 abline(fit)
 ```
 
-![](01-overview_files/figure-epub3/unnamed-chunk-43-1.svg)<!-- -->
+![](01-overview_files/figure-epub3/unnamed-chunk-42-1.svg)<!-- -->
 
  \normalsize
 
@@ -1508,7 +1470,6 @@ knitr::include_graphics(rep('figures/knit-logo.png', 3))
  \normalsize
 
 
-
 \footnotesize
 
 \BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**Homework 1**: R Markdown 문서에 아래 내용을 포함한 문서를 `html` 파일 형식으로 출력 후 제출
@@ -1521,16 +1482,7 @@ knitr::include_graphics(rep('figures/knit-logo.png', 3))
  \normalsize
 
 
-
-
-
-
-
-
-
-
-
-
-# References {-}
-
+<!--  -->
+<!-- # References {-} -->
+<!--  -->
 
