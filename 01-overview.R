@@ -291,7 +291,7 @@ knitr::include_graphics('figures/rstudio-wd-setting.JPG', dpi = NA)
 
 
 ## -------------------------------------------------------------------------------------------------------------------------------------------------
-getwd() # 작업폴더 확인
+getwd() # 작업폴더 확인 GET Working Directory
 
 
 ## -------------------------------------------------------------------------------------------------------------------------------------------------
@@ -303,10 +303,11 @@ setwd("D:/Current-Workspace/Lecture/misc/") # 절대 폴더 명 입력
 setwd("..")
 # dir() # 폴더 내 파일 명 출력
 getwd()
-setwd("misc") # Current-Workspace 하위폴더인 misc 으로 이동
+setwd("misc") # D:/Current-Workspace/Lecture 하위폴더인 misc 으로 이동
 getwd()
 setwd("D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note/")
 getwd()
+
 
 
 ## R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하는 구분자는 `\`인데, R에서 `\`는 특수문자로 간주하기 때문에 Windows 의 폴더명을 그대로 사용 시 에러 메세지를 출력함. 이를 해결하기 위해 Windows 경로명을 그대로 복사한 경우 경로 구분자 `\` 대신 `\\`로 변경
@@ -466,7 +467,7 @@ X <- matrix(c(1:10), nrow = 2, ncol = 5, byrow = T)
 x
 X
 # 논리형 객체
-.x <- TRUE
+.x <- TRUE #FALSE
 .x
 # 알파벳 + 숫자
 a1 <- seq(from = 1, to = 10, by = 2)

@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # 데이터 타입(Data Type) {#data-type}
 
 ```{r chunk-setup, echo=FALSE, message=FALSE}
@@ -12,13 +17,16 @@ knitr::knit_hooks$set(chunk = function(x, options) {
 # options(width = 85)
 ```
 
+```{block2, type="rmdnote"}
+**학습목표(2 주차)**: R의 데이터 차입 중 가장 기본이 되는 스칼라, 백터, 리스트에 대한 이해와 해당 객체를 생성하고, 이와 연관된 함수들을 익힌다.
+```
 
 #### 학습 필요성 {#ch2-abstract .unnumbered}
 
 - R언어는 타 프로그래밍 언어와 유사한 자료형(정수형, 실수형, 문자형 등)을 제공
-- R 언어가 다른 언어와 차이점 $\rightarrow$ **데이터 분석**에 특화된 벡터(vector), 행렬(matrix), 데이터프레임(data frame), 리스트(list)를 제공
-- R 패키지에서 제공되는 함수 사용 방법은 R의 데이터 타입에 따라 달라질 수 있음  
-- R 언어를 원활히 다룰 수 있으려면 R에서 데이터의 형태, 자료 할당 및 그 연산 방법에 대한 이해가 필수적으로 선행되어야 함
+- R 언어가 다른 언어와 차이점 $\rightarrow$ **데이터 분석**에 특화된 벡터(vector), 행렬(matrix), 데이터프레임(data frame), 리스트(list)와 같은 객체^[R에서 사용자가 데이터 입력을 위해 생성 또는 읽어온 객체(object)는 종종 변수(variable)라는 말과 혼용. 본 문서에서는 최상위 데이터 저장장소를 객체라고 명명하며 데이터프레임과 같이 여러 종류의 데이터타입으로 이루어진 객체의 1차원 속성을 변수라고 칭함] 제공
+- R 패키지에서 제공되는 함수 사용 방법은 R의 데이터 타입(객체)에 따라 달라질 수 있음  
+- R 언어를 원활히 다룰 수 있으려면 R에서 데이터 객체의 형태, 자료 할당 및 그 연산 방법에 대한 이해가 필수적으로 선행되어야 함
 
 
 #### R 객체의 종류 {#ch2-object-type .unnumbered}
@@ -53,10 +61,6 @@ R 객체 중 scalar, vector, matrix, data.frame $\rightarrow$ 데이터 객체(o
 - **기타**: 결측(`NA`), 숫자아님(`NaN`), 무한대(`Inf`) 등
 
 
-```{block2, type="rmdnote"}
-**학습목표(2 주차)**: R의 데이터 차입 중 가장 기본이 되는 스칼라, 백터, 리스트에 대한 이해와 해당 객체를 생성하고, 이와 연관된 함수들을 익힌다.
-```
-
 ## 스칼라(scalar) {#scalar}
 
 - 단일 차원의 값(하나의 값): $1 \times 1$ 백터로 표현 $\rightarrow$ R 데이터 객체의 기본은 벡터!!
@@ -65,6 +69,25 @@ R 객체 중 scalar, vector, matrix, data.frame $\rightarrow$ 데이터 객체(o
 ```{block2, type="rmdtip"}
 스칼라를 입력시 R의 벡터 지정 함수인 `c()`(벡터 부분에서 상세 내용 학습)를 꼭 사용해서 입력할 필요가 없다. 단, 두 개 이상 스칼라면 벡터이므로 꼭 c()를 써야 한다.
 ```
+
+### 선언
+
+- 일반적으로 컴파일이 필요한 언어(예: `C` 언어)의 경우 변수 또는 객체를 사용 전에 선언이 필요
+
+```{c, eval=FALSE}
+int x; 
+x = 1;
+```
+
+- 위 코드에서 `int x;` 없이 `x = 1`을 입력 후 컴파일 하면 에러가 나타나지만 `R` 언어에서는 **변수를 선언할 필요가 전혀 없음** 
+
+- `z` 가 어떤 데이터 타입인지 언급할 필요가 전혀 없음 $\rightarrow$ `Python`, `Perl`, `Matlab` 등과 같은 스크립트 언어의 특징. 아래 코드 참조
+
+```{r, comment=NA, prompt=FALSE}
+z <- 3
+z
+```
+
 
 ### 숫자형 {#numeric}
 
@@ -87,15 +110,15 @@ require(rmarkdown)
 require(knitr)
 require(kableExtra)
 
-연산자 <- c("+, -, *, /", 
+`수치형 연산자` <- c("+, -, *, /", 
             "n %% m", 
             "n %/% m", 
             "n ^ m 또는 n ** m")
-설명 <- c("사칙연산", 
+`설명` <- c("사칙연산", 
           "n을 m 으로 나눈 나머지", 
           "n을 m 으로 나눈 몫", 
           "n 의 m 승")
-tab2_01 <- data.frame(연산자, 설명, check.names = F)
+tab2_01 <- data.frame(`수치형 연산자`, `설명`, check.names = F)
 options(kableExtra.html.bsTable = T)
 knitr::opts_knit$set(kable.force.latex = FALSE)
 kable(tab2_01,
@@ -104,8 +127,10 @@ kable(tab2_01,
       booktabs = T, caption = "R언어의 기본 수치 연산자") %>%
   kable_styling(bootstrap_options = c("condensed", "striped"),
                 position = "center", 
-                font_size = 11, 
-                latex_options = c("striped", "HOLD_position"))
+                font_size = 10, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "4cm") %>% 
+  column_spec(2, width = "4cm")
 
 ```
 
@@ -151,8 +176,11 @@ nn
 
 ### 문자형 {#character}
 
+- 수치형이 아닌 문자 형식의 단일 원소
+- C와 같은 언어에서 볼수 있는 한개 문자에 대한 데이터 타입 존재하지 않음
 - 수치연산 불가능
-- 따옴표(`"`)로 문자열 표시
+- 따옴표(`"` 또는 `'`)로 문자를 묶어서 문자열 표시
+- 문자열을 다루는 자세한 설명은 5주차에서 자세히 설명할 예정임
 
 ```{r ex-char, comment=NA, prompt=FALSE, error=TRUE}
 h1 <- c("Hello CNU!!")
@@ -167,6 +195,247 @@ nchar(h1); nchar(h2)
 h1 - h2
   
 ```
+
+### 논리형 스칼라 {#logical}
+
+- 참(`TRUE`, `T`) 또는 거짓(`FALSE`, `F`)를 나타내는 값
+- `TRUE`/`FALSE`: 예약어(reversed word)
+- `T`/`F`: `TRUE`와 `FALSE`로 초기화된 전역 변수 
+   - `T`에 `FALSE` 또는 어떤 값도 할당 가능 $\rightarrow$ 가급적 `TRUE/FALSE`를 명시하는 것이 편함
+- 논리형 연산자(logical operator)
+
+```{r logic-op-tab, echo=FALSE, message=FALSE}
+`논리형 연산자` <- c("&", "&&", "|", "||", "!")
+`설명` <- c("AND (vectorized)", "AND (atomic)", 
+            "OR (vectorized)", "OR (atomic)", "NOT")
+
+tab2_02 <- data.frame(`논리형 연산자`, `설명`, check.names = F)
+options(kableExtra.html.bsTable = T)
+# knitr::opts_knit$set(kable.force.latex = FALSE)
+kable(tab2_02,
+      align = "ll",
+      escape = TRUE, 
+      booktabs = T, caption = "R언어의 논리형 연산자") %>%
+  kable_styling(bootstrap_options = c("condensed", "striped"),
+                position = "center", 
+                font_size = 10, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "3cm") %>% 
+  column_spec(2, width = "5cm")
+```
+
+
+- 비교 연산자를 적용할 경우 논리값을 반환
+
+```{r comp-op-tab, echo=FALSE, message=FALSE}
+`비교 연산자` <- c(">", "<", "==", ">=", "<=", "!=")
+`설명` <- c("크다(greater-than)", "작다(less-than)", "같다(equal)", 
+          "크거나 같다(greater than equal)", "작거나 같다(less than equal)", "같지 않다(not equal)")
+
+tab2_03 <- data.frame(`비교 연산자`, `설명`, check.names = F)
+options(kableExtra.html.bsTable = T)
+# knitr::opts_knit$set(kable.force.latex = FALSE)
+kable(tab2_03,
+      align = "ll",
+      escape = TRUE, 
+      booktabs = T, caption = "R언어의 비교 연산자") %>%
+  kable_styling(bootstrap_options = c("condensed", "striped"),
+                position = "center", 
+                font_size = 10, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "3cm") %>% 
+  column_spec(2, width = "5cm") %>% 
+  kableExtra::footnote(general = "기술한 비교 연산자는 수치형 및 논리형 데이터 타입 모두에 적용 가능 하지만, 문자형은 비교 연산은 ==, != 만 가능함")
+```
+
+
+```{block2, type="rmdnote"}
+**참고**
+  
+  - 논리형 스칼라도 숫자형 연산 가능 $\rightarrow$ 컴퓨터는 `TRUE`/`FALSE`를 1과 0의 숫자로 인식
+  - 수치 연산자는 스칼라 뿐 아니라 아래에서 다룰 벡터, 행렬, 리스트, 데이터프레임 객체의 연산에 사용 가능
+  - `&`/`|`와 `&&`/`||`는 동일하게 AND/OR를 의미하지만 연산 결과가 다름. 
+      - `&`의 연산 대상이 벡터인 경우 백터 구성 값 각각에 대해 `&` 연산을 실행 하지만 `&&`는 하나의 값(스칼라)에만  논리 연산이 적용(아래 예시 참고)
+```
+
+
+- 논리형 스칼라의 논리 및 비교 연산 예시
+
+```{r logic-op-result, comment=NA, prompt=FALSE, tidy=TRUE, error=TRUE}
+typeof(TRUE) # TRUE의 데이터 타입
+TRUE & TRUE # TRUE 반환
+TRUE & FALSE # FALSE 반환
+
+# 아래 연산은 모두 TRUE 반환
+TRUE | TRUE 
+TRUE | FALSE
+
+# TRUE와 FALSE의 반대
+!TRUE; !FALSE
+
+# 전역변수 T에 FALSE 값 할당
+T <- FALSE
+T
+T <- TRUE # 원상복귀
+
+# TRUE/FALSE에 값을 할당할 수 없음
+TRUE <- 1; TRUE <- FALSE
+
+# &(|)와 &&(||)의 차이
+l.01 <- c(TRUE, TRUE, FALSE, TRUE) # 논리형 값으로 구성된 벡터
+l.02 <- c(FALSE, TRUE, TRUE, TRUE)
+
+l.01 & l.02 # l.01과 l.02 각 원소 별 & 연산
+l.01 && l.02 # l.01과 l.02의 첫 번째 원소에 대해 & 연산
+
+# 비교 연산자 
+x <- 9; y <- 4
+
+# x > y 의 반환값 데이터 타입
+typeof(x > y)
+# 논리형 값 반환
+x > y 
+x < y
+x == y
+x != y
+
+```
+
+### 결측값(missing value) {#missing-value}
+
+- 결측치 지정 **상수**: `NA` $\rightarrow$ R과 다른 언어의 가장 큰 차이점 중 하나
+- 예를 들어 4명의 통계학과 학생 중 3명의 통계학 개론 중간고사 점수가 각각 80, 90, 75점이고 4번 째 학생의 점수가 없는 경우 `NA`로 결측값 표현
+- `is.na()` 함수를 이용해 해당 값이 결측을 포함하고 있는지 확인
+
+```{r}
+one <- 80; two <- 90; three <- 75; four <- NA
+four
+
+# 'is.na()' 결측 NA가 포함되어 있으면 TRUE 
+is.na(four)
+```
+
+```{block2, type="rmdtip"}
+`is.na(object_name)`: 객체를 구성하고 있는 원소 중 `NA`를 포함하고 있는지 확인 $\rightarrow$ `NA`를 포함하면 `TRUE`, 아니면 `FALSE` 반환
+
+**참고**: 자료에 `NA`가 포함된 경우 연산 결과는 모두 `NA`가 반환
+
+```
+
+```{r, comment=NA, prompt=FALSE}
+NA + 1
+NA & TRUE
+NA <= 3
+```
+
+### NULL 값 {#null}
+
+- `NULL`: 초기화 되지 않은 변수 또는 **객체**를 지칭함
+- `is.null()` 함수를 통해 객체가 `NULL`인지 판단
+
+```{r comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
+x <- NULL # NULL 지정
+is.null(x) # NULL 객체인지 판단
+
+x <- 1
+is.null(x) 
+
+```
+
+```{block2, type="rmdnote"}
+**`NA`와 `NULL`의 차이점**: 자료의 공백을 의미한다는 점에서 유사한 측면이 있으나 아래 내용처럼 큰 차이가 있음
+
+  - `NULL`: 값을 지정하지 않은 객체를 표현하는데 사용. 즉 아직 변수 또는 객체의 상태가 아직 미정인 상태를 나타냄
+  - `NA`: 데이터 값이 결측임을 지정해주는 논리형 상수
+```
+
+
+```{r, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
+# NA와 NULL은 다름
+x <- NA
+is.null(NA)
+is.na(NULL)
+
+# 데이터에서 NA와 NULL의 차이점
+x <- c(80, 90, 75, NA)
+x
+
+x <- c(80, 90, 75, NULL)
+x
+
+```
+
+### 무한대/무한소/숫자아님 {#finite}
+
+- `Inf`: 무한대($+\infty$, $1/0$)
+- `-Inf`: 무한소($-\infty$, $-1/0$)
+- `NaN`: 숫자아님(Not a Number, $0/0$)
+- `is.finite()`, `is.infinite()`, `is.nan()` 함수를 통해 객체가 `Inf` 또는 `NaN`을 포함하는지 확인
+
+```{r, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
+x <- Inf
+is.finite(x)
+is.infinite(x)
+
+x <- 0/0
+is.nan(x)
+is.infinite(x)
+```
+
+```{block2, type="rmdnote"}
+지금까지 요인형(factor)을 제외하고 R 언어에서 객체가 가질 수 있는 데이터 유형에 대해 알아봄. 요인형은 4주 차에 예정된 "R 자료형: 팩터, 테이블, 데이터 프레임"에서 상세하게 배울 예정임. 
+```
+
+
+## 벡터(vector) {#vector}
+
+- 타 프로그래밍 언어의 배열(array)의 개념으로 **동일한 유형**의 데이터 원소가 하나 이상($n \times 1$, $n \geq 1$) 으로 구성된 자료 형태
+- \@ref(scalar) 절에서 기술한 [스칼라(scalar)]는 사실 $1 \times 1$ 벡터임
+- 수학적으로 벡터는 아래와 같이 나타낼 수 있음
+
+$$\mathrm{\mathbf x} = \begin{bmatrix}
+x_1, x_2, x_3, \ldots, x_n
+\end{bmatrix}^T
+$$
+
+
+- 벡터는 앞의 예시에서 본 바와 같이 `c()` 함수를 사용해 생성
+
+```{r vector-ex1, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
+# 숫자형 벡터 
+x <- c(2, 0, 2, 0, 0, 3, 2, 4)
+x
+# 문자형 벡터
+y <- c("Boncho Ku", "R programming", "Male", "sophomore", "2020-03-24")
+y
+
+```
+
+- 두 개 이상의 벡터는 `c()` 함수를 통해 결합 가능
+
+```{r vector-ex2, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
+# 두 벡터의 결합
+x <- 1:5
+y <- 10:6
+z <- c(x, y)
+x
+y
+z
+```
+
+
+- 서로 다른 자료형으로 벡터를 구성한 경우 표현력이 높은 자료형으로 변환한 값 반환
+    - 예: 문자열 + 숫자로 구성된 벡터 $\rightarrow$ 문자형 벡터
+- 벡터 각 원소에 이름 부여 가능
+    - `names()` 함수를 이용해 원소 이름 지정
+        - 사용 프로토타입: `names(x) <- 문자열 벡터`, 단 `x`와 이름에 입력할 문자열 벡터의 길이는 같아야 함. 
+    - 벡터의 길이(차원) 확인
+        - `length()` 또는 `NROW()` 사용
+- 색인(indexing)을 통해 벡터의 원소에 접근 가능
+    - `x[i]`: 벡터 `x`의 `i`번 째 요소
+    - `x[-i]`: 벡터 `x`에서 `i`번 째 요소를 제외한 나머지
+    - `x[I]`: `I`가 인덱싱 벡터라고 할 때 `I`에 지정된 요소를 얻어옴. 일반적으로 `I`는 백터의 행 순서 번호 또는 각 벡터 원소의 이름에 대응하는 문자열 벡터를 인덱싱 벡터로 사용할 수 있음. 
+    - `x[start:end]`: `x`의 `start`부터 `end`까지 값 반환
 
 
 

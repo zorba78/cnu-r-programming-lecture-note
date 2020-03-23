@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1.7 R Markdown (맛보기) | 통계 프로그래밍 언어</title>
   <meta name="description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1.7 R Markdown (맛보기) | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -157,6 +157,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="scalar.html"><a href="scalar.html"><i class="fa fa-check"></i><b>2.1</b> 스칼라(scalar)</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="scalar.html"><a href="scalar.html#numeric"><i class="fa fa-check"></i><b>2.1.1</b> 숫자형</a></li>
 <li class="chapter" data-level="2.1.2" data-path="scalar.html"><a href="scalar.html#character"><i class="fa fa-check"></i><b>2.1.2</b> 문자형</a></li>
+<li class="chapter" data-level="2.1.3" data-path="scalar.html"><a href="scalar.html#logical"><i class="fa fa-check"></i><b>2.1.3</b> 논리형 스칼라</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -269,20 +270,20 @@ Figure 1.10: test.html 문서 화면(저장 폴더 내 <code>test.html</code>을
 <li>YAML 언어에 대한 사용 예시는 <span class="citation">Xie (<a href="#ref-xie-2016" role="doc-biblioref">2016</a>)</span> 의 <a href="https://bookdown.org/yihui/bookdown/r-markdown.html">Appendix B.2</a> 참고</li>
 <li>최소 형태의 YAML 예시</li>
 </ul>
-<div class="sourceCode" id="cb58"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb58-1" title="1"><span class="ot">---</span></a>
-<a class="sourceLine" id="cb58-2" title="2"><span class="fu">title:</span><span class="at"> </span><span class="st">&quot;Hello R Markdown&quot;</span></a>
-<a class="sourceLine" id="cb58-3" title="3"><span class="fu">author:</span><span class="at"> </span><span class="st">&quot;Zorba&quot;</span></a>
-<a class="sourceLine" id="cb58-4" title="4"><span class="fu">date:</span><span class="at"> </span><span class="st">&quot;2020-03-17&quot;</span></a>
-<a class="sourceLine" id="cb58-5" title="5"><span class="fu">output:</span><span class="at"> html_document</span></a>
-<a class="sourceLine" id="cb58-6" title="6"><span class="ot">---</span></a></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb68-1" title="1"><span class="ot">---</span></a>
+<a class="sourceLine" id="cb68-2" title="2"><span class="fu">title:</span><span class="at"> </span><span class="st">&quot;Hello R Markdown&quot;</span></a>
+<a class="sourceLine" id="cb68-3" title="3"><span class="fu">author:</span><span class="at"> </span><span class="st">&quot;Zorba&quot;</span></a>
+<a class="sourceLine" id="cb68-4" title="4"><span class="fu">date:</span><span class="at"> </span><span class="st">&quot;2020-03-17&quot;</span></a>
+<a class="sourceLine" id="cb68-5" title="5"><span class="fu">output:</span><span class="at"> html_document</span></a>
+<a class="sourceLine" id="cb68-6" title="6"><span class="ot">---</span></a></code></pre></div>
 <p><strong>2. Markdown 텍스트</strong></p>
 <ul>
 <li>Markdown 문법은 15주 차 강의에서 배울 예정임</li>
 <li><a href="https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown 레퍼런스 가이드</a> 참조</li>
 <li>그림 삽입: <code>![](path/filename)</code></li>
 </ul>
-<div class="sourceCode" id="cb59"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb59-1" title="1">그립 삽입 구문</a>
-<a class="sourceLine" id="cb59-2" title="2">![](figures/son.jpg)   </a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb69-1" title="1">그립 삽입 구문</a>
+<a class="sourceLine" id="cb69-2" title="2">![](figures/son.jpg)   </a></code></pre></div>
 <p><img src="figures/son.jpg" /></p>
 <p><strong>3. Code Chunk</strong></p>
 <ul>
@@ -293,28 +294,28 @@ Figure 1.10: test.html 문서 화면(저장 폴더 내 <code>test.html</code>을
 <li>R Markdown 문서 작성 시 단축키 <code>[Ctrl] + [Alt] + [I]</code>를 입력하면 Chunk 입력창이 자동 생성됨</li>
 <li>Chunk option에 대한 상세 내용은 <a href="https://yihui.org/knitr/options/" class="uri">https://yihui.org/knitr/options/</a> 또는 <a href="https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown 레퍼런스 가이드</a> 참조</li>
 </ul>
-<div class="sourceCode" id="cb60"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb60-1" title="1">Code chunk 예시</a>
-<a class="sourceLine" id="cb60-2" title="2"></a>
-<a class="sourceLine" id="cb60-3" title="3">Xie의 R Markdown: The Definitive Guide에서 발췌</a>
-<a class="sourceLine" id="cb60-4" title="4"></a>
-<a class="sourceLine" id="cb60-5" title="5"><span class="bn">```{r}</span></a>
-<a class="sourceLine" id="cb60-6" title="6"><span class="bn">fit = lm(dist ~ speed, data = cars)</span></a>
-<a class="sourceLine" id="cb60-7" title="7"><span class="bn">b   = coef(fit)</span></a>
-<a class="sourceLine" id="cb60-8" title="8"><span class="bn">plot(cars)</span></a>
-<a class="sourceLine" id="cb60-9" title="9"><span class="bn">abline(fit)</span></a>
-<a class="sourceLine" id="cb60-10" title="10"><span class="bn">```</span></a></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb70-1" title="1">Code chunk 예시</a>
+<a class="sourceLine" id="cb70-2" title="2"></a>
+<a class="sourceLine" id="cb70-3" title="3">Xie의 R Markdown: The Definitive Guide에서 발췌</a>
+<a class="sourceLine" id="cb70-4" title="4"></a>
+<a class="sourceLine" id="cb70-5" title="5"><span class="bn">```{r}</span></a>
+<a class="sourceLine" id="cb70-6" title="6"><span class="bn">fit = lm(dist ~ speed, data = cars)</span></a>
+<a class="sourceLine" id="cb70-7" title="7"><span class="bn">b   = coef(fit)</span></a>
+<a class="sourceLine" id="cb70-8" title="8"><span class="bn">plot(cars)</span></a>
+<a class="sourceLine" id="cb70-9" title="9"><span class="bn">abline(fit)</span></a>
+<a class="sourceLine" id="cb70-10" title="10"><span class="bn">```</span></a></code></pre></div>
 
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1">fit =<span class="st"> </span><span class="kw">lm</span>(dist <span class="op">~</span><span class="st"> </span>speed, <span class="dt">data =</span> cars)</a>
-<a class="sourceLine" id="cb61-2" title="2">b   =<span class="st"> </span><span class="kw">coef</span>(fit)</a>
-<a class="sourceLine" id="cb61-3" title="3"><span class="kw">plot</span>(cars)</a>
-<a class="sourceLine" id="cb61-4" title="4"><span class="kw">abline</span>(fit)</a></code></pre></div>
-<p><img src="01-overview_files/figure-html/unnamed-chunk-42-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1">fit =<span class="st"> </span><span class="kw">lm</span>(dist <span class="op">~</span><span class="st"> </span>speed, <span class="dt">data =</span> cars)</a>
+<a class="sourceLine" id="cb71-2" title="2">b   =<span class="st"> </span><span class="kw">coef</span>(fit)</a>
+<a class="sourceLine" id="cb71-3" title="3"><span class="kw">plot</span>(cars)</a>
+<a class="sourceLine" id="cb71-4" title="4"><span class="kw">abline</span>(fit)</a></code></pre></div>
+<p><img src="01-overview_files/figure-html/unnamed-chunk-43-1.svg" width="672" /></p>
 
 <ul>
 <li>Code chunk에서 외부 그림 파일 불러오기(<span class="citation">Xie, Allaire, and Grolemund (<a href="#ref-xie-2018" role="doc-biblioref">2018</a>)</span> 에서 예시 발췌)</li>
 </ul>
 
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="kw">rep</span>(<span class="st">&#39;figures/knit-logo.png&#39;</span>, <span class="dv">3</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1">knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="kw">rep</span>(<span class="st">&#39;figures/knit-logo.png&#39;</span>, <span class="dv">3</span>))</a></code></pre></div>
 <p><img src="figures/knit-logo.png" width="32.8%" /><img src="figures/knit-logo.png" width="32.8%" /><img src="figures/knit-logo.png" width="32.8%" /></p>
 
 
