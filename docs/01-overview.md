@@ -250,12 +250,15 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
+other attached packages:
+[1] knitr_1.28
+
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.3      bookdown_0.18.1 digest_0.6.25   mime_0.9       
  [5] magrittr_1.5    evaluate_0.14   highr_0.8       rlang_0.4.5    
  [9] stringi_1.4.6   rmarkdown_2.1   tools_3.6.3     stringr_1.4.0  
 [13] markdown_1.1    xfun_0.12       yaml_2.2.1      compiler_3.6.3 
-[17] htmltools_0.4.0 knitr_1.28     
+[17] htmltools_0.4.0
 ```
 
  \normalsize
@@ -1145,9 +1148,9 @@ ls() #현재 작업공간 내 객체명 출력
 
 ```
  [1] "a"                  "b"                  "cars"              
- [4] "def.chunk.hook"     "fig_cap"            "tab"               
- [7] "x"                  "y"                  "도움말 보기 명령어"
-[10] "사용법"             "설명"              
+ [4] "def.chunk.hook"     "fig_cap"            "hook_output"       
+ [7] "tab"                "x"                  "y"                 
+[10] "도움말 보기 명령어" "사용법"             "설명"              
 ```
 
  \normalsize
@@ -1162,9 +1165,9 @@ ls()
 
 ```
  [1] "a"                  "b"                  "cars"              
- [4] "def.chunk.hook"     "fig_cap"            "tab"               
- [7] "y"                  "도움말 보기 명령어" "사용법"            
-[10] "설명"              
+ [4] "def.chunk.hook"     "fig_cap"            "hook_output"       
+ [7] "tab"                "y"                  "도움말 보기 명령어"
+[10] "사용법"             "설명"              
 ```
 
 ```r
@@ -1174,8 +1177,8 @@ ls()
 
 ```
 [1] "cars"               "def.chunk.hook"     "fig_cap"           
-[4] "tab"                "y"                  "도움말 보기 명령어"
-[7] "사용법"             "설명"              
+[4] "hook_output"        "tab"                "y"                 
+[7] "도움말 보기 명령어" "사용법"             "설명"              
 ```
 
 ```r
@@ -1285,8 +1288,9 @@ a1 <- seq(from = 1, to = 10, by = 2)
 ```
 
 ```
-[1] "Damian Rice"   "Beatles"       "최백호"        "Queen"        
-[5] "Carlos Gardel" "BTS"           "조용필"       
+[1] "Damian Rice" "Beatles" "최백호"
+"Queen"
+[5] "Carlos Gardel" "BTS" "조용필"
 ```
 
  \normalsize
@@ -1434,7 +1438,10 @@ R Markdown 문서는 아래 그림과 같이 **YAML**, **Markdown 텍스트**, *
 - YAML 언어에 대한 사용 예시는 @xie-2016 의 [Appendix B.2](https://bookdown.org/yihui/bookdown/r-markdown.html) 참고
 - 최소 형태의 YAML 예시 
 
-```YAML
+\footnotesize
+
+
+```yaml
 ---
 title: "Hello R Markdown"
 author: "Zorba"
@@ -1442,6 +1449,8 @@ date: "2020-03-17"
 output: html_document
 ---
 ```
+
+ \normalsize
 
 **2. Markdown 텍스트**
 
@@ -1489,7 +1498,7 @@ plot(cars)
 abline(fit)
 ```
 
-![](01-overview_files/figure-epub3/unnamed-chunk-43-1.svg)<!-- -->
+![](01-overview_files/figure-epub3/unnamed-chunk-44-1.svg)<!-- -->
 
  \normalsize
 

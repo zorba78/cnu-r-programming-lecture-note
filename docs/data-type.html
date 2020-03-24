@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-03-23" />
+<meta name="date" content="2020-03-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -163,7 +163,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.6" data-path="scalar.html"><a href="scalar.html#null"><i class="fa fa-check"></i><b>2.1.6</b> NULL 값</a></li>
 <li class="chapter" data-level="2.1.7" data-path="scalar.html"><a href="scalar.html#finite"><i class="fa fa-check"></i><b>2.1.7</b> 무한대/무한소/숫자아님</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>2.2</b> 벡터(vector)</a></li>
+<li class="chapter" data-level="2.2" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>2.2</b> 벡터(vector)</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="vector.html"><a href="vector.html#vector-prop"><i class="fa fa-check"></i><b>2.2.1</b> 벡터의 특징</a></li>
+<li class="chapter" data-level="2.2.2" data-path="vector.html"><a href="vector.html#벡터의-연산"><i class="fa fa-check"></i><b>2.2.2</b> 벡터의 연산</a></li>
+<li class="chapter" data-level="2.2.3" data-path="vector.html"><a href="vector.html#vector-index"><i class="fa fa-check"></i><b>2.2.3</b> 벡터의 색인(indexing)</a></li>
+<li class="chapter" data-level="2.2.4" data-path="vector.html"><a href="vector.html#벡터-관련-함수"><i class="fa fa-check"></i><b>2.2.4</b> 벡터 관련 함수</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -191,12 +196,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <strong>학습목표(2 주차)</strong>: R의 데이터 차입 중 가장 기본이 되는 스칼라, 백터, 리스트에 대한 이해와 해당 객체를 생성하고, 이와 연관된 함수들을 익힌다.
 </div>
 
-<p></p>
+
 <div id="ch2-abstract" class="section level4 unnumbered">
 <h4>학습 필요성</h4>
 <ul>
 <li>R언어는 타 프로그래밍 언어와 유사한 자료형(정수형, 실수형, 문자형 등)을 제공</li>
-<li>R 언어가 다른 언어와 차이점 <span class="math inline">\(\rightarrow\)</span> <strong>데이터 분석</strong>에 특화된 벡터(vector), 행렬(matrix), 데이터프레임(data frame), 리스트(list)와 같은 객체<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> 제공</li>
+<li>R 언어가 다른 언어와 차이점 <span class="math inline">\(\rightarrow\)</span> <strong>데이터 분석</strong>에 특화된 벡터(vector), 행렬(matrix), 데이터프레임(data frame), 리스트(list)와 같은 객체<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> 제공</li>
 <li>R 패키지에서 제공되는 함수 사용 방법은 R의 데이터 타입(객체)에 따라 달라질 수 있음<br />
 </li>
 <li>R 언어를 원활히 다룰 수 있으려면 R에서 데이터 객체의 형태, 자료 할당 및 그 연산 방법에 대한 이해가 필수적으로 선행되어야 함</li>
@@ -227,12 +232,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>요인(factor)</strong>: 범주형 자료 표현(수치 + 문자 결합 형태로 이해하면 편함)</p></li>
 <li><p><strong>기타</strong>: 결측(<code>NA</code>), 숫자아님(<code>NaN</code>), 무한대(<code>Inf</code>) 등</p></li>
 </ul>
+<p><strong>아래 그림은 2~4 주차에 배울 R의 데이터 타입에 대한 개요도임</strong></p>
+
+<div class="figure" style="text-align: center"><span id="fig:rmarkdown-part"></span>
+<img src="figures/datatype-diagram.png" alt="R 데이터 타입 구조 다이어그램: [R, Python 분석과 프로그래밍 (by R Friend)]( http://rfriend.tistory.com/)에서 발췌 후 수정" width="80%" />
+<p class="caption">
+Figure 2.1: R 데이터 타입 구조 다이어그램: <a href="http://rfriend.tistory.com/">R, Python 분석과 프로그래밍 (by R Friend)</a>에서 발췌 후 수정
+</p>
+</div>
+
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="1">
-<li id="fn1"><p>R에서 사용자가 데이터 입력을 위해 생성 또는 읽어온 객체(object)는 종종 변수(variable)라는 말과 혼용. 본 문서에서는 최상위 데이터 저장장소를 객체라고 명명하며 데이터프레임과 같이 여러 종류의 데이터타입으로 이루어진 객체의 1차원 속성을 변수라고 칭함<a href="data-type.html#fnref1" class="footnote-back">↩</a></p></li>
+<ol start="7">
+<li id="fn7"><p>R에서 사용자가 데이터 입력을 위해 생성 또는 읽어온 객체(object)는 종종 변수(variable)라는 말과 혼용. 본 문서에서는 최상위 데이터 저장장소를 객체라고 명명하며 데이터프레임과 같이 여러 종류의 데이터타입으로 이루어진 객체의 1차원 속성을 변수라고 칭함<a href="data-type.html#fnref7" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>

@@ -2,7 +2,7 @@
 title: "통계 프로그래밍 언어"
 subtitle: "2020년도 1학기 충남대학교 정보통계학과 강의 노트"
 author: "한국한의학연구원, 구본초"
-date: "2020-03-23"
+date: "2020-03-24"
 knit: "bookdown::render_book"
 documentclass: krantz
 bibliography: [book.bib, packages.bib]
@@ -75,6 +75,7 @@ R은 뉴질랜드 오클랜드 대학의 Robert Gentleman 과 Ross Ihaka 가 AT&
 
 **참고 자료**
 
+- 빅데이터 분석 도구 R 프로그래밍 [@noman-2012]
 - 실리콘밸리 데이터과학자가 알려주는 따라하며 배우는 데이터 과학 [@kwon-2017]
 - R을 이용한 데이터 처리&분석 [@seo-2014]
 - R 그래픽스 [@ryu-2005]

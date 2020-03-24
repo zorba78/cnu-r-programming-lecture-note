@@ -315,7 +315,7 @@
 \makeatother
 \subtitle{2020년도 1학기 충남대학교 정보통계학과 강의 노트}
 \author{한국한의학연구원, 구본초}
-\date{2020-03-23}
+\date{2020-03-24}
 
 \let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
@@ -434,6 +434,8 @@ R은 뉴질랜드 오클랜드 대학의 Robert Gentleman 과 Ross Ihaka 가 AT\
 
 \begin{itemize}
 \tightlist
+\item
+  빅데이터 분석 도구 R 프로그래밍 \citep{noman-2012}
 \item
   실리콘밸리 데이터과학자가 알려주는 따라하며 배우는 데이터 과학 \citep{kwon-2017}
 \item
@@ -866,11 +868,14 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
+other attached packages:
+[1] knitr_1.28
+
 loaded via a namespace (and not attached):
  [1] compiler_3.6.3  magrittr_1.5    bookdown_0.18.1 htmltools_0.4.0
  [5] tools_3.6.3     yaml_2.2.1      Rcpp_1.0.3      stringi_1.4.6  
- [9] rmarkdown_2.1   knitr_1.28      stringr_1.4.0   digest_0.6.25  
-[13] xfun_0.12       rlang_0.4.5     evaluate_0.14  
+ [9] rmarkdown_2.1   stringr_1.4.0   digest_0.6.25   xfun_0.12      
+[13] rlang_0.4.5     evaluate_0.14  
 \end{verbatim}
 
 \normalsize
@@ -2186,9 +2191,9 @@ x dplyr::lag()        masks stats::lag()
 
 \begin{verbatim}
  [1] "a"                  "b"                  "cars"              
- [4] "def.chunk.hook"     "fig_cap"            "tab"               
- [7] "x"                  "y"                  "도움말 보기 명령어"
-[10] "사용법"             "설명"              
+ [4] "def.chunk.hook"     "fig_cap"            "hook_output"       
+ [7] "tab"                "x"                  "y"                 
+[10] "도움말 보기 명령어" "사용법"             "설명"              
 \end{verbatim}
 
 \normalsize
@@ -2204,9 +2209,9 @@ x dplyr::lag()        masks stats::lag()
 
 \begin{verbatim}
  [1] "a"                  "b"                  "cars"              
- [4] "def.chunk.hook"     "fig_cap"            "tab"               
- [7] "y"                  "도움말 보기 명령어" "사용법"            
-[10] "설명"              
+ [4] "def.chunk.hook"     "fig_cap"            "hook_output"       
+ [7] "tab"                "y"                  "도움말 보기 명령어"
+[10] "사용법"             "설명"              
 \end{verbatim}
 
 \begin{Shaded}
@@ -2218,8 +2223,8 @@ x dplyr::lag()        masks stats::lag()
 
 \begin{verbatim}
 [1] "cars"               "def.chunk.hook"     "fig_cap"           
-[4] "tab"                "y"                  "도움말 보기 명령어"
-[7] "사용법"             "설명"              
+[4] "hook_output"        "tab"                "y"                 
+[7] "도움말 보기 명령어" "사용법"             "설명"              
 \end{verbatim}
 
 \begin{Shaded}
@@ -2365,8 +2370,9 @@ Error in eval(expr, envir, enclos): 객체 'x'를 찾을 수 없습니다
 \end{Shaded}
 
 \begin{verbatim}
-[1] "Damian Rice"   "Beatles"       "최백호"        "Queen"        
-[5] "Carlos Gardel" "BTS"           "조용필"       
+[1] "Damian Rice" "Beatles" "최백호"
+"Queen"
+[5] "Carlos Gardel" "BTS" "조용필"
 \end{verbatim}
 
 \normalsize
@@ -2588,6 +2594,8 @@ R Markdown 문서는 아래 그림과 같이 \textbf{YAML}, \textbf{Markdown 텍
   최소 형태의 YAML 예시
 \end{itemize}
 
+\footnotesize
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \OtherTok{---}
@@ -2598,6 +2606,8 @@ R Markdown 문서는 아래 그림과 같이 \textbf{YAML}, \textbf{Markdown 텍
 \OtherTok{---}
 \end{Highlighting}
 \end{Shaded}
+
+\normalsize
 
 \textbf{2. Markdown 텍스트}
 
@@ -2664,7 +2674,7 @@ R Markdown 문서는 아래 그림과 같이 \textbf{YAML}, \textbf{Markdown 텍
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{01-overview_files/figure-latex/unnamed-chunk-43-1.pdf}
+\includegraphics{01-overview_files/figure-latex/unnamed-chunk-44-1.pdf}
 
 \normalsize
 
@@ -2707,6 +2717,14 @@ R Markdown 문서는 아래 그림과 같이 \textbf{YAML}, \textbf{Markdown 텍
 \hypertarget{data-type}{%
 \chapter{데이터 타입(Data Type)}\label{data-type}}
 
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}
+\textbf{학습목표(2 주차)}: R의 데이터 차입 중 가장 기본이 되는 스칼라, 백터, 리스트에 대한 이해와 해당 객체를 생성하고, 이와 연관된 함수들을 익힌다.
+\EndKnitrBlock{rmdnote}
+
+\normalsize
+
 \hypertarget{ch2-abstract}{%
 \subsubsection*{학습 필요성}\label{ch2-abstract}}
 
@@ -2716,11 +2734,11 @@ R Markdown 문서는 아래 그림과 같이 \textbf{YAML}, \textbf{Markdown 텍
 \item
   R언어는 타 프로그래밍 언어와 유사한 자료형(정수형, 실수형, 문자형 등)을 제공
 \item
-  R 언어가 다른 언어와 차이점 \(\rightarrow\) \textbf{데이터 분석}에 특화된 벡터(vector), 행렬(matrix), 데이터프레임(data frame), 리스트(list)를 제공
+  R 언어가 다른 언어와 차이점 \(\rightarrow\) \textbf{데이터 분석}에 특화된 벡터(vector), 행렬(matrix), 데이터프레임(data frame), 리스트(list)와 같은 객체\footnote{R에서 사용자가 데이터 입력을 위해 생성 또는 읽어온 객체(object)는 종종 변수(variable)라는 말과 혼용. 본 문서에서는 최상위 데이터 저장장소를 객체라고 명명하며 데이터프레임과 같이 여러 종류의 데이터타입으로 이루어진 객체의 1차원 속성을 변수라고 칭함} 제공
 \item
-  R 패키지에서 제공되는 함수 사용 방법은 R의 데이터 타입에 따라 달라질 수 있음\\
+  R 패키지에서 제공되는 함수 사용 방법은 R의 데이터 타입(객체)에 따라 달라질 수 있음\\
 \item
-  R 언어를 원활히 다룰 수 있으려면 R에서 데이터의 형태, 자료 할당 및 그 연산 방법에 대한 이해가 필수적으로 선행되어야 함
+  R 언어를 원활히 다룰 수 있으려면 R에서 데이터 객체의 형태, 자료 할당 및 그 연산 방법에 대한 이해가 필수적으로 선행되어야 함
 \end{itemize}
 
 \hypertarget{ch2-object-type}{%
@@ -2770,11 +2788,18 @@ R 객체 중 scalar, vector, matrix, data.frame \(\rightarrow\) 데이터 객체
   \textbf{기타}: 결측(\texttt{NA}), 숫자아님(\texttt{NaN}), 무한대(\texttt{Inf}) 등
 \end{itemize}
 
+\textbf{아래 그림은 2\textasciitilde4 주차에 배울 R의 데이터 타입에 대한 개요도임}
+
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}
-\textbf{학습목표(2 주차)}: R의 데이터 차입 중 가장 기본이 되는 스칼라, 백터, 리스트에 대한 이해와 해당 객체를 생성하고, 이와 연관된 함수들을 익힌다.
-\EndKnitrBlock{rmdnote}
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{figures/datatype-diagram} 
+
+}
+
+\caption{R 데이터 타입 구조 다이어그램: [R, Python 분석과 프로그래밍 (by R Friend)]( http://rfriend.tistory.com/)에서 발췌 후 수정}\label{fig:rmarkdown-part}
+\end{figure}
 
 \normalsize
 
@@ -2794,6 +2819,48 @@ R 객체 중 scalar, vector, matrix, data.frame \(\rightarrow\) 데이터 객체
 \BeginKnitrBlock{rmdtip}
 스칼라를 입력시 R의 벡터 지정 함수인 \texttt{c()}(벡터 부분에서 상세 내용 학습)를 꼭 사용해서 입력할 필요가 없다. 단, 두 개 이상 스칼라면 벡터이므로 꼭 c()를 써야 한다.
 \EndKnitrBlock{rmdtip}
+
+\normalsize
+
+\hypertarget{uxc120uxc5b8}{%
+\subsection{선언}\label{uxc120uxc5b8}}
+
+\begin{itemize}
+\tightlist
+\item
+  일반적으로 컴파일이 필요한 언어(예: \texttt{C} 언어)의 경우 변수 또는 객체를 사용 전에 선언이 필요
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{int}\NormalTok{ x; }
+\NormalTok{x = }\DecValTok{1}\NormalTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\item
+  위 코드에서 \texttt{int\ x;} 없이 \texttt{x\ =\ 1}을 입력 후 컴파일 하면 에러가 나타나지만 \texttt{R} 언어에서는 \textbf{변수를 선언할 필요가 전혀 없음}
+\item
+  \texttt{z} 가 어떤 데이터 타입인지 언급할 필요가 전혀 없음 \(\rightarrow\) \texttt{Python}, \texttt{Perl}, \texttt{Matlab} 등과 같은 스크립트 언어의 특징. 아래 코드 참조
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z <-}\StringTok{ }\DecValTok{3}
+\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 3
+\end{verbatim}
 
 \normalsize
 
@@ -2848,10 +2915,10 @@ R 객체 중 scalar, vector, matrix, data.frame \(\rightarrow\) 데이터 객체
 
 \caption{\label{tab:operation}R언어의 기본 수치 연산자}
 \centering
-\fontsize{11}{13}\selectfont
-\begin{tabular}[t]{ll}
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{6cm}}
 \toprule
-연산자 & 설명\\
+수치형 연산자 & 설명\\
 \midrule
 \rowcolor{gray!6}  +, -, *, / & 사칙연산\\
 n \%\% m & n을 m 으로 나눈 나머지\\
@@ -2993,9 +3060,13 @@ n \textasciicircum{} m 또는 n ** m & n 의 m 승\\
 \item
   수치형이 아닌 문자 형식의 단일 원소
 \item
+  C와 같은 언어에서 볼수 있는 한개 문자에 대한 데이터 타입 존재하지 않음
+\item
   수치연산 불가능
 \item
-  따옴표(\texttt{"})로 문자열 표시
+  따옴표(\texttt{"} 또는 \texttt{\textquotesingle{}})로 문자를 묶어서 문자열 표시
+\item
+  문자열을 다루는 자세한 설명은 5주차에서 자세히 설명할 예정임
 \end{itemize}
 
 \footnotesize
@@ -3066,6 +3137,1652 @@ Error in h1 - h2: 이항연산자에 수치가 아닌 인수입니다
 
 \hypertarget{logical}{%
 \subsection{논리형 스칼라}\label{logical}}
+
+\begin{itemize}
+\tightlist
+\item
+  참(\texttt{TRUE}, \texttt{T}) 또는 거짓(\texttt{FALSE}, \texttt{F})를 나타내는 값
+\item
+  \texttt{TRUE}/\texttt{FALSE}: 예약어(reversed word)
+\item
+  \texttt{T}/\texttt{F}: \texttt{TRUE}와 \texttt{FALSE}로 초기화된 전역 변수
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{T}에 \texttt{FALSE} 또는 어떤 값도 할당 가능 \(\rightarrow\) 가급적 \texttt{TRUE/FALSE}를 명시하는 것이 편함
+  \end{itemize}
+\item
+  논리형 연산자(logical operator)
+\end{itemize}
+
+\footnotesize
+
+\begin{table}[H]
+
+\caption{\label{tab:logic-op-tab}R언어의 논리형 연산자}
+\centering
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
+\toprule
+논리형 연산자 & 설명\\
+\midrule
+\rowcolor{gray!6}  \& & AND (vectorized)\\
+\&\& & AND (atomic)\\
+\rowcolor{gray!6}  | & OR (vectorized)\\
+|| & OR (atomic)\\
+\rowcolor{gray!6}  ! & NOT\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  비교 연산자를 적용할 경우 논리값을 반환
+\end{itemize}
+
+\footnotesize
+
+\begin{table}[H]
+
+\caption{\label{tab:comp-op-tab}R언어의 비교 연산자}
+\centering
+\fontsize{10}{12}\selectfont
+\begin{threeparttable}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
+\toprule
+비교 연산자 & 설명\\
+\midrule
+\rowcolor{gray!6}  > & 크다(greater-than)\\
+< & 작다(less-than)\\
+\rowcolor{gray!6}  == & 같다(equal)\\
+>= & 크거나 같다(greater than equal)\\
+\rowcolor{gray!6}  <= & 작거나 같다(less than equal)\\
+\addlinespace
+!= & 같지 않다(not equal)\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Note: } 
+\item 기술한 비교 연산자는 수치형 및 논리형 데이터 타입 모두에 적용 가능 하지만, 문자형은 비교 연산은 ==, != 만 가능함
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}
+\textbf{참고}
+
+\begin{itemize}
+\tightlist
+\item
+  논리형 스칼라도 숫자형 연산 가능 \(\rightarrow\) 컴퓨터는 \texttt{TRUE}/\texttt{FALSE}를 1과 0 숫자로 인식
+\item
+  수치 연산자는 스칼라 뿐 아니라 아래에서 다룰 벡터, 행렬, 리스트, 데이터프레임 객체의 연산에 사용 가능
+\item
+  \texttt{\&}/\texttt{\textbar{}}와 \texttt{\&\&}/\texttt{\textbar{}\textbar{}}는 동일하게 AND/OR를 의미하지만 연산 결과가 다름.
+\item
+  \texttt{\&}의 연산 대상이 벡터인 경우 백터 구성 값 각각에 대해 \texttt{\&} 연산을 실행 하지만 \texttt{\&\&}는 하나의 값(스칼라)에만 논리 연산이 적용(아래 예시 참고)
+\end{itemize}
+\EndKnitrBlock{rmdnote}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  논리형 스칼라의 논리 및 비교 연산 예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{typeof}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)  }\CommentTok{# TRUE의 데이터 타입}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "logical"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OtherTok{TRUE} \OperatorTok{&}\StringTok{ }\OtherTok{TRUE}  \CommentTok{# TRUE 반환}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OtherTok{TRUE} \OperatorTok{&}\StringTok{ }\OtherTok{FALSE}  \CommentTok{# FALSE 반환}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 아래 연산은 모두 TRUE 반환}
+\OtherTok{TRUE} \OperatorTok{|}\StringTok{ }\OtherTok{TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OtherTok{TRUE} \OperatorTok{|}\StringTok{ }\OtherTok{FALSE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# TRUE와 FALSE의 반대}
+\OperatorTok{!}\OtherTok{TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{!}\OtherTok{FALSE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 전역변수 T에 FALSE 값 할당}
+\NormalTok{T <-}\StringTok{ }\OtherTok{FALSE}
+\NormalTok{T}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{T <-}\StringTok{ }\OtherTok{TRUE}  \CommentTok{# 원상복귀}
+
+\CommentTok{# TRUE/FALSE에 값을 할당할 수 없음}
+\OtherTok{TRUE}\NormalTok{ <-}\StringTok{ }\DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Error in TRUE <- 1: 대입에 유효하지 않은 (do_set) 좌변입니다
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OtherTok{TRUE}\NormalTok{ <-}\StringTok{ }\OtherTok{FALSE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Error in TRUE <- FALSE: 대입에 유효하지 않은 (do_set) 좌변입니다
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# &(|)와 &&(||)의 차이}
+\NormalTok{l}\FloatTok{.01}\NormalTok{ <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{)  }\CommentTok{# 논리형 값으로 구성된 벡터}
+\NormalTok{l}\FloatTok{.02}\NormalTok{ <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{l}\FloatTok{.01} \OperatorTok{&}\StringTok{ }\NormalTok{l}\FloatTok{.02}  \CommentTok{# l.01과 l.02 각 원소 별 & 연산}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE  TRUE FALSE  TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l}\FloatTok{.01} \OperatorTok{&&}\StringTok{ }\NormalTok{l}\FloatTok{.02}  \CommentTok{# l.01과 l.02의 첫 번째 원소에 대해 & 연산}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 비교 연산자}
+\NormalTok{x <-}\StringTok{ }\DecValTok{9}
+\NormalTok{y <-}\StringTok{ }\DecValTok{4}
+
+\CommentTok{# x > y 의 반환값 데이터 타입}
+\KeywordTok{typeof}\NormalTok{(x }\OperatorTok{>}\StringTok{ }\NormalTok{y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "logical"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 논리형 값 반환}
+\NormalTok{x }\OperatorTok{>}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{<}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{==}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{!=}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{missing-value}{%
+\subsection{결측값(missing value)}\label{missing-value}}
+
+\begin{itemize}
+\tightlist
+\item
+  결측치 지정 \textbf{상수}: \texttt{NA} \(\rightarrow\) R과 다른 언어의 가장 큰 차이점 중 하나
+\item
+  예를 들어 4명의 통계학과 학생 중 3명의 통계학 개론 중간고사 점수가 각각 80, 90, 75점이고 4번 째 학생의 점수가 없는 경우 \texttt{NA}로 결측값 표현
+\item
+  \texttt{is.na()} 함수를 이용해 해당 값이 결측을 포함하고 있는지 확인
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{one <-}\StringTok{ }\DecValTok{80}\NormalTok{; two <-}\StringTok{ }\DecValTok{90}\NormalTok{; three <-}\StringTok{ }\DecValTok{75}\NormalTok{; four <-}\StringTok{ }\OtherTok{NA}
+\NormalTok{four}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 'is.na()' 결측 NA가 포함되어 있으면 TRUE }
+\KeywordTok{is.na}\NormalTok{(four)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}
+\texttt{is.na(object\_name)}: 객체를 구성하고 있는 원소 중 \texttt{NA}를 포함하고 있는지 확인 \(\rightarrow\) \texttt{NA}를 포함하면 \texttt{TRUE}, 아니면 \texttt{FALSE} 반환
+
+\textbf{참고}: 자료에 \texttt{NA}가 포함된 경우 연산 결과는 모두 \texttt{NA}가 반환
+\EndKnitrBlock{rmdtip}
+
+\normalsize
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OtherTok{NA} \OperatorTok{+}\StringTok{ }\DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OtherTok{NA} \OperatorTok{&}\StringTok{ }\OtherTok{TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OtherTok{NA} \OperatorTok{<=}\StringTok{ }\DecValTok{3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] NA
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{null}{%
+\subsection{NULL 값}\label{null}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{NULL}: 초기화 되지 않은 변수 또는 \textbf{객체}를 지칭함
+\item
+  \texttt{is.null()} 함수를 통해 객체가 \texttt{NULL}인지 판단
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\OtherTok{NULL} \CommentTok{# NULL 지정}
+\KeywordTok{is.null}\NormalTok{(x) }\CommentTok{# NULL 객체인지 판단}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\DecValTok{1}
+\KeywordTok{is.null}\NormalTok{(x) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}
+\textbf{\texttt{NA}와 \texttt{NULL}의 차이점}: 자료의 공백을 의미한다는 점에서 유사한 측면이 있으나 아래 내용처럼 큰 차이가 있음
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{NULL}: 값을 지정하지 않은 객체를 표현하는데 사용. 즉 아직 변수 또는 객체의 상태가 아직 미정인 상태를 나타냄
+\item
+  \texttt{NA}: 데이터 값이 결측임을 지정해주는 논리형 상수
+\end{itemize}
+\EndKnitrBlock{rmdnote}
+
+\normalsize
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# NA와 NULL은 다름}
+\NormalTok{x <-}\StringTok{ }\OtherTok{NA}
+\KeywordTok{is.null}\NormalTok{(}\OtherTok{NA}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.na}\NormalTok{(}\OtherTok{NULL}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+logical(0)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 데이터에서 NA와 NULL의 차이점}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{80}\NormalTok{, }\DecValTok{90}\NormalTok{, }\DecValTok{75}\NormalTok{, }\OtherTok{NA}\NormalTok{)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 80 90 75 NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{80}\NormalTok{, }\DecValTok{90}\NormalTok{, }\DecValTok{75}\NormalTok{, }\OtherTok{NULL}\NormalTok{)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 80 90 75
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{finite}{%
+\subsection{무한대/무한소/숫자아님}\label{finite}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{Inf}: 무한대(\(+\infty\), \(1/0\))
+\item
+  \texttt{-Inf}: 무한소(\(-\infty\), \(-1/0\))
+\item
+  \texttt{NaN}: 숫자아님(Not a Number, \(0/0\))
+\item
+  \texttt{is.finite()}, \texttt{is.infinite()}, \texttt{is.nan()} 함수를 통해 객체가 \texttt{Inf} 또는 \texttt{NaN}을 포함하는지 확인
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\OtherTok{Inf}
+\KeywordTok{is.finite}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.infinite}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\DecValTok{0}\OperatorTok{/}\DecValTok{0}
+\KeywordTok{is.nan}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.infinite}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}
+지금까지 요인형(factor)을 제외하고 R 언어에서 객체가 가질 수 있는 데이터 유형에 대해 알아봄. 요인형은 4주 차에 예정된 ``R 자료형: 팩터, 테이블, 데이터 프레임''에서 상세하게 배울 예정임.
+\EndKnitrBlock{rmdnote}
+
+\normalsize
+
+\hypertarget{vector}{%
+\section{벡터(vector)}\label{vector}}
+
+\hypertarget{vector-prop}{%
+\subsection{벡터의 특징}\label{vector-prop}}
+
+\begin{itemize}
+\tightlist
+\item
+  타 프로그래밍 언어의 배열(array)의 개념으로 \textbf{동일한 유형}의 데이터 원소가 하나 이상(\(n \times 1\), \(n \geq 1\)) 으로 구성된 자료 형태
+\item
+  R 언어의 가장 기본적인 데이터 형태로 R에서 행해지는 모든 연산의 기본(vectorization) \(\rightarrow\) 벡터 연산 시 반복구문(예: \texttt{for\ loop})이 필요 없음.
+\item
+  \ref{scalar} 절에서 기술한 \protect\hyperlink{scalar}{스칼라(scalar)}는 사실 \(1 \times 1\) 벡터임
+\item
+  수학적으로 벡터는 아래와 같이 나타낼 수 있음
+\end{itemize}
+
+\[\mathrm{\mathbf x} = [x_1, x_2, x_3, \ldots, x_n]^T
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  벡터는 앞의 예시에서 본 바와 같이 \texttt{c()} 함수를 사용해 생성
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 숫자형 벡터 }
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2 0 2 0 0 3 2 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 문자형 벡터}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Boncho Ku"}\NormalTok{, }\StringTok{"R programming"}\NormalTok{, }\StringTok{"Male"}\NormalTok{, }\StringTok{"sophomore"}\NormalTok{, }\StringTok{"2020-03-24"}\NormalTok{)}
+\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Boncho Ku"     "R programming" "Male"          "sophomore"    
+[5] "2020-03-24"   
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  두 개 이상의 벡터는 \texttt{c()} 함수를 통해 결합 가능
+
+  \begin{itemize}
+  \tightlist
+  \item
+    함수 내 \texttt{,} 구분자를 통해 결합
+  \end{itemize}
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 두 벡터의 결합 (1)}
+\NormalTok{x <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{5}
+\NormalTok{y <-}\StringTok{ }\DecValTok{10}\OperatorTok{:}\DecValTok{6}
+\NormalTok{z <-}\StringTok{ }\KeywordTok{c}\NormalTok{(x, y)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1 2 3 4 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 10  9  8  7  6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1]  1  2  3  4  5 10  9  8  7  6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\DecValTok{5}\OperatorTok{:}\DecValTok{10}
+\NormalTok{x1 <-}\StringTok{ }\NormalTok{x[}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{] }\CommentTok{# x 벡터에서 1에서 4번째 원소 추출}
+\NormalTok{x2 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(x1, }\DecValTok{15}\NormalTok{, x[}\DecValTok{4}\NormalTok{])}
+\NormalTok{x2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  5  6  7 15  8
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  서로 다른 자료형으로 벡터를 구성한 경우 표현력이 높은 자료형으로 변환한 값 반환
+
+  \begin{itemize}
+  \tightlist
+  \item
+    예: 문자열 + 숫자로 구성된 벡터 \(\rightarrow\) 문자형 벡터
+  \end{itemize}
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 숫자형 벡터와 문자열 벡터 혼용}
+\NormalTok{k <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\StringTok{"3"}\NormalTok{, }\StringTok{"4"}\NormalTok{)}
+\NormalTok{k}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "1" "2" "3" "4"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.numeric}\NormalTok{(k) }\CommentTok{# 벡터가 숫자형인지 판단하는 함수}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.character}\NormalTok{(k) }\CommentTok{# 벡터가 문자열인지 판단하는 함수}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 숫자형 벡터와 문자열 벡터 결합}
+\NormalTok{x <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{3}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{)}
+\NormalTok{z <-}\StringTok{ }\KeywordTok{c}\NormalTok{(x, y)}
+\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "1" "2" "3" "a" "b" "c"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.numeric}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.character}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 숫자형 벡터와 논리형 벡터 결합}
+\NormalTok{x <-}\StringTok{ }\DecValTok{9}\OperatorTok{:}\DecValTok{4}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{z <-}\StringTok{ }\KeywordTok{c}\NormalTok{(x, y)}
+
+\NormalTok{z }\CommentTok{# TRUE/FALSE 가 1과 0으로 변환}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 9 8 7 6 5 4 1 1 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.numeric}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.logical}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  두 벡터는 중첩이 불가능 \(\rightarrow\) 동일한 벡터 2개를 결합 시 단일 차원 벡터 생성
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\NormalTok{y <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{3} \CommentTok{# x와 y 동시에 [1, 2, 3] 할당}
+\NormalTok{x }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1 2 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1 2 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z <-}\StringTok{ }\KeywordTok{c}\NormalTok{(x, y)}
+\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1 2 3 1 2 3
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  벡터 각 원소에 이름 부여 가능
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{names()} 함수를 이용해 원소 이름 지정
+  \item
+    사용 프로토타입: \texttt{names(x)\ \textless{}-\ 문자열\ 벡터}, 단 \texttt{x}와 이름에 입력할 문자열 벡터의 길이는 같아야 함.
+  \end{itemize}
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Boncho Ku"}\NormalTok{, }\StringTok{"R programming"}\NormalTok{, }\StringTok{"Male"}\NormalTok{, }\StringTok{"sophomore"}\NormalTok{, }\StringTok{"2020-03-24"}\NormalTok{)}
+
+\CommentTok{# 벡터 원소 이름 지정}
+\KeywordTok{names}\NormalTok{(x) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"name"}\NormalTok{, }\StringTok{"course"}\NormalTok{, }\StringTok{"gender"}\NormalTok{, }\StringTok{"grade"}\NormalTok{, }\StringTok{"date"}\NormalTok{) }
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+           name          course          gender           grade            date 
+    "Boncho Ku" "R programming"          "Male"     "sophomore"    "2020-03-24" 
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  벡터의 길이(차원) 확인
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{length()} 또는 \texttt{NROW()} 사용
+  \end{itemize}
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{50}
+\CommentTok{# 객체의 길이 반환}
+\CommentTok{# length(): 벡터, 행렬인 경우 원소의 개수, 데이터프레임인 경우 열의 개수 반환}
+\KeywordTok{length}\NormalTok{(x) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 50
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# NROW(): 벡터인 경우 원소의 개수, 행렬, 데이터 프레임인 경우 행의 개수 반환}
+\KeywordTok{NROW}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 50
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{uxbca1uxd130uxc758-uxc5f0uxc0b0}{%
+\subsection{벡터의 연산}\label{uxbca1uxd130uxc758-uxc5f0uxc0b0}}
+
+\begin{itemize}
+\tightlist
+\item
+  원소 단위 사칙연산 및 비교연산
+\item
+  연산 순서는 일반적인 사칙연산의 순서를 준용
+
+  \begin{itemize}
+  \tightlist
+  \item
+    단 1단위 수열을 생성하는 \texttt{:} 연산자가 사칙연산을 우선함
+  \end{itemize}
+\item
+  \texttt{*} 연산 시 행렬 대수학에서 벡터의 곱(내적)과 다름을 주의
+\item
+  차원이 서로 맞지 않는 경우 작은 차원(짧은 쪽)의 백터를 재사용함
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{; y <-}\StringTok{ }\DecValTok{20}\OperatorTok{:}\DecValTok{11}
+\KeywordTok{length}\NormalTok{(x); }\KeywordTok{length}\NormalTok{(y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 10
+\end{verbatim}
+
+\begin{verbatim}
+[1] 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x; y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1]  1  2  3  4  5  6  7  8  9 10
+\end{verbatim}
+
+\begin{verbatim}
+ [1] 20 19 18 17 16 15 14 13 12 11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 사칙연산(+, -, *, /)}
+\CommentTok{# 백터 vs. 백터}
+\NormalTok{x }\OperatorTok{+}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 21 21 21 21 21 21 21 21 21 21
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{-}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] -19 -17 -15 -13 -11  -9  -7  -5  -3  -1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{*}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1]  20  38  54  68  80  90  98 104 108 110
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{/}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 0.0500000 0.1052632 0.1666667 0.2352941 0.3125000 0.4000000 0.5000000
+ [8] 0.6153846 0.7500000 0.9090909
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 그외 연산}
+\CommentTok{# 나머지(remainder)}
+\NormalTok{y }\OperatorTok{%%}\StringTok{ }\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 0 1 0 1 1 3 0 5 3 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 몫(quotient)}
+\NormalTok{y }\OperatorTok{%/%}\StringTok{ }\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 20  9  6  4  3  2  2  1  1  1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 멱승(exponent)}
+\NormalTok{y }\OperatorTok{^}\StringTok{ }\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1]          20         361        5832       83521     1048576    11390625
+ [7]   105413504   815730721  5159780352 25937424601
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 연산 우선 순위}
+\DecValTok{1}\OperatorTok{:}\DecValTok{5} \OperatorTok{*}\StringTok{ }\DecValTok{3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  3  6  9 12 15
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1}\OperatorTok{:}\NormalTok{(}\DecValTok{5} \OperatorTok{*}\StringTok{ }\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 벡터(n by 1) vs. 스칼라(1 by 1)}
+\NormalTok{x }\OperatorTok{*}\StringTok{ }\DecValTok{3} \CommentTok{# 3을 x의 길이 만큼 재사용(반복) 후 곱 연산 수행}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1]  3  6  9 12 15 18 21 24 27 30
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{4}\NormalTok{); y <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2 1 3 5 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2 3 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{length}\NormalTok{(x); }\KeywordTok{length}\NormalTok{(y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 5
+\end{verbatim}
+
+\begin{verbatim}
+[1] 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# x의 길이가 5이고 y의 길이가 3이기 때문에 5를 맞추기 위헤}
+\CommentTok{# y의 원소 중 1-2 번째 원소를 재사용}
+\NormalTok{x }\OperatorTok{+}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning in x + y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+\end{verbatim}
+
+\begin{verbatim}
+[1] 4 4 7 7 7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{/}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning in x/y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+\end{verbatim}
+
+\begin{verbatim}
+[1] 1.0000000 0.3333333 0.7500000 2.5000000 1.3333333
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 논리형 벡터}
+\NormalTok{b1 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{b2 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{)}
+
+\KeywordTok{is.numeric}\NormalTok{(b1); }\KeywordTok{is.numeric}\NormalTok{(b2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.logical}\NormalTok{(b1); }\KeywordTok{is.logical}\NormalTok{(b2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 논리형 벡터 연산}
+\NormalTok{b3 <-}\StringTok{ }\NormalTok{b1 }\OperatorTok{+}\StringTok{ }\NormalTok{b2}
+\KeywordTok{is.numeric}\NormalTok{(b3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1 2 1 2 2 2 0 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b1 }\OperatorTok{-}\StringTok{ }\NormalTok{b2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  1  0 -1  0  0  0  0 -1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b1 }\OperatorTok{*}\StringTok{ }\NormalTok{b2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0 1 0 1 1 1 0 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b1}\OperatorTok{/}\NormalTok{b2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] Inf   1   0   1   1   1 NaN   0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 두 벡터의 비교 연산}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{9}\NormalTok{)}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{7}\NormalTok{)}
+
+\NormalTok{x }\OperatorTok{==}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE  TRUE FALSE FALSE FALSE FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{!=}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{>}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE FALSE FALSE  TRUE FALSE  TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{<}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  TRUE FALSE  TRUE FALSE  TRUE FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{>=}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE  TRUE FALSE  TRUE FALSE  TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{<=}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  TRUE  TRUE  TRUE FALSE  TRUE FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 비교 연산 시 두 벡터의 길이가 다른 경우}
+\NormalTok{x <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{; y <-}\StringTok{ }\DecValTok{2}\OperatorTok{:}\DecValTok{4}
+
+\NormalTok{x }\OperatorTok{==}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning in x == y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+\end{verbatim}
+
+\begin{verbatim}
+[1] FALSE FALSE FALSE FALSE FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{!=}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning in x != y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+\end{verbatim}
+
+\begin{verbatim}
+[1] TRUE TRUE TRUE TRUE TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{>}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning in x > y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+\end{verbatim}
+
+\begin{verbatim}
+[1] FALSE FALSE FALSE  TRUE  TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{<}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning in x < y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+\end{verbatim}
+
+\begin{verbatim}
+[1]  TRUE  TRUE  TRUE FALSE FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{>=}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning in x >= y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+\end{verbatim}
+
+\begin{verbatim}
+[1] FALSE FALSE FALSE  TRUE  TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{<=}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning in x <= y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+\end{verbatim}
+
+\begin{verbatim}
+[1]  TRUE  TRUE  TRUE FALSE FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 결측을 포함한 벡터}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{))}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1]  1  2  3  4  5  6  7  8  9 10 NA NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] NA NA  1  2  3  4  5  6  7  8  9 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.na}\NormalTok{(x); }\KeywordTok{is.na}\NormalTok{(y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE
+\end{verbatim}
+
+\begin{verbatim}
+ [1]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 결측을 포함한 벡터의 연산 }
+\NormalTok{x }\OperatorTok{+}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] NA NA  4  6  8 10 12 14 16 18 NA NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{/}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1]       NA       NA 3.000000 2.000000 1.666667 1.500000 1.400000 1.333333
+ [9] 1.285714 1.250000       NA       NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# NULL을 포함한 벡터 }
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{NULL}\NormalTok{, }\DecValTok{1}\NormalTok{, }\OtherTok{NULL}\NormalTok{, }\DecValTok{2}\NormalTok{, }\OtherTok{NULL}\NormalTok{, }\DecValTok{3}\NormalTok{) }\CommentTok{# 길이가 6?}
+\KeywordTok{length}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1 2 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 문자열 벡터 연산 (==, !=)}
+\NormalTok{c1 <-}\StringTok{ }\NormalTok{letters[}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{]}
+\CommentTok{# a-z로 구성된 벡터에서 1-2, 6-8 번째 원소 추출}
+\NormalTok{c2 <-}\StringTok{ }\NormalTok{letters[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{, }\DecValTok{6}\OperatorTok{:}\DecValTok{8}\NormalTok{)] }
+\NormalTok{c1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "a" "b" "c" "d" "e"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "a" "b" "f" "g" "h"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c1 }\OperatorTok{==}\StringTok{ }\NormalTok{c2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  TRUE  TRUE FALSE FALSE FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c1 }\OperatorTok{!=}\StringTok{ }\NormalTok{c2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE FALSE  TRUE  TRUE  TRUE
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{vector-index}{%
+\subsection{벡터의 색인(indexing)}\label{vector-index}}
+
+\begin{itemize}
+\tightlist
+\item
+  벡터의 특정 위치에 있는 원소를 추출\\
+\item
+  색인(indexing)을 통해 벡터의 원소에 접근 가능
+\item
+  타 언어는 대체로 첫 번째 색인이 0에서 시작하지만, R은 1부터 시작
+\item
+  \texttt{x{[}i{]}}: 벡터 \texttt{x}의 \texttt{i}번 째 요소
+\item
+  \texttt{x{[}start:end{]}}: \texttt{x}의 \texttt{start}부터 \texttt{end}까지 값 반환 \(\rightarrow\)
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{1.2}\NormalTok{, }\FloatTok{3.1}\NormalTok{, }\FloatTok{4.2}\NormalTok{, }\FloatTok{2.8}\NormalTok{, }\FloatTok{3.3}\NormalTok{)}
+\NormalTok{x[}\DecValTok{3}\NormalTok{] }\CommentTok{# x 원소 중 3 번째 원소 추출}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 4.2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# x 원소 중 2-3번째 원소 추출}
+\CommentTok{# 아래 예시는 모두 동일한 결과 반환}
+\NormalTok{x[}\DecValTok{2}\OperatorTok{:}\DecValTok{3}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 3.1 4.2
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{x{[}-i{]}}: 벡터 \texttt{x}에서 \texttt{i}번 째 요소를 제외한 나머지 값 반환
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# x의 3 번째 원소 제거}
+\NormalTok{x[}\OperatorTok{-}\DecValTok{3}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1.2 3.1 2.8 3.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 맨 마지막 원소(5 번째) 제거}
+\CommentTok{# 아래 script는 동일한 결과 출력}
+\NormalTok{x[}\DecValTok{1}\OperatorTok{:}\NormalTok{(}\KeywordTok{length}\NormalTok{(x) }\OperatorTok{-}\StringTok{ }\DecValTok{1}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1.2 3.1 4.2 2.8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x[}\OperatorTok{-}\KeywordTok{length}\NormalTok{(x)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1.2 3.1 4.2 2.8
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{x{[}idx\_vec{]}}: \texttt{idx\_vec}가 인덱싱 벡터라고 할 때 \texttt{idx\_vec}에 지정된 요소를 얻어옴. 일반적으로 \texttt{idx\_vec}는 백터의 행 순서 번호 또는 각 벡터 원소의 이름에 대응하는 문자열 벡터를 인덱싱 벡터로 사용할 수 있음.
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 벡터를 이용한 인덱싱}
+\CommentTok{# x 원소 중 1, 5번째 원소 추출}
+\NormalTok{x[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{)] }\CommentTok{# c(1,5)는 벡터}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1.2 3.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{)}
+\NormalTok{x[v]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1.2 2.8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 인덱스 번호 중복 가능}
+\NormalTok{x[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1.2 3.1 3.1 2.8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 원소 이름으로 인덱싱}
+\CommentTok{# 원소 이름 지정}
+\KeywordTok{names}\NormalTok{(x) <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\StringTok{"x"}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(x)) }\CommentTok{# 문자열 "x"와 숫자 1:5(벡터 길이)를 결합한 문자열 반환}
+\NormalTok{x[}\StringTok{"x3"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ x3 
+4.2 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x[}\KeywordTok{c}\NormalTok{(}\StringTok{"x2"}\NormalTok{, }\StringTok{"x4"}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ x2  x4 
+3.1 2.8 
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{uxbca1uxd130-uxad00uxb828-uxd568uxc218}{%
+\subsection{벡터 관련 함수}\label{uxbca1uxd130-uxad00uxb828-uxd568uxc218}}
 
   \bibliography{book.bib,packages.bib}
 

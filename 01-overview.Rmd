@@ -1,15 +1,28 @@
 \mainmatter
 
 ```{r chunk-setup, echo=FALSE, message=FALSE}
-knitr::opts_chunk$set(size="footnotesize",
+require(knitr)
+opts_chunk$set(size="footnotesize",
                       comment = NA,
                       highlight = TRUE)
 def.chunk.hook  <- knitr::knit_hooks$get("chunk")
-knitr::knit_hooks$set(chunk = function(x, options) {
+knit_hooks$set(chunk = function(x, options) {
   x <- def.chunk.hook(x, options)
   ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
 })
 # options(width = 85)
+hook_output = knitr::knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = knitr:::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+opts_chunk$set(tidy.opts=list(width.cutoff=80))
 ```
 
 
@@ -766,7 +779,7 @@ knitr::include_graphics('figures/rstudio-pack-win-02.png', dpi = NA)
 **실습**: `install.packages()` 함수를 이용해 `tidyverse` 패키지 설치
 ```
 
-```{r, eval=FALSE, comment=NA, tidy=TRUE}
+```{r, eval=FALSE, comment=NA, tidy=TRUE, linewidth=80}
 install.packages("tidyverse")
 ```
 
@@ -787,7 +800,7 @@ install.packages("tidyverse")
 **실습**: `tidyverse` 패키지 불러오기
 ```
 
-```{r multiple-package, eval=TRUE, warning=FALSE}
+```{r multiple-package, eval=TRUE, warning=FALSE, linewidth=60}
 require(tidyverse)
 ```
 
@@ -855,7 +868,7 @@ x
 - `.`로 시작한 경우 뒤에 숫자 올 수 없음(숫자로 인지)
 - 대소문자 구분
     
-```{r objectName-ex01, echo = T, eval = T, prompt = F}
+```{r objectName-ex01, echo = T, eval = T, prompt = F, linewidth=40}
 # 1:10은 1부터 10까지 정수 생성
 # 'c()'는 벡터 생성 함수
 x <- c(1:10) 
@@ -963,7 +976,7 @@ knitr::include_graphics('figures/rmarkdown-part.png', dpi = NA)
 - YAML 언어에 대한 사용 예시는 @xie-2016 의 [Appendix B.2](https://bookdown.org/yihui/bookdown/r-markdown.html) 참고
 - 최소 형태의 YAML 예시 
 
-```YAML
+```{YAML, size="footnotesize"}
 ---
 title: "Hello R Markdown"
 author: "Zorba"
