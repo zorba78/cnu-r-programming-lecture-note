@@ -1086,7 +1086,7 @@ require(tidyverse)
 ```
 
 ```
--- Attaching packages --------------------------------------------------------------------- tidyverse 1.3.0 --
+-- Attaching packages -------------------------------------------------------------------- tidyverse 1.3.0 --
 ```
 
 ```
@@ -1097,7 +1097,7 @@ require(tidyverse)
 ```
 
 ```
--- Conflicts ------------------------------------------------------------------------ tidyverse_conflicts() --
+-- Conflicts ----------------------------------------------------------------------- tidyverse_conflicts() --
 x dplyr::filter()     masks stats::filter()
 x dplyr::group_rows() masks kableExtra::group_rows()
 x dplyr::lag()        masks stats::lag()
