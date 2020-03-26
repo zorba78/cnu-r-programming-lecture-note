@@ -1,14 +1,11 @@
 
-# 데이터 타입(Data Type) {#data-type}
+# R 객체(R object) {#data-type}
 
 
-```
-## Warning: 패키지 'knitr'는 R 버전 3.6.3에서 작성되었습니다
-```
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">**학습목표(2 주차)**: R의 데이터 차입 중 가장 기본이 되는 스칼라, 백터, 리스트에 대한 이해와 해당 객체를 생성하고, 이와 연관된 함수들을 익힌다.</div>\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">**학습목표(2 주차)**: R에서 사용 가능한 데이터 타입에 대해 알아보고, 고유 데이터 타입으로 구성한 객체(스칼라, 백터, 리스트)와 이와 연관된 함수들을 익힌다.</div>\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -16,9 +13,9 @@
 
 #### 학습 필요성 {#ch2-abstract .unnumbered}
 
-- R언어는 타 프로그래밍 언어와 유사한 자료형(정수형, 실수형, 문자형 등)을 제공
+- R언어는 타 프로그래밍 언어와 유사한 데이터 타입(정수형, 실수형, 문자형 등)을 제공
 - R 언어가 다른 언어와 차이점 $\rightarrow$ **데이터 분석**에 특화된 벡터(vector), 행렬(matrix), 데이터프레임(data frame), 리스트(list)와 같은 객체^[R에서 사용자가 데이터 입력을 위해 생성 또는 읽어온 객체(object)는 종종 변수(variable)라는 말과 혼용. 본 문서에서는 최상위 데이터 저장장소를 객체라고 명명하며 데이터프레임과 같이 여러 종류의 데이터타입으로 이루어진 객체의 1차원 속성을 변수라고 칭함] 제공
-- R 패키지에서 제공되는 함수 사용 방법은 R의 데이터 타입(객체)에 따라 달라질 수 있음  
+- R 패키지에서 제공되는 함수 사용 방법은 R의 객체에 따라 달라질 수 있음  
 - R 언어를 원활히 다룰 수 있으려면 R에서 데이터 객체의 형태, 자료 할당 및 그 연산 방법에 대한 이해가 필수적으로 선행되어야 함
 
 
@@ -37,7 +34,7 @@
 R 객체 중 scalar, vector, matrix, data.frame $\rightarrow$ 데이터 객체(object)
 
 
-#### 객체에 입력 가능한 값 {#object-value .unnumbered}
+#### R의 데이터 타입 {#object-value .unnumbered}
 
 - **수치형(numeric)**: 숫자(정수, 소수)
 
@@ -59,7 +56,7 @@ R 객체 중 scalar, vector, matrix, data.frame $\rightarrow$ 데이터 객체(o
 \footnotesize
 
 <div class="figure" style="text-align: center">
-<img src="figures/datatype-diagram.png" alt="R 데이터 타입 구조 다이어그램: [R, Python 분석과 프로그래밍 (by R Friend)]( http://rfriend.tistory.com/)에서 발췌 후 수정" width="80%" />
+<img src="figures/datatype-diagram.png" alt="R 데이터 타입 구조 다이어그램: [R, Python 분석과 프로그래밍 (by R Friend)]( http://rfriend.tistory.com/)에서 발췌 후 수정" width="100%" />
 <p class="caption">(\#fig:rmarkdown-part)R 데이터 타입 구조 다이어그램: [R, Python 분석과 프로그래밍 (by R Friend)]( http://rfriend.tistory.com/)에서 발췌 후 수정</p>
 </div>
 
@@ -74,11 +71,11 @@ R 객체 중 scalar, vector, matrix, data.frame $\rightarrow$ 데이터 객체(o
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}<div class="rmdtip">스칼라를 입력시 R의 벡터 지정 함수인 `c()`(벡터 부분에서 상세 내용 학습)를 꼭 사용해서 입력할 필요가 없다. 단, 두 개 이상 스칼라면 벡터이므로 꼭 c()를 써야 한다.</div>\EndKnitrBlock{rmdtip}
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">스칼라를 입력시 R의 벡터 지정 함수인 `c()`(벡터 부분에서 상세 내용 학습)를 꼭 사용해서 입력할 필요가 없다. 단, 연속되지 않은 두 개 이상 스칼라면 벡터이므로 꼭 c()를 써야 한다.</div>\EndKnitrBlock{rmdtip}
 
  \normalsize
 
-### 선언
+### 선언 {#definition}
 
 - 일반적으로 컴파일이 필요한 언어(예: `C` 언어)의 경우 변수 또는 객체를 사용 전에 선언이 필요
 
@@ -154,20 +151,20 @@ typeof(10)
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;width: 4cm; "> +, -, *, / </td>
-   <td style="text-align:left;width: 6cm; "> 사칙연산 </td>
+   <td style="text-align:left;width: 4cm; font-family: monospace;"> +, -, *, / </td>
+   <td style="text-align:left;width: 6cm; font-family: monospace;"> 사칙연산 </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 4cm; "> n %% m </td>
-   <td style="text-align:left;width: 6cm; "> n을 m 으로 나눈 나머지 </td>
+   <td style="text-align:left;width: 4cm; font-family: monospace;"> n %% m </td>
+   <td style="text-align:left;width: 6cm; font-family: monospace;"> n을 m 으로 나눈 나머지 </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 4cm; "> n %/% m </td>
-   <td style="text-align:left;width: 6cm; "> n을 m 으로 나눈 몫 </td>
+   <td style="text-align:left;width: 4cm; font-family: monospace;"> n %/% m </td>
+   <td style="text-align:left;width: 6cm; font-family: monospace;"> n을 m 으로 나눈 몫 </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 4cm; "> n ^ m 또는 n ** m </td>
-   <td style="text-align:left;width: 6cm; "> n 의 m 승 </td>
+   <td style="text-align:left;width: 4cm; font-family: monospace;"> n ^ m 또는 n ** m </td>
+   <td style="text-align:left;width: 6cm; font-family: monospace;"> n 의 m 승 </td>
   </tr>
 </tbody>
 </table>
@@ -364,24 +361,24 @@ Error in h1 - h2: 이항연산자에 수치가 아닌 인수입니다
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;width: 3cm; "> &amp; </td>
-   <td style="text-align:left;width: 7cm; "> AND (vectorized) </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> &amp; </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> AND (vectorized) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; "> &amp;&amp; </td>
-   <td style="text-align:left;width: 7cm; "> AND (atomic) </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> &amp;&amp; </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> AND (atomic) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; "> | </td>
-   <td style="text-align:left;width: 7cm; "> OR (vectorized) </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> | </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> OR (vectorized) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; "> || </td>
-   <td style="text-align:left;width: 7cm; "> OR (atomic) </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> || </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> OR (atomic) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; "> ! </td>
-   <td style="text-align:left;width: 7cm; "> NOT </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> ! </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> NOT </td>
   </tr>
 </tbody>
 </table>
@@ -403,28 +400,28 @@ Error in h1 - h2: 이항연산자에 수치가 아닌 인수입니다
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;width: 3cm; "> &gt; </td>
-   <td style="text-align:left;width: 7cm; "> 크다(greater-than) </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> &gt; </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 크다(greater-than) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; "> &lt; </td>
-   <td style="text-align:left;width: 7cm; "> 작다(less-than) </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> &lt; </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 작다(less-than) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; "> == </td>
-   <td style="text-align:left;width: 7cm; "> 같다(equal) </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> == </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 같다(equal) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; "> &gt;= </td>
-   <td style="text-align:left;width: 7cm; "> 크거나 같다(greater than equal) </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> &gt;= </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 크거나 같다(greater than equal) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; "> &lt;= </td>
-   <td style="text-align:left;width: 7cm; "> 작거나 같다(less than equal) </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> &lt;= </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 작거나 같다(less than equal) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; "> != </td>
-   <td style="text-align:left;width: 7cm; "> 같지 않다(not equal) </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> != </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 같지 않다(not equal) </td>
   </tr>
 </tbody>
 <tfoot>
@@ -525,7 +522,6 @@ T
 
 ```r
 T <- TRUE  # 원상복귀
-
 # TRUE/FALSE에 값을 할당할 수 없음
 TRUE <- 1
 ```
@@ -546,7 +542,6 @@ Error in TRUE <- FALSE: 대입에 유효하지 않은 (do_set) 좌변입니다
 # &(|)와 &&(||)의 차이
 l.01 <- c(TRUE, TRUE, FALSE, TRUE)  # 논리형 값으로 구성된 벡터
 l.02 <- c(FALSE, TRUE, TRUE, TRUE)
-
 l.01 & l.02  # l.01과 l.02 각 원소 별 & 연산
 ```
 
@@ -566,7 +561,6 @@ l.01 && l.02  # l.01과 l.02의 첫 번째 원소에 대해 & 연산
 # 비교 연산자
 x <- 9
 y <- 4
-
 # x > y 의 반환값 데이터 타입
 typeof(x > y)
 ```
@@ -737,26 +731,14 @@ is.na(NULL)
 logical(0)
 ```
 
-```r
-# 데이터에서 NA와 NULL의 차이점
-x <- c(80, 90, 75, NA)
-x
-```
-
-```
-[1] 80 90 75 NA
-```
-
-```r
-x <- c(80, 90, 75, NULL)
-x
-```
-
-```
-[1] 80 90 75
-```
-
  \normalsize
+
+<!-- # 데이터에서 NA와 NULL의 차이점 -->
+<!-- x <- c(80, 90, 75, NA) -->
+<!-- x -->
+
+<!-- x <- c(80, 90, 75, NULL) -->
+<!-- x -->
 
 ### 무한대/무한소/숫자아님 {#finite}
 
@@ -903,6 +885,8 @@ x2
 
 - 서로 다른 자료형으로 벡터를 구성한 경우 표현력이 높은 자료형으로 변환한 값 반환
     - 예: 문자열 + 숫자로 구성된 벡터 $\rightarrow$ 문자형 벡터
+    - 변환규칙: `NULL < raw < logical < integer < double < complex < character < list < expression`
+
 
 \footnotesize
 
@@ -1029,6 +1013,7 @@ z
 - 벡터 각 원소에 이름 부여 가능
     - `names()` 함수를 이용해 원소 이름 지정
     - 사용 프로토타입: `names(x) <- 문자열 벡터`, 단 `x`와 이름에 입력할 문자열 벡터의 길이는 같아야 함. 
+    - `c()` 함수에서 직접 이름 지정 $\rightarrow$ `c(atom_name1 = value, atom_name2 = value, ...)`
 
 \footnotesize
 
@@ -1044,6 +1029,15 @@ x
 ```
            name          course          gender           grade            date 
     "Boncho Ku" "R programming"          "Male"     "sophomore"    "2020-03-24" 
+```
+
+```r
+y <- c(a = 10, b = 6, c = 9)
+names(y)
+```
+
+```
+[1] "a" "b" "c"
 ```
 
  \normalsize
@@ -1078,7 +1072,7 @@ NROW(x)
 
 ### 벡터의 연산 {#vector-operation}
 
-- 원소 단위 사칙연산 및 비교연산
+- 원소 단위 사칙연산 및 비교연산 수행 $\rightarrow$ 벡터화 연산(vectorized operation)
    - 예를 들어 $\mathrm{\mathbf x} = [1, 2, 3]^T$ 이고, $\mathrm{\mathbf y} = [2, 3, 4]^T$ 라고 할 때 $\mathrm{\mathbf x} + \mathrm{\mathbf y}$의 연산은 아래와 같음
 
 $$\begin{bmatrix}
@@ -1093,10 +1087,7 @@ $$\begin{bmatrix}
 $$
 
 
-- 연산 순서는 일반적인 사칙연산의 순서를 준용
-   - 단 1단위 수열을 생성하는 `:` 연산자가 사칙연산을 우선함
-   
-- `*` 연산 시 행렬 대수학에서 벡터의 곱(내적)과 다름을 주의
+- `*` 연산 시 행렬 대수학에서 벡터의 곱(product)과 다름을 주의
 
 $$\begin{bmatrix}
 1 \\ 2\\ 3
@@ -1108,23 +1099,6 @@ $$\begin{bmatrix}
 2 \\ 6 \\ 12
 \end{bmatrix}
 $$
-
-- 차원이 서로 맞지 않는 경우 작은 차원(짧은 쪽)의 백터를 재사용함
-
-$$\begin{bmatrix}
-1 \\ 2\\ 3
-\end{bmatrix} + [5] = 
-\begin{bmatrix}
-1 \\ 2\\ 3
-\end{bmatrix} + 
-\begin{bmatrix}
-5 \\ 5\\ 5
-\end{bmatrix} = 
-\begin{bmatrix}
-6 \\ 7 \\ 8
-\end{bmatrix}
-$$
-
 
 \footnotesize
 
@@ -1216,22 +1190,28 @@ y ^ x
 [1]  2  9 64
 ```
 
-```r
-# 연산 우선 순위
-1:5 * 3
-```
+ \normalsize
 
-```
-[1]  3  6  9 12 15
-```
 
-```r
-1:(5 * 3)
-```
+- 차원이 서로 맞지 않는 경우 작은 차원(짧은 쪽)의 백터를 재사용함
 
-```
- [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
-```
+$$\begin{bmatrix}
+1 \\ 2\\ 3
+\end{bmatrix} + [5] = 
+\begin{bmatrix}
+1 \\ 2\\ 3
+\end{bmatrix} + 
+\begin{bmatrix}
+5 \\ 5\\ 5
+\end{bmatrix} = 
+\begin{bmatrix}
+6 \\ 7 \\ 8
+\end{bmatrix}
+$$
+
+
+\footnotesize
+
 
 ```r
 # 벡터(n by 1) vs. 스칼라(1 by 1)
@@ -1296,6 +1276,41 @@ Warning in x/y: 두 객체의 길이가 서로 배수관계에 있지 않습니�
 ```
 [1] 1.0000000 0.3333333 0.7500000 2.5000000 1.3333333
 ```
+
+ \normalsize
+
+
+- 연산 순서는 일반적인 사칙연산의 순서를 준용
+   - 단 1단위 수열을 생성하는 `:` 연산자가 사칙연산을 우선함
+
+\footnotesize
+
+
+```r
+# 연산 우선 순위
+1:5 * 3
+```
+
+```
+[1]  3  6  9 12 15
+```
+
+```r
+1:(5 * 3)
+```
+
+```
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+```
+
+ \normalsize
+
+
+- 논리형 값으로 구성된 벡터의 기본 연산 시 수치형으로 변환된 연산 결과를 반환
+
+
+\footnotesize
+
 
 ```r
 # 논리형 벡터
@@ -1366,6 +1381,16 @@ b1/b2
 ```
 [1] Inf   1   0   1   1   1 NaN   0
 ```
+
+ \normalsize
+
+
+- 두 벡터 간 비교 연산은 사칙연산과 마찬가지로 각 원소단위 연산을 수행하고 논리형 벡터 반환
+  - 재사용 규칙은 그대로 적용됨
+
+
+\footnotesize
+
 
 ```r
 # 두 벡터의 비교 연산
@@ -1494,6 +1519,60 @@ Warning in x <= y: 두 객체의 길이가 서로 배수관계에 있지 않습�
 [1]  TRUE  TRUE  TRUE FALSE FALSE
 ```
 
+ \normalsize
+
+
+- 문자열 벡터의 연산은 `==` 또는 `!=` 만 가능(사칙연산 불가능)
+
+
+\footnotesize
+
+
+```r
+# 문자열 벡터 연산 (==, !=)
+c1 <- letters[1:5]
+# a-z로 구성된 벡터에서 1-2, 6-8 번째 원소 추출
+c2 <- letters[c(1:2, 6:8)] 
+c1
+```
+
+```
+[1] "a" "b" "c" "d" "e"
+```
+
+```r
+c2
+```
+
+```
+[1] "a" "b" "f" "g" "h"
+```
+
+```r
+c1 == c2
+```
+
+```
+[1]  TRUE  TRUE FALSE FALSE FALSE
+```
+
+```r
+c1 != c2
+```
+
+```
+[1] FALSE FALSE  TRUE  TRUE  TRUE
+```
+
+ \normalsize
+
+
+- `NA`를 포함한 두 벡터 연산 시 동일 위치에 `NA`가 존재하면 어떤 연산이든 `NA` 값을 반환
+
+
+\footnotesize
+
+
 ```r
 # 결측을 포함한 벡터
 x <- c(1:10, c(NA, NA))
@@ -1544,8 +1623,32 @@ x / y
 ```
 
 ```r
+x < y
+```
+
+```
+ [1]    NA    NA FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE    NA    NA
+```
+
+```r
+x > y
+```
+
+```
+ [1]   NA   NA TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE   NA   NA
+```
+
+ \normalsize
+
+- `NULL`이 벡터에 포함되더라도 벡터의 길이에는 변동이 없음
+
+
+\footnotesize
+
+
+```r
 # NULL을 포함한 벡터 
-x <- c(NULL, 1, NULL, 2, NULL, 3) # 길이가 6?
+x <- c(1, 2, 3, NULL, NULL, NULL) # 길이가 6?
 length(x)
 ```
 
@@ -1561,43 +1664,8 @@ x
 [1] 1 2 3
 ```
 
-```r
-# 문자열 벡터 연산 (==, !=)
-c1 <- letters[1:5]
-# a-z로 구성된 벡터에서 1-2, 6-8 번째 원소 추출
-c2 <- letters[c(1:2, 6:8)] 
-c1
-```
-
-```
-[1] "a" "b" "c" "d" "e"
-```
-
-```r
-c2
-```
-
-```
-[1] "a" "b" "f" "g" "h"
-```
-
-```r
-c1 == c2
-```
-
-```
-[1]  TRUE  TRUE FALSE FALSE FALSE
-```
-
-```r
-c1 != c2
-```
-
-```
-[1] FALSE FALSE  TRUE  TRUE  TRUE
-```
-
  \normalsize
+
 
 ### 벡터의 색인(indexing) {#vector-index}
 
@@ -1606,6 +1674,7 @@ c1 != c2
 - 타 언어는 대체로 첫 번째 색인이 0에서 시작하지만, R은 1부터 시작
 - `x[i]`: 벡터 `x`의 `i`번 째 요소
 - `x[start:end]`: `x`의 `start`부터 `end`까지 값 반환
+
 
 \footnotesize
 
@@ -1740,14 +1809,1338 @@ w
 
  \normalsize
 
-- 작동 원리
+- 작동 원리 
+   - `z^2 > 8`은 벡터 `z`의 모든 원소 제곱값이 8 보다 큰 케이스를 논리형 값으로 반환
+   
+\footnotesize
 
 
+```r
+z^2
+```
 
+```
+[1] 25  4  9 64
+```
+
+```r
+idx <- z^2 > 8
+idx
+```
+
+```
+[1]  TRUE FALSE  TRUE  TRUE
+```
+
+```r
+z[idx]
+```
+
+```
+[1]  5 -3  8
+```
+
+ \normalsize
+
+- 특정 조건을 만족하는 벡터의 위치에 임의의 값을 치환할 수 있음
+
+\footnotesize
+
+
+```r
+# 위 벡터 z 의 원소 중 z^2 > 8 인 원소의 값을 0으로 치환
+z[idx] <- 0
+```
+
+ \normalsize
 
 
 ### 벡터 관련 함수 {#vector-function}
 
+- `c()` 함수 외에 R은 벡터 생성을 위해 몇 가지 유용한 함수를 제공함
+
+
+#### **`seq`** 계열 함수 {#fun-seq .unnumbered}
+
+> 보다 자세한 사용 설명은 `help(seq)` 참고
+
+**`seq()`**: 등차 수열 생성하는 함수로 from`에서 `end` 까지 숫자 내에서 공차(간격)가 `by` 인 수열 생성 
+
+\footnotesize
+
+
+```r
+# seq(): 수열 생성 함수
+seq(
+  from, # 시작값
+  to,   # 끝값
+  by    # 공차(증가치)
+)
+
+# 기타 인수
+# length.out = n
+#   - 생성하고자 하는 벡터의 길이가 n인 수열 생성
+# along.with = 1:n 
+#   - index가 1에서 n 까지 길이를 갖는 수열 생성
+```
+
+ \normalsize
+
+- **사용 예시**
+
+
+\footnotesize
+
+
+```r
+x <- seq(from = 2, to = 30, by = 2)
+x 
+```
+
+```
+ [1]  2  4  6  8 10 12 14 16 18 20 22 24 26 28 30
+```
+
+```r
+# 간격이 꼭 정수가 아니어도 사용 가능
+x <- seq(from = 0, to = 3, by = 0.2)
+
+# by 대신 length.out 으로 생성된 수열의 길이 조정
+x <- seq(from = -3, to = 3, length.out = 10)
+x
+```
+
+```
+ [1] -3.0000000 -2.3333333 -1.6666667 -1.0000000 -0.3333333  0.3333333
+ [7]  1.0000000  1.6666667  2.3333333  3.0000000
+```
+
+```r
+# from, to 인수 없이 length.out=10 인 경우
+seq(length.out = 10)
+```
+
+```
+ [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+```r
+# by 대신 along.width 
+seq(along.with=1:10)
+```
+
+```
+ [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+```r
+seq(1, 5, along.with=1:10)
+```
+
+```
+ [1] 1.000000 1.444444 1.888889 2.333333 2.777778 3.222222 3.666667 4.111111
+ [9] 4.555556 5.000000
+```
+
+```r
+# 벡터 x에 seq() 함수 적용 시 1:length(x) 값 반환
+seq(x)
+```
+
+```
+ [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+ \normalsize
+
+
+**`seq_along()`**: 주어진 객체의 길이 만큼 1부터 1 간격의 수열 생성
+
+- `seq()` 함수와 매우 유사하나, 무조건 1부터 시작해서 인수로 `seq()`의 `along.with` 값을 이용한 함수
+- `seq()` 함수보다 조금 빠름
+- **사용 예시**
+
+\footnotesize
+
+
+```r
+# 1부터 x 벡터의 길이 까지 1 단위 수열 값 반환
+seq_along(x)
+```
+
+```
+ [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+ \normalsize
+
+**`seq_len()`**: 인수로 받은 값 만큼 1부터 해당 값 까지 1 간격의 수열 생성
+
+- `seq()` 함수의 인수 중 `length.out` 값을 이용한 함수
+- **사용 예시**
+
+\footnotesize
+
+
+```r
+# 1부터 n 까지 1 단위 수열 값 반환
+seq_len(10)
+```
+
+```
+ [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+ \normalsize
+
+
+#### **`rep`** 계열 함수 {#fun-rep .unnumbered}
+
+> `help(rep)`을 통해 상세 내용 참고
+
+**`rep()`**: 주어진 벡터의 원소를 반복
+
+
+\footnotesize
+
+
+```r
+# rep(): 벡터 또는 벡터의 개별 원소를 반복한 값 반환
+rep(
+  x, # 반복할 값이 저장된 벡터
+  times, # 전체 벡터의 반복 횟수
+  each # 개별 원소의 반복 횟수
+)
+```
+
+ \normalsize
+
+
+- **사용 예시**
+
+\footnotesize
+
+
+```r
+x <- rep(4, 5) # 4를 5번 반복
+x
+```
+
+```
+[1] 4 4 4 4 4
+```
+
+```r
+# x <- c(1:3) 전체를 3번 반복한 벡터 반환
+x <- c(1:3)
+xr1 <- rep(x, times = 3)
+xr1
+```
+
+```
+[1] 1 2 3 1 2 3 1 2 3
+```
+
+```r
+# 벡터 x 의 각 원소를 4번씩 반복한 벡터 반환
+xr2 <- rep(x, each = 4)
+xr2
+```
+
+```
+ [1] 1 1 1 1 2 2 2 2 3 3 3 3
+```
+
+```r
+# 벡터 x 의 각 원소를 3번 반복하고 해당 벡터를 2회 반복
+xr3 <- rep(x, each = 3, times = 2)
+xr3
+```
+
+```
+ [1] 1 1 1 2 2 2 3 3 3 1 1 1 2 2 2 3 3 3
+```
+
+```r
+# 문자형 벡터의 반복
+# 아래 sex 벡터의 각 원소를 2 번 반복하고 해당 벡터를 4회 반복
+sex <- c("Male", "Female")
+sexr <- rep(sex, each = 2, times = 4)
+sexr
+```
+
+```
+ [1] "Male"   "Male"   "Female" "Female" "Male"   "Male"   "Female" "Female"
+ [9] "Male"   "Male"   "Female" "Female" "Male"   "Male"   "Female" "Female"
+```
+
+ \normalsize
+
+
+**`rep.int()` & `rep_len()`**: `rep()` 함수의 simple 버전으로 속도(performance)가 요구되는 프로그래밍 시 사용
+
+- **사용 예시**
+
+\footnotesize
+
+
+```r
+# 1:5 벡터를 3 번 반복
+rep.int(1:5, 3)
+```
+
+```
+ [1] 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5
+```
+
+```r
+# 불완전한 사이클로 벡터 반복
+rep_len(1:5, length.out = 7)
+```
+
+```
+[1] 1 2 3 4 5 1 2
+```
+
+ \normalsize
+
+
+#### **Filtering 관련 함수** {#fun-filtering .unnumbered}
+
+> `help(subset)` 참고
+
+**`subset()`**: 기존 필터링 방식과 비교할 때 `NA`를 처리하는 방식에서 차이를 보임
+
+- 벡터 뿐 아니라 앞으로 배울 행렬 및 데이터프레임 객체에도 적용 가능
+
+
+\footnotesize
+
+
+```r
+x <- c(6, 1:3, NA, NA, 12)
+x
+```
+
+```
+[1]  6  1  2  3 NA NA 12
+```
+
+```r
+# 일반적 필터링 적용 
+x[x > 5]
+```
+
+```
+[1]  6 NA NA 12
+```
+
+```r
+# subset() 함수 적용
+subset(x, x > 5)
+```
+
+```
+[1]  6 12
+```
+
+ \normalsize
+
+**`which()`**: 한 벡터에서 특정 조건에 맞는 위치(인덱스)를 반환
+
+\footnotesize
+
+
+```r
+# which(): 논리형 벡터를 인수로 받고 해당 논리형 벡터가 참인 index 반환
+which(
+  logical_vec # 논리형 벡터
+)
+```
+
+ \normalsize
+
+
+- **사용 예시**
+
+\footnotesize
+
+
+```r
+x <- c(3, 8, 3, 1, 7)
+
+# x의 원소값이 3인 index 반환
+which(x == 3)
+```
+
+```
+[1] 1 3
+```
+
+```r
+# x의 원소가 4보다 큰 원소의 index 반환
+which(x > 4)
+```
+
+```
+[1] 2 5
+```
+
+```r
+# 9월(Sep)과 12월(Dec)와 같은 원소 index
+# month.abb: R 내장 벡터로 월 약어(Jan ~ Dec)를 저장한 문자열 벡터
+which(month.abb == c("Sep", "Dec"))
+```
+
+```
+[1]  9 12
+```
+
+```r
+# 조건을 만족하는 원소가 존재하지 않는다면?
+x <- which(x > 9)
+x
+```
+
+```
+integer(0)
+```
+
+```r
+length(x) # 길이가 0인 벡터 반환 is.null(x) == TRUE ??
+```
+
+```
+[1] 0
+```
+
+```r
+is.null(x)
+```
+
+```
+[1] FALSE
+```
+
+```r
+# 특정 조건 만족 여부를 확인 
+# any(condition) -> 하나라도 condition을 만족하는 원소가 존재하는지 판단
+# TRUE 또는 FALSE 값 반환
+any(x > 9)
+```
+
+```
+[1] FALSE
+```
+
+ \normalsize
+
+#### **집합 관련 함수** {#set-function}
+
+- 벡터는 숫자, 문자열의 묶음, 즉 원소들의 집합(set)으로 볼 수 있기 때문에 집합 연산이 가능
+- 두 집합을 $X$와 $Y$로 정의 했을 때 아래와 같은 집합 연산 가능
+- **`setequal(X, Y)`**: `X`와 `Y`가 동일한지 판단 ($X = Y$) $\rightarrow$ 논리값 `TRUE` 또는 `FALSE` 반환
+ 
+\footnotesize
+
+
+```r
+x <- y <- c(1, 9, 7, 3, 6)
+setequal(x, y)
+```
+
+```
+[1] TRUE
+```
+
+ \normalsize
+
+- **`union(X, Y)`**: `X`와 `Y`의 합집합 ($X \cup Y$)
+
+\footnotesize
+
+
+```r
+y <- c(1, 9, 8, 2, 0, 3)
+union(x, y)
+```
+
+```
+[1] 1 9 7 3 6 8 2 0
+```
+
+ \normalsize
+
+
+- **`interaction(X, Y)`**: `X`와 `Y`의 교집합 ($X \cap Y$)
+
+\footnotesize
+
+
+```r
+intersect(x, y)
+```
+
+```
+[1] 1 9 3
+```
+
+ \normalsize
+
+- **`setdiff(X, Y)`**: `X`와 `Y`의 차집합 ($X - Y$)
+
+\footnotesize
+
+
+```r
+setdiff(x, y)
+```
+
+```
+[1] 7 6
+```
+
+```r
+setdiff(y, x)
+```
+
+```
+[1] 8 2 0
+```
+
+ \normalsize
+
+- **`X %in% Y`**: `X`(기준)가 집합 `Y`의 원소인지 논리값 반환
+
+\footnotesize
+
+
+```r
+x <- c("apple", "banana", "strawberry", "mango", "peach", "orange")
+y <- c("strawberry", "orange", "mango")
+
+x %in% y
+```
+
+```
+[1] FALSE FALSE  TRUE  TRUE FALSE  TRUE
+```
+
+```r
+y %in% x
+```
+
+```
+[1] TRUE TRUE TRUE
+```
+
+ \normalsize
+
+#### **두 벡터의 동일성 테스트** {#vec-identical}
+
+- 두 벡터가 동일한지 테스트 하기 위해 `x == y` 연산의 반환 값은 위의 예제에서 확인한 것 처럼 각 원소에 대한 논리값을 반환(아래 예제 확인)
+
+\footnotesize
+
+
+```r
+x <- 1:3
+y <- c(1, 3, 4)
+x == y
+```
+
+```
+[1]  TRUE FALSE FALSE
+```
+
+ \normalsize
+
+- 단지 두 벡터가 동일한지 아닌지를 확인하기 위해서는 하나의 논리값만 필요한 경우 `all()` 사용
+
+\footnotesize
+
+
+```r
+all(x == y)
+```
+
+```
+[1] FALSE
+```
+
+ \normalsize
+
+- 보다 나은 방법으로 `identical()` 함수 적용
+
+\footnotesize
+
+
+```r
+# 두 객체의 동일성 여부 테스트
+identical(x, y)
+```
+
+```
+[1] FALSE
+```
+
+ \normalsize
+
+- `identical()` 함수는 벡터가 갖는 데이터 타입의 동일성 까지 체크함
+
+\footnotesize
+
+
+```r
+x <- 1:5; y <- c(1, 2, 3, 4, 5)
+x
+```
+
+```
+[1] 1 2 3 4 5
+```
+
+```r
+y
+```
+
+```
+[1] 1 2 3 4 5
+```
+
+```r
+# all() 함수로 동일성 확인
+all(x == y)
+```
+
+```
+[1] TRUE
+```
+
+```r
+# identical 함수로 동일성 확인
+identical(x, y)
+```
+
+```
+[1] FALSE
+```
+
+```r
+# x, y 데이터 타입 확인
+typeof(x)
+```
+
+```
+[1] "integer"
+```
+
+```r
+typeof(y)
+```
+
+```
+[1] "double"
+```
+
+ \normalsize
+
+## 리스트(list) {#list}
+
+- **리스트(list)**: `(key, value)` 형태로 데이터를 저장한 배열(벡터)
+- 서로 다른 데이터 타입을 가진 객체를 원소로 가질 수 있는 벡터
+   - 예: 한 리스트 안에는 상이한 데이터 타입(숫자형, 문자형, 논리형 등)을 갖는 원소(객체)들을 포함할 수 있음
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">**리스트 예시**: 통계프로그래밍언어 중간고사 성적 테이블
+
+- 중간고사 성적 테이블은 이름, 학번, 출석률, 점수, 등급으로 이루어졌다고 가정하면 "김상자"의 성적 리스트는 다음과 같이 나타낼 수 있음
+- `LIST(이름 = "김상자", 학번 = "202015115", 점수 = 95, 등급 = "A-")`
+- 위 record에서 보듯이 문자형과 숫자형이 LIST 안에 같이 표현되고 있음
+</div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+- 위 record를 벡터 생성함수 `c()`로 생성한 경우
+
+\footnotesize
+
+
+```r
+# 벡터로 위 record를 입력한 경우
+vec <- c(`이름` = "김상자", `학번` = "202015115", 
+         `점수` = 95, `등급` = "A-")
+vec
+```
+
+```
+       이름        학번        점수        등급 
+   "김상자" "202015115"        "95"        "A-" 
+```
+
+```r
+typeof(vec)
+```
+
+```
+[1] "character"
+```
+
+ \normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">객체 명칭 규칙을 벗어나는 이름을 객제명으로 사용하고 싶다면 다음과 같이 홀따옴표 \``object_name`\` 표시를 통해 사용 가능함
+</div>\EndKnitrBlock{rmdtip}
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+> #공백이 있는 이름을 객체 명칭으로 사용
+> `golf score` <- c(75, 82, 92)
+> `golf score`
+```
+
+```
+[1] 75 82 92
+```
+
+```r
+> `3x` <- c(3, 6, 9, 12)
+> `3x`
+```
+
+```
+[1]  3  6  9 12
+```
+
+ \normalsize
+
+
+
+
+### 리스트 생성 {#make-list}
+
+- **`list()`** 함수를 사용해 list 객체 생성
+
+\footnotesize
+
+
+```r
+# list 함수 사용 prototype
+list(name_1 = object_1, ..., name_m = object_m)
+
+# name_1, ..., name_m: 리스트 원소 이름
+# object_1, ..., object_m: 리스트 원소에 대응한 객체
+```
+
+ \normalsize
+
+
+- 중간고사 성적 테이블 예시
+
+
+\footnotesize
+
+
+```r
+# lst 객체 생성
+lst <- list(`이름` = "김상자", 
+            `학번` = "202015115", 
+            `점수` = 95, 
+            `등급` = "A-")
+lst
+```
+
+```
+$이름
+[1] "김상자"
+
+$학번
+[1] "202015115"
+
+$점수
+[1] 95
+
+$등급
+[1] "A-"
+```
+
+```r
+# lst 내 객체의 데이터 타입 확인
+# lapply(): lst 객체에 동일한 함수 적용 (추후 학습)
+lapply(lst, typeof)
+```
+
+```
+$이름
+[1] "character"
+
+$학번
+[1] "character"
+
+$점수
+[1] "double"
+
+$등급
+[1] "character"
+```
+
+ \normalsize
+
+- 리스트 원소에 이름이 부여된 경우 `names()`를 통해 확인 가능
+
+\footnotesize
+
+
+```r
+names(lst)
+```
+
+```
+[1] "이름" "학번" "점수" "등급"
+```
+
+ \normalsize
+
+
+- 이름(`name_1, .., name_n`) 없이도 리스트 생성 가능하나, 가급적 이름을 부여 하는 것이 더 명확
+
+
+\footnotesize
+
+
+```r
+list("김상자", "202015115", 95, "A-")
+```
+
+```
+[[1]]
+[1] "김상자"
+
+[[2]]
+[1] "202015115"
+
+[[3]]
+[1] 95
+
+[[4]]
+[1] "A-"
+```
+
+ \normalsize
+
+
+- 리스트는 벡터이므로 `vector()` 함수를 통해 생성 가능
+
+
+\footnotesize
+
+
+```r
+# 길이가 1이고 객체가 NULL인 리스트 생성
+z <- vector(mode = "list", length=1)
+z
+```
+
+```
+[[1]]
+NULL
+```
+
+ \normalsize
+
+- 리스트의 값이 어떤 객체든 관계 없음
+
+\footnotesize
+
+
+```r
+x <- list(name = c("A", "B", "C"), 
+          salary = c(500, 450, 600), union = T)
+x
+```
+
+```
+$name
+[1] "A" "B" "C"
+
+$salary
+[1] 500 450 600
+
+$union
+[1] TRUE
+```
+
+ \normalsize
+
+### 리스트 색인 {#list-index}
+
+
+- 리스트에 포함된 객체에 접근는 기본적으로 벡터의 색인 방법과 동일하게 색인 번호 또는 키(이름)을 통해 접근 가능
+- 리스트에 포함된 모든 객체의 원소값을 쉽게 확인하는 함수는 `unlist()`임 
+
+\footnotesize
+
+
+```r
+lval <- unlist(x)
+typeof(lval)
+```
+
+```
+[1] "character"
+```
+
+ \normalsize
+
+
+\footnotesize
+
+<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:list-tab)리스트 데이터 접근 방법</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> 색인방법 </th>
+   <th style="text-align:left;"> 동작 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> x$name </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 리스트 x 에서 객체명(name)에 해당하는 객체에 접근 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> x[[i]] 또는 x[[name]] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 리스트 x 에서 i 번째 또는 name에 해당하는 객체 반환 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> x[i] 또는 x[name] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 리스트 x 에서 i 번째 또는 name에 해당하는 부분 리스트 반환 </td>
+  </tr>
+</tbody>
+</table>
+
+ \normalsize
+
+
+- `x$name`을 통해 리스트 내 객체 접근
+
+\footnotesize
+
+
+```r
+lst$`학번`
+```
+
+```
+[1] "202015115"
+```
+
+ \normalsize
+
+- `x[[i]]` 또는 `x[[name]]` 을 통해 리스트 내 객체 접근
+
+
+\footnotesize
+
+
+```r
+lst[[2]]
+```
+
+```
+[1] "202015115"
+```
+
+```r
+z <- lst[["학번"]]
+z
+```
+
+```
+[1] "202015115"
+```
+
+```r
+typeof(z)
+```
+
+```
+[1] "character"
+```
+
+ \normalsize
+
+- `x[i]` 또는 `x[name]` 을 통해 리스트 내 부분 리스트 추출
+
+\footnotesize
+
+
+```r
+lst[2]
+```
+
+```
+$학번
+[1] "202015115"
+```
+
+```r
+j <- lst["학번"]
+j
+```
+
+```
+$학번
+[1] "202015115"
+```
+
+```r
+typeof(j)
+```
+
+```
+[1] "list"
+```
+
+ \normalsize
+
+
+- 리스트 또한 벡터로 볼 수 있기 때문에 여러 개의 부분 리스트 추출 가능
+
+\footnotesize
+
+
+```r
+# 리스트 lst 에서 1 ~ 3 번째 까지 부분 리스트 추출
+lst[1:3]
+```
+
+```
+$이름
+[1] "김상자"
+
+$학번
+[1] "202015115"
+
+$점수
+[1] 95
+```
+
+ \normalsize
+
+- 리스트를 구성하는 객체 내 색인 
+
+\footnotesize
+
+
+```r
+x
+```
+
+```
+$name
+[1] "A" "B" "C"
+
+$salary
+[1] 500 450 600
+
+$union
+[1] TRUE
+```
+
+```r
+# salary에서 2-3번째 원소 추출
+x$salary[2:3]
+```
+
+```
+[1] 450 600
+```
+
+```r
+x[[2]][2:3]
+```
+
+```
+[1] 450 600
+```
+
+```r
+x[["salary"]][2:3]
+```
+
+```
+[1] 450 600
+```
+
+```r
+# 부분 리스트도 길이가 1인 리스트이므로, 
+# 부분 리스트 내 객제 접근 시 리스트 접근이 선행
+# x의 2번째 부분 리스트에서 첫 번째 객체의 2-3번째 원소 추출
+x[2][[1]][2:3]
+```
+
+```
+[1] 450 600
+```
+
+ \normalsize
+
+- 리스트의 길이 반환: 벡터와 마찬가지로 `length()` 함수 적용 가능
+
+\footnotesize
+
+
+```r
+length(lst); length(x)
+```
+
+```
+[1] 4
+```
+
+```
+[1] 3
+```
+
+ \normalsize
+
+
+### 리스트에 원소 추가/제거 {#list-add-delete}
+
+- 주어진 리스트 `x`에 새로운 원소믐 `x$new_obj <- value` 명령어 형태로  추가
+- 이미 존재하고 있는 리스트 원소 제거는 `x$exist_obj <- NULL` 형태로 제거
+
+\footnotesize
+
+
+```r
+# 리스트 lst 에 5회 차 퀴즈 점수 추가
+lst$quiz <- c(10, 8, 9, 9, 8)
+
+# 리스트 lst이 원소 quiz 제거
+lst$quiz <- NULL
+lst
+```
+
+```
+$이름
+[1] "김상자"
+
+$학번
+[1] "202015115"
+
+$점수
+[1] 95
+
+$등급
+[1] "A-"
+```
+
+```r
+# 벡터 색인을 이용해 원소 추가 가능
+lst[[5]] <- c(10, 8, 9, 9, 8)
+lst
+```
+
+```
+$이름
+[1] "김상자"
+
+$학번
+[1] "202015115"
+
+$점수
+[1] 95
+
+$등급
+[1] "A-"
+
+[[5]]
+[1] 10  8  9  9  8
+```
+
+```r
+# 부분 리스트 괄호에서도 색인 통해 추가/삭제 가능
+lst[5] <- NULL
+lst
+```
+
+```
+$이름
+[1] "김상자"
+
+$학번
+[1] "202015115"
+
+$점수
+[1] 95
+
+$등급
+[1] "A-"
+```
+
+```r
+# 여러 개의 리스트 동시 추가/삭제 가능
+lst[5:9] <-  c(10, 8, 9, 9, 8)
+lst
+```
+
+```
+$이름
+[1] "김상자"
+
+$학번
+[1] "202015115"
+
+$점수
+[1] 95
+
+$등급
+[1] "A-"
+
+[[5]]
+[1] 10
+
+[[6]]
+[1] 8
+
+[[7]]
+[1] 9
+
+[[8]]
+[1] 9
+
+[[9]]
+[1] 8
+```
+
+```r
+lst[5:9] <-  NULL
+lst
+```
+
+```
+$이름
+[1] "김상자"
+
+$학번
+[1] "202015115"
+
+$점수
+[1] 95
+
+$등급
+[1] "A-"
+```
+
+ \normalsize
+
+
+### 리스트의 결합
+
+- 두 개 이상의 리스트를 결합 시 `c()` 사용 
+
+\footnotesize
+
+
+```r
+# 리스트 lst와 x 결합
+c(lst, x)
+```
+
+```
+$이름
+[1] "김상자"
+
+$학번
+[1] "202015115"
+
+$점수
+[1] 95
+
+$등급
+[1] "A-"
+
+$name
+[1] "A" "B" "C"
+
+$salary
+[1] 500 450 600
+
+$union
+[1] TRUE
+```
+
+ \normalsize
+
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">리스트 내에 리스트를 가질 수 있다. 이를 재귀 리스트(recursive list)라고 한다. 예를 들어 위 예제에서 각 학생의 성적 데이터가 리스트로 구성되어 있다면, 전체 성적 데이터베이스는 리스트로 구성된 리스트임. 아래 예제 처럼 간단한 재귀 리스트 구현이 가능</div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+kim <- list(id = "20153345", sex = "Male", score = 85, grade = "B+")
+lee <- list(id = "20153348", sex = "Female", score = 75, grade = "B0")
+
+gr <- list(kim=kim, lee=lee)
+gr
+```
+
+```
+$kim
+$kim$id
+[1] "20153345"
+
+$kim$sex
+[1] "Male"
+
+$kim$score
+[1] 85
+
+$kim$grade
+[1] "B+"
+
+
+$lee
+$lee$id
+[1] "20153348"
+
+$lee$sex
+[1] "Female"
+
+$lee$score
+[1] 75
+
+$lee$grade
+[1] "B0"
+```
+
+ \normalsize
+
+
+
+
+
+
+## 행렬(matrix) {#matrix}
+
+## 배열(array) {#array}
+
+## 요인(factor)과 테이블(table) {#factor-table}
+
+## 데이터프레임(data frame) {#data-frame}
 
 
 

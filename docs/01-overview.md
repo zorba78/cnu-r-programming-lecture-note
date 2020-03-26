@@ -1,9 +1,6 @@
 \mainmatter
 
 
-```
-## Warning: 패키지 'knitr'는 R 버전 3.6.3에서 작성되었습니다
-```
 
 
 # (PART) Get Started {-}
@@ -239,7 +236,7 @@ sessionInfo()
 ```
 
 ```
-R version 3.6.2 (2019-12-12)
+R version 3.6.3 (2020-02-29)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 Running under: Windows 10 x64 (build 18363)
 
@@ -259,8 +256,8 @@ other attached packages:
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.4      bookdown_0.18.1 digest_0.6.25   mime_0.9       
  [5] magrittr_1.5    evaluate_0.14   highr_0.8       rlang_0.4.5    
- [9] stringi_1.4.6   rmarkdown_2.1.1 tools_3.6.2     stringr_1.4.0  
-[13] markdown_1.1    xfun_0.12       yaml_2.2.1      compiler_3.6.2 
+ [9] stringi_1.4.6   rmarkdown_2.1   tools_3.6.3     stringr_1.4.0  
+[13] markdown_1.1    xfun_0.12       yaml_2.2.1      compiler_3.6.3 
 [17] htmltools_0.4.0
 ```
 
@@ -375,11 +372,6 @@ hist(x) # 히스토그램
 <br/>
 
 \footnotesize
-
-
-```
-Warning: 패키지 'kableExtra'는 R 버전 3.6.3에서 작성되었습니다
-```
 
 <table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:tab-help)R help 관련 명령어 리스트</caption>
@@ -740,24 +732,70 @@ Pull-down 메뉴에서 `[Tools]` $\rightarrow$ `[Global Options...]`를 선택
 
 R 콘솔에서 다음과 같은 명령어로 작업폴더를 확인 및 변경 가능
 
-<!-- ```{r, error=TRUE, prompt=FALSE, comment=NA} -->
-<!-- getwd() # 작업폴더 확인 -->
-<!-- ``` -->
+\footnotesize
 
-<!-- ```{r error=TRUE, prompt=FALSE, comment=NA} -->
-<!-- setwd("..") # 차상위 폴더로 이동 -->
-<!-- getwd() -->
-<!-- setwd("../..") # 차차상위 폴더로 이동 -->
-<!-- getwd() -->
-<!-- setwd("D:/Current-Workspace/Lecture/misc/") # 절대 폴더 명 입력 -->
-<!-- setwd("..") -->
-<!-- # dir() # 폴더 내 파일 명 출력 -->
-<!-- getwd() -->
-<!-- setwd("misc") # Current-Workspace 하위폴더인 misc 으로 이동 -->
-<!-- getwd() -->
-<!-- setwd("D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note/") -->
-<!-- getwd() -->
-<!-- ``` -->
+
+```r
+getwd() # 작업폴더 확인
+```
+
+```
+[1] "D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note"
+```
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+setwd("..") # 차상위 폴더로 이동
+getwd()
+```
+
+```
+[1] "D:/Current-Workspace/Lecture"
+```
+
+```r
+setwd("../..") # 차차상위 폴더로 이동
+getwd()
+```
+
+```
+[1] "D:/"
+```
+
+```r
+setwd("D:/Current-Workspace/Lecture/misc/") # 절대 폴더 명 입력
+setwd("..")
+# dir() # 폴더 내 파일 명 출력
+getwd()
+```
+
+```
+[1] "D:/Current-Workspace/Lecture"
+```
+
+```r
+setwd("misc") # Current-Workspace 하위폴더인 misc 으로 이동
+getwd()
+```
+
+```
+[1] "D:/Current-Workspace/Lecture/misc"
+```
+
+```r
+setwd("D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note/")
+getwd()
+```
+
+```
+[1] "D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note"
+```
+
+ \normalsize
 
 
 \footnotesize
@@ -939,8 +977,8 @@ R 콘솔에서 다음과 같은 명령어로 작업폴더를 확인 및 변경 �
 ```
 
 ```
-[1] "C:/Users/user/Documents/R/win-library/lecture"
-[2] "C:/Program Files/R/R-3.6.2/library"           
+[1] "C:/Users/user/Documents/R/win-library/3.6"
+[2] "C:/Program Files/R/R-3.6.3/library"       
 ```
 
  \normalsize
@@ -1048,7 +1086,7 @@ require(tidyverse)
 ```
 
 ```
--- Attaching packages ----------------------------------------------------------------------------------------------- tidyverse 1.3.0 --
+-- Attaching packages ------------------------------------------------------------------------------------------------------------------------------------------- tidyverse 1.3.0 --
 ```
 
 ```
@@ -1059,7 +1097,7 @@ require(tidyverse)
 ```
 
 ```
--- Conflicts -------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
+-- Conflicts ---------------------------------------------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
 x dplyr::filter()     masks stats::filter()
 x dplyr::group_rows() masks kableExtra::group_rows()
 x dplyr::lag()        masks stats::lag()
@@ -1460,7 +1498,7 @@ plot(cars)
 abline(fit)
 ```
 
-![](01-overview_files/figure-epub3/unnamed-chunk-42-1.svg)<!-- -->
+![](01-overview_files/figure-epub3/unnamed-chunk-44-1.svg)<!-- -->
 
  \normalsize
 
