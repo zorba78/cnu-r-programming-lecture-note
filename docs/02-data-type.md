@@ -28,10 +28,10 @@
 - 배열(array)
 - 데이터프레임(data frame)
 - 함수(function)
-- 연산자(operator) ...
+- 연산자(operator)
+- 표현식(expression)
 
-
-R 객체 중 scalar, vector, matrix, data.frame $\rightarrow$ 데이터 객체(object)
+<!-- R 객체 중 scalar, vector, matrix, data.frame $\rightarrow$ 데이터 객체(object) -->
 
 
 #### R의 데이터 타입 {#object-value .unnumbered}
@@ -51,7 +51,7 @@ R 객체 중 scalar, vector, matrix, data.frame $\rightarrow$ 데이터 객체(o
 - **기타**: 숫자아님(`NaN`), 무한대(`Inf`) 등
 
 
-**아래 그림은 2~4 주차에 배울 R의 데이터 타입에 대한 개요도임**
+**아래 그림은 2~4 주차에 배울 R 주요 객체에 대한 개요도임**
 
 \footnotesize
 
