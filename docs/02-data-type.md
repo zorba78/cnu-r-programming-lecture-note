@@ -3130,18 +3130,684 @@ $lee$grade
  \normalsize
 
 
-
-
-
-
 ## 행렬(matrix) {#matrix}
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">**학습목표(3 주차)**: 행렬과 데이터 프레임 객체에 대해 살펴보고, 이들 객체에 대한 연산과 연관된 함수에 대해 익힌다.</div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+#### **행렬의 정의** {#def-matrix .unnumbered}
+
+- 동일한 데이터 타입의 원소로 구성된 2차원 데이터 구조
+-  $n \times 1$ 차원 벡터 $p$개로 묶여진 데이터 덩어리 $\rightarrow$ $n \times p$ 행렬로 명칭함
+- 행렬의 형태
+
+$$\begin{bmatrix}
+x_{11} & x_{12} & \cdots & x_{1p} \\
+x_{21} & x_{22} & \cdots & x_{2p} \\
+\vdots & \vdots & \cdots & \vdots \\
+x_{n1} & x_{n2} & \cdots & x_{np}
+\end{bmatrix}
+$$
+
+- R에서 행렬은 동일한 유형의 데이터 타입으로 구성 가능 $\rightarrow$ 첫 번째 행은 숫자형, 두 번째 행은 문자열로 입력해도 행렬을 만들 수 있지만, 표현력이 더 높은 문자형 행렬 반환
+- 행렬의 내부 저장공간은 "열 우선 배열"
+- 행렬 생성을 위한 R 함수는 `matrix()` 함수이고 함수 형태는 아래와 같음
+
+\footnotesize
+
+
+```r
+# matrix(): 행렬 생성 함수
+# 상세 내용은 help(matrix)를 통해 확인
+
+matrix(data, # 행렬을 생성할 데이터 벡터 
+       nrow, # 행의 개수 (정수)
+       ncol, # 열의 개수 (정수)
+       byrow, # TRUE: 행 우선, FALSE: 열 우선
+              # default = FALSE
+       dimnames # 행렬읠 각 차원에 부여할 이름 (리스트)
+       )
+```
+
+ \normalsize
+
+- 행렬 생성 예시 
+
+\footnotesize
+
+
+```r
+# byrow = FALSE
+x <- matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9), nrow = 3, ncol = 3)
+x
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9
+```
+
+```r
+# byrow = TRUE
+x <- matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9), nrow = 3, ncol = 3, byrow = T)
+x
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+[3,]    7    8    9
+```
+
+ \normalsize
+
+- 행의 개수(`nrow`)나 열의 개수(`ncol`)로 나머지를 추정 가능하다면 둘 중 어떤 인수도 생략 가능
+
+\footnotesize
+
+
+```r
+x <- matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9), ncol = 3)
+x
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9
+```
+
+```r
+x <- matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9), nrow = 3)
+x
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9
+```
+
+ \normalsize
+
+- `nrow` $\times$ `ncol` 이 입력한 데이터(벡터)의 길이보다 작거나 큰 경우
+
+\footnotesize
+
+
+```r
+# length(x) < nrow * ncol 인 경우 
+# nrow * ncol에 해당하는 길이 만큼
+# x의 원소를 사용해 행렬 생성
+x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9)
+y <- matrix(x, nrow = 2, ncol = 3)
+```
+
+```
+Warning in matrix(x, nrow = 2, ncol = 3): 데이터의 길이[9]가 행의 개수[2]의 배수
+가 되지 않습니다
+```
+
+```r
+y
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+```
+
+```r
+# length(x) > nrow * ncol 인 경우 
+# x의 첫 번쨰 원소부터 초과하는 만큼 
+# x 원소의 값을 재사용
+z <- matrix(x, nrow = 3, ncol = 4)
+```
+
+```
+Warning in matrix(x, nrow = 3, ncol = 4): 데이터의 길이[9]가 열의 개수[4]의 배수
+가 되지 않습니다
+```
+
+```r
+z
+```
+
+```
+     [,1] [,2] [,3] [,4]
+[1,]    1    4    7    1
+[2,]    2    5    8    2
+[3,]    3    6    9    3
+```
+
+ \normalsize
+
+- 행렬 구성 시 길이에 대한 약수가 아닌 값을  `nrow` 또는 `ncol`의 인수로 받은 경우
+
+\footnotesize
+
+
+```r
+# x (length=9)로 행렬 생성 시 nrow=4 를
+# 인수로 입력한 경우
+h <- matrix(x, nrow = 4)
+```
+
+```
+Warning in matrix(x, nrow = 4): 데이터의 길이[9]가 행의 개수[4]의 배수가 되지 않
+습니다
+```
+
+```r
+h
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    1    5    9
+[2,]    2    6    1
+[3,]    3    7    2
+[4,]    4    8    3
+```
+
+```r
+# x (length=9)로 행렬 생성 시 ncol=2 만 
+# 인수로 입력한 경우
+h <- matrix(x, nrow = 2)
+```
+
+```
+Warning in matrix(x, nrow = 2): 데이터의 길이[9]가 행의 개수[2]의 배수가 되지 않
+습니다
+```
+
+```r
+h
+```
+
+```
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    3    5    7    9
+[2,]    2    4    6    8    1
+```
+
+ \normalsize
+
+### 행렬의 연산 {#matrix-operation}
+
+- 선형대수(linear algebra)에서 배우는 행렬-스칼라, 행렬-행렬 간 연산 가능
+
+#### **행렬-스칼라 연산** {#mat-op-s .unnumbered}
+
+**합 연산**: 스칼라가 자동적으로 행렬의 차원에 맞춰서 재사용
+
+$$\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\ 
+7 & 8 & 9
+\end{bmatrix} + 4 = 
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\ 
+7 & 8 & 9
+\end{bmatrix} + 
+\begin{bmatrix}
+4 & 4 & 4 \\
+4 & 4 & 4 \\ 
+4 & 4 & 4
+\end{bmatrix} = 
+\begin{bmatrix}
+5 &  6  & 7 \\
+8 &  9  & 10 \\ 
+11 & 12 & 13
+\end{bmatrix}
+$$
+
+\footnotesize
+
+
+```r
+x <-matrix(1:9, 3, 3, byrow = T)
+x + 4
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    5    6    7
+[2,]    8    9   10
+[3,]   11   12   13
+```
+
+ \normalsize
+
+
+**곱 연산**
+
+$$\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\ 
+7 & 8 & 9
+\end{bmatrix} \times 4 = 
+\begin{bmatrix}
+4  &  8 & 12 \\
+16 & 20 & 24 \\ 
+28 & 32 & 36
+\end{bmatrix} 
+$$
+
+\footnotesize
+
+
+```r
+x*4
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    4    8   12
+[2,]   16   20   24
+[3,]   28   32   36
+```
+
+ \normalsize
+
+#### **행렬-행렬 연산** {#mat-op-m .unnumbered}
+
+- 행렬 간 연산에서 스칼라 연산(일반 연산)과 다른 점은 차원이 개입
+
+**행렬 간 합(차)**
+
+- 두 행렬의 동일 차원 간 합 연산 수행(`+` 또는 `-` 연산자 사용)
+
+$$\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\ 
+7 & 8 & 9
+\end{bmatrix} +  
+\begin{bmatrix}
+1 & -1 & ~~~2 \\
+3 & ~~~2 & ~~~4 \\ 
+-6 & ~~~3 & -7
+\end{bmatrix} 
+ = 
+\begin{bmatrix}
+2  & 1  & 5 \\
+7  & 7  & 10 \\ 
+1  & 11 & 2
+\end{bmatrix}
+$$
+
+\footnotesize
+
+
+```r
+x <- matrix(1:9, 3, 3, byrow = T)
+y <- matrix(c(1, 3, -6, -1, 2, 3, 2, 4, -7), ncol = 3)
+x + y
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    2    1    5
+[2,]    7    7   10
+[3,]    1   11    2
+```
+
+ \normalsize
+
+**행렬 곱/나누기(elementwise product/division)** 
+
+- 연산자 `*` 또는 `/`  사용
+
+$$\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\ 
+7 & 8 & 9
+\end{bmatrix} *  
+\begin{bmatrix}
+~~~1 & -1 &  ~~~2 \\
+~~~3 & ~~~2 & ~~~4 \\ 
+-6 & ~~~3 & -7
+\end{bmatrix} 
+ = 
+\begin{bmatrix}
+~~~~~ 1  & -2  &  ~~~~6 \\
+~~~  12  & ~10 &  ~~~24 \\ 
+    -42  & ~24 & -63
+\end{bmatrix}
+$$
+
+\footnotesize
+
+
+```r
+x * y
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    1   -2    6
+[2,]   12   10   24
+[3,]  -42   24  -63
+```
+
+ \normalsize
+
+- 행렬-행렬 합(차) 또는 곱(나누기) 연산 시 행렬의 열단위 원소가 재사용되지 않음
+
+> **동일 차원 간 연산만 가능!!**
+
+\footnotesize
+
+
+```r
+z <- y[, 1:2] # y 행렬에서 1-2 번째 열 추출
+z # 3 by 2 행렬
+```
+
+```
+     [,1] [,2]
+[1,]    1   -1
+[2,]    3    2
+[3,]   -6    3
+```
+
+```r
+x + z
+```
+
+```
+Error in x + z: 배열의 크기가 올바르지 않습니다
+```
+
+```r
+x * z
+```
+
+```
+Error in x * z: 배열의 크기가 올바르지 않습니다
+```
+
+```r
+x / z
+```
+
+```
+Error in x/z: 배열의 크기가 올바르지 않습니다
+```
+
+ \normalsize
+
+**행렬 간 곱(matrix product)** 
+
+- 두 행렬 $\mathrm{\mathbf X}_{n\times m}$, $\mathrm{\mathbf Y}_{m\times k}$ 이 주어졌을 때 두 행렬의 곱(matrix product) $\mathrm{\mathbf Z} = \mathrm{\mathbf {X\cdot Y}}$는 $n \times k$ 행렬이고 $\mathrm{\mathbf Z}$  원소 $z_{ij}$ ($i={1,\ldots,n}$, $j={1,\ldots,k}$) 아래와 같이 정의됨
+
+$$
+ z_{ij} = \sum_{r=1}^{m}x_{ir}y_{rj},~~~~\forall~\{i, j\}
+$$
+- R에서 위와 같은 연산은 `%*%`를 사용
+
+- 예시: 행렬 $\mathrm{\mathbf X}_{2\times 4}$, $\mathrm{\mathbf X}_{4\times 3}$ 이 아래와 같이 주어졌을 때 두 행렬의 곱 $\mathrm{\mathbf Z}_{2\times 3}$는 아래와 같음
+
+$$\mathrm{\mathbf Z} = \begin{bmatrix}
+1 &~~~ 1 &   -1 & 1 \\
+1 &   -1 &~~~ 1 & 1 \\ 
+\end{bmatrix} \cdot  
+\begin{bmatrix}
+1 &  -2 &  -1 \\
+1 &~~~1 &~~~2 \\ 
+1 &~~~3 &~~~1 \\
+1 &~~~2 &~~~2 
+\end{bmatrix} 
+ = 
+\begin{bmatrix}
+2  &  -2 & 2 \\
+2  &~~~2 & 0 
+\end{bmatrix}
+$$
+
+\footnotesize
+
+
+```r
+X <- matrix(c(1,1,1,-1,-1,1,1,1), nrow = 2, ncol = 4)
+Y <- matrix(c(1,1,1,1, -2, 1, 3, 2, -1, 2, 1, 2), nrow = 4, ncol = 3)
+Z <- X %*% Y
+Z
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    2   -2    2
+[2,]    2    2    0
+```
+
+ \normalsize
+
+**행렬의 전치(transpose)**
+
+- 전치 행렬(transpose matrix)는 임의의 행렬의 행과 열을 서로 맞바꾼 행렬임 
+- 행렬 $\mathrm{\mathbf X}$의 전치 행렬은 $\mathrm{\mathbf X}^T$ 또는 $\mathrm{\mathbf X}'$ 으로 나타냄
+- 행렬 $\mathrm{\mathbf X}$가 다음과 같이 주어졌을 때 전치 행렬 결과
+
+$$\mathrm{\mathbf{X}} = \begin{bmatrix}
+1 & 2 & 3\\
+4 & 5 & 6
+\end{bmatrix} ~~~~~
+\mathrm{\mathbf{X}}^T = 
+\begin{bmatrix}
+1 & 4 \\
+2 & 5 \\ 
+3 & 6
+\end{bmatrix} 
+$$
+
+- R에서 행렬을 전치시키는 함수는 `t()` 임
+
+\footnotesize
+
+
+```r
+# t(object_name): 전치행렬 반환
+x <- 1:6
+X <- matrix(x, nrow = 2, ncol = 3, byrow = T)
+t(X)
+```
+
+```
+     [,1] [,2]
+[1,]    1    4
+[2,]    2    5
+[3,]    3    6
+```
+
+```r
+# 전치행렬과 행렬 간 곱
+x <- c(1, 1, 1, 1, 1, 22.3, 23.2, 21.5, 25.3, 28.0)
+X <- matrix(x, nrow = 5)
+t(X) %*% X
+```
+
+```
+      [,1]    [,2]
+[1,]   5.0  120.30
+[2,] 120.3 2921.87
+```
+
+ \normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">**참고**: 전치행렬의 성질(통계수학 II 강의내용 참고)
+
+  - $(\mathrm{\mathbf{X}}^T)^T = \mathrm{\mathbf{X}}$
+  - $(\mathrm{\mathbf{X} + \mathbf{Y}})^T = \mathrm{\mathbf{X}}^T + \mathrm{\mathbf{Y}}^T$
+  - $(\mathrm{\mathbf{X}\mathbf{Y}})^T = \mathrm{\mathbf{Y}}^T\mathrm{\mathbf{X}}^T$
+  - $(c\mathrm{\mathbf{X}})^T = c\mathrm{\mathbf{X}}^T$, $c$는 임의의 상수
+
+  </div>\EndKnitrBlock{rmdtip}
+
+ \normalsize
+
+**역행렬(inverse matrix)**
+
+- 행렬의 나눗셈 형태
+- 행렬 $\mathrm{\mathbf{X}}$ 가 $n \times n$ 정방행렬(square matrix)일 때, 아래를 만족하는 행렬 $\mathrm{\mathbf{Y}}_{n \times n}$가 존재하면 $\mathrm{\mathbf{Y}}$를 $\mathrm{\mathbf{X}}$의 역행렬(inverse matrix)라고 하고 $\mathrm{\mathbf{X}}^{-1}$로 나타냄.
+
+$$
+ \mathrm{\mathbf{X}\mathbf{X}^{-1}} = \mathrm{\mathbf{X}^{-1}\mathbf{X}} = \mathrm{\mathbf{I}}_{n\times n}
+$$
+
+- 여기서 $\mathrm{\mathbf{I}}_{n\times n}$은 대각 원소가 1이고 나머지 원소는 0인 항등 행렬임
+- $2 \times 2$ 행렬의 역행렬은 아래와 같이 구함($3\times 3$ 이상 역행렬 구하는 방법은 **통계수학 II** 강의 참고)
+
+$$\mathrm{\mathbf{X}} = 
+ \begin{bmatrix}
+ a & b \\
+ c & d 
+ \end{bmatrix}, ~~~~
+ \mathrm{\mathbf{X}}^{-1} = 
+ \frac{1}{ad - bc}
+ \begin{bmatrix}
+~~~d &  -b \\
+  -c &~~~a
+ \end{bmatrix}
+$$
+
+- R에서 정방 행렬의 역행렬은 `solve()` 함수를 사용해 구함
+
+\footnotesize
+
+
+```r
+# 2 by 2 행렬의 역행렬
+x <- c(1, 2, 3, 4)
+X <- matrix(x, 2)
+solve(X)
+```
+
+```
+     [,1] [,2]
+[1,]   -2  1.5
+[2,]    1 -0.5
+```
+
+```r
+# 항등 행렬이 나오는지 확인
+X %*% solve(X)
+```
+
+```
+     [,1] [,2]
+[1,]    1    0
+[2,]    0    1
+```
+
+ \normalsize
+
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">**참고**: 역행렬의 성질(통계수학 II 강의내용 참고)
+
+
+  - $(\mathrm{\mathbf{X}}^{-1})^{-1} = \mathrm{\mathbf{X}}$
+  - $(\mathrm{\mathbf{X}}^T)^{-1} = (\mathrm{\mathbf{X}}^{-1})^T$
+  - $(\mathrm{\mathbf{XY}}^{-1}) = \mathrm{\mathbf{Y}}^{-1}\mathrm{\mathbf{X}}^{-1}$
+
+</div>\EndKnitrBlock{rmdtip}
+
+ \normalsize
+
+
+
+**행렬식(determinant)**
+
+- 행렬의 성질을 나타내는 하나의 값으로 $n \times n$ 정방행렬(square matrix)
+
+
+### 행렬의 색인 {#mat-index}
+
+
+### 행과 열 추가 및 제거
+
+### 벡터와 행렬의 차이점 {#vec-mat-diff}
+
+- 행렬은 개념적으로 $n \times 1$ 벡터가 2 개 이상 묶어져서 행과 열의 속성을 갖지만 기본적으로는 벡터
+
+\footnotesize
+
+
+```r
+z <- 1:8
+u <- matrix(z, 4, 2)
+length(z) # 입력 벡터 원소의 길이가 8
+```
+
+```
+[1] 8
+```
+
+ \normalsize
+
+- R에서 `u`가 행렬임을 나타내기 위해 추가적인 속성(attribute)를 부여
+
+
+\footnotesize
+
+
+```r
+class(z) # 벡터
+```
+
+```
+[1] "integer"
+```
+
+```r
+class(u) # 행렬
+```
+
+```
+[1] "matrix"
+```
+
+ \normalsize
+
+
+### 행렬 관련 함수
+
 
 ## 배열(array) {#array}
 
 ## 요인(factor)과 테이블(table) {#factor-table}
 
-## 데이터프레임(data frame) {#data-frame}
+### 요인(factor)
 
+### 테이블(table)
+
+## 데이터 프레임(data frame) {#data-frame}
+
+### 데이터 프레임 생성
+
+### 데이터 프레임 접근
+
+### 데이터 프레밍 색인
+
+### 데이터 프레임 결합
+
+### 데이터 프레임 관련 함수
+
+### 외부 데이터 불러오기 및 저장하기
 
 
 

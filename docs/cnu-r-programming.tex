@@ -315,7 +315,7 @@
 \makeatother
 \subtitle{2020년도 1학기 충남대학교 정보통계학과 강의 노트}
 \author{한국한의학연구원, 구본초}
-\date{2020-03-27}
+\date{2020-04-02}
 
 \let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
@@ -2103,7 +2103,7 @@ R에서 디렉토리 또는 폴더 구분자는 \texttt{/} 임. Windows에서 �
 \end{verbatim}
 
 \begin{verbatim}
--- Attaching packages -------------------------------------------------------------------- tidyverse 1.3.0 --
+-- Attaching packages ----------------------------------------------------------------------------------------------------------------------------------------------------------------- tidyverse 1.3.0 --
 \end{verbatim}
 
 \begin{verbatim}
@@ -2114,7 +2114,7 @@ v readr   1.3.1     v forcats 0.5.0
 \end{verbatim}
 
 \begin{verbatim}
--- Conflicts ----------------------------------------------------------------------- tidyverse_conflicts() --
+-- Conflicts -------------------------------------------------------------------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
 x dplyr::filter()     masks stats::filter()
 x dplyr::group_rows() masks kableExtra::group_rows()
 x dplyr::lag()        masks stats::lag()
@@ -6531,14 +6531,846 @@ $lee$grade
 \hypertarget{matrix}{%
 \section{행렬(matrix)}\label{matrix}}
 
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}
+\textbf{학습목표(3 주차)}: 행렬과 데이터 프레임 객체에 대해 살펴보고, 이들 객체에 대한 연산과 연관된 함수에 대해 익힌다.
+\EndKnitrBlock{rmdnote}
+
+\normalsize
+
+\hypertarget{def-matrix}{%
+\subsubsection*{\texorpdfstring{\textbf{행렬의 정의}}{행렬의 정의}}\label{def-matrix}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  동일한 데이터 타입의 원소로 구성된 2차원 데이터 구조
+\item
+  \(n \times 1\) 차원 벡터 \(p\)개로 묶여진 데이터 덩어리 \(\rightarrow\) \(n \times p\) 행렬로 명칭함
+\item
+  행렬의 형태
+\end{itemize}
+
+\[\begin{bmatrix}
+x_{11} & x_{12} & \cdots & x_{1p} \\
+x_{21} & x_{22} & \cdots & x_{2p} \\
+\vdots & \vdots & \cdots & \vdots \\
+x_{n1} & x_{n2} & \cdots & x_{np}
+\end{bmatrix}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  R에서 행렬은 동일한 유형의 데이터 타입으로 구성 가능 \(\rightarrow\) 첫 번째 행은 숫자형, 두 번째 행은 문자열로 입력해도 행렬을 만들 수 있지만, 표현력이 더 높은 문자형 행렬 반환
+\item
+  행렬의 내부 저장공간은 ``열 우선 배열''
+\item
+  행렬 생성을 위한 R 함수는 \texttt{matrix()} 함수이고 함수 형태는 아래와 같음
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# matrix(): 행렬 생성 함수}
+\CommentTok{# 상세 내용은 help(matrix)를 통해 확인}
+
+\KeywordTok{matrix}\NormalTok{(data, }\CommentTok{# 행렬을 생성할 데이터 벡터 }
+\NormalTok{       nrow, }\CommentTok{# 행의 개수 (정수)}
+\NormalTok{       ncol, }\CommentTok{# 열의 개수 (정수)}
+\NormalTok{       byrow, }\CommentTok{# TRUE: 행 우선, FALSE: 열 우선}
+              \CommentTok{# default = FALSE}
+\NormalTok{       dimnames }\CommentTok{# 행렬읠 각 차원에 부여할 이름 (리스트)}
+\NormalTok{       )}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  행렬 생성 예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# byrow = FALSE}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{), }\DataTypeTok{nrow =} \DecValTok{3}\NormalTok{, }\DataTypeTok{ncol =} \DecValTok{3}\NormalTok{)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# byrow = TRUE}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{), }\DataTypeTok{nrow =} \DecValTok{3}\NormalTok{, }\DataTypeTok{ncol =} \DecValTok{3}\NormalTok{, }\DataTypeTok{byrow =}\NormalTok{ T)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+[3,]    7    8    9
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  행의 개수(\texttt{nrow})나 열의 개수(\texttt{ncol})로 나머지를 추정 가능하다면 둘 중 어떤 인수도 생략 가능
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{), }\DataTypeTok{ncol =} \DecValTok{3}\NormalTok{)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{), }\DataTypeTok{nrow =} \DecValTok{3}\NormalTok{)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{nrow} \(\times\) \texttt{ncol} 이 입력한 데이터(벡터)의 길이보다 작거나 큰 경우
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# length(x) < nrow * ncol 인 경우 }
+\CommentTok{# nrow * ncol에 해당하는 길이 만큼}
+\CommentTok{# x의 원소를 사용해 행렬 생성}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{)}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(x, }\DataTypeTok{nrow =} \DecValTok{2}\NormalTok{, }\DataTypeTok{ncol =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning in matrix(x, nrow = 2, ncol = 3): 데이터의 길이[9]가 행의 개수[2]의 배수
+가 되지 않습니다
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# length(x) > nrow * ncol 인 경우 }
+\CommentTok{# x의 첫 번쨰 원소부터 초과하는 만큼 }
+\CommentTok{# x 원소의 값을 재사용}
+\NormalTok{z <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(x, }\DataTypeTok{nrow =} \DecValTok{3}\NormalTok{, }\DataTypeTok{ncol =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning in matrix(x, nrow = 3, ncol = 4): 데이터의 길이[9]가 열의 개수[4]의 배수
+가 되지 않습니다
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3] [,4]
+[1,]    1    4    7    1
+[2,]    2    5    8    2
+[3,]    3    6    9    3
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  행렬 구성 시 길이에 대한 약수가 아닌 값을 \texttt{nrow} 또는 \texttt{ncol}의 인수로 받은 경우
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# x (length=9)로 행렬 생성 시 nrow=4 를}
+\CommentTok{# 인수로 입력한 경우}
+\NormalTok{h <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(x, }\DataTypeTok{nrow =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning in matrix(x, nrow = 4): 데이터의 길이[9]가 행의 개수[4]의 배수가 되지 않
+습니다
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{h}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3]
+[1,]    1    5    9
+[2,]    2    6    1
+[3,]    3    7    2
+[4,]    4    8    3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# x (length=9)로 행렬 생성 시 ncol=2 만 }
+\CommentTok{# 인수로 입력한 경우}
+\NormalTok{h <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(x, }\DataTypeTok{nrow =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning in matrix(x, nrow = 2): 데이터의 길이[9]가 행의 개수[2]의 배수가 되지 않
+습니다
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{h}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    3    5    7    9
+[2,]    2    4    6    8    1
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{matrix-operation}{%
+\subsection{행렬의 연산}\label{matrix-operation}}
+
+\begin{itemize}
+\tightlist
+\item
+  선형대수(linear algebra)에서 배우는 행렬-스칼라, 행렬-행렬 간 연산 가능
+\end{itemize}
+
+\hypertarget{mat-op-s}{%
+\subsubsection*{\texorpdfstring{\textbf{행렬-스칼라 연산}}{행렬-스칼라 연산}}\label{mat-op-s}}
+
+
+\textbf{합 연산}: 스칼라가 자동적으로 행렬의 차원에 맞춰서 재사용
+
+\[\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\ 
+7 & 8 & 9
+\end{bmatrix} + 4 = 
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\ 
+7 & 8 & 9
+\end{bmatrix} + 
+\begin{bmatrix}
+4 & 4 & 4 \\
+4 & 4 & 4 \\ 
+4 & 4 & 4
+\end{bmatrix} = 
+\begin{bmatrix}
+5 &  6  & 7 \\
+8 &  9  & 10 \\ 
+11 & 12 & 13
+\end{bmatrix}
+\]
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\KeywordTok{matrix}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{9}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DataTypeTok{byrow =}\NormalTok{ T)}
+\NormalTok{x }\OperatorTok{+}\StringTok{ }\DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3]
+[1,]    5    6    7
+[2,]    8    9   10
+[3,]   11   12   13
+\end{verbatim}
+
+\normalsize
+
+\textbf{곱 연산}
+
+\[\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\ 
+7 & 8 & 9
+\end{bmatrix} \times 4 = 
+\begin{bmatrix}
+4  &  8 & 12 \\
+16 & 20 & 24 \\ 
+28 & 32 & 36
+\end{bmatrix} 
+\]
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OperatorTok{*}\DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3]
+[1,]    4    8   12
+[2,]   16   20   24
+[3,]   28   32   36
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{mat-op-m}{%
+\subsubsection*{\texorpdfstring{\textbf{행렬-행렬 연산}}{행렬-행렬 연산}}\label{mat-op-m}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  행렬 간 연산에서 스칼라 연산(일반 연산)과 다른 점은 차원이 개입
+\end{itemize}
+
+\textbf{행렬 간 합(차)}
+
+\begin{itemize}
+\tightlist
+\item
+  두 행렬의 동일 차원 간 합 연산 수행(\texttt{+} 또는 \texttt{-} 연산자 사용)
+\end{itemize}
+
+\[\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\ 
+7 & 8 & 9
+\end{bmatrix} +  
+\begin{bmatrix}
+1 & -1 & ~~~2 \\
+3 & ~~~2 & ~~~4 \\ 
+-6 & ~~~3 & -7
+\end{bmatrix} 
+ = 
+\begin{bmatrix}
+2  & 1  & 5 \\
+7  & 7  & 10 \\ 
+1  & 11 & 2
+\end{bmatrix}
+\]
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{9}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DataTypeTok{byrow =}\NormalTok{ T)}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{-6}\NormalTok{, }\DecValTok{-1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{-7}\NormalTok{), }\DataTypeTok{ncol =} \DecValTok{3}\NormalTok{)}
+\NormalTok{x }\OperatorTok{+}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3]
+[1,]    2    1    5
+[2,]    7    7   10
+[3,]    1   11    2
+\end{verbatim}
+
+\normalsize
+
+\textbf{행렬 곱/나누기(elementwise product/division)}
+
+\begin{itemize}
+\tightlist
+\item
+  연산자 \texttt{*} 또는 \texttt{/} 사용
+\end{itemize}
+
+\[\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\ 
+7 & 8 & 9
+\end{bmatrix} *  
+\begin{bmatrix}
+~~~1 & -1 &  ~~~2 \\
+~~~3 & ~~~2 & ~~~4 \\ 
+-6 & ~~~3 & -7
+\end{bmatrix} 
+ = 
+\begin{bmatrix}
+~~~~~ 1  & -2  &  ~~~~6 \\
+~~~  12  & ~10 &  ~~~24 \\ 
+    -42  & ~24 & -63
+\end{bmatrix}
+\]
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{*}\StringTok{ }\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3]
+[1,]    1   -2    6
+[2,]   12   10   24
+[3,]  -42   24  -63
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  행렬-행렬 합(차) 또는 곱(나누기) 연산 시 행렬의 열단위 원소가 재사용되지 않음
+\end{itemize}
+
+\begin{quote}
+\textbf{동일 차원 간 연산만 가능!!}
+\end{quote}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z <-}\StringTok{ }\NormalTok{y[, }\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{] }\CommentTok{# y 행렬에서 1-2 번째 열 추출}
+\NormalTok{z }\CommentTok{# 3 by 2 행렬}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2]
+[1,]    1   -1
+[2,]    3    2
+[3,]   -6    3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{+}\StringTok{ }\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Error in x + z: 배열의 크기가 올바르지 않습니다
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{*}\StringTok{ }\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Error in x * z: 배열의 크기가 올바르지 않습니다
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{/}\StringTok{ }\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Error in x/z: 배열의 크기가 올바르지 않습니다
+\end{verbatim}
+
+\normalsize
+
+\textbf{행렬 간 곱(matrix product)}
+
+\begin{itemize}
+\tightlist
+\item
+  두 행렬 \(\mathrm{\mathbf X}_{n\times m}\), \(\mathrm{\mathbf Y}_{m\times k}\) 이 주어졌을 때 두 행렬의 곱(matrix product) \(\mathrm{\mathbf Z} = \mathrm{\mathbf {X\cdot Y}}\)는 \(n \times k\) 행렬이고 \(\mathrm{\mathbf Z}\) 원소 \(z_{ij}\) (\(i={1,\ldots,n}\), \(j={1,\ldots,k}\)) 아래와 같이 정의됨
+\end{itemize}
+
+\[
+ z_{ij} = \sum_{r=1}^{m}x_{ir}y_{rj},~~~~\forall~\{i, j\}
+\]
+- R에서 위와 같은 연산은 \texttt{\%*\%}를 사용
+
+\begin{itemize}
+\tightlist
+\item
+  예시: 행렬 \(\mathrm{\mathbf X}_{2\times 4}\), \(\mathrm{\mathbf X}_{4\times 3}\) 이 아래와 같이 주어졌을 때 두 행렬의 곱 \(\mathrm{\mathbf Z}_{2\times 3}\)는 아래와 같음
+\end{itemize}
+
+\[\mathrm{\mathbf Z} = \begin{bmatrix}
+1 &~~~ 1 &   -1 & 1 \\
+1 &   -1 &~~~ 1 & 1 \\ 
+\end{bmatrix} \cdot  
+\begin{bmatrix}
+1 &  -2 &  -1 \\
+1 &~~~1 &~~~2 \\ 
+1 &~~~3 &~~~1 \\
+1 &~~~2 &~~~2 
+\end{bmatrix} 
+ = 
+\begin{bmatrix}
+2  &  -2 & 2 \\
+2  &~~~2 & 0 
+\end{bmatrix}
+\]
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{nrow =} \DecValTok{2}\NormalTok{, }\DataTypeTok{ncol =} \DecValTok{4}\NormalTok{)}
+\NormalTok{Y <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{, }\DecValTok{-2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{-1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{nrow =} \DecValTok{4}\NormalTok{, }\DataTypeTok{ncol =} \DecValTok{3}\NormalTok{)}
+\NormalTok{Z <-}\StringTok{ }\NormalTok{X }\OperatorTok{%*%}\StringTok{ }\NormalTok{Y}
+\NormalTok{Z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3]
+[1,]    2   -2    2
+[2,]    2    2    0
+\end{verbatim}
+
+\normalsize
+
+\textbf{행렬의 전치(transpose)}
+
+\begin{itemize}
+\tightlist
+\item
+  전치 행렬(transpose matrix)는 임의의 행렬의 행과 열을 서로 맞바꾼 행렬임
+\item
+  행렬 \(\mathrm{\mathbf X}\)의 전치 행렬은 \(\mathrm{\mathbf X}^T\) 또는 \(\mathrm{\mathbf X}'\) 으로 나타냄
+\item
+  행렬 \(\mathrm{\mathbf X}\)가 다음과 같이 주어졌을 때 전치 행렬 결과
+\end{itemize}
+
+\[\mathrm{\mathbf{X}} = \begin{bmatrix}
+1 & 2 & 3\\
+4 & 5 & 6
+\end{bmatrix} ~~~~~
+\mathrm{\mathbf{X}}^T = 
+\begin{bmatrix}
+1 & 4 \\
+2 & 5 \\ 
+3 & 6
+\end{bmatrix} 
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  R에서 행렬을 전치시키는 함수는 \texttt{t()} 임
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# t(object_name): 전치행렬 반환}
+\NormalTok{x <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{6}
+\NormalTok{X <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(x, }\DataTypeTok{nrow =} \DecValTok{2}\NormalTok{, }\DataTypeTok{ncol =} \DecValTok{3}\NormalTok{, }\DataTypeTok{byrow =}\NormalTok{ T)}
+\KeywordTok{t}\NormalTok{(X)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2]
+[1,]    1    4
+[2,]    2    5
+[3,]    3    6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 전치행렬과 행렬 간 곱}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{22.3}\NormalTok{, }\FloatTok{23.2}\NormalTok{, }\FloatTok{21.5}\NormalTok{, }\FloatTok{25.3}\NormalTok{, }\FloatTok{28.0}\NormalTok{)}
+\NormalTok{X <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(x, }\DataTypeTok{nrow =} \DecValTok{5}\NormalTok{)}
+\KeywordTok{t}\NormalTok{(X) }\OperatorTok{%*%}\StringTok{ }\NormalTok{X}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      [,1]    [,2]
+[1,]   5.0  120.30
+[2,] 120.3 2921.87
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}
+\textbf{참고}: 전치행렬의 성질(통계수학 II 강의내용 참고)
+
+\begin{itemize}
+\tightlist
+\item
+  \((\mathrm{\mathbf{X}}^T)^T = \mathrm{\mathbf{X}}\)
+\item
+  \((\mathrm{\mathbf{X} + \mathbf{Y}})^T = \mathrm{\mathbf{X}}^T + \mathrm{\mathbf{Y}}^T\)
+\item
+  \((\mathrm{\mathbf{X}\mathbf{Y}})^T = \mathrm{\mathbf{Y}}^T\mathrm{\mathbf{X}}^T\)
+\item
+  \((c\mathrm{\mathbf{X}})^T = c\mathrm{\mathbf{X}}^T\), \(c\)는 임의의 상수
+\end{itemize}
+\EndKnitrBlock{rmdtip}
+
+\normalsize
+
+\textbf{역행렬(inverse matrix)}
+
+\begin{itemize}
+\tightlist
+\item
+  행렬의 나눗셈 형태
+\item
+  행렬 \(\mathrm{\mathbf{X}}\) 가 \(n \times n\) 정방행렬(square matrix)일 때, 아래를 만족하는 행렬 \(\mathrm{\mathbf{Y}}_{n \times n}\)가 존재하면 \(\mathrm{\mathbf{Y}}\)를 \(\mathrm{\mathbf{X}}\)의 역행렬(inverse matrix)라고 하고 \(\mathrm{\mathbf{X}}^{-1}\)로 나타냄.
+\end{itemize}
+
+\[
+ \mathrm{\mathbf{X}\mathbf{X}^{-1}} = \mathrm{\mathbf{X}^{-1}\mathbf{X}} = \mathrm{\mathbf{I}}_{n\times n}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  여기서 \(\mathrm{\mathbf{I}}_{n\times n}\)은 대각 원소가 1이고 나머지 원소는 0인 항등 행렬임
+\item
+  \(2 \times 2\) 행렬의 역행렬은 아래와 같이 구함(\(3\times 3\) 이상 역행렬 구하는 방법은 \textbf{통계수학 II} 강의 참고)
+\end{itemize}
+
+\[\mathrm{\mathbf{X}} = 
+ \begin{bmatrix}
+ a & b \\
+ c & d 
+ \end{bmatrix}, ~~~~
+ \mathrm{\mathbf{X}}^{-1} = 
+ \frac{1}{ad - bc}
+ \begin{bmatrix}
+~~~d &  -b \\
+  -c &~~~a
+ \end{bmatrix}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  R에서 정방 행렬의 역행렬은 \texttt{solve()} 함수를 사용해 구함
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 2 by 2 행렬의 역행렬}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{)}
+\NormalTok{X <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(x, }\DecValTok{2}\NormalTok{)}
+\KeywordTok{solve}\NormalTok{(X)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2]
+[1,]   -2  1.5
+[2,]    1 -0.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 항등 행렬이 나오는지 확인}
+\NormalTok{X }\OperatorTok{%*%}\StringTok{ }\KeywordTok{solve}\NormalTok{(X)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2]
+[1,]    1    0
+[2,]    0    1
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}
+\textbf{참고}: 역행렬의 성질(통계수학 II 강의내용 참고)
+
+\begin{itemize}
+\tightlist
+\item
+  \((\mathrm{\mathbf{X}}^{-1})^{-1} = \mathrm{\mathbf{X}}\)
+\item
+  \((\mathrm{\mathbf{X}}^T)^{-1} = (\mathrm{\mathbf{X}}^{-1})^T\)
+\item
+  \((\mathrm{\mathbf{XY}}^{-1}) = \mathrm{\mathbf{Y}}^{-1}\mathrm{\mathbf{X}}^{-1}\)
+\end{itemize}
+\EndKnitrBlock{rmdtip}
+
+\normalsize
+
+\textbf{행렬식(determinant)}
+
+\begin{itemize}
+\tightlist
+\item
+  행렬의 성질을 나타내는 하나의 값으로 \(n \times n\) 정방행렬(square matrix)
+\end{itemize}
+
+\hypertarget{mat-index}{%
+\subsection{행렬의 색인}\label{mat-index}}
+
+\hypertarget{uxd589uxacfc-uxc5f4-uxcd94uxac00-uxbc0f-uxc81cuxac70}{%
+\subsection{행과 열 추가 및 제거}\label{uxd589uxacfc-uxc5f4-uxcd94uxac00-uxbc0f-uxc81cuxac70}}
+
+\hypertarget{vec-mat-diff}{%
+\subsection{벡터와 행렬의 차이점}\label{vec-mat-diff}}
+
+\begin{itemize}
+\tightlist
+\item
+  행렬은 개념적으로 \(n \times 1\) 벡터가 2 개 이상 묶어져서 행과 열의 속성을 갖지만 기본적으로는 벡터
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{8}
+\NormalTok{u <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(z, }\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\KeywordTok{length}\NormalTok{(z) }\CommentTok{# 입력 벡터 원소의 길이가 8}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 8
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  R에서 \texttt{u}가 행렬임을 나타내기 위해 추가적인 속성(attribute)를 부여
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{(z) }\CommentTok{# 벡터}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "integer"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{(u) }\CommentTok{# 행렬}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "matrix"
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{uxd589uxb82c-uxad00uxb828-uxd568uxc218}{%
+\subsection{행렬 관련 함수}\label{uxd589uxb82c-uxad00uxb828-uxd568uxc218}}
+
 \hypertarget{array}{%
 \section{배열(array)}\label{array}}
 
 \hypertarget{factor-table}{%
 \section{요인(factor)과 테이블(table)}\label{factor-table}}
 
+\hypertarget{uxc694uxc778factor}{%
+\subsection{요인(factor)}\label{uxc694uxc778factor}}
+
+\hypertarget{uxd14cuxc774uxbe14table}{%
+\subsection{테이블(table)}\label{uxd14cuxc774uxbe14table}}
+
 \hypertarget{data-frame}{%
-\section{데이터프레임(data frame)}\label{data-frame}}
+\section{데이터 프레임(data frame)}\label{data-frame}}
+
+\hypertarget{uxb370uxc774uxd130-uxd504uxb808uxc784-uxc0dduxc131}{%
+\subsection{데이터 프레임 생성}\label{uxb370uxc774uxd130-uxd504uxb808uxc784-uxc0dduxc131}}
+
+\hypertarget{uxb370uxc774uxd130-uxd504uxb808uxc784-uxc811uxadfc}{%
+\subsection{데이터 프레임 접근}\label{uxb370uxc774uxd130-uxd504uxb808uxc784-uxc811uxadfc}}
+
+\hypertarget{uxb370uxc774uxd130-uxd504uxb808uxbc0d-uxc0c9uxc778}{%
+\subsection{데이터 프레밍 색인}\label{uxb370uxc774uxd130-uxd504uxb808uxbc0d-uxc0c9uxc778}}
+
+\hypertarget{uxb370uxc774uxd130-uxd504uxb808uxc784-uxacb0uxd569}{%
+\subsection{데이터 프레임 결합}\label{uxb370uxc774uxd130-uxd504uxb808uxc784-uxacb0uxd569}}
+
+\hypertarget{uxb370uxc774uxd130-uxd504uxb808uxc784-uxad00uxb828-uxd568uxc218}{%
+\subsection{데이터 프레임 관련 함수}\label{uxb370uxc774uxd130-uxd504uxb808uxc784-uxad00uxb828-uxd568uxc218}}
+
+\hypertarget{uxc678uxbd80-uxb370uxc774uxd130-uxbd88uxb7ecuxc624uxae30-uxbc0f-uxc800uxc7a5uxd558uxae30}{%
+\subsection{외부 데이터 불러오기 및 저장하기}\label{uxc678uxbd80-uxb370uxc774uxd130-uxbd88uxb7ecuxc624uxae30-uxbc0f-uxc800uxc7a5uxd558uxae30}}
 
   \bibliography{book.bib,packages.bib}
 
