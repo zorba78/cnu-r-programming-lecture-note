@@ -4015,7 +4015,7 @@ X %*% solve(X)
 
   - $(\mathrm{\mathbf{X}}^{-1})^{-1} = \mathrm{\mathbf{X}}$
   - $(\mathrm{\mathbf{X}}^T)^{-1} = (\mathrm{\mathbf{X}}^{-1})^T$
-  - $(\mathrm{\mathbf{XY}}^{-1}) = \mathrm{\mathbf{Y}}^{-1}\mathrm{\mathbf{X}}^{-1}$
+  - $(\mathrm{\mathbf{XY}})^{-1} = \mathrm{\mathbf{Y}}^{-1}\mathrm{\mathbf{X}}^{-1}$
 
 </div>\EndKnitrBlock{rmdtip}
 
@@ -5471,7 +5471,7 @@ $$
   
    - R Markdown 문서(`Rmd`) 파일과 해당 문서를 컴파일 후 생성된 `html` 파일 모두 제출할 것
    - 모든 문제에 대해 작성한 R 코드 및 결과가 `html` 문서에 포함되어야 함. 
-   - 해당 과제에 대한 R Markdown 문서 템플릿은 https://github.com/zorba78/cnu-r-programming-lecture-note/assignment 에서 다운로드 또는 스크래이핑 가능
+   - 해당 과제에 대한 R Markdown 문서 템플릿은 https://github.com/zorba78/cnu-r-programming-lecture-note/blob/master/assignment/homework2_template.Rmd 에서 다운로드 또는 스크래이핑 가능
    - 최종 파일명은 `학번-성명.Rmd`, `학번-성명.html` 로 저장
   
   </div>\EndKnitrBlock{rmdimportant}
