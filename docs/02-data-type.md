@@ -5167,7 +5167,7 @@ pic <- readJPEG(z)
 
 \footnotesize
 
-<img src="02-data-type_files/figure-epub3/ex-step4-1.svg" width="90%" style="display: block; margin: auto;" />
+<img src="02-data-type_files/figure-html/ex-step4-1.svg" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -5185,7 +5185,7 @@ ggdraw() +
   draw_image(pic)
 ```
 
-![](02-data-type_files/figure-epub3/unnamed-chunk-43-1.svg)<!-- -->
+<img src="02-data-type_files/figure-html/unnamed-chunk-43-1.svg" width="672" />
 
  \normalsize
 
@@ -5215,7 +5215,7 @@ ggdraw() +
   draw_image(pic)
 ```
 
-![](02-data-type_files/figure-epub3/unnamed-chunk-44-1.svg)<!-- -->
+<img src="02-data-type_files/figure-html/unnamed-chunk-44-1.svg" width="672" />
 
  \normalsize
 
@@ -5418,7 +5418,123 @@ is.ordered(severity) # 순서형 범주 체크
 
  \normalsize
 
-## Homework #2
+#### 요인형 객체에 적용되는 일반적인 함수 {#factor-generic-fun .unnumbered}
+
+**`tapply()` 함수**
+
+- 특정 요인 수준의 고유한 조합으로 각 그룹에 속한 값에 특정 함수를 적용한 결과를 반환
+- 일반적인 함수 사용 형태는 아래와 같음
+
+\footnotesize
+
+
+```r
+tapply(
+  x, # 벡터, 
+  INDEX, # 벡터를 그룹화할 색인(factor)
+  FUN, # 각 그룹마다 적용할 함수
+)
+```
+
+ \normalsize
+
+- 예시: 2020년 4월 15일 총선의 연령별 지지율
+
+\footnotesize
+
+
+```r
+# 문자열을 INDEX의 인수로 받은 경우
+
+x <- c(48, 43, 27, 52, 38, 
+       67, 23, 58, 72, 85) # 유권자 연령
+f <- rep(c("더불어민주당", "미래통합당"), each = 5)
+t <- tapply(x, f, mean) # f의 요인 수준 별 x (연령) 평균 계산
+t
+```
+
+```
+더불어민주당   미래통합당 
+        41.6         61.0 
+```
+
+```r
+# x, f 순서를 랜덤하게 섞은 다음 결과
+set.seed(12345) # 난수 생성 결과 고정
+idx <- order(runif(10))
+x <- x[idx]
+f <- f[idx]
+
+tapply(x, f, mean)
+```
+
+```
+더불어민주당   미래통합당 
+        41.6         61.0 
+```
+
+ \normalsize
+
+- Factor가 2개 이상인 경우 두 factor 객체의 수준의 조합(AND 조건)에 따른 그룹을 만든 후 그룹별 함수 적용
+
+\footnotesize
+
+
+```r
+s <- rep(c("M","F"), each = 6)
+income <- c(35, 42, 68, 29, 85, 55, 
+            30, 40, 63, 27, 83, 52) * 100 # 단위: 만원
+age <- c(32, 36, 44, 25, 55, 41, 
+         28, 33, 46, 23, 54, 44)
+
+set.seed(12345) # 난수 생성 결과 고정
+idx <- order(runif(12))
+s <- s[idx]; income <- income[idx]; age <- age[idx]
+
+# age <= 40 -> 1, 40 < age <= 50 -> 2, 
+# age >= 50 -> 3 할당: ifelse() 함수 사용
+age <- ifelse(age <= 40, 1, 
+       ifelse(age <= 50, 2, 3))
+
+tapply(income, list(sex = s, age = age), mean)
+```
+
+```
+   age
+sex        1    2    3
+  F 3233.333 5750 8300
+  M 3533.333 6150 8500
+```
+
+ \normalsize
+
+
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">R에서 가장 많이 활용되는 함수 계열 중 하나로 `*apply()`를 들 수 있다. 벡터, 행렬 등과 같은 R 객체에  `for loop` 대신 반복적으로 동일한 함수를 적용할 때 활용된다. `*apply()` 계열 함수에 대해서는 데이터 프레임 에서 더 상세하게 배울 것임
+</div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+
+**`split()` 함수**
+
+
+
+
+
+
+
+
+### 테이블(table) {#table}
+
+- 범주형 변수의 빈도 또는 교차표를 표현하기 위한 객체(클래스)
+- 범주 별 통계량(평균, 표준편차, 중위수, ...) 요약 
+
+
+
+## Homework #2-1
 
 1. `seq()` 함수를 사용하여 $\log(\exp(10))$ 부터 0 까지 길이가 100인 벡터를 생성 후 객체 `lambda`를 생성하시오. 
 

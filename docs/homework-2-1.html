@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 R 객체(R object) | 통계 프로그래밍 언어</title>
+  <title>2.7 Homework #2-1 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
   <meta name="generator" content="bookdown 0.18.1 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 R 객체(R object) | 통계 프로그래밍 언어" />
+  <meta property="og:title" content="2.7 Homework #2-1 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 R 객체(R object) | 통계 프로그래밍 언어" />
+  <meta name="twitter:title" content="2.7 Homework #2-1 | 통계 프로그래밍 언어" />
   
   <meta name="twitter:description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="r-markdown-get-start.html"/>
-<link rel="next" href="scalar.html"/>
+<link rel="prev" href="factor-table.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -211,75 +211,78 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-type" class="section level1">
-<h1><span class="header-section-number">2</span> R 객체(R object)</h1>
-
-
-<div class="rmdnote">
-<strong>학습목표(2 주차)</strong>: R에서 사용 가능한 데이터 타입에 대해 알아보고, 고유 데이터 타입으로 구성한 객체(스칼라, 백터, 리스트)와 이와 연관된 함수들을 익힌다.
-</div>
-
-<p></p>
-<div id="ch2-abstract" class="section level4 unnumbered">
-<h4>학습 필요성</h4>
-<ul>
-<li>R언어는 타 프로그래밍 언어와 유사한 데이터 타입(정수형, 실수형, 문자형 등)을 제공</li>
-<li>R 언어가 다른 언어와 차이점 <span class="math inline">\(\rightarrow\)</span> <strong>데이터 분석</strong>에 특화된 벡터(vector), 행렬(matrix), 데이터프레임(data frame), 리스트(list)와 같은 객체<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> 제공</li>
-<li>R 패키지에서 제공되는 함수 사용 방법은 R의 객체에 따라 달라질 수 있음<br />
-</li>
-<li>R 언어를 원활히 다룰 수 있으려면 R에서 데이터 객체의 형태, 자료 할당 및 그 연산 방법에 대한 이해가 필수적으로 선행되어야 함</li>
-</ul>
-</div>
-<div id="object-value" class="section level4 unnumbered">
-<h4>R의 데이터 타입</h4>
-<ul>
-<li><p><strong>수치형(numeric)</strong>: 숫자(정수, 소수)</p></li>
-<li><p><strong>문자열(string)</strong>: <code>"충남대학교"</code>, <code>"R강의"</code></p></li>
-<li><p><strong>논리형(logical)</strong>: <code>TRUE</code>/<code>FALSE</code></p></li>
-<li><p><strong>결측값(<code>NA</code>)</strong>: 자료에서 발생한 결측 표현</p></li>
-<li><p><strong>공백(<code>NULL</code>)</strong>: 지정하지 않은 값</p></li>
-<li><p><strong>요인(factor)</strong>: 범주형 자료 표현(수치 + 문자 결합 형태로 이해하면 편함)</p></li>
-<li><p><strong>기타</strong>: 숫자아님(<code>NaN</code>), 무한대(<code>Inf</code>) 등</p></li>
-</ul>
-</div>
-<div id="ch2-object-type" class="section level4 unnumbered">
-<h4>R 객체의 종류</h4>
-<ul>
-<li>스칼라(상수형, scalar 또는 atomic)</li>
-<li>벡터(vector): <strong>R의 기본연산 단위</strong></li>
-<li>리스트(list)</li>
-<li>행렬(matrix)</li>
-<li>배열(array)</li>
-<li>데이터프레임(data frame)
-<!-- - 함수(function) -->
-<!-- - 연산자(operator) -->
-<!-- - 표현식(expression) --></li>
-</ul>
-<!-- R 객체 중 scalar, vector, matrix, data.frame $\rightarrow$ 데이터 객체(object) -->
-<p><strong>아래 그림은 2~4 주차에 배울 R 주요 객체에 대한 개요도임</strong></p>
-
-<div class="figure" style="text-align: center"><span id="fig:rmarkdown-part"></span>
-<img src="figures/datatype-diagram.png" alt="R 데이터 타입 구조 다이어그램: [R, Python 분석과 프로그래밍 (by R Friend)]( http://rfriend.tistory.com/)에서 발췌 후 수정" width="100%" />
-<p class="caption">
-Figure 2.1: R 데이터 타입 구조 다이어그램: <a href="http://rfriend.tistory.com/">R, Python 분석과 프로그래밍 (by R Friend)</a>에서 발췌 후 수정
-</p>
-</div>
-<p></p>
-</div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>R에서 사용자가 데이터 입력을 위해 생성 또는 읽어온 객체(object)는 종종 변수(variable)라는 말과 혼용. 본 문서에서는 최상위 데이터 저장장소를 객체라고 명명하며 데이터프레임과 같이 여러 종류의 데이터타입으로 이루어진 객체의 1차원 속성을 변수라고 칭함<a href="data-type.html#fnref1" class="footnote-back">↩</a></p></li>
+<div id="homework-2-1" class="section level2">
+<h2><span class="header-section-number">2.7</span> Homework #2-1</h2>
+<ol style="list-style-type: decimal">
+<li><p><code>seq()</code> 함수를 사용하여 <span class="math inline">\(\log(\exp(10))\)</span> 부터 0 까지 길이가 100인 벡터를 생성 후 객체 <code>lambda</code>를 생성하시오.</p></li>
+<li><p>두 벡터 <code>p = c(1, 4, 2, 3, 4, 7, 9, 12)</code>, <code>q = c(4, 5, 3, 2)</code> 의 사칙연산 결과를 출력하고, 왜 이런 형태로 계산이 이루어졌는지 기술하시오.</p></li>
+<li><p>집합 <span class="math inline">\(A = \{1, 3, 5, 7, 8, 9, 12, 15 \}\)</span>이고 집합 <span class="math inline">\(B = \{3, 6, 9, 12, 15, 18\}\)</span> 일 때, <span class="math inline">\(A\cup B\)</span>, <span class="math inline">\(A \cap B\)</span>, <span class="math inline">\(A - B\)</span> 의 결과를 출력하시오.</p></li>
+<li><p><code>year</code> 라는 객체에 <code>{2000, 2001, ..., 2020}</code>, <code>month</code> 객체에 <code>{Jan, Feb, ..., Dec}</code>, <code>day</code> 객체에 <code>{1, ..., 31}</code>을 저장하고 <code>Date</code> 라는 <code>list</code>를 생성 후 생성 결과를 출력 하시오.</p></li>
+<li><p><code>x</code> 벡터에 <code>{23, 22, 24.5, NA, NA, 28, 27.8, 31, NA, NA}</code>를 입력하고 결측의 개수를 구하시오.</p></li>
+<li><p><code>tidyverse</code> 패키지를 불러온 후 <code>mpg</code> 데이터 셋에서 <code>hwy</code> 변수을 <code>x</code>라는 객체에 저장한 후, <code>x</code> 객체에서 24보다 작은 값들의 개수를 구하시오.</p></li>
+<li><p>1부터 150 까지 1 단위 수열을 생성 후 객체 <code>x</code>에 저장하고 <code>x</code>에서 홀수 값만 추출 하시오.</p></li>
+<li><p>두 벡터 <code>{1, 2, 3, 0, -1, -2, -1, 0, 7}</code>와 <code>{6, -3, 0, 0, 4, -5, 0, 0, 2}</code> 를 각각 <code>x</code>와 <code>y</code> 객체에 저장하고, 해당 객체를 이용해 다음 행렬을 생성하시오</p></li>
 </ol>
+<p><span class="math display">\[\mathrm{\mathbf{X}} = 
+\begin{bmatrix}
+1   &amp;  2 &amp; 3 \\
+0   &amp; -1 &amp; -2 \\
+-1  &amp;  0 &amp;  7
+\end{bmatrix}, ~~~~
+\mathrm{\mathbf{Y}} = 
+\begin{bmatrix}
+6  &amp; 0 &amp; 0 \\
+-3 &amp; 4 &amp; 0 \\
+0  &amp;-5 &amp; 2
+\end{bmatrix}
+\]</span></p>
+<ol start="9" style="list-style-type: decimal">
+<li><p>위 두 행렬의 연산 결과를 출력 하시오</p>
+<ul>
+<li><span class="math inline">\(\mathrm{\mathbf{X}}\mathrm{\mathbf{X}}^T\)</span></li>
+<li><span class="math inline">\(\mathrm{\mathbf{X}}\mathrm{\mathbf{Y}}\)</span></li>
+<li><span class="math inline">\(\mathrm{\mathbf{Y}}\mathrm{\mathbf{X}}\)</span></li>
+<li><span class="math inline">\(\det(\mathrm{\mathbf{X}})\)</span></li>
+<li><span class="math inline">\(\mathrm{\mathbf{Y}}^{-1}\)</span></li>
+</ul></li>
+<li><p><code>runif()</code> 함수를 이용해 난수 200개를 생성하여 <code>x</code>라는 객체에 저장 하시오.</p></li>
+</ol>
+<ul>
+<li>생성한 <code>x</code> 를 이용해 <code>x</code>가 0.5 보다 작으면 0, 0.5 보다 크거나 작으면 1 값을 재할당 하시오.
+<ul>
+<li>수준이 0, 1이고 수준이름이 각각 “Male”, “Female”인 요인형 객체 sex를 생성하시오.</li>
+</ul></li>
+</ul>
+
+
+<div class="rmdimportant">
+<p><strong>과제 제출 방식</strong></p>
+<ul>
+<li>R Markdown 문서(<code>Rmd</code>) 파일과 해당 문서를 컴파일 후 생성된 <code>html</code> 파일 모두 제출할 것</li>
+<li>모든 문제에 대해 작성한 R 코드 및 결과가 <code>html</code> 문서에 포함되어야 함.</li>
+<li>해당 과제에 대한 R Markdown 문서 템플릿은 <a href="https://github.com/zorba78/cnu-r-programming-lecture-note/blob/master/assignment/homework2_template.Rmd" class="uri">https://github.com/zorba78/cnu-r-programming-lecture-note/blob/master/assignment/homework2_template.Rmd</a> 에서 다운로드 또는 스크래이핑 가능</li>
+<li>최종 파일명은 <code>학번-성명.Rmd</code>, <code>학번-성명.html</code> 로 저장</li>
+</ul>
 </div>
+
+
+<!-- ## 데이터 프레임(data frame) {#data-frame} -->
+<!-- ### 데이터 프레임 생성 -->
+<!-- ### 데이터 프레임 접근 -->
+<!-- ### 데이터 프레밍 색인 -->
+<!-- ### 데이터 프레임 결합 -->
+<!-- ### 데이터 프레임 관련 함수 -->
+<!-- ### 외부 데이터 불러오기 및 저장하기 -->
+
+</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="r-markdown-get-start.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="scalar.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="factor-table.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
