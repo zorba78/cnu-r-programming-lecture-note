@@ -2559,6 +2559,7 @@ is.ordered(severity) # 순서형 범주 체크
 - 일반적인 함수 사용 형태는 아래와 같음
 
 ```{r, eval=FALSE}
+# tapply() 함수 사용 인수
 tapply(
   x, # 벡터, 
   INDEX, # 벡터를 그룹화할 색인(factor)
@@ -2619,14 +2620,82 @@ R에서 가장 많이 활용되는 함수 계열 중 하나로 `*apply()`를 들
 
 **`split()` 함수**
 
-`tapply()`는 주어진 요인의 수준에 따라 
+- `tapply()`는 주어진 요인의 수준에 따라 특정 함수를 적용하지만, `split()`은 데이터를 요인의 수준(그룹) 별로 데이터를 나누어 리스트 형태로 반환
 
 
+```{r, eval=FALSE}
+# split() 함수 사용 인수
+split(
+  x, # 분리할 데이터(벡터)
+  f, # 데이터를 분리할 기준이 되는 factor 지정
+)
+```
+
+- 예시 
+
+```{r sapply-ex}
+# 성별의 수준 남녀 별 소득 수준 분리
+split(income, s)
+
+# 두 개 요인 조합으로 income 벡터 분리 
+split(income, list(s, age))
+
+# 요인의 각 수준에 대한 인덱스를 반환하고자 하는 경우
+abalone <- read.csv("http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data", 
+    header = FALSE) # 전복 데이터셋
+# V1: 전복의 종류
+# F=암컷; M=수컷, I=새끼
+g <- abalone[, 1] # 전복종류만 추출
+
+set.seed(20200410)
+idx <- sample(1:length(g), size = 10)
+g <- g[idx]
+split(1:length(g), g)
+
+```
 
 ### 테이블(table) {#table}
 
-- 범주형 변수의 빈도 또는 교차표를 표현하기 위한 객체(클래스)
-- 범주 별 통계량(평균, 표준편차, 중위수, ...) 요약 
+- 범주형 변수의 빈도 또는 분할표(교차표)를 표현하기 위한 객체(클래스)
+- 범주 별 통계량(평균, 표준편차, 중위수, ...) 요약
+
+
+**`tapply()`** 함수를 이용한 테이블 만들기
+
+- 길이가 12인 임의의 벡터 `u`를 수준의 개수가 각각 3, 2인 factor의 조합으로 부분벡터로 분리 후 `length()` 적용 $\rightarrow$ `tapply()` 함수 사용
+
+```{r}
+u <- runif(12)
+f1 <- factor(c(4, 4, 3, 5, 5, 4, 
+               3, 3, 4, 5, 5, 3))
+f2 <- factor(c("a", "a", "a", "a", "b", "a", 
+               "b", "b", "a", "a", "b", "b"))
+tapply(u, list(f1, f2), length)
+
+```
+
+- `u`의 값과 상관 없이 두 factor 형 변수 `f1`과 `f2`의 조합에 따른 개수 반환 $\rightarrow$ $2 \times 2$ 분할표(contingency table)
+- 위 예시에서 `f1`이 "4" 이고 `f2`가 "b" 인 경우는 없기 때문에 0 값이 있어야 하나, `tapply()` 함수 적용 시 결측값 `NA`를 반환
+- `table()`: 하나 이상의 factor의 수준 또는 수준의 조합으로 분할표 생성
+- Factor가 3개 이상인 경우 배열로 다차원 분할표 표현
+ 
+```{r table-ex}
+# table() 적용 예시
+t1 <- table(f1, f2)
+t1
+typeof(t1); attributes(t1); str(t1)
+
+# factor가 한개인 경우
+table(f1)
+
+# factor가 3개인 경우
+year = c("1","1","2","3","3","4")
+gender = c("M","M","F","M","F","F")
+grade = c("A","C","B","B","A","C")
+
+table(gender, grade, year)
+
+```
 
 
 

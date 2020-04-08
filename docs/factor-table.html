@@ -326,11 +326,12 @@ Levels: Mild &lt; Moderate &lt; Severe</code></pre>
 <li>일반적인 함수 사용 형태는 아래와 같음</li>
 </ul>
 
-<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb666-1" title="1"><span class="kw">tapply</span>(</a>
-<a class="sourceLine" id="cb666-2" title="2">  x, <span class="co"># 벡터, </span></a>
-<a class="sourceLine" id="cb666-3" title="3">  INDEX, <span class="co"># 벡터를 그룹화할 색인(factor)</span></a>
-<a class="sourceLine" id="cb666-4" title="4">  FUN, <span class="co"># 각 그룹마다 적용할 함수</span></a>
-<a class="sourceLine" id="cb666-5" title="5">)</a></code></pre></div>
+<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb666-1" title="1"><span class="co"># tapply() 함수 사용 인수</span></a>
+<a class="sourceLine" id="cb666-2" title="2"><span class="kw">tapply</span>(</a>
+<a class="sourceLine" id="cb666-3" title="3">  x, <span class="co"># 벡터, </span></a>
+<a class="sourceLine" id="cb666-4" title="4">  INDEX, <span class="co"># 벡터를 그룹화할 색인(factor)</span></a>
+<a class="sourceLine" id="cb666-5" title="5">  FUN, <span class="co"># 각 그룹마다 적용할 함수</span></a>
+<a class="sourceLine" id="cb666-6" title="6">)</a></code></pre></div>
 
 <ul>
 <li>예시: 2020년 4월 15일 총선의 연령별 지지율</li>
@@ -388,14 +389,170 @@ sex        1    2    3
 
 
 <p><strong><code>split()</code> 함수</strong></p>
+<ul>
+<li><code>tapply()</code>는 주어진 요인의 수준에 따라 특정 함수를 적용하지만, <code>split()</code>은 데이터를 요인의 수준(그룹) 별로 데이터를 나누어 리스트 형태로 반환</li>
+</ul>
+
+<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb673-1" title="1"><span class="co"># split() 함수 사용 인수</span></a>
+<a class="sourceLine" id="cb673-2" title="2"><span class="kw">split</span>(</a>
+<a class="sourceLine" id="cb673-3" title="3">  x, <span class="co"># 분리할 데이터(벡터)</span></a>
+<a class="sourceLine" id="cb673-4" title="4">  f, <span class="co"># 데이터를 분리할 기준이 되는 factor 지정</span></a>
+<a class="sourceLine" id="cb673-5" title="5">)</a></code></pre></div>
+
+<ul>
+<li>예시</li>
+</ul>
+
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb674-1" title="1"><span class="co"># 성별의 수준 남녀 별 소득 수준 분리</span></a>
+<a class="sourceLine" id="cb674-2" title="2"><span class="kw">split</span>(income, s)</a></code></pre></div>
+<pre><code>$F
+[1] 8300 5200 3000 4000 6300 2700
+
+$M
+[1] 5500 8500 3500 6800 4200 2900</code></pre>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb676-1" title="1"><span class="co"># 두 개 요인 조합으로 income 벡터 분리 </span></a>
+<a class="sourceLine" id="cb676-2" title="2"><span class="kw">split</span>(income, <span class="kw">list</span>(s, age))</a></code></pre></div>
+<pre><code>$F.1
+[1] 3000 4000 2700
+
+$M.1
+[1] 3500 4200 2900
+
+$F.2
+[1] 5200 6300
+
+$M.2
+[1] 5500 6800
+
+$F.3
+[1] 8300
+
+$M.3
+[1] 8500</code></pre>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb678-1" title="1"><span class="co"># 요인의 각 수준에 대한 인덱스를 반환하고자 하는 경우</span></a>
+<a class="sourceLine" id="cb678-2" title="2">abalone &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data&quot;</span>, </a>
+<a class="sourceLine" id="cb678-3" title="3">    <span class="dt">header =</span> <span class="ot">FALSE</span>) <span class="co"># 전복 데이터셋</span></a>
+<a class="sourceLine" id="cb678-4" title="4"><span class="co"># V1: 전복의 종류</span></a>
+<a class="sourceLine" id="cb678-5" title="5"><span class="co"># F=암컷; M=수컷, I=새끼</span></a>
+<a class="sourceLine" id="cb678-6" title="6">g &lt;-<span class="st"> </span>abalone[, <span class="dv">1</span>] <span class="co"># 전복종류만 추출</span></a>
+<a class="sourceLine" id="cb678-7" title="7"></a>
+<a class="sourceLine" id="cb678-8" title="8"><span class="kw">set.seed</span>(<span class="dv">20200410</span>)</a>
+<a class="sourceLine" id="cb678-9" title="9">idx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(g), <span class="dt">size =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb678-10" title="10">g &lt;-<span class="st"> </span>g[idx]</a>
+<a class="sourceLine" id="cb678-11" title="11"><span class="kw">split</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(g), g)</a></code></pre></div>
+<pre><code>$F
+[1] 1 6 8
+
+$I
+[1] 2 3 5 7
+
+$M
+[1]  4  9 10</code></pre>
+
 </div>
 </div>
 <div id="table" class="section level3">
 <h3><span class="header-section-number">2.6.2</span> 테이블(table)</h3>
 <ul>
-<li>범주형 변수의 빈도 또는 교차표를 표현하기 위한 객체(클래스)</li>
+<li>범주형 변수의 빈도 또는 분할표(교차표)를 표현하기 위한 객체(클래스)</li>
 <li>범주 별 통계량(평균, 표준편차, 중위수, …) 요약</li>
 </ul>
+<p><strong><code>tapply()</code></strong> 함수를 이용한 테이블 만들기</p>
+<ul>
+<li>길이가 12인 임의의 벡터 <code>u</code>를 수준의 개수가 각각 3, 2인 factor의 조합으로 부분벡터로 분리 후 <code>length()</code> 적용 <span class="math inline">\(\rightarrow\)</span> <code>tapply()</code> 함수 사용</li>
+</ul>
+
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb680-1" title="1">u &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb680-2" title="2">f1 &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">4</span>, </a>
+<a class="sourceLine" id="cb680-3" title="3">               <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb680-4" title="4">f2 &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>, </a>
+<a class="sourceLine" id="cb680-5" title="5">               <span class="st">&quot;b&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;b&quot;</span>))</a>
+<a class="sourceLine" id="cb680-6" title="6"><span class="kw">tapply</span>(u, <span class="kw">list</span>(f1, f2), length)</a></code></pre></div>
+<pre><code>  a  b
+3 1  3
+4 4 NA
+5 2  2</code></pre>
+
+<ul>
+<li><code>u</code>의 값과 상관 없이 두 factor 형 변수 <code>f1</code>과 <code>f2</code>의 조합에 따른 개수 반환 <span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(2 \times 2\)</span> 분할표(contingency table)</li>
+<li>위 예시에서 <code>f1</code>이 “4” 이고 <code>f2</code>가 “b” 인 경우는 없기 때문에 0 값이 있어야 하나, <code>tapply()</code> 함수 적용 시 결측값 <code>NA</code>를 반환</li>
+<li><code>table()</code>: 하나 이상의 factor의 수준 또는 수준의 조합으로 분할표 생성</li>
+<li>Factor가 3개 이상인 경우 배열로 다차원 분할표 표현</li>
+</ul>
+
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb682-1" title="1"><span class="co"># table() 적용 예시</span></a>
+<a class="sourceLine" id="cb682-2" title="2">t1 &lt;-<span class="st"> </span><span class="kw">table</span>(f1, f2)</a>
+<a class="sourceLine" id="cb682-3" title="3">t1</a></code></pre></div>
+<pre><code>   f2
+f1  a b
+  3 1 3
+  4 4 0
+  5 2 2</code></pre>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb684-1" title="1"><span class="kw">typeof</span>(t1); <span class="kw">attributes</span>(t1); <span class="kw">str</span>(t1)</a></code></pre></div>
+<pre><code>[1] &quot;integer&quot;</code></pre>
+<pre><code>$dim
+[1] 3 2
+
+$dimnames
+$dimnames$f1
+[1] &quot;3&quot; &quot;4&quot; &quot;5&quot;
+
+$dimnames$f2
+[1] &quot;a&quot; &quot;b&quot;
+
+
+$class
+[1] &quot;table&quot;</code></pre>
+<pre><code> &#39;table&#39; int [1:3, 1:2] 1 4 2 3 0 2
+ - attr(*, &quot;dimnames&quot;)=List of 2
+  ..$ f1: chr [1:3] &quot;3&quot; &quot;4&quot; &quot;5&quot;
+  ..$ f2: chr [1:2] &quot;a&quot; &quot;b&quot;</code></pre>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb688-1" title="1"><span class="co"># factor가 한개인 경우</span></a>
+<a class="sourceLine" id="cb688-2" title="2"><span class="kw">table</span>(f1)</a></code></pre></div>
+<pre><code>f1
+3 4 5 
+4 4 4 </code></pre>
+<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb690-1" title="1"><span class="co"># factor가 3개인 경우</span></a>
+<a class="sourceLine" id="cb690-2" title="2">year =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;1&quot;</span>,<span class="st">&quot;1&quot;</span>,<span class="st">&quot;2&quot;</span>,<span class="st">&quot;3&quot;</span>,<span class="st">&quot;3&quot;</span>,<span class="st">&quot;4&quot;</span>)</a>
+<a class="sourceLine" id="cb690-3" title="3">gender =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;M&quot;</span>,<span class="st">&quot;M&quot;</span>,<span class="st">&quot;F&quot;</span>,<span class="st">&quot;M&quot;</span>,<span class="st">&quot;F&quot;</span>,<span class="st">&quot;F&quot;</span>)</a>
+<a class="sourceLine" id="cb690-4" title="4">grade =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;C&quot;</span>)</a>
+<a class="sourceLine" id="cb690-5" title="5"></a>
+<a class="sourceLine" id="cb690-6" title="6"><span class="kw">table</span>(gender, grade, year)</a></code></pre></div>
+<pre><code>, , year = 1
+
+      grade
+gender A B C
+     F 0 0 0
+     M 1 0 1
+
+, , year = 2
+
+      grade
+gender A B C
+     F 0 1 0
+     M 0 0 0
+
+, , year = 3
+
+      grade
+gender A B C
+     F 1 0 0
+     M 0 1 0
+
+, , year = 4
+
+      grade
+gender A B C
+     F 0 0 1
+     M 0 0 0</code></pre>
+
+<!-- ## 데이터 프레임(data frame) {#data-frame} -->
+<!-- ### 데이터 프레임 생성 -->
+<!-- ### 데이터 프레임 접근 -->
+<!-- ### 데이터 프레밍 색인 -->
+<!-- ### 데이터 프레임 결합 -->
+<!-- ### 데이터 프레임 관련 함수 -->
+<!-- ### 외부 데이터 불러오기 및 저장하기 -->
 </div>
 </div>
             </section>

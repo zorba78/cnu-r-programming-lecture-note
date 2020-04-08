@@ -5429,6 +5429,7 @@ is.ordered(severity) # 순서형 범주 체크
 
 
 ```r
+# tapply() 함수 사용 인수
 tapply(
   x, # 벡터, 
   INDEX, # 벡터를 그룹화할 색인(factor)
@@ -5520,17 +5521,243 @@ sex        1    2    3
 
 **`split()` 함수**
 
+- `tapply()`는 주어진 요인의 수준에 따라 특정 함수를 적용하지만, `split()`은 데이터를 요인의 수준(그룹) 별로 데이터를 나누어 리스트 형태로 반환
 
 
+\footnotesize
 
 
+```r
+# split() 함수 사용 인수
+split(
+  x, # 분리할 데이터(벡터)
+  f, # 데이터를 분리할 기준이 되는 factor 지정
+)
+```
+
+ \normalsize
+
+- 예시 
+
+\footnotesize
 
 
+```r
+# 성별의 수준 남녀 별 소득 수준 분리
+split(income, s)
+```
+
+```
+$F
+[1] 8300 5200 3000 4000 6300 2700
+
+$M
+[1] 5500 8500 3500 6800 4200 2900
+```
+
+```r
+# 두 개 요인 조합으로 income 벡터 분리 
+split(income, list(s, age))
+```
+
+```
+$F.1
+[1] 3000 4000 2700
+
+$M.1
+[1] 3500 4200 2900
+
+$F.2
+[1] 5200 6300
+
+$M.2
+[1] 5500 6800
+
+$F.3
+[1] 8300
+
+$M.3
+[1] 8500
+```
+
+```r
+# 요인의 각 수준에 대한 인덱스를 반환하고자 하는 경우
+abalone <- read.csv("http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data", 
+    header = FALSE) # 전복 데이터셋
+# V1: 전복의 종류
+# F=암컷; M=수컷, I=새끼
+g <- abalone[, 1] # 전복종류만 추출
+
+set.seed(20200410)
+idx <- sample(1:length(g), size = 10)
+g <- g[idx]
+split(1:length(g), g)
+```
+
+```
+$F
+[1] 1 6 8
+
+$I
+[1] 2 3 5 7
+
+$M
+[1]  4  9 10
+```
+
+ \normalsize
 
 ### 테이블(table) {#table}
 
-- 범주형 변수의 빈도 또는 교차표를 표현하기 위한 객체(클래스)
-- 범주 별 통계량(평균, 표준편차, 중위수, ...) 요약 
+- 범주형 변수의 빈도 또는 분할표(교차표)를 표현하기 위한 객체(클래스)
+- 범주 별 통계량(평균, 표준편차, 중위수, ...) 요약
+
+
+**`tapply()`** 함수를 이용한 테이블 만들기
+
+- 길이가 12인 임의의 벡터 `u`를 수준의 개수가 각각 3, 2인 factor의 조합으로 부분벡터로 분리 후 `length()` 적용 $\rightarrow$ `tapply()` 함수 사용
+
+\footnotesize
+
+
+```r
+u <- runif(12)
+f1 <- factor(c(4, 4, 3, 5, 5, 4, 
+               3, 3, 4, 5, 5, 3))
+f2 <- factor(c("a", "a", "a", "a", "b", "a", 
+               "b", "b", "a", "a", "b", "b"))
+tapply(u, list(f1, f2), length)
+```
+
+```
+  a  b
+3 1  3
+4 4 NA
+5 2  2
+```
+
+ \normalsize
+
+- `u`의 값과 상관 없이 두 factor 형 변수 `f1`과 `f2`의 조합에 따른 개수 반환 $\rightarrow$ $2 \times 2$ 분할표(contingency table)
+- 위 예시에서 `f1`이 "4" 이고 `f2`가 "b" 인 경우는 없기 때문에 0 값이 있어야 하나, `tapply()` 함수 적용 시 결측값 `NA`를 반환
+- `table()`: 하나 이상의 factor의 수준 또는 수준의 조합으로 분할표 생성
+- Factor가 3개 이상인 경우 배열로 다차원 분할표 표현
+ 
+\footnotesize
+
+
+```r
+# table() 적용 예시
+t1 <- table(f1, f2)
+t1
+```
+
+```
+   f2
+f1  a b
+  3 1 3
+  4 4 0
+  5 2 2
+```
+
+```r
+typeof(t1); attributes(t1); str(t1)
+```
+
+```
+[1] "integer"
+```
+
+```
+$dim
+[1] 3 2
+
+$dimnames
+$dimnames$f1
+[1] "3" "4" "5"
+
+$dimnames$f2
+[1] "a" "b"
+
+
+$class
+[1] "table"
+```
+
+```
+ 'table' int [1:3, 1:2] 1 4 2 3 0 2
+ - attr(*, "dimnames")=List of 2
+  ..$ f1: chr [1:3] "3" "4" "5"
+  ..$ f2: chr [1:2] "a" "b"
+```
+
+```r
+# factor가 한개인 경우
+table(f1)
+```
+
+```
+f1
+3 4 5 
+4 4 4 
+```
+
+```r
+# factor가 3개인 경우
+year = c("1","1","2","3","3","4")
+gender = c("M","M","F","M","F","F")
+grade = c("A","C","B","B","A","C")
+
+table(gender, grade, year)
+```
+
+```
+, , year = 1
+
+      grade
+gender A B C
+     F 0 0 0
+     M 1 0 1
+
+, , year = 2
+
+      grade
+gender A B C
+     F 0 1 0
+     M 0 0 0
+
+, , year = 3
+
+      grade
+gender A B C
+     F 1 0 0
+     M 0 1 0
+
+, , year = 4
+
+      grade
+gender A B C
+     F 0 0 1
+     M 0 0 0
+```
+
+ \normalsize
+
+
+
+<!-- ## 데이터 프레임(data frame) {#data-frame} -->
+
+<!-- ### 데이터 프레임 생성 -->
+
+<!-- ### 데이터 프레임 접근 -->
+
+<!-- ### 데이터 프레밍 색인 -->
+
+<!-- ### 데이터 프레임 결합 -->
+
+<!-- ### 데이터 프레임 관련 함수 -->
+
+<!-- ### 외부 데이터 불러오기 및 저장하기 -->
 
 
 
@@ -5596,19 +5823,6 @@ $$
 
 
 
-<!-- ## 데이터 프레임(data frame) {#data-frame} -->
-
-<!-- ### 데이터 프레임 생성 -->
-
-<!-- ### 데이터 프레임 접근 -->
-
-<!-- ### 데이터 프레밍 색인 -->
-
-<!-- ### 데이터 프레임 결합 -->
-
-<!-- ### 데이터 프레임 관련 함수 -->
-
-<!-- ### 외부 데이터 불러오기 및 저장하기 -->
 
 
 
