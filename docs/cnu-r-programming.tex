@@ -315,7 +315,7 @@
 \makeatother
 \subtitle{2020년도 1학기 충남대학교 정보통계학과 강의 노트}
 \author{한국한의학연구원, 구본초}
-\date{2020-04-03}
+\date{2020-04-10}
 
 \let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
@@ -8728,7 +8728,7 @@ $dim
 \begin{itemize}
 \tightlist
 \item
-  통계학과 3명의 학생에 대한 중간고사 보기 전까지 한 번의 퀴즈와 중간고사 점수, 그리고 기말고사 보기 전까지 한 번의 퀴즈와 기말고사 점수 데이터 가정
+  통계학과 3명의 학생에 대한 중간고사 기준 한 번의 퀴즈와 중간고사 점수, 그리고 기말고사 기준 한 번의 퀴즈와 기말고사 점수 데이터 가정
 \end{itemize}
 
 \footnotesize
@@ -9077,8 +9077,8 @@ $dim
   순서형 자료 예: 성적, 교육수준, 선호도, 중증도 등
 \end{itemize}
 
-\hypertarget{uxc694uxc778factor}{%
-\subsection{요인(factor)}\label{uxc694uxc778factor}}
+\hypertarget{factor}{%
+\subsection{요인(factor)}\label{factor}}
 
 \begin{itemize}
 \tightlist
@@ -9312,8 +9312,3001 @@ Levels: Mild < Moderate < Severe
 
 \normalsize
 
-\hypertarget{homework-2}{%
-\section{Homework \#2}\label{homework-2}}
+\hypertarget{factor-generic-fun}{%
+\subsubsection*{요인형 객체에 적용되는 일반적인 함수}\label{factor-generic-fun}}
+
+
+\textbf{\texttt{tapply()} 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  특정 요인 수준의 고유한 조합으로 각 그룹에 속한 값에 특정 함수를 적용한 결과를 반환
+\item
+  일반적인 함수 사용 형태는 아래와 같음
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# tapply() 함수 사용 인수}
+\KeywordTok{tapply}\NormalTok{(}
+\NormalTok{  x, }\CommentTok{# 벡터, }
+\NormalTok{  INDEX, }\CommentTok{# 벡터를 그룹화할 색인(factor)}
+\NormalTok{  FUN, }\CommentTok{# 각 그룹마다 적용할 함수}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  예시: 2020년 4월 15일 총선의 연령별 지지율
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 문자열을 INDEX의 인수로 받은 경우}
+
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{48}\NormalTok{, }\DecValTok{43}\NormalTok{, }\DecValTok{27}\NormalTok{, }\DecValTok{52}\NormalTok{, }\DecValTok{38}\NormalTok{, }
+       \DecValTok{67}\NormalTok{, }\DecValTok{23}\NormalTok{, }\DecValTok{58}\NormalTok{, }\DecValTok{72}\NormalTok{, }\DecValTok{85}\NormalTok{) }\CommentTok{# 유권자 연령}
+\NormalTok{f <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"더불어민주당"}\NormalTok{, }\StringTok{"미래통합당"}\NormalTok{), }\DataTypeTok{each =} \DecValTok{5}\NormalTok{)}
+\NormalTok{t <-}\StringTok{ }\KeywordTok{tapply}\NormalTok{(x, f, mean) }\CommentTok{# f의 요인 수준 별 x (연령) 평균 계산}
+\NormalTok{t}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+더불어민주당   미래통합당 
+        41.6         61.0 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# x, f 순서를 랜덤하게 섞은 다음 결과}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{12345}\NormalTok{) }\CommentTok{# 난수 생성 결과 고정}
+\NormalTok{idx <-}\StringTok{ }\KeywordTok{order}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{))}
+\NormalTok{x <-}\StringTok{ }\NormalTok{x[idx]}
+\NormalTok{f <-}\StringTok{ }\NormalTok{f[idx]}
+
+\KeywordTok{tapply}\NormalTok{(x, f, mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+더불어민주당   미래통합당 
+        41.6         61.0 
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  Factor가 2개 이상인 경우 두 factor 객체의 수준의 조합(AND 조건)에 따른 그룹을 만든 후 그룹별 함수 적용
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"M"}\NormalTok{,}\StringTok{"F"}\NormalTok{), }\DataTypeTok{each =} \DecValTok{6}\NormalTok{)}
+\NormalTok{income <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{35}\NormalTok{, }\DecValTok{42}\NormalTok{, }\DecValTok{68}\NormalTok{, }\DecValTok{29}\NormalTok{, }\DecValTok{85}\NormalTok{, }\DecValTok{55}\NormalTok{, }
+            \DecValTok{30}\NormalTok{, }\DecValTok{40}\NormalTok{, }\DecValTok{63}\NormalTok{, }\DecValTok{27}\NormalTok{, }\DecValTok{83}\NormalTok{, }\DecValTok{52}\NormalTok{) }\OperatorTok{*}\StringTok{ }\DecValTok{100} \CommentTok{# 단위: 만원}
+\NormalTok{age <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{32}\NormalTok{, }\DecValTok{36}\NormalTok{, }\DecValTok{44}\NormalTok{, }\DecValTok{25}\NormalTok{, }\DecValTok{55}\NormalTok{, }\DecValTok{41}\NormalTok{, }
+         \DecValTok{28}\NormalTok{, }\DecValTok{33}\NormalTok{, }\DecValTok{46}\NormalTok{, }\DecValTok{23}\NormalTok{, }\DecValTok{54}\NormalTok{, }\DecValTok{44}\NormalTok{)}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{12345}\NormalTok{) }\CommentTok{# 난수 생성 결과 고정}
+\NormalTok{idx <-}\StringTok{ }\KeywordTok{order}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{12}\NormalTok{))}
+\NormalTok{s <-}\StringTok{ }\NormalTok{s[idx]; income <-}\StringTok{ }\NormalTok{income[idx]; age <-}\StringTok{ }\NormalTok{age[idx]}
+
+\CommentTok{# age <= 40 -> 1, 40 < age <= 50 -> 2, }
+\CommentTok{# age >= 50 -> 3 할당: ifelse() 함수 사용}
+\NormalTok{age <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(age }\OperatorTok{<=}\StringTok{ }\DecValTok{40}\NormalTok{, }\DecValTok{1}\NormalTok{, }
+       \KeywordTok{ifelse}\NormalTok{(age }\OperatorTok{<=}\StringTok{ }\DecValTok{50}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+
+\KeywordTok{tapply}\NormalTok{(income, }\KeywordTok{list}\NormalTok{(}\DataTypeTok{sex =}\NormalTok{ s, }\DataTypeTok{age =}\NormalTok{ age), mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   age
+sex        1    2    3
+  F 3233.333 5750 8300
+  M 3533.333 6150 8500
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}
+R에서 가장 많이 활용되는 함수 계열 중 하나로 \texttt{*apply()}를 들 수 있다. 벡터, 행렬 등과 같은 R 객체에 \texttt{for\ loop} 대신 반복적으로 동일한 함수를 적용할 때 활용된다. \texttt{*apply()} 계열 함수에 대해서는 데이터 프레임 에서 더 상세하게 배울 것임
+\EndKnitrBlock{rmdnote}
+
+\normalsize
+
+\hypertarget{split}{%
+\paragraph{\texorpdfstring{\texttt{split()} 함수}{split() 함수}}\label{split}}
+\addcontentsline{toc}{paragraph}{\texttt{split()} 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{tapply()}는 주어진 요인의 수준에 따라 특정 함수를 적용하지만, \texttt{split()}은 데이터를 요인의 수준(그룹) 별로 데이터를 나누어 리스트 형태로 반환
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# split() 함수 사용 인수}
+\KeywordTok{split}\NormalTok{(}
+\NormalTok{  x, }\CommentTok{# 분리할 데이터(벡터)}
+\NormalTok{  f, }\CommentTok{# 데이터를 분리할 기준이 되는 factor 지정}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{split()} 함수 사용 예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 성별의 수준 남녀 별 소득 수준 분리}
+\KeywordTok{split}\NormalTok{(income, s)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$F
+[1] 8300 5200 3000 4000 6300 2700
+
+$M
+[1] 5500 8500 3500 6800 4200 2900
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 두 개 요인 조합으로 income 벡터 분리 }
+\KeywordTok{split}\NormalTok{(income, }\KeywordTok{list}\NormalTok{(s, age))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$F.1
+[1] 3000 4000 2700
+
+$M.1
+[1] 3500 4200 2900
+
+$F.2
+[1] 5200 6300
+
+$M.2
+[1] 5500 6800
+
+$F.3
+[1] 8300
+
+$M.3
+[1] 8500
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 요인의 각 수준에 대한 인덱스를 반환하고자 하는 경우}
+\NormalTok{abalone <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data"}\NormalTok{, }
+    \DataTypeTok{header =} \OtherTok{FALSE}\NormalTok{) }\CommentTok{# 전복 데이터셋}
+\CommentTok{# V1: 전복의 종류}
+\CommentTok{# F=암컷; M=수컷, I=새끼}
+\NormalTok{g <-}\StringTok{ }\NormalTok{abalone[, }\DecValTok{1}\NormalTok{] }\CommentTok{# 전복종류만 추출}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{20200410}\NormalTok{)}
+\NormalTok{idx <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(g), }\DataTypeTok{size =} \DecValTok{10}\NormalTok{)}
+\NormalTok{g <-}\StringTok{ }\NormalTok{g[idx]}
+\KeywordTok{split}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(g), g)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$F
+[1] 1 6 8
+
+$I
+[1] 2 3 5 7
+
+$M
+[1]  4  9 10
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{table}{%
+\subsection{테이블(table)}\label{table}}
+
+\begin{itemize}
+\tightlist
+\item
+  범주형 변수의 빈도 또는 분할표(교차표)를 표현하기 위한 객체(클래스)
+\item
+  범주 별 통계량(평균, 표준편차, 중위수, \ldots) 요약
+\end{itemize}
+
+\textbf{\texttt{tapply()}} 함수를 이용한 테이블 만들기
+
+\begin{itemize}
+\tightlist
+\item
+  길이가 12인 임의의 벡터 \texttt{u}를 수준의 개수가 각각 3, 2인 factor의 조합으로 부분벡터로 분리 후 \texttt{length()} 적용 \(\rightarrow\) \texttt{tapply()} 함수 사용
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{u <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{12}\NormalTok{)}
+\NormalTok{f1 <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{4}\NormalTok{, }
+               \DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\NormalTok{f2 <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"a"}\NormalTok{, }\StringTok{"a"}\NormalTok{, }\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"a"}\NormalTok{, }
+               \StringTok{"b"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"a"}\NormalTok{, }\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"b"}\NormalTok{))}
+\KeywordTok{tapply}\NormalTok{(u, }\KeywordTok{list}\NormalTok{(f1, f2), length)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  a  b
+3 1  3
+4 4 NA
+5 2  2
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{u}의 값과 상관 없이 두 factor 형 변수 \texttt{f1}과 \texttt{f2}의 조합에 따른 개수 반환 \(\rightarrow\) 분할표(contingency table)
+\item
+  위 예시에서 \texttt{f1}이 ``4'' 이고 \texttt{f2}가 ``b'' 인 경우는 없기 때문에 0 값이 있어야 하나, \texttt{tapply()} 함수 적용 시 결측값 \texttt{NA}를 반환
+\item
+  \texttt{table()}: 하나 이상의 factor의 수준 또는 수준의 조합으로 분할표 생성
+\item
+  Factor가 3개 이상인 경우 배열로 다차원 분할표 표현
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# table() 적용 예시}
+\NormalTok{t1 <-}\StringTok{ }\KeywordTok{table}\NormalTok{(f1, f2)}
+\NormalTok{t1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   f2
+f1  a b
+  3 1 3
+  4 4 0
+  5 2 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{typeof}\NormalTok{(t1); }\KeywordTok{attributes}\NormalTok{(t1); }\KeywordTok{str}\NormalTok{(t1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "integer"
+\end{verbatim}
+
+\begin{verbatim}
+$dim
+[1] 3 2
+
+$dimnames
+$dimnames$f1
+[1] "3" "4" "5"
+
+$dimnames$f2
+[1] "a" "b"
+
+
+$class
+[1] "table"
+\end{verbatim}
+
+\begin{verbatim}
+ 'table' int [1:3, 1:2] 1 4 2 3 0 2
+ - attr(*, "dimnames")=List of 2
+  ..$ f1: chr [1:3] "3" "4" "5"
+  ..$ f2: chr [1:2] "a" "b"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# factor가 한개인 경우}
+\KeywordTok{table}\NormalTok{(f1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+f1
+3 4 5 
+4 4 4 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# factor가 3개인 경우}
+\NormalTok{year =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"1"}\NormalTok{,}\StringTok{"1"}\NormalTok{,}\StringTok{"2"}\NormalTok{,}\StringTok{"3"}\NormalTok{,}\StringTok{"3"}\NormalTok{,}\StringTok{"4"}\NormalTok{)}
+\NormalTok{gender =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"M"}\NormalTok{,}\StringTok{"M"}\NormalTok{,}\StringTok{"F"}\NormalTok{,}\StringTok{"M"}\NormalTok{,}\StringTok{"F"}\NormalTok{,}\StringTok{"F"}\NormalTok{)}
+\NormalTok{grade =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{,}\StringTok{"C"}\NormalTok{,}\StringTok{"B"}\NormalTok{,}\StringTok{"B"}\NormalTok{,}\StringTok{"A"}\NormalTok{,}\StringTok{"C"}\NormalTok{)}
+
+\KeywordTok{table}\NormalTok{(gender, grade, year)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+, , year = 1
+
+      grade
+gender A B C
+     F 0 0 0
+     M 1 0 1
+
+, , year = 2
+
+      grade
+gender A B C
+     F 0 1 0
+     M 0 0 0
+
+, , year = 3
+
+      grade
+gender A B C
+     F 1 0 0
+     M 0 1 0
+
+, , year = 4
+
+      grade
+gender A B C
+     F 0 0 1
+     M 0 0 0
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{tab-related-fun}{%
+\subsubsection*{테이블 관련 함수}\label{tab-related-fun}}
+
+
+\hypertarget{tab-fun1}{%
+\paragraph{\texorpdfstring{\texttt{tabulate()} 함수}{tabulate() 함수}}\label{tab-fun1}}
+\addcontentsline{toc}{paragraph}{\texttt{tabulate()} 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  정수로 이루어진 벡터에 각 정수 값이 발생한 횟수를 카운팅한 결과를 반환 \(\rightarrow\) \texttt{table()} 함수의 핵심 함수
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# tabulate() 함수 사용 인수(argument)}
+\KeywordTok{tabulate}\NormalTok{(}
+\NormalTok{  bin,  }\CommentTok{# 정수형(수치형) 벡터 또는 factor }
+\NormalTok{  nbins, }\CommentTok{# 사용할 수준(bin)의 개수 }
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{tabulate()} 함수 예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{8}\NormalTok{)}
+\KeywordTok{tabulate}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 1 3 1 1 2 0 0 2 0 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tabulate}\NormalTok{(x, }\DataTypeTok{nbins =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1 3 1
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{tab-fun2}{%
+\paragraph{\texorpdfstring{\texttt{addmargins()} 함수}{addmargins() 함수}}\label{tab-fun2}}
+\addcontentsline{toc}{paragraph}{\texttt{addmargins()} 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  테이블 객체(분할표)를 인수로 받아 각 요인의 수준 및 수준 조합 별 합계 값을 테이블과 동시 반환
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# addmargins() 함수 사용 인수}
+\KeywordTok{addmargins}\NormalTok{(}
+\NormalTok{  T }\CommentTok{# 테이블 또는 배열 객체 }
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{addmargins()} 예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t1 <-}\StringTok{ }\KeywordTok{table}\NormalTok{(f1, f2)}
+\KeywordTok{addmargins}\NormalTok{(t1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     f2
+f1     a  b Sum
+  3    1  3   4
+  4    4  0   4
+  5    2  2   4
+  Sum  7  5  12
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 3차원 이상 테이블}
+\NormalTok{t2 <-}\StringTok{ }\KeywordTok{table}\NormalTok{(gender, grade, year)}
+\KeywordTok{is.table}\NormalTok{(t2); }\KeywordTok{is.array}\NormalTok{(t2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{addmargins}\NormalTok{(t2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+, , year = 1
+
+      grade
+gender A B C Sum
+   F   0 0 0   0
+   M   1 0 1   2
+   Sum 1 0 1   2
+
+, , year = 2
+
+      grade
+gender A B C Sum
+   F   0 1 0   1
+   M   0 0 0   0
+   Sum 0 1 0   1
+
+, , year = 3
+
+      grade
+gender A B C Sum
+   F   1 0 0   1
+   M   0 1 0   1
+   Sum 1 1 0   2
+
+, , year = 4
+
+      grade
+gender A B C Sum
+   F   0 0 1   1
+   M   0 0 0   0
+   Sum 0 0 1   1
+
+, , year = Sum
+
+      grade
+gender A B C Sum
+   F   1 1 1   3
+   M   1 1 1   3
+   Sum 2 2 2   6
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{tab-fun3}{%
+\paragraph{\texorpdfstring{\texttt{ftable()} 함수}{ftable() 함수}}\label{tab-fun3}}
+\addcontentsline{toc}{paragraph}{\texttt{ftable()} 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  ``평평한(flat)'' 교차표 생성
+\item
+  다차원 교차표 작성 시 행변수와 열변수 교환을 통해 재사용 가능
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ftable}\NormalTok{(}
+\NormalTok{  x,  }\CommentTok{# factor, table 또는 ftable 클래스를 갖는 객체}
+\NormalTok{  row.vars, }\CommentTok{# 행 변수 지정 색인(정수, 문자)}
+\NormalTok{  col.vars  }\CommentTok{# 열 변수 지정 색인(정수, 문자)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{ftable()} 함수 사용 예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t3 <-}\StringTok{ }\KeywordTok{ftable}\NormalTok{(t2)}
+\NormalTok{t3; }\KeywordTok{attributes}\NormalTok{(t3); }\KeywordTok{str}\NormalTok{(t3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+             year 1 2 3 4
+gender grade             
+F      A          0 0 1 0
+       B          0 1 0 0
+       C          0 0 0 1
+M      A          1 0 0 0
+       B          0 0 1 0
+       C          1 0 0 0
+\end{verbatim}
+
+\begin{verbatim}
+$dim
+[1] 6 4
+
+$class
+[1] "ftable"
+
+$row.vars
+$row.vars$gender
+[1] "F" "M"
+
+$row.vars$grade
+[1] "A" "B" "C"
+
+
+$col.vars
+$col.vars$year
+[1] "1" "2" "3" "4"
+\end{verbatim}
+
+\begin{verbatim}
+ 'ftable' int [1:6, 1:4] 0 0 0 1 0 1 0 1 0 0 ...
+ - attr(*, "row.vars")=List of 2
+  ..$ gender: chr [1:2] "F" "M"
+  ..$ grade : chr [1:3] "A" "B" "C"
+ - attr(*, "col.vars")=List of 1
+  ..$ year: chr [1:4] "1" "2" "3" "4"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 테이블 내 행 변수 바꾸기}
+\NormalTok{t4 <-}\StringTok{ }\KeywordTok{ftable}\NormalTok{(t2, }\DataTypeTok{row.vars =} \KeywordTok{c}\NormalTok{(}\StringTok{"year"}\NormalTok{, }\StringTok{"gender"}\NormalTok{))}
+\NormalTok{t4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+            grade A B C
+year gender            
+1    F            0 0 0
+     M            1 0 1
+2    F            0 1 0
+     M            0 0 0
+3    F            1 0 0
+     M            0 1 0
+4    F            0 0 1
+     M            0 0 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 테이블 내 열 변수 바꾸기}
+\NormalTok{t5 <-}\StringTok{ }\KeywordTok{ftable}\NormalTok{(t2, }\DataTypeTok{col.vars =} \DecValTok{1}\NormalTok{)}
+\NormalTok{t5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+           gender F M
+grade year           
+A     1           0 1
+      2           0 0
+      3           1 0
+      4           0 0
+B     1           0 0
+      2           1 0
+      3           0 1
+      4           0 0
+C     1           0 1
+      2           0 0
+      3           0 0
+      4           1 0
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{table-fun4}{%
+\paragraph{\texorpdfstring{\texttt{margin.table()} 함수}{margin.table() 함수}}\label{table-fun4}}
+\addcontentsline{toc}{paragraph}{\texttt{margin.table()} 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  배열 형식으로 지정된 교차표(\texttt{table()} 반환 결과)에서 지정된 차원 색인에 대한 표 합계 계산 결과 반환
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{margin.table}\NormalTok{(}
+\NormalTok{  x,  }\CommentTok{# table 또는 ftable 클래스를 갖는 객체}
+\NormalTok{  margin }\CommentTok{# 차원 색인 번호}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{margin.table()} 예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+, , year = 1
+
+      grade
+gender A B C
+     F 0 0 0
+     M 1 0 1
+
+, , year = 2
+
+      grade
+gender A B C
+     F 0 1 0
+     M 0 0 0
+
+, , year = 3
+
+      grade
+gender A B C
+     F 1 0 0
+     M 0 1 0
+
+, , year = 4
+
+      grade
+gender A B C
+     F 0 0 1
+     M 0 0 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{margin.table}\NormalTok{(t2, }\DecValTok{1}\NormalTok{) }\CommentTok{# 1 차원(행): 성별}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+gender
+F M 
+3 3 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{margin.table}\NormalTok{(t2, }\DecValTok{2}\NormalTok{) }\CommentTok{# 2 차원(열): 성적}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+grade
+A B C 
+2 2 2 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{margin.table}\NormalTok{(t2, }\DecValTok{3}\NormalTok{) }\CommentTok{# 3 차원(배열 방 번호): 학년}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+year
+1 2 3 4 
+2 1 2 1 
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{table-fun5}{%
+\paragraph{\texorpdfstring{\texttt{prop.table()} 함수}{prop.table() 함수}}\label{table-fun5}}
+\addcontentsline{toc}{paragraph}{\texttt{prop.table()} 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{table} 객체 빈도에 대한 비율 계산
+\item
+  전체, 차원 단위 비율 계산 가능
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{prop.table}\NormalTok{(}
+\NormalTok{  x,  }\CommentTok{# table 또는 ftable 클래스를 갖는 객체}
+\NormalTok{  margin }\CommentTok{# 차원 색인 번호}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{prop.table()} 예시
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{margin\ =\ NULL}: 각 셀을 전체 cell의 합으로 나눈 비율
+  \item
+    \texttt{margin\ =\ 1}: 각 행 별 셀에 대해 각 행에 해당하는 cell 합으로 나눈 비율 \((n_{ij}/n_{i.})\), \(n_{i.} = \sum_{j=1}^{J} n_{ij}\)
+  \item
+    \texttt{margin\ =\ 2}: 각 열 별 셀에 대해 각 열에 해당하는 cell 합으로 나눈 비율 \((n_{ij}/n_{.j})\), \(n_{.j} = \sum_{i=1}^{I} n_{ij}\)
+  \end{itemize}
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 2차원 교차표}
+\KeywordTok{prop.table}\NormalTok{(t1) }\CommentTok{# margin = NULL}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   f2
+f1           a          b
+  3 0.08333333 0.25000000
+  4 0.33333333 0.00000000
+  5 0.16666667 0.16666667
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{prop.table}\NormalTok{(t1, }\DecValTok{1}\NormalTok{) }\CommentTok{# margin = 1 (row)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   f2
+f1     a    b
+  3 0.25 0.75
+  4 1.00 0.00
+  5 0.50 0.50
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{prop.table}\NormalTok{(t1, }\DecValTok{2}\NormalTok{) }\CommentTok{# margin = 2 (column)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   f2
+f1          a         b
+  3 0.1428571 0.6000000
+  4 0.5714286 0.0000000
+  5 0.2857143 0.4000000
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{data-frame}{%
+\section{데이터 프레임(data frame)}\label{data-frame}}
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}
+\textbf{학습목표(4 주차)}: 데이터 프레임 클래스에 대해 알아보고, 데이터 프레임을 생성, 병합(merge), 연산에 대한 함수들에 대해 알아본다.
+\EndKnitrBlock{rmdnote}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  Excel 스프레드시트와 같은 형태
+\end{itemize}
+
+\footnotesize
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-53}스프레드시트 기본 형태 예시}
+\centering
+\begin{tabular}[t]{l|l|r}
+\hline
+이름 & 직장 & 나이\\
+\hline
+김어준 & 딴지일보 & 51\\
+\hline
+주진우 & 시사인 & 46\\
+\hline
+김용민 & 프리랜서 & 45\\
+\hline
+정봉주 & 정당인 & 59\\
+\hline
+\end{tabular}
+\end{table}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  데이터 프레임은 데이터 유형에 상관없이 2차원 형태의 데이터 구조
+\item
+  행렬과 리스트를 혼합한 자료 형태 \(\rightarrow\) 동일한 길이의 벡터로 이루어진 리스트를 구성요소로 갖는 리스트
+\item
+  행렬과 유사한 구조를 갖고 있지만 각기 다른 유형의 자료형태로 자료행렬을 구성할 수 있다는 점에서 행렬과 차이를 갖음
+\item
+  행렬과 마찬가지로 변수(열)의 길이(행의 개수)는 모두 동일해야 함
+\item
+  R에서 가장 빈번하게 활용되고 있는 데이터 클래스임
+\item
+  데이터 프레임의 각 열(컬럼)은 벡터로 간주
+\end{itemize}
+
+\hypertarget{create-data-frame}{%
+\subsection{데이터 프레임 생성}\label{create-data-frame}}
+
+\begin{itemize}
+\tightlist
+\item
+  데이터 프레임 생성 함수: \texttt{data.frame()}
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data.frame}\NormalTok{(}
+  \CommentTok{# 값 또는 이름(tag) = 값}
+\NormalTok{  ..., }
+  \CommentTok{# 논리값. }
+  \CommentTok{# 변수명(열 이름)이 구문 상 유효한 변수인지 또는 중복이 있는지 확인}
+\NormalTok{  check.names, }
+  \CommentTok{# 논리값. 문자형 벡터의 factor 형 강제 변환 여부 }
+\NormalTok{  stringsAsFactors, }
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  데이터 프레임 생성 예시: 모 병원에서 얻은 환자의 인구학적 정보
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{id <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\NormalTok{sex <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{), }\DataTypeTok{each =} \DecValTok{5}\NormalTok{)}
+\NormalTok{age <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{34}\NormalTok{, }\DecValTok{22}\NormalTok{, }\DecValTok{54}\NormalTok{, }\DecValTok{43}\NormalTok{, }\DecValTok{44}\NormalTok{, }\DecValTok{39}\NormalTok{, }\DecValTok{38}\NormalTok{, }\DecValTok{28}\NormalTok{, }\DecValTok{31}\NormalTok{, }\DecValTok{42}\NormalTok{)}
+\NormalTok{sbp <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{112}\NormalTok{, }\DecValTok{118}\NormalTok{, }\DecValTok{132}\NormalTok{, }\DecValTok{128}\NormalTok{, }\DecValTok{128}\NormalTok{, }\DecValTok{124}\NormalTok{, }\DecValTok{121}\NormalTok{, }\DecValTok{119}\NormalTok{, }\DecValTok{124}\NormalTok{, }\DecValTok{109}\NormalTok{)}
+\NormalTok{height <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{165}\NormalTok{, }\DecValTok{158}\NormalTok{, }\DecValTok{161}\NormalTok{, }\DecValTok{160}\NormalTok{, }\DecValTok{168}\NormalTok{, }\DecValTok{172}\NormalTok{, }\DecValTok{175}\NormalTok{, }\DecValTok{182}\NormalTok{, }\DecValTok{168}\NormalTok{, }\DecValTok{162}\NormalTok{)}
+\NormalTok{weight <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{52}\NormalTok{, }\DecValTok{48}\NormalTok{, }\DecValTok{59}\NormalTok{, }\DecValTok{60}\NormalTok{, }\DecValTok{48}\NormalTok{, }\DecValTok{72}\NormalTok{, }\DecValTok{73}\NormalTok{, }\DecValTok{82}\NormalTok{, }\DecValTok{64}\NormalTok{, }\DecValTok{60}\NormalTok{)}
+
+\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(id, sex, age, sbp, height, weight, }
+                 \DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   id    sex age sbp height weight
+1   1 Female  34 112    165     52
+2   2 Female  22 118    158     48
+3   3 Female  54 132    161     59
+4   4 Female  43 128    160     60
+5   5 Female  44 128    168     48
+6   6   Male  39 124    172     72
+7   7   Male  38 121    175     73
+8   8   Male  28 119    182     82
+9   9   Male  31 124    168     64
+10 10   Male  42 109    162     60
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{attributes}\NormalTok{(df); }\KeywordTok{str}\NormalTok{(df); }\KeywordTok{summary}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$names
+[1] "id"     "sex"    "age"    "sbp"    "height" "weight"
+
+$class
+[1] "data.frame"
+
+$row.names
+ [1]  1  2  3  4  5  6  7  8  9 10
+\end{verbatim}
+
+\begin{verbatim}
+'data.frame':   10 obs. of  6 variables:
+ $ id    : int  1 2 3 4 5 6 7 8 9 10
+ $ sex   : chr  "Female" "Female" "Female" "Female" ...
+ $ age   : num  34 22 54 43 44 39 38 28 31 42
+ $ sbp   : num  112 118 132 128 128 124 121 119 124 109
+ $ height: num  165 158 161 160 168 172 175 182 168 162
+ $ weight: num  52 48 59 60 48 72 73 82 64 60
+\end{verbatim}
+
+\begin{verbatim}
+       id            sex                 age             sbp       
+ Min.   : 1.00   Length:10          Min.   :22.00   Min.   :109.0  
+ 1st Qu.: 3.25   Class :character   1st Qu.:31.75   1st Qu.:118.2  
+ Median : 5.50   Mode  :character   Median :38.50   Median :122.5  
+ Mean   : 5.50                      Mean   :37.50   Mean   :121.5  
+ 3rd Qu.: 7.75                      3rd Qu.:42.75   3rd Qu.:127.0  
+ Max.   :10.00                      Max.   :54.00   Max.   :132.0  
+     height          weight     
+ Min.   :158.0   Min.   :48.00  
+ 1st Qu.:161.2   1st Qu.:53.75  
+ Median :166.5   Median :60.00  
+ Mean   :167.1   Mean   :61.80  
+ 3rd Qu.:171.0   3rd Qu.:70.00  
+ Max.   :182.0   Max.   :82.00  
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# stringsAsFactors = TRUE 인 경우 sex의 summary() 결과}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(id, sex, age, sbp, height, weight, }
+                 \DataTypeTok{stringsAsFactors =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       id            sex         age             sbp            height     
+ Min.   : 1.00   Female:5   Min.   :22.00   Min.   :109.0   Min.   :158.0  
+ 1st Qu.: 3.25   Male  :5   1st Qu.:31.75   1st Qu.:118.2   1st Qu.:161.2  
+ Median : 5.50              Median :38.50   Median :122.5   Median :166.5  
+ Mean   : 5.50              Mean   :37.50   Mean   :121.5   Mean   :167.1  
+ 3rd Qu.: 7.75              3rd Qu.:42.75   3rd Qu.:127.0   3rd Qu.:171.0  
+ Max.   :10.00              Max.   :54.00   Max.   :132.0   Max.   :182.0  
+     weight     
+ Min.   :48.00  
+ 1st Qu.:53.75  
+ Median :60.00  
+ Mean   :61.80  
+ 3rd Qu.:70.00  
+ Max.   :82.00  
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}
+\texttt{summary()} 함수는 객체의 클래스에 따라 요약 통계량을 출력해주는 함수로 특히 데이터 프레임이 가지고 있는 변수들의 특징을 손쉽게 알아볼 수 있기 때문에 가장 많이 호출되는 함수 중 하나임. 숫자형 벡터에 대해서는 최솟값(minimum), 1/4 분위수(1\textsuperscript{st} quantile), 중앙값(median), 평균(mean), 3/4 분위수(3\textsuperscript{rd} quantile), 최댓값을 출력하고, factor 형 객체에 대해서는 factor의 각 수준 별 빈도를 출력함. 2차원 이상 \texttt{table()} 객체에 적용 시 \(\chi^2\) 검정(독립성 검정) 결과값을 출력함.
+\EndKnitrBlock{rmdtip}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  이미 정의된 데이터 프레임에 데이터를 추가 가능
+
+  \begin{itemize}
+  \tightlist
+  \item
+    예를 들어 \texttt{dbp}라는 벡터에 이완기 혈압(diastolic blood pressure) 데이터가 입력되어 있고 \texttt{df}에 \texttt{dbp} 변수를 새롭게 추가 시 \texttt{df\$dbp\ \textless{}-\ x} 형태로 추가
+  \item
+    위 형태로 이미 존재하고 있는 변수(열)에 새로운 값 재할당 가능
+  \item
+    이러한 형태로 문자형 벡터 추가 시 문자형 벡터는 자동으로 factor로 형 변환 되지 않음
+  \end{itemize}
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(df)}
+\NormalTok{dbp <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{73}\NormalTok{, }\DecValTok{70}\NormalTok{, }\DecValTok{88}\NormalTok{, }\DecValTok{82}\NormalTok{, }\DecValTok{75}\NormalTok{, }\DecValTok{77}\NormalTok{, }\DecValTok{74}\NormalTok{, }\DecValTok{81}\NormalTok{, }\DecValTok{72}\NormalTok{, }\DecValTok{64}\NormalTok{)}
+
+\CommentTok{# df에 "dbp" 열을 생성하고 x 값 대입}
+\NormalTok{df}\OperatorTok{$}\NormalTok{dbp <-}\StringTok{ }\NormalTok{x}
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   id    sex age sbp height weight dbp
+1   1 Female  34 112    165     52   1
+2   2 Female  22 118    158     48   2
+3   3 Female  54 132    161     59   3
+4   4 Female  43 128    160     60   4
+5   5 Female  44 128    168     48   5
+6   6   Male  39 124    172     72   6
+7   7   Male  38 121    175     73   7
+8   8   Male  28 119    182     82   8
+9   9   Male  31 124    168     64   9
+10 10   Male  42 109    162     60  10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# df의 dbp에 dbp 벡터의 값을 재할당}
+\NormalTok{df}\OperatorTok{$}\NormalTok{dbp <-}\StringTok{ }\NormalTok{dbp}
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   id    sex age sbp height weight dbp
+1   1 Female  34 112    165     52  73
+2   2 Female  22 118    158     48  70
+3   3 Female  54 132    161     59  88
+4   4 Female  43 128    160     60  82
+5   5 Female  44 128    168     48  75
+6   6   Male  39 124    172     72  77
+7   7   Male  38 121    175     73  74
+8   8   Male  28 119    182     82  81
+9   9   Male  31 124    168     64  72
+10 10   Male  42 109    162     60  64
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# df에 운동여부 exercyn 라는 변수 추사 }
+\CommentTok{# exercyn 는 "Y" 또는 "N" 두 값을 가짐}
+\NormalTok{df}\OperatorTok{$}\NormalTok{exercyn <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Y"}\NormalTok{, }\StringTok{"Y"}\NormalTok{, }\StringTok{"N"}\NormalTok{, }\StringTok{"Y"}\NormalTok{, }\StringTok{"N"}\NormalTok{, }
+                \StringTok{"N"}\NormalTok{, }\StringTok{"N"}\NormalTok{, }\StringTok{"Y"}\NormalTok{, }\StringTok{"N"}\NormalTok{, }\StringTok{"Y"}\NormalTok{)}
+\KeywordTok{str}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+'data.frame':   10 obs. of  8 variables:
+ $ id     : int  1 2 3 4 5 6 7 8 9 10
+ $ sex    : Factor w/ 2 levels "Female","Male": 1 1 1 1 1 2 2 2 2 2
+ $ age    : num  34 22 54 43 44 39 38 28 31 42
+ $ sbp    : num  112 118 132 128 128 124 121 119 124 109
+ $ height : num  165 158 161 160 168 172 175 182 168 162
+ $ weight : num  52 48 59 60 48 72 73 82 64 60
+ $ dbp    : num  73 70 88 82 75 77 74 81 72 64
+ $ exercyn: chr  "Y" "Y" "N" "Y" ...
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  행렬 및 벡터에서 언급 되었던 \texttt{rownames()}, \texttt{colnames()}, \texttt{names()}, \texttt{dim()}, \texttt{ncol()/NCOL()},\texttt{nrow()/NROW()} 함수 적용 가능
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rownames}\NormalTok{(df); }\KeywordTok{colnames}\NormalTok{(df); }\KeywordTok{names}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10"
+\end{verbatim}
+
+\begin{verbatim}
+[1] "id"      "sex"     "age"     "sbp"     "height"  "weight"  "dbp"    
+[8] "exercyn"
+\end{verbatim}
+
+\begin{verbatim}
+[1] "id"      "sex"     "age"     "sbp"     "height"  "weight"  "dbp"    
+[8] "exercyn"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(df); }\KeywordTok{ncol}\NormalTok{(df); }\KeywordTok{nrow}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 10  8
+\end{verbatim}
+
+\begin{verbatim}
+[1] 8
+\end{verbatim}
+
+\begin{verbatim}
+[1] 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# rownames() 함수를 통해 행이름 변경}
+\KeywordTok{rownames}\NormalTok{(df) <-}\StringTok{ }\NormalTok{letters[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{]}
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  id    sex age sbp height weight dbp exercyn
+a  1 Female  34 112    165     52  73       Y
+b  2 Female  22 118    158     48  70       Y
+c  3 Female  54 132    161     59  88       N
+d  4 Female  43 128    160     60  82       Y
+e  5 Female  44 128    168     48  75       N
+f  6   Male  39 124    172     72  77       N
+g  7   Male  38 121    175     73  74       N
+h  8   Male  28 119    182     82  81       Y
+i  9   Male  31 124    168     64  72       N
+j 10   Male  42 109    162     60  64       Y
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#colnames() 함수를 통해 열 이름 변경}
+\NormalTok{varname_orig <-}\StringTok{ }\KeywordTok{colnames}\NormalTok{(df)}
+\KeywordTok{colnames}\NormalTok{(df) <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\StringTok{"V"}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\KeywordTok{ncol}\NormalTok{(df))}
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  V1     V2 V3  V4  V5 V6 V7 V8
+a  1 Female 34 112 165 52 73  Y
+b  2 Female 22 118 158 48 70  Y
+c  3 Female 54 132 161 59 88  N
+d  4 Female 43 128 160 60 82  Y
+e  5 Female 44 128 168 48 75  N
+f  6   Male 39 124 172 72 77  N
+g  7   Male 38 121 175 73 74  N
+h  8   Male 28 119 182 82 81  Y
+i  9   Male 31 124 168 64 72  N
+j 10   Male 42 109 162 60 64  Y
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# names() 함수와 colnames()는 거의 동일한 기능 수행}
+\CommentTok{# 두 함수의 차이점? }
+\KeywordTok{names}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "V1" "V2" "V3" "V4" "V5" "V6" "V7" "V8"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{names}\NormalTok{(df) <-}\StringTok{ }\NormalTok{varname_orig}
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  id    sex age sbp height weight dbp exercyn
+a  1 Female  34 112    165     52  73       Y
+b  2 Female  22 118    158     48  70       Y
+c  3 Female  54 132    161     59  88       N
+d  4 Female  43 128    160     60  82       Y
+e  5 Female  44 128    168     48  75       N
+f  6   Male  39 124    172     72  77       N
+g  7   Male  38 121    175     73  74       N
+h  8   Male  28 119    182     82  81       Y
+i  9   Male  31 124    168     64  72       N
+j 10   Male  42 109    162     60  64       Y
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}
+\textbf{참고}: R Markdown에서 데이터 프레임을 손쉽게 html 파일에 출력하는 방법
+
+\begin{itemize}
+\tightlist
+\item
+  R Markdwon의 YAML 부분에 다음과 같이 옵션을 추가하면 별다른 함수 처리 없이 데이터 프레임을 테이블 형태로 html 문서에 붙일 수 있음. 아래 예시에서 \texttt{output} 이후 \texttt{df\_print:\ paged} 옵션을 추가
+\item
+  옵션 추가 시 들여쓰기(탭 구분)은 YAML 문서의 트리 구조를 표현한 것이기 때문에 \textbf{꼭} 들여쓰기를 정확히 일치시켜야 함
+\end{itemize}
+\EndKnitrBlock{rmdtip}
+
+\normalsize
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OtherTok{---}
+\FunctionTok{title:}\AttributeTok{ }\StringTok{"문서 제목"}
+\StringTok{author: "}\ErrorTok{이름"}
+\FunctionTok{date:}\AttributeTok{ }\StringTok{"`r Sys.Date()`"}
+\FunctionTok{output:}\AttributeTok{ }
+  \FunctionTok{html_document:}\AttributeTok{ }
+    \FunctionTok{df_print:}\AttributeTok{ paged}
+\OtherTok{---}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\hypertarget{data-frame-get}{%
+\subsection{데이터 프레임 접근 및 필터링}\label{data-frame-get}}
+
+\hypertarget{data-frame-index}{%
+\subsubsection*{접근방법}\label{data-frame-index}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  리스트 데이터 접근 방식
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 추출(접근) 연산자(함수) `df$col_name` 형태로 접근}
+\NormalTok{df}\OperatorTok{$}\NormalTok{height}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 165 158 161 160 168 172 175 182 168 162
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# df[[index]] 또는 df[["col_name"]] 형태로 접근}
+\NormalTok{df[[}\DecValTok{4}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 112 118 132 128 128 124 121 119 124 109
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df[[}\StringTok{"sex"}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] Female Female Female Female Female Male   Male   Male   Male   Male  
+Levels: Female Male
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{w <-}\StringTok{ }\NormalTok{df[[}\DecValTok{4}\NormalTok{]]}
+\KeywordTok{attributes}\NormalTok{(w); }\KeywordTok{str}\NormalTok{(w)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+NULL
+\end{verbatim}
+
+\begin{verbatim}
+ num [1:10] 112 118 132 128 128 124 121 119 124 109
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# df[index] 또는 df["col_name"] 형태로 접근}
+\NormalTok{h <-}\StringTok{ }\NormalTok{df[}\StringTok{"height"}\NormalTok{]}
+\KeywordTok{attributes}\NormalTok{(h); }\KeywordTok{str}\NormalTok{(h)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$names
+[1] "height"
+
+$row.names
+ [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j"
+
+$class
+[1] "data.frame"
+\end{verbatim}
+
+\begin{verbatim}
+'data.frame':   10 obs. of  1 variable:
+ $ height: num  165 158 161 160 168 172 175 182 168 162
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  행렬 데이터 접근 방식
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# df[idx_row, idx_col] 또는 df[row_name, col_name] }
+\CommentTok{# 형태 데이터 접근}
+
+\CommentTok{# 열 index 접근}
+\NormalTok{df[, }\DecValTok{3}\NormalTok{];}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 34 22 54 43 44 39 38 28 31 42
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 형 강제 변환 방지}
+\NormalTok{df[, }\DecValTok{3}\NormalTok{, drop =}\StringTok{ }\OtherTok{FALSE}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  age
+a  34
+b  22
+c  54
+d  43
+e  44
+f  39
+g  38
+h  28
+i  31
+j  42
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 행 index 접근}
+\NormalTok{df[}\DecValTok{8}\NormalTok{, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  id  sex age sbp height weight dbp exercyn
+h  8 Male  28 119    182     82  81       Y
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 행과 열 index 접근}
+\NormalTok{df[}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{, }\DecValTok{5}\OperatorTok{:}\DecValTok{6}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  height weight
+a    165     52
+b    158     48
+c    161     59
+d    160     60
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 열 이름으로 접근}
+\NormalTok{df[, }\KeywordTok{c}\NormalTok{(}\StringTok{"sex"}\NormalTok{, }\StringTok{"sbp"}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     sex sbp
+a Female 112
+b Female 118
+c Female 132
+d Female 128
+e Female 128
+f   Male 124
+g   Male 121
+h   Male 119
+i   Male 124
+j   Male 109
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 행 이름으로 접근}
+\NormalTok{df[}\KeywordTok{c}\NormalTok{(}\StringTok{"d"}\NormalTok{, }\StringTok{"e"}\NormalTok{, }\StringTok{"f"}\NormalTok{), ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  id    sex age sbp height weight dbp exercyn
+d  4 Female  43 128    160     60  82       Y
+e  5 Female  44 128    168     48  75       N
+f  6   Male  39 124    172     72  77       N
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 행과 열 이름으로 접근}
+\NormalTok{df[}\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"f"}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\StringTok{"sex"}\NormalTok{, }\StringTok{"height"}\NormalTok{, }\StringTok{"dbp"}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     sex height dbp
+a Female    165  73
+f   Male    172  77
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 행 또는 열 제외}
+\NormalTok{df[}\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\OperatorTok{:}\DecValTok{6}\NormalTok{), ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  id    sex age sbp height weight dbp exercyn
+a  1 Female  34 112    165     52  73       Y
+g  7   Male  38 121    175     73  74       N
+h  8   Male  28 119    182     82  81       Y
+i  9   Male  31 124    168     64  72       N
+j 10   Male  42 109    162     60  64       Y
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df[}\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\OperatorTok{:}\DecValTok{7}\NormalTok{), }\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{8}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     sex age sbp height weight dbp
+b Female  22 118    158     48  70
+c Female  54 132    161     59  88
+d Female  43 128    160     60  82
+h   Male  28 119    182     82  81
+i   Male  31 124    168     64  72
+j   Male  42 109    162     60  64
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{data-frame-filtering}{%
+\subsubsection*{필터링}\label{data-frame-filtering}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  벡터, 행렬과 마찬가지로 비교 연산자를 이용해 조건에 맞는 부분 데이터 추출 가능
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# %in% 연산자를 이용해 데이터 프레임의 부분 변수 추출}
+\CommentTok{# id, age 열을 제외한 나머지 데이터 프레임 추출}
+\NormalTok{varname_df <-}\StringTok{ }\KeywordTok{names}\NormalTok{(df)}
+\NormalTok{df[, }\OperatorTok{!}\NormalTok{varname_df }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"id"}\NormalTok{, }\StringTok{"age"}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     sex sbp height weight dbp exercyn
+a Female 112    165     52  73       Y
+b Female 118    158     48  70       Y
+c Female 132    161     59  88       N
+d Female 128    160     60  82       Y
+e Female 128    168     48  75       N
+f   Male 124    172     72  77       N
+g   Male 121    175     73  74       N
+h   Male 119    182     82  81       Y
+i   Male 124    168     64  72       N
+j   Male 109    162     60  64       Y
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 조건 연산자 사용 }
+\CommentTok{# sex 가 Female이고 나이가 40 이상인 데이터 추출}
+\NormalTok{df[df}\OperatorTok{$}\NormalTok{sex }\OperatorTok{==}\StringTok{ "Female"} \OperatorTok{&}\StringTok{ }\NormalTok{df}\OperatorTok{$}\NormalTok{age }\OperatorTok{>=}\StringTok{ }\DecValTok{40}\NormalTok{, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  id    sex age sbp height weight dbp exercyn
+c  3 Female  54 132    161     59  88       N
+d  4 Female  43 128    160     60  82       Y
+e  5 Female  44 128    168     48  75       N
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# id가 3보다 작은 데이터 추출}
+\NormalTok{df[df[, }\DecValTok{1}\NormalTok{] }\OperatorTok{<}\StringTok{ }\DecValTok{3}\NormalTok{, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  id    sex age sbp height weight dbp exercyn
+a  1 Female  34 112    165     52  73       Y
+b  2 Female  22 118    158     48  70       Y
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# subset 함수 이용한 데이터 추출}
+\CommentTok{# sbp 가 120 이상이고 dbp 가 80 이상인 데이터 추출}
+\KeywordTok{subset}\NormalTok{(df, sbp }\OperatorTok{>=}\StringTok{ }\DecValTok{120} \OperatorTok{&}\StringTok{ }\NormalTok{dbp }\OperatorTok{>=}\StringTok{ }\DecValTok{80}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  id    sex age sbp height weight dbp exercyn
+c  3 Female  54 132    161     59  88       N
+d  4 Female  43 128    160     60  82       Y
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 성별, 수축기, 이완기 혈압 변수만 추출}
+\KeywordTok{subset}\NormalTok{(df, }\DataTypeTok{select =} \KeywordTok{c}\NormalTok{(sex, sbp, dbp))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     sex sbp dbp
+a Female 112  73
+b Female 118  70
+c Female 132  88
+d Female 128  82
+e Female 128  75
+f   Male 124  77
+g   Male 121  74
+h   Male 119  81
+i   Male 124  72
+j   Male 109  64
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# id 변수 제거}
+\KeywordTok{subset}\NormalTok{(df, }\DataTypeTok{select =} \OperatorTok{-}\KeywordTok{c}\NormalTok{(id))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     sex age sbp height weight dbp exercyn
+a Female  34 112    165     52  73       Y
+b Female  22 118    158     48  70       Y
+c Female  54 132    161     59  88       N
+d Female  43 128    160     60  82       Y
+e Female  44 128    168     48  75       N
+f   Male  39 124    172     72  77       N
+g   Male  38 121    175     73  74       N
+h   Male  28 119    182     82  81       Y
+i   Male  31 124    168     64  72       N
+j   Male  42 109    162     60  64       Y
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}
+데이터 프레임 또는 리스트 접근 시 \texttt{df\$col\_name\ 를\ 사용한다면\ 매번\ 데이터\ 프레임\ 이름과}\$\texttt{을\ 반복하기\ 때문에\ 코드가\ 불필요하게\ 복잡해짐.\ R에서는\ 데이터\ 프레임\ 내부의\ 열\ 이름을\ 직접\ 접근할\ 수\ 있도록\ 도와주는\ 몇\ 가지\ 함수(예:}with()\texttt{,}attach()\texttt{등)가\ 있는데,}with()\texttt{와}within()` 활용법에 대해 간략히 알아봄.
+\EndKnitrBlock{rmdnote}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  위 예제에서 sex 가 Female이고 나이가 40 이상인 데이터 추출한다고 했을 때 \texttt{with()} 함수 사용
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# with() 함수: 데이터 환경(객체 내)에서 주어진 표현식의 결과를 반환}
+\KeywordTok{with}\NormalTok{(}
+\NormalTok{  data, }\CommentTok{#리스트 또는 데이터 프레임}
+\NormalTok{  expr, }\CommentTok{# 실제 명령을 수행할 표현식, }
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{with}\NormalTok{(df, df[sex }\OperatorTok{==}\StringTok{ "Female"} \OperatorTok{&}\StringTok{ }\NormalTok{age }\OperatorTok{>=}\StringTok{ }\DecValTok{40}\NormalTok{, ])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  id    sex age sbp height weight dbp exercyn
+c  3 Female  54 132    161     59  88       N
+d  4 Female  43 128    160     60  82       Y
+e  5 Female  44 128    168     48  75       N
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{within()} 함수는 \texttt{with()}와 유사하지만 코드블록(\texttt{\{...\}})을 이용해 보다 자유롭게 데이터 수정 및 추가 가능
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df2 <-}\StringTok{ }\KeywordTok{within}\NormalTok{(df, \{}
+\NormalTok{  hospital <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\StringTok{"A"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }
+                \StringTok{"A"}\NormalTok{, }\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"B"}\NormalTok{)}
+\NormalTok{  mean_age <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(age)}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\hypertarget{data-frame-function}{%
+\subsection{데이터 프레임 관련 함수}\label{data-frame-function}}
+
+\hypertarget{data-frame-utility}{%
+\subsubsection*{유틸리티 함수}\label{data-frame-utility}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  보통 데이터 분석은 외부에서 데이터를 읽은 후 특정 객체에 읽어온 데이터를 할당하는데, 이 경우 데이터가 저장된 객체는 대부분은 데이터 프레임 형태임.
+\item
+  읽어온 데이터는 보통 많은 행(표본)으로 구성되어 있기 때문에 데이터를 손쉽게 살펴보는 방법이 필요
+\end{itemize}
+
+\hypertarget{head-tail}{%
+\paragraph{\texorpdfstring{\texttt{head()}/\texttt{tail()} 함수}{head()/tail() 함수}}\label{head-tail}}
+\addcontentsline{toc}{paragraph}{\texttt{head()}/\texttt{tail()} 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  객체(벡터, 행렬, 테이블, 데이터 프레임 등)의 처음 또는 끝에서 부터 몇 개의 데이터(\texttt{default\ =\ 6L}) 를 순차적으로 보여줌
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 앞에서 불러온 전복 데이터셋 확인}
+\KeywordTok{dim}\NormalTok{(abalone)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 4177    9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#처음 1에서 6행 까지 데이터 출력}
+\KeywordTok{head}\NormalTok{(abalone)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  V1    V2    V3    V4     V5     V6     V7    V8 V9
+1  M 0.455 0.365 0.095 0.5140 0.2245 0.1010 0.150 15
+2  M 0.350 0.265 0.090 0.2255 0.0995 0.0485 0.070  7
+3  F 0.530 0.420 0.135 0.6770 0.2565 0.1415 0.210  9
+4  M 0.440 0.365 0.125 0.5160 0.2155 0.1140 0.155 10
+5  I 0.330 0.255 0.080 0.2050 0.0895 0.0395 0.055  7
+6  I 0.425 0.300 0.095 0.3515 0.1410 0.0775 0.120  8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 제일 마지막 행부터 위로 6개 데이터 까지 출력}
+\KeywordTok{tail}\NormalTok{(abalone)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     V1    V2    V3    V4     V5     V6     V7     V8 V9
+4172  M 0.560 0.430 0.155 0.8675 0.4000 0.1720 0.2290  8
+4173  F 0.565 0.450 0.165 0.8870 0.3700 0.2390 0.2490 11
+4174  M 0.590 0.440 0.135 0.9660 0.4390 0.2145 0.2605 10
+4175  M 0.600 0.475 0.205 1.1760 0.5255 0.2875 0.3080  9
+4176  F 0.625 0.485 0.150 1.0945 0.5310 0.2610 0.2960 10
+4177  M 0.710 0.555 0.195 1.9485 0.9455 0.3765 0.4950 12
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{view-fun}{%
+\paragraph{\texorpdfstring{\texttt{View()} 함수}{View() 함수}}\label{view-fun}}
+\addcontentsline{toc}{paragraph}{\texttt{View()} 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  2차원 데이터의 readble 한 스프레드시트 제공
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{View}\NormalTok{(abalone)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\hypertarget{df-merge-split}{%
+\subsubsection*{데이터 프레임 결합 및 분리 함수}\label{df-merge-split}}
+
+
+\hypertarget{rbind-cbind}{%
+\paragraph{\texorpdfstring{\texttt{rbind()}/\texttt{cbind()} 함수}{rbind()/cbind() 함수}}\label{rbind-cbind}}
+\addcontentsline{toc}{paragraph}{\texttt{rbind()}/\texttt{cbind()} 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  행렬에서 사용한 \texttt{rbind()}/\texttt{cbind()}를 데이터 프레임에도 적용 가능
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x1 =} \KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{5}\NormalTok{), }\DataTypeTok{x2 =} \KeywordTok{rep}\NormalTok{(}\StringTok{"x"}\NormalTok{,}\DecValTok{5}\NormalTok{))}
+\NormalTok{b =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x1 =} \KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{), }\DataTypeTok{x2 =} \KeywordTok{rep}\NormalTok{(}\StringTok{"d"}\NormalTok{,}\DecValTok{5}\NormalTok{))}
+\NormalTok{c =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x3 =} \KeywordTok{rep}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{5}\NormalTok{), }\DataTypeTok{x4 =} \KeywordTok{rep}\NormalTok{(}\StringTok{"z"}\NormalTok{,}\DecValTok{5}\NormalTok{))}
+\NormalTok{d <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DecValTok{1}\NormalTok{, }\StringTok{"d"}\NormalTok{)}
+\NormalTok{e <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{x5 =} \KeywordTok{rep}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{), }\DataTypeTok{x6 =} \KeywordTok{rep}\NormalTok{(}\StringTok{"y"}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+\CommentTok{# rbind()를 이용해 두 데이터 프레임 a-b 합치기}
+\NormalTok{ab <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(a, b)}
+\NormalTok{ab}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   x1 x2
+1   0  x
+2   0  x
+3   0  x
+4   0  x
+5   0  x
+6   1  d
+7   1  d
+8   1  d
+9   1  d
+10  1  d
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 변수명이 다른 경우}
+\KeywordTok{rbind}\NormalTok{(a, c) }\CommentTok{#변수명이 다르기때문에 행으로 묶을 수 없다.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Error in match.names(clabs, names(xi)): names do not match previous names
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# rbind()를 이용해 데이터 프레임-리스트 합치기}
+\NormalTok{abd <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(ab, d)}
+\NormalTok{abd}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   x1 x2
+1   0  x
+2   0  x
+3   0  x
+4   0  x
+5   0  x
+6   1  d
+7   1  d
+8   1  d
+9   1  d
+10  1  d
+11  1  d
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# cbind()를 이용해 두 데이터 프레임 a-c 합치기}
+\NormalTok{ac <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(a, c)}
+\NormalTok{ac}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  x1 x2 x3 x4
+1  0  x  2  z
+2  0  x  2  z
+3  0  x  2  z
+4  0  x  2  z
+5  0  x  2  z
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 행 길이가 다르면 작은 길이의 데이터를 재사용}
+\KeywordTok{cbind}\NormalTok{(a, d)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  x1 x2 1 "d"
+1  0  x 1   d
+2  0  x 1   d
+3  0  x 1   d
+4  0  x 1   d
+5  0  x 1   d
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# cbind()를 이용해 두 데이터 프레임-리스트 합치기}
+\NormalTok{ace <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(ac, e)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\hypertarget{merge}{%
+\paragraph{\texorpdfstring{\texttt{merge()} 함수}{merge() 함수}}\label{merge}}
+\addcontentsline{toc}{paragraph}{\texttt{merge()} 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  두 데이터 프레임을 공통된 값을 기준으로 병합
+\item
+  Excel의 \texttt{vlookup()} 함수 또는 데이터베이스 SQL 쿼리 중 \texttt{join}과 동일한 역할을 함
+\item
+  \texttt{cbind()}의 경우는 단순히 열을 합치는 것이지만 \texttt{merge()}는 공통되는 열을 기준으로 두 데이터셋을 병합
+\item
+  공통된 데이터가 있을 때만 데이터 병합 수행
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# merge() 함수 인수 }
+\KeywordTok{merge}\NormalTok{(}
+\NormalTok{  x, }\CommentTok{# 병합할 데이터 프레임}
+\NormalTok{  y, }\CommentTok{# 병합할 데이터 프레임}
+\NormalTok{  by, }\CommentTok{# 병합 기준으로 사용할 컬럼 (문자열 벡터)}
+\NormalTok{  by.x, }\CommentTok{# 병합에 사용할 x와 y의 열 이름이 다른 경우}
+\NormalTok{  by.y, }\CommentTok{# by.x와 by.y에 각각 공통 데이터에 해당하는 열 이름 지정}
+        \CommentTok{# 둘 다 문자형 스칼라 또는 벡터값 인수로 받음}
+\NormalTok{  all, }\CommentTok{# 논리값 이순}
+       \CommentTok{# TRUE인 경우 x, y 중 공통된 값을 갖는 행이 없을 때}
+       \CommentTok{# 해당 쪽을 NA를 채워 병합}
+       \CommentTok{# 결과적으로 x, y 전체 행이 결과에 포함}
+\NormalTok{  all.x, }\CommentTok{# x,y 중 특정 쪽에 공통된 값이 없더라도 항상 }
+\NormalTok{  all.y, }\CommentTok{# 결과에 포함}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{merge()} 함수 예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d1 =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{Name =} \KeywordTok{c}\NormalTok{(}\StringTok{"Park"}\NormalTok{, }\StringTok{"Hanzo"}\NormalTok{, }\StringTok{"Mercy"}\NormalTok{, }\StringTok{"Soldier76"}\NormalTok{ ),}
+                \DataTypeTok{country =} \KeywordTok{c}\NormalTok{(}\StringTok{"Korea"}\NormalTok{, }\StringTok{"Japan"}\NormalTok{, }\StringTok{"Swiss"}\NormalTok{, }\StringTok{"USA"}\NormalTok{))}
+\NormalTok{d2 =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{Age =} \KeywordTok{c}\NormalTok{(}\DecValTok{19}\NormalTok{,}\DecValTok{38}\NormalTok{,}\DecValTok{37}\NormalTok{,}\DecValTok{56}\NormalTok{,}\DecValTok{31}\NormalTok{),}
+                \DataTypeTok{Name =} \KeywordTok{c}\NormalTok{(}\StringTok{"Park"}\NormalTok{, }\StringTok{"Hanzo"}\NormalTok{, }\StringTok{"Mercy"}\NormalTok{, }\StringTok{"Soldier76"}\NormalTok{,}\StringTok{"Mei"}\NormalTok{ ) )}
+\NormalTok{d1; d2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       Name country
+1      Park   Korea
+2     Hanzo   Japan
+3     Mercy   Swiss
+4 Soldier76     USA
+\end{verbatim}
+
+\begin{verbatim}
+  Age      Name
+1  19      Park
+2  38     Hanzo
+3  37     Mercy
+4  56 Soldier76
+5  31       Mei
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(d1); }\KeywordTok{dim}\NormalTok{(d2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 4 2
+\end{verbatim}
+
+\begin{verbatim}
+[1] 5 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 두 데이터 병합 01}
+\KeywordTok{merge}\NormalTok{(d1, d2, }\DataTypeTok{by =} \StringTok{"Name"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       Name country Age
+1     Hanzo   Japan  38
+2     Mercy   Swiss  37
+3      Park   Korea  19
+4 Soldier76     USA  56
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 두 데이터 병합 02}
+\KeywordTok{names}\NormalTok{(d2)[}\DecValTok{2}\NormalTok{] <-}\StringTok{ "Surname"}
+\KeywordTok{merge}\NormalTok{(d1, d2, }\DataTypeTok{by.x =} \StringTok{"Name"}\NormalTok{, }\DataTypeTok{by.y =} \StringTok{"Surname"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       Name country Age
+1     Hanzo   Japan  38
+2     Mercy   Swiss  37
+3      Park   Korea  19
+4 Soldier76     USA  56
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 두 데이터 병합 03}
+\KeywordTok{merge}\NormalTok{(d1, d2, }
+      \DataTypeTok{by.x =} \StringTok{"Name"}\NormalTok{, }\DataTypeTok{by.y =} \StringTok{"Surname"}\NormalTok{, }
+      \DataTypeTok{all =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       Name country Age
+1     Hanzo   Japan  38
+2     Mercy   Swiss  37
+3      Park   Korea  19
+4 Soldier76     USA  56
+5       Mei    <NA>  31
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{split-df}{%
+\paragraph{\texorpdfstring{\texttt{split()} 함수}{split() 함수}}\label{split-df}}
+\addcontentsline{toc}{paragraph}{\texttt{split()} 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  Factor 형에서 언급한 \texttt{split()} 함수를 통해 그룹 별로 데이터 분할
+\item
+  분할된 데이터는 리스트에 저장
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{split}\NormalTok{(df, df}\OperatorTok{$}\NormalTok{sex)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$Female
+  id    sex age sbp height weight dbp exercyn
+a  1 Female  34 112    165     52  73       Y
+b  2 Female  22 118    158     48  70       Y
+c  3 Female  54 132    161     59  88       N
+d  4 Female  43 128    160     60  82       Y
+e  5 Female  44 128    168     48  75       N
+
+$Male
+  id  sex age sbp height weight dbp exercyn
+f  6 Male  39 124    172     72  77       N
+g  7 Male  38 121    175     73  74       N
+h  8 Male  28 119    182     82  81       Y
+i  9 Male  31 124    168     64  72       N
+j 10 Male  42 109    162     60  64       Y
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{sort-fun}{%
+\subsubsection*{데이터 정렬 함수}\label{sort-fun}}
+
+
+\hypertarget{sort}{%
+\paragraph{\texorpdfstring{\texttt{sort()} 함수}{sort() 함수}}\label{sort}}
+\addcontentsline{toc}{paragraph}{\texttt{sort()} 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  데이터(벡터)의 정렬(오름차순 또는 내림차순) 결과 반환
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# sort() 함수 인수}
+\KeywordTok{sort}\NormalTok{(}
+\NormalTok{  x, }\CommentTok{# 정렬할 벡터}
+\NormalTok{  decreasing, }\CommentTok{# 논리값, 내림차순 여부}
+              \CommentTok{# default = FALSE}
+\NormalTok{  na.last }\CommentTok{# 논리값. 결측 존재 시 NA 값 위치 지정}
+\NormalTok{)         }\CommentTok{# TRUE: 정렬 후 결측은 마지막에 위치}
+          \CommentTok{# FALSE: 맨 처음 NA 위치}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 오름차순 정렬}
+\KeywordTok{sort}\NormalTok{(df2}\OperatorTok{$}\NormalTok{age)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 22 28 31 34 38 39 42 43 44 54
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 내림차순 정렬}
+\KeywordTok{sort}\NormalTok{(df}\OperatorTok{$}\NormalTok{height, }\DataTypeTok{decreasing =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 182 175 172 168 168 165 162 161 160 158
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{order}{%
+\paragraph{\texorpdfstring{\texttt{order()} 함수}{order() 함수}}\label{order}}
+\addcontentsline{toc}{paragraph}{\texttt{order()} 함수}
+
+\begin{itemize}
+\tightlist
+\item
+  데이터 정렬을 위해 순서에 대한 색인 생성 결과 반환
+\item
+  데이터 프레임에서 특정 열 기준으로 데이터 정렬 시 주로 사용
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 나이 기준으로 오름차순으로 데이터 정렬}
+\KeywordTok{with}\NormalTok{(df, df[}\KeywordTok{order}\NormalTok{(age), ])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  id    sex age sbp height weight dbp exercyn
+b  2 Female  22 118    158     48  70       Y
+h  8   Male  28 119    182     82  81       Y
+i  9   Male  31 124    168     64  72       N
+a  1 Female  34 112    165     52  73       Y
+g  7   Male  38 121    175     73  74       N
+f  6   Male  39 124    172     72  77       N
+j 10   Male  42 109    162     60  64       Y
+d  4 Female  43 128    160     60  82       Y
+e  5 Female  44 128    168     48  75       N
+c  3 Female  54 132    161     59  88       N
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 키 순으로 내림차순 정렬}
+\NormalTok{df[}\KeywordTok{order}\NormalTok{(df}\OperatorTok{$}\NormalTok{height, }\DataTypeTok{decreasing =}\NormalTok{ T), ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  id    sex age sbp height weight dbp exercyn
+h  8   Male  28 119    182     82  81       Y
+g  7   Male  38 121    175     73  74       N
+f  6   Male  39 124    172     72  77       N
+e  5 Female  44 128    168     48  75       N
+i  9   Male  31 124    168     64  72       N
+a  1 Female  34 112    165     52  73       Y
+j 10   Male  42 109    162     60  64       Y
+c  3 Female  54 132    161     59  88       N
+d  4 Female  43 128    160     60  82       Y
+b  2 Female  22 118    158     48  70       Y
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{apply-related-fun}{%
+\subsection{\texorpdfstring{\texttt{*apply()} 계열 함수}{*apply() 계열 함수}}\label{apply-related-fun}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{apply()}, \texttt{lapply()}, \texttt{sapply()} 등 \texttt{apply} 계열 함수는 R에서 가장 일반적으로 사용되는 함수 중 하나
+\item
+  보통 \texttt{for-loop}를 대신하기 위해 활용되며, R 객체를 입력 받아 원소 별 혹은 그루 별 함수를 적용
+\item
+  데이터 전체에 함수를 한번에 적용하는 vectorizing 연산을 수행함
+\end{itemize}
+
+\hypertarget{apply}{%
+\subsubsection*{\texorpdfstring{\texttt{apply()} 함수}{apply() 함수}}\label{apply}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  배열 또는 행렬에 주어진 함수를 적용한 뒤 그 결과를 벡터 또는 리스트로 반환
+\item
+  행 또는 열 차원 기준 함수 적용
+\item
+  동일한 유형의 벡터로 구성된 데이터셋에 적용
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{apply}\NormalTok{(}
+\NormalTok{  X, }\CommentTok{# 배열, 행렬, 또는 같은 형태로 정의된 데이터 프레임}
+\NormalTok{  MARGIN, }\CommentTok{# MARGIN = 1: 행 기준}
+          \CommentTok{# MARGIN = 2: 열 기준}
+          \CommentTok{# MARGIN = c(1,2): 행과 열 방향 모두}
+\NormalTok{  FUN }\CommentTok{# 적용할 함수 }
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  예시1: 행렬 및 배열 \texttt{apply()} 적용
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{9}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{3}\NormalTok{)}
+\NormalTok{X}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 행 기준으로 합계 계산}
+\KeywordTok{apply}\NormalTok{(X, }\DecValTok{1}\NormalTok{, sum)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 12 15 18
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 열 기준으로 합계 계산}
+\KeywordTok{apply}\NormalTok{(X, }\DecValTok{2}\NormalTok{, sum)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  6 15 24
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 배열에 apply 적용}
+\CommentTok{# 각 학생의 퀴즈와 중간-기말 각각 평균 계산}
+\NormalTok{Z }\CommentTok{# 성적}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+, , 1
+
+     [,1] [,2]
+[1,]   75   65
+[2,]   84   78
+[3,]   93   92
+
+, , 2
+
+     [,1] [,2]
+[1,]   82   88
+[2,]   78   75
+[3,]   85   88
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{apply}\NormalTok{(Z, }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2]
+[1,] 78.5 76.5
+[2,] 81.0 76.5
+[3,] 89.0 90.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 각 시점 별 개별 학생의 퀴즈-중간, 퀴즈-기말 평균 계산}
+\KeywordTok{apply}\NormalTok{(Z, }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{), mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1] [,2]
+[1,] 70.0 85.0
+[2,] 81.0 76.5
+[3,] 92.5 86.5
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  예시2: 데이터 프레임
+
+  \begin{itemize}
+  \tightlist
+  \item
+    위에서 사용한 \texttt{df}와 \ref{factor} 요인(factor) 절에서 잠깐 예시로 사용된 전복(\texttt{abalone}) 데이터셋 사용
+  \end{itemize}
+\end{itemize}
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}
+Abalone dataset 변수 설명
+\EndKnitrBlock{rmdnote}
+
+\normalsize
+
+\footnotesize
+
+\begin{verbatim}
+  Origin   Variable           Name  Unit                     Description
+1     V1        sex            Sex       성별(M: 수컷; F: 암컷; I: 새끼)
+2     V2     length         Length    mm                  길이(최장길이)
+3     V3   diameter       Diameter    mm                            직경
+4     V4     height         Height    mm             껍질 내 육질의 높이
+5     V5   whole.wt   Whole weight grams                       전체 중량
+6     V6 shucked.wt Shucked weight grams                       육질 무게
+7     V7 viscera.wt Viscera weigth grams                       내장 무게
+8     V8   shell.wt   Shell weight grams                       껍질 무게
+9     V9      rings          Rings                             전복 나이
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{names}\NormalTok{(abalone) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"sex"}\NormalTok{, }\StringTok{"length"}\NormalTok{, }\StringTok{"diameter"}\NormalTok{, }
+                    \StringTok{"height"}\NormalTok{, }\StringTok{"whole.wt"}\NormalTok{, }
+                    \StringTok{"shucked.wt"}\NormalTok{, }\StringTok{"viscera.wt"}\NormalTok{, }
+                    \StringTok{"shell.wt"}\NormalTok{, }\StringTok{"rings"}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(abalone)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  sex length diameter height whole.wt shucked.wt viscera.wt shell.wt rings
+1   M  0.455    0.365  0.095   0.5140     0.2245     0.1010    0.150    15
+2   M  0.350    0.265  0.090   0.2255     0.0995     0.0485    0.070     7
+3   F  0.530    0.420  0.135   0.6770     0.2565     0.1415    0.210     9
+4   M  0.440    0.365  0.125   0.5160     0.2155     0.1140    0.155    10
+5   I  0.330    0.255  0.080   0.2050     0.0895     0.0395    0.055     7
+6   I  0.425    0.300  0.095   0.3515     0.1410     0.0775    0.120     8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# sex를 제외한 나머지 수치형 변수에 대한 기초통계량  계산}
+\CommentTok{# 평균: mean() 함수 사용}
+\KeywordTok{apply}\NormalTok{(abalone[, }\DecValTok{-1}\NormalTok{], }\DecValTok{2}\NormalTok{, mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    length   diameter     height   whole.wt shucked.wt viscera.wt   shell.wt 
+ 0.5239921  0.4078813  0.1395164  0.8287422  0.3593675  0.1805936  0.2388309 
+     rings 
+ 9.9336845 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 표준편차: sd() 함수 사용}
+\KeywordTok{apply}\NormalTok{(abalone[, }\DecValTok{-1}\NormalTok{], }\DecValTok{2}\NormalTok{, sd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    length   diameter     height   whole.wt shucked.wt viscera.wt   shell.wt 
+0.12009291 0.09923987 0.04182706 0.49038902 0.22196295 0.10961425 0.13920267 
+     rings 
+3.22416903 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 개별 전복에 대해 내장, 육질, 껍질 무게 합계 계산}
+\KeywordTok{apply}\NormalTok{(abalone[, }\KeywordTok{c}\NormalTok{(}\StringTok{"shucked.wt"}\NormalTok{, }
+                  \StringTok{"viscera.wt"}\NormalTok{, }
+                  \StringTok{"shell.wt"}\NormalTok{)], }\DecValTok{1}\NormalTok{, }
+\NormalTok{      sum) ->}\StringTok{ }\NormalTok{ab_wt_sum}
+
+\KeywordTok{head}\NormalTok{(ab_wt_sum, }\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 0.4755 0.2180 0.6080 0.4845 0.1840 0.3385 0.7085 0.7035 0.4940 0.7855
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 데이터에 결측이 포함된 경우}
+\CommentTok{# diameter 변수에 10개의 결측을 임의 생성}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{20200410}\NormalTok{)}
+\NormalTok{idx <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{NROW}\NormalTok{(abalone), }\DecValTok{10}\NormalTok{) }\CommentTok{# 비복원 추출}
+\NormalTok{ab2 <-}\StringTok{ }\NormalTok{abalone}
+\NormalTok{ab2[idx, }\DecValTok{3}\NormalTok{] <-}\StringTok{ }\OtherTok{NA}
+
+\CommentTok{# 성별 제외한 나머지 변수의 평균 계산}
+\KeywordTok{apply}\NormalTok{(ab2[, }\DecValTok{-1}\NormalTok{], }\DecValTok{2}\NormalTok{, mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    length   diameter     height   whole.wt shucked.wt viscera.wt   shell.wt 
+ 0.5239921         NA  0.1395164  0.8287422  0.3593675  0.1805936  0.2388309 
+     rings 
+ 9.9336845 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# NA 결과를 피하려면?}
+\KeywordTok{apply}\NormalTok{(ab2[, }\DecValTok{-1}\NormalTok{], }\DecValTok{2}\NormalTok{, mean, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    length   diameter     height   whole.wt shucked.wt viscera.wt   shell.wt 
+ 0.5239921  0.4079578  0.1395164  0.8287422  0.3593675  0.1805936  0.2388309 
+     rings 
+ 9.9336845 
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}
+\textbf{참고 1}: 결측이 포함된 벡터 연산 시 결측에 대한 처리 지정 없이 함수를 적용하면 결측값을 반환함. 따라서 R에서 제공되는 연산 관련 일반 함수는 결측처리에 대한 옵션을 인수로 받음. 보통 인수 형태는 \texttt{na.rm\ =\ T/F} 형태이고 다음의 함수를 통해 데이터에 결측 처리에 대한 속성 및 클래스를 부여함
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{na.omit()}/\texttt{na.exclude()}: \texttt{NA}가 포함되어 있는 행 생략
+\end{itemize}
+
+위 두 함수는 기본적으로 동일하지만, 특정 함수(예: 회귀분석을 수행하는 \texttt{lm()}) 함수에서는 다른 결과를 출력
+\EndKnitrBlock{rmdtip}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}
+\textbf{참고 2}: 위 예제에서 보여준 행 또는 열의 합 또는 평균 계산은 매우 자주 사용되기 때문에 \texttt{rowSums()}, \texttt{colSums()}, \texttt{rowMeans()}, \texttt{colMeans()} 함수가 제공됨
+\EndKnitrBlock{rmdtip}
+
+\normalsize
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{colMeans}\NormalTok{(abalone[,}\OperatorTok{-}\DecValTok{1}\NormalTok{]) }\CommentTok{# apply 결과와 비교}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    length   diameter     height   whole.wt shucked.wt viscera.wt   shell.wt 
+ 0.5239921  0.4078813  0.1395164  0.8287422  0.3593675  0.1805936  0.2388309 
+     rings 
+ 9.9336845 
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{tapply-df}{%
+\subsubsection*{\texorpdfstring{\texttt{tapply()} 함수}{tapply() 함수}}\label{tapply-df}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  \ref{factor} 요인(factor) 절에서 설명
+\item
+  \texttt{tapply()}는 1개의 벡터를 대상으로만 함수를 호출
+\item
+  데이터 프레임에 적용하려면? \(\rightarrow\) \texttt{aggregate()} 함수 사용
+\end{itemize}
+
+\hypertarget{aggregate}{%
+\paragraph{\texorpdfstring{\texttt{aggregate()}}{aggregate()}}\label{aggregate}}
+\addcontentsline{toc}{paragraph}{\texttt{aggregate()}}
+
+\begin{itemize}
+\tightlist
+\item
+  데이터를 특정 factor의 수준 별로 나눈 후, 각 그룹마다 함수 적용
+\item
+  \texttt{aggregate()}는 다음 두 가지 형태로 함수 적용 가능
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# aggregate() 기본 인수}
+\KeywordTok{aggregate}\NormalTok{(}
+\NormalTok{  x, }\CommentTok{# R 객체, 주로 데이터 프레임}
+\NormalTok{  by, }\CommentTok{# 그룹으로 묶을 값의 리스트}
+\NormalTok{  FUN, }\CommentTok{# 그룹별 적용할 함수}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  예시: 임상연구 자료(\texttt{df})
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 성별에 따라 연속형 변수의 평균 계산}
+\KeywordTok{aggregate}\NormalTok{(df[,}\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{, }\DecValTok{8}\NormalTok{)], }\DataTypeTok{by =}\NormalTok{df[}\StringTok{"sex"}\NormalTok{], mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     sex  age   sbp height weight  dbp
+1 Female 39.4 123.6  162.4   53.4 77.6
+2   Male 35.6 119.4  171.8   70.2 73.6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 수식 표현형 사용}
+\KeywordTok{aggregate}\NormalTok{(. }\OperatorTok{~}\StringTok{ }\NormalTok{sex, }
+          \DataTypeTok{data =}\NormalTok{ df[,}\OperatorTok{-}\DecValTok{8}\NormalTok{], }
+\NormalTok{          mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     sex id  age   sbp height weight  dbp
+1 Female  3 39.4 123.6  162.4   53.4 77.6
+2   Male  8 35.6 119.4  171.8   70.2 73.6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 요인이 2개인 경우}
+\KeywordTok{aggregate}\NormalTok{(df[,}\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{, }\DecValTok{8}\NormalTok{)], }
+          \DataTypeTok{by =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{sex =}\NormalTok{ df[[}\StringTok{"sex"}\NormalTok{]], }\DataTypeTok{exercise =}\NormalTok{ df[[}\StringTok{"exercyn"}\NormalTok{]]), }
+\NormalTok{          mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     sex exercise age      sbp   height   weight      dbp
+1 Female        N  49 130.0000 164.5000 53.50000 81.50000
+2   Male        N  36 123.0000 171.6667 69.66667 74.33333
+3 Female        Y  33 119.3333 161.0000 53.33333 75.00000
+4   Male        Y  35 114.0000 172.0000 71.00000 72.50000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{aggregate}\NormalTok{(. }\OperatorTok{~}\StringTok{ }\NormalTok{sex }\OperatorTok{+}\StringTok{ }\NormalTok{exercyn, }
+          \DataTypeTok{data =}\NormalTok{ df[,}\OperatorTok{-}\DecValTok{1}\NormalTok{], }
+\NormalTok{          mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     sex exercyn age      sbp   height   weight      dbp
+1 Female       N  49 130.0000 164.5000 53.50000 81.50000
+2   Male       N  36 123.0000 171.6667 69.66667 74.33333
+3 Female       Y  33 119.3333 161.0000 53.33333 75.00000
+4   Male       Y  35 114.0000 172.0000 71.00000 72.50000
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{lapply}{%
+\subsubsection*{\texorpdfstring{\texttt{lapply()} 함수}{lapply() 함수}}\label{lapply}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  특정 함수를 벡터, 리스트, 데이터 프레임 등에 적용하고 그 결과를 리스트로 반환
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{lapply}\NormalTok{(}
+\NormalTok{ X, }\CommentTok{#벡터, 리스트, 표현식, 또는  데이터 프레임}
+\NormalTok{ FUN, }\CommentTok{# 적용할 함수}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+-예시: abalone 데이터를 사용해 일변량 회귀분석 실시
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# abalone 데이터를 이용해 단순회귀분석 결과 출력}
+\CommentTok{# 종속변수: rings}
+\CommentTok{# 설명변수: 성별을 제외한 모든 연속형 변수}
+
+\CommentTok{# lm() 함수를 이용한 일변량 회귀분석 실시}
+\NormalTok{univ_reg <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(abalone[,}\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{9}\NormalTok{)], }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{lm}\NormalTok{(abalone}\OperatorTok{$}\NormalTok{rings }\OperatorTok{~}\StringTok{ }\NormalTok{x))}
+\CommentTok{# univ_reg}
+
+\CommentTok{# 위 객체로부터 회귀모형 요약 통계량 결과 }
+\NormalTok{summ_reg <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(univ_reg, summary)}
+\CommentTok{# summ_reg}
+
+\CommentTok{# 추정 회귀계수를 데이터로 저장}
+\CommentTok{## summary(lm_object)의 속성 파악}
+\KeywordTok{str}\NormalTok{(summ_reg[[}\DecValTok{1}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+List of 11
+ $ call         : language lm(formula = abalone$rings ~ x)
+ $ terms        :Classes 'terms', 'formula'  language abalone$rings ~ x
+  .. ..- attr(*, "variables")= language list(abalone$rings, x)
+  .. ..- attr(*, "factors")= int [1:2, 1] 0 1
+  .. .. ..- attr(*, "dimnames")=List of 2
+  .. .. .. ..$ : chr [1:2] "abalone$rings" "x"
+  .. .. .. ..$ : chr "x"
+  .. ..- attr(*, "term.labels")= chr "x"
+  .. ..- attr(*, "order")= int 1
+  .. ..- attr(*, "intercept")= int 1
+  .. ..- attr(*, "response")= int 1
+  .. ..- attr(*, ".Environment")=<environment: 0x0000000035c165a0> 
+  .. ..- attr(*, "predvars")= language list(abalone$rings, x)
+  .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
+  .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"
+ $ residuals    : Named num [1:4177] 6.0975 -0.3331 -1.0235 1.3217 -0.0342 ...
+  ..- attr(*, "names")= chr [1:4177] "1" "2" "3" "4" ...
+ $ coefficients : num [1:2, 1:4] 2.102 14.946 0.186 0.345 11.328 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:2] "(Intercept)" "x"
+  .. ..$ : chr [1:4] "Estimate" "Std. Error" "t value" "Pr(>|t|)"
+ $ aliased      : Named logi [1:2] FALSE FALSE
+  ..- attr(*, "names")= chr [1:2] "(Intercept)" "x"
+ $ sigma        : num 2.68
+ $ df           : int [1:3] 2 4175 2
+ $ r.squared    : num 0.31
+ $ adj.r.squared: num 0.31
+ $ fstatistic   : Named num [1:3] 1875 1 4175
+  ..- attr(*, "names")= chr [1:3] "value" "numdf" "dendf"
+ $ cov.unscaled : num [1:2, 1:2] 0.0048 -0.0087 -0.0087 0.0166
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:2] "(Intercept)" "x"
+  .. ..$ : chr [1:2] "(Intercept)" "x"
+ - attr(*, "class")= chr "summary.lm"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{summ_reg[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{coefficients}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+             Estimate Std. Error  t value     Pr(>|t|)
+(Intercept)  2.101883  0.1855477 11.32800 2.544353e-29
+x           14.946411  0.3451570 43.30323 0.000000e+00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# summ_reg에서 coefficients만 추출}
+\NormalTok{res <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(summ_reg, }\ControlFlowTok{function}\NormalTok{(lst) lst}\OperatorTok{$}\NormalTok{coefficients)}
+\NormalTok{res}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$length
+             Estimate Std. Error  t value     Pr(>|t|)
+(Intercept)  2.101883  0.1855477 11.32800 2.544353e-29
+x           14.946411  0.3451570 43.30323 0.000000e+00
+
+$diameter
+             Estimate Std. Error  t value    Pr(>|t|)
+(Intercept)  2.318574  0.1727366 13.42260 3.01241e-40
+x           18.669921  0.4114954 45.37091 0.00000e+00
+
+$height
+             Estimate Std. Error  t value      Pr(>|t|)
+(Intercept)  3.938464  0.1442530 27.30248 3.678478e-151
+x           42.971441  0.9904086 43.38759  0.000000e+00
+
+$whole.wt
+            Estimate Std. Error  t value      Pr(>|t|)
+(Intercept) 6.989239 0.08244313 84.77648  0.000000e+00
+x           3.552909 0.08561680 41.49780 1.888678e-315
+
+$shucked.wt
+            Estimate Std. Error  t value      Pr(>|t|)
+(Intercept) 7.736643  0.0861330 89.82206  0.000000e+00
+x           6.113633  0.2039254 29.97976 5.087464e-179
+
+$viscera.wt
+             Estimate Std. Error  t value      Pr(>|t|)
+(Intercept)  7.257427 0.08306853 87.36674  0.000000e+00
+x           14.819227 0.39322428 37.68645 8.574726e-268
+
+$shell.wt
+             Estimate Std. Error  t value Pr(>|t|)
+(Intercept)  6.462117 0.07714642 83.76431        0
+x           14.535675 0.27908233 52.08382        0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# res 결과를 2차원 배열 형태로 변환}
+\CommentTok{# do.call() 함수 사용}
+\CommentTok{# 리스트로 주어진 인자에 함수를 적용하여 결과 반환}
+\NormalTok{res <-}\StringTok{ }\KeywordTok{do.call}\NormalTok{(rbind, res)  }
+\NormalTok{res}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+             Estimate Std. Error  t value      Pr(>|t|)
+(Intercept)  2.101883 0.18554766 11.32800  2.544353e-29
+x           14.946411 0.34515697 43.30323  0.000000e+00
+(Intercept)  2.318574 0.17273658 13.42260  3.012410e-40
+x           18.669921 0.41149538 45.37091  0.000000e+00
+(Intercept)  3.938464 0.14425297 27.30248 3.678478e-151
+x           42.971441 0.99040860 43.38759  0.000000e+00
+(Intercept)  6.989239 0.08244313 84.77648  0.000000e+00
+x            3.552909 0.08561680 41.49780 1.888678e-315
+(Intercept)  7.736643 0.08613300 89.82206  0.000000e+00
+x            6.113633 0.20392536 29.97976 5.087464e-179
+(Intercept)  7.257427 0.08306853 87.36674  0.000000e+00
+x           14.819227 0.39322428 37.68645 8.574726e-268
+(Intercept)  6.462117 0.07714642 83.76431  0.000000e+00
+x           14.535675 0.27908233 52.08382  0.000000e+00
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{sapply}{%
+\subsubsection*{\texorpdfstring{\texttt{sapply()} 힘수}{sapply() 힘수}}\label{sapply}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{lapply()} 함수와 유사하나(\texttt{lapply()}의 wrapper 함수), 결과를 벡터 또는 행렬로 반환하는 점에서 차이를 보임
+\item
+  예시: 회귀분석
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 각 변수별 회귀계수(절편항과 설명변수) 반환}
+\NormalTok{univ_reg2 <-}\StringTok{ }\KeywordTok{sapply}\NormalTok{(abalone[,}\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{9}\NormalTok{)], }\ControlFlowTok{function}\NormalTok{(x) \{}
+  \KeywordTok{coef}\NormalTok{(}\KeywordTok{lm}\NormalTok{(abalone}\OperatorTok{$}\NormalTok{rings }\OperatorTok{~}\StringTok{ }\NormalTok{x)) }\CommentTok{# lm 클래스에서 회귀계수 반환}
+\NormalTok{\})}
+\NormalTok{univ_reg2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+               length  diameter    height whole.wt shucked.wt viscera.wt
+(Intercept)  2.101883  2.318574  3.938464 6.989239   7.736643   7.257427
+x           14.946411 18.669921 42.971441 3.552909   6.113633  14.819227
+             shell.wt
+(Intercept)  6.462117
+x           14.535675
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{attributes}\NormalTok{(univ_reg2) }\CommentTok{# 행렬 반환}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$dim
+[1] 2 7
+
+$dimnames
+$dimnames[[1]]
+[1] "(Intercept)" "x"          
+
+$dimnames[[2]]
+[1] "length"     "diameter"   "height"     "whole.wt"   "shucked.wt"
+[6] "viscera.wt" "shell.wt"  
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# as.data.frame(univ_reg2)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\hypertarget{mapply}{%
+\subsubsection*{\texorpdfstring{\texttt{mapply()} 함수}{mapply() 함수}}\label{mapply}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{mapply()}와 유사하지만 다수의 인수를 함수에 전달해 적용
+\item
+  임의의 함수 \texttt{FUN()}이 있고, \texttt{FUN()}이 사용할 인수가 데이터로 저장되어 있을 때 이를 불러들여 함수를 적용
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mapply}\NormalTok{(}
+\NormalTok{  FUN, }\CommentTok{# 적용할 함수}
+\NormalTok{  ..., }\CommentTok{# 적용할 인수}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  난수 생성 예시: \texttt{rnorm()} 함수 사용
+\item
+  \texttt{rnorm(n,\ mean,\ sd)}: 평균이 \texttt{mean}이고 표준편차가 \texttt{sd}인 정규분포에서 \texttt{n}개의 난수 생성
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 평균이 각각 0, 1, 2, 4 이고}
+\CommentTok{# 표준편차가 1, 1, 1, 1 인 정규난수를 }
+\CommentTok{# 각각 20, 40, 60, 100 개 생성}
+
+\NormalTok{rn_res <-}\StringTok{ }\KeywordTok{mapply}\NormalTok{(rnorm, }
+                 \KeywordTok{c}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{40}\NormalTok{, }\DecValTok{60}\NormalTok{, }\DecValTok{100}\NormalTok{), }
+                 \KeywordTok{c}\NormalTok{(}\DecValTok{0}\OperatorTok{:}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{), }
+                 \KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\CommentTok{# rn_res}
+
+\CommentTok{# 생성한 난수의 평균과 표준편차 확인}
+\KeywordTok{sapply}\NormalTok{(rn_res, mean); }\KeywordTok{sapply}\NormalTok{(rn_res, sd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.1277941 0.8607565 1.9070456 3.9012846
+\end{verbatim}
+
+\begin{verbatim}
+[1] 0.8954115 0.7916029 0.9990486 0.9088889
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{homework-2-1}{%
+\section{Homework \#2-1}\label{homework-2-1}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -9375,7 +12368,7 @@ Levels: Mild < Moderate < Severe
 \begin{itemize}
 \tightlist
 \item
-  생성한 \texttt{x} 를 이용해 \texttt{x}가 0.5 보다 작으면 0, 0.5 보다 크거나 작으면 1 값을 재할당 하시오.
+  생성한 \texttt{x} 를 이용해 \texttt{x}가 0.5 보다 작으면 0, 0.5 보다 크거나 같으면 1 값을 재할당 하시오.
 \item
   수준이 0, 1이고 수준이름이 각각 ``Male'', ``Female''인 요인형 객체 sex를 생성하시오.
 \end{itemize}

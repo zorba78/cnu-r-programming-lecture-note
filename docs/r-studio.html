@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-04-03" />
+<meta name="date" content="2020-04-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,6 +50,8 @@
 
 
 
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
 
@@ -188,9 +190,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.2" data-path="array.html"><a href="array.html#rray-extend-example"><i class="fa fa-check"></i><b>2.5.2</b> 배열의 확장 예제</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="factor-table.html"><a href="factor-table.html"><i class="fa fa-check"></i><b>2.6</b> 요인(factor)과 테이블(table)</a><ul>
-<li class="chapter" data-level="2.6.1" data-path="factor-table.html"><a href="factor-table.html#요인factor"><i class="fa fa-check"></i><b>2.6.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.6.1" data-path="factor-table.html"><a href="factor-table.html#factor"><i class="fa fa-check"></i><b>2.6.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.6.2" data-path="factor-table.html"><a href="factor-table.html#table"><i class="fa fa-check"></i><b>2.6.2</b> 테이블(table)</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="homework-2.html"><a href="homework-2.html"><i class="fa fa-check"></i><b>2.7</b> Homework #2</a></li>
+<li class="chapter" data-level="2.7" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>2.7</b> 데이터 프레임(data frame)</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="data-frame.html"><a href="data-frame.html#create-data-frame"><i class="fa fa-check"></i><b>2.7.1</b> 데이터 프레임 생성</a></li>
+<li class="chapter" data-level="2.7.2" data-path="data-frame.html"><a href="data-frame.html#data-frame-get"><i class="fa fa-check"></i><b>2.7.2</b> 데이터 프레임 접근 및 필터링</a></li>
+<li class="chapter" data-level="2.7.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.7.3</b> 데이터 프레임 관련 함수</a></li>
+<li class="chapter" data-level="2.7.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.7.4</b> <code>*apply()</code> 계열 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="homework-2-1.html"><a href="homework-2-1.html"><i class="fa fa-check"></i><b>2.8</b> Homework #2-1</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -379,7 +388,7 @@ Figure 1.7: RStudio Environment 창 객체 상세 정보 및 스프레드 시트
 <li><strong>Help</strong>: <code>help(topic)</code> 입력 시 도움말 창이 출력되는 공간</li>
 </ul>
 
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">help</span>(lm)</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">help</span>(lm)</a></code></pre></div>
 
 
 <p><img src="figures/RStudio-helpwin.png" width="80%" style="display: block; margin: auto;" /></p>
@@ -426,26 +435,26 @@ Figure 1.8: R General option 팝업 창
 
 <p>R 콘솔에서 다음과 같은 명령어로 작업폴더를 확인 및 변경 가능</p>
 
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">getwd</span>() <span class="co"># 작업폴더 확인</span></a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">getwd</span>() <span class="co"># 작업폴더 확인</span></a></code></pre></div>
 <pre><code>[1] &quot;D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note&quot;</code></pre>
 
 
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">setwd</span>(<span class="st">&quot;..&quot;</span>) <span class="co"># 차상위 폴더로 이동</span></a>
-<a class="sourceLine" id="cb21-2" title="2"><span class="kw">getwd</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">setwd</span>(<span class="st">&quot;..&quot;</span>) <span class="co"># 차상위 폴더로 이동</span></a>
+<a class="sourceLine" id="cb20-2" title="2"><span class="kw">getwd</span>()</a></code></pre></div>
 <pre><code>[1] &quot;D:/Current-Workspace/Lecture&quot;</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">setwd</span>(<span class="st">&quot;../..&quot;</span>) <span class="co"># 차차상위 폴더로 이동</span></a>
-<a class="sourceLine" id="cb23-2" title="2"><span class="kw">getwd</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw">setwd</span>(<span class="st">&quot;../..&quot;</span>) <span class="co"># 차차상위 폴더로 이동</span></a>
+<a class="sourceLine" id="cb22-2" title="2"><span class="kw">getwd</span>()</a></code></pre></div>
 <pre><code>[1] &quot;D:/&quot;</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">setwd</span>(<span class="st">&quot;D:/Current-Workspace/Lecture/misc/&quot;</span>) <span class="co"># 절대 폴더 명 입력</span></a>
-<a class="sourceLine" id="cb25-2" title="2"><span class="kw">setwd</span>(<span class="st">&quot;..&quot;</span>)</a>
-<a class="sourceLine" id="cb25-3" title="3"><span class="co"># dir() # 폴더 내 파일 명 출력</span></a>
-<a class="sourceLine" id="cb25-4" title="4"><span class="kw">getwd</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw">setwd</span>(<span class="st">&quot;D:/Current-Workspace/Lecture/misc/&quot;</span>) <span class="co"># 절대 폴더 명 입력</span></a>
+<a class="sourceLine" id="cb24-2" title="2"><span class="kw">setwd</span>(<span class="st">&quot;..&quot;</span>)</a>
+<a class="sourceLine" id="cb24-3" title="3"><span class="co"># dir() # 폴더 내 파일 명 출력</span></a>
+<a class="sourceLine" id="cb24-4" title="4"><span class="kw">getwd</span>()</a></code></pre></div>
 <pre><code>[1] &quot;D:/Current-Workspace/Lecture&quot;</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw">setwd</span>(<span class="st">&quot;misc&quot;</span>) <span class="co"># Current-Workspace 하위폴더인 misc 으로 이동</span></a>
-<a class="sourceLine" id="cb27-2" title="2"><span class="kw">getwd</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">setwd</span>(<span class="st">&quot;misc&quot;</span>) <span class="co"># Current-Workspace 하위폴더인 misc 으로 이동</span></a>
+<a class="sourceLine" id="cb26-2" title="2"><span class="kw">getwd</span>()</a></code></pre></div>
 <pre><code>[1] &quot;D:/Current-Workspace/Lecture/misc&quot;</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">setwd</span>(<span class="st">&quot;D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note/&quot;</span>)</a>
-<a class="sourceLine" id="cb29-2" title="2"><span class="kw">getwd</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw">setwd</span>(<span class="st">&quot;D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note/&quot;</span>)</a>
+<a class="sourceLine" id="cb28-2" title="2"><span class="kw">getwd</span>()</a></code></pre></div>
 <pre><code>[1] &quot;D:/Current-Workspace/Lecture/cnu-r-programming-lecture-note&quot;</code></pre>
 
 

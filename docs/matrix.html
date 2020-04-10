@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-04-03" />
+<meta name="date" content="2020-04-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,6 +50,8 @@
 
 
 
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
 
@@ -188,10 +190,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.2" data-path="array.html"><a href="array.html#rray-extend-example"><i class="fa fa-check"></i><b>2.5.2</b> 배열의 확장 예제</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="factor-table.html"><a href="factor-table.html"><i class="fa fa-check"></i><b>2.6</b> 요인(factor)과 테이블(table)</a><ul>
-<li class="chapter" data-level="2.6.1" data-path="factor-table.html"><a href="factor-table.html#요인factor"><i class="fa fa-check"></i><b>2.6.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.6.1" data-path="factor-table.html"><a href="factor-table.html#factor"><i class="fa fa-check"></i><b>2.6.1</b> 요인(factor)</a></li>
 <li class="chapter" data-level="2.6.2" data-path="factor-table.html"><a href="factor-table.html#table"><i class="fa fa-check"></i><b>2.6.2</b> 테이블(table)</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="homework-2-1.html"><a href="homework-2-1.html"><i class="fa fa-check"></i><b>2.7</b> Homework #2-1</a></li>
+<li class="chapter" data-level="2.7" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>2.7</b> 데이터 프레임(data frame)</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="data-frame.html"><a href="data-frame.html#create-data-frame"><i class="fa fa-check"></i><b>2.7.1</b> 데이터 프레임 생성</a></li>
+<li class="chapter" data-level="2.7.2" data-path="data-frame.html"><a href="data-frame.html#data-frame-get"><i class="fa fa-check"></i><b>2.7.2</b> 데이터 프레임 접근 및 필터링</a></li>
+<li class="chapter" data-level="2.7.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.7.3</b> 데이터 프레임 관련 함수</a></li>
+<li class="chapter" data-level="2.7.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.7.4</b> <code>*apply()</code> 계열 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="homework-2-1.html"><a href="homework-2-1.html"><i class="fa fa-check"></i><b>2.8</b> Homework #2-1</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -240,31 +248,31 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 <li>행렬 생성을 위한 R 함수는 <code>matrix()</code> 함수이고 사용 형태는 아래와 같음</li>
 </ul>
 
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb435-1" title="1"><span class="co"># matrix(): 행렬 생성 함수</span></a>
-<a class="sourceLine" id="cb435-2" title="2"><span class="co"># 상세 내용은 help(matrix)를 통해 확인</span></a>
-<a class="sourceLine" id="cb435-3" title="3"></a>
-<a class="sourceLine" id="cb435-4" title="4"><span class="kw">matrix</span>(data, <span class="co"># 행렬을 생성할 데이터 벡터 </span></a>
-<a class="sourceLine" id="cb435-5" title="5">       nrow, <span class="co"># 행의 개수 (정수)</span></a>
-<a class="sourceLine" id="cb435-6" title="6">       ncol, <span class="co"># 열의 개수 (정수)</span></a>
-<a class="sourceLine" id="cb435-7" title="7">       byrow, <span class="co"># TRUE: 행 우선, FALSE: 열 우선</span></a>
-<a class="sourceLine" id="cb435-8" title="8">              <span class="co"># default = FALSE</span></a>
-<a class="sourceLine" id="cb435-9" title="9">       dimnames <span class="co"># 행렬읠 각 차원에 부여할 이름 (리스트)</span></a>
-<a class="sourceLine" id="cb435-10" title="10">       )</a></code></pre></div>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb506-1" title="1"><span class="co"># matrix(): 행렬 생성 함수</span></a>
+<a class="sourceLine" id="cb506-2" title="2"><span class="co"># 상세 내용은 help(matrix)를 통해 확인</span></a>
+<a class="sourceLine" id="cb506-3" title="3"></a>
+<a class="sourceLine" id="cb506-4" title="4"><span class="kw">matrix</span>(data, <span class="co"># 행렬을 생성할 데이터 벡터 </span></a>
+<a class="sourceLine" id="cb506-5" title="5">       nrow, <span class="co"># 행의 개수 (정수)</span></a>
+<a class="sourceLine" id="cb506-6" title="6">       ncol, <span class="co"># 열의 개수 (정수)</span></a>
+<a class="sourceLine" id="cb506-7" title="7">       byrow, <span class="co"># TRUE: 행 우선, FALSE: 열 우선</span></a>
+<a class="sourceLine" id="cb506-8" title="8">              <span class="co"># default = FALSE</span></a>
+<a class="sourceLine" id="cb506-9" title="9">       dimnames <span class="co"># 행렬읠 각 차원에 부여할 이름 (리스트)</span></a>
+<a class="sourceLine" id="cb506-10" title="10">       )</a></code></pre></div>
 
 <ul>
 <li>행렬 생성 예시</li>
 </ul>
 
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb436-1" title="1"><span class="co"># byrow = FALSE</span></a>
-<a class="sourceLine" id="cb436-2" title="2">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb436-3" title="3">x</a></code></pre></div>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb507-1" title="1"><span class="co"># byrow = FALSE</span></a>
+<a class="sourceLine" id="cb507-2" title="2">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb507-3" title="3">x</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    4    7
 [2,]    2    5    8
 [3,]    3    6    9</code></pre>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb438-1" title="1"><span class="co"># byrow = TRUE</span></a>
-<a class="sourceLine" id="cb438-2" title="2">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> T)</a>
-<a class="sourceLine" id="cb438-3" title="3">x</a></code></pre></div>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb509-1" title="1"><span class="co"># byrow = TRUE</span></a>
+<a class="sourceLine" id="cb509-2" title="2">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> T)</a>
+<a class="sourceLine" id="cb509-3" title="3">x</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    2    3
 [2,]    4    5    6
@@ -274,14 +282,14 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 <li>행의 개수(<code>nrow</code>)나 열의 개수(<code>ncol</code>)로 나머지를 추정 가능하다면 둘 중 어떤 인수도 생략 가능</li>
 </ul>
 
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb440-1" title="1">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>), <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb440-2" title="2">x</a></code></pre></div>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb511-1" title="1">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>), <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb511-2" title="2">x</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    4    7
 [2,]    2    5    8
 [3,]    3    6    9</code></pre>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb442-1" title="1">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>), <span class="dt">nrow =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb442-2" title="2">x</a></code></pre></div>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb513-1" title="1">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>), <span class="dt">nrow =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb513-2" title="2">x</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    4    7
 [2,]    2    5    8
@@ -291,25 +299,25 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 <li><code>nrow</code> <span class="math inline">\(\times\)</span> <code>ncol</code> 이 입력한 데이터(벡터)의 길이보다 작거나 큰 경우</li>
 </ul>
 
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb444-1" title="1"><span class="co"># length(x) &lt; nrow * ncol 인 경우 </span></a>
-<a class="sourceLine" id="cb444-2" title="2"><span class="co"># nrow * ncol에 해당하는 길이 만큼</span></a>
-<a class="sourceLine" id="cb444-3" title="3"><span class="co"># x의 원소를 사용해 행렬 생성</span></a>
-<a class="sourceLine" id="cb444-4" title="4">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb444-5" title="5">y &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb515-1" title="1"><span class="co"># length(x) &lt; nrow * ncol 인 경우 </span></a>
+<a class="sourceLine" id="cb515-2" title="2"><span class="co"># nrow * ncol에 해당하는 길이 만큼</span></a>
+<a class="sourceLine" id="cb515-3" title="3"><span class="co"># x의 원소를 사용해 행렬 생성</span></a>
+<a class="sourceLine" id="cb515-4" title="4">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb515-5" title="5">y &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">4</span>)</a></code></pre></div>
 <pre><code>Warning in matrix(x, nrow = 3, ncol = 4): 데이터의 길이[9]가 열의 개수[4]의 배수
 가 되지 않습니다</code></pre>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb446-1" title="1">y</a></code></pre></div>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb517-1" title="1">y</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]    1    4    7    1
 [2,]    2    5    8    2
 [3,]    3    6    9    3</code></pre>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb448-1" title="1"><span class="co"># length(x) &gt; nrow * ncol 인 경우 </span></a>
-<a class="sourceLine" id="cb448-2" title="2"><span class="co"># x의 첫 번쨰 원소부터 초과하는 만큼 </span></a>
-<a class="sourceLine" id="cb448-3" title="3"><span class="co"># x 원소의 값을 재사용</span></a>
-<a class="sourceLine" id="cb448-4" title="4">z &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb519-1" title="1"><span class="co"># length(x) &gt; nrow * ncol 인 경우 </span></a>
+<a class="sourceLine" id="cb519-2" title="2"><span class="co"># x의 첫 번쨰 원소부터 초과하는 만큼 </span></a>
+<a class="sourceLine" id="cb519-3" title="3"><span class="co"># x 원소의 값을 재사용</span></a>
+<a class="sourceLine" id="cb519-4" title="4">z &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</a></code></pre></div>
 <pre><code>Warning in matrix(x, nrow = 2, ncol = 3): 데이터의 길이[9]가 행의 개수[2]의 배수
 가 되지 않습니다</code></pre>
-<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb450-1" title="1">z</a></code></pre></div>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb521-1" title="1">z</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    3    5
 [2,]    2    4    6</code></pre>
@@ -318,23 +326,23 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 <li>행렬 구성 시 길이에 대한 약수가 아닌 값을 <code>nrow</code> 또는 <code>ncol</code>의 인수로 받은 경우</li>
 </ul>
 
-<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb452-1" title="1"><span class="co"># x (length=9)로 행렬 생성 시 nrow=4 를</span></a>
-<a class="sourceLine" id="cb452-2" title="2"><span class="co"># 인수로 입력한 경우</span></a>
-<a class="sourceLine" id="cb452-3" title="3">h &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb523-1" title="1"><span class="co"># x (length=9)로 행렬 생성 시 nrow=4 를</span></a>
+<a class="sourceLine" id="cb523-2" title="2"><span class="co"># 인수로 입력한 경우</span></a>
+<a class="sourceLine" id="cb523-3" title="3">h &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">4</span>)</a></code></pre></div>
 <pre><code>Warning in matrix(x, nrow = 4): 데이터의 길이[9]가 행의 개수[4]의 배수가 되지 않
 습니다</code></pre>
-<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb454-1" title="1">h</a></code></pre></div>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb525-1" title="1">h</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    5    9
 [2,]    2    6    1
 [3,]    3    7    2
 [4,]    4    8    3</code></pre>
-<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb456-1" title="1"><span class="co"># x (length=9)로 행렬 생성 시 ncol=2 만 </span></a>
-<a class="sourceLine" id="cb456-2" title="2"><span class="co"># 인수로 입력한 경우</span></a>
-<a class="sourceLine" id="cb456-3" title="3">h &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb527-1" title="1"><span class="co"># x (length=9)로 행렬 생성 시 ncol=2 만 </span></a>
+<a class="sourceLine" id="cb527-2" title="2"><span class="co"># 인수로 입력한 경우</span></a>
+<a class="sourceLine" id="cb527-3" title="3">h &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>Warning in matrix(x, nrow = 2): 데이터의 길이[9]가 행의 개수[2]의 배수가 되지 않
 습니다</code></pre>
-<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb458-1" title="1">h</a></code></pre></div>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb529-1" title="1">h</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
 [1,]    1    3    5    7    9
 [2,]    2    4    6    8    1</code></pre>
@@ -370,8 +378,8 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 \end{bmatrix}
 \]</span></p>
 
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" title="1">x &lt;-<span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dt">byrow =</span> T)</a>
-<a class="sourceLine" id="cb460-2" title="2">x <span class="op">+</span><span class="st"> </span><span class="dv">4</span></a></code></pre></div>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb531-1" title="1">x &lt;-<span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dt">byrow =</span> T)</a>
+<a class="sourceLine" id="cb531-2" title="2">x <span class="op">+</span><span class="st"> </span><span class="dv">4</span></a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    5    6    7
 [2,]    8    9   10
@@ -390,7 +398,7 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 \end{bmatrix} 
 \]</span></p>
 
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb462-1" title="1">x<span class="op">*</span><span class="dv">4</span></a></code></pre></div>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb533-1" title="1">x<span class="op">*</span><span class="dv">4</span></a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    4    8   12
 [2,]   16   20   24
@@ -424,9 +432,9 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 \end{bmatrix}
 \]</span></p>
 
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" title="1">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dt">byrow =</span> T)</a>
-<a class="sourceLine" id="cb464-2" title="2">y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">-6</span>, <span class="dv">-1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">-7</span>), <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb464-3" title="3">x <span class="op">+</span><span class="st"> </span>y</a></code></pre></div>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb535-1" title="1">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dt">byrow =</span> T)</a>
+<a class="sourceLine" id="cb535-2" title="2">y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">-6</span>, <span class="dv">-1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">-7</span>), <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb535-3" title="3">x <span class="op">+</span><span class="st"> </span>y</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    2    1    5
 [2,]    7    7   10
@@ -454,7 +462,7 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 \end{bmatrix}
 \]</span></p>
 
-<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb466-1" title="1">x <span class="op">*</span><span class="st"> </span>y</a></code></pre></div>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb537-1" title="1">x <span class="op">*</span><span class="st"> </span>y</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    1   -2    6
 [2,]   12   10   24
@@ -467,17 +475,17 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 <p><strong>동일 차원 간 연산만 가능!!</strong></p>
 </blockquote>
 
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" title="1">z &lt;-<span class="st"> </span>y[, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] <span class="co"># y 행렬에서 1-2 번째 열 추출</span></a>
-<a class="sourceLine" id="cb468-2" title="2">z <span class="co"># 3 by 2 행렬</span></a></code></pre></div>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb539-1" title="1">z &lt;-<span class="st"> </span>y[, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] <span class="co"># y 행렬에서 1-2 번째 열 추출</span></a>
+<a class="sourceLine" id="cb539-2" title="2">z <span class="co"># 3 by 2 행렬</span></a></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]    1   -1
 [2,]    3    2
 [3,]   -6    3</code></pre>
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" title="1">x <span class="op">+</span><span class="st"> </span>z</a></code></pre></div>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb541-1" title="1">x <span class="op">+</span><span class="st"> </span>z</a></code></pre></div>
 <pre><code>Error in x + z: 배열의 크기가 올바르지 않습니다</code></pre>
-<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb472-1" title="1">x <span class="op">*</span><span class="st"> </span>z</a></code></pre></div>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb543-1" title="1">x <span class="op">*</span><span class="st"> </span>z</a></code></pre></div>
 <pre><code>Error in x * z: 배열의 크기가 올바르지 않습니다</code></pre>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb474-1" title="1">x <span class="op">/</span><span class="st"> </span>z</a></code></pre></div>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb545-1" title="1">x <span class="op">/</span><span class="st"> </span>z</a></code></pre></div>
 <pre><code>Error in x/z: 배열의 크기가 올바르지 않습니다</code></pre>
 
 <p><strong>행렬 간 곱(matrix product)</strong></p>
@@ -524,10 +532,10 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 \end{bmatrix}
 \]</span></p>
 
-<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb476-1" title="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb476-2" title="2">Y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>, <span class="dv">-2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">-1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb476-3" title="3">Z &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span>Y</a>
-<a class="sourceLine" id="cb476-4" title="4">Z</a></code></pre></div>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb547-1" title="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb547-2" title="2">Y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>, <span class="dv">-2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">-1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb547-3" title="3">Z &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span>Y</a>
+<a class="sourceLine" id="cb547-4" title="4">Z</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    2   -2    2
 [2,]    2    2    0</code></pre>
@@ -562,13 +570,13 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 \end{bmatrix}
 \]</span></p>
 
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb478-1" title="1"><span class="co">#행렬-벡터 합 연산</span></a>
-<a class="sourceLine" id="cb478-2" title="2"><span class="co"># X = 3 by 3 행렬; y = 3 by 1 벡터</span></a>
-<a class="sourceLine" id="cb478-3" title="3">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb478-4" title="4">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb478-5" title="5">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">18</span>, <span class="dv">23</span>)<span class="co"># 재사용</span></a>
-<a class="sourceLine" id="cb478-6" title="6"></a>
-<a class="sourceLine" id="cb478-7" title="7">X <span class="op">+</span><span class="st"> </span>y</a></code></pre></div>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb549-1" title="1"><span class="co">#행렬-벡터 합 연산</span></a>
+<a class="sourceLine" id="cb549-2" title="2"><span class="co"># X = 3 by 3 행렬; y = 3 by 1 벡터</span></a>
+<a class="sourceLine" id="cb549-3" title="3">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb549-4" title="4">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb549-5" title="5">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">18</span>, <span class="dv">23</span>)<span class="co"># 재사용</span></a>
+<a class="sourceLine" id="cb549-6" title="6"></a>
+<a class="sourceLine" id="cb549-7" title="7">X <span class="op">+</span><span class="st"> </span>y</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]   21   22   24
 [2,]   19   21   20
@@ -603,26 +611,26 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 \end{bmatrix}
 \]</span></p>
 
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb480-1" title="1"><span class="co">#행렬-벡터 합 연산</span></a>
-<a class="sourceLine" id="cb480-2" title="2"><span class="co"># 행렬 X의 길이와 벡터 y의 길이가 같은 경우</span></a>
-<a class="sourceLine" id="cb480-3" title="3">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>); X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb480-4" title="4"><span class="kw">length</span>(X); y &lt;-<span class="st"> </span>x</a></code></pre></div>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb551-1" title="1"><span class="co">#행렬-벡터 합 연산</span></a>
+<a class="sourceLine" id="cb551-2" title="2"><span class="co"># 행렬 X의 길이와 벡터 y의 길이가 같은 경우</span></a>
+<a class="sourceLine" id="cb551-3" title="3">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>); X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb551-4" title="4"><span class="kw">length</span>(X); y &lt;-<span class="st"> </span>x</a></code></pre></div>
 <pre><code>[1] 9</code></pre>
-<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb482-1" title="1">X <span class="op">+</span><span class="st"> </span>y</a></code></pre></div>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb553-1" title="1">X <span class="op">+</span><span class="st"> </span>y</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    2    8   14
 [2,]    4   10   16
 [3,]    6   12   18</code></pre>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb484-1" title="1"><span class="co"># 길이가 다른 경우</span></a>
-<a class="sourceLine" id="cb484-2" title="2"><span class="co"># 1) 행렬 길이보다 큰 경우</span></a>
-<a class="sourceLine" id="cb484-3" title="3">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb484-4" title="4">X <span class="op">+</span><span class="st"> </span>y</a></code></pre></div>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb555-1" title="1"><span class="co"># 길이가 다른 경우</span></a>
+<a class="sourceLine" id="cb555-2" title="2"><span class="co"># 1) 행렬 길이보다 큰 경우</span></a>
+<a class="sourceLine" id="cb555-3" title="3">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb555-4" title="4">X <span class="op">+</span><span class="st"> </span>y</a></code></pre></div>
 <pre><code>Warning in X + y: 두 객체의 길이가 서로 배수관계에 있지 않습니다</code></pre>
 <pre><code>Error in eval(expr, envir, enclos): dims [product 9]가 객체 [10]의 길이와 일치하지 않습니다</code></pre>
-<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb487-1" title="1"><span class="co"># 1) 행렬 길이의 약수가 아닌 경우</span></a>
-<a class="sourceLine" id="cb487-2" title="2"><span class="co"># y 재사용</span></a>
-<a class="sourceLine" id="cb487-3" title="3">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb487-4" title="4">X <span class="op">+</span><span class="st"> </span>y</a></code></pre></div>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb558-1" title="1"><span class="co"># 1) 행렬 길이의 약수가 아닌 경우</span></a>
+<a class="sourceLine" id="cb558-2" title="2"><span class="co"># y 재사용</span></a>
+<a class="sourceLine" id="cb558-3" title="3">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb558-4" title="4">X <span class="op">+</span><span class="st"> </span>y</a></code></pre></div>
 <pre><code>Warning in X + y: 두 객체의 길이가 서로 배수관계에 있지 않습니다</code></pre>
 <pre><code>     [,1] [,2] [,3]
 [1,]    2    8   10
@@ -661,10 +669,10 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 \end{bmatrix}
 \]</span></p>
 
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb490-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb490-2" title="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb490-3" title="3">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb490-4" title="4">X <span class="op">%*%</span><span class="st"> </span>y</a></code></pre></div>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb561-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb561-2" title="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb561-3" title="3">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb561-4" title="4">X <span class="op">%*%</span><span class="st"> </span>y</a></code></pre></div>
 <pre><code>     [,1]
 [1,]   27
 [2,]   21
@@ -692,18 +700,18 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 <li>R에서 행렬을 전치시키는 함수는 <code>t()</code> 임</li>
 </ul>
 
-<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb492-1" title="1"><span class="co"># t(object_name): 전치행렬 반환</span></a>
-<a class="sourceLine" id="cb492-2" title="2">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span></a>
-<a class="sourceLine" id="cb492-3" title="3">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> T)</a>
-<a class="sourceLine" id="cb492-4" title="4"><span class="kw">t</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb563-1" title="1"><span class="co"># t(object_name): 전치행렬 반환</span></a>
+<a class="sourceLine" id="cb563-2" title="2">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span></a>
+<a class="sourceLine" id="cb563-3" title="3">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">3</span>, <span class="dt">byrow =</span> T)</a>
+<a class="sourceLine" id="cb563-4" title="4"><span class="kw">t</span>(X)</a></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]    1    4
 [2,]    2    5
 [3,]    3    6</code></pre>
-<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb494-1" title="1"><span class="co"># 전치행렬과 행렬 간 곱</span></a>
-<a class="sourceLine" id="cb494-2" title="2">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">22.3</span>, <span class="fl">23.2</span>, <span class="fl">21.5</span>, <span class="fl">25.3</span>, <span class="fl">28.0</span>)</a>
-<a class="sourceLine" id="cb494-3" title="3">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb494-4" title="4"><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X</a></code></pre></div>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb565-1" title="1"><span class="co"># 전치행렬과 행렬 간 곱</span></a>
+<a class="sourceLine" id="cb565-2" title="2">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">22.3</span>, <span class="fl">23.2</span>, <span class="fl">21.5</span>, <span class="fl">25.3</span>, <span class="fl">28.0</span>)</a>
+<a class="sourceLine" id="cb565-3" title="3">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb565-4" title="4"><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X</a></code></pre></div>
 <pre><code>      [,1]    [,2]
 [1,]   5.0  120.30
 [2,] 120.3 2921.87</code></pre>
@@ -743,14 +751,14 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 \end{bmatrix} = 1 + 4 + 9 + 16 = 30
 \]</span></p>
 
-<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb496-1" title="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span></a>
-<a class="sourceLine" id="cb496-2" title="2">x <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(x) <span class="co"># 행렬 반환</span></a></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb567-1" title="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb567-2" title="2">x <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(x) <span class="co"># 행렬 반환</span></a></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]    1    2    3    4
 [2,]    2    4    6    8
 [3,]    3    6    9   12
 [4,]    4    8   12   16</code></pre>
-<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb498-1" title="1"><span class="kw">t</span>(x) <span class="op">%*%</span><span class="st"> </span>x <span class="co"># 스칼라 반환 x %*% x와 동일 결과 출력</span></a></code></pre></div>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb569-1" title="1"><span class="kw">t</span>(x) <span class="op">%*%</span><span class="st"> </span>x <span class="co"># 스칼라 반환 x %*% x와 동일 결과 출력</span></a></code></pre></div>
 <pre><code>     [,1]
 [1,]   30</code></pre>
 
@@ -795,15 +803,15 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 <li>R에서 정방 행렬의 역행렬은 <code>solve()</code> 함수를 사용해 구함</li>
 </ul>
 
-<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb500-1" title="1"><span class="co"># 2 by 2 행렬의 역행렬</span></a>
-<a class="sourceLine" id="cb500-2" title="2">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb500-3" title="3">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb500-4" title="4"><span class="kw">solve</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb571-1" title="1"><span class="co"># 2 by 2 행렬의 역행렬</span></a>
+<a class="sourceLine" id="cb571-2" title="2">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb571-3" title="3">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb571-4" title="4"><span class="kw">solve</span>(X)</a></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]   -2  1.5
 [2,]    1 -0.5</code></pre>
-<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb502-1" title="1"><span class="co"># 항등 행렬이 나오는지 확인</span></a>
-<a class="sourceLine" id="cb502-2" title="2">X <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb573-1" title="1"><span class="co"># 항등 행렬이 나오는지 확인</span></a>
+<a class="sourceLine" id="cb573-2" title="2">X <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(X)</a></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]    1    0
 [2,]    0    1</code></pre>
@@ -869,8 +877,8 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np}
 <li>R에서 임의 행렬의 행렬식은 <code>det()</code> 함수를 이용해 구함</li>
 </ul>
 
-<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb504-1" title="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">-2</span>, <span class="dv">0</span>, <span class="dv">-1</span>, <span class="dv">0</span>), <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb504-2" title="2"><span class="kw">det</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb575-1" title="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">-2</span>, <span class="dv">0</span>, <span class="dv">-1</span>, <span class="dv">0</span>), <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb575-2" title="2"><span class="kw">det</span>(X)</a></code></pre></div>
 <pre><code>[1] -2</code></pre>
 
 
@@ -920,27 +928,27 @@ c_{n1} &amp; c_{n2}  &amp; \cdots &amp; c_{nn}
 <li><code>idx_row</code>, <code>idx_col</code>을 지정하지 않으면 전체 행 또는 열을 선택</li>
 </ul>
 
-<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb506-1" title="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span></a>
-<a class="sourceLine" id="cb506-2" title="2">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">ncol =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb506-3" title="3">X</a></code></pre></div>
+<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb577-1" title="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span></a>
+<a class="sourceLine" id="cb577-2" title="2">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">ncol =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb577-3" title="3">X</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]    1    4    7   10
 [2,]    2    5    8   11
 [3,]    3    6    9   12</code></pre>
-<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb508-1" title="1"><span class="co"># 1행만 선택</span></a>
-<a class="sourceLine" id="cb508-2" title="2">X[<span class="dv">1</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb579-1" title="1"><span class="co"># 1행만 선택</span></a>
+<a class="sourceLine" id="cb579-2" title="2">X[<span class="dv">1</span>, ]</a></code></pre></div>
 <pre><code>[1]  1  4  7 10</code></pre>
-<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb510-1" title="1"><span class="co"># 3열만 선택</span></a>
-<a class="sourceLine" id="cb510-2" title="2">X[, <span class="dv">3</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb581-1" title="1"><span class="co"># 3열만 선택</span></a>
+<a class="sourceLine" id="cb581-2" title="2">X[, <span class="dv">3</span>]</a></code></pre></div>
 <pre><code>[1] 7 8 9</code></pre>
-<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb512-1" title="1"><span class="co"># 1:3행만 선택</span></a>
-<a class="sourceLine" id="cb512-2" title="2">X[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb583-1" title="1"><span class="co"># 1:3행만 선택</span></a>
+<a class="sourceLine" id="cb583-2" title="2">X[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ]</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]    1    4    7   10
 [2,]    2    5    8   11
 [3,]    3    6    9   12</code></pre>
-<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb514-1" title="1"><span class="co"># 1-2행, 3-4열 선택</span></a>
-<a class="sourceLine" id="cb514-2" title="2">X[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">3</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb585-1" title="1"><span class="co"># 1-2행, 3-4열 선택</span></a>
+<a class="sourceLine" id="cb585-2" title="2">X[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">3</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]    7   10
 [2,]    8   11</code></pre>
@@ -956,53 +964,53 @@ c_{n1} &amp; c_{n2}  &amp; \cdots &amp; c_{nn}
 </ul></li>
 </ul>
 
-<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb516-1" title="1"><span class="co"># matrix 함수 내에서 행렬 이름 동시 부여</span></a>
-<a class="sourceLine" id="cb516-2" title="2">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">ncol =</span> <span class="dv">3</span>, </a>
-<a class="sourceLine" id="cb516-3" title="3">            <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>), <span class="co"># 행 이름</span></a>
-<a class="sourceLine" id="cb516-4" title="4">                            <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>)))<span class="co"># 열 이름</span></a>
-<a class="sourceLine" id="cb516-5" title="5">X</a></code></pre></div>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb587-1" title="1"><span class="co"># matrix 함수 내에서 행렬 이름 동시 부여</span></a>
+<a class="sourceLine" id="cb587-2" title="2">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">ncol =</span> <span class="dv">3</span>, </a>
+<a class="sourceLine" id="cb587-3" title="3">            <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>), <span class="co"># 행 이름</span></a>
+<a class="sourceLine" id="cb587-4" title="4">                            <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>)))<span class="co"># 열 이름</span></a>
+<a class="sourceLine" id="cb587-5" title="5">X</a></code></pre></div>
 <pre><code>  A B C
 1 1 4 7
 2 2 5 8
 3 3 6 9</code></pre>
-<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb518-1" title="1"><span class="co"># dimnames()를 이용한 이름 확인</span></a>
-<a class="sourceLine" id="cb518-2" title="2"><span class="kw">dimnames</span>(X) <span class="co"># 행렬에 대한 리스트 반환</span></a></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb589-1" title="1"><span class="co"># dimnames()를 이용한 이름 확인</span></a>
+<a class="sourceLine" id="cb589-2" title="2"><span class="kw">dimnames</span>(X) <span class="co"># 행렬에 대한 리스트 반환</span></a></code></pre></div>
 <pre><code>[[1]]
 [1] &quot;1&quot; &quot;2&quot; &quot;3&quot;
 
 [[2]]
 [1] &quot;A&quot; &quot;B&quot; &quot;C&quot;</code></pre>
-<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb520-1" title="1"><span class="co"># dimnames() 함수로 행 이름 변경</span></a>
-<a class="sourceLine" id="cb520-2" title="2"><span class="kw">dimnames</span>(X)[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;r1&quot;</span>, <span class="st">&quot;r2&quot;</span>, <span class="st">&quot;r3&quot;</span>)</a>
-<a class="sourceLine" id="cb520-3" title="3"></a>
-<a class="sourceLine" id="cb520-4" title="4"><span class="co"># dimnames() 함수로 열 이름 변경</span></a>
-<a class="sourceLine" id="cb520-5" title="5"><span class="kw">dimnames</span>(X)[[<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;c1&quot;</span>, <span class="st">&quot;c2&quot;</span>, <span class="st">&quot;c3&quot;</span>)</a>
-<a class="sourceLine" id="cb520-6" title="6"><span class="kw">dimnames</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb591-1" title="1"><span class="co"># dimnames() 함수로 행 이름 변경</span></a>
+<a class="sourceLine" id="cb591-2" title="2"><span class="kw">dimnames</span>(X)[[<span class="dv">1</span>]] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;r1&quot;</span>, <span class="st">&quot;r2&quot;</span>, <span class="st">&quot;r3&quot;</span>)</a>
+<a class="sourceLine" id="cb591-3" title="3"></a>
+<a class="sourceLine" id="cb591-4" title="4"><span class="co"># dimnames() 함수로 열 이름 변경</span></a>
+<a class="sourceLine" id="cb591-5" title="5"><span class="kw">dimnames</span>(X)[[<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;c1&quot;</span>, <span class="st">&quot;c2&quot;</span>, <span class="st">&quot;c3&quot;</span>)</a>
+<a class="sourceLine" id="cb591-6" title="6"><span class="kw">dimnames</span>(X)</a></code></pre></div>
 <pre><code>[[1]]
 [1] &quot;r1&quot; &quot;r2&quot; &quot;r3&quot;
 
 [[2]]
 [1] &quot;c1&quot; &quot;c2&quot; &quot;c3&quot;</code></pre>
-<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb522-1" title="1">X</a></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb593-1" title="1">X</a></code></pre></div>
 <pre><code>   c1 c2 c3
 r1  1  4  7
 r2  2  5  8
 r3  3  6  9</code></pre>
-<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb524-1" title="1"><span class="co"># rownames()를 통해 행 이름 확인</span></a>
-<a class="sourceLine" id="cb524-2" title="2"><span class="kw">rownames</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb595-1" title="1"><span class="co"># rownames()를 통해 행 이름 확인</span></a>
+<a class="sourceLine" id="cb595-2" title="2"><span class="kw">rownames</span>(X)</a></code></pre></div>
 <pre><code>[1] &quot;r1&quot; &quot;r2&quot; &quot;r3&quot;</code></pre>
-<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb526-1" title="1"><span class="co"># colnames()를 통해 열 이름 확인</span></a>
-<a class="sourceLine" id="cb526-2" title="2"><span class="kw">colnames</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb597-1" title="1"><span class="co"># colnames()를 통해 열 이름 확인</span></a>
+<a class="sourceLine" id="cb597-2" title="2"><span class="kw">colnames</span>(X)</a></code></pre></div>
 <pre><code>[1] &quot;c1&quot; &quot;c2&quot; &quot;c3&quot;</code></pre>
-<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb528-1" title="1"><span class="co"># rownames()를 이용해 행 이름 변경</span></a>
-<a class="sourceLine" id="cb528-2" title="2"><span class="kw">rownames</span>(X) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;strawberry&quot;</span>, <span class="st">&quot;orange&quot;</span>)</a>
-<a class="sourceLine" id="cb528-3" title="3"><span class="kw">rownames</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb599-1" title="1"><span class="co"># rownames()를 이용해 행 이름 변경</span></a>
+<a class="sourceLine" id="cb599-2" title="2"><span class="kw">rownames</span>(X) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;strawberry&quot;</span>, <span class="st">&quot;orange&quot;</span>)</a>
+<a class="sourceLine" id="cb599-3" title="3"><span class="kw">rownames</span>(X)</a></code></pre></div>
 <pre><code>[1] &quot;apple&quot;      &quot;strawberry&quot; &quot;orange&quot;    </code></pre>
-<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb530-1" title="1"><span class="co"># colnames()를 이용해 행 이름 변경</span></a>
-<a class="sourceLine" id="cb530-2" title="2"><span class="kw">colnames</span>(X) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;costco&quot;</span>, <span class="st">&quot;emart&quot;</span>, <span class="st">&quot;homeplus&quot;</span>)</a>
-<a class="sourceLine" id="cb530-3" title="3"><span class="kw">colnames</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb601-1" title="1"><span class="co"># colnames()를 이용해 행 이름 변경</span></a>
+<a class="sourceLine" id="cb601-2" title="2"><span class="kw">colnames</span>(X) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;costco&quot;</span>, <span class="st">&quot;emart&quot;</span>, <span class="st">&quot;homeplus&quot;</span>)</a>
+<a class="sourceLine" id="cb601-3" title="3"><span class="kw">colnames</span>(X)</a></code></pre></div>
 <pre><code>[1] &quot;costco&quot;   &quot;emart&quot;    &quot;homeplus&quot;</code></pre>
-<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb532-1" title="1">X</a></code></pre></div>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb603-1" title="1">X</a></code></pre></div>
 <pre><code>           costco emart homeplus
 apple           1     4        7
 strawberry      2     5        8
@@ -1012,11 +1020,11 @@ orange          3     6        9</code></pre>
 <li>행과 열에 대한 이름이 존재한다면 벡터와 마찬가지로 이름으로 색인 가능</li>
 </ul>
 
-<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb534-1" title="1">X[<span class="kw">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;orange&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;emart&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb605-1" title="1">X[<span class="kw">c</span>(<span class="st">&quot;apple&quot;</span>, <span class="st">&quot;orange&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;emart&quot;</span>)]</a></code></pre></div>
 <pre><code> apple orange 
      4      6 </code></pre>
-<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb536-1" title="1"><span class="co"># 2번째 열에 해당(emart)를 제외한 나머지 열 반환</span></a>
-<a class="sourceLine" id="cb536-2" title="2">X[, <span class="kw">colnames</span>(X)[<span class="op">-</span><span class="dv">2</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb607-1" title="1"><span class="co"># 2번째 열에 해당(emart)를 제외한 나머지 열 반환</span></a>
+<a class="sourceLine" id="cb607-2" title="2">X[, <span class="kw">colnames</span>(X)[<span class="op">-</span><span class="dv">2</span>]]</a></code></pre></div>
 <pre><code>           costco homeplus
 apple           1        7
 strawberry      2        8
@@ -1026,27 +1034,27 @@ orange          3        9</code></pre>
 <li>색인한 행렬 원소에 다른 값 할당</li>
 </ul>
 
-<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb538-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>); Y &lt;-<span class="st"> </span><span class="kw">matrix</span>(y, <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb538-2" title="2">Y</a></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb609-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>); Y &lt;-<span class="st"> </span><span class="kw">matrix</span>(y, <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb609-2" title="2">Y</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    5    9
 [2,]    2    6   10
 [3,]    3    7   11
 [4,]    4    8   12</code></pre>
-<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb540-1" title="1"><span class="co"># 2, 4 행과 2-3열에 다른 값 할당</span></a>
-<a class="sourceLine" id="cb540-2" title="2">Y[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>), <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb540-3" title="3"></a>
-<a class="sourceLine" id="cb540-4" title="4"><span class="co"># 행렬 값 할당 다른 예시</span></a>
-<a class="sourceLine" id="cb540-5" title="5">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">3</span>) <span class="co"># NA 값으로 구성된 4 by 3 행렬</span></a>
-<a class="sourceLine" id="cb540-6" title="6">X</a></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb611-1" title="1"><span class="co"># 2, 4 행과 2-3열에 다른 값 할당</span></a>
+<a class="sourceLine" id="cb611-2" title="2">Y[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>), <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb611-3" title="3"></a>
+<a class="sourceLine" id="cb611-4" title="4"><span class="co"># 행렬 값 할당 다른 예시</span></a>
+<a class="sourceLine" id="cb611-5" title="5">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">3</span>) <span class="co"># NA 값으로 구성된 4 by 3 행렬</span></a>
+<a class="sourceLine" id="cb611-6" title="6">X</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]   NA   NA   NA
 [2,]   NA   NA   NA
 [3,]   NA   NA   NA
 [4,]   NA   NA   NA</code></pre>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb542-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>); Y &lt;-<span class="st"> </span><span class="kw">matrix</span>(y, <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb542-2" title="2">X[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span>Y</a>
-<a class="sourceLine" id="cb542-3" title="3">X</a></code></pre></div>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb613-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>); Y &lt;-<span class="st"> </span><span class="kw">matrix</span>(y, <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb613-2" title="2">X[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span>Y</a>
+<a class="sourceLine" id="cb613-3" title="3">X</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]   NA   NA   NA
 [2,]   NA   NA   NA
@@ -1057,18 +1065,18 @@ orange          3        9</code></pre>
 <li>행렬 필터링 <span class="math inline">\(\rightarrow\)</span> 색인 대신 조건 사용(벡터와 동일)</li>
 </ul>
 
-<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb544-1" title="1">X =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>), <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb544-2" title="2"></a>
-<a class="sourceLine" id="cb544-3" title="3"><span class="co"># X의 1열이 3보다 작거나 같은 행 필터링</span></a>
-<a class="sourceLine" id="cb544-4" title="4">X[X[,<span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb615-1" title="1">X =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>), <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb615-2" title="2"></a>
+<a class="sourceLine" id="cb615-3" title="3"><span class="co"># X의 1열이 3보다 작거나 같은 행 필터링</span></a>
+<a class="sourceLine" id="cb615-4" title="4">X[X[,<span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span>, ]</a></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]    1    2
 [2,]    2    3
 [3,]    3    6</code></pre>
-<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb546-1" title="1"><span class="co"># 논리값을 활용한 필터링</span></a>
-<a class="sourceLine" id="cb546-2" title="2">idx &lt;-<span class="st"> </span>X[, <span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span>; idx</a></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb617-1" title="1"><span class="co"># 논리값을 활용한 필터링</span></a>
+<a class="sourceLine" id="cb617-2" title="2">idx &lt;-<span class="st"> </span>X[, <span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span>; idx</a></code></pre></div>
 <pre><code>[1]  TRUE  TRUE FALSE  TRUE</code></pre>
-<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb548-1" title="1">X[idx, ]</a></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb619-1" title="1">X[idx, ]</a></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]    1    2
 [2,]    2    3
@@ -1082,46 +1090,46 @@ orange          3        9</code></pre>
 <li><code>cbind()</code> (열 붙이기, column bind), <code>rbind()</code> (행 붙이기, row bind) 함수 사용</li>
 </ul>
 
-<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb550-1" title="1">j &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb550-2" title="2">Z &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb550-3" title="3">Z</a></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb621-1" title="1">j &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb621-2" title="2">Z &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb621-3" title="3">Z</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    1    1
 [2,]    2    1    0
 [3,]    3    0    1
 [4,]    4    0    0</code></pre>
-<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb552-1" title="1"><span class="kw">cbind</span>(j, Z) <span class="co"># 열 기준으로 붙이기</span></a></code></pre></div>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb623-1" title="1"><span class="kw">cbind</span>(j, Z) <span class="co"># 열 기준으로 붙이기</span></a></code></pre></div>
 <pre><code>     j      
 [1,] 1 1 1 1
 [2,] 1 2 1 0
 [3,] 1 3 0 1
 [4,] 1 4 0 0</code></pre>
-<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb554-1" title="1"><span class="co"># 길이가 다른 경우 재사용</span></a>
-<a class="sourceLine" id="cb554-2" title="2"><span class="kw">cbind</span>(<span class="dv">1</span>, Z)</a></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb625-1" title="1"><span class="co"># 길이가 다른 경우 재사용</span></a>
+<a class="sourceLine" id="cb625-2" title="2"><span class="kw">cbind</span>(<span class="dv">1</span>, Z)</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]    1    1    1    1
 [2,]    1    2    1    0
 [3,]    1    3    0    1
 [4,]    1    4    0    0</code></pre>
-<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb556-1" title="1"><span class="co"># Z 행렬 앞에 j 열 붙혀서 새로운 Z 생성</span></a>
-<a class="sourceLine" id="cb556-2" title="2">Z &lt;-<span class="st"> </span><span class="kw">cbind</span>(j, Z)</a>
-<a class="sourceLine" id="cb556-3" title="3"></a>
-<a class="sourceLine" id="cb556-4" title="4"><span class="co"># 행 기준으로 붙이기</span></a>
-<a class="sourceLine" id="cb556-5" title="5">Z &lt;-<span class="st"> </span><span class="kw">rbind</span>(Z, <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb627-1" title="1"><span class="co"># Z 행렬 앞에 j 열 붙혀서 새로운 Z 생성</span></a>
+<a class="sourceLine" id="cb627-2" title="2">Z &lt;-<span class="st"> </span><span class="kw">cbind</span>(j, Z)</a>
+<a class="sourceLine" id="cb627-3" title="3"></a>
+<a class="sourceLine" id="cb627-4" title="4"><span class="co"># 행 기준으로 붙이기</span></a>
+<a class="sourceLine" id="cb627-5" title="5">Z &lt;-<span class="st"> </span><span class="kw">rbind</span>(Z, <span class="dv">2</span>)</a></code></pre></div>
 
 <ul>
 <li>행 또는 열의 제거는 벡터에서와 마찬가지로 색인 앞에 <code>-</code> 사용</li>
 </ul>
 
-<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb557-1" title="1"><span class="co"># 첫 번째 행 제거</span></a>
-<a class="sourceLine" id="cb557-2" title="2">Z[<span class="op">-</span><span class="dv">1</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb628-1" title="1"><span class="co"># 첫 번째 행 제거</span></a>
+<a class="sourceLine" id="cb628-2" title="2">Z[<span class="op">-</span><span class="dv">1</span>, ]</a></code></pre></div>
 <pre><code>     j      
 [1,] 1 2 1 0
 [2,] 1 3 0 1
 [3,] 1 4 0 0
 [4,] 2 2 2 2</code></pre>
-<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb559-1" title="1"><span class="co"># 1, 5행 , 3열 제거</span></a>
-<a class="sourceLine" id="cb559-2" title="2">Z[<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="dv">-3</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb630-1" title="1"><span class="co"># 1, 5행 , 3열 제거</span></a>
+<a class="sourceLine" id="cb630-2" title="2">Z[<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="dv">-3</span>]</a></code></pre></div>
 <pre><code>     j    
 [1,] 1 2 0
 [2,] 1 3 1
@@ -1145,22 +1153,22 @@ orange          3        9</code></pre>
  \mathrm{\mathbf{D}} = \{d_{ij}\},~~~~i, j \in \{1, 2, \ldots, n\},~~~~\forall~ i \neq j \rightarrow d_{ij} = 0
 \]</span>
 </p>
-<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb561-1" title="1">D &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>), <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb561-2" title="2">D</a></code></pre></div>
+<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb632-1" title="1">D &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>), <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb632-2" title="2">D</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
 [1,]    1    0    0    0    0
 [2,]    0    2    0    0    0
 [3,]    0    0    3    0    0
 [4,]    0    0    0    4    0
 [5,]    0    0    0    0    5</code></pre>
-<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb563-1" title="1"><span class="co"># 3차원 항등 행렬(모든 대각원소가 1인 행렬)</span></a>
-<a class="sourceLine" id="cb563-2" title="2">I3 &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">1</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb563-3" title="3"></a>
-<a class="sourceLine" id="cb563-4" title="4"><span class="co">#대각원소 추출</span></a>
-<a class="sourceLine" id="cb563-5" title="5"><span class="kw">diag</span>(D)</a></code></pre></div>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb634-1" title="1"><span class="co"># 3차원 항등 행렬(모든 대각원소가 1인 행렬)</span></a>
+<a class="sourceLine" id="cb634-2" title="2">I3 &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">1</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb634-3" title="3"></a>
+<a class="sourceLine" id="cb634-4" title="4"><span class="co">#대각원소 추출</span></a>
+<a class="sourceLine" id="cb634-5" title="5"><span class="kw">diag</span>(D)</a></code></pre></div>
 <pre><code>[1] 1 2 3 4 5</code></pre>
-<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb565-1" title="1"><span class="co"># 대각원소 재할당</span></a>
-<a class="sourceLine" id="cb565-2" title="2"><span class="kw">diag</span>(D) &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb636-1" title="1"><span class="co"># 대각원소 재할당</span></a>
+<a class="sourceLine" id="cb636-2" title="2"><span class="kw">diag</span>(D) &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">5</span>)</a></code></pre></div>
 
 
 
@@ -1174,15 +1182,15 @@ orange          3        9</code></pre>
 <li><code>dim(object_name)</code>: 행렬 또는 데이터 프레임의 행과 열의 개수(차원)를 반환</li>
 </ul>
 
-<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb566-1" title="1"><span class="co"># dim(): 객체의 차원(dimension)을 반환</span></a>
-<a class="sourceLine" id="cb566-2" title="2">Z</a></code></pre></div>
+<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb637-1" title="1"><span class="co"># dim(): 객체의 차원(dimension)을 반환</span></a>
+<a class="sourceLine" id="cb637-2" title="2">Z</a></code></pre></div>
 <pre><code>     j      
 [1,] 1 1 1 1
 [2,] 1 2 1 0
 [3,] 1 3 0 1
 [4,] 1 4 0 0
 [5,] 2 2 2 2</code></pre>
-<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb568-1" title="1"><span class="kw">dim</span>(Z)</a></code></pre></div>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb639-1" title="1"><span class="kw">dim</span>(Z)</a></code></pre></div>
 <pre><code>[1] 5 4</code></pre>
 
 <ul>
@@ -1190,7 +1198,7 @@ orange          3        9</code></pre>
 <li><code>ncol()</code> 또는 <code>NCOL()</code>: 행렬의 행 길이 반환</li>
 </ul>
 
-<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb570-1" title="1"><span class="kw">nrow</span>(Z); <span class="kw">ncol</span>(Z)</a></code></pre></div>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb641-1" title="1"><span class="kw">nrow</span>(Z); <span class="kw">ncol</span>(Z)</a></code></pre></div>
 <pre><code>[1] 5</code></pre>
 <pre><code>[1] 4</code></pre>
 
@@ -1204,11 +1212,11 @@ orange          3        9</code></pre>
 <li><code>attributes()</code>: 객체가 갖는 속성을 반환함</li>
 </ul>
 
-<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb573-1" title="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">9</span>; X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb573-2" title="2"><span class="co"># 객체의 속성 확인</span></a>
-<a class="sourceLine" id="cb573-3" title="3"><span class="kw">attributes</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb644-1" title="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">9</span>; X &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb644-2" title="2"><span class="co"># 객체의 속성 확인</span></a>
+<a class="sourceLine" id="cb644-3" title="3"><span class="kw">attributes</span>(x)</a></code></pre></div>
 <pre><code>NULL</code></pre>
-<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb575-1" title="1"><span class="kw">attributes</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb646-1" title="1"><span class="kw">attributes</span>(X)</a></code></pre></div>
 <pre><code>$dim
 [1] 3 3</code></pre>
 
@@ -1216,26 +1224,26 @@ orange          3        9</code></pre>
 <li><code>class()</code>: 객체의 클래스 명칭 반환 및 클래스 부여</li>
 </ul>
 
-<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb577-1" title="1"><span class="co"># 객체의 class 확인</span></a>
-<a class="sourceLine" id="cb577-2" title="2"><span class="kw">class</span>(x); <span class="kw">class</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb648-1" title="1"><span class="co"># 객체의 class 확인</span></a>
+<a class="sourceLine" id="cb648-2" title="2"><span class="kw">class</span>(x); <span class="kw">class</span>(X)</a></code></pre></div>
 <pre><code>[1] &quot;integer&quot;</code></pre>
 <pre><code>[1] &quot;matrix&quot;</code></pre>
-<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb580-1" title="1"><span class="co"># 객체의 class 부여</span></a>
-<a class="sourceLine" id="cb580-2" title="2"><span class="kw">class</span>(x) &lt;-<span class="st"> &quot;this is a vector&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb651-1" title="1"><span class="co"># 객체의 class 부여</span></a>
+<a class="sourceLine" id="cb651-2" title="2"><span class="kw">class</span>(x) &lt;-<span class="st"> &quot;this is a vector&quot;</span></a></code></pre></div>
 
 <ul>
 <li><code>str()</code>: 객체가 갖고 있는 데이터의 구조 확인</li>
 </ul>
 
-<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb581-1" title="1"><span class="co"># 객체의 구조 파악</span></a>
-<a class="sourceLine" id="cb581-2" title="2"><span class="kw">str</span>(x); <span class="kw">str</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb652-1" title="1"><span class="co"># 객체의 구조 파악</span></a>
+<a class="sourceLine" id="cb652-2" title="2"><span class="kw">str</span>(x); <span class="kw">str</span>(X)</a></code></pre></div>
 <pre><code> &#39;this is a vector&#39; int [1:9] 1 2 3 4 5 6 7 8 9</code></pre>
 <pre><code> int [1:3, 1:3] 1 2 3 4 5 6 7 8 9</code></pre>
-<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb584-1" title="1"><span class="co"># x와 X에 이름(name) 속성을 추가한 경우</span></a>
-<a class="sourceLine" id="cb584-2" title="2"><span class="kw">names</span>(x) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb584-3" title="3"><span class="kw">dimnames</span>(X) &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">paste0</span>(<span class="st">&quot;r&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>), </a>
-<a class="sourceLine" id="cb584-4" title="4">                    <span class="kw">paste0</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb584-5" title="5"><span class="kw">attributes</span>(x); <span class="kw">attributes</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb655-1" title="1"><span class="co"># x와 X에 이름(name) 속성을 추가한 경우</span></a>
+<a class="sourceLine" id="cb655-2" title="2"><span class="kw">names</span>(x) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb655-3" title="3"><span class="kw">dimnames</span>(X) &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">paste0</span>(<span class="st">&quot;r&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>), </a>
+<a class="sourceLine" id="cb655-4" title="4">                    <span class="kw">paste0</span>(<span class="st">&quot;c&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb655-5" title="5"><span class="kw">attributes</span>(x); <span class="kw">attributes</span>(X)</a></code></pre></div>
 <pre><code>$class
 [1] &quot;this is a vector&quot;
 
@@ -1250,10 +1258,10 @@ $dimnames[[1]]
 
 $dimnames[[2]]
 [1] &quot;c1&quot; &quot;c2&quot; &quot;c3&quot;</code></pre>
-<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb587-1" title="1"><span class="kw">class</span>(x); <span class="kw">class</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb658-1" title="1"><span class="kw">class</span>(x); <span class="kw">class</span>(X)</a></code></pre></div>
 <pre><code>[1] &quot;this is a vector&quot;</code></pre>
 <pre><code>[1] &quot;matrix&quot;</code></pre>
-<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb590-1" title="1"><span class="kw">str</span>(x); <span class="kw">str</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb661-1" title="1"><span class="kw">str</span>(x); <span class="kw">str</span>(X)</a></code></pre></div>
 <pre><code> &#39;this is a vector&#39; Named int [1:9] 1 2 3 4 5 6 7 8 9
  - attr(*, &quot;names&quot;)= chr [1:9] &quot;x1&quot; &quot;x2&quot; &quot;x3&quot; &quot;x4&quot; ...</code></pre>
 <pre><code> int [1:3, 1:3] 1 2 3 4 5 6 7 8 9
@@ -1265,10 +1273,10 @@ $dimnames[[2]]
 <li><code>attr(object, "attribute_name")</code>: 객체가 갖고 있는 속성을 지정해서 확인</li>
 </ul>
 
-<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb593-1" title="1"><span class="co"># 객체 속성 요소 확인</span></a>
-<a class="sourceLine" id="cb593-2" title="2"><span class="kw">attr</span>(x, <span class="st">&quot;names&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb664-1" title="1"><span class="co"># 객체 속성 요소 확인</span></a>
+<a class="sourceLine" id="cb664-2" title="2"><span class="kw">attr</span>(x, <span class="st">&quot;names&quot;</span>)</a></code></pre></div>
 <pre><code>[1] &quot;x1&quot; &quot;x2&quot; &quot;x3&quot; &quot;x4&quot; &quot;x5&quot; &quot;x6&quot; &quot;x7&quot; &quot;x8&quot; &quot;x9&quot;</code></pre>
-<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb595-1" title="1"><span class="kw">attr</span>(X, <span class="st">&quot;dimnames&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb666-1" title="1"><span class="kw">attr</span>(X, <span class="st">&quot;dimnames&quot;</span>)</a></code></pre></div>
 <pre><code>[[1]]
 [1] &quot;r1&quot; &quot;r2&quot; &quot;r3&quot;
 
@@ -1282,22 +1290,22 @@ $dimnames[[2]]
 <li>행렬은 개념적으로 <span class="math inline">\(n \times 1\)</span> 벡터가 2 개 이상 묶어져서 행과 열의 속성을 갖지만 기본적으로는 벡터</li>
 </ul>
 
-<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb597-1" title="1">z &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">8</span></a>
-<a class="sourceLine" id="cb597-2" title="2">U &lt;-<span class="st"> </span><span class="kw">matrix</span>(z, <span class="dv">4</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb597-3" title="3"><span class="kw">length</span>(z) <span class="co"># 입력 벡터 원소의 길이가 8</span></a></code></pre></div>
+<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb668-1" title="1">z &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">8</span></a>
+<a class="sourceLine" id="cb668-2" title="2">U &lt;-<span class="st"> </span><span class="kw">matrix</span>(z, <span class="dv">4</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb668-3" title="3"><span class="kw">length</span>(z) <span class="co"># 입력 벡터 원소의 길이가 8</span></a></code></pre></div>
 <pre><code>[1] 8</code></pre>
 
 <ul>
 <li>R에서 <code>U</code>가 행렬임을 나타내기 위해 추가적인 속성(attribute)를 부여</li>
 </ul>
 
-<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb599-1" title="1"><span class="kw">class</span>(z) <span class="co"># 벡터</span></a></code></pre></div>
+<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb670-1" title="1"><span class="kw">class</span>(z) <span class="co"># 벡터</span></a></code></pre></div>
 <pre><code>[1] &quot;integer&quot;</code></pre>
-<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb601-1" title="1"><span class="kw">attributes</span>(z)</a></code></pre></div>
+<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb672-1" title="1"><span class="kw">attributes</span>(z)</a></code></pre></div>
 <pre><code>NULL</code></pre>
-<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb603-1" title="1"><span class="kw">class</span>(U) <span class="co"># 행렬</span></a></code></pre></div>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb674-1" title="1"><span class="kw">class</span>(U) <span class="co"># 행렬</span></a></code></pre></div>
 <pre><code>[1] &quot;matrix&quot;</code></pre>
-<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb605-1" title="1"><span class="kw">attributes</span>(U)</a></code></pre></div>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb676-1" title="1"><span class="kw">attributes</span>(U)</a></code></pre></div>
 <pre><code>$dim
 [1] 4 2</code></pre>
 
@@ -1308,22 +1316,22 @@ $dimnames[[2]]
 <li>다음 행렬에서 한 행을 추출</li>
 </ul>
 
-<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb607-1" title="1">Z &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>), <span class="dv">4</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb607-2" title="2">z &lt;-<span class="st"> </span>Z[<span class="dv">2</span>, ]</a>
-<a class="sourceLine" id="cb607-3" title="3"></a>
-<a class="sourceLine" id="cb607-4" title="4"><span class="kw">attributes</span>(Z) <span class="co"># 행과 열의 차원 수를 표시</span></a></code></pre></div>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb678-1" title="1">Z &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>), <span class="dv">4</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb678-2" title="2">z &lt;-<span class="st"> </span>Z[<span class="dv">2</span>, ]</a>
+<a class="sourceLine" id="cb678-3" title="3"></a>
+<a class="sourceLine" id="cb678-4" title="4"><span class="kw">attributes</span>(Z) <span class="co"># 행과 열의 차원 수를 표시</span></a></code></pre></div>
 <pre><code>$dim
 [1] 4 2</code></pre>
-<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb609-1" title="1"><span class="co"># 객체 z의 속성및 형태는? </span></a>
-<a class="sourceLine" id="cb609-2" title="2"><span class="kw">attributes</span>(z) <span class="co"># 차원이 존재하지 않음</span></a></code></pre></div>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb680-1" title="1"><span class="co"># 객체 z의 속성및 형태는? </span></a>
+<a class="sourceLine" id="cb680-2" title="2"><span class="kw">attributes</span>(z) <span class="co"># 차원이 존재하지 않음</span></a></code></pre></div>
 <pre><code>NULL</code></pre>
 
 <ul>
 <li>차원축소를 방지하는 방법 <span class="math inline">\(\rightarrow\)</span> <code>r</code>을 벡터가 아닌 <span class="math inline">\(1 \times 2\)</span> 행렬로 인식</li>
 </ul>
 
-<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb611-1" title="1">z &lt;-<span class="st"> </span>Z[<span class="dv">2</span>, , drop =<span class="st"> </span><span class="ot">FALSE</span>]</a>
-<a class="sourceLine" id="cb611-2" title="2"><span class="kw">attributes</span>(z)</a></code></pre></div>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb682-1" title="1">z &lt;-<span class="st"> </span>Z[<span class="dv">2</span>, , drop =<span class="st"> </span><span class="ot">FALSE</span>]</a>
+<a class="sourceLine" id="cb682-2" title="2"><span class="kw">attributes</span>(z)</a></code></pre></div>
 <pre><code>$dim
 [1] 1 2</code></pre>
 
@@ -1331,10 +1339,10 @@ $dimnames[[2]]
 <li><code>as.matrix()</code>를 이용한 직접 변환</li>
 </ul>
 
-<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb613-1" title="1">z &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(Z[<span class="dv">2</span>, ])</a>
-<a class="sourceLine" id="cb613-2" title="2"><span class="kw">class</span>(z)</a></code></pre></div>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb684-1" title="1">z &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(Z[<span class="dv">2</span>, ])</a>
+<a class="sourceLine" id="cb684-2" title="2"><span class="kw">class</span>(z)</a></code></pre></div>
 <pre><code>[1] &quot;matrix&quot;</code></pre>
-<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb615-1" title="1">z <span class="co"># 행렬이 변환됨을 유의</span></a></code></pre></div>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb686-1" title="1">z <span class="co"># 행렬이 변환됨을 유의</span></a></code></pre></div>
 <pre><code>     [,1]
 [1,]    2
 [2,]    6</code></pre>

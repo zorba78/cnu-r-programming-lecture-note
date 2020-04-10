@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-04-03" />
+<meta name="date" content="2020-04-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,6 +50,8 @@
 
 
 
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
 
@@ -188,10 +190,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.2" data-path="array.html"><a href="array.html#rray-extend-example"><i class="fa fa-check"></i><b>2.5.2</b> 배열의 확장 예제</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="factor-table.html"><a href="factor-table.html"><i class="fa fa-check"></i><b>2.6</b> 요인(factor)과 테이블(table)</a><ul>
-<li class="chapter" data-level="2.6.1" data-path="factor-table.html"><a href="factor-table.html#요인factor"><i class="fa fa-check"></i><b>2.6.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.6.1" data-path="factor-table.html"><a href="factor-table.html#factor"><i class="fa fa-check"></i><b>2.6.1</b> 요인(factor)</a></li>
 <li class="chapter" data-level="2.6.2" data-path="factor-table.html"><a href="factor-table.html#table"><i class="fa fa-check"></i><b>2.6.2</b> 테이블(table)</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="homework-2-1.html"><a href="homework-2-1.html"><i class="fa fa-check"></i><b>2.7</b> Homework #2-1</a></li>
+<li class="chapter" data-level="2.7" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>2.7</b> 데이터 프레임(data frame)</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="data-frame.html"><a href="data-frame.html#create-data-frame"><i class="fa fa-check"></i><b>2.7.1</b> 데이터 프레임 생성</a></li>
+<li class="chapter" data-level="2.7.2" data-path="data-frame.html"><a href="data-frame.html#data-frame-get"><i class="fa fa-check"></i><b>2.7.2</b> 데이터 프레임 접근 및 필터링</a></li>
+<li class="chapter" data-level="2.7.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.7.3</b> 데이터 프레임 관련 함수</a></li>
+<li class="chapter" data-level="2.7.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.7.4</b> <code>*apply()</code> 계열 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="homework-2-1.html"><a href="homework-2-1.html"><i class="fa fa-check"></i><b>2.8</b> Homework #2-1</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -226,36 +234,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>배열 생성 함수</li>
 </ul>
 
-<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb617-1" title="1"><span class="co"># array() 함수 인수 구조</span></a>
-<a class="sourceLine" id="cb617-2" title="2"><span class="kw">array</span>(data, <span class="co"># 저장할 데이터 벡터 또는 행렬</span></a>
-<a class="sourceLine" id="cb617-3" title="3">      dim,  <span class="co"># 배열의 차원 지정</span></a>
-<a class="sourceLine" id="cb617-4" title="4">      dimnames <span class="co"># 배열 차원 명칭</span></a>
-<a class="sourceLine" id="cb617-5" title="5">      )</a></code></pre></div>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb688-1" title="1"><span class="co"># array() 함수 인수 구조</span></a>
+<a class="sourceLine" id="cb688-2" title="2"><span class="kw">array</span>(data, <span class="co"># 저장할 데이터 벡터 또는 행렬</span></a>
+<a class="sourceLine" id="cb688-3" title="3">      dim,  <span class="co"># 배열의 차원 지정</span></a>
+<a class="sourceLine" id="cb688-4" title="4">      dimnames <span class="co"># 배열 차원 명칭</span></a>
+<a class="sourceLine" id="cb688-5" title="5">      )</a></code></pre></div>
 
 <ul>
-<li>통계학과 3명의 학생에 대한 중간고사 보기 전까지 한 번의 퀴즈와 중간고사 점수, 그리고 기말고사 보기 전까지 한 번의 퀴즈와 기말고사 점수 데이터 가정</li>
+<li>통계학과 3명의 학생에 대한 중간고사 기준 한 번의 퀴즈와 중간고사 점수, 그리고 기말고사 기준 한 번의 퀴즈와 기말고사 점수 데이터 가정</li>
 </ul>
 
-<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb618-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">75</span>, <span class="dv">84</span>, <span class="dv">93</span>, <span class="dv">65</span>, <span class="dv">78</span>, <span class="dv">92</span>)</a>
-<a class="sourceLine" id="cb618-2" title="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">82</span>, <span class="dv">78</span>, <span class="dv">85</span>, <span class="dv">88</span>, <span class="dv">75</span>, <span class="dv">88</span>)</a>
-<a class="sourceLine" id="cb618-3" title="3"></a>
-<a class="sourceLine" id="cb618-4" title="4">first_term &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb618-5" title="5">second_term &lt;-<span class="st"> </span><span class="kw">matrix</span>(y, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb618-6" title="6"></a>
-<a class="sourceLine" id="cb618-7" title="7">first_term</a></code></pre></div>
+<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb689-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">75</span>, <span class="dv">84</span>, <span class="dv">93</span>, <span class="dv">65</span>, <span class="dv">78</span>, <span class="dv">92</span>)</a>
+<a class="sourceLine" id="cb689-2" title="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">82</span>, <span class="dv">78</span>, <span class="dv">85</span>, <span class="dv">88</span>, <span class="dv">75</span>, <span class="dv">88</span>)</a>
+<a class="sourceLine" id="cb689-3" title="3"></a>
+<a class="sourceLine" id="cb689-4" title="4">first_term &lt;-<span class="st"> </span><span class="kw">matrix</span>(x, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb689-5" title="5">second_term &lt;-<span class="st"> </span><span class="kw">matrix</span>(y, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb689-6" title="6"></a>
+<a class="sourceLine" id="cb689-7" title="7">first_term</a></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]   75   65
 [2,]   84   78
 [3,]   93   92</code></pre>
-<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb620-1" title="1">second_term</a></code></pre></div>
+<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb691-1" title="1">second_term</a></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]   82   88
 [2,]   78   75
 [3,]   85   88</code></pre>
-<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb622-1" title="1"><span class="co"># 위 두 데이터를 2층 짜리 배열로 구성</span></a>
-<a class="sourceLine" id="cb622-2" title="2">Z &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">data =</span> <span class="kw">c</span>(first_term, second_term), </a>
-<a class="sourceLine" id="cb622-3" title="3">           <span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb622-4" title="4">Z</a></code></pre></div>
+<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb693-1" title="1"><span class="co"># 위 두 데이터를 2층 짜리 배열로 구성</span></a>
+<a class="sourceLine" id="cb693-2" title="2">Z &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">data =</span> <span class="kw">c</span>(first_term, second_term), </a>
+<a class="sourceLine" id="cb693-3" title="3">           <span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb693-4" title="4">Z</a></code></pre></div>
 <pre><code>, , 1
 
      [,1] [,2]
@@ -269,29 +277,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 [1,]   82   88
 [2,]   78   75
 [3,]   85   88</code></pre>
-<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb624-1" title="1"><span class="co"># Z의 속성</span></a>
-<a class="sourceLine" id="cb624-2" title="2"><span class="kw">attributes</span>(Z)</a></code></pre></div>
+<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb695-1" title="1"><span class="co"># Z의 속성</span></a>
+<a class="sourceLine" id="cb695-2" title="2"><span class="kw">attributes</span>(Z)</a></code></pre></div>
 <pre><code>$dim
 [1] 3 2 2</code></pre>
-<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb626-1" title="1"><span class="co"># Z의 클래스</span></a>
-<a class="sourceLine" id="cb626-2" title="2"><span class="kw">class</span>(Z)</a></code></pre></div>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb697-1" title="1"><span class="co"># Z의 클래스</span></a>
+<a class="sourceLine" id="cb697-2" title="2"><span class="kw">class</span>(Z)</a></code></pre></div>
 <pre><code>[1] &quot;array&quot;</code></pre>
-<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb628-1" title="1"><span class="co"># Z의 구조</span></a>
-<a class="sourceLine" id="cb628-2" title="2"><span class="kw">str</span>(Z)</a></code></pre></div>
+<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb699-1" title="1"><span class="co"># Z의 구조</span></a>
+<a class="sourceLine" id="cb699-2" title="2"><span class="kw">str</span>(Z)</a></code></pre></div>
 <pre><code> num [1:3, 1:2, 1:2] 75 84 93 65 78 92 82 78 85 88 ...</code></pre>
 
 <ul>
 <li>배열 내 데이터 접근은 색인을 통해 가능(벡터 행렬과 동일)</li>
 </ul>
 
-<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb630-1" title="1"><span class="co"># 첫 번째 층만 추출</span></a>
-<a class="sourceLine" id="cb630-2" title="2">Z[, , <span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb701-1" title="1"><span class="co"># 첫 번째 층만 추출</span></a>
+<a class="sourceLine" id="cb701-2" title="2">Z[, , <span class="dv">1</span>]</a></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]   75   65
 [2,]   84   78
 [3,]   93   92</code></pre>
-<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb632-1" title="1"><span class="co"># 두 번째 층에서 2-3행 만 추출</span></a>
-<a class="sourceLine" id="cb632-2" title="2">Z[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>, , <span class="dv">2</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb703-1" title="1"><span class="co"># 두 번째 층에서 2-3행 만 추출</span></a>
+<a class="sourceLine" id="cb703-2" title="2">Z[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>, , <span class="dv">2</span>]</a></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]   78   75
 [2,]   85   88</code></pre>
@@ -336,25 +344,25 @@ Figure 2.2: <a href="https://www.geeksforgeeks.org/matlab-rgb-image-representati
 <li>이미지 입출력 패키지 installation</li>
 </ol>
 
-<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb634-1" title="1"><span class="kw">install.packages</span>(<span class="st">&quot;jpeg&quot;</span>) <span class="co"># jpeg 파일 입출력 관련 package</span></a>
-<a class="sourceLine" id="cb634-2" title="2"><span class="kw">install.packages</span>(<span class="st">&quot;cowplot&quot;</span>) <span class="co"># ggplot add-on package</span></a></code></pre></div>
+<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb705-1" title="1"><span class="kw">install.packages</span>(<span class="st">&quot;jpeg&quot;</span>) <span class="co"># jpeg 파일 입출력 관련 package</span></a>
+<a class="sourceLine" id="cb705-2" title="2"><span class="kw">install.packages</span>(<span class="st">&quot;cowplot&quot;</span>) <span class="co"># ggplot add-on package</span></a></code></pre></div>
 
 <ol start="2" style="list-style-type: decimal">
 <li>관련 패키지 불러오기</li>
 </ol>
 
-<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb635-1" title="1"><span class="kw">require</span>(tidyverse)</a>
-<a class="sourceLine" id="cb635-2" title="2"><span class="kw">require</span>(jpeg)</a>
-<a class="sourceLine" id="cb635-3" title="3"><span class="kw">require</span>(cowplot)</a></code></pre></div>
+<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb706-1" title="1"><span class="kw">require</span>(tidyverse)</a>
+<a class="sourceLine" id="cb706-2" title="2"><span class="kw">require</span>(jpeg)</a>
+<a class="sourceLine" id="cb706-3" title="3"><span class="kw">require</span>(cowplot)</a></code></pre></div>
 
 <ol start="3" style="list-style-type: decimal">
 <li>이미지 불러오기</li>
 </ol>
 
-<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb636-1" title="1">myurl &lt;-<span class="st"> &quot;https://img.livescore.co.kr/data/editor/1906/ba517de8162d92f4ea0e9de0ec98ba02.jpg&quot;</span></a>
-<a class="sourceLine" id="cb636-2" title="2">z &lt;-<span class="st"> </span><span class="kw">tempfile</span>()</a>
-<a class="sourceLine" id="cb636-3" title="3"><span class="kw">download.file</span>(myurl,z,<span class="dt">mode=</span><span class="st">&quot;wb&quot;</span>)</a>
-<a class="sourceLine" id="cb636-4" title="4">pic &lt;-<span class="st"> </span><span class="kw">readJPEG</span>(z)</a></code></pre></div>
+<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb707-1" title="1">myurl &lt;-<span class="st"> &quot;https://img.livescore.co.kr/data/editor/1906/ba517de8162d92f4ea0e9de0ec98ba02.jpg&quot;</span></a>
+<a class="sourceLine" id="cb707-2" title="2">z &lt;-<span class="st"> </span><span class="kw">tempfile</span>()</a>
+<a class="sourceLine" id="cb707-3" title="3"><span class="kw">download.file</span>(myurl,z,<span class="dt">mode=</span><span class="st">&quot;wb&quot;</span>)</a>
+<a class="sourceLine" id="cb707-4" title="4">pic &lt;-<span class="st"> </span><span class="kw">readJPEG</span>(z)</a></code></pre></div>
 
 <ol start="4" style="list-style-type: decimal">
 <li>이미지 그래프 출력창에서 확인</li>
@@ -366,36 +374,36 @@ Figure 2.2: <a href="https://www.geeksforgeeks.org/matlab-rgb-image-representati
 <li>이미지 임의 부분 편집하기</li>
 </ol>
 
-<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb637-1" title="1">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="fl">0.5</span></a>
-<a class="sourceLine" id="cb637-2" title="2">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="fl">0.5</span></a>
-<a class="sourceLine" id="cb637-3" title="3">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="fl">0.5</span></a>
-<a class="sourceLine" id="cb637-4" title="4"></a>
-<a class="sourceLine" id="cb637-5" title="5"><span class="kw">ggdraw</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb637-6" title="6"><span class="st">  </span><span class="kw">draw_image</span>(pic)</a></code></pre></div>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb708-1" title="1">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb708-2" title="2">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb708-3" title="3">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb708-4" title="4"></a>
+<a class="sourceLine" id="cb708-5" title="5"><span class="kw">ggdraw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb708-6" title="6"><span class="st">  </span><span class="kw">draw_image</span>(pic)</a></code></pre></div>
 <p><img src="02-data-type_files/figure-html/unnamed-chunk-43-1.svg" width="672" /></p>
 
 <ol start="6" style="list-style-type: decimal">
 <li>RGB값을 무작위로 샘플링 후 매개변수로 노이즈 가중치 조절해 보기</li>
 </ol>
 
-<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb638-1" title="1">pic &lt;-<span class="st"> </span><span class="kw">readJPEG</span>(z)</a>
-<a class="sourceLine" id="cb638-2" title="2">yr &lt;-<span class="st"> </span>pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb638-3" title="3">yg &lt;-<span class="st"> </span>pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb638-4" title="4">yb &lt;-<span class="st"> </span>pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb638-5" title="5">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(yr); p &lt;-<span class="st"> </span><span class="kw">ncol</span>(yr)</a>
-<a class="sourceLine" id="cb638-6" title="6"></a>
-<a class="sourceLine" id="cb638-7" title="7">t &lt;-<span class="st"> </span><span class="fl">0.2</span></a>
-<a class="sourceLine" id="cb638-8" title="8">wr &lt;-<span class="st"> </span>t <span class="op">*</span><span class="st"> </span>yr <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>t)<span class="op">*</span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="kw">length</span>(yr)), <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> p)</a>
-<a class="sourceLine" id="cb638-9" title="9">wg &lt;-<span class="st"> </span>t <span class="op">*</span><span class="st"> </span>yg <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>t)<span class="op">*</span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="kw">length</span>(yg)), <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> p)</a>
-<a class="sourceLine" id="cb638-10" title="10">wb &lt;-<span class="st"> </span>t <span class="op">*</span><span class="st"> </span>yb <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>t)<span class="op">*</span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="kw">length</span>(yb)), <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> p)</a>
-<a class="sourceLine" id="cb638-11" title="11"></a>
-<a class="sourceLine" id="cb638-12" title="12"></a>
-<a class="sourceLine" id="cb638-13" title="13">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span>wr</a>
-<a class="sourceLine" id="cb638-14" title="14">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span>wg</a>
-<a class="sourceLine" id="cb638-15" title="15">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span>wb</a>
-<a class="sourceLine" id="cb638-16" title="16"></a>
-<a class="sourceLine" id="cb638-17" title="17"><span class="kw">ggdraw</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb638-18" title="18"><span class="st">  </span><span class="kw">draw_image</span>(pic)</a></code></pre></div>
+<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb709-1" title="1">pic &lt;-<span class="st"> </span><span class="kw">readJPEG</span>(z)</a>
+<a class="sourceLine" id="cb709-2" title="2">yr &lt;-<span class="st"> </span>pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb709-3" title="3">yg &lt;-<span class="st"> </span>pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb709-4" title="4">yb &lt;-<span class="st"> </span>pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb709-5" title="5">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(yr); p &lt;-<span class="st"> </span><span class="kw">ncol</span>(yr)</a>
+<a class="sourceLine" id="cb709-6" title="6"></a>
+<a class="sourceLine" id="cb709-7" title="7">t &lt;-<span class="st"> </span><span class="fl">0.2</span></a>
+<a class="sourceLine" id="cb709-8" title="8">wr &lt;-<span class="st"> </span>t <span class="op">*</span><span class="st"> </span>yr <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>t)<span class="op">*</span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="kw">length</span>(yr)), <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> p)</a>
+<a class="sourceLine" id="cb709-9" title="9">wg &lt;-<span class="st"> </span>t <span class="op">*</span><span class="st"> </span>yg <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>t)<span class="op">*</span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="kw">length</span>(yg)), <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> p)</a>
+<a class="sourceLine" id="cb709-10" title="10">wb &lt;-<span class="st"> </span>t <span class="op">*</span><span class="st"> </span>yb <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>t)<span class="op">*</span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="kw">length</span>(yb)), <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> p)</a>
+<a class="sourceLine" id="cb709-11" title="11"></a>
+<a class="sourceLine" id="cb709-12" title="12"></a>
+<a class="sourceLine" id="cb709-13" title="13">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span>wr</a>
+<a class="sourceLine" id="cb709-14" title="14">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span>wg</a>
+<a class="sourceLine" id="cb709-15" title="15">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span>wb</a>
+<a class="sourceLine" id="cb709-16" title="16"></a>
+<a class="sourceLine" id="cb709-17" title="17"><span class="kw">ggdraw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb709-18" title="18"><span class="st">  </span><span class="kw">draw_image</span>(pic)</a></code></pre></div>
 <p><img src="02-data-type_files/figure-html/unnamed-chunk-44-1.svg" width="672" /></p>
 
 </div>

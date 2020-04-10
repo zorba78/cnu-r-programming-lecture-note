@@ -4970,7 +4970,7 @@ array(data, # 저장할 데이터 벡터 또는 행렬
 
  \normalsize
 
-- 통계학과 3명의 학생에 대한 중간고사 보기 전까지 한 번의 퀴즈와 중간고사 점수, 그리고 기말고사 보기 전까지 한 번의 퀴즈와 기말고사 점수 데이터 가정
+- 통계학과 3명의 학생에 대한 중간고사 기준 한 번의 퀴즈와 중간고사 점수, 그리고 기말고사 기준 한 번의 퀴즈와 기말고사 점수 데이터 가정
 
 \footnotesize
 
@@ -5167,7 +5167,7 @@ pic <- readJPEG(z)
 
 \footnotesize
 
-<img src="02-data-type_files/figure-html/ex-step4-1.svg" width="90%" style="display: block; margin: auto;" />
+<img src="02-data-type_files/figure-epub3/ex-step4-1.svg" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -5185,7 +5185,7 @@ ggdraw() +
   draw_image(pic)
 ```
 
-<img src="02-data-type_files/figure-html/unnamed-chunk-43-1.svg" width="672" />
+![](02-data-type_files/figure-epub3/unnamed-chunk-43-1.svg)<!-- -->
 
  \normalsize
 
@@ -5215,7 +5215,7 @@ ggdraw() +
   draw_image(pic)
 ```
 
-<img src="02-data-type_files/figure-html/unnamed-chunk-44-1.svg" width="672" />
+![](02-data-type_files/figure-epub3/unnamed-chunk-44-1.svg)<!-- -->
 
  \normalsize
 
@@ -5232,7 +5232,7 @@ ggdraw() +
 - 순서형 자료 예: 성적, 교육수준, 선호도, 중증도 등 
 
 
-### 요인(factor)
+### 요인(factor) {#factor}
 
 - 범주형 자료를 표현하기 위한 R의 객체 클래스
 - Factor는 정수형 벡터를 기반으로 levels (수준) 이라는 속성이 추가된 객체임
@@ -5519,7 +5519,7 @@ sex        1    2    3
  \normalsize
 
 
-**`split()` 함수**
+##### `split()` 함수 {#split .unnumbered}
 
 - `tapply()`는 주어진 요인의 수준에 따라 특정 함수를 적용하지만, `split()`은 데이터를 요인의 수준(그룹) 별로 데이터를 나누어 리스트 형태로 반환
 
@@ -5537,7 +5537,7 @@ split(
 
  \normalsize
 
-- 예시 
+- `split()` 함수 사용 예시 
 
 \footnotesize
 
@@ -5607,6 +5607,7 @@ $M
 
  \normalsize
 
+
 ### 테이블(table) {#table}
 
 - 범주형 변수의 빈도 또는 분할표(교차표)를 표현하기 위한 객체(클래스)
@@ -5638,7 +5639,7 @@ tapply(u, list(f1, f2), length)
 
  \normalsize
 
-- `u`의 값과 상관 없이 두 factor 형 변수 `f1`과 `f2`의 조합에 따른 개수 반환 $\rightarrow$ $2 \times 2$ 분할표(contingency table)
+- `u`의 값과 상관 없이 두 factor 형 변수 `f1`과 `f2`의 조합에 따른 개수 반환 $\rightarrow$ 분할표(contingency table)
 - 위 예시에서 `f1`이 "4" 이고 `f2`가 "b" 인 경우는 없기 때문에 0 값이 있어야 하나, `tapply()` 함수 적용 시 결측값 `NA`를 반환
 - `table()`: 하나 이상의 factor의 수준 또는 수준의 조합으로 분할표 생성
 - Factor가 3개 이상인 경우 배열로 다차원 분할표 표현
@@ -5744,21 +5745,2222 @@ gender A B C
  \normalsize
 
 
+#### 테이블 관련 함수 {#tab-related-fun .unnumbered}
 
-<!-- ## 데이터 프레임(data frame) {#data-frame} -->
+##### `tabulate()` 함수 {#tab-fun1 .unnumbered}
 
-<!-- ### 데이터 프레임 생성 -->
+- 정수로 이루어진 벡터에 각 정수 값이 발생한 횟수를 카운팅한 결과를 반환 $\rightarrow$ `table()` 함수의 핵심 함수
 
-<!-- ### 데이터 프레임 접근 -->
+\footnotesize
 
-<!-- ### 데이터 프레밍 색인 -->
 
-<!-- ### 데이터 프레임 결합 -->
+```r
+# tabulate() 함수 사용 인수(argument)
+tabulate(
+  bin,  # 정수형(수치형) 벡터 또는 factor 
+  nbins, # 사용할 수준(bin)의 개수 
+)
+```
 
-<!-- ### 데이터 프레임 관련 함수 -->
+ \normalsize
+
+- `tabulate()` 함수 예시 
+
+\footnotesize
+
+
+```r
+x <- c(2, 2, 2, 1, 3, 4, 5, 5, 10, 8, 8)
+tabulate(x)
+```
+
+```
+ [1] 1 3 1 1 2 0 0 2 0 1
+```
+
+```r
+tabulate(x, nbins = 3)
+```
+
+```
+[1] 1 3 1
+```
+
+ \normalsize
+
+##### `addmargins()` 함수 {#tab-fun2 .unnumbered}
+
+- 테이블 객체(분할표)를 인수로 받아 각 요인의 수준 및 수준 조합 별 합계 값을 테이블과 동시 반환
+
+\footnotesize
+
+
+```r
+# addmargins() 함수 사용 인수
+addmargins(
+  T # 테이블 또는 배열 객체 
+)
+```
+
+ \normalsize
+
+- `addmargins()` 예시
+
+\footnotesize
+
+
+```r
+t1 <- table(f1, f2)
+addmargins(t1)
+```
+
+```
+     f2
+f1     a  b Sum
+  3    1  3   4
+  4    4  0   4
+  5    2  2   4
+  Sum  7  5  12
+```
+
+```r
+# 3차원 이상 테이블
+t2 <- table(gender, grade, year)
+is.table(t2); is.array(t2)
+```
+
+```
+[1] TRUE
+```
+
+```
+[1] TRUE
+```
+
+```r
+addmargins(t2)
+```
+
+```
+, , year = 1
+
+      grade
+gender A B C Sum
+   F   0 0 0   0
+   M   1 0 1   2
+   Sum 1 0 1   2
+
+, , year = 2
+
+      grade
+gender A B C Sum
+   F   0 1 0   1
+   M   0 0 0   0
+   Sum 0 1 0   1
+
+, , year = 3
+
+      grade
+gender A B C Sum
+   F   1 0 0   1
+   M   0 1 0   1
+   Sum 1 1 0   2
+
+, , year = 4
+
+      grade
+gender A B C Sum
+   F   0 0 1   1
+   M   0 0 0   0
+   Sum 0 0 1   1
+
+, , year = Sum
+
+      grade
+gender A B C Sum
+   F   1 1 1   3
+   M   1 1 1   3
+   Sum 2 2 2   6
+```
+
+ \normalsize
+
+
+##### `ftable()` 함수 {#tab-fun3 .unnumbered}
+
+- "평평한(flat)" 교차표 생성
+- 다차원 교차표 작성 시 행변수와 열변수 교환을 통해 재사용 가능
+
+
+\footnotesize
+
+
+```r
+ftable(
+  x,  # factor, table 또는 ftable 클래스를 갖는 객체
+  row.vars, # 행 변수 지정 색인(정수, 문자)
+  col.vars  # 열 변수 지정 색인(정수, 문자)
+)
+```
+
+ \normalsize
+
+- `ftable()` 함수 사용 예시
+
+\footnotesize
+
+
+```r
+t3 <- ftable(t2)
+t3; attributes(t3); str(t3)
+```
+
+```
+             year 1 2 3 4
+gender grade             
+F      A          0 0 1 0
+       B          0 1 0 0
+       C          0 0 0 1
+M      A          1 0 0 0
+       B          0 0 1 0
+       C          1 0 0 0
+```
+
+```
+$dim
+[1] 6 4
+
+$class
+[1] "ftable"
+
+$row.vars
+$row.vars$gender
+[1] "F" "M"
+
+$row.vars$grade
+[1] "A" "B" "C"
+
+
+$col.vars
+$col.vars$year
+[1] "1" "2" "3" "4"
+```
+
+```
+ 'ftable' int [1:6, 1:4] 0 0 0 1 0 1 0 1 0 0 ...
+ - attr(*, "row.vars")=List of 2
+  ..$ gender: chr [1:2] "F" "M"
+  ..$ grade : chr [1:3] "A" "B" "C"
+ - attr(*, "col.vars")=List of 1
+  ..$ year: chr [1:4] "1" "2" "3" "4"
+```
+
+```r
+# 테이블 내 행 변수 바꾸기
+t4 <- ftable(t2, row.vars = c("year", "gender"))
+t4
+```
+
+```
+            grade A B C
+year gender            
+1    F            0 0 0
+     M            1 0 1
+2    F            0 1 0
+     M            0 0 0
+3    F            1 0 0
+     M            0 1 0
+4    F            0 0 1
+     M            0 0 0
+```
+
+```r
+# 테이블 내 열 변수 바꾸기
+t5 <- ftable(t2, col.vars = 1)
+t5
+```
+
+```
+           gender F M
+grade year           
+A     1           0 1
+      2           0 0
+      3           1 0
+      4           0 0
+B     1           0 0
+      2           1 0
+      3           0 1
+      4           0 0
+C     1           0 1
+      2           0 0
+      3           0 0
+      4           1 0
+```
+
+ \normalsize
+
+
+##### `margin.table()` 함수 {#table-fun4 .unnumbered} 
+
+
+- 배열 형식으로 지정된 교차표(`table()` 반환 결과)에서 지정된 차원 색인에 대한 표 합계 계산 결과 반환
+
+
+\footnotesize
+
+
+```r
+margin.table(
+  x,  # table 또는 ftable 클래스를 갖는 객체
+  margin # 차원 색인 번호
+)
+```
+
+ \normalsize
+
+- `margin.table()` 예시
+
+\footnotesize
+
+
+```r
+t2
+```
+
+```
+, , year = 1
+
+      grade
+gender A B C
+     F 0 0 0
+     M 1 0 1
+
+, , year = 2
+
+      grade
+gender A B C
+     F 0 1 0
+     M 0 0 0
+
+, , year = 3
+
+      grade
+gender A B C
+     F 1 0 0
+     M 0 1 0
+
+, , year = 4
+
+      grade
+gender A B C
+     F 0 0 1
+     M 0 0 0
+```
+
+```r
+margin.table(t2, 1) # 1 차원(행): 성별
+```
+
+```
+gender
+F M 
+3 3 
+```
+
+```r
+margin.table(t2, 2) # 2 차원(열): 성적
+```
+
+```
+grade
+A B C 
+2 2 2 
+```
+
+```r
+margin.table(t2, 3) # 3 차원(배열 방 번호): 학년
+```
+
+```
+year
+1 2 3 4 
+2 1 2 1 
+```
+
+ \normalsize
+
+##### `prop.table()` 함수 {#table-fun5 .unnumbered} 
+
+- `table` 객체 빈도에 대한 비율 계산
+- 전체, 차원 단위 비율 계산 가능
+
+\footnotesize
+
+
+```r
+prop.table(
+  x,  # table 또는 ftable 클래스를 갖는 객체
+  margin # 차원 색인 번호
+)
+```
+
+ \normalsize
+
+- `prop.table()` 예시
+   - `margin = NULL`: 각 셀을 전체 cell의 합으로 나눈 비율
+   - `margin = 1`: 각 행 별 셀에 대해 각 행에 해당하는 cell 합으로 나눈 비율 $(n_{ij}/n_{i.})$, $n_{i.} = \sum_{j=1}^{J} n_{ij}$
+   - `margin = 2`: 각 열 별 셀에 대해 각 열에 해당하는 cell 합으로 나눈 비율 $(n_{ij}/n_{.j})$, $n_{.j} = \sum_{i=1}^{I} n_{ij}$
+
+
+\footnotesize
+
+
+```r
+# 2차원 교차표
+prop.table(t1) # margin = NULL
+```
+
+```
+   f2
+f1           a          b
+  3 0.08333333 0.25000000
+  4 0.33333333 0.00000000
+  5 0.16666667 0.16666667
+```
+
+```r
+prop.table(t1, 1) # margin = 1 (row)
+```
+
+```
+   f2
+f1     a    b
+  3 0.25 0.75
+  4 1.00 0.00
+  5 0.50 0.50
+```
+
+```r
+prop.table(t1, 2) # margin = 2 (column)
+```
+
+```
+   f2
+f1          a         b
+  3 0.1428571 0.6000000
+  4 0.5714286 0.0000000
+  5 0.2857143 0.4000000
+```
+
+ \normalsize
+
+
+
+## 데이터 프레임(data frame) {#data-frame}
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">**학습목표(4 주차)**: 데이터 프레임 클래스에 대해 알아보고, 데이터 프레임을 생성, 병합(merge), 연산에 대한 함수들에 대해 알아본다.</div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+
+- Excel 스프레드시트와 같은 형태
+
+\footnotesize
+
+<table>
+<caption>(\#tab:unnamed-chunk-53)스프레드시트 기본 형태 예시</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> 이름 </th>
+   <th style="text-align:left;"> 직장 </th>
+   <th style="text-align:right;"> 나이 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 김어준 </td>
+   <td style="text-align:left;"> 딴지일보 </td>
+   <td style="text-align:right;"> 51 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 주진우 </td>
+   <td style="text-align:left;"> 시사인 </td>
+   <td style="text-align:right;"> 46 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 김용민 </td>
+   <td style="text-align:left;"> 프리랜서 </td>
+   <td style="text-align:right;"> 45 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 정봉주 </td>
+   <td style="text-align:left;"> 정당인 </td>
+   <td style="text-align:right;"> 59 </td>
+  </tr>
+</tbody>
+</table>
+
+ \normalsize
+
+
+- 데이터 프레임은 데이터 유형에 상관없이 2차원 형태의 데이터 구조
+- 행렬과 리스트를 혼합한 자료 형태 $\rightarrow$ 동일한 길이의 벡터로 이루어진 리스트를 구성요소로 갖는 리스트
+- 행렬과 유사한 구조를 갖고 있지만 각기 다른 유형의 자료형태로 자료행렬을 구성할 수 있다는 점에서 행렬과 차이를 갖음
+- 행렬과 마찬가지로 변수(열)의 길이(행의 개수)는 모두 동일해야 함
+- R에서 가장 빈번하게 활용되고 있는 데이터 클래스임
+- 데이터 프레임의 각 열(컬럼)은 벡터로 간주
+
+
+### 데이터 프레임 생성 {#create-data-frame}
+
+- 데이터 프레임 생성 함수: `data.frame()`
+
+\footnotesize
+
+
+```r
+data.frame(
+  # 값 또는 이름(tag) = 값
+  ..., 
+  # 논리값. 
+  # 변수명(열 이름)이 구문 상 유효한 변수인지 또는 중복이 있는지 확인
+  check.names, 
+  # 논리값. 문자형 벡터의 factor 형 강제 변환 여부 
+  stringsAsFactors, 
+)
+```
+
+ \normalsize
+
+- 데이터 프레임 생성 예시: 모 병원에서 얻은 환자의 인구학적 정보
+
+\footnotesize
+
+
+```r
+id <- c(1:10)
+sex <- rep(c("Female", "Male"), each = 5)
+age <- c(34, 22, 54, 43, 44, 39, 38, 28, 31, 42)
+sbp <- c(112, 118, 132, 128, 128, 124, 121, 119, 124, 109)
+height <- c(165, 158, 161, 160, 168, 172, 175, 182, 168, 162)
+weight <- c(52, 48, 59, 60, 48, 72, 73, 82, 64, 60)
+
+df <- data.frame(id, sex, age, sbp, height, weight, 
+                 stringsAsFactors = FALSE)
+df
+```
+
+```
+   id    sex age sbp height weight
+1   1 Female  34 112    165     52
+2   2 Female  22 118    158     48
+3   3 Female  54 132    161     59
+4   4 Female  43 128    160     60
+5   5 Female  44 128    168     48
+6   6   Male  39 124    172     72
+7   7   Male  38 121    175     73
+8   8   Male  28 119    182     82
+9   9   Male  31 124    168     64
+10 10   Male  42 109    162     60
+```
+
+```r
+attributes(df); str(df); summary(df)
+```
+
+```
+$names
+[1] "id"     "sex"    "age"    "sbp"    "height" "weight"
+
+$class
+[1] "data.frame"
+
+$row.names
+ [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+```
+'data.frame':	10 obs. of  6 variables:
+ $ id    : int  1 2 3 4 5 6 7 8 9 10
+ $ sex   : chr  "Female" "Female" "Female" "Female" ...
+ $ age   : num  34 22 54 43 44 39 38 28 31 42
+ $ sbp   : num  112 118 132 128 128 124 121 119 124 109
+ $ height: num  165 158 161 160 168 172 175 182 168 162
+ $ weight: num  52 48 59 60 48 72 73 82 64 60
+```
+
+```
+       id            sex                 age             sbp       
+ Min.   : 1.00   Length:10          Min.   :22.00   Min.   :109.0  
+ 1st Qu.: 3.25   Class :character   1st Qu.:31.75   1st Qu.:118.2  
+ Median : 5.50   Mode  :character   Median :38.50   Median :122.5  
+ Mean   : 5.50                      Mean   :37.50   Mean   :121.5  
+ 3rd Qu.: 7.75                      3rd Qu.:42.75   3rd Qu.:127.0  
+ Max.   :10.00                      Max.   :54.00   Max.   :132.0  
+     height          weight     
+ Min.   :158.0   Min.   :48.00  
+ 1st Qu.:161.2   1st Qu.:53.75  
+ Median :166.5   Median :60.00  
+ Mean   :167.1   Mean   :61.80  
+ 3rd Qu.:171.0   3rd Qu.:70.00  
+ Max.   :182.0   Max.   :82.00  
+```
+
+```r
+# stringsAsFactors = TRUE 인 경우 sex의 summary() 결과
+df <- data.frame(id, sex, age, sbp, height, weight, 
+                 stringsAsFactors = TRUE)
+summary(df)
+```
+
+```
+       id            sex         age             sbp            height     
+ Min.   : 1.00   Female:5   Min.   :22.00   Min.   :109.0   Min.   :158.0  
+ 1st Qu.: 3.25   Male  :5   1st Qu.:31.75   1st Qu.:118.2   1st Qu.:161.2  
+ Median : 5.50              Median :38.50   Median :122.5   Median :166.5  
+ Mean   : 5.50              Mean   :37.50   Mean   :121.5   Mean   :167.1  
+ 3rd Qu.: 7.75              3rd Qu.:42.75   3rd Qu.:127.0   3rd Qu.:171.0  
+ Max.   :10.00              Max.   :54.00   Max.   :132.0   Max.   :182.0  
+     weight     
+ Min.   :48.00  
+ 1st Qu.:53.75  
+ Median :60.00  
+ Mean   :61.80  
+ 3rd Qu.:70.00  
+ Max.   :82.00  
+```
+
+ \normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">`summary()` 함수는 객체의 클래스에 따라 요약 통계량을 출력해주는 함수로 특히 데이터 프레임이 가지고 있는 변수들의 특징을 손쉽게 알아볼 수 있기 때문에 가장 많이 호출되는 함수 중 하나임. 숫자형 벡터에 대해서는 최솟값(minimum), 1/4 분위수(1^st^ quantile), 중앙값(median), 평균(mean), 3/4 분위수(3^rd^ quantile), 최댓값을 출력하고, factor 형 객체에 대해서는 factor의 각 수준 별 빈도를 출력함. 2차원 이상 `table()` 객체에 적용 시 $\chi^2$ 검정(독립성 검정)  결과값을 출력함. </div>\EndKnitrBlock{rmdtip}
+
+ \normalsize
+
+- 이미 정의된 데이터 프레임에 데이터를 추가 가능
+   - 예를 들어 `dbp`라는 벡터에 이완기 혈압(diastolic blood pressure) 데이터가 입력되어 있고  `df`에  `dbp` 변수를 새롭게 추가 시 `df$dbp <- x` 형태로 추가
+   - 위 형태로 이미 존재하고 있는 변수(열)에 새로운 값 재할당 가능
+   - 이러한 형태로 문자형 벡터 추가 시 문자형 벡터는 자동으로 factor로 형 변환 되지 않음
+
+\footnotesize
+
+
+```r
+x <- 1:nrow(df)
+dbp <- c(73, 70, 88, 82, 75, 77, 74, 81, 72, 64)
+
+# df에 "dbp" 열을 생성하고 x 값 대입
+df$dbp <- x
+df
+```
+
+```
+   id    sex age sbp height weight dbp
+1   1 Female  34 112    165     52   1
+2   2 Female  22 118    158     48   2
+3   3 Female  54 132    161     59   3
+4   4 Female  43 128    160     60   4
+5   5 Female  44 128    168     48   5
+6   6   Male  39 124    172     72   6
+7   7   Male  38 121    175     73   7
+8   8   Male  28 119    182     82   8
+9   9   Male  31 124    168     64   9
+10 10   Male  42 109    162     60  10
+```
+
+```r
+# df의 dbp에 dbp 벡터의 값을 재할당
+df$dbp <- dbp
+df
+```
+
+```
+   id    sex age sbp height weight dbp
+1   1 Female  34 112    165     52  73
+2   2 Female  22 118    158     48  70
+3   3 Female  54 132    161     59  88
+4   4 Female  43 128    160     60  82
+5   5 Female  44 128    168     48  75
+6   6   Male  39 124    172     72  77
+7   7   Male  38 121    175     73  74
+8   8   Male  28 119    182     82  81
+9   9   Male  31 124    168     64  72
+10 10   Male  42 109    162     60  64
+```
+
+```r
+# df에 운동여부 exercyn 라는 변수 추사 
+# exercyn 는 "Y" 또는 "N" 두 값을 가짐
+df$exercyn <- c("Y", "Y", "N", "Y", "N", 
+                "N", "N", "Y", "N", "Y")
+str(df)
+```
+
+```
+'data.frame':	10 obs. of  8 variables:
+ $ id     : int  1 2 3 4 5 6 7 8 9 10
+ $ sex    : Factor w/ 2 levels "Female","Male": 1 1 1 1 1 2 2 2 2 2
+ $ age    : num  34 22 54 43 44 39 38 28 31 42
+ $ sbp    : num  112 118 132 128 128 124 121 119 124 109
+ $ height : num  165 158 161 160 168 172 175 182 168 162
+ $ weight : num  52 48 59 60 48 72 73 82 64 60
+ $ dbp    : num  73 70 88 82 75 77 74 81 72 64
+ $ exercyn: chr  "Y" "Y" "N" "Y" ...
+```
+
+ \normalsize
+
+- 행렬 및 벡터에서 언급 되었던 `rownames()`, `colnames()`, `names()`, `dim()`, `ncol()/NCOL()`,`nrow()/NROW()` 함수 적용 가능
+
+\footnotesize
+
+
+```r
+rownames(df); colnames(df); names(df)
+```
+
+```
+ [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10"
+```
+
+```
+[1] "id"      "sex"     "age"     "sbp"     "height"  "weight"  "dbp"    
+[8] "exercyn"
+```
+
+```
+[1] "id"      "sex"     "age"     "sbp"     "height"  "weight"  "dbp"    
+[8] "exercyn"
+```
+
+```r
+dim(df); ncol(df); nrow(df)
+```
+
+```
+[1] 10  8
+```
+
+```
+[1] 8
+```
+
+```
+[1] 10
+```
+
+```r
+# rownames() 함수를 통해 행이름 변경
+rownames(df) <- letters[1:10]
+df
+```
+
+```
+  id    sex age sbp height weight dbp exercyn
+a  1 Female  34 112    165     52  73       Y
+b  2 Female  22 118    158     48  70       Y
+c  3 Female  54 132    161     59  88       N
+d  4 Female  43 128    160     60  82       Y
+e  5 Female  44 128    168     48  75       N
+f  6   Male  39 124    172     72  77       N
+g  7   Male  38 121    175     73  74       N
+h  8   Male  28 119    182     82  81       Y
+i  9   Male  31 124    168     64  72       N
+j 10   Male  42 109    162     60  64       Y
+```
+
+```r
+#colnames() 함수를 통해 열 이름 변경
+varname_orig <- colnames(df)
+colnames(df) <- paste0("V", 1:ncol(df))
+df
+```
+
+```
+  V1     V2 V3  V4  V5 V6 V7 V8
+a  1 Female 34 112 165 52 73  Y
+b  2 Female 22 118 158 48 70  Y
+c  3 Female 54 132 161 59 88  N
+d  4 Female 43 128 160 60 82  Y
+e  5 Female 44 128 168 48 75  N
+f  6   Male 39 124 172 72 77  N
+g  7   Male 38 121 175 73 74  N
+h  8   Male 28 119 182 82 81  Y
+i  9   Male 31 124 168 64 72  N
+j 10   Male 42 109 162 60 64  Y
+```
+
+```r
+# names() 함수와 colnames()는 거의 동일한 기능 수행
+# 두 함수의 차이점? 
+names(df)
+```
+
+```
+[1] "V1" "V2" "V3" "V4" "V5" "V6" "V7" "V8"
+```
+
+```r
+names(df) <- varname_orig
+df
+```
+
+```
+  id    sex age sbp height weight dbp exercyn
+a  1 Female  34 112    165     52  73       Y
+b  2 Female  22 118    158     48  70       Y
+c  3 Female  54 132    161     59  88       N
+d  4 Female  43 128    160     60  82       Y
+e  5 Female  44 128    168     48  75       N
+f  6   Male  39 124    172     72  77       N
+g  7   Male  38 121    175     73  74       N
+h  8   Male  28 119    182     82  81       Y
+i  9   Male  31 124    168     64  72       N
+j 10   Male  42 109    162     60  64       Y
+```
+
+ \normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">**참고**: R Markdown에서 데이터 프레임을 손쉽게 html 파일에 출력하는 방법
+
+
+   - R Markdwon의 YAML 부분에 다음과 같이 옵션을 추가하면 별다른 함수 처리 없이 데이터 프레임을 테이블 형태로 html 문서에 붙일 수 있음. 아래 예시에서 `output` 이후 `df_print: paged` 옵션을 추가
+   - 옵션 추가 시 들여쓰기(탭 구분)은 YAML 문서의 트리 구조를 표현한 것이기 때문에 **꼭** 들여쓰기를 정확히 일치시켜야 함
+</div>\EndKnitrBlock{rmdtip}
+
+ \normalsize
+
+\footnotesize
+
+
+```yaml
+---
+title: "문서 제목"
+author: "이름"
+date: "`r Sys.Date()`"
+output: 
+  html_document: 
+    df_print: paged
+---
+```
+
+ \normalsize
+
+
+### 데이터 프레임 접근 및 필터링 {#data-frame-get}
+
+
+#### 접근방법 {#data-frame-index .unnumbered}
+
+
+- 리스트 데이터 접근 방식
+
+\footnotesize
+
+
+```r
+# 추출(접근) 연산자(함수) `df$col_name` 형태로 접근
+df$height
+```
+
+```
+ [1] 165 158 161 160 168 172 175 182 168 162
+```
+
+```r
+# df[[index]] 또는 df[["col_name"]] 형태로 접근
+df[[4]]
+```
+
+```
+ [1] 112 118 132 128 128 124 121 119 124 109
+```
+
+```r
+df[["sex"]]
+```
+
+```
+ [1] Female Female Female Female Female Male   Male   Male   Male   Male  
+Levels: Female Male
+```
+
+```r
+w <- df[[4]]
+attributes(w); str(w)
+```
+
+```
+NULL
+```
+
+```
+ num [1:10] 112 118 132 128 128 124 121 119 124 109
+```
+
+```r
+# df[index] 또는 df["col_name"] 형태로 접근
+h <- df["height"]
+attributes(h); str(h)
+```
+
+```
+$names
+[1] "height"
+
+$row.names
+ [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j"
+
+$class
+[1] "data.frame"
+```
+
+```
+'data.frame':	10 obs. of  1 variable:
+ $ height: num  165 158 161 160 168 172 175 182 168 162
+```
+
+ \normalsize
+
+- 행렬 데이터 접근 방식
+
+\footnotesize
+
+
+```r
+# df[idx_row, idx_col] 또는 df[row_name, col_name] 
+# 형태 데이터 접근
+
+# 열 index 접근
+df[, 3];
+```
+
+```
+ [1] 34 22 54 43 44 39 38 28 31 42
+```
+
+```r
+# 형 강제 변환 방지
+df[, 3, drop = FALSE]
+```
+
+```
+  age
+a  34
+b  22
+c  54
+d  43
+e  44
+f  39
+g  38
+h  28
+i  31
+j  42
+```
+
+```r
+# 행 index 접근
+df[8, ]
+```
+
+```
+  id  sex age sbp height weight dbp exercyn
+h  8 Male  28 119    182     82  81       Y
+```
+
+```r
+# 행과 열 index 접근
+df[1:4, 5:6]
+```
+
+```
+  height weight
+a    165     52
+b    158     48
+c    161     59
+d    160     60
+```
+
+```r
+# 열 이름으로 접근
+df[, c("sex", "sbp")]
+```
+
+```
+     sex sbp
+a Female 112
+b Female 118
+c Female 132
+d Female 128
+e Female 128
+f   Male 124
+g   Male 121
+h   Male 119
+i   Male 124
+j   Male 109
+```
+
+```r
+# 행 이름으로 접근
+df[c("d", "e", "f"), ]
+```
+
+```
+  id    sex age sbp height weight dbp exercyn
+d  4 Female  43 128    160     60  82       Y
+e  5 Female  44 128    168     48  75       N
+f  6   Male  39 124    172     72  77       N
+```
+
+```r
+# 행과 열 이름으로 접근
+df[c("a", "f"), c("sex", "height", "dbp")]
+```
+
+```
+     sex height dbp
+a Female    165  73
+f   Male    172  77
+```
+
+```r
+# 행 또는 열 제외
+df[-c(2:6), ]
+```
+
+```
+  id    sex age sbp height weight dbp exercyn
+a  1 Female  34 112    165     52  73       Y
+g  7   Male  38 121    175     73  74       N
+h  8   Male  28 119    182     82  81       Y
+i  9   Male  31 124    168     64  72       N
+j 10   Male  42 109    162     60  64       Y
+```
+
+```r
+df[-c(1, 5:7), -c(1, 8)]
+```
+
+```
+     sex age sbp height weight dbp
+b Female  22 118    158     48  70
+c Female  54 132    161     59  88
+d Female  43 128    160     60  82
+h   Male  28 119    182     82  81
+i   Male  31 124    168     64  72
+j   Male  42 109    162     60  64
+```
+
+ \normalsize
+
+
+
+#### 필터링 {#data-frame-filtering .unnumbered}
+
+- 벡터, 행렬과 마찬가지로 비교 연산자를 이용해 조건에 맞는 부분 데이터 추출 가능
+
+\footnotesize
+
+
+```r
+# %in% 연산자를 이용해 데이터 프레임의 부분 변수 추출
+# id, age 열을 제외한 나머지 데이터 프레임 추출
+varname_df <- names(df)
+df[, !varname_df %in% c("id", "age")]
+```
+
+```
+     sex sbp height weight dbp exercyn
+a Female 112    165     52  73       Y
+b Female 118    158     48  70       Y
+c Female 132    161     59  88       N
+d Female 128    160     60  82       Y
+e Female 128    168     48  75       N
+f   Male 124    172     72  77       N
+g   Male 121    175     73  74       N
+h   Male 119    182     82  81       Y
+i   Male 124    168     64  72       N
+j   Male 109    162     60  64       Y
+```
+
+```r
+# 조건 연산자 사용 
+# sex 가 Female이고 나이가 40 이상인 데이터 추출
+df[df$sex == "Female" & df$age >= 40, ]
+```
+
+```
+  id    sex age sbp height weight dbp exercyn
+c  3 Female  54 132    161     59  88       N
+d  4 Female  43 128    160     60  82       Y
+e  5 Female  44 128    168     48  75       N
+```
+
+```r
+# id가 3보다 작은 데이터 추출
+df[df[, 1] < 3, ]
+```
+
+```
+  id    sex age sbp height weight dbp exercyn
+a  1 Female  34 112    165     52  73       Y
+b  2 Female  22 118    158     48  70       Y
+```
+
+```r
+# subset 함수 이용한 데이터 추출
+# sbp 가 120 이상이고 dbp 가 80 이상인 데이터 추출
+subset(df, sbp >= 120 & dbp >= 80)
+```
+
+```
+  id    sex age sbp height weight dbp exercyn
+c  3 Female  54 132    161     59  88       N
+d  4 Female  43 128    160     60  82       Y
+```
+
+```r
+# 성별, 수축기, 이완기 혈압 변수만 추출
+subset(df, select = c(sex, sbp, dbp))
+```
+
+```
+     sex sbp dbp
+a Female 112  73
+b Female 118  70
+c Female 132  88
+d Female 128  82
+e Female 128  75
+f   Male 124  77
+g   Male 121  74
+h   Male 119  81
+i   Male 124  72
+j   Male 109  64
+```
+
+```r
+# id 변수 제거
+subset(df, select = -c(id))
+```
+
+```
+     sex age sbp height weight dbp exercyn
+a Female  34 112    165     52  73       Y
+b Female  22 118    158     48  70       Y
+c Female  54 132    161     59  88       N
+d Female  43 128    160     60  82       Y
+e Female  44 128    168     48  75       N
+f   Male  39 124    172     72  77       N
+g   Male  38 121    175     73  74       N
+h   Male  28 119    182     82  81       Y
+i   Male  31 124    168     64  72       N
+j   Male  42 109    162     60  64       Y
+```
+
+ \normalsize
+
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">데이터 프레임 또는 리스트 접근 시 `df$col_name 를 사용한다면 매번 데이터 프레임 이름과 `$`을 반복하기 때문에 코드가 불필요하게 복잡해짐. R에서는 데이터 프레임 내부의 열 이름을 직접 접근할 수 있도록 도와주는 몇 가지 함수(예: `with()`, `attach()` 등)가 있는데, `with()`와 `within()` 활용법에 대해 간략히 알아봄. 
+</div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+- 위 예제에서 sex 가 Female이고 나이가 40 이상인 데이터 추출한다고 했을 때 `with()` 함수 사용
+
+
+\footnotesize
+
+
+```r
+# with() 함수: 데이터 환경(객체 내)에서 주어진 표현식의 결과를 반환
+with(
+  data, #리스트 또는 데이터 프레임
+  expr, # 실제 명령을 수행할 표현식, 
+)
+```
+
+ \normalsize
+
+
+\footnotesize
+
+
+```r
+with(df, df[sex == "Female" & age >= 40, ])
+```
+
+```
+  id    sex age sbp height weight dbp exercyn
+c  3 Female  54 132    161     59  88       N
+d  4 Female  43 128    160     60  82       Y
+e  5 Female  44 128    168     48  75       N
+```
+
+ \normalsize
+
+- `within()` 함수는 `with()`와 유사하지만 코드블록(`{...}`)을 이용해 보다 자유롭게 데이터 수정 및 추가 가능
+
+
+\footnotesize
+
+
+```r
+df2 <- within(df, {
+  hospital <- c("A", "B", "B", "A", "C", 
+                "A", "A", "B", "C", "B")
+  mean_age <- mean(age)
+})
+```
+
+ \normalsize
+
+
+
+### 데이터 프레임 관련 함수 {#data-frame-function}
+
+#### 유틸리티 함수 {#data-frame-utility .unnumbered}
+
+- 보통 데이터 분석은 외부에서 데이터를 읽은 후 특정 객체에 읽어온 데이터를 할당하는데, 이 경우 데이터가 저장된 객체는 대부분은 데이터 프레임 형태임. 
+- 읽어온 데이터는 보통 많은 행(표본)으로 구성되어 있기 때문에 데이터를 손쉽게 살펴보는 방법이 필요
+
+
+##### `head()`/`tail()` 함수 {#head-tail .unnumbered} 
+
+- 객체(벡터, 행렬, 테이블, 데이터 프레임 등)의 처음 또는 끝에서 부터 몇 개의 데이터(`default = 6L`) 를 순차적으로 보여줌
+
+\footnotesize
+
+
+```r
+# 앞에서 불러온 전복 데이터셋 확인
+dim(abalone)
+```
+
+```
+[1] 4177    9
+```
+
+```r
+#처음 1에서 6행 까지 데이터 출력
+head(abalone)
+```
+
+```
+  V1    V2    V3    V4     V5     V6     V7    V8 V9
+1  M 0.455 0.365 0.095 0.5140 0.2245 0.1010 0.150 15
+2  M 0.350 0.265 0.090 0.2255 0.0995 0.0485 0.070  7
+3  F 0.530 0.420 0.135 0.6770 0.2565 0.1415 0.210  9
+4  M 0.440 0.365 0.125 0.5160 0.2155 0.1140 0.155 10
+5  I 0.330 0.255 0.080 0.2050 0.0895 0.0395 0.055  7
+6  I 0.425 0.300 0.095 0.3515 0.1410 0.0775 0.120  8
+```
+
+```r
+# 제일 마지막 행부터 위로 6개 데이터 까지 출력
+tail(abalone)
+```
+
+```
+     V1    V2    V3    V4     V5     V6     V7     V8 V9
+4172  M 0.560 0.430 0.155 0.8675 0.4000 0.1720 0.2290  8
+4173  F 0.565 0.450 0.165 0.8870 0.3700 0.2390 0.2490 11
+4174  M 0.590 0.440 0.135 0.9660 0.4390 0.2145 0.2605 10
+4175  M 0.600 0.475 0.205 1.1760 0.5255 0.2875 0.3080  9
+4176  F 0.625 0.485 0.150 1.0945 0.5310 0.2610 0.2960 10
+4177  M 0.710 0.555 0.195 1.9485 0.9455 0.3765 0.4950 12
+```
+
+ \normalsize
+
+##### `View()` 함수 {#view-fun .unnumbered}
+
+- 2차원 데이터의 readble 한 스프레드시트 제공
+
+\footnotesize
+
+
+```r
+View(abalone)
+```
+
+ \normalsize
+
+
+#### 데이터 프레임 결합 및 분리 함수 {#df-merge-split .unnumbered}
+
+##### `rbind()`/`cbind()` 함수 {#rbind-cbind .unnumbered}
+
+- 행렬에서 사용한 `rbind()`/`cbind()`를 데이터 프레임에도 적용 가능
+
+\footnotesize
+
+
+```r
+a = data.frame(x1 = rep(0,5), x2 = rep("x",5))
+b = data.frame(x1 = rep(1,5), x2 = rep("d",5))
+c = data.frame(x3 = rep(2,5), x4 = rep("z",5))
+d <- list(1, "d")
+e <- list(x5 = rep(4, 5), x6 = rep("y", 5))
+# rbind()를 이용해 두 데이터 프레임 a-b 합치기
+ab <- rbind(a, b)
+ab
+```
+
+```
+   x1 x2
+1   0  x
+2   0  x
+3   0  x
+4   0  x
+5   0  x
+6   1  d
+7   1  d
+8   1  d
+9   1  d
+10  1  d
+```
+
+```r
+# 변수명이 다른 경우
+rbind(a, c) #변수명이 다르기때문에 행으로 묶을 수 없다.
+```
+
+```
+Error in match.names(clabs, names(xi)): names do not match previous names
+```
+
+```r
+# rbind()를 이용해 데이터 프레임-리스트 합치기
+abd <- rbind(ab, d)
+abd
+```
+
+```
+   x1 x2
+1   0  x
+2   0  x
+3   0  x
+4   0  x
+5   0  x
+6   1  d
+7   1  d
+8   1  d
+9   1  d
+10  1  d
+11  1  d
+```
+
+```r
+# cbind()를 이용해 두 데이터 프레임 a-c 합치기
+ac <- cbind(a, c)
+ac
+```
+
+```
+  x1 x2 x3 x4
+1  0  x  2  z
+2  0  x  2  z
+3  0  x  2  z
+4  0  x  2  z
+5  0  x  2  z
+```
+
+```r
+# 행 길이가 다르면 작은 길이의 데이터를 재사용
+cbind(a, d)
+```
+
+```
+  x1 x2 1 "d"
+1  0  x 1   d
+2  0  x 1   d
+3  0  x 1   d
+4  0  x 1   d
+5  0  x 1   d
+```
+
+```r
+# cbind()를 이용해 두 데이터 프레임-리스트 합치기
+ace <- cbind(ac, e)
+```
+
+ \normalsize
+
+
+##### `merge()` 함수 {#merge .unnumbered}
+
+- 두 데이터 프레임을 공통된 값을 기준으로 병합
+- Excel의 `vlookup()` 함수 또는 데이터베이스 SQL 쿼리 중 `join`과 동일한 역할을 함
+- `cbind()`의 경우는 단순히 열을 합치는 것이지만 `merge()`는 공통되는 열을 기준으로 두 데이터셋을 병합
+- 공통된 데이터가 있을 때만 데이터 병합 수행
+
+\footnotesize
+
+
+```r
+# merge() 함수 인수 
+merge(
+  x, # 병합할 데이터 프레임
+  y, # 병합할 데이터 프레임
+  by, # 병합 기준으로 사용할 컬럼 (문자열 벡터)
+  by.x, # 병합에 사용할 x와 y의 열 이름이 다른 경우
+  by.y, # by.x와 by.y에 각각 공통 데이터에 해당하는 열 이름 지정
+        # 둘 다 문자형 스칼라 또는 벡터값 인수로 받음
+  all, # 논리값 이순
+       # TRUE인 경우 x, y 중 공통된 값을 갖는 행이 없을 때
+       # 해당 쪽을 NA를 채워 병합
+       # 결과적으로 x, y 전체 행이 결과에 포함
+  all.x, # x,y 중 특정 쪽에 공통된 값이 없더라도 항상 
+  all.y, # 결과에 포함
+)
+```
+
+ \normalsize
+
+- `merge()` 함수 예시
+
+\footnotesize
+
+
+```r
+d1 = data.frame(Name = c("Park", "Hanzo", "Mercy", "Soldier76" ),
+                country = c("Korea", "Japan", "Swiss", "USA"))
+d2 = data.frame(Age = c(19,38,37,56,31),
+                Name = c("Park", "Hanzo", "Mercy", "Soldier76","Mei" ) )
+d1; d2
+```
+
+```
+       Name country
+1      Park   Korea
+2     Hanzo   Japan
+3     Mercy   Swiss
+4 Soldier76     USA
+```
+
+```
+  Age      Name
+1  19      Park
+2  38     Hanzo
+3  37     Mercy
+4  56 Soldier76
+5  31       Mei
+```
+
+```r
+dim(d1); dim(d2)
+```
+
+```
+[1] 4 2
+```
+
+```
+[1] 5 2
+```
+
+```r
+# 두 데이터 병합 01
+merge(d1, d2, by = "Name")
+```
+
+```
+       Name country Age
+1     Hanzo   Japan  38
+2     Mercy   Swiss  37
+3      Park   Korea  19
+4 Soldier76     USA  56
+```
+
+```r
+# 두 데이터 병합 02
+names(d2)[2] <- "Surname"
+merge(d1, d2, by.x = "Name", by.y = "Surname")
+```
+
+```
+       Name country Age
+1     Hanzo   Japan  38
+2     Mercy   Swiss  37
+3      Park   Korea  19
+4 Soldier76     USA  56
+```
+
+```r
+# 두 데이터 병합 03
+merge(d1, d2, 
+      by.x = "Name", by.y = "Surname", 
+      all = T)
+```
+
+```
+       Name country Age
+1     Hanzo   Japan  38
+2     Mercy   Swiss  37
+3      Park   Korea  19
+4 Soldier76     USA  56
+5       Mei    <NA>  31
+```
+
+ \normalsize
+
+
+##### `split()` 함수 {#split-df .unnumbered}
+
+- Factor 형에서 언급한 `split()` 함수를 통해 그룹 별로 데이터 분할
+- 분할된 데이터는 리스트에 저장
+
+\footnotesize
+
+
+```r
+split(df, df$sex)
+```
+
+```
+$Female
+  id    sex age sbp height weight dbp exercyn
+a  1 Female  34 112    165     52  73       Y
+b  2 Female  22 118    158     48  70       Y
+c  3 Female  54 132    161     59  88       N
+d  4 Female  43 128    160     60  82       Y
+e  5 Female  44 128    168     48  75       N
+
+$Male
+  id  sex age sbp height weight dbp exercyn
+f  6 Male  39 124    172     72  77       N
+g  7 Male  38 121    175     73  74       N
+h  8 Male  28 119    182     82  81       Y
+i  9 Male  31 124    168     64  72       N
+j 10 Male  42 109    162     60  64       Y
+```
+
+ \normalsize
+
+
+#### 데이터 정렬 함수 {#sort-fun .unnumbered}
+
+##### `sort()` 함수 {#sort .unnumbered}
+
+- 데이터(벡터)의 정렬(오름차순 또는 내림차순) 결과 반환
+
+\footnotesize
+
+
+```r
+# sort() 함수 인수
+sort(
+  x, # 정렬할 벡터
+  decreasing, # 논리값, 내림차순 여부
+              # default = FALSE
+  na.last # 논리값. 결측 존재 시 NA 값 위치 지정
+)         # TRUE: 정렬 후 결측은 마지막에 위치
+          # FALSE: 맨 처음 NA 위치
+```
+
+ \normalsize
+
+- 예시
+
+\footnotesize
+
+
+```r
+# 오름차순 정렬
+sort(df2$age)
+```
+
+```
+ [1] 22 28 31 34 38 39 42 43 44 54
+```
+
+```r
+# 내림차순 정렬
+sort(df$height, decreasing = TRUE)
+```
+
+```
+ [1] 182 175 172 168 168 165 162 161 160 158
+```
+
+ \normalsize
+
+
+##### `order()` 함수 {#order .unnumbered}
+
+- 데이터 정렬을 위해 순서에 대한 색인 생성 결과 반환
+- 데이터 프레임에서 특정 열 기준으로 데이터 정렬 시 주로 사용
+
+\footnotesize
+
+
+```r
+# 나이 기준으로 오름차순으로 데이터 정렬
+with(df, df[order(age), ])
+```
+
+```
+  id    sex age sbp height weight dbp exercyn
+b  2 Female  22 118    158     48  70       Y
+h  8   Male  28 119    182     82  81       Y
+i  9   Male  31 124    168     64  72       N
+a  1 Female  34 112    165     52  73       Y
+g  7   Male  38 121    175     73  74       N
+f  6   Male  39 124    172     72  77       N
+j 10   Male  42 109    162     60  64       Y
+d  4 Female  43 128    160     60  82       Y
+e  5 Female  44 128    168     48  75       N
+c  3 Female  54 132    161     59  88       N
+```
+
+```r
+# 키 순으로 내림차순 정렬
+df[order(df$height, decreasing = T), ]
+```
+
+```
+  id    sex age sbp height weight dbp exercyn
+h  8   Male  28 119    182     82  81       Y
+g  7   Male  38 121    175     73  74       N
+f  6   Male  39 124    172     72  77       N
+e  5 Female  44 128    168     48  75       N
+i  9   Male  31 124    168     64  72       N
+a  1 Female  34 112    165     52  73       Y
+j 10   Male  42 109    162     60  64       Y
+c  3 Female  54 132    161     59  88       N
+d  4 Female  43 128    160     60  82       Y
+b  2 Female  22 118    158     48  70       Y
+```
+
+ \normalsize
+
+
+### `*apply()` 계열 함수 {#apply-related-fun}
+
+- `apply()`, `lapply()`, `sapply()` 등 `apply` 계열 함수는 R에서 가장 일반적으로 사용되는 함수 중 하나
+- 보통 `for-loop`를 대신하기 위해 활용되며, R 객체를 입력 받아 원소 별 혹은 그루 별 함수를 적용
+- 데이터 전체에 함수를 한번에 적용하는 vectorizing 연산을 수행함
+
+#### `apply()` 함수 {#apply .unnumbered}
+
+- 배열 또는 행렬에 주어진 함수를 적용한 뒤 그 결과를 벡터 또는 리스트로 반환
+- 행 또는 열 차원 기준 함수 적용
+- 동일한 유형의 벡터로 구성된 데이터셋에 적용
+
+\footnotesize
+
+
+```r
+apply(
+  X, # 배열, 행렬, 또는 같은 형태로 정의된 데이터 프레임
+  MARGIN, # MARGIN = 1: 행 기준
+          # MARGIN = 2: 열 기준
+          # MARGIN = c(1,2): 행과 열 방향 모두
+  FUN # 적용할 함수 
+  )
+```
+
+ \normalsize
+
+- 예시1: 행렬 및 배열 `apply()` 적용
+
+\footnotesize
+
+
+```r
+X <- matrix(1:9, nrow = 3)
+X
+```
+
+```
+     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9
+```
+
+```r
+# 행 기준으로 합계 계산
+apply(X, 1, sum)
+```
+
+```
+[1] 12 15 18
+```
+
+```r
+# 열 기준으로 합계 계산
+apply(X, 2, sum)
+```
+
+```
+[1]  6 15 24
+```
+
+```r
+# 배열에 apply 적용
+# 각 학생의 퀴즈와 중간-기말 각각 평균 계산
+Z # 성적
+```
+
+```
+, , 1
+
+     [,1] [,2]
+[1,]   75   65
+[2,]   84   78
+[3,]   93   92
+
+, , 2
+
+     [,1] [,2]
+[1,]   82   88
+[2,]   78   75
+[3,]   85   88
+```
+
+```r
+apply(Z, c(1,2), mean)
+```
+
+```
+     [,1] [,2]
+[1,] 78.5 76.5
+[2,] 81.0 76.5
+[3,] 89.0 90.0
+```
+
+```r
+# 각 시점 별 개별 학생의 퀴즈-중간, 퀴즈-기말 평균 계산
+apply(Z, c(1, 3), mean)
+```
+
+```
+     [,1] [,2]
+[1,] 70.0 85.0
+[2,] 81.0 76.5
+[3,] 92.5 86.5
+```
+
+ \normalsize
+
+- 예시2: 데이터 프레임
+   - 위에서 사용한 `df`와 \@ref(factor) 요인(factor) 절에서 잠깐 예시로 사용된 전복(`abalone`) 데이터셋 사용
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">Abalone dataset 변수 설명</div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+<!-- Predicting the age of abalone from physical measurements. The age of abalone is determined by cutting the shell through the cone, staining it, and counting the number of rings through a microscope -- a boring and time-consuming task. Other measurements, which are easier to obtain, are used to predict the age. Further information, such as weather patterns and location (hence food availability) may be required to solve the problem. -->
+
+\footnotesize
+
+
+```
+  Origin   Variable           Name  Unit                     Description
+1     V1        sex            Sex       성별(M: 수컷; F: 암컷; I: 새끼)
+2     V2     length         Length    mm                  길이(최장길이)
+3     V3   diameter       Diameter    mm                            직경
+4     V4     height         Height    mm             껍질 내 육질의 높이
+5     V5   whole.wt   Whole weight grams                       전체 중량
+6     V6 shucked.wt Shucked weight grams                       육질 무게
+7     V7 viscera.wt Viscera weigth grams                       내장 무게
+8     V8   shell.wt   Shell weight grams                       껍질 무게
+9     V9      rings          Rings                             전복 나이
+```
+
+ \normalsize
+
+
+\footnotesize
+
+
+```r
+names(abalone) <- c("sex", "length", "diameter", 
+                    "height", "whole.wt", 
+                    "shucked.wt", "viscera.wt", 
+                    "shell.wt", "rings")
+head(abalone)
+```
+
+```
+  sex length diameter height whole.wt shucked.wt viscera.wt shell.wt rings
+1   M  0.455    0.365  0.095   0.5140     0.2245     0.1010    0.150    15
+2   M  0.350    0.265  0.090   0.2255     0.0995     0.0485    0.070     7
+3   F  0.530    0.420  0.135   0.6770     0.2565     0.1415    0.210     9
+4   M  0.440    0.365  0.125   0.5160     0.2155     0.1140    0.155    10
+5   I  0.330    0.255  0.080   0.2050     0.0895     0.0395    0.055     7
+6   I  0.425    0.300  0.095   0.3515     0.1410     0.0775    0.120     8
+```
+
+```r
+# sex를 제외한 나머지 수치형 변수에 대한 기초통계량  계산
+# 평균: mean() 함수 사용
+apply(abalone[, -1], 2, mean)
+```
+
+```
+    length   diameter     height   whole.wt shucked.wt viscera.wt   shell.wt 
+ 0.5239921  0.4078813  0.1395164  0.8287422  0.3593675  0.1805936  0.2388309 
+     rings 
+ 9.9336845 
+```
+
+```r
+# 표준편차: sd() 함수 사용
+apply(abalone[, -1], 2, sd)
+```
+
+```
+    length   diameter     height   whole.wt shucked.wt viscera.wt   shell.wt 
+0.12009291 0.09923987 0.04182706 0.49038902 0.22196295 0.10961425 0.13920267 
+     rings 
+3.22416903 
+```
+
+```r
+# 개별 전복에 대해 내장, 육질, 껍질 무게 합계 계산
+apply(abalone[, c("shucked.wt", 
+                  "viscera.wt", 
+                  "shell.wt")], 1, 
+      sum) -> ab_wt_sum
+
+head(ab_wt_sum, 10)
+```
+
+```
+ [1] 0.4755 0.2180 0.6080 0.4845 0.1840 0.3385 0.7085 0.7035 0.4940 0.7855
+```
+
+```r
+# 데이터에 결측이 포함된 경우
+# diameter 변수에 10개의 결측을 임의 생성
+set.seed(20200410)
+idx <- sample(1:NROW(abalone), 10) # 비복원 추출
+ab2 <- abalone
+ab2[idx, 3] <- NA
+
+# 성별 제외한 나머지 변수의 평균 계산
+apply(ab2[, -1], 2, mean)
+```
+
+```
+    length   diameter     height   whole.wt shucked.wt viscera.wt   shell.wt 
+ 0.5239921         NA  0.1395164  0.8287422  0.3593675  0.1805936  0.2388309 
+     rings 
+ 9.9336845 
+```
+
+```r
+# NA 결과를 피하려면?
+apply(ab2[, -1], 2, mean, na.rm = TRUE)
+```
+
+```
+    length   diameter     height   whole.wt shucked.wt viscera.wt   shell.wt 
+ 0.5239921  0.4079578  0.1395164  0.8287422  0.3593675  0.1805936  0.2388309 
+     rings 
+ 9.9336845 
+```
+
+ \normalsize
+
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">**참고 1**: 결측이 포함된 벡터 연산 시 결측에 대한 처리 지정 없이 함수를 적용하면 결측값을 반환함. 따라서 R에서 제공되는 연산 관련 일반 함수는 결측처리에 대한 옵션을 인수로 받음. 보통 인수 형태는 `na.rm = T/F` 형태이고 다음의 함수를 통해 데이터에  결측 처리에 대한 속성 및 클래스를 부여함
+  
+  - `na.omit()`/`na.exclude()`: `NA`가 포함되어 있는 행 생략 
+
+
+위 두 함수는 기본적으로 동일하지만, 특정 함수(예: 회귀분석을 수행하는 `lm()`) 함수에서는 다른 결과를 출력
+
+  </div>\EndKnitrBlock{rmdtip}
+
+ \normalsize
+
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">**참고 2**: 위 예제에서 보여준 행 또는 열의 합 또는 평균 계산은 매우 자주 사용되기 때문에 `rowSums()`, `colSums()`, `rowMeans()`, `colMeans()` 함수가 제공됨
+  </div>\EndKnitrBlock{rmdtip}
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+colMeans(abalone[,-1]) # apply 결과와 비교
+```
+
+```
+    length   diameter     height   whole.wt shucked.wt viscera.wt   shell.wt 
+ 0.5239921  0.4078813  0.1395164  0.8287422  0.3593675  0.1805936  0.2388309 
+     rings 
+ 9.9336845 
+```
+
+ \normalsize
+
+
+#### `tapply()` 함수 {#tapply-df .unnumbered}
+
+- \@ref(factor) 요인(factor) 절에서 설명
+- `tapply()`는 1개의 벡터를 대상으로만 함수를 호출 
+- 데이터 프레임에 적용하려면? $\rightarrow$ `aggregate()` 함수 사용
+
+##### `aggregate()` {#aggregate .unnumbered}
+
+- 데이터를 특정 factor의 수준 별로 나눈 후, 각 그룹마다 함수 적용
+- `aggregate()`는 다음 두 가지 형태로 함수 적용 가능
+
+\footnotesize
+
+
+```r
+# aggregate() 기본 인수
+aggregate(
+  x, # R 객체, 주로 데이터 프레임
+  by, # 그룹으로 묶을 값의 리스트
+  FUN, # 그룹별 적용할 함수
+)
+```
+
+ \normalsize
+
+- 예시: 임상연구 자료(`df`)
+
+\footnotesize
+
+
+```r
+# 성별에 따라 연속형 변수의 평균 계산
+aggregate(df[,-c(1:2, 8)], by =df["sex"], mean)
+```
+
+```
+     sex  age   sbp height weight  dbp
+1 Female 39.4 123.6  162.4   53.4 77.6
+2   Male 35.6 119.4  171.8   70.2 73.6
+```
+
+```r
+# 수식 표현형 사용
+aggregate(. ~ sex, 
+          data = df[,-8], 
+          mean)
+```
+
+```
+     sex id  age   sbp height weight  dbp
+1 Female  3 39.4 123.6  162.4   53.4 77.6
+2   Male  8 35.6 119.4  171.8   70.2 73.6
+```
+
+```r
+# 요인이 2개인 경우
+aggregate(df[,-c(1:2, 8)], 
+          by = list(sex = df[["sex"]], exercise = df[["exercyn"]]), 
+          mean)
+```
+
+```
+     sex exercise age      sbp   height   weight      dbp
+1 Female        N  49 130.0000 164.5000 53.50000 81.50000
+2   Male        N  36 123.0000 171.6667 69.66667 74.33333
+3 Female        Y  33 119.3333 161.0000 53.33333 75.00000
+4   Male        Y  35 114.0000 172.0000 71.00000 72.50000
+```
+
+```r
+aggregate(. ~ sex + exercyn, 
+          data = df[,-1], 
+          mean)
+```
+
+```
+     sex exercyn age      sbp   height   weight      dbp
+1 Female       N  49 130.0000 164.5000 53.50000 81.50000
+2   Male       N  36 123.0000 171.6667 69.66667 74.33333
+3 Female       Y  33 119.3333 161.0000 53.33333 75.00000
+4   Male       Y  35 114.0000 172.0000 71.00000 72.50000
+```
+
+ \normalsize
+
+
+#### `lapply()` 함수 {#lapply .unnumbered}
+
+- 특정 함수를 벡터, 리스트, 데이터 프레임 등에 적용하고 그 결과를 리스트로 반환
+
+\footnotesize
+
+
+```r
+lapply(
+ X, #벡터, 리스트, 표현식, 또는  데이터 프레임
+ FUN, # 적용할 함수
+)
+```
+
+ \normalsize
+
+
+-예시: abalone 데이터를 사용해 일변량 회귀분석 실시
+
+\footnotesize
+
+
+```r
+# abalone 데이터를 이용해 단순회귀분석 결과 출력
+# 종속변수: rings
+# 설명변수: 성별을 제외한 모든 연속형 변수
+
+# lm() 함수를 이용한 일변량 회귀분석 실시
+univ_reg <- lapply(abalone[,-c(1, 9)], function(x) lm(abalone$rings ~ x))
+# univ_reg
+
+# 위 객체로부터 회귀모형 요약 통계량 결과 
+summ_reg <- lapply(univ_reg, summary)
+# summ_reg
+
+# 추정 회귀계수를 데이터로 저장
+## summary(lm_object)의 속성 파악
+str(summ_reg[[1]])
+```
+
+```
+List of 11
+ $ call         : language lm(formula = abalone$rings ~ x)
+ $ terms        :Classes 'terms', 'formula'  language abalone$rings ~ x
+  .. ..- attr(*, "variables")= language list(abalone$rings, x)
+  .. ..- attr(*, "factors")= int [1:2, 1] 0 1
+  .. .. ..- attr(*, "dimnames")=List of 2
+  .. .. .. ..$ : chr [1:2] "abalone$rings" "x"
+  .. .. .. ..$ : chr "x"
+  .. ..- attr(*, "term.labels")= chr "x"
+  .. ..- attr(*, "order")= int 1
+  .. ..- attr(*, "intercept")= int 1
+  .. ..- attr(*, "response")= int 1
+  .. ..- attr(*, ".Environment")=<environment: 0x00000000208df580> 
+  .. ..- attr(*, "predvars")= language list(abalone$rings, x)
+  .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
+  .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"
+ $ residuals    : Named num [1:4177] 6.0975 -0.3331 -1.0235 1.3217 -0.0342 ...
+  ..- attr(*, "names")= chr [1:4177] "1" "2" "3" "4" ...
+ $ coefficients : num [1:2, 1:4] 2.102 14.946 0.186 0.345 11.328 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:2] "(Intercept)" "x"
+  .. ..$ : chr [1:4] "Estimate" "Std. Error" "t value" "Pr(>|t|)"
+ $ aliased      : Named logi [1:2] FALSE FALSE
+  ..- attr(*, "names")= chr [1:2] "(Intercept)" "x"
+ $ sigma        : num 2.68
+ $ df           : int [1:3] 2 4175 2
+ $ r.squared    : num 0.31
+ $ adj.r.squared: num 0.31
+ $ fstatistic   : Named num [1:3] 1875 1 4175
+  ..- attr(*, "names")= chr [1:3] "value" "numdf" "dendf"
+ $ cov.unscaled : num [1:2, 1:2] 0.0048 -0.0087 -0.0087 0.0166
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:2] "(Intercept)" "x"
+  .. ..$ : chr [1:2] "(Intercept)" "x"
+ - attr(*, "class")= chr "summary.lm"
+```
+
+```r
+summ_reg[[1]]$coefficients
+```
+
+```
+             Estimate Std. Error  t value     Pr(>|t|)
+(Intercept)  2.101883  0.1855477 11.32800 2.544353e-29
+x           14.946411  0.3451570 43.30323 0.000000e+00
+```
+
+```r
+# summ_reg에서 coefficients만 추출
+res <- lapply(summ_reg, function(lst) lst$coefficients)
+res
+```
+
+```
+$length
+             Estimate Std. Error  t value     Pr(>|t|)
+(Intercept)  2.101883  0.1855477 11.32800 2.544353e-29
+x           14.946411  0.3451570 43.30323 0.000000e+00
+
+$diameter
+             Estimate Std. Error  t value    Pr(>|t|)
+(Intercept)  2.318574  0.1727366 13.42260 3.01241e-40
+x           18.669921  0.4114954 45.37091 0.00000e+00
+
+$height
+             Estimate Std. Error  t value      Pr(>|t|)
+(Intercept)  3.938464  0.1442530 27.30248 3.678478e-151
+x           42.971441  0.9904086 43.38759  0.000000e+00
+
+$whole.wt
+            Estimate Std. Error  t value      Pr(>|t|)
+(Intercept) 6.989239 0.08244313 84.77648  0.000000e+00
+x           3.552909 0.08561680 41.49780 1.888678e-315
+
+$shucked.wt
+            Estimate Std. Error  t value      Pr(>|t|)
+(Intercept) 7.736643  0.0861330 89.82206  0.000000e+00
+x           6.113633  0.2039254 29.97976 5.087464e-179
+
+$viscera.wt
+             Estimate Std. Error  t value      Pr(>|t|)
+(Intercept)  7.257427 0.08306853 87.36674  0.000000e+00
+x           14.819227 0.39322428 37.68645 8.574726e-268
+
+$shell.wt
+             Estimate Std. Error  t value Pr(>|t|)
+(Intercept)  6.462117 0.07714642 83.76431        0
+x           14.535675 0.27908233 52.08382        0
+```
+
+```r
+# res 결과를 2차원 배열 형태로 변환
+# do.call() 함수 사용
+# 리스트로 주어진 인자에 함수를 적용하여 결과 반환
+res <- do.call(rbind, res)  
+res
+```
+
+```
+             Estimate Std. Error  t value      Pr(>|t|)
+(Intercept)  2.101883 0.18554766 11.32800  2.544353e-29
+x           14.946411 0.34515697 43.30323  0.000000e+00
+(Intercept)  2.318574 0.17273658 13.42260  3.012410e-40
+x           18.669921 0.41149538 45.37091  0.000000e+00
+(Intercept)  3.938464 0.14425297 27.30248 3.678478e-151
+x           42.971441 0.99040860 43.38759  0.000000e+00
+(Intercept)  6.989239 0.08244313 84.77648  0.000000e+00
+x            3.552909 0.08561680 41.49780 1.888678e-315
+(Intercept)  7.736643 0.08613300 89.82206  0.000000e+00
+x            6.113633 0.20392536 29.97976 5.087464e-179
+(Intercept)  7.257427 0.08306853 87.36674  0.000000e+00
+x           14.819227 0.39322428 37.68645 8.574726e-268
+(Intercept)  6.462117 0.07714642 83.76431  0.000000e+00
+x           14.535675 0.27908233 52.08382  0.000000e+00
+```
+
+ \normalsize
+
+
+#### `sapply()` 힘수 {#sapply .unnumbered}
+
+- `lapply()` 함수와 유사하나(`lapply()`의 wrapper 함수), 결과를 벡터 또는 행렬로 반환하는 점에서 차이를 보임
+- 예시: 회귀분석 
+
+\footnotesize
+
+
+```r
+# 각 변수별 회귀계수(절편항과 설명변수) 반환
+univ_reg2 <- sapply(abalone[,-c(1, 9)], function(x) {
+  coef(lm(abalone$rings ~ x)) # lm 클래스에서 회귀계수 반환
+})
+univ_reg2
+```
+
+```
+               length  diameter    height whole.wt shucked.wt viscera.wt
+(Intercept)  2.101883  2.318574  3.938464 6.989239   7.736643   7.257427
+x           14.946411 18.669921 42.971441 3.552909   6.113633  14.819227
+             shell.wt
+(Intercept)  6.462117
+x           14.535675
+```
+
+```r
+attributes(univ_reg2) # 행렬 반환
+```
+
+```
+$dim
+[1] 2 7
+
+$dimnames
+$dimnames[[1]]
+[1] "(Intercept)" "x"          
+
+$dimnames[[2]]
+[1] "length"     "diameter"   "height"     "whole.wt"   "shucked.wt"
+[6] "viscera.wt" "shell.wt"  
+```
+
+```r
+# as.data.frame(univ_reg2)
+```
+
+ \normalsize
+
+
+#### `mapply()` 함수 {#mapply .unnumbered}
+
+- `mapply()`와 유사하지만 다수의 인수를 함수에 전달해 적용
+- 임의의 함수 `FUN()`이 있고, `FUN()`이 사용할 인수가 데이터로 저장되어 있을 때 이를 불러들여 함수를 적용
+
+
+\footnotesize
+
+
+```r
+mapply(
+  FUN, # 적용할 함수
+  ..., # 적용할 인수
+)
+```
+
+ \normalsize
+
+- 난수 생성 예시: `rnorm()` 함수 사용
+- `rnorm(n, mean, sd)`: 평균이 `mean`이고 표준편차가 `sd`인 정규분포에서 `n`개의 난수 생성
+
+\footnotesize
+
+
+```r
+# 평균이 각각 0, 1, 2, 4 이고
+# 표준편차가 1, 1, 1, 1 인 정규난수를 
+# 각각 20, 40, 60, 100 개 생성
+
+rn_res <- mapply(rnorm, 
+                 c(20, 40, 60, 100), 
+                 c(0:2, 4), 
+                 rep(1, 4))
+# rn_res
+
+# 생성한 난수의 평균과 표준편차 확인
+sapply(rn_res, mean); sapply(rn_res, sd)
+```
+
+```
+[1] 0.1277941 0.8607565 1.9070456 3.9012846
+```
+
+```
+[1] 0.8954115 0.7916029 0.9990486 0.9088889
+```
+
+ \normalsize
+
+
+
 
 <!-- ### 외부 데이터 불러오기 및 저장하기 -->
-
 
 
 ## Homework #2-1
@@ -5804,7 +8006,7 @@ $$
 
 10. `runif()` 함수를 이용해 난수 200개를 생성하여 `x`라는 객체에 저장 하시오. 
 
-   - 생성한 `x` 를 이용해 `x`가 0.5 보다 작으면 0, 0.5 보다 크거나 작으면 1 값을 재할당 하시오.
+   - 생성한 `x` 를 이용해 `x`가 0.5 보다 작으면 0, 0.5 보다 크거나 같으면 1 값을 재할당 하시오.
    - 수준이 0, 1이고 수준이름이 각각 "Male", "Female"인 요인형 객체 sex를 생성하시오. 
 
 
