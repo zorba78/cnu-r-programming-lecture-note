@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-04-10" />
+<meta name="date" content="2020-04-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="factor-table.html"/>
-<link rel="next" href="homework-2-1.html"/>
+<link rel="next" href="is-as-function.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -199,8 +199,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.7.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.7.3</b> 데이터 프레임 관련 함수</a></li>
 <li class="chapter" data-level="2.7.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.7.4</b> <code>*apply()</code> 계열 함수</a></li>
 </ul></li>
-<li class="chapter" data-level="2.8" data-path="homework-2-1.html"><a href="homework-2-1.html"><i class="fa fa-check"></i><b>2.8</b> Homework #2-1</a></li>
+<li class="chapter" data-level="2.8" data-path="is-as-function.html"><a href="is-as-function.html"><i class="fa fa-check"></i><b>2.8</b> 객체의 유형 판별 및 변환</a></li>
+<li class="chapter" data-level="2.9" data-path="homework-2-1.html"><a href="homework-2-1.html"><i class="fa fa-check"></i><b>2.9</b> Homework #2-1</a></li>
+<li class="chapter" data-level="2.10" data-path="homework-2-2.html"><a href="homework-2-2.html"><i class="fa fa-check"></i><b>2.10</b> Homework #2-2</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="string-regexp.html"><a href="string-regexp.html"><i class="fa fa-check"></i><b>3</b> 문자열과 정규표현식</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -311,36 +314,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>데이터 프레임 생성 함수: <code>data.frame()</code></li>
 </ul>
 
-<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb801-1" title="1"><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb801-2" title="2">  <span class="co"># 값 또는 이름(tag) = 값</span></a>
-<a class="sourceLine" id="cb801-3" title="3">  ..., </a>
-<a class="sourceLine" id="cb801-4" title="4">  <span class="co"># 논리값. </span></a>
-<a class="sourceLine" id="cb801-5" title="5">  <span class="co"># 변수명(열 이름)이 구문 상 유효한 변수인지 또는 중복이 있는지 확인</span></a>
-<a class="sourceLine" id="cb801-6" title="6">  check.names, </a>
-<a class="sourceLine" id="cb801-7" title="7">  <span class="co"># 논리값. 문자형 벡터의 factor 형 강제 변환 여부 </span></a>
-<a class="sourceLine" id="cb801-8" title="8">  stringsAsFactors, </a>
-<a class="sourceLine" id="cb801-9" title="9">)</a></code></pre></div>
+<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb730-1" title="1"><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb730-2" title="2">  <span class="co"># 값 또는 이름(tag) = 값</span></a>
+<a class="sourceLine" id="cb730-3" title="3">  ..., </a>
+<a class="sourceLine" id="cb730-4" title="4">  <span class="co"># 논리값. </span></a>
+<a class="sourceLine" id="cb730-5" title="5">  <span class="co"># 변수명(열 이름)이 구문 상 유효한 변수인지 또는 중복이 있는지 확인</span></a>
+<a class="sourceLine" id="cb730-6" title="6">  check.names, </a>
+<a class="sourceLine" id="cb730-7" title="7">  <span class="co"># 논리값. 문자형 벡터의 factor 형 강제 변환 여부 </span></a>
+<a class="sourceLine" id="cb730-8" title="8">  stringsAsFactors, </a>
+<a class="sourceLine" id="cb730-9" title="9">)</a></code></pre></div>
 
 <ul>
 <li>데이터 프레임 생성 예시: 모 병원에서 얻은 환자의 인구학적 정보</li>
 </ul>
 
-<div class="sourceCode" id="cb802"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb802-1" title="1">id &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb802-2" title="2">sex &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>), <span class="dt">each =</span> <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb802-3" title="3">age &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">34</span>, <span class="dv">22</span>, <span class="dv">54</span>, <span class="dv">43</span>, <span class="dv">44</span>, <span class="dv">39</span>, <span class="dv">38</span>, <span class="dv">28</span>, <span class="dv">31</span>, <span class="dv">42</span>)</a>
-<a class="sourceLine" id="cb802-4" title="4">sbp &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">112</span>, <span class="dv">118</span>, <span class="dv">132</span>, <span class="dv">128</span>, <span class="dv">128</span>, <span class="dv">124</span>, <span class="dv">121</span>, <span class="dv">119</span>, <span class="dv">124</span>, <span class="dv">109</span>)</a>
-<a class="sourceLine" id="cb802-5" title="5">height &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">165</span>, <span class="dv">158</span>, <span class="dv">161</span>, <span class="dv">160</span>, <span class="dv">168</span>, <span class="dv">172</span>, <span class="dv">175</span>, <span class="dv">182</span>, <span class="dv">168</span>, <span class="dv">162</span>)</a>
-<a class="sourceLine" id="cb802-6" title="6">weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">52</span>, <span class="dv">48</span>, <span class="dv">59</span>, <span class="dv">60</span>, <span class="dv">48</span>, <span class="dv">72</span>, <span class="dv">73</span>, <span class="dv">82</span>, <span class="dv">64</span>, <span class="dv">60</span>)</a>
-<a class="sourceLine" id="cb802-7" title="7"></a>
-<a class="sourceLine" id="cb802-8" title="8">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(id, sex, age, sbp, height, weight, </a>
-<a class="sourceLine" id="cb802-9" title="9">                 <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb802-10" title="10">df</a></code></pre></div>
+<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb731-1" title="1">id &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb731-2" title="2">sex &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>), <span class="dt">each =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb731-3" title="3">age &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">34</span>, <span class="dv">22</span>, <span class="dv">54</span>, <span class="dv">43</span>, <span class="dv">44</span>, <span class="dv">39</span>, <span class="dv">38</span>, <span class="dv">28</span>, <span class="dv">31</span>, <span class="dv">42</span>)</a>
+<a class="sourceLine" id="cb731-4" title="4">sbp &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">112</span>, <span class="dv">118</span>, <span class="dv">132</span>, <span class="dv">128</span>, <span class="dv">128</span>, <span class="dv">124</span>, <span class="dv">121</span>, <span class="dv">119</span>, <span class="dv">124</span>, <span class="dv">109</span>)</a>
+<a class="sourceLine" id="cb731-5" title="5">height &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">165</span>, <span class="dv">158</span>, <span class="dv">161</span>, <span class="dv">160</span>, <span class="dv">168</span>, <span class="dv">172</span>, <span class="dv">175</span>, <span class="dv">182</span>, <span class="dv">168</span>, <span class="dv">162</span>)</a>
+<a class="sourceLine" id="cb731-6" title="6">weight &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">52</span>, <span class="dv">48</span>, <span class="dv">59</span>, <span class="dv">60</span>, <span class="dv">48</span>, <span class="dv">72</span>, <span class="dv">73</span>, <span class="dv">82</span>, <span class="dv">64</span>, <span class="dv">60</span>)</a>
+<a class="sourceLine" id="cb731-7" title="7"></a>
+<a class="sourceLine" id="cb731-8" title="8">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(id, sex, age, sbp, height, weight, </a>
+<a class="sourceLine" id="cb731-9" title="9">                 <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb731-10" title="10">df</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["chr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb803-1" title="1"><span class="kw">attributes</span>(df); <span class="kw">str</span>(df); <span class="kw">summary</span>(df)</a></code></pre></div>
+<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb732-1" title="1"><span class="kw">attributes</span>(df); <span class="kw">str</span>(df); <span class="kw">summary</span>(df)</a></code></pre></div>
 <pre><code>$names
 [1] &quot;id&quot;     &quot;sex&quot;    &quot;age&quot;    &quot;sbp&quot;    &quot;height&quot; &quot;weight&quot;
 
@@ -370,10 +373,10 @@ $row.names
  Mean   :167.1   Mean   :61.80  
  3rd Qu.:171.0   3rd Qu.:70.00  
  Max.   :182.0   Max.   :82.00  </code></pre>
-<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb807-1" title="1"><span class="co"># stringsAsFactors = TRUE 인 경우 sex의 summary() 결과</span></a>
-<a class="sourceLine" id="cb807-2" title="2">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(id, sex, age, sbp, height, weight, </a>
-<a class="sourceLine" id="cb807-3" title="3">                 <span class="dt">stringsAsFactors =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb807-4" title="4"><span class="kw">summary</span>(df)</a></code></pre></div>
+<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb736-1" title="1"><span class="co"># stringsAsFactors = TRUE 인 경우 sex의 summary() 결과</span></a>
+<a class="sourceLine" id="cb736-2" title="2">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(id, sex, age, sbp, height, weight, </a>
+<a class="sourceLine" id="cb736-3" title="3">                 <span class="dt">stringsAsFactors =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb736-4" title="4"><span class="kw">summary</span>(df)</a></code></pre></div>
 <pre><code>       id            sex         age             sbp            height     
  Min.   : 1.00   Female:5   Min.   :22.00   Min.   :109.0   Min.   :158.0  
  1st Qu.: 3.25   Male  :5   1st Qu.:31.75   1st Qu.:118.2   1st Qu.:161.2  
@@ -405,30 +408,30 @@ $row.names
 </ul></li>
 </ul>
 
-<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb809-1" title="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df)</a>
-<a class="sourceLine" id="cb809-2" title="2">dbp &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">73</span>, <span class="dv">70</span>, <span class="dv">88</span>, <span class="dv">82</span>, <span class="dv">75</span>, <span class="dv">77</span>, <span class="dv">74</span>, <span class="dv">81</span>, <span class="dv">72</span>, <span class="dv">64</span>)</a>
-<a class="sourceLine" id="cb809-3" title="3"></a>
-<a class="sourceLine" id="cb809-4" title="4"><span class="co"># df에 &quot;dbp&quot; 열을 생성하고 x 값 대입</span></a>
-<a class="sourceLine" id="cb809-5" title="5">df<span class="op">$</span>dbp &lt;-<span class="st"> </span>x</a>
-<a class="sourceLine" id="cb809-6" title="6">df</a></code></pre></div>
+<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb738-1" title="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df)</a>
+<a class="sourceLine" id="cb738-2" title="2">dbp &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">73</span>, <span class="dv">70</span>, <span class="dv">88</span>, <span class="dv">82</span>, <span class="dv">75</span>, <span class="dv">77</span>, <span class="dv">74</span>, <span class="dv">81</span>, <span class="dv">72</span>, <span class="dv">64</span>)</a>
+<a class="sourceLine" id="cb738-3" title="3"></a>
+<a class="sourceLine" id="cb738-4" title="4"><span class="co"># df에 &quot;dbp&quot; 열을 생성하고 x 값 대입</span></a>
+<a class="sourceLine" id="cb738-5" title="5">df<span class="op">$</span>dbp &lt;-<span class="st"> </span>x</a>
+<a class="sourceLine" id="cb738-6" title="6">df</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["int"],"align":["right"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"1"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"2"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"3"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"4"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"5"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"6"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"7"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"8"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"9"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb810-1" title="1"><span class="co"># df의 dbp에 dbp 벡터의 값을 재할당</span></a>
-<a class="sourceLine" id="cb810-2" title="2">df<span class="op">$</span>dbp &lt;-<span class="st"> </span>dbp</a>
-<a class="sourceLine" id="cb810-3" title="3">df</a></code></pre></div>
+<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb739-1" title="1"><span class="co"># df의 dbp에 dbp 벡터의 값을 재할당</span></a>
+<a class="sourceLine" id="cb739-2" title="2">df<span class="op">$</span>dbp &lt;-<span class="st"> </span>dbp</a>
+<a class="sourceLine" id="cb739-3" title="3">df</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"70"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"77"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"74"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"72"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"64"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb811-1" title="1"><span class="co"># df에 운동여부 exercyn 라는 변수 추사 </span></a>
-<a class="sourceLine" id="cb811-2" title="2"><span class="co"># exercyn 는 &quot;Y&quot; 또는 &quot;N&quot; 두 값을 가짐</span></a>
-<a class="sourceLine" id="cb811-3" title="3">df<span class="op">$</span>exercyn &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Y&quot;</span>, <span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>, <span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>, </a>
-<a class="sourceLine" id="cb811-4" title="4">                <span class="st">&quot;N&quot;</span>, <span class="st">&quot;N&quot;</span>, <span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>, <span class="st">&quot;Y&quot;</span>)</a>
-<a class="sourceLine" id="cb811-5" title="5"><span class="kw">str</span>(df)</a></code></pre></div>
+<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb740-1" title="1"><span class="co"># df에 운동여부 exercyn 라는 변수 추가 </span></a>
+<a class="sourceLine" id="cb740-2" title="2"><span class="co"># exercyn 는 &quot;Y&quot; 또는 &quot;N&quot; 두 값을 가짐</span></a>
+<a class="sourceLine" id="cb740-3" title="3">df<span class="op">$</span>exercyn &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Y&quot;</span>, <span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>, <span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>, </a>
+<a class="sourceLine" id="cb740-4" title="4">                <span class="st">&quot;N&quot;</span>, <span class="st">&quot;N&quot;</span>, <span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>, <span class="st">&quot;Y&quot;</span>)</a>
+<a class="sourceLine" id="cb740-5" title="5"><span class="kw">str</span>(df)</a></code></pre></div>
 <pre><code>&#39;data.frame&#39;:   10 obs. of  8 variables:
  $ id     : int  1 2 3 4 5 6 7 8 9 10
  $ sex    : Factor w/ 2 levels &quot;Female&quot;,&quot;Male&quot;: 1 1 1 1 1 2 2 2 2 2
@@ -443,39 +446,39 @@ $row.names
 <li>행렬 및 벡터에서 언급 되었던 <code>rownames()</code>, <code>colnames()</code>, <code>names()</code>, <code>dim()</code>, <code>ncol()/NCOL()</code>,<code>nrow()/NROW()</code> 함수 적용 가능</li>
 </ul>
 
-<div class="sourceCode" id="cb813"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb813-1" title="1"><span class="kw">rownames</span>(df); <span class="kw">colnames</span>(df); <span class="kw">names</span>(df)</a></code></pre></div>
+<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb742-1" title="1"><span class="kw">rownames</span>(df); <span class="kw">colnames</span>(df); <span class="kw">names</span>(df)</a></code></pre></div>
 <pre><code> [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot;</code></pre>
 <pre><code>[1] &quot;id&quot;      &quot;sex&quot;     &quot;age&quot;     &quot;sbp&quot;     &quot;height&quot;  &quot;weight&quot;  &quot;dbp&quot;    
 [8] &quot;exercyn&quot;</code></pre>
 <pre><code>[1] &quot;id&quot;      &quot;sex&quot;     &quot;age&quot;     &quot;sbp&quot;     &quot;height&quot;  &quot;weight&quot;  &quot;dbp&quot;    
 [8] &quot;exercyn&quot;</code></pre>
-<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb817-1" title="1"><span class="kw">dim</span>(df); <span class="kw">ncol</span>(df); <span class="kw">nrow</span>(df)</a></code></pre></div>
+<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb746-1" title="1"><span class="kw">dim</span>(df); <span class="kw">ncol</span>(df); <span class="kw">nrow</span>(df)</a></code></pre></div>
 <pre><code>[1] 10  8</code></pre>
 <pre><code>[1] 8</code></pre>
 <pre><code>[1] 10</code></pre>
-<div class="sourceCode" id="cb821"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb821-1" title="1"><span class="co"># rownames() 함수를 통해 행이름 변경</span></a>
-<a class="sourceLine" id="cb821-2" title="2"><span class="kw">rownames</span>(df) &lt;-<span class="st"> </span>letters[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a>
-<a class="sourceLine" id="cb821-3" title="3">df</a></code></pre></div>
+<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb750-1" title="1"><span class="co"># rownames() 함수를 통해 행이름 변경</span></a>
+<a class="sourceLine" id="cb750-2" title="2"><span class="kw">rownames</span>(df) &lt;-<span class="st"> </span>letters[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a>
+<a class="sourceLine" id="cb750-3" title="3">df</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73","8":"Y","_rn_":"a"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"70","8":"Y","_rn_":"b"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"77","8":"N","_rn_":"f"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"74","8":"N","_rn_":"g"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81","8":"Y","_rn_":"h"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"72","8":"N","_rn_":"i"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"64","8":"Y","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb822-1" title="1"><span class="co">#colnames() 함수를 통해 열 이름 변경</span></a>
-<a class="sourceLine" id="cb822-2" title="2">varname_orig &lt;-<span class="st"> </span><span class="kw">colnames</span>(df)</a>
-<a class="sourceLine" id="cb822-3" title="3"><span class="kw">colnames</span>(df) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;V&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(df))</a>
-<a class="sourceLine" id="cb822-4" title="4">df</a></code></pre></div>
+<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb751-1" title="1"><span class="co">#colnames() 함수를 통해 열 이름 변경</span></a>
+<a class="sourceLine" id="cb751-2" title="2">varname_orig &lt;-<span class="st"> </span><span class="kw">colnames</span>(df)</a>
+<a class="sourceLine" id="cb751-3" title="3"><span class="kw">colnames</span>(df) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;V&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(df))</a>
+<a class="sourceLine" id="cb751-4" title="4">df</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["V1"],"name":[1],"type":["int"],"align":["right"]},{"label":["V2"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["V3"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["V4"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["V5"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["V6"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["V7"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["V8"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73","8":"Y","_rn_":"a"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"70","8":"Y","_rn_":"b"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"77","8":"N","_rn_":"f"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"74","8":"N","_rn_":"g"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81","8":"Y","_rn_":"h"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"72","8":"N","_rn_":"i"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"64","8":"Y","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb823-1" title="1"><span class="co"># names() 함수와 colnames()는 거의 동일한 기능 수행</span></a>
-<a class="sourceLine" id="cb823-2" title="2"><span class="co"># 두 함수의 차이점? </span></a>
-<a class="sourceLine" id="cb823-3" title="3"><span class="kw">names</span>(df)</a></code></pre></div>
+<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb752-1" title="1"><span class="co"># names() 함수와 colnames()는 거의 동일한 기능 수행</span></a>
+<a class="sourceLine" id="cb752-2" title="2"><span class="co"># 두 함수의 차이점? </span></a>
+<a class="sourceLine" id="cb752-3" title="3"><span class="kw">names</span>(df)</a></code></pre></div>
 <pre><code>[1] &quot;V1&quot; &quot;V2&quot; &quot;V3&quot; &quot;V4&quot; &quot;V5&quot; &quot;V6&quot; &quot;V7&quot; &quot;V8&quot;</code></pre>
-<div class="sourceCode" id="cb825"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb825-1" title="1"><span class="kw">names</span>(df) &lt;-<span class="st"> </span>varname_orig</a>
-<a class="sourceLine" id="cb825-2" title="2">df</a></code></pre></div>
+<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb754-1" title="1"><span class="kw">names</span>(df) &lt;-<span class="st"> </span>varname_orig</a>
+<a class="sourceLine" id="cb754-2" title="2">df</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73","8":"Y","_rn_":"a"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"70","8":"Y","_rn_":"b"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"77","8":"N","_rn_":"f"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"74","8":"N","_rn_":"g"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81","8":"Y","_rn_":"h"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"72","8":"N","_rn_":"i"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"64","8":"Y","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -494,14 +497,14 @@ $row.names
 
 
 
-<div class="sourceCode" id="cb826"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb826-1" title="1"><span class="ot">---</span></a>
-<a class="sourceLine" id="cb826-2" title="2"><span class="fu">title:</span><span class="at"> </span><span class="st">&quot;문서 제목&quot;</span></a>
-<a class="sourceLine" id="cb826-3" title="3"><span class="st">author: &quot;</span><span class="er">이름&quot;</span></a>
-<a class="sourceLine" id="cb826-4" title="4"><span class="fu">date:</span><span class="at"> </span><span class="st">&quot;`r Sys.Date()`&quot;</span></a>
-<a class="sourceLine" id="cb826-5" title="5"><span class="fu">output:</span><span class="at"> </span></a>
-<a class="sourceLine" id="cb826-6" title="6">  <span class="fu">html_document:</span><span class="at"> </span></a>
-<a class="sourceLine" id="cb826-7" title="7">    <span class="fu">df_print:</span><span class="at"> paged</span></a>
-<a class="sourceLine" id="cb826-8" title="8"><span class="ot">---</span></a></code></pre></div>
+<div class="sourceCode" id="cb755"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb755-1" title="1"><span class="ot">---</span></a>
+<a class="sourceLine" id="cb755-2" title="2"><span class="fu">title:</span><span class="at"> </span><span class="st">&quot;문서 제목&quot;</span></a>
+<a class="sourceLine" id="cb755-3" title="3"><span class="st">author: &quot;</span><span class="er">이름&quot;</span></a>
+<a class="sourceLine" id="cb755-4" title="4"><span class="fu">date:</span><span class="at"> </span><span class="st">&quot;`r Sys.Date()`&quot;</span></a>
+<a class="sourceLine" id="cb755-5" title="5"><span class="fu">output:</span><span class="at"> </span></a>
+<a class="sourceLine" id="cb755-6" title="6">  <span class="fu">html_document:</span><span class="at"> </span></a>
+<a class="sourceLine" id="cb755-7" title="7">    <span class="fu">df_print:</span><span class="at"> paged</span></a>
+<a class="sourceLine" id="cb755-8" title="8"><span class="ot">---</span></a></code></pre></div>
 
 </div>
 <div id="data-frame-get" class="section level3">
@@ -512,22 +515,22 @@ $row.names
 <li>리스트 데이터 접근 방식</li>
 </ul>
 
-<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb827-1" title="1"><span class="co"># 추출(접근) 연산자(함수) `df$col_name` 형태로 접근</span></a>
-<a class="sourceLine" id="cb827-2" title="2">df<span class="op">$</span>height</a></code></pre></div>
+<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb756-1" title="1"><span class="co"># 추출(접근) 연산자(함수) `df$col_name` 형태로 접근</span></a>
+<a class="sourceLine" id="cb756-2" title="2">df<span class="op">$</span>height</a></code></pre></div>
 <pre><code> [1] 165 158 161 160 168 172 175 182 168 162</code></pre>
-<div class="sourceCode" id="cb829"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb829-1" title="1"><span class="co"># df[[index]] 또는 df[[&quot;col_name&quot;]] 형태로 접근</span></a>
-<a class="sourceLine" id="cb829-2" title="2">df[[<span class="dv">4</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb758-1" title="1"><span class="co"># df[[index]] 또는 df[[&quot;col_name&quot;]] 형태로 접근</span></a>
+<a class="sourceLine" id="cb758-2" title="2">df[[<span class="dv">4</span>]]</a></code></pre></div>
 <pre><code> [1] 112 118 132 128 128 124 121 119 124 109</code></pre>
-<div class="sourceCode" id="cb831"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb831-1" title="1">df[[<span class="st">&quot;sex&quot;</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb760-1" title="1">df[[<span class="st">&quot;sex&quot;</span>]]</a></code></pre></div>
 <pre><code> [1] Female Female Female Female Female Male   Male   Male   Male   Male  
 Levels: Female Male</code></pre>
-<div class="sourceCode" id="cb833"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb833-1" title="1">w &lt;-<span class="st"> </span>df[[<span class="dv">4</span>]]</a>
-<a class="sourceLine" id="cb833-2" title="2"><span class="kw">attributes</span>(w); <span class="kw">str</span>(w)</a></code></pre></div>
+<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb762-1" title="1">w &lt;-<span class="st"> </span>df[[<span class="dv">4</span>]]</a>
+<a class="sourceLine" id="cb762-2" title="2"><span class="kw">attributes</span>(w); <span class="kw">str</span>(w)</a></code></pre></div>
 <pre><code>NULL</code></pre>
 <pre><code> num [1:10] 112 118 132 128 128 124 121 119 124 109</code></pre>
-<div class="sourceCode" id="cb836"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb836-1" title="1"><span class="co"># df[index] 또는 df[&quot;col_name&quot;] 형태로 접근</span></a>
-<a class="sourceLine" id="cb836-2" title="2">h &lt;-<span class="st"> </span>df[<span class="st">&quot;height&quot;</span>]</a>
-<a class="sourceLine" id="cb836-3" title="3"><span class="kw">attributes</span>(h); <span class="kw">str</span>(h)</a></code></pre></div>
+<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb765-1" title="1"><span class="co"># df[index] 또는 df[&quot;col_name&quot;] 형태로 접근</span></a>
+<a class="sourceLine" id="cb765-2" title="2">h &lt;-<span class="st"> </span>df[<span class="st">&quot;height&quot;</span>]</a>
+<a class="sourceLine" id="cb765-3" title="3"><span class="kw">attributes</span>(h); <span class="kw">str</span>(h)</a></code></pre></div>
 <pre><code>$names
 [1] &quot;height&quot;
 
@@ -543,62 +546,62 @@ $class
 <li>행렬 데이터 접근 방식</li>
 </ul>
 
-<div class="sourceCode" id="cb839"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb839-1" title="1"><span class="co"># df[idx_row, idx_col] 또는 df[row_name, col_name] </span></a>
-<a class="sourceLine" id="cb839-2" title="2"><span class="co"># 형태 데이터 접근</span></a>
-<a class="sourceLine" id="cb839-3" title="3"></a>
-<a class="sourceLine" id="cb839-4" title="4"><span class="co"># 열 index 접근</span></a>
-<a class="sourceLine" id="cb839-5" title="5">df[, <span class="dv">3</span>];</a></code></pre></div>
+<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb768-1" title="1"><span class="co"># df[idx_row, idx_col] 또는 df[row_name, col_name] </span></a>
+<a class="sourceLine" id="cb768-2" title="2"><span class="co"># 형태 데이터 접근</span></a>
+<a class="sourceLine" id="cb768-3" title="3"></a>
+<a class="sourceLine" id="cb768-4" title="4"><span class="co"># 열 index 접근</span></a>
+<a class="sourceLine" id="cb768-5" title="5">df[, <span class="dv">3</span>];</a></code></pre></div>
 <pre><code> [1] 34 22 54 43 44 39 38 28 31 42</code></pre>
-<div class="sourceCode" id="cb841"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb841-1" title="1"><span class="co"># 형 강제 변환 방지</span></a>
-<a class="sourceLine" id="cb841-2" title="2">df[, <span class="dv">3</span>, drop =<span class="st"> </span><span class="ot">FALSE</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb770-1" title="1"><span class="co"># 형 강제 변환 방지</span></a>
+<a class="sourceLine" id="cb770-2" title="2">df[, <span class="dv">3</span>, drop =<span class="st"> </span><span class="ot">FALSE</span>]</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"34","_rn_":"a"},{"1":"22","_rn_":"b"},{"1":"54","_rn_":"c"},{"1":"43","_rn_":"d"},{"1":"44","_rn_":"e"},{"1":"39","_rn_":"f"},{"1":"38","_rn_":"g"},{"1":"28","_rn_":"h"},{"1":"31","_rn_":"i"},{"1":"42","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb842"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb842-1" title="1"><span class="co"># 행 index 접근</span></a>
-<a class="sourceLine" id="cb842-2" title="2">df[<span class="dv">8</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb771-1" title="1"><span class="co"># 행 index 접근</span></a>
+<a class="sourceLine" id="cb771-2" title="2">df[<span class="dv">8</span>, ]</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81","8":"Y","_rn_":"h"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb843"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb843-1" title="1"><span class="co"># 행과 열 index 접근</span></a>
-<a class="sourceLine" id="cb843-2" title="2">df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">5</span><span class="op">:</span><span class="dv">6</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb772-1" title="1"><span class="co"># 행과 열 index 접근</span></a>
+<a class="sourceLine" id="cb772-2" title="2">df[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">5</span><span class="op">:</span><span class="dv">6</span>]</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["height"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"165","2":"52","_rn_":"a"},{"1":"158","2":"48","_rn_":"b"},{"1":"161","2":"59","_rn_":"c"},{"1":"160","2":"60","_rn_":"d"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb844"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb844-1" title="1"><span class="co"># 열 이름으로 접근</span></a>
-<a class="sourceLine" id="cb844-2" title="2">df[, <span class="kw">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;sbp&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb773-1" title="1"><span class="co"># 열 이름으로 접근</span></a>
+<a class="sourceLine" id="cb773-2" title="2">df[, <span class="kw">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;sbp&quot;</span>)]</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["sbp"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"112","_rn_":"a"},{"1":"Female","2":"118","_rn_":"b"},{"1":"Female","2":"132","_rn_":"c"},{"1":"Female","2":"128","_rn_":"d"},{"1":"Female","2":"128","_rn_":"e"},{"1":"Male","2":"124","_rn_":"f"},{"1":"Male","2":"121","_rn_":"g"},{"1":"Male","2":"119","_rn_":"h"},{"1":"Male","2":"124","_rn_":"i"},{"1":"Male","2":"109","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb845-1" title="1"><span class="co"># 행 이름으로 접근</span></a>
-<a class="sourceLine" id="cb845-2" title="2">df[<span class="kw">c</span>(<span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;f&quot;</span>), ]</a></code></pre></div>
+<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb774-1" title="1"><span class="co"># 행 이름으로 접근</span></a>
+<a class="sourceLine" id="cb774-2" title="2">df[<span class="kw">c</span>(<span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;f&quot;</span>), ]</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"77","8":"N","_rn_":"f"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb846-1" title="1"><span class="co"># 행과 열 이름으로 접근</span></a>
-<a class="sourceLine" id="cb846-2" title="2">df[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;f&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;height&quot;</span>, <span class="st">&quot;dbp&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb775-1" title="1"><span class="co"># 행과 열 이름으로 접근</span></a>
+<a class="sourceLine" id="cb775-2" title="2">df[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;f&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;height&quot;</span>, <span class="st">&quot;dbp&quot;</span>)]</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["height"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"165","3":"73","_rn_":"a"},{"1":"Male","2":"172","3":"77","_rn_":"f"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb847-1" title="1"><span class="co"># 행 또는 열 제외</span></a>
-<a class="sourceLine" id="cb847-2" title="2">df[<span class="op">-</span><span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">6</span>), ]</a></code></pre></div>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb776-1" title="1"><span class="co"># 행 또는 열 제외</span></a>
+<a class="sourceLine" id="cb776-2" title="2">df[<span class="op">-</span><span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">6</span>), ]</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73","8":"Y","_rn_":"a"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"74","8":"N","_rn_":"g"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81","8":"Y","_rn_":"h"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"72","8":"N","_rn_":"i"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"64","8":"Y","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb848-1" title="1">df[<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span><span class="op">:</span><span class="dv">7</span>), <span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb777-1" title="1">df[<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span><span class="op">:</span><span class="dv">7</span>), <span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">8</span>)]</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"22","3":"118","4":"158","5":"48","6":"70","_rn_":"b"},{"1":"Female","2":"54","3":"132","4":"161","5":"59","6":"88","_rn_":"c"},{"1":"Female","2":"43","3":"128","4":"160","5":"60","6":"82","_rn_":"d"},{"1":"Male","2":"28","3":"119","4":"182","5":"82","6":"81","_rn_":"h"},{"1":"Male","2":"31","3":"124","4":"168","5":"64","6":"72","_rn_":"i"},{"1":"Male","2":"42","3":"109","4":"162","5":"60","6":"64","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -612,47 +615,47 @@ $class
 <li>벡터, 행렬과 마찬가지로 비교 연산자를 이용해 조건에 맞는 부분 데이터 추출 가능</li>
 </ul>
 
-<div class="sourceCode" id="cb849"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb849-1" title="1"><span class="co"># %in% 연산자를 이용해 데이터 프레임의 부분 변수 추출</span></a>
-<a class="sourceLine" id="cb849-2" title="2"><span class="co"># id, age 열을 제외한 나머지 데이터 프레임 추출</span></a>
-<a class="sourceLine" id="cb849-3" title="3">varname_df &lt;-<span class="st"> </span><span class="kw">names</span>(df)</a>
-<a class="sourceLine" id="cb849-4" title="4">df[, <span class="op">!</span>varname_df <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;age&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb778-1" title="1"><span class="co"># %in% 연산자를 이용해 데이터 프레임의 부분 변수 추출</span></a>
+<a class="sourceLine" id="cb778-2" title="2"><span class="co"># id, age 열을 제외한 나머지 데이터 프레임 추출</span></a>
+<a class="sourceLine" id="cb778-3" title="3">varname_df &lt;-<span class="st"> </span><span class="kw">names</span>(df)</a>
+<a class="sourceLine" id="cb778-4" title="4">df[, <span class="op">!</span>varname_df <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;age&quot;</span>)]</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["sbp"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[6],"type":["chr"],"align":["left"]}],"data":[{"1":"Female","2":"112","3":"165","4":"52","5":"73","6":"Y","_rn_":"a"},{"1":"Female","2":"118","3":"158","4":"48","5":"70","6":"Y","_rn_":"b"},{"1":"Female","2":"132","3":"161","4":"59","5":"88","6":"N","_rn_":"c"},{"1":"Female","2":"128","3":"160","4":"60","5":"82","6":"Y","_rn_":"d"},{"1":"Female","2":"128","3":"168","4":"48","5":"75","6":"N","_rn_":"e"},{"1":"Male","2":"124","3":"172","4":"72","5":"77","6":"N","_rn_":"f"},{"1":"Male","2":"121","3":"175","4":"73","5":"74","6":"N","_rn_":"g"},{"1":"Male","2":"119","3":"182","4":"82","5":"81","6":"Y","_rn_":"h"},{"1":"Male","2":"124","3":"168","4":"64","5":"72","6":"N","_rn_":"i"},{"1":"Male","2":"109","3":"162","4":"60","5":"64","6":"Y","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb850"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb850-1" title="1"><span class="co"># 조건 연산자 사용 </span></a>
-<a class="sourceLine" id="cb850-2" title="2"><span class="co"># sex 가 Female이고 나이가 40 이상인 데이터 추출</span></a>
-<a class="sourceLine" id="cb850-3" title="3">df[df<span class="op">$</span>sex <span class="op">==</span><span class="st"> &quot;Female&quot;</span> <span class="op">&amp;</span><span class="st"> </span>df<span class="op">$</span>age <span class="op">&gt;=</span><span class="st"> </span><span class="dv">40</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb779-1" title="1"><span class="co"># 조건 연산자 사용 </span></a>
+<a class="sourceLine" id="cb779-2" title="2"><span class="co"># sex 가 Female이고 나이가 40 이상인 데이터 추출</span></a>
+<a class="sourceLine" id="cb779-3" title="3">df[df<span class="op">$</span>sex <span class="op">==</span><span class="st"> &quot;Female&quot;</span> <span class="op">&amp;</span><span class="st"> </span>df<span class="op">$</span>age <span class="op">&gt;=</span><span class="st"> </span><span class="dv">40</span>, ]</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb851-1" title="1"><span class="co"># id가 3보다 작은 데이터 추출</span></a>
-<a class="sourceLine" id="cb851-2" title="2">df[df[, <span class="dv">1</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb780-1" title="1"><span class="co"># id가 3보다 작은 데이터 추출</span></a>
+<a class="sourceLine" id="cb780-2" title="2">df[df[, <span class="dv">1</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>, ]</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73","8":"Y","_rn_":"a"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"70","8":"Y","_rn_":"b"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb852"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb852-1" title="1"><span class="co"># subset 함수 이용한 데이터 추출</span></a>
-<a class="sourceLine" id="cb852-2" title="2"><span class="co"># sbp 가 120 이상이고 dbp 가 80 이상인 데이터 추출</span></a>
-<a class="sourceLine" id="cb852-3" title="3"><span class="kw">subset</span>(df, sbp <span class="op">&gt;=</span><span class="st"> </span><span class="dv">120</span> <span class="op">&amp;</span><span class="st"> </span>dbp <span class="op">&gt;=</span><span class="st"> </span><span class="dv">80</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb781-1" title="1"><span class="co"># subset 함수 이용한 데이터 추출</span></a>
+<a class="sourceLine" id="cb781-2" title="2"><span class="co"># sbp 가 120 이상이고 dbp 가 80 이상인 데이터 추출</span></a>
+<a class="sourceLine" id="cb781-3" title="3"><span class="kw">subset</span>(df, sbp <span class="op">&gt;=</span><span class="st"> </span><span class="dv">120</span> <span class="op">&amp;</span><span class="st"> </span>dbp <span class="op">&gt;=</span><span class="st"> </span><span class="dv">80</span>)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb853-1" title="1"><span class="co"># 성별, 수축기, 이완기 혈압 변수만 추출</span></a>
-<a class="sourceLine" id="cb853-2" title="2"><span class="kw">subset</span>(df, <span class="dt">select =</span> <span class="kw">c</span>(sex, sbp, dbp))</a></code></pre></div>
+<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb782-1" title="1"><span class="co"># 성별, 수축기, 이완기 혈압 변수만 추출</span></a>
+<a class="sourceLine" id="cb782-2" title="2"><span class="kw">subset</span>(df, <span class="dt">select =</span> <span class="kw">c</span>(sex, sbp, dbp))</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["sbp"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"112","3":"73","_rn_":"a"},{"1":"Female","2":"118","3":"70","_rn_":"b"},{"1":"Female","2":"132","3":"88","_rn_":"c"},{"1":"Female","2":"128","3":"82","_rn_":"d"},{"1":"Female","2":"128","3":"75","_rn_":"e"},{"1":"Male","2":"124","3":"77","_rn_":"f"},{"1":"Male","2":"121","3":"74","_rn_":"g"},{"1":"Male","2":"119","3":"81","_rn_":"h"},{"1":"Male","2":"124","3":"72","_rn_":"i"},{"1":"Male","2":"109","3":"64","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb854"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb854-1" title="1"><span class="co"># id 변수 제거</span></a>
-<a class="sourceLine" id="cb854-2" title="2"><span class="kw">subset</span>(df, <span class="dt">select =</span> <span class="op">-</span><span class="kw">c</span>(id))</a></code></pre></div>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb783-1" title="1"><span class="co"># id 변수 제거</span></a>
+<a class="sourceLine" id="cb783-2" title="2"><span class="kw">subset</span>(df, <span class="dt">select =</span> <span class="op">-</span><span class="kw">c</span>(id))</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"Female","2":"34","3":"112","4":"165","5":"52","6":"73","7":"Y","_rn_":"a"},{"1":"Female","2":"22","3":"118","4":"158","5":"48","6":"70","7":"Y","_rn_":"b"},{"1":"Female","2":"54","3":"132","4":"161","5":"59","6":"88","7":"N","_rn_":"c"},{"1":"Female","2":"43","3":"128","4":"160","5":"60","6":"82","7":"Y","_rn_":"d"},{"1":"Female","2":"44","3":"128","4":"168","5":"48","6":"75","7":"N","_rn_":"e"},{"1":"Male","2":"39","3":"124","4":"172","5":"72","6":"77","7":"N","_rn_":"f"},{"1":"Male","2":"38","3":"121","4":"175","5":"73","6":"74","7":"N","_rn_":"g"},{"1":"Male","2":"28","3":"119","4":"182","5":"82","6":"81","7":"Y","_rn_":"h"},{"1":"Male","2":"31","3":"124","4":"168","5":"64","6":"72","7":"N","_rn_":"i"},{"1":"Male","2":"42","3":"109","4":"162","5":"60","6":"64","7":"Y","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -662,7 +665,7 @@ $class
 
 
 <div class="rmdnote">
-<p>데이터 프레임 또는 리스트 접근 시 <code>df$col_name 를 사용한다면 매번 데이터 프레임 이름과</code>$<code>을 반복하기 때문에 코드가 불필요하게 복잡해짐. R에서는 데이터 프레임 내부의 열 이름을 직접 접근할 수 있도록 도와주는 몇 가지 함수(예:</code>with()<code>,</code>attach()<code>등)가 있는데,</code>with()<code>와</code>within()` 활용법에 대해 간략히 알아봄.</p>
+<p>데이터 프레임 또는 리스트 접근 시 <code>df$col_name</code> 를 사용한다면 매번 데이터 프레임 이름과 <code>$</code>을 반복하기 때문에 코드가 불필요하게 복잡해짐. R에서는 데이터 프레임 내부의 열 이름을 직접 접근할 수 있도록 도와주는 몇 가지 함수(예: <code>with()</code>, <code>attach()</code> 등)가 있는데, <code>with()</code>와 <code>within()</code> 활용법에 대해 간략히 알아봄.</p>
 </div>
 
 
@@ -670,14 +673,14 @@ $class
 <li>위 예제에서 sex 가 Female이고 나이가 40 이상인 데이터 추출한다고 했을 때 <code>with()</code> 함수 사용</li>
 </ul>
 
-<div class="sourceCode" id="cb855"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb855-1" title="1"><span class="co"># with() 함수: 데이터 환경(객체 내)에서 주어진 표현식의 결과를 반환</span></a>
-<a class="sourceLine" id="cb855-2" title="2"><span class="kw">with</span>(</a>
-<a class="sourceLine" id="cb855-3" title="3">  data, <span class="co">#리스트 또는 데이터 프레임</span></a>
-<a class="sourceLine" id="cb855-4" title="4">  expr, <span class="co"># 실제 명령을 수행할 표현식, </span></a>
-<a class="sourceLine" id="cb855-5" title="5">)</a></code></pre></div>
+<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb784-1" title="1"><span class="co"># with() 함수: 데이터 환경(객체 내)에서 주어진 표현식의 결과를 반환</span></a>
+<a class="sourceLine" id="cb784-2" title="2"><span class="kw">with</span>(</a>
+<a class="sourceLine" id="cb784-3" title="3">  data, <span class="co">#리스트 또는 데이터 프레임</span></a>
+<a class="sourceLine" id="cb784-4" title="4">  expr, <span class="co"># 실제 명령을 수행할 표현식, </span></a>
+<a class="sourceLine" id="cb784-5" title="5">)</a></code></pre></div>
 
 
-<div class="sourceCode" id="cb856"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb856-1" title="1"><span class="kw">with</span>(df, df[sex <span class="op">==</span><span class="st"> &quot;Female&quot;</span> <span class="op">&amp;</span><span class="st"> </span>age <span class="op">&gt;=</span><span class="st"> </span><span class="dv">40</span>, ])</a></code></pre></div>
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb785-1" title="1"><span class="kw">with</span>(df, df[sex <span class="op">==</span><span class="st"> &quot;Female&quot;</span> <span class="op">&amp;</span><span class="st"> </span>age <span class="op">&gt;=</span><span class="st"> </span><span class="dv">40</span>, ])</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -688,11 +691,11 @@ $class
 <li><code>within()</code> 함수는 <code>with()</code>와 유사하지만 코드블록(<code>{...}</code>)을 이용해 보다 자유롭게 데이터 수정 및 추가 가능</li>
 </ul>
 
-<div class="sourceCode" id="cb857"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb857-1" title="1">df2 &lt;-<span class="st"> </span><span class="kw">within</span>(df, {</a>
-<a class="sourceLine" id="cb857-2" title="2">  hospital &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>, </a>
-<a class="sourceLine" id="cb857-3" title="3">                <span class="st">&quot;A&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;B&quot;</span>)</a>
-<a class="sourceLine" id="cb857-4" title="4">  mean_age &lt;-<span class="st"> </span><span class="kw">mean</span>(age)</a>
-<a class="sourceLine" id="cb857-5" title="5">})</a></code></pre></div>
+<div class="sourceCode" id="cb786"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb786-1" title="1">df2 &lt;-<span class="st"> </span><span class="kw">within</span>(df, {</a>
+<a class="sourceLine" id="cb786-2" title="2">  hospital &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>, </a>
+<a class="sourceLine" id="cb786-3" title="3">                <span class="st">&quot;A&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;B&quot;</span>)</a>
+<a class="sourceLine" id="cb786-4" title="4">  mean_age &lt;-<span class="st"> </span><span class="kw">mean</span>(age)</a>
+<a class="sourceLine" id="cb786-5" title="5">})</a></code></pre></div>
 
 </div>
 </div>
@@ -710,18 +713,18 @@ $class
 <li>객체(벡터, 행렬, 테이블, 데이터 프레임 등)의 처음 또는 끝에서 부터 몇 개의 데이터(<code>default = 6L</code>) 를 순차적으로 보여줌</li>
 </ul>
 
-<div class="sourceCode" id="cb858"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb858-1" title="1"><span class="co"># 앞에서 불러온 전복 데이터셋 확인</span></a>
-<a class="sourceLine" id="cb858-2" title="2"><span class="kw">dim</span>(abalone)</a></code></pre></div>
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb787-1" title="1"><span class="co"># 앞에서 불러온 전복 데이터셋 확인</span></a>
+<a class="sourceLine" id="cb787-2" title="2"><span class="kw">dim</span>(abalone)</a></code></pre></div>
 <pre><code>[1] 4177    9</code></pre>
-<div class="sourceCode" id="cb860"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb860-1" title="1"><span class="co">#처음 1에서 6행 까지 데이터 출력</span></a>
-<a class="sourceLine" id="cb860-2" title="2"><span class="kw">head</span>(abalone)</a></code></pre></div>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb789-1" title="1"><span class="co">#처음 1에서 6행 까지 데이터 출력</span></a>
+<a class="sourceLine" id="cb789-2" title="2"><span class="kw">head</span>(abalone)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["V1"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["V2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["V3"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["V4"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["V5"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["V6"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["V7"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["V8"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["V9"],"name":[9],"type":["int"],"align":["right"]}],"data":[{"1":"M","2":"0.455","3":"0.365","4":"0.095","5":"0.5140","6":"0.2245","7":"0.1010","8":"0.150","9":"15","_rn_":"1"},{"1":"M","2":"0.350","3":"0.265","4":"0.090","5":"0.2255","6":"0.0995","7":"0.0485","8":"0.070","9":"7","_rn_":"2"},{"1":"F","2":"0.530","3":"0.420","4":"0.135","5":"0.6770","6":"0.2565","7":"0.1415","8":"0.210","9":"9","_rn_":"3"},{"1":"M","2":"0.440","3":"0.365","4":"0.125","5":"0.5160","6":"0.2155","7":"0.1140","8":"0.155","9":"10","_rn_":"4"},{"1":"I","2":"0.330","3":"0.255","4":"0.080","5":"0.2050","6":"0.0895","7":"0.0395","8":"0.055","9":"7","_rn_":"5"},{"1":"I","2":"0.425","3":"0.300","4":"0.095","5":"0.3515","6":"0.1410","7":"0.0775","8":"0.120","9":"8","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb861"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb861-1" title="1"><span class="co"># 제일 마지막 행부터 위로 6개 데이터 까지 출력</span></a>
-<a class="sourceLine" id="cb861-2" title="2"><span class="kw">tail</span>(abalone)</a></code></pre></div>
+<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb790-1" title="1"><span class="co"># 제일 마지막 행부터 위로 6개 데이터 까지 출력</span></a>
+<a class="sourceLine" id="cb790-2" title="2"><span class="kw">tail</span>(abalone)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["V1"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["V2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["V3"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["V4"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["V5"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["V6"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["V7"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["V8"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["V9"],"name":[9],"type":["int"],"align":["right"]}],"data":[{"1":"M","2":"0.560","3":"0.430","4":"0.155","5":"0.8675","6":"0.4000","7":"0.1720","8":"0.2290","9":"8","_rn_":"4172"},{"1":"F","2":"0.565","3":"0.450","4":"0.165","5":"0.8870","6":"0.3700","7":"0.2390","8":"0.2490","9":"11","_rn_":"4173"},{"1":"M","2":"0.590","3":"0.440","4":"0.135","5":"0.9660","6":"0.4390","7":"0.2145","8":"0.2605","9":"10","_rn_":"4174"},{"1":"M","2":"0.600","3":"0.475","4":"0.205","5":"1.1760","6":"0.5255","7":"0.2875","8":"0.3080","9":"9","_rn_":"4175"},{"1":"F","2":"0.625","3":"0.485","4":"0.150","5":"1.0945","6":"0.5310","7":"0.2610","8":"0.2960","9":"10","_rn_":"4176"},{"1":"M","2":"0.710","3":"0.555","4":"0.195","5":"1.9485","6":"0.9455","7":"0.3765","8":"0.4950","9":"12","_rn_":"4177"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -735,7 +738,7 @@ $class
 <li>2차원 데이터의 readble 한 스프레드시트 제공</li>
 </ul>
 
-<div class="sourceCode" id="cb862"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb862-1" title="1"><span class="kw">View</span>(abalone)</a></code></pre></div>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb791-1" title="1"><span class="kw">View</span>(abalone)</a></code></pre></div>
 
 </div>
 </div>
@@ -747,47 +750,47 @@ $class
 <li>행렬에서 사용한 <code>rbind()</code>/<code>cbind()</code>를 데이터 프레임에도 적용 가능</li>
 </ul>
 
-<div class="sourceCode" id="cb863"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb863-1" title="1">a =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x1 =</span> <span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">5</span>), <span class="dt">x2 =</span> <span class="kw">rep</span>(<span class="st">&quot;x&quot;</span>,<span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb863-2" title="2">b =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x1 =</span> <span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">5</span>), <span class="dt">x2 =</span> <span class="kw">rep</span>(<span class="st">&quot;d&quot;</span>,<span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb863-3" title="3">c =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x3 =</span> <span class="kw">rep</span>(<span class="dv">2</span>,<span class="dv">5</span>), <span class="dt">x4 =</span> <span class="kw">rep</span>(<span class="st">&quot;z&quot;</span>,<span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb863-4" title="4">d &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span>, <span class="st">&quot;d&quot;</span>)</a>
-<a class="sourceLine" id="cb863-5" title="5">e &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">x5 =</span> <span class="kw">rep</span>(<span class="dv">4</span>, <span class="dv">5</span>), <span class="dt">x6 =</span> <span class="kw">rep</span>(<span class="st">&quot;y&quot;</span>, <span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb863-6" title="6"><span class="co"># rbind()를 이용해 두 데이터 프레임 a-b 합치기</span></a>
-<a class="sourceLine" id="cb863-7" title="7">ab &lt;-<span class="st"> </span><span class="kw">rbind</span>(a, b)</a>
-<a class="sourceLine" id="cb863-8" title="8">ab</a></code></pre></div>
+<div class="sourceCode" id="cb792"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb792-1" title="1">a =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x1 =</span> <span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">5</span>), <span class="dt">x2 =</span> <span class="kw">rep</span>(<span class="st">&quot;x&quot;</span>,<span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb792-2" title="2">b =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x1 =</span> <span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">5</span>), <span class="dt">x2 =</span> <span class="kw">rep</span>(<span class="st">&quot;d&quot;</span>,<span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb792-3" title="3">c =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x3 =</span> <span class="kw">rep</span>(<span class="dv">2</span>,<span class="dv">5</span>), <span class="dt">x4 =</span> <span class="kw">rep</span>(<span class="st">&quot;z&quot;</span>,<span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb792-4" title="4">d &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span>, <span class="st">&quot;d&quot;</span>)</a>
+<a class="sourceLine" id="cb792-5" title="5">e &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">x5 =</span> <span class="kw">rep</span>(<span class="dv">4</span>, <span class="dv">5</span>), <span class="dt">x6 =</span> <span class="kw">rep</span>(<span class="st">&quot;y&quot;</span>, <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb792-6" title="6"><span class="co"># rbind()를 이용해 두 데이터 프레임 a-b 합치기</span></a>
+<a class="sourceLine" id="cb792-7" title="7">ab &lt;-<span class="st"> </span><span class="kw">rbind</span>(a, b)</a>
+<a class="sourceLine" id="cb792-8" title="8">ab</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["fctr"],"align":["left"]}],"data":[{"1":"0","2":"x"},{"1":"0","2":"x"},{"1":"0","2":"x"},{"1":"0","2":"x"},{"1":"0","2":"x"},{"1":"1","2":"d"},{"1":"1","2":"d"},{"1":"1","2":"d"},{"1":"1","2":"d"},{"1":"1","2":"d"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb864"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb864-1" title="1"><span class="co"># 변수명이 다른 경우</span></a>
-<a class="sourceLine" id="cb864-2" title="2"><span class="kw">rbind</span>(a, c) <span class="co">#변수명이 다르기때문에 행으로 묶을 수 없다.</span></a></code></pre></div>
+<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb793-1" title="1"><span class="co"># 변수명이 다른 경우</span></a>
+<a class="sourceLine" id="cb793-2" title="2"><span class="kw">rbind</span>(a, c) <span class="co">#변수명이 다르기때문에 행으로 묶을 수 없다.</span></a></code></pre></div>
 <pre><code>Error in match.names(clabs, names(xi)): names do not match previous names</code></pre>
-<div class="sourceCode" id="cb866"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb866-1" title="1"><span class="co"># rbind()를 이용해 데이터 프레임-리스트 합치기</span></a>
-<a class="sourceLine" id="cb866-2" title="2">abd &lt;-<span class="st"> </span><span class="kw">rbind</span>(ab, d)</a>
-<a class="sourceLine" id="cb866-3" title="3">abd</a></code></pre></div>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb795-1" title="1"><span class="co"># rbind()를 이용해 데이터 프레임-리스트 합치기</span></a>
+<a class="sourceLine" id="cb795-2" title="2">abd &lt;-<span class="st"> </span><span class="kw">rbind</span>(ab, d)</a>
+<a class="sourceLine" id="cb795-3" title="3">abd</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["fctr"],"align":["left"]}],"data":[{"1":"0","2":"x","_rn_":"1"},{"1":"0","2":"x","_rn_":"2"},{"1":"0","2":"x","_rn_":"3"},{"1":"0","2":"x","_rn_":"4"},{"1":"0","2":"x","_rn_":"5"},{"1":"1","2":"d","_rn_":"6"},{"1":"1","2":"d","_rn_":"7"},{"1":"1","2":"d","_rn_":"8"},{"1":"1","2":"d","_rn_":"9"},{"1":"1","2":"d","_rn_":"10"},{"1":"1","2":"d","_rn_":"11"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb867"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb867-1" title="1"><span class="co"># cbind()를 이용해 두 데이터 프레임 a-c 합치기</span></a>
-<a class="sourceLine" id="cb867-2" title="2">ac &lt;-<span class="st"> </span><span class="kw">cbind</span>(a, c)</a>
-<a class="sourceLine" id="cb867-3" title="3">ac</a></code></pre></div>
+<div class="sourceCode" id="cb796"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb796-1" title="1"><span class="co"># cbind()를 이용해 두 데이터 프레임 a-c 합치기</span></a>
+<a class="sourceLine" id="cb796-2" title="2">ac &lt;-<span class="st"> </span><span class="kw">cbind</span>(a, c)</a>
+<a class="sourceLine" id="cb796-3" title="3">ac</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["x3"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["x4"],"name":[4],"type":["fctr"],"align":["left"]}],"data":[{"1":"0","2":"x","3":"2","4":"z"},{"1":"0","2":"x","3":"2","4":"z"},{"1":"0","2":"x","3":"2","4":"z"},{"1":"0","2":"x","3":"2","4":"z"},{"1":"0","2":"x","3":"2","4":"z"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb868"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb868-1" title="1"><span class="co"># 행 길이가 다르면 작은 길이의 데이터를 재사용</span></a>
-<a class="sourceLine" id="cb868-2" title="2"><span class="kw">cbind</span>(a, d)</a></code></pre></div>
+<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb797-1" title="1"><span class="co"># 행 길이가 다르면 작은 길이의 데이터를 재사용</span></a>
+<a class="sourceLine" id="cb797-2" title="2"><span class="kw">cbind</span>(a, d)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["1"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["\"d\""],"name":[4],"type":["fctr"],"align":["left"]}],"data":[{"1":"0","2":"x","3":"1","4":"d"},{"1":"0","2":"x","3":"1","4":"d"},{"1":"0","2":"x","3":"1","4":"d"},{"1":"0","2":"x","3":"1","4":"d"},{"1":"0","2":"x","3":"1","4":"d"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb869-1" title="1"><span class="co"># cbind()를 이용해 두 데이터 프레임-리스트 합치기</span></a>
-<a class="sourceLine" id="cb869-2" title="2">ace &lt;-<span class="st"> </span><span class="kw">cbind</span>(ac, e)</a></code></pre></div>
+<div class="sourceCode" id="cb798"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb798-1" title="1"><span class="co"># cbind()를 이용해 두 데이터 프레임-리스트 합치기</span></a>
+<a class="sourceLine" id="cb798-2" title="2">ace &lt;-<span class="st"> </span><span class="kw">cbind</span>(ac, e)</a></code></pre></div>
 
 </div>
 <div id="merge" class="section level5 unnumbered">
@@ -799,31 +802,31 @@ $class
 <li>공통된 데이터가 있을 때만 데이터 병합 수행</li>
 </ul>
 
-<div class="sourceCode" id="cb870"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb870-1" title="1"><span class="co"># merge() 함수 인수 </span></a>
-<a class="sourceLine" id="cb870-2" title="2"><span class="kw">merge</span>(</a>
-<a class="sourceLine" id="cb870-3" title="3">  x, <span class="co"># 병합할 데이터 프레임</span></a>
-<a class="sourceLine" id="cb870-4" title="4">  y, <span class="co"># 병합할 데이터 프레임</span></a>
-<a class="sourceLine" id="cb870-5" title="5">  by, <span class="co"># 병합 기준으로 사용할 컬럼 (문자열 벡터)</span></a>
-<a class="sourceLine" id="cb870-6" title="6">  by.x, <span class="co"># 병합에 사용할 x와 y의 열 이름이 다른 경우</span></a>
-<a class="sourceLine" id="cb870-7" title="7">  by.y, <span class="co"># by.x와 by.y에 각각 공통 데이터에 해당하는 열 이름 지정</span></a>
-<a class="sourceLine" id="cb870-8" title="8">        <span class="co"># 둘 다 문자형 스칼라 또는 벡터값 인수로 받음</span></a>
-<a class="sourceLine" id="cb870-9" title="9">  all, <span class="co"># 논리값 이순</span></a>
-<a class="sourceLine" id="cb870-10" title="10">       <span class="co"># TRUE인 경우 x, y 중 공통된 값을 갖는 행이 없을 때</span></a>
-<a class="sourceLine" id="cb870-11" title="11">       <span class="co"># 해당 쪽을 NA를 채워 병합</span></a>
-<a class="sourceLine" id="cb870-12" title="12">       <span class="co"># 결과적으로 x, y 전체 행이 결과에 포함</span></a>
-<a class="sourceLine" id="cb870-13" title="13">  all.x, <span class="co"># x,y 중 특정 쪽에 공통된 값이 없더라도 항상 </span></a>
-<a class="sourceLine" id="cb870-14" title="14">  all.y, <span class="co"># 결과에 포함</span></a>
-<a class="sourceLine" id="cb870-15" title="15">)</a></code></pre></div>
+<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb799-1" title="1"><span class="co"># merge() 함수 인수 </span></a>
+<a class="sourceLine" id="cb799-2" title="2"><span class="kw">merge</span>(</a>
+<a class="sourceLine" id="cb799-3" title="3">  x, <span class="co"># 병합할 데이터 프레임</span></a>
+<a class="sourceLine" id="cb799-4" title="4">  y, <span class="co"># 병합할 데이터 프레임</span></a>
+<a class="sourceLine" id="cb799-5" title="5">  by, <span class="co"># 병합 기준으로 사용할 컬럼 (문자열 벡터)</span></a>
+<a class="sourceLine" id="cb799-6" title="6">  by.x, <span class="co"># 병합에 사용할 x와 y의 열 이름이 다른 경우</span></a>
+<a class="sourceLine" id="cb799-7" title="7">  by.y, <span class="co"># by.x와 by.y에 각각 공통 데이터에 해당하는 열 이름 지정</span></a>
+<a class="sourceLine" id="cb799-8" title="8">        <span class="co"># 둘 다 문자형 스칼라 또는 벡터값 인수로 받음</span></a>
+<a class="sourceLine" id="cb799-9" title="9">  all, <span class="co"># 논리값 이순</span></a>
+<a class="sourceLine" id="cb799-10" title="10">       <span class="co"># TRUE인 경우 x, y 중 공통된 값을 갖는 행이 없을 때</span></a>
+<a class="sourceLine" id="cb799-11" title="11">       <span class="co"># 해당 쪽을 NA를 채워 병합</span></a>
+<a class="sourceLine" id="cb799-12" title="12">       <span class="co"># 결과적으로 x, y 전체 행이 결과에 포함</span></a>
+<a class="sourceLine" id="cb799-13" title="13">  all.x, <span class="co"># x,y 중 특정 쪽에 공통된 값이 없더라도 항상 </span></a>
+<a class="sourceLine" id="cb799-14" title="14">  all.y, <span class="co"># 결과에 포함</span></a>
+<a class="sourceLine" id="cb799-15" title="15">)</a></code></pre></div>
 
 <ul>
 <li><code>merge()</code> 함수 예시</li>
 </ul>
 
-<div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb871-1" title="1">d1 =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Name =</span> <span class="kw">c</span>(<span class="st">&quot;Park&quot;</span>, <span class="st">&quot;Hanzo&quot;</span>, <span class="st">&quot;Mercy&quot;</span>, <span class="st">&quot;Soldier76&quot;</span> ),</a>
-<a class="sourceLine" id="cb871-2" title="2">                <span class="dt">country =</span> <span class="kw">c</span>(<span class="st">&quot;Korea&quot;</span>, <span class="st">&quot;Japan&quot;</span>, <span class="st">&quot;Swiss&quot;</span>, <span class="st">&quot;USA&quot;</span>))</a>
-<a class="sourceLine" id="cb871-3" title="3">d2 =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Age =</span> <span class="kw">c</span>(<span class="dv">19</span>,<span class="dv">38</span>,<span class="dv">37</span>,<span class="dv">56</span>,<span class="dv">31</span>),</a>
-<a class="sourceLine" id="cb871-4" title="4">                <span class="dt">Name =</span> <span class="kw">c</span>(<span class="st">&quot;Park&quot;</span>, <span class="st">&quot;Hanzo&quot;</span>, <span class="st">&quot;Mercy&quot;</span>, <span class="st">&quot;Soldier76&quot;</span>,<span class="st">&quot;Mei&quot;</span> ) )</a>
-<a class="sourceLine" id="cb871-5" title="5">d1; d2</a></code></pre></div>
+<div class="sourceCode" id="cb800"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb800-1" title="1">d1 =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Name =</span> <span class="kw">c</span>(<span class="st">&quot;Park&quot;</span>, <span class="st">&quot;Hanzo&quot;</span>, <span class="st">&quot;Mercy&quot;</span>, <span class="st">&quot;Soldier76&quot;</span> ),</a>
+<a class="sourceLine" id="cb800-2" title="2">                <span class="dt">country =</span> <span class="kw">c</span>(<span class="st">&quot;Korea&quot;</span>, <span class="st">&quot;Japan&quot;</span>, <span class="st">&quot;Swiss&quot;</span>, <span class="st">&quot;USA&quot;</span>))</a>
+<a class="sourceLine" id="cb800-3" title="3">d2 =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Age =</span> <span class="kw">c</span>(<span class="dv">19</span>,<span class="dv">38</span>,<span class="dv">37</span>,<span class="dv">56</span>,<span class="dv">31</span>),</a>
+<a class="sourceLine" id="cb800-4" title="4">                <span class="dt">Name =</span> <span class="kw">c</span>(<span class="st">&quot;Park&quot;</span>, <span class="st">&quot;Hanzo&quot;</span>, <span class="st">&quot;Mercy&quot;</span>, <span class="st">&quot;Soldier76&quot;</span>,<span class="st">&quot;Mei&quot;</span> ) )</a>
+<a class="sourceLine" id="cb800-5" title="5">d1; d2</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["Name"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["country"],"name":[2],"type":["fctr"],"align":["left"]}],"data":[{"1":"Park","2":"Korea"},{"1":"Hanzo","2":"Japan"},{"1":"Mercy","2":"Swiss"},{"1":"Soldier76","2":"USA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -834,28 +837,28 @@ $class
 {"columns":[{"label":["Age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Name"],"name":[2],"type":["fctr"],"align":["left"]}],"data":[{"1":"19","2":"Park"},{"1":"38","2":"Hanzo"},{"1":"37","2":"Mercy"},{"1":"56","2":"Soldier76"},{"1":"31","2":"Mei"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb872"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb872-1" title="1"><span class="kw">dim</span>(d1); <span class="kw">dim</span>(d2)</a></code></pre></div>
+<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb801-1" title="1"><span class="kw">dim</span>(d1); <span class="kw">dim</span>(d2)</a></code></pre></div>
 <pre><code>[1] 4 2</code></pre>
 <pre><code>[1] 5 2</code></pre>
-<div class="sourceCode" id="cb875"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb875-1" title="1"><span class="co"># 두 데이터 병합 01</span></a>
-<a class="sourceLine" id="cb875-2" title="2"><span class="kw">merge</span>(d1, d2, <span class="dt">by =</span> <span class="st">&quot;Name&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb804"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb804-1" title="1"><span class="co"># 두 데이터 병합 01</span></a>
+<a class="sourceLine" id="cb804-2" title="2"><span class="kw">merge</span>(d1, d2, <span class="dt">by =</span> <span class="st">&quot;Name&quot;</span>)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["Name"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["country"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["Age"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hanzo","2":"Japan","3":"38"},{"1":"Mercy","2":"Swiss","3":"37"},{"1":"Park","2":"Korea","3":"19"},{"1":"Soldier76","2":"USA","3":"56"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb876-1" title="1"><span class="co"># 두 데이터 병합 02</span></a>
-<a class="sourceLine" id="cb876-2" title="2"><span class="kw">names</span>(d2)[<span class="dv">2</span>] &lt;-<span class="st"> &quot;Surname&quot;</span></a>
-<a class="sourceLine" id="cb876-3" title="3"><span class="kw">merge</span>(d1, d2, <span class="dt">by.x =</span> <span class="st">&quot;Name&quot;</span>, <span class="dt">by.y =</span> <span class="st">&quot;Surname&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb805-1" title="1"><span class="co"># 두 데이터 병합 02</span></a>
+<a class="sourceLine" id="cb805-2" title="2"><span class="kw">names</span>(d2)[<span class="dv">2</span>] &lt;-<span class="st"> &quot;Surname&quot;</span></a>
+<a class="sourceLine" id="cb805-3" title="3"><span class="kw">merge</span>(d1, d2, <span class="dt">by.x =</span> <span class="st">&quot;Name&quot;</span>, <span class="dt">by.y =</span> <span class="st">&quot;Surname&quot;</span>)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["Name"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["country"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["Age"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hanzo","2":"Japan","3":"38"},{"1":"Mercy","2":"Swiss","3":"37"},{"1":"Park","2":"Korea","3":"19"},{"1":"Soldier76","2":"USA","3":"56"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb877"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb877-1" title="1"><span class="co"># 두 데이터 병합 03</span></a>
-<a class="sourceLine" id="cb877-2" title="2"><span class="kw">merge</span>(d1, d2, </a>
-<a class="sourceLine" id="cb877-3" title="3">      <span class="dt">by.x =</span> <span class="st">&quot;Name&quot;</span>, <span class="dt">by.y =</span> <span class="st">&quot;Surname&quot;</span>, </a>
-<a class="sourceLine" id="cb877-4" title="4">      <span class="dt">all =</span> T)</a></code></pre></div>
+<div class="sourceCode" id="cb806"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb806-1" title="1"><span class="co"># 두 데이터 병합 03</span></a>
+<a class="sourceLine" id="cb806-2" title="2"><span class="kw">merge</span>(d1, d2, </a>
+<a class="sourceLine" id="cb806-3" title="3">      <span class="dt">by.x =</span> <span class="st">&quot;Name&quot;</span>, <span class="dt">by.y =</span> <span class="st">&quot;Surname&quot;</span>, </a>
+<a class="sourceLine" id="cb806-4" title="4">      <span class="dt">all =</span> T)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["Name"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["country"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["Age"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hanzo","2":"Japan","3":"38"},{"1":"Mercy","2":"Swiss","3":"37"},{"1":"Park","2":"Korea","3":"19"},{"1":"Soldier76","2":"USA","3":"56"},{"1":"Mei","2":"NA","3":"31"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -870,7 +873,7 @@ $class
 <li>분할된 데이터는 리스트에 저장</li>
 </ul>
 
-<div class="sourceCode" id="cb878"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb878-1" title="1"><span class="kw">split</span>(df, df<span class="op">$</span>sex)</a></code></pre></div>
+<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb807-1" title="1"><span class="kw">split</span>(df, df<span class="op">$</span>sex)</a></code></pre></div>
 <pre><code>$Female
   id    sex age sbp height weight dbp exercyn
 a  1 Female  34 112    165     52  73       Y
@@ -897,24 +900,24 @@ j 10 Male  42 109    162     60  64       Y</code></pre>
 <li>데이터(벡터)의 정렬(오름차순 또는 내림차순) 결과 반환</li>
 </ul>
 
-<div class="sourceCode" id="cb880"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb880-1" title="1"><span class="co"># sort() 함수 인수</span></a>
-<a class="sourceLine" id="cb880-2" title="2"><span class="kw">sort</span>(</a>
-<a class="sourceLine" id="cb880-3" title="3">  x, <span class="co"># 정렬할 벡터</span></a>
-<a class="sourceLine" id="cb880-4" title="4">  decreasing, <span class="co"># 논리값, 내림차순 여부</span></a>
-<a class="sourceLine" id="cb880-5" title="5">              <span class="co"># default = FALSE</span></a>
-<a class="sourceLine" id="cb880-6" title="6">  na.last <span class="co"># 논리값. 결측 존재 시 NA 값 위치 지정</span></a>
-<a class="sourceLine" id="cb880-7" title="7">)         <span class="co"># TRUE: 정렬 후 결측은 마지막에 위치</span></a>
-<a class="sourceLine" id="cb880-8" title="8">          <span class="co"># FALSE: 맨 처음 NA 위치</span></a></code></pre></div>
+<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb809-1" title="1"><span class="co"># sort() 함수 인수</span></a>
+<a class="sourceLine" id="cb809-2" title="2"><span class="kw">sort</span>(</a>
+<a class="sourceLine" id="cb809-3" title="3">  x, <span class="co"># 정렬할 벡터</span></a>
+<a class="sourceLine" id="cb809-4" title="4">  decreasing, <span class="co"># 논리값, 내림차순 여부</span></a>
+<a class="sourceLine" id="cb809-5" title="5">              <span class="co"># default = FALSE</span></a>
+<a class="sourceLine" id="cb809-6" title="6">  na.last <span class="co"># 논리값. 결측 존재 시 NA 값 위치 지정</span></a>
+<a class="sourceLine" id="cb809-7" title="7">)         <span class="co"># TRUE: 정렬 후 결측은 마지막에 위치</span></a>
+<a class="sourceLine" id="cb809-8" title="8">          <span class="co"># FALSE: 맨 처음 NA 위치</span></a></code></pre></div>
 
 <ul>
 <li>예시</li>
 </ul>
 
-<div class="sourceCode" id="cb881"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb881-1" title="1"><span class="co"># 오름차순 정렬</span></a>
-<a class="sourceLine" id="cb881-2" title="2"><span class="kw">sort</span>(df2<span class="op">$</span>age)</a></code></pre></div>
+<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb810-1" title="1"><span class="co"># 오름차순 정렬</span></a>
+<a class="sourceLine" id="cb810-2" title="2"><span class="kw">sort</span>(df2<span class="op">$</span>age)</a></code></pre></div>
 <pre><code> [1] 22 28 31 34 38 39 42 43 44 54</code></pre>
-<div class="sourceCode" id="cb883"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb883-1" title="1"><span class="co"># 내림차순 정렬</span></a>
-<a class="sourceLine" id="cb883-2" title="2"><span class="kw">sort</span>(df<span class="op">$</span>height, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb812-1" title="1"><span class="co"># 내림차순 정렬</span></a>
+<a class="sourceLine" id="cb812-2" title="2"><span class="kw">sort</span>(df<span class="op">$</span>height, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code> [1] 182 175 172 168 168 165 162 161 160 158</code></pre>
 
 </div>
@@ -925,15 +928,15 @@ j 10 Male  42 109    162     60  64       Y</code></pre>
 <li>데이터 프레임에서 특정 열 기준으로 데이터 정렬 시 주로 사용</li>
 </ul>
 
-<div class="sourceCode" id="cb885"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb885-1" title="1"><span class="co"># 나이 기준으로 오름차순으로 데이터 정렬</span></a>
-<a class="sourceLine" id="cb885-2" title="2"><span class="kw">with</span>(df, df[<span class="kw">order</span>(age), ])</a></code></pre></div>
+<div class="sourceCode" id="cb814"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb814-1" title="1"><span class="co"># 나이 기준으로 오름차순으로 데이터 정렬</span></a>
+<a class="sourceLine" id="cb814-2" title="2"><span class="kw">with</span>(df, df[<span class="kw">order</span>(age), ])</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"70","8":"Y","_rn_":"b"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81","8":"Y","_rn_":"h"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"72","8":"N","_rn_":"i"},{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73","8":"Y","_rn_":"a"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"74","8":"N","_rn_":"g"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"77","8":"N","_rn_":"f"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"64","8":"Y","_rn_":"j"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb886-1" title="1"><span class="co"># 키 순으로 내림차순 정렬</span></a>
-<a class="sourceLine" id="cb886-2" title="2">df[<span class="kw">order</span>(df<span class="op">$</span>height, <span class="dt">decreasing =</span> T), ]</a></code></pre></div>
+<div class="sourceCode" id="cb815"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb815-1" title="1"><span class="co"># 키 순으로 내림차순 정렬</span></a>
+<a class="sourceLine" id="cb815-2" title="2">df[<span class="kw">order</span>(df<span class="op">$</span>height, <span class="dt">decreasing =</span> T), ]</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81","8":"Y","_rn_":"h"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"74","8":"N","_rn_":"g"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"77","8":"N","_rn_":"f"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"72","8":"N","_rn_":"i"},{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73","8":"Y","_rn_":"a"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"64","8":"Y","_rn_":"j"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"70","8":"Y","_rn_":"b"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -958,33 +961,33 @@ j 10 Male  42 109    162     60  64       Y</code></pre>
 <li>동일한 유형의 벡터로 구성된 데이터셋에 적용</li>
 </ul>
 
-<div class="sourceCode" id="cb887"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb887-1" title="1"><span class="kw">apply</span>(</a>
-<a class="sourceLine" id="cb887-2" title="2">  X, <span class="co"># 배열, 행렬, 또는 같은 형태로 정의된 데이터 프레임</span></a>
-<a class="sourceLine" id="cb887-3" title="3">  MARGIN, <span class="co"># MARGIN = 1: 행 기준</span></a>
-<a class="sourceLine" id="cb887-4" title="4">          <span class="co"># MARGIN = 2: 열 기준</span></a>
-<a class="sourceLine" id="cb887-5" title="5">          <span class="co"># MARGIN = c(1,2): 행과 열 방향 모두</span></a>
-<a class="sourceLine" id="cb887-6" title="6">  FUN <span class="co"># 적용할 함수 </span></a>
-<a class="sourceLine" id="cb887-7" title="7">  )</a></code></pre></div>
+<div class="sourceCode" id="cb816"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb816-1" title="1"><span class="kw">apply</span>(</a>
+<a class="sourceLine" id="cb816-2" title="2">  X, <span class="co"># 배열, 행렬, 또는 같은 형태로 정의된 데이터 프레임</span></a>
+<a class="sourceLine" id="cb816-3" title="3">  MARGIN, <span class="co"># MARGIN = 1: 행 기준</span></a>
+<a class="sourceLine" id="cb816-4" title="4">          <span class="co"># MARGIN = 2: 열 기준</span></a>
+<a class="sourceLine" id="cb816-5" title="5">          <span class="co"># MARGIN = c(1,2): 행과 열 방향 모두</span></a>
+<a class="sourceLine" id="cb816-6" title="6">  FUN <span class="co"># 적용할 함수 </span></a>
+<a class="sourceLine" id="cb816-7" title="7">  )</a></code></pre></div>
 
 <ul>
 <li>예시1: 행렬 및 배열 <code>apply()</code> 적용</li>
 </ul>
 
-<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb888-1" title="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">nrow =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb888-2" title="2">X</a></code></pre></div>
+<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb817-1" title="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">nrow =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb817-2" title="2">X</a></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    4    7
 [2,]    2    5    8
 [3,]    3    6    9</code></pre>
-<div class="sourceCode" id="cb890"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb890-1" title="1"><span class="co"># 행 기준으로 합계 계산</span></a>
-<a class="sourceLine" id="cb890-2" title="2"><span class="kw">apply</span>(X, <span class="dv">1</span>, sum)</a></code></pre></div>
+<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb819-1" title="1"><span class="co"># 행 기준으로 합계 계산</span></a>
+<a class="sourceLine" id="cb819-2" title="2"><span class="kw">apply</span>(X, <span class="dv">1</span>, sum)</a></code></pre></div>
 <pre><code>[1] 12 15 18</code></pre>
-<div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb892-1" title="1"><span class="co"># 열 기준으로 합계 계산</span></a>
-<a class="sourceLine" id="cb892-2" title="2"><span class="kw">apply</span>(X, <span class="dv">2</span>, sum)</a></code></pre></div>
+<div class="sourceCode" id="cb821"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb821-1" title="1"><span class="co"># 열 기준으로 합계 계산</span></a>
+<a class="sourceLine" id="cb821-2" title="2"><span class="kw">apply</span>(X, <span class="dv">2</span>, sum)</a></code></pre></div>
 <pre><code>[1]  6 15 24</code></pre>
-<div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb894-1" title="1"><span class="co"># 배열에 apply 적용</span></a>
-<a class="sourceLine" id="cb894-2" title="2"><span class="co"># 각 학생의 퀴즈와 중간-기말 각각 평균 계산</span></a>
-<a class="sourceLine" id="cb894-3" title="3">Z <span class="co"># 성적</span></a></code></pre></div>
+<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb823-1" title="1"><span class="co"># 배열에 apply 적용</span></a>
+<a class="sourceLine" id="cb823-2" title="2"><span class="co"># 각 학생의 퀴즈와 중간-기말 각각 평균 계산</span></a>
+<a class="sourceLine" id="cb823-3" title="3">Z <span class="co"># 성적</span></a></code></pre></div>
 <pre><code>, , 1
 
      [,1] [,2]
@@ -998,13 +1001,13 @@ j 10 Male  42 109    162     60  64       Y</code></pre>
 [1,]   82   88
 [2,]   78   75
 [3,]   85   88</code></pre>
-<div class="sourceCode" id="cb896"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb896-1" title="1"><span class="kw">apply</span>(Z, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), mean)</a></code></pre></div>
+<div class="sourceCode" id="cb825"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb825-1" title="1"><span class="kw">apply</span>(Z, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), mean)</a></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,] 78.5 76.5
 [2,] 81.0 76.5
 [3,] 89.0 90.0</code></pre>
-<div class="sourceCode" id="cb898"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb898-1" title="1"><span class="co"># 각 시점 별 개별 학생의 퀴즈-중간, 퀴즈-기말 평균 계산</span></a>
-<a class="sourceLine" id="cb898-2" title="2"><span class="kw">apply</span>(Z, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), mean)</a></code></pre></div>
+<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb827-1" title="1"><span class="co"># 각 시점 별 개별 학생의 퀴즈-중간, 퀴즈-기말 평균 계산</span></a>
+<a class="sourceLine" id="cb827-2" title="2"><span class="kw">apply</span>(Z, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), mean)</a></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,] 70.0 85.0
 [2,] 81.0 76.5
@@ -1032,52 +1035,52 @@ Abalone dataset 변수 설명
 </div>
 
 
-<div class="sourceCode" id="cb900"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb900-1" title="1"><span class="kw">names</span>(abalone) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;length&quot;</span>, <span class="st">&quot;diameter&quot;</span>, </a>
-<a class="sourceLine" id="cb900-2" title="2">                    <span class="st">&quot;height&quot;</span>, <span class="st">&quot;whole.wt&quot;</span>, </a>
-<a class="sourceLine" id="cb900-3" title="3">                    <span class="st">&quot;shucked.wt&quot;</span>, <span class="st">&quot;viscera.wt&quot;</span>, </a>
-<a class="sourceLine" id="cb900-4" title="4">                    <span class="st">&quot;shell.wt&quot;</span>, <span class="st">&quot;rings&quot;</span>)</a>
-<a class="sourceLine" id="cb900-5" title="5"><span class="kw">head</span>(abalone)</a></code></pre></div>
+<div class="sourceCode" id="cb829"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb829-1" title="1"><span class="kw">names</span>(abalone) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;length&quot;</span>, <span class="st">&quot;diameter&quot;</span>, </a>
+<a class="sourceLine" id="cb829-2" title="2">                    <span class="st">&quot;height&quot;</span>, <span class="st">&quot;whole.wt&quot;</span>, </a>
+<a class="sourceLine" id="cb829-3" title="3">                    <span class="st">&quot;shucked.wt&quot;</span>, <span class="st">&quot;viscera.wt&quot;</span>, </a>
+<a class="sourceLine" id="cb829-4" title="4">                    <span class="st">&quot;shell.wt&quot;</span>, <span class="st">&quot;rings&quot;</span>)</a>
+<a class="sourceLine" id="cb829-5" title="5"><span class="kw">head</span>(abalone)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["length"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["diameter"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["whole.wt"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["shucked.wt"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["viscera.wt"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["shell.wt"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["rings"],"name":[9],"type":["int"],"align":["right"]}],"data":[{"1":"M","2":"0.455","3":"0.365","4":"0.095","5":"0.5140","6":"0.2245","7":"0.1010","8":"0.150","9":"15","_rn_":"1"},{"1":"M","2":"0.350","3":"0.265","4":"0.090","5":"0.2255","6":"0.0995","7":"0.0485","8":"0.070","9":"7","_rn_":"2"},{"1":"F","2":"0.530","3":"0.420","4":"0.135","5":"0.6770","6":"0.2565","7":"0.1415","8":"0.210","9":"9","_rn_":"3"},{"1":"M","2":"0.440","3":"0.365","4":"0.125","5":"0.5160","6":"0.2155","7":"0.1140","8":"0.155","9":"10","_rn_":"4"},{"1":"I","2":"0.330","3":"0.255","4":"0.080","5":"0.2050","6":"0.0895","7":"0.0395","8":"0.055","9":"7","_rn_":"5"},{"1":"I","2":"0.425","3":"0.300","4":"0.095","5":"0.3515","6":"0.1410","7":"0.0775","8":"0.120","9":"8","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb901"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb901-1" title="1"><span class="co"># sex를 제외한 나머지 수치형 변수에 대한 기초통계량  계산</span></a>
-<a class="sourceLine" id="cb901-2" title="2"><span class="co"># 평균: mean() 함수 사용</span></a>
-<a class="sourceLine" id="cb901-3" title="3"><span class="kw">apply</span>(abalone[, <span class="dv">-1</span>], <span class="dv">2</span>, mean)</a></code></pre></div>
+<div class="sourceCode" id="cb830"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb830-1" title="1"><span class="co"># sex를 제외한 나머지 수치형 변수에 대한 기초통계량  계산</span></a>
+<a class="sourceLine" id="cb830-2" title="2"><span class="co"># 평균: mean() 함수 사용</span></a>
+<a class="sourceLine" id="cb830-3" title="3"><span class="kw">apply</span>(abalone[, <span class="dv">-1</span>], <span class="dv">2</span>, mean)</a></code></pre></div>
 <pre><code>    length   diameter     height   whole.wt shucked.wt viscera.wt   shell.wt 
  0.5239921  0.4078813  0.1395164  0.8287422  0.3593675  0.1805936  0.2388309 
      rings 
  9.9336845 </code></pre>
-<div class="sourceCode" id="cb903"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb903-1" title="1"><span class="co"># 표준편차: sd() 함수 사용</span></a>
-<a class="sourceLine" id="cb903-2" title="2"><span class="kw">apply</span>(abalone[, <span class="dv">-1</span>], <span class="dv">2</span>, sd)</a></code></pre></div>
+<div class="sourceCode" id="cb832"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb832-1" title="1"><span class="co"># 표준편차: sd() 함수 사용</span></a>
+<a class="sourceLine" id="cb832-2" title="2"><span class="kw">apply</span>(abalone[, <span class="dv">-1</span>], <span class="dv">2</span>, sd)</a></code></pre></div>
 <pre><code>    length   diameter     height   whole.wt shucked.wt viscera.wt   shell.wt 
 0.12009291 0.09923987 0.04182706 0.49038902 0.22196295 0.10961425 0.13920267 
      rings 
 3.22416903 </code></pre>
-<div class="sourceCode" id="cb905"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb905-1" title="1"><span class="co"># 개별 전복에 대해 내장, 육질, 껍질 무게 합계 계산</span></a>
-<a class="sourceLine" id="cb905-2" title="2"><span class="kw">apply</span>(abalone[, <span class="kw">c</span>(<span class="st">&quot;shucked.wt&quot;</span>, </a>
-<a class="sourceLine" id="cb905-3" title="3">                  <span class="st">&quot;viscera.wt&quot;</span>, </a>
-<a class="sourceLine" id="cb905-4" title="4">                  <span class="st">&quot;shell.wt&quot;</span>)], <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb905-5" title="5">      sum) -&gt;<span class="st"> </span>ab_wt_sum</a>
-<a class="sourceLine" id="cb905-6" title="6"></a>
-<a class="sourceLine" id="cb905-7" title="7"><span class="kw">head</span>(ab_wt_sum, <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb834"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb834-1" title="1"><span class="co"># 개별 전복에 대해 내장, 육질, 껍질 무게 합계 계산</span></a>
+<a class="sourceLine" id="cb834-2" title="2"><span class="kw">apply</span>(abalone[, <span class="kw">c</span>(<span class="st">&quot;shucked.wt&quot;</span>, </a>
+<a class="sourceLine" id="cb834-3" title="3">                  <span class="st">&quot;viscera.wt&quot;</span>, </a>
+<a class="sourceLine" id="cb834-4" title="4">                  <span class="st">&quot;shell.wt&quot;</span>)], <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb834-5" title="5">      sum) -&gt;<span class="st"> </span>ab_wt_sum</a>
+<a class="sourceLine" id="cb834-6" title="6"></a>
+<a class="sourceLine" id="cb834-7" title="7"><span class="kw">head</span>(ab_wt_sum, <span class="dv">10</span>)</a></code></pre></div>
 <pre><code> [1] 0.4755 0.2180 0.6080 0.4845 0.1840 0.3385 0.7085 0.7035 0.4940 0.7855</code></pre>
-<div class="sourceCode" id="cb907"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb907-1" title="1"><span class="co"># 데이터에 결측이 포함된 경우</span></a>
-<a class="sourceLine" id="cb907-2" title="2"><span class="co"># diameter 변수에 10개의 결측을 임의 생성</span></a>
-<a class="sourceLine" id="cb907-3" title="3"><span class="kw">set.seed</span>(<span class="dv">20200410</span>)</a>
-<a class="sourceLine" id="cb907-4" title="4">idx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">NROW</span>(abalone), <span class="dv">10</span>) <span class="co"># 비복원 추출</span></a>
-<a class="sourceLine" id="cb907-5" title="5">ab2 &lt;-<span class="st"> </span>abalone</a>
-<a class="sourceLine" id="cb907-6" title="6">ab2[idx, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb907-7" title="7"></a>
-<a class="sourceLine" id="cb907-8" title="8"><span class="co"># 성별 제외한 나머지 변수의 평균 계산</span></a>
-<a class="sourceLine" id="cb907-9" title="9"><span class="kw">apply</span>(ab2[, <span class="dv">-1</span>], <span class="dv">2</span>, mean)</a></code></pre></div>
+<div class="sourceCode" id="cb836"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb836-1" title="1"><span class="co"># 데이터에 결측이 포함된 경우</span></a>
+<a class="sourceLine" id="cb836-2" title="2"><span class="co"># diameter 변수에 10개의 결측을 임의 생성</span></a>
+<a class="sourceLine" id="cb836-3" title="3"><span class="kw">set.seed</span>(<span class="dv">20200410</span>)</a>
+<a class="sourceLine" id="cb836-4" title="4">idx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">NROW</span>(abalone), <span class="dv">10</span>) <span class="co"># 비복원 추출</span></a>
+<a class="sourceLine" id="cb836-5" title="5">ab2 &lt;-<span class="st"> </span>abalone</a>
+<a class="sourceLine" id="cb836-6" title="6">ab2[idx, <span class="dv">3</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
+<a class="sourceLine" id="cb836-7" title="7"></a>
+<a class="sourceLine" id="cb836-8" title="8"><span class="co"># 성별 제외한 나머지 변수의 평균 계산</span></a>
+<a class="sourceLine" id="cb836-9" title="9"><span class="kw">apply</span>(ab2[, <span class="dv">-1</span>], <span class="dv">2</span>, mean)</a></code></pre></div>
 <pre><code>    length   diameter     height   whole.wt shucked.wt viscera.wt   shell.wt 
  0.5239921         NA  0.1395164  0.8287422  0.3593675  0.1805936  0.2388309 
      rings 
  9.9336845 </code></pre>
-<div class="sourceCode" id="cb909"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb909-1" title="1"><span class="co"># NA 결과를 피하려면?</span></a>
-<a class="sourceLine" id="cb909-2" title="2"><span class="kw">apply</span>(ab2[, <span class="dv">-1</span>], <span class="dv">2</span>, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb838"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb838-1" title="1"><span class="co"># NA 결과를 피하려면?</span></a>
+<a class="sourceLine" id="cb838-2" title="2"><span class="kw">apply</span>(ab2[, <span class="dv">-1</span>], <span class="dv">2</span>, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>    length   diameter     height   whole.wt shucked.wt viscera.wt   shell.wt 
  0.5239921  0.4079578  0.1395164  0.8287422  0.3593675  0.1805936  0.2388309 
      rings 
@@ -1102,7 +1105,7 @@ Abalone dataset 변수 설명
 
 
 
-<div class="sourceCode" id="cb911"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb911-1" title="1"><span class="kw">colMeans</span>(abalone[,<span class="op">-</span><span class="dv">1</span>]) <span class="co"># apply 결과와 비교</span></a></code></pre></div>
+<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb840-1" title="1"><span class="kw">colMeans</span>(abalone[,<span class="op">-</span><span class="dv">1</span>]) <span class="co"># apply 결과와 비교</span></a></code></pre></div>
 <pre><code>    length   diameter     height   whole.wt shucked.wt viscera.wt   shell.wt 
  0.5239921  0.4078813  0.1395164  0.8287422  0.3593675  0.1805936  0.2388309 
      rings 
@@ -1123,45 +1126,45 @@ Abalone dataset 변수 설명
 <li><code>aggregate()</code>는 다음 두 가지 형태로 함수 적용 가능</li>
 </ul>
 
-<div class="sourceCode" id="cb913"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb913-1" title="1"><span class="co"># aggregate() 기본 인수</span></a>
-<a class="sourceLine" id="cb913-2" title="2"><span class="kw">aggregate</span>(</a>
-<a class="sourceLine" id="cb913-3" title="3">  x, <span class="co"># R 객체, 주로 데이터 프레임</span></a>
-<a class="sourceLine" id="cb913-4" title="4">  by, <span class="co"># 그룹으로 묶을 값의 리스트</span></a>
-<a class="sourceLine" id="cb913-5" title="5">  FUN, <span class="co"># 그룹별 적용할 함수</span></a>
-<a class="sourceLine" id="cb913-6" title="6">)</a></code></pre></div>
+<div class="sourceCode" id="cb842"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb842-1" title="1"><span class="co"># aggregate() 기본 인수</span></a>
+<a class="sourceLine" id="cb842-2" title="2"><span class="kw">aggregate</span>(</a>
+<a class="sourceLine" id="cb842-3" title="3">  x, <span class="co"># R 객체, 주로 데이터 프레임</span></a>
+<a class="sourceLine" id="cb842-4" title="4">  by, <span class="co"># 그룹으로 묶을 값의 리스트</span></a>
+<a class="sourceLine" id="cb842-5" title="5">  FUN, <span class="co"># 그룹별 적용할 함수</span></a>
+<a class="sourceLine" id="cb842-6" title="6">)</a></code></pre></div>
 
 <ul>
 <li>예시: 임상연구 자료(<code>df</code>)</li>
 </ul>
 
-<div class="sourceCode" id="cb914"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb914-1" title="1"><span class="co"># 성별에 따라 연속형 변수의 평균 계산</span></a>
-<a class="sourceLine" id="cb914-2" title="2"><span class="kw">aggregate</span>(df[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">8</span>)], <span class="dt">by =</span>df[<span class="st">&quot;sex&quot;</span>], mean)</a></code></pre></div>
+<div class="sourceCode" id="cb843"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb843-1" title="1"><span class="co"># 성별에 따라 연속형 변수의 평균 계산</span></a>
+<a class="sourceLine" id="cb843-2" title="2"><span class="kw">aggregate</span>(df[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">8</span>)], <span class="dt">by =</span>df[<span class="st">&quot;sex&quot;</span>], mean)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"39.4","3":"123.6","4":"162.4","5":"53.4","6":"77.6"},{"1":"Male","2":"35.6","3":"119.4","4":"171.8","5":"70.2","6":"73.6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb915"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb915-1" title="1"><span class="co"># 수식 표현형 사용</span></a>
-<a class="sourceLine" id="cb915-2" title="2"><span class="kw">aggregate</span>(. <span class="op">~</span><span class="st"> </span>sex, </a>
-<a class="sourceLine" id="cb915-3" title="3">          <span class="dt">data =</span> df[,<span class="op">-</span><span class="dv">8</span>], </a>
-<a class="sourceLine" id="cb915-4" title="4">          mean)</a></code></pre></div>
+<div class="sourceCode" id="cb844"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb844-1" title="1"><span class="co"># 수식 표현형 사용</span></a>
+<a class="sourceLine" id="cb844-2" title="2"><span class="kw">aggregate</span>(. <span class="op">~</span><span class="st"> </span>sex, </a>
+<a class="sourceLine" id="cb844-3" title="3">          <span class="dt">data =</span> df[,<span class="op">-</span><span class="dv">8</span>], </a>
+<a class="sourceLine" id="cb844-4" title="4">          mean)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["id"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"3","3":"39.4","4":"123.6","5":"162.4","6":"53.4","7":"77.6"},{"1":"Male","2":"8","3":"35.6","4":"119.4","5":"171.8","6":"70.2","7":"73.6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb916"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb916-1" title="1"><span class="co"># 요인이 2개인 경우</span></a>
-<a class="sourceLine" id="cb916-2" title="2"><span class="kw">aggregate</span>(df[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">8</span>)], </a>
-<a class="sourceLine" id="cb916-3" title="3">          <span class="dt">by =</span> <span class="kw">list</span>(<span class="dt">sex =</span> df[[<span class="st">&quot;sex&quot;</span>]], <span class="dt">exercise =</span> df[[<span class="st">&quot;exercyn&quot;</span>]]), </a>
-<a class="sourceLine" id="cb916-4" title="4">          mean)</a></code></pre></div>
+<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb845-1" title="1"><span class="co"># 요인이 2개인 경우</span></a>
+<a class="sourceLine" id="cb845-2" title="2"><span class="kw">aggregate</span>(df[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">8</span>)], </a>
+<a class="sourceLine" id="cb845-3" title="3">          <span class="dt">by =</span> <span class="kw">list</span>(<span class="dt">sex =</span> df[[<span class="st">&quot;sex&quot;</span>]], <span class="dt">exercise =</span> df[[<span class="st">&quot;exercyn&quot;</span>]]), </a>
+<a class="sourceLine" id="cb845-4" title="4">          mean)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["exercise"],"name":[2],"type":["chr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"N","3":"49","4":"130.0000","5":"164.5000","6":"53.50000","7":"81.50000"},{"1":"Male","2":"N","3":"36","4":"123.0000","5":"171.6667","6":"69.66667","7":"74.33333"},{"1":"Female","2":"Y","3":"33","4":"119.3333","5":"161.0000","6":"53.33333","7":"75.00000"},{"1":"Male","2":"Y","3":"35","4":"114.0000","5":"172.0000","6":"71.00000","7":"72.50000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb917"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb917-1" title="1"><span class="kw">aggregate</span>(. <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>exercyn, </a>
-<a class="sourceLine" id="cb917-2" title="2">          <span class="dt">data =</span> df[,<span class="op">-</span><span class="dv">1</span>], </a>
-<a class="sourceLine" id="cb917-3" title="3">          mean)</a></code></pre></div>
+<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb846-1" title="1"><span class="kw">aggregate</span>(. <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>exercyn, </a>
+<a class="sourceLine" id="cb846-2" title="2">          <span class="dt">data =</span> df[,<span class="op">-</span><span class="dv">1</span>], </a>
+<a class="sourceLine" id="cb846-3" title="3">          mean)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["exercyn"],"name":[2],"type":["chr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"N","3":"49","4":"130.0000","5":"164.5000","6":"53.50000","7":"81.50000"},{"1":"Male","2":"N","3":"36","4":"123.0000","5":"171.6667","6":"69.66667","7":"74.33333"},{"1":"Female","2":"Y","3":"33","4":"119.3333","5":"161.0000","6":"53.33333","7":"75.00000"},{"1":"Male","2":"Y","3":"35","4":"114.0000","5":"172.0000","6":"71.00000","7":"72.50000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1176,28 +1179,28 @@ Abalone dataset 변수 설명
 <li>특정 함수를 벡터, 리스트, 데이터 프레임 등에 적용하고 그 결과를 리스트로 반환</li>
 </ul>
 
-<div class="sourceCode" id="cb918"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb918-1" title="1"><span class="kw">lapply</span>(</a>
-<a class="sourceLine" id="cb918-2" title="2"> X, <span class="co">#벡터, 리스트, 표현식, 또는  데이터 프레임</span></a>
-<a class="sourceLine" id="cb918-3" title="3"> FUN, <span class="co"># 적용할 함수</span></a>
-<a class="sourceLine" id="cb918-4" title="4">)</a></code></pre></div>
+<div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb847-1" title="1"><span class="kw">lapply</span>(</a>
+<a class="sourceLine" id="cb847-2" title="2"> X, <span class="co">#벡터, 리스트, 표현식, 또는  데이터 프레임</span></a>
+<a class="sourceLine" id="cb847-3" title="3"> FUN, <span class="co"># 적용할 함수</span></a>
+<a class="sourceLine" id="cb847-4" title="4">)</a></code></pre></div>
 
 <p>-예시: abalone 데이터를 사용해 일변량 회귀분석 실시</p>
 
-<div class="sourceCode" id="cb919"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb919-1" title="1"><span class="co"># abalone 데이터를 이용해 단순회귀분석 결과 출력</span></a>
-<a class="sourceLine" id="cb919-2" title="2"><span class="co"># 종속변수: rings</span></a>
-<a class="sourceLine" id="cb919-3" title="3"><span class="co"># 설명변수: 성별을 제외한 모든 연속형 변수</span></a>
-<a class="sourceLine" id="cb919-4" title="4"></a>
-<a class="sourceLine" id="cb919-5" title="5"><span class="co"># lm() 함수를 이용한 일변량 회귀분석 실시</span></a>
-<a class="sourceLine" id="cb919-6" title="6">univ_reg &lt;-<span class="st"> </span><span class="kw">lapply</span>(abalone[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">9</span>)], <span class="cf">function</span>(x) <span class="kw">lm</span>(abalone<span class="op">$</span>rings <span class="op">~</span><span class="st"> </span>x))</a>
-<a class="sourceLine" id="cb919-7" title="7"><span class="co"># univ_reg</span></a>
-<a class="sourceLine" id="cb919-8" title="8"></a>
-<a class="sourceLine" id="cb919-9" title="9"><span class="co"># 위 객체로부터 회귀모형 요약 통계량 결과 </span></a>
-<a class="sourceLine" id="cb919-10" title="10">summ_reg &lt;-<span class="st"> </span><span class="kw">lapply</span>(univ_reg, summary)</a>
-<a class="sourceLine" id="cb919-11" title="11"><span class="co"># summ_reg</span></a>
-<a class="sourceLine" id="cb919-12" title="12"></a>
-<a class="sourceLine" id="cb919-13" title="13"><span class="co"># 추정 회귀계수를 데이터로 저장</span></a>
-<a class="sourceLine" id="cb919-14" title="14"><span class="co">## summary(lm_object)의 속성 파악</span></a>
-<a class="sourceLine" id="cb919-15" title="15"><span class="kw">str</span>(summ_reg[[<span class="dv">1</span>]])</a></code></pre></div>
+<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb848-1" title="1"><span class="co"># abalone 데이터를 이용해 단순회귀분석 결과 출력</span></a>
+<a class="sourceLine" id="cb848-2" title="2"><span class="co"># 종속변수: rings</span></a>
+<a class="sourceLine" id="cb848-3" title="3"><span class="co"># 설명변수: 성별을 제외한 모든 연속형 변수</span></a>
+<a class="sourceLine" id="cb848-4" title="4"></a>
+<a class="sourceLine" id="cb848-5" title="5"><span class="co"># lm() 함수를 이용한 일변량 회귀분석 실시</span></a>
+<a class="sourceLine" id="cb848-6" title="6">univ_reg &lt;-<span class="st"> </span><span class="kw">lapply</span>(abalone[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">9</span>)], <span class="cf">function</span>(x) <span class="kw">lm</span>(abalone<span class="op">$</span>rings <span class="op">~</span><span class="st"> </span>x))</a>
+<a class="sourceLine" id="cb848-7" title="7"><span class="co"># univ_reg</span></a>
+<a class="sourceLine" id="cb848-8" title="8"></a>
+<a class="sourceLine" id="cb848-9" title="9"><span class="co"># 위 객체로부터 회귀모형 요약 통계량 결과 </span></a>
+<a class="sourceLine" id="cb848-10" title="10">summ_reg &lt;-<span class="st"> </span><span class="kw">lapply</span>(univ_reg, summary)</a>
+<a class="sourceLine" id="cb848-11" title="11"><span class="co"># summ_reg</span></a>
+<a class="sourceLine" id="cb848-12" title="12"></a>
+<a class="sourceLine" id="cb848-13" title="13"><span class="co"># 추정 회귀계수를 데이터로 저장</span></a>
+<a class="sourceLine" id="cb848-14" title="14"><span class="co">## summary(lm_object)의 속성 파악</span></a>
+<a class="sourceLine" id="cb848-15" title="15"><span class="kw">str</span>(summ_reg[[<span class="dv">1</span>]])</a></code></pre></div>
 <pre><code>List of 11
  $ call         : language lm(formula = abalone$rings ~ x)
  $ terms        :Classes &#39;terms&#39;, &#39;formula&#39;  language abalone$rings ~ x
@@ -1210,7 +1213,7 @@ Abalone dataset 변수 설명
   .. ..- attr(*, &quot;order&quot;)= int 1
   .. ..- attr(*, &quot;intercept&quot;)= int 1
   .. ..- attr(*, &quot;response&quot;)= int 1
-  .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x0000000020561030&gt; 
+  .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x000000001c881f98&gt; 
   .. ..- attr(*, &quot;predvars&quot;)= language list(abalone$rings, x)
   .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
   .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;abalone$rings&quot; &quot;x&quot;
@@ -1233,13 +1236,13 @@ Abalone dataset 변수 설명
   .. ..$ : chr [1:2] &quot;(Intercept)&quot; &quot;x&quot;
   .. ..$ : chr [1:2] &quot;(Intercept)&quot; &quot;x&quot;
  - attr(*, &quot;class&quot;)= chr &quot;summary.lm&quot;</code></pre>
-<div class="sourceCode" id="cb921"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb921-1" title="1">summ_reg[[<span class="dv">1</span>]]<span class="op">$</span>coefficients</a></code></pre></div>
+<div class="sourceCode" id="cb850"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb850-1" title="1">summ_reg[[<span class="dv">1</span>]]<span class="op">$</span>coefficients</a></code></pre></div>
 <pre><code>             Estimate Std. Error  t value     Pr(&gt;|t|)
 (Intercept)  2.101883  0.1855477 11.32800 2.544353e-29
 x           14.946411  0.3451570 43.30323 0.000000e+00</code></pre>
-<div class="sourceCode" id="cb923"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb923-1" title="1"><span class="co"># summ_reg에서 coefficients만 추출</span></a>
-<a class="sourceLine" id="cb923-2" title="2">res &lt;-<span class="st"> </span><span class="kw">lapply</span>(summ_reg, <span class="cf">function</span>(lst) lst<span class="op">$</span>coefficients)</a>
-<a class="sourceLine" id="cb923-3" title="3">res</a></code></pre></div>
+<div class="sourceCode" id="cb852"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb852-1" title="1"><span class="co"># summ_reg에서 coefficients만 추출</span></a>
+<a class="sourceLine" id="cb852-2" title="2">res &lt;-<span class="st"> </span><span class="kw">lapply</span>(summ_reg, <span class="cf">function</span>(lst) lst<span class="op">$</span>coefficients)</a>
+<a class="sourceLine" id="cb852-3" title="3">res</a></code></pre></div>
 <pre><code>$length
              Estimate Std. Error  t value     Pr(&gt;|t|)
 (Intercept)  2.101883  0.1855477 11.32800 2.544353e-29
@@ -1274,11 +1277,11 @@ $shell.wt
              Estimate Std. Error  t value Pr(&gt;|t|)
 (Intercept)  6.462117 0.07714642 83.76431        0
 x           14.535675 0.27908233 52.08382        0</code></pre>
-<div class="sourceCode" id="cb925"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb925-1" title="1"><span class="co"># res 결과를 2차원 배열 형태로 변환</span></a>
-<a class="sourceLine" id="cb925-2" title="2"><span class="co"># do.call() 함수 사용</span></a>
-<a class="sourceLine" id="cb925-3" title="3"><span class="co"># 리스트로 주어진 인자에 함수를 적용하여 결과 반환</span></a>
-<a class="sourceLine" id="cb925-4" title="4">res &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, res)  </a>
-<a class="sourceLine" id="cb925-5" title="5">res</a></code></pre></div>
+<div class="sourceCode" id="cb854"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb854-1" title="1"><span class="co"># res 결과를 2차원 배열 형태로 변환</span></a>
+<a class="sourceLine" id="cb854-2" title="2"><span class="co"># do.call() 함수 사용</span></a>
+<a class="sourceLine" id="cb854-3" title="3"><span class="co"># 리스트로 주어진 인자에 함수를 적용하여 결과 반환</span></a>
+<a class="sourceLine" id="cb854-4" title="4">res &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, res)  </a>
+<a class="sourceLine" id="cb854-5" title="5">res</a></code></pre></div>
 <pre><code>             Estimate Std. Error  t value      Pr(&gt;|t|)
 (Intercept)  2.101883 0.18554766 11.32800  2.544353e-29
 x           14.946411 0.34515697 43.30323  0.000000e+00
@@ -1303,18 +1306,18 @@ x           14.535675 0.27908233 52.08382  0.000000e+00</code></pre>
 <li>예시: 회귀분석</li>
 </ul>
 
-<div class="sourceCode" id="cb927"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb927-1" title="1"><span class="co"># 각 변수별 회귀계수(절편항과 설명변수) 반환</span></a>
-<a class="sourceLine" id="cb927-2" title="2">univ_reg2 &lt;-<span class="st"> </span><span class="kw">sapply</span>(abalone[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">9</span>)], <span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb927-3" title="3">  <span class="kw">coef</span>(<span class="kw">lm</span>(abalone<span class="op">$</span>rings <span class="op">~</span><span class="st"> </span>x)) <span class="co"># lm 클래스에서 회귀계수 반환</span></a>
-<a class="sourceLine" id="cb927-4" title="4">})</a>
-<a class="sourceLine" id="cb927-5" title="5">univ_reg2</a></code></pre></div>
+<div class="sourceCode" id="cb856"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb856-1" title="1"><span class="co"># 각 변수별 회귀계수(절편항과 설명변수) 반환</span></a>
+<a class="sourceLine" id="cb856-2" title="2">univ_reg2 &lt;-<span class="st"> </span><span class="kw">sapply</span>(abalone[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">9</span>)], <span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb856-3" title="3">  <span class="kw">coef</span>(<span class="kw">lm</span>(abalone<span class="op">$</span>rings <span class="op">~</span><span class="st"> </span>x)) <span class="co"># lm 클래스에서 회귀계수 반환</span></a>
+<a class="sourceLine" id="cb856-4" title="4">})</a>
+<a class="sourceLine" id="cb856-5" title="5">univ_reg2</a></code></pre></div>
 <pre><code>               length  diameter    height whole.wt shucked.wt viscera.wt
 (Intercept)  2.101883  2.318574  3.938464 6.989239   7.736643   7.257427
 x           14.946411 18.669921 42.971441 3.552909   6.113633  14.819227
              shell.wt
 (Intercept)  6.462117
 x           14.535675</code></pre>
-<div class="sourceCode" id="cb929"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb929-1" title="1"><span class="kw">attributes</span>(univ_reg2) <span class="co"># 행렬 반환</span></a></code></pre></div>
+<div class="sourceCode" id="cb858"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb858-1" title="1"><span class="kw">attributes</span>(univ_reg2) <span class="co"># 행렬 반환</span></a></code></pre></div>
 <pre><code>$dim
 [1] 2 7
 
@@ -1325,7 +1328,7 @@ $dimnames[[1]]
 $dimnames[[2]]
 [1] &quot;length&quot;     &quot;diameter&quot;   &quot;height&quot;     &quot;whole.wt&quot;   &quot;shucked.wt&quot;
 [6] &quot;viscera.wt&quot; &quot;shell.wt&quot;  </code></pre>
-<div class="sourceCode" id="cb931"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb931-1" title="1"><span class="co"># as.data.frame(univ_reg2)</span></a></code></pre></div>
+<div class="sourceCode" id="cb860"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb860-1" title="1"><span class="co"># as.data.frame(univ_reg2)</span></a></code></pre></div>
 
 </div>
 <div id="mapply" class="section level4 unnumbered">
@@ -1335,32 +1338,31 @@ $dimnames[[2]]
 <li>임의의 함수 <code>FUN()</code>이 있고, <code>FUN()</code>이 사용할 인수가 데이터로 저장되어 있을 때 이를 불러들여 함수를 적용</li>
 </ul>
 
-<div class="sourceCode" id="cb932"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb932-1" title="1"><span class="kw">mapply</span>(</a>
-<a class="sourceLine" id="cb932-2" title="2">  FUN, <span class="co"># 적용할 함수</span></a>
-<a class="sourceLine" id="cb932-3" title="3">  ..., <span class="co"># 적용할 인수</span></a>
-<a class="sourceLine" id="cb932-4" title="4">)</a></code></pre></div>
+<div class="sourceCode" id="cb861"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb861-1" title="1"><span class="kw">mapply</span>(</a>
+<a class="sourceLine" id="cb861-2" title="2">  FUN, <span class="co"># 적용할 함수</span></a>
+<a class="sourceLine" id="cb861-3" title="3">  ..., <span class="co"># 적용할 인수</span></a>
+<a class="sourceLine" id="cb861-4" title="4">)</a></code></pre></div>
 
 <ul>
 <li>난수 생성 예시: <code>rnorm()</code> 함수 사용</li>
 <li><code>rnorm(n, mean, sd)</code>: 평균이 <code>mean</code>이고 표준편차가 <code>sd</code>인 정규분포에서 <code>n</code>개의 난수 생성</li>
 </ul>
 
-<div class="sourceCode" id="cb933"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb933-1" title="1"><span class="co"># 평균이 각각 0, 1, 2, 4 이고</span></a>
-<a class="sourceLine" id="cb933-2" title="2"><span class="co"># 표준편차가 1, 1, 1, 1 인 정규난수를 </span></a>
-<a class="sourceLine" id="cb933-3" title="3"><span class="co"># 각각 20, 40, 60, 100 개 생성</span></a>
-<a class="sourceLine" id="cb933-4" title="4"></a>
-<a class="sourceLine" id="cb933-5" title="5">rn_res &lt;-<span class="st"> </span><span class="kw">mapply</span>(rnorm, </a>
-<a class="sourceLine" id="cb933-6" title="6">                 <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>, <span class="dv">100</span>), </a>
-<a class="sourceLine" id="cb933-7" title="7">                 <span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">4</span>), </a>
-<a class="sourceLine" id="cb933-8" title="8">                 <span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>))</a>
-<a class="sourceLine" id="cb933-9" title="9"><span class="co"># rn_res</span></a>
-<a class="sourceLine" id="cb933-10" title="10"></a>
-<a class="sourceLine" id="cb933-11" title="11"><span class="co"># 생성한 난수의 평균과 표준편차 확인</span></a>
-<a class="sourceLine" id="cb933-12" title="12"><span class="kw">sapply</span>(rn_res, mean); <span class="kw">sapply</span>(rn_res, sd)</a></code></pre></div>
+<div class="sourceCode" id="cb862"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb862-1" title="1"><span class="co"># 평균이 각각 0, 1, 2, 4 이고</span></a>
+<a class="sourceLine" id="cb862-2" title="2"><span class="co"># 표준편차가 1, 1, 1, 1 인 정규난수를 </span></a>
+<a class="sourceLine" id="cb862-3" title="3"><span class="co"># 각각 20, 40, 60, 100 개 생성</span></a>
+<a class="sourceLine" id="cb862-4" title="4"></a>
+<a class="sourceLine" id="cb862-5" title="5">rn_res &lt;-<span class="st"> </span><span class="kw">mapply</span>(rnorm, </a>
+<a class="sourceLine" id="cb862-6" title="6">                 <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>, <span class="dv">100</span>), </a>
+<a class="sourceLine" id="cb862-7" title="7">                 <span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">4</span>), </a>
+<a class="sourceLine" id="cb862-8" title="8">                 <span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb862-9" title="9"><span class="co"># rn_res</span></a>
+<a class="sourceLine" id="cb862-10" title="10"></a>
+<a class="sourceLine" id="cb862-11" title="11"><span class="co"># 생성한 난수의 평균과 표준편차 확인</span></a>
+<a class="sourceLine" id="cb862-12" title="12"><span class="kw">sapply</span>(rn_res, mean); <span class="kw">sapply</span>(rn_res, sd)</a></code></pre></div>
 <pre><code>[1] 0.1277941 0.8607565 1.9070456 3.9012846</code></pre>
 <pre><code>[1] 0.8954115 0.7916029 0.9990486 0.9088889</code></pre>
 
-<!-- ### 외부 데이터 불러오기 및 저장하기 -->
 </div>
 </div>
 </div>
@@ -1370,7 +1372,7 @@ $dimnames[[2]]
         </div>
       </div>
 <a href="factor-table.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="homework-2-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="is-as-function.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

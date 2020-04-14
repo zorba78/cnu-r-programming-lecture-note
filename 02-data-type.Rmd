@@ -2913,7 +2913,7 @@ df
 df$dbp <- dbp
 df
 
-# df에 운동여부 exercyn 라는 변수 추사 
+# df에 운동여부 exercyn 라는 변수 추가 
 # exercyn 는 "Y" 또는 "N" 두 값을 가짐
 df$exercyn <- c("Y", "Y", "N", "Y", "N", 
                 "N", "N", "Y", "N", "Y")
@@ -3052,7 +3052,7 @@ subset(df, select = -c(id))
 
 
 ```{block2, type="rmdnote"}
-데이터 프레임 또는 리스트 접근 시 `df$col_name 를 사용한다면 매번 데이터 프레임 이름과 `$`을 반복하기 때문에 코드가 불필요하게 복잡해짐. R에서는 데이터 프레임 내부의 열 이름을 직접 접근할 수 있도록 도와주는 몇 가지 함수(예: `with()`, `attach()` 등)가 있는데, `with()`와 `within()` 활용법에 대해 간략히 알아봄. 
+데이터 프레임 또는 리스트 접근 시 `df$col_name` 를 사용한다면 매번 데이터 프레임 이름과 `$`을 반복하기 때문에 코드가 불필요하게 복잡해짐. R에서는 데이터 프레임 내부의 열 이름을 직접 접근할 수 있도록 도와주는 몇 가지 함수(예: `with()`, `attach()` 등)가 있는데, `with()`와 `within()` 활용법에 대해 간략히 알아봄. 
 
 ```
 
@@ -3539,6 +3539,90 @@ sapply(rn_res, mean); sapply(rn_res, sd)
 ```
 
 
+## 객체의 유형 판별 및 변환 {#is-as-function}
+
+지금까지 R 객체를 알아보면서 `is.na()`, `is.null()` 등 스칼라의 데이터 타입을 확인하는 함수부터 `str()`, `attributes()`, `class()`와 같이 객체의 속성 및 구조에 대해 확인하는 함수들에 대해 간략히 소개함. 앞서 언급한 것 처럼 R은 스크립트 언어이기 때문에 모든 명령 실행이 함수 기반으로 이루어짐. 특정 객제에만 적용할 수 있는 함수들이 있는 반면, 함수를 통해 새로운 속성을 갖는 객제가 생성되기도 함. 그렇기 때문에 함수 적용 또는 적용 후 반환 후 생성된 객체의 타입을 확인하거나 객체의 유형 변환 작업은 R을 통해 데이터를 분석하는 과정에서 빈번하게 발생함. 
+
+
+R에서는 캑체 유형 판별을 위해 `is.type_name()`, 객체 타입 변환을 위해 `as.type_name()` 형태의 함수를 제공함. 지금까지 배운 R 객체에 대한 `is.` 과 `as.` 계열 함수는 아래와 같음. 
+
+
+```{r is-as-fun, echo=FALSE}
+`is 계열 함수` <- c("is.factor()", "is.ordered()", "is.numeric()", "is.character()", 
+                    "is.matrix()", "is.array()", "is.list()", "is.data.frame()")
+
+`as 계열 함수` <- c("as.factor()", "as.ordered", "as.numeric()", "as.character()", 
+                    "as.matrix()", "as.array()", "as.list()", "as.data.frame()")
+
+`설명` <- c("주어진 객체가 factor 형인지 판단/변환", 
+            "주어진 객체가 순서형 factor인지 판단/변환", 
+            "주어진 객체가 수치형인지 판단/변환", 
+            "주어진 객체가 문자형인지 판단/변환", 
+            "주어진 객체가 행렬인지 판단/변환", 
+            "주어진 객체가 배열인지 판단/변환", 
+            "주어진 객체가 리스트인지 판단/변환", 
+            "주어진 객체가 데이터 프레임인지 판단/변환")
+
+tab2_06 <- data.frame(`is 계열 함수`, `as 계열 함수`, `설명`, check.names = F)
+options(kableExtra.html.bsTable = T)
+knitr::opts_knit$set(kable.force.latex = FALSE)
+kable(tab2_06,
+      align = "lll",
+      escape = TRUE, 
+      booktabs = T, caption = "R 객체 타입 판별 및 변환 함수") %>%
+  kable_styling(bootstrap_options = c("condensed", "striped"),
+                position = "center", 
+                font_size = 10, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1:2, width = "3cm") %>% 
+  column_spec(3, width = "7cm") %>% 
+  row_spec(1:8, monospace = TRUE)
+
+```
+
+- `is/as`계열 함수 사용 예시
+
+```{r}
+x <- c("M", "F"); f <- factor(x)
+# x가 문자열인가?
+is.character(x)
+
+# f가 factor인가?
+is.factor(f)
+
+#f가 숫자형인가?
+is.numeric(f)
+
+# f를 수치형으로 변환
+f <- as.numeric(f)
+is.numeric(f)
+f
+
+# 다시 f를 factor형으로 변환
+as.factor(f)
+```
+
+- 2차원 데이터 객체 유형 판별 및 변환
+
+```{r mat-is-as-fun}
+X <- matrix(rnorm(9), 3)
+d <- data.frame(group = rep(LETTERS[1:3], each = 2), 
+                meas = c(mapply(rnorm, 
+                                c(2, 2, 2),
+                                c(1, 2, 3), 
+                                c(1, 1, 1))))
+
+# 객체 유형 확인
+is.matrix(X); is.data.frame(X)
+is.matrix(d); is.data.frame(d)
+
+# 객체 유형 변환
+as.data.frame(X); as.matrix(d)
+as.list(X); as.list(d)
+
+```
+
+
 
 
 <!-- ### 외부 데이터 불러오기 및 저장하기 -->
@@ -3601,6 +3685,101 @@ $$
   
   
 ```
+
+
+## Homework #2-2
+
+
+1. 2.5절 배열에서 다룬 확장 예제 "RGB값을 무작위로 샘플링 후 매개변수로 노이즈 가중치 조절해 보기" 명령 스크립트 중 다음아래에 해당하는 구문의 반복 명령을 최소화한 스크립트 작성 후 해당 스크립트가 정상적으로 작동하는지 그림 출력을 통해 확인하시오. 단, 그림은 2.5절 예제와 동일한 그림을 사용(Hint: `*apply()` 계열 함수, 코드블록(`{}`), `return()`, `unlist()`, `array()` 함수 사용)
+
+```{r eval=FALSE}
+require(tidyverse)
+require(jpeg)
+require(cowplot)
+
+myurl <- paste0("https://img.livescore.co.kr/data/editor/1906/", 
+                "ba517de8162d92f4ea0e9de0ec98ba02.jpg")
+z <- tempfile()
+download.file(myurl,z,mode="wb")
+
+pic <- readJPEG(z)
+dim_pic <- dim(pic)
+t <- 0.2; nl <- length(300:460); pl <- length(440:520)
+
+# 다음 아래
+yr <- pic[300:460, 440:520, 1]
+yg <- pic[300:460, 440:520, 2]
+yb <- pic[300:460, 440:520, 3]
+
+n <- nrow(yr); p <- ncol(yr)
+
+t <- 0.2
+wr <- t * yr + (1 - t)*matrix(runif(length(yr)), nrow = n, ncol = p)
+wg <- t * yg + (1 - t)*matrix(runif(length(yg)), nrow = n, ncol = p)
+wb <- t * yb + (1 - t)*matrix(runif(length(yb)), nrow = n, ncol = p)
+
+
+pic[300:460, 440:520, 1] <- wr
+pic[300:460, 440:520, 2] <- wg
+pic[300:460, 440:520, 3] <- wb
+
+```
+
+<!-- ```{r 2-2-1-ans} -->
+
+<!--  tmp <- lapply(1:3, function(i) { -->
+<!--    x <- pic[, , i] -->
+<!--    wx <- x[300:460, 440:520] -->
+<!--    wx <- t*wx + (1-t)*matrix(runif(length(wx)), -->
+<!--                              nrow = nrow(wx), -->
+<!--                              ncol = ncol(wx)) -->
+<!--    x[300:460, 440:520] <- wx -->
+<!--    return(x) -->
+<!--  }) -->
+<!--  res <- array(unlist(tmp), dim = dim_pic) -->
+
+<!--  ggdraw() + -->
+<!--    draw_image(res) -->
+
+<!-- ``` -->
+
+
+
+2. R에 기본으로 내장된 `mtcars` 데이터셋은 다음과 같이 11개의 변수로 구성되어 있다. 
+
+```{r desc-mtcars, echo=FALSE}
+`변수명` <- names(mtcars)
+`변수 설명` <- c("Miles/(US) gallon, 연비", 
+                 "Number of cylinders, 엔진 기통수", 
+                 "Displacement (cu.in.), 배기량(cc 단위)", 
+                 "Gross horsepower, 마력", 
+                 "Rear axle ratio, 뒤차축비", 
+                 "Weight (1000 lbs), 무게", 
+                 "1/4 mile time, 1/4 mile 도달시간", 
+                 "Engine (0 = V-shaped, 1 = straight)", 
+                 "Transmission (0 = automatic, 1 = manual), 변속기어", 
+                 "Number of forward gears, 전진기어 갯수", 
+                 "Number of carburetors, 기화기 갯수")
+dsc_mtcars <- data.frame(`변수명`, `변수 설명`, 
+                         check.names = FALSE, 
+                         stringsAsFactors = FALSE) 
+kable(dsc_mtcars)
+
+```
+
+a) `mtcars`의 데이터 구조를 파악하고 자료의 전반적인 형태에 대해 기술하시오. 
+
+
+b) 위 코드북을 참고하여 엔진과 변속기어에 해당하는 변수를 factor로 변환 하시오. 
+
+
+
+
+
+
+
+
+
 
 
 

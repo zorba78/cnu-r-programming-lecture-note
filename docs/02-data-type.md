@@ -5167,7 +5167,7 @@ pic <- readJPEG(z)
 
 \footnotesize
 
-<img src="02-data-type_files/figure-epub3/ex-step4-1.svg" width="90%" style="display: block; margin: auto;" />
+<img src="02-data-type_files/figure-html/ex-step4-1.svg" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -5185,7 +5185,7 @@ ggdraw() +
   draw_image(pic)
 ```
 
-![](02-data-type_files/figure-epub3/unnamed-chunk-43-1.svg)<!-- -->
+<img src="02-data-type_files/figure-html/unnamed-chunk-43-1.svg" width="672" />
 
  \normalsize
 
@@ -5215,7 +5215,7 @@ ggdraw() +
   draw_image(pic)
 ```
 
-![](02-data-type_files/figure-epub3/unnamed-chunk-44-1.svg)<!-- -->
+<img src="02-data-type_files/figure-html/unnamed-chunk-44-1.svg" width="672" />
 
  \normalsize
 
@@ -6252,19 +6252,11 @@ df <- data.frame(id, sex, age, sbp, height, weight,
 df
 ```
 
-```
-   id    sex age sbp height weight
-1   1 Female  34 112    165     52
-2   2 Female  22 118    158     48
-3   3 Female  54 132    161     59
-4   4 Female  43 128    160     60
-5   5 Female  44 128    168     48
-6   6   Male  39 124    172     72
-7   7   Male  38 121    175     73
-8   8   Male  28 119    182     82
-9   9   Male  31 124    168     64
-10 10   Male  42 109    162     60
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["chr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 attributes(df); str(df); summary(df)
@@ -6357,19 +6349,11 @@ df$dbp <- x
 df
 ```
 
-```
-   id    sex age sbp height weight dbp
-1   1 Female  34 112    165     52   1
-2   2 Female  22 118    158     48   2
-3   3 Female  54 132    161     59   3
-4   4 Female  43 128    160     60   4
-5   5 Female  44 128    168     48   5
-6   6   Male  39 124    172     72   6
-7   7   Male  38 121    175     73   7
-8   8   Male  28 119    182     82   8
-9   9   Male  31 124    168     64   9
-10 10   Male  42 109    162     60  10
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["int"],"align":["right"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"1"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"2"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"3"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"4"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"5"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"6"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"7"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"8"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"9"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # df의 dbp에 dbp 벡터의 값을 재할당
@@ -6377,22 +6361,14 @@ df$dbp <- dbp
 df
 ```
 
-```
-   id    sex age sbp height weight dbp
-1   1 Female  34 112    165     52  73
-2   2 Female  22 118    158     48  70
-3   3 Female  54 132    161     59  88
-4   4 Female  43 128    160     60  82
-5   5 Female  44 128    168     48  75
-6   6   Male  39 124    172     72  77
-7   7   Male  38 121    175     73  74
-8   8   Male  28 119    182     82  81
-9   9   Male  31 124    168     64  72
-10 10   Male  42 109    162     60  64
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"70"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"77"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"74"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"72"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"64"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
-# df에 운동여부 exercyn 라는 변수 추사 
+# df에 운동여부 exercyn 라는 변수 추가 
 # exercyn 는 "Y" 또는 "N" 두 값을 가짐
 df$exercyn <- c("Y", "Y", "N", "Y", "N", 
                 "N", "N", "Y", "N", "Y")
@@ -6458,19 +6434,11 @@ rownames(df) <- letters[1:10]
 df
 ```
 
-```
-  id    sex age sbp height weight dbp exercyn
-a  1 Female  34 112    165     52  73       Y
-b  2 Female  22 118    158     48  70       Y
-c  3 Female  54 132    161     59  88       N
-d  4 Female  43 128    160     60  82       Y
-e  5 Female  44 128    168     48  75       N
-f  6   Male  39 124    172     72  77       N
-g  7   Male  38 121    175     73  74       N
-h  8   Male  28 119    182     82  81       Y
-i  9   Male  31 124    168     64  72       N
-j 10   Male  42 109    162     60  64       Y
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73","8":"Y","_rn_":"a"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"70","8":"Y","_rn_":"b"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"77","8":"N","_rn_":"f"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"74","8":"N","_rn_":"g"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81","8":"Y","_rn_":"h"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"72","8":"N","_rn_":"i"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"64","8":"Y","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 #colnames() 함수를 통해 열 이름 변경
@@ -6479,19 +6447,11 @@ colnames(df) <- paste0("V", 1:ncol(df))
 df
 ```
 
-```
-  V1     V2 V3  V4  V5 V6 V7 V8
-a  1 Female 34 112 165 52 73  Y
-b  2 Female 22 118 158 48 70  Y
-c  3 Female 54 132 161 59 88  N
-d  4 Female 43 128 160 60 82  Y
-e  5 Female 44 128 168 48 75  N
-f  6   Male 39 124 172 72 77  N
-g  7   Male 38 121 175 73 74  N
-h  8   Male 28 119 182 82 81  Y
-i  9   Male 31 124 168 64 72  N
-j 10   Male 42 109 162 60 64  Y
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["V1"],"name":[1],"type":["int"],"align":["right"]},{"label":["V2"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["V3"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["V4"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["V5"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["V6"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["V7"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["V8"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73","8":"Y","_rn_":"a"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"70","8":"Y","_rn_":"b"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"77","8":"N","_rn_":"f"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"74","8":"N","_rn_":"g"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81","8":"Y","_rn_":"h"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"72","8":"N","_rn_":"i"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"64","8":"Y","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # names() 함수와 colnames()는 거의 동일한 기능 수행
@@ -6508,19 +6468,11 @@ names(df) <- varname_orig
 df
 ```
 
-```
-  id    sex age sbp height weight dbp exercyn
-a  1 Female  34 112    165     52  73       Y
-b  2 Female  22 118    158     48  70       Y
-c  3 Female  54 132    161     59  88       N
-d  4 Female  43 128    160     60  82       Y
-e  5 Female  44 128    168     48  75       N
-f  6   Male  39 124    172     72  77       N
-g  7   Male  38 121    175     73  74       N
-h  8   Male  28 119    182     82  81       Y
-i  9   Male  31 124    168     64  72       N
-j 10   Male  42 109    162     60  64       Y
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73","8":"Y","_rn_":"a"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"70","8":"Y","_rn_":"b"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"77","8":"N","_rn_":"f"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"74","8":"N","_rn_":"g"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81","8":"Y","_rn_":"h"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"72","8":"N","_rn_":"i"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"64","8":"Y","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
  \normalsize
 
@@ -6649,112 +6601,87 @@ df[, 3];
 df[, 3, drop = FALSE]
 ```
 
-```
-  age
-a  34
-b  22
-c  54
-d  43
-e  44
-f  39
-g  38
-h  28
-i  31
-j  42
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"34","_rn_":"a"},{"1":"22","_rn_":"b"},{"1":"54","_rn_":"c"},{"1":"43","_rn_":"d"},{"1":"44","_rn_":"e"},{"1":"39","_rn_":"f"},{"1":"38","_rn_":"g"},{"1":"28","_rn_":"h"},{"1":"31","_rn_":"i"},{"1":"42","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 행 index 접근
 df[8, ]
 ```
 
-```
-  id  sex age sbp height weight dbp exercyn
-h  8 Male  28 119    182     82  81       Y
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81","8":"Y","_rn_":"h"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 행과 열 index 접근
 df[1:4, 5:6]
 ```
 
-```
-  height weight
-a    165     52
-b    158     48
-c    161     59
-d    160     60
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["height"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"165","2":"52","_rn_":"a"},{"1":"158","2":"48","_rn_":"b"},{"1":"161","2":"59","_rn_":"c"},{"1":"160","2":"60","_rn_":"d"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 열 이름으로 접근
 df[, c("sex", "sbp")]
 ```
 
-```
-     sex sbp
-a Female 112
-b Female 118
-c Female 132
-d Female 128
-e Female 128
-f   Male 124
-g   Male 121
-h   Male 119
-i   Male 124
-j   Male 109
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["sbp"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"112","_rn_":"a"},{"1":"Female","2":"118","_rn_":"b"},{"1":"Female","2":"132","_rn_":"c"},{"1":"Female","2":"128","_rn_":"d"},{"1":"Female","2":"128","_rn_":"e"},{"1":"Male","2":"124","_rn_":"f"},{"1":"Male","2":"121","_rn_":"g"},{"1":"Male","2":"119","_rn_":"h"},{"1":"Male","2":"124","_rn_":"i"},{"1":"Male","2":"109","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 행 이름으로 접근
 df[c("d", "e", "f"), ]
 ```
 
-```
-  id    sex age sbp height weight dbp exercyn
-d  4 Female  43 128    160     60  82       Y
-e  5 Female  44 128    168     48  75       N
-f  6   Male  39 124    172     72  77       N
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"77","8":"N","_rn_":"f"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 행과 열 이름으로 접근
 df[c("a", "f"), c("sex", "height", "dbp")]
 ```
 
-```
-     sex height dbp
-a Female    165  73
-f   Male    172  77
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["height"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"165","3":"73","_rn_":"a"},{"1":"Male","2":"172","3":"77","_rn_":"f"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 행 또는 열 제외
 df[-c(2:6), ]
 ```
 
-```
-  id    sex age sbp height weight dbp exercyn
-a  1 Female  34 112    165     52  73       Y
-g  7   Male  38 121    175     73  74       N
-h  8   Male  28 119    182     82  81       Y
-i  9   Male  31 124    168     64  72       N
-j 10   Male  42 109    162     60  64       Y
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73","8":"Y","_rn_":"a"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"74","8":"N","_rn_":"g"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81","8":"Y","_rn_":"h"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"72","8":"N","_rn_":"i"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"64","8":"Y","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 df[-c(1, 5:7), -c(1, 8)]
 ```
 
-```
-     sex age sbp height weight dbp
-b Female  22 118    158     48  70
-c Female  54 132    161     59  88
-d Female  43 128    160     60  82
-h   Male  28 119    182     82  81
-i   Male  31 124    168     64  72
-j   Male  42 109    162     60  64
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"22","3":"118","4":"158","5":"48","6":"70","_rn_":"b"},{"1":"Female","2":"54","3":"132","4":"161","5":"59","6":"88","_rn_":"c"},{"1":"Female","2":"43","3":"128","4":"160","5":"60","6":"82","_rn_":"d"},{"1":"Male","2":"28","3":"119","4":"182","5":"82","6":"81","_rn_":"h"},{"1":"Male","2":"31","3":"124","4":"168","5":"64","6":"72","_rn_":"i"},{"1":"Male","2":"42","3":"109","4":"162","5":"60","6":"64","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
  \normalsize
 
@@ -6774,19 +6701,11 @@ varname_df <- names(df)
 df[, !varname_df %in% c("id", "age")]
 ```
 
-```
-     sex sbp height weight dbp exercyn
-a Female 112    165     52  73       Y
-b Female 118    158     48  70       Y
-c Female 132    161     59  88       N
-d Female 128    160     60  82       Y
-e Female 128    168     48  75       N
-f   Male 124    172     72  77       N
-g   Male 121    175     73  74       N
-h   Male 119    182     82  81       Y
-i   Male 124    168     64  72       N
-j   Male 109    162     60  64       Y
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["sbp"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[6],"type":["chr"],"align":["left"]}],"data":[{"1":"Female","2":"112","3":"165","4":"52","5":"73","6":"Y","_rn_":"a"},{"1":"Female","2":"118","3":"158","4":"48","5":"70","6":"Y","_rn_":"b"},{"1":"Female","2":"132","3":"161","4":"59","5":"88","6":"N","_rn_":"c"},{"1":"Female","2":"128","3":"160","4":"60","5":"82","6":"Y","_rn_":"d"},{"1":"Female","2":"128","3":"168","4":"48","5":"75","6":"N","_rn_":"e"},{"1":"Male","2":"124","3":"172","4":"72","5":"77","6":"N","_rn_":"f"},{"1":"Male","2":"121","3":"175","4":"73","5":"74","6":"N","_rn_":"g"},{"1":"Male","2":"119","3":"182","4":"82","5":"81","6":"Y","_rn_":"h"},{"1":"Male","2":"124","3":"168","4":"64","5":"72","6":"N","_rn_":"i"},{"1":"Male","2":"109","3":"162","4":"60","5":"64","6":"Y","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 조건 연산자 사용 
@@ -6794,23 +6713,22 @@ j   Male 109    162     60  64       Y
 df[df$sex == "Female" & df$age >= 40, ]
 ```
 
-```
-  id    sex age sbp height weight dbp exercyn
-c  3 Female  54 132    161     59  88       N
-d  4 Female  43 128    160     60  82       Y
-e  5 Female  44 128    168     48  75       N
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # id가 3보다 작은 데이터 추출
 df[df[, 1] < 3, ]
 ```
 
-```
-  id    sex age sbp height weight dbp exercyn
-a  1 Female  34 112    165     52  73       Y
-b  2 Female  22 118    158     48  70       Y
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73","8":"Y","_rn_":"a"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"70","8":"Y","_rn_":"b"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # subset 함수 이용한 데이터 추출
@@ -6818,56 +6736,40 @@ b  2 Female  22 118    158     48  70       Y
 subset(df, sbp >= 120 & dbp >= 80)
 ```
 
-```
-  id    sex age sbp height weight dbp exercyn
-c  3 Female  54 132    161     59  88       N
-d  4 Female  43 128    160     60  82       Y
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 성별, 수축기, 이완기 혈압 변수만 추출
 subset(df, select = c(sex, sbp, dbp))
 ```
 
-```
-     sex sbp dbp
-a Female 112  73
-b Female 118  70
-c Female 132  88
-d Female 128  82
-e Female 128  75
-f   Male 124  77
-g   Male 121  74
-h   Male 119  81
-i   Male 124  72
-j   Male 109  64
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["sbp"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"112","3":"73","_rn_":"a"},{"1":"Female","2":"118","3":"70","_rn_":"b"},{"1":"Female","2":"132","3":"88","_rn_":"c"},{"1":"Female","2":"128","3":"82","_rn_":"d"},{"1":"Female","2":"128","3":"75","_rn_":"e"},{"1":"Male","2":"124","3":"77","_rn_":"f"},{"1":"Male","2":"121","3":"74","_rn_":"g"},{"1":"Male","2":"119","3":"81","_rn_":"h"},{"1":"Male","2":"124","3":"72","_rn_":"i"},{"1":"Male","2":"109","3":"64","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # id 변수 제거
 subset(df, select = -c(id))
 ```
 
-```
-     sex age sbp height weight dbp exercyn
-a Female  34 112    165     52  73       Y
-b Female  22 118    158     48  70       Y
-c Female  54 132    161     59  88       N
-d Female  43 128    160     60  82       Y
-e Female  44 128    168     48  75       N
-f   Male  39 124    172     72  77       N
-g   Male  38 121    175     73  74       N
-h   Male  28 119    182     82  81       Y
-i   Male  31 124    168     64  72       N
-j   Male  42 109    162     60  64       Y
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[7],"type":["chr"],"align":["left"]}],"data":[{"1":"Female","2":"34","3":"112","4":"165","5":"52","6":"73","7":"Y","_rn_":"a"},{"1":"Female","2":"22","3":"118","4":"158","5":"48","6":"70","7":"Y","_rn_":"b"},{"1":"Female","2":"54","3":"132","4":"161","5":"59","6":"88","7":"N","_rn_":"c"},{"1":"Female","2":"43","3":"128","4":"160","5":"60","6":"82","7":"Y","_rn_":"d"},{"1":"Female","2":"44","3":"128","4":"168","5":"48","6":"75","7":"N","_rn_":"e"},{"1":"Male","2":"39","3":"124","4":"172","5":"72","6":"77","7":"N","_rn_":"f"},{"1":"Male","2":"38","3":"121","4":"175","5":"73","6":"74","7":"N","_rn_":"g"},{"1":"Male","2":"28","3":"119","4":"182","5":"82","6":"81","7":"Y","_rn_":"h"},{"1":"Male","2":"31","3":"124","4":"168","5":"64","6":"72","7":"N","_rn_":"i"},{"1":"Male","2":"42","3":"109","4":"162","5":"60","6":"64","7":"Y","_rn_":"j"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
  \normalsize
 
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">데이터 프레임 또는 리스트 접근 시 `df$col_name 를 사용한다면 매번 데이터 프레임 이름과 `$`을 반복하기 때문에 코드가 불필요하게 복잡해짐. R에서는 데이터 프레임 내부의 열 이름을 직접 접근할 수 있도록 도와주는 몇 가지 함수(예: `with()`, `attach()` 등)가 있는데, `with()`와 `within()` 활용법에 대해 간략히 알아봄. 
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">데이터 프레임 또는 리스트 접근 시 `df$col_name` 를 사용한다면 매번 데이터 프레임 이름과 `$`을 반복하기 때문에 코드가 불필요하게 복잡해짐. R에서는 데이터 프레임 내부의 열 이름을 직접 접근할 수 있도록 도와주는 몇 가지 함수(예: `with()`, `attach()` 등)가 있는데, `with()`와 `within()` 활용법에 대해 간략히 알아봄. 
 </div>\EndKnitrBlock{rmdnote}
 
  \normalsize
@@ -6896,12 +6798,11 @@ with(
 with(df, df[sex == "Female" & age >= 40, ])
 ```
 
-```
-  id    sex age sbp height weight dbp exercyn
-c  3 Female  54 132    161     59  88       N
-d  4 Female  43 128    160     60  82       Y
-e  5 Female  44 128    168     48  75       N
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
  \normalsize
 
@@ -6952,30 +6853,22 @@ dim(abalone)
 head(abalone)
 ```
 
-```
-  V1    V2    V3    V4     V5     V6     V7    V8 V9
-1  M 0.455 0.365 0.095 0.5140 0.2245 0.1010 0.150 15
-2  M 0.350 0.265 0.090 0.2255 0.0995 0.0485 0.070  7
-3  F 0.530 0.420 0.135 0.6770 0.2565 0.1415 0.210  9
-4  M 0.440 0.365 0.125 0.5160 0.2155 0.1140 0.155 10
-5  I 0.330 0.255 0.080 0.2050 0.0895 0.0395 0.055  7
-6  I 0.425 0.300 0.095 0.3515 0.1410 0.0775 0.120  8
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["V1"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["V2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["V3"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["V4"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["V5"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["V6"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["V7"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["V8"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["V9"],"name":[9],"type":["int"],"align":["right"]}],"data":[{"1":"M","2":"0.455","3":"0.365","4":"0.095","5":"0.5140","6":"0.2245","7":"0.1010","8":"0.150","9":"15","_rn_":"1"},{"1":"M","2":"0.350","3":"0.265","4":"0.090","5":"0.2255","6":"0.0995","7":"0.0485","8":"0.070","9":"7","_rn_":"2"},{"1":"F","2":"0.530","3":"0.420","4":"0.135","5":"0.6770","6":"0.2565","7":"0.1415","8":"0.210","9":"9","_rn_":"3"},{"1":"M","2":"0.440","3":"0.365","4":"0.125","5":"0.5160","6":"0.2155","7":"0.1140","8":"0.155","9":"10","_rn_":"4"},{"1":"I","2":"0.330","3":"0.255","4":"0.080","5":"0.2050","6":"0.0895","7":"0.0395","8":"0.055","9":"7","_rn_":"5"},{"1":"I","2":"0.425","3":"0.300","4":"0.095","5":"0.3515","6":"0.1410","7":"0.0775","8":"0.120","9":"8","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 제일 마지막 행부터 위로 6개 데이터 까지 출력
 tail(abalone)
 ```
 
-```
-     V1    V2    V3    V4     V5     V6     V7     V8 V9
-4172  M 0.560 0.430 0.155 0.8675 0.4000 0.1720 0.2290  8
-4173  F 0.565 0.450 0.165 0.8870 0.3700 0.2390 0.2490 11
-4174  M 0.590 0.440 0.135 0.9660 0.4390 0.2145 0.2605 10
-4175  M 0.600 0.475 0.205 1.1760 0.5255 0.2875 0.3080  9
-4176  F 0.625 0.485 0.150 1.0945 0.5310 0.2610 0.2960 10
-4177  M 0.710 0.555 0.195 1.9485 0.9455 0.3765 0.4950 12
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["V1"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["V2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["V3"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["V4"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["V5"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["V6"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["V7"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["V8"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["V9"],"name":[9],"type":["int"],"align":["right"]}],"data":[{"1":"M","2":"0.560","3":"0.430","4":"0.155","5":"0.8675","6":"0.4000","7":"0.1720","8":"0.2290","9":"8","_rn_":"4172"},{"1":"F","2":"0.565","3":"0.450","4":"0.165","5":"0.8870","6":"0.3700","7":"0.2390","8":"0.2490","9":"11","_rn_":"4173"},{"1":"M","2":"0.590","3":"0.440","4":"0.135","5":"0.9660","6":"0.4390","7":"0.2145","8":"0.2605","9":"10","_rn_":"4174"},{"1":"M","2":"0.600","3":"0.475","4":"0.205","5":"1.1760","6":"0.5255","7":"0.2875","8":"0.3080","9":"9","_rn_":"4175"},{"1":"F","2":"0.625","3":"0.485","4":"0.150","5":"1.0945","6":"0.5310","7":"0.2610","8":"0.2960","9":"10","_rn_":"4176"},{"1":"M","2":"0.710","3":"0.555","4":"0.195","5":"1.9485","6":"0.9455","7":"0.3765","8":"0.4950","9":"12","_rn_":"4177"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
  \normalsize
 
@@ -7013,19 +6906,11 @@ ab <- rbind(a, b)
 ab
 ```
 
-```
-   x1 x2
-1   0  x
-2   0  x
-3   0  x
-4   0  x
-5   0  x
-6   1  d
-7   1  d
-8   1  d
-9   1  d
-10  1  d
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["fctr"],"align":["left"]}],"data":[{"1":"0","2":"x"},{"1":"0","2":"x"},{"1":"0","2":"x"},{"1":"0","2":"x"},{"1":"0","2":"x"},{"1":"1","2":"d"},{"1":"1","2":"d"},{"1":"1","2":"d"},{"1":"1","2":"d"},{"1":"1","2":"d"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 변수명이 다른 경우
@@ -7042,20 +6927,11 @@ abd <- rbind(ab, d)
 abd
 ```
 
-```
-   x1 x2
-1   0  x
-2   0  x
-3   0  x
-4   0  x
-5   0  x
-6   1  d
-7   1  d
-8   1  d
-9   1  d
-10  1  d
-11  1  d
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["fctr"],"align":["left"]}],"data":[{"1":"0","2":"x","_rn_":"1"},{"1":"0","2":"x","_rn_":"2"},{"1":"0","2":"x","_rn_":"3"},{"1":"0","2":"x","_rn_":"4"},{"1":"0","2":"x","_rn_":"5"},{"1":"1","2":"d","_rn_":"6"},{"1":"1","2":"d","_rn_":"7"},{"1":"1","2":"d","_rn_":"8"},{"1":"1","2":"d","_rn_":"9"},{"1":"1","2":"d","_rn_":"10"},{"1":"1","2":"d","_rn_":"11"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # cbind()를 이용해 두 데이터 프레임 a-c 합치기
@@ -7063,28 +6939,22 @@ ac <- cbind(a, c)
 ac
 ```
 
-```
-  x1 x2 x3 x4
-1  0  x  2  z
-2  0  x  2  z
-3  0  x  2  z
-4  0  x  2  z
-5  0  x  2  z
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["x3"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["x4"],"name":[4],"type":["fctr"],"align":["left"]}],"data":[{"1":"0","2":"x","3":"2","4":"z"},{"1":"0","2":"x","3":"2","4":"z"},{"1":"0","2":"x","3":"2","4":"z"},{"1":"0","2":"x","3":"2","4":"z"},{"1":"0","2":"x","3":"2","4":"z"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 행 길이가 다르면 작은 길이의 데이터를 재사용
 cbind(a, d)
 ```
 
-```
-  x1 x2 1 "d"
-1  0  x 1   d
-2  0  x 1   d
-3  0  x 1   d
-4  0  x 1   d
-5  0  x 1   d
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["1"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["\"d\""],"name":[4],"type":["fctr"],"align":["left"]}],"data":[{"1":"0","2":"x","3":"1","4":"d"},{"1":"0","2":"x","3":"1","4":"d"},{"1":"0","2":"x","3":"1","4":"d"},{"1":"0","2":"x","3":"1","4":"d"},{"1":"0","2":"x","3":"1","4":"d"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # cbind()를 이용해 두 데이터 프레임-리스트 합치기
@@ -7137,22 +7007,15 @@ d2 = data.frame(Age = c(19,38,37,56,31),
 d1; d2
 ```
 
-```
-       Name country
-1      Park   Korea
-2     Hanzo   Japan
-3     Mercy   Swiss
-4 Soldier76     USA
-```
-
-```
-  Age      Name
-1  19      Park
-2  38     Hanzo
-3  37     Mercy
-4  56 Soldier76
-5  31       Mei
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Name"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["country"],"name":[2],"type":["fctr"],"align":["left"]}],"data":[{"1":"Park","2":"Korea"},{"1":"Hanzo","2":"Japan"},{"1":"Mercy","2":"Swiss"},{"1":"Soldier76","2":"USA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div><div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Name"],"name":[2],"type":["fctr"],"align":["left"]}],"data":[{"1":"19","2":"Park"},{"1":"38","2":"Hanzo"},{"1":"37","2":"Mercy"},{"1":"56","2":"Soldier76"},{"1":"31","2":"Mei"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 dim(d1); dim(d2)
@@ -7171,13 +7034,11 @@ dim(d1); dim(d2)
 merge(d1, d2, by = "Name")
 ```
 
-```
-       Name country Age
-1     Hanzo   Japan  38
-2     Mercy   Swiss  37
-3      Park   Korea  19
-4 Soldier76     USA  56
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Name"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["country"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["Age"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hanzo","2":"Japan","3":"38"},{"1":"Mercy","2":"Swiss","3":"37"},{"1":"Park","2":"Korea","3":"19"},{"1":"Soldier76","2":"USA","3":"56"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 두 데이터 병합 02
@@ -7185,13 +7046,11 @@ names(d2)[2] <- "Surname"
 merge(d1, d2, by.x = "Name", by.y = "Surname")
 ```
 
-```
-       Name country Age
-1     Hanzo   Japan  38
-2     Mercy   Swiss  37
-3      Park   Korea  19
-4 Soldier76     USA  56
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Name"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["country"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["Age"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hanzo","2":"Japan","3":"38"},{"1":"Mercy","2":"Swiss","3":"37"},{"1":"Park","2":"Korea","3":"19"},{"1":"Soldier76","2":"USA","3":"56"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 두 데이터 병합 03
@@ -7200,14 +7059,11 @@ merge(d1, d2,
       all = T)
 ```
 
-```
-       Name country Age
-1     Hanzo   Japan  38
-2     Mercy   Swiss  37
-3      Park   Korea  19
-4 Soldier76     USA  56
-5       Mei    <NA>  31
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Name"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["country"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["Age"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hanzo","2":"Japan","3":"38"},{"1":"Mercy","2":"Swiss","3":"37"},{"1":"Park","2":"Korea","3":"19"},{"1":"Soldier76","2":"USA","3":"56"},{"1":"Mei","2":"NA","3":"31"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
  \normalsize
 
@@ -7306,38 +7162,22 @@ sort(df$height, decreasing = TRUE)
 with(df, df[order(age), ])
 ```
 
-```
-  id    sex age sbp height weight dbp exercyn
-b  2 Female  22 118    158     48  70       Y
-h  8   Male  28 119    182     82  81       Y
-i  9   Male  31 124    168     64  72       N
-a  1 Female  34 112    165     52  73       Y
-g  7   Male  38 121    175     73  74       N
-f  6   Male  39 124    172     72  77       N
-j 10   Male  42 109    162     60  64       Y
-d  4 Female  43 128    160     60  82       Y
-e  5 Female  44 128    168     48  75       N
-c  3 Female  54 132    161     59  88       N
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"70","8":"Y","_rn_":"b"},{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81","8":"Y","_rn_":"h"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"72","8":"N","_rn_":"i"},{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73","8":"Y","_rn_":"a"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"74","8":"N","_rn_":"g"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"77","8":"N","_rn_":"f"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"64","8":"Y","_rn_":"j"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 키 순으로 내림차순 정렬
 df[order(df$height, decreasing = T), ]
 ```
 
-```
-  id    sex age sbp height weight dbp exercyn
-h  8   Male  28 119    182     82  81       Y
-g  7   Male  38 121    175     73  74       N
-f  6   Male  39 124    172     72  77       N
-e  5 Female  44 128    168     48  75       N
-i  9   Male  31 124    168     64  72       N
-a  1 Female  34 112    165     52  73       Y
-j 10   Male  42 109    162     60  64       Y
-c  3 Female  54 132    161     59  88       N
-d  4 Female  43 128    160     60  82       Y
-b  2 Female  22 118    158     48  70       Y
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["exercyn"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"8","2":"Male","3":"28","4":"119","5":"182","6":"82","7":"81","8":"Y","_rn_":"h"},{"1":"7","2":"Male","3":"38","4":"121","5":"175","6":"73","7":"74","8":"N","_rn_":"g"},{"1":"6","2":"Male","3":"39","4":"124","5":"172","6":"72","7":"77","8":"N","_rn_":"f"},{"1":"5","2":"Female","3":"44","4":"128","5":"168","6":"48","7":"75","8":"N","_rn_":"e"},{"1":"9","2":"Male","3":"31","4":"124","5":"168","6":"64","7":"72","8":"N","_rn_":"i"},{"1":"1","2":"Female","3":"34","4":"112","5":"165","6":"52","7":"73","8":"Y","_rn_":"a"},{"1":"10","2":"Male","3":"42","4":"109","5":"162","6":"60","7":"64","8":"Y","_rn_":"j"},{"1":"3","2":"Female","3":"54","4":"132","5":"161","6":"59","7":"88","8":"N","_rn_":"c"},{"1":"4","2":"Female","3":"43","4":"128","5":"160","6":"60","7":"82","8":"Y","_rn_":"d"},{"1":"2","2":"Female","3":"22","4":"118","5":"158","6":"48","7":"70","8":"Y","_rn_":"b"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
  \normalsize
 
@@ -7464,19 +7304,11 @@ apply(Z, c(1, 3), mean)
 
 \footnotesize
 
-
-```
-  Origin   Variable           Name  Unit                     Description
-1     V1        sex            Sex       성별(M: 수컷; F: 암컷; I: 새끼)
-2     V2     length         Length    mm                  길이(최장길이)
-3     V3   diameter       Diameter    mm                            직경
-4     V4     height         Height    mm             껍질 내 육질의 높이
-5     V5   whole.wt   Whole weight grams                       전체 중량
-6     V6 shucked.wt Shucked weight grams                       육질 무게
-7     V7 viscera.wt Viscera weigth grams                       내장 무게
-8     V8   shell.wt   Shell weight grams                       껍질 무게
-9     V9      rings          Rings                             전복 나이
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Origin"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["Variable"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["Name"],"name":[3],"type":["fctr"],"align":["left"]},{"label":["Unit"],"name":[4],"type":["fctr"],"align":["left"]},{"label":["Description"],"name":[5],"type":["fctr"],"align":["left"]}],"data":[{"1":"V1","2":"sex","3":"Sex","4":"","5":"성별(M: 수컷; F: 암컷; I: 새끼)"},{"1":"V2","2":"length","3":"Length","4":"mm","5":"길이(최장길이)"},{"1":"V3","2":"diameter","3":"Diameter","4":"mm","5":"직경"},{"1":"V4","2":"height","3":"Height","4":"mm","5":"껍질 내 육질의 높이"},{"1":"V5","2":"whole.wt","3":"Whole weight","4":"grams","5":"전체 중량"},{"1":"V6","2":"shucked.wt","3":"Shucked weight","4":"grams","5":"육질 무게"},{"1":"V7","2":"viscera.wt","3":"Viscera weigth","4":"grams","5":"내장 무게"},{"1":"V8","2":"shell.wt","3":"Shell weight","4":"grams","5":"껍질 무게"},{"1":"V9","2":"rings","3":"Rings","4":"","5":"전복 나이"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
  \normalsize
 
@@ -7492,15 +7324,11 @@ names(abalone) <- c("sex", "length", "diameter",
 head(abalone)
 ```
 
-```
-  sex length diameter height whole.wt shucked.wt viscera.wt shell.wt rings
-1   M  0.455    0.365  0.095   0.5140     0.2245     0.1010    0.150    15
-2   M  0.350    0.265  0.090   0.2255     0.0995     0.0485    0.070     7
-3   F  0.530    0.420  0.135   0.6770     0.2565     0.1415    0.210     9
-4   M  0.440    0.365  0.125   0.5160     0.2155     0.1140    0.155    10
-5   I  0.330    0.255  0.080   0.2050     0.0895     0.0395    0.055     7
-6   I  0.425    0.300  0.095   0.3515     0.1410     0.0775    0.120     8
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["length"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["diameter"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["whole.wt"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["shucked.wt"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["viscera.wt"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["shell.wt"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["rings"],"name":[9],"type":["int"],"align":["right"]}],"data":[{"1":"M","2":"0.455","3":"0.365","4":"0.095","5":"0.5140","6":"0.2245","7":"0.1010","8":"0.150","9":"15","_rn_":"1"},{"1":"M","2":"0.350","3":"0.265","4":"0.090","5":"0.2255","6":"0.0995","7":"0.0485","8":"0.070","9":"7","_rn_":"2"},{"1":"F","2":"0.530","3":"0.420","4":"0.135","5":"0.6770","6":"0.2565","7":"0.1415","8":"0.210","9":"9","_rn_":"3"},{"1":"M","2":"0.440","3":"0.365","4":"0.125","5":"0.5160","6":"0.2155","7":"0.1140","8":"0.155","9":"10","_rn_":"4"},{"1":"I","2":"0.330","3":"0.255","4":"0.080","5":"0.2050","6":"0.0895","7":"0.0395","8":"0.055","9":"7","_rn_":"5"},{"1":"I","2":"0.425","3":"0.300","4":"0.095","5":"0.3515","6":"0.1410","7":"0.0775","8":"0.120","9":"8","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # sex를 제외한 나머지 수치형 변수에 대한 기초통계량  계산
@@ -7648,11 +7476,11 @@ aggregate(
 aggregate(df[,-c(1:2, 8)], by =df["sex"], mean)
 ```
 
-```
-     sex  age   sbp height weight  dbp
-1 Female 39.4 123.6  162.4   53.4 77.6
-2   Male 35.6 119.4  171.8   70.2 73.6
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"39.4","3":"123.6","4":"162.4","5":"53.4","6":"77.6"},{"1":"Male","2":"35.6","3":"119.4","4":"171.8","5":"70.2","6":"73.6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 수식 표현형 사용
@@ -7661,11 +7489,11 @@ aggregate(. ~ sex,
           mean)
 ```
 
-```
-     sex id  age   sbp height weight  dbp
-1 Female  3 39.4 123.6  162.4   53.4 77.6
-2   Male  8 35.6 119.4  171.8   70.2 73.6
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["id"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"3","3":"39.4","4":"123.6","5":"162.4","6":"53.4","7":"77.6"},{"1":"Male","2":"8","3":"35.6","4":"119.4","5":"171.8","6":"70.2","7":"73.6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # 요인이 2개인 경우
@@ -7674,13 +7502,11 @@ aggregate(df[,-c(1:2, 8)],
           mean)
 ```
 
-```
-     sex exercise age      sbp   height   weight      dbp
-1 Female        N  49 130.0000 164.5000 53.50000 81.50000
-2   Male        N  36 123.0000 171.6667 69.66667 74.33333
-3 Female        Y  33 119.3333 161.0000 53.33333 75.00000
-4   Male        Y  35 114.0000 172.0000 71.00000 72.50000
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["exercise"],"name":[2],"type":["chr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"N","3":"49","4":"130.0000","5":"164.5000","6":"53.50000","7":"81.50000"},{"1":"Male","2":"N","3":"36","4":"123.0000","5":"171.6667","6":"69.66667","7":"74.33333"},{"1":"Female","2":"Y","3":"33","4":"119.3333","5":"161.0000","6":"53.33333","7":"75.00000"},{"1":"Male","2":"Y","3":"35","4":"114.0000","5":"172.0000","6":"71.00000","7":"72.50000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 aggregate(. ~ sex + exercyn, 
@@ -7688,13 +7514,11 @@ aggregate(. ~ sex + exercyn,
           mean)
 ```
 
-```
-     sex exercyn age      sbp   height   weight      dbp
-1 Female       N  49 130.0000 164.5000 53.50000 81.50000
-2   Male       N  36 123.0000 171.6667 69.66667 74.33333
-3 Female       Y  33 119.3333 161.0000 53.33333 75.00000
-4   Male       Y  35 114.0000 172.0000 71.00000 72.50000
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sex"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["exercyn"],"name":[2],"type":["chr"],"align":["left"]},{"label":["age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sbp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["weight"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["dbp"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"Female","2":"N","3":"49","4":"130.0000","5":"164.5000","6":"53.50000","7":"81.50000"},{"1":"Male","2":"N","3":"36","4":"123.0000","5":"171.6667","6":"69.66667","7":"74.33333"},{"1":"Female","2":"Y","3":"33","4":"119.3333","5":"161.0000","6":"53.33333","7":"75.00000"},{"1":"Male","2":"Y","3":"35","4":"114.0000","5":"172.0000","6":"71.00000","7":"72.50000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
  \normalsize
 
@@ -7752,7 +7576,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x00000000208df580> 
+  .. ..- attr(*, ".Environment")=<environment: 0x000000001c881f98> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"
@@ -7958,6 +7782,237 @@ sapply(rn_res, mean); sapply(rn_res, sd)
  \normalsize
 
 
+## 객체의 유형 판별 및 변환 {#is-as-function}
+
+지금까지 R 객체를 알아보면서 `is.na()`, `is.null()` 등 스칼라의 데이터 타입을 확인하는 함수부터 `str()`, `attributes()`, `class()`와 같이 객체의 속성 및 구조에 대해 확인하는 함수들에 대해 간략히 소개함. 앞서 언급한 것 처럼 R은 스크립트 언어이기 때문에 모든 명령 실행이 함수 기반으로 이루어짐. 특정 객제에만 적용할 수 있는 함수들이 있는 반면, 함수를 통해 새로운 속성을 갖는 객제가 생성되기도 함. 그렇기 때문에 함수 적용 또는 적용 후 반환 후 생성된 객체의 타입을 확인하거나 객체의 유형 변환 작업은 R을 통해 데이터를 분석하는 과정에서 빈번하게 발생함. 
+
+
+R에서는 캑체 유형 판별을 위해 `is.type_name()`, 객체 타입 변환을 위해 `as.type_name()` 형태의 함수를 제공함. 지금까지 배운 R 객체에 대한 `is.` 과 `as.` 계열 함수는 아래와 같음. 
+
+
+\footnotesize
+
+<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:is-as-fun)R 객체 타입 판별 및 변환 함수</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> is 계열 함수 </th>
+   <th style="text-align:left;"> as 계열 함수 </th>
+   <th style="text-align:left;"> 설명 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> is.factor() </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> as.factor() </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 주어진 객체가 factor 형인지 판단/변환 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> is.ordered() </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> as.ordered </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 주어진 객체가 순서형 factor인지 판단/변환 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> is.numeric() </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> as.numeric() </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 주어진 객체가 수치형인지 판단/변환 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> is.character() </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> as.character() </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 주어진 객체가 문자형인지 판단/변환 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> is.matrix() </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> as.matrix() </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 주어진 객체가 행렬인지 판단/변환 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> is.array() </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> as.array() </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 주어진 객체가 배열인지 판단/변환 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> is.list() </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> as.list() </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 주어진 객체가 리스트인지 판단/변환 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> is.data.frame() </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> as.data.frame() </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 주어진 객체가 데이터 프레임인지 판단/변환 </td>
+  </tr>
+</tbody>
+</table>
+
+ \normalsize
+
+- `is/as`계열 함수 사용 예시
+
+\footnotesize
+
+
+```r
+x <- c("M", "F"); f <- factor(x)
+# x가 문자열인가?
+is.character(x)
+```
+
+```
+[1] TRUE
+```
+
+```r
+# f가 factor인가?
+is.factor(f)
+```
+
+```
+[1] TRUE
+```
+
+```r
+#f가 숫자형인가?
+is.numeric(f)
+```
+
+```
+[1] FALSE
+```
+
+```r
+# f를 수치형으로 변환
+f <- as.numeric(f)
+is.numeric(f)
+```
+
+```
+[1] TRUE
+```
+
+```r
+f
+```
+
+```
+[1] 2 1
+```
+
+```r
+# 다시 f를 factor형으로 변환
+as.factor(f)
+```
+
+```
+[1] 2 1
+Levels: 1 2
+```
+
+ \normalsize
+
+- 2차원 데이터 객체 유형 판별 및 변환
+
+\footnotesize
+
+
+```r
+X <- matrix(rnorm(9), 3)
+d <- data.frame(group = rep(LETTERS[1:3], each = 2), 
+                meas = c(mapply(rnorm, 
+                                c(2, 2, 2),
+                                c(1, 2, 3), 
+                                c(1, 1, 1))))
+
+# 객체 유형 확인
+is.matrix(X); is.data.frame(X)
+```
+
+```
+[1] TRUE
+```
+
+```
+[1] FALSE
+```
+
+```r
+is.matrix(d); is.data.frame(d)
+```
+
+```
+[1] FALSE
+```
+
+```
+[1] TRUE
+```
+
+```r
+# 객체 유형 변환
+as.data.frame(X); as.matrix(d)
+```
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["V1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["V2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["V3"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.3288415","2":"-0.02180829","3":"-0.3734678"},{"1":"0.2479955","2":"1.35400192","3":"-2.2851782"},{"1":"-0.7521625","2":"-0.15786514","3":"-1.1439634"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+```
+     group meas      
+[1,] "A"   "2.028870"
+[2,] "A"   "1.996936"
+[3,] "B"   "2.835169"
+[4,] "B"   "1.105901"
+[5,] "C"   "1.095014"
+[6,] "C"   "2.927883"
+```
+
+```r
+as.list(X); as.list(d)
+```
+
+```
+[[1]]
+[1] 0.3288415
+
+[[2]]
+[1] 0.2479955
+
+[[3]]
+[1] -0.7521625
+
+[[4]]
+[1] -0.02180829
+
+[[5]]
+[1] 1.354002
+
+[[6]]
+[1] -0.1578651
+
+[[7]]
+[1] -0.3734678
+
+[[8]]
+[1] -2.285178
+
+[[9]]
+[1] -1.143963
+```
+
+```
+$group
+[1] A A B B C C
+Levels: A B C
+
+$meas
+[1] 2.028870 1.996936 2.835169 1.105901 1.095014 2.927883
+```
+
+ \normalsize
+
+
 
 
 <!-- ### 외부 데이터 불러오기 및 저장하기 -->
@@ -8022,6 +8077,144 @@ $$
   </div>\EndKnitrBlock{rmdimportant}
 
  \normalsize
+
+
+## Homework #2-2
+
+
+1. 2.5절 배열에서 다룬 확장 예제 "RGB값을 무작위로 샘플링 후 매개변수로 노이즈 가중치 조절해 보기" 명령 스크립트 중 다음아래에 해당하는 구문의 반복 명령을 최소화한 스크립트 작성 후 해당 스크립트가 정상적으로 작동하는지 그림 출력을 통해 확인하시오. 단, 그림은 2.5절 예제와 동일한 그림을 사용(Hint: `*apply()` 계열 함수, 코드블록(`{}`), `return()`, `unlist()`, `array()` 함수 사용)
+
+\footnotesize
+
+
+```r
+require(tidyverse)
+require(jpeg)
+require(cowplot)
+
+myurl <- paste0("https://img.livescore.co.kr/data/editor/1906/", 
+                "ba517de8162d92f4ea0e9de0ec98ba02.jpg")
+z <- tempfile()
+download.file(myurl,z,mode="wb")
+
+pic <- readJPEG(z)
+dim_pic <- dim(pic)
+t <- 0.2; nl <- length(300:460); pl <- length(440:520)
+
+# 다음 아래
+yr <- pic[300:460, 440:520, 1]
+yg <- pic[300:460, 440:520, 2]
+yb <- pic[300:460, 440:520, 3]
+
+n <- nrow(yr); p <- ncol(yr)
+
+t <- 0.2
+wr <- t * yr + (1 - t)*matrix(runif(length(yr)), nrow = n, ncol = p)
+wg <- t * yg + (1 - t)*matrix(runif(length(yg)), nrow = n, ncol = p)
+wb <- t * yb + (1 - t)*matrix(runif(length(yb)), nrow = n, ncol = p)
+
+
+pic[300:460, 440:520, 1] <- wr
+pic[300:460, 440:520, 2] <- wg
+pic[300:460, 440:520, 3] <- wb
+```
+
+ \normalsize
+
+<!-- ```{r 2-2-1-ans} -->
+
+<!--  tmp <- lapply(1:3, function(i) { -->
+<!--    x <- pic[, , i] -->
+<!--    wx <- x[300:460, 440:520] -->
+<!--    wx <- t*wx + (1-t)*matrix(runif(length(wx)), -->
+<!--                              nrow = nrow(wx), -->
+<!--                              ncol = ncol(wx)) -->
+<!--    x[300:460, 440:520] <- wx -->
+<!--    return(x) -->
+<!--  }) -->
+<!--  res <- array(unlist(tmp), dim = dim_pic) -->
+
+<!--  ggdraw() + -->
+<!--    draw_image(res) -->
+
+<!-- ``` -->
+
+
+
+2. R에 기본으로 내장된 `mtcars` 데이터셋은 다음과 같이 11개의 변수로 구성되어 있다. 
+
+\footnotesize
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> 변수명 </th>
+   <th style="text-align:left;"> 변수 설명 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> mpg </td>
+   <td style="text-align:left;"> Miles/(US) gallon, 연비 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cyl </td>
+   <td style="text-align:left;"> Number of cylinders, 엔진 기통수 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> disp </td>
+   <td style="text-align:left;"> Displacement (cu.in.), 배기량(cc 단위) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> hp </td>
+   <td style="text-align:left;"> Gross horsepower, 마력 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> drat </td>
+   <td style="text-align:left;"> Rear axle ratio, 뒤차축비 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> wt </td>
+   <td style="text-align:left;"> Weight (1000 lbs), 무게 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> qsec </td>
+   <td style="text-align:left;"> 1/4 mile time, 1/4 mile 도달시간 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> vs </td>
+   <td style="text-align:left;"> Engine (0 = V-shaped, 1 = straight) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> am </td>
+   <td style="text-align:left;"> Transmission (0 = automatic, 1 = manual), 변속기어 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gear </td>
+   <td style="text-align:left;"> Number of forward gears, 전진기어 갯수 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> carb </td>
+   <td style="text-align:left;"> Number of carburetors, 기화기 갯수 </td>
+  </tr>
+</tbody>
+</table>
+
+ \normalsize
+
+a) `mtcars`의 데이터 구조를 파악하고 자료의 전반적인 형태에 대해 기술하시오. 
+
+
+b) 위 코드북을 참고하여 엔진과 변속기어에 해당하는 변수를 factor로 변환 하시오. 
+
+
+
+
+
+
+
+
+
 
 
 

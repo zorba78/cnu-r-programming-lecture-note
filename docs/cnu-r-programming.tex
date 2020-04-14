@@ -315,7 +315,7 @@
 \makeatother
 \subtitle{2020년도 1학기 충남대학교 정보통계학과 강의 노트}
 \author{한국한의학연구원, 구본초}
-\date{2020-04-10}
+\date{2020-04-13}
 
 \let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
@@ -10455,7 +10455,7 @@ $row.names
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# df에 운동여부 exercyn 라는 변수 추사 }
+\CommentTok{# df에 운동여부 exercyn 라는 변수 추가 }
 \CommentTok{# exercyn 는 "Y" 또는 "N" 두 값을 가짐}
 \NormalTok{df}\OperatorTok{$}\NormalTok{exercyn <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Y"}\NormalTok{, }\StringTok{"Y"}\NormalTok{, }\StringTok{"N"}\NormalTok{, }\StringTok{"Y"}\NormalTok{, }\StringTok{"N"}\NormalTok{, }
                 \StringTok{"N"}\NormalTok{, }\StringTok{"N"}\NormalTok{, }\StringTok{"Y"}\NormalTok{, }\StringTok{"N"}\NormalTok{, }\StringTok{"Y"}\NormalTok{)}
@@ -11001,7 +11001,7 @@ j   Male  42 109    162     60  64       Y
 \footnotesize
 
 \BeginKnitrBlock{rmdnote}
-데이터 프레임 또는 리스트 접근 시 \texttt{df\$col\_name\ 를\ 사용한다면\ 매번\ 데이터\ 프레임\ 이름과}\$\texttt{을\ 반복하기\ 때문에\ 코드가\ 불필요하게\ 복잡해짐.\ R에서는\ 데이터\ 프레임\ 내부의\ 열\ 이름을\ 직접\ 접근할\ 수\ 있도록\ 도와주는\ 몇\ 가지\ 함수(예:}with()\texttt{,}attach()\texttt{등)가\ 있는데,}with()\texttt{와}within()` 활용법에 대해 간략히 알아봄.
+데이터 프레임 또는 리스트 접근 시 \texttt{df\$col\_name} 를 사용한다면 매번 데이터 프레임 이름과 \texttt{\$}을 반복하기 때문에 코드가 불필요하게 복잡해짐. R에서는 데이터 프레임 내부의 열 이름을 직접 접근할 수 있도록 도와주는 몇 가지 함수(예: \texttt{with()}, \texttt{attach()} 등)가 있는데, \texttt{with()}와 \texttt{within()} 활용법에 대해 간략히 알아봄.
 \EndKnitrBlock{rmdnote}
 
 \normalsize
@@ -12071,7 +12071,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x0000000035c165a0> 
+  .. ..- attr(*, ".Environment")=<environment: 0x000000001cf695e8> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"
@@ -12305,6 +12305,39 @@ $dimnames[[2]]
 
 \normalsize
 
+\hypertarget{is-as-function}{%
+\section{객체의 유형 판별 및 변환}\label{is-as-function}}
+
+지금까지 R 객체를 알아보면서 \texttt{is.na()}, \texttt{is.null()} 등 스칼라의 데이터 타입을 확인하는 함수부터 \texttt{str()}, \texttt{attributes()}, \texttt{class()}와 같이 객체의 속성 및 구조에 대해 확인하는 함수들에 대해 간략히 소개함. 앞서 언급한 것 처럼 R은 스크립트 언어이기 때문에 모든 명령 실행이 함수 기반으로 이루어짐. 특정 객제에만 적용할 수 있는 함수들이 있는 반면, 함수를 통해 새로운 속성을 갖는 객제가 생성되기도 함. 그렇기 때문에 함수 적용 또는 적용 후 반환 후 생성된 객체의 타입을 확인하거나 객체의 유형 변환 작업은 R을 통해 데이터를 분석하는 과정에서 빈번하게 발생함.
+
+R에서는 캑체 유형 판별을 위해 \texttt{is.type\_name()}, 객체 타입 변환을 위해 \texttt{as.type\_name()} 형태의 함수를 제공함. 지금까지 배운 R 객체에 대한 \texttt{is.} 과 \texttt{as.} 계열 함수는 아래와 같음.
+
+\footnotesize
+
+\begin{table}[H]
+
+\caption{\label{tab:is-as-fun}R 객체 타입 판별 및 변환 함수}
+\centering
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
+\toprule
+is.계열.함수 & as.계열.함수 & 설명\\
+\midrule
+\rowcolor{gray!6}  \ttfamily{is.factor()} & \ttfamily{as.factor()} & \ttfamily{주어진 객체가 factor 형인지 판단/변환}\\
+\ttfamily{is.ordered()} & \ttfamily{as.ordered} & \ttfamily{주어진 객체가 순서형 factor인지 판단/변환}\\
+\rowcolor{gray!6}  \ttfamily{is.numeric()} & \ttfamily{as.numeric()} & \ttfamily{주어진 객체가 수치형인지 판단/변환}\\
+\ttfamily{is.character()} & \ttfamily{as.character()} & \ttfamily{주어진 객체가 문자형인지 판단/변환}\\
+\rowcolor{gray!6}  \ttfamily{is.matrix()} & \ttfamily{as.matrix()} & \ttfamily{주어진 객체가 행렬인지 판단/변환}\\
+\addlinespace
+\ttfamily{is.array()} & \ttfamily{as.array()} & \ttfamily{주어진 객체가 배열인지 판단/변환}\\
+\rowcolor{gray!6}  \ttfamily{is.list()} & \ttfamily{as.list()} & \ttfamily{주어진 객체가 리스트인지 판단/변환}\\
+\ttfamily{is.data.frame()} & \ttfamily{as.data.frame()} & \ttfamily{주어진 객체가 데이터 프레임인지 판단/변환}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\normalsize
+
 \hypertarget{homework-2-1}{%
 \section{Homework \#2-1}\label{homework-2-1}}
 
@@ -12392,6 +12425,25 @@ $dimnames[[2]]
 \EndKnitrBlock{rmdimportant}
 
 \normalsize
+
+\hypertarget{string-regexp}{%
+\chapter{문자열과 정규표현식}\label{string-regexp}}
+
+R은 주로 수치형 벡터를 기반으로 거의 모든 연산이 행해지지만, 문자 데이터는 꽤, 빈번하게 조우한다.
+
+The primary R functions for dealing with regular expressions are
+
+grep(), grepl(): These functions search for matches of a regular expression/pattern in a character vector. grep() returns the indices into the character vector that contain a match or the specific strings that happen to have the match. grepl() returns a TRUE/FALSE vector indicating which elements of the character vector contain a match
+
+regexpr(), gregexpr(): Search a character vector for regular expression matches and return the indices of the string where the match begins and the length of the match
+
+sub(), gsub(): Search a character vector for regular expression matches and replace that match with another string
+
+regexec(): This function searches a character vector for a regular expression, much like regexpr(), but it will additionally return the locations of any parenthesized sub-expressions. Probably easier to explain through demonstration.
+
+For this chapter, we will use a running example using data from homicides in Baltimore City. The Baltimore Sun newspaper collects information on all homicides that occur in the city (it also reports on many of them). That data is collected and presented in a map that is publically available. I encourage you to go look at the web site/map to get a sense of what kinds of data are presented there. Unfortunately, the data on the web site are not particularly amenable to analysis, so I've scraped the data and put it in a separate file. The data in this file contain data from January 2007 to October 2013.
+
+Here is an excerpt of the Baltimore City homicides dataset:
 
   \bibliography{book.bib,packages.bib}
 
