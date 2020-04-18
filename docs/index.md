@@ -2,7 +2,7 @@
 title: "통계 프로그래밍 언어"
 subtitle: "2020년도 1학기 충남대학교 정보통계학과 강의 노트"
 author: "한국한의학연구원, 구본초"
-date: "2020-04-13"
+date: "2020-04-18"
 knit: "bookdown::render_book"
 documentclass: krantz
 bibliography: [book.bib, packages.bib]

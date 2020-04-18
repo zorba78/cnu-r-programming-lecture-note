@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-04-13" />
+<meta name="date" content="2020-04-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -224,9 +224,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="homework-2-2" class="section level2">
 <h2><span class="header-section-number">2.10</span> Homework #2-2</h2>
-<ol style="list-style-type: decimal">
-<li>2.5절 배열에서 다룬 확장 예제 “RGB값을 무작위로 샘플링 후 매개변수로 노이즈 가중치 조절해 보기” 명령 스크립트 중 다음아래에 해당하는 구문의 반복 명령을 최소화한 스크립트 작성 후 해당 스크립트가 정상적으로 작동하는지 그림 출력을 통해 확인하시오. 단, 그림은 2.5절 예제와 동일한 그림을 사용(Hint: <code>*apply()</code> 계열 함수, 코드블록(<code>{}</code>), <code>return()</code>, <code>unlist()</code>, <code>array()</code> 함수 사용)</li>
-</ol>
+<p><strong>1. 2.5절 배열에서 다룬 확장 예제 “RGB값을 무작위로 샘플링 후 매개변수로 노이즈 가중치 조절해 보기” 명령 스크립트 중 다음아래에 해당하는 구문의 반복 명령을 최소화한 스크립트 작성 후 해당 스크립트가 정상적으로 작동하는지 그림 출력을 통해 확인하시오. 단, 그림은 2.5절 예제와 동일한 그림을 사용(Hint: <code>*apply()</code> 계열 함수, 코드블록(<code>{}</code>), <code>return()</code>, <code>unlist()</code>, <code>array()</code> 함수 사용)</strong></p>
 
 <div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb888-1" title="1"><span class="kw">require</span>(tidyverse)</a>
 <a class="sourceLine" id="cb888-2" title="2"><span class="kw">require</span>(jpeg)</a>
@@ -241,22 +239,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb888-11" title="11">dim_pic &lt;-<span class="st"> </span><span class="kw">dim</span>(pic)</a>
 <a class="sourceLine" id="cb888-12" title="12">t &lt;-<span class="st"> </span><span class="fl">0.2</span>; nl &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>); pl &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="dv">440</span><span class="op">:</span><span class="dv">520</span>)</a>
 <a class="sourceLine" id="cb888-13" title="13"></a>
-<a class="sourceLine" id="cb888-14" title="14"><span class="co"># 다음 아래</span></a>
+<a class="sourceLine" id="cb888-14" title="14"><span class="co"># 다음 아래(문제 1에 해당)</span></a>
 <a class="sourceLine" id="cb888-15" title="15">yr &lt;-<span class="st"> </span>pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">1</span>]</a>
 <a class="sourceLine" id="cb888-16" title="16">yg &lt;-<span class="st"> </span>pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">2</span>]</a>
 <a class="sourceLine" id="cb888-17" title="17">yb &lt;-<span class="st"> </span>pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">3</span>]</a>
 <a class="sourceLine" id="cb888-18" title="18"></a>
-<a class="sourceLine" id="cb888-19" title="19">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(yr); p &lt;-<span class="st"> </span><span class="kw">ncol</span>(yr)</a>
-<a class="sourceLine" id="cb888-20" title="20"></a>
-<a class="sourceLine" id="cb888-21" title="21">t &lt;-<span class="st"> </span><span class="fl">0.2</span></a>
-<a class="sourceLine" id="cb888-22" title="22">wr &lt;-<span class="st"> </span>t <span class="op">*</span><span class="st"> </span>yr <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>t)<span class="op">*</span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="kw">length</span>(yr)), <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> p)</a>
-<a class="sourceLine" id="cb888-23" title="23">wg &lt;-<span class="st"> </span>t <span class="op">*</span><span class="st"> </span>yg <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>t)<span class="op">*</span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="kw">length</span>(yg)), <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> p)</a>
-<a class="sourceLine" id="cb888-24" title="24">wb &lt;-<span class="st"> </span>t <span class="op">*</span><span class="st"> </span>yb <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>t)<span class="op">*</span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="kw">length</span>(yb)), <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> p)</a>
-<a class="sourceLine" id="cb888-25" title="25"></a>
-<a class="sourceLine" id="cb888-26" title="26"></a>
-<a class="sourceLine" id="cb888-27" title="27">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span>wr</a>
-<a class="sourceLine" id="cb888-28" title="28">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span>wg</a>
-<a class="sourceLine" id="cb888-29" title="29">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span>wb</a></code></pre></div>
+<a class="sourceLine" id="cb888-19" title="19">t &lt;-<span class="st"> </span><span class="fl">0.2</span></a>
+<a class="sourceLine" id="cb888-20" title="20">wr &lt;-<span class="st"> </span>t <span class="op">*</span><span class="st"> </span>yr <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>t)<span class="op">*</span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="kw">length</span>(yr)), <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> p)</a>
+<a class="sourceLine" id="cb888-21" title="21">wg &lt;-<span class="st"> </span>t <span class="op">*</span><span class="st"> </span>yg <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>t)<span class="op">*</span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="kw">length</span>(yg)), <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> p)</a>
+<a class="sourceLine" id="cb888-22" title="22">wb &lt;-<span class="st"> </span>t <span class="op">*</span><span class="st"> </span>yb <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>t)<span class="op">*</span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="kw">length</span>(yb)), <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> p)</a>
+<a class="sourceLine" id="cb888-23" title="23"></a>
+<a class="sourceLine" id="cb888-24" title="24"></a>
+<a class="sourceLine" id="cb888-25" title="25">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">1</span>] &lt;-<span class="st"> </span>wr</a>
+<a class="sourceLine" id="cb888-26" title="26">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">2</span>] &lt;-<span class="st"> </span>wg</a>
+<a class="sourceLine" id="cb888-27" title="27">pic[<span class="dv">300</span><span class="op">:</span><span class="dv">460</span>, <span class="dv">440</span><span class="op">:</span><span class="dv">520</span>, <span class="dv">3</span>] &lt;-<span class="st"> </span>wb</a></code></pre></div>
 
 <!-- ```{r 2-2-1-ans} -->
 <!--  tmp <- lapply(1:3, function(i) { -->
@@ -272,9 +268,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!--  ggdraw() + -->
 <!--    draw_image(res) -->
 <!-- ``` -->
-<ol start="2" style="list-style-type: decimal">
-<li>R에 기본으로 내장된 <code>mtcars</code> 데이터셋은 다음과 같이 11개의 변수로 구성되어 있다.</li>
-</ol>
+<p><br/></p>
+<p><strong>2. R에 기본으로 내장된 <code>mtcars</code> 데이터셋은 다음과 같이 11개의 변수로 구성되어 있다. </strong></p>
 
 <table>
 <thead>
@@ -380,8 +375,378 @@ Number of carburetors, 기화기 갯수
 </table>
 
 <ol style="list-style-type: lower-alpha">
-<li><p><code>mtcars</code>의 데이터 구조를 파악하고 자료의 전반적인 형태에 대해 기술하시오.</p></li>
-<li><p>위 코드북을 참고하여 엔진과 변속기어에 해당하는 변수를 factor로 변환 하시오.</p></li>
+<li><code>mtcars</code>의 데이터 구조를 파악하고 자료의 전반적인 형태에 대해 기술 하시오.</li>
+</ol>
+<p><br/></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>위 코드북을 참고하여 엔진과 변속기어에 해당하는 변수를 factor로 변환 후 해당 데이터 프레임을 <code>df</code> 객체에 저장 하시오.</li>
+</ol>
+<p><br/>
+<!-- ```{r} -->
+<!-- df <- mtcars -->
+<!-- df <- within(mtcars, { -->
+<!--   vs <- factor(vs, levels = 0:1, -->
+<!--                labels = c("V-shaped", "Straight")) -->
+<!--   am <- factor(am, levels = 0:1, -->
+<!--                labels = c("Automatic", "Manual")) -->
+<!-- }) --></p>
+<!-- ``` -->
+<ol start="3" style="list-style-type: lower-alpha">
+<li><code>df</code> 데이터셋에서 변속기어 (<code>am</code>)에 따른 <code>mpg</code>, <code>disp</code>, <code>hp</code>, <code>drat</code>, <code>wt</code>, <code>qsec</code>에 대한 평균과 표준편차를 구하시오 (Hint: <code>mean()</code>, <code>sd()</code> 함수 사용). 단 각 결과는 테이블 형태로 반환되어야 함.</li>
+</ol>
+<p><br/></p>
+<!-- ```{r} -->
+<!-- aggregate(. ~ am,  -->
+<!--           data = df[, -c(2, 8, 10:11)],  -->
+<!--           mean) -->
+<!-- aggregate(. ~ am,  -->
+<!--           data = df[, -c(2, 8, 10:11)],  -->
+<!--           sd) -->
+<!-- # 또는  -->
+<!-- aggregate(cbind(mpg, disp, hp,  -->
+<!--                 drat, wt, qsec) ~ am,  -->
+<!--           data = df,  -->
+<!--           mean) -->
+<!-- aggregate(cbind(mpg, disp, hp,  -->
+<!--                 drat, wt, qsec) ~ am,  -->
+<!--           data = df,  -->
+<!--           sd) -->
+<!-- ``` -->
+<ol start="4" style="list-style-type: lower-alpha">
+<li><code>df</code> 데이터셋을 엔진형태(<code>vs</code>) 별로 나눈 후, 연비를 종속변수(<span class="math inline">\(y\)</span>)로 놓고 무게(<code>wt</code>)를 독립변수로 사용한 일변량 회귀식을 반환 하시오.</li>
+</ol>
+<p><br/></p>
+<!-- ```{r} -->
+<!-- dfl <- split(df, df$vs) -->
+<!-- sapply(dfl, function(x) coef(lm(mpg ~ wt, data = x))) -->
+<!-- ``` -->
+<p><strong>3. 1912년 4월 14일 타이타닉호 침몰 사고의 생존자 정보를 담고 있는 <code>titanic</code> 데이터셋은 통계학적으로 범주형 데이터 분석의 예시로서 널리 사용되고 있으며, 기계학습 및 데이터 과학 커뮤니티인 <a href="https://kaggle.com">Kaggle</a>에서도 기계학습 알고리즘 경연을 위한 힉습자료로 활용되고 있다. 해당 데이터는 <a href="http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic3.csv" class="uri">http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic3.csv</a> 에서 다운로드가 가능하다. 타이타닉 데이터의 주요 변수에 대한 설명은 아래와 같다.</strong></p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+변수명
+</th>
+<th style="text-align:left;">
+변수설명(영문)
+</th>
+<th style="text-align:left;">
+변수설명(국문)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+pclass
+</td>
+<td style="text-align:left;">
+Passenger Class (1=1st; 2=2nd; 3=3rd)
+</td>
+<td style="text-align:left;">
+선실 등급
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+survived
+</td>
+<td style="text-align:left;">
+Survival (0=No; 1=Yes)
+</td>
+<td style="text-align:left;">
+생존여부
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+name
+</td>
+<td style="text-align:left;">
+Passenger name
+</td>
+<td style="text-align:left;">
+탐승객 성명
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sex
+</td>
+<td style="text-align:left;">
+Sex
+</td>
+<td style="text-align:left;">
+성별
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+age
+</td>
+<td style="text-align:left;">
+Age
+</td>
+<td style="text-align:left;">
+나이
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sibsp
+</td>
+<td style="text-align:left;">
+# of siblings/spouses abroad
+</td>
+<td style="text-align:left;">
+동승한 형제/배우자 수
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+parch
+</td>
+<td style="text-align:left;">
+# of parents/children abroad
+</td>
+<td style="text-align:left;">
+동승한 부모/자녀 수
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ticket
+</td>
+<td style="text-align:left;">
+Ticket number
+</td>
+<td style="text-align:left;">
+티켓번호
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fare
+</td>
+<td style="text-align:left;">
+Passenger fare
+</td>
+<td style="text-align:left;">
+티켓요금
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cabin
+</td>
+<td style="text-align:left;">
+Cabin
+</td>
+<td style="text-align:left;">
+선실번호
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+embarked
+</td>
+<td style="text-align:left;">
+Port of embarkation (C=Cherbourg; Q=Queenstown; S=Southhampton
+</td>
+<td style="text-align:left;">
+탑승 장소
+</td>
+</tr>
+</tbody>
+</table>
+
+<ol style="list-style-type: lower-alpha">
+<li>위 코드북의 내용을 <code>codebook_tit</code> 이란 데이터 프레임 객체에 저장 후 출력하시오.</li>
+</ol>
+<p><br/></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>위 URL 주소로부터 타이타닉 데이터 파일을 읽은 후 <code>titanic</code> 객체에 저장한 뒤 위 코드북에서 제시한 변수만 추출한 다음 <code>df_titanic</code>이란 객체에 저장한 결과에 대해 개괄적 형태 및 데이터 특성에 대해 기술하시오.</li>
+</ol>
+<p><br/></p>
+<!-- ```{r} -->
+<!-- titanic <- read.csv("http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic3.csv") -->
+<!-- df_titanic <- titanic[, `변수명`] -->
+<!-- ``` -->
+<ol start="3" style="list-style-type: lower-alpha">
+<li><code>age</code> 변수에 포함된 결측값을 <code>age</code>의 전체 평균값으로 대체 하시오.</li>
+</ol>
+<!-- ```{r} -->
+<!-- df_titanic$age[is.na(df_titanic$age)] <- mean(df_titanic$age, na.rm = TRUE) -->
+<!-- ``` -->
+<p><br/></p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li><code>df_titanic</code>에서 <code>age</code> 를 다음과 같이 그룹화 후 <code>age_group</code> 변수(factor)를 생성 하시오.</li>
+</ol>
+
+<div class="sourceCode" id="cb889"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb889-1" title="1"><span class="co"># 0 살 이상 15살 미만: Children</span></a>
+<a class="sourceLine" id="cb889-2" title="2"><span class="co"># 15살 이상: Audult</span></a></code></pre></div>
+
+<!-- ```{r} -->
+<!-- df_titanic$age_group <- ifelse(df_titanic$age < 15, "Children", "Adult") -->
+<!-- df_titanic$age_group <- with(df_titanic, factor(age_group, levels = c("Children", "Adult"))) -->
+<!-- ``` -->
+<p><br/></p>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>선실 등급에 따른 남녀 별 그리고 연령 집단 별 생존 빈도 및 비율에 대해 각각 테이블로 나타내시오.</li>
+</ol>
+<!-- ```{r} -->
+<!-- tab <- with(df_titanic, table(sex, survived, pclass)) -->
+<!-- ptab <- lapply(1:3, function(x) prop.table(tab[,,x], margin = 1)) -->
+<!-- tab <- with(df_titanic, table(age_group, survived, pclass)) -->
+<!-- ptab <- lapply(1:3, function(x) prop.table(tab[,,x], margin = 1)) -->
+<!-- ``` -->
+<p><br/></p>
+<p><strong>4. 아래와 같은 데이터셋이 주어졌을 때 </strong></p>
+<ul>
+<li>Dataset #1</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+surname
+</th>
+<th style="text-align:left;">
+nationality
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Tukey
+</td>
+<td style="text-align:left;">
+US
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Venables
+</td>
+<td style="text-align:left;">
+Australia
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tierney
+</td>
+<td style="text-align:left;">
+US
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ripley
+</td>
+<td style="text-align:left;">
+UK
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+McNeil
+</td>
+<td style="text-align:left;">
+Australia
+</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>Dataset #2</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+title
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Tukey
+</td>
+<td style="text-align:left;">
+Exploratory Data Analysis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Venables
+</td>
+<td style="text-align:left;">
+Modern Applied Statistics …
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tierney
+</td>
+<td style="text-align:left;">
+LISP-STAT
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ripley
+</td>
+<td style="text-align:left;">
+Spatial Statistics
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ripley
+</td>
+<td style="text-align:left;">
+Stochastic Simulation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+McNeil
+</td>
+<td style="text-align:left;">
+Interactive Data Analysis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R Core
+</td>
+<td style="text-align:left;">
+An Introduction to R
+</td>
+</tr>
+</tbody>
+</table>
+
+<ol style="list-style-type: lower-alpha">
+<li>Dataset #1에 해당하는 데이터를 <code>authors</code>, dataset #2에 해당하는 데이터를 <code>books</code> 에 저장한 객체를 생성 하시오(단, 데이터 프레임을 구성하는 모든 변수는 문자열 변수로 저장).</li>
+</ol>
+<p><br/></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>두 데이터 셋을 <code>authors</code> 기준으로 병합한 데이터셋을 생성하시오.</li>
+</ol>
+<p><br/></p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>두 데이터 셋의 모든 값들을 포함한 결함 데이터 셋을 생성 하시오.</li>
 </ol>
 
 </div>

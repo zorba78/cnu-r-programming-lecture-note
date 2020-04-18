@@ -1,0 +1,271 @@
+---
+title: "Untitled"
+author: "Boncho Ku"
+date: '2020 4 16 '
+output: html_document
+---
+
+## Homework #3
+
+
+**1. 2.5절 배열에서 다룬 확장 예제 "RGB값을 무작위로 샘플링 후 매개변수로 노이즈 가중치 조절해 보기" 명령 스크립트 중 다음아래에 해당하는 구문의 반복 명령을 최소화한 스크립트 작성 후 해당 스크립트가 정상적으로 작동하는지 그림 출력을 통해 확인하시오. 단, 그림은 2.5절 예제와 동일한 그림을 사용(Hint: `*apply()` 계열 함수, 코드블록(`{}`), `return()`, `unlist()`, `array()` 함수 사용)**
+
+```{r eval=FALSE}
+require(tidyverse)
+require(jpeg)
+require(cowplot)
+
+myurl <- paste0("https://img.livescore.co.kr/data/editor/1906/", 
+                "ba517de8162d92f4ea0e9de0ec98ba02.jpg")
+z <- tempfile()
+download.file(myurl,z,mode="wb")
+
+pic <- readJPEG(z)
+dim_pic <- dim(pic)
+t <- 0.2; nl <- length(300:460); pl <- length(440:520)
+
+# 다음 아래(문제 1에 해당)
+yr <- pic[300:460, 440:520, 1]
+yg <- pic[300:460, 440:520, 2]
+yb <- pic[300:460, 440:520, 3]
+
+t <- 0.2
+wr <- t * yr + (1 - t)*matrix(runif(length(yr)), nrow = n, ncol = p)
+wg <- t * yg + (1 - t)*matrix(runif(length(yg)), nrow = n, ncol = p)
+wb <- t * yb + (1 - t)*matrix(runif(length(yb)), nrow = n, ncol = p)
+
+
+pic[300:460, 440:520, 1] <- wr
+pic[300:460, 440:520, 2] <- wg
+pic[300:460, 440:520, 3] <- wb
+
+```
+
+<!-- ```{r 2-2-1-ans} -->
+
+<!--  tmp <- lapply(1:3, function(i) { -->
+<!--    x <- pic[, , i] -->
+<!--    wx <- x[300:460, 440:520] -->
+<!--    wx <- t*wx + (1-t)*matrix(runif(length(wx)), -->
+<!--                              nrow = nrow(wx), -->
+<!--                              ncol = ncol(wx)) -->
+<!--    x[300:460, 440:520] <- wx -->
+<!--    return(x) -->
+<!--  }) -->
+<!--  res <- array(unlist(tmp), dim = dim_pic) -->
+
+<!--  ggdraw() + -->
+<!--    draw_image(res) -->
+
+<!-- ``` -->
+
+<br/>
+
+**2. R에 기본으로 내장된 `mtcars` 데이터셋은 다음과 같이 11개의 변수로 구성되어 있다. **
+
+```{r desc-mtcars, echo=FALSE}
+`변수명` <- names(mtcars)
+`변수 설명` <- c("Miles/(US) gallon, 연비", 
+                 "Number of cylinders, 엔진 기통수", 
+                 "Displacement (cu.in.), 배기량(cc 단위)", 
+                 "Gross horsepower, 마력", 
+                 "Rear axle ratio, 뒤차축비", 
+                 "Weight (1000 lbs), 무게", 
+                 "1/4 mile time, 1/4 mile 도달시간", 
+                 "Engine (0 = V-shaped, 1 = straight)", 
+                 "Transmission (0 = automatic, 1 = manual), 변속기어", 
+                 "Number of forward gears, 전진기어 갯수", 
+                 "Number of carburetors, 기화기 갯수")
+dsc_mtcars <- data.frame(`변수명`, `변수 설명`, 
+                         check.names = FALSE, 
+                         stringsAsFactors = FALSE) 
+kable(dsc_mtcars)
+
+```
+
+a) `mtcars`의 데이터 구조를 파악하고 자료의 전반적인 형태에 대해 기술 하시오. 
+
+
+<br/>
+
+b) 위 코드북을 참고하여 엔진과 변속기어에 해당하는 변수를 factor로 변환 후 해당 데이터 프레임을 `df` 객체에 저장 하시오. 
+
+
+<br/>
+<!-- ```{r} -->
+<!-- df <- mtcars -->
+<!-- df <- within(mtcars, { -->
+<!--   vs <- factor(vs, levels = 0:1, -->
+<!--                labels = c("V-shaped", "Straight")) -->
+<!--   am <- factor(am, levels = 0:1, -->
+<!--                labels = c("Automatic", "Manual")) -->
+<!-- }) -->
+
+<!-- ``` -->
+
+
+c) `df` 데이터셋에서 변속기어 (`am`)에 따른 `mpg`, `disp`, `hp`, `drat`, `wt`, `qsec`에 대한 평균과 표준편차를 구하시오 (Hint: `mean()`, `sd()` 함수 사용). 단 각 결과는 테이블 형태로 반환되어야 함. 
+
+
+<br/>
+
+<!-- ```{r} -->
+<!-- aggregate(. ~ am,  -->
+<!--           data = df[, -c(2, 8, 10:11)],  -->
+<!--           mean) -->
+<!-- aggregate(. ~ am,  -->
+<!--           data = df[, -c(2, 8, 10:11)],  -->
+<!--           sd) -->
+
+
+<!-- # 또는  -->
+<!-- aggregate(cbind(mpg, disp, hp,  -->
+<!--                 drat, wt, qsec) ~ am,  -->
+<!--           data = df,  -->
+<!--           mean) -->
+<!-- aggregate(cbind(mpg, disp, hp,  -->
+<!--                 drat, wt, qsec) ~ am,  -->
+<!--           data = df,  -->
+<!--           sd) -->
+
+
+<!-- ``` -->
+
+
+
+d) `df` 데이터셋을 엔진형태(`vs`) 별로 나눈 후, 연비를 종속변수($y$)로 놓고 무게(`wt`)를 독립변수로 사용한 일변량 회귀식을 반환 하시오. 
+
+<br/>
+
+<!-- ```{r} -->
+<!-- dfl <- split(df, df$vs) -->
+<!-- sapply(dfl, function(x) coef(lm(mpg ~ wt, data = x))) -->
+
+<!-- ``` -->
+
+
+
+**3. 1912년 4월 14일 타이타닉호 침몰 사고의 생존자 정보를 담고 있는 `titanic` 데이터셋은 통계학적으로 범주형 데이터 분석의 예시로서 널리 사용되고 있으며, 기계학습 및 데이터 과학 커뮤니티인 [Kaggle](https://kaggle.com)에서도 기계학습 알고리즘 경연을 위한 힉습자료로 활용되고 있다. 해당 데이터는 http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic3.csv 에서 다운로드가 가능하다. 타이타닉 데이터의 주요 변수에 대한 설명은 아래와 같다.** 
+
+
+```{r echo=FALSE}
+`변수명` <- c("pclass", "survived", "name", "sex", "age", "sibsp", 
+              "parch", "ticket", "fare", "cabin", "embarked")
+`변수설명(영문)` <- c("Passenger Class (1=1st; 2=2nd; 3=3rd)", "Survival (0=No; 1=Yes)", 
+                      "Passenger name", "Sex", "Age", "# of siblings/spouses abroad", 
+                      "# of parents/children abroad", "Ticket number", "Passenger fare", 
+                      "Cabin", "Port of embarkation (C=Cherbourg; Q=Queenstown; S=Southhampton")
+`변수설명(국문)` <- c("선실 등급", "생존여부", "탐승객 성명", "성별", "나이", 
+                      "동승한 형제/배우자 수", "동승한 부모/자녀 수", "티켓번호", "티켓요금", 
+                      "선실번호", "탑승 장소")
+
+desc_titanic <- data.frame(`변수명`, `변수설명(영문)`, `변수설명(국문)`, 
+                           check.names = FALSE, 
+                           stringsAsFactors = FALSE)
+kable(desc_titanic)
+
+```
+
+
+a) 위 코드북의 내용을  `codebook_tit` 이란 데이터 프레임 객체에 저장 후 출력하시오. 
+
+
+<br/>
+
+
+b) 위 URL 주소로부터 타이타닉 데이터 파일을 읽은 후 `titanic` 객체에 저장한 뒤 위 코드북에서 제시한 변수만 추출한 다음 `df_titanic`이란 객체에 저장한 결과에 대해 개괄적 형태 및 데이터 특성에 대해 기술하시오. 
+
+
+<br/>
+
+<!-- ```{r} -->
+<!-- titanic <- read.csv("http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic3.csv") -->
+<!-- df_titanic <- titanic[, `변수명`] -->
+<!-- ``` -->
+
+
+
+c) `age` 변수에 포함된 결측값을 `age`의 전체 평균값으로 대체 하시오.
+
+
+<!-- ```{r} -->
+<!-- df_titanic$age[is.na(df_titanic$age)] <- mean(df_titanic$age, na.rm = TRUE) -->
+<!-- ``` -->
+
+<br/>
+
+
+d) `df_titanic`에서 `age` 를 다음과 같이 그룹화 후 `age_group` 변수(factor)를 생성 하시오. 
+
+```{r, eval=FALSE}
+# 0 살 이상 15살 미만: Children
+# 15살 이상: Adult
+```
+
+
+
+<!-- ```{r} -->
+<!-- df_titanic$age_group <- ifelse(df_titanic$age < 15, "Children", "Adult") -->
+<!-- df_titanic$age_group <- with(df_titanic, factor(age_group, levels = c("Children", "Adult"))) -->
+<!-- ``` -->
+
+<br/>
+
+
+e) 선실 등급에 따른 남녀 별 그리고 연령 집단 별 생존 빈도 및 비율에 대해 각각 테이블로 나타내시오. 
+
+
+<!-- ```{r} -->
+<!-- tab <- with(df_titanic, table(sex, survived, pclass)) -->
+<!-- ptab <- lapply(1:3, function(x) prop.table(tab[,,x], margin = 1)) -->
+
+
+<!-- tab <- with(df_titanic, table(age_group, survived, pclass)) -->
+<!-- ptab <- lapply(1:3, function(x) prop.table(tab[,,x], margin = 1)) -->
+
+
+<!-- ``` -->
+
+
+<br/>
+
+
+**4. 아래와 같은 데이터셋이 주어졌을 때 **
+
+
+- Dataset #1
+
+
+```{r, echo=FALSE}
+authors <- data.frame(surname = c("Tukey", "Venables", "Tierney", "Ripley", "McNeil"), 
+    nationality = c("US", "Australia", "US", "UK", "Australia"), stringsAsFactors = FALSE)
+kable(authors)
+```
+
+
+- Dataset #2
+
+
+```{r, echo=FALSE}
+books <- data.frame(name = c("Tukey", "Venables", "Tierney", "Ripley", "Ripley", 
+    "McNeil", "R Core"), title = c("Exploratory Data Analysis", "Modern Applied Statistics ...", 
+    "LISP-STAT", "Spatial Statistics", "Stochastic Simulation", "Interactive Data Analysis", 
+    "An Introduction to R"), stringsAsFactors = FALSE)
+kable(books)
+```
+
+
+a) Dataset #1에 해당하는 데이터를 `authors`, dataset #2에 해당하는 데이터를 `books` 에 저장한 객체를 생성 하시오(단, 데이터 프레임을 구성하는 모든 변수는 문자열 변수로 저장). 
+
+
+<br/>
+
+
+b) 두 데이터 셋을 `authors` 기준으로 병합한 데이터셋을 생성하시오. 
+
+
+<br/>
+
+
+
+c) 두 데이터 셋의 모든 값들을 포함한 결함 데이터 셋을 생성 하시오. 

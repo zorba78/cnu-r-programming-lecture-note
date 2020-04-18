@@ -315,7 +315,7 @@
 \makeatother
 \subtitle{2020년도 1학기 충남대학교 정보통계학과 강의 노트}
 \author{한국한의학연구원, 구본초}
-\date{2020-04-13}
+\date{2020-04-18}
 
 \let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
@@ -11935,6 +11935,15 @@ Abalone dataset 변수 설명
 \NormalTok{  by, }\CommentTok{# 그룹으로 묶을 값의 리스트}
 \NormalTok{  FUN, }\CommentTok{# 그룹별 적용할 함수}
 \NormalTok{)}
+
+\KeywordTok{aggregate}\NormalTok{(}
+\NormalTok{  formula, }\CommentTok{# y ~ x 형태로 y는 계산에 사용할 값}
+           \CommentTok{# x는 group 변수}
+           \CommentTok{# y 대신 .은 그룹 변수를 제외하고 }
+           \CommentTok{# 적용할 함수의 대상이 되는 모든 변수}
+\NormalTok{  data, }\CommentTok{# formula를 적용할 데이터}
+\NormalTok{  FUN }\CommentTok{# 적용할 함수}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12071,7 +12080,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x000000001cf695e8> 
+  .. ..- attr(*, ".Environment")=<environment: 0x0000000020e9e1f8> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"
@@ -12321,7 +12330,7 @@ R에서는 캑체 유형 판별을 위해 \texttt{is.type\_name()}, 객체 타�
 \fontsize{10}{12}\selectfont
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
 \toprule
-is.계열.함수 & as.계열.함수 & 설명\\
+is 계열 함수 & as 계열 함수 & 설명\\
 \midrule
 \rowcolor{gray!6}  \ttfamily{is.factor()} & \ttfamily{as.factor()} & \ttfamily{주어진 객체가 factor 형인지 판단/변환}\\
 \ttfamily{is.ordered()} & \ttfamily{as.ordered} & \ttfamily{주어진 객체가 순서형 factor인지 판단/변환}\\
@@ -12338,8 +12347,200 @@ is.계열.함수 & as.계열.함수 & 설명\\
 
 \normalsize
 
-\hypertarget{homework-2-1}{%
-\section{Homework \#2-1}\label{homework-2-1}}
+\begin{itemize}
+\tightlist
+\item
+  \texttt{is/as}계열 함수 사용 예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"M"}\NormalTok{, }\StringTok{"F"}\NormalTok{); f <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(x)}
+\CommentTok{# x가 문자열인가?}
+\KeywordTok{is.character}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# f가 factor인가?}
+\KeywordTok{is.factor}\NormalTok{(f)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#f가 숫자형인가?}
+\KeywordTok{is.numeric}\NormalTok{(f)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# f를 수치형으로 변환}
+\NormalTok{f <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(f)}
+\KeywordTok{is.numeric}\NormalTok{(f)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 다시 f를 factor형으로 변환}
+\KeywordTok{as.factor}\NormalTok{(f)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2 1
+Levels: 1 2
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  2차원 데이터 객체 유형 판별 및 변환
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{9}\NormalTok{), }\DecValTok{3}\NormalTok{)}
+\NormalTok{d <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{group =} \KeywordTok{rep}\NormalTok{(LETTERS[}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{], }\DataTypeTok{each =} \DecValTok{2}\NormalTok{), }
+                \DataTypeTok{meas =} \KeywordTok{c}\NormalTok{(}\KeywordTok{mapply}\NormalTok{(rnorm, }
+                                \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{),}
+                                \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{), }
+                                \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))))}
+
+\CommentTok{# 객체 유형 확인}
+\KeywordTok{is.matrix}\NormalTok{(X); }\KeywordTok{is.data.frame}\NormalTok{(X)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{is.matrix}\NormalTok{(d); }\KeywordTok{is.data.frame}\NormalTok{(d)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 객체 유형 변환}
+\KeywordTok{as.data.frame}\NormalTok{(X); }\KeywordTok{as.matrix}\NormalTok{(d)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+          V1          V2         V3
+1  0.3288415 -0.02180829 -0.3734678
+2  0.2479955  1.35400192 -2.2851782
+3 -0.7521625 -0.15786514 -1.1439634
+\end{verbatim}
+
+\begin{verbatim}
+     group meas      
+[1,] "A"   "2.028870"
+[2,] "A"   "1.996936"
+[3,] "B"   "2.835169"
+[4,] "B"   "1.105901"
+[5,] "C"   "1.095014"
+[6,] "C"   "2.927883"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{as.list}\NormalTok{(X); }\KeywordTok{as.list}\NormalTok{(d)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[[1]]
+[1] 0.3288415
+
+[[2]]
+[1] 0.2479955
+
+[[3]]
+[1] -0.7521625
+
+[[4]]
+[1] -0.02180829
+
+[[5]]
+[1] 1.354002
+
+[[6]]
+[1] -0.1578651
+
+[[7]]
+[1] -0.3734678
+
+[[8]]
+[1] -2.285178
+
+[[9]]
+[1] -1.143963
+\end{verbatim}
+
+\begin{verbatim}
+$group
+[1] A A B B C C
+Levels: A B C
+
+$meas
+[1] 2.028870 1.996936 2.835169 1.105901 1.095014 2.927883
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{homework-2}{%
+\section{Homework \#2}\label{homework-2}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -12426,24 +12627,2640 @@ is.계열.함수 & as.계열.함수 & 설명\\
 
 \normalsize
 
+\hypertarget{homework-3}{%
+\section{Homework \#3}\label{homework-3}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{2.5절 배열에서 다룬 확장 예제 ``RGB값을 무작위로 샘플링 후 매개변수로 노이즈 가중치 조절해 보기'' 명령 스크립트 중 다음 아래에 해당하는 구문의 반복 명령을 최소화한 스크립트 작성 후 해당 스크립트가 정상적으로 작동하는지 그림 출력을 통해 확인하시오(라인별 의미에 대한 주석 추가할 것). 단, 그림은 2.5절 예제와 동일한 그림을 사용(Hint: \texttt{*apply()} 계열 함수, 코드블록(\texttt{\{\}}), \texttt{return()}, \texttt{unlist()}, \texttt{array()} 함수 사용)}
+\end{enumerate}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(tidyverse)}
+\KeywordTok{require}\NormalTok{(jpeg)}
+\KeywordTok{require}\NormalTok{(cowplot)}
+
+\NormalTok{myurl <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\StringTok{"https://img.livescore.co.kr/data/editor/1906/"}\NormalTok{, }
+                \StringTok{"ba517de8162d92f4ea0e9de0ec98ba02.jpg"}\NormalTok{)}
+\NormalTok{z <-}\StringTok{ }\KeywordTok{tempfile}\NormalTok{()}
+\KeywordTok{download.file}\NormalTok{(myurl,z,}\DataTypeTok{mode=}\StringTok{"wb"}\NormalTok{)}
+
+\NormalTok{pic <-}\StringTok{ }\KeywordTok{readJPEG}\NormalTok{(z)}
+\NormalTok{dim_pic <-}\StringTok{ }\KeywordTok{dim}\NormalTok{(pic)}
+\NormalTok{t <-}\StringTok{ }\FloatTok{0.2}\NormalTok{; nl <-}\StringTok{ }\KeywordTok{length}\NormalTok{(}\DecValTok{300}\OperatorTok{:}\DecValTok{460}\NormalTok{); pl <-}\StringTok{ }\KeywordTok{length}\NormalTok{(}\DecValTok{440}\OperatorTok{:}\DecValTok{520}\NormalTok{)}
+
+\CommentTok{# 다음 아래(문제 1에 해당)}
+\NormalTok{yr <-}\StringTok{ }\NormalTok{pic[}\DecValTok{300}\OperatorTok{:}\DecValTok{460}\NormalTok{, }\DecValTok{440}\OperatorTok{:}\DecValTok{520}\NormalTok{, }\DecValTok{1}\NormalTok{]}
+\NormalTok{yg <-}\StringTok{ }\NormalTok{pic[}\DecValTok{300}\OperatorTok{:}\DecValTok{460}\NormalTok{, }\DecValTok{440}\OperatorTok{:}\DecValTok{520}\NormalTok{, }\DecValTok{2}\NormalTok{]}
+\NormalTok{yb <-}\StringTok{ }\NormalTok{pic[}\DecValTok{300}\OperatorTok{:}\DecValTok{460}\NormalTok{, }\DecValTok{440}\OperatorTok{:}\DecValTok{520}\NormalTok{, }\DecValTok{3}\NormalTok{]}
+
+\NormalTok{t <-}\StringTok{ }\FloatTok{0.2}
+\NormalTok{wr <-}\StringTok{ }\NormalTok{t }\OperatorTok{*}\StringTok{ }\NormalTok{yr }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{t)}\OperatorTok{*}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\KeywordTok{length}\NormalTok{(yr)), }\DataTypeTok{nrow =}\NormalTok{ n, }\DataTypeTok{ncol =}\NormalTok{ p)}
+\NormalTok{wg <-}\StringTok{ }\NormalTok{t }\OperatorTok{*}\StringTok{ }\NormalTok{yg }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{t)}\OperatorTok{*}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\KeywordTok{length}\NormalTok{(yg)), }\DataTypeTok{nrow =}\NormalTok{ n, }\DataTypeTok{ncol =}\NormalTok{ p)}
+\NormalTok{wb <-}\StringTok{ }\NormalTok{t }\OperatorTok{*}\StringTok{ }\NormalTok{yb }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{t)}\OperatorTok{*}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\KeywordTok{length}\NormalTok{(yb)), }\DataTypeTok{nrow =}\NormalTok{ n, }\DataTypeTok{ncol =}\NormalTok{ p)}
+
+
+\NormalTok{pic[}\DecValTok{300}\OperatorTok{:}\DecValTok{460}\NormalTok{, }\DecValTok{440}\OperatorTok{:}\DecValTok{520}\NormalTok{, }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\NormalTok{wr}
+\NormalTok{pic[}\DecValTok{300}\OperatorTok{:}\DecValTok{460}\NormalTok{, }\DecValTok{440}\OperatorTok{:}\DecValTok{520}\NormalTok{, }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\NormalTok{wg}
+\NormalTok{pic[}\DecValTok{300}\OperatorTok{:}\DecValTok{460}\NormalTok{, }\DecValTok{440}\OperatorTok{:}\DecValTok{520}\NormalTok{, }\DecValTok{3}\NormalTok{] <-}\StringTok{ }\NormalTok{wb}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{R에 기본으로 내장된 \texttt{mtcars} 데이터셋은 다음과 같이 11개의 변수로 구성되어 있다. }
+\end{enumerate}
+
+\footnotesize
+
+\begin{tabular}{l|l}
+\hline
+변수명 & 변수 설명\\
+\hline
+mpg & Miles/(US) gallon, 연비\\
+\hline
+cyl & Number of cylinders, 엔진 기통수\\
+\hline
+disp & Displacement (cu.in.), 배기량(cc 단위)\\
+\hline
+hp & Gross horsepower, 마력\\
+\hline
+drat & Rear axle ratio, 뒤차축비\\
+\hline
+wt & Weight (1000 lbs), 무게\\
+\hline
+qsec & 1/4 mile time, 1/4 mile 도달시간\\
+\hline
+vs & Engine (0 = V-shaped, 1 = straight)\\
+\hline
+am & Transmission (0 = automatic, 1 = manual), 변속기어\\
+\hline
+gear & Number of forward gears, 전진기어 갯수\\
+\hline
+carb & Number of carburetors, 기화기 갯수\\
+\hline
+\end{tabular}
+
+\normalsize
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  \texttt{mtcars}의 데이터 구조를 파악하고 자료의 전반적인 형태에 대해 기술 하시오.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  위 코드북을 참고하여 엔진과 변속기어에 해당하는 변수를 factor로 변환 후 해당 데이터 프레임을 \texttt{df} 객체에 저장 하시오.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \texttt{df} 데이터셋에서 변속기어 (\texttt{am})에 따른 \texttt{mpg}, \texttt{disp}, \texttt{hp}, \texttt{drat}, \texttt{wt}, \texttt{qsec}에 대한 평균과 표준편차를 구하시오 (Hint: \texttt{mean()}, \texttt{sd()} 함수 사용). 단 각 결과는 테이블 형태로 반환되어야 함.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  \texttt{df} 데이터셋을 엔진형태(\texttt{vs}) 별로 나눈 후, 연비를 종속변수(\(y\))로 놓고 무게(\texttt{wt})를 독립변수로 사용한 일변량 회귀식을 반환 하시오.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \textbf{1912년 4월 14일 타이타닉호 침몰 사고의 생존자 정보를 담고 있는 \texttt{titanic} 데이터셋은 통계학적으로 범주형 데이터 분석의 예시로서 널리 사용되고 있으며, 기계학습 및 데이터 과학 커뮤니티인 \href{https://kaggle.com}{Kaggle}에서도 기계학습 알고리즘 경연을 위한 힉습자료로 활용되고 있다. 해당 데이터는 \url{http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic3.csv} 에서 다운로드가 가능하다. 타이타닉 데이터의 주요 변수에 대한 설명은 아래와 같다.}
+\end{enumerate}
+
+\footnotesize
+
+\begin{tabular}{l|l|l}
+\hline
+변수명 & 변수설명(영문) & 변수설명(국문)\\
+\hline
+pclass & Passenger Class (1=1st; 2=2nd; 3=3rd) & 선실 등급\\
+\hline
+survived & Survival (0=No; 1=Yes) & 생존여부\\
+\hline
+name & Passenger name & 탐승객 성명\\
+\hline
+sex & Sex & 성별\\
+\hline
+age & Age & 나이\\
+\hline
+sibsp & \# of siblings/spouses abroad & 동승한 형제/배우자 수\\
+\hline
+parch & \# of parents/children abroad & 동승한 부모/자녀 수\\
+\hline
+ticket & Ticket number & 티켓번호\\
+\hline
+fare & Passenger fare & 티켓요금\\
+\hline
+cabin & Cabin & 선실번호\\
+\hline
+embarked & Port of embarkation (C=Cherbourg; Q=Queenstown; S=Southhampton & 탑승 장소\\
+\hline
+\end{tabular}
+
+\normalsize
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  위 코드북의 내용을 \texttt{codebook\_tit} 이란 데이터 프레임 객체에 저장 후 출력하시오.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  위 URL 주소로부터 타이타닉 데이터 파일을 읽은 후 \texttt{titanic} 객체에 저장한 뒤 위 코드북에서 제시한 변수만 추출한 다음 \texttt{df\_titanic}이란 객체에 저장한 결과에 대해 개괄적 형태 및 데이터 특성에 대해 기술하시오.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \texttt{age} 변수에 포함된 결측값을 \texttt{age}의 전체 평균값으로 대체 하시오.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  \texttt{df\_titanic}에서 \texttt{age} 를 다음과 같이 그룹화 후 \texttt{age\_group} 변수(factor)를 생성 하시오.
+\end{enumerate}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 0 살 이상 15살 미만: Children}
+\CommentTok{# 15살 이상: Adult}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  선실 등급에 따른 남녀 별 그리고 연령 집단 별 생존 빈도 및 비율에 대해 각각 테이블로 나타내시오.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  \textbf{아래와 같은 데이터셋이 주어졌을 때 }
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Dataset \#1
+\end{itemize}
+
+\footnotesize
+
+\begin{tabular}{l|l}
+\hline
+surname & nationality\\
+\hline
+Tukey & US\\
+\hline
+Venables & Australia\\
+\hline
+Tierney & US\\
+\hline
+Ripley & UK\\
+\hline
+McNeil & Australia\\
+\hline
+\end{tabular}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  Dataset \#2
+\end{itemize}
+
+\footnotesize
+
+\begin{tabular}{l|l}
+\hline
+name & title\\
+\hline
+Tukey & Exploratory Data Analysis\\
+\hline
+Venables & Modern Applied Statistics ...\\
+\hline
+Tierney & LISP-STAT\\
+\hline
+Ripley & Spatial Statistics\\
+\hline
+Ripley & Stochastic Simulation\\
+\hline
+McNeil & Interactive Data Analysis\\
+\hline
+R Core & An Introduction to R\\
+\hline
+\end{tabular}
+
+\normalsize
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  Dataset \#1에 해당하는 데이터를 \texttt{authors}, dataset \#2에 해당하는 데이터를 \texttt{books} 에 저장한 객체를 생성 하시오(단, 데이터 프레임을 구성하는 모든 변수는 문자열 변수로 저장).
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  두 데이터 셋을 \texttt{authors} 기준으로 병합한 데이터셋을 생성하시오.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  두 데이터 셋의 모든 값들을 포함한 결함 데이터 셋을 생성 하시오.
+\end{enumerate}
+
+\footnotesize
+
+\BeginKnitrBlock{rmdimportant}
+\textbf{과제 제출 방식}
+
+\begin{itemize}
+\tightlist
+\item
+  R Markdown 문서(\texttt{Rmd}) 파일과 해당 문서를 컴파일 후 생성된 \texttt{html} 파일 모두 제출할 것
+\item
+  모든 문제에 대해 작성한 R 코드 및 결과가 \texttt{html} 문서에 포함되어야 함.
+\item
+  모든 코드(스크립트)에는 라인 별 의미에 대한 주석을 달 것.
+\item
+  해당 과제에 대한 R Markdown 문서 템플릿은 \url{https://github.com/zorba78/cnu-r-programming-lecture-note/blob/master/assignment/homework3_template.Rmd} 에서 다운로드 또는 스크래이핑 가능
+\item
+  최종 파일명은 \texttt{학번-성명.Rmd}, \texttt{학번-성명.html} 로 저장
+\item
+  압축파일은 \texttt{*.zip} 형태로 생성할 것
+\end{itemize}
+\EndKnitrBlock{rmdimportant}
+
+\normalsize
+
 \hypertarget{string-regexp}{%
-\chapter{문자열과 정규표현식}\label{string-regexp}}
+\chapter{문자열 처리와 정규표현식}\label{string-regexp}}
 
-R은 주로 수치형 벡터를 기반으로 거의 모든 연산이 행해지지만, 문자 데이터는 꽤, 빈번하게 조우한다.
+\footnotesize
 
-The primary R functions for dealing with regular expressions are
+\BeginKnitrBlock{rmdimportant}
+\textbf{학습 목표}
 
-grep(), grepl(): These functions search for matches of a regular expression/pattern in a character vector. grep() returns the indices into the character vector that contain a match or the specific strings that happen to have the match. grepl() returns a TRUE/FALSE vector indicating which elements of the character vector contain a match
+\begin{itemize}
+\tightlist
+\item
+  텍스트 문자 처리에 있어 가장 기본인 정규 표현식(regular rexpression)에 대해 알아본다.
+\item
+  R에서 기본으로 제공하는 문자열 차리 함수에 대해 알아본다
+\end{itemize}
+\EndKnitrBlock{rmdimportant}
 
-regexpr(), gregexpr(): Search a character vector for regular expression matches and return the indices of the string where the match begins and the length of the match
+\normalsize
 
-sub(), gsub(): Search a character vector for regular expression matches and replace that match with another string
+\hypertarget{ch03-require}{%
+\subsubsection*{학습 필요성}\label{ch03-require}}
 
-regexec(): This function searches a character vector for a regular expression, much like regexpr(), but it will additionally return the locations of any parenthesized sub-expressions. Probably easier to explain through demonstration.
 
-For this chapter, we will use a running example using data from homicides in Baltimore City. The Baltimore Sun newspaper collects information on all homicides that occur in the city (it also reports on many of them). That data is collected and presented in a map that is publically available. I encourage you to go look at the web site/map to get a sense of what kinds of data are presented there. Unfortunately, the data on the web site are not particularly amenable to analysis, so I've scraped the data and put it in a separate file. The data in this file contain data from January 2007 to October 2013.
+\begin{itemize}
+\item
+  실제 데이터는 다양한 형태의 텍스트(문자열)을 포함
+\item
+  R에서 문자열을 이용한 반복 계산 가능
+\item
+  대규모 텍스트 데이터(웹문서, 블로그, SNS, 뉴스, 논문, 상품평, \ldots)로부터 새로운 정보 및 지식을 도출하기 위한 텍스트 마이닝이 대두 되면서 텍스트 처리에 대한 기본적 이해 필요
+\item
+  여러 문자열로 이루어진 방대한 텍스트 벡터에서 특정 패턴을 갖고 있는 구문을 선별해야 할 경우, 패턴을 도식화 할 수 있는 함축적 표현이 필요 \(\rightarrow\) \textbf{정규 표현식}
+\end{itemize}
 
-Here is an excerpt of the Baltimore City homicides dataset:
+\hypertarget{regex-prim-fun}{%
+\subsubsection*{정규 표현식의 기본함수}\label{regex-prim-fun}}
+
+
+\begin{itemize}
+\item
+  \texttt{grep()}, \texttt{grepl()}: 문자형 벡터에서 정규 표현식 또는 문자 패턴의 일치를 검색.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{grep()}: 일치하는 특정 문자열을 포함하는 문자형 벡터 또는 인덱스를 반환
+  \item
+    \texttt{grepl()}: 문자열 포함 여부에 대한 논리값 반환
+  \end{itemize}
+\item
+  \texttt{regexpr()}, \texttt{gregexpr()}: 문자형 벡터에서 정규 표현식 또는 문자 패턴과 일치하는 원소를 검색하고, 일치가 시작되는 문자열의 인덱스와 일치 길이를 반환
+\item
+  \texttt{sub()}, \texttt{gsub()}: 문자열 벡터에서 정규 표현식 또는 문자 패턴과 일치하는 원소를 검색하고 해당 문자열을 다른 문자열로 변경
+\item
+  \texttt{regexec()}: \texttt{regexpr()}과 동일하게 일치가 시작되는 문자열의 인덱스를 반환하지만 괄호로 묶인 하위 표현식의 위치를 추가로 반환
+\end{itemize}
+
+\begin{quote}
+\textbf{Note}: 정규 표현식 및 문자열 처리를 위한 함수의 종류는 매우 다양하지만, 본 강의에서는 정규 표현식의 이해를 위해 일부만 소개할 것임
+\end{quote}
+
+\hypertarget{string-basic}{%
+\subsubsection*{문자열 기초}\label{string-basic}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  탈출 지시자(escape indicator): \texttt{\textbackslash{}}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    키보드로 입력할 수 없는 문자를 입력하기 위해 사용
+  \item
+    문자열에 백슬래쉬 \texttt{\textbackslash{}}를 입력하려면 \texttt{\textbackslash{}\textbackslash{}}로 표시
+  \end{itemize}
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 문자열에 따옴표(single of double quote, ', ") 입력}
+\NormalTok{double_quote <-}\StringTok{ "}\CharTok{\textbackslash{}"}\StringTok{"} 
+\NormalTok{double_quote}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "\""
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{single_quote <-}\StringTok{ '}\CharTok{\textbackslash{}'}\StringTok{'} 
+\NormalTok{single_quote}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "'"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}"}\StringTok{"}\NormalTok{, }\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{"}\NormalTok{, }\StringTok{'}\CharTok{\textbackslash{}'}\StringTok{'}\NormalTok{)}
+\KeywordTok{writeLines}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+"
+\
+'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 백슬레쉬가 포함된 문자열}
+\NormalTok{x <-}\StringTok{ "abc}\CharTok{\textbackslash{}n\textbackslash{}t}\StringTok{abc"}
+
+\CommentTok{# \textbackslash{}n: Enter}
+\CommentTok{# \textbackslash{}t: tab 문자를 표현}
+
+\KeywordTok{writeLines}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+abc
+    abc
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 특수문자 표현}
+\NormalTok{x <-}\StringTok{ "\textbackslash{}u00b5"} \CommentTok{# 그리스 문자 mu 표현 (유니코드)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "μ"
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}
+\textbf{참고자료}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://www.youtube.com/watch?v=q8SzNKib5-4\&t=18s}{Youtube 동영상}: 영어 강의가 옥의 티\ldots{}
+\item
+  \href{https://regexr.com}{regexr.com}: 정규 표현식의 패턴 확인 가능
+\item
+  \href{https://en.wikibooks.org/wiki/R_Programming/Text_Processing}{Wikibooks R programming: Text processing}
+\end{itemize}
+\EndKnitrBlock{rmdtip}
+
+\normalsize
+
+\hypertarget{uxc720uxc6a9uxd55c-uxbb38uxc790uxc5f4-uxad00uxb828-uxd568uxc218}{%
+\section{유용한 문자열 관련 함수}\label{uxc720uxc6a9uxd55c-uxbb38uxc790uxc5f4-uxad00uxb828-uxd568uxc218}}
+
+\hypertarget{nchar}{%
+\subsection{\texorpdfstring{\textbf{\texttt{nchar()}}}{nchar()}}\label{nchar}}
+
+\begin{itemize}
+\tightlist
+\item
+  인간이 눈으로 읽을 수 있는 문자의 개수(길이)를 반환
+\item
+  공백, 줄바꿈 표시자(예: \texttt{\textbackslash{}n})도 하나의 문자 개수로 인식
+\item
+  한글의 한 글자는 2 바이트(byte)지만 한 글자로 인식 \(\rightarrow\) byte 단위 반환 가능
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 문자열을 구성하는 문자 개수 반환}
+\KeywordTok{nchar}\NormalTok{(}
+\NormalTok{  x, }\CommentTok{# 문자형 벡터}
+\NormalTok{  type }\CommentTok{# "bytes": 바이트 단위 길이 반환}
+       \CommentTok{# "char": 인간이 읽을 수 있는 글자 길이 반환}
+       \CommentTok{# "width": 문자열이 표현된 폭의 길이 반환}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ "Carlos Gardel's song: Por Una Cabeza"}
+\KeywordTok{nchar}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 36
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y <-}\StringTok{ "abcde}\CharTok{\textbackslash{}n}\StringTok{fghij"}
+\KeywordTok{nchar}\NormalTok{(y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z <-}\StringTok{ "양준일: 가나다라마바사"}
+\KeywordTok{nchar}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 12
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 문자열 벡터}
+\NormalTok{str <-}\StringTok{ }\NormalTok{sentences[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{]}
+\KeywordTok{nchar}\NormalTok{(str)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 42 43 38 40 36 37 43 43 35 40
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"abc"}\NormalTok{, }\StringTok{"가나다"}\NormalTok{, }\StringTok{"1234[]"}\NormalTok{, }\StringTok{"R programming}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\StringTok{"}\CharTok{\textbackslash{}"}\StringTok{R}\CharTok{\textbackslash{}"}\StringTok{"}\NormalTok{)}
+
+\KeywordTok{nchar}\NormalTok{(s, }\DataTypeTok{type =} \StringTok{"char"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  3  3  6 14  3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nchar}\NormalTok{(s, }\DataTypeTok{type =} \StringTok{"byte"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  3  6  6 14  3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nchar}\NormalTok{(s, }\DataTypeTok{type =} \StringTok{"width"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  3  6  6 14  3
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdwarning}
+백터의 원소 개수를 반환하는 \texttt{length()} 함수와는 다름.
+\EndKnitrBlock{rmdwarning}
+
+\normalsize
+
+\hypertarget{paste}{%
+\subsection{\texorpdfstring{\textbf{\texttt{paste()}}, \textbf{\texttt{paste0()}}}{paste(), paste0()}}\label{paste}}
+
+\begin{itemize}
+\tightlist
+\item
+  하나 이상의 문자열을 연결하여 하나의 문자열로 만들어주는 함수
+\item
+  Excel의 문자열 연결자인 \texttt{\&}와 거의 동일한 기능을 수행
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{paste}\NormalTok{(}
+\NormalTok{  ..., }\CommentTok{# 한 개 이상의 R 객체. 강제로 문자형 변환}
+\NormalTok{  sep  }\CommentTok{# 연결 구분자: 디폴트 값은 공백(" ")}
+\NormalTok{  collapse }\CommentTok{# 묶을 객체가 하나의 문자열 벡터인 경우}
+           \CommentTok{# 모든 원소를 collapse 구분자로 묶은 길이가 1인 벡터 반환}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{paste0()}은 \texttt{paste()}의 wrapper 함수이고 \texttt{paste()}의 구분자 인수 \texttt{sep\ =\ ""} 일 때와 동일한 결과 반환
+\item
+  예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{i <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(letters)}
+
+\KeywordTok{paste}\NormalTok{(letters, i) }\CommentTok{# sep = " "}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "a 1"  "b 2"  "c 3"  "d 4"  "e 5"  "f 6"  "g 7"  "h 8"  "i 9"  "j 10"
+[11] "k 11" "l 12" "m 13" "n 14" "o 15" "p 16" "q 17" "r 18" "s 19" "t 20"
+[21] "u 21" "v 22" "w 23" "x 24" "y 25" "z 26"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{paste}\NormalTok{(letters, i, }\DataTypeTok{sep =} \StringTok{"_"}\NormalTok{) }\CommentTok{# sep = "-"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "a_1"  "b_2"  "c_3"  "d_4"  "e_5"  "f_6"  "g_7"  "h_8"  "i_9"  "j_10"
+[11] "k_11" "l_12" "m_13" "n_14" "o_15" "p_16" "q_17" "r_18" "s_19" "t_20"
+[21] "u_21" "v_22" "w_23" "x_24" "y_25" "z_26"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{paste0}\NormalTok{(letters, i) }\CommentTok{# paste(letters, i, sep = "") 동일}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "a1"  "b2"  "c3"  "d4"  "e5"  "f6"  "g7"  "h8"  "i9"  "j10" "k11" "l12"
+[13] "m13" "n14" "o15" "p16" "q17" "r18" "s19" "t20" "u21" "v22" "w23" "x24"
+[25] "y25" "z26"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# collapse 인수 활용}
+\KeywordTok{paste}\NormalTok{(letters, }\DataTypeTok{collapse =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "abcdefghijklmnopqrstuvwxyz"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{writeLines}\NormalTok{(}\KeywordTok{paste}\NormalTok{(str, }\DataTypeTok{collapse =} \StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+The birch canoe slid on the smooth planks.
+Glue the sheet to the dark blue background.
+It's easy to tell the depth of a well.
+These days a chicken leg is a rare dish.
+Rice is often served in round bowls.
+The juice of lemons makes fine punch.
+The box was thrown beside the parked truck.
+The hogs were fed chopped corn and garbage.
+Four hours of steady work faced us.
+Large size in stockings is hard to sell.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 3개 이상 객체 묶기}
+\KeywordTok{paste}\NormalTok{(}\StringTok{"Col"}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{), }\DataTypeTok{sep =}\StringTok{" "}\NormalTok{, }\DataTypeTok{collapse =} \StringTok{"<->"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Col 1 TRUE<->Col 2 FALSE<->Col 1 TRUE"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# paste 함수 응용}
+\CommentTok{# 스트링 명령어 실행 }
+\NormalTok{exprs <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(}\StringTok{"lm(mpg ~"}\NormalTok{, }\KeywordTok{names}\NormalTok{(mtcars)[}\DecValTok{3}\OperatorTok{:}\DecValTok{5}\NormalTok{], }\StringTok{", data = mtcars)"}\NormalTok{)}
+\NormalTok{exprs}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "lm(mpg ~ disp , data = mtcars)" "lm(mpg ~ hp , data = mtcars)"  
+[3] "lm(mpg ~ drat , data = mtcars)"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sapply}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(exprs), }\ControlFlowTok{function}\NormalTok{(i) }\KeywordTok{coef}\NormalTok{(}\KeywordTok{eval}\NormalTok{(}\KeywordTok{parse}\NormalTok{(}\DataTypeTok{text =}\NormalTok{ exprs[i]))))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                   [,1]        [,2]      [,3]
+(Intercept) 29.59985476 30.09886054 -7.524618
+disp        -0.04121512 -0.06822828  7.678233
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{sprintf}{%
+\subsection{\texorpdfstring{\textbf{\texttt{sprintf()}}}{sprintf()}}\label{sprintf}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{C} 언어의 \texttt{sprintf()} 함수와 동일하며 특정 변수들의 값을 이용해 문자열을 반환함
+\item
+  수치형 값의 소숫점 자리수를 맞추거나 할 때 유용하게 사용
+\item
+  포맷팅 문자열을 통해 수치형의 자릿수를 지정 뿐 아니라 전체 문자열의 길이 및 정렬 가능
+\item
+  대표적인 포맷팅 문자열은 아래 표와 같음.
+\end{itemize}
+
+\footnotesize
+
+\begin{tabular}{l|l}
+\hline
+Format & 설명\\
+\hline
+\%s & 문자열\\
+\hline
+\%d & 정수형\\
+\hline
+\%f & 부동 소수점 수\\
+\hline
+\%e, \%E & 지수형\\
+\hline
+\end{tabular}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{options}\NormalTok{()}\OperatorTok{$}\NormalTok{digits }\CommentTok{#}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pi }\CommentTok{# 파이 값}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 3.141593
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%f"}\NormalTok{, pi) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "3.141593"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 소숫점 자리수 3자리 까지 출력}
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%.3f"}\NormalTok{, pi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "3.142"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 소숫점 출력 하지 않음}
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%1.0f"}\NormalTok{, pi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "3"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 출력 문자열의 길이를 5로 고정 후}
+\CommentTok{# 소숫점 한 자리까지 출력}
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%5.1f"}\NormalTok{, pi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "  3.1"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nchar}\NormalTok{(}\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%5.1f"}\NormalTok{, pi))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 빈 공백에 0값 대입}
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%05.1f"}\NormalTok{, pi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "003.1"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 양수/음수 표현}
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%+f"}\NormalTok{, pi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "+3.141593"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%+f"}\NormalTok{, }\OperatorTok{-}\NormalTok{pi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "-3.141593"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 출력 문자열의 첫 번째 값을 공백으로}
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"% f"}\NormalTok{, pi) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] " 3.141593"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 왼쪽 정렬}
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%-10.3f"}\NormalTok{, pi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "3.142     "
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 수치형에 정수 포맷을 입력하면?}
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%d"}\NormalTok{, pi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Error in sprintf("%d", pi): '%d'는 유효하지 않은 포맷입니다; 수치형 객체들에는 포맷 %f, %e, %g 또는 %a를 사용해 주세요
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%d"}\NormalTok{, }\DecValTok{100}\NormalTok{); }\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%d"}\NormalTok{, 20L)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "100"
+\end{verbatim}
+
+\begin{verbatim}
+[1] "20"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 지수형}
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%e"}\NormalTok{, pi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "3.141593e+00"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%E"}\NormalTok{, pi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "3.141593E+00"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%.2E"}\NormalTok{, pi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "3.14E+00"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 문자열 }
+\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%s = %.2f"}\NormalTok{, }\StringTok{"Mean"}\NormalTok{, pi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Mean = 3.14"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 응용 }
+\NormalTok{mn <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(cars, }\DecValTok{2}\NormalTok{, mean)}
+\NormalTok{std <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(cars, }\DecValTok{2}\NormalTok{, sd)}
+
+\CommentTok{# Mean ± SD 형태로 결과 출력 (소숫점 2자리 고정)}
+\NormalTok{res <-}\StringTok{ }\KeywordTok{sprintf}\NormalTok{(}\StringTok{"%.2f \textbackslash{}U00B1 %.2f"}\NormalTok{, mn, std)}
+\NormalTok{resp <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\KeywordTok{names}\NormalTok{(cars), }\StringTok{": "}\NormalTok{, res), }\DataTypeTok{collapse =} \StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\KeywordTok{writeLines}\NormalTok{(resp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+speed: 15.40 ± 5.29
+dist: 42.98 ± 25.77
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{substr}{%
+\subsection{\texorpdfstring{\textbf{\texttt{substr()}}}{substr()}}\label{substr}}
+
+\begin{itemize}
+\tightlist
+\item
+  문자열에서 특정 부분을 추출하는 함수
+\item
+  보통 한 문자열이 주어졌을 때 \texttt{start}에서 \texttt{end} 까지 추출
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{substr}\NormalTok{(}
+\NormalTok{  x, }\CommentTok{# 문자형 벡터}
+\NormalTok{  start, }\CommentTok{# 문자열 추출 시작 위치}
+\NormalTok{  stop }\CommentTok{# 무자열 추출 종료 위치}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cnu <-}\StringTok{ "충남대학교 자연과학대학 정보통계학과"}
+\KeywordTok{substr}\NormalTok{(cnu, }\DataTypeTok{start =} \DecValTok{14}\NormalTok{, }\DataTypeTok{stop =} \KeywordTok{nchar}\NormalTok{(str))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "정보통계학과"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 문자열 벡터에서 각 원소 별 적용}
+\KeywordTok{substr}\NormalTok{(str, }\DecValTok{5}\NormalTok{, }\DecValTok{15}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "birch canoe" " the sheet " " easy to te" "e days a ch" " is often s"
+ [6] "juice of le" "box was thr" "hogs were f" " hours of s" "e size in s"
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{low-up-fun}{%
+\subsection{\texorpdfstring{\textbf{\texttt{tolower()}, \texttt{toupper()}}}{tolower(), toupper()}}\label{low-up-fun}}
+
+\begin{itemize}
+\tightlist
+\item
+  대문자를 소문자(\texttt{tolower()}) 혹은 소문자를 대문자(\texttt{toupper()})로 변환
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{LETTERS; }\KeywordTok{tolower}\NormalTok{(LETTERS)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S"
+[20] "T" "U" "V" "W" "X" "Y" "Z"
+\end{verbatim}
+
+\begin{verbatim}
+ [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
+[20] "t" "u" "v" "w" "x" "y" "z"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{letters; }\KeywordTok{toupper}\NormalTok{(letters)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
+[20] "t" "u" "v" "w" "x" "y" "z"
+\end{verbatim}
+
+\begin{verbatim}
+ [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S"
+[20] "T" "U" "V" "W" "X" "Y" "Z"
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{regexp-basic-fun}{%
+\section{정규표현식 기본 함수}\label{regexp-basic-fun}}
+
+\hypertarget{grep-grepl}{%
+\subsection{\texorpdfstring{\textbf{\texttt{grep()}, \texttt{grepl()}}}{grep(), grepl()}}\label{grep-grepl}}
+
+정규표현식을 이용한 특정 문자 패턴 검색 시 가장 빈번히 사용되는 함수들 중 하나임.
+
+\hypertarget{grep}{%
+\subsubsection*{\texorpdfstring{\textbf{\texttt{grep()}}}{grep()}}\label{grep}}
+
+
+특정 문자 벡터에서 찾고자 하는 패턴과 일치하는 원소의 인덱스, 원소값 반환
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 일치하는 특정 문자열을 포함하는 원소값(문자형) 또는 인덱스(정수)를 반환}
+
+\KeywordTok{grep}\NormalTok{(}
+\NormalTok{  pattern, }\CommentTok{# 정규 표현식 또는 문자 패턴}
+\NormalTok{  string,  }\CommentTok{# 패턴을 검색할 문자열 벡터}
+\NormalTok{  value    }\CommentTok{# 논리값 }
+           \CommentTok{# TRUE: pattern에 해당하는 원소값 반환}
+           \CommentTok{# FALSE: pattern이 있는 원소의 색인 반환}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Equator"}\NormalTok{, }\StringTok{"North Pole"}\NormalTok{, }\StringTok{"South Pole"}\NormalTok{)}
+
+\CommentTok{# x에서 Pole 이 있는 원소의 문자열 반환}
+\KeywordTok{grep}\NormalTok{(}\StringTok{"Pole"}\NormalTok{, x, }\DataTypeTok{value =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "North Pole" "South Pole"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# x에서 Pole 이 있는 원소의 색인 반환}
+\KeywordTok{grep}\NormalTok{(}\StringTok{"Pole"}\NormalTok{, x, }\DataTypeTok{value =}\NormalTok{ F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# x에서 Eq를 포함한 원소 색인 반환}
+\KeywordTok{grep}\NormalTok{(}\StringTok{"Eq"}\NormalTok{, x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{grepl}{%
+\subsubsection*{\texorpdfstring{\textbf{\texttt{grepl()}}}{grepl()}}\label{grepl}}
+
+
+\texttt{grep()}과 유사한 기능을 갖지만, 함수의 반환값이 논리형 벡터임
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 일치하는 특정 문자열을 포함하는 원소 색인에 대한 논리값 반환}
+
+\KeywordTok{grepl}\NormalTok{(}
+\NormalTok{  pattern, }\CommentTok{# 정규 표현식 또는 문자 패턴}
+\NormalTok{  string  }\CommentTok{# 패턴을 검색할 문자열 벡터}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  사용 예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# grepl() 예시}
+\CommentTok{# Titanic data 불러오기}
+\NormalTok{url1 <-}\StringTok{ "https://raw.githubusercontent.com/"}
+\NormalTok{url2 <-}\StringTok{ "agconti/kaggle-titanic/master/data/train.csv"}
+\NormalTok{titanic <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(url1, url2), }
+                    \DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
+
+\CommentTok{# 승객이름 추출 }
+\NormalTok{pname <-}\StringTok{ }\NormalTok{titanic}\OperatorTok{$}\NormalTok{Name}
+
+\CommentTok{# 승객 이름이 James 인 사람만 추출}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"James"}\NormalTok{, pname)}
+\NormalTok{pname[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "Moran, Mr. James"                                    
+ [2] "Crease, Mr. Ernest James"                            
+ [3] "Sobey, Mr. Samuel James Hayden"                      
+ [4] "Bateman, Rev. Robert James"                          
+ [5] "Watt, Mrs. James (Elizabeth \"Bessie\" Inglis Milne)"
+ [6] "Smith, Mr. James Clinch"                             
+ [7] "Brown, Mrs. James Joseph (Margaret Tobin)"           
+ [8] "Bracken, Mr. James H"                                
+ [9] "Reed, Mr. James George"                              
+[10] "Baxter, Mrs. James (Helene DeLaudeniere Chaput)"     
+[11] "Drew, Mrs. James Vivian (Lulu Thorne Christian)"     
+[12] "Flynn, Mr. James"                                    
+[13] "Scanlan, Mr. James"                                  
+[14] "Webber, Mr. James"                                   
+[15] "McGough, Mr. James Robert"                           
+[16] "Farrell, Mr. James"                                  
+[17] "Sharp, Mr. Percival James R"                         
+[18] "Downton, Mr. William James"                          
+[19] "Elsbury, Mr. William James"                          
+[20] "Kelly, Mr. James"                                    
+[21] "Hawksford, Mr. Walter James"                         
+[22] "Lester, Mr. James"                                   
+[23] "Slemen, Mr. Richard James"                           
+[24] "Banfield, Mr. Frederick James"                       
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{regexpr-gregexpr}{%
+\subsection{\texorpdfstring{\textbf{\texttt{regexpr()}}, \textbf{\texttt{gregexpr()}}}{regexpr(), gregexpr()}}\label{regexpr-gregexpr}}
+
+\texttt{grep()}과 \texttt{grepl()}의 한계점 보완: 특정 문자 패턴의 일치여부에 대한 정보를 제공하지만 위치 및 정규식의 일치 여부를 알려주지는 않음
+
+\hypertarget{regexpr}{%
+\subsubsection*{\texorpdfstring{\textbf{\texttt{regexpr()}}}{regexpr()}}\label{regexpr}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  문자열에서 패턴이 일치하는 문자(표현)가 첫 번째 등장하는 위치와 몇 개의 문자로 구성(길이) 되어 있는지를 반환
+\item
+  예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Darth Vader: If you only knew the power of the Dark Side. }
+\StringTok{       Obi-Wan never told you what happend to your father"}\NormalTok{, }
+       \StringTok{"Luke: He told me enough! It was you who killed him!"}\NormalTok{, }
+       \StringTok{"Darth Vader: No. I'm your father"}\NormalTok{)}
+
+\CommentTok{# grep 계열 함수}
+\KeywordTok{grep}\NormalTok{(}\StringTok{"you"}\NormalTok{, x); }\KeywordTok{grepl}\NormalTok{(}\StringTok{"you"}\NormalTok{, x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1 2 3
+\end{verbatim}
+
+\begin{verbatim}
+[1] TRUE TRUE TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# regexpr() }
+\KeywordTok{regexpr}\NormalTok{(}\StringTok{"you"}\NormalTok{, x) }\CommentTok{# 각 x의 문자열에서 you가 처음 나타난 위치 및 길이 반환}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 17 33 22
+attr(,"match.length")
+[1] 3 3 3
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{regexpr}\NormalTok{(}\StringTok{"father"}\NormalTok{, x) }\CommentTok{# 패턴을 포함하지 않은 경우 -1 반환}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 111  -1  27
+attr(,"match.length")
+[1]  6 -1  6
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{substr()} 함수와 \texttt{regexpr()} 함수를 이용해 텍스트 내 원하는 문자 추출 가능
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{idx <-}\StringTok{ }\KeywordTok{regexpr}\NormalTok{(}\StringTok{"father"}\NormalTok{, x)}
+\KeywordTok{substr}\NormalTok{(x, idx, idx }\OperatorTok{+}\StringTok{ }\KeywordTok{attr}\NormalTok{(idx, }\StringTok{"match.length"}\NormalTok{) }\OperatorTok{-}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "father" ""       "father"
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{gregexpr}{%
+\subsubsection*{\texorpdfstring{\textbf{\texttt{gregexpr()}}}{gregexpr()}}\label{gregexpr}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  영역에 걸쳐 패턴과 일치하는 문자의 위치 및 길이 반환(\texttt{regexpr()}의 global 버전)
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{gregexpr}\NormalTok{(}\StringTok{"you"}\NormalTok{, x) }\CommentTok{# 각 x의 문자열에서 you가 나타난 모든 위치 및 길이 반환}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[[1]]
+[1]  17  86 106
+attr(,"match.length")
+[1] 3 3 3
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+
+[[2]]
+[1] 33
+attr(,"match.length")
+[1] 3
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+
+[[3]]
+[1] 22
+attr(,"match.length")
+[1] 3
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{gregexpr}\NormalTok{(}\StringTok{"father"}\NormalTok{, x) }\CommentTok{# 패턴을 포함하지 않은 경우 -1 반환}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[[1]]
+[1] 111
+attr(,"match.length")
+[1] 6
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+
+[[2]]
+[1] -1
+attr(,"match.length")
+[1] -1
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+
+[[3]]
+[1] 27
+attr(,"match.length")
+[1] 6
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{sub-gsub-fun}{%
+\subsection{\texorpdfstring{\textbf{\texttt{sub()}}, \textbf{\texttt{gsub()}}}{sub(), gsub()}}\label{sub-gsub-fun}}
+
+\begin{itemize}
+\item
+  검색하고자 하는 패턴을 원하는 문자로 변경
+\item
+  문자열 벡터의 패턴을 일치시키거나 문자열 정리가 필요할 때 사용
+\end{itemize}
+
+\hypertarget{sub}{%
+\subsubsection*{\texorpdfstring{\textbf{\texttt{sub()}}}{sub()}}\label{sub}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  문자열에서 첫 번째 일치하는 패턴만 변경
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sub}\NormalTok{(pattern, }\CommentTok{# 검색하고자 하는 문자, 패턴, 표현}
+\NormalTok{    replacement, }\CommentTok{# 검색할 패턴 대신 변경하고자 하는 문자 및 표현}
+\NormalTok{    x }\CommentTok{# 문자형 벡터}
+\NormalTok{    )}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{jude <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Hey Jude, don't make it bad"}\NormalTok{, }
+         \StringTok{"Take a sad song and make it better"}\NormalTok{, }
+         \StringTok{"Remember to let her into your heart"}\NormalTok{, }
+         \StringTok{"Then you can start to make it better"}\NormalTok{)}
+
+\KeywordTok{sub}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"X"}\NormalTok{, jude)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Hey Jude, don't mXke it bad"         
+[2] "TXke a sad song and make it better"  
+[3] "Remember to let her into your heXrt" 
+[4] "Then you cXn start to make it better"
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{gsub-fun}{%
+\subsubsection*{\texorpdfstring{\textbf{\texttt{gsub()}}}{gsub()}}\label{gsub-fun}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  문자열에서 일치하는 모든 패턴 변경
+\item
+  예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sub}\NormalTok{(}\StringTok{" "}\NormalTok{, }\StringTok{"_"}\NormalTok{, jude)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Hey_Jude, don't make it bad"         
+[2] "Take_a sad song and make it better"  
+[3] "Remember_to let her into your heart" 
+[4] "Then_you can start to make it better"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{gsub}\NormalTok{(}\StringTok{" "}\NormalTok{, }\StringTok{"_"}\NormalTok{, jude)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Hey_Jude,_don't_make_it_bad"         
+[2] "Take_a_sad_song_and_make_it_better"  
+[3] "Remember_to_let_her_into_your_heart" 
+[4] "Then_you_can_start_to_make_it_better"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{gsub}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"X"}\NormalTok{, jude)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Hey Jude, don't mXke it bXd"         
+[2] "TXke X sXd song Xnd mXke it better"  
+[3] "Remember to let her into your heXrt" 
+[4] "Then you cXn stXrt to mXke it better"
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{regexec-fun}{%
+\subsection{\texorpdfstring{\textbf{\texttt{regexec()}}}{regexec()}}\label{regexec-fun}}
+
+\texttt{regexpr()}과 유사하게 작동하지만 괄호(\texttt{()})로 묶인 하위 표현식에 대한 인덱스를 제공
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{()}: 정규 표현식의 메타 문자 중 하나로 그룹을 나타냄 \(\rightarrow\) 정규표현식 내 논리적 테스트 수행 가능
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bla <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"I like statistics"}\NormalTok{, }
+         \StringTok{"I like R programming"}\NormalTok{, }
+         \StringTok{"I like bananas"}\NormalTok{, }
+         \StringTok{"Estates and statues are too expensive"}\NormalTok{)}
+
+\KeywordTok{grepl}\NormalTok{(}\StringTok{"like"}\NormalTok{, bla)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  TRUE  TRUE  TRUE FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{grepl}\NormalTok{(}\StringTok{"are"}\NormalTok{, bla)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE FALSE FALSE  TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{grepl}\NormalTok{(}\StringTok{"(like|are)"}\NormalTok{, bla)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE TRUE TRUE TRUE
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  찾고자 하는 패턴을 두 그룹으로 나눌 때 유용
+\item
+  예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{gregexpr}\NormalTok{(}\StringTok{"stat"}\NormalTok{, bla) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[[1]]
+[1] 8
+attr(,"match.length")
+[1] 4
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+
+[[2]]
+[1] -1
+attr(,"match.length")
+[1] -1
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+
+[[3]]
+[1] -1
+attr(,"match.length")
+[1] -1
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+
+[[4]]
+[1]  2 13
+attr(,"match.length")
+[1] 4 4
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{gregexpr}\NormalTok{(}\StringTok{"(st)(at)"}\NormalTok{, bla) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[[1]]
+[1] 8
+attr(,"match.length")
+[1] 4
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+
+[[2]]
+[1] -1
+attr(,"match.length")
+[1] -1
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+
+[[3]]
+[1] -1
+attr(,"match.length")
+[1] -1
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+
+[[4]]
+[1]  2 13
+attr(,"match.length")
+[1] 4 4
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# "at"에 대한 패턴을 찾지 못하고 }
+\CommentTok{# "stat" 패턴과 과 동일한 결과 반환}
+
+\KeywordTok{regexec}\NormalTok{(}\StringTok{"(st)(at)"}\NormalTok{, bla)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[[1]]
+[1]  8  8 10
+attr(,"match.length")
+[1] 4 2 2
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+
+[[2]]
+[1] -1
+attr(,"match.length")
+[1] -1
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+
+[[3]]
+[1] -1
+attr(,"match.length")
+[1] -1
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+
+[[4]]
+[1] 2 2 4
+attr(,"match.length")
+[1] 4 2 2
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# "stat" 패턴도 동시에 반환됨을 유의}
+\CommentTok{# 첫 번째 일치 패턴만 반환}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\hypertarget{strsplit}{%
+\subsection{\texorpdfstring{\textbf{\texttt{strsplit()}}}{strsplit()}}\label{strsplit}}
+
+\begin{itemize}
+\tightlist
+\item
+  문자열에서 매칭되는 특정 패턴(문자)을 기준으로 문자열을 분할함
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{strsplit}\NormalTok{(}
+\NormalTok{  x,    }\CommentTok{# 문자형 벡터}
+\NormalTok{  split }\CommentTok{# 분할 구분 문자(정규표현식 포함)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  예시
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{jude_w1 <-}\StringTok{ }\KeywordTok{strsplit}\NormalTok{(jude, }\StringTok{" "}\NormalTok{)}
+\NormalTok{jude_w1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[[1]]
+[1] "Hey"   "Jude," "don't" "make"  "it"    "bad"  
+
+[[2]]
+[1] "Take"   "a"      "sad"    "song"   "and"    "make"   "it"     "better"
+
+[[3]]
+[1] "Remember" "to"       "let"      "her"      "into"     "your"     "heart"   
+
+[[4]]
+[1] "Then"   "you"    "can"    "start"  "to"     "make"   "it"     "better"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 공백, 쉼표가 있는 경우 구분}
+\NormalTok{jude_w2 <-}\StringTok{ }\KeywordTok{strsplit}\NormalTok{(jude, }\StringTok{"(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{s|,)"}\NormalTok{)}
+\NormalTok{jude_w2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[[1]]
+[1] "Hey"   "Jude"  ""      "don't" "make"  "it"    "bad"  
+
+[[2]]
+[1] "Take"   "a"      "sad"    "song"   "and"    "make"   "it"     "better"
+
+[[3]]
+[1] "Remember" "to"       "let"      "her"      "into"     "your"     "heart"   
+
+[[4]]
+[1] "Then"   "you"    "can"    "start"  "to"     "make"   "it"     "better"
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{reg-exp}{%
+\section{정규 표현식(regular expression)}\label{reg-exp}}
+
+\begin{itemize}
+\item
+  주어진 문자열에 특정한 패턴이 있는 경우, 해당 패턴을 일반화(수식화)한 문자열
+\item
+  특정 패턴을 표현한 문자열을 메타 문자(meta character) 라고 지칭
+\item
+  일반적으로 특정 규칙 또는 패턴이 문자열을 \textbf{찾고(to find)}, 해당 규칙에 해당하는 문자열을 \textbf{대체(replace, substitute)} 하기 위해 사용
+\item
+  R 언어 뿐 아니라 타 프로그래밍 언어(C, Perl, Python 등) 워드 프로세서, 텍스트 편집기, 검색 엔진, 운영체제(Windows, Linux 등)에서도 범용적으로 사용
+\item
+  정규식이라고도 불리우며 영어로는 regex 또는 regexp 로 명칭됨
+\end{itemize}
+
+\hypertarget{basic-meta}{%
+\subsection{기본 메타 문자}\label{basic-meta}}
+
+\footnotesize
+
+\begin{table}[H]
+
+\caption{\label{tab:meta-char}정규표현식 메타 문자: 기본}
+\centering
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
+\toprule
+Expression & Name & 설명\\
+\midrule
+\rowcolor{gray!6}  \ttfamily{\textbackslash{}.} & \ttfamily{Period (마침표)} & \ttfamily{무엇이든 한 글자를 의미}\\
+\ttfamily{\textbackslash{}+} & \ttfamily{Plus} & \ttfamily{\textbackslash{}+ 앞에 오는 표현이 하나 이상 포함}\\
+\rowcolor{gray!6}  \ttfamily{\textbackslash{}*} & \ttfamily{Asterisk} & \ttfamily{\textbackslash{}* 앞에 오는 표현이 0 또는 하나 이상 포함}\\
+\ttfamily{?} & \ttfamily{Question mark} & \ttfamily{? 앞에 오는 표현이 0 또는 하나 포함}\\
+\rowcolor{gray!6}  \ttfamily{\textasciicircum{}} & \ttfamily{Caret} & \ttfamily{\textasciicircum{} 뒤에 오는 표현으로 시작}\\
+\addlinespace
+\ttfamily{\$} & \ttfamily{Dollar} & \ttfamily{\$ 앞에 오는 표연으로 끝나는 경우}\\
+\rowcolor{gray!6}  \ttfamily{\{\}} & \ttfamily{Curly bracket} & \ttfamily{\{\} 앞에 정확히 \{\}에 있는 숫자만큼 반복되는 패턴 (예시 참고)}\\
+\ttfamily{()} & \ttfamily{Parenthesis} & \ttfamily{() 정규 표현식 내 하위(그룹) 표현식 (예시 참고)}\\
+\rowcolor{gray!6}  \ttfamily{|} & \ttfamily{Vertical bar} & \ttfamily{| 의 왼쪽 또는 오른쪽 표현이 존재하는지}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  메타 문자를 메타 문자가 아닌 문자 자체로 인식하기 위해서는 해당 문자 앞에 \texttt{\textbackslash{}\textbackslash{}}를 붙임
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 마침표가 있는 위치 반환}
+\NormalTok{str2 <-}\StringTok{ }\NormalTok{str[}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{]}
+\KeywordTok{regexpr}\NormalTok{(}\StringTok{"."}\NormalTok{, str2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1 1
+attr(,"match.length")
+[1] 1 1
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 에러 출력}
+\KeywordTok{regexpr}\NormalTok{(}\StringTok{"\textbackslash{}."}\NormalTok{, str2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Error: ""\."로 시작하는 문자열 중에서 '\.'는 인식할 수 없는 이스케이프입니다
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 정확한 표현}
+\KeywordTok{regexpr}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{, str2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 42 43
+attr(,"match.length")
+[1] 1 1
+attr(,"index.type")
+[1] "chars"
+attr(,"useBytes")
+[1] TRUE
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{period}{%
+\subsubsection*{\texorpdfstring{\textbf{\texttt{.} 마침표(period)}}{. 마침표(period)}}\label{period}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  어떤 임의의 한 문자를 의미
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 문자열 자체가 존재하니까 참값 반환}
+\KeywordTok{grepl}\NormalTok{(}\StringTok{"."}\NormalTok{, jude) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE TRUE TRUE TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{grepl}\NormalTok{(}\StringTok{"."}\NormalTok{, }\StringTok{"#@#%@FDSAGF$%"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 문자없음 ""}
+\KeywordTok{grepl}\NormalTok{(}\StringTok{"."}\NormalTok{, }\StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# a로 시작하고 중간에 어떤 글자가 하나 존재하고 b로 끝나는 패턴 }
+\NormalTok{bla2 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"aac"}\NormalTok{, }\StringTok{"aab"}\NormalTok{, }\StringTok{"accb"}\NormalTok{, }\StringTok{"acadb"}\NormalTok{)}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"a.b"}\NormalTok{, bla2)}
+\NormalTok{bla2[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "aab"   "acadb"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# a와 b 사이 어떤 두 문자 존재하는 패턴}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"a..b"}\NormalTok{, bla2)}
+\NormalTok{bla2[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "accb"
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{plus}{%
+\subsubsection*{\texorpdfstring{\textbf{\texttt{+} (plus)}}{+ (plus)}}\label{plus}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{+} 에 선행된 패턴이 한 번 이상 매칭 \(\rightarrow\) \texttt{+} 앞에 문자를 1개 이상 포함
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# "a"를 적어도 하나 이상 포함한 원소 반환}
+\KeywordTok{grepl}\NormalTok{(}\StringTok{"a+"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"ab"}\NormalTok{, }\StringTok{"aa"}\NormalTok{, }\StringTok{"aab"}\NormalTok{, }\StringTok{"aaab"}\NormalTok{, }\StringTok{"b"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  TRUE  TRUE  TRUE  TRUE FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# "l"과 "n" 사이에 "o"가 하나 이상인 원소 반환}
+\KeywordTok{grepl}\NormalTok{(}\StringTok{"lo+n"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"bloon"}\NormalTok{, }\StringTok{"blno"}\NormalTok{, }\StringTok{"leno"}\NormalTok{, }\StringTok{"lnooon"}\NormalTok{, }\StringTok{"lololon"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  TRUE FALSE FALSE FALSE  TRUE
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{asterisk}{%
+\subsubsection*{\texorpdfstring{\textbf{\texttt{*} (asterisk)}}{* (asterisk)}}\label{asterisk}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{*} 앞에 선행된 문자 또는 패턴이 0번 이상 매치 \(\rightarrow\) \texttt{*} 앞에 문자를 0개 또는 1개 이상 포함
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# xx가 "a"를 0 또는 1개 이상 포함하고 있는가?}
+\NormalTok{xx <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"bbb"}\NormalTok{, }\StringTok{"acb"}\NormalTok{, }\StringTok{"def"}\NormalTok{, }\StringTok{"cde"}\NormalTok{, }\StringTok{"zde"}\NormalTok{, }\StringTok{"era"}\NormalTok{, }\StringTok{"xsery"}\NormalTok{)}
+\CommentTok{# "a" 존재와 상관 없이 모든 문자열이 조건에 부합}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"a*"}\NormalTok{, xx)}
+\NormalTok{xx[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "bbb"   "acb"   "def"   "cde"   "zde"   "era"   "xsery"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# "aab"와 "c" 사이에 "d"가 없거나 하나 이상인 경우 }
+\CommentTok{# "caabec"인 경우 "aab"와 "c" 사이에 "e"가 존재하기 때문에 FALSE}
+\KeywordTok{grepl}\NormalTok{(}\StringTok{"aabd*c"}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"aabddc"}\NormalTok{, }\StringTok{"caabec"}\NormalTok{, }\StringTok{"aabc"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  TRUE FALSE  TRUE
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{question}{%
+\subsubsection*{\texorpdfstring{\textbf{\texttt{?} (question)}}{? (question)}}\label{question}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{?} 앞에 항목은 선택 사항이며 많아야 한 번 매치 \(\rightarrow\) \texttt{?} 앞의 문자를 0개 또는 1개 포함
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{xx <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"ac"}\NormalTok{, }\StringTok{"abbc"}\NormalTok{, }\StringTok{"abc"}\NormalTok{, }\StringTok{"abcd"}\NormalTok{, }\StringTok{"abbdc"}\NormalTok{)}
+
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"ab?c"}\NormalTok{, xx) }\CommentTok{## "a"와 "c" 사이 "b"가 0개 또는 1개 포함}
+\NormalTok{xx[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "ac"   "abc"  "abcd"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{yy <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"aabc"}\NormalTok{, }\StringTok{"aabbc"}\NormalTok{, }\StringTok{"daabec"}\NormalTok{, }\StringTok{"aabbbc"}\NormalTok{, }\StringTok{"aabbbbc"}\NormalTok{)}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"aabb?c"}\NormalTok{, yy) }\CommentTok{## "aab"와 "c" 사이에 "b"가 0개 또는 1개 있는 경우 일치}
+\NormalTok{yy[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "aabc"  "aabbc"
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{caret}{%
+\subsubsection*{\texorpdfstring{\textbf{\texttt{\^{}} (caret)}}{\^{} (caret)}}\label{caret}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{\^{}} 뒤에 나오는 문자(열)로 시작하는 문자열 반환
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# str에서 "The"로 시작하는 문자열 반환}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"^The"}\NormalTok{, str)}
+\NormalTok{str[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "The birch canoe slid on the smooth planks." 
+[2] "These days a chicken leg is a rare dish."   
+[3] "The juice of lemons makes fine punch."      
+[4] "The box was thrown beside the parked truck."
+[5] "The hogs were fed chopped corn and garbage."
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{{[}\^{}{]}}: 대괄호(straight bracket) 안에 첫 번째 문자가 \texttt{\^{}}인 경우 \texttt{\^{}}뒤에 있는 문자들을 제외한 모든 문자와 매치
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{xx <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"abc"}\NormalTok{, }\StringTok{"def"}\NormalTok{, }\StringTok{"xyz"}\NormalTok{, }\StringTok{"werx"}\NormalTok{, }\StringTok{"wbcsp"}\NormalTok{, }\StringTok{"cba"}\NormalTok{)}
+\CommentTok{# "a", "b", "c"를 순서 상관 없이 동시에 포함하지 않은 문자열 반환}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"[^abc]"}\NormalTok{, xx)}
+\NormalTok{xx[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "def"   "xyz"   "werx"  "wbcsp"
+\end{verbatim}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{\^{}{[}{]}}: \texttt{{[}{]}} 안에 들어간 문자 중 어느 한 단어로 시작하는 문자열 반환
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{xx <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"def"}\NormalTok{, }\StringTok{"wasp"}\NormalTok{, }\StringTok{"sepcial"}\NormalTok{, }\StringTok{"statisitc"}\NormalTok{, }\StringTok{"abbey load"}\NormalTok{, }\StringTok{"cross"}\NormalTok{, }\StringTok{"batman"}\NormalTok{)}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"^[abc]"}\NormalTok{, xx)}
+\NormalTok{xx[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "abbey load" "cross"      "batman"    
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{dollar}{%
+\subsubsection*{\texorpdfstring{\textbf{\texttt{\$} (dollar)}}{\$ (dollar)}}\label{dollar}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{\$} 앞에 나오는 문자 및 패턴과 문자열의 맨 마지막 문자 패턴과 매치
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"father$"}\NormalTok{, x)}
+\KeywordTok{writeLines}\NormalTok{(x[g])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Darth Vader: If you only knew the power of the Dark Side. 
+       Obi-Wan never told you what happend to your father
+Darth Vader: No. I'm your father
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{c-bracket}{%
+\subsubsection*{\texorpdfstring{\textbf{\texttt{\{\}} (curly bracket)}}{\{\} (curly bracket)}}\label{c-bracket}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{\{\}} 앞의 문자 패턴이 \texttt{\{\}} 안에 숫자만큼 반복되는 패턴을 매치
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{\{n\}}: 정확히 n 번 매치
+  \item
+    \texttt{\{n,m\}}: n 번에서 m 번 매치
+  \item
+    \texttt{\{n,\ \}}: 적어도 n 번 이상 매치
+  \end{itemize}
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{xx <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"tango"}\NormalTok{, }\StringTok{"jazz"}\NormalTok{, }\StringTok{"swing jazz"}\NormalTok{, }\StringTok{"hip hop"}\NormalTok{, }
+        \StringTok{"groove"}\NormalTok{, }\StringTok{"rock'n roll"}\NormalTok{, }\StringTok{"heavy metal"}\NormalTok{)}
+
+\CommentTok{# "z"가 정확히 2번 반복되는 원소 반환}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"z\{2\}"}\NormalTok{, xx)}
+\NormalTok{xx[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "jazz"       "swing jazz"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# "e"가 2번 이상 반복되는 원소 반환}
+\NormalTok{yy <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"deer"}\NormalTok{, }\StringTok{"abacd"}\NormalTok{, }\StringTok{"abcd"}\NormalTok{, }\StringTok{"daaeb"}\NormalTok{, }\StringTok{"eel"}\NormalTok{, }\StringTok{"greeeeg"}\NormalTok{)}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"e\{2,\}"}\NormalTok{, yy)}
+\NormalTok{xx[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "tango"       "groove"      "rock'n roll" "heavy metal"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# "b"가 2번 이상 4번 이하 반복되고 앞에 "a"가 있는 원소 반환}
+\NormalTok{zz <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"ababababab"}\NormalTok{, }\StringTok{"abbb"}\NormalTok{, }\StringTok{"cbbe"}\NormalTok{, }\StringTok{"xabbbbcd"}\NormalTok{)}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"ab\{2,4\}"}\NormalTok{, zz)}
+\NormalTok{zz[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "abbb"     "xabbbbcd"
+\end{verbatim}
+
+\normalsize
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}
+\textbf{참고}: 위에서 소개한 메타 문자 중 \texttt{*}는 \texttt{\{0,\}}, \texttt{+}는 \texttt{\{1,\}}, \texttt{?}는 \texttt{\{0,1\}}과 동일한 의미를 가짐
+\EndKnitrBlock{rmdnote}
+
+\normalsize
+
+\hypertarget{parenthesis}{%
+\subsubsection*{\texorpdfstring{\textbf{\texttt{()} (parenthesis)}}{() (parenthesis)}}\label{parenthesis}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  특정 문자열을 \texttt{()}로 grouping
+\item
+  한 개 이상의 그룹 지정 가능
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# ab가 1~4회 이상 반복되는 문자열 반환}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"(ab)\{1,4\}"}\NormalTok{, zz)}
+\NormalTok{zz[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "ababababab" "abbb"       "xabbbbcd"  
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# "The"로 시작하고  "punch"가 포함된 문자열 ㅂ반환}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"^(The)+.*(punch)"}\NormalTok{, str)}
+\NormalTok{str[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "The juice of lemons makes fine punch."
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{vertical-bar}{%
+\subsubsection*{\texorpdfstring{\textbf{\texttt{\textbar{}} (vertical bar)}}{\textbar{} (vertical bar)}}\label{vertical-bar}}
+
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{\textbar{}}를 기준으로 좌우 문자 패턴 중 하나를 의미하며 \texttt{OR} 조건과 동일한 의미를 가짐
+\item
+  \texttt{{[}{]}} 의 경우 메타문자나 문자 한글자에 대해서만 적용되는 반면 \texttt{\textbar{}}는 문자를 묶어 문자열로 지정 가능
+\end{itemize}
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"(is|was)"}\NormalTok{, str)}
+\NormalTok{str[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "These days a chicken leg is a rare dish."   
+[2] "Rice is often served in round bowls."       
+[3] "The box was thrown beside the parked truck."
+[4] "Large size in stockings is hard to sell."   
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"(are|were)"}\NormalTok{, str)}
+\NormalTok{str[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "These days a chicken leg is a rare dish."   
+[2] "The hogs were fed chopped corn and garbage."
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{character-set}{%
+\subsection{문자 집합}\label{character-set}}
+
+\footnotesize
+
+\begin{table}[H]
+
+\caption{\label{tab:meta-char2}정규표현식 메타 문자: 문자집합}
+\centering
+\fontsize{10}{12}\selectfont
+\begin{tabu} to \linewidth {>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
+\toprule
+Expression & 설명\\
+\midrule
+\rowcolor{gray!6}  \ttfamily{\textbackslash{}\textbackslash{}w} & \ttfamily{문자(letter), 숫자(digit), 또는 \_ (underscore) 포함}\\
+\ttfamily{\textbackslash{}\textbackslash{}d} & \ttfamily{숫자 0에서 9}\\
+\rowcolor{gray!6}  \ttfamily{\textbackslash{}\textbackslash{}s} & \ttfamily{공백문자(line break, tab, spaces)}\\
+\ttfamily{\textbackslash{}\textbackslash{}W} & \ttfamily{\textbackslash{}\textbackslash{}w에 포함하지 않는 표현}\\
+\rowcolor{gray!6}  \ttfamily{\textbackslash{}\textbackslash{}D} & \ttfamily{숫자가 아닌 표현}\\
+\addlinespace
+\ttfamily{\textbackslash{}\textbackslash{}S} & \ttfamily{공백이 아닌 표현}\\
+\bottomrule
+\end{tabu}
+\end{table}
+
+\normalsize
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# \textbackslash{}w 를 이용해 email 추출}
+
+\NormalTok{email <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"demo@naver.com"}\NormalTok{, }
+           \StringTok{"sample@gmail.com"}\NormalTok{, }
+           \StringTok{"coffee@daum.net"}\NormalTok{, }
+           \StringTok{"redbull@nate.com"}\NormalTok{, }
+           \StringTok{"android@gmail.com"}\NormalTok{, }
+           \StringTok{"secondmoon@gmail.com"}\NormalTok{, }
+           \StringTok{"zorba1997@korea.re.kr"}\NormalTok{)}
+
+\CommentTok{# 이메일 주소가 naver 또는 gmail만 추출}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{w+@(naver|gmail)}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{.}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{w+"}\NormalTok{, email)}
+\NormalTok{email[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "demo@naver.com"       "sample@gmail.com"     "android@gmail.com"   
+[4] "secondmoon@gmail.com"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 숫자를 포함하는 문자열 추출: \textbackslash{}d}
+\NormalTok{ex <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"ticket"}\NormalTok{, }\StringTok{"51203"}\NormalTok{, }\StringTok{"+-.,!@#"}\NormalTok{, }\StringTok{"ABCD"}\NormalTok{, }\StringTok{"_"}\NormalTok{, }\StringTok{"010-123-4567"}\NormalTok{)}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d"}\NormalTok{, ex)}
+\NormalTok{ex[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "51203"        "010-123-4567"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 뒤쪽 공백문자 제거}
+\NormalTok{xx <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"some text on the line 1; }\CharTok{\textbackslash{}n}\StringTok{ and then some text on line two        "}\NormalTok{)}
+\KeywordTok{sub}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{s+$"}\NormalTok{, }\StringTok{""}\NormalTok{, xx)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "some text on the line 1; \n and then some text on line two"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 영문자(소문자 및 대문자 포함), 숫자, 언더바(_)를 제외한 문자 포함 }
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{W"}\NormalTok{, ex)}
+\NormalTok{ex[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "+-.,!@#"      "010-123-4567"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 숫자를 제외한 모든 문자 반환}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{D"}\NormalTok{, ex)}
+\NormalTok{ex[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "ticket"       "+-.,!@#"      "ABCD"         "_"            "010-123-4567"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 영문자, 숫자, 언더바를 제외한 모든 문자 포함하고}
+\CommentTok{# 숫자와 특수문자를 포함하는 문자열도 제외}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{W}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{D"}\NormalTok{, ex)}
+\NormalTok{ex[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "+-.,!@#"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{## 공백, 탭을 제외한 모든 문자 포함}
+
+\NormalTok{blank <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{, }\StringTok{"_"}\NormalTok{, }\StringTok{"abcd"}\NormalTok{, }\StringTok{"}\CharTok{\textbackslash{}t}\StringTok{"}\NormalTok{, }\StringTok{"%^$#*#*"}\NormalTok{) }
+\NormalTok{g <-}\StringTok{ }\KeywordTok{grepl}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{S"}\NormalTok{, blank)}
+\NormalTok{blank[g]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "_"       "abcd"    "%^$#*#*"
+\end{verbatim}
+
+\normalsize
+
+\hypertarget{character-class}{%
+\subsection{문자 클래스}\label{character-class}}
+
+\begin{itemize}
+\item
+  문자 집합을 더 세분화하여 특정 목적에 맞는 정규 표현형
+\item
+  대괄호(\texttt{{[}{]}}) 안에 특정 패턴에 해당하는 문자로 규칙 표현하고 하이픈(\texttt{-})을 사용해 특정 문자의 범위 지정 가능
+\item
+  응용 가능한 문자 클래스
+\end{itemize}
+
+\footnotesize
+
+\begin{table}[H]
+
+\caption{\label{tab:meta-char3}정규표현식 주요 문자 클래스}
+\centering
+\fontsize{10}{12}\selectfont
+\begin{tabu} to \linewidth {>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
+\toprule
+Expression & 설명\\
+\midrule
+\rowcolor{gray!6}  \ttfamily{[a-z]} & \ttfamily{알파벳 소문자 중 하나}\\
+\ttfamily{[A-Z]} & \ttfamily{알파벳 대문자 중 하나}\\
+\rowcolor{gray!6}  \ttfamily{[0-9]} & \ttfamily{0에서 9까지 숫자 중 하나}\\
+\ttfamily{[a-zA-Z]} & \ttfamily{모든 알파벳 중 하나}\\
+\rowcolor{gray!6}  \ttfamily{[a-z0-9]} & \ttfamily{알파벳 소문자나 숫자 중 한 문자}\\
+\addlinespace
+\ttfamily{[가-힝]} & \ttfamily{모든 한글 중 하나}\\
+\rowcolor{gray!6}  \ttfamily{[(abc)d]} & \ttfamily{문자열 'abc'와 문자 'd' 중 하나}\\
+\bottomrule
+\end{tabu}
+\end{table}
+
+\normalsize
+
+\begin{itemize}
+\tightlist
+\item
+  POSIX (Portable Operating System Interface): 서로 다른 UNIX OS의 API를 정리하여 이식성이 높은 유닉스 응용 프로그램을 개발하기 위한 목적으로 IEEE가 책정한 애플리케이션 인터페이스 규격 \citep{POSIX}
+\end{itemize}
+
+\footnotesize
+
+\begin{table}[H]
+
+\caption{\label{tab:meta-char4}정규표현식: POSIX 문자 클래스}
+\centering
+\fontsize{10}{12}\selectfont
+\begin{tabu} to \linewidth {>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
+\toprule
+Expression & 설명\\
+\midrule
+\rowcolor{gray!6}  \ttfamily{[[:punct:]]} & \ttfamily{구둣점 문자 [][!\#\$\%\&’()*+,./:;<=>?@\textbackslash{}\textbackslash{}\textasciicircum{}\_`\{|\}\textasciitilde{}-]}\\
+\ttfamily{[[:alpha:]]} & \ttfamily{알파벳 [A-Za-z]와 동일한 표현}\\
+\rowcolor{gray!6}  \ttfamily{[[:lower:]]} & \ttfamily{소문자 알파벳 [a-z]와 동일}\\
+\ttfamily{[[:upper:]]} & \ttfamily{대문자 알파벳 [A-Z]와 동일}\\
+\rowcolor{gray!6}  \ttfamily{[[:digit:]]} & \ttfamily{숫자 0 \textasciitilde{} 9 [0-9]와 동일}\\
+\addlinespace
+\ttfamily{[[:alnum:]]} & \ttfamily{알파벳과 숫자 [0-9A-Za-Z]와 동일}\\
+\rowcolor{gray!6}  \ttfamily{[[:cntrl:]]} & \ttfamily{제어문자 b}\\
+\ttfamily{[[:print:]]} & \ttfamily{모든 인쇄 가능한 문자}\\
+\rowcolor{gray!6}  \ttfamily{[[:space:]]} & \ttfamily{공백문자 \textbackslash{}\textbackslash{}t\textbackslash{}\textbackslash{}r\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}v\textbackslash{}\textbackslash{}f}\\
+\ttfamily{[[:blank:]]} & \ttfamily{공백문자 중 \textbackslash{}\textbackslash{}t \textbackslash{}\textbackslash{}n}\\
+\addlinespace
+\rowcolor{gray!6}  \ttfamily{[[:xdigit:]]} & \ttfamily{16 진수}\\
+\bottomrule
+\end{tabu}
+\end{table}
+
+\normalsize
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{movie <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"terminator 3: rise of the machiens"}\NormalTok{, }
+           \StringTok{"les miserables"}\NormalTok{, }
+           \StringTok{"avengers: infinity war"}\NormalTok{, }
+           \StringTok{"iron man"}\NormalTok{, }
+           \StringTok{"indiana jones: the last crusade"}\NormalTok{, }
+           \StringTok{"irish man"}\NormalTok{, }
+           \StringTok{"mission impossible"}\NormalTok{, }
+           \StringTok{"the devil wears prada"}\NormalTok{, }
+           \StringTok{"parasite (gisaengchung)"}\NormalTok{, }
+           \StringTok{"once upon a time in hollywood"}\NormalTok{)}
+
+\CommentTok{# 각 영화제목의 첫글자를 대문자로 변경}
+\CommentTok{# \textbackslash{}b는 단어의 양쪽 가장 자리의 빈 문자를 의미}
+\CommentTok{# \textbackslash{}\textbackslash{}1은 () 첫 번째 그룹, \textbackslash{}\textbackslash{}U는 대문자(perl)}
+\KeywordTok{gsub}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{b(}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{w)"}\NormalTok{, }\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{U}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{1"}\NormalTok{, movie, }\DataTypeTok{perl =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "Terminator 3: Rise Of The Machiens" "Les Miserables"                    
+ [3] "Avengers: Infinity War"             "Iron Man"                          
+ [5] "Indiana Jones: The Last Crusade"    "Irish Man"                         
+ [7] "Mission Impossible"                 "The Devil Wears Prada"             
+ [9] "Parasite (Gisaengchung)"            "Once Upon A Time In Hollywood"     
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 엑셀에서 ()로 표시된 음수 데이터를 읽어온 경우}
+\CommentTok{# 이를 음수로 표시}
+\NormalTok{num <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"0.123"}\NormalTok{, }\StringTok{"0.456"}\NormalTok{, }\StringTok{"(0.45)"}\NormalTok{, }\StringTok{"1.25"}\NormalTok{)}
+\KeywordTok{gsub}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{(([0-9.]+)}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{)"}\NormalTok{, }\StringTok{"-}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{1"}\NormalTok{, num)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "0.123" "0.456" "-0.45" "1.25" 
+\end{verbatim}
+
+\normalsize
 
   \bibliography{book.bib,packages.bib}
 
