@@ -7761,7 +7761,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x000000001f592340> 
+  .. ..- attr(*, ".Environment")=<environment: 0x000000001b874888> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"
@@ -8293,9 +8293,9 @@ yg <- pic[300:460, 440:520, 2]
 yb <- pic[300:460, 440:520, 3]
 
 t <- 0.2
-wr <- t * yr + (1 - t)*matrix(runif(length(yr)), nrow = n, ncol = p)
-wg <- t * yg + (1 - t)*matrix(runif(length(yg)), nrow = n, ncol = p)
-wb <- t * yb + (1 - t)*matrix(runif(length(yb)), nrow = n, ncol = p)
+wr <- t * yr + (1 - t)*matrix(runif(length(yr)), nrow = nl, ncol = pl)
+wg <- t * yg + (1 - t)*matrix(runif(length(yg)), nrow = nl, ncol = pl)
+wb <- t * yb + (1 - t)*matrix(runif(length(yb)), nrow = nl, ncol = pl)
 
 
 pic[300:460, 440:520, 1] <- wr
@@ -8380,7 +8380,7 @@ b) 위 코드북을 참고하여 엔진과 변속기어에 해당하는 변수�
 <br/>
 
 
-c) `df` 데이터셋에서 변속기어 (`am`)에 따른 `mpg`, `disp`, `hp`, `drat`, `wt`, `qsec`에 대한 평균과 표준편차를 구하시오 (Hint: `mean()`, `sd()` 함수 사용). 단 각 결과는 테이블 형태로 반환되어야 함. 
+c) `df` 데이터셋에서 변속기어 (`am`)에 따른 `mpg`, `disp`, `hp`, `drat`, `wt`, `qsec`에 대한 평균과 표준편차를 구하시오 (Hint: `mean()`, `sd()` 함수 사용). 단 각 결과는 테이블 형태로 반환되어야 함(한 객체에 모든 변수의 평균 또는 표준편차가 저장, 테이블 객체가 반환을 의미하는 것은 아님). 
 
 
 <br/>
