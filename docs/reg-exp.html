@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-04-21" />
+<meta name="date" content="2020-04-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="regexp-basic-fun.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="data-manipulation.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -222,6 +222,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.1" data-path="reg-exp.html"><a href="reg-exp.html#basic-meta"><i class="fa fa-check"></i><b>3.3.1</b> 기본 메타 문자</a></li>
 <li class="chapter" data-level="3.3.2" data-path="reg-exp.html"><a href="reg-exp.html#character-set"><i class="fa fa-check"></i><b>3.3.2</b> 문자 집합</a></li>
 <li class="chapter" data-level="3.3.3" data-path="reg-exp.html"><a href="reg-exp.html#character-class"><i class="fa fa-check"></i><b>3.3.3</b> 문자 클래스</a></li>
+<li class="chapter" data-level="3.3.4" data-path="reg-exp.html"><a href="reg-exp.html#regexp-ex"><i class="fa fa-check"></i><b>3.3.4</b> 정규 표현식 예시</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>4</b> 데이터 관리(Data Management)</a><ul>
+<li class="chapter" data-level="4.1" data-path="ch4-prerequi.html"><a href="ch4-prerequi.html"><i class="fa fa-check"></i><b>4.1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="ch4-prerequi.html"><a href="ch4-prerequi.html#data-import-export"><i class="fa fa-check"></i><b>4.1.1</b> 외부데이터 불러오기 및 저장</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>4.2</b> Tidyverse</a></li>
+<li class="chapter" data-level="4.3" data-path="readr.html"><a href="readr.html"><i class="fa fa-check"></i><b>4.3</b> <code>readr</code> 패키지</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="readr.html"><a href="readr.html#import-export-excel"><i class="fa fa-check"></i><b>4.3.1</b> Excel 파일 입출력</a></li>
+<li class="chapter" data-level="4.3.2" data-path="readr.html"><a href="readr.html#tibble"><i class="fa fa-check"></i><b>4.3.2</b> tibble 패키지</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -862,7 +873,7 @@ Expression
 [[:alnum:]]
 </td>
 <td style="text-align:left;width: 7cm; font-family: monospace;">
-알파벳과 숫자 [0-9A-Za-Z]와 동일
+알파벳과 숫자 [0-9A-Za-z]와 동일
 </td>
 </tr>
 <tr>
@@ -935,14 +946,151 @@ Expression
 <a class="sourceLine" id="cb1169-4" title="4"><span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">(([0-9.]+)</span><span class="ch">\\</span><span class="st">)&quot;</span>, <span class="st">&quot;-</span><span class="ch">\\</span><span class="st">1&quot;</span>, num)</a></code></pre></div>
 <pre><code>[1] &quot;0.123&quot; &quot;0.456&quot; &quot;-0.45&quot; &quot;1.25&quot; </code></pre>
 
-<!-- ### 정규 표현식 예시 -->
-<!-- #### 모든 공백 {#regex-blank-ex .unnumbered} -->
-<!-- #### 숫자 {#regex-digit-ex .unnumbered} -->
-<!-- #### 이메일 표현 {#regex-email .unnumbered} -->
+</div>
+<div id="regexp-ex" class="section level3">
+<h3><span class="header-section-number">3.3.4</span> 정규 표현식 예시</h3>
+<ul>
+<li>텍스트 데이터를 처리할 때 일반적으로 많이 활용되는 정규 표현식</li>
+<li>정제되지 않은 데이터 가공 시 유용하게 활용</li>
+</ul>
+<div id="regex-blank-ex" class="section level4 unnumbered">
+<h4><strong>공백 제거</strong></h4>
+<ul>
+<li>선행 예제에서 문자열 뒤에 존재하는 공백 제거 예시 확인</li>
+<li>다음 예시들은 선행 및 모든 공백 제거에 대한 정규 표현식에 대해 살펴봄</li>
+</ul>
+<p><strong>필요 표현식</strong></p>
+<ol style="list-style-type: decimal">
+<li>공백을 다른 문자로 교체 해주는 함수 <span class="math inline">\(\rightarrow\)</span> <code>gsub()</code></li>
+<li>공백 character class: <code>\\s</code></li>
+<li>처음과 끝 지정 meta character: <code>^</code>, <code>$</code></li>
+<li>조건을 찾기 위한 meta character: <code>+</code>, <code>|</code></li>
+</ol>
+<ul>
+<li>모든 공백을 제거하려면 <span class="math inline">\(\rightarrow\)</span> <code>\\s</code></li>
+<li>앞쪽 공백만 제거하려면? <span class="math inline">\(\rightarrow\)</span> <code>^\\s+</code></li>
+<li>뒤쪽 공백만 제거하려면? <span class="math inline">\(\rightarrow\)</span> <code>\\s+$</code></li>
+<li>양쪽 공백 모두를 제거하려면? 문장의 맨 앞에 곻백이 하나 이상 존재하거나(OR, <code>|</code>), 문장 맨 끝에 공백이 하나 이상 존재 <span class="math inline">\(\rightarrow\)</span> <code>(^\\s+|\\s+$)</code></li>
+</ul>
+
+<div class="sourceCode" id="cb1171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1171-1" title="1">txt &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;        신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가</span></a>
+<a class="sourceLine" id="cb1171-2" title="2"><span class="st">         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.   &quot;</span>)</a>
+<a class="sourceLine" id="cb1171-3" title="3">txt</a></code></pre></div>
+<pre><code>[1] &quot;        신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가\n         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.   &quot;</code></pre>
+<div class="sourceCode" id="cb1173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1173-1" title="1"><span class="co"># 모근 공백 제거</span></a>
+<a class="sourceLine" id="cb1173-2" title="2"><span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">s&quot;</span>, <span class="st">&quot;&quot;</span>, txt)</a></code></pre></div>
+<pre><code>[1] &quot;신종코로나바이러스감염증(코로나19)환자가운데회복해서항체가생긴사람중절반가량은체내에바이러스가남아있는것으로나타났다.&quot;</code></pre>
+<div class="sourceCode" id="cb1175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1175-1" title="1"><span class="co"># 앞쪽 공백만 제거</span></a>
+<a class="sourceLine" id="cb1175-2" title="2"><span class="kw">gsub</span>(<span class="st">&quot;^</span><span class="ch">\\</span><span class="st">s+&quot;</span>, <span class="st">&quot;&quot;</span>, txt)</a></code></pre></div>
+<pre><code>[1] &quot;신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가\n         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.   &quot;</code></pre>
+<div class="sourceCode" id="cb1177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1177-1" title="1"><span class="co"># 뒤쪽 공백만 제거</span></a>
+<a class="sourceLine" id="cb1177-2" title="2"><span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">s+$&quot;</span>, <span class="st">&quot;&quot;</span>, txt)</a></code></pre></div>
+<pre><code>[1] &quot;        신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가\n         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.&quot;</code></pre>
+<div class="sourceCode" id="cb1179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1179-1" title="1"><span class="co"># 양쪽에 존재하는 공백들 제거</span></a>
+<a class="sourceLine" id="cb1179-2" title="2"><span class="kw">gsub</span>(<span class="st">&quot;(^</span><span class="ch">\\</span><span class="st">s+|</span><span class="ch">\\</span><span class="st">s+$)&quot;</span>, <span class="st">&quot;&quot;</span>, txt)</a></code></pre></div>
+<pre><code>[1] &quot;신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가\n         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.&quot;</code></pre>
+<div class="sourceCode" id="cb1181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1181-1" title="1"><span class="co"># 가운데 \n 뒤에 존재하는 공백들을 없애려면??</span></a>
+<a class="sourceLine" id="cb1181-2" title="2"><span class="kw">gsub</span>(<span class="st">&quot;(^</span><span class="ch">\\</span><span class="st">s+| {2,}|</span><span class="ch">\\</span><span class="st">s+$)&quot;</span>, <span class="st">&quot;&quot;</span>, txt)</a></code></pre></div>
+<pre><code>[1] &quot;신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가\n생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.&quot;</code></pre>
+
+</div>
+<div id="regex-cellphone" class="section level4 unnumbered">
+<h4><strong>핸드폰 번호 추출</strong></h4>
+<ul>
+<li>대한민국 핸드폰 번호의 형태</li>
+</ul>
+
+<p><img src="figures/cellphone-str.png" width="90%" style="display: block; margin: auto;" /></p>
+
+<p><strong>필요한 표현식</strong></p>
+<ol style="list-style-type: decimal">
+<li>처음 세 자리: <code>^(01)\\d{1}</code></li>
+<li>가운데 3~4자리: <code>-\\d{3,4}</code></li>
+<li>마지막 4자리: <code>-\\d{4}</code></li>
+</ol>
+
+<div class="sourceCode" id="cb1183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1183-1" title="1">phone &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;042-868-9999&quot;</span>, <span class="st">&quot;02-3345-1234&quot;</span>, </a>
+<a class="sourceLine" id="cb1183-2" title="2">           <span class="st">&quot;010-5661-7578&quot;</span>, <span class="st">&quot;016-123-4567&quot;</span>, </a>
+<a class="sourceLine" id="cb1183-3" title="3">           <span class="st">&quot;063-123-5678&quot;</span>, <span class="st">&quot;070-5498- 1904&quot;</span>, </a>
+<a class="sourceLine" id="cb1183-4" title="4">           <span class="st">&quot;011-423-2912&quot;</span>, <span class="st">&quot;010-6745-2973&quot;</span>)</a>
+<a class="sourceLine" id="cb1183-5" title="5"></a>
+<a class="sourceLine" id="cb1183-6" title="6">g &lt;-<span class="st"> </span><span class="kw">grepl</span>(<span class="st">&quot;^(01)</span><span class="ch">\\</span><span class="st">d{1}-</span><span class="ch">\\</span><span class="st">d{3,4}-</span><span class="ch">\\</span><span class="st">d{4}&quot;</span>, phone)</a>
+<a class="sourceLine" id="cb1183-7" title="7">phone[g]</a></code></pre></div>
+<pre><code>[1] &quot;010-5661-7578&quot; &quot;016-123-4567&quot;  &quot;011-423-2912&quot;  &quot;010-6745-2973&quot;</code></pre>
+
+</div>
+<div id="regex-email" class="section level4 unnumbered">
+<h4><strong>이메일 추출</strong></h4>
+<ul>
+<li>정규 표현식을 이용해 이메일(e-mail) 주소만 텍스트 문서에서 추출</li>
+<li>이메일 주소 구성</li>
+</ul>
+
+<p><img src="figures/email-str.png" width="90%" style="display: block; margin: auto;" /></p>
+
+<p><strong>필요한 표현식</strong></p>
+<ol style="list-style-type: decimal">
+<li>E-mail ID(@ 왼쪽): 어떤 알파벳, 숫자, 특수문자가 1개 이상 <span class="math inline">\(\rightarrow\)</span> <code>[A-Za-z0-9[:punct:]]+</code></li>
+<li>E-mail ID(@ 오른쪽-1): 어떤 알파벳이나 숫자가 하나 이상 존재하고 특수문자 포함(<code>.xx.xx</code> 추출에 필요) <span class="math inline">\(\rightarrow\)</span> <code>@[A-Za-z0-9[:punct:]]+</code></li>
+<li>E-mail ID(@ 오른쪽-2): <code>.xx</code> 또는 <code>.xxx</code> 검색 <span class="math inline">\(\rightarrow\)</span> <code>\\.[A-Za-z]+</code></li>
+</ol>
+<p><strong>예시</strong></p>
+<ul>
+<li><a href="https://dr-hkim.github.io/Naver-News-Web-Scraping-using-Keywords-in-R/">네이버 뉴스 크롤링</a> <span class="citation">(“R 에서 원하는 키워드의 네이버 뉴스를 웹크롤링(스크래핑) 하는 방법,” <a href="#ref-naver-scraping" role="doc-biblioref">n.d.</a>)</span>
+<ul>
+<li>검색 포탈: 네이버</li>
+<li>검색범위: 2020년 4월 21일</li>
+<li>검색 keyword: 21대 국회위원 선거</li>
+<li>검색 뉴스 개수: 39개</li>
+<li>검색결과 저장 파일: <code>dataset/news-scraping.csv</code></li>
+</ul></li>
+<li>개별 기사에 해당하는 URL로부터 ID 생성</li>
+<li>각 뉴스로부터 기자들의 e-mail 추출</li>
+<li>추출 후 기사 ID, 기사제목, e-mail 주소로 구성된 데이터 프레임 생성</li>
+</ul>
+
+<div class="sourceCode" id="cb1185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1185-1" title="1"><span class="co"># 크롤링한 데이터 불러오기</span></a>
+<a class="sourceLine" id="cb1185-2" title="2">news_naver &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;dataset/news-scraping.csv&quot;</span>, <span class="dt">header =</span> T, </a>
+<a class="sourceLine" id="cb1185-3" title="3">                       <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb1185-4" title="4"></a>
+<a class="sourceLine" id="cb1185-5" title="5"><span class="co"># regmatches 함수: regexpr(), gregexpr(), regexec()로 검색한 패턴을</span></a>
+<a class="sourceLine" id="cb1185-6" title="6"><span class="co"># 텍스트(문자열)에서 추출</span></a>
+<a class="sourceLine" id="cb1185-7" title="7"></a>
+<a class="sourceLine" id="cb1185-8" title="8"><span class="co"># ID 추출</span></a>
+<a class="sourceLine" id="cb1185-9" title="9">id &lt;-<span class="st"> </span><span class="kw">regmatches</span>(news_naver<span class="op">$</span>url, <span class="kw">regexpr</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">d{10}&quot;</span>, news_naver<span class="op">$</span>url))</a>
+<a class="sourceLine" id="cb1185-10" title="10">contents &lt;-<span class="st"> </span>news_naver<span class="op">$</span>news_content</a>
+<a class="sourceLine" id="cb1185-11" title="11">news_naver2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(id, <span class="dt">title =</span> news_naver<span class="op">$</span>news_title, </a>
+<a class="sourceLine" id="cb1185-12" title="12">                          <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb1185-13" title="13">tmp &lt;-<span class="st"> </span><span class="kw">regmatches</span>(contents, </a>
+<a class="sourceLine" id="cb1185-14" title="14">                  <span class="kw">gregexpr</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">b[A-Za-z0-9[:punct:]]+@[A-Za-z0-9[:punct:]]+</span><span class="ch">\\</span><span class="st">.[A-Za-z]+&quot;</span>, </a>
+<a class="sourceLine" id="cb1185-15" title="15">                           contents))</a>
+<a class="sourceLine" id="cb1185-16" title="16"><span class="kw">names</span>(tmp) &lt;-<span class="st"> </span>id</a>
+<a class="sourceLine" id="cb1185-17" title="17">x &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(tmp, <span class="cf">function</span>(x) x[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">simplify =</span> <span class="st">&quot;array&quot;</span>))</a>
+<a class="sourceLine" id="cb1185-18" title="18"><span class="kw">colnames</span>(x) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;email&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb1185-19" title="19">email &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">id =</span> <span class="kw">row.names</span>(x), x, <span class="dt">stringsAsFactors =</span> F)</a>
+<a class="sourceLine" id="cb1185-20" title="20">res &lt;-<span class="st"> </span><span class="kw">merge</span>(news_naver2, email, <span class="dt">by =</span> <span class="st">&quot;id&quot;</span>)</a>
+<a class="sourceLine" id="cb1185-21" title="21"><span class="kw">head</span>(res)</a></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["title"],"name":[2],"type":["chr"],"align":["left"]},{"label":["email1"],"name":[3],"type":["chr"],"align":["left"]},{"label":["email2"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"0000026769","2":"그림으로 보는 제21대 국회의원 선거 결과","3":"cyr@sisain.co.kr","4":"NA","_rn_":"1"},{"1":"0000091243","2":"'스트레이트' 꼼수로 얼룩진 21대 총선… 후퇴한 정치개혁","3":"NA","4":"NA","_rn_":"2"},{"1":"0000425146","2":"[뉴스1번지] 20대 국회 막판 달구는 긴급재난지원금 논쟁","3":"NA","4":"NA","_rn_":"3"},{"1":"0000425152","2":"[뉴스1번지] 주호영 당선인에게 듣는 슬기로운 국회생활","3":"NA","4":"NA","_rn_":"4"},{"1":"0000489588","2":"[엄창섭의 몸과 삶] 나쁜 유전자, 나쁜 국회의원","3":"NA","4":"NA","_rn_":"5"},{"1":"0000535054","2":"고용진·전재수·유동수 의원 다시 금배지…'보험업계 숙원법안' 21대 국회 통과 기대","3":"huropa@inews24.com","4":"NA","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb1186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1186-1" title="1"><span class="co"># stringr 패키지 사용</span></a>
+<a class="sourceLine" id="cb1186-2" title="2"></a>
+<a class="sourceLine" id="cb1186-3" title="3"><span class="co"># email &lt;- str_extract_all(contents,</span></a>
+<a class="sourceLine" id="cb1186-4" title="4"><span class="co">#          &quot;\\b[A-Za-z0-9[:punct:]]+@[A-Za-z0-9[:punct:]]+\\.[A-Za-z]+&quot;,</span></a>
+<a class="sourceLine" id="cb1186-5" title="5"><span class="co">#          simplify = TRUE)</span></a>
+<a class="sourceLine" id="cb1186-6" title="6"><span class="co"># email &lt;- data.frame(email, stringsAsFactors = FALSE)</span></a>
+<a class="sourceLine" id="cb1186-7" title="7"><span class="co"># names(email) &lt;- paste0(&quot;email&quot;, 1:2)</span></a>
+<a class="sourceLine" id="cb1186-8" title="8"><span class="co"># res &lt;- data.frame(id, title = news_naver$news_title, email,</span></a>
+<a class="sourceLine" id="cb1186-9" title="9"><span class="co">#                   stringsAsFactors = FALSE)</span></a>
+<a class="sourceLine" id="cb1186-10" title="10"><span class="co"># head(res)</span></a></code></pre></div>
+
 <!-- #### 핸드폰 번호 {#regex-cellphone .unnumbered} -->
 <!-- #### 일반 전화번호 {#regex-phone .unnumbered} -->
 <!-- ### 확장 예제 -->
 
+</div>
 </div>
 </div>
 <!-- </div> -->
@@ -951,6 +1099,9 @@ Expression
 <div id="ref-POSIX">
 <p>“POSIX.” n.d. <a href="https://ko.wikipedia.org/wiki/POSIX">https://ko.wikipedia.org/wiki/POSIX</a>.</p>
 </div>
+<div id="ref-naver-scraping">
+<p>“R 에서 원하는 키워드의 네이버 뉴스를 웹크롤링(스크래핑) 하는 방법.” n.d. <a href="https://dr-hkim.github.io/Naver-News-Web-Scraping-using-Keywords-in-R/">https://dr-hkim.github.io/Naver-News-Web-Scraping-using-Keywords-in-R/</a>.</p>
+</div>
 </div>
             </section>
 
@@ -958,7 +1109,7 @@ Expression
         </div>
       </div>
 <a href="regexp-basic-fun.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-manipulation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

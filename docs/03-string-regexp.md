@@ -1,8 +1,3 @@
----
-output: html_document
-editor_options: 
-  chunk_output_type: console
----
 # 문자열 처리와 정규표현식 {#string-regexp}
 
 
@@ -19,7 +14,7 @@ editor_options:
  \normalsize
 
 
-#### 학습 필요성 {#ch03-require .unnumbered}
+#### **학습 필요성** {#ch03-require .unnumbered}
 
 
 - 실제 데이터는 다양한 형태의 텍스트(문자열)을 포함
@@ -34,7 +29,7 @@ editor_options:
 - 여러 문자열로 이루어진 방대한 텍스트 벡터에서 특정 패턴을 갖고 있는 구문을 선별해야 할 경우, 패턴을 도식화 할 수 있는 함축적 표현이 필요 $\rightarrow$ **정규 표현식**
 
 
-#### 정규 표현식의 기본함수 {#regex-prim-fun .unnumbered}
+#### **정규 표현식의 기본함수** {#regex-prim-fun .unnumbered}
 
 
 - `grep()`, `grepl()`: 문자형 벡터에서 정규 표현식 또는 문자 패턴의 일치를 검색. 
@@ -52,7 +47,7 @@ editor_options:
 > **Note**: 정규 표현식 및 문자열 처리를 위한 함수의 종류는 매우 다양하지만, 본 강의에서는 정규 표현식의 이해를 위해 일부만 소개할 것임
 
 
-#### 문자열 기초 {#string-basic .unnumbered}
+#### **문자열 기초** {#string-basic .unnumbered}
 
 
 - 탈출 지시자(escape indicator): `\` 
@@ -2006,7 +2001,7 @@ blank[g]
   </tr>
   <tr>
    <td style="text-align:left;width: 3cm; font-family: monospace;"> [[:alnum:]] </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> 알파벳과 숫자 [0-9A-Za-Z]와 동일 </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 알파벳과 숫자 [0-9A-Za-z]와 동일 </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 3cm; font-family: monospace;"> [[:cntrl:]] </td>
@@ -2076,19 +2071,240 @@ gsub("\\(([0-9.]+)\\)", "-\\1", num)
  \normalsize
 
 
+### 정규 표현식 예시 {#regexp-ex}
 
-<!-- ### 정규 표현식 예시 -->
 
-<!-- #### 모든 공백 {#regex-blank-ex .unnumbered} -->
+- 텍스트 데이터를 처리할 때 일반적으로 많이 활용되는 정규 표현식 
+- 정제되지 않은 데이터 가공 시 유용하게 활용
 
-<!-- #### 숫자 {#regex-digit-ex .unnumbered} -->
 
-<!-- #### 이메일 표현 {#regex-email .unnumbered} -->
+#### **공백 제거** {#regex-blank-ex .unnumbered}
+
+- 선행 예제에서 문자열 뒤에 존재하는 공백 제거 예시 확인
+- 다음 예시들은 선행 및 모든 공백 제거에 대한 정규 표현식에 대해 살펴봄
+
+
+**필요 표현식**
+
+1) 공백을 다른 문자로 교체 해주는 함수 $\rightarrow$ `gsub()`
+2) 공백 character class: `\\s`
+3) 처음과 끝 지정 meta character: `^`, `$`
+4) 조건을 찾기 위한 meta character: `+`, `|`
+
+
+- 모든 공백을 제거하려면 $\rightarrow$ `\\s`
+- 앞쪽 공백만 제거하려면? $\rightarrow$ `^\\s+`
+- 뒤쪽 공백만 제거하려면? $\rightarrow$ `\\s+$`
+- 양쪽 공백 모두를 제거하려면? 문장의 맨 앞에 곻백이 하나 이상 존재하거나(OR, `|`), 문장 맨 끝에 공백이 하나 이상 존재 $\rightarrow$ `(^\\s+|\\s+$)`
+
+
+
+\footnotesize
+
+
+```r
+txt <- c("        신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가
+         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.   ")
+txt
+```
+
+```
+[1] "        신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가\n         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.   "
+```
+
+```r
+# 모근 공백 제거
+gsub("\\s", "", txt)
+```
+
+```
+[1] "신종코로나바이러스감염증(코로나19)환자가운데회복해서항체가생긴사람중절반가량은체내에바이러스가남아있는것으로나타났다."
+```
+
+```r
+# 앞쪽 공백만 제거
+gsub("^\\s+", "", txt)
+```
+
+```
+[1] "신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가\n         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.   "
+```
+
+```r
+# 뒤쪽 공백만 제거
+gsub("\\s+$", "", txt)
+```
+
+```
+[1] "        신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가\n         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다."
+```
+
+```r
+# 양쪽에 존재하는 공백들 제거
+gsub("(^\\s+|\\s+$)", "", txt)
+```
+
+```
+[1] "신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가\n         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다."
+```
+
+```r
+# 가운데 \n 뒤에 존재하는 공백들을 없애려면??
+gsub("(^\\s+| {2,}|\\s+$)", "", txt)
+```
+
+```
+[1] "신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가\n생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다."
+```
+
+ \normalsize
+
+
+#### **핸드폰 번호 추출** {#regex-cellphone .unnumbered}
+
+- 대한민국 핸드폰 번호의 형태
+
+\footnotesize
+
+<img src="figures/cellphone-str.png" width="90%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+**필요한 표현식**
+
+1) 처음 세 자리: `^(01)\\d{1}`
+2) 가운데 3~4자리: `-\\d{3,4}`
+3) 마지막 4자리: `-\\d{4}`
+
+
+\footnotesize
+
+
+```r
+phone <- c("042-868-9999", "02-3345-1234", 
+           "010-5661-7578", "016-123-4567", 
+           "063-123-5678", "070-5498- 1904", 
+           "011-423-2912", "010-6745-2973")
+
+g <- grepl("^(01)\\d{1}-\\d{3,4}-\\d{4}", phone)
+phone[g]
+```
+
+```
+[1] "010-5661-7578" "016-123-4567"  "011-423-2912"  "010-6745-2973"
+```
+
+ \normalsize
+
+
+#### **이메일 추출** {#regex-email .unnumbered}
+
+- 정규 표현식을 이용해 이메일(e-mail) 주소만 텍스트 문서에서 추출
+- 이메일 주소 구성
+
+
+\footnotesize
+
+<img src="figures/email-str.png" width="90%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+**필요한 표현식**
+
+1) E-mail ID(@ 왼쪽): 어떤 알파벳, 숫자, 특수문자가 1개 이상 $\rightarrow$ `[A-Za-z0-9[:punct:]]+`
+2) E-mail ID(@ 오른쪽-1): 어떤 알파벳이나 숫자가 하나 이상 존재하고 특수문자 포함(`.xx.xx` 추출에 필요)  $\rightarrow$  `@[A-Za-z0-9[:punct:]]+`
+3) E-mail ID(@ 오른쪽-2): `.xx` 또는 `.xxx` 검색  $\rightarrow$ `\\.[A-Za-z]+`
+
+**예시**
+
+- [네이버 뉴스 크롤링](https://dr-hkim.github.io/Naver-News-Web-Scraping-using-Keywords-in-R/) [@naver-scraping]
+   - 검색 포탈: 네이버
+   - 검색범위: 2020년 4월 21일
+   - 검색 keyword: 21대 국회위원 선거
+   - 검색 뉴스 개수: 39개
+   - 검색결과 저장 파일: `dataset/news-scraping.csv`
+   
+- 개별 기사에 해당하는 URL로부터 ID 생성
+- 각 뉴스로부터 기자들의 e-mail 추출
+- 추출 후 기사 ID, 기사제목, e-mail 주소로 구성된 데이터 프레임 생성
+
+\footnotesize
+
+
+```r
+# 크롤링한 데이터 불러오기
+news_naver <- read.csv("dataset/news-scraping.csv", header = T, 
+                       stringsAsFactors = FALSE)
+
+# regmatches 함수: regexpr(), gregexpr(), regexec()로 검색한 패턴을
+# 텍스트(문자열)에서 추출
+
+# ID 추출
+id <- regmatches(news_naver$url, regexpr("\\d{10}", news_naver$url))
+contents <- news_naver$news_content
+news_naver2 <- data.frame(id, title = news_naver$news_title, 
+                          stringsAsFactors = FALSE)
+tmp <- regmatches(contents, 
+                  gregexpr("\\b[A-Za-z0-9[:punct:]]+@[A-Za-z0-9[:punct:]]+\\.[A-Za-z]+", 
+                           contents))
+names(tmp) <- id
+x <- t(sapply(tmp, function(x) x[1:2], simplify = "array"))
+colnames(x) <- paste0("email", 1:2)
+email <- data.frame(id = row.names(x), x, stringsAsFactors = F)
+res <- merge(news_naver2, email, by = "id")
+head(res)
+```
+
+```
+          id
+1 0000026769
+2 0000091243
+3 0000425146
+4 0000425152
+5 0000489588
+6 0000535054
+                                                                             title
+1                                          그림으로 보는 제21대 국회의원 선거 결과
+2                           '스트레이트' 꼼수로 얼룩진 21대 총선… 후퇴한 정치개혁
+3                            [뉴스1번지] 20대 국회 막판 달구는 긴급재난지원금 논쟁
+4                             [뉴스1번지] 주호영 당선인에게 듣는 슬기로운 국회생활
+5                                    [엄창섭의 몸과 삶] 나쁜 유전자, 나쁜 국회의원
+6 고용진·전재수·유동수 의원 다시 금배지…'보험업계 숙원법안' 21대 국회 통과 기대
+              email1 email2
+1   cyr@sisain.co.kr   <NA>
+2               <NA>   <NA>
+3               <NA>   <NA>
+4               <NA>   <NA>
+5               <NA>   <NA>
+6 huropa@inews24.com   <NA>
+```
+
+```r
+# stringr 패키지 사용
+
+# email <- str_extract_all(contents,
+#          "\\b[A-Za-z0-9[:punct:]]+@[A-Za-z0-9[:punct:]]+\\.[A-Za-z]+",
+#          simplify = TRUE)
+# email <- data.frame(email, stringsAsFactors = FALSE)
+# names(email) <- paste0("email", 1:2)
+# res <- data.frame(id, title = news_naver$news_title, email,
+#                   stringsAsFactors = FALSE)
+# head(res)
+```
+
+ \normalsize
+
+
+
+
+
 
 <!-- #### 핸드폰 번호 {#regex-cellphone .unnumbered} -->
 
-<!-- #### 일반 전화번호 {#regex-phone .unnumbered} -->
 
+
+
+<!-- #### 일반 전화번호 {#regex-phone .unnumbered} -->
 
 <!-- ### 확장 예제 -->
 

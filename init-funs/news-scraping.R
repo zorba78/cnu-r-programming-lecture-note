@@ -7,7 +7,7 @@ library(dplyr)
 
 ## 변수 입력하기
 rm(list = ls())
-QUERY <- "21대+총선" # 검색키워드
+QUERY <- "21대+국회의원+선거" # 검색키워드
 DATE  <- as.Date(as.character(20181119),format="%Y%m%d") # 검색시작날짜 & 검색종료날짜
 DATE <- format(DATE, "%Y.%m.%d")
 PAGE  <- 1
@@ -18,14 +18,14 @@ naver_url_3 <- "&de="
 naver_url_4 <- "&start="
 
 ## 날짜 리스트 만들기
-DATE_START <- as.Date(as.character(20200416),format="%Y%m%d") # 시작일자
-DATE_END   <- as.Date(as.character(20200418),  format="%Y%m%d") # 종료일자
+DATE_START <- as.Date(as.character(20200421),format="%Y%m%d") # 시작일자
+DATE_END   <- as.Date(as.character(20200421),  format="%Y%m%d") # 종료일자
 DATE <- DATE_START:DATE_END
 DATE <- as.Date(DATE,origin="1970-01-01")
 
 ## 게시물 번호 리스트 만들기
 PAGE <- seq(from=1,to=41,by=10) # 시작값과 종료값을 지정해줄 수 있습니다.
-PAGE <- seq(from=1,by=10,length.out=5) # 시작값과 원하는 갯수를 지정할 수도 있습니다.
+PAGE <- seq(from=1,by=10,length.out=10) # 시작값과 원하는 갯수를 지정할 수도 있습니다.
 
 ## 네이버 검색결과 url 리스트에서 관련기사 url 리스트 만들기
 news_url <- c()
