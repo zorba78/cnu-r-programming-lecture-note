@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-04-23" />
+<meta name="date" content="2020-04-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="readr.html"/>
-<link rel="next" href="data-transform.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -230,19 +230,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>4.2</b> Tidyverse</a></li>
 <li class="chapter" data-level="4.3" data-path="readr.html"><a href="readr.html"><i class="fa fa-check"></i><b>4.3</b> <code>readr</code> 패키지</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="readr.html"><a href="readr.html#import-export-excel"><i class="fa fa-check"></i><b>4.3.1</b> Excel 파일 입출력</a></li>
-<li class="chapter" data-level="4.3.2" data-path="readr.html"><a href="readr.html#tibble"><i class="fa fa-check"></i><b>4.3.2</b> Tibble 객체</a></li>
+<li class="chapter" data-level="4.3.2" data-path="readr.html"><a href="readr.html#tibble"><i class="fa fa-check"></i><b>4.3.2</b> tibble 패키지</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="dplyr.html"><a href="dplyr.html"><i class="fa fa-check"></i><b>4.4</b> <code>dplyr</code> 패키지</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="dplyr.html"><a href="dplyr.html#pipe-op"><i class="fa fa-check"></i><b>4.4.1</b> <code>%&gt;%</code></a></li>
-<li class="chapter" data-level="4.4.2" data-path="dplyr.html"><a href="dplyr.html#dplyr-select"><i class="fa fa-check"></i><b>4.4.2</b> <code>select()</code></a></li>
-<li class="chapter" data-level="4.4.3" data-path="dplyr.html"><a href="dplyr.html#dplyr-filter"><i class="fa fa-check"></i><b>4.4.3</b> <code>filter()</code></a></li>
-<li class="chapter" data-level="4.4.4" data-path="dplyr.html"><a href="dplyr.html#arrange"><i class="fa fa-check"></i><b>4.4.4</b> <code id="dplyr-arrange">arrange()</code></a></li>
-<li class="chapter" data-level="4.4.5" data-path="dplyr.html"><a href="dplyr.html#dplyr-rename"><i class="fa fa-check"></i><b>4.4.5</b> <code>rename()</code></a></li>
-<li class="chapter" data-level="4.4.6" data-path="dplyr.html"><a href="dplyr.html#dplyr-mutate"><i class="fa fa-check"></i><b>4.4.6</b> <code>mutate()</code></a></li>
-<li class="chapter" data-level="4.4.7" data-path="dplyr.html"><a href="dplyr.html#dplyr-group-by"><i class="fa fa-check"></i><b>4.4.7</b> <code>group_by()</code></a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="data-transform.html"><a href="data-transform.html"><i class="fa fa-check"></i><b>4.5</b> 데이터 변환</a></li>
-<li class="chapter" data-level="4.6" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>4.6</b> 반복 계산</a></li>
+<li class="chapter" data-level="4.4" data-path="dplyr.html"><a href="dplyr.html"><i class="fa fa-check"></i><b>4.4</b> <code>dplyr</code> 패키지</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -264,35 +254,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="dplyr" class="section level2">
 <h2><span class="header-section-number">4.4</span> <code>dplyr</code> 패키지</h2>
-<div id="pipe-op" class="section level3">
-<h3><span class="header-section-number">4.4.1</span> <code>%&gt;%</code></h3>
+
+
+<div class="rmdnote">
+<code>dplyr</code>에서 제공하는 “동사”(함수)로 데이터(데이터 프레임) 전처리 방법에 대해 익힌다.
 </div>
-<div id="dplyr-select" class="section level3">
-<h3><span class="header-section-number">4.4.2</span> <code>select()</code></h3>
+
+<p></p>
+<ul>
+<li><p><code>dplyr</code>은 tidyverse 에서 데이터 전처리를 담당하는 패키지로 데이터 전처리 과정을 쉽고 빠르게 수행할 수 있는 함수로 구성된 패키지임.</p></li>
+<li><p>데이터 핸들링을 위해 Hadley Wickham이 개발한 <code>plyr</code> 패키지를 최적화한 패키지로 C++ 로 코딩되어 성능이 <code>plyr</code>에 비해 월등히 우수함.</p></li>
+<li><p>base R에 존재하는 함수만으로도 전처리는 충분히 가능하나, <code>dplyr</code>은 아래와 같은 장점을 가짐</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>파이프 연산자(<code>%&gt;%</code>)로 코드의 가독성 극대화</p></li>
+<li><p>코드 작성이 쉬움</p>
+<ul>
+<li>전통적인 R의 데이터 처리는 <code>[</code>, <code>[[</code>, <code>$</code>와 같은 색인 연산자를 사용</li>
+<li><code>dplyr</code>은 몇 가지 “동사”를 조합하여 사용</li>
+</ul></li>
+<li><p>RStudio를 사용할 경우 코드 작성이 빨라짐</p></li>
+<li><p>접근 방법이 SQL 문과 유사함</p></li>
+</ol></li>
+<li><p><code>dplyr</code>은 초기 데이터 프레임만을 다루지만, <code>purrr</code> 패키지를 통해 행렬, 배열, 리스트 등에도 적용 가능</p></li>
+<li><p><code>dplyr</code>에서 제공하는 가장 기본 “동사”는 다음과 같음</p>
+<ul>
+<li><p><code>filter()</code>: 각 행(row)을 조건에 따라 선택</p></li>
+<li><p><code>arrange()</code>: 선택한 변수(column)에 해당하는 행(row)을 기준으로 정렬</p></li>
+<li><p><code>select()</code>: 변수(column) 선택</p></li>
+<li><p><code>mutate()</code>: 새로운 변수를 추가하거나 이미 존재하는 변수를 변환</p></li>
+<li><p><code>summarize()</code> 또는 <code>summarise()</code>: 변수 집계(평균, 표준편차, 최댓값, 최솟값, …)</p></li>
+<li><p><code>group_by()</code> : 위 열거한 모든 동사들을 그룹별로 적용</p></li>
+</ul></li>
+</ul>
+<!-- ### `%>%` {#pipe-op} -->
+<!-- ### `select()` {#dplyr-select} -->
+<!-- ### `filter()` {#dplyr-filter} -->
+<!-- ### `arrange()`{#dplyr-arrange} -->
+<!-- ### `rename()` {#dplyr-rename} -->
+<!-- ### `mutate()` {#dplyr-mutate} -->
+<!-- ### `group_by()` {#dplyr-group-by} -->
+<!-- ## 데이터 변환 {#data-transform} -->
+<!-- ## 반복 계산 {#iteration} -->
+
 </div>
-<div id="dplyr-filter" class="section level3">
-<h3><span class="header-section-number">4.4.3</span> <code>filter()</code></h3>
-</div>
-<div id="arrange" class="section level3">
-<h3><span class="header-section-number">4.4.4</span> <code id="dplyr-arrange">arrange()</code></h3>
-</div>
-<div id="dplyr-rename" class="section level3">
-<h3><span class="header-section-number">4.4.5</span> <code>rename()</code></h3>
-</div>
-<div id="dplyr-mutate" class="section level3">
-<h3><span class="header-section-number">4.4.6</span> <code>mutate()</code></h3>
-</div>
-<div id="dplyr-group-by" class="section level3">
-<h3><span class="header-section-number">4.4.7</span> <code>group_by()</code></h3>
-</div>
-</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
 <a href="readr.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-transform.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
