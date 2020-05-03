@@ -466,7 +466,7 @@ read_xlsx(
 # dataset/owid-covid-data.xlsx 파일 불러오기 
 # install.packages("readxl")
 require(readxl)
-covid19 <- read_xlsx("dataset/owid-covid-data.xlsx")
+covid19 <- read_xlsx("dataset/covid-19-dataset/owid-covid-data.xlsx")
 covid19
 
 # 여러 시트를 동시에 불러올 경우
@@ -566,7 +566,7 @@ dd
    a. 파이프 연산자(`%>%`)로 코드의 가독성 극대화
    
    b. 코드 작성이 쉬움
-      - 전통적인 R의 데이터 처리는 `[`, `[[`, `$`와 같은 색인 연산자를 사용
+      - 전통적인 R의 데이터 처리에서 사용되는 `[`, `[[`, `$`와 같은 색인 연산자 최소화
       - `dplyr`은 몇 가지 "동사"를 조합하여 사용
    
    c. RStudio를 사용할 경우 코드 작성이 빨라짐 
@@ -594,29 +594,408 @@ dd
 
 - base R 제공 함수와 비교
 
+```{r, echo=FALSE}
+`동사(함수)` <- c("filter()", "arrange()", "select()", "mutate()", "summarise()", "group_by()")
+`내용` <- c("행 추출", "내림차순/오름차순 정렬", "열 선택", "열 추가 및 변환", "집계", "그룹별 집계 및 함수 적용")
+`R base 패키지 함수` <- c("subset()",  
+                         "order(), sort()", 
+                         "data[, c('var_name01', 'var_name03')]", 
+                         "transform()", 
+                         "aggregate()", 
+                         "") 
+tab4_01 <- data.frame(`동사(함수)`, 
+                      `내용`, 
+                      `R base 패키지 함수`, 
+                       check.names = FALSE, 
+                       stringsAsFactors = FALSE)
+kable(tab4_01,
+      align = "lll",
+      escape = TRUE, 
+      booktabs = T, caption = "dplyr 패키지 함수와 R base 패키지 함수 비교") %>%
+  kable_styling(bootstrap_options = c("striped"), 
+                position = "center", 
+                font_size = 10, 
+                full_width = TRUE, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "3cm") %>% 
+  column_spec(2, width = "6cm") %>% 
+  column_spec(3, width = "6cm") %>% 
+  row_spec(1:6, monospace = TRUE)
+
+```
+
+
+- `dplyr` 기본 동사와 연동해서 사용되는 주요 함수 
+
+   - `slice()`: 행 색인을 이용한 추출 $\rightarrow$ `data[n:m, ]`과 동일
+   
+   - `distinct()`: 행 레코드 중 중복 항복 제거 $\rightarrow$ base R 패키지의 `unique()` 함수와 유사
+   
+   - `sample_n()`, `sample_frac()`: 데이터 레코드를 랜덤하게 샘플링 
+
+   - `rename()`: 변수명 변경
+
+   - `inner_join`, `right_join()`, `left_join()`, `full_join` : 두 데이터셋 병합 $\rightarrow$ `merge()` 함수와 유사
+   
+   - `tally()`, `count()`, `n()`: 데이터셋의 행의 길이(갯수)를 반환하는 함수로 (그룹별) 집계에 사용: `length()`, `nrow()/NROW()` 함수와 유사
+   
+   - `*_all,`, `*_at`, `*_if`: `dplyr`에서 제공하는 기본 동사(`group_by()` 제외) 사용 시 적용 범위를 설정해 기본 동사와 동일한 기능을 수행하는 함수
+   
+   
+
+```{block2, type="rmdtip"}
+R에서 데이터 전처리 및 분석을 수행할 때, 간혹 동일한 이름의 함수명들이 중복된 채 R 작업공간에 읽어오는 경우가 있는데, 이 경우 가장 마지막에 읽어온 패키지의 함수를 작업공간에서 사용한다. 예를 들어 R base 패키지의 `filter()` 함수는 시계열 데이터의 노이즈를 제거하는 함수이지만, tidyverse 패키지를 읽어온 경우, dplyr 패키지의 `filter()` 함수와 이름이 중복되기 때문에 R 작업공간 상에서는 dplyr 패키지의 `filter()`가 작동을 함. 만약 base 패키지의 `filter()` 함수를 사용하고자 하면 `base::filter()`를 사용. 이를 더 일반화 하면 현재 컴퓨터 상에 설치되어 있는 R 패키지의 특정 함수는 `::` 연산자를 통해 접근할 수 있으며,   `package_name::function_name()` 형태로 접근 가능함. 
+```
+
+
+```{r, echo = FALSE}
+`시트 이름` <- c("region", "country_pop", "gdpcap", "lifeexp")
+`설명` <- c("국가별 지역 정보 포함", 
+            "국가별 1800 ~ 2100년 까지 추계 인구수(명)", 
+            "국가별 1800 ~ 2100년 까지 국민 총소득(달러)", 
+            "국가별 1800 ~ 2100년 까지 기대수명(세)")
+tab4_02 <- data.frame(`시트 이름`, 
+                      `설명`, 
+                       check.names = FALSE, 
+                       stringsAsFactors = FALSE)
+kable(tab4_02,
+      align = "ll",
+      escape = TRUE, 
+      booktabs = T, caption = "gapminder-exercise.xlsx 설명") %>%
+  kable_styling(bootstrap_options = c("striped"), 
+                position = "center", 
+                font_size = 10, 
+                full_width = TRUE, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "3cm") %>% 
+  column_spec(2, width = "7cm") %>% 
+  row_spec(1:4, monospace = TRUE)
+```
 
 
 
-<!-- ### `%>%` {#pipe-op} -->
+### 파이프 연산자: `%>%` {#pipe-op}
 
-<!-- ### `select()` {#dplyr-select} -->
+- Tidyverse 세계에서 tidy를 담당하는 핵심적인 함수
 
-<!-- ### `filter()` {#dplyr-filter} -->
+- 여러 함수를 연결(chain)하는 역할을 하며, 이를 통해 불필요한 임시변수를 정의할 필요가 없어짐
 
-<!-- ### `arrange()`{#dplyr-arrange} -->
+- `function_1(x) %>% function_2(y) = function_2(function_1(x), y)`:  `function_1(x)`에서 반환한 값을 `function_2()`의 첫 번째 인자로 사용
 
-<!-- ### `rename()` {#dplyr-rename} -->
+- 기존 R 문법과 차이점
+   - 기존 R: 동사(목적어, 주변수, 나머지 변수)
+   - Pipe 연결 방식: 목적어 `%>%` 동사(주변수, 나머지 변수) 
 
-<!-- ### `mutate()` {#dplyr-mutate} -->
+- 예시 
 
-<!-- ### `group_by()` {#dplyr-group-by} -->
+```{r pipe-ex}
+# base R 문법 적용
+print(head(iris, 4))
+
+# %>% 연산자 이용
+iris %>% head(4) %>% print
+
+# setosa 종에 해당하는 변수들의 평균 계산
+apply(iris[iris$Species == "setosa", -5], 2, mean)
+
+# tidyverse의 pipe 연산자 이용
+# require(tidyverse)
+
+iris %>% 
+  filter(Species == "setosa") %>% 
+  select(-Species) %>% 
+  summarise_all(mean)
+
+# Homework #3 b-c 풀이를 위한 pipe 연산 적용
+# df <- within(df, {
+#   am <- factor(am, levels = 0:1, 
+#                labels = c("automatic", "manual"))
+# })
+# ggregate(cbind(mpg, disp, hp, drat, wt, qsec) ~ am, 
+#           data = df, 
+#           mean)
+# aggregate(cbind(mpg, disp, hp, drat, wt, qsec) ~ am, 
+#           data = df, 
+#           sd)
+
+mtcars %>% 
+  mutate(am = factor(vs, 
+                     levels = 0:1, 
+                     labels = c("automatic", "manual"))) %>% 
+  group_by(am) %>% 
+  summarise_at(vars(mpg, disp:qsec), 
+               list(mean = mean, 
+                    sd = sd))
+
+```
+
+
+### `filter()` {#dplyr-filter}
+
+- 데이터 프레임(또는 tibble)에서 특정 조건을 만족하는 레코드(row) 추출
+
+- R base 패키지의 `subset()` 함수와 유사하게 작동하지만 성능이 더 좋음(속도가 더 빠르다). 
+
+- 추출을 위한 조건은 \@ref(logical) 절 논리형 스칼라에서 설명한 비교 연산자를 준용함. 단 `filter()` 함수 내에서 and (`&`) 조건은 `,`(콤마, comma)로 표현 가능
+
+- `filter()`에서 가능한 불린(boolean) 연산
+
+
+```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='90%', fig.cap="가능한 모든 boolean 연산 종류: x는 좌변, y는 우변을 의미하고 음영은 연산 이후 선택된 부분을 나타냄."}
+knitr::include_graphics('figures/venn-diagram.png', dpi = NA)
+```
+
+
+```{r filter-proto, eval=FALSE}
+# filter() 동사 prototype
+dplyr::filter(x, # 데이터 프레임 또는 티블 객체
+              condition_01, # 첫 번째 조건
+              condition_02, # 두 번째 조건
+                            # 두 번째 인수 이후 조건들은 
+                            # condition_1 & condition 2 & ... & condition_n 임
+              ...)
+```
+
+
+- 예시 1: `mpg` 데이터(`ggplot2` 패키지 내장 데이터)
+
+   - `mpg` 데이터 코드북
+   
+```{r, echo=FALSE}
+`변수명` <- c("manufacturer", "model", "displ", 
+              "year", "cyl", "trans", "drv", 
+              "cty", "hwy", "fl", "class")
+`변수설명(영문)` <- c("manufacturer name",
+                      "model name",
+                      "engine displacement, in litres",
+                      "year of manufacture",
+                      "number of cylinders",
+                      "type of transmission",
+                      "the type of drive train, where f = front-wheel drive, r = rear wheel drive, 4 = 4wd",
+                      "city miles per gallon",
+                      "highway miles per gallon",
+                      "fuel type: e = E85, d = diesel, r = regular, p = premium, c = CNG", 
+                      "'type' of car")
+`변수설명(국문)` <- c("제조사", 
+                "모델명", 
+                "배기량 (리터)", 
+                "제조년도", 
+                "엔진 기통 수", 
+                "트렌스미션", 
+                "구동 유형: f = 전륜구동, r = 후륜구동, 4 = 4륜 구동", 
+                "시내 연비", 
+                "고속 연비", 
+                "연료: e = 에탄올 85, r = 가솔린, p = 프리미엄, d = 디젤, c = CNP", 
+                "자동차 타입")
+tab4_03 <- data.frame(`변수명`, 
+                      `변수설명(영문)`, 
+                      `변수설명(국문)`, 
+                       check.names = FALSE, 
+                       stringsAsFactors = FALSE)
+kable(tab4_03,
+      align = "lll",
+      escape = TRUE, 
+      booktabs = T, caption = "gapminder-exercise.xlsx 설명") %>%
+  kable_styling(bootstrap_options = c("striped"), 
+                position = "center", 
+                font_size = 10, 
+                full_width = TRUE, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "3cm") %>% 
+  column_spec(2, width = "6cm") %>% 
+  column_spec(3, width = "6cm") %>% 
+  row_spec(1:length(`변수명`), monospace = TRUE)
+
+```
 
 
 
+```{r filter-ex-mpg}
+# str() 유사한 glimpse() 함수를 통해 데이터 구조 확인
+glimpse(mpg)
 
-<!-- ## 데이터 변환 {#data-transform} -->
+# 현대 차만 추출
+## 기본 문법 사용
+# mpg[mpg$manufacturer == "hyundai", ]
+# subset(mpg, manufacturer == "hyundai")
 
-<!-- ## 반복 계산 {#iteration} -->
+## filter() 함수 사용
+# filter(mpg, manufacturer == "hyundai")
+
+## pipe 연산자 사용
+mpg %>% 
+  filter(manufacturer == "hyundai")
+
+# 시내 연비가 20 mile/gallon 이상이고 타입이 suv 차량 추출
+## 기본 문법 사용
+# mpg[mpg$cty >= 20 & mpg$class == "suv", ]
+# subset(mpg, cty >= 20 & class == "suv")
+
+## filter() 함수 사용
+# filter(mpg, cty >= 20, class == "suv")
+
+## pipe 연산자 사용
+mpg %>% 
+  filter(cty >= 20, 
+         class == "suv")
+
+# 제조사가 audi 또는 volkswagen 이고 고속 연비가 30 miles/gallon 인 차량만 추출
+mpg %>% 
+  filter(manufacturer == "audi" | manufacturer == "volkswagen", 
+         hwy >= 30)
+```
+
+<br/>
 
 
+- 예시 2: gapminder 데이터
+
+<!-- ```{r filter-ex} -->
+<!-- # country_pop 데이터 필터링 -->
+
+<!-- # 데이터 체크 -->
+<!-- glimpse(country_pop) -->
+
+<!-- ## 1950 ~ 2020년 까지 데이터 추출 -->
+<!-- country_pop %>%  -->
+<!--   filter(year >= 1950, year <= 2020) %>%  -->
+<!--   summary -->
+
+<!-- ## 1950 ~ 2020년까지 데이터와 인구가 100만 이상인 데이터만 추출 -->
+<!-- country_pop %>%  -->
+<!--   filter(year >= 1950 & year <= 2020,  -->
+<!--          population >= 10^6) %>%  -->
+<!--   summary -->
+
+<!-- ## 국가가 한국 또는 일본이고, 2015년도 데이터만 추출 -->
+<!-- country_pop %>%  -->
+<!--   filter(iso %in% c("kor", "jpn"),  -->
+<!--          year == 2015) -->
+
+<!-- ``` -->
+
+### `arrange()`{#dplyr-arrange}
+
+- 지정한 열을 기준으로 데이터의 레코드(row)를 오름차순(작은 값부터 큰 값)으로 정렬
+
+- 내림차순(큰 값부터 작은 값) 정렬 시 `desc()` 함수 이용
+
+```{r, eval=FALSE}
+arrange(data, # 데이터 프레임 또는 티블 객체
+        var1, # 기준 변수 1
+        var2, # 기준 변수 2
+        ...)
+```
+
+- 예시 1: `mpg` 데이터셋
+
+```{r arrange-ex-mpg}
+# 시내 연비를 기준으로 오름차순 정렬
+## R 기본 문법 사용
+# mpg[order(mpg$cty), ]
+
+## arrange 함수 사용
+# arrange(mpg, cty)
+
+## pipe 사용
+mpg %>% arrange(cty)
+
+
+# 시내 연비는 오름차순, 차량 타입은 내림차순(알파벳 역순) 정렬
+## R 기본 문법 사용
+### 문자형 벡터의 순위 계산을 위해 rank() 함수 사용
+mpg_sortb <- mpg[order(mpg$cty, -rank(mpg$class)), ]
+
+## arrange 함수 사용
+mpg_sortt <- mpg %>% arrange(cty, desc(class))
+mpg_sortt
+
+# 두 데이터 셋 동일성 여부
+identical(mpg_sortb, mpg_sortt)
+
+```
+
+
+### `select()` {#dplyr-select}
+
+- 
+
+### `mutate()` {#dplyr-mutate}
+
+
+### `summarise()` {#dplyr-summarise}
+
+
+### `group_by()` {#dplyr-group_by}
+
+
+## dplyr 관련 유용한 함수 {#dplyr-application}
+
+### `slice()` {#dplyr-slice}
+
+### `distinct()` {#dplyr-distinct}
+
+### `sample_n()/sample_frac()` {#dplyr-sample}
+
+### `rename()` {#dplyr-rename}
+
+### `*_join()` {#dplyr-join}
+
+#### `inner_join` {.unnumbered}
+
+#### `right_join()`, `left_join()` {.unnumbered}
+
+#### `full_join` {.unnumbered}
+
+### Count {#dplyr-count}
+
+#### `tally()` {.unnumbered}
+
+#### `count()` {.unnumbered}
+
+#### `n()` {.unnumbered}
+
+
+### `*_all,`, `*_at`, `*_if` {#dplyr-verb-variant}
+
+
+### 확장 예제: Gapminder {#ex-gapminder}
+
+
+```{block2, type="rmdnote"}
+**연습 데이터**:  Gapminder 데이터 활용. 각 대륙에 속한 국가의 인구, 경제, 보건, 교육, 환경, 노동에 대한 년도 별 국가 통계를 제공함. [Gapminder](https://gapminder.org)는 스웨덴의 비영리 통계 분석 서비스를 제공하는 웹사이트로, UN이 제공하는 데이터를 기반으로 인구 예측, 부의 이동 등에 관한 연구 논문 및 통계정보, 데이터를 공유함 [@gapminder]. R 패키지 중 `gapminder` [@gapminder-package]는 1950 ~ 2007 년 까지 5년 단위의 국가별 인구(population), 기대수명(year), 일인당 국민 총소득(gross domestic product per captia, 달러)에 대한 데이터를 제공 하지만, 본 강의에서는 현재 Gapminder 사이트에서 직접 다운로드 받은 가장 최근 데이터를 가지고 dplyr 패키지의 기본 동사를 학습함과 동시에 최종적으로 gapminder 패키지에서 제공하는 데이터와 동일한 형태의 구조를 갖는 데이터를 생성하는 것이 목직임. 해당 데이터는 [github 계정](https://zorba78.github.com/cnu-r-programming-lecture-note/dataset/gapminder/gapminder-exercise.xlsx)에서 다운로드가 가능함. 
+`gapminder-exercise.xlsx`는 총 4개의 시트로 구성되어 있으며, 각 시트에 대한 설명은 아래와 같음. 
+```
+
+
+- Gapminder 예시: `readxl` 패키지 + `%>%`를 이용해 Gapminder 데이터(`gapminder-exercise.xlsx`) 불러오기
+
+```{r}
+require(readxl)
+path <- "dataset/gapminder/gapminder-exercise.xlsx"
+# base R 문법 적용
+# sheet_name <- excel_sheets(path)
+# gapmL <- lapply(sheet_name, function(x) read_excel(path = path, sheet = x))
+# names(gapmL) <- sheet_name
+
+# pope 연산자 이용
+path %>% 
+  excel_sheets %>% 
+  set_names %>% 
+  map(read_excel, path = path) -> gapmL
+
+# 개별 객체에 데이터 저장
+command <- paste(names(gapmL), "<-", 
+                 paste0("gapmL$", names(gapmL)))
+for (i in 1:length(command)) eval(parse(text = command[i]))
+
+# check
+head(country_pop)
+```
+
+
+## 데이터 변환 {#data-transformation}
+
+
+## 반복 {#iteration}
 
