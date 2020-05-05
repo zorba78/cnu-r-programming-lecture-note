@@ -648,32 +648,6 @@ R에서 데이터 전처리 및 분석을 수행할 때, 간혹 동일한 이름
 ```
 
 
-```{r, echo = FALSE}
-`시트 이름` <- c("region", "country_pop", "gdpcap", "lifeexp")
-`설명` <- c("국가별 지역 정보 포함", 
-            "국가별 1800 ~ 2100년 까지 추계 인구수(명)", 
-            "국가별 1800 ~ 2100년 까지 국민 총소득(달러)", 
-            "국가별 1800 ~ 2100년 까지 기대수명(세)")
-tab4_02 <- data.frame(`시트 이름`, 
-                      `설명`, 
-                       check.names = FALSE, 
-                       stringsAsFactors = FALSE)
-kable(tab4_02,
-      align = "ll",
-      escape = TRUE, 
-      booktabs = T, caption = "gapminder-exercise.xlsx 설명") %>%
-  kable_styling(bootstrap_options = c("striped"), 
-                position = "center", 
-                font_size = 10, 
-                full_width = TRUE, 
-                latex_options = c("striped", "HOLD_position")) %>% 
-  column_spec(1, width = "3cm") %>% 
-  column_spec(2, width = "7cm") %>% 
-  row_spec(1:4, monospace = TRUE)
-```
-
-
-
 ### 파이프 연산자: `%>%` {#pipe-op}
 
 - Tidyverse 세계에서 tidy를 담당하는 핵심적인 함수
@@ -918,7 +892,77 @@ identical(mpg_sortb, mpg_sortt)
 
 ### `select()` {#dplyr-select}
 
-- 
+- 데이터셋을 구성하는 열을 선택하는 함수
+
+```{r select-proto, eval=FALSE}
+select(
+  data, # 데이터 프레임 또는 티블 객체
+  var_name1, # 변수 이름 (따옴표 없이도 가능)
+  var_name2, 
+  ...
+)
+```
+
+```{r select-ex-1}
+# 제조사(manufacturer), 모델명(model), 배기량(displ)
+# 제조년도(year), 시내연비 (cty)만 추출
+
+## 기본 R 문법 이용한 변수 추출
+glimpse(mpg[, c("manufacturer", "model", "displ", "year", "cty")])
+# glimpse(mpg[, c(1:4, 8)])
+# glimpse(mpg[, names(mpg) %in% c("manufacturer", "displ", "model",
+#                         "year", "cty")])
+
+## select() 함수 이용
+### 아래 스크립트는 모두 동일한 결과를 반환
+# mpg %>% select(1:4, 8)
+# 
+# mpg %>% 
+#   select(c("manufacturer", "model", "displ", "year", "cty"))
+
+mpg %>% 
+  select("manufacturer", "model", "displ", "year", "cty") %>% 
+  glimpse
+
+```
+
+- R 기본 문법과 차이점
+
+   - 선택하고자 하는 변수 입력 시 따옴표가 필요 없음
+   - `:` 연산자를 이용해 선택 변수의 범위 지정 가능
+   - `-` 연산자를 이용해 선택 변수 제거
+
+```{r}
+# 제조사(manufacturer), 모델명(model), 배기량(displ)
+# 제조년도(year), 시내연비 (cty)만 추출
+## select() 따옴표 없이 변수명 입력
+mpg %>% 
+  select(manufacturer, model, displ, year, cty) %>% 
+  glimpse
+
+## : 연산자로 변수 범위 지정
+mpg %>% 
+  select(manufacturer:year, cty) %>% 
+  glimpse
+
+## 관심 없는 열을 -로 제외
+mpg %>% 
+  select(-cyl, -trans, -drv, -hwy, -fl, -class) %>% 
+  glimpse
+
+## 조금 더 간결하게 (`:`와 `-` 연산 조합)
+mpg %>% 
+  select(-cyl:-drv, -hwy:-class) %>% 
+  glimpse
+
+### 동일한 기능: -는 괄호로 묶을 수 있음
+mpg %>% 
+  select(-(cyl:drv), -(hwy:class)) %>% 
+  glimpse
+
+```
+
+
 
 ### `mutate()` {#dplyr-mutate}
 
@@ -929,34 +973,35 @@ identical(mpg_sortb, mpg_sortt)
 ### `group_by()` {#dplyr-group_by}
 
 
-## dplyr 관련 유용한 함수 {#dplyr-application}
+### dplyr 관련 유용한 함수 {#dplyr-application}
 
-### `slice()` {#dplyr-slice}
+#### `slice()` {#dplyr-slice .unnumbered}
 
-### `distinct()` {#dplyr-distinct}
+#### `top_n()` {#dplyr-slice .unnumbered}
 
-### `sample_n()/sample_frac()` {#dplyr-sample}
+#### `distinct()` {#dplyr-distinct .unnumbered}
 
-### `rename()` {#dplyr-rename}
+#### `sample_n()/sample_frac()` {#dplyr-sample .unnumbered}
 
-### `*_join()` {#dplyr-join}
+#### `rename()` {#dplyr-rename .unnumbered}
 
-#### `inner_join` {.unnumbered}
+#### **`*_join()`** {#dplyr-join .unnumbered}
 
-#### `right_join()`, `left_join()` {.unnumbered}
+#### `inner_join` {#inner-join .unnumbered}
 
-#### `full_join` {.unnumbered}
+#### `right_join()`, `left_join()` {#left-right-join .unnumbered}
 
-### Count {#dplyr-count}
+#### `full_join` {#full-join .unnumbered}
 
-#### `tally()` {.unnumbered}
+#### **Count 관련 함수** {#dplyr-count .unnumbered}
 
-#### `count()` {.unnumbered}
+#### `tally()` {#tally .unnumbered}
 
-#### `n()` {.unnumbered}
+#### `count()` {#count .unnumbered}
 
+#### `n()` {#n-dplyr .unnumbered}
 
-### `*_all,`, `*_at`, `*_if` {#dplyr-verb-variant}
+#### `*_all,`, `*_at`, `*_if` {#dplyr-verb-variant .unnumbered}
 
 
 ### 확장 예제: Gapminder {#ex-gapminder}
@@ -967,6 +1012,29 @@ identical(mpg_sortb, mpg_sortt)
 `gapminder-exercise.xlsx`는 총 4개의 시트로 구성되어 있으며, 각 시트에 대한 설명은 아래와 같음. 
 ```
 
+```{r, echo = FALSE}
+`시트 이름` <- c("region", "country_pop", "gdpcap", "lifeexp")
+`설명` <- c("국가별 지역 정보 포함", 
+            "국가별 1800 ~ 2100년 까지 추계 인구수(명)", 
+            "국가별 1800 ~ 2100년 까지 국민 총소득(달러)", 
+            "국가별 1800 ~ 2100년 까지 기대수명(세)")
+tab4_02 <- data.frame(`시트 이름`, 
+                      `설명`, 
+                       check.names = FALSE, 
+                       stringsAsFactors = FALSE)
+kable(tab4_02,
+      align = "ll",
+      escape = TRUE, 
+      booktabs = T, caption = "gapminder-exercise.xlsx 설명") %>%
+  kable_styling(bootstrap_options = c("striped"), 
+                position = "center", 
+                font_size = 10, 
+                full_width = TRUE, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "3cm") %>% 
+  column_spec(2, width = "7cm") %>% 
+  row_spec(1:4, monospace = TRUE)
+```
 
 - Gapminder 예시: `readxl` 패키지 + `%>%`를 이용해 Gapminder 데이터(`gapminder-exercise.xlsx`) 불러오기
 

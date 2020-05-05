@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.5 dplyr 관련 유용한 함수 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
-  <meta name="generator" content="bookdown 0.18.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.5 dplyr 관련 유용한 함수 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="dplyr.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="data-transformation.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -252,6 +252,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.7" data-path="dplyr-application.html"><a href="dplyr-application.html#dplyr-verb-variant"><i class="fa fa-check"></i><b>4.5.7</b> <code>*_all,</code>, <code>*_at</code>, <code>*_if</code></a></li>
 <li class="chapter" data-level="4.5.8" data-path="dplyr-application.html"><a href="dplyr-application.html#ex-gapminder"><i class="fa fa-check"></i><b>4.5.8</b> 확장 예제: Gapminder</a></li>
 </ul></li>
+<li class="chapter" data-level="4.6" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>4.6</b> 데이터 변환</a></li>
+<li class="chapter" data-level="4.7" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>4.7</b> 반복</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -322,40 +324,89 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 
 
+
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-18">Table 4.3: </span>gapminder-exercise.xlsx 설명
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+시트 이름
+</th>
+<th style="text-align:left;">
+설명
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+region
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+국가별 지역 정보 포함
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+country_pop
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+국가별 1800 ~ 2100년 까지 추계 인구수(명)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+gdpcap
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+국가별 1800 ~ 2100년 까지 국민 총소득(달러)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+lifeexp
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+국가별 1800 ~ 2100년 까지 기대수명(세)
+</td>
+</tr>
+</tbody>
+</table>
+
 <ul>
 <li>Gapminder 예시: <code>readxl</code> 패키지 + <code>%&gt;%</code>를 이용해 Gapminder 데이터(<code>gapminder-exercise.xlsx</code>) 불러오기</li>
 </ul>
 
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="kw">require</span>(readxl)</a>
-<a class="sourceLine" id="cb87-2" title="2">path &lt;-<span class="st"> &quot;dataset/gapminder/gapminder-exercise.xlsx&quot;</span></a>
-<a class="sourceLine" id="cb87-3" title="3"><span class="co"># base R 문법 적용</span></a>
-<a class="sourceLine" id="cb87-4" title="4"><span class="co"># sheet_name &lt;- excel_sheets(path)</span></a>
-<a class="sourceLine" id="cb87-5" title="5"><span class="co"># gapmL &lt;- lapply(sheet_name, function(x) read_excel(path = path, sheet = x))</span></a>
-<a class="sourceLine" id="cb87-6" title="6"><span class="co"># names(gapmL) &lt;- sheet_name</span></a>
-<a class="sourceLine" id="cb87-7" title="7"></a>
-<a class="sourceLine" id="cb87-8" title="8"><span class="co"># pope 연산자 이용</span></a>
-<a class="sourceLine" id="cb87-9" title="9">path <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb87-10" title="10"><span class="st">  </span>excel_sheets <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb87-11" title="11"><span class="st">  </span>set_names <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb87-12" title="12"><span class="st">  </span><span class="kw">map</span>(read_excel, <span class="dt">path =</span> path) -&gt;<span class="st"> </span>gapmL</a>
-<a class="sourceLine" id="cb87-13" title="13"></a>
-<a class="sourceLine" id="cb87-14" title="14"><span class="co"># 개별 객체에 데이터 저장</span></a>
-<a class="sourceLine" id="cb87-15" title="15">command &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="kw">names</span>(gapmL), <span class="st">&quot;&lt;-&quot;</span>, </a>
-<a class="sourceLine" id="cb87-16" title="16">                 <span class="kw">paste0</span>(<span class="st">&quot;gapmL$&quot;</span>, <span class="kw">names</span>(gapmL)))</a>
-<a class="sourceLine" id="cb87-17" title="17"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(command)) <span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> command[i]))</a>
-<a class="sourceLine" id="cb87-18" title="18"></a>
-<a class="sourceLine" id="cb87-19" title="19"><span class="co"># check</span></a>
-<a class="sourceLine" id="cb87-20" title="20"><span class="kw">head</span>(country_pop)</a></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1"><span class="kw">require</span>(readxl)</a>
+<a class="sourceLine" id="cb102-2" title="2">path &lt;-<span class="st"> &quot;dataset/gapminder/gapminder-exercise.xlsx&quot;</span></a>
+<a class="sourceLine" id="cb102-3" title="3"><span class="co"># base R 문법 적용</span></a>
+<a class="sourceLine" id="cb102-4" title="4"><span class="co"># sheet_name &lt;- excel_sheets(path)</span></a>
+<a class="sourceLine" id="cb102-5" title="5"><span class="co"># gapmL &lt;- lapply(sheet_name, function(x) read_excel(path = path, sheet = x))</span></a>
+<a class="sourceLine" id="cb102-6" title="6"><span class="co"># names(gapmL) &lt;- sheet_name</span></a>
+<a class="sourceLine" id="cb102-7" title="7"></a>
+<a class="sourceLine" id="cb102-8" title="8"><span class="co"># pope 연산자 이용</span></a>
+<a class="sourceLine" id="cb102-9" title="9">path <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb102-10" title="10"><span class="st">  </span>excel_sheets <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb102-11" title="11"><span class="st">  </span>set_names <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb102-12" title="12"><span class="st">  </span><span class="kw">map</span>(read_excel, <span class="dt">path =</span> path) -&gt;<span class="st"> </span>gapmL</a>
+<a class="sourceLine" id="cb102-13" title="13"></a>
+<a class="sourceLine" id="cb102-14" title="14"><span class="co"># 개별 객체에 데이터 저장</span></a>
+<a class="sourceLine" id="cb102-15" title="15">command &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="kw">names</span>(gapmL), <span class="st">&quot;&lt;-&quot;</span>, </a>
+<a class="sourceLine" id="cb102-16" title="16">                 <span class="kw">paste0</span>(<span class="st">&quot;gapmL$&quot;</span>, <span class="kw">names</span>(gapmL)))</a>
+<a class="sourceLine" id="cb102-17" title="17"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(command)) <span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> command[i]))</a>
+<a class="sourceLine" id="cb102-18" title="18"></a>
+<a class="sourceLine" id="cb102-19" title="19"><span class="co"># check</span></a>
+<a class="sourceLine" id="cb102-20" title="20"><span class="kw">head</span>(country_pop)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["iso"],"name":[1],"type":["chr"],"align":["left"]},{"label":["country"],"name":[2],"type":["chr"],"align":["left"]},{"label":["year"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["population"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"afg","2":"Afghanistan","3":"1800","4":"3280000"},{"1":"afg","2":"Afghanistan","3":"1801","4":"3280000"},{"1":"afg","2":"Afghanistan","3":"1802","4":"3280000"},{"1":"afg","2":"Afghanistan","3":"1803","4":"3280000"},{"1":"afg","2":"Afghanistan","3":"1804","4":"3280000"},{"1":"afg","2":"Afghanistan","3":"1805","4":"3280000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
-
 </div>
 </div>
-<!-- </div> -->
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-gapminder-package">
@@ -371,7 +422,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="dplyr.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-transformation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

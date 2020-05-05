@@ -146,14 +146,14 @@ str(dbp)
 ```
 'data.frame':	40 obs. of  9 variables:
  $ Subject: int  1 2 3 4 5 6 7 8 9 10 ...
- $ TRT    : Factor w/ 2 levels "A","B": 1 1 1 1 1 1 1 1 1 1 ...
+ $ TRT    : chr  "A" "A" "A" "A" ...
  $ DBP1   : int  114 116 119 115 116 117 118 120 114 115 ...
  $ DBP2   : int  115 113 115 113 112 112 111 115 112 113 ...
  $ DBP3   : int  113 112 113 112 107 113 100 113 113 108 ...
  $ DBP4   : int  109 103 104 109 104 104 109 102 109 106 ...
  $ DBP5   : int  105 101 98 101 105 102 99 102 103 97 ...
  $ Age    : int  43 51 48 42 49 47 50 61 43 51 ...
- $ Sex    : Factor w/ 2 levels "F","M": 1 2 1 1 2 2 1 2 2 2 ...
+ $ Sex    : chr  "F" "M" "F" "F" ...
 ```
 
 ```r
@@ -184,7 +184,7 @@ head(dbp)
 
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Subject"],"name":[1],"type":["int"],"align":["right"]},{"label":["TRT"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["DBP1"],"name":[3],"type":["int"],"align":["right"]},{"label":["DBP2"],"name":[4],"type":["int"],"align":["right"]},{"label":["DBP3"],"name":[5],"type":["int"],"align":["right"]},{"label":["DBP4"],"name":[6],"type":["int"],"align":["right"]},{"label":["DBP5"],"name":[7],"type":["int"],"align":["right"]},{"label":["Age"],"name":[8],"type":["int"],"align":["right"]},{"label":["Sex"],"name":[9],"type":["fctr"],"align":["left"]}],"data":[{"1":"1","2":"A","3":"114","4":"115","5":"113","6":"109","7":"105","8":"43","9":"F","_rn_":"1"},{"1":"2","2":"A","3":"116","4":"113","5":"112","6":"103","7":"101","8":"51","9":"M","_rn_":"2"},{"1":"3","2":"A","3":"119","4":"115","5":"113","6":"104","7":"98","8":"48","9":"F","_rn_":"3"},{"1":"4","2":"A","3":"115","4":"113","5":"112","6":"109","7":"101","8":"42","9":"F","_rn_":"4"},{"1":"5","2":"A","3":"116","4":"112","5":"107","6":"104","7":"105","8":"49","9":"M","_rn_":"5"},{"1":"6","2":"A","3":"117","4":"112","5":"113","6":"104","7":"102","8":"47","9":"M","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Subject"],"name":[1],"type":["int"],"align":["right"]},{"label":["TRT"],"name":[2],"type":["chr"],"align":["left"]},{"label":["DBP1"],"name":[3],"type":["int"],"align":["right"]},{"label":["DBP2"],"name":[4],"type":["int"],"align":["right"]},{"label":["DBP3"],"name":[5],"type":["int"],"align":["right"]},{"label":["DBP4"],"name":[6],"type":["int"],"align":["right"]},{"label":["DBP5"],"name":[7],"type":["int"],"align":["right"]},{"label":["Age"],"name":[8],"type":["int"],"align":["right"]},{"label":["Sex"],"name":[9],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"A","3":"114","4":"115","5":"113","6":"109","7":"105","8":"43","9":"F","_rn_":"1"},{"1":"2","2":"A","3":"116","4":"113","5":"112","6":"103","7":"101","8":"51","9":"M","_rn_":"2"},{"1":"3","2":"A","3":"119","4":"115","5":"113","6":"104","7":"98","8":"48","9":"F","_rn_":"3"},{"1":"4","2":"A","3":"115","4":"113","5":"112","6":"109","7":"101","8":"42","9":"F","_rn_":"4"},{"1":"5","2":"A","3":"116","4":"112","5":"107","6":"104","7":"105","8":"49","9":"M","_rn_":"5"},{"1":"6","2":"A","3":"117","4":"112","5":"113","6":"104","7":"102","8":"47","9":"M","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -203,12 +203,12 @@ str(diab)
  $ hdl     : int  56 24 37 12 28 69 41 44 49 40 ...
  $ ratio   : num  3.6 6.9 6.2 6.5 8.9 ...
  $ glyhb   : num  4.31 4.44 4.64 4.63 7.72 ...
- $ location: Factor w/ 2 levels "Buckingham","Louisa": 1 1 1 1 1 1 1 1 1 1 ...
+ $ location: chr  "Buckingham" "Buckingham" "Buckingham" "Buckingham" ...
  $ age     : int  46 29 58 67 64 34 30 37 45 55 ...
- $ gender  : Factor w/ 2 levels "female","male": 1 1 1 2 2 2 2 2 2 1 ...
+ $ gender  : chr  "female" "female" "female" "male" ...
  $ height  : int  62 64 61 67 68 71 69 59 69 63 ...
  $ weight  : int  121 218 256 119 183 190 191 170 166 202 ...
- $ frame   : Factor w/ 4 levels "","large","medium",..: 3 2 2 2 3 2 3 3 2 4 ...
+ $ frame   : chr  "medium" "large" "large" "large" ...
  $ bp.1s   : int  118 112 190 110 138 132 161 NA 160 108 ...
  $ bp.1d   : int  59 68 92 50 80 86 112 NA 80 72 ...
  $ bp.2s   : int  NA NA 185 NA NA NA 161 NA 128 NA ...
@@ -224,7 +224,7 @@ head(diab)
 
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["chol"],"name":[2],"type":["int"],"align":["right"]},{"label":["stab.glu"],"name":[3],"type":["int"],"align":["right"]},{"label":["hdl"],"name":[4],"type":["int"],"align":["right"]},{"label":["ratio"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["glyhb"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["location"],"name":[7],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[8],"type":["int"],"align":["right"]},{"label":["gender"],"name":[9],"type":["fctr"],"align":["left"]},{"label":["height"],"name":[10],"type":["int"],"align":["right"]},{"label":["weight"],"name":[11],"type":["int"],"align":["right"]},{"label":["frame"],"name":[12],"type":["fctr"],"align":["left"]},{"label":["bp.1s"],"name":[13],"type":["int"],"align":["right"]},{"label":["bp.1d"],"name":[14],"type":["int"],"align":["right"]},{"label":["bp.2s"],"name":[15],"type":["int"],"align":["right"]},{"label":["bp.2d"],"name":[16],"type":["int"],"align":["right"]},{"label":["waist"],"name":[17],"type":["int"],"align":["right"]},{"label":["hip"],"name":[18],"type":["int"],"align":["right"]},{"label":["time.ppn"],"name":[19],"type":["int"],"align":["right"]}],"data":[{"1":"1000","2":"203","3":"82","4":"56","5":"3.6","6":"4.31","7":"Buckingham","8":"46","9":"female","10":"62","11":"121","12":"medium","13":"118","14":"59","15":"NA","16":"NA","17":"29","18":"38","19":"720","_rn_":"1"},{"1":"1001","2":"165","3":"97","4":"24","5":"6.9","6":"4.44","7":"Buckingham","8":"29","9":"female","10":"64","11":"218","12":"large","13":"112","14":"68","15":"NA","16":"NA","17":"46","18":"48","19":"360","_rn_":"2"},{"1":"1002","2":"228","3":"92","4":"37","5":"6.2","6":"4.64","7":"Buckingham","8":"58","9":"female","10":"61","11":"256","12":"large","13":"190","14":"92","15":"185","16":"92","17":"49","18":"57","19":"180","_rn_":"3"},{"1":"1003","2":"78","3":"93","4":"12","5":"6.5","6":"4.63","7":"Buckingham","8":"67","9":"male","10":"67","11":"119","12":"large","13":"110","14":"50","15":"NA","16":"NA","17":"33","18":"38","19":"480","_rn_":"4"},{"1":"1005","2":"249","3":"90","4":"28","5":"8.9","6":"7.72","7":"Buckingham","8":"64","9":"male","10":"68","11":"183","12":"medium","13":"138","14":"80","15":"NA","16":"NA","17":"44","18":"41","19":"300","_rn_":"5"},{"1":"1008","2":"248","3":"94","4":"69","5":"3.6","6":"4.81","7":"Buckingham","8":"34","9":"male","10":"71","11":"190","12":"large","13":"132","14":"86","15":"NA","16":"NA","17":"36","18":"42","19":"195","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["chol"],"name":[2],"type":["int"],"align":["right"]},{"label":["stab.glu"],"name":[3],"type":["int"],"align":["right"]},{"label":["hdl"],"name":[4],"type":["int"],"align":["right"]},{"label":["ratio"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["glyhb"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["location"],"name":[7],"type":["chr"],"align":["left"]},{"label":["age"],"name":[8],"type":["int"],"align":["right"]},{"label":["gender"],"name":[9],"type":["chr"],"align":["left"]},{"label":["height"],"name":[10],"type":["int"],"align":["right"]},{"label":["weight"],"name":[11],"type":["int"],"align":["right"]},{"label":["frame"],"name":[12],"type":["chr"],"align":["left"]},{"label":["bp.1s"],"name":[13],"type":["int"],"align":["right"]},{"label":["bp.1d"],"name":[14],"type":["int"],"align":["right"]},{"label":["bp.2s"],"name":[15],"type":["int"],"align":["right"]},{"label":["bp.2d"],"name":[16],"type":["int"],"align":["right"]},{"label":["waist"],"name":[17],"type":["int"],"align":["right"]},{"label":["hip"],"name":[18],"type":["int"],"align":["right"]},{"label":["time.ppn"],"name":[19],"type":["int"],"align":["right"]}],"data":[{"1":"1000","2":"203","3":"82","4":"56","5":"3.6","6":"4.31","7":"Buckingham","8":"46","9":"female","10":"62","11":"121","12":"medium","13":"118","14":"59","15":"NA","16":"NA","17":"29","18":"38","19":"720","_rn_":"1"},{"1":"1001","2":"165","3":"97","4":"24","5":"6.9","6":"4.44","7":"Buckingham","8":"29","9":"female","10":"64","11":"218","12":"large","13":"112","14":"68","15":"NA","16":"NA","17":"46","18":"48","19":"360","_rn_":"2"},{"1":"1002","2":"228","3":"92","4":"37","5":"6.2","6":"4.64","7":"Buckingham","8":"58","9":"female","10":"61","11":"256","12":"large","13":"190","14":"92","15":"185","16":"92","17":"49","18":"57","19":"180","_rn_":"3"},{"1":"1003","2":"78","3":"93","4":"12","5":"6.5","6":"4.63","7":"Buckingham","8":"67","9":"male","10":"67","11":"119","12":"large","13":"110","14":"50","15":"NA","16":"NA","17":"33","18":"38","19":"480","_rn_":"4"},{"1":"1005","2":"249","3":"90","4":"28","5":"8.9","6":"7.72","7":"Buckingham","8":"64","9":"male","10":"68","11":"183","12":"medium","13":"138","14":"80","15":"NA","16":"NA","17":"44","18":"41","19":"300","_rn_":"5"},{"1":"1008","2":"248","3":"94","4":"69","5":"3.6","6":"4.81","7":"Buckingham","8":"34","9":"male","10":"71","11":"190","12":"large","13":"132","14":"86","15":"NA","16":"NA","17":"36","18":"42","19":"195","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -459,7 +459,7 @@ system.time(pulse <- read.csv("dataset/pulse.csv", header = T))
 
 ```
  사용자  시스템 elapsed 
-  20.61    0.03   20.64 
+  27.81    0.05   28.39 
 ```
 
 ```r
@@ -480,7 +480,7 @@ system.time(pulse <- readRDS("output/pulse.rds"))
 
 ```
  사용자  시스템 elapsed 
-   0.08    0.02    0.09 
+   0.08    0.01    0.09 
 ```
 
  \normalsize
@@ -615,7 +615,7 @@ head(read.csv("dataset/titanic3.csv", header = T), 10)
 
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["pclass"],"name":[1],"type":["int"],"align":["right"]},{"label":["survived"],"name":[2],"type":["int"],"align":["right"]},{"label":["name"],"name":[3],"type":["fctr"],"align":["left"]},{"label":["sex"],"name":[4],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["sibsp"],"name":[6],"type":["int"],"align":["right"]},{"label":["parch"],"name":[7],"type":["int"],"align":["right"]},{"label":["ticket"],"name":[8],"type":["fctr"],"align":["left"]},{"label":["fare"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["cabin"],"name":[10],"type":["fctr"],"align":["left"]},{"label":["embarked"],"name":[11],"type":["fctr"],"align":["left"]},{"label":["boat"],"name":[12],"type":["fctr"],"align":["left"]},{"label":["body"],"name":[13],"type":["int"],"align":["right"]},{"label":["home.dest"],"name":[14],"type":["fctr"],"align":["left"]}],"data":[{"1":"1","2":"1","3":"Allen, Miss. Elisabeth Walton","4":"female","5":"29.00","6":"0","7":"0","8":"24160","9":"211.3375","10":"B5","11":"S","12":"2","13":"NA","14":"St Louis, MO","_rn_":"1"},{"1":"1","2":"1","3":"Allison, Master. Hudson Trevor","4":"male","5":"0.92","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"11","13":"NA","14":"Montreal, PQ / Chesterville, ON","_rn_":"2"},{"1":"1","2":"0","3":"Allison, Miss. Helen Loraine","4":"female","5":"2.00","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"","13":"NA","14":"Montreal, PQ / Chesterville, ON","_rn_":"3"},{"1":"1","2":"0","3":"Allison, Mr. Hudson Joshua Creighton","4":"male","5":"30.00","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"","13":"135","14":"Montreal, PQ / Chesterville, ON","_rn_":"4"},{"1":"1","2":"0","3":"Allison, Mrs. Hudson J C (Bessie Waldo Daniels)","4":"female","5":"25.00","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"","13":"NA","14":"Montreal, PQ / Chesterville, ON","_rn_":"5"},{"1":"1","2":"1","3":"Anderson, Mr. Harry","4":"male","5":"48.00","6":"0","7":"0","8":"19952","9":"26.5500","10":"E12","11":"S","12":"3","13":"NA","14":"New York, NY","_rn_":"6"},{"1":"1","2":"1","3":"Andrews, Miss. Kornelia Theodosia","4":"female","5":"63.00","6":"1","7":"0","8":"13502","9":"77.9583","10":"D7","11":"S","12":"10","13":"NA","14":"Hudson, NY","_rn_":"7"},{"1":"1","2":"0","3":"Andrews, Mr. Thomas Jr","4":"male","5":"39.00","6":"0","7":"0","8":"112050","9":"0.0000","10":"A36","11":"S","12":"","13":"NA","14":"Belfast, NI","_rn_":"8"},{"1":"1","2":"1","3":"Appleton, Mrs. Edward Dale (Charlotte Lamson)","4":"female","5":"53.00","6":"2","7":"0","8":"11769","9":"51.4792","10":"C101","11":"S","12":"D","13":"NA","14":"Bayside, Queens, NY","_rn_":"9"},{"1":"1","2":"0","3":"Artagaveytia, Mr. Ramon","4":"male","5":"71.00","6":"0","7":"0","8":"PC 17609","9":"49.5042","10":"","11":"C","12":"","13":"22","14":"Montevideo, Uruguay","_rn_":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["pclass"],"name":[1],"type":["int"],"align":["right"]},{"label":["survived"],"name":[2],"type":["int"],"align":["right"]},{"label":["name"],"name":[3],"type":["chr"],"align":["left"]},{"label":["sex"],"name":[4],"type":["chr"],"align":["left"]},{"label":["age"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["sibsp"],"name":[6],"type":["int"],"align":["right"]},{"label":["parch"],"name":[7],"type":["int"],"align":["right"]},{"label":["ticket"],"name":[8],"type":["chr"],"align":["left"]},{"label":["fare"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["cabin"],"name":[10],"type":["chr"],"align":["left"]},{"label":["embarked"],"name":[11],"type":["chr"],"align":["left"]},{"label":["boat"],"name":[12],"type":["chr"],"align":["left"]},{"label":["body"],"name":[13],"type":["int"],"align":["right"]},{"label":["home.dest"],"name":[14],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"1","3":"Allen, Miss. Elisabeth Walton","4":"female","5":"29.00","6":"0","7":"0","8":"24160","9":"211.3375","10":"B5","11":"S","12":"2","13":"NA","14":"St Louis, MO","_rn_":"1"},{"1":"1","2":"1","3":"Allison, Master. Hudson Trevor","4":"male","5":"0.92","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"11","13":"NA","14":"Montreal, PQ / Chesterville, ON","_rn_":"2"},{"1":"1","2":"0","3":"Allison, Miss. Helen Loraine","4":"female","5":"2.00","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"","13":"NA","14":"Montreal, PQ / Chesterville, ON","_rn_":"3"},{"1":"1","2":"0","3":"Allison, Mr. Hudson Joshua Creighton","4":"male","5":"30.00","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"","13":"135","14":"Montreal, PQ / Chesterville, ON","_rn_":"4"},{"1":"1","2":"0","3":"Allison, Mrs. Hudson J C (Bessie Waldo Daniels)","4":"female","5":"25.00","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"","13":"NA","14":"Montreal, PQ / Chesterville, ON","_rn_":"5"},{"1":"1","2":"1","3":"Anderson, Mr. Harry","4":"male","5":"48.00","6":"0","7":"0","8":"19952","9":"26.5500","10":"E12","11":"S","12":"3","13":"NA","14":"New York, NY","_rn_":"6"},{"1":"1","2":"1","3":"Andrews, Miss. Kornelia Theodosia","4":"female","5":"63.00","6":"1","7":"0","8":"13502","9":"77.9583","10":"D7","11":"S","12":"10","13":"NA","14":"Hudson, NY","_rn_":"7"},{"1":"1","2":"0","3":"Andrews, Mr. Thomas Jr","4":"male","5":"39.00","6":"0","7":"0","8":"112050","9":"0.0000","10":"A36","11":"S","12":"","13":"NA","14":"Belfast, NI","_rn_":"8"},{"1":"1","2":"1","3":"Appleton, Mrs. Edward Dale (Charlotte Lamson)","4":"female","5":"53.00","6":"2","7":"0","8":"11769","9":"51.4792","10":"C101","11":"S","12":"D","13":"NA","14":"Bayside, Queens, NY","_rn_":"9"},{"1":"1","2":"0","3":"Artagaveytia, Mr. Ramon","4":"male","5":"71.00","6":"0","7":"0","8":"PC 17609","9":"49.5042","10":"","11":"C","12":"","13":"22","14":"Montevideo, Uruguay","_rn_":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -666,7 +666,7 @@ system.time(pulse <- read.csv("dataset/pulse.csv", header = T))
 
 ```
  사용자  시스템 elapsed 
-  20.06    0.01   20.11 
+  29.21    0.00   29.73 
 ```
 
 ```r
@@ -676,7 +676,7 @@ system.time(pulse <- readRDS("output/pulse.rds"))
 
 ```
  사용자  시스템 elapsed 
-   0.08    0.00    0.08 
+   0.11    0.00    0.12 
 ```
 
 ```r
@@ -696,7 +696,7 @@ See spec(...) for full column specifications.
 
 ```
  사용자  시스템 elapsed 
-  14.56    0.06   14.62 
+  19.60    0.02   19.95 
 ```
 
 ```r
@@ -705,7 +705,7 @@ system.time(pulse <- read_feather("dataset/pulse.feather"))
 
 ```
  사용자  시스템 elapsed 
-   0.28    0.00    0.28 
+   0.31    0.00    0.31 
 ```
 
  \normalsize
@@ -837,7 +837,7 @@ tibble(x = letters, y = rnorm(26), z = y^2)
 
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["x"],"name":[1],"type":["chr"],"align":["left"]},{"label":["y"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["z"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"a","2":"-0.43654675","3":"0.1905730683"},{"1":"b","2":"0.59064020","3":"0.3488558416"},{"1":"c","2":"0.75058653","3":"0.5633801342"},{"1":"d","2":"1.57802480","3":"2.4901622543"},{"1":"e","2":"1.26184508","3":"1.5922529967"},{"1":"f","2":"0.64731411","3":"0.4190155527"},{"1":"g","2":"1.69936120","3":"2.8878285023"},{"1":"h","2":"1.46084775","3":"2.1340761595"},{"1":"i","2":"0.43230022","3":"0.1868834788"},{"1":"j","2":"1.46064187","3":"2.1334746755"},{"1":"k","2":"-1.36862641","3":"1.8731382579"},{"1":"l","2":"-0.48885192","3":"0.2389762044"},{"1":"m","2":"-1.27171936","3":"1.6172701405"},{"1":"n","2":"0.49756356","3":"0.2475694955"},{"1":"o","2":"0.18244794","3":"0.0332872496"},{"1":"p","2":"-0.02204952","3":"0.0004861815"},{"1":"q","2":"-0.35581028","3":"0.1266009531"},{"1":"r","2":"0.61636141","3":"0.3799013878"},{"1":"s","2":"0.61959467","3":"0.3838975605"},{"1":"t","2":"0.26180180","3":"0.0685401818"},{"1":"u","2":"0.09871710","3":"0.0097450660"},{"1":"v","2":"-2.24678144","3":"5.0480268248"},{"1":"w","2":"0.31244258","3":"0.0976203640"},{"1":"x","2":"-0.32756109","3":"0.1072962654"},{"1":"y","2":"-1.45835403","3":"2.1267964874"},{"1":"z","2":"-0.93523442","3":"0.8746634228"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["x"],"name":[1],"type":["chr"],"align":["left"]},{"label":["y"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["z"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"a","2":"0.62519688","3":"0.390871140"},{"1":"b","2":"-0.22992215","3":"0.052864197"},{"1":"c","2":"-0.48589164","3":"0.236090685"},{"1":"d","2":"0.03849731","3":"0.001482043"},{"1":"e","2":"-0.84516273","3":"0.714300039"},{"1":"f","2":"1.35439434","3":"1.834384041"},{"1":"g","2":"-0.74025490","3":"0.547977310"},{"1":"h","2":"1.94341815","3":"3.776874098"},{"1":"i","2":"-0.98012180","3":"0.960638740"},{"1":"j","2":"1.38112487","3":"1.907505897"},{"1":"k","2":"0.37208712","3":"0.138448827"},{"1":"l","2":"1.76080196","3":"3.100423553"},{"1":"m","2":"0.38675997","3":"0.149583275"},{"1":"n","2":"1.09407952","3":"1.197009999"},{"1":"o","2":"-0.51029531","3":"0.260401306"},{"1":"p","2":"-0.67527460","3":"0.455995782"},{"1":"q","2":"0.43131077","3":"0.186028977"},{"1":"r","2":"-0.80607683","3":"0.649759856"},{"1":"s","2":"-0.28212404","3":"0.079593973"},{"1":"t","2":"0.82872327","3":"0.686782250"},{"1":"u","2":"-0.83500460","3":"0.697232688"},{"1":"v","2":"1.60188936","3":"2.566049520"},{"1":"w","2":"-0.12635370","3":"0.015965258"},{"1":"x","2":"-1.11600661","3":"1.245470748"},{"1":"y","2":"0.44285476","3":"0.196120343"},{"1":"z","2":"-0.28419779","3":"0.080768386"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -1052,40 +1052,6 @@ dd
  \normalsize
 
 
-\footnotesize
-
-<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-13)gapminder-exercise.xlsx 설명</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> 시트 이름 </th>
-   <th style="text-align:left;"> 설명 </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;width: 3cm; font-family: monospace;"> region </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> 국가별 지역 정보 포함 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;width: 3cm; font-family: monospace;"> country_pop </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> 국가별 1800 ~ 2100년 까지 추계 인구수(명) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;width: 3cm; font-family: monospace;"> gdpcap </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> 국가별 1800 ~ 2100년 까지 국민 총소득(달러) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;width: 3cm; font-family: monospace;"> lifeexp </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> 국가별 1800 ~ 2100년 까지 기대수명(세) </td>
-  </tr>
-</tbody>
-</table>
-
- \normalsize
-
-
-
 ### 파이프 연산자: `%>%` {#pipe-op}
 
 - Tidyverse 세계에서 tidy를 담당하는 핵심적인 함수
@@ -1202,7 +1168,7 @@ mtcars %>%
 
 <div class="figure" style="text-align: center">
 <img src="figures/venn-diagram.png" alt="가능한 모든 boolean 연산 종류: x는 좌변, y는 우변을 의미하고 음영은 연산 이후 선택된 부분을 나타냄." width="90%" />
-<p class="caption">(\#fig:unnamed-chunk-14)가능한 모든 boolean 연산 종류: x는 좌변, y는 우변을 의미하고 음영은 연산 이후 선택된 부분을 나타냄.</p>
+<p class="caption">(\#fig:unnamed-chunk-13)가능한 모든 boolean 연산 종류: x는 좌변, y는 우변을 의미하고 음영은 연산 이후 선택된 부분을 나타냄.</p>
 </div>
 
  \normalsize
@@ -1231,7 +1197,7 @@ dplyr::filter(x, # 데이터 프레임 또는 티블 객체
 \footnotesize
 
 <table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-15)gapminder-exercise.xlsx 설명</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-14)gapminder-exercise.xlsx 설명</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> 변수명 </th>
@@ -1311,8 +1277,8 @@ glimpse(mpg)
 ```
 
 ```
-Observations: 234
-Variables: 11
+Rows: 234
+Columns: 11
 $ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
 $ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
 $ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -1483,7 +1449,171 @@ identical(mpg_sortb, mpg_sortt)
 
 ### `select()` {#dplyr-select}
 
-- 
+- 데이터셋을 구성하는 열을 선택하는 함수
+
+\footnotesize
+
+
+```r
+select(
+  data, # 데이터 프레임 또는 티블 객체
+  var_name1, # 변수 이름 (따옴표 없이도 가능)
+  var_name2, 
+  ...
+)
+```
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+# 제조사(manufacturer), 모델명(model), 배기량(displ)
+# 제조년도(year), 시내연비 (cty)만 추출
+
+## 기본 R 문법 이용한 변수 추출
+glimpse(mpg[, c("manufacturer", "model", "displ", "year", "cty")])
+```
+
+```
+Rows: 234
+Columns: 5
+$ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
+$ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
+$ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
+$ year         <int> 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, ...
+$ cty          <int> 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...
+```
+
+```r
+# glimpse(mpg[, c(1:4, 8)])
+# glimpse(mpg[, names(mpg) %in% c("manufacturer", "displ", "model",
+#                         "year", "cty")])
+
+## select() 함수 이용
+### 아래 스크립트는 모두 동일한 결과를 반환
+# mpg %>% select(1:4, 8)
+# 
+# mpg %>% 
+#   select(c("manufacturer", "model", "displ", "year", "cty"))
+
+mpg %>% 
+  select("manufacturer", "model", "displ", "year", "cty") %>% 
+  glimpse
+```
+
+```
+Rows: 234
+Columns: 5
+$ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
+$ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
+$ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
+$ year         <int> 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, ...
+$ cty          <int> 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...
+```
+
+ \normalsize
+
+- R 기본 문법과 차이점
+
+   - 선택하고자 하는 변수 입력 시 따옴표가 필요 없음
+   - `:` 연산자를 이용해 선택 변수의 범위 지정 가능
+   - `-` 연산자를 이용해 선택 변수 제거
+
+\footnotesize
+
+
+```r
+# 제조사(manufacturer), 모델명(model), 배기량(displ)
+# 제조년도(year), 시내연비 (cty)만 추출
+## select() 따옴표 없이 변수명 입력
+mpg %>% 
+  select(manufacturer, model, displ, year, cty) %>% 
+  glimpse
+```
+
+```
+Rows: 234
+Columns: 5
+$ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
+$ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
+$ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
+$ year         <int> 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, ...
+$ cty          <int> 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...
+```
+
+```r
+## : 연산자로 변수 범위 지정
+mpg %>% 
+  select(manufacturer:year, cty) %>% 
+  glimpse
+```
+
+```
+Rows: 234
+Columns: 5
+$ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
+$ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
+$ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
+$ year         <int> 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, ...
+$ cty          <int> 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...
+```
+
+```r
+## 관심 없는 열을 -로 제외
+mpg %>% 
+  select(-cyl, -trans, -drv, -hwy, -fl, -class) %>% 
+  glimpse
+```
+
+```
+Rows: 234
+Columns: 5
+$ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
+$ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
+$ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
+$ year         <int> 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, ...
+$ cty          <int> 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...
+```
+
+```r
+## 조금 더 간결하게 (`:`와 `-` 연산 조합)
+mpg %>% 
+  select(-cyl:-drv, -hwy:-class) %>% 
+  glimpse
+```
+
+```
+Rows: 234
+Columns: 5
+$ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
+$ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
+$ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
+$ year         <int> 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, ...
+$ cty          <int> 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...
+```
+
+```r
+### 동일한 기능: -는 괄호로 묶을 수 있음
+mpg %>% 
+  select(-(cyl:drv), -(hwy:class)) %>% 
+  glimpse
+```
+
+```
+Rows: 234
+Columns: 5
+$ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
+$ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
+$ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
+$ year         <int> 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, ...
+$ cty          <int> 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...
+```
+
+ \normalsize
+
+
 
 ### `mutate()` {#dplyr-mutate}
 
@@ -1494,17 +1624,19 @@ identical(mpg_sortb, mpg_sortt)
 ### `group_by()` {#dplyr-group_by}
 
 
-## dplyr 관련 유용한 함수 {#dplyr-application}
+### dplyr 관련 유용한 함수 {#dplyr-application}
 
-### `slice()` {#dplyr-slice}
+#### `slice()` {#dplyr-slice .unnumbered}
 
-### `distinct()` {#dplyr-distinct}
+#### `top_n()` {#dplyr-slice .unnumbered}
 
-### `sample_n()/sample_frac()` {#dplyr-sample}
+#### `distinct()` {#dplyr-distinct .unnumbered}
 
-### `rename()` {#dplyr-rename}
+#### `sample_n()/sample_frac()` {#dplyr-sample .unnumbered}
 
-### `*_join()` {#dplyr-join}
+#### `rename()` {#dplyr-rename .unnumbered}
+
+#### **`*_join()`** {#dplyr-join .unnumbered}
 
 #### `inner_join` {.unnumbered}
 
@@ -1512,7 +1644,7 @@ identical(mpg_sortb, mpg_sortt)
 
 #### `full_join` {.unnumbered}
 
-### Count {#dplyr-count}
+#### **Count 관련 함수** {#dplyr-count .unnumbered}
 
 #### `tally()` {.unnumbered}
 
@@ -1520,8 +1652,7 @@ identical(mpg_sortb, mpg_sortt)
 
 #### `n()` {.unnumbered}
 
-
-### `*_all,`, `*_at`, `*_if` {#dplyr-verb-variant}
+#### `*_all,`, `*_at`, `*_if` {#dplyr-verb-variant .unnumbered}
 
 
 ### 확장 예제: Gapminder {#ex-gapminder}
@@ -1534,6 +1665,37 @@ identical(mpg_sortb, mpg_sortt)
 
  \normalsize
 
+\footnotesize
+
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-18)gapminder-exercise.xlsx 설명</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> 시트 이름 </th>
+   <th style="text-align:left;"> 설명 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> region </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 국가별 지역 정보 포함 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> country_pop </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 국가별 1800 ~ 2100년 까지 추계 인구수(명) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> gdpcap </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 국가별 1800 ~ 2100년 까지 국민 총소득(달러) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> lifeexp </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 국가별 1800 ~ 2100년 까지 기대수명(세) </td>
+  </tr>
+</tbody>
+</table>
+
+ \normalsize
 
 - Gapminder 예시: `readxl` 패키지 + `%>%`를 이용해 Gapminder 데이터(`gapminder-exercise.xlsx`) 불러오기
 
@@ -1570,3 +1732,10 @@ head(country_pop)
 </div>
 
  \normalsize
+
+
+## 데이터 변환 {#data-transformation}
+
+
+## 반복 {#iteration}
+

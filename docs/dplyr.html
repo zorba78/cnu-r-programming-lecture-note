@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.4 dplyr 패키지 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
-  <meta name="generator" content="bookdown 0.18.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.4 dplyr 패키지 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="readr.html"/>
-<link rel="next" href="dplyr-application.html"/>
+<link rel="next" href="data-transformation.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -241,17 +241,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.5" data-path="dplyr.html"><a href="dplyr.html#dplyr-mutate"><i class="fa fa-check"></i><b>4.4.5</b> <code>mutate()</code></a></li>
 <li class="chapter" data-level="4.4.6" data-path="dplyr.html"><a href="dplyr.html#dplyr-summarise"><i class="fa fa-check"></i><b>4.4.6</b> <code>summarise()</code></a></li>
 <li class="chapter" data-level="4.4.7" data-path="dplyr.html"><a href="dplyr.html#dplyr-group_by"><i class="fa fa-check"></i><b>4.4.7</b> <code>group_by()</code></a></li>
+<li class="chapter" data-level="4.4.8" data-path="dplyr.html"><a href="dplyr.html#dplyr-application"><i class="fa fa-check"></i><b>4.4.8</b> dplyr 관련 유용한 함수</a></li>
+<li class="chapter" data-level="4.4.9" data-path="dplyr.html"><a href="dplyr.html#ex-gapminder"><i class="fa fa-check"></i><b>4.4.9</b> 확장 예제: Gapminder</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="dplyr-application.html"><a href="dplyr-application.html"><i class="fa fa-check"></i><b>4.5</b> dplyr 관련 유용한 함수</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="dplyr-application.html"><a href="dplyr-application.html#dplyr-slice"><i class="fa fa-check"></i><b>4.5.1</b> <code>slice()</code></a></li>
-<li class="chapter" data-level="4.5.2" data-path="dplyr-application.html"><a href="dplyr-application.html#dplyr-distinct"><i class="fa fa-check"></i><b>4.5.2</b> <code>distinct()</code></a></li>
-<li class="chapter" data-level="4.5.3" data-path="dplyr-application.html"><a href="dplyr-application.html#dplyr-sample"><i class="fa fa-check"></i><b>4.5.3</b> <code>sample_n()/sample_frac()</code></a></li>
-<li class="chapter" data-level="4.5.4" data-path="dplyr-application.html"><a href="dplyr-application.html#dplyr-rename"><i class="fa fa-check"></i><b>4.5.4</b> <code>rename()</code></a></li>
-<li class="chapter" data-level="4.5.5" data-path="dplyr-application.html"><a href="dplyr-application.html#dplyr-join"><i class="fa fa-check"></i><b>4.5.5</b> <code>*_join()</code></a></li>
-<li class="chapter" data-level="4.5.6" data-path="dplyr-application.html"><a href="dplyr-application.html#dplyr-count"><i class="fa fa-check"></i><b>4.5.6</b> Count</a></li>
-<li class="chapter" data-level="4.5.7" data-path="dplyr-application.html"><a href="dplyr-application.html#dplyr-verb-variant"><i class="fa fa-check"></i><b>4.5.7</b> <code>*_all,</code>, <code>*_at</code>, <code>*_if</code></a></li>
-<li class="chapter" data-level="4.5.8" data-path="dplyr-application.html"><a href="dplyr-application.html#ex-gapminder"><i class="fa fa-check"></i><b>4.5.8</b> 확장 예제: Gapminder</a></li>
-</ul></li>
+<li class="chapter" data-level="4.5" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>4.5</b> 데이터 변환</a></li>
+<li class="chapter" data-level="4.6" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>4.6</b> 반복</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -412,57 +406,6 @@ R에서 데이터 전처리 및 분석을 수행할 때, 간혹 동일한 이름
 </div>
 
 
-
-<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-13">Table 4.2: </span>gapminder-exercise.xlsx 설명
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-시트 이름
-</th>
-<th style="text-align:left;">
-설명
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;width: 3cm; font-family: monospace;">
-region
-</td>
-<td style="text-align:left;width: 7cm; font-family: monospace;">
-국가별 지역 정보 포함
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 3cm; font-family: monospace;">
-country_pop
-</td>
-<td style="text-align:left;width: 7cm; font-family: monospace;">
-국가별 1800 ~ 2100년 까지 추계 인구수(명)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 3cm; font-family: monospace;">
-gdpcap
-</td>
-<td style="text-align:left;width: 7cm; font-family: monospace;">
-국가별 1800 ~ 2100년 까지 국민 총소득(달러)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 3cm; font-family: monospace;">
-lifeexp
-</td>
-<td style="text-align:left;width: 7cm; font-family: monospace;">
-국가별 1800 ~ 2100년 까지 기대수명(세)
-</td>
-</tr>
-</tbody>
-</table>
-
 <div id="pipe-op" class="section level3">
 <h3><span class="header-section-number">4.4.1</span> 파이프 연산자: <code>%&gt;%</code></h3>
 <ul>
@@ -543,7 +486,7 @@ lifeexp
 <li><p><code>filter()</code>에서 가능한 불린(boolean) 연산</p></li>
 </ul>
 
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-14"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-13"></span>
 <img src="figures/venn-diagram.png" alt="가능한 모든 boolean 연산 종류: x는 좌변, y는 우변을 의미하고 음영은 연산 이후 선택된 부분을 나타냄." width="90%" />
 <p class="caption">
 Figure 4.2: 가능한 모든 boolean 연산 종류: x는 좌변, y는 우변을 의미하고 음영은 연산 이후 선택된 부분을 나타냄.
@@ -568,7 +511,7 @@ Figure 4.2: 가능한 모든 boolean 연산 종류: x는 좌변, y는 우변을 
 
 <table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-15">Table 4.3: </span>gapminder-exercise.xlsx 설명
+<span id="tab:unnamed-chunk-14">Table 4.2: </span>gapminder-exercise.xlsx 설명
 </caption>
 <thead>
 <tr>
@@ -711,8 +654,8 @@ class
 
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1"><span class="co"># str() 유사한 glimpse() 함수를 통해 데이터 구조 확인</span></a>
 <a class="sourceLine" id="cb77-2" title="2"><span class="kw">glimpse</span>(mpg)</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 11
+<pre><code>Rows: 234
+Columns: 11
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -841,8 +784,118 @@ $ class        &lt;chr&gt; &quot;compact&quot;, &quot;compact&quot;, &quot;compa
 <div id="dplyr-select" class="section level3">
 <h3><span class="header-section-number">4.4.4</span> <code>select()</code></h3>
 <ul>
-<li></li>
+<li>데이터셋을 구성하는 열을 선택하는 함수</li>
 </ul>
+
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="kw">select</span>(</a>
+<a class="sourceLine" id="cb87-2" title="2">  data, <span class="co"># 데이터 프레임 또는 티블 객체</span></a>
+<a class="sourceLine" id="cb87-3" title="3">  var_name1, <span class="co"># 변수 이름 (따옴표 없이도 가능)</span></a>
+<a class="sourceLine" id="cb87-4" title="4">  var_name2, </a>
+<a class="sourceLine" id="cb87-5" title="5">  ...</a>
+<a class="sourceLine" id="cb87-6" title="6">)</a></code></pre></div>
+
+
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1"><span class="co"># 제조사(manufacturer), 모델명(model), 배기량(displ)</span></a>
+<a class="sourceLine" id="cb88-2" title="2"><span class="co"># 제조년도(year), 시내연비 (cty)만 추출</span></a>
+<a class="sourceLine" id="cb88-3" title="3"></a>
+<a class="sourceLine" id="cb88-4" title="4"><span class="co">## 기본 R 문법 이용한 변수 추출</span></a>
+<a class="sourceLine" id="cb88-5" title="5"><span class="kw">glimpse</span>(mpg[, <span class="kw">c</span>(<span class="st">&quot;manufacturer&quot;</span>, <span class="st">&quot;model&quot;</span>, <span class="st">&quot;displ&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;cty&quot;</span>)])</a></code></pre></div>
+<pre><code>Rows: 234
+Columns: 5
+$ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
+$ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
+$ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
+$ year         &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, ...
+$ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="co"># glimpse(mpg[, c(1:4, 8)])</span></a>
+<a class="sourceLine" id="cb90-2" title="2"><span class="co"># glimpse(mpg[, names(mpg) %in% c(&quot;manufacturer&quot;, &quot;displ&quot;, &quot;model&quot;,</span></a>
+<a class="sourceLine" id="cb90-3" title="3"><span class="co">#                         &quot;year&quot;, &quot;cty&quot;)])</span></a>
+<a class="sourceLine" id="cb90-4" title="4"></a>
+<a class="sourceLine" id="cb90-5" title="5"><span class="co">## select() 함수 이용</span></a>
+<a class="sourceLine" id="cb90-6" title="6"><span class="co">### 아래 스크립트는 모두 동일한 결과를 반환</span></a>
+<a class="sourceLine" id="cb90-7" title="7"><span class="co"># mpg %&gt;% select(1:4, 8)</span></a>
+<a class="sourceLine" id="cb90-8" title="8"><span class="co"># </span></a>
+<a class="sourceLine" id="cb90-9" title="9"><span class="co"># mpg %&gt;% </span></a>
+<a class="sourceLine" id="cb90-10" title="10"><span class="co">#   select(c(&quot;manufacturer&quot;, &quot;model&quot;, &quot;displ&quot;, &quot;year&quot;, &quot;cty&quot;))</span></a>
+<a class="sourceLine" id="cb90-11" title="11"></a>
+<a class="sourceLine" id="cb90-12" title="12">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb90-13" title="13"><span class="st">  </span><span class="kw">select</span>(<span class="st">&quot;manufacturer&quot;</span>, <span class="st">&quot;model&quot;</span>, <span class="st">&quot;displ&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;cty&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb90-14" title="14"><span class="st">  </span>glimpse</a></code></pre></div>
+<pre><code>Rows: 234
+Columns: 5
+$ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
+$ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
+$ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
+$ year         &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, ...
+$ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...</code></pre>
+
+<ul>
+<li><p>R 기본 문법과 차이점</p>
+<ul>
+<li>선택하고자 하는 변수 입력 시 따옴표가 필요 없음</li>
+<li><code>:</code> 연산자를 이용해 선택 변수의 범위 지정 가능</li>
+<li><code>-</code> 연산자를 이용해 선택 변수 제거</li>
+</ul></li>
+</ul>
+
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1"><span class="co"># 제조사(manufacturer), 모델명(model), 배기량(displ)</span></a>
+<a class="sourceLine" id="cb92-2" title="2"><span class="co"># 제조년도(year), 시내연비 (cty)만 추출</span></a>
+<a class="sourceLine" id="cb92-3" title="3"><span class="co">## select() 따옴표 없이 변수명 입력</span></a>
+<a class="sourceLine" id="cb92-4" title="4">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb92-5" title="5"><span class="st">  </span><span class="kw">select</span>(manufacturer, model, displ, year, cty) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb92-6" title="6"><span class="st">  </span>glimpse</a></code></pre></div>
+<pre><code>Rows: 234
+Columns: 5
+$ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
+$ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
+$ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
+$ year         &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, ...
+$ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1"><span class="co">## : 연산자로 변수 범위 지정</span></a>
+<a class="sourceLine" id="cb94-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb94-3" title="3"><span class="st">  </span><span class="kw">select</span>(manufacturer<span class="op">:</span>year, cty) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb94-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
+<pre><code>Rows: 234
+Columns: 5
+$ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
+$ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
+$ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
+$ year         &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, ...
+$ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1"><span class="co">## 관심 없는 열을 -로 제외</span></a>
+<a class="sourceLine" id="cb96-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb96-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>cyl, <span class="op">-</span>trans, <span class="op">-</span>drv, <span class="op">-</span>hwy, <span class="op">-</span>fl, <span class="op">-</span>class) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb96-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
+<pre><code>Rows: 234
+Columns: 5
+$ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
+$ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
+$ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
+$ year         &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, ...
+$ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1"><span class="co">## 조금 더 간결하게 (`:`와 `-` 연산 조합)</span></a>
+<a class="sourceLine" id="cb98-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb98-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>cyl<span class="op">:-</span>drv, <span class="op">-</span>hwy<span class="op">:-</span>class) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb98-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
+<pre><code>Rows: 234
+Columns: 5
+$ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
+$ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
+$ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
+$ year         &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, ...
+$ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1"><span class="co">### 동일한 기능: -는 괄호로 묶을 수 있음</span></a>
+<a class="sourceLine" id="cb100-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb100-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>(cyl<span class="op">:</span>drv), <span class="op">-</span>(hwy<span class="op">:</span>class)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb100-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
+<pre><code>Rows: 234
+Columns: 5
+$ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
+$ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
+$ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
+$ year         &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, ...
+$ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...</code></pre>
+
 </div>
 <div id="dplyr-mutate" class="section level3">
 <h3><span class="header-section-number">4.4.5</span> <code>mutate()</code></h3>
@@ -853,6 +906,152 @@ $ class        &lt;chr&gt; &quot;compact&quot;, &quot;compact&quot;, &quot;compa
 <div id="dplyr-group_by" class="section level3">
 <h3><span class="header-section-number">4.4.7</span> <code>group_by()</code></h3>
 </div>
+<div id="dplyr-application" class="section level3">
+<h3><span class="header-section-number">4.4.8</span> dplyr 관련 유용한 함수</h3>
+<div id="dplyr-slice" class="section level4 unnumbered">
+<h4><code>slice()</code></h4>
+</div>
+<div id="dplyr-slice" class="section level4 unnumbered">
+<h4><code>top_n()</code></h4>
+</div>
+<div id="dplyr-distinct" class="section level4 unnumbered">
+<h4><code>distinct()</code></h4>
+</div>
+<div id="dplyr-sample" class="section level4 unnumbered">
+<h4><code>sample_n()/sample_frac()</code></h4>
+</div>
+<div id="dplyr-rename" class="section level4 unnumbered">
+<h4><code>rename()</code></h4>
+</div>
+<div id="dplyr-join" class="section level4 unnumbered">
+<h4><strong><code>*_join()</code></strong></h4>
+</div>
+<div id="inner_join" class="section level4 unnumbered">
+<h4><code>inner_join</code></h4>
+</div>
+<div id="right_join-left_join" class="section level4 unnumbered">
+<h4><code>right_join()</code>, <code>left_join()</code></h4>
+</div>
+<div id="full_join" class="section level4 unnumbered">
+<h4><code>full_join</code></h4>
+</div>
+<div id="dplyr-count" class="section level4 unnumbered">
+<h4><strong>Count 관련 함수</strong></h4>
+</div>
+<div id="tally" class="section level4 unnumbered">
+<h4><code>tally()</code></h4>
+</div>
+<div id="count" class="section level4 unnumbered">
+<h4><code>count()</code></h4>
+</div>
+<div id="n" class="section level4 unnumbered">
+<h4><code>n()</code></h4>
+</div>
+<div id="dplyr-verb-variant" class="section level4 unnumbered">
+<h4><code>*_all,</code>, <code>*_at</code>, <code>*_if</code></h4>
+</div>
+</div>
+<div id="ex-gapminder" class="section level3">
+<h3><span class="header-section-number">4.4.9</span> 확장 예제: Gapminder</h3>
+
+
+<div class="rmdnote">
+<strong>연습 데이터</strong>: Gapminder 데이터 활용. 각 대륙에 속한 국가의 인구, 경제, 보건, 교육, 환경, 노동에 대한 년도 별 국가 통계를 제공함. <a href="https://gapminder.org">Gapminder</a>는 스웨덴의 비영리 통계 분석 서비스를 제공하는 웹사이트로, UN이 제공하는 데이터를 기반으로 인구 예측, 부의 이동 등에 관한 연구 논문 및 통계정보, 데이터를 공유함 <span class="citation">(“Gapminder,” <a href="#ref-gapminder" role="doc-biblioref">n.d.</a>)</span>. R 패키지 중 <code>gapminder</code> <span class="citation">(Bryan <a href="#ref-gapminder-package" role="doc-biblioref">2017</a>)</span>는 1950 ~ 2007 년 까지 5년 단위의 국가별 인구(population), 기대수명(year), 일인당 국민 총소득(gross domestic product per captia, 달러)에 대한 데이터를 제공 하지만, 본 강의에서는 현재 Gapminder 사이트에서 직접 다운로드 받은 가장 최근 데이터를 가지고 dplyr 패키지의 기본 동사를 학습함과 동시에 최종적으로 gapminder 패키지에서 제공하는 데이터와 동일한 형태의 구조를 갖는 데이터를 생성하는 것이 목직임. 해당 데이터는 <a href="https://zorba78.github.com/cnu-r-programming-lecture-note/dataset/gapminder/gapminder-exercise.xlsx">github 계정</a>에서 다운로드가 가능함.
+<code>gapminder-exercise.xlsx</code>는 총 4개의 시트로 구성되어 있으며, 각 시트에 대한 설명은 아래와 같음.
+</div>
+
+
+
+<table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-18">Table 4.3: </span>gapminder-exercise.xlsx 설명
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+시트 이름
+</th>
+<th style="text-align:left;">
+설명
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+region
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+국가별 지역 정보 포함
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+country_pop
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+국가별 1800 ~ 2100년 까지 추계 인구수(명)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+gdpcap
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+국가별 1800 ~ 2100년 까지 국민 총소득(달러)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+lifeexp
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+국가별 1800 ~ 2100년 까지 기대수명(세)
+</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>Gapminder 예시: <code>readxl</code> 패키지 + <code>%&gt;%</code>를 이용해 Gapminder 데이터(<code>gapminder-exercise.xlsx</code>) 불러오기</li>
+</ul>
+
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1"><span class="kw">require</span>(readxl)</a>
+<a class="sourceLine" id="cb102-2" title="2">path &lt;-<span class="st"> &quot;dataset/gapminder/gapminder-exercise.xlsx&quot;</span></a>
+<a class="sourceLine" id="cb102-3" title="3"><span class="co"># base R 문법 적용</span></a>
+<a class="sourceLine" id="cb102-4" title="4"><span class="co"># sheet_name &lt;- excel_sheets(path)</span></a>
+<a class="sourceLine" id="cb102-5" title="5"><span class="co"># gapmL &lt;- lapply(sheet_name, function(x) read_excel(path = path, sheet = x))</span></a>
+<a class="sourceLine" id="cb102-6" title="6"><span class="co"># names(gapmL) &lt;- sheet_name</span></a>
+<a class="sourceLine" id="cb102-7" title="7"></a>
+<a class="sourceLine" id="cb102-8" title="8"><span class="co"># pope 연산자 이용</span></a>
+<a class="sourceLine" id="cb102-9" title="9">path <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb102-10" title="10"><span class="st">  </span>excel_sheets <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb102-11" title="11"><span class="st">  </span>set_names <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb102-12" title="12"><span class="st">  </span><span class="kw">map</span>(read_excel, <span class="dt">path =</span> path) -&gt;<span class="st"> </span>gapmL</a>
+<a class="sourceLine" id="cb102-13" title="13"></a>
+<a class="sourceLine" id="cb102-14" title="14"><span class="co"># 개별 객체에 데이터 저장</span></a>
+<a class="sourceLine" id="cb102-15" title="15">command &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="kw">names</span>(gapmL), <span class="st">&quot;&lt;-&quot;</span>, </a>
+<a class="sourceLine" id="cb102-16" title="16">                 <span class="kw">paste0</span>(<span class="st">&quot;gapmL$&quot;</span>, <span class="kw">names</span>(gapmL)))</a>
+<a class="sourceLine" id="cb102-17" title="17"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(command)) <span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> command[i]))</a>
+<a class="sourceLine" id="cb102-18" title="18"></a>
+<a class="sourceLine" id="cb102-19" title="19"><span class="co"># check</span></a>
+<a class="sourceLine" id="cb102-20" title="20"><span class="kw">head</span>(country_pop)</a></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["iso"],"name":[1],"type":["chr"],"align":["left"]},{"label":["country"],"name":[2],"type":["chr"],"align":["left"]},{"label":["year"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["population"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"afg","2":"Afghanistan","3":"1800","4":"3280000"},{"1":"afg","2":"Afghanistan","3":"1801","4":"3280000"},{"1":"afg","2":"Afghanistan","3":"1802","4":"3280000"},{"1":"afg","2":"Afghanistan","3":"1803","4":"3280000"},{"1":"afg","2":"Afghanistan","3":"1804","4":"3280000"},{"1":"afg","2":"Afghanistan","3":"1805","4":"3280000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-gapminder-package">
+<p>Bryan, Jennifer. 2017. <em>Gapminder: Data from Gapminder</em>. <a href="https://CRAN.R-project.org/package=gapminder">https://CRAN.R-project.org/package=gapminder</a>.</p>
+</div>
+<div id="ref-gapminder">
+<p>“Gapminder.” n.d. <a href="https://ko.wikipedia.org/wiki/갭마인더">https://ko.wikipedia.org/wiki/갭마인더</a>.</p>
+</div>
 </div>
             </section>
 
@@ -860,7 +1059,7 @@ $ class        &lt;chr&gt; &quot;compact&quot;, &quot;compact&quot;, &quot;compa
         </div>
       </div>
 <a href="readr.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="dplyr-application.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-transformation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
