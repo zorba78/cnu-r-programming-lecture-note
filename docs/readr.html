@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.3 readr 패키지 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.3 readr 패키지 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-04-24" />
+<meta name="date" content="2020-05-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -239,13 +239,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.3" data-path="dplyr.html"><a href="dplyr.html#arrange"><i class="fa fa-check"></i><b>4.4.3</b> <code id="dplyr-arrange">arrange()</code></a></li>
 <li class="chapter" data-level="4.4.4" data-path="dplyr.html"><a href="dplyr.html#dplyr-select"><i class="fa fa-check"></i><b>4.4.4</b> <code>select()</code></a></li>
 <li class="chapter" data-level="4.4.5" data-path="dplyr.html"><a href="dplyr.html#dplyr-mutate"><i class="fa fa-check"></i><b>4.4.5</b> <code>mutate()</code></a></li>
-<li class="chapter" data-level="4.4.6" data-path="dplyr.html"><a href="dplyr.html#dplyr-summarise"><i class="fa fa-check"></i><b>4.4.6</b> <code>summarise()</code></a></li>
-<li class="chapter" data-level="4.4.7" data-path="dplyr.html"><a href="dplyr.html#dplyr-group_by"><i class="fa fa-check"></i><b>4.4.7</b> <code>group_by()</code></a></li>
-<li class="chapter" data-level="4.4.8" data-path="dplyr.html"><a href="dplyr.html#dplyr-application"><i class="fa fa-check"></i><b>4.4.8</b> dplyr 관련 유용한 함수</a></li>
-<li class="chapter" data-level="4.4.9" data-path="dplyr.html"><a href="dplyr.html#ex-gapminder"><i class="fa fa-check"></i><b>4.4.9</b> 확장 예제: Gapminder</a></li>
+<li class="chapter" data-level="4.4.6" data-path="dplyr.html"><a href="dplyr.html#dplyr-transmute"><i class="fa fa-check"></i><b>4.4.6</b> <code>transmute()</code></a></li>
+<li class="chapter" data-level="4.4.7" data-path="dplyr.html"><a href="dplyr.html#dplyr-summarise"><i class="fa fa-check"></i><b>4.4.7</b> <code>summarise()</code></a></li>
+<li class="chapter" data-level="4.4.8" data-path="dplyr.html"><a href="dplyr.html#dplyr-group_by"><i class="fa fa-check"></i><b>4.4.8</b> <code>group_by()</code></a></li>
+<li class="chapter" data-level="4.4.9" data-path="dplyr.html"><a href="dplyr.html#dplyr-application"><i class="fa fa-check"></i><b>4.4.9</b> dplyr 관련 유용한 함수</a></li>
+<li class="chapter" data-level="4.4.10" data-path="dplyr.html"><a href="dplyr.html#dplyr-verb-variant-adverb"><i class="fa fa-check"></i><b>4.4.10</b> 부가 기능</a></li>
+<li class="chapter" data-level="4.4.11" data-path="dplyr.html"><a href="dplyr.html#dplyr-join"><i class="fa fa-check"></i><b>4.4.11</b> 데이터 연결</a></li>
+<li class="chapter" data-level="4.4.12" data-path="dplyr.html"><a href="dplyr.html#ex-gapminder"><i class="fa fa-check"></i><b>4.4.12</b> 확장 예제: Gapminder</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>4.5</b> 데이터 변환</a></li>
-<li class="chapter" data-level="4.6" data-path="iteration.html"><a href="iteration.html"><i class="fa fa-check"></i><b>4.6</b> 반복</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -326,7 +327,7 @@ cols(
 <a class="sourceLine" id="cb38-2" title="2"><span class="kw">head</span>(<span class="kw">read.csv</span>(<span class="st">&quot;dataset/titanic3.csv&quot;</span>, <span class="dt">header =</span> T), <span class="dv">10</span>)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["pclass"],"name":[1],"type":["int"],"align":["right"]},{"label":["survived"],"name":[2],"type":["int"],"align":["right"]},{"label":["name"],"name":[3],"type":["chr"],"align":["left"]},{"label":["sex"],"name":[4],"type":["chr"],"align":["left"]},{"label":["age"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["sibsp"],"name":[6],"type":["int"],"align":["right"]},{"label":["parch"],"name":[7],"type":["int"],"align":["right"]},{"label":["ticket"],"name":[8],"type":["chr"],"align":["left"]},{"label":["fare"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["cabin"],"name":[10],"type":["chr"],"align":["left"]},{"label":["embarked"],"name":[11],"type":["chr"],"align":["left"]},{"label":["boat"],"name":[12],"type":["chr"],"align":["left"]},{"label":["body"],"name":[13],"type":["int"],"align":["right"]},{"label":["home.dest"],"name":[14],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"1","3":"Allen, Miss. Elisabeth Walton","4":"female","5":"29.00","6":"0","7":"0","8":"24160","9":"211.3375","10":"B5","11":"S","12":"2","13":"NA","14":"St Louis, MO","_rn_":"1"},{"1":"1","2":"1","3":"Allison, Master. Hudson Trevor","4":"male","5":"0.92","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"11","13":"NA","14":"Montreal, PQ / Chesterville, ON","_rn_":"2"},{"1":"1","2":"0","3":"Allison, Miss. Helen Loraine","4":"female","5":"2.00","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"","13":"NA","14":"Montreal, PQ / Chesterville, ON","_rn_":"3"},{"1":"1","2":"0","3":"Allison, Mr. Hudson Joshua Creighton","4":"male","5":"30.00","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"","13":"135","14":"Montreal, PQ / Chesterville, ON","_rn_":"4"},{"1":"1","2":"0","3":"Allison, Mrs. Hudson J C (Bessie Waldo Daniels)","4":"female","5":"25.00","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"","13":"NA","14":"Montreal, PQ / Chesterville, ON","_rn_":"5"},{"1":"1","2":"1","3":"Anderson, Mr. Harry","4":"male","5":"48.00","6":"0","7":"0","8":"19952","9":"26.5500","10":"E12","11":"S","12":"3","13":"NA","14":"New York, NY","_rn_":"6"},{"1":"1","2":"1","3":"Andrews, Miss. Kornelia Theodosia","4":"female","5":"63.00","6":"1","7":"0","8":"13502","9":"77.9583","10":"D7","11":"S","12":"10","13":"NA","14":"Hudson, NY","_rn_":"7"},{"1":"1","2":"0","3":"Andrews, Mr. Thomas Jr","4":"male","5":"39.00","6":"0","7":"0","8":"112050","9":"0.0000","10":"A36","11":"S","12":"","13":"NA","14":"Belfast, NI","_rn_":"8"},{"1":"1","2":"1","3":"Appleton, Mrs. Edward Dale (Charlotte Lamson)","4":"female","5":"53.00","6":"2","7":"0","8":"11769","9":"51.4792","10":"C101","11":"S","12":"D","13":"NA","14":"Bayside, Queens, NY","_rn_":"9"},{"1":"1","2":"0","3":"Artagaveytia, Mr. Ramon","4":"male","5":"71.00","6":"0","7":"0","8":"PC 17609","9":"49.5042","10":"","11":"C","12":"","13":"22","14":"Montevideo, Uruguay","_rn_":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["pclass"],"name":[1],"type":["int"],"align":["right"]},{"label":["survived"],"name":[2],"type":["int"],"align":["right"]},{"label":["name"],"name":[3],"type":["fctr"],"align":["left"]},{"label":["sex"],"name":[4],"type":["fctr"],"align":["left"]},{"label":["age"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["sibsp"],"name":[6],"type":["int"],"align":["right"]},{"label":["parch"],"name":[7],"type":["int"],"align":["right"]},{"label":["ticket"],"name":[8],"type":["fctr"],"align":["left"]},{"label":["fare"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["cabin"],"name":[10],"type":["fctr"],"align":["left"]},{"label":["embarked"],"name":[11],"type":["fctr"],"align":["left"]},{"label":["boat"],"name":[12],"type":["fctr"],"align":["left"]},{"label":["body"],"name":[13],"type":["int"],"align":["right"]},{"label":["home.dest"],"name":[14],"type":["fctr"],"align":["left"]}],"data":[{"1":"1","2":"1","3":"Allen, Miss. Elisabeth Walton","4":"female","5":"29.00","6":"0","7":"0","8":"24160","9":"211.3375","10":"B5","11":"S","12":"2","13":"NA","14":"St Louis, MO","_rn_":"1"},{"1":"1","2":"1","3":"Allison, Master. Hudson Trevor","4":"male","5":"0.92","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"11","13":"NA","14":"Montreal, PQ / Chesterville, ON","_rn_":"2"},{"1":"1","2":"0","3":"Allison, Miss. Helen Loraine","4":"female","5":"2.00","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"","13":"NA","14":"Montreal, PQ / Chesterville, ON","_rn_":"3"},{"1":"1","2":"0","3":"Allison, Mr. Hudson Joshua Creighton","4":"male","5":"30.00","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"","13":"135","14":"Montreal, PQ / Chesterville, ON","_rn_":"4"},{"1":"1","2":"0","3":"Allison, Mrs. Hudson J C (Bessie Waldo Daniels)","4":"female","5":"25.00","6":"1","7":"2","8":"113781","9":"151.5500","10":"C22 C26","11":"S","12":"","13":"NA","14":"Montreal, PQ / Chesterville, ON","_rn_":"5"},{"1":"1","2":"1","3":"Anderson, Mr. Harry","4":"male","5":"48.00","6":"0","7":"0","8":"19952","9":"26.5500","10":"E12","11":"S","12":"3","13":"NA","14":"New York, NY","_rn_":"6"},{"1":"1","2":"1","3":"Andrews, Miss. Kornelia Theodosia","4":"female","5":"63.00","6":"1","7":"0","8":"13502","9":"77.9583","10":"D7","11":"S","12":"10","13":"NA","14":"Hudson, NY","_rn_":"7"},{"1":"1","2":"0","3":"Andrews, Mr. Thomas Jr","4":"male","5":"39.00","6":"0","7":"0","8":"112050","9":"0.0000","10":"A36","11":"S","12":"","13":"NA","14":"Belfast, NI","_rn_":"8"},{"1":"1","2":"1","3":"Appleton, Mrs. Edward Dale (Charlotte Lamson)","4":"female","5":"53.00","6":"2","7":"0","8":"11769","9":"51.4792","10":"C101","11":"S","12":"D","13":"NA","14":"Bayside, Queens, NY","_rn_":"9"},{"1":"1","2":"0","3":"Artagaveytia, Mr. Ramon","4":"male","5":"71.00","6":"0","7":"0","8":"PC 17609","9":"49.5042","10":"","11":"C","12":"","13":"22","14":"Montevideo, Uruguay","_rn_":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="co"># column type을 변경</span></a>
@@ -358,11 +359,11 @@ cols(
 <pre><code>필요한 패키지를 로딩중입니다: feather</code></pre>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="kw">system.time</span>(pulse &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;dataset/pulse.csv&quot;</span>, <span class="dt">header =</span> T))</a></code></pre></div>
 <pre><code> 사용자  시스템 elapsed 
-  29.21    0.00   29.73 </code></pre>
+  20.28    0.03   20.35 </code></pre>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="kw">write_feather</span>(pulse, <span class="st">&quot;dataset/pulse.feather&quot;</span>)</a>
 <a class="sourceLine" id="cb45-2" title="2"><span class="kw">system.time</span>(pulse &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;output/pulse.rds&quot;</span>))</a></code></pre></div>
 <pre><code> 사용자  시스템 elapsed 
-   0.11    0.00    0.12 </code></pre>
+   0.08    0.00    0.08 </code></pre>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1"><span class="kw">system.time</span>(pulse &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataset/pulse.csv&quot;</span>))</a></code></pre></div>
 <pre><code>Parsed with column specification:
 cols(
@@ -370,10 +371,10 @@ cols(
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre><code> 사용자  시스템 elapsed 
-  19.60    0.02   19.95 </code></pre>
+  14.59    0.02   14.64 </code></pre>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1"><span class="kw">system.time</span>(pulse &lt;-<span class="st"> </span><span class="kw">read_feather</span>(<span class="st">&quot;dataset/pulse.feather&quot;</span>))</a></code></pre></div>
 <pre><code> 사용자  시스템 elapsed 
-   0.31    0.00    0.31 </code></pre>
+   0.28    0.00    0.28 </code></pre>
 <p></p>
 <div id="import-export-excel" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Excel 파일 입출력</h3>
@@ -470,7 +471,7 @@ cols(
 <a class="sourceLine" id="cb60-2" title="2"><span class="kw">tibble</span>(<span class="dt">x =</span> letters, <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dv">26</span>), <span class="dt">z =</span> y<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["x"],"name":[1],"type":["chr"],"align":["left"]},{"label":["y"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["z"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"a","2":"0.62519688","3":"0.390871140"},{"1":"b","2":"-0.22992215","3":"0.052864197"},{"1":"c","2":"-0.48589164","3":"0.236090685"},{"1":"d","2":"0.03849731","3":"0.001482043"},{"1":"e","2":"-0.84516273","3":"0.714300039"},{"1":"f","2":"1.35439434","3":"1.834384041"},{"1":"g","2":"-0.74025490","3":"0.547977310"},{"1":"h","2":"1.94341815","3":"3.776874098"},{"1":"i","2":"-0.98012180","3":"0.960638740"},{"1":"j","2":"1.38112487","3":"1.907505897"},{"1":"k","2":"0.37208712","3":"0.138448827"},{"1":"l","2":"1.76080196","3":"3.100423553"},{"1":"m","2":"0.38675997","3":"0.149583275"},{"1":"n","2":"1.09407952","3":"1.197009999"},{"1":"o","2":"-0.51029531","3":"0.260401306"},{"1":"p","2":"-0.67527460","3":"0.455995782"},{"1":"q","2":"0.43131077","3":"0.186028977"},{"1":"r","2":"-0.80607683","3":"0.649759856"},{"1":"s","2":"-0.28212404","3":"0.079593973"},{"1":"t","2":"0.82872327","3":"0.686782250"},{"1":"u","2":"-0.83500460","3":"0.697232688"},{"1":"v","2":"1.60188936","3":"2.566049520"},{"1":"w","2":"-0.12635370","3":"0.015965258"},{"1":"x","2":"-1.11600661","3":"1.245470748"},{"1":"y","2":"0.44285476","3":"0.196120343"},{"1":"z","2":"-0.28419779","3":"0.080768386"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["x"],"name":[1],"type":["chr"],"align":["left"]},{"label":["y"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["z"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"a","2":"-0.12349729","3":"0.015251581"},{"1":"b","2":"0.22285270","3":"0.049663326"},{"1":"c","2":"-0.26712522","3":"0.071355883"},{"1":"d","2":"-0.24789681","3":"0.061452826"},{"1":"e","2":"1.91328793","3":"3.660670720"},{"1":"f","2":"0.58268168","3":"0.339517944"},{"1":"g","2":"-1.52038345","3":"2.311565849"},{"1":"h","2":"-0.98469760","3":"0.969629357"},{"1":"i","2":"-2.20860693","3":"4.877944568"},{"1":"j","2":"0.17751302","3":"0.031510873"},{"1":"k","2":"0.15954571","3":"0.025454832"},{"1":"l","2":"-0.05597369","3":"0.003133054"},{"1":"m","2":"0.48040225","3":"0.230786326"},{"1":"n","2":"-0.48332530","3":"0.233603347"},{"1":"o","2":"-1.55557059","3":"2.419799853"},{"1":"p","2":"1.77543610","3":"3.152173344"},{"1":"q","2":"0.72122345","3":"0.520163258"},{"1":"r","2":"2.70206201","3":"7.301139084"},{"1":"s","2":"0.16763687","3":"0.028102119"},{"1":"t","2":"1.55837125","3":"2.428520942"},{"1":"u","2":"0.96888720","3":"0.938742413"},{"1":"v","2":"-0.50050397","3":"0.250504228"},{"1":"w","2":"0.69255890","3":"0.479637831"},{"1":"x","2":"1.44486979","3":"2.087648699"},{"1":"y","2":"-0.32633240","3":"0.106492837"},{"1":"z","2":"0.85506718","3":"0.731139880"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1"><span class="co"># 데이터 프레임으로 위와 동일하게 적용하면?</span></a>
