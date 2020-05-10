@@ -279,7 +279,7 @@ system.time(pulse <- read_feather("dataset/pulse.feather"))
 # dataset/owid-covid-data.xlsx 파일 불러오기 
 # install.packages("readxl")
 require(readxl)
-covid19 <- read_xlsx("dataset/owid-covid-data.xlsx")
+covid19 <- read_xlsx("dataset/covid-19-dataset/owid-covid-data.xlsx")
 covid19
 
 # 여러 시트를 동시에 불러올 경우
@@ -337,4 +337,1103 @@ head(iris)
 dd <- as_tibble(iris)
 dd
 
+
+
+## `dplyr`에서 제공하는 "동사"(함수)로 데이터(데이터 프레임) 전처리 방법에 대해 익힌다.
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+`동사(함수)` <- c("filter()", "arrange()", "select()", "mutate()", "summarise()", "group_by()")
+`내용` <- c("행 추출", "내림차순/오름차순 정렬", "열 선택", "열 추가 및 변환", "집계", "그룹별 집계 및 함수 적용")
+`R base 패키지 함수` <- c("subset()",  
+                         "order(), sort()", 
+                         "data[, c('var_name01', 'var_name03')]", 
+                         "transform()", 
+                         "aggregate()", 
+                         "") 
+tab4_01 <- data.frame(`동사(함수)`, 
+                      `내용`, 
+                      `R base 패키지 함수`, 
+                       check.names = FALSE, 
+                       stringsAsFactors = FALSE)
+kable(tab4_01,
+      align = "lll",
+      escape = TRUE, 
+      booktabs = T, caption = "dplyr 패키지 함수와 R base 패키지 함수 비교") %>%
+  kable_styling(bootstrap_options = c("striped"), 
+                position = "center", 
+                font_size = 10, 
+                full_width = TRUE, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "3cm") %>% 
+  column_spec(2, width = "6cm") %>% 
+  column_spec(3, width = "6cm") %>% 
+  row_spec(1:6, monospace = TRUE)
+
+
+
+## R에서 데이터 전처리 및 분석을 수행할 때, 간혹 동일한 이름의 함수명들이 중복된 채 R 작업공간에 읽어오는 경우가 있는데, 이 경우 가장 마지막에 읽어온 패키지의 함수를 작업공간에서 사용한다. 예를 들어 R base 패키지의 `filter()` 함수는 시계열 데이터의 노이즈를 제거하는 함수이지만, tidyverse 패키지를 읽어온 경우, dplyr 패키지의 `filter()` 함수와 이름이 중복되기 때문에 R 작업공간 상에서는 dplyr 패키지의 `filter()`가 작동을 함. 만약 base 패키지의 `filter()` 함수를 사용하고자 하면 `base::filter()`를 사용. 이를 더 일반화 하면 현재 컴퓨터 상에 설치되어 있는 R 패키지의 특정 함수는 `::` 연산자를 통해 접근할 수 있으며,   `package_name::function_name()` 형태로 접근 가능함.
+
+
+## ----pipe-ex-----------------------------------------------------------------------------------------------
+# base R 문법 적용
+print(head(iris, 4))
+
+# %>% 연산자 이용
+iris %>% head(4) %>% print
+
+# setosa 종에 해당하는 변수들의 평균 계산
+apply(iris[iris$Species == "setosa", -5], 2, mean)
+
+# tidyverse의 pipe 연산자 이용
+# require(tidyverse)
+
+iris %>% 
+  filter(Species == "setosa") %>% 
+  select(-Species) %>% 
+  summarise_all(mean)
+
+# Homework #3 b-c 풀이를 위한 pipe 연산 적용
+# df <- within(df, {
+#   am <- factor(am, levels = 0:1, 
+#                labels = c("automatic", "manual"))
+# })
+# ggregate(cbind(mpg, disp, hp, drat, wt, qsec) ~ am, 
+#           data = df, 
+#           mean)
+# aggregate(cbind(mpg, disp, hp, drat, wt, qsec) ~ am, 
+#           data = df, 
+#           sd)
+
+mtcars %>% 
+  mutate(am = factor(vs, 
+                     levels = 0:1, 
+                     labels = c("automatic", "manual"))) %>% 
+  group_by(am) %>% 
+  summarise_at(vars(mpg, disp:qsec), 
+               list(mean = mean, 
+                    sd = sd))
+
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="filter() 함수 다이어그램"----
+knitr::include_graphics('figures/dplyr-filter.png', dpi = NA)
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='90%', fig.cap="가능한 모든 boolean 연산 종류: x는 좌변, y는 우변을 의미하고 음영은 연산 이후 선택된 부분을 나타냄."----
+knitr::include_graphics('figures/venn-diagram.png', dpi = NA)
+
+
+## ----filter-proto, eval=FALSE------------------------------------------------------------------------------
+## # filter() 동사 prototype
+## dplyr::filter(x, # 데이터 프레임 또는 티블 객체
+##               condition_01, # 첫 번째 조건
+##               condition_02, # 두 번째 조건
+##                             # 두 번째 인수 이후 조건들은
+##                             # condition_1 & condition 2 & ... & condition_n 임
+##               ...)
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+`변수명` <- c("manufacturer", "model", "displ", 
+              "year", "cyl", "trans", "drv", 
+              "cty", "hwy", "fl", "class")
+`변수설명(영문)` <- c("manufacturer name",
+                      "model name",
+                      "engine displacement, in litres",
+                      "year of manufacture",
+                      "number of cylinders",
+                      "type of transmission",
+                      "the type of drive train, where f = front-wheel drive, r = rear wheel drive, 4 = 4wd",
+                      "city miles per gallon",
+                      "highway miles per gallon",
+                      "fuel type: e = E85, d = diesel, r = regular, p = premium, c = CNG", 
+                      "'type' of car")
+`변수설명(국문)` <- c("제조사", 
+                "모델명", 
+                "배기량 (리터)", 
+                "제조년도", 
+                "엔진 기통 수", 
+                "트렌스미션", 
+                "구동 유형: f = 전륜구동, r = 후륜구동, 4 = 4륜 구동", 
+                "시내 연비", 
+                "고속 연비", 
+                "연료: e = 에탄올 85, r = 가솔린, p = 프리미엄, d = 디젤, c = CNP", 
+                "자동차 타입")
+tab4_03 <- data.frame(`변수명`, 
+                      `변수설명(영문)`, 
+                      `변수설명(국문)`, 
+                       check.names = FALSE, 
+                       stringsAsFactors = FALSE)
+kable(tab4_03,
+      align = "lll",
+      escape = TRUE, 
+      booktabs = T, caption = "gapminder-exercise.xlsx 설명") %>%
+  kable_styling(bootstrap_options = c("striped"), 
+                position = "center", 
+                font_size = 10, 
+                full_width = TRUE, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "3cm") %>% 
+  column_spec(2, width = "6cm") %>% 
+  column_spec(3, width = "6cm") %>% 
+  row_spec(1:length(`변수명`), monospace = TRUE)
+
+
+
+## ----filter-ex-mpg-----------------------------------------------------------------------------------------
+glimpse(mpg)
+
+# 현대 차만 추출
+## 기본 문법 사용
+# mpg[mpg$manufacturer == "hyundai", ]
+# subset(mpg, manufacturer == "hyundai")
+
+## filter() 함수 사용
+# filter(mpg, manufacturer == "hyundai")
+
+## pipe 연산자 사용
+mpg %>% 
+  filter(manufacturer == "hyundai")
+
+# 시내 연비가 20 mile/gallon 이상이고 타입이 suv 차량 추출
+## 기본 문법 사용
+# mpg[mpg$cty >= 20 & mpg$class == "suv", ]
+# subset(mpg, cty >= 20 & class == "suv")
+
+## filter() 함수 사용
+# filter(mpg, cty >= 20, class == "suv")
+
+## pipe 연산자 사용
+mpg %>% 
+  filter(cty >= 20, 
+         class == "suv")
+
+# 제조사가 audi 또는 volkswagen 이고 고속 연비가 30 miles/gallon 인 차량만 추출
+mpg %>% 
+  filter(manufacturer == "audi" | manufacturer == "volkswagen", 
+         hwy >= 30)
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='40%', fig.cap="arrange() 함수 다이어그램"----
+knitr::include_graphics('figures/dplyr-arrange.png', dpi = NA)
+
+
+## ---- eval=FALSE-------------------------------------------------------------------------------------------
+## arrange(data, # 데이터 프레임 또는 티블 객체
+##         var1, # 기준 변수 1
+##         var2, # 기준 변수 2
+##         ...)
+
+
+## ----arrange-ex-mpg----------------------------------------------------------------------------------------
+# 시내 연비를 기준으로 오름차순 정렬
+## R 기본 문법 사용
+# mpg[order(mpg$cty), ]
+
+## arrange 함수 사용
+# arrange(mpg, cty)
+
+## pipe 사용
+mpg_asc <- mpg %>% arrange(cty)
+mpg_asc %>% print
+
+
+# 시내 연비는 오름차순, 차량 타입은 내림차순(알파벳 역순) 정렬
+## R 기본 문법 사용
+### 문자형 벡터의 순위 계산을 위해 rank() 함수 사용
+mpg_sortb <- mpg[order(mpg$cty, -rank(mpg$class)), ]
+
+## arrange 함수 사용
+mpg_sortt <- mpg %>% arrange(cty, desc(class))
+mpg_sortt %>% print
+
+# 두 데이터 셋 동일성 여부
+identical(mpg_sortb, mpg_sortt)
+
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='50%', fig.cap="select() 함수 다이어그램"----
+knitr::include_graphics('figures/dplyr-select.png', dpi = NA)
+
+
+## ----select-proto, eval=FALSE------------------------------------------------------------------------------
+## select(
+##   data, # 데이터 프레임 또는 티블 객체
+##   var_name1, # 변수 이름 (따옴표 없이도 가능)
+##   var_name2,
+##   ...
+## )
+
+
+## ----select-ex-1-------------------------------------------------------------------------------------------
+# 제조사(manufacturer), 모델명(model), 배기량(displ)
+# 제조년도(year), 시내연비 (cty)만 추출
+
+## 기본 R 문법 이용한 변수 추출
+glimpse(mpg[, c("manufacturer", "model", "displ", "year", "cty")])
+# glimpse(mpg[, c(1:4, 8)])
+# glimpse(mpg[, names(mpg) %in% c("manufacturer", "displ", "model",
+#                         "year", "cty")])
+
+## select() 함수 이용
+### 아래 스크립트는 모두 동일한 결과를 반환
+# mpg %>% select(1:4, 8)
+# 
+# mpg %>% 
+#   select(c("manufacturer", "model", "displ", "year", "cty"))
+
+mpg %>% 
+  select("manufacturer", "model", "displ", "year", "cty") %>% 
+  glimpse
+
+
+
+## ----------------------------------------------------------------------------------------------------------
+# 제조사(manufacturer), 모델명(model), 배기량(displ)
+# 제조년도(year), 시내연비 (cty)만 추출
+## select() 따옴표 없이 변수명 입력
+mpg %>% 
+  select(manufacturer, model, displ, year, cty) %>% 
+  glimpse
+
+## : 연산자로 변수 범위 지정
+mpg %>% 
+  select(manufacturer:year, cty) %>% 
+  glimpse
+
+## 관심 없는 열을 -로 제외 가능
+mpg %>% 
+  select(-cyl, -trans, -drv, -hwy, -fl, -class) %>% 
+  glimpse
+
+## 조금 더 간결하게 (`:`와 `-` 연산 조합)
+mpg %>% 
+  select(-cyl:-drv, -hwy:-class) %>% 
+  glimpse
+
+### 동일한 기능: -는 괄호로 묶을 수 있음
+mpg %>% 
+  select(-(cyl:drv), -(hwy:class)) %>% 
+  glimpse
+
+# select() 함수를 이용해 변수명 변경 가능
+mpg %>% 
+  select(city_mpg = cty) %>% 
+  glimpse
+
+
+
+## ----------------------------------------------------------------------------------------------------------
+# "m"으로 시작하는 변수 제거
+## 기존 select() 함수 사용
+mpg %>% 
+  select(-manufacturer, -model) %>% 
+  glimpse
+
+## select() + starts_with() 함수 사용
+mpg %>% 
+  select(-starts_with("m")) %>% 
+  glimpse
+
+# "l"로 끝나는 변수 선택: ends_with() 함수 사용
+mpg %>% 
+  select(ends_with("l")) %>% 
+  glimpse
+
+# dplyr 내장 데이터: starwars에서 이름, 성별, "color"를 포함하는 변수 선택
+## contains() 함수 사용
+starwars %>% 
+  select(name, gender, contains("color")) %>% 
+  head
+
+# 다시 mpg 데이터... 
+## 맨 마지막 문자가 "y"로 끝나는 변수 선택(제조사, 모델 포함)
+## matches() 사용
+mpg %>% 
+  select(starts_with("m"), matches("y$")) %>% 
+  glimpse
+
+# cty, hwy 변수를 각각 1-2 번째 열에 위치
+mpg %>% 
+  select(matches("y$"), everything()) %>% 
+  glimpse
+
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="mutate() 함수 다이어그램"----
+knitr::include_graphics('figures/dplyr-mutate.png', dpi = NA)
+
+
+## ---- error=TRUE-------------------------------------------------------------------------------------------
+# mpg 데이터 셋의 연비 단위는 miles/gallon으로 입력 -> kmh/l 로 변환
+mile <- 1.61 #km
+gallon <- 3.79 #litres
+kpl <- mile/gallon
+
+## 기본 R 문법
+glimpse(transform(mpg, 
+                  cty_kpl = cty * kpl, 
+                  hwy_kpl = hwy * kpl))
+
+## tidyverse 문법
+mpg %>% 
+  mutate(cty_kpl = cty*kpl, 
+         hwy_kpl = hwy*kpl) %>% 
+  glimpse
+
+# 새로 생성한 변수를 이용해 변환 변수를 원래 단위로 바꿔보기
+## R 기본 문법: transform() 사용
+glimpse(transform(mpg, 
+                  cty_kpl = cty * kpl, 
+                  hwy_kpl = hwy * kpl,
+                  cty_raw = cty_kpl/kpl,
+                  hwy_raw = hwy_kpl/kpl,
+                  )) 
+
+## Tidyverse 문법
+mpg %>% 
+  mutate(cty_kpl = cty*kpl, 
+         hwy_kpl = hwy*kpl, 
+         cty_raw = cty_kpl/kpl,
+         hwy_raw = hwy_kpl/kpl) %>% 
+  glimpse
+
+
+
+## ----------------------------------------------------------------------------------------------------------
+`연비` <- mpg %>% 
+  transmute(cty_kpl = cty*kpl, 
+            hwy_kpl = hwy*kpl, 
+            cty_raw = cty_kpl/kpl,
+            hwy_raw = hwy_kpl/kpl)
+`연비` %>% print
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="summarise() 함수 다이어그램"----
+knitr::include_graphics('figures/dplyr-summarise.png', dpi = NA)
+
+
+## ----------------------------------------------------------------------------------------------------------
+# cty, hwy의 평균과 표준편차 계산
+mpg %>% 
+  summarise(mean_cty = mean(cty),
+            sd_cty = sd(cty), 
+            mean_hwy = mean(hwy), 
+            sd_hwy = sd(hwy))
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="group_by() 함수 다이어그램"----
+knitr::include_graphics('figures/dply-group-by.png', dpi = NA)
+
+
+## ----------------------------------------------------------------------------------------------------------
+# 모델, 년도에 따른 cty, hwy 평균 계산
+by_mpg <- group_by(mpg, model, year)
+## 그룹 지정 check
+by_mpg %>% 
+  head %>% 
+  print
+
+## 통계량 계산
+by_mpg %>% 
+  summarise(mean_cty = mean(cty), 
+            mean_hwy = mean(hwy)) %>% 
+  print
+
+
+## ---- eval=FALSE-------------------------------------------------------------------------------------------
+## ## by_group() chain 연결
+## mean_mpg <- mpg %>%
+##   group_by(model, year) %>%
+##   summarise(mean_cty = mean(cty),
+##             mean_hwy = mean(hwy))
+
+
+## ----------------------------------------------------------------------------------------------------------
+# 제조사 별 시내연비가 낮은 순으로 정렬
+audi <- mpg %>% 
+  group_by(manufacturer) %>% 
+  arrange(cty) %>% 
+  filter(manufacturer == "audi")
+
+audi %>% print
+
+
+## 그룹화된 데이터셋을 다시 그룹화 하지 않은 원래 데이터셋으로 변경할 때 `ungroup()` 함수를 사용
+
+
+## ----------------------------------------------------------------------------------------------------------
+# 1 ~ 8행에 해당하는 데이터 추출
+slice_mpg <- mpg %>% slice(1:8)
+slice_mpg %>% print
+
+# 각 모델 별 첫 번째 데이터만 추출
+slice_mpg_grp <- mpg %>% 
+  group_by(model) %>% 
+  slice(1) %>% 
+  arrange(model)
+
+slice_mpg_grp %>% print
+
+
+## ----------------------------------------------------------------------------------------------------------
+# mpg 데이터에서 시내 연비가 높은 데이터 5개 추출
+mpg %>% 
+  top_n(5, cty) %>% 
+  arrange(desc(cty))
+
+
+## ----------------------------------------------------------------------------------------------------------
+# mpg 데이터에서 중복데이터 제거 (모든 열 기준)
+mpg_uniq <- mpg %>% distinct()
+mpg_uniq %>% print
+
+# model을 기준으로 중복 데이터 제거
+mpg_uniq2 <- mpg %>% 
+  distinct(model, .keep_all = TRUE) %>% 
+  arrange(model)
+
+mpg_uniq2 %>% head(6) %>% print
+
+# 위 그룹별 slice(1) 예제와 비교
+identical(slice_mpg_grp %>% ungroup, mpg_uniq2)
+
+
+## ----------------------------------------------------------------------------------------------------------
+# 전체 234개 행에서 3개 행을 랜덤하게 추출
+mpg %>% sample_n(3)
+
+# 전체 234개 행의 5%에 해당하는 행을 랜덤하게 추출
+mpg %>% sample_frac(0.05)
+
+
+## ----------------------------------------------------------------------------------------------------------
+# 변수명 변셩 
+## R 기본 문법으로 변수명 변경
+varn_mpg <- names(mpg) # 원 변수명 저장
+names(mpg)[5] <- "cylinder" # cyl을 cylinder로 변셩
+names(mpg) <- varn_mpg #
+
+## Tidyverse 문법: rename() 사용
+mpg %>% 
+  rename(cylinder = cyl) %>% 
+  head %>% 
+  print
+
+## cty를 city_mpg, hwy를 hw_mpg로 변경
+mpg %>% 
+  rename(city_mpg = cty, 
+         hw_mpg = hwy) %>% 
+  print
+
+
+## ----------------------------------------------------------------------------------------------------------
+# 전체 행 개수 (nrow(data))와 유사
+mpg %>% 
+  tally %>% 
+  print
+
+# 제조사, 년도별 데이터 개수 
+mpg %>% 
+  group_by(manufacturer, year) %>% 
+  tally %>% 
+  ungroup %>% 
+  print
+
+
+
+## ----------------------------------------------------------------------------------------------------------
+# 제조사, 년도별 데이터 개수: tally() 예시와 비교
+mpg %>% 
+  count(manufacturer, year) %>% 
+  print
+
+
+## ----------------------------------------------------------------------------------------------------------
+# 제조사, 년도에 따른 배기량, 시내연비의 평균 계산(그룹 별 n 포함)
+mpg %>% 
+  group_by(manufacturer, year) %>% 
+  summarise(
+    N = n(), 
+    mean_displ = mean(displ), 
+    mean_hwy = mean(cty)) %>% 
+  print
+
+# mutate, filter에서 사용하는 경우
+mpg %>% 
+  group_by(manufacturer, year) %>% 
+  mutate(N = n()) %>% 
+  filter(n() < 4) %>% 
+  print
+  
+
+
+## ----------------------------------------------------------------------------------------------------------
+# mtcars 데이터셋 사용
+## filter_all()
+### 모든 변수들이 100 보다 큰 케이스 추출
+mtcars %>% 
+  filter_all(all_vars(. > 100)) %>% 
+  print
+
+### 모든 변수들 중 하나라도 300 보다 큰 케이스 추출
+mtcars %>% 
+  filter_all(any_vars(. > 300)) %>% 
+  print
+
+## filter_at()
+### 기어 개수(gear)와 기화기 개수(carb)가 짝수인 케이스만 추출
+mtcars %>% 
+  filter_at(vars(gear, carb),
+            ~ . %% 2 == 0) %>% # 대명사 앞에 ~ 표시를 꼭 사용해야 함
+  print
+
+## filter_if()
+### 내림한 값이 원래 값과 같은 변수들 모두 0이 아닌 케이스 추출
+mtcars %>% 
+  filter_if(~ all(floor(.) == .), 
+            all_vars(. != 0)) %>% 
+  # filter_if(~ all(floor(.) == .),
+  #           ~ . != 0) %>%
+  print
+
+
+
+## ----------------------------------------------------------------------------------------------------------
+# select_all() 예시
+## mpg 데이터셋의 모든 변수명을 대문자로 변경
+mpg %>% 
+  select_all(~toupper(.)) %>% 
+  print
+
+# select_at() 예시
+## 문자형 변수를 선택하고 선택한 변수의 이름을 대문자로 변경
+mpg %>% 
+  select_if(~ is.character(.), ~ toupper(.)) %>% 
+  print
+
+# select_if() 예시
+## model에서 cty 까지 변수를 선택하고 선택한 변수명을 대문자로 변경
+mpg %>% 
+  select_at(vars(model:cty), ~ toupper(.)) %>% 
+  print
+
+
+
+## ----------------------------------------------------------------------------------------------------------
+# mutate_all() 예시
+## 문자형 변수를 선택 후 모든 변수를 요인형으로 변환
+mpg %>% 
+  select_if(~is.character(.)) %>% 
+  mutate_all(~factor(.)) %>% 
+  head %>% 
+  print
+
+# mutate_at() 예시
+## cty, hwy 단위를 km/l로 변경
+mpg %>% 
+  mutate_at(vars(cty, hwy), 
+            ~ . * kpl) %>%  # 원래 변수를 변경
+  head %>% 
+  print
+
+## "m"으로 시작하거나 "s"로 끝나는 변수 선택 후 요인형으로 변환
+mpg %>% 
+  mutate_at(vars(starts_with("m"), 
+                 ends_with("s")), 
+            ~ factor(.)) %>% 
+  summary
+
+# mutate_if() 예시 
+## 문자형 변수를 요인형으로 변환
+mpg %>% 
+  mutate_if(~ is.character(.), ~ factor(.)) %>% 
+  summary
+
+
+
+
+## ----------------------------------------------------------------------------------------------------------
+# summary_all() 예시
+## 모든 변수의 최솟값과 최댓값 요약
+## 문자형 변수는 알파벳 순으로 최솟값과 최댓값 반환
+## 복수의 함수를 적용 시 list()함수 사용
+mpg %>% 
+  summarise_all(list(min = ~ min(.), 
+                     max = ~ max(.))) %>% 
+  glimpse
+
+# summary_at() 예시
+## dipl, cyl, cty, hwy에 대해 제조사 별 n수와 평균과 표준편차 계산
+mpg %>% 
+  add_count(manufacturer) %>% # 행 집계 결과를 열 변수로 추가하는 함수
+  group_by(manufacturer, n) %>% 
+  summarise_at(vars(displ, cyl, cty:hwy), 
+               list(mean = ~ mean(.), 
+                    sd = ~ sd(.))) %>% 
+  print
+
+# summary_if() 예시
+## 1) 문자형 변수이거나 모든 값이 1999보다 크거나 같은 변수이거나 
+##     8보다 작거나 같고 정수인 변수를 factor 변환
+## 2) 수치형 변수에 대한 제조사 별 n, 평균, 표준편차를 구한 후
+## 3) 평균 cyl 기준 내림차순으로 정렬
+mpg %>% 
+  mutate_if(~ is.character(.) | all(. >= 1999) | 
+              (all(. <= 8) & is.integer(.)), 
+            ~ factor(.)) %>% 
+  add_count(manufacturer) %>% 
+  group_by(manufacturer, n) %>% 
+  summarise_if(~ is.numeric(.), 
+               list(mean = ~ mean(.), 
+                    sd = ~ sd(.))) %>% 
+  arrange(desc(cty_mean)) %>% 
+  print
+
+
+
+## 본 강의에서는 **mutating join** 에 대해서만 다룸
+
+
+## ----------------------------------------------------------------------------------------------------------
+# install.packages("nycflights13")
+require(nycflights13)
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+flights %>% print
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+`변수` <- c("year, month, day", 
+            "dep_time, arr_time",
+            "sched_dep_time, sched_arr_time", 
+            "dep_delay, arr_delay", 
+            "carrier", 
+            "tailnum", 
+            "flight", 
+            "origin, dest", 
+            "air_time", 
+            "distance", 
+            "hour, minutes", 
+            "time_hour")
+
+`설명` <- c("출발년도, 월, 일", 
+            "실제 출발-도착 시간(현지시각)", 
+            "예정 출발-도착 시간(현지시각)", 
+            "출발 및 도착 지연 시간(분, min)", 
+            "항공코드 약어(두개 문자)", 
+            "비행기 일련 번호", 
+            "항공편 번호", 
+            "최초 출발지, 목적지", 
+            "비행 시간(분, min)", 
+            "비행 거리(마일, mile)", 
+            "예정 출발 시각(시, 분)으로 분리", 
+            "POSIXct 포맷으로로 기록된  예정 항공편 날짜 및 시간")
+
+tab4_03 <- data.frame(`변수`, 
+                      `설명`, 
+                       check.names = FALSE, 
+                       stringsAsFactors = FALSE)
+kable(tab4_03,
+      align = "ll",
+      escape = TRUE, 
+      booktabs = T, caption = "flights 데이터셋 코드북") %>%
+  kable_styling(bootstrap_options = c("striped"), 
+                position = "center", 
+                font_size = 11, 
+                full_width = TRUE, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "5cm") %>% 
+  column_spec(2, width = "5cm") %>% 
+  row_spec(1:nrow(tab4_03), monospace = TRUE)
+
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+airlines %>% print
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+airports %>% print
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+`변수` <- names(airports)
+`설명` <- c("FAA 공항 코드", 
+          "공항 명칭", 
+          "위도", 
+          "경도", 
+          "고도", 
+          "타임존 차이(GMT로부터)", 
+          "일광 절약 시간제(섬머타임): A=미국 표준 DST, U=unknown, N=no DST", 
+          "IANA 타임존")
+tab4_04 <- data.frame(`변수`, 
+                      `설명`, 
+                       check.names = FALSE, 
+                       stringsAsFactors = FALSE)
+kable(tab4_04,
+      align = "ll",
+      escape = TRUE, 
+      booktabs = T, caption = "airports 데이터셋 코드북") %>%
+  kable_styling(bootstrap_options = c("striped"), 
+                position = "center", 
+                font_size = 11, 
+                full_width = TRUE, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "5cm") %>% 
+  column_spec(2, width = "5cm") %>% 
+  row_spec(1:nrow(tab4_04), monospace = TRUE)
+
+
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+planes %>% print
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+`변수` <- names(planes)
+`설명` <- c("항공기 일련번호", 
+            "제조년도", 
+            "항공기 유형", 
+            "제조사", 
+            "모델명", 
+            "엔진 개수", 
+            "좌석 수", 
+            "속력", 
+            "엔진 유형")
+
+tab4_05 <- data.frame(`변수`, 
+                      `설명`, 
+                       check.names = FALSE, 
+                       stringsAsFactors = FALSE)
+  
+kable(tab4_05,
+      align = "ll",
+      escape = TRUE, 
+      booktabs = T, caption = "planes 데이터셋 코드북") %>%
+  kable_styling(bootstrap_options = c("striped"), 
+                position = "center", 
+                font_size = 11, 
+                full_width = TRUE, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "5cm") %>% 
+  column_spec(2, width = "5cm") %>% 
+  row_spec(1:nrow(tab4_05), monospace = TRUE)  
+
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+weather %>% print
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+`변수` <- c("origin", 
+          "year, month, day, hour", 
+          "temp, dewp", 
+          "humid", 
+          "wind_dir, wind_speed, wind_gust", 
+          "precip", 
+          "pressure", 
+          "visib", 
+          "time_hour")
+`설명` <- c("기상관측소", 
+          "년도, 월, 일, 시간", 
+          "기온, 이슬점 (F)", 
+          "습도", 
+          "바람방향(degree), 풍속 및 돌풍속도(mph)", 
+          "강수량(inch)", 
+          "기압(mbar)", 
+          "가시거리(mile)", 
+          "POSIXct 포맷 일자 및 시간")
+
+tab4_06 <- data.frame(`변수`, 
+                      `설명`, 
+                       check.names = FALSE, 
+                       stringsAsFactors = FALSE)
+  
+kable(tab4_06,
+      align = "ll",
+      escape = TRUE, 
+      booktabs = T, caption = "weather 데이터셋 코드북") %>%
+  kable_styling(bootstrap_options = c("striped"), 
+                position = "center", 
+                font_size = 11, 
+                full_width = TRUE, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "5cm") %>% 
+  column_spec(2, width = "5cm") %>% 
+  row_spec(1:nrow(tab4_06), monospace = TRUE)  
+
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='80%', fig.cap="NYC flight 2013 데이터 관계도(https://r4ds.had.co.nz/ 에서 발췌)"----
+knitr::include_graphics('figures/dplyr-flights-db-scheme.png', dpi = NA)
+
+
+## ----------------------------------------------------------------------------------------------------------
+x <- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     3, "x3"
+)
+y <- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2",
+     4, "y3"
+)
+
+inner_join(x, y, by = "key") %>% print
+
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="inner join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"----
+knitr::include_graphics('figures/dplyr-inner-join.gif', dpi = NA)
+
+
+## ----------------------------------------------------------------------------------------------------------
+left_join(x, y, by = "key") %>% print
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="left join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"----
+knitr::include_graphics('figures/dplyr-left-join.gif', dpi = NA)
+
+
+## ----------------------------------------------------------------------------------------------------------
+right_join(x, y, by = "key") %>% print
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="right join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"----
+knitr::include_graphics('figures/dplyr-right-join.gif', dpi = NA)
+
+
+## ----------------------------------------------------------------------------------------------------------
+full_join(x, y, by = "key") %>% print
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="full join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"----
+knitr::include_graphics('figures/dplyr-full-join.gif', dpi = NA)
+
+
+## ----------------------------------------------------------------------------------------------------------
+# flights 데이터 간소화(일부 열만 추출)
+flights2 <- flights %>% 
+  select(year:day, hour, origin, dest, tailnum, carrier)
+
+# flights2 와 airlines 병합
+flights2 %>% 
+  left_join(airlines, by = "carrier") %>% 
+  print
+
+# flights2와 airline, airports 병합
+## airports 데이터 간소화
+airports2 <- airports %>% 
+  select(faa:name, airport_name = name) %>% 
+  print
+
+flights2 %>% 
+  left_join(airlines, by = "carrier") %>% 
+  left_join(airports2, by = c("origin" = "faa")) %>% 
+  print
+
+
+# flights2와 airline, airports, planes 병합
+planes2 <- planes %>% 
+  select(tailnum, model)
+
+flights2 %>% 
+  left_join(airlines, by = "carrier") %>% 
+  left_join(airports2, by = c("origin" = "faa")) %>% 
+  left_join(planes2, by = "tailnum") %>% 
+  print
+
+# flights2와 airline, airports2, planes2, weather2 병합
+## weather 데이터 간소화
+weather2 <- weather %>% 
+  select(origin:temp, wind_speed)
+
+flights2 %>% 
+  left_join(airlines, by = "carrier") %>% 
+  left_join(airports2, by = c("origin" = "faa")) %>% 
+  left_join(planes2, by = "tailnum") %>% 
+  left_join(weather2, by = c("origin", "year", 
+                             "month", "day", "hour")) %>% 
+  glimpse
+
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+`dplyr::*_join()` <- c("inner_join(x, y)", 
+                       "left_join(x, y)", 
+                       "right_join(x, y)",
+                       "full_join(x, y)")
+
+`base::merge()` <- c("merge(x, y)", 
+                    "merge(x, y, all.x = TRUE)", 
+                    "merge(x, y, all.y = TRUE)", 
+                    "merge(x, y, all.x = TRUE, all.y = TRUE)")
+
+tab4_07 <- data.frame(`dplyr::*_join()`, 
+                      `base::merge()`, 
+                       check.names = FALSE, 
+                       stringsAsFactors = FALSE)
+
+kable(tab4_07,
+      align = "ll",
+      escape = TRUE, 
+      booktabs = T, caption = "dplyr join 함수와 merge() 함수 비교") %>%
+  kable_styling(bootstrap_options = c("striped"), 
+                position = "center", 
+                font_size = 11, 
+                full_width = TRUE, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "5cm") %>% 
+  column_spec(2, width = "5cm") %>% 
+  row_spec(1:nrow(tab4_07), monospace = TRUE)
+
+
+
+## **연습 데이터**:  Gapminder 데이터 활용. 각 대륙에 속한 국가의 인구, 경제, 보건, 교육, 환경, 노동에 대한 년도 별 국가 통계를 제공함. [Gapminder](https://gapminder.org)는 스웨덴의 비영리 통계 분석 서비스를 제공하는 웹사이트로, UN이 제공하는 데이터를 기반으로 인구 예측, 부의 이동 등에 관한 연구 논문 및 통계정보, 데이터를 공유함 [@gapminder]. R 패키지 중 `gapminder` [@gapminder-package]는 1950 ~ 2007 년 까지 5년 단위의 국가별 인구(population), 기대수명(year), 일인당 국민 총소득(gross domestic product per captia, 달러)에 대한 데이터를 제공 하지만, 본 강의에서는 현재 Gapminder 사이트에서 직접 다운로드 받은 가장 최근 데이터를 가지고 dplyr 패키지의 기본 동사를 학습함과 동시에 최종적으로 gapminder 패키지에서 제공하는 데이터와 동일한 형태의 구조를 갖는 데이터를 생성하는 것이 목직임. 해당 데이터는 [github 계정](https://github.com/zorba78/cnu-r-programming-lecture-note/blob/master/dataset/gapminder/gapminder-exercise.xlsx)에서 다운로드가 가능함.
+
+## `gapminder-exercise.xlsx`는 총 4개의 시트로 구성되어 있으며, 각 시트에 대한 설명은 아래와 같음.
+
+
+## ---- echo = FALSE-----------------------------------------------------------------------------------------
+`시트 이름` <- c("region", "country_pop", "gdpcap", "lifeexp")
+`설명` <- c("국가별 지역 정보 포함", 
+            "국가별 1800 ~ 2100년 까지 추계 인구수(명)", 
+            "국가별 1800 ~ 2100년 까지 국민 총소득(달러)", 
+            "국가별 1800 ~ 2100년 까지 기대수명(세)")
+tab4_08 <- data.frame(`시트 이름`, 
+                      `설명`, 
+                       check.names = FALSE, 
+                       stringsAsFactors = FALSE)
+kable(tab4_08,
+      align = "ll",
+      escape = TRUE, 
+      booktabs = T, caption = "gapminder-exercise.xlsx 설명") %>%
+  kable_styling(bootstrap_options = c("striped"), 
+                position = "center", 
+                font_size = 11, 
+                full_width = TRUE, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "3cm") %>% 
+  column_spec(2, width = "7cm") %>% 
+  row_spec(1:4, monospace = TRUE)
+
+
+## ---- eval=FALSE-------------------------------------------------------------------------------------------
+## install.packages("gapminder")
+
+
+## **Gapminder 데이터 핸들링 실습**
+
+
+## ----------------------------------------------------------------------------------------------------------
+require(readxl)
+require(gapminder)
+path <- "dataset/gapminder/gapminder-exercise.xlsx"
+# base R 문법 적용
+# sheet_name <- excel_sheets(path)
+# gapmL <- lapply(sheet_name, function(x) read_excel(path = path, sheet = x))
+# names(gapmL) <- sheet_name
+
+# pipe 연산자 이용
+path %>% 
+  excel_sheets %>% 
+  set_names %>% 
+  map(read_excel, path = path) -> gapmL
+
+# 개별 객체에 데이터 저장
+command <- paste(names(gapmL), "<-", 
+                 paste0("gapmL$", names(gapmL)))
+for (i in 1:length(command)) eval(parse(text = command[i]))
+
+# check
+ls()
+region %>% print
+country_pop %>% print
+gdpcap %>% print
+lifeexp %>% print
+
+
+
+## ----------------------------------------------------------------------------------------------------------
+gap_unfilter <- country_pop %>% 
+  left_join(gdpcap, by = c("iso" = "iso_code", 
+                           "country", 
+                           "year")) %>% 
+  left_join(lifeexp, by = c("iso" = "iso_code", 
+                            "country", 
+                            "year"))
+gap_unfilter %>% print
+
+
+## ----------------------------------------------------------------------------------------------------------
+gap_filter <- gap_unfilter %>% 
+  filter(population >= 60000, 
+         between(year, 1950, 2020))
+gap_filter %>% print
+
+
+## ----------------------------------------------------------------------------------------------------------
+gap_filter <- gap_filter %>% 
+  mutate(iso = toupper(iso), 
+         gdp_cap = gdp_total/population) %>% 
+  select(-gdp_total) 
+gap_filter %>% print  
+
+
+## ----------------------------------------------------------------------------------------------------------
+gap_filter <- gap_filter %>% 
+  left_join(region %>% select(-country), 
+            by = c("iso"))
+gap_filter %>% print
+
+
+## ----------------------------------------------------------------------------------------------------------
+gap_filter <- gap_filter %>% 
+  select(iso:country, region, everything())
+
+
+## ----------------------------------------------------------------------------------------------------------
+gap_filter <- gap_filter %>% 
+  mutate_if(~ is.character(.), ~factor(.)) %>% 
+  mutate(population = as.integer(population))
+
+
+## ----------------------------------------------------------------------------------------------------------
+gap_filter <- country_pop %>% 
+  left_join(gdpcap, by = c("iso" = "iso_code", 
+                           "country", 
+                           "year")) %>% 
+  left_join(lifeexp, by = c("iso" = "iso_code", 
+                            "country", 
+                            "year")) %>% 
+  filter(population >= 60000, 
+         between(year, 1950, 2020)) %>% 
+  mutate(iso = toupper(iso), 
+         gdp_cap = gdp_total/population) %>% 
+  select(-gdp_total) %>% 
+  left_join(region %>% select(-country), 
+            by = c("iso")) %>% 
+  select(iso:country, region, everything()) %>% 
+  mutate_if(~ is.character(.), ~factor(.)) %>% 
+  mutate(population = as.integer(population)) 
+
+
+
+
+## ----------------------------------------------------------------------------------------------------------
+gap_filter %>% 
+  filter(year == 2020) %>% 
+  group_by(region) %>% 
+  summarise(Population = sum(population), 
+            `GDP/Captia` = mean(gdp_cap), 
+            `Life expect` = mean(life_expectancy, na.rm = TRUE)) %>% 
+  arrange(desc(Population))
 
