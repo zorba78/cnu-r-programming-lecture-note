@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.4 dplyr 패키지 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
-  <meta name="generator" content="bookdown 0.18.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.4 dplyr 패키지 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="readr.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="data-transformation.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -247,6 +247,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.11" data-path="dplyr.html"><a href="dplyr.html#dplyr-join"><i class="fa fa-check"></i><b>4.4.11</b> 데이터 연결</a></li>
 <li class="chapter" data-level="4.4.12" data-path="dplyr.html"><a href="dplyr.html#ex-gapminder"><i class="fa fa-check"></i><b>4.4.12</b> 확장 예제: Gapminder</a></li>
 </ul></li>
+<li class="chapter" data-level="4.5" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>4.5</b> 데이터 변환</a></li>
+<li class="chapter" data-level="4.6" data-path="homework-04.html"><a href="homework-04.html"><i class="fa fa-check"></i><b>4.6</b> Homework #4</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -403,7 +405,7 @@ group_by()
 
 
 <div class="rmdtip">
-R에서 데이터 전처리 및 분석을 수행할 때, 간혹 동일한 이름의 함수명들이 중복된 채 R 작업공간에 읽어오는 경우가 있는데, 이 경우 가장 마지막에 읽어온 패키지의 함수를 작업공간에서 사용한다. 예를 들어 R base 패키지의 <code>filter()</code> 함수는 시계열 데이터의 노이즈를 제거하는 함수이지만, tidyverse 패키지를 읽어온 경우, dplyr 패키지의 <code>filter()</code> 함수와 이름이 중복되기 때문에 R 작업공간 상에서는 dplyr 패키지의 <code>filter()</code>가 작동을 함. 만약 base 패키지의 <code>filter()</code> 함수를 사용하고자 하면 <code>base::filter()</code>를 사용. 이를 더 일반화 하면 현재 컴퓨터 상에 설치되어 있는 R 패키지의 특정 함수는 <code>::</code> 연산자를 통해 접근할 수 있으며, <code>package_name::function_name()</code> 형태로 접근 가능함.
+R에서 데이터 전처리 및 분석을 수행할 때, 간혹 동일한 이름의 함수명들이 중복된 채 R 작업공간에 읽어오는 경우가 있는데, 이 경우 가장 마지막에 읽어온 패키지의 함수를 작업공간에서 사용한다. 예를 들어 R base 패키지의 <code>filter()</code> 함수는 시계열 데이터의 노이즈를 제거하는 함수이지만, tidyverse 패키지를 읽어온 경우, dplyr 패키지의 <code>filter()</code> 함수와 이름이 중복되기 때문에 R 작업공간 상에서는 dplyr 패키지의 <code>filter()</code>가 작동을 함. 만약 stats 패키지의 <code>filter()</code> 함수를 사용하고자 하면 <code>stats::filter()</code>를 사용. 이를 더 일반화 하면 현재 컴퓨터 상에 설치되어 있는 R 패키지의 특정 함수는 <code>::</code> 연산자를 통해 접근할 수 있으며, <code>package_name::function_name()</code> 형태로 접근 가능함.
 </div>
 
 
@@ -527,7 +529,7 @@ Figure 4.3: 가능한 모든 boolean 연산 종류: x는 좌변, y는 우변을 
 
 <table class="table table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-15">Table 4.2: </span>gapminder-exercise.xlsx 설명
+<span id="tab:unnamed-chunk-15">Table 4.2: </span>mpg 데이터셋 설명(코드북)
 </caption>
 <thead>
 <tr>
@@ -669,8 +671,8 @@ class
 
 
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1"><span class="kw">glimpse</span>(mpg)</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 11
+<pre><code>Rows: 234
+Columns: 11
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -854,8 +856,8 @@ Figure 4.5: select() 함수 다이어그램
 <a class="sourceLine" id="cb90-3" title="3"></a>
 <a class="sourceLine" id="cb90-4" title="4"><span class="co">## 기본 R 문법 이용한 변수 추출</span></a>
 <a class="sourceLine" id="cb90-5" title="5"><span class="kw">glimpse</span>(mpg[, <span class="kw">c</span>(<span class="st">&quot;manufacturer&quot;</span>, <span class="st">&quot;model&quot;</span>, <span class="st">&quot;displ&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;cty&quot;</span>)])</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 5
+<pre><code>Rows: 234
+Columns: 5
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -875,8 +877,8 @@ $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 1
 <a class="sourceLine" id="cb92-12" title="12">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb92-13" title="13"><span class="st">  </span><span class="kw">select</span>(<span class="st">&quot;manufacturer&quot;</span>, <span class="st">&quot;model&quot;</span>, <span class="st">&quot;displ&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;cty&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb92-14" title="14"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 5
+<pre><code>Rows: 234
+Columns: 5
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -898,8 +900,8 @@ $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 1
 <a class="sourceLine" id="cb94-4" title="4">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb94-5" title="5"><span class="st">  </span><span class="kw">select</span>(manufacturer, model, displ, year, cty) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb94-6" title="6"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 5
+<pre><code>Rows: 234
+Columns: 5
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -909,8 +911,8 @@ $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 1
 <a class="sourceLine" id="cb96-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb96-3" title="3"><span class="st">  </span><span class="kw">select</span>(manufacturer<span class="op">:</span>year, cty) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb96-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 5
+<pre><code>Rows: 234
+Columns: 5
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -920,8 +922,8 @@ $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 1
 <a class="sourceLine" id="cb98-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb98-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>cyl, <span class="op">-</span>trans, <span class="op">-</span>drv, <span class="op">-</span>hwy, <span class="op">-</span>fl, <span class="op">-</span>class) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb98-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 5
+<pre><code>Rows: 234
+Columns: 5
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -931,8 +933,8 @@ $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 1
 <a class="sourceLine" id="cb100-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb100-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>cyl<span class="op">:-</span>drv, <span class="op">-</span>hwy<span class="op">:-</span>class) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb100-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 5
+<pre><code>Rows: 234
+Columns: 5
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -942,8 +944,8 @@ $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 1
 <a class="sourceLine" id="cb102-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb102-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>(cyl<span class="op">:</span>drv), <span class="op">-</span>(hwy<span class="op">:</span>class)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb102-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 5
+<pre><code>Rows: 234
+Columns: 5
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -953,8 +955,8 @@ $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 1
 <a class="sourceLine" id="cb104-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb104-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="dt">city_mpg =</span> cty) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb104-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 1
+<pre><code>Rows: 234
+Columns: 1
 $ city_mpg &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17, 15...</code></pre>
 
 <ul>
@@ -973,8 +975,8 @@ $ city_mpg &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17, 1
 <a class="sourceLine" id="cb106-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb106-4" title="4"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>manufacturer, <span class="op">-</span>model) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb106-5" title="5"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 9
+<pre><code>Rows: 234
+Columns: 9
 $ displ &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.8, 2...
 $ year  &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, 2008, 2...
 $ cyl   &lt;int&gt; 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, 8, 8...
@@ -988,8 +990,8 @@ $ class &lt;chr&gt; &quot;compact&quot;, &quot;compact&quot;, &quot;compact&quot
 <a class="sourceLine" id="cb108-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb108-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">starts_with</span>(<span class="st">&quot;m&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb108-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 9
+<pre><code>Rows: 234
+Columns: 9
 $ displ &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.8, 2...
 $ year  &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, 2008, 2...
 $ cyl   &lt;int&gt; 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, 8, 8...
@@ -1003,8 +1005,8 @@ $ class &lt;chr&gt; &quot;compact&quot;, &quot;compact&quot;, &quot;compact&quot
 <a class="sourceLine" id="cb110-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb110-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="kw">ends_with</span>(<span class="st">&quot;l&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb110-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 4
+<pre><code>Rows: 234
+Columns: 4
 $ model &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;, &quot;a4 q...
 $ displ &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.8, 2...
 $ cyl   &lt;int&gt; 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, 8, 8...
@@ -1025,8 +1027,8 @@ $ fl    &lt;chr&gt; &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, 
 <a class="sourceLine" id="cb113-4" title="4">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb113-5" title="5"><span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&quot;m&quot;</span>), <span class="kw">matches</span>(<span class="st">&quot;y$&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb113-6" title="6"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 4
+<pre><code>Rows: 234
+Columns: 4
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...
@@ -1035,8 +1037,8 @@ $ hwy          &lt;int&gt; 29, 29, 31, 30, 26, 26, 27, 26, 25, 28, 27, 25, 25, 2
 <a class="sourceLine" id="cb115-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb115-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;y$&quot;</span>), <span class="kw">everything</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb115-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 11
+<pre><code>Rows: 234
+Columns: 11
 $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...
 $ hwy          &lt;int&gt; 29, 29, 31, 30, 26, 26, 27, 26, 25, 28, 27, 25, 25, 25...
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
@@ -1077,8 +1079,8 @@ Figure 4.6: mutate() 함수 다이어그램
 <a class="sourceLine" id="cb117-7" title="7"><span class="kw">glimpse</span>(<span class="kw">transform</span>(mpg, </a>
 <a class="sourceLine" id="cb117-8" title="8">                  <span class="dt">cty_kpl =</span> cty <span class="op">*</span><span class="st"> </span>kpl, </a>
 <a class="sourceLine" id="cb117-9" title="9">                  <span class="dt">hwy_kpl =</span> hwy <span class="op">*</span><span class="st"> </span>kpl))</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 13
+<pre><code>Rows: 234
+Columns: 13
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -1097,8 +1099,8 @@ $ hwy_kpl      &lt;dbl&gt; 12.319261, 12.319261, 13.168865, 12.744063, 11.044855
 <a class="sourceLine" id="cb119-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cty_kpl =</span> cty<span class="op">*</span>kpl, </a>
 <a class="sourceLine" id="cb119-4" title="4">         <span class="dt">hwy_kpl =</span> hwy<span class="op">*</span>kpl) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb119-5" title="5"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 13
+<pre><code>Rows: 234
+Columns: 13
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -1128,8 +1130,8 @@ $ hwy_kpl      &lt;dbl&gt; 12.319261, 12.319261, 13.168865, 12.744063, 11.044855
 <a class="sourceLine" id="cb123-5" title="5">         <span class="dt">cty_raw =</span> cty_kpl<span class="op">/</span>kpl,</a>
 <a class="sourceLine" id="cb123-6" title="6">         <span class="dt">hwy_raw =</span> hwy_kpl<span class="op">/</span>kpl) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb123-7" title="7"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 15
+<pre><code>Rows: 234
+Columns: 15
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -1437,14 +1439,14 @@ Figure 4.8: group_by() 함수 다이어그램
 <a class="sourceLine" id="cb146-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">3</span>)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"toyota","2":"camry","3":"2.2","4":"1999","5":"4","6":"auto(l4)","7":"f","8":"21","9":"27","10":"r","11":"midsize"},{"1":"audi","2":"a4 quattro","3":"2.8","4":"1999","5":"6","6":"manual(m5)","7":"4","8":"17","9":"25","10":"p","11":"compact"},{"1":"dodge","2":"dakota pickup 4wd","3":"3.9","4":"1999","5":"6","6":"auto(l4)","7":"4","8":"13","9":"17","10":"r","11":"pickup"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"volkswagen","2":"passat","3":"3.6","4":"2008","5":"6","6":"auto(s6)","7":"f","8":"17","9":"26","10":"p","11":"midsize"},{"1":"honda","2":"civic","3":"1.6","4":"1999","5":"4","6":"auto(l4)","7":"f","8":"24","9":"32","10":"r","11":"subcompact"},{"1":"ford","2":"mustang","3":"4.0","4":"2008","5":"6","6":"manual(m5)","7":"r","8":"17","9":"26","10":"r","11":"subcompact"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1"><span class="co"># 전체 234개 행의 5%에 해당하는 행을 랜덤하게 추출</span></a>
 <a class="sourceLine" id="cb147-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="fl">0.05</span>)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"nissan","2":"pathfinder 4wd","3":"3.3","4":"1999","5":"6","6":"auto(l4)","7":"4","8":"14","9":"17","10":"r","11":"suv"},{"1":"pontiac","2":"grand prix","3":"3.8","4":"1999","5":"6","6":"auto(l4)","7":"f","8":"17","9":"27","10":"r","11":"midsize"},{"1":"volkswagen","2":"passat","3":"1.8","4":"1999","5":"4","6":"auto(l5)","7":"f","8":"18","9":"29","10":"p","11":"midsize"},{"1":"land rover","2":"range rover","3":"4.0","4":"1999","5":"8","6":"auto(l4)","7":"4","8":"11","9":"15","10":"p","11":"suv"},{"1":"lincoln","2":"navigator 2wd","3":"5.4","4":"1999","5":"8","6":"auto(l4)","7":"r","8":"11","9":"16","10":"p","11":"suv"},{"1":"toyota","2":"4runner 4wd","3":"4.0","4":"2008","5":"6","6":"auto(l5)","7":"4","8":"16","9":"20","10":"r","11":"suv"},{"1":"volkswagen","2":"jetta","3":"2.8","4":"1999","5":"6","6":"manual(m5)","7":"f","8":"17","9":"24","10":"r","11":"compact"},{"1":"dodge","2":"caravan 2wd","3":"3.3","4":"1999","5":"6","6":"auto(l4)","7":"f","8":"16","9":"22","10":"r","11":"minivan"},{"1":"chevrolet","2":"corvette","3":"5.7","4":"1999","5":"8","6":"manual(m6)","7":"r","8":"16","9":"26","10":"p","11":"2seater"},{"1":"subaru","2":"impreza awd","3":"2.5","4":"2008","5":"4","6":"auto(s4)","7":"4","8":"20","9":"27","10":"r","11":"compact"},{"1":"dodge","2":"ram 1500 pickup 4wd","3":"4.7","4":"2008","5":"8","6":"manual(m6)","7":"4","8":"12","9":"16","10":"r","11":"pickup"},{"1":"chevrolet","2":"corvette","3":"7.0","4":"2008","5":"8","6":"manual(m6)","7":"r","8":"15","9":"24","10":"p","11":"2seater"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"subaru","2":"forester awd","3":"2.5","4":"1999","5":"4","6":"auto(l4)","7":"4","8":"18","9":"24","10":"r","11":"suv"},{"1":"audi","2":"a4","3":"2.0","4":"2008","5":"4","6":"manual(m6)","7":"f","8":"20","9":"31","10":"p","11":"compact"},{"1":"toyota","2":"4runner 4wd","3":"4.7","4":"2008","5":"8","6":"auto(l5)","7":"4","8":"14","9":"17","10":"r","11":"suv"},{"1":"dodge","2":"ram 1500 pickup 4wd","3":"4.7","4":"2008","5":"8","6":"manual(m6)","7":"4","8":"9","9":"12","10":"e","11":"pickup"},{"1":"chevrolet","2":"c1500 suburban 2wd","3":"5.7","4":"1999","5":"8","6":"auto(l4)","7":"r","8":"13","9":"17","10":"r","11":"suv"},{"1":"chevrolet","2":"c1500 suburban 2wd","3":"5.3","4":"2008","5":"8","6":"auto(l4)","7":"r","8":"14","9":"20","10":"r","11":"suv"},{"1":"land rover","2":"range rover","3":"4.6","4":"1999","5":"8","6":"auto(l4)","7":"4","8":"11","9":"15","10":"p","11":"suv"},{"1":"volkswagen","2":"passat","3":"1.8","4":"1999","5":"4","6":"manual(m5)","7":"f","8":"21","9":"29","10":"p","11":"midsize"},{"1":"hyundai","2":"sonata","3":"2.5","4":"1999","5":"6","6":"manual(m5)","7":"f","8":"18","9":"26","10":"r","11":"midsize"},{"1":"chevrolet","2":"corvette","3":"7.0","4":"2008","5":"8","6":"manual(m6)","7":"r","8":"15","9":"24","10":"p","11":"2seater"},{"1":"hyundai","2":"tiburon","3":"2.7","4":"2008","5":"6","6":"auto(l4)","7":"f","8":"17","9":"24","10":"r","11":"subcompact"},{"1":"chevrolet","2":"corvette","3":"5.7","4":"1999","5":"8","6":"auto(l4)","7":"r","8":"15","9":"23","10":"p","11":"2seater"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -1503,7 +1505,7 @@ Figure 4.8: group_by() 함수 다이어그램
 <div id="dplyr-count" class="section level4 unnumbered">
 <h4><strong>Count 관련 동사(함수)</strong></h4>
 <blockquote>
-<p>데이터셋의 헹 개수를 집계하는 함수들로 데이터 요약 시 유용하게 사용</p>
+<p>데이터셋의 행 개수를 집계하는 함수들로 데이터 요약 시 유용하게 사용</p>
 </blockquote>
 </div>
 <div id="tally" class="section level4 unnumbered">
@@ -1735,7 +1737,7 @@ Figure 4.8: group_by() 함수 다이어그램
  9 audi         a4 quat~   1.8  1999     4 auto(l~ 4        16    25 p     comp~
 10 audi         a4 quat~   2    2008     4 manual~ 4        20    28 p     comp~
 # ... with 224 more rows</code></pre>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1"><span class="co"># select_at() 예시</span></a>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1"><span class="co"># select_if() 예시</span></a>
 <a class="sourceLine" id="cb172-2" title="2"><span class="co">## 문자형 변수를 선택하고 선택한 변수의 이름을 대문자로 변경</span></a>
 <a class="sourceLine" id="cb172-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb172-4" title="4"><span class="st">  </span><span class="kw">select_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.character</span>(.), <span class="op">~</span><span class="st"> </span><span class="kw">toupper</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -1754,7 +1756,7 @@ Figure 4.8: group_by() 함수 다이어그램
  9 audi         a4 quattro auto(l5)   4     p     compact
 10 audi         a4 quattro manual(m6) 4     p     compact
 # ... with 224 more rows</code></pre>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1"><span class="co"># select_if() 예시</span></a>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1"><span class="co"># select_at() 예시</span></a>
 <a class="sourceLine" id="cb174-2" title="2"><span class="co">## model에서 cty 까지 변수를 선택하고 선택한 변수명을 대문자로 변경</span></a>
 <a class="sourceLine" id="cb174-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb174-4" title="4"><span class="st">  </span><span class="kw">select_at</span>(<span class="kw">vars</span>(model<span class="op">:</span>cty), <span class="op">~</span><span class="st"> </span><span class="kw">toupper</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -1896,8 +1898,8 @@ Figure 4.8: group_by() 함수 다이어그램
 <a class="sourceLine" id="cb184-6" title="6"><span class="st">  </span><span class="kw">summarise_all</span>(<span class="kw">list</span>(<span class="dt">min =</span> <span class="op">~</span><span class="st"> </span><span class="kw">min</span>(.), </a>
 <a class="sourceLine" id="cb184-7" title="7">                     <span class="dt">max =</span> <span class="op">~</span><span class="st"> </span><span class="kw">max</span>(.))) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb184-8" title="8"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 1
-Variables: 22
+<pre><code>Rows: 1
+Columns: 22
 $ manufacturer_min &lt;chr&gt; &quot;audi&quot;
 $ model_min        &lt;chr&gt; &quot;4runner 4wd&quot;
 $ displ_min        &lt;dbl&gt; 1.6
@@ -1953,7 +1955,7 @@ $ class_max        &lt;chr&gt; &quot;suv&quot;</code></pre>
 <a class="sourceLine" id="cb188-2" title="2"><span class="co">## 1) 문자형 변수이거나 모든 값이 1999보다 크거나 같은 변수이거나 </span></a>
 <a class="sourceLine" id="cb188-3" title="3"><span class="co">##     8보다 작거나 같고 정수인 변수를 factor 변환</span></a>
 <a class="sourceLine" id="cb188-4" title="4"><span class="co">## 2) 수치형 변수에 대한 제조사 별 n, 평균, 표준편차를 구한 후</span></a>
-<a class="sourceLine" id="cb188-5" title="5"><span class="co">## 3) 평균 cyl 기준 내림차순으로 정렬</span></a>
+<a class="sourceLine" id="cb188-5" title="5"><span class="co">## 3) 평균 cty (cty_mean) 기준 내림차순으로 정렬</span></a>
 <a class="sourceLine" id="cb188-6" title="6">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb188-7" title="7"><span class="st">  </span><span class="kw">mutate_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.character</span>(.) <span class="op">|</span><span class="st"> </span><span class="kw">all</span>(. <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1999</span>) <span class="op">|</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb188-8" title="8"><span class="st">              </span>(<span class="kw">all</span>(. <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>) <span class="op">&amp;</span><span class="st"> </span><span class="kw">is.integer</span>(.)), </a>
@@ -2736,8 +2738,8 @@ Figure 4.13: full join 개념(<a href="https://statkclee.github.io/data-science/
 <a class="sourceLine" id="cb213-10" title="10"><span class="st">  </span><span class="kw">left_join</span>(weather2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;origin&quot;</span>, <span class="st">&quot;year&quot;</span>, </a>
 <a class="sourceLine" id="cb213-11" title="11">                             <span class="st">&quot;month&quot;</span>, <span class="st">&quot;day&quot;</span>, <span class="st">&quot;hour&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb213-12" title="12"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 336,776
-Variables: 13
+<pre><code>Rows: 336,776
+Columns: 13
 $ year         &lt;int&gt; 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, ...
 $ month        &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
 $ day          &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
@@ -3146,13 +3148,9 @@ lifeexp
   </script>
 </div>
 
-<!-- ## 데이터 변환 {#data-transformation} -->
-<!-- ## 반복 {#iteration} -->
-
 </div>
 </div>
 </div>
-<!-- </div> -->
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-gapminder-package">
@@ -3174,7 +3172,7 @@ lifeexp
         </div>
       </div>
 <a href="readr.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-transformation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
