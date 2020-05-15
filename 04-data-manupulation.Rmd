@@ -31,7 +31,7 @@ require(knitr)
 require(kableExtra)
 ```
 
-# 데이터 관리(Data Management) {#data-manipulation}
+# 데이터 핸들링(Data handling) {#data-handling}
 
 ```{block2, type="rmdimportant"}
 **학습 목표**
@@ -316,6 +316,7 @@ saveRDS(pulse, "output/pulse.rds")
 rm(pulse); ls()
 
 system.time(pulse <- readRDS("output/pulse.rds"))
+
 ```
 
 
@@ -617,9 +618,9 @@ kable(tab4_01,
                 font_size = 10, 
                 full_width = TRUE, 
                 latex_options = c("striped", "HOLD_position")) %>% 
-  column_spec(1, width = "3cm") %>% 
-  column_spec(2, width = "6cm") %>% 
-  column_spec(3, width = "6cm") %>% 
+  column_spec(1, width = "2cm") %>% 
+  column_spec(2, width = "4cm") %>% 
+  column_spec(3, width = "4cm") %>% 
   row_spec(1:6, monospace = TRUE)
 
 ```
@@ -785,9 +786,9 @@ kable(tab4_03,
                 font_size = 10, 
                 full_width = TRUE, 
                 latex_options = c("striped", "HOLD_position")) %>% 
-  column_spec(1, width = "3cm") %>% 
-  column_spec(2, width = "6cm") %>% 
-  column_spec(3, width = "6cm") %>% 
+  column_spec(1, width = "2cm") %>% 
+  column_spec(2, width = "5cm") %>% 
+  column_spec(3, width = "5cm") %>% 
   row_spec(1:length(`변수명`), monospace = TRUE)
 
 ```
@@ -1046,6 +1047,7 @@ mpg %>%
 - 주어진 데이터 셋(데이터 프레임)에 이미 존재하고 있는 변수를 이용해 새로운 값 변환 시 유용
 - 새로 만든 열을 `mutate()` 함수 내에서 사용 가능 $\rightarrow$ R base 패키지에서 재공하는 `transform()` 함수는 `mutate()` 함수와 거의 동일한 기능을 하지만, `transform()` 함수 내에서 생성한 변수의 재사용이 불가능
 
+
 ```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="mutate() 함수 다이어그램"} 
 knitr::include_graphics('figures/dplyr-mutate.png', dpi = NA)
 ```
@@ -1132,7 +1134,8 @@ mpg %>%
 - 보통 `summarise()` 함수는 `aggregate()`함수와 유사하게 그룹 별 요약 통계량을 계산할 때 주로 사용됨
 - `group_by()`는 "주어진 그룹에 따라(by group)", 즉 지정한 그룹(변수) 별 연산을 지정
 
-```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="group_by() 함수 다이어그램"} 
+
+```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='80%', fig.cap="group_by() 함수 다이어그램"} 
 knitr::include_graphics('figures/dply-group-by.png', dpi = NA)
 ```
 
@@ -1762,9 +1765,9 @@ inner_join(x, y, by = "key") %>% print
 ```
 
 
-```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="inner join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"} 
-knitr::include_graphics('figures/dplyr-inner-join.gif', dpi = NA)
-```
+<!-- ```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="inner join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"}  -->
+<!-- knitr::include_graphics('figures/dplyr-inner-join.gif', dpi = NA) -->
+<!-- ``` -->
 
 
 
@@ -1772,14 +1775,15 @@ knitr::include_graphics('figures/dplyr-inner-join.gif', dpi = NA)
 
 > 두 데이터셋 관계 중 왼쪽(`x`) 데이터셋의 행은 모두 보존
 
+
 ```{r}
 left_join(x, y, by = "key") %>% print
 ```
 
 
-```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="left join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"} 
-knitr::include_graphics('figures/dplyr-left-join.gif', dpi = NA)
-```
+<!-- ```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="left join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"}  -->
+<!-- knitr::include_graphics('figures/dplyr-left-join.gif', dpi = NA) -->
+<!-- ``` -->
 
 
 #### `right_join()` {#right-join .unnumbered}
@@ -1791,9 +1795,10 @@ right_join(x, y, by = "key") %>% print
 ```
 
 
-```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="right join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"} 
-knitr::include_graphics('figures/dplyr-right-join.gif', dpi = NA)
-```
+
+<!-- ```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="right join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"}  -->
+<!-- knitr::include_graphics('figures/dplyr-right-join.gif', dpi = NA) -->
+<!-- ``` -->
 
 
 #### `full_join` {#full-join .unnumbered}
@@ -1805,9 +1810,9 @@ full_join(x, y, by = "key") %>% print
 ```
 
 
-```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="full join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"} 
-knitr::include_graphics('figures/dplyr-full-join.gif', dpi = NA)
-```
+<!-- ```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="full join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"}  -->
+<!-- knitr::include_graphics('figures/dplyr-full-join.gif', dpi = NA) -->
+<!-- ``` -->
 
 
 #### NYC flights 2013 데이터 join 예시
@@ -1929,7 +1934,7 @@ kable(tab4_08,
 
 <br/>
 
-#### Prerequisites
+#### Prerequisites {#ex-pre .unnumbered}
 
 > `gapminder` 패키지 설치하기
 
@@ -2051,6 +2056,7 @@ gap_filter <- country_pop %>%
   mutate_if(~ is.character(.), ~factor(.)) %>% 
   mutate(population = as.integer(population)) 
 
+# write_csv(gap_filter, "dataset/gapminder/gapminder_filter.csv")
 
 ```
 
@@ -2068,7 +2074,758 @@ gap_filter %>%
 ```
 
 
+```{block2, type="rmdtip"}
+지금까지 배운 dplyr 패키지와 관련 명령어를 포함한 주요 동사 및 함수에 대한 개괄적 사용 방법은 RStudio 에서 제공하는 [cheat sheet](https://rstudio.com/resources/cheatsheets/)을 통해 개념을 다질 수 있음. 
+```
+
+
+
 ## 데이터 변환 {#data-transformation}
+
+```{block2, type="rmdnote"}
+**Tidy data**에 대한 개념을 알아보고, tidyr 패키지에서 제공하는 데이터 변환 함수 사용 방법에 대해 익힌다. 
+```
+
+
+- 데이터 분석에서 적어도 80% 이상의 시간을 데이터 전처리에 할애
+
+- 실제 데이터(real world data, RWD)가 우리가 지금까지 다뤄왔던 예제 데이터 처럼 깔끔하게 정리된 경우는 거의 없음. 
+   - 이상치(outlier)
+   - 결측(missing data)
+   - 변수 정의의 부재(예: 어러 가지 변수 값이 혼합되어 한 열로 포함된 경우) 
+   - 비정형 문자열로 구성된 변수 
+   - 불분명한 데이터 구조
+   - ...
+   
+- Tidyverse 세계에서 지저분한 데이터(**messy data**)를 분석이 용이하고(전산 처리가 쉽고) 깔끔한 데이터(tidy data)로 정제하기 위해 데이터의 구조를 변환하는 함수를 포함하고 있는 패키지가 **tidyr**
+
+- 여기서 "tidy"는 "organized"와 동일한 의미를 가짐
+
+- **tidyr**은 Hadely Wickam 이 개발한 **reshape** 와 **reshape2** 패키지 [@wickham-2007p]가 포함하고 있는 전반적인 데이터 변환 함수 중 tidy data를 만드는데 핵심적인 함수만으로 구성된 패키지
+
+
+### Tidy data {#tidy-data}
+
+```{block2, type="rmdwarning"}
+시작 전 tidyverse 패키지를 R 작업공간으로 불러오기!!
+```
+
+
+> 아래 강의 내용은 @wickham-2014p 의 내용을 재구성함
+
+- 데이터셋의 구성 요소
+   a. 데이터셋은 관측값(**value**)으로 구성
+   b. 각 관찰값은 변수(**variable**)와 관측(**observation**) 단위에 속함
+   c. 변수는 측정 속성과 단위가 동일한 값으로 구성(예: 키, 몸무게, 체온 등)
+   d. 관측(observation)은 속성(변수) 전체에서 동일한 단위(예: 사람, 가구, 지역 등)에서 측정된 모든 값
+
+
+```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='100%', fig.cap="데이터의 구성 요소"}
+knitr::include_graphics('figures/tidydata-structure-01.png', dpi = NA)
+```
+
+
+```{block2, type="rmdimportant"}
+
+**Tidy Data Principles**
+
+  - **각각의 변수는 하나의 열로 구성된다(Each variable forms a column)**.
+  - **각각의 관측은 하나의 행으로 구성된다(Each observation forms a row)**.
+  - **각각의 값은 반드시 자체적인 하나의 셀을 가져야 한다(Each value must have its own cell)**.
+  - 각각의 관찰 단위는 테이블을 구성한다(Each type of observational unit forms a table).
+
+```
+
+
+- 2 $\times$ 2 교차설계 데이터 예시: 2개의 열(column), 3개의 행(row), 각 행과 열은 이름을 갖고 있음(labelled)
+
+```{r, echo=FALSE}
+set.seed(1981)
+preg <- matrix(c(NA, sample(20, 5)), ncol = 2, byrow = T)
+colnames(preg) <- paste0("treatment", c("a", "b"))
+rownames(preg) <- c("James McGill", "Kimberly Wexler", "Lalo Salamanca")
+
+kable(preg,
+      align = "lcc",
+      escape = TRUE,
+      booktabs = T, caption = "Tidy data 예시 데이터 1") %>%
+  kable_styling(bootstrap_options = c("striped"),
+                position = "center",
+                font_size = 11,
+                full_width = TRUE,
+                latex_options = c("striped", "HOLD_position")) %>%
+  column_spec(1, width = "4cm") %>%
+  column_spec(2, width = "2cm") %>%
+  column_spec(3, width = "2cm")
+
+```
+
+> 데이터셋에서 중요한 요인인 배정군의 수준이 변수로 사용 $\rightarrow$ **a**와 **b**는 **treatment**의 하위 수준임
+
+<br/>
+
+- 예시 데이터 1 전치 $\rightarrow$ 위 데이터 셋과 동일한 내용이지만 다른 레이아웃 형태
+
+
+```{r, echo=FALSE}
+kable(t(preg),
+      align = "lccc",
+      escape = TRUE,
+      booktabs = T, caption = "Tidy data: 예시 데이터 1과 동일 내용, 다른 레이아웃") %>%
+  kable_styling(bootstrap_options = c("striped"),
+                position = "center",
+                font_size = 11,
+                full_width = TRUE,
+                latex_options = c("striped", "HOLD_position")) %>%
+  column_spec(1, width = "2cm") %>%
+  column_spec(2, width = "3cm") %>%
+  column_spec(3, width = "3cm") %>% 
+  column_spec(4, width = "3cm")
+
+```
+
+> 관측 단위가 변수로 사용
+
+
+- 위 예시 데이터 1을 재정의
+   1. `person`: 3 개의 값(`James`, `Kimberly`, `Lalo`)
+   2. `treatment`: 2 개의 값(`a`, `b`)
+   3. `result`: 6 개의 값(결측 포함) `person`과 `treatment`의 조합
+
+
+```{r, echo=FALSE}
+preg %>%
+  data.frame %>%
+  rownames_to_column(var = "name") %>%
+  as_tibble %>%
+  pivot_longer(contains("treatment"),
+               names_to = "treatment",
+               values_to = "result") %>%
+  mutate(treatment = str_remove(treatment,
+                                "treatment")) %>%
+  arrange(treatment) -> preg
+
+kable(preg,
+      align = "lcc",
+      escape = TRUE,
+      booktabs = TRUE,
+      caption = "Tidy data: 예시 데이터 1 구조 변환") %>%
+  kable_styling(bootstrap_options = c("striped"),
+                position = "center",
+                font_size = 11,
+                full_width = TRUE,
+                latex_options = c("striped", "HOLD_position")) %>%
+  column_spec(1, width = "4cm") %>%
+  column_spec(2, width = "2cm") %>%
+  column_spec(3, width = "2cm")
+
+```
+
+> 위 데이터는
+>
+> - 모든 행(row)는 observation을 나타냄
+> - 모든 `result`에 해당하는 값(**value**)은 하나의 `treatment`와 하나의 `person`에 대응함
+> - 모든 열은 변수(**variable**)
+>
+> $\rightarrow$ **tidy data** 원칙을 만족
+
+
+**Tidy data**의 장점
+
+- 표준화된 데이터 구조로 변수 및 관측치 추출이 용이
+- 일관된 데이터 구조를 유지된다면 이와 관련한 도구(함수)를 배우는 것이 보다 용이함
+- R의 vectorized programming 환경에 최적화 $\rightarrow$ 동일한 관측에 대한 서로 다른 변수값이 항상 짝으로 매칭되는 것을 보장
+
+
+**Messy data**의 일반적인 문제점
+
+1. 열 이름을 변수명이 아닌 값(value)으로 사용
+2. 두 개 이상의 변수에 해당하는 값이 하나의 열에 저장
+
+
+이러한 문제를 해결(데이터 정돈)하기 위해 데이터의 구조 변환은 필수적이며, 이를 위해 tidyr 패키지에서 아래와 같은 패키지 제공
+
+- `gather()`, `pivot_longer()`: 아래로 긴 데이터 셋(melt된 데이터셋) $\rightarrow$ **long format**
+- `spread()`, `pivot_wider()`: 옆으로 긴 데이터 셋(열에 cast된 데이터셋) $\rightarrow$ **wide format**
+
+
+```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='70%'}
+knitr::include_graphics('figures/tidyr-pre.png', dpi = NA)
+```
+
+> - long format: 데이터가 적은 수의 열로 이루어지며, 각 열 보통 행의 unique한 정보를 표현하기 위한 ID(또는 key)로 구성되어 있고 보통은 관측된 변수에 대한 한 개의 열로 구성된 데이터 형태
+> - wide format: 통계학에서 다루는 데이터 구조와 동일한 개념으로 한 관측 단위(사람, 가구 등)가 한 행을 이루고, 관측 단위에 대한 측정값(예: 키, 몸무게, 성별)들이 변수(열)로 표현된 데이터 형태
+
+```{r, echo=FALSE}
+# wide format 예시
+mtcars %>% head %>% print
+
+# long format 예시
+mtcars %>%
+  rownames_to_column(var = "model") %>%
+  gather(variable, value, mpg:carb) %>%
+  arrange(model) %>%
+  as_tibble %>%
+  print
+```
+
+
+```{block2, type="rmdcaution"}
+dplyr 패키지와 마찬가지로 tidyr 패키지에서 제공하는 함수는 데이터 프레임 또는 티블에서만 작동함
+```
+
+
+
+### Long format {#long-format}
+
+- "long" 형태의 데이터 구조는 "wide" 형태의 데이터 보다 "사람"이 이해하기에 편한 형태는 아니지만 아래와 같은 장점을 가짐
+   - "컴퓨터"가 이해하기 편한 구조
+   - "wide" 형태보다 유연 $\rightarrow$ 데이터의 추가 및 삭제 용이
+- "wide" 형태의 데이터를 "long" 형태로 변환 해주는 tidyr 패키지 내장 함수는
+   - **`pivot_longer()`**: 데이터의 행의 길이를 늘리고 열의 개수를 줄이는 함수
+   - `gather()`: `pivot_longer()`의 이전 버전으로 보다 쉽게 사용할 수 있고, 함수 명칭도 보다 직관적이지만 함수 업데이트는 종료
+
+
+> "wide" 형태의 데이터를 "long" 형태로 바꾸는 것은 원래 구조의 데이터를 녹여서(melt) 길게 만든다는 의미로도 해석할 수 있음. tidyr의 초기 버전인 reshape 패키지에서 `pivot_wider()` 또는 `gather()`와 유사한 기능을 가진 함수 이름이 `melt()` 임. 본 강의에서는 `melt()` 함수의 사용 방법에 대해서는 다루지 않음.
+
+
+```{r, eval=FALSE}
+# pivot_longer()의 기본 사용 형태
+pivot_longer(
+  data, # 데이터 프레임
+  cols, # long format으로 변경을 위해 선택한 열 이름
+        # dplyr select() 함수에서 사용한 변수선정 방법 준용
+  names_to, # 선택한 열 이름을 값으로 갖는 변수명칭 지정
+  names_prefix, #변수명에 처음에 붙는 접두어 패턴 제거(예시 참조, optional)
+  names_pattern, # 정규표현식의 그룹지정(())에 해당하는 패턴을 값으로 사용
+                 # 예시 참조(optional)
+  values_to # 선택한 열에 포함되어 있는 셀 값을 저장할 변수 이름 지정
+)
+
+# gather() 기본 사용 형태
+gather(
+  data, # 데이터 프레임
+  key, # 선택한 열 이름을 값으로 갖는 변수명칭 지정
+  value, # 선택한 열에 포함되어 있는 셀 값을 저장할 변수 이름 지정
+  ... # long format으로 변경할 열 선택
+)
+
+```
+
+
+```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='90%'}
+knitr::include_graphics('figures/tidyr-pivot_longer.png', dpi = NA)
+```
+
+#### **Examples** {#longer-ex .unnumbered}
+
+1. **열의 이름이 변수명이 아니라 값으로 표현된 경우**
+
+
+```{r, echo=FALSE}
+gap_filter %>%
+  filter(grepl("KOR|USA|DEU", iso),
+         between(year, 2001, 2020)) %>%
+  select(iso:year, gdp_cap) %>%
+  pivot_wider(names_from = year,
+              values_from = gdp_cap) %>%
+  select(-region, -iso) #%>%
+  # write_csv("dataset/tidyr-wide-ex01.csv", col_names = TRUE)
+
+```
+
+```{r, message=FALSE}
+# 데이터 불러오기: read_csv() 함수 사용
+wide_01 <- read_csv("dataset/tidyr-wide-ex01.csv")
+wide_01
+
+```
+
+<!-- > - 총 21개의 열과 3개의 행으로 구성된 **"wide"** 형태 데이터 구조 -->
+<!-- > - 열 이름 `2001` ~ `2020`은 2001년부터 2020년 까지 년도을 의미함 -->
+<!-- > - 현재 데이터 구조에서 각 셀의 값(value)은 일인당 국민소득을 나타냄 -->
+<!-- > - 한 행은 국가(`country`)의 2001년부터 2020년 까지 년도 별 일인당 국민소득 -->
+<!-- > - 여기서 관측 단위(observational unit)은 국가(`country`)이며, 각 국가는 2001년부터 2020년 까지 일인당 국민소득에 대한 관찰값을 가짐 -->
+
+
+<!-- **위 데이터가 tidy data 원칙을 준수하려면 어떤 형태로 재구성 되야 할까?** -->
+
+<!-- 1. 열 이름은 년도에 해당하는 값(value) 임 $\rightarrow$ `year`라는 새로운 변수에 해당 값을 저장 -->
+<!-- 2. 일인당 국민소득 정보를 포함한 `gdp_cap`이라는 변수 생성 -->
+<!-- 3. 대략 아래와 같은 형태의 데이터 -->
+
+<!-- ```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='50%'} -->
+<!-- knitr::include_graphics('figures/tidyr-gap-ex-01.png', dpi = NA) -->
+<!-- ``` -->
+
+
+<!-- > **long format** 의 데이터 구조 -->
+<!-- > -->
+<!-- > - Unique한 각각의 관측 결과(대한민국의 2001년 일인당 국민소득이 얼마)는 하나의 행에 존재 -->
+<!-- > - 데이터에서 변수로 표현할 수 있는 속성은 모두 열로 표시 -->
+<!-- > - 각 변수에 해당하는 값(value)은 하나의 셀에 위치 -->
+<!-- > -->
+<!-- > $\rightarrow$ **tidy data** 원칙 만족 -->
+
+
+
+
+- 예시 1: `wide_01` 데이터셋
+
+```{r}
+# wide_01 데이터 tidying
+## pivot_wider() 사용
+tidy_ex_01 <- wide_01 %>%
+  pivot_longer(`2001`:`2020`,
+               names_to = "year",
+               values_to = "gdp_cap")
+tidy_ex_01 %>% print
+
+## gather() 사용
+tidy_ex_01 <- wide_01 %>%
+  gather(year, gdp_cap, `2001`:`2020`)
+tidy_ex_01 %>% print
+
+```
+
+- 예시 2: **tidyr** 패키지에 내장되어 있는 `billboard` 데이터셋(`help(billboard)` 참고)
+
+```{r}
+billboard %>% print
+names(billboard)
+
+# pivot_wider()을 이용해 데이터 정돈
+billb_tidy <- billboard %>%
+  pivot_longer(starts_with("wk"),
+               names_to = "week",
+               values_to = "rank")
+billb_tidy %>% print
+
+# pivot_longer() 함수의 인수 중 value_drop_na 값 조정을 통해
+# 데이터 값에 포함된 결측 제거 가능
+billb_tidy <- billboard %>%
+  pivot_longer(starts_with("wk"),
+               names_to = "week",
+               values_to = "rank",
+               values_drop_na = TRUE)
+billb_tidy %>% print
+
+# pivot_longer() 함수의 인수 중 names_prefix 인수 값 설정을 통해
+# 변수명에 처음에 붙는 접두어(예: V, wk 등) 제거 가능
+billb_tidy <- billboard %>%
+  pivot_longer(starts_with("wk"),
+               names_to = "week",
+               values_to = "rank",
+               names_prefix = "wk",
+               values_drop_na = TRUE)
+billb_tidy %>% print
+
+# pivot_longer() 함수의 인수 중 names_ptypes 또는 values_ptypes 인수 값 설정을 통해
+# 새로 생성한 변수(name과 value 에 해당하는)의 데이터 타입 변경 가능
+billb_tidy <- billboard %>%
+  pivot_longer(starts_with("wk"),
+               names_to = "week",
+               values_to = "rank",
+               names_prefix = "wk",
+               names_ptypes = list(week = integer()),
+               values_drop_na = TRUE)
+billb_tidy %>% print
+
+# 연습: wide_01 데이터에서 year을 정수형으로 변환(mutate 함수 사용하지 않고)
+
+```
+
+2. **두 개 이상의 변수에 해당하는 값이 하나의 열에 저장**
+   - 예시 데이터: **tidyr** 패키지에 내장되어 있는 `who` 데이터셋(`help(who)`를 통해 데이터 설명 참고)
+
+```{r, echo=FALSE}
+who %>% print
+
+`변수명` <- c("country", "iso2, iso3", "year", "new_sp_m014 - newrel_f65")
+`변수설명` <- c("국가명", "2자리 또는 3자리 국가코드", "년도",
+            "변수 접두사: new_ 또는 new;
+            진단명: sp = positive pulmonary smear,
+            sn = negative pulmonary smear,
+            ep = extrapulmonary, rel = relapse;
+            성별: m = male, f = female;
+            연령대: 014 = 0-14 yrs,
+            1524 = 14-24 yrs,
+            2534 = 25-34 yrs,
+            3544 = 35-44 yrs,
+            4554 = 45-54 yrs,
+            5564 = 55-64 yrs,
+            65 = 65 yrs or older")
+
+tab4_09 <- data.frame(`변수명`,
+                      `변수설명`,
+                       check.names = FALSE,
+                       stringsAsFactors = FALSE)
+kable(tab4_09,
+      align = "ll",
+      escape = TRUE,
+      booktabs = T, caption = "tidyr 패키지 내장 데이터 who 코드 설명") %>%
+  kable_styling(bootstrap_options = c("striped"),
+                position = "center",
+                font_size = 11,
+                full_width = TRUE,
+                latex_options = c("striped", "HOLD_position")) %>%
+  column_spec(1, width = "3cm") %>%
+  column_spec(2, width = "6cm") %>%
+  row_spec(1:length(`변수명`), monospace = TRUE)
+
+
+```
+
+
+- 데이터 정돈 전략(`pivot_longer()` 이용)
+   1. `country`, `iso2`, `iso3`, `year`은 정상적인 변수 형태임 $\rightarrow$ 그대로 둔다
+   2. `names_to` 인수에 `diagnosis`, `sex`, `age_group`로 변수명을 지정
+   3. `names_prefix` 인수에서 접두어 제거
+   4. `names_pattern` 인수에서 추출한 변수의 패턴을 정규표현식을 이용해 표현(각 변수는 `()`으로 구분) $\rightarrow$ `_`를 기준으로 왼쪽에는 (소문자 알파벳이 하나 이상 존재하고), 오른쪽에는 (m 또는 f)와 (숫자가 1개 이상)인 패턴
+   5. `names_ptypes` 인수를 이용해 생성한 변수의 데이터 타입 지정
+      - `diagnosis`: factor
+      - `sex`: factor
+      - `age_group`: factor
+   6. `values_to` 인수에 longer 형태로 변환 후 생성된 값을 저장한 열(변수) 이름 `count` 지정
+   7. `values_drop_na` 인수를 이용해 결측 제거
+
+```{r}
+# pivot_longer()를 이용해 who 데이터셋 데이터 정돈
+who_tidy <- who %>%
+  pivot_longer(
+    new_sp_m014:newrel_f65,
+    names_to = c("diagnosis", "sex", "age_group"),
+    names_prefix = "^new_?",
+    names_pattern = "([a-z]+)_(m|f)([0-9]+)",
+    names_ptypes = list(
+      diagnosis = factor(levels = c("rel", "sn", "sp", "ep")),
+      sex = factor(levels = c("f", "m")),
+      age_group = factor(levels = c("014", "1524", "2534", "3544",
+                                    "4554", "5564", "65"),
+                         ordered = TRUE)
+    ),
+    values_to = "count",
+    values_drop_na = TRUE
+  )
+
+who_tidy %>% print
+
+```
+
+
+### Wide format {#wider-format}
+
+- long format의 반대가 되는 데이터 형태
+- 관측 단위의 측정값(예: 다수 변수들)이 다중 행으로 구성된 경우 tidy data를 만들기 위해 wide format으로 데이터 변환 요구
+- 요약표 생성 시 유용하게 사용
+- "long" 형태의 데이터를 "wide" 형태로 변환 해주는 tidyr 패키지 내장 함수는
+   - **`pivot_wider()`**: 데이터의 행을 줄이고 열의 개수를 늘리는 함수
+   - `spread()`: `pivot_wider()`의 이전 버전
+
+
+```{r, eval=FALSE}
+# pivot_wider()의 기본 사용 형태
+pivot_wider(
+  data, # 데이터 프레임
+  names_from, # 출력 시 변수명으로 사용할 값을 갖고 있는 열 이름
+  values_from, # 위에서 선택한 변수의 각 셀에 대응하는 측정 값을 포함하는 열 이름
+  values_fill #
+)
+
+# spread() 기본 사용 형태
+spread(
+  data, # 데이터 프레임
+  key, # 출력 시 변수명으로 사용할 값을 갖고 있는 열 이름
+  value # 위에서 선택한 변수의 각 셀에 대응하는 측정 값을 포함하는 열 이름
+)
+
+```
+
+
+```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='90%'}
+knitr::include_graphics('figures/tidyr-pivot_wider.png', dpi = NA)
+```
+
+
+#### **Examples** {#wide-format-ex .unnumbered}
+
+1. `pivot_longer()`와의 관계
+
+```{r}
+# 위 예시에서 생성한 tidy_ex_01 데이터 예시
+## long format으로 변환한 데이터를 다시 wide format으로 변경
+## pivot_wider() 함수
+
+wide_ex_01 <- tidy_ex_01 %>%
+  pivot_wider(
+    names_from = year,
+    values_from = gdp_cap
+  )
+wide_ex_01 %>% print
+
+## 데이터 동일성 확인
+all.equal(wide_01, wide_ex_01)
+
+## spread() 함수
+wide_ex_01 <- tidy_ex_01 %>%
+  spread(year, gdp_cap)
+
+all.equal(wide_01, wide_ex_01)
+```
+
+
+2. 관측 단위의 측정값(예: 다수 변수들)이 다중 행으로 구성된 데이터 구조 변환
+   - 예시 데이터: **tidyr** 패키지 `table2` 데이터셋
+
+```{r}
+# table2 데이터셋 check
+table2 %>% print
+
+# type 변수의 값은 사실 관측 단위의 변수임
+# type 값에 대응하는 값을 가진 변수는 count 임
+## 데이터 정돈(pivot_wider() 사용)
+
+table2_tidy <- table2 %>%
+  pivot_wider(
+    names_from = type,
+    values_from = count
+  )
+table2_tidy %>% print
+
+```
+
+3. 데이터 요약 테이블
+   - 예시 데이터: `mtcars` 데이터셋
+
+<!-- - 사이버 캠퍼스 자료실 또는 [Github](https://github.com/zorba78/cnu-r-programming-lecture-note/dataset/gapminder/gapminder_filter.csv)에서 확인 및 다운로드 가능 -->
+
+```{r}
+# 1) mtcars 데이터셋: 행 이름을 변수로 변환 후 long format 변환
+## rownames_to_column() 함수 사용
+mtcars2 <- mtcars %>%
+  rownames_to_column(var = "model") %>%
+  pivot_longer(
+    -c("model", "vs", "am"),
+    names_to = "variable",
+    values_to = "value"
+  )
+
+# 2) 엔진 유형 별 variable의 평균과 표준편차 계산
+# "사람"이 읽기 편한 형태로 테이블 변경
+mtcars2 %>%
+  mutate(vs = factor(vs,
+                     labels = c("V-shaped",
+                                "Straight"))) %>%
+  group_by(vs, variable) %>%
+  summarise(Mean = mean(value),
+            SD = sd(value)) %>%
+  pivot_longer(
+    Mean:SD,
+    names_to = "stat",
+    values_to = "value"
+  ) %>%
+  pivot_wider(
+    names_from = variable,
+    values_from = value
+  )
+
+# 조금 더 응용...
+## 위 Mean ± SD 형태로 위와 유사한 구조의 테이블 생성
+### tip: 한글로 "ㄷ(e) + 한자" 통해 ± 입력 가능
+
+mtcars2 %>%
+  mutate(vs = factor(vs,
+                     labels = c("V-shaped",
+                                "Straight"))) %>%
+  group_by(vs, variable) %>%
+  summarise(Mean = mean(value),
+            SD = sd(value)) %>%
+  mutate(res = sprintf("%.1f ± %.1f",
+                       Mean, SD)) %>%
+  select(-(Mean:SD)) %>%
+  pivot_wider(
+    names_from = variable,
+    values_from = res
+  )
+
+
+```
+
+
+### Separate and unite {#separate-unite}
+
+- 하나의 열을 구성하는 값이 두 개 이상 변수가 혼합되어 한 셀에 표현된 경우 이를 분리해야 할 필요가 있음 $\rightarrow$ **`separate()`**
+- 하나의 변수에 대한 값으로 표현할 수 있음에도 불구하고 두 개 이상의 변수로 구성된 경우(예: 날짜 변수의 경우 간혹 `year`, `month`,`day`와 같이 3 개의 변수로 분리), 이를 연결하여 하나의 변수로 변경 필요 $\rightarrow$ **`unite()`**
+
+#### Separate {#saparate .unnumbered}
+
+- `separate()`: 지정한 구분 문자가 존재하는 경우 이를 쪼개서 하나의 열을 다수의 열로 분리
+
+```{r, eval=FALSE}
+# separate() 함수 기본 사용 형태
+seprate(
+  data, # 데이터 프레임
+  col, # 분리 대상이 되는 열 이름
+  into, # 분리 후 새로 생성한 열들에 대한 이름(문자형 벡터) 지정
+  sep = "[^[:alnum:]]+", # 구분자: 기본적으로 정규표현식 사용
+  convert # 분리한 열의 데이터 타입 변환 여부
+)
+```
+
+- 예시: tidyr 패키지 `table3` 데이터셋
+
+```{r}
+# table3 데이터 체크
+table3 %>% print
+
+# rate 변수를 case와 population으로 분리
+table3 %>%
+  separate(rate,
+           into = c("case", "population"),
+           sep = "/") %>%
+  print
+
+
+table3 %>%
+  separate(rate,
+           into = c("case", "population"),
+           convert = TRUE) -> table3_sep
+
+## sep 인수값이 수치형 백터인 경우 분리할 위치로 인식
+## 양수: 문자열 맨 왼쪽에서 1부터 시작
+## 음수: 문자열 맨 오른쪽에서 -1부터 시작
+## sep의 길이(length)는 into 인수의 길이보다 작아야 함
+
+# year 변수를 century와 year로 분할
+table3 %>%
+  separate(year,
+           into = c("century", "year"),
+           sep = -2) %>%
+  print
+
+
+```
+
+#### Unite {#unite .unnumbered}
+
+- `unite()`: `seprate()` 함수의 반대 기능을 수행하며, 다수 변수를 결합
+
+```{r, eval=FALSE}
+# unite() 기본 사용 형태
+unite(
+  data, # 데이터프레임
+  ..., # 선택한 열 이름
+  sep, # 연결 구분자
+)
+```
+
+- 예제: tidyr 패키지 `table5` 데이터셋
+
+```{r}
+# table5 체크
+table5 %>% print
+
+# century와 year을 결합한 new 변수 생성
+table5 %>%
+  unite(new, century, year) %>%
+  print
+
+# _없이 결합 후 new를 정수형으로 변환
+table5 %>%
+  unite(new, century, year, sep = "") %>%
+  mutate(new = as.integer(new)) %>%
+  print
+
+# table5 데이터 정돈(separate(), unite() 동시 사용)
+table5 %>%
+  unite(new, century, year, sep = "") %>%
+  mutate(new = as.integer(new)) %>%
+  separate(rate, c("case", "population"),
+           convert = TRUE) %>%
+  print
+
+```
+
+- 응용 예제: `mtcars` 데이터셋에서 계산한 통계량 정리
+
+```{r}
+# 기어 종류(`am`) 별 `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`의
+# 평균과 표준편차 계산
+mtcar_summ1 <- mtcars %>%
+  mutate(am = factor(am,
+                     labels = c("automatic", "manual"))) %>%
+  group_by(am) %>%
+  summarise_at(vars(mpg:qsec),
+               list(mean = ~ mean(.),
+                    sd = ~ sd(.)))
+mtcar_summ1 %>% print
+
+# am을 제외한 모든 변수에 대해 long format으로 데이터 변환
+mtcar_summ2 <- mtcar_summ1 %>%
+  pivot_longer(
+    -am,
+    names_to = "stat",
+    values_to = "value"
+  )
+mtcar_summ2 %>% print
+
+# stat 변수를 "variable", "statistic"으로 분리 후
+# variable과 value를 wide format으로 데이터 변환
+mtcar_summ3 <- mtcar_summ2 %>%
+  separate(stat, c("variable", "statistic")) %>%
+  pivot_wider(
+    names_from = variable,
+    values_from = value
+  )
+mtcar_summ3 %>% print
+
+```
+
+
+**Tidy data**를 만들기 위한 과정이 꼭 필요할까? $\rightarrow$ long format 데이터가 정말 필요할까?
+
+
+> ggplot trailer: \@ref(long-format) 절 Long format 에서 예시 데이터로 활용한 `wide-01` 데이터 셋을 이용해 국가별 연도에 따른 일인당 국민소득 추이를 시각화
+>
+> **Strategy**
+>
+>  - `wide-01` 데이터 형태 그대로 시각화
+>  - `wide-01`을 long format으로 변환한 `tidy_ex_01` 에서 시각화
+
+```{r,  fig.show='hold'}
+# ggplot trailer
+tidy_ex_01 <- wide_01 %>%
+  pivot_longer(`2001`:`2020`,
+               names_to = "year",
+               values_to = "gdp_cap",
+               names_ptypes = list(
+                 year = integer()
+               ))
+tidy_ex_01 %>%
+  ggplot +
+  aes(x = year, y = gdp_cap,
+      color = country,
+      group = country) +
+  geom_point(size = 3) +
+  geom_line(size = 1) +
+  labs(x = "Year",
+       y = "Total GDP/captia") +
+  theme_classic()
+
+tidy_ex_01 %>%
+  ggplot +
+  aes(x = year, y = gdp_cap,
+      group = country) +
+  geom_point(size = 3) +
+  geom_line(size = 1) +
+  labs(x = "Year",
+       y = "Total GDP/captia") +
+  facet_grid(~ country) +
+  theme_minimal()
+
+
+```
+
 
 
 ## Homework #4 {#homework-04}
@@ -2076,13 +2833,13 @@ gap_filter %>%
 ```{block2, type="rmdimportant"}
 
 **과제 제출 방식**
-  
+
    - R Markdown 문서(`Rmd`) 파일과 해당 문서를 컴파일 후 생성된 `html` 파일 모두 제출할 것
-   - 모든 문제에 대해 작성한 R 코드 및 결과가 `html` 문서에 포함되어야 함. 
-   - 해당 과제에 대한 R Markdown 문서 템플릿은 https://github.com/zorba78/cnu-r-programming-lecture-note/blob/master/assignment/homework4_template.Rmd 에서 다운로드 또는 `[Ctrl] + C, [Ctrl] + V` 가능
+   - 모든 문제에 대해 작성한 R 코드 및 결과가 `html` 문서에 포함되어야 함.
+   - 해당 과제에 대한 R Markdown 문서 템플릿은 https://github.com/zorba78/cnu-r-programming-lecture-note/blob/master/assignment/homework4_template.Rmd 에서 다운로드 또는 `Ctrl + C, Ctrl + V` 가능
    - 최종 파일명은 `학번-성명.Rmd`, `학번-성명.html` 로 저장
    - 압축파일은 `*.zip` 형태로 생성할 것
-  
+
 **주의 사항**
 
   - 과제에 필요한 텍스트 데이터 파일은 가급적 제출 파일(rmd 및 html 파일)이 생성되는 폴더 안에 폴더를 만든 후 텍스트 파일을 저장할 것. 예를 들어 `homework4.Rmd` 파일이 `C:/my-project` 에서 생성된다면 `C:/my-project/exercise` 폴더 안에 텍스트 파일 저장
@@ -2098,9 +2855,9 @@ knitr::opts_knit$set(root.dir = '..')
 ````
 
 
-1. 사이버 캠퍼스 자료실에 업로드된 `exercise.zip` 파일을 다운로드 후 `exercise` 폴더에 압축을 풀면 총 20개의 텍스트 파일이 저장되어 있다. 해당 파일들은 휴면상태 뇌파(resting state EEG) 신호로부터 추출한 특징(feature)이다. 폴더에 포함된 텍스트 파일의 이름은 `기기명` (`h7n1`), `EEG 변수 특징` (`beam_results`), `파일번호` (예: `009`)로 구성되어 있고 `_`로 연결되어 있다. 
+1. 사이버 캠퍼스 자료실에 업로드된 `exercise.zip` 파일을 다운로드 후 `exercise` 폴더에 압축을 풀면 총 20개의 텍스트 파일이 저장되어 있다. 해당 파일들은 휴면상태 뇌파(resting state EEG) 신호로부터 추출한 특징(feature)이다. 폴더에 포함된 텍스트 파일의 이름은 `기기명` (`h7n1`), `EEG 변수 특징` (`beam_results`), `파일번호` (예: `009`)로 구성되어 있고 `_`로 연결되어 있다.
 
-a. 저장된 텍스트 파일 중 하나를 열어보고 해당 텍스트 파일이 저장하고 있는 데이터의 구조에 대해 설명하고, 열과 열을 구분하기 위해 어떠한 구분자(separator)가 사용되었는지 기술하시오. 
+a. 저장된 텍스트 파일 중 하나를 열어보고 해당 텍스트 파일이 저장하고 있는 데이터의 구조에 대해 설명하고, 열과 열을 구분하기 위해 어떠한 구분자(separator)가 사용되었는지 기술하시오.
 
 > 1-a 답: 입력(입력 시 해당 문구 삭제)
 
@@ -2112,13 +2869,13 @@ b. 다운로드한 텍스트 파일이 저장된 폴더 경로를 `path` 라는 
 # filename <- dir(path)
 ```
 
-c. `filename` 에서 `기기명` 부분만 추출 후, `file_dev` 객체에 저장 하시오. 
-   
+c. `filename` 에서 `기기명` 부분만 추출 후, `file_dev` 객체에 저장 하시오.
+
 ```{r 1-c-ans}
 
 ```
 
-d. 정규표현식을 이용하여 `filename` 에서 `기기명`에 해당하는 부분을 삭제 후 `file_id` 객체에 저장 하시오(hint: `gsub()` 함수를 사용할 수 있으먀, `file_id`에 저장되어 있는 문자열 원소 모두는 `beam_results_009.txt`와 같은 형태로 반환되어야 함). 
+d. 정규표현식을 이용하여 `filename` 에서 `기기명`에 해당하는 부분을 삭제 후 `file_id` 객체에 저장 하시오(hint: `gsub()` 함수를 사용할 수 있으먀, `file_id`에 저장되어 있는 문자열 원소 모두는 `beam_results_009.txt`와 같은 형태로 반환되어야 함).
 
 ```{r 1-d-ans}
 
@@ -2130,7 +2887,7 @@ e. 정규표현식을 사용하여 위에서 생성한 `file_id`에서 숫자만
 
 ```
 
-f. `paste()` 또는 `paste0()` 함수를 활용해 1-a. 에서 생성한 `path`라는 객체와 `filename`을 이용해 `파일경로/파일명` 형태의 문자형 벡터를 `full_filename` 객체에 저장하시오. 
+f. `paste()` 또는 `paste0()` 함수를 활용해 1-a. 에서 생성한 `path`라는 객체와 `filename`을 이용해 `파일경로/파일명` 형태의 문자형 벡터를 `full_filename` 객체에 저장하시오.
 
 ```{r 1-f-ans}
 
@@ -2142,57 +2899,57 @@ g. 1-f.에서 만든 `full_filename`, `lapply()`와 `read.table()` 함수를 활
 
 ```
 
-h. 1-g.에서 생성한 `datl`에 저장되어 있는 20개의 데이터 프레임을 하나의 데이터 프레임으로 묶은 결과를 저장한 `dat` 객체를 생성 하시오. 
+h. 1-g.에서 생성한 `datl`에 저장되어 있는 20개의 데이터 프레임을 하나의 데이터 프레임으로 묶은 결과를 저장한 `dat` 객체를 생성 하시오.
 
 ```{r 1-h-ans}
 
 ```
 
-i. 1-c. 와 1-d. 에서 생성한 `ID`와 `file_dev` 를 이용해 두 개의 변수로 구성된  `id_info` 라는 데이터 프레임을 생성 하시오. 단 두 문자형 벡터의 각 원소는 3 번씩 반복되어야 하고, 각 변수는 모두 문자형으로 저장되어야 함. 
+i. 1-c. 와 1-d. 에서 생성한 `ID`와 `file_dev` 를 이용해 두 개의 변수로 구성된  `id_info` 라는 데이터 프레임을 생성 하시오. 단 두 문자형 벡터의 각 원소는 3 번씩 반복되어야 하고, 각 변수는 모두 문자형으로 저장되어야 함.
 
 ```{r 1-i-ans}
 
 ```
 
 
-j. 1-i. 에서 생성한 데이터 프레임 `id_info` 와 1.h 에서 생성한 `dat` 을 하나의 데이터 프레임으로 묶은 `dat_fin` 이라는 객체를 생성 하시오. 
+j. 1-i. 에서 생성한 데이터 프레임 `id_info` 와 1.h 에서 생성한 `dat` 을 하나의 데이터 프레임으로 묶은 `dat_fin` 이라는 객체를 생성 하시오.
 
 ```{r 1-j-ans}
 
 
 ```
 
-  
-k. 사이버 캠퍼스 자료실에 업로드된 `beam-crf-ex.rds`를 다운로드 한 후 R 작업공간에 불러온 결과를 `beam_crf` 객체에 저장하시오. 
+
+k. 사이버 캠퍼스 자료실에 업로드된 `beam-crf-ex.rds`를 다운로드 한 후 R 작업공간에 불러온 결과를 `beam_crf` 객체에 저장하시오.
 
 ```{r 1-k-ans}
 
 ```
 
-l. tidyverse 패키지를 R 작업공간으로 읽은 후 dplyr 에서 제공하는 함수를 이용해 1-k. 에서 생성한 `beam_crf` 의 변수 `eeg_filenam` 문자열 중 처음 5개 문자(예: `ID158`)만 추출한 `eeg_id`라는 변수를 `beam_crf` 데이터 프레임 내에 새로운 변수로 만드시오. 
+l. tidyverse 패키지를 R 작업공간으로 읽은 후 dplyr 에서 제공하는 함수를 이용해 1-k. 에서 생성한 `beam_crf` 의 변수 `eeg_filenam` 문자열 중 처음 5개 문자(예: `ID158`)만 추출한 `eeg_id`라는 변수를 `beam_crf` 데이터 프레임 내에 새로운 변수로 만드시오.
 
 ```{r 1-l-ans}
 
 ```
 
-m. 두 데이터 프레임 `beam_crf`와 `dat_fin`은 연결할 수 있는가? 연결할 수 있다면 그 이유를 설명 하시오. 
+m. 두 데이터 프레임 `beam_crf`와 `dat_fin`은 연결할 수 있는가? 연결할 수 있다면 그 이유를 설명 하시오.
 
 
-> 1-m 답: 
+> 1-m 답:
 
 
-n. 만약 연결할 수 있다면 `beam_crf`와 `dat_fin`을 join 하여 두 데이터 프레임에 공통으로 포함된 행으로 구성된 데이터 프레임 `beam_sub` 객체를 생성 하시오. 
+n. 만약 연결할 수 있다면 `beam_crf`와 `dat_fin`을 join 하여 두 데이터 프레임에 공통으로 포함된 행으로 구성된 데이터 프레임 `beam_sub` 객체를 생성 하시오.
 
 ```{r 1-n-ans}
 
 ```
 
 
-o. 1.n. 에서 생성한 `beam_sub`에 대해 dplyr 에서 제공하는 함수를 이용해 아래 기술한 내용을 수행 하시오. 단  각 단계는 파이프 연산자(`%>%`) 로 연결 하시오. 
+o. 1.n. 에서 생성한 `beam_sub`에 대해 dplyr 에서 제공하는 함수를 이용해 아래 기술한 내용을 수행 하시오. 단  각 단계는 파이프 연산자(`%>%`) 로 연결 하시오.
 
    1. `usubjid`, `sex`, `age`, `literacy`, `Row`, `MDF`, `PF`, `ATR` 변수를 선택한 다음
-   2. 변수 `sex`, `literacy`, `Row`를 요인형(factor)으로 변환하고, 
-   3. 변수 `age`를 `floor()` 함수를 이용해 소숫점 내림한 결과가 저장된 `beam_sub2` 객체를 생성 하시오. 
+   2. 변수 `sex`, `literacy`, `Row`를 요인형(factor)으로 변환하고,
+   3. 변수 `age`를 `floor()` 함수를 이용해 소숫점 내림한 결과가 저장된 `beam_sub2` 객체를 생성 하시오.
 
 
 ```{r 1-o-ans}
@@ -2200,23 +2957,25 @@ o. 1.n. 에서 생성한 `beam_sub`에 대해 dplyr 에서 제공하는 함수�
 ```
 
 
-p. `beam_sub2`를 이용해 아래 기술한 결과를 반환하는 스크립트를 작성 후 확인 하시오. 
+p. `beam_sub2`를 이용해 아래 기술한 결과를 반환하는 스크립트를 작성 후 확인 하시오.
 
 
-   1. `Row` 수준별 `MDF`, `PF`, `ATR`의 평균(`mean()`), 표준편차(`sd()`), 최솟값(`min()`), 중앙값(`median()`), 최댓값(`max()`)을 출력 하시오(dplyr 패키지 함수 이용). 
-   
-   2.`literacy`는 조사에 참여한 대상자가 문자식별(문자를 읽고 쓸수 있는지)에 대한 정보를 담고 있는 변수이다. 문자식별 변수의 수준 별 케이스 수와 `age`, `MDF`, `PF`, `ATR`의 평균 결과를 출력 하시오(dplyr 패키지 함수 이용) . 
-   
-   3. 1.p.1 과 1.p.2 와 동일한 결과를 출력하는 스크립트를 R 기본 문법을 이용해 작성해 본 후 두 방법(dplyr 문법 vs. R 기본 문법)에 대해 비교해 보시오. 
+   1. `Row` 수준별 `MDF`, `PF`, `ATR`의 평균(`mean()`), 표준편차(`sd()`), 최솟값(`min()`), 중앙값(`median()`), 최댓값(`max()`)을 출력 하시오(dplyr 패키지 함수 이용).
+
+   2.`literacy`는 조사에 참여한 대상자가 문자식별(문자를 읽고 쓸수 있는지)에 대한 정보를 담고 있는 변수이다. 문자식별 변수의 수준 별 케이스 수와 `age`, `MDF`, `PF`, `ATR`의 평균 결과를 출력 하시오(dplyr 패키지 함수 이용) .
+
+   3. 1.p.1 과 1.p.2 와 동일한 결과를 출력하는 스크립트를 R 기본 문법을 이용해 작성해 본 후 두 방법(dplyr 문법 vs. R 기본 문법)에 대해 비교해 보시오.
 
 ```{r 1-p-ans}
-# 1. 
-# 2. 
-# 3. 
+# 1.
+# 2.
+# 3.
 ```
 
-> 1-p-3 비교 서술: 
+> 1-p-3 비교 서술:
 
 
 <!-- ## 반복 {#iteration} -->
+
+
 
