@@ -208,6 +208,7 @@ rm(pulse); ls()
 system.time(pulse <- readRDS("output/pulse.rds"))
 
 
+
 ## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='100%'-------------------------------------
 knitr::include_graphics('figures/tidyverse_packages.png', dpi = NA)
 
@@ -365,14 +366,14 @@ kable(tab4_01,
                 font_size = 10, 
                 full_width = TRUE, 
                 latex_options = c("striped", "HOLD_position")) %>% 
-  column_spec(1, width = "3cm") %>% 
-  column_spec(2, width = "6cm") %>% 
-  column_spec(3, width = "6cm") %>% 
+  column_spec(1, width = "2cm") %>% 
+  column_spec(2, width = "4cm") %>% 
+  column_spec(3, width = "4cm") %>% 
   row_spec(1:6, monospace = TRUE)
 
 
 
-## R에서 데이터 전처리 및 분석을 수행할 때, 간혹 동일한 이름의 함수명들이 중복된 채 R 작업공간에 읽어오는 경우가 있는데, 이 경우 가장 마지막에 읽어온 패키지의 함수를 작업공간에서 사용한다. 예를 들어 R base 패키지의 `filter()` 함수는 시계열 데이터의 노이즈를 제거하는 함수이지만, tidyverse 패키지를 읽어온 경우, dplyr 패키지의 `filter()` 함수와 이름이 중복되기 때문에 R 작업공간 상에서는 dplyr 패키지의 `filter()`가 작동을 함. 만약 base 패키지의 `filter()` 함수를 사용하고자 하면 `base::filter()`를 사용. 이를 더 일반화 하면 현재 컴퓨터 상에 설치되어 있는 R 패키지의 특정 함수는 `::` 연산자를 통해 접근할 수 있으며,   `package_name::function_name()` 형태로 접근 가능함.
+## R에서 데이터 전처리 및 분석을 수행할 때, 간혹 동일한 이름의 함수명들이 중복된 채 R 작업공간에 읽어오는 경우가 있는데, 이 경우 가장 마지막에 읽어온 패키지의 함수를 작업공간에서 사용한다. 예를 들어 R base 패키지의 `filter()` 함수는 시계열 데이터의 노이즈를 제거하는 함수이지만, tidyverse 패키지를 읽어온 경우, dplyr 패키지의 `filter()` 함수와 이름이 중복되기 때문에 R 작업공간 상에서는 dplyr 패키지의 `filter()`가 작동을 함. 만약 stats 패키지의 `filter()` 함수를 사용하고자 하면 `stats::filter()`를 사용. 이를 더 일반화 하면 현재 컴퓨터 상에 설치되어 있는 R 패키지의 특정 함수는 `::` 연산자를 통해 접근할 수 있으며, `package_name::function_name()` 형태로 접근 가능함.
 
 
 ## ----pipe-ex-----------------------------------------------------------------------------------------------
@@ -468,15 +469,15 @@ tab4_03 <- data.frame(`변수명`,
 kable(tab4_03,
       align = "lll",
       escape = TRUE, 
-      booktabs = T, caption = "gapminder-exercise.xlsx 설명") %>%
+      booktabs = T, caption = "mpg 데이터셋 설명(코드북)") %>%
   kable_styling(bootstrap_options = c("striped"), 
                 position = "center", 
                 font_size = 10, 
                 full_width = TRUE, 
                 latex_options = c("striped", "HOLD_position")) %>% 
-  column_spec(1, width = "3cm") %>% 
-  column_spec(2, width = "6cm") %>% 
-  column_spec(3, width = "6cm") %>% 
+  column_spec(1, width = "2cm") %>% 
+  column_spec(2, width = "5cm") %>% 
+  column_spec(3, width = "5cm") %>% 
   row_spec(1:length(`변수명`), monospace = TRUE)
 
 
@@ -723,7 +724,7 @@ mpg %>%
             sd_hwy = sd(hwy))
 
 
-## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="group_by() 함수 다이어그램"----
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='80%', fig.cap="group_by() 함수 다이어그램"----
 knitr::include_graphics('figures/dply-group-by.png', dpi = NA)
 
 
@@ -907,13 +908,13 @@ mpg %>%
   select_all(~toupper(.)) %>% 
   print
 
-# select_at() 예시
+# select_if() 예시
 ## 문자형 변수를 선택하고 선택한 변수의 이름을 대문자로 변경
 mpg %>% 
   select_if(~ is.character(.), ~ toupper(.)) %>% 
   print
 
-# select_if() 예시
+# select_at() 예시
 ## model에서 cty 까지 변수를 선택하고 선택한 변수명을 대문자로 변경
 mpg %>% 
   select_at(vars(model:cty), ~ toupper(.)) %>% 
@@ -978,7 +979,7 @@ mpg %>%
 ## 1) 문자형 변수이거나 모든 값이 1999보다 크거나 같은 변수이거나 
 ##     8보다 작거나 같고 정수인 변수를 factor 변환
 ## 2) 수치형 변수에 대한 제조사 별 n, 평균, 표준편차를 구한 후
-## 3) 평균 cyl 기준 내림차순으로 정렬
+## 3) 평균 cty (cty_mean) 기준 내림차순으로 정렬
 mpg %>% 
   mutate_if(~ is.character(.) | all(. >= 1999) | 
               (all(. <= 8) & is.integer(.)), 
@@ -1191,32 +1192,16 @@ inner_join(x, y, by = "key") %>% print
 
 
 
-## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="inner join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"----
-knitr::include_graphics('figures/dplyr-inner-join.gif', dpi = NA)
-
-
 ## ----------------------------------------------------------------------------------------------------------
 left_join(x, y, by = "key") %>% print
-
-
-## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="left join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"----
-knitr::include_graphics('figures/dplyr-left-join.gif', dpi = NA)
 
 
 ## ----------------------------------------------------------------------------------------------------------
 right_join(x, y, by = "key") %>% print
 
 
-## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="right join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"----
-knitr::include_graphics('figures/dplyr-right-join.gif', dpi = NA)
-
-
 ## ----------------------------------------------------------------------------------------------------------
 full_join(x, y, by = "key") %>% print
-
-
-## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='60%', fig.cap="full join 개념(https://statkclee.github.io/data-science/ds-dplyr-join.html 에서 발췌)"----
-knitr::include_graphics('figures/dplyr-full-join.gif', dpi = NA)
 
 
 ## ----------------------------------------------------------------------------------------------------------
@@ -1425,6 +1410,7 @@ gap_filter <- country_pop %>%
   mutate_if(~ is.character(.), ~factor(.)) %>% 
   mutate(population = as.integer(population)) 
 
+# write_csv(gap_filter, "dataset/gapminder/gapminder_filter.csv")
 
 
 
@@ -1436,4 +1422,626 @@ gap_filter %>%
             `GDP/Captia` = mean(gdp_cap), 
             `Life expect` = mean(life_expectancy, na.rm = TRUE)) %>% 
   arrange(desc(Population))
+
+
+## 지금까지 배운 dplyr 패키지와 관련 명령어를 포함한 주요 동사 및 함수에 대한 개괄적 사용 방법은 RStudio 에서 제공하는 [cheat sheet](https://rstudio.com/resources/cheatsheets/)을 통해 개념을 다질 수 있음.
+
+
+## **Tidy data**에 대한 개념을 알아보고, tidyr 패키지에서 제공하는 데이터 변환 함수 사용 방법에 대해 익힌다.
+
+
+## 시작 전 tidyverse 패키지를 R 작업공간으로 불러오기!!
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='100%', fig.cap="데이터의 구성 요소"-------
+knitr::include_graphics('figures/tidydata-structure-01.png', dpi = NA)
+
+
+## 
+## **Tidy Data Principles**
+
+## 
+##   - **각각의 변수는 하나의 열로 구성된다(Each variable forms a column)**.
+
+##   - **각각의 관측은 하나의 행으로 구성된다(Each observation forms a row)**.
+
+##   - **각각의 값은 반드시 자체적인 하나의 셀을 가져야 한다(Each value must have its own cell)**.
+
+##   - 각각의 관찰 단위는 테이블을 구성한다(Each type of observational unit forms a table).
+
+## 
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+set.seed(1981)
+preg <- matrix(c(NA, sample(20, 5)), ncol = 2, byrow = T)
+colnames(preg) <- paste0("treatment", c("a", "b"))
+rownames(preg) <- c("James McGill", "Kimberly Wexler", "Lalo Salamanca")
+
+kable(preg,
+      align = "lcc",
+      escape = TRUE,
+      booktabs = T, caption = "Tidy data 예시 데이터 1") %>%
+  kable_styling(bootstrap_options = c("striped"),
+                position = "center",
+                font_size = 11,
+                full_width = TRUE,
+                latex_options = c("striped", "HOLD_position")) %>%
+  column_spec(1, width = "4cm") %>%
+  column_spec(2, width = "2cm") %>%
+  column_spec(3, width = "2cm")
+
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+kable(t(preg),
+      align = "lccc",
+      escape = TRUE,
+      booktabs = T, caption = "Tidy data: 예시 데이터 1과 동일 내용, 다른 레이아웃") %>%
+  kable_styling(bootstrap_options = c("striped"),
+                position = "center",
+                font_size = 11,
+                full_width = TRUE,
+                latex_options = c("striped", "HOLD_position")) %>%
+  column_spec(1, width = "2cm") %>%
+  column_spec(2, width = "3cm") %>%
+  column_spec(3, width = "3cm") %>% 
+  column_spec(4, width = "3cm")
+
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+preg %>%
+  data.frame %>%
+  rownames_to_column(var = "name") %>%
+  as_tibble %>%
+  pivot_longer(contains("treatment"),
+               names_to = "treatment",
+               values_to = "result") %>%
+  mutate(treatment = str_remove(treatment,
+                                "treatment")) %>%
+  arrange(treatment) -> preg
+
+kable(preg,
+      align = "lcc",
+      escape = TRUE,
+      booktabs = TRUE,
+      caption = "Tidy data: 예시 데이터 1 구조 변환") %>%
+  kable_styling(bootstrap_options = c("striped"),
+                position = "center",
+                font_size = 11,
+                full_width = TRUE,
+                latex_options = c("striped", "HOLD_position")) %>%
+  column_spec(1, width = "4cm") %>%
+  column_spec(2, width = "2cm") %>%
+  column_spec(3, width = "2cm")
+
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='70%'--------------------------------------
+knitr::include_graphics('figures/tidyr-pre.png', dpi = NA)
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+# wide format 예시
+mtcars %>% head %>% print
+
+# long format 예시
+mtcars %>%
+  rownames_to_column(var = "model") %>%
+  gather(variable, value, mpg:carb) %>%
+  arrange(model) %>%
+  as_tibble %>%
+  print
+
+
+## dplyr 패키지와 마찬가지로 tidyr 패키지에서 제공하는 함수는 데이터 프레임 또는 티블에서만 작동함
+
+
+## ---- eval=FALSE-------------------------------------------------------------------------------------------
+## # pivot_longer()의 기본 사용 형태
+## pivot_longer(
+##   data, # 데이터 프레임
+##   cols, # long format으로 변경을 위해 선택한 열 이름
+##         # dplyr select() 함수에서 사용한 변수선정 방법 준용
+##   names_to, # 선택한 열 이름을 값으로 갖는 변수명칭 지정
+##   names_prefix, #변수명에 처음에 붙는 접두어 패턴 제거(예시 참조, optional)
+##   names_pattern, # 정규표현식의 그룹지정(())에 해당하는 패턴을 값으로 사용
+##                  # 예시 참조(optional)
+##   values_to # 선택한 열에 포함되어 있는 셀 값을 저장할 변수 이름 지정
+## )
+## 
+## # gather() 기본 사용 형태
+## gather(
+##   data, # 데이터 프레임
+##   key, # 선택한 열 이름을 값으로 갖는 변수명칭 지정
+##   value, # 선택한 열에 포함되어 있는 셀 값을 저장할 변수 이름 지정
+##   ... # long format으로 변경할 열 선택
+## )
+## 
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='90%'--------------------------------------
+knitr::include_graphics('figures/tidyr-pivot_longer.png', dpi = NA)
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+gap_filter %>%
+  filter(grepl("KOR|USA|DEU", iso),
+         between(year, 2001, 2020)) %>%
+  select(iso:year, gdp_cap) %>%
+  pivot_wider(names_from = year,
+              values_from = gdp_cap) %>%
+  select(-region, -iso) #%>%
+  # write_csv("dataset/tidyr-wide-ex01.csv", col_names = TRUE)
+
+
+
+## ---- message=FALSE----------------------------------------------------------------------------------------
+# 데이터 불러오기: read_csv() 함수 사용
+wide_01 <- read_csv("dataset/tidyr-wide-ex01.csv")
+wide_01
+
+
+
+## ----------------------------------------------------------------------------------------------------------
+# wide_01 데이터 tidying
+## pivot_wider() 사용
+tidy_ex_01 <- wide_01 %>%
+  pivot_longer(`2001`:`2020`,
+               names_to = "year",
+               values_to = "gdp_cap")
+tidy_ex_01 %>% print
+
+## gather() 사용
+tidy_ex_01 <- wide_01 %>%
+  gather(year, gdp_cap, `2001`:`2020`)
+tidy_ex_01 %>% print
+
+
+
+## ----------------------------------------------------------------------------------------------------------
+billboard %>% print
+names(billboard)
+
+# pivot_wider()을 이용해 데이터 정돈
+billb_tidy <- billboard %>%
+  pivot_longer(starts_with("wk"),
+               names_to = "week",
+               values_to = "rank")
+billb_tidy %>% print
+
+# pivot_longer() 함수의 인수 중 value_drop_na 값 조정을 통해
+# 데이터 값에 포함된 결측 제거 가능
+billb_tidy <- billboard %>%
+  pivot_longer(starts_with("wk"),
+               names_to = "week",
+               values_to = "rank",
+               values_drop_na = TRUE)
+billb_tidy %>% print
+
+# pivot_longer() 함수의 인수 중 names_prefix 인수 값 설정을 통해
+# 변수명에 처음에 붙는 접두어(예: V, wk 등) 제거 가능
+billb_tidy <- billboard %>%
+  pivot_longer(starts_with("wk"),
+               names_to = "week",
+               values_to = "rank",
+               names_prefix = "wk",
+               values_drop_na = TRUE)
+billb_tidy %>% print
+
+# pivot_longer() 함수의 인수 중 names_ptypes 또는 values_ptypes 인수 값 설정을 통해
+# 새로 생성한 변수(name과 value 에 해당하는)의 데이터 타입 변경 가능
+billb_tidy <- billboard %>%
+  pivot_longer(starts_with("wk"),
+               names_to = "week",
+               values_to = "rank",
+               names_prefix = "wk",
+               names_ptypes = list(week = integer()),
+               values_drop_na = TRUE)
+billb_tidy %>% print
+
+# 연습: wide_01 데이터에서 year을 정수형으로 변환(mutate 함수 사용하지 않고)
+
+
+
+## ---- echo=FALSE-------------------------------------------------------------------------------------------
+who %>% print
+
+`변수명` <- c("country", "iso2, iso3", "year", "new_sp_m014 - newrel_f65")
+`변수설명` <- c("국가명", "2자리 또는 3자리 국가코드", "년도",
+            "변수 접두사: new_ 또는 new;
+            진단명: sp = positive pulmonary smear,
+            sn = negative pulmonary smear,
+            ep = extrapulmonary, rel = relapse;
+            성별: m = male, f = female;
+            연령대: 014 = 0-14 yrs,
+            1524 = 14-24 yrs,
+            2534 = 25-34 yrs,
+            3544 = 35-44 yrs,
+            4554 = 45-54 yrs,
+            5564 = 55-64 yrs,
+            65 = 65 yrs or older")
+
+tab4_09 <- data.frame(`변수명`,
+                      `변수설명`,
+                       check.names = FALSE,
+                       stringsAsFactors = FALSE)
+kable(tab4_09,
+      align = "ll",
+      escape = TRUE,
+      booktabs = T, caption = "tidyr 패키지 내장 데이터 who 코드 설명") %>%
+  kable_styling(bootstrap_options = c("striped"),
+                position = "center",
+                font_size = 11,
+                full_width = TRUE,
+                latex_options = c("striped", "HOLD_position")) %>%
+  column_spec(1, width = "3cm") %>%
+  column_spec(2, width = "6cm") %>%
+  row_spec(1:length(`변수명`), monospace = TRUE)
+
+
+
+
+## ----------------------------------------------------------------------------------------------------------
+# pivot_longer()를 이용해 who 데이터셋 데이터 정돈
+who_tidy <- who %>%
+  pivot_longer(
+    new_sp_m014:newrel_f65,
+    names_to = c("diagnosis", "sex", "age_group"),
+    names_prefix = "^new_?",
+    names_pattern = "([a-z]+)_(m|f)([0-9]+)",
+    names_ptypes = list(
+      diagnosis = factor(levels = c("rel", "sn", "sp", "ep")),
+      sex = factor(levels = c("f", "m")),
+      age_group = factor(levels = c("014", "1524", "2534", "3544",
+                                    "4554", "5564", "65"),
+                         ordered = TRUE)
+    ),
+    values_to = "count",
+    values_drop_na = TRUE
+  )
+
+who_tidy %>% print
+
+
+
+## ---- eval=FALSE-------------------------------------------------------------------------------------------
+## # pivot_wider()의 기본 사용 형태
+## pivot_wider(
+##   data, # 데이터 프레임
+##   names_from, # 출력 시 변수명으로 사용할 값을 갖고 있는 열 이름
+##   values_from, # 위에서 선택한 변수의 각 셀에 대응하는 측정 값을 포함하는 열 이름
+##   values_fill #
+## )
+## 
+## # spread() 기본 사용 형태
+## spread(
+##   data, # 데이터 프레임
+##   key, # 출력 시 변수명으로 사용할 값을 갖고 있는 열 이름
+##   value # 위에서 선택한 변수의 각 셀에 대응하는 측정 값을 포함하는 열 이름
+## )
+## 
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='90%'--------------------------------------
+knitr::include_graphics('figures/tidyr-pivot_wider.png', dpi = NA)
+
+
+## ----------------------------------------------------------------------------------------------------------
+# 위 예시에서 생성한 tidy_ex_01 데이터 예시
+## long format으로 변환한 데이터를 다시 wide format으로 변경
+## pivot_wider() 함수
+
+wide_ex_01 <- tidy_ex_01 %>%
+  pivot_wider(
+    names_from = year,
+    values_from = gdp_cap
+  )
+wide_ex_01 %>% print
+
+## 데이터 동일성 확인
+all.equal(wide_01, wide_ex_01)
+
+## spread() 함수
+wide_ex_01 <- tidy_ex_01 %>%
+  spread(year, gdp_cap)
+
+all.equal(wide_01, wide_ex_01)
+
+
+## ----------------------------------------------------------------------------------------------------------
+# table2 데이터셋 check
+table2 %>% print
+
+# type 변수의 값은 사실 관측 단위의 변수임
+# type 값에 대응하는 값을 가진 변수는 count 임
+## 데이터 정돈(pivot_wider() 사용)
+
+table2_tidy <- table2 %>%
+  pivot_wider(
+    names_from = type,
+    values_from = count
+  )
+table2_tidy %>% print
+
+
+
+## ----------------------------------------------------------------------------------------------------------
+# 1) mtcars 데이터셋: 행 이름을 변수로 변환 후 long format 변환
+## rownames_to_column() 함수 사용
+mtcars2 <- mtcars %>%
+  rownames_to_column(var = "model") %>%
+  pivot_longer(
+    -c("model", "vs", "am"),
+    names_to = "variable",
+    values_to = "value"
+  )
+
+# 2) 엔진 유형 별 variable의 평균과 표준편차 계산
+# "사람"이 읽기 편한 형태로 테이블 변경
+mtcars2 %>%
+  mutate(vs = factor(vs,
+                     labels = c("V-shaped",
+                                "Straight"))) %>%
+  group_by(vs, variable) %>%
+  summarise(Mean = mean(value),
+            SD = sd(value)) %>%
+  pivot_longer(
+    Mean:SD,
+    names_to = "stat",
+    values_to = "value"
+  ) %>%
+  pivot_wider(
+    names_from = variable,
+    values_from = value
+  )
+
+# 조금 더 응용...
+## 위 Mean ± SD 형태로 위와 유사한 구조의 테이블 생성
+### tip: 한글로 "ㄷ(e) + 한자" 통해 ± 입력 가능
+
+mtcars2 %>%
+  mutate(vs = factor(vs,
+                     labels = c("V-shaped",
+                                "Straight"))) %>%
+  group_by(vs, variable) %>%
+  summarise(Mean = mean(value),
+            SD = sd(value)) %>%
+  mutate(res = sprintf("%.1f ± %.1f",
+                       Mean, SD)) %>%
+  select(-(Mean:SD)) %>%
+  pivot_wider(
+    names_from = variable,
+    values_from = res
+  )
+
+
+
+
+## ---- eval=FALSE-------------------------------------------------------------------------------------------
+## # separate() 함수 기본 사용 형태
+## seprate(
+##   data, # 데이터 프레임
+##   col, # 분리 대상이 되는 열 이름
+##   into, # 분리 후 새로 생성한 열들에 대한 이름(문자형 벡터) 지정
+##   sep = "[^[:alnum:]]+", # 구분자: 기본적으로 정규표현식 사용
+##   convert # 분리한 열의 데이터 타입 변환 여부
+## )
+
+
+## ----------------------------------------------------------------------------------------------------------
+# table3 데이터 체크
+table3 %>% print
+
+# rate 변수를 case와 population으로 분리
+table3 %>%
+  separate(rate,
+           into = c("case", "population"),
+           sep = "/") %>%
+  print
+
+
+table3 %>%
+  separate(rate,
+           into = c("case", "population"),
+           convert = TRUE) -> table3_sep
+
+## sep 인수값이 수치형 백터인 경우 분리할 위치로 인식
+## 양수: 문자열 맨 왼쪽에서 1부터 시작
+## 음수: 문자열 맨 오른쪽에서 -1부터 시작
+## sep의 길이(length)는 into 인수의 길이보다 작아야 함
+
+# year 변수를 century와 year로 분할
+table3 %>%
+  separate(year,
+           into = c("century", "year"),
+           sep = -2) %>%
+  print
+
+
+
+
+## ---- eval=FALSE-------------------------------------------------------------------------------------------
+## # unite() 기본 사용 형태
+## unite(
+##   data, # 데이터프레임
+##   ..., # 선택한 열 이름
+##   sep, # 연결 구분자
+## )
+
+
+## ----------------------------------------------------------------------------------------------------------
+# table5 체크
+table5 %>% print
+
+# century와 year을 결합한 new 변수 생성
+table5 %>%
+  unite(new, century, year) %>%
+  print
+
+# _없이 결합 후 new를 정수형으로 변환
+table5 %>%
+  unite(new, century, year, sep = "") %>%
+  mutate(new = as.integer(new)) %>%
+  print
+
+# table5 데이터 정돈(separate(), unite() 동시 사용)
+table5 %>%
+  unite(new, century, year, sep = "") %>%
+  mutate(new = as.integer(new)) %>%
+  separate(rate, c("case", "population"),
+           convert = TRUE) %>%
+  print
+
+
+
+## ----------------------------------------------------------------------------------------------------------
+# 기어 종류(`am`) 별 `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`의
+# 평균과 표준편차 계산
+mtcar_summ1 <- mtcars %>%
+  mutate(am = factor(am,
+                     labels = c("automatic", "manual"))) %>%
+  group_by(am) %>%
+  summarise_at(vars(mpg:qsec),
+               list(mean = ~ mean(.),
+                    sd = ~ sd(.)))
+mtcar_summ1 %>% print
+
+# am을 제외한 모든 변수에 대해 long format으로 데이터 변환
+mtcar_summ2 <- mtcar_summ1 %>%
+  pivot_longer(
+    -am,
+    names_to = "stat",
+    values_to = "value"
+  )
+mtcar_summ2 %>% print
+
+# stat 변수를 "variable", "statistic"으로 분리 후
+# variable과 value를 wide format으로 데이터 변환
+mtcar_summ3 <- mtcar_summ2 %>%
+  separate(stat, c("variable", "statistic")) %>%
+  pivot_wider(
+    names_from = variable,
+    values_from = value
+  )
+mtcar_summ3 %>% print
+
+
+
+## ----  fig.show='hold'-------------------------------------------------------------------------------------
+# ggplot trailer
+tidy_ex_01 <- wide_01 %>%
+  pivot_longer(`2001`:`2020`,
+               names_to = "year",
+               values_to = "gdp_cap",
+               names_ptypes = list(
+                 year = integer()
+               ))
+tidy_ex_01 %>%
+  ggplot +
+  aes(x = year, y = gdp_cap,
+      color = country,
+      group = country) +
+  geom_point(size = 3) +
+  geom_line(size = 1) +
+  labs(x = "Year",
+       y = "Total GDP/captia") +
+  theme_classic()
+
+tidy_ex_01 %>%
+  ggplot +
+  aes(x = year, y = gdp_cap,
+      group = country) +
+  geom_point(size = 3) +
+  geom_line(size = 1) +
+  labs(x = "Year",
+       y = "Total GDP/captia") +
+  facet_grid(~ country) +
+  theme_minimal()
+
+
+
+
+## 
+## **과제 제출 방식**
+
+## 
+##    - R Markdown 문서(`Rmd`) 파일과 해당 문서를 컴파일 후 생성된 `html` 파일 모두 제출할 것
+
+##    - 모든 문제에 대해 작성한 R 코드 및 결과가 `html` 문서에 포함되어야 함.
+
+##    - 해당 과제에 대한 R Markdown 문서 템플릿은 https://github.com/zorba78/cnu-r-programming-lecture-note/blob/master/assignment/homework4_template.Rmd 에서 다운로드 또는 `Ctrl + C, Ctrl + V` 가능
+
+##    - 최종 파일명은 `학번-성명.Rmd`, `학번-성명.html` 로 저장
+
+##    - 압축파일은 `*.zip` 형태로 생성할 것
+
+## 
+## **주의 사항**
+
+## 
+##   - 과제에 필요한 텍스트 데이터 파일은 가급적 제출 파일(rmd 및 html 파일)이 생성되는 폴더 안에 폴더를 만든 후 텍스트 파일을 저장할 것. 예를 들어 `homework4.Rmd` 파일이 `C:/my-project` 에서 생성된다면 `C:/my-project/exercise` 폴더 안에 텍스트 파일 저장
+
+##   - 만약 `Rmd` 파일이 작업 디렉토리 내 별도의 폴더 (예: `C:/my-project/rmd`)에 저장되어 있고 텍스트 데이터 파일이 `C:/my-project/exercise`에 존재 한다면, 다음과 같은 chunk 가 Rmd 파일 맨 처음에 선행되어야 함.
+
+## 
+
+## ----1-b-ans-----------------------------------------------------------------------------------------------
+# path <- "텍스트 파일이 저장된 폴더명"
+# filename <- dir(path)
+
+
+## ----1-c-ans-----------------------------------------------------------------------------------------------
+
+
+
+## ----1-d-ans-----------------------------------------------------------------------------------------------
+
+
+
+## ----1-e-ans-----------------------------------------------------------------------------------------------
+
+
+
+## ----1-f-ans-----------------------------------------------------------------------------------------------
+
+
+
+## ----1-g-ans-----------------------------------------------------------------------------------------------
+
+
+
+## ----1-h-ans-----------------------------------------------------------------------------------------------
+
+
+
+## ----1-i-ans-----------------------------------------------------------------------------------------------
+
+
+
+## ----1-j-ans-----------------------------------------------------------------------------------------------
+
+
+
+
+## ----1-k-ans-----------------------------------------------------------------------------------------------
+
+
+
+## ----1-l-ans-----------------------------------------------------------------------------------------------
+
+
+
+## ----1-n-ans-----------------------------------------------------------------------------------------------
+
+
+
+## ----1-o-ans-----------------------------------------------------------------------------------------------
+
+
+
+## ----1-p-ans-----------------------------------------------------------------------------------------------
+# 1.
+# 2.
+# 3.
 

@@ -2322,50 +2322,51 @@ knitr::include_graphics('figures/tidyr-pivot_longer.png', dpi = NA)
 1. **열의 이름이 변수명이 아니라 값으로 표현된 경우**
 
 
-```{r, echo=FALSE}
-gap_filter %>%
-  filter(grepl("KOR|USA|DEU", iso),
-         between(year, 2001, 2020)) %>%
-  select(iso:year, gdp_cap) %>%
-  pivot_wider(names_from = year,
-              values_from = gdp_cap) %>%
-  select(-region, -iso) #%>%
-  # write_csv("dataset/tidyr-wide-ex01.csv", col_names = TRUE)
+<!-- ```{r, echo=FALSE} -->
+<!-- gap_filter %>% -->
+<!--   filter(grepl("KOR|USA|DEU", iso), -->
+<!--          between(year, 2001, 2020)) %>% -->
+<!--   select(iso:year, gdp_cap) %>% -->
+<!--   pivot_wider(names_from = year, -->
+<!--               values_from = gdp_cap) %>% -->
+<!--   select(-region, -iso) #%>% -->
+<!--   # write_csv("dataset/tidyr-wide-ex01.csv", col_names = TRUE) -->
 
-```
+<!-- ``` -->
 
 ```{r, message=FALSE}
-# 데이터 불러오기: read_csv() 함수 사용
+# 데이터 불러오기: read_csv() 함수를 이용해 
+# tidyr-wide-ex01.csv 파일 불러오기
 wide_01 <- read_csv("dataset/tidyr-wide-ex01.csv")
 wide_01
 
 ```
 
-<!-- > - 총 21개의 열과 3개의 행으로 구성된 **"wide"** 형태 데이터 구조 -->
-<!-- > - 열 이름 `2001` ~ `2020`은 2001년부터 2020년 까지 년도을 의미함 -->
-<!-- > - 현재 데이터 구조에서 각 셀의 값(value)은 일인당 국민소득을 나타냄 -->
-<!-- > - 한 행은 국가(`country`)의 2001년부터 2020년 까지 년도 별 일인당 국민소득 -->
-<!-- > - 여기서 관측 단위(observational unit)은 국가(`country`)이며, 각 국가는 2001년부터 2020년 까지 일인당 국민소득에 대한 관찰값을 가짐 -->
+> - 총 21개의 열과 3개의 행으로 구성된 **"wide"** 형태 데이터 구조
+> - 열 이름 `2001` ~ `2020`은 2001년부터 2020년 까지 년도을 의미함
+> - 현재 데이터 구조에서 각 셀의 값(value)은 일인당 국민소득을 나타냄
+> - 한 행은 국가(`country`)의 2001년부터 2020년 까지 년도 별 일인당 국민소득
+> - 여기서 관측 단위(observational unit)은 국가(`country`)이며, 각 국가는 2001년부터 2020년 까지 일인당 국민소득에 대한 관찰값을 가짐
 
 
-<!-- **위 데이터가 tidy data 원칙을 준수하려면 어떤 형태로 재구성 되야 할까?** -->
+**위 데이터가 tidy data 원칙을 준수하려면 어떤 형태로 재구성 되야 할까?**
 
-<!-- 1. 열 이름은 년도에 해당하는 값(value) 임 $\rightarrow$ `year`라는 새로운 변수에 해당 값을 저장 -->
-<!-- 2. 일인당 국민소득 정보를 포함한 `gdp_cap`이라는 변수 생성 -->
-<!-- 3. 대략 아래와 같은 형태의 데이터 -->
+1. 열 이름은 년도에 해당하는 값(value) 임 $\rightarrow$ `year`라는 새로운 변수에 해당 값을 저장
+2. 일인당 국민소득 정보를 포함한 `gdp_cap`이라는 변수 생성
+3. 대략 아래와 같은 형태의 데이터
 
-<!-- ```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='50%'} -->
-<!-- knitr::include_graphics('figures/tidyr-gap-ex-01.png', dpi = NA) -->
-<!-- ``` -->
+```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='50%'}
+knitr::include_graphics('figures/tidyr-gap-ex-01.png', dpi = NA)
+```
 
 
-<!-- > **long format** 의 데이터 구조 -->
-<!-- > -->
-<!-- > - Unique한 각각의 관측 결과(대한민국의 2001년 일인당 국민소득이 얼마)는 하나의 행에 존재 -->
-<!-- > - 데이터에서 변수로 표현할 수 있는 속성은 모두 열로 표시 -->
-<!-- > - 각 변수에 해당하는 값(value)은 하나의 셀에 위치 -->
-<!-- > -->
-<!-- > $\rightarrow$ **tidy data** 원칙 만족 -->
+> **long format** 의 데이터 구조
+>
+> - Unique한 각각의 관측 결과(대한민국의 2001년 일인당 국민소득이 얼마)는 하나의 행에 존재
+> - 데이터에서 변수로 표현할 수 있는 속성은 모두 열로 표시
+> - 각 변수에 해당하는 값(value)은 하나의 셀에 위치
+>
+> $\rightarrow$ **tidy data** 원칙 만족
 
 
 
