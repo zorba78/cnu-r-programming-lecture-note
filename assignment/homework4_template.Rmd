@@ -18,55 +18,67 @@ editor_options:
 
 a. 저장된 텍스트 파일 중 하나를 열어보고 해당 텍스트 파일이 저장하고 있는 데이터의 구조에 대해 설명하고, 열과 열을 구분하기 위해 어떠한 구분자(separator)가 사용되었는지 기술하시오. 
 
-> 1-a 답: 입력(입력 시 해당 문구 삭제)
+> 1-a 답: 3개의 행 16개의 변수(1개: 문자형, 15개: 숫자형)로 구성되어 있고, tab 구분자로 열들이 구분되어 있다. 
 
 
 b. 다운로드한 텍스트 파일이 저장된 폴더 경로를 `path` 라는 객체에 저장하고,  `dir()` 함수를 이용해 해당 폴더에 저장되어 있는 파일의 이름 모두를 `filename` 이라는 객체에 저장 하시오. (참고: `dir()` 함수는 인수로 받은 폴더 경로 내 존재하는 모든 파일의 이름 및 확장자를 문자형 벡터로 반환해 주는 함수임. 자세한 사용법은 `help(dir)`을 통해 확인)
 
 ```{r 1-b-ans}
-# path <- "텍스트 파일이 저장된 폴더명"
-# filename <- dir(path)
+path <- "dataset/exercise"
+filename <- dir(path)
+
 ```
 
 c. `filename` 에서 `기기명` 부분만 추출 후, `file_dev` 객체에 저장 하시오. 
    
 ```{r 1-c-ans}
+file_dev <- substring(filename, 1, 4)
+file_dev
 
 ```
 
 d. 정규표현식을 이용하여 `filename` 에서 `기기명`에 해당하는 부분을 삭제 후 `file_id` 객체에 저장 하시오(hint: `gsub()` 함수를 사용할 수 있으먀, `file_id`에 저장되어 있는 문자열 원소 모두는 `beam_results_009.txt`와 같은 형태로 반환되어야 함). 
 
 ```{r 1-d-ans}
+file_id <- gsub("^h[0-9]n[0-9]_", "", filename)
+file_id
 
 ```
 
-e. 정규표현식을 사용하여 위에서 생성한 `file_id`에서 숫자만 추출 후 `id_tmp` 라는 객체를 생성 하시오. 그리고 `ID` 문자열와 `file_id`에 저장되어 있는 문자열과 결합해 모든 원소가 `ID009`와 같은 형태의 원소값을 갖는 `ID` 객체를 생성하시오
+e. 정규표현식을 사용하여 위에서 생성한 `file_id`에서 숫자만 추출 후 `id_tmp` 라는 객체를 생성 하시오. 그리고 `ID` 문자열와 `id_tmp`에 저장되어 있는 문자열과 결합해 모든 원소가 `ID009`와 같은 형태의 원소값을 갖는 `ID` 객체를 생성하시오
 
 ```{r 1-e-ans}
+id_tmp <- gsub(".*?([0-9]+).*", "\\1", file_id)
+ID <- paste0("ID", id_tmp)
+ID
 
 ```
 
 f. `paste()` 또는 `paste0()` 함수를 활용해 1-a. 에서 생성한 `path`라는 객체와 `filename`을 이용해 `파일경로/파일명` 형태의 문자형 벡터를 `full_filename` 객체에 저장하시오. 
 
 ```{r 1-f-ans}
-
+full_filename <- paste0(path, "/", filename)
 ```
 
 g. 1-f.에서 만든 `full_filename`, `lapply()`와 `read.table()` 함수를 활용하여 폴더에 저장되어 있는 모든 텍스트 파일을 리스트 형태로 저장한 `datl` 객체를 생성 하시오.
 
 ```{r 1-g-ans}
-
+datl <- lapply(full_filename, function(fn) read.table(fn, sep = "\t", header = TRUE))
 ```
 
 h. 1-g.에서 생성한 `datl`에 저장되어 있는 20개의 데이터 프레임을 하나의 데이터 프레임으로 묶은 결과를 저장한 `dat` 객체를 생성 하시오. 
 
 ```{r 1-h-ans}
+dat <- do.call(rbind, datl)
 
 ```
 
-i. 1-c. 와 1-d. 에서 생성한 `ID`와 `file_dev` 를 이용해 두 개의 변수로 구성된  `id_info` 라는 데이터 프레임을 생성 하시오. 단 두 문자형 벡터의 각 원소는 3 번씩 반복되어야 하고, 각 변수는 모두 문자형으로 저장되어야 함. 
+i. 1-c. 와 1-e. 에서 생성한 `ID`와 `file_dev` 를 이용해 두 개의 변수로 구성된  `id_info` 라는 데이터 프레임을 생성 하시오. 단 두 문자형 벡터의 각 원소는 3 번씩 반복되어야 하고, 각 변수는 모두 문자형으로 저장되어야 함. 
 
 ```{r 1-i-ans}
+id_info <- data.frame(ID = rep(ID, each = 3), 
+                 file_dev = rep(file_dev, each = 3), 
+                 stringsAsFactors = FALSE)
 
 ```
 
@@ -74,7 +86,7 @@ i. 1-c. 와 1-d. 에서 생성한 `ID`와 `file_dev` 를 이용해 두 개의 �
 j. 1-i. 에서 생성한 데이터 프레임 `id_info` 와 1.h 에서 생성한 `dat` 을 하나의 데이터 프레임으로 묶은 `dat_fin` 이라는 객체를 생성 하시오. 
 
 ```{r 1-j-ans}
-
+dat_fin <- cbind(id_info, dat)
 
 ```
 
@@ -82,24 +94,34 @@ j. 1-i. 에서 생성한 데이터 프레임 `id_info` 와 1.h 에서 생성한 
 k. 자료실에 업로드된 `beam-crf-ex.rds`를 다운로드 한 후 R 작업공간에 불러온 결과를 `beam_crf` 객체에 저장하시오. 
 
 ```{r 1-k-ans}
-
+beam_crf <- readRDS("dataset/beam-crf-ex.rds")
 ```
 
 l. tidyverse 패키지를 R 작업공간으로 읽은 후 dplyr 에서 제공하는 함수를 이용해 1-k. 에서 생성한 `beam_crf` 의 변수 `eeg_filenam` 문자열 중 처음 5개 문자(예: `ID158`)만 추출한 `eeg_id`라는 변수를 `beam_crf` 데이터 프레임 내에 새로운 변수로 만드시오. 
 
 ```{r 1-l-ans}
+beam_crf <- beam_crf %>% 
+   mutate(
+      eeg_id = regmatches(eeg_filenam, 
+                          regexpr("^ID[0-9]{3}", eeg_filenam))
+   )
 
 ```
 
 m. 두 데이터 프레임 `beam_crf`와 `dat_fin`은 연결할 수 있는가? 연결할 수 있다면 그 이유를 설명 하시오. 
 
 
-> 1-m 답: 
+> dat_fin의 ID와 file_dev, beam_crf의 eeg_id와 eegdvid가 각각 공통 행을 갖고 있기 때문에 연결이 가능하다. 
 
 
 n. 만약 연결할 수 있다면 `beam_crf`와 `dat_fin`을 join 하여 두 데이터 프레임에 공통으로 포함된 행으로 구성된 데이터 프레임 `beam_sub` 객체를 생성 하시오. 
 
 ```{r 1-n-ans}
+beam_sub <- dat_fin %>% 
+   inner_join(beam_crf, by = c("ID" = "eeg_id", 
+                               "file_dev" = "eegdvid"))
+
+beam_sub <- merge(dat_fin, beam_crf, by.x = c("ID", "file_dev"), by.y = c("eeg_id", "eegdvid"))
 
 ```
 
@@ -112,6 +134,11 @@ o. 1.n. 에서 생성한 `beam_sub`에 대해 dplyr 에서 제공하는 함수�
 
 
 ```{r 1-o-ans}
+beam_sub2 <- beam_sub %>% 
+   select(usubjid, sex:literacy, Row, MDF, PF, ATR) %>% 
+   mutate_at(vars(sex, literacy, Row), 
+             ~ factor(.)) %>% 
+   mutate(age = floor(age))
 
 ```
 
@@ -127,8 +154,40 @@ p. `beam_sub2`를 이용해 아래 기술한 결과를 반환하는 스크립트
 
 ```{r 1-p-ans}
 # 1. 
+beam_sub2 %>% 
+   group_by(Row) %>% 
+   summarise_at(vars(MDF:ATR), 
+                list(mean = ~ mean(.), 
+                     sd = ~ sd(.), 
+                     min = ~ min(.), 
+                     median = ~ median(.), 
+                     max = ~ max(.)))
+
 # 2. 
+beam_sub2 %>% 
+   add_count(literacy) %>% 
+   group_by(literacy, n) %>% 
+   summarise_if(~is.numeric(.), 
+                ~ mean(.))
+
 # 3. 
+## p-1. 
+aggregate(cbind(MDF, PF, ATR) ~ Row, 
+          data = beam_sub2, 
+          FUN = function(x) c(mean = mean(x), 
+                              sd = sd(x), 
+                              median = median(x), 
+                              max = max(x))) -> desc_p1
+
+## p-2. 
+tab_p2 <- data.frame(with(beam_sub2, table(literacy)))
+names(tab_p2)[2] <- "n"
+desc_p2 <- aggregate(cbind(age, MDF, PF, ATR) ~ literacy, 
+                     data = beam_sub2, 
+                     FUN = "mean")
+desc_p2 <- merge(tab_p2, desc_p2, by.x = "literacy")
+
+
 ```
 
 > 1-p-3 비교 서술: 
