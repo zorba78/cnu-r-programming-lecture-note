@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5.2 고수준 그래프 함수 | 통계 프로그래밍 언어</title>
+  <meta name="description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
+  <meta name="generator" content="bookdown 0.18.1 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5.2 고수준 그래프 함수 | 통계 프로그래밍 언어" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
+  <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5.2 고수준 그래프 함수 | 통계 프로그래밍 언어" />
+  
+  <meta name="twitter:description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
+  
+
+<meta name="author" content="한국한의학연구원, 구본초" />
+
+
+<meta name="date" content="2020-05-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="r-기본-그래프-함수.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="css\style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">통계 프로그래밍 언어</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Overview</a></li>
+<li class="part"><span><b>I Get Started</b></span></li>
+<li class="chapter" data-level="1" data-path="intro-chap.html"><a href="intro-chap.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1.1</b> R 설치하기</a></li>
+<li class="chapter" data-level="1.2" data-path="r-check.html"><a href="r-check.html"><i class="fa fa-check"></i><b>1.2</b> R 시작 및 작동 체크</a></li>
+<li class="chapter" data-level="1.3" data-path="rconsle-script.html"><a href="rconsle-script.html"><i class="fa fa-check"></i><b>1.3</b> R script 편집기 사용</a></li>
+<li class="chapter" data-level="1.4" data-path="r-studio.html"><a href="r-studio.html"><i class="fa fa-check"></i><b>1.4</b> RStudio</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="r-studio.html"><a href="r-studio.html#rstudio-install"><i class="fa fa-check"></i><b>1.4.1</b> RStudio 설치하기</a></li>
+<li class="chapter" data-level="1.4.2" data-path="r-studio.html"><a href="r-studio.html#rstudio-component"><i class="fa fa-check"></i><b>1.4.2</b> RStudio IDE 화면 구성</a></li>
+<li class="chapter" data-level="1.4.3" data-path="r-studio.html"><a href="r-studio.html#rstudio-glob-options"><i class="fa fa-check"></i><b>1.4.3</b> RStudio 환경 설정</a></li>
+<li class="chapter" data-level="1.4.4" data-path="r-studio.html"><a href="r-studio.html#rstudio-project"><i class="fa fa-check"></i><b>1.4.4</b> RStudio 프로젝트</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="r-package.html"><a href="r-package.html"><i class="fa fa-check"></i><b>1.5</b> R 패키지</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="r-package.html"><a href="r-package.html#r-package-path"><i class="fa fa-check"></i><b>1.5.1</b> R 패키지 경로 확인 및 변경</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-package.html"><a href="r-package.html#r-package-install"><i class="fa fa-check"></i><b>1.5.2</b> R 패키지 설치하기</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-package.html"><a href="r-package.html#r-package-load"><i class="fa fa-check"></i><b>1.5.3</b> R 패키지 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basic.html"><a href="r-basic.html"><i class="fa fa-check"></i><b>1.6</b> R 기초 문법</a></li>
+<li class="chapter" data-level="1.7" data-path="r-markdown-get-start.html"><a href="r-markdown-get-start.html"><i class="fa fa-check"></i><b>1.7</b> R Markdown (맛보기)</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-type.html"><a href="data-type.html"><i class="fa fa-check"></i><b>2</b> R 객체(R object)</a><ul>
+<li class="chapter" data-level="2.1" data-path="scalar.html"><a href="scalar.html"><i class="fa fa-check"></i><b>2.1</b> 스칼라(scalar)</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="scalar.html"><a href="scalar.html#definition"><i class="fa fa-check"></i><b>2.1.1</b> 선언</a></li>
+<li class="chapter" data-level="2.1.2" data-path="scalar.html"><a href="scalar.html#numeric"><i class="fa fa-check"></i><b>2.1.2</b> 숫자형</a></li>
+<li class="chapter" data-level="2.1.3" data-path="scalar.html"><a href="scalar.html#character"><i class="fa fa-check"></i><b>2.1.3</b> 문자형</a></li>
+<li class="chapter" data-level="2.1.4" data-path="scalar.html"><a href="scalar.html#logical"><i class="fa fa-check"></i><b>2.1.4</b> 논리형 스칼라</a></li>
+<li class="chapter" data-level="2.1.5" data-path="scalar.html"><a href="scalar.html#missing-value"><i class="fa fa-check"></i><b>2.1.5</b> 결측값(missing value)</a></li>
+<li class="chapter" data-level="2.1.6" data-path="scalar.html"><a href="scalar.html#null"><i class="fa fa-check"></i><b>2.1.6</b> NULL 값</a></li>
+<li class="chapter" data-level="2.1.7" data-path="scalar.html"><a href="scalar.html#finite"><i class="fa fa-check"></i><b>2.1.7</b> 무한대/무한소/숫자아님</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>2.2</b> 벡터(vector)</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="vector.html"><a href="vector.html#vector-prop"><i class="fa fa-check"></i><b>2.2.1</b> 벡터의 특징</a></li>
+<li class="chapter" data-level="2.2.2" data-path="vector.html"><a href="vector.html#vector-operation"><i class="fa fa-check"></i><b>2.2.2</b> 벡터의 연산</a></li>
+<li class="chapter" data-level="2.2.3" data-path="vector.html"><a href="vector.html#vector-index"><i class="fa fa-check"></i><b>2.2.3</b> 벡터의 색인(indexing)</a></li>
+<li class="chapter" data-level="2.2.4" data-path="vector.html"><a href="vector.html#vector-function"><i class="fa fa-check"></i><b>2.2.4</b> 벡터 관련 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="list.html"><a href="list.html"><i class="fa fa-check"></i><b>2.3</b> 리스트(list)</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="list.html"><a href="list.html#make-list"><i class="fa fa-check"></i><b>2.3.1</b> 리스트 생성</a></li>
+<li class="chapter" data-level="2.3.2" data-path="list.html"><a href="list.html#list-index"><i class="fa fa-check"></i><b>2.3.2</b> 리스트 색인</a></li>
+<li class="chapter" data-level="2.3.3" data-path="list.html"><a href="list.html#list-add-delete"><i class="fa fa-check"></i><b>2.3.3</b> 리스트에 원소 추가/제거</a></li>
+<li class="chapter" data-level="2.3.4" data-path="list.html"><a href="list.html#list-combine"><i class="fa fa-check"></i><b>2.3.4</b> 리스트의 결합</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="matrix.html"><a href="matrix.html"><i class="fa fa-check"></i><b>2.4</b> 행렬(matrix)</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="matrix.html"><a href="matrix.html#matrix-operation"><i class="fa fa-check"></i><b>2.4.1</b> 행렬의 연산</a></li>
+<li class="chapter" data-level="2.4.2" data-path="matrix.html"><a href="matrix.html#mat-index"><i class="fa fa-check"></i><b>2.4.2</b> 행렬의 색인</a></li>
+<li class="chapter" data-level="2.4.3" data-path="matrix.html"><a href="matrix.html#행과-열-추가-및-제거"><i class="fa fa-check"></i><b>2.4.3</b> 행과 열 추가 및 제거</a></li>
+<li class="chapter" data-level="2.4.4" data-path="matrix.html"><a href="matrix.html#행렬-관련-함수"><i class="fa fa-check"></i><b>2.4.4</b> 행렬 관련 함수</a></li>
+<li class="chapter" data-level="2.4.5" data-path="matrix.html"><a href="matrix.html#vec-mat-diff"><i class="fa fa-check"></i><b>2.4.5</b> 벡터와 행렬의 차이점</a></li>
+<li class="chapter" data-level="2.4.6" data-path="matrix.html"><a href="matrix.html#mat-dim-reduc-sway"><i class="fa fa-check"></i><b>2.4.6</b> 의도치 않은 차원축소 피하기</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="array.html"><a href="array.html"><i class="fa fa-check"></i><b>2.5</b> 배열(array)</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="array.html"><a href="array.html#make-array"><i class="fa fa-check"></i><b>2.5.1</b> 배열의 생성 및 색인</a></li>
+<li class="chapter" data-level="2.5.2" data-path="array.html"><a href="array.html#rray-extend-example"><i class="fa fa-check"></i><b>2.5.2</b> 배열의 확장 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="factor-table.html"><a href="factor-table.html"><i class="fa fa-check"></i><b>2.6</b> 요인(factor)과 테이블(table)</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="factor-table.html"><a href="factor-table.html#factor"><i class="fa fa-check"></i><b>2.6.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.6.2" data-path="factor-table.html"><a href="factor-table.html#table"><i class="fa fa-check"></i><b>2.6.2</b> 테이블(table)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>2.7</b> 데이터 프레임(data frame)</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="data-frame.html"><a href="data-frame.html#create-data-frame"><i class="fa fa-check"></i><b>2.7.1</b> 데이터 프레임 생성</a></li>
+<li class="chapter" data-level="2.7.2" data-path="data-frame.html"><a href="data-frame.html#data-frame-get"><i class="fa fa-check"></i><b>2.7.2</b> 데이터 프레임 접근 및 필터링</a></li>
+<li class="chapter" data-level="2.7.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.7.3</b> 데이터 프레임 관련 함수</a></li>
+<li class="chapter" data-level="2.7.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.7.4</b> <code>*apply()</code> 계열 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="is-as-function.html"><a href="is-as-function.html"><i class="fa fa-check"></i><b>2.8</b> 객체의 유형 판별 및 변환</a></li>
+<li class="chapter" data-level="2.9" data-path="homework-2.html"><a href="homework-2.html"><i class="fa fa-check"></i><b>2.9</b> Homework #2</a></li>
+<li class="chapter" data-level="2.10" data-path="homework-3.html"><a href="homework-3.html"><i class="fa fa-check"></i><b>2.10</b> Homework #3</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="string-regexp.html"><a href="string-regexp.html"><i class="fa fa-check"></i><b>3</b> 문자열 처리와 정규표현식</a><ul>
+<li class="chapter" data-level="3.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html"><i class="fa fa-check"></i><b>3.1</b> 유용한 문자열 관련 함수</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#nchar"><i class="fa fa-check"></i><b>3.1.1</b> <strong><code>nchar()</code></strong></a></li>
+<li class="chapter" data-level="3.1.2" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#paste"><i class="fa fa-check"></i><b>3.1.2</b> <strong><code>paste()</code></strong>, <strong><code>paste0()</code></strong></a></li>
+<li class="chapter" data-level="3.1.3" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#sprintf"><i class="fa fa-check"></i><b>3.1.3</b> <strong><code>sprintf()</code></strong></a></li>
+<li class="chapter" data-level="3.1.4" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#substr"><i class="fa fa-check"></i><b>3.1.4</b> <strong><code>substr()</code></strong></a></li>
+<li class="chapter" data-level="3.1.5" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#low-up-fun"><i class="fa fa-check"></i><b>3.1.5</b> <strong><code>tolower()</code>, <code>toupper()</code></strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html"><i class="fa fa-check"></i><b>3.2</b> 정규표현식 기본 함수</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#grep-grepl"><i class="fa fa-check"></i><b>3.2.1</b> <strong><code>grep()</code>, <code>grepl()</code></strong></a></li>
+<li class="chapter" data-level="3.2.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexpr-gregexpr"><i class="fa fa-check"></i><b>3.2.2</b> <strong><code>regexpr()</code></strong>, <strong><code>gregexpr()</code></strong></a></li>
+<li class="chapter" data-level="3.2.3" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#sub-gsub-fun"><i class="fa fa-check"></i><b>3.2.3</b> <strong><code>sub()</code></strong>, <strong><code>gsub()</code></strong></a></li>
+<li class="chapter" data-level="3.2.4" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexec-fun"><i class="fa fa-check"></i><b>3.2.4</b> <strong><code>regexec()</code></strong></a></li>
+<li class="chapter" data-level="3.2.5" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#strsplit"><i class="fa fa-check"></i><b>3.2.5</b> <strong><code>strsplit()</code></strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="reg-exp.html"><a href="reg-exp.html"><i class="fa fa-check"></i><b>3.3</b> 정규 표현식(regular expression)</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="reg-exp.html"><a href="reg-exp.html#basic-meta"><i class="fa fa-check"></i><b>3.3.1</b> 기본 메타 문자</a></li>
+<li class="chapter" data-level="3.3.2" data-path="reg-exp.html"><a href="reg-exp.html#character-set"><i class="fa fa-check"></i><b>3.3.2</b> 문자 집합</a></li>
+<li class="chapter" data-level="3.3.3" data-path="reg-exp.html"><a href="reg-exp.html#character-class"><i class="fa fa-check"></i><b>3.3.3</b> 문자 클래스</a></li>
+<li class="chapter" data-level="3.3.4" data-path="reg-exp.html"><a href="reg-exp.html#regexp-ex"><i class="fa fa-check"></i><b>3.3.4</b> 정규 표현식 예시</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-handling.html"><a href="data-handling.html"><i class="fa fa-check"></i><b>4</b> 데이터 핸들링(Data handling)</a><ul>
+<li class="chapter" data-level="4.1" data-path="ch4-prerequi.html"><a href="ch4-prerequi.html"><i class="fa fa-check"></i><b>4.1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="ch4-prerequi.html"><a href="ch4-prerequi.html#data-import-export"><i class="fa fa-check"></i><b>4.1.1</b> 외부데이터 불러오기 및 저장</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>4.2</b> Tidyverse</a></li>
+<li class="chapter" data-level="4.3" data-path="readr.html"><a href="readr.html"><i class="fa fa-check"></i><b>4.3</b> <code>readr</code> 패키지</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="readr.html"><a href="readr.html#import-export-excel"><i class="fa fa-check"></i><b>4.3.1</b> Excel 파일 입출력</a></li>
+<li class="chapter" data-level="4.3.2" data-path="readr.html"><a href="readr.html#tibble"><i class="fa fa-check"></i><b>4.3.2</b> tibble 패키지</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="dplyr.html"><a href="dplyr.html"><i class="fa fa-check"></i><b>4.4</b> <code>dplyr</code> 패키지</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="dplyr.html"><a href="dplyr.html#pipe-op"><i class="fa fa-check"></i><b>4.4.1</b> 파이프 연산자: <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="4.4.2" data-path="dplyr.html"><a href="dplyr.html#dplyr-filter"><i class="fa fa-check"></i><b>4.4.2</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="4.4.3" data-path="dplyr.html"><a href="dplyr.html#arrange"><i class="fa fa-check"></i><b>4.4.3</b> <code id="dplyr-arrange">arrange()</code></a></li>
+<li class="chapter" data-level="4.4.4" data-path="dplyr.html"><a href="dplyr.html#dplyr-select"><i class="fa fa-check"></i><b>4.4.4</b> <code>select()</code></a></li>
+<li class="chapter" data-level="4.4.5" data-path="dplyr.html"><a href="dplyr.html#dplyr-mutate"><i class="fa fa-check"></i><b>4.4.5</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="4.4.6" data-path="dplyr.html"><a href="dplyr.html#dplyr-transmute"><i class="fa fa-check"></i><b>4.4.6</b> <code>transmute()</code></a></li>
+<li class="chapter" data-level="4.4.7" data-path="dplyr.html"><a href="dplyr.html#dplyr-summarise"><i class="fa fa-check"></i><b>4.4.7</b> <code>summarise()</code></a></li>
+<li class="chapter" data-level="4.4.8" data-path="dplyr.html"><a href="dplyr.html#dplyr-group_by"><i class="fa fa-check"></i><b>4.4.8</b> <code>group_by()</code></a></li>
+<li class="chapter" data-level="4.4.9" data-path="dplyr.html"><a href="dplyr.html#dplyr-application"><i class="fa fa-check"></i><b>4.4.9</b> dplyr 관련 유용한 함수</a></li>
+<li class="chapter" data-level="4.4.10" data-path="dplyr.html"><a href="dplyr.html#dplyr-verb-variant-adverb"><i class="fa fa-check"></i><b>4.4.10</b> 부가 기능</a></li>
+<li class="chapter" data-level="4.4.11" data-path="dplyr.html"><a href="dplyr.html#dplyr-join"><i class="fa fa-check"></i><b>4.4.11</b> 데이터 연결</a></li>
+<li class="chapter" data-level="4.4.12" data-path="dplyr.html"><a href="dplyr.html#ex-gapminder"><i class="fa fa-check"></i><b>4.4.12</b> 확장 예제: Gapminder</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>4.5</b> 데이터 변환</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="data-transformation.html"><a href="data-transformation.html#tidy-data"><i class="fa fa-check"></i><b>4.5.1</b> Tidy data</a></li>
+<li class="chapter" data-level="4.5.2" data-path="data-transformation.html"><a href="data-transformation.html#long-format"><i class="fa fa-check"></i><b>4.5.2</b> Long format</a></li>
+<li class="chapter" data-level="4.5.3" data-path="data-transformation.html"><a href="data-transformation.html#wider-format"><i class="fa fa-check"></i><b>4.5.3</b> Wide format</a></li>
+<li class="chapter" data-level="4.5.4" data-path="data-transformation.html"><a href="data-transformation.html#separate-unite"><i class="fa fa-check"></i><b>4.5.4</b> Separate and unite</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="homework-04.html"><a href="homework-04.html"><i class="fa fa-check"></i><b>4.6</b> Homework #4</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch-data-visualization.html"><a href="ch-data-visualization.html"><i class="fa fa-check"></i><b>5</b> 데이터 시각화</a><ul>
+<li class="chapter" data-level="5.1" data-path="r-기본-그래프-함수.html"><a href="r-기본-그래프-함수.html"><i class="fa fa-check"></i><b>5.1</b> R 기본 그래프 함수</a></li>
+<li class="chapter" data-level="5.2" data-path="high-level-graph.html"><a href="high-level-graph.html"><i class="fa fa-check"></i><b>5.2</b> 고수준 그래프 함수</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="high-level-graph.html"><a href="high-level-graph.html#plot-fun"><i class="fa fa-check"></i><b>5.2.1</b> <strong><code>plot()</code> 함수</strong></a></li>
+<li class="chapter" data-level="5.2.2" data-path="high-level-graph.html"><a href="high-level-graph.html#main-high-level-graph"><i class="fa fa-check"></i><b>5.2.2</b> 주요 고수준 그래픽 함수</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계 프로그래밍 언어</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="high-level-graph" class="section level2">
+<h2><span class="header-section-number">5.2</span> 고수준 그래프 함수</h2>
+<div id="plot-fun" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> <strong><code>plot()</code> 함수</strong></h3>
+<ul>
+<li>R의 가장 대표적인 2차원 고수준 그래프 출력 함수</li>
+<li><code>plot()</code>의 가장 일반적인 용도는 그래프 장치를 설정(축, 값의 범위 등) 후 저수준 그래프 함수(축, 선, 점, 면 등)를 그래프 장치에 적용</li>
+<li>데이터가 저장되어 있는 객체(벡터, 행렬, 데이터 프레임 등) 하나 이상을 함수의 인수(argument)로 사용</li>
+<li>데이터의 클래스에 따라 출력되는 그래프 결과가 다름 <span class="math inline">\(\rightarrow\)</span> <code>methods(plot)</code>을 통해 <code>plot()</code> 함수가 적용되는 클래스 확인 가능</li>
+</ul>
+
+<div class="sourceCode" id="cb1491"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1491-1" title="1"><span class="co">#각 클래스에 적용되는 plot() 함수 리스트</span></a>
+<a class="sourceLine" id="cb1491-2" title="2"><span class="kw">methods</span>(plot)</a></code></pre></div>
+<pre><code> [1] plot,ANY-method        plot,color-method      plot.acf*             
+ [4] plot.ACF*              plot.augPred*          plot.compareFits*     
+ [7] plot.data.frame*       plot.decomposed.ts*    plot.default          
+[10] plot.dendrogram*       plot.density*          plot.ecdf             
+[13] plot.factor*           plot.formula*          plot.function         
+[16] plot.ggplot*           plot.gls*              plot.gtable*          
+[19] plot.hcl_palettes*     plot.hclust*           plot.histogram*       
+[22] plot.HoltWinters*      plot.intervals.lmList* plot.isoreg*          
+[25] plot.lm*               plot.lme*              plot.lmList*          
+[28] plot.medpolish*        plot.mlm*              plot.nffGroupedData*  
+[31] plot.nfnGroupedData*   plot.nls*              plot.nmGroupedData*   
+[34] plot.pdMat*            plot.ppr*              plot.prcomp*          
+[37] plot.princomp*         plot.profile.nls*      plot.R6*              
+[40] plot.ranef.lme*        plot.ranef.lmList*     plot.raster*          
+[43] plot.shingle*          plot.simulate.lme*     plot.spec*            
+[46] plot.stepfun           plot.stl*              plot.table*           
+[49] plot.trans*            plot.trellis*          plot.ts               
+[52] plot.tskernel*         plot.TukeyHSD*         plot.Variogram*       
+see &#39;?methods&#39; for accessing help and source code</code></pre>
+<div class="sourceCode" id="cb1493"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1493-1" title="1"><span class="co">#예시 1: 객체 클래스가 데이터 프레임인 경우</span></a>
+<a class="sourceLine" id="cb1493-2" title="2"><span class="co"># mtcars 데이터 예시</span></a>
+<a class="sourceLine" id="cb1493-3" title="3"><span class="kw">class</span>(mtcars)</a></code></pre></div>
+<pre><code>[1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb1495"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1495-1" title="1"><span class="kw">plot</span>(mtcars)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-7-1.svg" width="864" /></p>
+
+
+<div class="sourceCode" id="cb1496"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1496-1" title="1"><span class="co"># 예시2: lm()으로 도출된 객체(list)</span></a>
+<a class="sourceLine" id="cb1496-2" title="2"><span class="co">## 연비(mpg)를 종속 변수, 배기량(disp)을 독립변수로 한 회귀모형</span></a>
+<a class="sourceLine" id="cb1496-3" title="3"><span class="co">## lm() 함수 사용 -&gt; 객체 클래스는 lm</span></a>
+<a class="sourceLine" id="cb1496-4" title="4"></a>
+<a class="sourceLine" id="cb1496-5" title="5">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars)</a>
+<a class="sourceLine" id="cb1496-6" title="6"><span class="kw">class</span>(mod)</a></code></pre></div>
+<pre><code>[1] &quot;lm&quot;</code></pre>
+<div class="sourceCode" id="cb1498"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1498-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># 4개 도표를 한 화면에 표시(2행, 2열)</span></a>
+<a class="sourceLine" id="cb1498-2" title="2"><span class="kw">plot</span>(mod)</a>
+<a class="sourceLine" id="cb1498-3" title="3"><span class="kw">dev.off</span>() <span class="co"># 활성화된 그래프 장치 닫기</span></a></code></pre></div>
+<pre><code>null device 
+          1 </code></pre>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-8-1.svg" width="864" /></p>
+
+
+<div class="sourceCode" id="cb1500"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1500-1" title="1"><span class="co"># 예시3: 테이블 객체</span></a>
+<a class="sourceLine" id="cb1500-2" title="2"><span class="kw">class</span>(Titanic)</a></code></pre></div>
+<pre><code>[1] &quot;table&quot;</code></pre>
+<div class="sourceCode" id="cb1502"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1502-1" title="1"><span class="kw">plot</span>(Titanic)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-9-1.svg" width="864" /></p>
+
+<ul>
+<li>객체의 클래스가 벡터나 행렬인 경우, 객체에 저장된 데이터를 2차원 평면(x-y 좌표)에 출력</li>
+</ul>
+
+<div class="sourceCode" id="cb1503"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1503-1" title="1"><span class="co"># 예시1: 데이터 객체를 하나만 인수로 받는 경우</span></a>
+<a class="sourceLine" id="cb1503-2" title="2"><span class="co"># -&gt; x축은 객체의 색인이고, x의 데이터는 y 좌표에 매핑</span></a>
+<a class="sourceLine" id="cb1503-3" title="3">x &lt;-<span class="st"> </span>mtcars<span class="op">$</span>disp</a>
+<a class="sourceLine" id="cb1503-4" title="4">y &lt;-<span class="st"> </span>mtcars<span class="op">$</span>mpg</a>
+<a class="sourceLine" id="cb1503-5" title="5"></a>
+<a class="sourceLine" id="cb1503-6" title="6"><span class="kw">plot</span>(x); <span class="kw">plot</span>(y)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-10-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-10-2.svg" width="50%" /></p>
+
+
+<div class="sourceCode" id="cb1504"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1504-1" title="1"><span class="co"># 두개의 객체를 인수로 받은 경우</span></a>
+<a class="sourceLine" id="cb1504-2" title="2"><span class="co"># -&gt; 2차원 산점도 출력</span></a>
+<a class="sourceLine" id="cb1504-3" title="3"></a>
+<a class="sourceLine" id="cb1504-4" title="4"><span class="kw">plot</span>(x, y)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-11-1.svg" width="768" /></p>
+
+<ul>
+<li><code>plot()</code> 함수의 세부 옵션</li>
+</ul>
+
+<div class="sourceCode" id="cb1505"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1505-1" title="1"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb1505-2" title="2">  x, <span class="co"># x 축에 대응하는 데이터 객체</span></a>
+<a class="sourceLine" id="cb1505-3" title="3">  y, <span class="co"># y 축에 대응하는 데이터 객체</span></a>
+<a class="sourceLine" id="cb1505-4" title="4">  type, <span class="co"># 그래프 타입(예시 참조)</span></a>
+<a class="sourceLine" id="cb1505-5" title="5">  main, <span class="co"># 제목 </span></a>
+<a class="sourceLine" id="cb1505-6" title="6">  sub,  <span class="co"># 부제목 </span></a>
+<a class="sourceLine" id="cb1505-7" title="7">  xlim, ylim, <span class="co"># x, y 축 범위 지정</span></a>
+<a class="sourceLine" id="cb1505-8" title="8">  xlab, ylab, <span class="co"># x-y 축 이름</span></a>
+<a class="sourceLine" id="cb1505-9" title="9">  lty, <span class="co"># 선 모양</span></a>
+<a class="sourceLine" id="cb1505-10" title="10">  pch, <span class="co"># 점 모양</span></a>
+<a class="sourceLine" id="cb1505-11" title="11">  cex, <span class="co"># 점 및 텍스트 크기</span></a>
+<a class="sourceLine" id="cb1505-12" title="12">  lwd, <span class="co"># 선 굵기</span></a>
+<a class="sourceLine" id="cb1505-13" title="13">  col  <span class="co"># 색상</span></a>
+<a class="sourceLine" id="cb1505-14" title="14">)</a></code></pre></div>
+
+<ul>
+<li><code>type</code> 인수: 그래프 타입 지정</li>
+</ul>
+
+<div class="sourceCode" id="cb1506"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1506-1" title="1"><span class="co"># BOD 데이터셋 이용</span></a>
+<a class="sourceLine" id="cb1506-2" title="2">x &lt;-<span class="st"> </span>BOD<span class="op">$</span>Time; y &lt;-<span class="st"> </span>BOD<span class="op">$</span>demand</a>
+<a class="sourceLine" id="cb1506-3" title="3">x; y</a></code></pre></div>
+<pre><code>[1] 1 2 3 4 5 7</code></pre>
+<pre><code>[1]  8.3 10.3 19.0 16.0 15.6 19.8</code></pre>
+<div class="sourceCode" id="cb1509"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1509-1" title="1">ctype &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;p&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;o&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;h&quot;</span>, <span class="st">&quot;s&quot;</span>, <span class="st">&quot;n&quot;</span>)</a>
+<a class="sourceLine" id="cb1509-2" title="2">type_desc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;points&quot;</span>, <span class="st">&quot;lines&quot;</span>, </a>
+<a class="sourceLine" id="cb1509-3" title="3">               <span class="st">&quot;both points and lines&quot;</span>, </a>
+<a class="sourceLine" id="cb1509-4" title="4">               <span class="st">&quot;overlapped points and plots&quot;</span>, </a>
+<a class="sourceLine" id="cb1509-5" title="5">               <span class="st">&quot;empty points joined by lines&quot;</span>, </a>
+<a class="sourceLine" id="cb1509-6" title="6">               <span class="st">&quot;histogram like vertical lines&quot;</span>, </a>
+<a class="sourceLine" id="cb1509-7" title="7">               <span class="st">&quot;stair steps&quot;</span>, </a>
+<a class="sourceLine" id="cb1509-8" title="8">               <span class="st">&quot;no lines and points&quot;</span>)</a>
+<a class="sourceLine" id="cb1509-9" title="9"></a>
+<a class="sourceLine" id="cb1509-10" title="10">op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb1509-11" title="11"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(ctype)) {</a>
+<a class="sourceLine" id="cb1509-12" title="12">  <span class="kw">plot</span>(x, y, </a>
+<a class="sourceLine" id="cb1509-13" title="13">       <span class="dt">type =</span> ctype[i], </a>
+<a class="sourceLine" id="cb1509-14" title="14">       <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;type =&quot;</span>, <span class="st">&quot;&#39;&quot;</span>, ctype[i], <span class="st">&quot;&#39;&quot;</span>),</a>
+<a class="sourceLine" id="cb1509-15" title="15">       <span class="dt">sub =</span> type_desc[i], </a>
+<a class="sourceLine" id="cb1509-16" title="16">       <span class="dt">cex.main =</span> <span class="fl">1.5</span>, </a>
+<a class="sourceLine" id="cb1509-17" title="17">       <span class="dt">cex.sub =</span> <span class="fl">1.5</span>, </a>
+<a class="sourceLine" id="cb1509-18" title="18">       <span class="dt">cex =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb1509-19" title="19">}</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-13-1.svg" width="960" /></p>
+<div class="sourceCode" id="cb1510"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1510-1" title="1"><span class="kw">par</span>(op)</a></code></pre></div>
+
+<ul>
+<li><code>xlim</code>, <code>ylim</code> 인수: x, y 축의 범위 지정</li>
+</ul>
+
+<div class="sourceCode" id="cb1511"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1511-1" title="1">op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb1511-2" title="2">range &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb1511-3" title="3">  <span class="dt">x1 =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">each =</span> <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb1511-4" title="4">  <span class="dt">x2 =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">5</span>), <span class="dt">each =</span> <span class="dv">3</span>), </a>
+<a class="sourceLine" id="cb1511-5" title="5">  <span class="dt">y1 =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">8</span>), <span class="dt">times =</span> <span class="dv">2</span>), </a>
+<a class="sourceLine" id="cb1511-6" title="6">  <span class="dt">y2 =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">16</span>), <span class="dt">times =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb1511-7" title="7">  )</a>
+<a class="sourceLine" id="cb1511-8" title="8"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) {</a>
+<a class="sourceLine" id="cb1511-9" title="9">  <span class="kw">plot</span>(x, y, </a>
+<a class="sourceLine" id="cb1511-10" title="10">       <span class="dt">xlim =</span> <span class="kw">as.numeric</span>(range[i, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]), </a>
+<a class="sourceLine" id="cb1511-11" title="11">       <span class="dt">ylim =</span> <span class="kw">as.numeric</span>(range[i, <span class="dv">3</span><span class="op">:</span><span class="dv">4</span>]), </a>
+<a class="sourceLine" id="cb1511-12" title="12">       <span class="dt">main =</span> <span class="kw">paste0</span>(<span class="st">&quot;xlim = c(&quot;</span>, </a>
+<a class="sourceLine" id="cb1511-13" title="13">                     <span class="kw">paste</span>(<span class="kw">as.numeric</span>(range[i, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]), </a>
+<a class="sourceLine" id="cb1511-14" title="14">                           <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>), <span class="st">&quot;), &quot;</span>, </a>
+<a class="sourceLine" id="cb1511-15" title="15">                     <span class="st">&quot;ylim = c(&quot;</span>, </a>
+<a class="sourceLine" id="cb1511-16" title="16">                     <span class="kw">paste</span>(<span class="kw">as.numeric</span>(range[i, <span class="dv">3</span><span class="op">:</span><span class="dv">4</span>]), </a>
+<a class="sourceLine" id="cb1511-17" title="17">                           <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>), <span class="st">&quot;)&quot;</span>)</a>
+<a class="sourceLine" id="cb1511-18" title="18">       )</a>
+<a class="sourceLine" id="cb1511-19" title="19">}</a>
+<a class="sourceLine" id="cb1511-20" title="20"><span class="kw">par</span>(op)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-14-1.svg" width="672" /></p>
+
+<ul>
+<li><code>xlab</code>, <code>ylab</code> 인수: x축과 y축 이름 지정</li>
+</ul>
+
+<div class="sourceCode" id="cb1512"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1512-1" title="1">x_lab &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot; &quot;</span>, <span class="st">&quot;Time (days)&quot;</span>)</a>
+<a class="sourceLine" id="cb1512-2" title="2">y_lab &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Demand&quot;</span>, <span class="st">&quot;Oxygen demend (mg/l)&quot;</span>)</a>
+<a class="sourceLine" id="cb1512-3" title="3"></a>
+<a class="sourceLine" id="cb1512-4" title="4">op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb1512-5" title="5">lab_d &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(x_lab, y_lab)</a>
+<a class="sourceLine" id="cb1512-6" title="6"></a>
+<a class="sourceLine" id="cb1512-7" title="7"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) {</a>
+<a class="sourceLine" id="cb1512-8" title="8">  <span class="kw">plot</span>(x, y, </a>
+<a class="sourceLine" id="cb1512-9" title="9">       <span class="dt">xlab =</span> lab_d[i, <span class="dv">1</span>], </a>
+<a class="sourceLine" id="cb1512-10" title="10">       <span class="dt">ylab =</span> lab_d[i, <span class="dv">2</span>], </a>
+<a class="sourceLine" id="cb1512-11" title="11">       <span class="dt">main =</span> <span class="kw">paste0</span>(<span class="st">&quot;xlab = &quot;</span>, <span class="st">&quot;&#39;&quot;</span>, lab_d[i, <span class="dv">1</span>], <span class="st">&quot;&#39;&quot;</span>, <span class="st">&quot;, &quot;</span>, </a>
+<a class="sourceLine" id="cb1512-12" title="12">                     <span class="st">&quot;ylab = &quot;</span>, <span class="st">&quot;&#39;&quot;</span>, lab_d[i, <span class="dv">2</span>], <span class="st">&quot;&#39;&quot;</span>)</a>
+<a class="sourceLine" id="cb1512-13" title="13">  )</a>
+<a class="sourceLine" id="cb1512-14" title="14">}</a>
+<a class="sourceLine" id="cb1512-15" title="15"><span class="kw">par</span>(op); <span class="kw">dev.off</span>()</a></code></pre></div>
+<pre><code>null device 
+          1 </code></pre>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-15-1.svg" width="960" /></p>
+
+<ul>
+<li><code>lty</code> 인수: 선의 형태 지정</li>
+</ul>
+
+<div class="sourceCode" id="cb1514"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1514-1" title="1">line_type &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;blank&quot;</span>, <span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>, <span class="st">&quot;dotted&quot;</span>,</a>
+<a class="sourceLine" id="cb1514-2" title="2">               <span class="st">&quot;dotdash&quot;</span>, <span class="st">&quot;longdash&quot;</span>, <span class="st">&quot;twodash&quot;</span>)</a>
+<a class="sourceLine" id="cb1514-3" title="3"><span class="kw">plot</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>), <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, </a>
+<a class="sourceLine" id="cb1514-4" title="4">     <span class="dt">axes =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb1514-5" title="5">     <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, </a>
+<a class="sourceLine" id="cb1514-6" title="6">     <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, </a>
+<a class="sourceLine" id="cb1514-7" title="7">     <span class="dt">main =</span> <span class="st">&quot;Basic Line Types&quot;</span>, </a>
+<a class="sourceLine" id="cb1514-8" title="8">     <span class="dt">cex.main =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb1514-9" title="9"></a>
+<a class="sourceLine" id="cb1514-10" title="10"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(line_type)) {</a>
+<a class="sourceLine" id="cb1514-11" title="11">  <span class="kw">lines</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">5.2</span>), <span class="kw">c</span>(i, i), <span class="dt">lty =</span> i <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)  </a>
+<a class="sourceLine" id="cb1514-12" title="12">  <span class="kw">text</span>(<span class="fl">5.5</span>, i, </a>
+<a class="sourceLine" id="cb1514-13" title="13">       <span class="dt">labels =</span> <span class="kw">paste0</span>(<span class="st">&quot;lty = &quot;</span>, i <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="st">&quot; (&quot;</span>, </a>
+<a class="sourceLine" id="cb1514-14" title="14">                       line_type[i], <span class="st">&quot;)&quot;</span>), </a>
+<a class="sourceLine" id="cb1514-15" title="15">       <span class="dt">cex =</span> <span class="fl">1.2</span>, </a>
+<a class="sourceLine" id="cb1514-16" title="16">       <span class="dt">adj =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1514-17" title="17">}</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-16-1.svg" width="768" /></p>
+
+<ul>
+<li><code>pch</code> 인수: 점(point)의 모양을 지정</li>
+</ul>
+
+<div class="sourceCode" id="cb1515"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1515-1" title="1">coord &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb1515-2" title="2"><span class="kw">plot</span>(coord, <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>, </a>
+<a class="sourceLine" id="cb1515-3" title="3">     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="fl">0.8</span>, <span class="fl">5.5</span>), </a>
+<a class="sourceLine" id="cb1515-4" title="4">     <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">0.8</span>, <span class="fl">5.5</span>), </a>
+<a class="sourceLine" id="cb1515-5" title="5">     <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, </a>
+<a class="sourceLine" id="cb1515-6" title="6">     <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, </a>
+<a class="sourceLine" id="cb1515-7" title="7">     <span class="dt">main =</span> <span class="st">&quot;Basic plotting characters&quot;</span>, </a>
+<a class="sourceLine" id="cb1515-8" title="8">     <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>, </a>
+<a class="sourceLine" id="cb1515-9" title="9">     <span class="dt">yaxt =</span> <span class="st">&quot;n&quot;</span>)</a>
+<a class="sourceLine" id="cb1515-10" title="10"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb1515-11" title="11"><span class="kw">points</span>(coord, <span class="dt">pch=</span><span class="dv">1</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">cex =</span> <span class="fl">2.5</span>)</a>
+<a class="sourceLine" id="cb1515-12" title="12"><span class="kw">text</span>(coord <span class="op">+</span><span class="st"> </span><span class="fl">0.2</span>, <span class="dt">labels =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">cex =</span> <span class="dv">1</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-17-1.svg" width="672" /></p>
+
+<ul>
+<li><code>cex</code> 인수: 텍스트 및 점의 크기 지정
+<ul>
+<li><code>cex.axis</code>: 각 축의 눈금 레이블 크기 조정</li>
+<li><code>cex.lab</code>: x-y 축의 이름 크기 조정</li>
+<li><code>cex.main</code>: 그림 제목 크기 조정</li>
+<li><code>cex.sub</code>: 부제목 크기 조정</li>
+</ul></li>
+<li>텍스트 <code>cex</code> 인수 적용 예시</li>
+</ul>
+
+<div class="sourceCode" id="cb1516"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1516-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb1516-2" title="2"><span class="kw">plot</span>(BOD, <span class="dt">type =</span> <span class="st">&quot;p&quot;</span>, <span class="dt">cex =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb1516-3" title="3">     <span class="dt">main =</span> <span class="st">&quot;cex = 2&quot;</span>, </a>
+<a class="sourceLine" id="cb1516-4" title="4">     <span class="dt">sub =</span> <span class="st">&quot;Subtitle&quot;</span>)</a>
+<a class="sourceLine" id="cb1516-5" title="5"><span class="kw">plot</span>(BOD, <span class="dt">type =</span> <span class="st">&quot;p&quot;</span>, </a>
+<a class="sourceLine" id="cb1516-6" title="6">     <span class="dt">cex.axis =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb1516-7" title="7">     <span class="dt">main =</span> <span class="st">&quot;cex.axis = 2&quot;</span>, </a>
+<a class="sourceLine" id="cb1516-8" title="8">     <span class="dt">sub =</span> <span class="st">&quot;Subtitle&quot;</span>)</a>
+<a class="sourceLine" id="cb1516-9" title="9"><span class="kw">plot</span>(BOD, <span class="dt">type =</span> <span class="st">&quot;p&quot;</span>, </a>
+<a class="sourceLine" id="cb1516-10" title="10">     <span class="dt">cex.lab =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb1516-11" title="11">     <span class="dt">main =</span> <span class="st">&quot;cex.lab = 2&quot;</span>, </a>
+<a class="sourceLine" id="cb1516-12" title="12">     <span class="dt">sub =</span> <span class="st">&quot;Subtitle&quot;</span>)</a>
+<a class="sourceLine" id="cb1516-13" title="13"><span class="kw">plot</span>(BOD, <span class="dt">type =</span> <span class="st">&quot;p&quot;</span>, </a>
+<a class="sourceLine" id="cb1516-14" title="14">     <span class="dt">cex.main =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb1516-15" title="15">     <span class="dt">main =</span> <span class="st">&quot;cex.main = 2&quot;</span>, </a>
+<a class="sourceLine" id="cb1516-16" title="16">     <span class="dt">sub =</span> <span class="st">&quot;Subtitle&quot;</span>)</a>
+<a class="sourceLine" id="cb1516-17" title="17"><span class="kw">plot</span>(BOD, <span class="dt">type =</span> <span class="st">&quot;p&quot;</span>,</a>
+<a class="sourceLine" id="cb1516-18" title="18">     <span class="dt">cex.sub =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb1516-19" title="19">     <span class="dt">main =</span> <span class="st">&quot;cex.sub = 2&quot;</span>, </a>
+<a class="sourceLine" id="cb1516-20" title="20">     <span class="dt">sub =</span> <span class="st">&quot;Subtitle&quot;</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-18-1.svg" width="864" /></p>
+
+<ul>
+<li><code>lwd</code> 인수: 선의 두께 지정
+<ul>
+<li>점 <code>cex</code> 크기와 <code>lwd</code> 두께</li>
+</ul></li>
+</ul>
+
+<div class="sourceCode" id="cb1517"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1517-1" title="1">coord &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb1517-2" title="2"><span class="kw">plot</span>(coord, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, </a>
+<a class="sourceLine" id="cb1517-3" title="3">     <span class="dt">xlab =</span> <span class="st">&quot;cex&quot;</span>, </a>
+<a class="sourceLine" id="cb1517-4" title="4">     <span class="dt">ylab =</span> <span class="st">&quot;lwd&quot;</span>, </a>
+<a class="sourceLine" id="cb1517-5" title="5">     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">5.5</span>), </a>
+<a class="sourceLine" id="cb1517-6" title="6">     <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">5.5</span>),</a>
+<a class="sourceLine" id="cb1517-7" title="7">     <span class="dt">main =</span> <span class="st">&quot;pch and lwd size&quot;</span>, </a>
+<a class="sourceLine" id="cb1517-8" title="8">     <span class="dt">cex.main =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb1517-9" title="9">     <span class="dt">cex.lab =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb1517-10" title="10"><span class="kw">points</span>(coord, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">col =</span> <span class="st">&quot;darkgray&quot;</span>)</a>
+<a class="sourceLine" id="cb1517-11" title="11"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</a>
+<a class="sourceLine" id="cb1517-12" title="12">  <span class="kw">points</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, coord<span class="op">$</span>y[coord<span class="op">$</span>y <span class="op">==</span><span class="st"> </span>i], <span class="dt">pch=</span><span class="dv">21</span>, </a>
+<a class="sourceLine" id="cb1517-13" title="13">         <span class="dt">cex =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </a>
+<a class="sourceLine" id="cb1517-14" title="14">         <span class="dt">lwd =</span> i, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>)</a>
+<a class="sourceLine" id="cb1517-15" title="15">}</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-19-1.svg" width="672" /></p>
+
+<ul>
+<li><code>col</code> 인수: 그래프의 점, 면, 선의 색상</li>
+<li><code>palette()</code> 함수를 통해 그래픽 기본 색상 확인(총 8개)</li>
+</ul>
+
+<p><img src="figures/r-graphic-palette.png" width="100%" style="display: block; margin: auto;" /></p>
+
+<ul>
+<li><code>colors()</code>를 통해 R에서 기본으로 제공하는 색상 확인 가능(총 657개)</li>
+<li>내장 색상 팔레트: <code>n</code> 개의 색상을 반환하고, 색상의 투명도는 <code>alpha</code> 인수를 통해 조정
+<ul>
+<li><code>rainbow(n)</code>: Red <span class="math inline">\(\rightarrow\)</span> Violet</li>
+<li><code>heat.colors(n)</code>: White <span class="math inline">\(\rightarrow\)</span> Orange <span class="math inline">\(\rightarrow\)</span> Red</li>
+<li><code>terrain.colors(n)</code>: White <span class="math inline">\(\rightarrow\)</span> Brown <span class="math inline">\(\rightarrow\)</span> Green</li>
+<li><code>topo.colors(n)</code>: White <span class="math inline">\(\rightarrow\)</span> Brown <span class="math inline">\(\rightarrow\)</span> Green <span class="math inline">\(\rightarrow\)</span> Blue</li>
+<li><code>grey(n)</code>: White <span class="math inline">\(\rightarrow\)</span> Black</li>
+</ul></li>
+<li><a href="https://rstudio-pubs-static.s3.amazonaws.com/3486_79191ad32cf74955b4502b8530aad627.html">R Color Chart</a> 참고</li>
+</ul>
+</div>
+<div id="main-high-level-graph" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> 주요 고수준 그래픽 함수</h3>
+<div id="scatter-plot" class="section level4 unnumbered">
+<h4><strong>산점도</strong></h4>
+<p><strong><code>car::scatterplot()</code></strong></p>
+<ul>
+<li><code>plot(x, y)</code>를 통해 2차원 산점도를 그릴 수 있으나, car 패키지에 내장되어 있는 해당 함수를 이용해 보다 많은 정보(상자그림, 회귀곡선 등)를 포함</li>
+</ul>
+
+<div class="sourceCode" id="cb1518"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1518-1" title="1"><span class="co"># car 패키지 설치</span></a>
+<a class="sourceLine" id="cb1518-2" title="2"><span class="co"># install.packages(&quot;car&quot;)</span></a>
+<a class="sourceLine" id="cb1518-3" title="3"><span class="co"># require(car)</span></a>
+<a class="sourceLine" id="cb1518-4" title="4">car<span class="op">::</span><span class="kw">scatterplot</span>(mpg <span class="op">~</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-21-1.svg" width="768" /></p>
+
+<ul>
+<li><code>plot()</code> 함수의 인수 적용 가능</li>
+</ul>
+
+<div class="sourceCode" id="cb1519"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1519-1" title="1"><span class="co"># help(scatterplot) 참고</span></a>
+<a class="sourceLine" id="cb1519-2" title="2">car<span class="op">::</span><span class="kw">scatterplot</span>(mpg <span class="op">~</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars, </a>
+<a class="sourceLine" id="cb1519-3" title="3">                 <span class="dt">regLine =</span> <span class="kw">list</span>(<span class="dt">method =</span> lm, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>), </a>
+<a class="sourceLine" id="cb1519-4" title="4">                 <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">pch =</span> <span class="dv">16</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-22-1.svg" width="768" /></p>
+
+<ul>
+<li><code>pairs()</code>: 산점도 행렬을 생성해주는 함수로, 객체의 클래스가 데이터 프레임인 경우 <code>plot(dat)</code>과 동일한 그래프를 반환</li>
+</ul>
+
+<div class="sourceCode" id="cb1520"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1520-1" title="1"><span class="co"># iris dataset</span></a>
+<a class="sourceLine" id="cb1520-2" title="2"><span class="kw">plot</span>(iris)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-23-1.svg" width="768" /></p>
+
+<ul>
+<li><code>car::scatterplotMatrix()</code>: R graphics 패키지의 <code>pair()</code>와 유사하나 각 변수 쌍별 회귀 곡선 및 분포 확인 가능</li>
+</ul>
+
+<div class="sourceCode" id="cb1521"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1521-1" title="1"><span class="co"># iris dataset</span></a>
+<a class="sourceLine" id="cb1521-2" title="2">car<span class="op">::</span><span class="kw">scatterplotMatrix</span>(iris, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-24-1.svg" width="768" /></p>
+
+
+<div class="sourceCode" id="cb1522"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1522-1" title="1"><span class="co"># help(scatterplotMatrix)</span></a>
+<a class="sourceLine" id="cb1522-2" title="2">car<span class="op">::</span><span class="kw">scatterplotMatrix</span>(iris, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>), </a>
+<a class="sourceLine" id="cb1522-3" title="3">                       <span class="dt">smooth =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb1522-4" title="4">                       <span class="dt">groups =</span> iris<span class="op">$</span>Species, </a>
+<a class="sourceLine" id="cb1522-5" title="5">                       <span class="dt">by.groups =</span> <span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb1522-6" title="6">                       <span class="dt">regLine =</span> <span class="kw">list</span>(<span class="dt">method =</span> lm, <span class="dt">lwd =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>), </a>
+<a class="sourceLine" id="cb1522-7" title="7">                       <span class="dt">pch =</span> (<span class="dv">15</span><span class="op">:</span><span class="dv">17</span>))</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-25-1.svg" width="768" /></p>
+
+</div>
+<div id="mat-plot" class="section level4 unnumbered">
+<h4>행렬 그래프</h4>
+<ul>
+<li>행렬 객체를 <code>plot()</code> 함수의 입력으로 사용한 경우 1-2 번째 열 데이터로 산점도를 출력</li>
+</ul>
+
+<div class="sourceCode" id="cb1523"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1523-1" title="1"><span class="co"># 행렬을 plot() 함수의 입력으로 받은 경우</span></a>
+<a class="sourceLine" id="cb1523-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb1523-3" title="3">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb1523-4" title="4">X &lt;-<span class="st"> </span><span class="kw">mapply</span>(dnorm, </a>
+<a class="sourceLine" id="cb1523-5" title="5">            <span class="kw">list</span>(<span class="dt">a =</span> x, <span class="dt">b =</span> x, <span class="dt">c =</span> x), </a>
+<a class="sourceLine" id="cb1523-6" title="6">            <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>), </a>
+<a class="sourceLine" id="cb1523-7" title="7">            <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb1523-8" title="8">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(X, <span class="dt">nrow =</span> <span class="kw">length</span>(x), <span class="dt">ncol =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb1523-9" title="9"><span class="kw">head</span>(X)</a></code></pre></div>
+<pre><code>             [,1]        [,2]       [,3]
+[1,] 1.486720e-06 0.002215924 0.02156933
+[2,] 1.562867e-06 0.002249385 0.02166383
+[3,] 1.642751e-06 0.002283295 0.02175862
+[4,] 1.726545e-06 0.002317658 0.02185368
+[5,] 1.814431e-06 0.002352479 0.02194902
+[6,] 1.906601e-06 0.002387763 0.02204463</code></pre>
+<div class="sourceCode" id="cb1525"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1525-1" title="1"><span class="co"># plot() 함수를 이용한 행렬 그래프 출력</span></a>
+<a class="sourceLine" id="cb1525-2" title="2"><span class="kw">plot</span>(X, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;plot matrix (X) using plot()&quot;</span>)</a>
+<a class="sourceLine" id="cb1525-3" title="3"><span class="kw">text</span>(<span class="fl">0.2</span>, <span class="fl">0.05</span>, <span class="dt">labels =</span> <span class="st">&quot;plot(X, type = `l`)&quot;</span>)</a>
+<a class="sourceLine" id="cb1525-4" title="4"><span class="kw">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, </a>
+<a class="sourceLine" id="cb1525-5" title="5">     <span class="dt">main =</span> <span class="st">&quot;scatterplot between X[, 1] and X[, 2]&quot;</span>)</a>
+<a class="sourceLine" id="cb1525-6" title="6"><span class="kw">text</span>(<span class="fl">0.2</span>, <span class="fl">0.05</span>, <span class="dt">labels =</span> <span class="st">&quot;plot(X[,1], X[,2], type = `l`)&quot;</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-26-1.svg" width="768" /></p>
+
+<ul>
+<li><code>matplot()</code>: 객체의 클래스가 행렬(matrix) 형태로 이루어진 데이터에 대한 그래프 출력
+<ul>
+<li>열 기준으로 그래프 출력</li>
+<li>x 가 주어지지 않은 경우, 행렬의 색인을 x 축으로 사용</li>
+</ul></li>
+</ul>
+
+<div class="sourceCode" id="cb1526"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1526-1" title="1"><span class="co"># matplot 도표</span></a>
+<a class="sourceLine" id="cb1526-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb1526-3" title="3"><span class="kw">matplot</span>(X, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, </a>
+<a class="sourceLine" id="cb1526-4" title="4">        <span class="dt">lwd =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb1526-5" title="5">        <span class="dt">main =</span> <span class="st">&quot;matplot() without x&quot;</span>)</a>
+<a class="sourceLine" id="cb1526-6" title="6"><span class="kw">matplot</span>(x, X, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, </a>
+<a class="sourceLine" id="cb1526-7" title="7">        <span class="dt">lwd =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb1526-8" title="8">        <span class="dt">main =</span> <span class="st">&quot;matplot() with x&quot;</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-27-1.svg" width="768" /></p>
+
+</div>
+<div id="histogram" class="section level4 unnumbered">
+<h4>히스토그램</h4>
+<p><strong><code>hist()</code></strong></p>
+
+<div class="sourceCode" id="cb1527"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1527-1" title="1"><span class="kw">hist</span>(</a>
+<a class="sourceLine" id="cb1527-2" title="2">  x, <span class="co"># vector 객체</span></a>
+<a class="sourceLine" id="cb1527-3" title="3">  breaks, <span class="co"># 빈도 계산을 위한 구간</span></a>
+<a class="sourceLine" id="cb1527-4" title="4">  freq, <span class="co"># y축 빈도 또는 밀도(density) 여부</span></a>
+<a class="sourceLine" id="cb1527-5" title="5">  col, <span class="co"># 막대 색상 지정</span></a>
+<a class="sourceLine" id="cb1527-6" title="6">  border, <span class="co"># 막대 테두리 색 지정</span></a>
+<a class="sourceLine" id="cb1527-7" title="7">  labels, <span class="co"># 막대 위 y 값 레이블 출력 여부 </span></a>
+<a class="sourceLine" id="cb1527-8" title="8">  ...</a>
+<a class="sourceLine" id="cb1527-9" title="9">)</a></code></pre></div>
+
+
+<div class="sourceCode" id="cb1528"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1528-1" title="1"><span class="co"># airquality 데이터 셋</span></a>
+<a class="sourceLine" id="cb1528-2" title="2"><span class="co"># help(airquality) 참고</span></a>
+<a class="sourceLine" id="cb1528-3" title="3"><span class="kw">glimpse</span>(airquality)</a></code></pre></div>
+<pre><code>Observations: 153
+Variables: 6
+$ Ozone   &lt;int&gt; 41, 36, 12, 18, NA, 28, 23, 19, 8, NA, 7, 16, 11, 14, 18, 1...
+$ Solar.R &lt;int&gt; 190, 118, 149, 313, NA, NA, 299, 99, 19, 194, NA, 256, 290,...
+$ Wind    &lt;dbl&gt; 7.4, 8.0, 12.6, 11.5, 14.3, 14.9, 8.6, 13.8, 20.1, 8.6, 6.9...
+$ Temp    &lt;int&gt; 67, 72, 74, 62, 56, 66, 65, 59, 61, 69, 74, 69, 66, 68, 58,...
+$ Month   &lt;int&gt; 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,...
+$ Day     &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, ...</code></pre>
+<div class="sourceCode" id="cb1530"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1530-1" title="1">temp &lt;-<span class="st"> </span>airquality<span class="op">$</span>Temp</a>
+<a class="sourceLine" id="cb1530-2" title="2"><span class="kw">hist</span>(temp)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-29-1.svg" width="768" /></p>
+
+<ul>
+<li><code>hist()</code> 함수의 반환값</li>
+</ul>
+
+<div class="sourceCode" id="cb1531"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1531-1" title="1">h &lt;-<span class="st"> </span><span class="kw">hist</span>(temp, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="co"># 그래프를 반환하지 않음</span></a>
+<a class="sourceLine" id="cb1531-2" title="2">h</a></code></pre></div>
+<pre><code>$breaks
+ [1]  55  60  65  70  75  80  85  90  95 100
+
+$counts
+[1]  8 10 15 19 33 34 20 12  2
+
+$density
+[1] 0.010457516 0.013071895 0.019607843 0.024836601 0.043137255 0.044444444
+[7] 0.026143791 0.015686275 0.002614379
+
+$mids
+[1] 57.5 62.5 67.5 72.5 77.5 82.5 87.5 92.5 97.5
+
+$xname
+[1] &quot;temp&quot;
+
+$equidist
+[1] TRUE
+
+attr(,&quot;class&quot;)
+[1] &quot;histogram&quot;</code></pre>
+
+<ul>
+<li><code>hist()</code> 함수의 인수 사용(<code>plot()</code> 함수의 인수 거의 대부분 사용 가능)</li>
+</ul>
+
+<div class="sourceCode" id="cb1533"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1533-1" title="1"><span class="kw">hist</span>(temp,</a>
+<a class="sourceLine" id="cb1533-2" title="2"><span class="dt">main=</span><span class="st">&quot;La Guardia Airport 일중 최고 기온&quot;</span>,</a>
+<a class="sourceLine" id="cb1533-3" title="3"><span class="dt">xlab =</span> <span class="st">&quot;온도&quot;</span>,</a>
+<a class="sourceLine" id="cb1533-4" title="4"><span class="dt">ylab =</span> <span class="st">&quot;밀도&quot;</span>,</a>
+<a class="sourceLine" id="cb1533-5" title="5"><span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">50</span>,<span class="dv">100</span>),</a>
+<a class="sourceLine" id="cb1533-6" title="6"><span class="dt">col =</span> <span class="st">&quot;orange&quot;</span>,</a>
+<a class="sourceLine" id="cb1533-7" title="7"><span class="dt">freq =</span> <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb1533-8" title="8">)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-31-1.svg" width="768" /></p>
+
+<ul>
+<li><code>labels</code> 인수를 통해 빈도값 출력</li>
+</ul>
+
+<div class="sourceCode" id="cb1534"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1534-1" title="1"><span class="kw">hist</span>(temp,</a>
+<a class="sourceLine" id="cb1534-2" title="2"><span class="dt">main =</span> <span class="st">&quot;La Guardia Airport 일중 최고 기온&quot;</span>,</a>
+<a class="sourceLine" id="cb1534-3" title="3"><span class="dt">xlab =</span> <span class="st">&quot;온도&quot;</span>,</a>
+<a class="sourceLine" id="cb1534-4" title="4"><span class="dt">ylab =</span> <span class="st">&quot;빈도&quot;</span>,</a>
+<a class="sourceLine" id="cb1534-5" title="5"><span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">50</span>,<span class="dv">100</span>),</a>
+<a class="sourceLine" id="cb1534-6" title="6"><span class="dt">col =</span> <span class="st">&quot;orange&quot;</span>,</a>
+<a class="sourceLine" id="cb1534-7" title="7"><span class="dt">labels =</span> <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb1534-8" title="8">)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-32-1.svg" width="768" /></p>
+
+<ul>
+<li><code>breaks</code> 인수를 통해 막대 구간 조정</li>
+</ul>
+
+<div class="sourceCode" id="cb1535"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1535-1" title="1">op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb1535-2" title="2"><span class="kw">hist</span>(temp, <span class="dt">breaks =</span> <span class="dv">4</span>, <span class="dt">main =</span> <span class="st">&quot;breaks = 4&quot;</span>)</a>
+<a class="sourceLine" id="cb1535-3" title="3"><span class="kw">hist</span>(temp, <span class="dt">breaks =</span> <span class="dv">15</span>, <span class="dt">main =</span> <span class="st">&quot;breaks = 15&quot;</span>)</a>
+<a class="sourceLine" id="cb1535-4" title="4"><span class="kw">par</span>(op); <span class="kw">dev.off</span>()</a></code></pre></div>
+<pre><code>null device 
+          1 </code></pre>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-33-1.svg" width="960" /></p>
+
+</div>
+<div id="bar-plot" class="section level4 unnumbered">
+<h4>막대 그래프</h4>
+<ul>
+<li>히스토그램(<code>hist()</code>)은 연속형 데이터의 구간 별 빈도 또는 밀도를 나타냄</li>
+<li>막대 도표(bar plot)는 해당 좌표의 값(value)를 나타냄</li>
+</ul>
+
+<div class="sourceCode" id="cb1537"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1537-1" title="1">x =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb1537-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb1537-3" title="3"><span class="kw">hist</span>(x); <span class="kw">barplot</span>(x)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-34-1.svg" width="768" /></p>
+
+<p><strong>barplot()</strong></p>
+<ul>
+<li><code>help(barplot)</code> 을 통해 함수 사용 방법 확인</li>
+<li>보통 요약통계량(예: 그룹별 빈도, 평군)의 시각화를 위해 많이 사용</li>
+</ul>
+
+<div class="sourceCode" id="cb1538"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1538-1" title="1"><span class="co">## Wool dataset: warpbreaks </span></a>
+<a class="sourceLine" id="cb1538-2" title="2"><span class="co">## 제직 중 방적 횟수</span></a>
+<a class="sourceLine" id="cb1538-3" title="3"><span class="co">## 직조기 당 날실 파손 횟수 데이터</span></a>
+<a class="sourceLine" id="cb1538-4" title="4"><span class="kw">head</span>(warpbreaks)</a></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["breaks"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["wool"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["tension"],"name":[3],"type":["fctr"],"align":["left"]}],"data":[{"1":"26","2":"A","3":"L","_rn_":"1"},{"1":"30","2":"A","3":"L","_rn_":"2"},{"1":"54","2":"A","3":"L","_rn_":"3"},{"1":"25","2":"A","3":"L","_rn_":"4"},{"1":"70","2":"A","3":"L","_rn_":"5"},{"1":"52","2":"A","3":"L","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb1539"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1539-1" title="1">count &lt;-<span class="st"> </span><span class="kw">with</span>(warpbreaks, </a>
+<a class="sourceLine" id="cb1539-2" title="2">              <span class="kw">tapply</span>(breaks, <span class="kw">list</span>(wool, tension), </a>
+<a class="sourceLine" id="cb1539-3" title="3">                     sum))</a>
+<a class="sourceLine" id="cb1539-4" title="4"></a>
+<a class="sourceLine" id="cb1539-5" title="5"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb1539-6" title="6"><span class="kw">barplot</span>(count, <span class="dt">legend =</span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb1539-7" title="7">        <span class="dt">xlab =</span> <span class="st">&quot;Tension&quot;</span>, </a>
+<a class="sourceLine" id="cb1539-8" title="8">        <span class="dt">ylab =</span> <span class="st">&quot;Number of breaks&quot;</span>, </a>
+<a class="sourceLine" id="cb1539-9" title="9">        <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">700</span>), </a>
+<a class="sourceLine" id="cb1539-10" title="10">        <span class="dt">cex.lab =</span> <span class="fl">1.5</span>) <span class="co"># stack 형태</span></a>
+<a class="sourceLine" id="cb1539-11" title="11"></a>
+<a class="sourceLine" id="cb1539-12" title="12"><span class="kw">barplot</span>(count, <span class="dt">legend =</span> <span class="ot">TRUE</span>, <span class="dt">beside =</span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb1539-13" title="13">        <span class="dt">xlab =</span> <span class="st">&quot;Tension&quot;</span>, </a>
+<a class="sourceLine" id="cb1539-14" title="14">        <span class="dt">ylab =</span> <span class="st">&quot;Number of breaks&quot;</span>, </a>
+<a class="sourceLine" id="cb1539-15" title="15">        <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">450</span>), </a>
+<a class="sourceLine" id="cb1539-16" title="16">        <span class="dt">cex.lab =</span> <span class="fl">1.5</span>) <span class="co"># 분리 형태</span></a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-35-1.svg" width="768" /></p>
+
+<ul>
+<li>데이터 프레임을 대상으로 <code>barplot()</code> 실행 시 수식 표현 가능</li>
+<li>막대도표 + 표준오차</li>
+</ul>
+
+<div class="sourceCode" id="cb1540"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1540-1" title="1">mean_breaks &lt;-<span class="st"> </span><span class="kw">aggregate</span>(breaks <span class="op">~</span><span class="st"> </span>wool <span class="op">+</span><span class="st"> </span>tension, </a>
+<a class="sourceLine" id="cb1540-2" title="2">                         <span class="dt">data =</span> warpbreaks, </a>
+<a class="sourceLine" id="cb1540-3" title="3">                         mean)</a>
+<a class="sourceLine" id="cb1540-4" title="4">se_breaks &lt;-<span class="st"> </span><span class="kw">aggregate</span>(breaks <span class="op">~</span><span class="st"> </span>wool <span class="op">+</span><span class="st"> </span>tension, </a>
+<a class="sourceLine" id="cb1540-5" title="5">                       <span class="dt">data =</span> warpbreaks, </a>
+<a class="sourceLine" id="cb1540-6" title="6">                       <span class="dt">FUN =</span> <span class="cf">function</span>(x) <span class="kw">sd</span>(x)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">length</span>(x)))</a>
+<a class="sourceLine" id="cb1540-7" title="7"></a>
+<a class="sourceLine" id="cb1540-8" title="8"><span class="kw">barplot</span>(breaks <span class="op">~</span><span class="st"> </span>wool <span class="op">+</span><span class="st"> </span>tension, </a>
+<a class="sourceLine" id="cb1540-9" title="9">        <span class="dt">data =</span> mean_breaks, </a>
+<a class="sourceLine" id="cb1540-10" title="10">        <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">55</span>), </a>
+<a class="sourceLine" id="cb1540-11" title="11">        <span class="dt">beside =</span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb1540-12" title="12">        <span class="dt">legend =</span> <span class="ot">TRUE</span>, <span class="co"># 범례</span></a>
+<a class="sourceLine" id="cb1540-13" title="13">        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;skyblue&quot;</span>)</a>
+<a class="sourceLine" id="cb1540-14" title="14">        ) -&gt;<span class="st"> </span>bp</a>
+<a class="sourceLine" id="cb1540-15" title="15">cent &lt;-<span class="st"> </span><span class="kw">matrix</span>(mean_breaks<span class="op">$</span>breaks, <span class="dv">2</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb1540-16" title="16">sem &lt;-<span class="st"> </span><span class="kw">matrix</span>(se_breaks<span class="op">$</span>breaks, <span class="dv">2</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb1540-17" title="17"><span class="kw">arrows</span>(bp, cent <span class="op">-</span><span class="st"> </span>sem, bp, cent <span class="op">+</span><span class="st"> </span>sem, <span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">code =</span> <span class="dv">3</span>, <span class="dt">length =</span> <span class="fl">0.05</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-36-1.svg" width="768" /></p>
+
+<!-- #### 상자 그림 {#boxplot .unnumbered} -->
+<!-- #### 바이올린 도표  -->
+<!-- #### 모자이크 도표 -->
+<!-- ## 저수준 그래프 함수 -->
+<!-- ### lines() -->
+<!-- ### ablines() -->
+<!-- ### points() -->
+<!-- ### text() -->
+<!-- ### R 기본 그래프 이미지 파일로 저장 -->
+<!-- ## ggplot2 -->
+<!-- ### 기본 문법 -->
+<!-- ### `geom_point()` -->
+<!-- ### `geom_line()` -->
+<!-- ### `geom_bar()` -->
+<!-- ### `geom_errorbar()` -->
+<!-- ### `geom_histogram()` -->
+<!-- ### `geom_boxplot()` -->
+<!-- ### `geom_density()` -->
+<!-- ### `geom_smooth()` -->
+
+</div>
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="r-기본-그래프-함수.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/05-data-visualization.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["cnu-r-programming.pdf", "cnu-r-programming.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
