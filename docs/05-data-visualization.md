@@ -23,16 +23,11 @@
 
 \footnotesize
 
-
-```
-  x1 x2 x3 x4   y1   y2    y3   y4
-1 10 10 10  8 8.04 9.14  7.46 6.58
-2  8  8  8  8 6.95 8.14  6.77 5.76
-3 13 13 13  8 7.58 8.74 12.74 7.71
-4  9  9  9  8 8.81 8.77  7.11 8.84
-5 11 11 11  8 8.33 9.26  7.81 8.47
-6 14 14 14  8 9.96 8.10  8.84 7.04
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["x3"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["x4"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["y1"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["y2"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["y3"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["y4"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"10","3":"10","4":"8","5":"8.04","6":"9.14","7":"7.46","8":"6.58","_rn_":"1"},{"1":"8","2":"8","3":"8","4":"8","5":"6.95","6":"8.14","7":"6.77","8":"5.76","_rn_":"2"},{"1":"13","2":"13","3":"13","4":"8","5":"7.58","6":"8.74","7":"12.74","8":"7.71","_rn_":"3"},{"1":"9","2":"9","3":"9","4":"8","5":"8.81","6":"8.77","7":"7.11","8":"8.84","_rn_":"4"},{"1":"11","2":"11","3":"11","4":"8","5":"8.33","6":"9.26","7":"7.81","8":"8.47","_rn_":"5"},{"1":"14","2":"14","3":"14","4":"8","5":"9.96","6":"8.10","7":"8.84","8":"7.04","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```
       x1       x2       x3       x4       y1       y2       y3       y4 
@@ -45,7 +40,7 @@
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-3-1.svg" alt="Anscombe's quartet: https://goo.gl/Ugv3Cz 에서 스크립트 발췌"  />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-3-1.svg" alt="Anscombe's quartet: https://goo.gl/Ugv3Cz 에서 스크립트 발췌" width="768" />
 <p class="caption">(\#fig:unnamed-chunk-3)Anscombe's quartet: https://goo.gl/Ugv3Cz 에서 스크립트 발췌</p>
 </div>
 
@@ -64,7 +59,9 @@
    - windows: R 프로그램 내에서 출력
    - graphic files: pdf, jpeg, tiff, png, bmp 등의 확장자를 갖는 이미지 파일
 
--그래프 장치를 열기 위해 사용되는 함수
+
+- 그래프 장치를 열기 위해 사용되는 함수
+
    - `windows()` 또는 `win.graph()`: 그래픽 장치를 열기 위해 사용하는 함수
    - `dev.cur()`: 현재 활성화된 그래프 장치 확인
    - `dev.set()`: 다수의 그래프 장치가 열려 있는 경우 `which = 번호`로 변경
@@ -78,7 +75,7 @@
 \footnotesize
 
 <div class="figure" style="text-align: center">
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-4-1.svg" alt="R 그래프영역"  />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-4-1.svg" alt="R 그래프영역" width="768" />
 <p class="caption">(\#fig:unnamed-chunk-4)R 그래프영역</p>
 </div>
 
@@ -167,7 +164,7 @@ class(mtcars)
 plot(mtcars)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-7-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-7-1.svg" width="864" />
 
  \normalsize
 
@@ -198,7 +195,7 @@ null device
           1 
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-8-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-8-1.svg" width="864" />
 
  \normalsize
 
@@ -218,7 +215,7 @@ class(Titanic)
 plot(Titanic)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-9-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-9-1.svg" width="864" />
 
  \normalsize
 
@@ -237,7 +234,7 @@ y <- mtcars$mpg
 plot(x); plot(y)
 ```
 
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-10-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-10-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-10-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-10-2.svg" width="50%" />
 
  \normalsize
 
@@ -251,7 +248,7 @@ plot(x); plot(y)
 plot(x, y)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-11-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-11-1.svg" width="768" />
 
  \normalsize
 
@@ -320,7 +317,7 @@ for (i in 1:length(ctype)) {
 }
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-13-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-13-1.svg" width="960" />
 
 ```r
 par(op)
@@ -357,7 +354,7 @@ for (i in 1:6) {
 par(op)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-14-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-14-1.svg" width="672" />
 
  \normalsize
 
@@ -389,7 +386,7 @@ null device
           1 
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-15-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-15-1.svg" width="960" />
 
  \normalsize
 
@@ -419,7 +416,7 @@ for (i in 1:length(line_type)) {
 }
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-16-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-16-1.svg" width="768" />
 
  \normalsize
 
@@ -444,7 +441,7 @@ points(coord, pch=1:25, cex = 2.5)
 text(coord + 0.2, labels = 1:25, cex = 1)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-17-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-17-1.svg" width="672" />
 
  \normalsize
 
@@ -482,7 +479,7 @@ plot(BOD, type = "p",
      sub = "Subtitle")
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-18-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-18-1.svg" width="864" />
 
  \normalsize
 
@@ -511,7 +508,7 @@ for (i in 1:5) {
 }
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-19-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-19-1.svg" width="672" />
 
  \normalsize
 
@@ -537,9 +534,9 @@ for (i in 1:5) {
 
 ### 주요 고수준 그래픽 함수{#main-high-level-graph}
 
-#### **산점도** {#scatter-plot .unnumbered}
+### 산점도 {#scatter-plot}
 
-**`car::scatterplot()`**
+#### **`car::scatterplot()`** {#car_scatterplot .unnumbererd}
 
 - `plot(x, y)`를 통해 2차원 산점도를 그릴 수 있으나, car 패키지에 내장되어 있는 해당 함수를 이용해 보다 많은 정보(상자그림, 회귀곡선 등)를 포함
 
@@ -553,7 +550,7 @@ for (i in 1:5) {
 car::scatterplot(mpg ~ disp, data = mtcars)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-21-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-21-1.svg" width="768" />
 
  \normalsize
 
@@ -569,10 +566,12 @@ car::scatterplot(mpg ~ disp, data = mtcars,
                  col = "black", cex = 2, pch = 16)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-22-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-22-1.svg" width="768" />
 
  \normalsize
 
+
+#### **`pairs()`** {#pairs .unnumbererd}
 
 - `pairs()`: 산점도 행렬을 생성해주는 함수로, 객체의 클래스가 데이터 프레임인 경우 `plot(dat)`과 동일한 그래프를 반환
 
@@ -584,11 +583,14 @@ car::scatterplot(mpg ~ disp, data = mtcars,
 plot(iris)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-23-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-23-1.svg" width="768" />
 
  \normalsize
 
-- `car::scatterplotMatrix()`: R graphics 패키지의 `pair()`와 유사하나 각 변수 쌍별 회귀 곡선 및 분포 확인 가능
+
+#### **`car::scatterplotMatrix()`** {#car_scatterplotMatrix .unnumbererd}
+
+- R graphics 패키지의 `pair()`와 유사하나 각 변수 쌍별 회귀 곡선 및 분포 확인 가능
 
 
 \footnotesize
@@ -599,7 +601,7 @@ plot(iris)
 car::scatterplotMatrix(iris, col = "black")
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-24-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-24-1.svg" width="768" />
 
  \normalsize
 
@@ -617,11 +619,11 @@ car::scatterplotMatrix(iris, col = c("red", "blue", "green"),
                        pch = (15:17))
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-25-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-25-1.svg" width="768" />
 
  \normalsize
 
-#### 행렬 그래프 {#mat-plot .unnumbered}
+### 행렬 그래프 {#mat-plot}
 
 - 행렬 객체를 `plot()` 함수의 입력으로 사용한 경우 1-2 번째 열 데이터로 산점도를 출력
 
@@ -659,11 +661,13 @@ plot(X[, 1], X[, 2], type = "l",
 text(0.2, 0.05, labels = "plot(X[,1], X[,2], type = `l`)")
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-26-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-26-1.svg" width="768" />
 
  \normalsize
 
-- `matplot()`: 객체의 클래스가 행렬(matrix) 형태로 이루어진 데이터에 대한 그래프 출력
+#### **`matplot()`** {#mat_plot .unnumbered}
+
+- 객체의 클래스가 행렬(matrix) 형태로 이루어진 데이터에 대한 그래프 출력
    - 열 기준으로 그래프 출력
    - x 가 주어지지 않은 경우, 행렬의 색인을 x 축으로 사용
 
@@ -681,14 +685,14 @@ matplot(x, X, type = "l",
         main = "matplot() with x")
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-27-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-27-1.svg" width="768" />
 
  \normalsize
 
 
-#### 히스토그램{#histogram .unnumbered}
+### 히스토그램  {#histogram}
 
-**`hist()`**
+#### **`hist()`** {#hist .unnumbered}
 
 \footnotesize
 
@@ -733,7 +737,7 @@ temp <- airquality$Temp
 hist(temp)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-29-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-29-1.svg" width="768" />
 
  \normalsize
 
@@ -790,7 +794,7 @@ freq = FALSE
 )
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-31-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-31-1.svg" width="768" />
 
  \normalsize
 
@@ -810,7 +814,7 @@ labels = TRUE
 )
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-32-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-32-1.svg" width="768" />
 
  \normalsize
 
@@ -831,12 +835,12 @@ null device
           1 
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-33-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-33-1.svg" width="960" />
 
  \normalsize
 
 
-#### 막대 그래프 {#bar-plot .unnumbered}
+### 막대 그래프 {#bar-plot}
 
 - 히스토그램(`hist()`)은 연속형 데이터의 구간 별 빈도 또는 밀도를 나타냄
 - 막대 도표(bar plot)는 해당 좌표의 값(value)를 나타냄
@@ -850,11 +854,11 @@ par(mfrow = c(1, 2))
 hist(x); barplot(x)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-34-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-34-1.svg" width="768" />
 
  \normalsize
 
-**barplot()**
+#### **barplot()** {#barplot_fun .unnumbered}
 
 - `help(barplot)` 을 통해 함수 사용 방법 확인
 - 보통 요약통계량(예: 그룹별 빈도, 평군)의 시각화를 위해 많이 사용
@@ -869,15 +873,11 @@ hist(x); barplot(x)
 head(warpbreaks)
 ```
 
-```
-  breaks wool tension
-1     26    A       L
-2     30    A       L
-3     54    A       L
-4     25    A       L
-5     70    A       L
-6     52    A       L
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["breaks"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["wool"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["tension"],"name":[3],"type":["fctr"],"align":["left"]}],"data":[{"1":"26","2":"A","3":"L","_rn_":"1"},{"1":"30","2":"A","3":"L","_rn_":"2"},{"1":"54","2":"A","3":"L","_rn_":"3"},{"1":"25","2":"A","3":"L","_rn_":"4"},{"1":"70","2":"A","3":"L","_rn_":"5"},{"1":"52","2":"A","3":"L","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 count <- with(warpbreaks, 
@@ -898,7 +898,7 @@ barplot(count, legend = TRUE, beside = TRUE,
         cex.lab = 1.5) # 분리 형태
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-35-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-35-1.svg" width="768" />
 
  \normalsize
 
@@ -928,28 +928,209 @@ sem <- matrix(se_breaks$breaks, 2, 3)
 arrows(bp, cent - sem, bp, cent + sem, angle = 90, code = 3, length = 0.05)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-36-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-36-1.svg" width="768" />
+
+ \normalsize
+
+### 상자 그림 {#boxplot}
+
+- 다섯 개의 통계량(5 numbers summary: 최솟값, 1사분위수, 중앙값, 3사분위수, 최댓값)을 이용해 연속형 자료를 그래프로 표현한 도표
+
+\footnotesize
+
+
+```r
+set.seed(20200522)
+x <- rnorm(100)
+plab <- c("min(x)", "quantile(x, 0.25)", "median(x)", 
+          "quantile(x, 0.75)", "max(x)") # x-axis 레이블
+bxplt <- boxplot(x, 
+                 horizontal = TRUE, # x-y 축 회전 여부
+                 axes = F, # x-y 축 출력 여부
+                 main = "Boxplot anatomy", 
+                 cex.main = 2
+                 ) # boxplot 수치 요약값 저장
+axis(side = 1, at = bxplt$stats, 
+     labels = FALSE, 
+     las = 2) # x-axis 설졍
+text(x = c(bxplt$stats), 
+     y = 0.4, 
+     labels = plab, 
+     xpd = TRUE, # 텍스트 출력 영역 범위 지정
+     srt = 25, # 레이블 로테이션 각도(degree)
+     adj = 1.1, # 레이블 위치 조정
+     cex = 1.2 # 레이블 크기 조정
+     ) # x-axis 레이블 조정
+abline(v = c(bxplt$stats), lty = 2, col = "gray") # 수직 선 출력
+arrows(x0 = c(bxplt$stats)[2], y0 = 1.3, 
+       x1 = c(bxplt$stats)[4], y1 = 1.3, 
+       code = 3, 
+       length = 0.1) # IQR 범위에 화살표 출력
+text(x = -0.1, y = 1.3, 
+     labels = "Interquartile range (IQR)", 
+     adj = 0.5, pos = 3) # 
+```
+
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-37-1.svg" width="864" />
 
  \normalsize
 
 
-<!-- #### 상자 그림 {#boxplot .unnumbered} -->
+#### **boxplot()** {#boxplot_fun .unnumbered}
 
-<!-- #### 바이올린 도표  -->
+- `help(boxplot)`을 통해 상세 함수 인수 내용 확인
 
-<!-- #### 모자이크 도표 -->
+\footnotesize
 
-<!-- ## 저수준 그래프 함수 -->
 
-<!-- ### lines() -->
+```r
+boxplot(x, # boxplot 대상 객체 명
+        ... # 두 개 이상 객체(보통은 벡터)
+        ) 
+또는 
 
-<!-- ### ablines() -->
+boxplot(formula, 
+        data, # 데이터 프레임 객체명
+        subset, # 부집단 선택
+        ... # help(boxplot)을 통해 인수 사용법 참고
+        )
+```
 
-<!-- ### points() -->
+ \normalsize
 
-<!-- ### text() -->
 
-<!-- ### R 기본 그래프 이미지 파일로 저장 -->
+- 벡터, 행렬, 데이터 프레임, 리스트 객체에 적용 가능
+- 데이터 프레임의 경우 수식 표현 가능
+   - `y ~ x`: 변수 `x` (보통은 factor 형)에 따른 `y`
+   - `y ~ x + y`: 변수 `x`와 `y`의 조합에 따른 `y`
+
+
+\footnotesize
+
+
+```r
+par(mfrow = c(2, 2))
+set.seed(20200522)
+y <- rnorm(100, 2, 1)
+# vector 객체 boxplot
+boxplot(x, y, 
+        main = "Boxplot for a vector object")
+axis(side = 1, at = 1:2, labels = c("x", "y"))
+
+# 행렬 객체 boxplot
+head(X)
+```
+
+```
+             [,1]        [,2]       [,3]
+[1,] 1.486720e-06 0.002215924 0.02156933
+[2,] 1.562867e-06 0.002249385 0.02166383
+[3,] 1.642751e-06 0.002283295 0.02175862
+[4,] 1.726545e-06 0.002317658 0.02185368
+[5,] 1.814431e-06 0.002352479 0.02194902
+[6,] 1.906601e-06 0.002387763 0.02204463
+```
+
+```r
+boxplot(X, 
+        main = "Boxplot for a matrix `X`")
+
+# 데이터 프레임 객체 boxplot
+boxplot(breaks ~ wool + tension, 
+        data = warpbreaks, 
+        main = "Boxplot for a dataframe `warpbreaks`", 
+        col = topo.colors(6))
+
+# 리스트 객체 boxplot
+## list 생성: mapply
+set.seed(20200522)
+xl <- mapply(rnorm, # 정규 난수 생성 함수
+             c(50, 100, 150, 200), # 첫번째 인수 n
+             c(0, 2, 4, 6), # 두 번째 인수 mean
+             c(1, 1, 1, 2)) # 세번째 인수 sd
+boxplot(xl, 
+        main = "Boxplot for a list `xl`", 
+        col = "lightgray")
+```
+
+<img src="05-data-visualization_files/figure-html/boxplot-ex-1.svg" width="768" />
+
+ \normalsize
+
+
+### 바이올린 도표 {#violin-plot}
+
+- 상자그림과 유사하나, 가운데를 중심으로 왼쪽과 오른쪽에 데이터의 밀도(kernel density)를 표시 
+
+
+
+#### **vioplot::viplot()** {#vioplot .unnumbered}
+
+- `boxplot()`과 사용 방법이 유사 
+
+\footnotesize
+
+
+```r
+# install.packages(vioplot)
+# require(vioplot)
+## generating bimodal distribution
+mu <- 2; sigma <- 1
+set.seed(20200522)
+bimodal <- c(rnorm(200, mu, sigma), 
+             rnorm(300, -mu, sigma)) # 두 정규분포 혼합
+normal <- rnorm(200, 2*mu, sigma) # 정규분포
+unif <- runif(200, -2, 2) # uniform 분포 (-2, 2)
+
+par(mfrow = c(2,2))
+boxplot(bimodal, normal, unif, 
+        main = "Boxplot for each distribution (vectors)")
+vioplot::vioplot(bimodal, normal, unif, 
+                 main = "Violin plot for each distribution (vectors)", 
+                 col = "skyblue")
+
+vioplot::vioplot(breaks ~ wool + tension, 
+                 data = warpbreaks, 
+                 main = "Violin plot for a dataframe `warpbreaks`", 
+                 col = heat.colors(6))
+
+vioplot::vioplot(xl, 
+                data = warpbreaks, 
+                main = "Violin plot for a list `xl`", 
+                col = rainbow(4))
+```
+
+<img src="05-data-visualization_files/figure-html/vioplot-ex-1.svg" width="768" />
+
+ \normalsize
+
+
+### 모자이크 도표 {#mosaicplot}
+
+- 다변량 범주형 자료의 분포(빈도, frequency)를 시각화 하기 위한 그래프
+- 전체 직사각형의 면적을 1이라고 할 때, 중첩되지 않는 각 셀의 빈도(행 기준)의 비율만큼 면적을 할당. 
+- table 객체(기본적으로 `table()`을 통해 생성된 객체) 에 직접 적용 가능하며, 
+
+#### **mosaicplot()** {#mosaicplot_fun .unnumbered} 
+
+
+
+## 저수준 그래프 함수
+
+### points()
+
+### lines()
+
+### ablines()
+
+### arrows()
+
+### polygons()
+
+### text()
+
+
+### R 기본 그래프 이미지 파일로 저장
 
 
 <!-- ## ggplot2 -->

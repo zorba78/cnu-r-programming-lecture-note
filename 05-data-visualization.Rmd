@@ -90,7 +90,9 @@ par(op)
    - windows: R 프로그램 내에서 출력
    - graphic files: pdf, jpeg, tiff, png, bmp 등의 확장자를 갖는 이미지 파일
 
--그래프 장치를 열기 위해 사용되는 함수
+
+- 그래프 장치를 열기 위해 사용되는 함수
+
    - `windows()` 또는 `win.graph()`: 그래픽 장치를 열기 위해 사용하는 함수
    - `dev.cur()`: 현재 활성화된 그래프 장치 확인
    - `dev.set()`: 다수의 그래프 장치가 열려 있는 경우 `which = 번호`로 변경
@@ -437,9 +439,9 @@ knitr::include_graphics('figures/r-graphic-palette.png', dpi = NA)
 
 ### 주요 고수준 그래픽 함수{#main-high-level-graph}
 
-#### **산점도** {#scatter-plot .unnumbered}
+### 산점도 {#scatter-plot}
 
-**`car::scatterplot()`**
+#### **`car::scatterplot()`** {#car_scatterplot .unnumbererd}
 
 - `plot(x, y)`를 통해 2차원 산점도를 그릴 수 있으나, car 패키지에 내장되어 있는 해당 함수를 이용해 보다 많은 정보(상자그림, 회귀곡선 등)를 포함
 
@@ -462,6 +464,8 @@ car::scatterplot(mpg ~ disp, data = mtcars,
 ```
 
 
+#### **`pairs()`** {#pairs .unnumbererd}
+
 - `pairs()`: 산점도 행렬을 생성해주는 함수로, 객체의 클래스가 데이터 프레임인 경우 `plot(dat)`과 동일한 그래프를 반환
 
 ```{r, fig.show="hold", fig.width=8, fig.heigh=8}
@@ -470,7 +474,10 @@ plot(iris)
 
 ```
 
-- `car::scatterplotMatrix()`: R graphics 패키지의 `pair()`와 유사하나 각 변수 쌍별 회귀 곡선 및 분포 확인 가능
+
+#### **`car::scatterplotMatrix()`** {#car_scatterplotMatrix .unnumbererd}
+
+- R graphics 패키지의 `pair()`와 유사하나 각 변수 쌍별 회귀 곡선 및 분포 확인 가능
 
 
 ```{r, fig.show="hold", fig.width=8, fig.heigh=8}
@@ -491,7 +498,7 @@ car::scatterplotMatrix(iris, col = c("red", "blue", "green"),
 
 ```
 
-#### 행렬 그래프 {#mat-plot .unnumbered}
+### 행렬 그래프 {#mat-plot}
 
 - 행렬 객체를 `plot()` 함수의 입력으로 사용한 경우 1-2 번째 열 데이터로 산점도를 출력
 
@@ -515,7 +522,9 @@ text(0.2, 0.05, labels = "plot(X[,1], X[,2], type = `l`)")
 
 ```
 
-- `matplot()`: 객체의 클래스가 행렬(matrix) 형태로 이루어진 데이터에 대한 그래프 출력
+#### **`matplot()`** {#mat_plot .unnumbered}
+
+- 객체의 클래스가 행렬(matrix) 형태로 이루어진 데이터에 대한 그래프 출력
    - 열 기준으로 그래프 출력
    - x 가 주어지지 않은 경우, 행렬의 색인을 x 축으로 사용
 
@@ -532,9 +541,9 @@ matplot(x, X, type = "l",
 ```
 
 
-#### 히스토그램{#histogram .unnumbered}
+### 히스토그램  {#histogram}
 
-**`hist()`**
+#### **`hist()`** {#hist .unnumbered}
 
 ```{r, eval=FALSE}
 hist(
@@ -605,7 +614,7 @@ par(op); dev.off()
 ```
 
 
-#### 막대 그래프 {#bar-plot .unnumbered}
+### 막대 그래프 {#bar-plot}
 
 - 히스토그램(`hist()`)은 연속형 데이터의 구간 별 빈도 또는 밀도를 나타냄
 - 막대 도표(bar plot)는 해당 좌표의 값(value)를 나타냄
@@ -618,7 +627,7 @@ hist(x); barplot(x)
 
 ```
 
-**barplot()**
+#### **barplot()** {#barplot_fun .unnumbered}
 
 - `help(barplot)` 을 통해 함수 사용 방법 확인
 - 보통 요약통계량(예: 그룹별 빈도, 평군)의 시각화를 위해 많이 사용
@@ -650,7 +659,7 @@ barplot(count, legend = TRUE, beside = TRUE,
 - 데이터 프레임을 대상으로 `barplot()` 실행 시 수식 표현 가능
 - 막대도표 + 표준오차
 
-```{r, warning=FALSE, fig.show="hold", fig.width=8, fig.heigh=7}
+```{r, warning=FALSE, fig.show="hold", fig.width=8, fig.height=7}
 mean_breaks <- aggregate(breaks ~ wool + tension, 
                          data = warpbreaks, 
                          mean)
@@ -671,24 +680,170 @@ arrows(bp, cent - sem, bp, cent + sem, angle = 90, code = 3, length = 0.05)
 
 ```
 
+### 상자 그림 {#boxplot}
 
-<!-- #### 상자 그림 {#boxplot .unnumbered} -->
+- 다섯 개의 통계량(5 numbers summary: 최솟값, 1사분위수, 중앙값, 3사분위수, 최댓값)을 이용해 연속형 자료를 그래프로 표현한 도표
 
-<!-- #### 바이올린 도표  -->
+```{r, warning=FALSE, fig.show="hold", fig.width=9, fig.height=6}
+set.seed(20200522)
+x <- rnorm(100)
+plab <- c("min(x)", "quantile(x, 0.25)", "median(x)", 
+          "quantile(x, 0.75)", "max(x)") # x-axis 레이블
+bxplt <- boxplot(x, 
+                 horizontal = TRUE, # x-y 축 회전 여부
+                 axes = F, # x-y 축 출력 여부
+                 main = "Boxplot anatomy", 
+                 cex.main = 2
+                 ) # boxplot 수치 요약값 저장
+axis(side = 1, at = bxplt$stats, 
+     labels = FALSE, 
+     las = 2) # x-axis 설졍
+text(x = c(bxplt$stats), 
+     y = 0.4, 
+     labels = plab, 
+     xpd = TRUE, # 텍스트 출력 영역 범위 지정
+     srt = 25, # 레이블 로테이션 각도(degree)
+     adj = 1.1, # 레이블 위치 조정
+     cex = 1.2 # 레이블 크기 조정
+     ) # x-axis 레이블 조정
+abline(v = c(bxplt$stats), lty = 2, col = "gray") # 수직 선 출력
+arrows(x0 = c(bxplt$stats)[2], y0 = 1.3, 
+       x1 = c(bxplt$stats)[4], y1 = 1.3, 
+       code = 3, 
+       length = 0.1) # IQR 범위에 화살표 출력
+text(x = -0.1, y = 1.3, 
+     labels = "Interquartile range (IQR)", 
+     adj = 0.5, pos = 3) # 
 
-<!-- #### 모자이크 도표 -->
+```
 
-<!-- ## 저수준 그래프 함수 -->
 
-<!-- ### lines() -->
+#### **boxplot()** {#boxplot_fun .unnumbered}
 
-<!-- ### ablines() -->
+- `help(boxplot)`을 통해 상세 함수 인수 내용 확인
 
-<!-- ### points() -->
+```{r, eval=FALSE}
+boxplot(x, # boxplot 대상 객체 명
+        ... # 두 개 이상 객체(보통은 벡터)
+        ) 
+또는 
 
-<!-- ### text() -->
+boxplot(formula, 
+        data, # 데이터 프레임 객체명
+        subset, # 부집단 선택
+        ... # help(boxplot)을 통해 인수 사용법 참고
+        )
 
-<!-- ### R 기본 그래프 이미지 파일로 저장 -->
+```
+
+
+- 벡터, 행렬, 데이터 프레임, 리스트 객체에 적용 가능
+- 데이터 프레임의 경우 수식 표현 가능
+   - `y ~ x`: 변수 `x` (보통은 factor 형)에 따른 `y`
+   - `y ~ x + y`: 변수 `x`와 `y`의 조합에 따른 `y`
+
+
+```{r boxplot-ex, warning=FALSE, fig.show="hold", fig.width=8, fig.height=8}
+par(mfrow = c(2, 2))
+set.seed(20200522)
+y <- rnorm(100, 2, 1)
+# vector 객체 boxplot
+boxplot(x, y, 
+        main = "Boxplot for a vector object")
+axis(side = 1, at = 1:2, labels = c("x", "y"))
+
+# 행렬 객체 boxplot
+head(X)
+boxplot(X, 
+        main = "Boxplot for a matrix `X`")
+
+# 데이터 프레임 객체 boxplot
+boxplot(breaks ~ wool + tension, 
+        data = warpbreaks, 
+        main = "Boxplot for a dataframe `warpbreaks`", 
+        col = topo.colors(6))
+
+# 리스트 객체 boxplot
+## list 생성: mapply
+set.seed(20200522)
+xl <- mapply(rnorm, # 정규 난수 생성 함수
+             c(50, 100, 150, 200), # 첫번째 인수 n
+             c(0, 2, 4, 6), # 두 번째 인수 mean
+             c(1, 1, 1, 2)) # 세번째 인수 sd
+boxplot(xl, 
+        main = "Boxplot for a list `xl`", 
+        col = "lightgray")
+
+```
+
+
+### 바이올린 도표 {#violin-plot}
+
+- 상자그림과 유사하나, 가운데를 중심으로 왼쪽과 오른쪽에 데이터의 밀도(kernel density)를 표시 
+
+
+
+#### **vioplot::viplot()** {#vioplot .unnumbered}
+
+- `boxplot()`과 사용 방법이 유사 
+
+```{r vioplot-ex, warning=FALSE, fig.show="hold", fig.width=8, fig.height=8}
+# install.packages(vioplot)
+# require(vioplot)
+## generating bimodal distribution
+mu <- 2; sigma <- 1
+set.seed(20200522)
+bimodal <- c(rnorm(200, mu, sigma), 
+             rnorm(300, -mu, sigma)) # 두 정규분포 혼합
+normal <- rnorm(200, 2*mu, sigma) # 정규분포
+unif <- runif(200, -2, 2) # uniform 분포 (-2, 2)
+
+par(mfrow = c(2,2))
+boxplot(bimodal, normal, unif, 
+        main = "Boxplot for each distribution (vectors)")
+vioplot::vioplot(bimodal, normal, unif, 
+                 main = "Violin plot for each distribution (vectors)", 
+                 col = "skyblue")
+
+vioplot::vioplot(breaks ~ wool + tension, 
+                 data = warpbreaks, 
+                 main = "Violin plot for a dataframe `warpbreaks`", 
+                 col = heat.colors(6))
+
+vioplot::vioplot(xl, 
+                data = warpbreaks, 
+                main = "Violin plot for a list `xl`", 
+                col = rainbow(4))
+
+```
+
+
+### 모자이크 도표 {#mosaicplot}
+
+- 다변량 범주형 자료의 분포(빈도, frequency)를 시각화 하기 위한 그래프
+- 전체 직사각형의 면적을 1이라고 할 때, 중첩되지 않는 각 셀의 빈도(행 기준)의 비율만큼 면적을 할당. 
+- table 객체(기본적으로 `table()`을 통해 생성된 객체) 에 직접 적용 가능하며, 
+
+#### **mosaicplot()** {#mosaicplot_fun .unnumbered} 
+
+
+
+## 저수준 그래프 함수
+
+### points()
+
+### lines()
+
+### ablines()
+
+### arrows()
+
+### polygons()
+
+### text()
+
+
+### R 기본 그래프 이미지 파일로 저장
 
 
 <!-- ## ggplot2 -->
