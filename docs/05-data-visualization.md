@@ -1109,9 +1109,32 @@ vioplot::vioplot(xl,
 
 - 다변량 범주형 자료의 분포(빈도, frequency)를 시각화 하기 위한 그래프
 - 전체 직사각형의 면적을 1이라고 할 때, 중첩되지 않는 각 셀의 빈도(행 기준)의 비율만큼 면적을 할당. 
-- table 객체(기본적으로 `table()`을 통해 생성된 객체) 에 직접 적용 가능하며, 
+
+\footnotesize
+
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-39-1.svg" width="864" />
+
+ \normalsize
+
 
 #### **mosaicplot()** {#mosaicplot_fun .unnumbered} 
+
+- R graphics 패키지(기본 그래픽 패키지)에 내장되어 있는 함수
+- 기본적으로 table 객체(기본적으로 `table()`을 통해 생성된 객체)를 입력 데이터로 받음
+- 데이터 프레임(또는 리스트) 객체에 수식 표현을 통해 모자이크 도표 생성 가능
+
+\footnotesize
+
+
+
+ \normalsize
+
+#### **vcd::mosaic()** 
+
+
+<!-- ```{r} -->
+<!-- mosaicplot(~ Survived + Sex + Class, data = Titanic, color = TRUE) -->
+<!-- ``` -->
 
 
 
