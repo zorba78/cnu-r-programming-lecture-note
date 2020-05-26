@@ -989,7 +989,7 @@ boxplot(x, # boxplot 대상 객체 명
         ) 
 또는 
 
-boxplot(formula, 
+boxplot(formula, # 수식 표현
         data, # 데이터 프레임 객체명
         subset, # 부집단 선택
         ... # help(boxplot)을 통해 인수 사용법 참고
@@ -1109,10 +1109,18 @@ vioplot::vioplot(xl,
 
 - 다변량 범주형 자료의 분포(빈도, frequency)를 시각화 하기 위한 그래프
 - 전체 직사각형의 면적을 1이라고 할 때, 중첩되지 않는 각 셀의 빈도(행 기준)의 비율만큼 면적을 할당. 
+- 로그선형모형(log-linear model)에 대한 적합도 검정(goodness of fit test) 결과 출력
 
 \footnotesize
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-39-1.svg" width="864" />
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">로그선형모형(log-linear model)은 다차원 교차표의 셀 빈도를 예측하기 위한 모형임. 해당 모형에 대한 기술은 본 강의의 범위 벗어나기 때문에 설명을 생략함. </div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+
+\footnotesize
+
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-40-1.svg" width="864" />
 
  \normalsize
 
@@ -1121,34 +1129,123 @@ vioplot::vioplot(xl,
 
 - R graphics 패키지(기본 그래픽 패키지)에 내장되어 있는 함수
 - 기본적으로 table 객체(기본적으로 `table()`을 통해 생성된 객체)를 입력 데이터로 받음
-- 데이터 프레임(또는 리스트) 객체에 수식 표현을 통해 모자이크 도표 생성 가능
+- 수식 표현을 통해 모자이크 데이터 프레임(또는 리스트), 객체로부터 도출한 테이블로 도표 생성 가능(테이블 객체에도 수식 표현 가능)
 
 \footnotesize
 
 
+```r
+mosaicplot(
+  x, # 테이블 객체
+  shade # goodness-of-test 결과 출력 여부
+  ... 
+) 
+또는
+
+mosaicplot(
+  formula, # 수식 표현식
+  data, # 데이터 프레임, 리스트 또는 테이블 
+  shade 
+)
+```
 
  \normalsize
 
-#### **vcd::mosaic()** 
+- 예시: 버클리 주립대 대학원 합격자 데이터
+   - Simpson's paradox를 설명하는 대표적인 예시로 많이 활용되는 데이터
+
+\footnotesize
 
 
-<!-- ```{r} -->
-<!-- mosaicplot(~ Survived + Sex + Class, data = Titanic, color = TRUE) -->
-<!-- ``` -->
+```r
+dimnames(UCBAdmissions)
+```
+
+```
+$Admit
+[1] "Admitted" "Rejected"
+
+$Gender
+[1] "Male"   "Female"
+
+$Dept
+[1] "A" "B" "C" "D" "E" "F"
+```
+
+```r
+collapse_admin_tab <- margin.table(UCBAdmissions, margin = c(1,2))
+is.table(collapse_admin_tab)
+```
+
+```
+[1] TRUE
+```
+
+```r
+par(mfrow = c(1, 2), 
+    mar = c(2, 0, 2, 0)) # figure margin 조정
+                         # bottom, left, top, right
+mosaicplot(collapse_admin_tab, 
+           main = "Student admissions at UC Berkeley", 
+           color = TRUE)
+mosaicplot(~ Dept + Admit + Gender, data = UCBAdmissions, 
+           color = TRUE)
+```
+
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-42-1.svg" width="960" />
+
+ \normalsize
+
+- 각 학과 별 mosaic 도표(`help(UCBAdmissions)`의 예시 코드)
+
+\footnotesize
 
 
+```r
+par(mfrow = c(2, 3), 
+    oma = c(0, 0, 2, 0))
+for (i in 1:6) {
+  mosaicplot(
+    UCBAdmissions[, , i], 
+    xlab = "Admit", 
+    ylab = "Sex", 
+    main = paste("Department", LETTERS[i]), 
+    color = TRUE
+  )
+}
+mtext(
+  expression(bold("Student admissions at UC Berkeley")), 
+  outer = TRUE, 
+  cex = 1.2
+)
+```
 
-## 저수준 그래프 함수
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-43-1.svg" width="960" />
 
-### points()
+ \normalsize
 
-### lines()
 
-### ablines()
+## 저수준 그래프 함수 {#low-level-graphic}
 
-### arrows()
+- 고수준 그래픽 함수(일반적으로 `plot()` 함수)를 통해 호출한 그래픽 장치 위에 추가적인 그래프 요소(점, 선, 면, 문자, 범례 등)를 수동으로 추가
+- 그래프의 미학적 효과를 극대화 하기 위해, 최소한으로 그래픽 장치를 호출(공백, 크기, 레이아웃 축 정의) 후 저수준 그래픽 함수를 이용해 그래프 생성
+- \@ref(plot-fun) 절 `plot()` 함수에서 확인했던 다양한 그래픽 관련 인수(예: `main`, `xlim`, `ylim`, `pch` `lty`, `col` 등)들을 저수준 그래프 함수에서 사용 가능
+- 명시적으로 포함되지 않은(`help()` 통해 확인) 인수들은 `...`로 표현
 
-### polygons()
+
+## par() {#par}
+
+- 전체 그래픽 장치에 적용되는 
+
+### points() {#points}
+
+### lines() {#lines}
+
+### ablines() {#ablines}
+
+### arrows() {#arrows}
+
+### polygons() {#polygons}
 
 ### text()
 
@@ -1156,27 +1253,27 @@ vioplot::vioplot(xl,
 ### R 기본 그래프 이미지 파일로 저장
 
 
-<!-- ## ggplot2 -->
+## ggplot2
 
-<!-- ### 기본 문법 -->
+### 기본 문법
 
-<!-- ### `geom_point()` -->
+### `geom_point()`
 
-<!-- ### `geom_line()` -->
+### `geom_line()`
 
-<!-- ### `geom_bar()` -->
+### `geom_bar()`
 
-<!-- ### `geom_errorbar()` -->
+### `geom_errorbar()`
 
-<!-- ### `geom_histogram()` -->
+### `geom_histogram()`
 
-<!-- ### `geom_boxplot()` -->
+### `geom_boxplot()`
 
-<!-- ### `geom_density()` -->
+### `geom_density()`
 
-<!-- ### `geom_smooth()` -->
+### `geom_smooth()`
 
-
+### `theme()`
 
 
 
