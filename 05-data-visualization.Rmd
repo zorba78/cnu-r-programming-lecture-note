@@ -103,7 +103,7 @@ par(op)
 
 - R 그래프의 구조
 
-```{r, fig.align='center', echo=FALSE, fig.show='hold', fig.width=8, fig.height=6, fig.show="hold", fig.cap="R 그래프영역"}
+```{r r-graphic-layout, fig.align='center', echo=FALSE, fig.show='hold', fig.width=8, fig.height=6, fig.show="hold", fig.cap="R 그래프영역"}
 par(oma = c(2, 2, 2, 2))
 set.seed(10)
 x <- rnorm(100)
@@ -913,9 +913,51 @@ mtext(
 - 명시적으로 포함되지 않은(`help()` 통해 확인) 인수들은 `...`로 표현
 
 
-## par() {#par}
+### par() {#par}
 
-- 전체 그래픽 장치에 적용되는 
+- 전체 그래픽 장치에 적용되는 여러가지 파라미터를 제어하며, 고수준 및 저수준 그래프의 모양 및 미학적 특성 설정
+- `par()` 함수를 통해 그래픽 파라미터 설정 및 조회 가능
+
+```{r}
+# 그래프 파라미터 조회 
+# 처음 12개 파라미터들에 대해서만 조회
+unlist(par()) %>% head(12)
+```
+
+- `par()` 함수 조정 파라미터 리스트
+
+
+```{r}
+Parameter <- c("din, fin, pin", 
+               "fig", "mai, mar", 
+               "mfg", "mfcol,mfrow", 
+               "new", "oma,omd,omi", 
+               "plt", "pty", "usr")
+`값` <- c("= c(width, height)", "=c(left, right, bottom, top)", 
+          "= c(bottom, left, top, right)", "= c(row, column)", 
+         "=c(rows, columns)", "=TRUE or =FALSE", "=c(bottom, left, top, right)", 
+         "=c(left, right, bottom, top)", "= \"s\" or \"m\"", 
+         "=c(left, right, bottom, top)")
+`설명` <- c("그래픽 장치(device), figure, plot 영역 크기(너비: width, 높이: height) 조정(인치 단위)", 
+            "장치 내 figure 영역의 4개 좌표 조정을 통해 figure 영역 크기 및 위치 조정", 
+            "Figure 영역의 각 4개 마진의 크기 조정(인치 또는 현재 폰트 사이즈 기준 텍스트 길이 단위)", 
+            "mfcol 또는 mfrow로 분할된 그림에서 현재 활성화된 figure의 위치 조정", 
+            "그래프 화면 출력을 열 또는 행 기준으로 분할", 
+            "현재 figure 영역을 새 그래프 장치로 인지(TRUE이면 이미 출력된 그림 위에 새로운 고수준 그래프 함수가 생성) 여부", 
+            "Outer")
+
+```
+
+
+
+- R 그래픽 레이아웃(그림 \@ref(fig:r-graphic-layout) 참조) 조정 파라미터
+
+```{r layout-par, fig.show="hold", out.width="50%", fig.cap="레이아웃 파라미터. [AIMS-R-Users](http://users.monash.edu.au/~murray/AIMS-R-users/ws/ws11.html)에서 발췌"}
+knitr::include_graphics('figures/graphics-figureAnatomy1.png', dpi = NA)
+knitr::include_graphics('figures/graphics-figureAnatomy2.png', dpi = NA)
+```
+
+
 
 ### points() {#points}
 

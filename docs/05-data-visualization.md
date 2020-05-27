@@ -75,8 +75,8 @@
 \footnotesize
 
 <div class="figure" style="text-align: center">
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-4-1.svg" alt="R 그래프영역" width="768" />
-<p class="caption">(\#fig:unnamed-chunk-4)R 그래프영역</p>
+<img src="05-data-visualization_files/figure-html/r-graphic-layout-1.svg" alt="R 그래프영역" width="768" />
+<p class="caption">(\#fig:r-graphic-layout)R 그래프영역</p>
 </div>
 
  \normalsize
@@ -164,7 +164,7 @@ class(mtcars)
 plot(mtcars)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-7-1.svg" width="864" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-6-1.svg" width="864" />
 
  \normalsize
 
@@ -195,7 +195,7 @@ null device
           1 
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-8-1.svg" width="864" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-7-1.svg" width="864" />
 
  \normalsize
 
@@ -215,7 +215,7 @@ class(Titanic)
 plot(Titanic)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-9-1.svg" width="864" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-8-1.svg" width="864" />
 
  \normalsize
 
@@ -234,7 +234,7 @@ y <- mtcars$mpg
 plot(x); plot(y)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-10-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-10-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-9-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-9-2.svg" width="50%" />
 
  \normalsize
 
@@ -248,7 +248,7 @@ plot(x); plot(y)
 plot(x, y)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-11-1.svg" width="768" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-10-1.svg" width="768" />
 
  \normalsize
 
@@ -317,7 +317,7 @@ for (i in 1:length(ctype)) {
 }
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-13-1.svg" width="960" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-12-1.svg" width="960" />
 
 ```r
 par(op)
@@ -354,7 +354,7 @@ for (i in 1:6) {
 par(op)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-14-1.svg" width="672" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-13-1.svg" width="672" />
 
  \normalsize
 
@@ -386,7 +386,7 @@ null device
           1 
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-15-1.svg" width="960" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-14-1.svg" width="960" />
 
  \normalsize
 
@@ -416,7 +416,7 @@ for (i in 1:length(line_type)) {
 }
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-16-1.svg" width="768" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-15-1.svg" width="768" />
 
  \normalsize
 
@@ -441,7 +441,7 @@ points(coord, pch=1:25, cex = 2.5)
 text(coord + 0.2, labels = 1:25, cex = 1)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-17-1.svg" width="672" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-16-1.svg" width="672" />
 
  \normalsize
 
@@ -479,7 +479,7 @@ plot(BOD, type = "p",
      sub = "Subtitle")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-18-1.svg" width="864" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-17-1.svg" width="864" />
 
  \normalsize
 
@@ -508,7 +508,7 @@ for (i in 1:5) {
 }
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-19-1.svg" width="672" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-18-1.svg" width="672" />
 
  \normalsize
 
@@ -550,7 +550,7 @@ for (i in 1:5) {
 car::scatterplot(mpg ~ disp, data = mtcars)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-21-1.svg" width="768" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-20-1.svg" width="768" />
 
  \normalsize
 
@@ -566,7 +566,7 @@ car::scatterplot(mpg ~ disp, data = mtcars,
                  col = "black", cex = 2, pch = 16)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-22-1.svg" width="768" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-21-1.svg" width="768" />
 
  \normalsize
 
@@ -583,7 +583,7 @@ car::scatterplot(mpg ~ disp, data = mtcars,
 plot(iris)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-23-1.svg" width="768" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-22-1.svg" width="768" />
 
  \normalsize
 
@@ -601,7 +601,7 @@ plot(iris)
 car::scatterplotMatrix(iris, col = "black")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-24-1.svg" width="768" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-23-1.svg" width="768" />
 
  \normalsize
 
@@ -619,7 +619,7 @@ car::scatterplotMatrix(iris, col = c("red", "blue", "green"),
                        pch = (15:17))
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-25-1.svg" width="768" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-24-1.svg" width="768" />
 
  \normalsize
 
@@ -661,7 +661,7 @@ plot(X[, 1], X[, 2], type = "l",
 text(0.2, 0.05, labels = "plot(X[,1], X[,2], type = `l`)")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-26-1.svg" width="768" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-25-1.svg" width="768" />
 
  \normalsize
 
@@ -685,7 +685,7 @@ matplot(x, X, type = "l",
         main = "matplot() with x")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-27-1.svg" width="768" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-26-1.svg" width="768" />
 
  \normalsize
 
@@ -737,7 +737,7 @@ temp <- airquality$Temp
 hist(temp)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-29-1.svg" width="768" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-28-1.svg" width="768" />
 
  \normalsize
 
@@ -794,7 +794,7 @@ freq = FALSE
 )
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-31-1.svg" width="768" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-30-1.svg" width="768" />
 
  \normalsize
 
@@ -814,7 +814,7 @@ labels = TRUE
 )
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-32-1.svg" width="768" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-31-1.svg" width="768" />
 
  \normalsize
 
@@ -835,7 +835,7 @@ null device
           1 
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-33-1.svg" width="960" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-32-1.svg" width="960" />
 
  \normalsize
 
@@ -854,7 +854,7 @@ par(mfrow = c(1, 2))
 hist(x); barplot(x)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-34-1.svg" width="768" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-33-1.svg" width="768" />
 
  \normalsize
 
@@ -898,7 +898,7 @@ barplot(count, legend = TRUE, beside = TRUE,
         cex.lab = 1.5) # 분리 형태
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-35-1.svg" width="768" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-34-1.svg" width="768" />
 
  \normalsize
 
@@ -928,7 +928,7 @@ sem <- matrix(se_breaks$breaks, 2, 3)
 arrows(bp, cent - sem, bp, cent + sem, angle = 90, code = 3, length = 0.05)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-36-1.svg" width="768" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-35-1.svg" width="768" />
 
  \normalsize
 
@@ -971,7 +971,7 @@ text(x = -0.1, y = 1.3,
      adj = 0.5, pos = 3) # 
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-37-1.svg" width="864" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-36-1.svg" width="864" />
 
  \normalsize
 
@@ -1120,7 +1120,7 @@ vioplot::vioplot(xl,
 
 \footnotesize
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-40-1.svg" width="864" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-39-1.svg" width="864" />
 
  \normalsize
 
@@ -1192,7 +1192,7 @@ mosaicplot(~ Dept + Admit + Gender, data = UCBAdmissions,
            color = TRUE)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-42-1.svg" width="960" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-41-1.svg" width="960" />
 
  \normalsize
 
@@ -1220,7 +1220,7 @@ mtext(
 )
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-43-1.svg" width="960" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-42-1.svg" width="960" />
 
  \normalsize
 
@@ -1233,9 +1233,79 @@ mtext(
 - 명시적으로 포함되지 않은(`help()` 통해 확인) 인수들은 `...`로 표현
 
 
-## par() {#par}
+### par() {#par}
 
-- 전체 그래픽 장치에 적용되는 
+- 전체 그래픽 장치에 적용되는 여러가지 파라미터를 제어하며, 고수준 및 저수준 그래프의 모양 및 미학적 특성 설정
+- `par()` 함수를 통해 그래픽 파라미터 설정 및 조회 가능
+
+\footnotesize
+
+
+```r
+# 그래프 파라미터 조회 
+# 처음 12개 파라미터들에 대해서만 조회
+unlist(par()) %>% head(12)
+```
+
+```
+         xlog          ylog           adj           ann           ask 
+      "FALSE"       "FALSE"         "0.5"        "TRUE"       "FALSE" 
+           bg           bty           cex      cex.axis       cex.lab 
+"transparent"           "o"           "1"           "1"           "1" 
+     cex.main       cex.sub 
+        "1.2"           "1" 
+```
+
+ \normalsize
+
+- `par()` 함수 조정 파라미터 리스트
+
+
+\footnotesize
+
+
+```r
+Parameter <- c("din, fin, pin", 
+               "fig", "mai, mar", 
+               "mfg", "mfcol,mfrow", 
+               "new", "oma,omd,omi", 
+               "plt", "pty", "usr")
+`값` <- c("= c(width, height)", "=c(left, right, bottom, top)", 
+          "= c(bottom, left, top, right)", "= c(row, column)", 
+         "=c(rows, columns)", "=TRUE or =FALSE", "=c(bottom, left, top, right)", 
+         "=c(left, right, bottom, top)", "= \"s\" or \"m\"", 
+         "=c(left, right, bottom, top)")
+`설명` <- c("그래픽 장치(device), figure, plot 영역 크기(너비: width, 높이: height) 조정(인치 단위)", 
+            "장치 내 figure 영역의 4개 좌표 조정을 통해 figure 영역 크기 및 위치 조정", 
+            "Figure 영역의 각 4개 마진의 크기 조정(인치 또는 현재 폰트 사이즈 기준 텍스트 길이 단위)", 
+            "mfcol 또는 mfrow로 분할된 그림에서 현재 활성화된 figure의 위치 조정", 
+            "그래프 화면 출력을 열 또는 행 기준으로 분할", 
+            "현재 figure 영역을 새 그래프 장치로 인지(TRUE이면 이미 출력된 그림 위에 새로운 고수준 그래프 함수가 생성) 여부", 
+            "Outer")
+```
+
+ \normalsize
+
+
+
+- R 그래픽 레이아웃(그림 \@ref(fig:r-graphic-layout) 참조) 조정 파라미터
+
+\footnotesize
+
+
+```r
+knitr::include_graphics('figures/graphics-figureAnatomy1.png', dpi = NA)
+knitr::include_graphics('figures/graphics-figureAnatomy2.png', dpi = NA)
+```
+
+<div class="figure">
+<img src="figures/graphics-figureAnatomy1.png" alt="레이아웃 파라미터. [AIMS-R-Users](http://users.monash.edu.au/~murray/AIMS-R-users/ws/ws11.html)에서 발췌" width="50%" /><img src="figures/graphics-figureAnatomy2.png" alt="레이아웃 파라미터. [AIMS-R-Users](http://users.monash.edu.au/~murray/AIMS-R-users/ws/ws11.html)에서 발췌" width="50%" />
+<p class="caption">(\#fig:layout-par)레이아웃 파라미터. [AIMS-R-Users](http://users.monash.edu.au/~murray/AIMS-R-users/ws/ws11.html)에서 발췌</p>
+</div>
+
+ \normalsize
+
+
 
 ### points() {#points}
 
