@@ -500,7 +500,7 @@ system.time(pulse <- read.csv("dataset/pulse.csv", header = T))
 
 ```
  사용자  시스템 elapsed 
-  20.45    0.10   20.59 
+  20.46    0.06   20.53 
 ```
 
 ```r
@@ -521,7 +521,7 @@ system.time(pulse <- readRDS("output/pulse.rds"))
 
 ```
  사용자  시스템 elapsed 
-   0.06    0.01    0.08 
+   0.08    0.00    0.08 
 ```
 
  \normalsize
@@ -772,7 +772,7 @@ system.time(pulse <- read.csv("dataset/pulse.csv", header = T))
 
 ```
  사용자  시스템 elapsed 
-  20.01    0.04   20.05 
+  19.94    0.02   19.95 
 ```
 
 ```r
@@ -782,7 +782,7 @@ system.time(pulse <- readRDS("output/pulse.rds"))
 
 ```
  사용자  시스템 elapsed 
-   0.09    0.00    0.09 
+   0.06    0.04    0.09 
 ```
 
 ```r
@@ -802,7 +802,7 @@ See spec(...) for full column specifications.
 
 ```
  사용자  시스템 elapsed 
-  14.76    0.03   14.80 
+  14.79    0.03   14.83 
 ```
 
 ```r
@@ -811,7 +811,7 @@ system.time(pulse <- read_feather("dataset/pulse.feather"))
 
 ```
  사용자  시스템 elapsed 
-   0.29    0.01    0.32 
+   0.31    0.00    0.31 
 ```
 
  \normalsize
@@ -973,18 +973,18 @@ tibble(x = letters, y = rnorm(26), z = y^2)
 
 ```
 # A tibble: 26 x 3
-   x           y       z
-   <chr>   <dbl>   <dbl>
- 1 a      0.358  0.128  
- 2 b      2.74   7.50   
- 3 c      0.433  0.187  
- 4 d      0.979  0.958  
- 5 e     -0.122  0.0149 
- 6 f      0.571  0.326  
- 7 g     -0.639  0.408  
- 8 h     -0.0629 0.00396
- 9 i     -0.864  0.747  
-10 j      2.79   7.76   
+   x          y      z
+   <chr>  <dbl>  <dbl>
+ 1 a      0.442 0.195 
+ 2 b     -0.633 0.401 
+ 3 c     -0.765 0.585 
+ 4 d     -0.870 0.757 
+ 5 e      0.675 0.455 
+ 6 f      0.421 0.177 
+ 7 g      0.169 0.0285
+ 8 h      1.60  2.55  
+ 9 i     -1.03  1.07  
+10 j      0.311 0.0968
 # ... with 16 more rows
 ```
 
@@ -2532,11 +2532,11 @@ mpg %>% sample_n(3)
 
 ```
 # A tibble: 3 x 11
-  manufacturer model      displ  year   cyl trans  drv     cty   hwy fl    class
-  <chr>        <chr>      <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr>
-1 subaru       forester ~   2.5  2008     4 auto(~ 4        20    26 r     suv  
-2 dodge        durango 4~   4.7  2008     8 auto(~ 4         9    12 e     suv  
-3 ford         explorer ~   4    1999     6 auto(~ 4        14    17 r     suv  
+  manufacturer model     displ  year   cyl trans  drv     cty   hwy fl    class 
+  <chr>        <chr>     <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr> 
+1 volkswagen   new beet~   2.5  2008     5 manua~ f        20    28 r     subco~
+2 audi         a4          2    2008     4 manua~ f        20    31 p     compa~
+3 jeep         grand ch~   6.1  2008     8 auto(~ 4        11    14 p     suv   
 ```
 
 ```r
@@ -2548,18 +2548,18 @@ mpg %>% sample_frac(0.05)
 # A tibble: 12 x 11
    manufacturer model    displ  year   cyl trans  drv     cty   hwy fl    class 
    <chr>        <chr>    <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr> 
- 1 ford         mustang    5.4  2008     8 manua~ r        14    20 p     subco~
- 2 audi         a4         2.8  1999     6 manua~ f        18    26 p     compa~
- 3 audi         a4 quat~   2.8  1999     6 auto(~ 4        15    25 p     compa~
- 4 nissan       altima     3.5  2008     6 auto(~ f        19    26 p     midsi~
- 5 toyota       4runner~   4.7  2008     8 auto(~ 4        14    17 r     suv   
- 6 nissan       altima     3.5  2008     6 manua~ f        19    27 p     midsi~
- 7 volkswagen   passat     2    2008     4 manua~ f        21    29 p     midsi~
- 8 chevrolet    corvette   5.7  1999     8 auto(~ r        15    23 p     2seat~
- 9 dodge        ram 150~   4.7  2008     8 auto(~ 4        13    17 r     pickup
-10 dodge        caravan~   3.3  1999     6 auto(~ f        16    22 r     miniv~
-11 pontiac      grand p~   3.8  1999     6 auto(~ f        16    26 p     midsi~
-12 audi         a4 quat~   1.8  1999     4 auto(~ 4        16    25 p     compa~
+ 1 chevrolet    corvette   6.2  2008     8 manua~ r        16    26 p     2seat~
+ 2 hyundai      sonata     2.4  1999     4 manua~ f        18    27 r     midsi~
+ 3 ford         explore~   4    1999     6 manua~ 4        15    19 r     suv   
+ 4 ford         mustang    4.6  2008     8 auto(~ r        15    22 r     subco~
+ 5 volkswagen   jetta      2    1999     4 manua~ f        21    29 r     compa~
+ 6 nissan       altima     2.4  1999     4 auto(~ f        19    27 r     compa~
+ 7 toyota       camry      2.2  1999     4 auto(~ f        21    27 r     midsi~
+ 8 dodge        ram 150~   4.7  2008     8 manua~ 4         9    12 e     pickup
+ 9 dodge        dakota ~   5.2  1999     8 auto(~ 4        11    15 r     pickup
+10 nissan       maxima     3.5  2008     6 auto(~ f        19    25 p     midsi~
+11 toyota       toyota ~   4    2008     6 manua~ 4        15    18 r     pickup
+12 toyota       corolla    1.8  1999     4 manua~ f        26    35 r     compa~
 ```
 
  \normalsize

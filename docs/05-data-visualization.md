@@ -23,11 +23,16 @@
 
 \footnotesize
 
-<div data-pagedtable="false">
-  <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["x3"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["x4"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["y1"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["y2"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["y3"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["y4"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"10","3":"10","4":"8","5":"8.04","6":"9.14","7":"7.46","8":"6.58","_rn_":"1"},{"1":"8","2":"8","3":"8","4":"8","5":"6.95","6":"8.14","7":"6.77","8":"5.76","_rn_":"2"},{"1":"13","2":"13","3":"13","4":"8","5":"7.58","6":"8.74","7":"12.74","8":"7.71","_rn_":"3"},{"1":"9","2":"9","3":"9","4":"8","5":"8.81","6":"8.77","7":"7.11","8":"8.84","_rn_":"4"},{"1":"11","2":"11","3":"11","4":"8","5":"8.33","6":"9.26","7":"7.81","8":"8.47","_rn_":"5"},{"1":"14","2":"14","3":"14","4":"8","5":"9.96","6":"8.10","7":"8.84","8":"7.04","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+
+```
+  x1 x2 x3 x4   y1   y2    y3   y4
+1 10 10 10  8 8.04 9.14  7.46 6.58
+2  8  8  8  8 6.95 8.14  6.77 5.76
+3 13 13 13  8 7.58 8.74 12.74 7.71
+4  9  9  9  8 8.81 8.77  7.11 8.84
+5 11 11 11  8 8.33 9.26  7.81 8.47
+6 14 14 14  8 9.96 8.10  8.84 7.04
+```
 
 ```
       x1       x2       x3       x4       y1       y2       y3       y4 
@@ -40,7 +45,7 @@
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-3-1.svg" alt="Anscombe's quartet: https://goo.gl/Ugv3Cz 에서 스크립트 발췌" width="768" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-3-1.svg" alt="Anscombe's quartet: https://goo.gl/Ugv3Cz 에서 스크립트 발췌"  />
 <p class="caption">(\#fig:unnamed-chunk-3)Anscombe's quartet: https://goo.gl/Ugv3Cz 에서 스크립트 발췌</p>
 </div>
 
@@ -75,7 +80,7 @@
 \footnotesize
 
 <div class="figure" style="text-align: center">
-<img src="05-data-visualization_files/figure-html/r-graphic-layout-1.svg" alt="R 그래프영역" width="768" />
+<img src="05-data-visualization_files/figure-epub3/r-graphic-layout-1.svg" alt="R 그래프영역"  />
 <p class="caption">(\#fig:r-graphic-layout)R 그래프영역</p>
 </div>
 
@@ -164,7 +169,7 @@ class(mtcars)
 plot(mtcars)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-6-1.svg" width="864" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-6-1.svg)<!-- -->
 
  \normalsize
 
@@ -195,7 +200,7 @@ null device
           1 
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-7-1.svg" width="864" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-7-1.svg)<!-- -->
 
  \normalsize
 
@@ -215,7 +220,7 @@ class(Titanic)
 plot(Titanic)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-8-1.svg" width="864" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-8-1.svg)<!-- -->
 
  \normalsize
 
@@ -234,7 +239,7 @@ y <- mtcars$mpg
 plot(x); plot(y)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-9-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-9-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-9-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-9-2.svg" width="50%" />
 
  \normalsize
 
@@ -248,7 +253,7 @@ plot(x); plot(y)
 plot(x, y)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-10-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-10-1.svg)<!-- -->
 
  \normalsize
 
@@ -317,7 +322,7 @@ for (i in 1:length(ctype)) {
 }
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-12-1.svg" width="960" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-12-1.svg)<!-- -->
 
 ```r
 par(op)
@@ -354,7 +359,7 @@ for (i in 1:6) {
 par(op)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-13-1.svg" width="672" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-13-1.svg)<!-- -->
 
  \normalsize
 
@@ -386,7 +391,7 @@ null device
           1 
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-14-1.svg" width="960" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-14-1.svg)<!-- -->
 
  \normalsize
 
@@ -416,7 +421,10 @@ for (i in 1:length(line_type)) {
 }
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-15-1.svg" width="768" />
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/plot-linetype-1.svg" alt="lty 파라미터 값에 따른 선 형태"  />
+<p class="caption">(\#fig:plot-linetype)lty 파라미터 값에 따른 선 형태</p>
+</div>
 
  \normalsize
 
@@ -441,7 +449,10 @@ points(coord, pch=1:25, cex = 2.5)
 text(coord + 0.2, labels = 1:25, cex = 1)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-16-1.svg" width="672" />
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/plot-symbol-1.svg" alt="R graphics 점 표현 기호 및 대응 번호"  />
+<p class="caption">(\#fig:plot-symbol)R graphics 점 표현 기호 및 대응 번호</p>
+</div>
 
  \normalsize
 
@@ -479,7 +490,7 @@ plot(BOD, type = "p",
      sub = "Subtitle")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-17-1.svg" width="864" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-15-1.svg)<!-- -->
 
  \normalsize
 
@@ -508,7 +519,7 @@ for (i in 1:5) {
 }
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-18-1.svg" width="672" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-16-1.svg)<!-- -->
 
  \normalsize
 
@@ -550,7 +561,7 @@ for (i in 1:5) {
 car::scatterplot(mpg ~ disp, data = mtcars)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-20-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-18-1.svg)<!-- -->
 
  \normalsize
 
@@ -566,7 +577,7 @@ car::scatterplot(mpg ~ disp, data = mtcars,
                  col = "black", cex = 2, pch = 16)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-21-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-19-1.svg)<!-- -->
 
  \normalsize
 
@@ -583,7 +594,7 @@ car::scatterplot(mpg ~ disp, data = mtcars,
 plot(iris)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-22-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-20-1.svg)<!-- -->
 
  \normalsize
 
@@ -601,7 +612,7 @@ plot(iris)
 car::scatterplotMatrix(iris, col = "black")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-23-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-21-1.svg)<!-- -->
 
  \normalsize
 
@@ -619,7 +630,7 @@ car::scatterplotMatrix(iris, col = c("red", "blue", "green"),
                        pch = (15:17))
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-24-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-22-1.svg)<!-- -->
 
  \normalsize
 
@@ -661,7 +672,7 @@ plot(X[, 1], X[, 2], type = "l",
 text(0.2, 0.05, labels = "plot(X[,1], X[,2], type = `l`)")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-25-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-23-1.svg)<!-- -->
 
  \normalsize
 
@@ -685,7 +696,7 @@ matplot(x, X, type = "l",
         main = "matplot() with x")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-26-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-24-1.svg)<!-- -->
 
  \normalsize
 
@@ -737,7 +748,7 @@ temp <- airquality$Temp
 hist(temp)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-28-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-26-1.svg)<!-- -->
 
  \normalsize
 
@@ -794,7 +805,7 @@ freq = FALSE
 )
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-30-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-28-1.svg)<!-- -->
 
  \normalsize
 
@@ -814,7 +825,7 @@ labels = TRUE
 )
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-31-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-29-1.svg)<!-- -->
 
  \normalsize
 
@@ -835,7 +846,7 @@ null device
           1 
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-32-1.svg" width="960" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-30-1.svg)<!-- -->
 
  \normalsize
 
@@ -854,7 +865,7 @@ par(mfrow = c(1, 2))
 hist(x); barplot(x)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-33-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-31-1.svg)<!-- -->
 
  \normalsize
 
@@ -873,11 +884,15 @@ hist(x); barplot(x)
 head(warpbreaks)
 ```
 
-<div data-pagedtable="false">
-  <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["breaks"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["wool"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["tension"],"name":[3],"type":["fctr"],"align":["left"]}],"data":[{"1":"26","2":"A","3":"L","_rn_":"1"},{"1":"30","2":"A","3":"L","_rn_":"2"},{"1":"54","2":"A","3":"L","_rn_":"3"},{"1":"25","2":"A","3":"L","_rn_":"4"},{"1":"70","2":"A","3":"L","_rn_":"5"},{"1":"52","2":"A","3":"L","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+```
+  breaks wool tension
+1     26    A       L
+2     30    A       L
+3     54    A       L
+4     25    A       L
+5     70    A       L
+6     52    A       L
+```
 
 ```r
 count <- with(warpbreaks, 
@@ -898,7 +913,7 @@ barplot(count, legend = TRUE, beside = TRUE,
         cex.lab = 1.5) # 분리 형태
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-34-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-32-1.svg)<!-- -->
 
  \normalsize
 
@@ -928,7 +943,7 @@ sem <- matrix(se_breaks$breaks, 2, 3)
 arrows(bp, cent - sem, bp, cent + sem, angle = 90, code = 3, length = 0.05)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-35-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-33-1.svg)<!-- -->
 
  \normalsize
 
@@ -971,7 +986,7 @@ text(x = -0.1, y = 1.3,
      adj = 0.5, pos = 3) # 
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-36-1.svg" width="864" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-34-1.svg)<!-- -->
 
  \normalsize
 
@@ -1053,7 +1068,7 @@ boxplot(xl,
         col = "lightgray")
 ```
 
-<img src="05-data-visualization_files/figure-html/boxplot-ex-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/boxplot-ex-1.svg)<!-- -->
 
  \normalsize
 
@@ -1100,7 +1115,7 @@ vioplot::vioplot(xl,
                 col = rainbow(4))
 ```
 
-<img src="05-data-visualization_files/figure-html/vioplot-ex-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/vioplot-ex-1.svg)<!-- -->
 
  \normalsize
 
@@ -1120,7 +1135,7 @@ vioplot::vioplot(xl,
 
 \footnotesize
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-39-1.svg" width="864" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-37-1.svg)<!-- -->
 
  \normalsize
 
@@ -1192,7 +1207,7 @@ mosaicplot(~ Dept + Admit + Gender, data = UCBAdmissions,
            color = TRUE)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-41-1.svg" width="960" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-39-1.svg)<!-- -->
 
  \normalsize
 
@@ -1220,7 +1235,7 @@ mtext(
 )
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-42-1.svg" width="960" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-40-1.svg)<!-- -->
 
  \normalsize
 
@@ -1230,7 +1245,7 @@ mtext(
 - 고수준 그래픽 함수(일반적으로 `plot()` 함수)를 통해 호출한 그래픽 장치 위에 추가적인 그래프 요소(점, 선, 면, 문자, 범례 등)를 수동으로 추가
 - 그래프의 미학적 효과를 극대화 하기 위해, 최소한으로 그래픽 장치를 호출(공백, 크기, 레이아웃 축 정의) 후 저수준 그래픽 함수를 이용해 그래프 생성
 - \@ref(plot-fun) 절 `plot()` 함수에서 확인했던 다양한 그래픽 관련 인수(예: `main`, `xlim`, `ylim`, `pch` `lty`, `col` 등)들을 저수준 그래프 함수에서 사용 가능
-- 명시적으로 포함되지 않은(`help()` 통해 확인) 인수들은 `...`로 표현
+- 명시적으로 포함되지 않은(`help()` 통해 확인) 인수들은 `...`로 표현되고, `par()` 함수 내 파라미터 값으로 전달
 
 
 ### par() {#par}
@@ -1256,6 +1271,15 @@ unlist(par()) %>% head(12)
         "1.2"           "1" 
 ```
 
+```r
+# 파라미터 이름으로 값 추출
+par("mar")
+```
+
+```
+[1] 5.1 4.1 4.1 2.1
+```
+
  \normalsize
 
 - `par()` 함수 조정 파라미터 리스트
@@ -1263,26 +1287,53 @@ unlist(par()) %>% head(12)
 
 \footnotesize
 
-
-```r
-Parameter <- c("din, fin, pin", 
-               "fig", "mai, mar", 
-               "mfg", "mfcol,mfrow", 
-               "new", "oma,omd,omi", 
-               "plt", "pty", "usr")
-`값` <- c("= c(width, height)", "=c(left, right, bottom, top)", 
-          "= c(bottom, left, top, right)", "= c(row, column)", 
-         "=c(rows, columns)", "=TRUE or =FALSE", "=c(bottom, left, top, right)", 
-         "=c(left, right, bottom, top)", "= \"s\" or \"m\"", 
-         "=c(left, right, bottom, top)")
-`설명` <- c("그래픽 장치(device), figure, plot 영역 크기(너비: width, 높이: height) 조정(인치 단위)", 
-            "장치 내 figure 영역의 4개 좌표 조정을 통해 figure 영역 크기 및 위치 조정", 
-            "Figure 영역의 각 4개 마진의 크기 조정(인치 또는 현재 폰트 사이즈 기준 텍스트 길이 단위)", 
-            "mfcol 또는 mfrow로 분할된 그림에서 현재 활성화된 figure의 위치 조정", 
-            "그래프 화면 출력을 열 또는 행 기준으로 분할", 
-            "현재 figure 영역을 새 그래프 장치로 인지(TRUE이면 이미 출력된 그림 위에 새로운 고수준 그래프 함수가 생성) 여부", 
-            "Outer")
-```
+<table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:tab-05-01)</caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Parameter </th>
+   <th style="text-align:left;"> 값 </th>
+   <th style="text-align:left;"> 설명 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;width: 2cm; font-family: monospace;"> din, fin, pin </td>
+   <td style="text-align:left;width: 4cm; font-family: monospace;"> = c(width, height) </td>
+   <td style="text-align:left;width: 5cm; font-family: monospace;"> 그래픽 장치(device), figure, plot 영역 크기(너비: width, 높이: height) 조정(인치 단위) </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;width: 2cm; font-family: monospace;"> fig </td>
+   <td style="text-align:left;width: 4cm; font-family: monospace;"> =c(left, right, bottom, top) </td>
+   <td style="text-align:left;width: 5cm; font-family: monospace;"> 장치 내 figure 영역의 4개 좌표 조정을 통해 figure 위치 및 크기 조정 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;width: 2cm; font-family: monospace;"> mai, mar </td>
+   <td style="text-align:left;width: 4cm; font-family: monospace;"> = c(bottom, left, top, right) </td>
+   <td style="text-align:left;width: 5cm; font-family: monospace;"> Figure 영역의 각 4개 마진의 크기 조정(인치 또는 현재 폰트 사이즈 기준 텍스트 길이 단위) </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;width: 2cm; font-family: monospace;"> mfcol,mfrow </td>
+   <td style="text-align:left;width: 4cm; font-family: monospace;"> = c(row, column) </td>
+   <td style="text-align:left;width: 5cm; font-family: monospace;"> 그래프 화면 출력을 열 또는 행 기준으로 분할 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;width: 2cm; font-family: monospace;"> mfg </td>
+   <td style="text-align:left;width: 4cm; font-family: monospace;"> =c(rows, columns) </td>
+   <td style="text-align:left;width: 5cm; font-family: monospace;"> mfcol 또는 mfrow로 분할된 그림에서 figure의 위치 조정 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;width: 2cm; font-family: monospace;"> new </td>
+   <td style="text-align:left;width: 4cm; font-family: monospace;"> =TRUE or =FALSE </td>
+   <td style="text-align:left;width: 5cm; font-family: monospace;"> 현재 figure 영역을 새 그래프 장치로 인지(TRUE 이면 이미 출력된 그림 위에 새로운 고수준 그래프 함수가 생성) 여부 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;width: 2cm; font-family: monospace;"> oma,omd,omi </td>
+   <td style="text-align:left;width: 4cm; font-family: monospace;"> =c(bottom, left, top, right) </td>
+   <td style="text-align:left;width: 5cm; font-family: monospace;"> Outer margin (여백) 각 영역별 크기 조정(인치 또는 설정 텍스트 크기 기준) </td>
+  </tr>
+</tbody>
+</table>
 
  \normalsize
 
@@ -1292,58 +1343,1086 @@ Parameter <- c("din, fin, pin",
 
 \footnotesize
 
+<div class="figure">
+<img src="figures/graphics-figureAnatomy1.png" alt="레이아웃 파라미터. AIMS-R-Users 에서 발췌" width="50%" /><img src="figures/graphics-figureAnatomy2.png" alt="레이아웃 파라미터. AIMS-R-Users 에서 발췌" width="50%" />
+<p class="caption">(\#fig:layout-par)레이아웃 파라미터. AIMS-R-Users 에서 발췌</p>
+</div>
+
+ \normalsize
+
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">아래 `par()` 함수의 파라미터 값에 대한 도표 생성을 위한 R 스크립트는 [Graphical parameters of R graphics package](http://rstudio-pubs-static.s3.amazonaws.com/315576_85cccd774c29428ba46969316cbc76c0.html)에서 참고 및 발췌
+</div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+
+
+#### **`pin`** {#pin .unnumbered}
+
+> 현재 plot의 차원(너비와 높이) 조정
+
+\footnotesize
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-43-1.svg)<!-- -->
+
+ \normalsize
+
+#### **`fin`** {#fin .unnumbered}
+
+> Figure 영역의 차원(너비와 높이)
+
+\footnotesize
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-44-1.svg)<!-- -->
+
+ \normalsize
+
+
+#### **`fig`** {#fig-par .unnumbered}
+
+> - `c(x1, x2, y1, y2)` 형태의 숫자형 벡터를 인수로 받아 그래픽 디바이스의 디스플레이 영역에서 figure 영역의 좌표 지정
+> - 처음 디폴트 값은 `c(0, 1, 0, 1)`
+> - `fig` 파라미터 조정의 목적이 여러 개의 그림을 한 화면에 출력하는 것이 목적이라면 `par()` 파라미터 중 `new` 의 값을 `TRUE`로 설정
+
+\footnotesize
+
 
 ```r
-knitr::include_graphics('figures/graphics-figureAnatomy1.png', dpi = NA)
-knitr::include_graphics('figures/graphics-figureAnatomy2.png', dpi = NA)
+text_loc <- seq(0, 0.25, by = 0.05)
+par_name <- c("mar", "mai", "fig", "fin", "plt", "pin")
+
+plot_dim <- function(x, y, op, title, ...) {
+  for (i in 1:length(text_loc)) {
+    text(x, y + text_loc[i], 
+         paste0(par_name[i], " = c(", 
+                paste(round(op[[par_name[i]]]), 
+                            collapse = ", "), ")"), 
+         adj = 0, ...)
+  }
+  text(x, y + text_loc[i] + 0.05, title, adj = 0)
+}
+
+
+# 1. plot area available when internal margins are 0
+par(op)
+par(mai = c(0, 0, 0, 0), xaxs = 'i', yaxs = 'i')
+plot.new()
+abline(h = c(0.4, 0.9), v = c(0.4, 0.9), lty = 4)
+rect(0.4, 0.4, 0.9, 0.9, border = "red")
+par(op)
+
+
+# 2. Plot new fig
+newfig <- c(0.4, 0.9, 0.4, 0.9)
+par(fig = newfig, new = TRUE)
+op_reduced <- par(no.readonly = TRUE)
+set.seed(12345)
+plot(runif(10), runif(10), typ = 'p', 
+    xlab = 'X', ylab = 'Y', xlim = c(0, 1), ylim = c(0, 1))
+par(op)
+par(mai = c(0, 0, 0, 0), xaxs = 'i', yaxs = 'i', new = TRUE)
+
+# 3. Info about dimensions
+plot.new()
+plot_dim(0.05, 0.5, op_reduced, "New plot dimension on the right", cex = 0.9)
+plot_dim(0.5, 0.05, op, "Default plot dimensions", cex = 0.8)
 ```
 
 <div class="figure">
-<img src="figures/graphics-figureAnatomy1.png" alt="레이아웃 파라미터. [AIMS-R-Users](http://users.monash.edu.au/~murray/AIMS-R-users/ws/ws11.html)에서 발췌" width="50%" /><img src="figures/graphics-figureAnatomy2.png" alt="레이아웃 파라미터. [AIMS-R-Users](http://users.monash.edu.au/~murray/AIMS-R-users/ws/ws11.html)에서 발췌" width="50%" />
-<p class="caption">(\#fig:layout-par)레이아웃 파라미터. [AIMS-R-Users](http://users.monash.edu.au/~murray/AIMS-R-users/ws/ws11.html)에서 발췌</p>
+<img src="05-data-visualization_files/figure-epub3/fig-anatomy-1.svg" alt="fig 인수 조정 예시: Graphical parameters of R graphics package에서 발췌"  />
+<p class="caption">(\#fig:fig-anatomy)fig 인수 조정 예시: Graphical parameters of R graphics package에서 발췌</p>
+</div>
+
+ \normalsize
+
+
+#### **`mar`** {#mar .unnumbered}
+
+> - `c(bottom, left, top, left)` 형태의 수치형 벡터를 값으로 갖음
+> - plot 영역 밖의 여백(figure 영역)을 line 수로 지정(아래 그림 참고)
+> - 디폴트 값은 `c(5, 4, 4, 2) + 0.1` 임
+
+\footnotesize
+
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/mar-anatomy-1.svg" alt="Figure 영역에서 기본 여백: Graphical parameters of R graphics package 에서 발췌"  />
+<p class="caption">(\#fig:mar-anatomy)Figure 영역에서 기본 여백: Graphical parameters of R graphics package 에서 발췌</p>
+</div>
+
+ \normalsize
+
+
+#### **`mfcol`, `mfrow`** {#mfrow-mfcol .unnumbered}
+
+> - `c(nrow, ncol)` 형태의 2차원 수치형 벡터를 값으로 갖음
+> - 앞의 예제에서 확인한 바와 같이 각 행과 열 별로 행 기준 또는 열 기준으로 다중 그래프를 한 화면에 출력
+> - 정방형 그래프로 분할하며 `c(2, 2)`인 경우 텍스트 크기는 `cex` 값 기준 0.83배 감소
+
+\footnotesize
+
+
+```r
+par(oma = c(0, 0, 3, 0), # 윗쪽 여백 크기 조정
+    mfrow = c(3, 2))
+for (i in 1:6) {
+  set.seed(12345)
+  plot(rnorm(20), rnorm(20),
+       main = paste("Plot", i))
+  box("figure")
+}
+# 윗쪽 여백(side=3)에 텍스트 출력
+mtext(side = 3, line = 1, cex = 0.8, col = "blue",
+    "Muptiple plots with mfrow = c(2, 3)",
+    outer = TRUE) # outer 여백 사용 여부
+
+par(oma = c(0, 0, 3, 0),
+    mfcol = c(3, 2))
+for (i in 1:6) {
+  set.seed(12345)
+  plot(rnorm(20), rnorm(20),
+       main = paste("Plot", i))
+  box("figure")
+}
+mtext(side = 3, line = 1, cex = 0.8, col = "blue",
+    "Muptiple plots with mfcol = c(3, 2)",
+    outer = TRUE)
+```
+
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-45-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-45-2.svg" width="50%" />
+
+ \normalsize
+
+
+#### **mfg** {#mfg .unnumbered}
+
+> - `c(i, j)` 형태의 숫자형 벡터의 값
+> - `mfcol` 또는 `mfrow` 파라미터로 그림 배열이 정해진 상태에서 어떤 그림이 다음에 드려지는지를 지정
+> - `c(1,1)`은 차원과 상관 없이 맨 처음 출력한 그래프가 생성
+
+\footnotesize
+
+
+```r
+df_order <- expand.grid(x = 1:2,
+                        y = 1:3)
+set.seed(123)
+idx <- sample(2:6, nrow(df_order)-1)
+df_order <- df_order[c(1,idx), ]
+par(mfrow = c(2, 3),
+    oma = c(0, 0, 3, 0))
+
+for (i in 0:5) {
+  set.seed(123)
+  par(mfg = as.numeric(df_order[i+1, ]))
+  plot(rnorm(20), rnorm(20),
+       main = paste("Plot", i+1))
+  box("figure")
+}
+
+mtext(side = 3, line = 1, cex = 0.8, col = "blue",
+    "Multiple plots by row: order in mfrow changed by mfg parameter.",
+    outer = TRUE)
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-46-1.svg)<!-- -->
+
+ \normalsize
+
+- `mfrow`와 `mfcol` 유사함수: `layout()`, `split.screen()`
+
+- `layout()`:  행렬 객체를 인수로 받아 화면 분할
+
+\footnotesize
+
+
+```r
+# mtcars 데이터셋
+graph_array <- matrix(c(1, 1, 2, 3), nrow = 2, byrow = TRUE)
+par(oma = c(0, 0 , 3, 0))
+layout(mat = graph_array)
+plot(mpg ~ disp, # 데이터 프레임인 경우 수식 표현도 가능
+     data = mtcars,
+     main = "layout 1")
+hist(mtcars$disp,
+     main = "layout 2")
+hist(mtcars$mpg,
+     main = "layout 3")
+mtext(side = 3, line = 1, cex = 1, col = "blue",
+      "c(1, 1): scatter plot, c(2) = histogram: dsip, c(3) = histogram: mpg",
+      outer = TRUE)
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-47-1.svg)<!-- -->
+
+ \normalsize
+
+- `split.screen()`: `layout()`과 유사하게 그래프의 화면을 분할하고 더 많은 기능을 제공
+   - `screen()`: 분할된 화면 지정
+   - `erase.screen()`: 지정된 화면의 그래프 삭제
+
+\footnotesize
+
+
+```r
+split.screen(fig = c(2, 2)) # 화면을 2 by 2로 분할
+```
+
+```
+[1] 1 2 3 4
+```
+
+```r
+par(oma = c(0, 0, 3, 0))
+screen(n = 4)
+vioplot::vioplot(mpg ~ cyl, data = mtcars,
+                 main = "screen n = 4")
+screen(n = 1)
+hist(mtcars$mpg,
+     main = "screen n = 1")
+screen(n = 3)
+plot(mpg ~ wt, data = mtcars,
+     main = "screen n = 3")
+screen(n = 2)
+boxplot(mpg ~ gear, data = mtcars,
+        main = "screen n = 2")
+mtext(side = 3, line = 1, cex = 0.8, col = "blue",
+      "Split using split.screen()",
+      outer = TRUE)
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-48-1.svg)<!-- -->
+
+ \normalsize
+
+
+
+#### **new** {#new .unnumbered}
+
+> - 논리값(`TRUE` 또는 `FALSE`) 지정
+> - 디폴트 값은 `FALSE`
+> - 새로운 그래프를 이미 존재하는 그래프 장치에 출력
+
+\footnotesize
+
+
+```r
+# boxplot + violin plot
+## iris 데이터 셋
+par(bty = "n") # x-y 축 스타일 지정
+boxplot(Sepal.Length ~ Species,
+        data = iris)
+new_fig <- c(0.05, 0.46, 0.4, 0.99)
+par(new = TRUE,
+    fig = new_fig)
+vioplot::vioplot(Sepal.Length ~ Species,
+                 data = iris,
+                 col = "skyblue",
+                 yaxt = "s",
+                 ann = FALSE)
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-49-1.svg)<!-- -->
+
+ \normalsize
+
+
+#### **oma** {#oma .unnumbered}
+
+> - `c(bottom, left, top, right)` 형태의 숫자형 벡터 값 사용
+> - Outer 여백의 크기 조정(텍스트 라인 기준)
+> - 아래 예시는 `oma = c(2, 3, 3, 1)` 인 경우 여백 표시
+
+\footnotesize
+
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/oma-anatomy-1.svg" alt="Outer 여백 조정 파라미터(mar = c(2, 3, 3, 1)) Graphical parameters of R graphics package에서 발췌"  />
+<p class="caption">(\#fig:oma-anatomy)Outer 여백 조정 파라미터(mar = c(2, 3, 3, 1)) Graphical parameters of R graphics package에서 발췌</p>
+</div>
+
+ \normalsize
+
+
+### points() {#points}
+
+- 점을 그리는 저수준 그래프 함수로 이미 출력된 x-y 좌표 위에 지정한 점 문자 출력
+- x-y 좌표 지정은 `plot()` 함수와 동일
+- 많이 사용되는 점 문자 기호(symbol)은 그림 \@ref(fig:plot-symbol) 참고
+
+\footnotesize
+
+
+```r
+# cars 데이터셋
+par(mfrow = c(1, 2))
+plot(dist ~ speed, data = cars,
+     type = "n",
+     bty = "n",
+     main = "points() function example 1: cars dataset")
+points(cars$speed, cars$dist,
+       pch = 16,
+       col = "darkgreen",
+       cex = 1.5)
+shapes <- 15:17 # pch 지정
+plot(Petal.Length ~ Sepal.Length, data = iris,
+     type = "n",
+     bty = "n",
+     main = "points() function example 2: iris dataset")
+points(iris$Sepal.Length,
+       iris$Petal.Length,
+       pch = shapes[as.numeric(iris$Species)], # 각 Species에 대해 shapes 할당
+       col = as.numeric(iris$Species),
+       cex = 1.5)
+```
+
+![](05-data-visualization_files/figure-epub3/points-ex-1.svg)<!-- -->
+
+ \normalsize
+
+
+### lines() {#lines}
+
+- x-y 좌표의 점을 이어 선을 만드는 함수
+- `plot()` 함수에서 `type` 인수에 "l"을 사용한 것과 유사
+- 선의 모양(`lty`)과 굵기(`lwd`)를 지정할 수 있으며 그림 \@ref(fig:plot-linetype)와 그림 \@ref(fig:plot-linewidth)를 참고
+
+\footnotesize
+
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/plot-linewidth-1.svg" alt="선 두께(lwd) 파라미터: Graphical parameters of R graphics package 에서 발췌"  />
+<p class="caption">(\#fig:plot-linewidth)선 두께(lwd) 파라미터: Graphical parameters of R graphics package 에서 발췌</p>
+</div>
+
+ \normalsize
+
+- `line()` 함수 사용 예시: 정규분포 분포 그리기
+
+\footnotesize
+
+
+```r
+# 정규분포 평균=0, 분산=1
+# 정규분포 평균=0, 분산=2
+# 정규분포 평균=0, 분산=3
+par(mar = c(3, 0, 3, 0))
+x <- seq(-5, 5, 0.01)
+y <- mapply(dnorm,
+            list(x, x, x),
+            c(0, 0, 0),
+            c(1, sqrt(2), sqrt(3)))
+
+plot(x, y[,1],
+     type = "n",
+     bty = "n",
+     yaxt = "n",
+     ann = FALSE,
+     xlim = c(-5, 5))
+lines(c(0, 0), c(0, max(y[,1])), lty = 2, col = "lightgray")
+lines(x, y[,1], lty = 1, lwd = 2,
+      col = "black")
+lines(c(0.3, 2), rep(max(y[,1]), 2), lty = 1, col = "gray")
+text(2.1, max(y[,1]),
+     expression(paste(mu == 0, "," ~~ sigma == 1)), # 수식 표현
+     adj = 0)
+
+lines(x, y[,2], lty = 2, lwd = 2, col = "blue")
+lines(c(0.3, 2), rep(max(y[, 2]), 2), lty = 1, col = "gray")
+text(2.1, max(y[,2]),
+     expression(paste(mu == 0, "," ~~ sigma == 2)), # 수식 표현
+     adj = 0)
+
+lines(x, y[,3], lty = 3, lwd = 2, col = "green")
+lines(c(0.3, 2), rep(max(y[,3]), 2), lty = 1, col = "gray")
+text(2.1, max(y[,3]),
+     expression(paste(mu == 0, "," ~~ sigma == 3)), # 수식 표현
+     adj = 0)
+mtext("Normal distribution", side = 3, adj = 0.2, cex = 2)
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-50-1.svg)<!-- -->
+
+ \normalsize
+
+
+### ablines() {#ablines}
+
+- x-y 좌표에 직선을 그리는 함수로 `lines()` 함수와 유사하나 y 절편과 x 기울기, 또는 x 절편(y 축과 평행한 직선, `(x, 0)`)과 y 절편(x축과 평행한 직선, `(0, y)`)을 이용해 직선을 그릴 수 있음
+   - `a`: y 절편
+   - `b`: x 기울기
+   - `h`: x축과 수평선(y 값)
+   - `v`: x축과 수직선(y축과 수평선, x 값)
+
+\footnotesize
+
+
+```r
+# 회귀직선과 x, y의 평균선, 회귀직선으로부터 각 점 까지 거리를 직선 표시
+## mtcars 데이터
+plot(mpg ~ hp, data = mtcars,
+     type = "n",
+     bty = "n",
+     xlim = c(50, 350),
+     ylim = c(5, 40),
+     main = "abline() examples with mtcars dataset",
+     xlab = "Horse power",
+     ylab = "Miles/gallon",
+     cex.main = 1.5)
+m <- lm(mpg ~ hp, data = mtcars) # 일변량 회귀모형
+yhat <- predict(m) # 회귀모형의 예측값
+
+# 회귀직선으로부터 각 관측점 까지 거리(오차) 직선 표시 함수
+dist_error <- function(i) {
+  lines(c(mtcars$hp[i], mtcars$hp[i]),
+        c(mtcars$mpg[i], yhat[i]),
+        col = "green",
+        lwd = 0.8,
+        lty = 1)
+}
+for (i in 1:nrow(mtcars)) dist_error(i)
+
+with(mtcars,
+     points(hp, mpg,
+            pch = 16,
+            cex = 1))
+abline(m, lty = 1, lwd = 3, col = "red")
+abline(h = mean(mtcars$mpg),
+       lty = 2,
+       col = "darkgray") # mpg 평균
+abline(v = mean(mtcars$hp),
+       lty = 2,
+       col = "darkgray") # hp 평균
+text(mean(mtcars$hp), 40,
+     # text 수식 표현 참고
+     bquote(paste(bar(x) == .(sprintf("%.1f", mean(mtcars$hp))))),
+     adj = 0,
+     pos = 4)
+text(350, mean(mtcars$mpg),
+     bquote(paste(bar(x) == .(sprintf("%.1f", mean(mtcars$mpg))))),
+     pos = 3)
+```
+
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/abline-example-1.svg" alt="abline(), lines() 함수를 이용한 회귀직선 및 오차 거리 표시 예제"  />
+<p class="caption">(\#fig:abline-example)abline(), lines() 함수를 이용한 회귀직선 및 오차 거리 표시 예제</p>
+</div>
+
+ \normalsize
+
+
+### arrows() {#arrows}
+
+- 화살표를 그리는 함수
+- `x0, y0, x1, y1` 형태의 숫자를 값으로 사용
+- `(x0, y0)`: 시작점 좌표
+- `(x1, y1)`: 끝점 좌표
+- `angle`, `length`, `code` 인수 조정을 통해 화살표 스타일 지정
+
+\footnotesize
+
+
+```r
+par(mar = rep(0, 4))
+plot(1, 1,
+     type = 'n', axes = FALSE, ann = FALSE,
+     xaxs = 'i', yaxs = 'i',
+     xlim = c(0,11), ylim = c(0,11))
+text(5.5, 10.5,
+     "Type of arrows by values of angle, length, and codes",
+     font = 2, # 2=bold, 3=italic, 4=bold italic
+     adj = c(0.5, 0),
+     cex = 1.5)
+
+angle_val <- c(60, 90, 120)
+length_val <- c(0.25, 0.1, 0.5)
+code_val <- c(0, 1, 3)
+for (i in 1:3) {
+  arrows(1, 9-i+1, 5, 9-i+1,
+         length = length_val[i])
+  text(6, 9-i+1, pos = 4,
+       sprintf("angle = 30, length = %.2f, code = 2",
+               length_val[i]))
+}
+
+for (i in 1:3) {
+  arrows(1, 6-i+1, 5, 6-i+1,
+         length = 0.25,
+         angle = angle_val[i])
+  text(6, 6-i+1, pos = 4,
+       sprintf("angle = %d, length = 0.25, code = 2",
+               angle_val[i]))
+}
+
+for (i in 1:3) {
+  arrows(1, 3-i+1, 5, 3-i+1,
+         length = 0.25,
+         angle = 30,
+         code = code_val[i])
+  text(6, 3-i+1, pos = 4,
+       sprintf("angle = 30, length = 0.25, code = %d",
+               code_val[i]))
+}
+```
+
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/arrow-type-1.svg" alt="arrows() 함수 주요 파라미터 변경에 따른 화살표 출력 결과"  />
+<p class="caption">(\#fig:arrow-type)arrows() 함수 주요 파라미터 변경에 따른 화살표 출력 결과</p>
+</div>
+
+ \normalsize
+
+
+### rect() {#rect}
+
+- x-y 좌표 위에 사각형을 그리는 함수
+   - `xleft`: 사각형의 왼쪽 x 좌표
+   - `ybottom`: 사각형의 아래쪽 y 좌표
+   - `xright`:  사각형의 오른쪽 x 좌표
+   - `ytop`: 사각형의 위쪽 y 좌표
+
+\footnotesize
+
+
+```r
+# 길이와 높이가 5인 정사각형 그리기
+plot(x = 1:10,
+     y = 1:10,
+     type = "n",
+     xlab = "", ylab = "",
+     main = "Rectangle coordinates used in rect()")
+rect(3, 3, 8, 8,
+     density = 10, # 사각형 내부를 선으로 채움
+     angle = 315) # 내부 선의 기울기 각도(degree)
+text(3, 3, "(xleft = 3, ybottom = 3)", adj = 0.5,  pos = 1)
+text(8, 3, "(xright = 8, ybottom = 3)", adj = 0.5, pos = 1)
+text(8, 8, "(xright = 8, ytop = 8)", adj = 0.5, pos = 3)
+text(3, 8, "(xleft = 3, ytop = 8)", adj = 0.5, pos = 3)
+grid()
+```
+
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/rectangle-coord-1.svg" alt="rect() 좌표 인수"  />
+<p class="caption">(\#fig:rectangle-coord)rect() 좌표 인수</p>
+</div>
+
+ \normalsize
+
+
+### polygon() {#polygon}
+
+- x-y 좌표의 점을 연결해 폐 다각형을 만드는 함수
+- 좌표 지정 방법은 `plot()` 함수와 동일
+
+\footnotesize
+
+
+```r
+# polygon() 사용 예시
+plot(x = 0:10,
+     y = 0:10,
+     type = "n",
+     bty = "n",
+     xaxt = "n",
+     yaxt = "n",
+     xlab = "",
+     ylab = "",
+     main = "Polygon examples")
+
+# Pentagon
+theta1 <- seq(-pi, pi, length = 6)
+x <- cos(theta1 + 0.5*pi) # cosine 함수
+y <- sin(theta1 + 0.5*pi)
+x1 <- 2*x + 2; y1 <- -2*y + 7
+polygon(x1, y1)
+text(2, 9.2, "Pentagon", adj = 0.5, pos = 3, cex = 1.5)
+
+# Octagon
+theta2 <- seq(-pi, pi, length = 9)
+x <- cos(theta2) # cosine 함수
+y <- sin(theta2)
+
+x2 <- 2*x + 7; y2 <- -2*y + 7
+polygon(x2, y2,
+        col = "#05B8FF",
+        bolder = "black",
+        lwd = 4)
+```
+
+```
+Warning in polygon(x2, y2, col = "#05B8FF", bolder = "black", lwd = 4):
+"bolder"는 그래픽 매개변수가 아닙니다
+```
+
+```r
+text(7, 9.2, "Octagon", adj = 0.5, pos = 3, cex = 1.5)
+
+# 별표시
+x2 <- c(2, 4/3, 0, 2/3, 0, 4/3, 2, 8/3, 4, 10/3, 4, 8/3)
+y2 <- c(4, 3.0, 3, 2.0, 1, 1.0, 0, 1.0, 1,  2.0, 3, 3.0)
+polygon(x2, y2,
+        density = 20,
+        angle = 135,
+        lty = 1,
+        lwd = 2)
+text(2, 4.1, "Star (Jewish)", adj = 0.5, pos = 3, cex = 1.5)
+
+# Triangle (perpendicular)
+x3 <- c(5, 9, 5)
+y3 <- c(0, 0, 4)
+polygon(x3, y3, lwd = 3, col = "gray")
+x4 <- c(5, 5.3, 5.3, 5)
+y4 <- c(0, 0.0, 0.3, 0.3)
+polygon(x4, y4, lwd = 3) # 직각표시
+text(7, 4.1, "Triangle (perpendicular)", adj = 0.5, pos = 3, cex = 1.5)
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-51-1.svg)<!-- -->
+
+ \normalsize
+
+- 확률분포 아래 면적 표시
+- $Z ~  \stackrel{i.i.d}{\sim} N(0, 1)$ 라고 할 때 $P(-1.5 < Z < 0.7)$에 해당하는 부분 표시
+
+\footnotesize
+
+
+```r
+# 표준정규분포 곡선 하 면적 표시
+x <- seq(-3, 3, by = 0.01)
+z <- dnorm(x)
+plot(x, z,
+     type = "n",
+     bty = "n",
+     xlab = expression(bold(Z)),
+     ylab = "Density",
+     main = "Standard normal distribution")
+idx <- x > -1.5 & x < 0.7 # 해당 구간 index 설정
+polygon(c(-1.5, x[idx], 0.7),
+        c(0, z[idx], 0),
+        col = "green",
+        border = "green")
+lines(x, z, lty = 1, lwd = 2)
+text(x = 0.5, y = 0.15,
+     bquote(P({-1.5 < Z} < 0.7 ) ==
+              .(sprintf("%.3f", pnorm(0.7) - pnorm(-1.5)))),
+     # pnorm = P(Z <= c), 평균=0, 분산=1 인 경우
+     adj = 1)
+```
+
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/polygon-example-1.svg" alt="polygon()을 이용한 확률밀도함수 곡선 아래 면적 표시 예시"  />
+<p class="caption">(\#fig:polygon-example)polygon()을 이용한 확률밀도함수 곡선 아래 면적 표시 예시</p>
+</div>
+
+ \normalsize
+
+### text(), mtext() {#text}
+
+- `text()`: x-y 좌표에 문자열을 입력하는 함수
+
+\footnotesize
+
+
+```r
+text(x, # x-좌표값
+     y, # y-좌표값
+     label, # 입력할 텍스트 문자열
+     adj, # 원점 좌표를 기준으로 텍스트 문자열 자리 맞춤
+          # 0 - 1 사이 값은 수평 맞추기 지정
+          # 0=오른쪽, 0.5=가운데 정렬, 1=왼쪽 정렬 (원점 기준)
+     pos, # adj를 단순화하여 텍스트 자리 맞춤
+          # 1=bottom, 2=left, 3=top, 4=right,
+     srt  # 문자열 회전(in degree)
+     ...
+     )
+```
+
+ \normalsize
+
+
+\footnotesize
+
+<div class="figure">
+<img src="figures/graphics-adjPlot.png" alt="text() 함수에서 adj 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌" width="80%" />
+<p class="caption">(\#fig:text-adj-par)text() 함수에서 adj 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌</p>
+</div>
+
+ \normalsize
+
+
+\footnotesize
+
+<div class="figure">
+<img src="figures/graphics-posPlot.png" alt="text() 함수에서 pos 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌" width="80%" />
+<p class="caption">(\#fig:text-pos-par)text() 함수에서 pos 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌</p>
+</div>
+
+ \normalsize
+
+
+\footnotesize
+
+<div class="figure">
+<img src="figures/graphics-srtPlot.png" alt="text() 함수에서 srt 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌" width="80%" />
+<p class="caption">(\#fig:text-srt-par)text() 함수에서 srt 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌</p>
+</div>
+
+ \normalsize
+
+
+- `mtext()`: plot 여백 또는 outer 여백 상에 문자를 출력하는 함수
+
+\footnotesize
+
+
+```r
+mtext(
+  text, # 입력할 텍스트 문자열
+  side, # 텍스트 문자열이 출력되는 여백 지정
+        # 1=bottom, 2=left, 3=top, 4=right
+  line, # 지정 여백에서 텍스트 출력 위치 지정
+  outer, # outer 여백 사용 여부
+  at,  # line 내에서 텍스트 열 위치(좌표축 기준) 지정
+  adj, # text() 함수의 adj 파라미터와 동일
+  ...
+)
+```
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+par(mar = c(4, 4, 4, 4),
+    oma = c(4, 0, 0, 0))
+set.seed(1345)
+plot(rnorm(20),
+     type = "o",
+     xlab = "", ylab = "")
+# side = 3 (top), line=0, 1, 2, 3 변경
+for (i in 0:4) {
+  mtext(paste("Side = 3, line =", i),
+        side = 3,
+        line = i)
+}
+# side = 3 (top), outer 여백 사용, line=0, 1, 2, 3 변경
+for (i in 0:4) {
+  mtext(paste("Side = 1, outer = TRUE, line =", i),
+        side = 1,
+        line = i,
+        outer = TRUE)
+}
+
+# adj 인수 조정
+adj_par <- c(0, 0.5, 1)
+for (i in 1:3) {
+  mtext(sprintf("Side = 1, line = %d, adj = %.1f",
+                i, adj_par[i]),
+  side = 1, line = i, adj = adj_par[i])
+}
+
+# side = 2 (left)
+for (i in 1:3) {
+  mtext(sprintf("Side = 2, line = %d, adj = %.1f",
+                i, adj_par[i]),
+  side = 2, line = i, adj = adj_par[i])
+}
+
+# side = 4 (right), at 조정
+at_val <- c(-1, 0, 1)
+for (i in 1:3) {
+  mtext(sprintf("Side = 4, line = %d, at = %.1f",
+                i, adj_par[i]),
+  side = 4, line = i, at = at_val[i])
+}
+mtext("mtext parameter check",
+      col = "blue",
+      cex = 0.8,
+      line = 0,
+      adj = 0)
+```
+
+![](05-data-visualization_files/figure-epub3/mtext-anatomy-1.svg)<!-- -->
+
+ \normalsize
+
+
+### legend() {#legend}
+
+- 범례(legend)를 생성하는 함수로 그래프에 표시된 점, 선, 또는 색에 해당되는 정보를 설명하기 위해 이용
+- `legend()` 함수에서 범례 위치 지정 방법
+   - x-y 좌표 이용
+   - 위치를 나타내는 문자 이용: `bottomright`, `right`, `topright`, `top`, `topleft`, `left`, `bottomleft`, `bottom`
+
+\footnotesize
+
+
+```r
+plot(Petal.Length ~ Sepal.Length, data = iris,
+     type = "n",
+     bty = "n",
+     main = "points() function example 2: iris dataset")
+points(iris$Sepal.Length,
+       iris$Petal.Length,
+       pch = shapes[as.numeric(iris$Species)], # 각 Species에 대해 shapes 할당
+       col = as.numeric(iris$Species),
+       cex = 1.5)
+legend("bottomright", legend = unique(iris$Species), pch = 15:17, col = 1:3)
+legend(4.5, 6, legend = unique(iris$Species), pch = 15:17, col = 1:3)
+
+legend("top",
+       legend = unique(iris$Species),
+       pch = 15:17, col = 1:3,
+       pt.cex = 3, # legend 점 크기 조정
+       ncol = 3) # # legend 영역 열 개수 지정
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-54-1.svg)<!-- -->
+
+ \normalsize
+
+
+### 수식 표현 {#math-expression}
+
+<!-- - 문자열을 출력하는 텍스트 함수(`text()`, `mtext()`, `legend()`)는 언어 객체(language object)를 지원하며 다음을 포함 -->
+<!--   - **names**: 객체의 이름 -->
+<!--   - **expression**: R 명령 프롬프트 상에서 다르게 해석(평가)될 수 있는 특정 표현식  -->
+<!--   - **calls**: 인수값으로 완전한 표현을 할 수 있는 평가되지 않은 함수로 구성된 특정 표현식 -->
+
+> - 그래프 상 수식은 `expression()`, `bquote()`, `substitute()` 함수로 표현 가능
+> - TeX^[도널드 커누스가 만든 문서 조판 프로그램으로, 수학, 통계학, 물리학 등 자연과학 및 공학 분야에서 논문, 책자, 슬라이드 등 다양한 형태의 문서 작성을 위해 사용됨. 특히 수식 표현에 있어 다른 워드 프로세서와 비교할 수 없을 정도로 강력하며, 구조적 문서 작성을 강제함.]과 유사한 수식 형태를 표현하기 위해 복잡한 표현식들이 사용됨 $\rightarrow$ 아래 표 참고(`demo(plotmath)`를 통해 동일한 표 출력 가능)
+
+
+<!-- ```{r, echo=FALSE, message=FALSE, results=FALSE, out.width="50%", fig.height=8, fig.width=6.5, fig.show="hold"} -->
+<!-- demo(plotmath, ask = FALSE, echo = FALSE, encoding = "UTF-8") -->
+<!-- ``` -->
+
+
+\footnotesize
+
+<div class="figure">
+<img src="figures/expression-table-01.png" alt="R expression() 함수 내 수식 표현 방법" width="50%" /><img src="figures/expression-table-02.png" alt="R expression() 함수 내 수식 표현 방법" width="50%" /><img src="figures/expression-table-03.png" alt="R expression() 함수 내 수식 표현 방법" width="50%" /><img src="figures/expression-table-04.png" alt="R expression() 함수 내 수식 표현 방법" width="50%" /><img src="figures/expression-table-05.png" alt="R expression() 함수 내 수식 표현 방법" width="50%" />
+<p class="caption">(\#fig:expression-math)R expression() 함수 내 수식 표현 방법</p>
 </div>
 
  \normalsize
 
 
 
-### points() {#points}
+> Greek letters
 
-### lines() {#lines}
+\footnotesize
 
-### ablines() {#ablines}
+<div class="figure">
+<img src="figures/greek-letters.png" alt="R 그리스 문자 표현"  />
+<p class="caption">(\#fig:greek-letters)R 그리스 문자 표현</p>
+</div>
 
-### arrows() {#arrows}
-
-### polygons() {#polygons}
-
-### text()
-
-
-### R 기본 그래프 이미지 파일로 저장
+ \normalsize
 
 
-## ggplot2
+<!-- ```{r, echo=FALSE, eval=FALSE} -->
+<!-- par(family = "serif") -->
+<!-- plot(0:6, 0:6,  -->
+<!--      type = "n",  -->
+<!--      ann = FALSE,  -->
+<!--      bty = "n",  -->
+<!--      yaxt = "n", -->
+<!--      xaxt = "n", -->
+<!--      xpd = NA,  -->
+<!--      ) -->
+<!-- text(0.3, 5.8, expression(paste(Alpha~~alpha)), cex = 4) -->
+<!-- text(0.3, 5.8, "Alpha alpha", pos = 1, offset = 1.5, cex = 2) -->
 
-### 기본 문법
+<!-- text(1.6, 5.8, expression(paste(Beta~~beta)), cex = 4) -->
+<!-- text(1.6, 5.8, "Beta beta", pos = 1, offset = 1.5, cex = 2) -->
 
-### `geom_point()`
+<!-- text(2.9, 5.8, expression(paste(Gamma~~gamma)), cex = 4) -->
+<!-- text(2.9, 5.8, "Gamma gamma", pos = 1, offset = 1.5, cex = 2) -->
 
-### `geom_line()`
+<!-- text(4.2, 5.8, expression(paste(Delta~~delta)), cex = 4) -->
+<!-- text(4.2, 5.8, "Delta delta", pos = 1, offset = 1.5, cex = 2) -->
 
-### `geom_bar()`
+<!-- text(5.5, 5.8, expression(paste(Epsilon~~epsilon)), cex = 4) -->
+<!-- text(5.5, 5.8, "Epsilon epsilon", pos = 1, offset = 1.5, cex = 2) -->
 
-### `geom_errorbar()`
+<!-- text(0.3, 4.5, expression(paste(Zeta~~zeta)), cex = 4) -->
+<!-- text(0.3, 4.5, "Zeta zeta", pos = 1, offset = 1.5, cex = 2) -->
 
-### `geom_histogram()`
+<!-- text(1.6, 4.5, expression(paste(Eta~~eta)), cex = 4) -->
+<!-- text(1.6, 4.5, "Eta eta", pos = 1, offset = 1.5, cex = 2) -->
 
-### `geom_boxplot()`
+<!-- text(2.9, 4.5, expression(paste(Theta~~theta)), cex = 4) -->
+<!-- text(2.9, 4.5, "Theta theta", pos = 1, offset = 1.5, cex = 2) -->
 
-### `geom_density()`
+<!-- text(4.2, 4.5, expression(paste(Iota~~iota)), cex = 4) -->
+<!-- text(4.2, 4.5, "Iota iota", pos = 1, offset = 1.5, cex = 2) -->
 
-### `geom_smooth()`
+<!-- text(5.5, 4.5, expression(paste(Kappa~~kappa)), cex = 4) -->
+<!-- text(5.5, 4.5, "Kappa kappa", pos = 1, offset = 1.5, cex = 2) -->
 
-### `theme()`
+<!-- text(0.3, 3.2, expression(paste(Lambda~~lambda)), cex = 4) -->
+<!-- text(0.3, 3.2, "Lambda lambda", pos = 1, offset = 1.5, cex = 1.8) -->
+
+<!-- text(1.6, 3.2, expression(paste(Mu~~mu)), cex = 4) -->
+<!-- text(1.6, 3.2, "Mu mu", pos = 1, offset = 1.5, cex = 2) -->
+
+<!-- text(2.9, 3.2, expression(paste(Nu~~nu)), cex = 4) -->
+<!-- text(2.9, 3.2, "Nu nu", pos = 1, offset = 1.5, cex = 2) -->
+
+<!-- text(4.2, 3.2, expression(paste(Xi~~xi)), cex = 4) -->
+<!-- text(4.2, 3.2, "Xi xi", pos = 1, offset = 1.5, cex = 2) -->
+
+<!-- text(5.5, 3.2, expression(paste(Omicron~~omicron)), cex = 4) -->
+<!-- text(5.5, 3.2, "Omicron omicron", pos = 1, offset = 1.5, cex = 2) -->
+
+<!-- text(0.3, 1.9, expression(paste(Pi~~pi)), cex = 4) -->
+<!-- text(0.3, 1.9, "Pi pi", pos = 1, offset = 1.5, cex = 2) -->
+
+<!-- text(1.6, 1.9, expression(paste(Rho~~rho)), cex = 4) -->
+<!-- text(1.6, 1.9, "Rho rho", pos = 1, offset = 1.5, cex = 2) -->
+
+<!-- text(2.9, 1.9, expression(paste(Sigma~~sigma)), cex = 4) -->
+<!-- text(2.9, 1.9, "Sigma sigma", pos = 1, offset = 1.5, cex = 2) -->
+
+<!-- text(4.2, 1.9, expression(paste(Tau~~tau)), cex = 4) -->
+<!-- text(4.2, 1.9, "Tau tau", pos = 1, offset = 1.5, cex = 2) -->
+
+<!-- text(5.5, 1.9, expression(paste(Upsilon~~upsilon)), cex = 4) -->
+<!-- text(5.5, 1.9, "Upsilon upsilon", pos = 1, offset = 1.5, cex = 2) -->
+
+<!-- text(0.3, 0.6, expression(paste(Phi~~phi)), cex = 4) -->
+<!-- text(0.3, 0.6, "Phi phi", pos = 1, offset = 1.5, cex = 2) -->
+
+<!-- text(1.6, 0.6, expression(paste(Chi~~chi)), cex = 4) -->
+<!-- text(1.6, 0.6, "Chi chi", pos = 1, offset = 1.5, cex = 2) -->
+
+<!-- text(2.9, 0.6, expression(paste(Psi~~psi)), cex = 4) -->
+<!-- text(2.9, 0.6, "Psi psi", pos = 1, offset = 1.5, cex = 2) -->
+
+<!-- text(4.2, 0.6, expression(paste(Omega~~omega)), cex = 4) -->
+<!-- text(4.2, 0.6, "Omega omega", pos = 1, offset = 1.5, cex = 2) -->
+
+<!-- ``` -->
+
+
+
+
+- `expression()`: 문자 TeX 형태와 유사한 기호 및 표현을 이용해 수식 표현
+- `bquote()`: `.()` 안에 있는 표현을 먼저 평가 한 후 그 값을 변환해 수식 표현식 안에 들어가는 값으로 사용 $\rightarrow$ 그림 \@ref(fig:abline-example), 그림 \@ref(fig:polygon-example) 예시 및 스크립트 참고
+
+> 두 함수 모두 `paste()` 함수와 같이 사용 하는 것이 일반적인 수식과 문자 표현 방법임.
+
+\footnotesize
+
+
+```r
+# 수식 표현 예시 expression() + paste()
+par(cex = 1.5 ,
+    cex.lab = 1.2)
+set.seed(202005)
+x <- rnorm(10, 25, 3)
+y <- rnorm(10, 25, 3)
+
+plot(x, y,
+     type = "p",
+     axes = TRUE,
+     ann = FALSE,
+     bty = "n")
+mtext(expression(paste("Temperature", ~(degree*C))),
+      side = 1, line = 3, cex = 1.5)
+mtext(expression(paste("Respiration", ~(mL ~O[2] ~ h^-1))),
+      side = 2,
+      line = 3,
+      cex = 1.5)
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-55-1.svg)<!-- -->
+
+ \normalsize
+
+
+\footnotesize
+
+
+```r
+par(cex = 1.5)
+plot(0:6, 0:6,
+     type = "n",
+     bty = "o",
+     xaxt = "n",
+     yaxt = "n",
+     ann = FALSE)
+text(0.3, 5.8, "Normal distribution:", adj = 0)
+text(0.3, 4.8, expression(paste(f, "(", x, ";", list(mu, sigma), ")"
+                                == frac(1, sigma*sqrt(2*pi))*~~exp *
+                                  bgroup('(', -frac((x-mu)^2, 2*sigma^2), ')') )),
+     adj = 0)
+text(4, 5.8, "Binomial distribution:", adj = 0)
+text(4, 4.8, expression(paste(f, "(", x, ";", list(n, p), ")"
+                                == bgroup("(", atop(n, x) ,")")*p^x*(1-p)^{n-x})),
+     adj = 0)
+
+text(0.3, 3.5, "Matrix:", adj = 0)
+text(0.3, 2.5,
+     expression(bold(X) == bgroup("[", atop(1 ~~ 2 ~~ 3, 4 ~~ 5 ~~ 6), "]")),
+     adj = 0)
+text(2, 3.5, "Multiple regression formula:",
+     adj = 0)
+text(2, 2.5,
+     expression(paste(y[i] == beta[0] + beta[1]*x[1] + beta[2]*x[2] + epsilon[i]~~
+                      "where", ~~i == list(1, ldots, n))),
+     adj = 0)
+
+text(2, 1.5, "Regression equation:", adj = 0)
+text(2, 0.5,
+     expression(hat(bold(beta)) == bgroup("(", bold(X)^T*bold(X), ")")^-1*bold(X)^T*bold(y)),
+     adj = 0)
+```
+
+ \normalsize
+
+
+\footnotesize
+
+<div class="figure">
+<img src="figures/math-example.png" alt="R 그래픽 수식 표현 예시" width="100%" />
+<p class="caption">(\#fig:math-example)R 그래픽 수식 표현 예시</p>
+</div>
+
+ \normalsize
+
+
+
+
+
+<!-- ### R 기본 그래프 이미지 파일로 저장 -->
+
+<!-- -  -->
+
+<!-- ## ggplot2 -->
+
+<!-- ### 기본 문법 -->
+
+<!-- ### `geom_point()` -->
+
+<!-- ### `geom_line()` -->
+
+<!-- ### `geom_bar()` -->
+
+<!-- ### `geom_errorbar()` -->
+
+<!-- ### `geom_histogram()` -->
+
+<!-- ### `geom_boxplot()` -->
+
+<!-- ### `geom_density()` -->
+
+<!-- ### `geom_smooth()` -->
+
+<!-- ### `theme()` -->
 
 
 
