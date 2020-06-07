@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5.4 ggplot2 | 통계 프로그래밍 언어</title>
+  <meta name="description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5.4 ggplot2 | 통계 프로그래밍 언어" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
+  <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5.4 ggplot2 | 통계 프로그래밍 언어" />
+  
+  <meta name="twitter:description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
+  
+
+<meta name="author" content="한국한의학연구원, 구본초" />
+
+
+<meta name="date" content="2020-06-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="low-level-graphic.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="css\style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">통계 프로그래밍 언어</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Overview</a></li>
+<li class="part"><span><b>I Get Started</b></span></li>
+<li class="chapter" data-level="1" data-path="intro-chap.html"><a href="intro-chap.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1.1</b> R 설치하기</a></li>
+<li class="chapter" data-level="1.2" data-path="r-check.html"><a href="r-check.html"><i class="fa fa-check"></i><b>1.2</b> R 시작 및 작동 체크</a></li>
+<li class="chapter" data-level="1.3" data-path="rconsle-script.html"><a href="rconsle-script.html"><i class="fa fa-check"></i><b>1.3</b> R script 편집기 사용</a></li>
+<li class="chapter" data-level="1.4" data-path="r-studio.html"><a href="r-studio.html"><i class="fa fa-check"></i><b>1.4</b> RStudio</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="r-studio.html"><a href="r-studio.html#rstudio-install"><i class="fa fa-check"></i><b>1.4.1</b> RStudio 설치하기</a></li>
+<li class="chapter" data-level="1.4.2" data-path="r-studio.html"><a href="r-studio.html#rstudio-component"><i class="fa fa-check"></i><b>1.4.2</b> RStudio IDE 화면 구성</a></li>
+<li class="chapter" data-level="1.4.3" data-path="r-studio.html"><a href="r-studio.html#rstudio-glob-options"><i class="fa fa-check"></i><b>1.4.3</b> RStudio 환경 설정</a></li>
+<li class="chapter" data-level="1.4.4" data-path="r-studio.html"><a href="r-studio.html#rstudio-project"><i class="fa fa-check"></i><b>1.4.4</b> RStudio 프로젝트</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="r-package.html"><a href="r-package.html"><i class="fa fa-check"></i><b>1.5</b> R 패키지</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="r-package.html"><a href="r-package.html#r-package-path"><i class="fa fa-check"></i><b>1.5.1</b> R 패키지 경로 확인 및 변경</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-package.html"><a href="r-package.html#r-package-install"><i class="fa fa-check"></i><b>1.5.2</b> R 패키지 설치하기</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-package.html"><a href="r-package.html#r-package-load"><i class="fa fa-check"></i><b>1.5.3</b> R 패키지 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basic.html"><a href="r-basic.html"><i class="fa fa-check"></i><b>1.6</b> R 기초 문법</a></li>
+<li class="chapter" data-level="1.7" data-path="r-markdown-get-start.html"><a href="r-markdown-get-start.html"><i class="fa fa-check"></i><b>1.7</b> R Markdown (맛보기)</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-type.html"><a href="data-type.html"><i class="fa fa-check"></i><b>2</b> R 객체(R object)</a><ul>
+<li class="chapter" data-level="2.1" data-path="scalar.html"><a href="scalar.html"><i class="fa fa-check"></i><b>2.1</b> 스칼라(scalar)</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="scalar.html"><a href="scalar.html#definition"><i class="fa fa-check"></i><b>2.1.1</b> 선언</a></li>
+<li class="chapter" data-level="2.1.2" data-path="scalar.html"><a href="scalar.html#numeric"><i class="fa fa-check"></i><b>2.1.2</b> 숫자형</a></li>
+<li class="chapter" data-level="2.1.3" data-path="scalar.html"><a href="scalar.html#character"><i class="fa fa-check"></i><b>2.1.3</b> 문자형</a></li>
+<li class="chapter" data-level="2.1.4" data-path="scalar.html"><a href="scalar.html#logical"><i class="fa fa-check"></i><b>2.1.4</b> 논리형 스칼라</a></li>
+<li class="chapter" data-level="2.1.5" data-path="scalar.html"><a href="scalar.html#missing-value"><i class="fa fa-check"></i><b>2.1.5</b> 결측값(missing value)</a></li>
+<li class="chapter" data-level="2.1.6" data-path="scalar.html"><a href="scalar.html#null"><i class="fa fa-check"></i><b>2.1.6</b> NULL 값</a></li>
+<li class="chapter" data-level="2.1.7" data-path="scalar.html"><a href="scalar.html#finite"><i class="fa fa-check"></i><b>2.1.7</b> 무한대/무한소/숫자아님</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>2.2</b> 벡터(vector)</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="vector.html"><a href="vector.html#vector-prop"><i class="fa fa-check"></i><b>2.2.1</b> 벡터의 특징</a></li>
+<li class="chapter" data-level="2.2.2" data-path="vector.html"><a href="vector.html#vector-operation"><i class="fa fa-check"></i><b>2.2.2</b> 벡터의 연산</a></li>
+<li class="chapter" data-level="2.2.3" data-path="vector.html"><a href="vector.html#vector-index"><i class="fa fa-check"></i><b>2.2.3</b> 벡터의 색인(indexing)</a></li>
+<li class="chapter" data-level="2.2.4" data-path="vector.html"><a href="vector.html#vector-function"><i class="fa fa-check"></i><b>2.2.4</b> 벡터 관련 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="list.html"><a href="list.html"><i class="fa fa-check"></i><b>2.3</b> 리스트(list)</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="list.html"><a href="list.html#make-list"><i class="fa fa-check"></i><b>2.3.1</b> 리스트 생성</a></li>
+<li class="chapter" data-level="2.3.2" data-path="list.html"><a href="list.html#list-index"><i class="fa fa-check"></i><b>2.3.2</b> 리스트 색인</a></li>
+<li class="chapter" data-level="2.3.3" data-path="list.html"><a href="list.html#list-add-delete"><i class="fa fa-check"></i><b>2.3.3</b> 리스트에 원소 추가/제거</a></li>
+<li class="chapter" data-level="2.3.4" data-path="list.html"><a href="list.html#list-combine"><i class="fa fa-check"></i><b>2.3.4</b> 리스트의 결합</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="matrix.html"><a href="matrix.html"><i class="fa fa-check"></i><b>2.4</b> 행렬(matrix)</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="matrix.html"><a href="matrix.html#matrix-operation"><i class="fa fa-check"></i><b>2.4.1</b> 행렬의 연산</a></li>
+<li class="chapter" data-level="2.4.2" data-path="matrix.html"><a href="matrix.html#mat-index"><i class="fa fa-check"></i><b>2.4.2</b> 행렬의 색인</a></li>
+<li class="chapter" data-level="2.4.3" data-path="matrix.html"><a href="matrix.html#행과-열-추가-및-제거"><i class="fa fa-check"></i><b>2.4.3</b> 행과 열 추가 및 제거</a></li>
+<li class="chapter" data-level="2.4.4" data-path="matrix.html"><a href="matrix.html#행렬-관련-함수"><i class="fa fa-check"></i><b>2.4.4</b> 행렬 관련 함수</a></li>
+<li class="chapter" data-level="2.4.5" data-path="matrix.html"><a href="matrix.html#vec-mat-diff"><i class="fa fa-check"></i><b>2.4.5</b> 벡터와 행렬의 차이점</a></li>
+<li class="chapter" data-level="2.4.6" data-path="matrix.html"><a href="matrix.html#mat-dim-reduc-sway"><i class="fa fa-check"></i><b>2.4.6</b> 의도치 않은 차원축소 피하기</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="array.html"><a href="array.html"><i class="fa fa-check"></i><b>2.5</b> 배열(array)</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="array.html"><a href="array.html#make-array"><i class="fa fa-check"></i><b>2.5.1</b> 배열의 생성 및 색인</a></li>
+<li class="chapter" data-level="2.5.2" data-path="array.html"><a href="array.html#rray-extend-example"><i class="fa fa-check"></i><b>2.5.2</b> 배열의 확장 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="factor-table.html"><a href="factor-table.html"><i class="fa fa-check"></i><b>2.6</b> 요인(factor)과 테이블(table)</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="factor-table.html"><a href="factor-table.html#factor"><i class="fa fa-check"></i><b>2.6.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.6.2" data-path="factor-table.html"><a href="factor-table.html#table"><i class="fa fa-check"></i><b>2.6.2</b> 테이블(table)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>2.7</b> 데이터 프레임(data frame)</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="data-frame.html"><a href="data-frame.html#create-data-frame"><i class="fa fa-check"></i><b>2.7.1</b> 데이터 프레임 생성</a></li>
+<li class="chapter" data-level="2.7.2" data-path="data-frame.html"><a href="data-frame.html#data-frame-get"><i class="fa fa-check"></i><b>2.7.2</b> 데이터 프레임 접근 및 필터링</a></li>
+<li class="chapter" data-level="2.7.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.7.3</b> 데이터 프레임 관련 함수</a></li>
+<li class="chapter" data-level="2.7.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.7.4</b> <code>*apply()</code> 계열 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="is-as-function.html"><a href="is-as-function.html"><i class="fa fa-check"></i><b>2.8</b> 객체의 유형 판별 및 변환</a></li>
+<li class="chapter" data-level="2.9" data-path="homework-2.html"><a href="homework-2.html"><i class="fa fa-check"></i><b>2.9</b> Homework #2</a></li>
+<li class="chapter" data-level="2.10" data-path="homework-3.html"><a href="homework-3.html"><i class="fa fa-check"></i><b>2.10</b> Homework #3</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="string-regexp.html"><a href="string-regexp.html"><i class="fa fa-check"></i><b>3</b> 문자열 처리와 정규표현식</a><ul>
+<li class="chapter" data-level="3.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html"><i class="fa fa-check"></i><b>3.1</b> 유용한 문자열 관련 함수</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#nchar"><i class="fa fa-check"></i><b>3.1.1</b> <strong><code>nchar()</code></strong></a></li>
+<li class="chapter" data-level="3.1.2" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#paste"><i class="fa fa-check"></i><b>3.1.2</b> <strong><code>paste()</code></strong>, <strong><code>paste0()</code></strong></a></li>
+<li class="chapter" data-level="3.1.3" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#sprintf"><i class="fa fa-check"></i><b>3.1.3</b> <strong><code>sprintf()</code></strong></a></li>
+<li class="chapter" data-level="3.1.4" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#substr"><i class="fa fa-check"></i><b>3.1.4</b> <strong><code>substr()</code></strong></a></li>
+<li class="chapter" data-level="3.1.5" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#low-up-fun"><i class="fa fa-check"></i><b>3.1.5</b> <strong><code>tolower()</code>, <code>toupper()</code></strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html"><i class="fa fa-check"></i><b>3.2</b> 정규표현식 기본 함수</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#grep-grepl"><i class="fa fa-check"></i><b>3.2.1</b> <strong><code>grep()</code>, <code>grepl()</code></strong></a></li>
+<li class="chapter" data-level="3.2.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexpr-gregexpr"><i class="fa fa-check"></i><b>3.2.2</b> <strong><code>regexpr()</code></strong>, <strong><code>gregexpr()</code></strong></a></li>
+<li class="chapter" data-level="3.2.3" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#sub-gsub-fun"><i class="fa fa-check"></i><b>3.2.3</b> <strong><code>sub()</code></strong>, <strong><code>gsub()</code></strong></a></li>
+<li class="chapter" data-level="3.2.4" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexec-fun"><i class="fa fa-check"></i><b>3.2.4</b> <strong><code>regexec()</code></strong></a></li>
+<li class="chapter" data-level="3.2.5" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#strsplit"><i class="fa fa-check"></i><b>3.2.5</b> <strong><code>strsplit()</code></strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="reg-exp.html"><a href="reg-exp.html"><i class="fa fa-check"></i><b>3.3</b> 정규 표현식(regular expression)</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="reg-exp.html"><a href="reg-exp.html#basic-meta"><i class="fa fa-check"></i><b>3.3.1</b> 기본 메타 문자</a></li>
+<li class="chapter" data-level="3.3.2" data-path="reg-exp.html"><a href="reg-exp.html#character-set"><i class="fa fa-check"></i><b>3.3.2</b> 문자 집합</a></li>
+<li class="chapter" data-level="3.3.3" data-path="reg-exp.html"><a href="reg-exp.html#character-class"><i class="fa fa-check"></i><b>3.3.3</b> 문자 클래스</a></li>
+<li class="chapter" data-level="3.3.4" data-path="reg-exp.html"><a href="reg-exp.html#regexp-ex"><i class="fa fa-check"></i><b>3.3.4</b> 정규 표현식 예시</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-handling.html"><a href="data-handling.html"><i class="fa fa-check"></i><b>4</b> 데이터 핸들링(Data handling)</a><ul>
+<li class="chapter" data-level="4.1" data-path="ch4-prerequi.html"><a href="ch4-prerequi.html"><i class="fa fa-check"></i><b>4.1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="ch4-prerequi.html"><a href="ch4-prerequi.html#data-import-export"><i class="fa fa-check"></i><b>4.1.1</b> 외부데이터 불러오기 및 저장</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>4.2</b> Tidyverse</a></li>
+<li class="chapter" data-level="4.3" data-path="readr.html"><a href="readr.html"><i class="fa fa-check"></i><b>4.3</b> <code>readr</code> 패키지</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="readr.html"><a href="readr.html#import-export-excel"><i class="fa fa-check"></i><b>4.3.1</b> Excel 파일 입출력</a></li>
+<li class="chapter" data-level="4.3.2" data-path="readr.html"><a href="readr.html#tibble"><i class="fa fa-check"></i><b>4.3.2</b> tibble 패키지</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="dplyr.html"><a href="dplyr.html"><i class="fa fa-check"></i><b>4.4</b> <code>dplyr</code> 패키지</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="dplyr.html"><a href="dplyr.html#pipe-op"><i class="fa fa-check"></i><b>4.4.1</b> 파이프 연산자: <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="4.4.2" data-path="dplyr.html"><a href="dplyr.html#dplyr-filter"><i class="fa fa-check"></i><b>4.4.2</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="4.4.3" data-path="dplyr.html"><a href="dplyr.html#arrange"><i class="fa fa-check"></i><b>4.4.3</b> <code id="dplyr-arrange">arrange()</code></a></li>
+<li class="chapter" data-level="4.4.4" data-path="dplyr.html"><a href="dplyr.html#dplyr-select"><i class="fa fa-check"></i><b>4.4.4</b> <code>select()</code></a></li>
+<li class="chapter" data-level="4.4.5" data-path="dplyr.html"><a href="dplyr.html#dplyr-mutate"><i class="fa fa-check"></i><b>4.4.5</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="4.4.6" data-path="dplyr.html"><a href="dplyr.html#dplyr-transmute"><i class="fa fa-check"></i><b>4.4.6</b> <code>transmute()</code></a></li>
+<li class="chapter" data-level="4.4.7" data-path="dplyr.html"><a href="dplyr.html#dplyr-summarise"><i class="fa fa-check"></i><b>4.4.7</b> <code>summarise()</code></a></li>
+<li class="chapter" data-level="4.4.8" data-path="dplyr.html"><a href="dplyr.html#dplyr-group_by"><i class="fa fa-check"></i><b>4.4.8</b> <code>group_by()</code></a></li>
+<li class="chapter" data-level="4.4.9" data-path="dplyr.html"><a href="dplyr.html#dplyr-application"><i class="fa fa-check"></i><b>4.4.9</b> dplyr 관련 유용한 함수</a></li>
+<li class="chapter" data-level="4.4.10" data-path="dplyr.html"><a href="dplyr.html#dplyr-verb-variant-adverb"><i class="fa fa-check"></i><b>4.4.10</b> 부가 기능</a></li>
+<li class="chapter" data-level="4.4.11" data-path="dplyr.html"><a href="dplyr.html#dplyr-join"><i class="fa fa-check"></i><b>4.4.11</b> 데이터 연결</a></li>
+<li class="chapter" data-level="4.4.12" data-path="dplyr.html"><a href="dplyr.html#ex-gapminder"><i class="fa fa-check"></i><b>4.4.12</b> 확장 예제: Gapminder</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>4.5</b> 데이터 변환</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="data-transformation.html"><a href="data-transformation.html#tidy-data"><i class="fa fa-check"></i><b>4.5.1</b> Tidy data</a></li>
+<li class="chapter" data-level="4.5.2" data-path="data-transformation.html"><a href="data-transformation.html#long-format"><i class="fa fa-check"></i><b>4.5.2</b> Long format</a></li>
+<li class="chapter" data-level="4.5.3" data-path="data-transformation.html"><a href="data-transformation.html#wider-format"><i class="fa fa-check"></i><b>4.5.3</b> Wide format</a></li>
+<li class="chapter" data-level="4.5.4" data-path="data-transformation.html"><a href="data-transformation.html#separate-unite"><i class="fa fa-check"></i><b>4.5.4</b> Separate and unite</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="homework-04.html"><a href="homework-04.html"><i class="fa fa-check"></i><b>4.6</b> Homework #4</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch-data-visualization.html"><a href="ch-data-visualization.html"><i class="fa fa-check"></i><b>5</b> 데이터 시각화</a><ul>
+<li class="chapter" data-level="5.1" data-path="r-basic-graphics.html"><a href="r-basic-graphics.html"><i class="fa fa-check"></i><b>5.1</b> R 기본 그래프 함수</a></li>
+<li class="chapter" data-level="5.2" data-path="high-level-graph.html"><a href="high-level-graph.html"><i class="fa fa-check"></i><b>5.2</b> 고수준 그래프 함수</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="high-level-graph.html"><a href="high-level-graph.html#plot-fun"><i class="fa fa-check"></i><b>5.2.1</b> <strong><code>plot()</code> 함수</strong></a></li>
+<li class="chapter" data-level="5.2.2" data-path="high-level-graph.html"><a href="high-level-graph.html#main-high-level-graph"><i class="fa fa-check"></i><b>5.2.2</b> 주요 고수준 그래픽 함수</a></li>
+<li class="chapter" data-level="5.2.3" data-path="high-level-graph.html"><a href="high-level-graph.html#scatter-plot"><i class="fa fa-check"></i><b>5.2.3</b> 산점도</a></li>
+<li class="chapter" data-level="5.2.4" data-path="high-level-graph.html"><a href="high-level-graph.html#mat-plot"><i class="fa fa-check"></i><b>5.2.4</b> 행렬 그래프</a></li>
+<li class="chapter" data-level="5.2.5" data-path="high-level-graph.html"><a href="high-level-graph.html#histogram"><i class="fa fa-check"></i><b>5.2.5</b> 히스토그램</a></li>
+<li class="chapter" data-level="5.2.6" data-path="high-level-graph.html"><a href="high-level-graph.html#bar-plot"><i class="fa fa-check"></i><b>5.2.6</b> 막대 그래프</a></li>
+<li class="chapter" data-level="5.2.7" data-path="high-level-graph.html"><a href="high-level-graph.html#boxplot"><i class="fa fa-check"></i><b>5.2.7</b> 상자 그림</a></li>
+<li class="chapter" data-level="5.2.8" data-path="high-level-graph.html"><a href="high-level-graph.html#violin-plot"><i class="fa fa-check"></i><b>5.2.8</b> 바이올린 도표</a></li>
+<li class="chapter" data-level="5.2.9" data-path="high-level-graph.html"><a href="high-level-graph.html#mosaicplot"><i class="fa fa-check"></i><b>5.2.9</b> 모자이크 도표</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="low-level-graphic.html"><a href="low-level-graphic.html"><i class="fa fa-check"></i><b>5.3</b> 저수준 그래프 함수</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="low-level-graphic.html"><a href="low-level-graphic.html#par"><i class="fa fa-check"></i><b>5.3.1</b> par()</a></li>
+<li class="chapter" data-level="5.3.2" data-path="low-level-graphic.html"><a href="low-level-graphic.html#points"><i class="fa fa-check"></i><b>5.3.2</b> points()</a></li>
+<li class="chapter" data-level="5.3.3" data-path="low-level-graphic.html"><a href="low-level-graphic.html#lines"><i class="fa fa-check"></i><b>5.3.3</b> lines()</a></li>
+<li class="chapter" data-level="5.3.4" data-path="low-level-graphic.html"><a href="low-level-graphic.html#ablines"><i class="fa fa-check"></i><b>5.3.4</b> ablines()</a></li>
+<li class="chapter" data-level="5.3.5" data-path="low-level-graphic.html"><a href="low-level-graphic.html#arrows"><i class="fa fa-check"></i><b>5.3.5</b> arrows()</a></li>
+<li class="chapter" data-level="5.3.6" data-path="low-level-graphic.html"><a href="low-level-graphic.html#rect"><i class="fa fa-check"></i><b>5.3.6</b> rect()</a></li>
+<li class="chapter" data-level="5.3.7" data-path="low-level-graphic.html"><a href="low-level-graphic.html#polygon"><i class="fa fa-check"></i><b>5.3.7</b> polygon()</a></li>
+<li class="chapter" data-level="5.3.8" data-path="low-level-graphic.html"><a href="low-level-graphic.html#text"><i class="fa fa-check"></i><b>5.3.8</b> text(), mtext()</a></li>
+<li class="chapter" data-level="5.3.9" data-path="low-level-graphic.html"><a href="low-level-graphic.html#legend"><i class="fa fa-check"></i><b>5.3.9</b> legend()</a></li>
+<li class="chapter" data-level="5.3.10" data-path="low-level-graphic.html"><a href="low-level-graphic.html#math-expression"><i class="fa fa-check"></i><b>5.3.10</b> 수식 표현</a></li>
+<li class="chapter" data-level="5.3.11" data-path="low-level-graphic.html"><a href="low-level-graphic.html#r-기본-그래프-이미지-파일로-저장"><i class="fa fa-check"></i><b>5.3.11</b> R 기본 그래프 이미지 파일로 저장</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ggplot2-package.html"><a href="ggplot2-package.html"><i class="fa fa-check"></i><b>5.4</b> ggplot2</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="ggplot2-package.html"><a href="ggplot2-package.html#basic-grammar"><i class="fa fa-check"></i><b>5.4.1</b> 기본 문법</a></li>
+<li class="chapter" data-level="5.4.2" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-lines"><i class="fa fa-check"></i><b>5.4.2</b> Geoms: 선 관련 geometric</a></li>
+<li class="chapter" data-level="5.4.3" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-points"><i class="fa fa-check"></i><b>5.4.3</b> Geoms: 점 geometrics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계 프로그래밍 언어</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ggplot2-package" class="section level2">
+<h2><span class="header-section-number">5.4</span> ggplot2</h2>
+
+
+<div class="rmdwarning">
+<strong>Prerequisites</strong>: tidyverse 패키지 또는 ggplot2 패키지 읽어오기: <code>require(tidyverse)</code> 또는 <code>require(ggplot2)</code> 실행
+</div>
+
+
+<ul>
+<li>데이터에 대한 그래프는 데이터의 속성(수치형, 범주형)과 시각적 속성(점, x-y 좌표 위치, 선, 색상, 막대의 높이) 간에 대응 또는 매핑(mapping) 으로 이루어짐</li>
+<li>R 에서 가장 유명한 데이터 시각화 패키지 중 하나로 2005년 Hadley Wickham이 개발 및 배포</li>
+<li>Leland Wilkinson 의 <strong>grammar of graphics</strong> <span class="citation">(Wilkinson <a href="#ref-wilkinson2012grammar" role="doc-biblioref">2012</a>)</span> 를 구현</li>
+</ul>
+
+
+<div class="rmdnote">
+<strong>Grammar of graphics</strong>: 그래프를 구현하기 위한 일관적인 체계로 그래프를 데이터, 스케일, 레이어, 좌표 등과 같은 의미론적 요소(sementic components) 로 나눔
+</div>
+
+
+<ul>
+<li>ggplot의 grammar of graphics</li>
+</ul>
+
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-59"></span>
+<img src="figures/grammar-graphics-intro.png" alt="ggplot의 grammar of graphics 주요 구성 요소" width="90%" />
+<p class="caption">
+Figure 5.19: ggplot의 grammar of graphics 주요 구성 요소
+</p>
+</div>
+
+<ul>
+<li>R 기본 graphics 패키지의 경우 데이터 속성을 시각적 속성으로 매핑 시 매 경우가 고유한 작업이고, 매핑이 변경될 경우 데이터를 재구성하거나 완전히 다른 plotting 함수를 적용해야 함.</li>
+<li>R base graphics와 ggplot의 비교</li>
+</ul>
+
+<div class="sourceCode" id="cb1588"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1588-1" title="1"><span class="co"># R 기본 데이터셋: ToothGrowth</span></a>
+<a class="sourceLine" id="cb1588-2" title="2">ToothGrowth <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1588-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(supp, dose) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1588-4" title="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(len)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1588-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dose =</span> <span class="kw">factor</span>(dose, </a>
+<a class="sourceLine" id="cb1588-6" title="6">                       <span class="dt">ordered =</span> <span class="ot">TRUE</span>))-&gt;<span class="st"> </span>tg_long</a></code></pre></div>
+<pre><code>`summarise()` regrouping output by &#39;supp&#39; (override with `.groups` argument)</code></pre>
+<div class="sourceCode" id="cb1590"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1590-1" title="1">tg_long <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1590-2" title="2"><span class="st">  </span><span class="kw">spread</span>(supp, mean) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1590-3" title="3"><span class="st">  </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;dose&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># 열 값을 열이름으로 변환(in tibble 패키지)</span></a>
+<a class="sourceLine" id="cb1590-4" title="4"><span class="st">  </span>as.matrix -&gt;<span class="st"> </span>tg_mat</a>
+<a class="sourceLine" id="cb1590-5" title="5"></a>
+<a class="sourceLine" id="cb1590-6" title="6"><span class="co"># R graphics: barplot() 사용</span></a>
+<a class="sourceLine" id="cb1590-7" title="7"><span class="kw">barplot</span>(tg_mat, <span class="dt">beside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:base-barplot-a"></span>
+<img src="05-data-visualization_files/figure-html/base-barplot-a-1.svg" alt="R 기본 barplot() 생성 그래프" width="672" />
+<p class="caption">
+Figure 5.20: R 기본 barplot() 생성 그래프
+</p>
+</div>
+
+<ul>
+<li><code>dose</code> 별 OJ와 VC 막대도표: <code>dose</code>로 그룹화를 하기 위해 데이터 구조 변경(전치) 필요</li>
+</ul>
+
+<div class="sourceCode" id="cb1591"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1591-1" title="1"><span class="co"># tg_mat 행렬 전치</span></a>
+<a class="sourceLine" id="cb1591-2" title="2"><span class="kw">barplot</span>(<span class="kw">t</span>(tg_mat), <span class="dt">beside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:base-barplot-b"></span>
+<img src="05-data-visualization_files/figure-html/base-barplot-b-1.svg" alt="R 기본 barplot() 생성 그래프: 데이터 전치" width="672" />
+<p class="caption">
+Figure 5.21: R 기본 barplot() 생성 그래프: 데이터 전치
+</p>
+</div>
+
+<ul>
+<li>막대 대신 선(line)으로 표현</li>
+</ul>
+
+<div class="sourceCode" id="cb1592"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1592-1" title="1"><span class="kw">plot</span>(tg_mat[,<span class="dv">1</span>], <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb1592-2" title="2"><span class="kw">lines</span>(tg_mat[,<span class="dv">2</span>], <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:base-lineplot"></span>
+<img src="05-data-visualization_files/figure-html/base-lineplot-1.svg" alt="R 기본 선 그래프: plot(), lines() 함수 사용" width="672" />
+<p class="caption">
+Figure 5.22: R 기본 선 그래프: plot(), lines() 함수 사용
+</p>
+</div>
+
+<ul>
+<li><code>plot()</code> 함수 호출 시 y 축 범위가 첫 번째 선에 대해서만 설정</li>
+<li>x 축이 범주 대신 번호가 사용</li>
+<li>ggplot 사용: 데이터 프레임에만 적용 가능(데이터 구조는 long-format)</li>
+</ul>
+
+<div class="sourceCode" id="cb1593"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1593-1" title="1"><span class="co"># require(ggplot2)</span></a>
+<a class="sourceLine" id="cb1593-2" title="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> tg_long, </a>
+<a class="sourceLine" id="cb1593-3" title="3">       <span class="kw">aes</span>(<span class="dt">y =</span> mean)) -&gt;<span class="st"> </span>gmap <span class="co"># 기본 mapping 유지를 위해 </span></a>
+<a class="sourceLine" id="cb1593-4" title="4">                              <span class="co"># ggplot 클래스 객체 저장</span></a>
+<a class="sourceLine" id="cb1593-5" title="5">gmap <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1593-6" title="6"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> supp, <span class="dt">fill =</span> dose), </a>
+<a class="sourceLine" id="cb1593-7" title="7">           <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="co"># 데이터 고유값을 막대 높이로 사용</span></a>
+<a class="sourceLine" id="cb1593-8" title="8">           <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="co"># 막대 위치 조정(beside 조건과 유사)</span></a></code></pre></div>
+<div class="figure"><span id="fig:ggplot-bar-intro-a"></span>
+<img src="05-data-visualization_files/figure-html/ggplot-bar-intro-a-1.svg" alt="ggplot()과 geom_bar()을 이용한 막대 도표" width="672" />
+<p class="caption">
+Figure 5.23: ggplot()과 geom_bar()을 이용한 막대 도표
+</p>
+</div>
+
+<ul>
+<li>데이터 구조를 변경하지 않고 ggplot의 매핑 변수 변경</li>
+</ul>
+
+<div class="sourceCode" id="cb1594"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1594-1" title="1">gmap <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1594-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dose, <span class="dt">fill =</span> supp), </a>
+<a class="sourceLine" id="cb1594-3" title="3">           <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, </a>
+<a class="sourceLine" id="cb1594-4" title="4">           <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:ggplot-bar-intro-b"></span>
+<img src="05-data-visualization_files/figure-html/ggplot-bar-intro-b-1.svg" alt="x와 fill의 mapping 변경" width="672" />
+<p class="caption">
+Figure 5.24: x와 fill의 mapping 변경
+</p>
+</div>
+
+<ul>
+<li>ggplot을 이용한 선 도표 생성</li>
+</ul>
+
+<div class="sourceCode" id="cb1595"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1595-1" title="1">gmap <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1595-2" title="2"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dose, </a>
+<a class="sourceLine" id="cb1595-3" title="3">                <span class="dt">group =</span> supp, </a>
+<a class="sourceLine" id="cb1595-4" title="4">                <span class="dt">color =</span> supp), </a>
+<a class="sourceLine" id="cb1595-5" title="5">            <span class="dt">size =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:ggplot-line-intro"></span>
+<img src="05-data-visualization_files/figure-html/ggplot-line-intro-1.svg" alt="geom_line()을 이용한 선 그래프 생성" width="672" />
+<p class="caption">
+Figure 5.25: geom_line()을 이용한 선 그래프 생성
+</p>
+</div>
+
+<blockquote>
+<ul>
+<li>기본 그래프 함수를 이용해 막대도표 대신 선 도표 생성 시 완전히 다른 명령 사용</li>
+<li>선 그래프 생성 시 기본 그래프는 하나씩 도표를 추가한 반면, geom_line()의 경우 모든 선이 한번에 그려짐</li>
+</ul>
+</blockquote>
+<div id="basic-grammar" class="section level3">
+<h3><span class="header-section-number">5.4.1</span> 기본 문법</h3>
+
+<div class="sourceCode" id="cb1596"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1596-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="op">&lt;</span>DATA<span class="op">&gt;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1596-2" title="2"><span class="st">  </span><span class="er">&lt;</span>GEOM_FUNCTION<span class="op">&gt;</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="op">&lt;</span>MAPPINGS<span class="op">&gt;</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1596-3" title="3"><span class="st">  </span><span class="er">&lt;</span>SCALE_FUNCTION<span class="op">&gt;</span><span class="st"> </span><span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1596-4" title="4"><span class="st">  </span><span class="er">&lt;</span>LABEL or GUIDES<span class="op">&gt;</span><span class="st"> </span><span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1596-5" title="5"><span class="st">  </span><span class="er">&lt;</span>ANNOTATION<span class="op">&gt;</span><span class="st"> </span><span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1596-6" title="6"><span class="st">  </span><span class="er">&lt;</span>THEME<span class="op">&gt;</span></a></code></pre></div>
+
+<p><strong>용어(terminology)</strong></p>
+<ul>
+<li><em><strong>data</strong></em>: 시각화의 대상으로 관측값과 변수(열)로 이루어짐</li>
+<li><em><strong>geom</strong></em>: 데이터의 값을 시각적으로 보여주기 위한 레이어로 막대, 선, 점과 같은 기하학적 객체</li>
+<li><em><strong>aesthetic</strong></em>: geom의 시각적 속성을 정의하며, x, y 위치, 선 색상, 점 모양 등을 정의</li>
+<li><em><strong>mapping</strong></em>: 데이터 값을 asthetic에 매핑</li>
+<li><em><strong>scale</strong></em>: asthetic에 매핑 시 세부 값들을 제어</li>
+<li><em><strong>guide</strong></em>: 그래프 해석에 도움을 주는 속성으로 x-y 축의 눈금, 레이블, 범례(legend)를 포함</li>
+<li><em><strong>annotation</strong></em>: 생성한 그래프 위에 추가적인 정보(선, 화살표, 텍스트, 도형 등) 추가</li>
+<li><em><strong>theme</strong></em>: 그래프의 비데이터적 요소(제목, 레이블, 글꼴, 배경색, 격자, 범례 등) 제어를 통해 그래프의 미적 효과 극대화</li>
+</ul>
+
+
+<div class="rmdnote">
+<p>ggplot 계열 함수에서 범주형 변수(categorical variable)은 이산형(<strong>discrete</strong>), 수치형 변수(numeric variable)을 연속형(<strong>continuous</strong>)이라고 명칭함.</p>
+</div>
+
+
+<p>ggplot 그래프 생성 기본 단계(각 단계(layer)는 <code>+</code> 연산자로 덧붙혀짐)</p>
+<ol style="list-style-type: decimal">
+<li><code>ggplot()</code>으로 ggplot 객체 초기화</li>
+<li><code>aes()</code> 함수로 x-y 축 지정</li>
+<li>geom 계열 함수로 데이터를 시각적 요소로 매핑. 이때 aes() 함수와 같이 색상, 크기 등 지정</li>
+<li>scale 계열 함수를 이용해 asthetic의 세부 값을 조정</li>
+<li>축 제목, 레이블, 범례 설정 조정</li>
+<li>필요 시 theme 조정을 통해 시각적 요소 가미</li>
+</ol>
+<ul>
+<li><code>ggplot()</code>: ggplot 객체를 생성하는 함수로 시각화할 데이터가 무엇인지, 그리고 데이터에 포함된 변수들이 어떤 asthetic에 매핑되는지를 선언</li>
+<li><code>aes()</code>: 데이터 내 변수들이 어떤 geoms 레이어에서 어떤 시각적 속성을 갖는지를 지정해주는 함수로 ggplot() 함수 내, 혹은 독립적인 레이어로 추가 가능
+<ul>
+<li>ggplot에서 지정한 데이터 내에서 평가되기 때문에 변수명 지정 시 원래 데이터셋 참조할 필요 없음(예: <code>ggplot(data = car, aes(x = speed))</code>)</li>
+</ul></li>
+</ul>
+
+<div class="sourceCode" id="cb1597"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1597-1" title="1"><span class="co"># ggplot()을 이용한 ggplot 생성</span></a>
+<a class="sourceLine" id="cb1597-2" title="2"><span class="co"># 표현식 1</span></a>
+<a class="sourceLine" id="cb1597-3" title="3"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="op">&lt;</span>DATA<span class="op">&gt;</span>, <span class="co"># 데이터 프레임, 티블 객체</span></a>
+<a class="sourceLine" id="cb1597-4" title="4">       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="op">&lt;</span>X<span class="op">-</span>axis<span class="op">&gt;</span>, </a>
+<a class="sourceLine" id="cb1597-5" title="5">                     <span class="dt">y =</span> <span class="op">&lt;</span>Y<span class="op">-</span>axis<span class="op">&gt;</span>, </a>
+<a class="sourceLine" id="cb1597-6" title="6">                     <span class="dt">color =</span> <span class="op">&lt;</span>색 속성을 부여할 변수 이름<span class="op">&gt;</span>, </a>
+<a class="sourceLine" id="cb1597-7" title="7">                     <span class="dt">fill =</span> <span class="op">&lt;</span>면의 색 속성을 부여할 변수 이름<span class="op">&gt;</span>, </a>
+<a class="sourceLine" id="cb1597-8" title="8">                     <span class="dt">group =</span> <span class="op">&lt;</span>group 변수 지정<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb1597-9" title="9"><span class="st">                             </span><span class="co"># 보통 선 그래프 작성 시 이을 선에 대한 </span></a>
+<a class="sourceLine" id="cb1597-10" title="10"><span class="st">                             </span><span class="co"># 그룹을 지정하기 위해 사용</span></a>
+<a class="sourceLine" id="cb1597-11" title="11"><span class="st">                     </span>group</a>
+<a class="sourceLine" id="cb1597-12" title="12">                     ...)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1597-13" title="13"><span class="st">  </span><span class="er">&lt;</span>GEOM_FUNCTION<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb1597-14" title="14"><span class="co"># 표현식 2</span></a>
+<a class="sourceLine" id="cb1597-15" title="15"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="op">&lt;</span>DATA<span class="op">&gt;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1597-16" title="16"><span class="st">  </span><span class="kw">aes</span>(...) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1597-17" title="17"><span class="st">  </span><span class="er">&lt;</span>GEOM_FUNCTION<span class="op">&gt;</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(...))</a>
+<a class="sourceLine" id="cb1597-18" title="18"></a>
+<a class="sourceLine" id="cb1597-19" title="19"><span class="co"># 표현식 3</span></a>
+<a class="sourceLine" id="cb1597-20" title="20"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="op">&lt;</span>DATA<span class="op">&gt;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1597-21" title="21"><span class="st">  </span><span class="er">&lt;</span>GEOM_FUNCTION<span class="op">&gt;</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(x, y, ...))</a>
+<a class="sourceLine" id="cb1597-22" title="22"></a>
+<a class="sourceLine" id="cb1597-23" title="23"></a>
+<a class="sourceLine" id="cb1597-24" title="24"><span class="co"># 표현식 4</span></a>
+<a class="sourceLine" id="cb1597-25" title="25"><span class="op">&lt;</span>GGPLOT_OBJECT<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span><span class="op">-</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="op">&lt;</span>DATA<span class="op">&gt;</span>)</a>
+<a class="sourceLine" id="cb1597-26" title="26"><span class="op">&lt;</span>GGPLOT_OBJECT<span class="op">&gt;</span><span class="st"> </span><span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1597-27" title="27"><span class="st">  </span><span class="er">&lt;</span>GEOM_FUNCTION<span class="op">&gt;</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(...))</a></code></pre></div>
+
+
+<div class="sourceCode" id="cb1598"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1598-1" title="1"><span class="co"># cars 데이터셋</span></a>
+<a class="sourceLine" id="cb1598-2" title="2"><span class="co">## ggplot() 내에 aes() 지정 </span></a>
+<a class="sourceLine" id="cb1598-3" title="3"><span class="kw">ggplot</span>(<span class="dt">data =</span> cars, </a>
+<a class="sourceLine" id="cb1598-4" title="4">       <span class="kw">aes</span>(<span class="dt">x =</span> speed, <span class="dt">y =</span> dist)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1598-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>()</a>
+<a class="sourceLine" id="cb1598-6" title="6"></a>
+<a class="sourceLine" id="cb1598-7" title="7"><span class="co">## aesthetic을 ggplot() 함수 밖에서 지정</span></a>
+<a class="sourceLine" id="cb1598-8" title="8"><span class="kw">ggplot</span>(<span class="dt">data =</span> cars) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1598-9" title="9"><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> speed, <span class="dt">y =</span> dist) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1598-10" title="10"><span class="st">  </span><span class="kw">geom_point</span>()</a>
+<a class="sourceLine" id="cb1598-11" title="11"></a>
+<a class="sourceLine" id="cb1598-12" title="12"><span class="co">## geom 계열 함수 내에서 asthetic 지정</span></a>
+<a class="sourceLine" id="cb1598-13" title="13"><span class="kw">ggplot</span>(<span class="dt">data =</span> cars) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1598-14" title="14"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> speed, <span class="dt">y =</span> dist))</a>
+<a class="sourceLine" id="cb1598-15" title="15"></a>
+<a class="sourceLine" id="cb1598-16" title="16"><span class="co">## ggplot 객체 생성 </span></a>
+<a class="sourceLine" id="cb1598-17" title="17">gp &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> cars); gp</a>
+<a class="sourceLine" id="cb1598-18" title="18"></a>
+<a class="sourceLine" id="cb1598-19" title="19">gp &lt;-<span class="st"> </span>gp <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1598-20" title="20"><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> speed, <span class="dt">y =</span> dist); gp</a>
+<a class="sourceLine" id="cb1598-21" title="21"></a>
+<a class="sourceLine" id="cb1598-22" title="22">gp <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a>
+<a class="sourceLine" id="cb1598-23" title="23"></a>
+<a class="sourceLine" id="cb1598-24" title="24"><span class="co">## 참고: R 기본 plot()의 결과는 객체로 저장되지 않음</span></a>
+<a class="sourceLine" id="cb1598-25" title="25">grph &lt;-<span class="st"> </span><span class="kw">plot</span>(cars); grph</a></code></pre></div>
+
+<ul>
+<li>주요 aesthetics
+<ul>
+<li><strong><code>x</code></strong>, <strong><code>y</code></strong>: x-y 축에 해당하는 변수명. <code>x</code>와 <code>y</code>의 이름은 생략 가능(예: <code>ggplot(data = car, aes(speed, dist)</code>로도 사용 가능))</li>
+<li><strong><code>color</code></strong>: 점, 선, 텍스트 색상</li>
+<li><strong><code>fill</code></strong>: 면(막대, 상자, 도형 등) 색상</li>
+<li><strong><code>alpha</code></strong>: 색상의 투명도</li>
+<li><strong><code>group</code></strong>: 시각화에 사용할 데이터의 그룹</li>
+<li><strong><code>size</code></strong>: 점, 선, 텍스트의 크기 또는 굵기</li>
+<li><strong><code>shape</code></strong>: 점의 모양(그림 <a href="high-level-graph.html#fig:plot-symbol">5.3</a> 참고). R 기본 그래픽 파라미터 <code>pch</code>와 호환</li>
+<li><strong><code>linetype</code></strong>: 선의 형태 지정하며 그림 <a href="high-level-graph.html#fig:plot-symbol">5.3</a> 의 선 형태 지정 방법 준용(숫자, 문자열 모두 사용 가능)</li>
+</ul></li>
+<li>색상 관련 aesthetics: <strong><code>color</code></strong>, <strong><code>fill</code></strong>, <strong><code>alpha</code></strong>
+<ul>
+<li><code>aes()</code> 함수 내부 또는 외부에서 인수 조정 가능(함수 내부: 변수명으로 지정, 함수 외부: 특정 값으로 지정)</li>
+</ul></li>
+</ul>
+
+<div class="sourceCode" id="cb1599"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1599-1" title="1"><span class="co"># 막대도표 예시</span></a>
+<a class="sourceLine" id="cb1599-2" title="2"><span class="co"># `aes()` 함수 외부에서 사용 시 단일 값을 입력</span></a>
+<a class="sourceLine" id="cb1599-3" title="3">gpcol &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="kw">aes</span>(<span class="dt">x =</span> class))</a>
+<a class="sourceLine" id="cb1599-4" title="4">gpcol <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1599-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Default geom_bar()&quot;</span>) <span class="co"># 그래프 제목 지정</span></a>
+<a class="sourceLine" id="cb1599-6" title="6"></a>
+<a class="sourceLine" id="cb1599-7" title="7">gpcol <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">fill =</span> <span class="st">&quot;navy&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1599-8" title="8"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;fill = &#39;navy&#39;&quot;</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-63-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-63-2.svg" width="50%" /></p>
+
+
+<div class="sourceCode" id="cb1600"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1600-1" title="1"><span class="co"># 막대도표 예시</span></a>
+<a class="sourceLine" id="cb1600-2" title="2">gpcol <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1600-3" title="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;color = &#39;red&#39;&quot;</span>)</a>
+<a class="sourceLine" id="cb1600-4" title="4"></a>
+<a class="sourceLine" id="cb1600-5" title="5">gpcol <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>)<span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1600-6" title="6"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;color = &#39;red&#39;, fill = &#39;white&#39;&quot;</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-64-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-64-2.svg" width="50%" /></p>
+
+
+<div class="sourceCode" id="cb1601"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1601-1" title="1"><span class="co"># 연료 타입에 따라 면 색 지정</span></a>
+<a class="sourceLine" id="cb1601-2" title="2">gpcol <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1601-3" title="3"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> fl)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1601-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Filled by fuel types (fl)&quot;</span>)</a>
+<a class="sourceLine" id="cb1601-5" title="5"></a>
+<a class="sourceLine" id="cb1601-6" title="6"><span class="co"># 연료 타입에 따라 막대 선 색 지정</span></a>
+<a class="sourceLine" id="cb1601-7" title="7">gpcol <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1601-8" title="8"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">color =</span> fl)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1601-9" title="9"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Colored by fuel types (fl)&quot;</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-65-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-65-2.svg" width="50%" /></p>
+
+
+<div class="sourceCode" id="cb1602"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1602-1" title="1"><span class="co"># alpha: 0-1 사이 값을 갖고 투명도 지정</span></a>
+<a class="sourceLine" id="cb1602-2" title="2"><span class="co"># 주로 aes() 함수 밖에서 사용됨</span></a>
+<a class="sourceLine" id="cb1602-3" title="3"><span class="kw">set.seed</span>(<span class="dv">20200605</span>)</a>
+<a class="sourceLine" id="cb1602-4" title="4">df1 &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb1602-5" title="5">  <span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dv">5000</span>), </a>
+<a class="sourceLine" id="cb1602-6" title="6">  <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dv">5000</span>)</a>
+<a class="sourceLine" id="cb1602-7" title="7">)</a>
+<a class="sourceLine" id="cb1602-8" title="8"></a>
+<a class="sourceLine" id="cb1602-9" title="9">gpalpha &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> df1, <span class="kw">aes</span>(x, y))</a>
+<a class="sourceLine" id="cb1602-10" title="10">gpalpha <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1602-11" title="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;alpha = 1&quot;</span>) </a>
+<a class="sourceLine" id="cb1602-12" title="12">gpalpha <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.1</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1602-13" title="13"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;alpha = 0.1&quot;</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-66-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-66-2.svg" width="50%" /></p>
+
+<ul>
+<li>그룹(group) aesthetic
+<ul>
+<li>기본적으로 <code>aes()</code> 내부에서 aesthetic에 대응하는 변수가 이산형(범주형) 변수로 정해짐</li>
+<li>보통은 color, shape, linetype 으로 그룹 지정이 가능하지만 충분하지 않은 경우 <code>group</code> 인수 값 지정</li>
+</ul></li>
+</ul>
+
+<div class="sourceCode" id="cb1603"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1603-1" title="1"><span class="co"># 다중 집단에 하나의 aesthetic만 적용한 경우</span></a>
+<a class="sourceLine" id="cb1603-2" title="2"><span class="co">## gapminder 데이터셋</span></a>
+<a class="sourceLine" id="cb1603-3" title="3">gapm &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataset/gapminder/gapminder_filter.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb1603-4" title="4">gapm_filter &lt;-<span class="st"> </span>gapm <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1603-5" title="5"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">grepl</span>(<span class="st">&quot;Asia&quot;</span>, region))</a>
+<a class="sourceLine" id="cb1603-6" title="6">gpgroup &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> gapm_filter, </a>
+<a class="sourceLine" id="cb1603-7" title="7">                  <span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> life_expectancy))</a>
+<a class="sourceLine" id="cb1603-8" title="8"></a>
+<a class="sourceLine" id="cb1603-9" title="9">gpgroup <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="fl">0.5</span>, <span class="dt">alpha =</span> <span class="fl">0.2</span>) </a>
+<a class="sourceLine" id="cb1603-10" title="10">gpgroup_l &lt;-<span class="st"> </span>gpgroup <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country), </a>
+<a class="sourceLine" id="cb1603-11" title="11">                                 <span class="dt">size =</span> <span class="fl">0.5</span>, <span class="dt">alpha =</span> <span class="fl">0.2</span>)</a>
+<a class="sourceLine" id="cb1603-12" title="12">gpgroup_l</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-67-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-67-2.svg" width="50%" /></p>
+
+
+<div class="sourceCode" id="cb1604"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1604-1" title="1"><span class="co"># 전체 아시아 국가의 평균 추세선 </span></a>
+<a class="sourceLine" id="cb1604-2" title="2"><span class="co">## geom_line과 geom_smooth 모두 group을 country로 지정</span></a>
+<a class="sourceLine" id="cb1604-3" title="3">gpgroup_l <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1604-4" title="4"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country), </a>
+<a class="sourceLine" id="cb1604-5" title="5">              <span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, </a>
+<a class="sourceLine" id="cb1604-6" title="6">              <span class="dt">size =</span> <span class="fl">0.5</span>, </a>
+<a class="sourceLine" id="cb1604-7" title="7">              <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, </a>
+<a class="sourceLine" id="cb1604-8" title="8">              <span class="dt">se =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb1604-9" title="9"></a>
+<a class="sourceLine" id="cb1604-10" title="10"><span class="co">## 모든 국가에 가장 적합한 하나의 곡선으로 fitting</span></a>
+<a class="sourceLine" id="cb1604-11" title="11">gpgroup_l <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1604-12" title="12"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">group =</span> <span class="dv">1</span>), </a>
+<a class="sourceLine" id="cb1604-13" title="13">              <span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, </a>
+<a class="sourceLine" id="cb1604-14" title="14">              <span class="dt">size =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb1604-15" title="15">              <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, </a>
+<a class="sourceLine" id="cb1604-16" title="16">              <span class="dt">se =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-68-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-68-2.svg" width="50%" /></p>
+
+<ul>
+<li>크기(size), 점 모양(shape), 선모양(linetype) aesthetic</li>
+</ul>
+
+<div class="sourceCode" id="cb1605"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1605-1" title="1"><span class="co"># size 지정</span></a>
+<a class="sourceLine" id="cb1605-2" title="2">gpsize &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> mtcars, </a>
+<a class="sourceLine" id="cb1605-3" title="3">                 <span class="kw">aes</span>(disp, mpg))</a>
+<a class="sourceLine" id="cb1605-4" title="4"></a>
+<a class="sourceLine" id="cb1605-5" title="5">gpsize <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb1605-6" title="6"></a>
+<a class="sourceLine" id="cb1605-7" title="7">gpsize <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> hp), </a>
+<a class="sourceLine" id="cb1605-8" title="8">                    <span class="dt">alpha =</span> <span class="fl">0.5</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-69-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-69-2.svg" width="50%" /></p>
+
+
+<div class="sourceCode" id="cb1606"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1606-1" title="1">gpshape &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> mtcars, </a>
+<a class="sourceLine" id="cb1606-2" title="2">                  <span class="kw">aes</span>(hp, mpg))</a>
+<a class="sourceLine" id="cb1606-3" title="3">gpshape <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1606-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">5</span>) <span class="co"># </span></a>
+<a class="sourceLine" id="cb1606-5" title="5"></a>
+<a class="sourceLine" id="cb1606-6" title="6"><span class="co"># 실린더 개수에 따라 점 모양 지정</span></a>
+<a class="sourceLine" id="cb1606-7" title="7">gpshape <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1606-8" title="8"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">shape =</span> <span class="kw">factor</span>(cyl)), </a>
+<a class="sourceLine" id="cb1606-9" title="9">             <span class="dt">size =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb1606-10" title="10"><span class="co">## pch를 인수로 사용해도 동일한 그래프 출력</span></a>
+<a class="sourceLine" id="cb1606-11" title="11"><span class="co"># gpshape + </span></a>
+<a class="sourceLine" id="cb1606-12" title="12"><span class="co">#   geom_point(aes(pch = factor(cyl)), </span></a>
+<a class="sourceLine" id="cb1606-13" title="13"><span class="co">#              size = 4)</span></a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-70-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-70-2.svg" width="50%" /></p>
+
+
+<div class="sourceCode" id="cb1607"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1607-1" title="1"><span class="co"># linetype 지정</span></a>
+<a class="sourceLine" id="cb1607-2" title="2"><span class="co">## economics_long 데이터셋</span></a>
+<a class="sourceLine" id="cb1607-3" title="3">gplty &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> economics_long, </a>
+<a class="sourceLine" id="cb1607-4" title="4">                <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> value01))</a>
+<a class="sourceLine" id="cb1607-5" title="5"></a>
+<a class="sourceLine" id="cb1607-6" title="6">gplty <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1607-7" title="7"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> variable, <span class="dt">color =</span> variable), </a>
+<a class="sourceLine" id="cb1607-8" title="8">            <span class="dt">size =</span> <span class="fl">0.5</span>, </a>
+<a class="sourceLine" id="cb1607-9" title="9">            <span class="dt">linetype =</span> <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb1607-10" title="10"></a>
+<a class="sourceLine" id="cb1607-11" title="11"><span class="co"># 실린더 개수에 따라 점 모양 지정</span></a>
+<a class="sourceLine" id="cb1607-12" title="12">gplty <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1607-13" title="13"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">linetype =</span> variable, </a>
+<a class="sourceLine" id="cb1607-14" title="14">                <span class="dt">color =</span> variable), </a>
+<a class="sourceLine" id="cb1607-15" title="15">            <span class="dt">size =</span> <span class="fl">0.5</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-71-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-71-2.svg" width="50%" /></p>
+
+</div>
+<div id="geom-lines" class="section level3">
+<h3><span class="header-section-number">5.4.2</span> Geoms: 선 관련 geometric</h3>
+<ul>
+<li><code>geom_line()</code>: x축에 대응한 변수의 순서대로 관측값을 선으로 연결</li>
+<li><code>geom_path()</code>: 관측치가 데이터셋에 나타난 순서대로 선으로 연결</li>
+<li><code>geom_abline(slope, intercept)</code>: 기울기(<code>slope</code>) 절편(<code>intercept</code>)에 대한 직선 <span class="math inline">\(\rightarrow\)</span> R 기본 그래픽 함수 <code>abline(a=value, b=value)</code>와 유사</li>
+<li><code>geom_vline(xintercept)</code>: x축에 수직(y 축에 수평)인 직선 생성</li>
+<li><code>geom_hline(yintecept)</code>: x축에 수평(y 축에 수직)인 직선 생성</li>
+</ul>
+
+<div class="sourceCode" id="cb1608"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1608-1" title="1"><span class="co"># gap-minder 데이터</span></a>
+<a class="sourceLine" id="cb1608-2" title="2">gpline &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> gapm_filter, </a>
+<a class="sourceLine" id="cb1608-3" title="3">                  <span class="kw">aes</span>(<span class="dt">y =</span> gdp_cap)) </a>
+<a class="sourceLine" id="cb1608-4" title="4"><span class="co"># geom_line</span></a>
+<a class="sourceLine" id="cb1608-5" title="5">gpline <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1608-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, </a>
+<a class="sourceLine" id="cb1608-7" title="7">                <span class="dt">group =</span> country), </a>
+<a class="sourceLine" id="cb1608-8" title="8">            <span class="dt">size =</span> <span class="fl">0.5</span>, </a>
+<a class="sourceLine" id="cb1608-9" title="9">            <span class="dt">alpha =</span> <span class="fl">0.3</span>, </a>
+<a class="sourceLine" id="cb1608-10" title="10">            <span class="dt">linetype =</span> <span class="st">&quot;solid&quot;</span>) -&gt;<span class="st"> </span>gpline</a>
+<a class="sourceLine" id="cb1608-11" title="11">gpline</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-72-1.svg" width="672" /></p>
+
+
+<div class="sourceCode" id="cb1609"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1609-1" title="1"><span class="co"># geom_path</span></a>
+<a class="sourceLine" id="cb1609-2" title="2">highlight_country &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;South Korea&quot;</span>, <span class="st">&quot;China&quot;</span>, <span class="st">&quot;Japan&quot;</span>, </a>
+<a class="sourceLine" id="cb1609-3" title="3">                       <span class="st">&quot;India&quot;</span>, <span class="st">&quot;Taiwan&quot;</span>, <span class="st">&quot;Singapore&quot;</span>)</a>
+<a class="sourceLine" id="cb1609-4" title="4"></a>
+<a class="sourceLine" id="cb1609-5" title="5"><span class="co"># dplyr 패키지 체인과 ggplot 함수 연결 가능</span></a>
+<a class="sourceLine" id="cb1609-6" title="6">gppath &lt;-<span class="st"> </span>gapm <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1609-7" title="7"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2000</span>, </a>
+<a class="sourceLine" id="cb1609-8" title="8">         country <span class="op">%in%</span><span class="st"> </span>highlight_country) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1609-9" title="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> gdp_cap, </a>
+<a class="sourceLine" id="cb1609-10" title="10">             <span class="dt">y =</span> life_expectancy))</a>
+<a class="sourceLine" id="cb1609-11" title="11"></a>
+<a class="sourceLine" id="cb1609-12" title="12">gppath <span class="op">+</span><span class="st"> </span><span class="kw">geom_path</span>(<span class="kw">aes</span>(<span class="dt">group =</span> country))</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-73-1.svg" width="672" /></p>
+
+
+<div class="sourceCode" id="cb1610"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1610-1" title="1"><span class="co"># 선 굵기 및 색상 조정</span></a>
+<a class="sourceLine" id="cb1610-2" title="2">gppath <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1610-3" title="3"><span class="st">  </span><span class="kw">geom_path</span>(<span class="kw">aes</span>(<span class="dt">color =</span> country), </a>
+<a class="sourceLine" id="cb1610-4" title="4">            <span class="dt">size =</span> <span class="dv">4</span>, </a>
+<a class="sourceLine" id="cb1610-5" title="5">            <span class="dt">alpha =</span> <span class="fl">0.5</span>) -&gt;<span class="st"> </span>gppath</a>
+<a class="sourceLine" id="cb1610-6" title="6"></a>
+<a class="sourceLine" id="cb1610-7" title="7"><span class="co"># 선과 점 동시에 출력</span></a>
+<a class="sourceLine" id="cb1610-8" title="8">gppath <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1610-9" title="9"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">shape =</span> country), </a>
+<a class="sourceLine" id="cb1610-10" title="10">             <span class="dt">size =</span> <span class="dv">2</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-74-1.svg" width="672" /></p>
+
+
+<div class="sourceCode" id="cb1611"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1611-1" title="1"><span class="co"># geom_abline, geom_hline, geom_vline</span></a>
+<a class="sourceLine" id="cb1611-2" title="2"><span class="co">## abline</span></a>
+<a class="sourceLine" id="cb1611-3" title="3">m &lt;-<span class="st"> </span><span class="kw">lm</span>(gdp_cap <span class="op">~</span><span class="st"> </span>year, <span class="dt">data =</span> gapm_filter)</a>
+<a class="sourceLine" id="cb1611-4" title="4">gpline <span class="op">+</span><span class="st">   </span></a>
+<a class="sourceLine" id="cb1611-5" title="5"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="kw">coef</span>(m)[<span class="dv">2</span>], </a>
+<a class="sourceLine" id="cb1611-6" title="6">              <span class="dt">intercept =</span> <span class="kw">coef</span>(m)[<span class="dv">1</span>], </a>
+<a class="sourceLine" id="cb1611-7" title="7">              <span class="dt">size =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb1611-8" title="8">              <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) -&gt;<span class="st"> </span>gplines</a>
+<a class="sourceLine" id="cb1611-9" title="9">gplines</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-75-1.svg" width="672" /></p>
+
+
+<div class="sourceCode" id="cb1612"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1612-1" title="1"><span class="co">## hline</span></a>
+<a class="sourceLine" id="cb1612-2" title="2">gplines <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1612-3" title="3"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="kw">mean</span>(gapm_filter<span class="op">$</span>gdp_cap, </a>
+<a class="sourceLine" id="cb1612-4" title="4">                               <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), </a>
+<a class="sourceLine" id="cb1612-5" title="5">             <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, </a>
+<a class="sourceLine" id="cb1612-6" title="6">             <span class="dt">size =</span> <span class="dv">1</span>) -&gt;<span class="st"> </span>gplines</a>
+<a class="sourceLine" id="cb1612-7" title="7">gplines <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Addling a horizontal line: mean of gdp_cap&quot;</span>)</a>
+<a class="sourceLine" id="cb1612-8" title="8"></a>
+<a class="sourceLine" id="cb1612-9" title="9"><span class="co">## vline  </span></a>
+<a class="sourceLine" id="cb1612-10" title="10">gplines <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1612-11" title="11"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="kw">mean</span>(gapm_filter<span class="op">$</span>year, </a>
+<a class="sourceLine" id="cb1612-12" title="12">                               <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), </a>
+<a class="sourceLine" id="cb1612-13" title="13">             <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, </a>
+<a class="sourceLine" id="cb1612-14" title="14">             <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1612-15" title="15"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Adding a vertical line: mean of year&quot;</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-76-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-76-2.svg" width="50%" /></p>
+
+</div>
+<div id="geom-points" class="section level3">
+<h3><span class="header-section-number">5.4.3</span> Geoms: 점 geometrics</h3>
+<ul>
+<li><code>geom_point()</code>: ggplot 객체에 지정된 aesthetic (x-y에 대응하는 변수)에 대한 산점도를 생성</li>
+<li><code>geom_jitter()</code>: 각 점의 위치에 random noise를 추가해 overplotting 처리 <span class="math inline">\(\rightarrow\)</span> <code>geom_point(position = "jitter")</code>의 축약 버전</li>
+</ul>
+
+<div class="sourceCode" id="cb1613"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1613-1" title="1"><span class="co"># geom_point</span></a>
+<a class="sourceLine" id="cb1613-2" title="2"><span class="co">## 갭마인더 데이터: 2015년 기대수명 vs. 일인당 국민소득 산점도</span></a>
+<a class="sourceLine" id="cb1613-3" title="3">gppoint &lt;-<span class="st"> </span>gapm <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1613-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">continent =</span> <span class="kw">gsub</span>(<span class="st">&quot;(.+</span><span class="ch">\\</span><span class="st">s)&quot;</span>, <span class="st">&quot;&quot;</span>, region) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1613-5" title="5"><span class="st">  </span><span class="co"># region 변수에서 공백 앞 문자 모두 제거</span></a>
+<a class="sourceLine" id="cb1613-6" title="6"><span class="st">           </span>factor) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1613-7" title="7"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">2015</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1613-8" title="8"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> life_expectancy, <span class="dt">y =</span> gdp_cap))</a>
+<a class="sourceLine" id="cb1613-9" title="9"></a>
+<a class="sourceLine" id="cb1613-10" title="10">gppoint <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1613-11" title="11"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">1</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-77-1.svg" width="672" /></p>
+
+
+<div class="sourceCode" id="cb1614"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1614-1" title="1"><span class="co">## 점의 크기는 해당 국가 인구수(log10 변환) 에 비례</span></a>
+<a class="sourceLine" id="cb1614-2" title="2"><span class="co">## 각 대륙에 따라 색 구분</span></a>
+<a class="sourceLine" id="cb1614-3" title="3"><span class="co">## 투명도는 0.3</span></a>
+<a class="sourceLine" id="cb1614-4" title="4"><span class="co">## --&gt; Bubble plot</span></a>
+<a class="sourceLine" id="cb1614-5" title="5">gppoint <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1614-6" title="6"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> <span class="kw">log</span>(population, <span class="dt">base=</span><span class="dv">10</span>), </a>
+<a class="sourceLine" id="cb1614-7" title="7">                 <span class="dt">color =</span> continent), </a>
+<a class="sourceLine" id="cb1614-8" title="8">             <span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-78-1.svg" width="672" /></p>
+
+
+<div class="sourceCode" id="cb1615"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1615-1" title="1"><span class="co">## mpg 데이터 셋</span></a>
+<a class="sourceLine" id="cb1615-2" title="2"><span class="co">## cylinder 개수에 따른 시내 연비</span></a>
+<a class="sourceLine" id="cb1615-3" title="3">gppoint2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, </a>
+<a class="sourceLine" id="cb1615-4" title="4">                   <span class="kw">aes</span>(<span class="dt">x =</span> cyl, <span class="dt">y =</span> cty))</a>
+<a class="sourceLine" id="cb1615-5" title="5">gppoint2 <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-79-1.svg" width="672" /></p>
+
+
+<div class="sourceCode" id="cb1616"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1616-1" title="1"><span class="co"># geom_jitter</span></a>
+<a class="sourceLine" id="cb1616-2" title="2"><span class="co">## geom_point에서 position 인수 조정</span></a>
+<a class="sourceLine" id="cb1616-3" title="3">gppoint2 <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1616-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">position =</span> <span class="st">&quot;jitter&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1616-5" title="5"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;geom_point() with position = &#39;jitter&#39;&quot;</span>)</a>
+<a class="sourceLine" id="cb1616-6" title="6"></a>
+<a class="sourceLine" id="cb1616-7" title="7"><span class="co">## geom_jitter: jittering 크기는 0.3</span></a>
+<a class="sourceLine" id="cb1616-8" title="8"><span class="co">## class로 색 조정</span></a>
+<a class="sourceLine" id="cb1616-9" title="9">gppoint2 <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1616-10" title="10"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">color =</span> class), </a>
+<a class="sourceLine" id="cb1616-11" title="11">              <span class="dt">width =</span> <span class="fl">0.3</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1616-12" title="12"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Jittering using geom_jitter()&quot;</span>)</a></code></pre></div>
+<p><img src="05-data-visualization_files/figure-html/unnamed-chunk-80-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-80-2.svg" width="50%" /></p>
+
+<!-- #### `geom_bar()` -->
+<!-- #### `geom_errorbar()` -->
+<!-- #### `geom_text()` -->
+<!-- #### `geom_histogram()` -->
+<!-- #### `geom_boxplot()` -->
+<!-- #### `geom_density()` -->
+<!-- #### `geom_smooth()` -->
+<!-- ### Scales -->
+<!-- #### labs() -->
+<!-- #### `scale_x_*`, `scale_y_*` -->
+<!-- ### Coordinate systems -->
+<!-- ### Guides -->
+<!-- ### Themes -->
+<!-- #### `theme()` -->
+<!-- #### `facet_grid()`, `facet_wrap()` -->
+<!-- #### `coord_flip()` -->
+
+</div>
+</div>
+<!-- </div> -->
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-wilkinson2012grammar">
+<p>Wilkinson, Leland. 2012. “The Grammar of Graphics.” In <em>Handbook of Computational Statistics</em>, 375–414. Springer.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="low-level-graphic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/05-data-visualization.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["cnu-r-programming.pdf", "cnu-r-programming.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

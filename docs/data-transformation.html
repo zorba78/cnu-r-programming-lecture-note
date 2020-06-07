@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.5 데이터 변환 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
-  <meta name="generator" content="bookdown 0.18.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.5 데이터 변환 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-05-30" />
+<meta name="date" content="2020-06-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -257,7 +257,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="homework-04.html"><a href="homework-04.html"><i class="fa fa-check"></i><b>4.6</b> Homework #4</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="ch-data-visualization.html"><a href="ch-data-visualization.html"><i class="fa fa-check"></i><b>5</b> 데이터 시각화</a><ul>
-<li class="chapter" data-level="5.1" data-path="r-기본-그래프-함수.html"><a href="r-기본-그래프-함수.html"><i class="fa fa-check"></i><b>5.1</b> R 기본 그래프 함수</a></li>
+<li class="chapter" data-level="5.1" data-path="r-basic-graphics.html"><a href="r-basic-graphics.html"><i class="fa fa-check"></i><b>5.1</b> R 기본 그래프 함수</a></li>
 <li class="chapter" data-level="5.2" data-path="high-level-graph.html"><a href="high-level-graph.html"><i class="fa fa-check"></i><b>5.2</b> 고수준 그래프 함수</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="high-level-graph.html"><a href="high-level-graph.html#plot-fun"><i class="fa fa-check"></i><b>5.2.1</b> <strong><code>plot()</code> 함수</strong></a></li>
 <li class="chapter" data-level="5.2.2" data-path="high-level-graph.html"><a href="high-level-graph.html#main-high-level-graph"><i class="fa fa-check"></i><b>5.2.2</b> 주요 고수준 그래픽 함수</a></li>
@@ -280,6 +280,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.8" data-path="low-level-graphic.html"><a href="low-level-graphic.html#text"><i class="fa fa-check"></i><b>5.3.8</b> text(), mtext()</a></li>
 <li class="chapter" data-level="5.3.9" data-path="low-level-graphic.html"><a href="low-level-graphic.html#legend"><i class="fa fa-check"></i><b>5.3.9</b> legend()</a></li>
 <li class="chapter" data-level="5.3.10" data-path="low-level-graphic.html"><a href="low-level-graphic.html#math-expression"><i class="fa fa-check"></i><b>5.3.10</b> 수식 표현</a></li>
+<li class="chapter" data-level="5.3.11" data-path="low-level-graphic.html"><a href="low-level-graphic.html#r-기본-그래프-이미지-파일로-저장"><i class="fa fa-check"></i><b>5.3.11</b> R 기본 그래프 이미지 파일로 저장</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ggplot2-package.html"><a href="ggplot2-package.html"><i class="fa fa-check"></i><b>5.4</b> ggplot2</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="ggplot2-package.html"><a href="ggplot2-package.html#basic-grammar"><i class="fa fa-check"></i><b>5.4.1</b> 기본 문법</a></li>
+<li class="chapter" data-level="5.4.2" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-lines"><i class="fa fa-check"></i><b>5.4.2</b> Geoms: 선 관련 geometric</a></li>
+<li class="chapter" data-level="5.4.3" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-points"><i class="fa fa-check"></i><b>5.4.3</b> Geoms: 점 geometrics</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -664,25 +670,25 @@ dplyr 패키지와 마찬가지로 tidyr 패키지에서 제공하는 함수는 
 <p>“wide” 형태의 데이터를 “long” 형태로 바꾸는 것은 원래 구조의 데이터를 녹여서(melt) 길게 만든다는 의미로도 해석할 수 있음. tidyr의 초기 버전인 reshape 패키지에서 <code>pivot_wider()</code> 또는 <code>gather()</code>와 유사한 기능을 가진 함수 이름이 <code>melt()</code> 임. 본 강의에서는 <code>melt()</code> 함수의 사용 방법에 대해서는 다루지 않음.</p>
 </blockquote>
 
-<div class="sourceCode" id="cb1428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1428-1" title="1"><span class="co"># pivot_longer()의 기본 사용 형태</span></a>
-<a class="sourceLine" id="cb1428-2" title="2"><span class="kw">pivot_longer</span>(</a>
-<a class="sourceLine" id="cb1428-3" title="3">  data, <span class="co"># 데이터 프레임</span></a>
-<a class="sourceLine" id="cb1428-4" title="4">  cols, <span class="co"># long format으로 변경을 위해 선택한 열 이름</span></a>
-<a class="sourceLine" id="cb1428-5" title="5">        <span class="co"># dplyr select() 함수에서 사용한 변수선정 방법 준용</span></a>
-<a class="sourceLine" id="cb1428-6" title="6">  names_to, <span class="co"># 선택한 열 이름을 값으로 갖는 변수명칭 지정</span></a>
-<a class="sourceLine" id="cb1428-7" title="7">  names_prefix, <span class="co">#변수명에 처음에 붙는 접두어 패턴 제거(예시 참조, optional)</span></a>
-<a class="sourceLine" id="cb1428-8" title="8">  names_pattern, <span class="co"># 정규표현식의 그룹지정(())에 해당하는 패턴을 값으로 사용</span></a>
-<a class="sourceLine" id="cb1428-9" title="9">                 <span class="co"># 예시 참조(optional)</span></a>
-<a class="sourceLine" id="cb1428-10" title="10">  values_to <span class="co"># 선택한 열에 포함되어 있는 셀 값을 저장할 변수 이름 지정</span></a>
-<a class="sourceLine" id="cb1428-11" title="11">)</a>
-<a class="sourceLine" id="cb1428-12" title="12"></a>
-<a class="sourceLine" id="cb1428-13" title="13"><span class="co"># gather() 기본 사용 형태</span></a>
-<a class="sourceLine" id="cb1428-14" title="14"><span class="kw">gather</span>(</a>
-<a class="sourceLine" id="cb1428-15" title="15">  data, <span class="co"># 데이터 프레임</span></a>
-<a class="sourceLine" id="cb1428-16" title="16">  key, <span class="co"># 선택한 열 이름을 값으로 갖는 변수명칭 지정</span></a>
-<a class="sourceLine" id="cb1428-17" title="17">  value, <span class="co"># 선택한 열에 포함되어 있는 셀 값을 저장할 변수 이름 지정</span></a>
-<a class="sourceLine" id="cb1428-18" title="18">  ... <span class="co"># long format으로 변경할 열 선택</span></a>
-<a class="sourceLine" id="cb1428-19" title="19">)</a></code></pre></div>
+<div class="sourceCode" id="cb1431"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1431-1" title="1"><span class="co"># pivot_longer()의 기본 사용 형태</span></a>
+<a class="sourceLine" id="cb1431-2" title="2"><span class="kw">pivot_longer</span>(</a>
+<a class="sourceLine" id="cb1431-3" title="3">  data, <span class="co"># 데이터 프레임</span></a>
+<a class="sourceLine" id="cb1431-4" title="4">  cols, <span class="co"># long format으로 변경을 위해 선택한 열 이름</span></a>
+<a class="sourceLine" id="cb1431-5" title="5">        <span class="co"># dplyr select() 함수에서 사용한 변수선정 방법 준용</span></a>
+<a class="sourceLine" id="cb1431-6" title="6">  names_to, <span class="co"># 선택한 열 이름을 값으로 갖는 변수명칭 지정</span></a>
+<a class="sourceLine" id="cb1431-7" title="7">  names_prefix, <span class="co">#변수명에 처음에 붙는 접두어 패턴 제거(예시 참조, optional)</span></a>
+<a class="sourceLine" id="cb1431-8" title="8">  names_pattern, <span class="co"># 정규표현식의 그룹지정(())에 해당하는 패턴을 값으로 사용</span></a>
+<a class="sourceLine" id="cb1431-9" title="9">                 <span class="co"># 예시 참조(optional)</span></a>
+<a class="sourceLine" id="cb1431-10" title="10">  values_to <span class="co"># 선택한 열에 포함되어 있는 셀 값을 저장할 변수 이름 지정</span></a>
+<a class="sourceLine" id="cb1431-11" title="11">)</a>
+<a class="sourceLine" id="cb1431-12" title="12"></a>
+<a class="sourceLine" id="cb1431-13" title="13"><span class="co"># gather() 기본 사용 형태</span></a>
+<a class="sourceLine" id="cb1431-14" title="14"><span class="kw">gather</span>(</a>
+<a class="sourceLine" id="cb1431-15" title="15">  data, <span class="co"># 데이터 프레임</span></a>
+<a class="sourceLine" id="cb1431-16" title="16">  key, <span class="co"># 선택한 열 이름을 값으로 갖는 변수명칭 지정</span></a>
+<a class="sourceLine" id="cb1431-17" title="17">  value, <span class="co"># 선택한 열에 포함되어 있는 셀 값을 저장할 변수 이름 지정</span></a>
+<a class="sourceLine" id="cb1431-18" title="18">  ... <span class="co"># long format으로 변경할 열 선택</span></a>
+<a class="sourceLine" id="cb1431-19" title="19">)</a></code></pre></div>
 
 
 <p><img src="figures/tidyr-pivot_longer.png" width="90%" style="display: block; margin: auto;" /></p>
@@ -703,10 +709,10 @@ dplyr 패키지와 마찬가지로 tidyr 패키지에서 제공하는 함수는 
 <!--   # write_csv("dataset/tidyr-wide-ex01.csv", col_names = TRUE) -->
 <!-- ``` -->
 
-<div class="sourceCode" id="cb1429"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1429-1" title="1"><span class="co"># 데이터 불러오기: read_csv() 함수를 이용해 </span></a>
-<a class="sourceLine" id="cb1429-2" title="2"><span class="co"># tidyr-wide-ex01.csv 파일 불러오기</span></a>
-<a class="sourceLine" id="cb1429-3" title="3">wide_<span class="dv">01</span> &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataset/tidyr-wide-ex01.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb1429-4" title="4">wide_<span class="dv">01</span></a></code></pre></div>
+<div class="sourceCode" id="cb1432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1432-1" title="1"><span class="co"># 데이터 불러오기: read_csv() 함수를 이용해 </span></a>
+<a class="sourceLine" id="cb1432-2" title="2"><span class="co"># tidyr-wide-ex01.csv 파일 불러오기</span></a>
+<a class="sourceLine" id="cb1432-3" title="3">wide_<span class="dv">01</span> &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataset/tidyr-wide-ex01.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb1432-4" title="4">wide_<span class="dv">01</span></a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["country"],"name":[1],"type":["chr"],"align":["left"]},{"label":["2001"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["2002"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["2003"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["2004"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["2005"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["2006"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["2007"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["2008"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["2009"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["2010"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["2011"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["2012"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["2013"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["2014"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["2015"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["2016"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["2017"],"name":[18],"type":["dbl"],"align":["right"]},{"label":["2018"],"name":[19],"type":["dbl"],"align":["right"]},{"label":["2019"],"name":[20],"type":["dbl"],"align":["right"]},{"label":["2020"],"name":[21],"type":["dbl"],"align":["right"]}],"data":[{"1":"Germany","2":"37325.04","3":"37262.35","4":"36977.31","5":"37418.15","6":"37703.88","7":"39143.15","8":"40473.52","9":"40989.44","10":"38784.44","11":"40428.69","12":"42692.51","13":"42822.12","14":"42914.53","15":"43666.71","16":"44043.21","17":"44668.71","18":"45462.04","19":"45959.30","20":"46172.61","21":"46743.92"},{"1":"South Korea","2":"21530.31","3":"22997.09","4":"23549.29","5":"24605.60","6":"25516.89","7":"26696.97","8":"28013.77","9":"28588.45","10":"28642.82","11":"30352.02","12":"31228.56","13":"31776.86","14":"32548.74","15":"33425.61","16":"34177.58","17":"35020.39","18":"35938.34","19":"36776.58","20":"37343.25","21":"38016.79"},{"1":"United States","2":"45662.81","3":"46029.07","4":"46940.89","5":"48275.27","6":"49512.95","7":"50437.77","8":"50897.78","9":"50349.60","10":"48644.24","11":"49479.39","12":"49883.17","13":"50632.41","14":"51208.83","15":"52080.90","16":"53187.45","17":"53631.71","18":"54470.72","19":"55681.16","20":"56657.21","21":"57530.05"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -744,13 +750,13 @@ dplyr 패키지와 마찬가지로 tidyr 패키지에서 제공하는 함수는 
 <li>예시 1: <code>wide_01</code> 데이터셋</li>
 </ul>
 
-<div class="sourceCode" id="cb1430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1430-1" title="1"><span class="co"># wide_01 데이터 tidying</span></a>
-<a class="sourceLine" id="cb1430-2" title="2"><span class="co">## pivot_wider() 사용</span></a>
-<a class="sourceLine" id="cb1430-3" title="3">tidy_ex_<span class="dv">01</span> &lt;-<span class="st"> </span>wide_<span class="dv">01</span> <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1430-4" title="4"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="st">`</span><span class="dt">2001</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>,</a>
-<a class="sourceLine" id="cb1430-5" title="5">               <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>,</a>
-<a class="sourceLine" id="cb1430-6" title="6">               <span class="dt">values_to =</span> <span class="st">&quot;gdp_cap&quot;</span>)</a>
-<a class="sourceLine" id="cb1430-7" title="7">tidy_ex_<span class="dv">01</span> <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1433"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1433-1" title="1"><span class="co"># wide_01 데이터 tidying</span></a>
+<a class="sourceLine" id="cb1433-2" title="2"><span class="co">## pivot_wider() 사용</span></a>
+<a class="sourceLine" id="cb1433-3" title="3">tidy_ex_<span class="dv">01</span> &lt;-<span class="st"> </span>wide_<span class="dv">01</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1433-4" title="4"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="st">`</span><span class="dt">2001</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>,</a>
+<a class="sourceLine" id="cb1433-5" title="5">               <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>,</a>
+<a class="sourceLine" id="cb1433-6" title="6">               <span class="dt">values_to =</span> <span class="st">&quot;gdp_cap&quot;</span>)</a>
+<a class="sourceLine" id="cb1433-7" title="7">tidy_ex_<span class="dv">01</span> <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 60 x 3
    country year  gdp_cap
    &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt;
@@ -765,10 +771,10 @@ dplyr 패키지와 마찬가지로 tidyr 패키지에서 제공하는 함수는 
  9 Germany 2009   38784.
 10 Germany 2010   40429.
 # ... with 50 more rows</code></pre>
-<div class="sourceCode" id="cb1432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1432-1" title="1"><span class="co">## gather() 사용</span></a>
-<a class="sourceLine" id="cb1432-2" title="2">tidy_ex_<span class="dv">01</span> &lt;-<span class="st"> </span>wide_<span class="dv">01</span> <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1432-3" title="3"><span class="st">  </span><span class="kw">gather</span>(year, gdp_cap, <span class="st">`</span><span class="dt">2001</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>)</a>
-<a class="sourceLine" id="cb1432-4" title="4">tidy_ex_<span class="dv">01</span> <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1435"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1435-1" title="1"><span class="co">## gather() 사용</span></a>
+<a class="sourceLine" id="cb1435-2" title="2">tidy_ex_<span class="dv">01</span> &lt;-<span class="st"> </span>wide_<span class="dv">01</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1435-3" title="3"><span class="st">  </span><span class="kw">gather</span>(year, gdp_cap, <span class="st">`</span><span class="dt">2001</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>)</a>
+<a class="sourceLine" id="cb1435-4" title="4">tidy_ex_<span class="dv">01</span> <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 60 x 3
    country       year  gdp_cap
    &lt;chr&gt;         &lt;chr&gt;   &lt;dbl&gt;
@@ -788,7 +794,7 @@ dplyr 패키지와 마찬가지로 tidyr 패키지에서 제공하는 함수는 
 <li>예시 2: <strong>tidyr</strong> 패키지에 내장되어 있는 <code>billboard</code> 데이터셋(<code>help(billboard)</code> 참고)</li>
 </ul>
 
-<div class="sourceCode" id="cb1434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1434-1" title="1">billboard <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1437"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1437-1" title="1">billboard <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 317 x 79
    artist track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8
    &lt;chr&gt;  &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -814,7 +820,7 @@ dplyr 패키지와 마찬가지로 tidyr 패키지에서 제공하는 함수는 
 #   wk59 &lt;dbl&gt;, wk60 &lt;dbl&gt;, wk61 &lt;dbl&gt;, wk62 &lt;dbl&gt;, wk63 &lt;dbl&gt;, wk64 &lt;dbl&gt;,
 #   wk65 &lt;dbl&gt;, wk66 &lt;lgl&gt;, wk67 &lt;lgl&gt;, wk68 &lt;lgl&gt;, wk69 &lt;lgl&gt;, wk70 &lt;lgl&gt;,
 #   wk71 &lt;lgl&gt;, wk72 &lt;lgl&gt;, wk73 &lt;lgl&gt;, wk74 &lt;lgl&gt;, wk75 &lt;lgl&gt;, wk76 &lt;lgl&gt;</code></pre>
-<div class="sourceCode" id="cb1436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1436-1" title="1"><span class="kw">names</span>(billboard)</a></code></pre></div>
+<div class="sourceCode" id="cb1439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1439-1" title="1"><span class="kw">names</span>(billboard)</a></code></pre></div>
 <pre><code> [1] &quot;artist&quot;       &quot;track&quot;        &quot;date.entered&quot; &quot;wk1&quot;          &quot;wk2&quot;         
  [6] &quot;wk3&quot;          &quot;wk4&quot;          &quot;wk5&quot;          &quot;wk6&quot;          &quot;wk7&quot;         
 [11] &quot;wk8&quot;          &quot;wk9&quot;          &quot;wk10&quot;         &quot;wk11&quot;         &quot;wk12&quot;        
@@ -831,12 +837,12 @@ dplyr 패키지와 마찬가지로 tidyr 패키지에서 제공하는 함수는 
 [66] &quot;wk63&quot;         &quot;wk64&quot;         &quot;wk65&quot;         &quot;wk66&quot;         &quot;wk67&quot;        
 [71] &quot;wk68&quot;         &quot;wk69&quot;         &quot;wk70&quot;         &quot;wk71&quot;         &quot;wk72&quot;        
 [76] &quot;wk73&quot;         &quot;wk74&quot;         &quot;wk75&quot;         &quot;wk76&quot;        </code></pre>
-<div class="sourceCode" id="cb1438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1438-1" title="1"><span class="co"># pivot_wider()을 이용해 데이터 정돈</span></a>
-<a class="sourceLine" id="cb1438-2" title="2">billb_tidy &lt;-<span class="st"> </span>billboard <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1438-3" title="3"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">starts_with</span>(<span class="st">&quot;wk&quot;</span>),</a>
-<a class="sourceLine" id="cb1438-4" title="4">               <span class="dt">names_to =</span> <span class="st">&quot;week&quot;</span>,</a>
-<a class="sourceLine" id="cb1438-5" title="5">               <span class="dt">values_to =</span> <span class="st">&quot;rank&quot;</span>)</a>
-<a class="sourceLine" id="cb1438-6" title="6">billb_tidy <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1441-1" title="1"><span class="co"># pivot_wider()을 이용해 데이터 정돈</span></a>
+<a class="sourceLine" id="cb1441-2" title="2">billb_tidy &lt;-<span class="st"> </span>billboard <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1441-3" title="3"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">starts_with</span>(<span class="st">&quot;wk&quot;</span>),</a>
+<a class="sourceLine" id="cb1441-4" title="4">               <span class="dt">names_to =</span> <span class="st">&quot;week&quot;</span>,</a>
+<a class="sourceLine" id="cb1441-5" title="5">               <span class="dt">values_to =</span> <span class="st">&quot;rank&quot;</span>)</a>
+<a class="sourceLine" id="cb1441-6" title="6">billb_tidy <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 24,092 x 5
    artist track                   date.entered week   rank
    &lt;chr&gt;  &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;
@@ -851,14 +857,14 @@ dplyr 패키지와 마찬가지로 tidyr 패키지에서 제공하는 함수는 
  9 2 Pac  Baby Don&#39;t Cry (Keep... 2000-02-26   wk9      NA
 10 2 Pac  Baby Don&#39;t Cry (Keep... 2000-02-26   wk10     NA
 # ... with 24,082 more rows</code></pre>
-<div class="sourceCode" id="cb1440"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1440-1" title="1"><span class="co"># pivot_longer() 함수의 인수 중 value_drop_na 값 조정을 통해</span></a>
-<a class="sourceLine" id="cb1440-2" title="2"><span class="co"># 데이터 값에 포함된 결측 제거 가능</span></a>
-<a class="sourceLine" id="cb1440-3" title="3">billb_tidy &lt;-<span class="st"> </span>billboard <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1440-4" title="4"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">starts_with</span>(<span class="st">&quot;wk&quot;</span>),</a>
-<a class="sourceLine" id="cb1440-5" title="5">               <span class="dt">names_to =</span> <span class="st">&quot;week&quot;</span>,</a>
-<a class="sourceLine" id="cb1440-6" title="6">               <span class="dt">values_to =</span> <span class="st">&quot;rank&quot;</span>,</a>
-<a class="sourceLine" id="cb1440-7" title="7">               <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb1440-8" title="8">billb_tidy <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1443-1" title="1"><span class="co"># pivot_longer() 함수의 인수 중 value_drop_na 값 조정을 통해</span></a>
+<a class="sourceLine" id="cb1443-2" title="2"><span class="co"># 데이터 값에 포함된 결측 제거 가능</span></a>
+<a class="sourceLine" id="cb1443-3" title="3">billb_tidy &lt;-<span class="st"> </span>billboard <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1443-4" title="4"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">starts_with</span>(<span class="st">&quot;wk&quot;</span>),</a>
+<a class="sourceLine" id="cb1443-5" title="5">               <span class="dt">names_to =</span> <span class="st">&quot;week&quot;</span>,</a>
+<a class="sourceLine" id="cb1443-6" title="6">               <span class="dt">values_to =</span> <span class="st">&quot;rank&quot;</span>,</a>
+<a class="sourceLine" id="cb1443-7" title="7">               <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1443-8" title="8">billb_tidy <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 5,307 x 5
    artist  track                   date.entered week   rank
    &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;
@@ -873,15 +879,15 @@ dplyr 패키지와 마찬가지로 tidyr 패키지에서 제공하는 함수는 
  9 2Ge+her The Hardest Part Of ... 2000-09-02   wk2      87
 10 2Ge+her The Hardest Part Of ... 2000-09-02   wk3      92
 # ... with 5,297 more rows</code></pre>
-<div class="sourceCode" id="cb1442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1442-1" title="1"><span class="co"># pivot_longer() 함수의 인수 중 names_prefix 인수 값 설정을 통해</span></a>
-<a class="sourceLine" id="cb1442-2" title="2"><span class="co"># 변수명에 처음에 붙는 접두어(예: V, wk 등) 제거 가능</span></a>
-<a class="sourceLine" id="cb1442-3" title="3">billb_tidy &lt;-<span class="st"> </span>billboard <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1442-4" title="4"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">starts_with</span>(<span class="st">&quot;wk&quot;</span>),</a>
-<a class="sourceLine" id="cb1442-5" title="5">               <span class="dt">names_to =</span> <span class="st">&quot;week&quot;</span>,</a>
-<a class="sourceLine" id="cb1442-6" title="6">               <span class="dt">values_to =</span> <span class="st">&quot;rank&quot;</span>,</a>
-<a class="sourceLine" id="cb1442-7" title="7">               <span class="dt">names_prefix =</span> <span class="st">&quot;wk&quot;</span>,</a>
-<a class="sourceLine" id="cb1442-8" title="8">               <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb1442-9" title="9">billb_tidy <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1445-1" title="1"><span class="co"># pivot_longer() 함수의 인수 중 names_prefix 인수 값 설정을 통해</span></a>
+<a class="sourceLine" id="cb1445-2" title="2"><span class="co"># 변수명에 처음에 붙는 접두어(예: V, wk 등) 제거 가능</span></a>
+<a class="sourceLine" id="cb1445-3" title="3">billb_tidy &lt;-<span class="st"> </span>billboard <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1445-4" title="4"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">starts_with</span>(<span class="st">&quot;wk&quot;</span>),</a>
+<a class="sourceLine" id="cb1445-5" title="5">               <span class="dt">names_to =</span> <span class="st">&quot;week&quot;</span>,</a>
+<a class="sourceLine" id="cb1445-6" title="6">               <span class="dt">values_to =</span> <span class="st">&quot;rank&quot;</span>,</a>
+<a class="sourceLine" id="cb1445-7" title="7">               <span class="dt">names_prefix =</span> <span class="st">&quot;wk&quot;</span>,</a>
+<a class="sourceLine" id="cb1445-8" title="8">               <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1445-9" title="9">billb_tidy <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 5,307 x 5
    artist  track                   date.entered week   rank
    &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;
@@ -896,16 +902,16 @@ dplyr 패키지와 마찬가지로 tidyr 패키지에서 제공하는 함수는 
  9 2Ge+her The Hardest Part Of ... 2000-09-02   2        87
 10 2Ge+her The Hardest Part Of ... 2000-09-02   3        92
 # ... with 5,297 more rows</code></pre>
-<div class="sourceCode" id="cb1444"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1444-1" title="1"><span class="co"># pivot_longer() 함수의 인수 중 names_ptypes 또는 values_ptypes 인수 값 설정을 통해</span></a>
-<a class="sourceLine" id="cb1444-2" title="2"><span class="co"># 새로 생성한 변수(name과 value 에 해당하는)의 데이터 타입 변경 가능</span></a>
-<a class="sourceLine" id="cb1444-3" title="3">billb_tidy &lt;-<span class="st"> </span>billboard <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1444-4" title="4"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">starts_with</span>(<span class="st">&quot;wk&quot;</span>),</a>
-<a class="sourceLine" id="cb1444-5" title="5">               <span class="dt">names_to =</span> <span class="st">&quot;week&quot;</span>,</a>
-<a class="sourceLine" id="cb1444-6" title="6">               <span class="dt">values_to =</span> <span class="st">&quot;rank&quot;</span>,</a>
-<a class="sourceLine" id="cb1444-7" title="7">               <span class="dt">names_prefix =</span> <span class="st">&quot;wk&quot;</span>,</a>
-<a class="sourceLine" id="cb1444-8" title="8">               <span class="dt">names_ptypes =</span> <span class="kw">list</span>(<span class="dt">week =</span> <span class="kw">integer</span>()),</a>
-<a class="sourceLine" id="cb1444-9" title="9">               <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb1444-10" title="10">billb_tidy <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1447-1" title="1"><span class="co"># pivot_longer() 함수의 인수 중 names_ptypes 또는 values_ptypes 인수 값 설정을 통해</span></a>
+<a class="sourceLine" id="cb1447-2" title="2"><span class="co"># 새로 생성한 변수(name과 value 에 해당하는)의 데이터 타입 변경 가능</span></a>
+<a class="sourceLine" id="cb1447-3" title="3">billb_tidy &lt;-<span class="st"> </span>billboard <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1447-4" title="4"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">starts_with</span>(<span class="st">&quot;wk&quot;</span>),</a>
+<a class="sourceLine" id="cb1447-5" title="5">               <span class="dt">names_to =</span> <span class="st">&quot;week&quot;</span>,</a>
+<a class="sourceLine" id="cb1447-6" title="6">               <span class="dt">values_to =</span> <span class="st">&quot;rank&quot;</span>,</a>
+<a class="sourceLine" id="cb1447-7" title="7">               <span class="dt">names_prefix =</span> <span class="st">&quot;wk&quot;</span>,</a>
+<a class="sourceLine" id="cb1447-8" title="8">               <span class="dt">names_transform =</span> <span class="kw">list</span>(<span class="dt">week =</span> as.integer),</a>
+<a class="sourceLine" id="cb1447-9" title="9">               <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1447-10" title="10">billb_tidy <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 5,307 x 5
    artist  track                   date.entered  week  rank
    &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;int&gt; &lt;dbl&gt;
@@ -920,7 +926,7 @@ dplyr 패키지와 마찬가지로 tidyr 패키지에서 제공하는 함수는 
  9 2Ge+her The Hardest Part Of ... 2000-09-02       2    87
 10 2Ge+her The Hardest Part Of ... 2000-09-02       3    92
 # ... with 5,297 more rows</code></pre>
-<div class="sourceCode" id="cb1446"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1446-1" title="1"><span class="co"># 연습: wide_01 데이터에서 year을 정수형으로 변환(mutate 함수 사용하지 않고)</span></a></code></pre></div>
+<div class="sourceCode" id="cb1449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1449-1" title="1"><span class="co"># 연습: wide_01 데이터에서 year을 정수형으로 변환(mutate 함수 사용하지 않고)</span></a></code></pre></div>
 
 <ol start="2" style="list-style-type: decimal">
 <li><strong>두 개 이상의 변수에 해당하는 값이 하나의 열에 저장</strong>
@@ -1039,25 +1045,25 @@ ep = extrapulmonary, rel = relapse;
 </ol></li>
 </ul>
 
-<div class="sourceCode" id="cb1448"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1448-1" title="1"><span class="co"># pivot_longer()를 이용해 who 데이터셋 데이터 정돈</span></a>
-<a class="sourceLine" id="cb1448-2" title="2">who_tidy &lt;-<span class="st"> </span>who <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1448-3" title="3"><span class="st">  </span><span class="kw">pivot_longer</span>(</a>
-<a class="sourceLine" id="cb1448-4" title="4">    new_sp_m014<span class="op">:</span>newrel_f65,</a>
-<a class="sourceLine" id="cb1448-5" title="5">    <span class="dt">names_to =</span> <span class="kw">c</span>(<span class="st">&quot;diagnosis&quot;</span>, <span class="st">&quot;sex&quot;</span>, <span class="st">&quot;age_group&quot;</span>),</a>
-<a class="sourceLine" id="cb1448-6" title="6">    <span class="dt">names_prefix =</span> <span class="st">&quot;^new_?&quot;</span>,</a>
-<a class="sourceLine" id="cb1448-7" title="7">    <span class="dt">names_pattern =</span> <span class="st">&quot;([a-z]+)_(m|f)([0-9]+)&quot;</span>,</a>
-<a class="sourceLine" id="cb1448-8" title="8">    <span class="dt">names_ptypes =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb1448-9" title="9">      <span class="dt">diagnosis =</span> <span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;rel&quot;</span>, <span class="st">&quot;sn&quot;</span>, <span class="st">&quot;sp&quot;</span>, <span class="st">&quot;ep&quot;</span>)),</a>
-<a class="sourceLine" id="cb1448-10" title="10">      <span class="dt">sex =</span> <span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>)),</a>
-<a class="sourceLine" id="cb1448-11" title="11">      <span class="dt">age_group =</span> <span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;014&quot;</span>, <span class="st">&quot;1524&quot;</span>, <span class="st">&quot;2534&quot;</span>, <span class="st">&quot;3544&quot;</span>,</a>
-<a class="sourceLine" id="cb1448-12" title="12">                                    <span class="st">&quot;4554&quot;</span>, <span class="st">&quot;5564&quot;</span>, <span class="st">&quot;65&quot;</span>),</a>
-<a class="sourceLine" id="cb1448-13" title="13">                         <span class="dt">ordered =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb1448-14" title="14">    ),</a>
-<a class="sourceLine" id="cb1448-15" title="15">    <span class="dt">values_to =</span> <span class="st">&quot;count&quot;</span>,</a>
-<a class="sourceLine" id="cb1448-16" title="16">    <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb1448-17" title="17">  )</a>
-<a class="sourceLine" id="cb1448-18" title="18"></a>
-<a class="sourceLine" id="cb1448-19" title="19">who_tidy <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1451-1" title="1"><span class="co"># pivot_longer()를 이용해 who 데이터셋 데이터 정돈</span></a>
+<a class="sourceLine" id="cb1451-2" title="2">who_tidy &lt;-<span class="st"> </span>who <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1451-3" title="3"><span class="st">  </span><span class="kw">pivot_longer</span>(</a>
+<a class="sourceLine" id="cb1451-4" title="4">    new_sp_m014<span class="op">:</span>newrel_f65,</a>
+<a class="sourceLine" id="cb1451-5" title="5">    <span class="dt">names_to =</span> <span class="kw">c</span>(<span class="st">&quot;diagnosis&quot;</span>, <span class="st">&quot;sex&quot;</span>, <span class="st">&quot;age_group&quot;</span>),</a>
+<a class="sourceLine" id="cb1451-6" title="6">    <span class="dt">names_prefix =</span> <span class="st">&quot;^new_?&quot;</span>,</a>
+<a class="sourceLine" id="cb1451-7" title="7">    <span class="dt">names_pattern =</span> <span class="st">&quot;([a-z]+)_(m|f)([0-9]+)&quot;</span>,</a>
+<a class="sourceLine" id="cb1451-8" title="8">    <span class="dt">names_ptypes =</span> <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb1451-9" title="9">      <span class="dt">diagnosis =</span> <span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;rel&quot;</span>, <span class="st">&quot;sn&quot;</span>, <span class="st">&quot;sp&quot;</span>, <span class="st">&quot;ep&quot;</span>)),</a>
+<a class="sourceLine" id="cb1451-10" title="10">      <span class="dt">sex =</span> <span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>)),</a>
+<a class="sourceLine" id="cb1451-11" title="11">      <span class="dt">age_group =</span> <span class="kw">factor</span>(<span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;014&quot;</span>, <span class="st">&quot;1524&quot;</span>, <span class="st">&quot;2534&quot;</span>, <span class="st">&quot;3544&quot;</span>,</a>
+<a class="sourceLine" id="cb1451-12" title="12">                                    <span class="st">&quot;4554&quot;</span>, <span class="st">&quot;5564&quot;</span>, <span class="st">&quot;65&quot;</span>),</a>
+<a class="sourceLine" id="cb1451-13" title="13">                         <span class="dt">ordered =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1451-14" title="14">    ),</a>
+<a class="sourceLine" id="cb1451-15" title="15">    <span class="dt">values_to =</span> <span class="st">&quot;count&quot;</span>,</a>
+<a class="sourceLine" id="cb1451-16" title="16">    <span class="dt">values_drop_na =</span> <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb1451-17" title="17">  )</a>
+<a class="sourceLine" id="cb1451-18" title="18"></a>
+<a class="sourceLine" id="cb1451-19" title="19">who_tidy <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 76,046 x 8
    country     iso2  iso3   year diagnosis sex   age_group count
    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;fct&gt;     &lt;fct&gt; &lt;ord&gt;     &lt;int&gt;
@@ -1088,20 +1094,20 @@ ep = extrapulmonary, rel = relapse;
 </ul></li>
 </ul>
 
-<div class="sourceCode" id="cb1450"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1450-1" title="1"><span class="co"># pivot_wider()의 기본 사용 형태</span></a>
-<a class="sourceLine" id="cb1450-2" title="2"><span class="kw">pivot_wider</span>(</a>
-<a class="sourceLine" id="cb1450-3" title="3">  data, <span class="co"># 데이터 프레임</span></a>
-<a class="sourceLine" id="cb1450-4" title="4">  names_from, <span class="co"># 출력 시 변수명으로 사용할 값을 갖고 있는 열 이름</span></a>
-<a class="sourceLine" id="cb1450-5" title="5">  values_from, <span class="co"># 위에서 선택한 변수의 각 셀에 대응하는 측정 값을 포함하는 열 이름</span></a>
-<a class="sourceLine" id="cb1450-6" title="6">  values_fill <span class="co">#</span></a>
-<a class="sourceLine" id="cb1450-7" title="7">)</a>
-<a class="sourceLine" id="cb1450-8" title="8"></a>
-<a class="sourceLine" id="cb1450-9" title="9"><span class="co"># spread() 기본 사용 형태</span></a>
-<a class="sourceLine" id="cb1450-10" title="10"><span class="kw">spread</span>(</a>
-<a class="sourceLine" id="cb1450-11" title="11">  data, <span class="co"># 데이터 프레임</span></a>
-<a class="sourceLine" id="cb1450-12" title="12">  key, <span class="co"># 출력 시 변수명으로 사용할 값을 갖고 있는 열 이름</span></a>
-<a class="sourceLine" id="cb1450-13" title="13">  value <span class="co"># 위에서 선택한 변수의 각 셀에 대응하는 측정 값을 포함하는 열 이름</span></a>
-<a class="sourceLine" id="cb1450-14" title="14">)</a></code></pre></div>
+<div class="sourceCode" id="cb1453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1453-1" title="1"><span class="co"># pivot_wider()의 기본 사용 형태</span></a>
+<a class="sourceLine" id="cb1453-2" title="2"><span class="kw">pivot_wider</span>(</a>
+<a class="sourceLine" id="cb1453-3" title="3">  data, <span class="co"># 데이터 프레임</span></a>
+<a class="sourceLine" id="cb1453-4" title="4">  names_from, <span class="co"># 출력 시 변수명으로 사용할 값을 갖고 있는 열 이름</span></a>
+<a class="sourceLine" id="cb1453-5" title="5">  values_from, <span class="co"># 위에서 선택한 변수의 각 셀에 대응하는 측정 값을 포함하는 열 이름</span></a>
+<a class="sourceLine" id="cb1453-6" title="6">  values_fill <span class="co">#</span></a>
+<a class="sourceLine" id="cb1453-7" title="7">)</a>
+<a class="sourceLine" id="cb1453-8" title="8"></a>
+<a class="sourceLine" id="cb1453-9" title="9"><span class="co"># spread() 기본 사용 형태</span></a>
+<a class="sourceLine" id="cb1453-10" title="10"><span class="kw">spread</span>(</a>
+<a class="sourceLine" id="cb1453-11" title="11">  data, <span class="co"># 데이터 프레임</span></a>
+<a class="sourceLine" id="cb1453-12" title="12">  key, <span class="co"># 출력 시 변수명으로 사용할 값을 갖고 있는 열 이름</span></a>
+<a class="sourceLine" id="cb1453-13" title="13">  value <span class="co"># 위에서 선택한 변수의 각 셀에 대응하는 측정 값을 포함하는 열 이름</span></a>
+<a class="sourceLine" id="cb1453-14" title="14">)</a></code></pre></div>
 
 
 <p><img src="figures/tidyr-pivot_wider.png" width="90%" style="display: block; margin: auto;" /></p>
@@ -1112,16 +1118,16 @@ ep = extrapulmonary, rel = relapse;
 <li><code>pivot_longer()</code>와의 관계</li>
 </ol>
 
-<div class="sourceCode" id="cb1451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1451-1" title="1"><span class="co"># 위 예시에서 생성한 tidy_ex_01 데이터 예시</span></a>
-<a class="sourceLine" id="cb1451-2" title="2"><span class="co">## long format으로 변환한 데이터를 다시 wide format으로 변경</span></a>
-<a class="sourceLine" id="cb1451-3" title="3"><span class="co">## pivot_wider() 함수</span></a>
-<a class="sourceLine" id="cb1451-4" title="4"></a>
-<a class="sourceLine" id="cb1451-5" title="5">wide_ex_<span class="dv">01</span> &lt;-<span class="st"> </span>tidy_ex_<span class="dv">01</span> <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1451-6" title="6"><span class="st">  </span><span class="kw">pivot_wider</span>(</a>
-<a class="sourceLine" id="cb1451-7" title="7">    <span class="dt">names_from =</span> year,</a>
-<a class="sourceLine" id="cb1451-8" title="8">    <span class="dt">values_from =</span> gdp_cap</a>
-<a class="sourceLine" id="cb1451-9" title="9">  )</a>
-<a class="sourceLine" id="cb1451-10" title="10">wide_ex_<span class="dv">01</span> <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1454"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1454-1" title="1"><span class="co"># 위 예시에서 생성한 tidy_ex_01 데이터 예시</span></a>
+<a class="sourceLine" id="cb1454-2" title="2"><span class="co">## long format으로 변환한 데이터를 다시 wide format으로 변경</span></a>
+<a class="sourceLine" id="cb1454-3" title="3"><span class="co">## pivot_wider() 함수</span></a>
+<a class="sourceLine" id="cb1454-4" title="4"></a>
+<a class="sourceLine" id="cb1454-5" title="5">wide_ex_<span class="dv">01</span> &lt;-<span class="st"> </span>tidy_ex_<span class="dv">01</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1454-6" title="6"><span class="st">  </span><span class="kw">pivot_wider</span>(</a>
+<a class="sourceLine" id="cb1454-7" title="7">    <span class="dt">names_from =</span> year,</a>
+<a class="sourceLine" id="cb1454-8" title="8">    <span class="dt">values_from =</span> gdp_cap</a>
+<a class="sourceLine" id="cb1454-9" title="9">  )</a>
+<a class="sourceLine" id="cb1454-10" title="10">wide_ex_<span class="dv">01</span> <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 3 x 21
   country `2001` `2002` `2003` `2004` `2005` `2006` `2007` `2008` `2009` `2010`
   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -1131,15 +1137,19 @@ ep = extrapulmonary, rel = relapse;
 # ... with 10 more variables: `2011` &lt;dbl&gt;, `2012` &lt;dbl&gt;, `2013` &lt;dbl&gt;,
 #   `2014` &lt;dbl&gt;, `2015` &lt;dbl&gt;, `2016` &lt;dbl&gt;, `2017` &lt;dbl&gt;, `2018` &lt;dbl&gt;,
 #   `2019` &lt;dbl&gt;, `2020` &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb1453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1453-1" title="1"><span class="co">## 데이터 동일성 확인</span></a>
-<a class="sourceLine" id="cb1453-2" title="2"><span class="kw">all.equal</span>(wide_<span class="dv">01</span>, wide_ex_<span class="dv">01</span>)</a></code></pre></div>
-<pre><code>[1] TRUE</code></pre>
-<div class="sourceCode" id="cb1455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1455-1" title="1"><span class="co">## spread() 함수</span></a>
-<a class="sourceLine" id="cb1455-2" title="2">wide_ex_<span class="dv">01</span> &lt;-<span class="st"> </span>tidy_ex_<span class="dv">01</span> <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1455-3" title="3"><span class="st">  </span><span class="kw">spread</span>(year, gdp_cap)</a>
-<a class="sourceLine" id="cb1455-4" title="4"></a>
-<a class="sourceLine" id="cb1455-5" title="5"><span class="kw">all.equal</span>(wide_<span class="dv">01</span>, wide_ex_<span class="dv">01</span>)</a></code></pre></div>
-<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb1456"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1456-1" title="1"><span class="co">## 데이터 동일성 확인</span></a>
+<a class="sourceLine" id="cb1456-2" title="2"><span class="kw">all.equal</span>(wide_<span class="dv">01</span>, wide_ex_<span class="dv">01</span>)</a></code></pre></div>
+<pre><code>[1] &quot;Attributes: &lt; Length mismatch: comparison on first 2 components &gt;&quot;                     
+[2] &quot;Attributes: &lt; Component \&quot;class\&quot;: Lengths (4, 3) differ (string compare on first 3) &gt;&quot;
+[3] &quot;Attributes: &lt; Component \&quot;class\&quot;: 3 string mismatches &gt;&quot;                              </code></pre>
+<div class="sourceCode" id="cb1458"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1458-1" title="1"><span class="co">## spread() 함수</span></a>
+<a class="sourceLine" id="cb1458-2" title="2">wide_ex_<span class="dv">01</span> &lt;-<span class="st"> </span>tidy_ex_<span class="dv">01</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1458-3" title="3"><span class="st">  </span><span class="kw">spread</span>(year, gdp_cap)</a>
+<a class="sourceLine" id="cb1458-4" title="4"></a>
+<a class="sourceLine" id="cb1458-5" title="5"><span class="kw">all.equal</span>(wide_<span class="dv">01</span>, wide_ex_<span class="dv">01</span>)</a></code></pre></div>
+<pre><code>[1] &quot;Attributes: &lt; Length mismatch: comparison on first 2 components &gt;&quot;                     
+[2] &quot;Attributes: &lt; Component \&quot;class\&quot;: Lengths (4, 3) differ (string compare on first 3) &gt;&quot;
+[3] &quot;Attributes: &lt; Component \&quot;class\&quot;: 3 string mismatches &gt;&quot;                              </code></pre>
 
 <ol start="2" style="list-style-type: decimal">
 <li>관측 단위의 측정값(예: 다수 변수들)이 다중 행으로 구성된 데이터 구조 변환
@@ -1148,8 +1158,8 @@ ep = extrapulmonary, rel = relapse;
 </ul></li>
 </ol>
 
-<div class="sourceCode" id="cb1457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1457-1" title="1"><span class="co"># table2 데이터셋 check</span></a>
-<a class="sourceLine" id="cb1457-2" title="2">table2 <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1460-1" title="1"><span class="co"># table2 데이터셋 check</span></a>
+<a class="sourceLine" id="cb1460-2" title="2">table2 <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 12 x 4
    country      year type            count
    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
@@ -1165,16 +1175,16 @@ ep = extrapulmonary, rel = relapse;
 10 China        1999 population 1272915272
 11 China        2000 cases          213766
 12 China        2000 population 1280428583</code></pre>
-<div class="sourceCode" id="cb1459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1459-1" title="1"><span class="co"># type 변수의 값은 사실 관측 단위의 변수임</span></a>
-<a class="sourceLine" id="cb1459-2" title="2"><span class="co"># type 값에 대응하는 값을 가진 변수는 count 임</span></a>
-<a class="sourceLine" id="cb1459-3" title="3"><span class="co">## 데이터 정돈(pivot_wider() 사용)</span></a>
-<a class="sourceLine" id="cb1459-4" title="4"></a>
-<a class="sourceLine" id="cb1459-5" title="5">table2_tidy &lt;-<span class="st"> </span>table2 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1459-6" title="6"><span class="st">  </span><span class="kw">pivot_wider</span>(</a>
-<a class="sourceLine" id="cb1459-7" title="7">    <span class="dt">names_from =</span> type,</a>
-<a class="sourceLine" id="cb1459-8" title="8">    <span class="dt">values_from =</span> count</a>
-<a class="sourceLine" id="cb1459-9" title="9">  )</a>
-<a class="sourceLine" id="cb1459-10" title="10">table2_tidy <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1462-1" title="1"><span class="co"># type 변수의 값은 사실 관측 단위의 변수임</span></a>
+<a class="sourceLine" id="cb1462-2" title="2"><span class="co"># type 값에 대응하는 값을 가진 변수는 count 임</span></a>
+<a class="sourceLine" id="cb1462-3" title="3"><span class="co">## 데이터 정돈(pivot_wider() 사용)</span></a>
+<a class="sourceLine" id="cb1462-4" title="4"></a>
+<a class="sourceLine" id="cb1462-5" title="5">table2_tidy &lt;-<span class="st"> </span>table2 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1462-6" title="6"><span class="st">  </span><span class="kw">pivot_wider</span>(</a>
+<a class="sourceLine" id="cb1462-7" title="7">    <span class="dt">names_from =</span> type,</a>
+<a class="sourceLine" id="cb1462-8" title="8">    <span class="dt">values_from =</span> count</a>
+<a class="sourceLine" id="cb1462-9" title="9">  )</a>
+<a class="sourceLine" id="cb1462-10" title="10">table2_tidy <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 6 x 4
   country      year  cases population
   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
@@ -1193,57 +1203,59 @@ ep = extrapulmonary, rel = relapse;
 </ol>
 <!-- - 사이버 캠퍼스 자료실 또는 [Github](https://github.com/zorba78/cnu-r-programming-lecture-note/dataset/gapminder/gapminder_filter.csv)에서 확인 및 다운로드 가능 -->
 
-<div class="sourceCode" id="cb1461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1461-1" title="1"><span class="co"># 1) mtcars 데이터셋: 행 이름을 변수로 변환 후 long format 변환</span></a>
-<a class="sourceLine" id="cb1461-2" title="2"><span class="co">## rownames_to_column() 함수 사용</span></a>
-<a class="sourceLine" id="cb1461-3" title="3">mtcars2 &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1461-4" title="4"><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;model&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1461-5" title="5"><span class="st">  </span><span class="kw">pivot_longer</span>(</a>
-<a class="sourceLine" id="cb1461-6" title="6">    <span class="op">-</span><span class="kw">c</span>(<span class="st">&quot;model&quot;</span>, <span class="st">&quot;vs&quot;</span>, <span class="st">&quot;am&quot;</span>),</a>
-<a class="sourceLine" id="cb1461-7" title="7">    <span class="dt">names_to =</span> <span class="st">&quot;variable&quot;</span>,</a>
-<a class="sourceLine" id="cb1461-8" title="8">    <span class="dt">values_to =</span> <span class="st">&quot;value&quot;</span></a>
-<a class="sourceLine" id="cb1461-9" title="9">  )</a>
-<a class="sourceLine" id="cb1461-10" title="10"></a>
-<a class="sourceLine" id="cb1461-11" title="11"><span class="co"># 2) 엔진 유형 별 variable의 평균과 표준편차 계산</span></a>
-<a class="sourceLine" id="cb1461-12" title="12"><span class="co"># &quot;사람&quot;이 읽기 편한 형태로 테이블 변경</span></a>
-<a class="sourceLine" id="cb1461-13" title="13">mtcars2 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1461-14" title="14"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">vs =</span> <span class="kw">factor</span>(vs,</a>
-<a class="sourceLine" id="cb1461-15" title="15">                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;V-shaped&quot;</span>,</a>
-<a class="sourceLine" id="cb1461-16" title="16">                                <span class="st">&quot;Straight&quot;</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1461-17" title="17"><span class="st">  </span><span class="kw">group_by</span>(vs, variable) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1461-18" title="18"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Mean =</span> <span class="kw">mean</span>(value),</a>
-<a class="sourceLine" id="cb1461-19" title="19">            <span class="dt">SD =</span> <span class="kw">sd</span>(value)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1461-20" title="20"><span class="st">  </span><span class="kw">pivot_longer</span>(</a>
-<a class="sourceLine" id="cb1461-21" title="21">    Mean<span class="op">:</span>SD,</a>
-<a class="sourceLine" id="cb1461-22" title="22">    <span class="dt">names_to =</span> <span class="st">&quot;stat&quot;</span>,</a>
-<a class="sourceLine" id="cb1461-23" title="23">    <span class="dt">values_to =</span> <span class="st">&quot;value&quot;</span></a>
-<a class="sourceLine" id="cb1461-24" title="24">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1461-25" title="25"><span class="st">  </span><span class="kw">pivot_wider</span>(</a>
-<a class="sourceLine" id="cb1461-26" title="26">    <span class="dt">names_from =</span> variable,</a>
-<a class="sourceLine" id="cb1461-27" title="27">    <span class="dt">values_from =</span> value</a>
-<a class="sourceLine" id="cb1461-28" title="28">  )</a></code></pre></div>
+<div class="sourceCode" id="cb1464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1464-1" title="1"><span class="co"># 1) mtcars 데이터셋: 행 이름을 변수로 변환 후 long format 변환</span></a>
+<a class="sourceLine" id="cb1464-2" title="2"><span class="co">## rownames_to_column() 함수 사용</span></a>
+<a class="sourceLine" id="cb1464-3" title="3">mtcars2 &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1464-4" title="4"><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;model&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1464-5" title="5"><span class="st">  </span><span class="kw">pivot_longer</span>(</a>
+<a class="sourceLine" id="cb1464-6" title="6">    <span class="op">-</span><span class="kw">c</span>(<span class="st">&quot;model&quot;</span>, <span class="st">&quot;vs&quot;</span>, <span class="st">&quot;am&quot;</span>),</a>
+<a class="sourceLine" id="cb1464-7" title="7">    <span class="dt">names_to =</span> <span class="st">&quot;variable&quot;</span>,</a>
+<a class="sourceLine" id="cb1464-8" title="8">    <span class="dt">values_to =</span> <span class="st">&quot;value&quot;</span></a>
+<a class="sourceLine" id="cb1464-9" title="9">  )</a>
+<a class="sourceLine" id="cb1464-10" title="10"></a>
+<a class="sourceLine" id="cb1464-11" title="11"><span class="co"># 2) 엔진 유형 별 variable의 평균과 표준편차 계산</span></a>
+<a class="sourceLine" id="cb1464-12" title="12"><span class="co"># &quot;사람&quot;이 읽기 편한 형태로 테이블 변경</span></a>
+<a class="sourceLine" id="cb1464-13" title="13">mtcars2 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1464-14" title="14"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">vs =</span> <span class="kw">factor</span>(vs,</a>
+<a class="sourceLine" id="cb1464-15" title="15">                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;V-shaped&quot;</span>,</a>
+<a class="sourceLine" id="cb1464-16" title="16">                                <span class="st">&quot;Straight&quot;</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1464-17" title="17"><span class="st">  </span><span class="kw">group_by</span>(vs, variable) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1464-18" title="18"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Mean =</span> <span class="kw">mean</span>(value),</a>
+<a class="sourceLine" id="cb1464-19" title="19">            <span class="dt">SD =</span> <span class="kw">sd</span>(value)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1464-20" title="20"><span class="st">  </span><span class="kw">pivot_longer</span>(</a>
+<a class="sourceLine" id="cb1464-21" title="21">    Mean<span class="op">:</span>SD,</a>
+<a class="sourceLine" id="cb1464-22" title="22">    <span class="dt">names_to =</span> <span class="st">&quot;stat&quot;</span>,</a>
+<a class="sourceLine" id="cb1464-23" title="23">    <span class="dt">values_to =</span> <span class="st">&quot;value&quot;</span></a>
+<a class="sourceLine" id="cb1464-24" title="24">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1464-25" title="25"><span class="st">  </span><span class="kw">pivot_wider</span>(</a>
+<a class="sourceLine" id="cb1464-26" title="26">    <span class="dt">names_from =</span> variable,</a>
+<a class="sourceLine" id="cb1464-27" title="27">    <span class="dt">values_from =</span> value</a>
+<a class="sourceLine" id="cb1464-28" title="28">  )</a></code></pre></div>
+<pre><code>`summarise()` regrouping output by &#39;vs&#39; (override with `.groups` argument)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["vs"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["stat"],"name":[2],"type":["chr"],"align":["left"]},{"label":["carb"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["cyl"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["disp"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["drat"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["gear"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["hp"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["mpg"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["qsec"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["wt"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"V-shaped","2":"Mean","3":"3.611111","4":"7.4444444","5":"307.15000","6":"3.3922222","7":"3.5555556","8":"189.72222","9":"16.616667","10":"16.693889","11":"3.6885556"},{"1":"V-shaped","2":"SD","3":"1.539247","4":"1.1490263","5":"106.76522","6":"0.4739515","7":"0.8555853","8":"60.28150","9":"3.860699","10":"1.091896","11":"0.9040308"},{"1":"Straight","2":"Mean","3":"1.785714","4":"4.5714286","5":"132.45714","6":"3.8592857","7":"3.8571429","8":"91.35714","9":"24.557143","10":"19.333571","11":"2.6112857"},{"1":"Straight","2":"SD","3":"1.050902","4":"0.9376145","5":"56.89324","6":"0.5057890","7":"0.5345225","8":"24.42447","9":"5.378978","10":"1.354415","11":"0.7150100"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb1462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1462-1" title="1"><span class="co"># 조금 더 응용...</span></a>
-<a class="sourceLine" id="cb1462-2" title="2"><span class="co">## 위 Mean ± SD 형태로 위와 유사한 구조의 테이블 생성</span></a>
-<a class="sourceLine" id="cb1462-3" title="3"><span class="co">### tip: 한글로 &quot;ㄷ(e) + 한자&quot; 통해 ± 입력 가능</span></a>
-<a class="sourceLine" id="cb1462-4" title="4"></a>
-<a class="sourceLine" id="cb1462-5" title="5">mtcars2 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1462-6" title="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">vs =</span> <span class="kw">factor</span>(vs,</a>
-<a class="sourceLine" id="cb1462-7" title="7">                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;V-shaped&quot;</span>,</a>
-<a class="sourceLine" id="cb1462-8" title="8">                                <span class="st">&quot;Straight&quot;</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1462-9" title="9"><span class="st">  </span><span class="kw">group_by</span>(vs, variable) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1462-10" title="10"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Mean =</span> <span class="kw">mean</span>(value),</a>
-<a class="sourceLine" id="cb1462-11" title="11">            <span class="dt">SD =</span> <span class="kw">sd</span>(value)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1462-12" title="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">res =</span> <span class="kw">sprintf</span>(<span class="st">&quot;%.1f ± %.1f&quot;</span>,</a>
-<a class="sourceLine" id="cb1462-13" title="13">                       Mean, SD)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1462-14" title="14"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>(Mean<span class="op">:</span>SD)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1462-15" title="15"><span class="st">  </span><span class="kw">pivot_wider</span>(</a>
-<a class="sourceLine" id="cb1462-16" title="16">    <span class="dt">names_from =</span> variable,</a>
-<a class="sourceLine" id="cb1462-17" title="17">    <span class="dt">values_from =</span> res</a>
-<a class="sourceLine" id="cb1462-18" title="18">  )</a></code></pre></div>
+<div class="sourceCode" id="cb1466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1466-1" title="1"><span class="co"># 조금 더 응용...</span></a>
+<a class="sourceLine" id="cb1466-2" title="2"><span class="co">## 위 Mean ± SD 형태로 위와 유사한 구조의 테이블 생성</span></a>
+<a class="sourceLine" id="cb1466-3" title="3"><span class="co">### tip: 한글로 &quot;ㄷ(e) + 한자&quot; 통해 ± 입력 가능</span></a>
+<a class="sourceLine" id="cb1466-4" title="4"></a>
+<a class="sourceLine" id="cb1466-5" title="5">mtcars2 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1466-6" title="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">vs =</span> <span class="kw">factor</span>(vs,</a>
+<a class="sourceLine" id="cb1466-7" title="7">                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;V-shaped&quot;</span>,</a>
+<a class="sourceLine" id="cb1466-8" title="8">                                <span class="st">&quot;Straight&quot;</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1466-9" title="9"><span class="st">  </span><span class="kw">group_by</span>(vs, variable) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1466-10" title="10"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Mean =</span> <span class="kw">mean</span>(value),</a>
+<a class="sourceLine" id="cb1466-11" title="11">            <span class="dt">SD =</span> <span class="kw">sd</span>(value)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1466-12" title="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">res =</span> <span class="kw">sprintf</span>(<span class="st">&quot;%.1f ± %.1f&quot;</span>,</a>
+<a class="sourceLine" id="cb1466-13" title="13">                       Mean, SD)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1466-14" title="14"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>(Mean<span class="op">:</span>SD)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1466-15" title="15"><span class="st">  </span><span class="kw">pivot_wider</span>(</a>
+<a class="sourceLine" id="cb1466-16" title="16">    <span class="dt">names_from =</span> variable,</a>
+<a class="sourceLine" id="cb1466-17" title="17">    <span class="dt">values_from =</span> res</a>
+<a class="sourceLine" id="cb1466-18" title="18">  )</a></code></pre></div>
+<pre><code>`summarise()` regrouping output by &#39;vs&#39; (override with `.groups` argument)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["vs"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["carb"],"name":[2],"type":["chr"],"align":["left"]},{"label":["cyl"],"name":[3],"type":["chr"],"align":["left"]},{"label":["disp"],"name":[4],"type":["chr"],"align":["left"]},{"label":["drat"],"name":[5],"type":["chr"],"align":["left"]},{"label":["gear"],"name":[6],"type":["chr"],"align":["left"]},{"label":["hp"],"name":[7],"type":["chr"],"align":["left"]},{"label":["mpg"],"name":[8],"type":["chr"],"align":["left"]},{"label":["qsec"],"name":[9],"type":["chr"],"align":["left"]},{"label":["wt"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"V-shaped","2":"3.6 ± 1.5","3":"7.4 ± 1.1","4":"307.1 ± 106.8","5":"3.4 ± 0.5","6":"3.6 ± 0.9","7":"189.7 ± 60.3","8":"16.6 ± 3.9","9":"16.7 ± 1.1","10":"3.7 ± 0.9"},{"1":"Straight","2":"1.8 ± 1.1","3":"4.6 ± 0.9","4":"132.5 ± 56.9","5":"3.9 ± 0.5","6":"3.9 ± 0.5","7":"91.4 ± 24.4","8":"24.6 ± 5.4","9":"19.3 ± 1.4","10":"2.6 ± 0.7"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1264,21 +1276,21 @@ ep = extrapulmonary, rel = relapse;
 <li><code>separate()</code>: 지정한 구분 문자가 존재하는 경우 이를 쪼개서 하나의 열을 다수의 열로 분리</li>
 </ul>
 
-<div class="sourceCode" id="cb1463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1463-1" title="1"><span class="co"># separate() 함수 기본 사용 형태</span></a>
-<a class="sourceLine" id="cb1463-2" title="2"><span class="kw">seprate</span>(</a>
-<a class="sourceLine" id="cb1463-3" title="3">  data, <span class="co"># 데이터 프레임</span></a>
-<a class="sourceLine" id="cb1463-4" title="4">  col, <span class="co"># 분리 대상이 되는 열 이름</span></a>
-<a class="sourceLine" id="cb1463-5" title="5">  into, <span class="co"># 분리 후 새로 생성한 열들에 대한 이름(문자형 벡터) 지정</span></a>
-<a class="sourceLine" id="cb1463-6" title="6">  <span class="dt">sep =</span> <span class="st">&quot;[^[:alnum:]]+&quot;</span>, <span class="co"># 구분자: 기본적으로 정규표현식 사용</span></a>
-<a class="sourceLine" id="cb1463-7" title="7">  convert <span class="co"># 분리한 열의 데이터 타입 변환 여부</span></a>
-<a class="sourceLine" id="cb1463-8" title="8">)</a></code></pre></div>
+<div class="sourceCode" id="cb1468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1468-1" title="1"><span class="co"># separate() 함수 기본 사용 형태</span></a>
+<a class="sourceLine" id="cb1468-2" title="2"><span class="kw">seprate</span>(</a>
+<a class="sourceLine" id="cb1468-3" title="3">  data, <span class="co"># 데이터 프레임</span></a>
+<a class="sourceLine" id="cb1468-4" title="4">  col, <span class="co"># 분리 대상이 되는 열 이름</span></a>
+<a class="sourceLine" id="cb1468-5" title="5">  into, <span class="co"># 분리 후 새로 생성한 열들에 대한 이름(문자형 벡터) 지정</span></a>
+<a class="sourceLine" id="cb1468-6" title="6">  <span class="dt">sep =</span> <span class="st">&quot;[^[:alnum:]]+&quot;</span>, <span class="co"># 구분자: 기본적으로 정규표현식 사용</span></a>
+<a class="sourceLine" id="cb1468-7" title="7">  convert <span class="co"># 분리한 열의 데이터 타입 변환 여부</span></a>
+<a class="sourceLine" id="cb1468-8" title="8">)</a></code></pre></div>
 
 <ul>
 <li>예시: tidyr 패키지 <code>table3</code> 데이터셋</li>
 </ul>
 
-<div class="sourceCode" id="cb1464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1464-1" title="1"><span class="co"># table3 데이터 체크</span></a>
-<a class="sourceLine" id="cb1464-2" title="2">table3 <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1469"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1469-1" title="1"><span class="co"># table3 데이터 체크</span></a>
+<a class="sourceLine" id="cb1469-2" title="2">table3 <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 6 x 3
   country      year rate             
 * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            
@@ -1288,12 +1300,12 @@ ep = extrapulmonary, rel = relapse;
 4 Brazil       2000 80488/174504898  
 5 China        1999 212258/1272915272
 6 China        2000 213766/1280428583</code></pre>
-<div class="sourceCode" id="cb1466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1466-1" title="1"><span class="co"># rate 변수를 case와 population으로 분리</span></a>
-<a class="sourceLine" id="cb1466-2" title="2">table3 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1466-3" title="3"><span class="st">  </span><span class="kw">separate</span>(rate,</a>
-<a class="sourceLine" id="cb1466-4" title="4">           <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;case&quot;</span>, <span class="st">&quot;population&quot;</span>),</a>
-<a class="sourceLine" id="cb1466-5" title="5">           <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1466-6" title="6"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1471"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1471-1" title="1"><span class="co"># rate 변수를 case와 population으로 분리</span></a>
+<a class="sourceLine" id="cb1471-2" title="2">table3 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1471-3" title="3"><span class="st">  </span><span class="kw">separate</span>(rate,</a>
+<a class="sourceLine" id="cb1471-4" title="4">           <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;case&quot;</span>, <span class="st">&quot;population&quot;</span>),</a>
+<a class="sourceLine" id="cb1471-5" title="5">           <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1471-6" title="6"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 6 x 4
   country      year case   population
   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;     
@@ -1303,22 +1315,22 @@ ep = extrapulmonary, rel = relapse;
 4 Brazil       2000 80488  174504898 
 5 China        1999 212258 1272915272
 6 China        2000 213766 1280428583</code></pre>
-<div class="sourceCode" id="cb1468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1468-1" title="1">table3 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1468-2" title="2"><span class="st">  </span><span class="kw">separate</span>(rate,</a>
-<a class="sourceLine" id="cb1468-3" title="3">           <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;case&quot;</span>, <span class="st">&quot;population&quot;</span>),</a>
-<a class="sourceLine" id="cb1468-4" title="4">           <span class="dt">convert =</span> <span class="ot">TRUE</span>) -&gt;<span class="st"> </span>table3_sep</a>
-<a class="sourceLine" id="cb1468-5" title="5"></a>
-<a class="sourceLine" id="cb1468-6" title="6"><span class="co">## sep 인수값이 수치형 백터인 경우 분리할 위치로 인식</span></a>
-<a class="sourceLine" id="cb1468-7" title="7"><span class="co">## 양수: 문자열 맨 왼쪽에서 1부터 시작</span></a>
-<a class="sourceLine" id="cb1468-8" title="8"><span class="co">## 음수: 문자열 맨 오른쪽에서 -1부터 시작</span></a>
-<a class="sourceLine" id="cb1468-9" title="9"><span class="co">## sep의 길이(length)는 into 인수의 길이보다 작아야 함</span></a>
-<a class="sourceLine" id="cb1468-10" title="10"></a>
-<a class="sourceLine" id="cb1468-11" title="11"><span class="co"># year 변수를 century와 year로 분할</span></a>
-<a class="sourceLine" id="cb1468-12" title="12">table3 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1468-13" title="13"><span class="st">  </span><span class="kw">separate</span>(year,</a>
-<a class="sourceLine" id="cb1468-14" title="14">           <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;century&quot;</span>, <span class="st">&quot;year&quot;</span>),</a>
-<a class="sourceLine" id="cb1468-15" title="15">           <span class="dt">sep =</span> <span class="dv">-2</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1468-16" title="16"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1473"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1473-1" title="1">table3 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1473-2" title="2"><span class="st">  </span><span class="kw">separate</span>(rate,</a>
+<a class="sourceLine" id="cb1473-3" title="3">           <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;case&quot;</span>, <span class="st">&quot;population&quot;</span>),</a>
+<a class="sourceLine" id="cb1473-4" title="4">           <span class="dt">convert =</span> <span class="ot">TRUE</span>) -&gt;<span class="st"> </span>table3_sep</a>
+<a class="sourceLine" id="cb1473-5" title="5"></a>
+<a class="sourceLine" id="cb1473-6" title="6"><span class="co">## sep 인수값이 수치형 백터인 경우 분리할 위치로 인식</span></a>
+<a class="sourceLine" id="cb1473-7" title="7"><span class="co">## 양수: 문자열 맨 왼쪽에서 1부터 시작</span></a>
+<a class="sourceLine" id="cb1473-8" title="8"><span class="co">## 음수: 문자열 맨 오른쪽에서 -1부터 시작</span></a>
+<a class="sourceLine" id="cb1473-9" title="9"><span class="co">## sep의 길이(length)는 into 인수의 길이보다 작아야 함</span></a>
+<a class="sourceLine" id="cb1473-10" title="10"></a>
+<a class="sourceLine" id="cb1473-11" title="11"><span class="co"># year 변수를 century와 year로 분할</span></a>
+<a class="sourceLine" id="cb1473-12" title="12">table3 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1473-13" title="13"><span class="st">  </span><span class="kw">separate</span>(year,</a>
+<a class="sourceLine" id="cb1473-14" title="14">           <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;century&quot;</span>, <span class="st">&quot;year&quot;</span>),</a>
+<a class="sourceLine" id="cb1473-15" title="15">           <span class="dt">sep =</span> <span class="dv">-2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1473-16" title="16"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 6 x 4
   country     century year  rate             
   &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;            
@@ -1336,19 +1348,19 @@ ep = extrapulmonary, rel = relapse;
 <li><code>unite()</code>: <code>seprate()</code> 함수의 반대 기능을 수행하며, 다수 변수를 결합</li>
 </ul>
 
-<div class="sourceCode" id="cb1470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1470-1" title="1"><span class="co"># unite() 기본 사용 형태</span></a>
-<a class="sourceLine" id="cb1470-2" title="2"><span class="kw">unite</span>(</a>
-<a class="sourceLine" id="cb1470-3" title="3">  data, <span class="co"># 데이터프레임</span></a>
-<a class="sourceLine" id="cb1470-4" title="4">  ..., <span class="co"># 선택한 열 이름</span></a>
-<a class="sourceLine" id="cb1470-5" title="5">  sep, <span class="co"># 연결 구분자</span></a>
-<a class="sourceLine" id="cb1470-6" title="6">)</a></code></pre></div>
+<div class="sourceCode" id="cb1475"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1475-1" title="1"><span class="co"># unite() 기본 사용 형태</span></a>
+<a class="sourceLine" id="cb1475-2" title="2"><span class="kw">unite</span>(</a>
+<a class="sourceLine" id="cb1475-3" title="3">  data, <span class="co"># 데이터프레임</span></a>
+<a class="sourceLine" id="cb1475-4" title="4">  ..., <span class="co"># 선택한 열 이름</span></a>
+<a class="sourceLine" id="cb1475-5" title="5">  sep, <span class="co"># 연결 구분자</span></a>
+<a class="sourceLine" id="cb1475-6" title="6">)</a></code></pre></div>
 
 <ul>
 <li>예제: tidyr 패키지 <code>table5</code> 데이터셋</li>
 </ul>
 
-<div class="sourceCode" id="cb1471"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1471-1" title="1"><span class="co"># table5 체크</span></a>
-<a class="sourceLine" id="cb1471-2" title="2">table5 <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1476"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1476-1" title="1"><span class="co"># table5 체크</span></a>
+<a class="sourceLine" id="cb1476-2" title="2">table5 <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 6 x 4
   country     century year  rate             
 * &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;            
@@ -1358,10 +1370,10 @@ ep = extrapulmonary, rel = relapse;
 4 Brazil      20      00    80488/174504898  
 5 China       19      99    212258/1272915272
 6 China       20      00    213766/1280428583</code></pre>
-<div class="sourceCode" id="cb1473"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1473-1" title="1"><span class="co"># century와 year을 결합한 new 변수 생성</span></a>
-<a class="sourceLine" id="cb1473-2" title="2">table5 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1473-3" title="3"><span class="st">  </span><span class="kw">unite</span>(new, century, year) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1473-4" title="4"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1478-1" title="1"><span class="co"># century와 year을 결합한 new 변수 생성</span></a>
+<a class="sourceLine" id="cb1478-2" title="2">table5 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1478-3" title="3"><span class="st">  </span><span class="kw">unite</span>(new, century, year) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1478-4" title="4"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 6 x 3
   country     new   rate             
   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;            
@@ -1371,11 +1383,11 @@ ep = extrapulmonary, rel = relapse;
 4 Brazil      20_00 80488/174504898  
 5 China       19_99 212258/1272915272
 6 China       20_00 213766/1280428583</code></pre>
-<div class="sourceCode" id="cb1475"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1475-1" title="1"><span class="co"># _없이 결합 후 new를 정수형으로 변환</span></a>
-<a class="sourceLine" id="cb1475-2" title="2">table5 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1475-3" title="3"><span class="st">  </span><span class="kw">unite</span>(new, century, year, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1475-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">new =</span> <span class="kw">as.integer</span>(new)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1475-5" title="5"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1480"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1480-1" title="1"><span class="co"># _없이 결합 후 new를 정수형으로 변환</span></a>
+<a class="sourceLine" id="cb1480-2" title="2">table5 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1480-3" title="3"><span class="st">  </span><span class="kw">unite</span>(new, century, year, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1480-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">new =</span> <span class="kw">as.integer</span>(new)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1480-5" title="5"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 6 x 3
   country       new rate             
   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            
@@ -1385,13 +1397,13 @@ ep = extrapulmonary, rel = relapse;
 4 Brazil       2000 80488/174504898  
 5 China        1999 212258/1272915272
 6 China        2000 213766/1280428583</code></pre>
-<div class="sourceCode" id="cb1477"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1477-1" title="1"><span class="co"># table5 데이터 정돈(separate(), unite() 동시 사용)</span></a>
-<a class="sourceLine" id="cb1477-2" title="2">table5 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1477-3" title="3"><span class="st">  </span><span class="kw">unite</span>(new, century, year, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1477-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">new =</span> <span class="kw">as.integer</span>(new)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1477-5" title="5"><span class="st">  </span><span class="kw">separate</span>(rate, <span class="kw">c</span>(<span class="st">&quot;case&quot;</span>, <span class="st">&quot;population&quot;</span>),</a>
-<a class="sourceLine" id="cb1477-6" title="6">           <span class="dt">convert =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1477-7" title="7"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1482"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1482-1" title="1"><span class="co"># table5 데이터 정돈(separate(), unite() 동시 사용)</span></a>
+<a class="sourceLine" id="cb1482-2" title="2">table5 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1482-3" title="3"><span class="st">  </span><span class="kw">unite</span>(new, century, year, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1482-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">new =</span> <span class="kw">as.integer</span>(new)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1482-5" title="5"><span class="st">  </span><span class="kw">separate</span>(rate, <span class="kw">c</span>(<span class="st">&quot;case&quot;</span>, <span class="st">&quot;population&quot;</span>),</a>
+<a class="sourceLine" id="cb1482-6" title="6">           <span class="dt">convert =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1482-7" title="7"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 6 x 4
   country       new   case population
   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
@@ -1406,16 +1418,16 @@ ep = extrapulmonary, rel = relapse;
 <li>응용 예제: <code>mtcars</code> 데이터셋에서 계산한 통계량 정리</li>
 </ul>
 
-<div class="sourceCode" id="cb1479"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1479-1" title="1"><span class="co"># 기어 종류(`am`) 별 `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`의</span></a>
-<a class="sourceLine" id="cb1479-2" title="2"><span class="co"># 평균과 표준편차 계산</span></a>
-<a class="sourceLine" id="cb1479-3" title="3">mtcar_summ1 &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1479-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">am =</span> <span class="kw">factor</span>(am,</a>
-<a class="sourceLine" id="cb1479-5" title="5">                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;automatic&quot;</span>, <span class="st">&quot;manual&quot;</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1479-6" title="6"><span class="st">  </span><span class="kw">group_by</span>(am) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1479-7" title="7"><span class="st">  </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(mpg<span class="op">:</span>qsec),</a>
-<a class="sourceLine" id="cb1479-8" title="8">               <span class="kw">list</span>(<span class="dt">mean =</span> <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(.),</a>
-<a class="sourceLine" id="cb1479-9" title="9">                    <span class="dt">sd =</span> <span class="op">~</span><span class="st"> </span><span class="kw">sd</span>(.)))</a>
-<a class="sourceLine" id="cb1479-10" title="10">mtcar_summ1 <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1484"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1484-1" title="1"><span class="co"># 기어 종류(`am`) 별 `mpg`, `cyl`, `disp`, `hp`, `drat`, `wt`, `qsec`의</span></a>
+<a class="sourceLine" id="cb1484-2" title="2"><span class="co"># 평균과 표준편차 계산</span></a>
+<a class="sourceLine" id="cb1484-3" title="3">mtcar_summ1 &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1484-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">am =</span> <span class="kw">factor</span>(am,</a>
+<a class="sourceLine" id="cb1484-5" title="5">                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;automatic&quot;</span>, <span class="st">&quot;manual&quot;</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1484-6" title="6"><span class="st">  </span><span class="kw">group_by</span>(am) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1484-7" title="7"><span class="st">  </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(mpg<span class="op">:</span>qsec),</a>
+<a class="sourceLine" id="cb1484-8" title="8">               <span class="kw">list</span>(<span class="dt">mean =</span> <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(.),</a>
+<a class="sourceLine" id="cb1484-9" title="9">                    <span class="dt">sd =</span> <span class="op">~</span><span class="st"> </span><span class="kw">sd</span>(.)))</a>
+<a class="sourceLine" id="cb1484-10" title="10">mtcar_summ1 <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 2 x 15
   am    mpg_mean cyl_mean disp_mean hp_mean drat_mean wt_mean qsec_mean mpg_sd
   &lt;fct&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
@@ -1423,14 +1435,14 @@ ep = extrapulmonary, rel = relapse;
 2 manu~     24.4     5.08      144.    127.      4.05    2.41      17.4   6.17
 # ... with 6 more variables: cyl_sd &lt;dbl&gt;, disp_sd &lt;dbl&gt;, hp_sd &lt;dbl&gt;,
 #   drat_sd &lt;dbl&gt;, wt_sd &lt;dbl&gt;, qsec_sd &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb1481"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1481-1" title="1"><span class="co"># am을 제외한 모든 변수에 대해 long format으로 데이터 변환</span></a>
-<a class="sourceLine" id="cb1481-2" title="2">mtcar_summ2 &lt;-<span class="st"> </span>mtcar_summ1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1481-3" title="3"><span class="st">  </span><span class="kw">pivot_longer</span>(</a>
-<a class="sourceLine" id="cb1481-4" title="4">    <span class="op">-</span>am,</a>
-<a class="sourceLine" id="cb1481-5" title="5">    <span class="dt">names_to =</span> <span class="st">&quot;stat&quot;</span>,</a>
-<a class="sourceLine" id="cb1481-6" title="6">    <span class="dt">values_to =</span> <span class="st">&quot;value&quot;</span></a>
-<a class="sourceLine" id="cb1481-7" title="7">  )</a>
-<a class="sourceLine" id="cb1481-8" title="8">mtcar_summ2 <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1486"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1486-1" title="1"><span class="co"># am을 제외한 모든 변수에 대해 long format으로 데이터 변환</span></a>
+<a class="sourceLine" id="cb1486-2" title="2">mtcar_summ2 &lt;-<span class="st"> </span>mtcar_summ1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1486-3" title="3"><span class="st">  </span><span class="kw">pivot_longer</span>(</a>
+<a class="sourceLine" id="cb1486-4" title="4">    <span class="op">-</span>am,</a>
+<a class="sourceLine" id="cb1486-5" title="5">    <span class="dt">names_to =</span> <span class="st">&quot;stat&quot;</span>,</a>
+<a class="sourceLine" id="cb1486-6" title="6">    <span class="dt">values_to =</span> <span class="st">&quot;value&quot;</span></a>
+<a class="sourceLine" id="cb1486-7" title="7">  )</a>
+<a class="sourceLine" id="cb1486-8" title="8">mtcar_summ2 <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 28 x 3
    am        stat       value
    &lt;fct&gt;     &lt;chr&gt;      &lt;dbl&gt;
@@ -1445,15 +1457,15 @@ ep = extrapulmonary, rel = relapse;
  9 automatic cyl_sd      1.54
 10 automatic disp_sd   110.  
 # ... with 18 more rows</code></pre>
-<div class="sourceCode" id="cb1483"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1483-1" title="1"><span class="co"># stat 변수를 &quot;variable&quot;, &quot;statistic&quot;으로 분리 후</span></a>
-<a class="sourceLine" id="cb1483-2" title="2"><span class="co"># variable과 value를 wide format으로 데이터 변환</span></a>
-<a class="sourceLine" id="cb1483-3" title="3">mtcar_summ3 &lt;-<span class="st"> </span>mtcar_summ2 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1483-4" title="4"><span class="st">  </span><span class="kw">separate</span>(stat, <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;statistic&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1483-5" title="5"><span class="st">  </span><span class="kw">pivot_wider</span>(</a>
-<a class="sourceLine" id="cb1483-6" title="6">    <span class="dt">names_from =</span> variable,</a>
-<a class="sourceLine" id="cb1483-7" title="7">    <span class="dt">values_from =</span> value</a>
-<a class="sourceLine" id="cb1483-8" title="8">  )</a>
-<a class="sourceLine" id="cb1483-9" title="9">mtcar_summ3 <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1488"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1488-1" title="1"><span class="co"># stat 변수를 &quot;variable&quot;, &quot;statistic&quot;으로 분리 후</span></a>
+<a class="sourceLine" id="cb1488-2" title="2"><span class="co"># variable과 value를 wide format으로 데이터 변환</span></a>
+<a class="sourceLine" id="cb1488-3" title="3">mtcar_summ3 &lt;-<span class="st"> </span>mtcar_summ2 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1488-4" title="4"><span class="st">  </span><span class="kw">separate</span>(stat, <span class="kw">c</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;statistic&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1488-5" title="5"><span class="st">  </span><span class="kw">pivot_wider</span>(</a>
+<a class="sourceLine" id="cb1488-6" title="6">    <span class="dt">names_from =</span> variable,</a>
+<a class="sourceLine" id="cb1488-7" title="7">    <span class="dt">values_from =</span> value</a>
+<a class="sourceLine" id="cb1488-8" title="8">  )</a>
+<a class="sourceLine" id="cb1488-9" title="9">mtcar_summ3 <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 4 x 9
   am        statistic   mpg   cyl  disp    hp  drat    wt  qsec
   &lt;fct&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1472,35 +1484,33 @@ ep = extrapulmonary, rel = relapse;
 </ul>
 </blockquote>
 
-<div class="sourceCode" id="cb1485"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1485-1" title="1"><span class="co"># ggplot trailer</span></a>
-<a class="sourceLine" id="cb1485-2" title="2">tidy_ex_<span class="dv">01</span> &lt;-<span class="st"> </span>wide_<span class="dv">01</span> <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1485-3" title="3"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="st">`</span><span class="dt">2001</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>,</a>
-<a class="sourceLine" id="cb1485-4" title="4">               <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>,</a>
-<a class="sourceLine" id="cb1485-5" title="5">               <span class="dt">values_to =</span> <span class="st">&quot;gdp_cap&quot;</span>,</a>
-<a class="sourceLine" id="cb1485-6" title="6">               <span class="dt">names_ptypes =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb1485-7" title="7">                 <span class="dt">year =</span> <span class="kw">integer</span>()</a>
-<a class="sourceLine" id="cb1485-8" title="8">               ))</a>
-<a class="sourceLine" id="cb1485-9" title="9">tidy_ex_<span class="dv">01</span> <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1485-10" title="10"><span class="st">  </span>ggplot <span class="op">+</span></a>
-<a class="sourceLine" id="cb1485-11" title="11"><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> gdp_cap,</a>
-<a class="sourceLine" id="cb1485-12" title="12">      <span class="dt">color =</span> country,</a>
-<a class="sourceLine" id="cb1485-13" title="13">      <span class="dt">group =</span> country) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1485-14" title="14"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1485-15" title="15"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1485-16" title="16"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</a>
-<a class="sourceLine" id="cb1485-17" title="17">       <span class="dt">y =</span> <span class="st">&quot;Total GDP/captia&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1485-18" title="18"><span class="st">  </span><span class="kw">theme_classic</span>()</a>
-<a class="sourceLine" id="cb1485-19" title="19"></a>
-<a class="sourceLine" id="cb1485-20" title="20">tidy_ex_<span class="dv">01</span> <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1485-21" title="21"><span class="st">  </span>ggplot <span class="op">+</span></a>
-<a class="sourceLine" id="cb1485-22" title="22"><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> gdp_cap,</a>
-<a class="sourceLine" id="cb1485-23" title="23">      <span class="dt">group =</span> country) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1485-24" title="24"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1485-25" title="25"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1485-26" title="26"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</a>
-<a class="sourceLine" id="cb1485-27" title="27">       <span class="dt">y =</span> <span class="st">&quot;Total GDP/captia&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1485-28" title="28"><span class="st">  </span><span class="kw">facet_grid</span>(<span class="op">~</span><span class="st"> </span>country) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1485-29" title="29"><span class="st">  </span><span class="kw">theme_minimal</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1490"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1490-1" title="1"><span class="co"># ggplot trailer</span></a>
+<a class="sourceLine" id="cb1490-2" title="2">tidy_ex_<span class="dv">01</span> &lt;-<span class="st"> </span>wide_<span class="dv">01</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1490-3" title="3"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="st">`</span><span class="dt">2001</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">2020</span><span class="st">`</span>,</a>
+<a class="sourceLine" id="cb1490-4" title="4">               <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>,</a>
+<a class="sourceLine" id="cb1490-5" title="5">               <span class="dt">values_to =</span> <span class="st">&quot;gdp_cap&quot;</span>,</a>
+<a class="sourceLine" id="cb1490-6" title="6">               <span class="dt">names_transform =</span> <span class="kw">list</span>(<span class="dt">year =</span> as.integer))</a>
+<a class="sourceLine" id="cb1490-7" title="7">tidy_ex_<span class="dv">01</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1490-8" title="8"><span class="st">  </span>ggplot <span class="op">+</span></a>
+<a class="sourceLine" id="cb1490-9" title="9"><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> gdp_cap,</a>
+<a class="sourceLine" id="cb1490-10" title="10">      <span class="dt">color =</span> country,</a>
+<a class="sourceLine" id="cb1490-11" title="11">      <span class="dt">group =</span> country) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1490-12" title="12"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1490-13" title="13"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1490-14" title="14"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</a>
+<a class="sourceLine" id="cb1490-15" title="15">       <span class="dt">y =</span> <span class="st">&quot;Total GDP/captia&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1490-16" title="16"><span class="st">  </span><span class="kw">theme_classic</span>()</a>
+<a class="sourceLine" id="cb1490-17" title="17"></a>
+<a class="sourceLine" id="cb1490-18" title="18">tidy_ex_<span class="dv">01</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1490-19" title="19"><span class="st">  </span>ggplot <span class="op">+</span></a>
+<a class="sourceLine" id="cb1490-20" title="20"><span class="st">  </span><span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> gdp_cap,</a>
+<a class="sourceLine" id="cb1490-21" title="21">      <span class="dt">group =</span> country) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1490-22" title="22"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1490-23" title="23"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1490-24" title="24"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Year&quot;</span>,</a>
+<a class="sourceLine" id="cb1490-25" title="25">       <span class="dt">y =</span> <span class="st">&quot;Total GDP/captia&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1490-26" title="26"><span class="st">  </span><span class="kw">facet_grid</span>(<span class="op">~</span><span class="st"> </span>country) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1490-27" title="27"><span class="st">  </span><span class="kw">theme_minimal</span>()</a></code></pre></div>
 <p><img src="04-data-manupulation_files/figure-html/unnamed-chunk-103-1.svg" width="672" /><img src="04-data-manupulation_files/figure-html/unnamed-chunk-103-2.svg" width="672" /></p>
 
 </div>

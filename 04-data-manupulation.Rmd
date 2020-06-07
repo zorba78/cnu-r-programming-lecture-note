@@ -27,7 +27,7 @@ options(linewidth = 60)
 
 require(tidyverse)
 require(rmarkdown)
-require(knitr)
+# require(knitr)
 require(kableExtra)
 ```
 
@@ -2428,7 +2428,7 @@ billb_tidy <- billboard %>%
                names_to = "week",
                values_to = "rank",
                names_prefix = "wk",
-               names_ptypes = list(week = integer()),
+               names_transform = list(week = as.integer),
                values_drop_na = TRUE)
 billb_tidy %>% print
 
@@ -2799,9 +2799,7 @@ tidy_ex_01 <- wide_01 %>%
   pivot_longer(`2001`:`2020`,
                names_to = "year",
                values_to = "gdp_cap",
-               names_ptypes = list(
-                 year = integer()
-               ))
+               names_transform = list(year = as.integer))
 tidy_ex_01 %>%
   ggplot +
   aes(x = year, y = gdp_cap,

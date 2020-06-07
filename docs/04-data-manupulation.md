@@ -146,14 +146,14 @@ str(dbp)
 ```
 'data.frame':	40 obs. of  9 variables:
  $ Subject: int  1 2 3 4 5 6 7 8 9 10 ...
- $ TRT    : Factor w/ 2 levels "A","B": 1 1 1 1 1 1 1 1 1 1 ...
+ $ TRT    : chr  "A" "A" "A" "A" ...
  $ DBP1   : int  114 116 119 115 116 117 118 120 114 115 ...
  $ DBP2   : int  115 113 115 113 112 112 111 115 112 113 ...
  $ DBP3   : int  113 112 113 112 107 113 100 113 113 108 ...
  $ DBP4   : int  109 103 104 109 104 104 109 102 109 106 ...
  $ DBP5   : int  105 101 98 101 105 102 99 102 103 97 ...
  $ Age    : int  43 51 48 42 49 47 50 61 43 51 ...
- $ Sex    : Factor w/ 2 levels "F","M": 1 2 1 1 2 2 1 2 2 2 ...
+ $ Sex    : chr  "F" "M" "F" "F" ...
 ```
 
 ```r
@@ -207,12 +207,12 @@ str(diab)
  $ hdl     : int  56 24 37 12 28 69 41 44 49 40 ...
  $ ratio   : num  3.6 6.9 6.2 6.5 8.9 ...
  $ glyhb   : num  4.31 4.44 4.64 4.63 7.72 ...
- $ location: Factor w/ 2 levels "Buckingham","Louisa": 1 1 1 1 1 1 1 1 1 1 ...
+ $ location: chr  "Buckingham" "Buckingham" "Buckingham" "Buckingham" ...
  $ age     : int  46 29 58 67 64 34 30 37 45 55 ...
- $ gender  : Factor w/ 2 levels "female","male": 1 1 1 2 2 2 2 2 2 1 ...
+ $ gender  : chr  "female" "female" "female" "male" ...
  $ height  : int  62 64 61 67 68 71 69 59 69 63 ...
  $ weight  : int  121 218 256 119 183 190 191 170 166 202 ...
- $ frame   : Factor w/ 4 levels "","large","medium",..: 3 2 2 2 3 2 3 3 2 4 ...
+ $ frame   : chr  "medium" "large" "large" "large" ...
  $ bp.1s   : int  118 112 190 110 138 132 161 NA 160 108 ...
  $ bp.1d   : int  59 68 92 50 80 86 112 NA 80 72 ...
  $ bp.2s   : int  NA NA 185 NA NA NA 161 NA 128 NA ...
@@ -500,7 +500,7 @@ system.time(pulse <- read.csv("dataset/pulse.csv", header = T))
 
 ```
  사용자  시스템 elapsed 
-  20.46    0.06   20.53 
+  20.61    0.05   20.67 
 ```
 
 ```r
@@ -521,7 +521,7 @@ system.time(pulse <- readRDS("output/pulse.rds"))
 
 ```
  사용자  시스템 elapsed 
-   0.08    0.00    0.08 
+   0.08    0.00    0.07 
 ```
 
  \normalsize
@@ -772,7 +772,7 @@ system.time(pulse <- read.csv("dataset/pulse.csv", header = T))
 
 ```
  사용자  시스템 elapsed 
-  19.94    0.02   19.95 
+  20.22    0.03   20.25 
 ```
 
 ```r
@@ -782,7 +782,7 @@ system.time(pulse <- readRDS("output/pulse.rds"))
 
 ```
  사용자  시스템 elapsed 
-   0.06    0.04    0.09 
+   0.08    0.00    0.09 
 ```
 
 ```r
@@ -802,7 +802,7 @@ See spec(...) for full column specifications.
 
 ```
  사용자  시스템 elapsed 
-  14.79    0.03   14.83 
+  16.02    0.00   16.01 
 ```
 
 ```r
@@ -811,7 +811,7 @@ system.time(pulse <- read_feather("dataset/pulse.feather"))
 
 ```
  사용자  시스템 elapsed 
-   0.31    0.00    0.31 
+   0.19    0.00    0.19 
 ```
 
  \normalsize
@@ -975,16 +975,16 @@ tibble(x = letters, y = rnorm(26), z = y^2)
 # A tibble: 26 x 3
    x          y      z
    <chr>  <dbl>  <dbl>
- 1 a      0.442 0.195 
- 2 b     -0.633 0.401 
- 3 c     -0.765 0.585 
- 4 d     -0.870 0.757 
- 5 e      0.675 0.455 
- 6 f      0.421 0.177 
- 7 g      0.169 0.0285
- 8 h      1.60  2.55  
- 9 i     -1.03  1.07  
-10 j      0.311 0.0968
+ 1 a      2.35  5.51  
+ 2 b     -0.931 0.867 
+ 3 c     -1.33  1.77  
+ 4 d     -0.326 0.106 
+ 5 e     -0.638 0.407 
+ 6 f     -0.247 0.0609
+ 7 g      0.915 0.837 
+ 8 h      1.77  3.12  
+ 9 i      0.622 0.387 
+10 j     -1.22  1.49  
 # ... with 16 more rows
 ```
 
@@ -1468,8 +1468,8 @@ glimpse(mpg)
 ```
 
 ```
-Observations: 234
-Variables: 11
+Rows: 234
+Columns: 11
 $ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
 $ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
 $ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -1739,8 +1739,8 @@ glimpse(mpg[, c("manufacturer", "model", "displ", "year", "cty")])
 ```
 
 ```
-Observations: 234
-Variables: 5
+Rows: 234
+Columns: 5
 $ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
 $ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
 $ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -1766,8 +1766,8 @@ mpg %>%
 ```
 
 ```
-Observations: 234
-Variables: 5
+Rows: 234
+Columns: 5
 $ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
 $ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
 $ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -1796,8 +1796,8 @@ mpg %>%
 ```
 
 ```
-Observations: 234
-Variables: 5
+Rows: 234
+Columns: 5
 $ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
 $ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
 $ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -1813,8 +1813,8 @@ mpg %>%
 ```
 
 ```
-Observations: 234
-Variables: 5
+Rows: 234
+Columns: 5
 $ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
 $ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
 $ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -1830,8 +1830,8 @@ mpg %>%
 ```
 
 ```
-Observations: 234
-Variables: 5
+Rows: 234
+Columns: 5
 $ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
 $ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
 $ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -1847,8 +1847,8 @@ mpg %>%
 ```
 
 ```
-Observations: 234
-Variables: 5
+Rows: 234
+Columns: 5
 $ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
 $ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
 $ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -1864,8 +1864,8 @@ mpg %>%
 ```
 
 ```
-Observations: 234
-Variables: 5
+Rows: 234
+Columns: 5
 $ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
 $ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
 $ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -1881,8 +1881,8 @@ mpg %>%
 ```
 
 ```
-Observations: 234
-Variables: 1
+Rows: 234
+Columns: 1
 $ city_mpg <int> 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17, 15...
 ```
 
@@ -1908,8 +1908,8 @@ mpg %>%
 ```
 
 ```
-Observations: 234
-Variables: 9
+Rows: 234
+Columns: 9
 $ displ <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.8, 2...
 $ year  <int> 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, 2008, 2...
 $ cyl   <int> 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, 8, 8...
@@ -1929,8 +1929,8 @@ mpg %>%
 ```
 
 ```
-Observations: 234
-Variables: 9
+Rows: 234
+Columns: 9
 $ displ <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.8, 2...
 $ year  <int> 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, 2008, 2...
 $ cyl   <int> 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, 8, 8...
@@ -1950,8 +1950,8 @@ mpg %>%
 ```
 
 ```
-Observations: 234
-Variables: 4
+Rows: 234
+Columns: 4
 $ model <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro", "a4 q...
 $ displ <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.8, 2...
 $ cyl   <int> 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, 8, 8...
@@ -1968,14 +1968,14 @@ starwars %>%
 
 ```
 # A tibble: 6 x 5
-  name           gender hair_color  skin_color  eye_color
-  <chr>          <chr>  <chr>       <chr>       <chr>    
-1 Luke Skywalker male   blond       fair        blue     
-2 C-3PO          <NA>   <NA>        gold        yellow   
-3 R2-D2          <NA>   <NA>        white, blue red      
-4 Darth Vader    male   none        white       yellow   
-5 Leia Organa    female brown       light       brown    
-6 Owen Lars      male   brown, grey light       blue     
+  name           gender    hair_color  skin_color  eye_color
+  <chr>          <chr>     <chr>       <chr>       <chr>    
+1 Luke Skywalker masculine blond       fair        blue     
+2 C-3PO          masculine <NA>        gold        yellow   
+3 R2-D2          masculine <NA>        white, blue red      
+4 Darth Vader    masculine none        white       yellow   
+5 Leia Organa    feminine  brown       light       brown    
+6 Owen Lars      masculine brown, grey light       blue     
 ```
 
 ```r
@@ -1988,8 +1988,8 @@ mpg %>%
 ```
 
 ```
-Observations: 234
-Variables: 4
+Rows: 234
+Columns: 4
 $ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
 $ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
 $ cty          <int> 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...
@@ -2004,8 +2004,8 @@ mpg %>%
 ```
 
 ```
-Observations: 234
-Variables: 11
+Rows: 234
+Columns: 11
 $ cty          <int> 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...
 $ hwy          <int> 29, 29, 31, 30, 26, 26, 27, 26, 25, 28, 27, 25, 25, 25...
 $ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
@@ -2055,8 +2055,8 @@ glimpse(transform(mpg,
 ```
 
 ```
-Observations: 234
-Variables: 13
+Rows: 234
+Columns: 13
 $ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
 $ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
 $ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -2081,8 +2081,8 @@ mpg %>%
 ```
 
 ```
-Observations: 234
-Variables: 13
+Rows: 234
+Columns: 13
 $ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
 $ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
 $ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -2124,8 +2124,8 @@ mpg %>%
 ```
 
 ```
-Observations: 234
-Variables: 15
+Rows: 234
+Columns: 15
 $ manufacturer <chr> "audi", "audi", "audi", "audi", "audi", "audi", "audi"...
 $ model        <chr> "a4", "a4", "a4", "a4", "a4", "a4", "a4", "a4 quattro"...
 $ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -2272,6 +2272,10 @@ by_mpg %>%
   summarise(mean_cty = mean(cty), 
             mean_hwy = mean(hwy)) %>% 
   print
+```
+
+```
+`summarise()` regrouping output by 'model' (override with `.groups` argument)
 ```
 
 ```
@@ -2532,11 +2536,11 @@ mpg %>% sample_n(3)
 
 ```
 # A tibble: 3 x 11
-  manufacturer model     displ  year   cyl trans  drv     cty   hwy fl    class 
-  <chr>        <chr>     <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr> 
-1 volkswagen   new beet~   2.5  2008     5 manua~ f        20    28 r     subco~
-2 audi         a4          2    2008     4 manua~ f        20    31 p     compa~
-3 jeep         grand ch~   6.1  2008     8 auto(~ 4        11    14 p     suv   
+  manufacturer model    displ  year   cyl trans    drv     cty   hwy fl    class
+  <chr>        <chr>    <dbl> <int> <int> <chr>    <chr> <int> <int> <chr> <chr>
+1 dodge        caravan~   3.3  1999     6 auto(l4) f        16    22 r     mini~
+2 chevrolet    corvette   5.7  1999     8 manual(~ r        16    26 p     2sea~
+3 audi         a4 quat~   2.8  1999     6 auto(l5) 4        15    25 p     comp~
 ```
 
 ```r
@@ -2548,18 +2552,18 @@ mpg %>% sample_frac(0.05)
 # A tibble: 12 x 11
    manufacturer model    displ  year   cyl trans  drv     cty   hwy fl    class 
    <chr>        <chr>    <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr> 
- 1 chevrolet    corvette   6.2  2008     8 manua~ r        16    26 p     2seat~
- 2 hyundai      sonata     2.4  1999     4 manua~ f        18    27 r     midsi~
- 3 ford         explore~   4    1999     6 manua~ 4        15    19 r     suv   
- 4 ford         mustang    4.6  2008     8 auto(~ r        15    22 r     subco~
- 5 volkswagen   jetta      2    1999     4 manua~ f        21    29 r     compa~
- 6 nissan       altima     2.4  1999     4 auto(~ f        19    27 r     compa~
- 7 toyota       camry      2.2  1999     4 auto(~ f        21    27 r     midsi~
- 8 dodge        ram 150~   4.7  2008     8 manua~ 4         9    12 e     pickup
- 9 dodge        dakota ~   5.2  1999     8 auto(~ 4        11    15 r     pickup
-10 nissan       maxima     3.5  2008     6 auto(~ f        19    25 p     midsi~
-11 toyota       toyota ~   4    2008     6 manua~ 4        15    18 r     pickup
-12 toyota       corolla    1.8  1999     4 manua~ f        26    35 r     compa~
+ 1 chevrolet    corvette   5.7  1999     8 auto(~ r        15    23 p     2seat~
+ 2 dodge        dakota ~   5.2  1999     8 auto(~ 4        11    15 r     pickup
+ 3 audi         a4 quat~   2.8  1999     6 auto(~ 4        15    25 p     compa~
+ 4 hyundai      tiburon    2.7  2008     6 auto(~ f        17    24 r     subco~
+ 5 toyota       corolla    1.8  2008     4 manua~ f        28    37 r     compa~
+ 6 dodge        ram 150~   4.7  2008     8 auto(~ 4        13    17 r     pickup
+ 7 hyundai      sonata     2.4  2008     4 manua~ f        21    31 r     midsi~
+ 8 volkswagen   gti        2.8  1999     6 manua~ f        17    24 r     compa~
+ 9 dodge        caravan~   4    2008     6 auto(~ f        16    23 r     miniv~
+10 volkswagen   gti        2    1999     4 auto(~ f        19    26 r     compa~
+11 volkswagen   passat     2    2008     4 auto(~ f        19    28 p     midsi~
+12 dodge        durango~   4.7  2008     8 auto(~ 4        13    17 r     suv   
 ```
 
  \normalsize
@@ -2736,6 +2740,10 @@ mpg %>%
 ```
 
 ```
+`summarise()` regrouping output by 'manufacturer' (override with `.groups` argument)
+```
+
+```
 # A tibble: 30 x 5
 # Groups:   manufacturer [15]
    manufacturer  year     N mean_displ mean_hwy
@@ -2837,18 +2845,18 @@ mtcars %>%
 ```
 
 ```
-    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-1  18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-2  14.3   8  360 245 3.21 3.570 15.84  0  0    3    4
-3  10.4   8  472 205 2.93 5.250 17.98  0  0    3    4
-4  10.4   8  460 215 3.00 5.424 17.82  0  0    3    4
-5  14.7   8  440 230 3.23 5.345 17.42  0  0    3    4
-6  15.5   8  318 150 2.76 3.520 16.87  0  0    3    2
-7  15.2   8  304 150 3.15 3.435 17.30  0  0    3    2
-8  13.3   8  350 245 3.73 3.840 15.41  0  0    3    4
-9  19.2   8  400 175 3.08 3.845 17.05  0  0    3    2
-10 15.8   8  351 264 4.22 3.170 14.50  0  1    5    4
-11 15.0   8  301 335 3.54 3.570 14.60  0  1    5    8
+                     mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Hornet Sportabout   18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+Duster 360          14.3   8  360 245 3.21 3.570 15.84  0  0    3    4
+Cadillac Fleetwood  10.4   8  472 205 2.93 5.250 17.98  0  0    3    4
+Lincoln Continental 10.4   8  460 215 3.00 5.424 17.82  0  0    3    4
+Chrysler Imperial   14.7   8  440 230 3.23 5.345 17.42  0  0    3    4
+Dodge Challenger    15.5   8  318 150 2.76 3.520 16.87  0  0    3    2
+AMC Javelin         15.2   8  304 150 3.15 3.435 17.30  0  0    3    2
+Camaro Z28          13.3   8  350 245 3.73 3.840 15.41  0  0    3    4
+Pontiac Firebird    19.2   8  400 175 3.08 3.845 17.05  0  0    3    2
+Ford Pantera L      15.8   8  351 264 4.22 3.170 14.50  0  1    5    4
+Maserati Bora       15.0   8  301 335 3.54 3.570 14.60  0  1    5    8
 ```
 
 ```r
@@ -2861,15 +2869,15 @@ mtcars %>%
 ```
 
 ```
-   mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-1 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-2 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-3 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
-4 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
-5 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
-6 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
-7 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
-8 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+               mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4     21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+Merc 240D     24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+Merc 230      22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+Merc 280      19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+Merc 280C     17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+Honda Civic   30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+Volvo 142E    21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
 ```
 
 ```r
@@ -2884,14 +2892,14 @@ mtcars %>%
 ```
 
 ```
-   mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-1 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
-2 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
-3 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
-4 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
-5 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
-6 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
-7 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+                mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Datsun 710     22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+Fiat 128       32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+Honda Civic    30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+Fiat X1-9      27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
 ```
 
  \normalsize
@@ -3129,8 +3137,8 @@ mpg %>%
 ```
 
 ```
-Observations: 1
-Variables: 22
+Rows: 1
+Columns: 22
 $ manufacturer_min <chr> "audi"
 $ model_min        <chr> "4runner 4wd"
 $ displ_min        <dbl> 1.6
@@ -3175,7 +3183,7 @@ mpg %>%
  1 audi            18       2.54     5.22     17.6     26.4    0.673  1.22 
  2 chevrolet       19       5.06     7.26     15       21.9    1.37   1.37 
  3 dodge           37       4.38     7.08     13.1     17.9    0.868  1.12 
- 4 ford            25       4.54     7.2      14       19.4    0.541  1.   
+ 4 ford            25       4.54     7.2      14       19.4    0.541  1    
  5 honda            9       1.71     4        24.4     32.6    0.145  0    
  6 hyundai         14       2.43     4.86     18.6     26.9    0.365  1.03 
  7 jeep             8       4.58     7.25     13.5     17.6    1.02   1.04 
@@ -3902,8 +3910,8 @@ flights2 %>%
 ```
 
 ```
-Observations: 336,776
-Variables: 13
+Rows: 336,776
+Columns: 13
 $ year         <int> 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, ...
 $ month        <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
 $ day          <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
@@ -4368,6 +4376,10 @@ gap_filter %>%
             `GDP/Captia` = mean(gdp_cap), 
             `Life expect` = mean(life_expectancy, na.rm = TRUE)) %>% 
   arrange(desc(Population))
+```
+
+```
+`summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 ```
@@ -4999,7 +5011,7 @@ billb_tidy <- billboard %>%
                names_to = "week",
                values_to = "rank",
                names_prefix = "wk",
-               names_ptypes = list(week = integer()),
+               names_transform = list(week = as.integer),
                values_drop_na = TRUE)
 billb_tidy %>% print
 ```
@@ -5244,7 +5256,9 @@ all.equal(wide_01, wide_ex_01)
 ```
 
 ```
-[1] TRUE
+[1] "Attributes: < Length mismatch: comparison on first 2 components >"                     
+[2] "Attributes: < Component \"class\": Lengths (4, 3) differ (string compare on first 3) >"
+[3] "Attributes: < Component \"class\": 3 string mismatches >"                              
 ```
 
 ```r
@@ -5256,7 +5270,9 @@ all.equal(wide_01, wide_ex_01)
 ```
 
 ```
-[1] TRUE
+[1] "Attributes: < Length mismatch: comparison on first 2 components >"                     
+[2] "Attributes: < Component \"class\": Lengths (4, 3) differ (string compare on first 3) >"
+[3] "Attributes: < Component \"class\": 3 string mismatches >"                              
 ```
 
  \normalsize
@@ -5358,6 +5374,10 @@ mtcars2 %>%
 ```
 
 ```
+`summarise()` regrouping output by 'vs' (override with `.groups` argument)
+```
+
+```
 # A tibble: 4 x 11
 # Groups:   vs [2]
   vs       stat   carb   cyl  disp  drat  gear    hp   mpg  qsec    wt
@@ -5387,6 +5407,10 @@ mtcars2 %>%
     names_from = variable,
     values_from = res
   )
+```
+
+```
+`summarise()` regrouping output by 'vs' (override with `.groups` argument)
 ```
 
 ```
@@ -5705,9 +5729,7 @@ tidy_ex_01 <- wide_01 %>%
   pivot_longer(`2001`:`2020`,
                names_to = "year",
                values_to = "gdp_cap",
-               names_ptypes = list(
-                 year = integer()
-               ))
+               names_transform = list(year = as.integer))
 tidy_ex_01 %>%
   ggplot +
   aes(x = year, y = gdp_cap,

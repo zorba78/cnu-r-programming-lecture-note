@@ -56,7 +56,7 @@
 - 다른 통계 패키지(SPSS, SAS, STATA 등)와 비교할 수 없을 정도로 월등한 성능의 그래픽 도구 및 기능 제공
 
 
-## R 기본 그래프 함수
+## R 기본 그래프 함수 {#r-basic-graphics}
 
 - R의 그래픽은 그래픽 장치에 특정 그림(선, 점, 면 등)을 순차적으로 추가하는 명령(스크립트)을 통해 생성
 
@@ -733,8 +733,8 @@ glimpse(airquality)
 ```
 
 ```
-Observations: 153
-Variables: 6
+Rows: 153
+Columns: 6
 $ Ozone   <int> 41, 36, 12, 18, NA, 28, 23, 19, 8, NA, 7, 16, 11, 14, 18, 1...
 $ Solar.R <int> 190, 118, 149, 313, NA, NA, 299, 99, 19, 194, NA, 256, 290,...
 $ Wind    <dbl> 7.4, 8.0, 12.6, 11.5, 14.3, 14.9, 8.6, 13.8, 20.1, 8.6, 6.9...
@@ -795,6 +795,7 @@ attr(,"class")
 
 
 ```r
+par(family = "nanumgothic")
 hist(temp,
 main="La Guardia Airport 일중 최고 기온",
 xlab = "온도",
@@ -815,6 +816,7 @@ freq = FALSE
 
 
 ```r
+par(family = "nanumgothic")
 hist(temp,
 main = "La Guardia Airport 일중 최고 기온",
 xlab = "온도",
@@ -2343,7 +2345,7 @@ mtext(expression(paste("Respiration", ~(mL ~O[2] ~ h^-1))),
 
  \normalsize
 
-
+::: {.tiny}
 \footnotesize
 
 
@@ -2358,32 +2360,39 @@ plot(0:6, 0:6,
 text(0.3, 5.8, "Normal distribution:", adj = 0)
 text(0.3, 4.8, expression(paste(f, "(", x, ";", list(mu, sigma), ")"
                                 == frac(1, sigma*sqrt(2*pi))*~~exp *
-                                  bgroup('(', -frac((x-mu)^2, 2*sigma^2), ')') )),
+                                  bgroup('(', -frac((x-mu)^2, 
+                                                    2*sigma^2), ')') 
+                                )),
      adj = 0)
 text(4, 5.8, "Binomial distribution:", adj = 0)
 text(4, 4.8, expression(paste(f, "(", x, ";", list(n, p), ")"
-                                == bgroup("(", atop(n, x) ,")")*p^x*(1-p)^{n-x})),
+                                == bgroup("(", atop(n, x) ,")")
+                              *p^x*(1-p)^{n-x})),
      adj = 0)
 
 text(0.3, 3.5, "Matrix:", adj = 0)
 text(0.3, 2.5,
-     expression(bold(X) == bgroup("[", atop(1 ~~ 2 ~~ 3, 4 ~~ 5 ~~ 6), "]")),
+     expression(bold(X) == bgroup("[", atop(1 ~~ 2 ~~ 3, 
+                                            4 ~~ 5 ~~ 6), "]")),
      adj = 0)
 text(2, 3.5, "Multiple regression formula:",
      adj = 0)
 text(2, 2.5,
-     expression(paste(y[i] == beta[0] + beta[1]*x[1] + beta[2]*x[2] + epsilon[i]~~
+     expression(paste(y[i] == beta[0] + beta[1]*x[1] + 
+                        beta[2]*x[2] + epsilon[i]~~
                       "where", ~~i == list(1, ldots, n))),
      adj = 0)
 
 text(2, 1.5, "Regression equation:", adj = 0)
 text(2, 0.5,
-     expression(hat(bold(beta)) == bgroup("(", bold(X)^T*bold(X), ")")^-1*bold(X)^T*bold(y)),
+     expression(hat(bold(beta)) == bgroup("(", bold(X)^T*bold(X), 
+                                          ")")^-1*bold(X)^T*bold(y)),
      adj = 0)
 ```
 
  \normalsize
 
+:::
 
 \footnotesize
 
@@ -2394,35 +2403,779 @@ text(2, 0.5,
 
  \normalsize
 
+### R 기본 그래프 이미지 파일로 저장
+
+\@ref(r-basic-graphics) 절 R 기본 그래프 함수에서 언급한 그래픽 파일에 해당하는 함수로 그래픽 장치를 먼저 연 다음 그래프 생성 후 저장
+
+\footnotesize
+
+
+```r
+# save-example.png에 cars 산점도 저장
+png("figures/save-example.png")
+plot(cars)
+dev.off()
+```
+
+```
+pdf 
+  2 
+```
+
+ \normalsize
+
+## ggplot2 {#ggplot2-package}
+
+\footnotesize
+
+\BeginKnitrBlock{rmdwarning}<div class="rmdwarning">**Prerequisites**: tidyverse 패키지 또는 ggplot2 패키지 읽어오기: `require(tidyverse)` 또는 `require(ggplot2)` 실행
+  </div>\EndKnitrBlock{rmdwarning}
+
+ \normalsize
+
+
+
+- 데이터에 대한 그래프는 데이터의 속성(수치형, 범주형)과 시각적 속성(점, x-y 좌표 위치, 선, 색상, 막대의 높이) 간에 대응 또는 매핑(mapping) 으로 이루어짐
+- R 에서 가장 유명한 데이터 시각화 패키지 중 하나로 2005년 Hadley Wickham이 개발 및 배포
+- Leland Wilkinson 의 **grammar of graphics** [@wilkinson2012grammar] 를 구현
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">**Grammar of graphics**: 그래프를 구현하기 위한 일관적인 체계로 그래프를 데이터, 스케일, 레이어, 좌표 등과 같은 의미론적 요소(sementic components) 로 나눔</div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+- ggplot의 grammar of graphics
+
+\footnotesize
+
+<div class="figure" style="text-align: center">
+<img src="figures/grammar-graphics-intro.png" alt="ggplot의 grammar of graphics 주요 구성 요소" width="90%" />
+<p class="caption">(\#fig:unnamed-chunk-59)ggplot의 grammar of graphics 주요 구성 요소</p>
+</div>
+
+ \normalsize
+
+
+- R 기본 graphics 패키지의 경우 데이터 속성을 시각적 속성으로 매핑 시 매 경우가 고유한 작업이고, 매핑이 변경될 경우 데이터를 재구성하거나 완전히 다른 plotting 함수를 적용해야 함. 
+- R base graphics와 ggplot의 비교
+
+\footnotesize
+
+
+```r
+# R 기본 데이터셋: ToothGrowth
+ToothGrowth %>% 
+  group_by(supp, dose) %>% 
+  summarise(mean = mean(len)) %>% 
+  mutate(dose = factor(dose, 
+                       ordered = TRUE))-> tg_long
+```
+
+```
+`summarise()` regrouping output by 'supp' (override with `.groups` argument)
+```
+
+```r
+tg_long %>% 
+  spread(supp, mean) %>% 
+  column_to_rownames("dose") %>% # 열 값을 열이름으로 변환(in tibble 패키지)
+  as.matrix -> tg_mat
+
+# R graphics: barplot() 사용
+barplot(tg_mat, beside = TRUE)
+```
+
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/base-barplot-a-1.svg" alt="R 기본 barplot() 생성 그래프"  />
+<p class="caption">(\#fig:base-barplot-a)R 기본 barplot() 생성 그래프</p>
+</div>
+
+ \normalsize
+
+- `dose` 별 OJ와 VC 막대도표: `dose`로 그룹화를 하기 위해 데이터 구조 변경(전치) 필요
+
+\footnotesize
+
+
+```r
+# tg_mat 행렬 전치
+barplot(t(tg_mat), beside = TRUE)
+```
+
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/base-barplot-b-1.svg" alt="R 기본 barplot() 생성 그래프: 데이터 전치"  />
+<p class="caption">(\#fig:base-barplot-b)R 기본 barplot() 생성 그래프: 데이터 전치</p>
+</div>
+
+ \normalsize
+
+- 막대 대신 선(line)으로 표현
+
+\footnotesize
+
+
+```r
+plot(tg_mat[,1], type="l", col = "blue")
+lines(tg_mat[,2], type="l", col = "black")
+```
+
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/base-lineplot-1.svg" alt="R 기본 선 그래프: plot(), lines() 함수 사용"  />
+<p class="caption">(\#fig:base-lineplot)R 기본 선 그래프: plot(), lines() 함수 사용</p>
+</div>
+
+ \normalsize
+
+- `plot()` 함수 호출 시 y 축 범위가 첫 번째 선에 대해서만 설정
+- x 축이 범주 대신 번호가 사용
+- ggplot 사용: 데이터 프레임에만 적용 가능(데이터 구조는 long-format)
+
+\footnotesize
+
+
+```r
+# require(ggplot2)
+ggplot(data = tg_long, 
+       aes(y = mean)) -> gmap # 기본 mapping 유지를 위해 
+                              # ggplot 클래스 객체 저장
+gmap + 
+  geom_bar(aes(x = supp, fill = dose), 
+           stat = "identity", # 데이터 고유값을 막대 높이로 사용
+           position = "dodge") # 막대 위치 조정(beside 조건과 유사)
+```
+
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/ggplot-bar-intro-a-1.svg" alt="ggplot()과 geom_bar()을 이용한 막대 도표"  />
+<p class="caption">(\#fig:ggplot-bar-intro-a)ggplot()과 geom_bar()을 이용한 막대 도표</p>
+</div>
+
+ \normalsize
+
+- 데이터 구조를 변경하지 않고 ggplot의 매핑 변수 변경
+
+\footnotesize
+
+
+```r
+gmap + 
+  geom_bar(aes(x = dose, fill = supp), 
+           stat = "identity", 
+           position = "dodge")
+```
+
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/ggplot-bar-intro-b-1.svg" alt="x와 fill의 mapping 변경"  />
+<p class="caption">(\#fig:ggplot-bar-intro-b)x와 fill의 mapping 변경</p>
+</div>
+
+ \normalsize
+
+
+- ggplot을 이용한 선 도표 생성
+
+\footnotesize
+
+
+```r
+gmap + 
+  geom_line(aes(x = dose, 
+                group = supp, 
+                color = supp), 
+            size = 1)
+```
+
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/ggplot-line-intro-1.svg" alt="geom_line()을 이용한 선 그래프 생성"  />
+<p class="caption">(\#fig:ggplot-line-intro)geom_line()을 이용한 선 그래프 생성</p>
+</div>
+
+ \normalsize
+
+> - 기본 그래프 함수를 이용해 막대도표 대신 선 도표 생성 시 완전히 다른 명령 사용
+> - 선 그래프 생성 시 기본 그래프는 하나씩 도표를 추가한 반면, geom_line()의 경우 모든 선이 한번에 그려짐
+
+
+### 기본 문법{#basic-grammar}
+
+
+\footnotesize
+
+
+```r
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>)) + 
+  <SCALE_FUNCTION> + 
+  <LABEL or GUIDES> + 
+  <ANNOTATION> + 
+  <THEME>
+```
+
+ \normalsize
+
+**용어(terminology)**
+
+- _**data**_: 시각화의 대상으로 관측값과 변수(열)로 이루어짐
+- _**geom**_: 데이터의 값을 시각적으로 보여주기 위한 레이어로 막대, 선, 점과 같은 기하학적 객체
+- _**aesthetic**_: geom의 시각적 속성을 정의하며, x, y 위치, 선 색상, 점 모양 등을 정의
+- _**mapping**_: 데이터 값을 asthetic에 매핑
+- _**scale**_: asthetic에 매핑 시 세부 값들을 제어
+- _**guide**_: 그래프 해석에 도움을 주는 속성으로 x-y 축의 눈금, 레이블, 범례(legend)를 포함
+- _**annotation**_: 생성한 그래프 위에 추가적인 정보(선, 화살표, 텍스트, 도형 등) 추가
+- _**theme**_: 그래프의 비데이터적 요소(제목, 레이블, 글꼴, 배경색, 격자, 범례 등) 제어를 통해 그래프의 미적 효과 극대화
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">ggplot 계열 함수에서 범주형 변수(categorical variable)은 이산형(**discrete**), 수치형 변수(numeric variable)을 연속형(**continuous**)이라고 명칭함.
+</div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+ggplot 그래프 생성 기본 단계(각 단계(layer)는 `+` 연산자로 덧붙혀짐)
+
+1. `ggplot()`으로 ggplot 객체 초기화
+2. `aes()` 함수로 x-y 축 지정
+3. geom 계열 함수로 데이터를 시각적 요소로 매핑. 이때 aes() 함수와 같이 색상, 크기 등 지정 
+4. scale 계열 함수를 이용해 asthetic의 세부 값을 조정
+5. 축 제목, 레이블, 범례 설정 조정
+6. 필요 시 theme 조정을 통해 시각적 요소 가미
+
+
+- `ggplot()`: ggplot 객체를 생성하는 함수로 시각화할 데이터가 무엇인지, 그리고 데이터에 포함된 변수들이 어떤 asthetic에 매핑되는지를 선언
+- `aes()`: 데이터 내 변수들이 어떤 geoms 레이어에서 어떤 시각적 속성을 갖는지를 지정해주는 함수로 ggplot() 함수 내, 혹은 독립적인 레이어로 추가 가능
+   - ggplot에서 지정한 데이터 내에서 평가되기 때문에 변수명 지정 시 원래 데이터셋 참조할 필요 없음(예: `ggplot(data = car, aes(x = speed))`)
+
+
+\footnotesize
+
+
+```r
+# ggplot()을 이용한 ggplot 생성
+# 표현식 1
+ggplot(data = <DATA>, # 데이터 프레임, 티블 객체
+       mapping = aes(x = <X-axis>, 
+                     y = <Y-axis>, 
+                     color = <색 속성을 부여할 변수 이름>, 
+                     fill = <면의 색 속성을 부여할 변수 이름>, 
+                     group = <group 변수 지정>
+                             # 보통 선 그래프 작성 시 이을 선에 대한 
+                             # 그룹을 지정하기 위해 사용
+                     group
+                     ...)) + 
+  <GEOM_FUNCTION>
+# 표현식 2
+ggplot(data = <DATA>) + 
+  aes(...) + 
+  <GEOM_FUNCTION>(mapping = aes(...))
+
+# 표현식 3
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(mapping = aes(x, y, ...))
+
+
+# 표현식 4
+<GGPLOT_OBJECT> <- ggplot(data = <DATA>)
+<GGPLOT_OBJECT> + 
+  <GEOM_FUNCTION>(mapping = aes(...))
+```
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+# cars 데이터셋
+## ggplot() 내에 aes() 지정 
+ggplot(data = cars, 
+       aes(x = speed, y = dist)) + 
+  geom_point()
+
+## aesthetic을 ggplot() 함수 밖에서 지정
+ggplot(data = cars) + 
+  aes(x = speed, y = dist) + 
+  geom_point()
+
+## geom 계열 함수 내에서 asthetic 지정
+ggplot(data = cars) + 
+  geom_point(aes(x = speed, y = dist))
+
+## ggplot 객체 생성 
+gp <- ggplot(data = cars); gp
+
+gp <- gp + 
+  aes(x = speed, y = dist); gp
+
+gp + geom_point()
+
+## 참고: R 기본 plot()의 결과는 객체로 저장되지 않음
+grph <- plot(cars); grph
+```
+
+ \normalsize
+
+
+- 주요 aesthetics
+   - **`x`**, **`y`**: x-y 축에 해당하는 변수명. `x`와 `y`의 이름은 생략 가능(예: `ggplot(data = car, aes(speed, dist)`로도 사용 가능))
+   - **`color`**: 점, 선, 텍스트 색상
+   - **`fill`**: 면(막대, 상자, 도형 등) 색상
+   - **`alpha`**: 색상의 투명도
+   - **`group`**: 시각화에 사용할 데이터의 그룹
+   - **`size`**: 점, 선, 텍스트의 크기 또는 굵기
+   - **`shape`**: 점의 모양(그림 \@ref(fig:plot-symbol) 참고). R 기본 그래픽 파라미터 `pch`와 호환
+   - **`linetype`**: 선의 형태 지정하며 그림 \@ref(fig:plot-symbol) 의 선 형태 지정 방법 준용(숫자, 문자열 모두 사용 가능)
+
+
+
+- 색상 관련 aesthetics: **`color`**, **`fill`**, **`alpha`**
+   - `aes()` 함수 내부 또는 외부에서 인수 조정 가능(함수 내부: 변수명으로 지정, 함수 외부: 특정 값으로 지정)
+
+\footnotesize
+
+
+```r
+# 막대도표 예시
+# `aes()` 함수 외부에서 사용 시 단일 값을 입력
+gpcol <- ggplot(data = mpg, aes(x = class))
+gpcol + geom_bar() + 
+  labs(title = "Default geom_bar()") # 그래프 제목 지정
+
+gpcol + geom_bar(fill = "navy") + 
+  labs(title = "fill = 'navy'")
+```
+
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-63-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-63-2.svg" width="50%" />
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+# 막대도표 예시
+gpcol + geom_bar(color = "red") + 
+  labs(title = "color = 'red'")
+
+gpcol + geom_bar(color = "red", fill = "white")+ 
+    labs(title = "color = 'red', fill = 'white'")
+```
+
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-64-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-64-2.svg" width="50%" />
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+# 연료 타입에 따라 면 색 지정
+gpcol + 
+  geom_bar(aes(fill = fl)) + 
+  labs(title = "Filled by fuel types (fl)")
+
+# 연료 타입에 따라 막대 선 색 지정
+gpcol + 
+  geom_bar(aes(color = fl)) + 
+  labs(title = "Colored by fuel types (fl)")
+```
+
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-65-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-65-2.svg" width="50%" />
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+# alpha: 0-1 사이 값을 갖고 투명도 지정
+# 주로 aes() 함수 밖에서 사용됨
+set.seed(20200605)
+df1 <- tibble(
+  x = rnorm(5000), 
+  y = rnorm(5000)
+)
+
+gpalpha <- ggplot(data = df1, aes(x, y))
+gpalpha + geom_point() + 
+  labs(title = "alpha = 1") 
+gpalpha + geom_point(alpha = 0.1) + 
+  labs(title = "alpha = 0.1")
+```
+
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-66-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-66-2.svg" width="50%" />
+
+ \normalsize
+
+- 그룹(group) aesthetic
+  - 기본적으로 `aes()` 내부에서 aesthetic에 대응하는 변수가 이산형(범주형) 변수로 정해짐
+  - 보통은 color, shape, linetype 으로 그룹 지정이 가능하지만 충분하지 않은 경우 `group` 인수 값 지정
+
+\footnotesize
+
+
+```r
+# 다중 집단에 하나의 aesthetic만 적용한 경우
+## gapminder 데이터셋
+gapm <- read_csv("dataset/gapminder/gapminder_filter.csv")
+gapm_filter <- gapm %>% 
+  filter(grepl("Asia", region))
+gpgroup <- ggplot(data = gapm_filter, 
+                  aes(x = year, y = life_expectancy))
+
+gpgroup + geom_line(size = 0.5, alpha = 0.2) 
+gpgroup_l <- gpgroup + geom_line(aes(group = country), 
+                                 size = 0.5, alpha = 0.2)
+gpgroup_l
+```
+
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-67-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-67-2.svg" width="50%" />
+
+ \normalsize
+
+
+\footnotesize
+
+
+```r
+# 전체 아시아 국가의 평균 추세선 
+## geom_line과 geom_smooth 모두 group을 country로 지정
+gpgroup_l + 
+  geom_smooth(aes(group = country), 
+              method = "loess", 
+              size = 0.5, 
+              color = "blue", 
+              se = FALSE)
+
+## 모든 국가에 가장 적합한 하나의 곡선으로 fitting
+gpgroup_l + 
+  geom_smooth(aes(group = 1), 
+              method = "loess", 
+              size = 1, 
+              color = "blue", 
+              se = FALSE)
+```
+
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-68-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-68-2.svg" width="50%" />
+
+ \normalsize
+
+
+- 크기(size), 점 모양(shape), 선모양(linetype) aesthetic
+
+\footnotesize
+
+
+```r
+# size 지정
+gpsize <- ggplot(data = mtcars, 
+                 aes(disp, mpg))
+
+gpsize + geom_point(size = 4)
+
+gpsize + geom_point(aes(size = hp), 
+                    alpha = 0.5)
+```
+
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-69-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-69-2.svg" width="50%" />
+
+ \normalsize
+
+
+\footnotesize
+
+
+```r
+gpshape <- ggplot(data = mtcars, 
+                  aes(hp, mpg))
+gpshape + 
+  geom_point(shape = 5) # 
+
+# 실린더 개수에 따라 점 모양 지정
+gpshape + 
+  geom_point(aes(shape = factor(cyl)), 
+             size = 4)
+## pch를 인수로 사용해도 동일한 그래프 출력
+# gpshape + 
+#   geom_point(aes(pch = factor(cyl)), 
+#              size = 4)
+```
+
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-70-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-70-2.svg" width="50%" />
+
+ \normalsize
+
+
+
+\footnotesize
+
+
+```r
+# linetype 지정
+## economics_long 데이터셋
+gplty <- ggplot(data = economics_long, 
+                aes(x = date, y = value01))
+
+gplty + 
+  geom_line(aes(group = variable, color = variable), 
+            size = 0.5, 
+            linetype = 6)
+
+# 실린더 개수에 따라 점 모양 지정
+gplty + 
+  geom_line(aes(linetype = variable, 
+                color = variable), 
+            size = 0.5)
+```
+
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-71-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-71-2.svg" width="50%" />
+
+ \normalsize
+
+
+
+### Geoms: 선 관련 geometric  {#geom-lines}
+
+- `geom_line()`: x축에 대응한 변수의 순서대로 관측값을 선으로 연결
+- `geom_path()`: 관측치가 데이터셋에 나타난 순서대로 선으로 연결
+- `geom_abline(slope, intercept)`: 기울기(`slope`) 절편(`intercept`)에 대한 직선 $\rightarrow$ R 기본 그래픽 함수 `abline(a=value, b=value)`와 유사
+- `geom_vline(xintercept)`: x축에 수직(y 축에 수평)인 직선 생성
+- `geom_hline(yintecept)`: x축에 수평(y 축에 수직)인 직선 생성
+
+
+\footnotesize
+
+
+```r
+# gap-minder 데이터
+gpline <- ggplot(data = gapm_filter, 
+                  aes(y = gdp_cap)) 
+# geom_line
+gpline + 
+  geom_line(aes(x = year, 
+                group = country), 
+            size = 0.5, 
+            alpha = 0.3, 
+            linetype = "solid") -> gpline
+gpline
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-72-1.svg)<!-- -->
+
+ \normalsize
+
+
+\footnotesize
+
+
+```r
+# geom_path
+highlight_country <- c("South Korea", "China", "Japan", 
+                       "India", "Taiwan", "Singapore")
+
+# dplyr 패키지 체인과 ggplot 함수 연결 가능
+gppath <- gapm %>% 
+  filter(year >= 2000, 
+         country %in% highlight_country) %>% 
+  ggplot(aes(x = gdp_cap, 
+             y = life_expectancy))
+
+gppath + geom_path(aes(group = country))
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-73-1.svg)<!-- -->
+
+ \normalsize
+
+
+\footnotesize
+
+
+```r
+# 선 굵기 및 색상 조정
+gppath + 
+  geom_path(aes(color = country), 
+            size = 4, 
+            alpha = 0.5) -> gppath
+
+# 선과 점 동시에 출력
+gppath + 
+  geom_point(aes(shape = country), 
+             size = 2)
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-74-1.svg)<!-- -->
+
+ \normalsize
+
+
+\footnotesize
+
+
+```r
+# geom_abline, geom_hline, geom_vline
+## abline
+m <- lm(gdp_cap ~ year, data = gapm_filter)
+gpline +   
+  geom_abline(slope = coef(m)[2], 
+              intercept = coef(m)[1], 
+              size = 2, 
+              color = "blue") -> gplines
+gplines
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-75-1.svg)<!-- -->
+
+ \normalsize
+
+
+\footnotesize
+
+
+```r
+## hline
+gplines + 
+  geom_hline(yintercept = mean(gapm_filter$gdp_cap, 
+                               na.rm = TRUE), 
+             color = "red", 
+             size = 1) -> gplines
+gplines + ggtitle("Addling a horizontal line: mean of gdp_cap")
+
+## vline  
+gplines + 
+  geom_vline(xintercept = mean(gapm_filter$year, 
+                               na.rm = TRUE), 
+             color = "red", 
+             size = 1) + 
+  ggtitle("Adding a vertical line: mean of year")
+```
+
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-76-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-76-2.svg" width="50%" />
+
+ \normalsize
+
+
+### Geoms: 점 geometrics {#geom-points}
+
+- `geom_point()`: ggplot 객체에 지정된 aesthetic (x-y에 대응하는 변수)에 대한 산점도를 생성
+- `geom_jitter()`: 각 점의 위치에 random noise를 추가해 overplotting 처리 $\rightarrow$ `geom_point(position = "jitter")`의 축약 버전
+
+\footnotesize
+
+
+```r
+# geom_point
+## 갭마인더 데이터: 2015년 기대수명 vs. 일인당 국민소득 산점도
+gppoint <- gapm %>% 
+  mutate(continent = gsub("(.+\\s)", "", region) %>% 
+  # region 변수에서 공백 앞 문자 모두 제거
+           factor) %>% 
+  filter(year == 2015) %>% 
+  ggplot(aes(x = life_expectancy, y = gdp_cap))
+
+gppoint + 
+  geom_point(size = 1)
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-77-1.svg)<!-- -->
+
+ \normalsize
+
+
+\footnotesize
+
+
+```r
+## 점의 크기는 해당 국가 인구수(log10 변환) 에 비례
+## 각 대륙에 따라 색 구분
+## 투명도는 0.3
+## --> Bubble plot
+gppoint + 
+  geom_point(aes(size = log(population, base=10), 
+                 color = continent), 
+             alpha = 0.3)
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-78-1.svg)<!-- -->
+
+ \normalsize
+
+
+\footnotesize
+
+
+```r
+## mpg 데이터 셋
+## cylinder 개수에 따른 시내 연비
+gppoint2 <- ggplot(data = mpg, 
+                   aes(x = cyl, y = cty))
+gppoint2 + geom_point(size = 3)
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-79-1.svg)<!-- -->
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+# geom_jitter
+## geom_point에서 position 인수 조정
+gppoint2 + 
+  geom_point(position = "jitter") + 
+  ggtitle("geom_point() with position = 'jitter'")
+
+## geom_jitter: jittering 크기는 0.3
+## class로 색 조정
+gppoint2 + 
+  geom_jitter(aes(color = class), 
+              width = 0.3) + 
+  ggtitle("Jittering using geom_jitter()")
+```
+
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-80-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-80-2.svg" width="50%" />
+
+ \normalsize
 
 
 
 
-<!-- ### R 기본 그래프 이미지 파일로 저장 -->
 
-<!-- -  -->
+<!-- #### `geom_bar()` -->
 
-<!-- ## ggplot2 -->
+<!-- #### `geom_errorbar()` -->
 
-<!-- ### 기본 문법 -->
+<!-- #### `geom_text()` -->
 
-<!-- ### `geom_point()` -->
+<!-- #### `geom_histogram()` -->
 
-<!-- ### `geom_line()` -->
+<!-- #### `geom_boxplot()` -->
 
-<!-- ### `geom_bar()` -->
+<!-- #### `geom_density()` -->
 
-<!-- ### `geom_errorbar()` -->
+<!-- #### `geom_smooth()` -->
 
-<!-- ### `geom_histogram()` -->
 
-<!-- ### `geom_boxplot()` -->
+<!-- ### Scales -->
 
-<!-- ### `geom_density()` -->
+<!-- #### labs() -->
 
-<!-- ### `geom_smooth()` -->
+<!-- #### `scale_x_*`, `scale_y_*` -->
 
-<!-- ### `theme()` -->
+
+<!-- ### Coordinate systems -->
+
+<!-- ### Guides -->
+
+
+
+<!-- ### Themes -->
+
+<!-- #### `theme()` -->
+
+<!-- #### `facet_grid()`, `facet_wrap()` -->
+
+<!-- #### `coord_flip()` -->
 
 
 

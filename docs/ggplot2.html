@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5.4 ggplot2 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
-  <meta name="generator" content="bookdown 0.18.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5.4 ggplot2 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-05-23" />
+<meta name="date" content="2020-06-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -277,7 +277,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.6" data-path="low-level-graphic.html"><a href="low-level-graphic.html#rect"><i class="fa fa-check"></i><b>5.3.6</b> rect()</a></li>
 <li class="chapter" data-level="5.3.7" data-path="low-level-graphic.html"><a href="low-level-graphic.html#polygon"><i class="fa fa-check"></i><b>5.3.7</b> polygon()</a></li>
 <li class="chapter" data-level="5.3.8" data-path="low-level-graphic.html"><a href="low-level-graphic.html#text"><i class="fa fa-check"></i><b>5.3.8</b> text(), mtext()</a></li>
-<li class="chapter" data-level="5.3.9" data-path="low-level-graphic.html"><a href="low-level-graphic.html#r-기본-그래프-이미지-파일로-저장"><i class="fa fa-check"></i><b>5.3.9</b> R 기본 그래프 이미지 파일로 저장</a></li>
+<li class="chapter" data-level="5.3.9" data-path="low-level-graphic.html"><a href="low-level-graphic.html#legend"><i class="fa fa-check"></i><b>5.3.9</b> legend()</a></li>
+<li class="chapter" data-level="5.3.10" data-path="low-level-graphic.html"><a href="low-level-graphic.html#math-expression"><i class="fa fa-check"></i><b>5.3.10</b> 수식 표현</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="ggplot2.html"><a href="ggplot2.html"><i class="fa fa-check"></i><b>5.4</b> ggplot2</a><ul>
 <li class="chapter" data-level="5.4.1" data-path="ggplot2.html"><a href="ggplot2.html#기본-문법"><i class="fa fa-check"></i><b>5.4.1</b> 기본 문법</a></li>
@@ -312,8 +313,152 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="ggplot2" class="section level2">
 <h2><span class="header-section-number">5.4</span> ggplot2</h2>
+
+
+<div class="rmdwarning">
+<strong>Prerequisites</strong>: tidyverse 패키지 또는 ggplot2 패키지 읽어오기: <code>require(tidyverse)</code> 또는 <code>require(ggplot2)</code> 실행
+</div>
+
+
+<ul>
+<li>데이터에 대한 그래프는 데이터의 속성(수치형, 범주형)과 시각적 속성(점, x-y 좌표 위치, 선, 색상, 막대의 높이) 간에 대응 또는 매핑(mapping) 으로 이루어짐</li>
+<li>R 에서 가장 유명한 데이터 시각화 패키지 중 하나로 2005년 Hadley Wickham이 개발 및 배포</li>
+<li>Leland Wilkinson 의 <strong>grammar of graphics</strong> <span class="citation">(Wilkinson <a href="#ref-wilkinson2012grammar" role="doc-biblioref">2012</a>)</span> 를 구현</li>
+</ul>
+
+
+<div class="rmdnote">
+<strong>Grammar of graphics</strong>: 그래프를 구현하기 위한 일관적인 체계로 그래프를 데이터, 스케일, 레이어, 좌표 등과 같은 의미론적 요소(sementic components) 로 나눔
+</div>
+
+
+<ul>
+<li>ggplot의 grammar of graphics</li>
+</ul>
+
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-59"></span>
+<img src="figures/grammar-graphics-intro.png" alt="ggplot의 grammar of graphics 주요 구성 요소" width="90%" />
+<p class="caption">
+Figure 5.20: ggplot의 grammar of graphics 주요 구성 요소
+</p>
+</div>
+
+<ul>
+<li>R 기본 graphics 패키지의 경우 데이터 속성을 시각적 속성으로 매핑 시 매 경우가 고유한 작업이고, 매핑이 변경될 경우 데이터를 재구성하거나 완전히 다른 plotting 함수를 적용해야 함.</li>
+<li>R base graphics와 ggplot의 비교</li>
+</ul>
+
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1"><span class="co"># R 기본 데이터셋: ToothGrowth</span></a>
+<a class="sourceLine" id="cb93-2" title="2">ToothGrowth <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb93-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(supp, dose) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb93-4" title="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(len)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb93-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">dose =</span> <span class="kw">factor</span>(dose, </a>
+<a class="sourceLine" id="cb93-6" title="6">                       <span class="dt">ordered =</span> <span class="ot">TRUE</span>))-&gt;<span class="st"> </span>tg_long</a></code></pre></div>
+<pre><code>`summarise()` regrouping output by &#39;supp&#39; (override with `.groups` argument)</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1">tg_long <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb95-2" title="2"><span class="st">  </span><span class="kw">spread</span>(supp, mean) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb95-3" title="3"><span class="st">  </span><span class="kw">column_to_rownames</span>(<span class="st">&quot;dose&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># 열 값을 열이름으로 변환(in tibble 패키지)</span></a>
+<a class="sourceLine" id="cb95-4" title="4"><span class="st">  </span>as.matrix -&gt;<span class="st"> </span>tg_mat</a>
+<a class="sourceLine" id="cb95-5" title="5"></a>
+<a class="sourceLine" id="cb95-6" title="6"><span class="co"># R graphics: barplot() 사용</span></a>
+<a class="sourceLine" id="cb95-7" title="7"><span class="kw">barplot</span>(tg_mat, <span class="dt">beside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:base-barplot-a"></span>
+<img src="05-data-visualization_files/figure-html/base-barplot-a-1.svg" alt="R 기본 barplot() 생성 그래프" width="672" />
+<p class="caption">
+Figure 5.21: R 기본 barplot() 생성 그래프
+</p>
+</div>
+
+<ul>
+<li><code>dose</code> 별 OJ와 VC 막대도표: <code>dose</code>로 그룹화를 하기 위해 데이터 구조 변경(전치) 필요</li>
+</ul>
+
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1"><span class="co"># tg_mat 행렬 전치</span></a>
+<a class="sourceLine" id="cb96-2" title="2"><span class="kw">barplot</span>(<span class="kw">t</span>(tg_mat), <span class="dt">beside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:base-barplot-b"></span>
+<img src="05-data-visualization_files/figure-html/base-barplot-b-1.svg" alt="R 기본 barplot() 생성 그래프: 데이터 전치" width="672" />
+<p class="caption">
+Figure 5.22: R 기본 barplot() 생성 그래프: 데이터 전치
+</p>
+</div>
+
+<ul>
+<li>막대 대신 선(line)으로 표현</li>
+</ul>
+
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1"><span class="kw">plot</span>(tg_mat[,<span class="dv">1</span>], <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb97-2" title="2"><span class="kw">lines</span>(tg_mat[,<span class="dv">2</span>], <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:base-lineplot"></span>
+<img src="05-data-visualization_files/figure-html/base-lineplot-1.svg" alt="R 기본 선 그래프: plot(), lines() 함수 사용" width="672" />
+<p class="caption">
+Figure 5.23: R 기본 선 그래프: plot(), lines() 함수 사용
+</p>
+</div>
+
+<ul>
+<li><code>plot()</code> 함수 호출 시 y 축 범위가 첫 번째 선에 대해서만 설정</li>
+<li>x 축이 범주 대신 번호가 사용</li>
+<li>ggplot 사용: 데이터 프레임에만 적용 가능(데이터 구조는 long-format)</li>
+</ul>
+
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1"><span class="co"># require(ggplot2)</span></a>
+<a class="sourceLine" id="cb98-2" title="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> tg_long, </a>
+<a class="sourceLine" id="cb98-3" title="3">       <span class="kw">aes</span>(<span class="dt">y =</span> mean)) -&gt;<span class="st"> </span>gmap <span class="co"># 기본 mapping 유지를 위해 </span></a>
+<a class="sourceLine" id="cb98-4" title="4">                              <span class="co"># ggplot 클래스 객체 저장</span></a>
+<a class="sourceLine" id="cb98-5" title="5">gmap <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb98-6" title="6"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> supp, <span class="dt">fill =</span> dose), </a>
+<a class="sourceLine" id="cb98-7" title="7">           <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="co"># 데이터 고유값을 막대 높이로 사용</span></a>
+<a class="sourceLine" id="cb98-8" title="8">           <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="co"># 막대 위치 조정(beside 조건과 유사)</span></a></code></pre></div>
+<div class="figure"><span id="fig:ggplot-bar-intro-a"></span>
+<img src="05-data-visualization_files/figure-html/ggplot-bar-intro-a-1.svg" alt="ggplot()과 geom_bar()을 이용한 막대 도표" width="672" />
+<p class="caption">
+Figure 5.24: ggplot()과 geom_bar()을 이용한 막대 도표
+</p>
+</div>
+
+<ul>
+<li>데이터 구조를 변경하지 않고 ggplot의 매핑 변수 변경</li>
+</ul>
+
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1">gmap <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb99-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dose, <span class="dt">fill =</span> supp), </a>
+<a class="sourceLine" id="cb99-3" title="3">           <span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, </a>
+<a class="sourceLine" id="cb99-4" title="4">           <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:ggplot-bar-intro-b"></span>
+<img src="05-data-visualization_files/figure-html/ggplot-bar-intro-b-1.svg" alt="x와 fill의 mapping 변경" width="672" />
+<p class="caption">
+Figure 5.25: x와 fill의 mapping 변경
+</p>
+</div>
+
+<ul>
+<li>ggplot을 이용한 선 도표 생성</li>
+</ul>
+
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1">gmap <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb100-2" title="2"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dose, </a>
+<a class="sourceLine" id="cb100-3" title="3">                <span class="dt">group =</span> supp, </a>
+<a class="sourceLine" id="cb100-4" title="4">                <span class="dt">color =</span> supp), </a>
+<a class="sourceLine" id="cb100-5" title="5">            <span class="dt">size =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="figure"><span id="fig:ggplot-line-intro"></span>
+<img src="05-data-visualization_files/figure-html/ggplot-line-intro-1.svg" alt="geom_line()을 이용한 선 그래프 생성" width="672" />
+<p class="caption">
+Figure 5.26: geom_line()을 이용한 선 그래프 생성
+</p>
+</div>
+
+<blockquote>
+<ul>
+<li>기본 그래프 함수를 이용해 막대도표 대신 선 도표 생성 시 완전히 다른 명령 사용</li>
+<li>선 그래프 생성 시 기본 그래프는 하나씩 도표를 추가한 반면, geom_line()의 경우 모든 선이 한번에 그려짐</li>
+</ul>
+</blockquote>
 <div id="기본-문법" class="section level3">
 <h3><span class="header-section-number">5.4.1</span> 기본 문법</h3>
+
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="op">&lt;</span>DATA<span class="op">&gt;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb101-2" title="2"><span class="st">  </span><span class="er">&lt;</span>GEOM_FUNCTION<span class="op">&gt;</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="op">&lt;</span>MAPPINGS<span class="op">&gt;</span>))</a></code></pre></div>
+
 </div>
 <div id="geom_point" class="section level3">
 <h3><span class="header-section-number">5.4.2</span> <code>geom_point()</code></h3>
@@ -345,6 +490,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <!-- </div> -->
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-wilkinson2012grammar">
+<p>Wilkinson, Leland. 2012. “The Grammar of Graphics.” In <em>Handbook of Computational Statistics</em>, 375–414. Springer.</p>
+</div>
+</div>
             </section>
 
           </div>

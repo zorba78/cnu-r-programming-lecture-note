@@ -236,7 +236,7 @@ sessionInfo()
 ```
 
 ```
-R version 3.6.3 (2020-02-29)
+R version 4.0.0 (2020-04-24)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 Running under: Windows 10 x64 (build 18363)
 
@@ -254,10 +254,10 @@ other attached packages:
 [1] knitr_1.28
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.4      bookdown_0.18.1 digest_0.6.25   mime_0.9       
- [5] magrittr_1.5    evaluate_0.14   highr_0.8       rlang_0.4.5    
- [9] stringi_1.4.6   rmarkdown_2.1   tools_3.6.3     stringr_1.4.0  
-[13] markdown_1.1    xfun_0.12       yaml_2.2.1      compiler_3.6.3 
+ [1] Rcpp_1.0.4.6    bookdown_0.19   digest_0.6.25   mime_0.9       
+ [5] magrittr_1.5    evaluate_0.14   highr_0.8       rlang_0.4.6    
+ [9] stringi_1.4.6   rmarkdown_2.2   tools_4.0.0     stringr_1.4.0  
+[13] markdown_1.1    xfun_0.14       yaml_2.2.1      compiler_4.0.0 
 [17] htmltools_0.4.0
 ```
 
@@ -977,8 +977,8 @@ getwd()
 ```
 
 ```
-[1] "C:/Users/user/Documents/R/win-library/3.6"
-[2] "C:/Program Files/R/R-3.6.3/library"       
+[1] "C:/Users/user/Documents/R/win-library/4.0"
+[2] "C:/Program Files/R/R-4.0.0/library"       
 ```
 
  \normalsize
@@ -1090,9 +1090,9 @@ require(tidyverse)
 ```
 
 ```
-√ ggplot2 3.3.0     √ purrr   0.3.3
-√ tibble  2.1.3     √ dplyr   0.8.5
-√ tidyr   1.0.2     √ stringr 1.4.0
+√ ggplot2 3.3.1     √ purrr   0.3.4
+√ tibble  3.0.1     √ dplyr   1.0.0
+√ tidyr   1.1.0     √ stringr 1.4.0
 √ readr   1.3.1     √ forcats 0.5.0
 ```
 

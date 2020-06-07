@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.4 dplyr 패키지 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
-  <meta name="generator" content="bookdown 0.18.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.4 dplyr 패키지 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-05-30" />
+<meta name="date" content="2020-06-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -257,7 +257,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="homework-04.html"><a href="homework-04.html"><i class="fa fa-check"></i><b>4.6</b> Homework #4</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="ch-data-visualization.html"><a href="ch-data-visualization.html"><i class="fa fa-check"></i><b>5</b> 데이터 시각화</a><ul>
-<li class="chapter" data-level="5.1" data-path="r-기본-그래프-함수.html"><a href="r-기본-그래프-함수.html"><i class="fa fa-check"></i><b>5.1</b> R 기본 그래프 함수</a></li>
+<li class="chapter" data-level="5.1" data-path="r-basic-graphics.html"><a href="r-basic-graphics.html"><i class="fa fa-check"></i><b>5.1</b> R 기본 그래프 함수</a></li>
 <li class="chapter" data-level="5.2" data-path="high-level-graph.html"><a href="high-level-graph.html"><i class="fa fa-check"></i><b>5.2</b> 고수준 그래프 함수</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="high-level-graph.html"><a href="high-level-graph.html#plot-fun"><i class="fa fa-check"></i><b>5.2.1</b> <strong><code>plot()</code> 함수</strong></a></li>
 <li class="chapter" data-level="5.2.2" data-path="high-level-graph.html"><a href="high-level-graph.html#main-high-level-graph"><i class="fa fa-check"></i><b>5.2.2</b> 주요 고수준 그래픽 함수</a></li>
@@ -280,6 +280,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.8" data-path="low-level-graphic.html"><a href="low-level-graphic.html#text"><i class="fa fa-check"></i><b>5.3.8</b> text(), mtext()</a></li>
 <li class="chapter" data-level="5.3.9" data-path="low-level-graphic.html"><a href="low-level-graphic.html#legend"><i class="fa fa-check"></i><b>5.3.9</b> legend()</a></li>
 <li class="chapter" data-level="5.3.10" data-path="low-level-graphic.html"><a href="low-level-graphic.html#math-expression"><i class="fa fa-check"></i><b>5.3.10</b> 수식 표현</a></li>
+<li class="chapter" data-level="5.3.11" data-path="low-level-graphic.html"><a href="low-level-graphic.html#r-기본-그래프-이미지-파일로-저장"><i class="fa fa-check"></i><b>5.3.11</b> R 기본 그래프 이미지 파일로 저장</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ggplot2-package.html"><a href="ggplot2-package.html"><i class="fa fa-check"></i><b>5.4</b> ggplot2</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="ggplot2-package.html"><a href="ggplot2-package.html#basic-grammar"><i class="fa fa-check"></i><b>5.4.1</b> 기본 문법</a></li>
+<li class="chapter" data-level="5.4.2" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-lines"><i class="fa fa-check"></i><b>5.4.2</b> Geoms: 선 관련 geometric</a></li>
+<li class="chapter" data-level="5.4.3" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-points"><i class="fa fa-check"></i><b>5.4.3</b> Geoms: 점 geometrics</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -703,8 +709,8 @@ class
 
 
 <div class="sourceCode" id="cb1263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1263-1" title="1"><span class="kw">glimpse</span>(mpg)</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 11
+<pre><code>Rows: 234
+Columns: 11
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -888,8 +894,8 @@ Figure 4.5: select() 함수 다이어그램
 <a class="sourceLine" id="cb1276-3" title="3"></a>
 <a class="sourceLine" id="cb1276-4" title="4"><span class="co">## 기본 R 문법 이용한 변수 추출</span></a>
 <a class="sourceLine" id="cb1276-5" title="5"><span class="kw">glimpse</span>(mpg[, <span class="kw">c</span>(<span class="st">&quot;manufacturer&quot;</span>, <span class="st">&quot;model&quot;</span>, <span class="st">&quot;displ&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;cty&quot;</span>)])</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 5
+<pre><code>Rows: 234
+Columns: 5
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -909,8 +915,8 @@ $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 1
 <a class="sourceLine" id="cb1278-12" title="12">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1278-13" title="13"><span class="st">  </span><span class="kw">select</span>(<span class="st">&quot;manufacturer&quot;</span>, <span class="st">&quot;model&quot;</span>, <span class="st">&quot;displ&quot;</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;cty&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1278-14" title="14"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 5
+<pre><code>Rows: 234
+Columns: 5
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -932,8 +938,8 @@ $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 1
 <a class="sourceLine" id="cb1280-4" title="4">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1280-5" title="5"><span class="st">  </span><span class="kw">select</span>(manufacturer, model, displ, year, cty) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1280-6" title="6"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 5
+<pre><code>Rows: 234
+Columns: 5
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -943,8 +949,8 @@ $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 1
 <a class="sourceLine" id="cb1282-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1282-3" title="3"><span class="st">  </span><span class="kw">select</span>(manufacturer<span class="op">:</span>year, cty) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1282-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 5
+<pre><code>Rows: 234
+Columns: 5
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -954,8 +960,8 @@ $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 1
 <a class="sourceLine" id="cb1284-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1284-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>cyl, <span class="op">-</span>trans, <span class="op">-</span>drv, <span class="op">-</span>hwy, <span class="op">-</span>fl, <span class="op">-</span>class) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1284-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 5
+<pre><code>Rows: 234
+Columns: 5
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -965,8 +971,8 @@ $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 1
 <a class="sourceLine" id="cb1286-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1286-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>cyl<span class="op">:-</span>drv, <span class="op">-</span>hwy<span class="op">:-</span>class) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1286-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 5
+<pre><code>Rows: 234
+Columns: 5
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -976,8 +982,8 @@ $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 1
 <a class="sourceLine" id="cb1288-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1288-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>(cyl<span class="op">:</span>drv), <span class="op">-</span>(hwy<span class="op">:</span>class)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1288-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 5
+<pre><code>Rows: 234
+Columns: 5
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -987,8 +993,8 @@ $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 1
 <a class="sourceLine" id="cb1290-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1290-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="dt">city_mpg =</span> cty) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1290-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 1
+<pre><code>Rows: 234
+Columns: 1
 $ city_mpg &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17, 15...</code></pre>
 
 <ul>
@@ -1007,8 +1013,8 @@ $ city_mpg &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17, 1
 <a class="sourceLine" id="cb1292-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1292-4" title="4"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>manufacturer, <span class="op">-</span>model) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1292-5" title="5"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 9
+<pre><code>Rows: 234
+Columns: 9
 $ displ &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.8, 2...
 $ year  &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, 2008, 2...
 $ cyl   &lt;int&gt; 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, 8, 8...
@@ -1022,8 +1028,8 @@ $ class &lt;chr&gt; &quot;compact&quot;, &quot;compact&quot;, &quot;compact&quot
 <a class="sourceLine" id="cb1294-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1294-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">starts_with</span>(<span class="st">&quot;m&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1294-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 9
+<pre><code>Rows: 234
+Columns: 9
 $ displ &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.8, 2...
 $ year  &lt;int&gt; 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, 2008, 2...
 $ cyl   &lt;int&gt; 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, 8, 8...
@@ -1037,8 +1043,8 @@ $ class &lt;chr&gt; &quot;compact&quot;, &quot;compact&quot;, &quot;compact&quot
 <a class="sourceLine" id="cb1296-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1296-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="kw">ends_with</span>(<span class="st">&quot;l&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1296-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 4
+<pre><code>Rows: 234
+Columns: 4
 $ model &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;, &quot;a4 q...
 $ displ &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.8, 2...
 $ cyl   &lt;int&gt; 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, 8, 8...
@@ -1050,7 +1056,7 @@ $ fl    &lt;chr&gt; &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, 
 <a class="sourceLine" id="cb1298-5" title="5"><span class="st">  </span>head</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["gender"],"name":[2],"type":["chr"],"align":["left"]},{"label":["hair_color"],"name":[3],"type":["chr"],"align":["left"]},{"label":["skin_color"],"name":[4],"type":["chr"],"align":["left"]},{"label":["eye_color"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"Luke Skywalker","2":"male","3":"blond","4":"fair","5":"blue"},{"1":"C-3PO","2":"NA","3":"NA","4":"gold","5":"yellow"},{"1":"R2-D2","2":"NA","3":"NA","4":"white, blue","5":"red"},{"1":"Darth Vader","2":"male","3":"none","4":"white","5":"yellow"},{"1":"Leia Organa","2":"female","3":"brown","4":"light","5":"brown"},{"1":"Owen Lars","2":"male","3":"brown, grey","4":"light","5":"blue"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["gender"],"name":[2],"type":["chr"],"align":["left"]},{"label":["hair_color"],"name":[3],"type":["chr"],"align":["left"]},{"label":["skin_color"],"name":[4],"type":["chr"],"align":["left"]},{"label":["eye_color"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"Luke Skywalker","2":"masculine","3":"blond","4":"fair","5":"blue"},{"1":"C-3PO","2":"masculine","3":"NA","4":"gold","5":"yellow"},{"1":"R2-D2","2":"masculine","3":"NA","4":"white, blue","5":"red"},{"1":"Darth Vader","2":"masculine","3":"none","4":"white","5":"yellow"},{"1":"Leia Organa","2":"feminine","3":"brown","4":"light","5":"brown"},{"1":"Owen Lars","2":"masculine","3":"brown, grey","4":"light","5":"blue"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <div class="sourceCode" id="cb1299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1299-1" title="1"><span class="co"># 다시 mpg 데이터... </span></a>
@@ -1059,8 +1065,8 @@ $ fl    &lt;chr&gt; &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, &quot;p&quot;, 
 <a class="sourceLine" id="cb1299-4" title="4">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1299-5" title="5"><span class="st">  </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&quot;m&quot;</span>), <span class="kw">matches</span>(<span class="st">&quot;y$&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1299-6" title="6"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 4
+<pre><code>Rows: 234
+Columns: 4
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...
@@ -1069,8 +1075,8 @@ $ hwy          &lt;int&gt; 29, 29, 31, 30, 26, 26, 27, 26, 25, 28, 27, 25, 25, 2
 <a class="sourceLine" id="cb1301-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1301-3" title="3"><span class="st">  </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;y$&quot;</span>), <span class="kw">everything</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1301-4" title="4"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 11
+<pre><code>Rows: 234
+Columns: 11
 $ cty          &lt;int&gt; 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17...
 $ hwy          &lt;int&gt; 29, 29, 31, 30, 26, 26, 27, 26, 25, 28, 27, 25, 25, 25...
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
@@ -1111,8 +1117,8 @@ Figure 4.6: mutate() 함수 다이어그램
 <a class="sourceLine" id="cb1303-7" title="7"><span class="kw">glimpse</span>(<span class="kw">transform</span>(mpg, </a>
 <a class="sourceLine" id="cb1303-8" title="8">                  <span class="dt">cty_kpl =</span> cty <span class="op">*</span><span class="st"> </span>kpl, </a>
 <a class="sourceLine" id="cb1303-9" title="9">                  <span class="dt">hwy_kpl =</span> hwy <span class="op">*</span><span class="st"> </span>kpl))</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 13
+<pre><code>Rows: 234
+Columns: 13
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -1131,8 +1137,8 @@ $ hwy_kpl      &lt;dbl&gt; 12.319261, 12.319261, 13.168865, 12.744063, 11.044855
 <a class="sourceLine" id="cb1305-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cty_kpl =</span> cty<span class="op">*</span>kpl, </a>
 <a class="sourceLine" id="cb1305-4" title="4">         <span class="dt">hwy_kpl =</span> hwy<span class="op">*</span>kpl) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1305-5" title="5"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 13
+<pre><code>Rows: 234
+Columns: 13
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -1162,8 +1168,8 @@ $ hwy_kpl      &lt;dbl&gt; 12.319261, 12.319261, 13.168865, 12.744063, 11.044855
 <a class="sourceLine" id="cb1309-5" title="5">         <span class="dt">cty_raw =</span> cty_kpl<span class="op">/</span>kpl,</a>
 <a class="sourceLine" id="cb1309-6" title="6">         <span class="dt">hwy_raw =</span> hwy_kpl<span class="op">/</span>kpl) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1309-7" title="7"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 234
-Variables: 15
+<pre><code>Rows: 234
+Columns: 15
 $ manufacturer &lt;chr&gt; &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;, &quot;audi&quot;...
 $ model        &lt;chr&gt; &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4&quot;, &quot;a4 quattro&quot;...
 $ displ        &lt;dbl&gt; 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0,...
@@ -1280,6 +1286,7 @@ Figure 4.8: group_by() 함수 다이어그램
 <a class="sourceLine" id="cb1316-3" title="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_cty =</span> <span class="kw">mean</span>(cty), </a>
 <a class="sourceLine" id="cb1316-4" title="4">            <span class="dt">mean_hwy =</span> <span class="kw">mean</span>(hwy)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1316-5" title="5"><span class="st">  </span>print</a></code></pre></div>
+<pre><code>`summarise()` regrouping output by &#39;model&#39; (override with `.groups` argument)</code></pre>
 <pre><code># A tibble: 76 x 4
 # Groups:   model [38]
    model        year mean_cty mean_hwy
@@ -1297,23 +1304,23 @@ Figure 4.8: group_by() 함수 다이어그램
 # ... with 66 more rows</code></pre>
 
 
-<div class="sourceCode" id="cb1318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1318-1" title="1"><span class="co">## by_group() chain 연결</span></a>
-<a class="sourceLine" id="cb1318-2" title="2">mean_mpg &lt;-<span class="st"> </span>mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1318-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(model, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1318-4" title="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_cty =</span> <span class="kw">mean</span>(cty), </a>
-<a class="sourceLine" id="cb1318-5" title="5">            <span class="dt">mean_hwy =</span> <span class="kw">mean</span>(hwy)) </a></code></pre></div>
+<div class="sourceCode" id="cb1319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1319-1" title="1"><span class="co">## by_group() chain 연결</span></a>
+<a class="sourceLine" id="cb1319-2" title="2">mean_mpg &lt;-<span class="st"> </span>mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1319-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(model, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1319-4" title="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean_cty =</span> <span class="kw">mean</span>(cty), </a>
+<a class="sourceLine" id="cb1319-5" title="5">            <span class="dt">mean_hwy =</span> <span class="kw">mean</span>(hwy)) </a></code></pre></div>
 
 <ul>
 <li><code>group_by()</code> 이후 적용되는 동사는 모두 그룹 별 연산 수행</li>
 </ul>
 
-<div class="sourceCode" id="cb1319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1319-1" title="1"><span class="co"># 제조사 별 시내연비가 낮은 순으로 정렬</span></a>
-<a class="sourceLine" id="cb1319-2" title="2">audi &lt;-<span class="st"> </span>mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1319-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(manufacturer) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1319-4" title="4"><span class="st">  </span><span class="kw">arrange</span>(cty) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1319-5" title="5"><span class="st">  </span><span class="kw">filter</span>(manufacturer <span class="op">==</span><span class="st"> &quot;audi&quot;</span>)</a>
-<a class="sourceLine" id="cb1319-6" title="6"></a>
-<a class="sourceLine" id="cb1319-7" title="7">audi <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1320-1" title="1"><span class="co"># 제조사 별 시내연비가 낮은 순으로 정렬</span></a>
+<a class="sourceLine" id="cb1320-2" title="2">audi &lt;-<span class="st"> </span>mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1320-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(manufacturer) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1320-4" title="4"><span class="st">  </span><span class="kw">arrange</span>(cty) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1320-5" title="5"><span class="st">  </span><span class="kw">filter</span>(manufacturer <span class="op">==</span><span class="st"> &quot;audi&quot;</span>)</a>
+<a class="sourceLine" id="cb1320-6" title="6"></a>
+<a class="sourceLine" id="cb1320-7" title="7">audi <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 18 x 11
 # Groups:   manufacturer [1]
    manufacturer model    displ  year   cyl trans   drv     cty   hwy fl    class
@@ -1356,9 +1363,9 @@ Figure 4.8: group_by() 함수 다이어그램
 <p><strong>행(row, case, observation) 조작 동사: <code>filter()</code>의 특별한 케이스로 데이터의 색인을 직접 설정하여 원하는 row 추출</strong></p>
 </blockquote>
 
-<div class="sourceCode" id="cb1321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1321-1" title="1"><span class="co"># 1 ~ 8행에 해당하는 데이터 추출</span></a>
-<a class="sourceLine" id="cb1321-2" title="2">slice_mpg &lt;-<span class="st"> </span>mpg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb1321-3" title="3">slice_mpg <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1322-1" title="1"><span class="co"># 1 ~ 8행에 해당하는 데이터 추출</span></a>
+<a class="sourceLine" id="cb1322-2" title="2">slice_mpg &lt;-<span class="st"> </span>mpg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb1322-3" title="3">slice_mpg <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 8 x 11
   manufacturer model    displ  year   cyl trans   drv     cty   hwy fl    class 
   &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; 
@@ -1370,13 +1377,13 @@ Figure 4.8: group_by() 함수 다이어그램
 6 audi         a4         2.8  1999     6 manual~ f        18    26 p     compa~
 7 audi         a4         3.1  2008     6 auto(a~ f        18    27 p     compa~
 8 audi         a4 quat~   1.8  1999     4 manual~ 4        18    26 p     compa~</code></pre>
-<div class="sourceCode" id="cb1323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1323-1" title="1"><span class="co"># 각 모델 별 첫 번째 데이터만 추출</span></a>
-<a class="sourceLine" id="cb1323-2" title="2">slice_mpg_grp &lt;-<span class="st"> </span>mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1323-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(model) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1323-4" title="4"><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1323-5" title="5"><span class="st">  </span><span class="kw">arrange</span>(model)</a>
-<a class="sourceLine" id="cb1323-6" title="6"></a>
-<a class="sourceLine" id="cb1323-7" title="7">slice_mpg_grp <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1324-1" title="1"><span class="co"># 각 모델 별 첫 번째 데이터만 추출</span></a>
+<a class="sourceLine" id="cb1324-2" title="2">slice_mpg_grp &lt;-<span class="st"> </span>mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1324-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(model) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1324-4" title="4"><span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1324-5" title="5"><span class="st">  </span><span class="kw">arrange</span>(model)</a>
+<a class="sourceLine" id="cb1324-6" title="6"></a>
+<a class="sourceLine" id="cb1324-7" title="7">slice_mpg_grp <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 38 x 11
 # Groups:   model [38]
    manufacturer model    displ  year   cyl trans  drv     cty   hwy fl    class 
@@ -1400,10 +1407,10 @@ Figure 4.8: group_by() 함수 다이어그램
 <p><strong>행(row, case, observation) 조작 동사: 선택한 변수를 기준으로 상위 <code>n</code> 개의 데이터(행)만 추출</strong></p>
 </blockquote>
 
-<div class="sourceCode" id="cb1325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1325-1" title="1"><span class="co"># mpg 데이터에서 시내 연비가 높은 데이터 5개 추출</span></a>
-<a class="sourceLine" id="cb1325-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1325-3" title="3"><span class="st">  </span><span class="kw">top_n</span>(<span class="dv">5</span>, cty) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1325-4" title="4"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cty))</a></code></pre></div>
+<div class="sourceCode" id="cb1326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1326-1" title="1"><span class="co"># mpg 데이터에서 시내 연비가 높은 데이터 5개 추출</span></a>
+<a class="sourceLine" id="cb1326-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1326-3" title="3"><span class="st">  </span><span class="kw">top_n</span>(<span class="dv">5</span>, cty) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1326-4" title="4"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cty))</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"volkswagen","2":"new beetle","3":"1.9","4":"1999","5":"4","6":"manual(m5)","7":"f","8":"35","9":"44","10":"d","11":"subcompact"},{"1":"volkswagen","2":"jetta","3":"1.9","4":"1999","5":"4","6":"manual(m5)","7":"f","8":"33","9":"44","10":"d","11":"compact"},{"1":"volkswagen","2":"new beetle","3":"1.9","4":"1999","5":"4","6":"auto(l4)","7":"f","8":"29","9":"41","10":"d","11":"subcompact"},{"1":"honda","2":"civic","3":"1.6","4":"1999","5":"4","6":"manual(m5)","7":"f","8":"28","9":"33","10":"r","11":"subcompact"},{"1":"toyota","2":"corolla","3":"1.8","4":"2008","5":"4","6":"manual(m5)","7":"f","8":"28","9":"37","10":"r","11":"compact"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -1420,9 +1427,9 @@ Figure 4.8: group_by() 함수 다이어그램
 <li>R base 패키지의 <code>unique()</code> 또는 <code>unqiue.data.frame()</code>과 유사하게 작동하지만 처리 속도 면에서 뛰어남</li>
 </ul>
 
-<div class="sourceCode" id="cb1326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1326-1" title="1"><span class="co"># mpg 데이터에서 중복데이터 제거 (모든 열 기준)</span></a>
-<a class="sourceLine" id="cb1326-2" title="2">mpg_uniq &lt;-<span class="st"> </span>mpg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>()</a>
-<a class="sourceLine" id="cb1326-3" title="3">mpg_uniq <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1327-1" title="1"><span class="co"># mpg 데이터에서 중복데이터 제거 (모든 열 기준)</span></a>
+<a class="sourceLine" id="cb1327-2" title="2">mpg_uniq &lt;-<span class="st"> </span>mpg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>()</a>
+<a class="sourceLine" id="cb1327-3" title="3">mpg_uniq <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 225 x 11
    manufacturer model    displ  year   cyl trans   drv     cty   hwy fl    class
    &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
@@ -1437,12 +1444,12 @@ Figure 4.8: group_by() 함수 다이어그램
  9 audi         a4 quat~   1.8  1999     4 auto(l~ 4        16    25 p     comp~
 10 audi         a4 quat~   2    2008     4 manual~ 4        20    28 p     comp~
 # ... with 215 more rows</code></pre>
-<div class="sourceCode" id="cb1328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1328-1" title="1"><span class="co"># model을 기준으로 중복 데이터 제거</span></a>
-<a class="sourceLine" id="cb1328-2" title="2">mpg_uniq2 &lt;-<span class="st"> </span>mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1328-3" title="3"><span class="st">  </span><span class="kw">distinct</span>(model, <span class="dt">.keep_all =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1328-4" title="4"><span class="st">  </span><span class="kw">arrange</span>(model)</a>
-<a class="sourceLine" id="cb1328-5" title="5"></a>
-<a class="sourceLine" id="cb1328-6" title="6">mpg_uniq2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1329"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1329-1" title="1"><span class="co"># model을 기준으로 중복 데이터 제거</span></a>
+<a class="sourceLine" id="cb1329-2" title="2">mpg_uniq2 &lt;-<span class="st"> </span>mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1329-3" title="3"><span class="st">  </span><span class="kw">distinct</span>(model, <span class="dt">.keep_all =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1329-4" title="4"><span class="st">  </span><span class="kw">arrange</span>(model)</a>
+<a class="sourceLine" id="cb1329-5" title="5"></a>
+<a class="sourceLine" id="cb1329-6" title="6">mpg_uniq2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 6 x 11
   manufacturer model     displ  year   cyl trans   drv     cty   hwy fl    class
   &lt;chr&gt;        &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
@@ -1452,8 +1459,8 @@ Figure 4.8: group_by() 함수 다이어그램
 4 audi         a6 quatt~   2.8  1999     6 auto(l~ 4        15    24 p     mids~
 5 nissan       altima      2.4  1999     4 manual~ f        21    29 r     comp~
 6 chevrolet    c1500 su~   5.3  2008     8 auto(l~ r        14    20 r     suv  </code></pre>
-<div class="sourceCode" id="cb1330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1330-1" title="1"><span class="co"># 위 그룹별 slice(1) 예제와 비교</span></a>
-<a class="sourceLine" id="cb1330-2" title="2"><span class="kw">identical</span>(slice_mpg_grp <span class="op">%&gt;%</span><span class="st"> </span>ungroup, mpg_uniq2)</a></code></pre></div>
+<div class="sourceCode" id="cb1331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1331-1" title="1"><span class="co"># 위 그룹별 slice(1) 예제와 비교</span></a>
+<a class="sourceLine" id="cb1331-2" title="2"><span class="kw">identical</span>(slice_mpg_grp <span class="op">%&gt;%</span><span class="st"> </span>ungroup, mpg_uniq2)</a></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 
 </div>
@@ -1467,18 +1474,18 @@ Figure 4.8: group_by() 함수 다이어그램
 <li><code>sample_frac(p)</code>: 전체 <span class="math inline">\(N\)</span> 행에서 비율 <span class="math inline">\(p\)</span> (<span class="math inline">\(0\leq p \leq1\)</span>) 만큼 추출</li>
 </ul>
 
-<div class="sourceCode" id="cb1332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1332-1" title="1"><span class="co"># 전체 234개 행에서 3개 행을 랜덤하게 추출</span></a>
-<a class="sourceLine" id="cb1332-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1333-1" title="1"><span class="co"># 전체 234개 행에서 3개 행을 랜덤하게 추출</span></a>
+<a class="sourceLine" id="cb1333-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_n</span>(<span class="dv">3</span>)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"audi","2":"a6 quattro","3":"4.2","4":"2008","5":"8","6":"auto(s6)","7":"4","8":"16","9":"23","10":"p","11":"midsize"},{"1":"jeep","2":"grand cherokee 4wd","3":"3.7","4":"2008","5":"6","6":"auto(l5)","7":"4","8":"15","9":"19","10":"r","11":"suv"},{"1":"hyundai","2":"sonata","3":"2.5","4":"1999","5":"6","6":"auto(l4)","7":"f","8":"18","9":"26","10":"r","11":"midsize"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"audi","2":"a4 quattro","3":"2.0","4":"2008","5":"4","6":"manual(m6)","7":"4","8":"20","9":"28","10":"p","11":"compact"},{"1":"chevrolet","2":"malibu","3":"2.4","4":"2008","5":"4","6":"auto(l4)","7":"f","8":"22","9":"30","10":"r","11":"midsize"},{"1":"dodge","2":"durango 4wd","3":"4.7","4":"2008","5":"8","6":"auto(l5)","7":"4","8":"13","9":"17","10":"r","11":"suv"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb1333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1333-1" title="1"><span class="co"># 전체 234개 행의 5%에 해당하는 행을 랜덤하게 추출</span></a>
-<a class="sourceLine" id="cb1333-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1334-1" title="1"><span class="co"># 전체 234개 행의 5%에 해당하는 행을 랜덤하게 추출</span></a>
+<a class="sourceLine" id="cb1334-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="fl">0.05</span>)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"dodge","2":"dakota pickup 4wd","3":"4.7","4":"2008","5":"8","6":"auto(l5)","7":"4","8":"14","9":"19","10":"r","11":"pickup"},{"1":"volkswagen","2":"passat","3":"2.0","4":"2008","5":"4","6":"manual(m6)","7":"f","8":"21","9":"29","10":"p","11":"midsize"},{"1":"pontiac","2":"grand prix","3":"3.8","4":"2008","5":"6","6":"auto(l4)","7":"f","8":"18","9":"28","10":"r","11":"midsize"},{"1":"toyota","2":"camry solara","3":"2.2","4":"1999","5":"4","6":"auto(l4)","7":"f","8":"21","9":"27","10":"r","11":"compact"},{"1":"dodge","2":"caravan 2wd","3":"3.3","4":"2008","5":"6","6":"auto(l4)","7":"f","8":"11","9":"17","10":"e","11":"minivan"},{"1":"chevrolet","2":"k1500 tahoe 4wd","3":"5.3","4":"2008","5":"8","6":"auto(l4)","7":"4","8":"14","9":"19","10":"r","11":"suv"},{"1":"chevrolet","2":"corvette","3":"7.0","4":"2008","5":"8","6":"manual(m6)","7":"r","8":"15","9":"24","10":"p","11":"2seater"},{"1":"nissan","2":"pathfinder 4wd","3":"3.3","4":"1999","5":"6","6":"manual(m5)","7":"4","8":"15","9":"17","10":"r","11":"suv"},{"1":"ford","2":"explorer 4wd","3":"4.0","4":"1999","5":"6","6":"auto(l5)","7":"4","8":"14","9":"17","10":"r","11":"suv"},{"1":"toyota","2":"toyota tacoma 4wd","3":"2.7","4":"1999","5":"4","6":"manual(m5)","7":"4","8":"15","9":"20","10":"r","11":"pickup"},{"1":"ford","2":"mustang","3":"4.6","4":"2008","5":"8","6":"auto(l5)","7":"r","8":"15","9":"22","10":"r","11":"subcompact"},{"1":"dodge","2":"dakota pickup 4wd","3":"3.9","4":"1999","5":"6","6":"manual(m5)","7":"4","8":"14","9":"17","10":"r","11":"pickup"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"toyota","2":"camry","3":"2.2","4":"1999","5":"4","6":"auto(l4)","7":"f","8":"21","9":"27","10":"r","11":"midsize"},{"1":"nissan","2":"maxima","3":"3.0","4":"1999","5":"6","6":"manual(m5)","7":"f","8":"19","9":"25","10":"r","11":"midsize"},{"1":"nissan","2":"pathfinder 4wd","3":"3.3","4":"1999","5":"6","6":"auto(l4)","7":"4","8":"14","9":"17","10":"r","11":"suv"},{"1":"nissan","2":"pathfinder 4wd","3":"3.3","4":"1999","5":"6","6":"manual(m5)","7":"4","8":"15","9":"17","10":"r","11":"suv"},{"1":"chevrolet","2":"c1500 suburban 2wd","3":"5.3","4":"2008","5":"8","6":"auto(l4)","7":"r","8":"11","9":"15","10":"e","11":"suv"},{"1":"toyota","2":"camry solara","3":"2.4","4":"2008","5":"4","6":"manual(m5)","7":"f","8":"21","9":"31","10":"r","11":"compact"},{"1":"hyundai","2":"tiburon","3":"2.0","4":"2008","5":"4","6":"auto(l4)","7":"f","8":"20","9":"27","10":"r","11":"subcompact"},{"1":"toyota","2":"toyota tacoma 4wd","3":"4.0","4":"2008","5":"6","6":"auto(l5)","7":"4","8":"16","9":"20","10":"r","11":"pickup"},{"1":"volkswagen","2":"passat","3":"1.8","4":"1999","5":"4","6":"manual(m5)","7":"f","8":"21","9":"29","10":"p","11":"midsize"},{"1":"land rover","2":"range rover","3":"4.6","4":"1999","5":"8","6":"auto(l4)","7":"4","8":"11","9":"15","10":"p","11":"suv"},{"1":"chevrolet","2":"corvette","3":"6.2","4":"2008","5":"8","6":"auto(s6)","7":"r","8":"15","9":"25","10":"p","11":"2seater"},{"1":"dodge","2":"dakota pickup 4wd","3":"3.7","4":"2008","5":"6","6":"auto(l4)","7":"4","8":"14","9":"18","10":"r","11":"pickup"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -1492,17 +1499,17 @@ Figure 4.8: group_by() 함수 다이어그램
 <li><code>rename(new_variable_name = old_variable_name)</code> 형태로 변경</li>
 </ul>
 
-<div class="sourceCode" id="cb1334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1334-1" title="1"><span class="co"># 변수명 변셩 </span></a>
-<a class="sourceLine" id="cb1334-2" title="2"><span class="co">## R 기본 문법으로 변수명 변경</span></a>
-<a class="sourceLine" id="cb1334-3" title="3">varn_mpg &lt;-<span class="st"> </span><span class="kw">names</span>(mpg) <span class="co"># 원 변수명 저장</span></a>
-<a class="sourceLine" id="cb1334-4" title="4"><span class="kw">names</span>(mpg)[<span class="dv">5</span>] &lt;-<span class="st"> &quot;cylinder&quot;</span> <span class="co"># cyl을 cylinder로 변셩</span></a>
-<a class="sourceLine" id="cb1334-5" title="5"><span class="kw">names</span>(mpg) &lt;-<span class="st"> </span>varn_mpg <span class="co">#</span></a>
-<a class="sourceLine" id="cb1334-6" title="6"></a>
-<a class="sourceLine" id="cb1334-7" title="7"><span class="co">## Tidyverse 문법: rename() 사용</span></a>
-<a class="sourceLine" id="cb1334-8" title="8">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1334-9" title="9"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">cylinder =</span> cyl) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1334-10" title="10"><span class="st">  </span>head <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1334-11" title="11"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1335-1" title="1"><span class="co"># 변수명 변셩 </span></a>
+<a class="sourceLine" id="cb1335-2" title="2"><span class="co">## R 기본 문법으로 변수명 변경</span></a>
+<a class="sourceLine" id="cb1335-3" title="3">varn_mpg &lt;-<span class="st"> </span><span class="kw">names</span>(mpg) <span class="co"># 원 변수명 저장</span></a>
+<a class="sourceLine" id="cb1335-4" title="4"><span class="kw">names</span>(mpg)[<span class="dv">5</span>] &lt;-<span class="st"> &quot;cylinder&quot;</span> <span class="co"># cyl을 cylinder로 변셩</span></a>
+<a class="sourceLine" id="cb1335-5" title="5"><span class="kw">names</span>(mpg) &lt;-<span class="st"> </span>varn_mpg <span class="co">#</span></a>
+<a class="sourceLine" id="cb1335-6" title="6"></a>
+<a class="sourceLine" id="cb1335-7" title="7"><span class="co">## Tidyverse 문법: rename() 사용</span></a>
+<a class="sourceLine" id="cb1335-8" title="8">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1335-9" title="9"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">cylinder =</span> cyl) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1335-10" title="10"><span class="st">  </span>head <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1335-11" title="11"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 6 x 11
   manufacturer model displ  year cylinder trans    drv     cty   hwy fl    class
   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
@@ -1512,11 +1519,11 @@ Figure 4.8: group_by() 함수 다이어그램
 4 audi         a4      2    2008        4 auto(av) f        21    30 p     comp~
 5 audi         a4      2.8  1999        6 auto(l5) f        16    26 p     comp~
 6 audi         a4      2.8  1999        6 manual(~ f        18    26 p     comp~</code></pre>
-<div class="sourceCode" id="cb1336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1336-1" title="1"><span class="co">## cty를 city_mpg, hwy를 hw_mpg로 변경</span></a>
-<a class="sourceLine" id="cb1336-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1336-3" title="3"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">city_mpg =</span> cty, </a>
-<a class="sourceLine" id="cb1336-4" title="4">         <span class="dt">hw_mpg =</span> hwy) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1336-5" title="5"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1337-1" title="1"><span class="co">## cty를 city_mpg, hwy를 hw_mpg로 변경</span></a>
+<a class="sourceLine" id="cb1337-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1337-3" title="3"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">city_mpg =</span> cty, </a>
+<a class="sourceLine" id="cb1337-4" title="4">         <span class="dt">hw_mpg =</span> hwy) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1337-5" title="5"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 234 x 11
    manufacturer model  displ  year   cyl trans drv   city_mpg hw_mpg fl    class
    &lt;chr&gt;        &lt;chr&gt;  &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;  &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
@@ -1547,20 +1554,20 @@ Figure 4.8: group_by() 함수 다이어그램
 <li>데이터 프레임(티블) 객체 반환</li>
 </ul>
 
-<div class="sourceCode" id="cb1338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1338-1" title="1"><span class="co"># 전체 행 개수 (nrow(data))와 유사</span></a>
-<a class="sourceLine" id="cb1338-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1338-3" title="3"><span class="st">  </span>tally <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1338-4" title="4"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1339-1" title="1"><span class="co"># 전체 행 개수 (nrow(data))와 유사</span></a>
+<a class="sourceLine" id="cb1339-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1339-3" title="3"><span class="st">  </span>tally <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1339-4" title="4"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 1 x 1
       n
   &lt;int&gt;
 1   234</code></pre>
-<div class="sourceCode" id="cb1340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1340-1" title="1"><span class="co"># 제조사, 년도별 데이터 개수 </span></a>
-<a class="sourceLine" id="cb1340-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1340-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(manufacturer, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1340-4" title="4"><span class="st">  </span>tally <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1340-5" title="5"><span class="st">  </span>ungroup <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1340-6" title="6"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1341-1" title="1"><span class="co"># 제조사, 년도별 데이터 개수 </span></a>
+<a class="sourceLine" id="cb1341-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1341-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(manufacturer, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1341-4" title="4"><span class="st">  </span>tally <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1341-5" title="5"><span class="st">  </span>ungroup <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1341-6" title="6"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 30 x 3
    manufacturer  year     n
    &lt;chr&gt;        &lt;int&gt; &lt;int&gt;
@@ -1583,10 +1590,10 @@ Figure 4.8: group_by() 함수 다이어그램
 <li><code>tally()</code> 함수와 유사하나 개수 집계 전 <code>group_by()</code>와 집계 후 <code>ungroup()</code>을 실행</li>
 </ul>
 
-<div class="sourceCode" id="cb1342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1342-1" title="1"><span class="co"># 제조사, 년도별 데이터 개수: tally() 예시와 비교</span></a>
-<a class="sourceLine" id="cb1342-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1342-3" title="3"><span class="st">  </span><span class="kw">count</span>(manufacturer, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1342-4" title="4"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1343-1" title="1"><span class="co"># 제조사, 년도별 데이터 개수: tally() 예시와 비교</span></a>
+<a class="sourceLine" id="cb1343-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1343-3" title="3"><span class="st">  </span><span class="kw">count</span>(manufacturer, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1343-4" title="4"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 30 x 3
    manufacturer  year     n
    &lt;chr&gt;        &lt;int&gt; &lt;int&gt;
@@ -1609,14 +1616,15 @@ Figure 4.8: group_by() 함수 다이어그램
 <li>위에서 소개한 함수와 유사하게 행 개수를 반환하지만, 기본 동사(<code>summarise()</code>, <code>mutate()</code>, <code>filter()</code>) 내에서만 사용</li>
 </ul>
 
-<div class="sourceCode" id="cb1344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1344-1" title="1"><span class="co"># 제조사, 년도에 따른 배기량, 시내연비의 평균 계산(그룹 별 n 포함)</span></a>
-<a class="sourceLine" id="cb1344-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1344-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(manufacturer, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1344-4" title="4"><span class="st">  </span><span class="kw">summarise</span>(</a>
-<a class="sourceLine" id="cb1344-5" title="5">    <span class="dt">N =</span> <span class="kw">n</span>(), </a>
-<a class="sourceLine" id="cb1344-6" title="6">    <span class="dt">mean_displ =</span> <span class="kw">mean</span>(displ), </a>
-<a class="sourceLine" id="cb1344-7" title="7">    <span class="dt">mean_hwy =</span> <span class="kw">mean</span>(cty)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1344-8" title="8"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1345-1" title="1"><span class="co"># 제조사, 년도에 따른 배기량, 시내연비의 평균 계산(그룹 별 n 포함)</span></a>
+<a class="sourceLine" id="cb1345-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1345-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(manufacturer, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1345-4" title="4"><span class="st">  </span><span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb1345-5" title="5">    <span class="dt">N =</span> <span class="kw">n</span>(), </a>
+<a class="sourceLine" id="cb1345-6" title="6">    <span class="dt">mean_displ =</span> <span class="kw">mean</span>(displ), </a>
+<a class="sourceLine" id="cb1345-7" title="7">    <span class="dt">mean_hwy =</span> <span class="kw">mean</span>(cty)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1345-8" title="8"><span class="st">  </span>print</a></code></pre></div>
+<pre><code>`summarise()` regrouping output by &#39;manufacturer&#39; (override with `.groups` argument)</code></pre>
 <pre><code># A tibble: 30 x 5
 # Groups:   manufacturer [15]
    manufacturer  year     N mean_displ mean_hwy
@@ -1632,12 +1640,12 @@ Figure 4.8: group_by() 함수 다이어그램
  9 honda         1999     5       1.6      24.8
 10 honda         2008     4       1.85     24  
 # ... with 20 more rows</code></pre>
-<div class="sourceCode" id="cb1346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1346-1" title="1"><span class="co"># mutate, filter에서 사용하는 경우</span></a>
-<a class="sourceLine" id="cb1346-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1346-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(manufacturer, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1346-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">N =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1346-5" title="5"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1346-6" title="6"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1348-1" title="1"><span class="co"># mutate, filter에서 사용하는 경우</span></a>
+<a class="sourceLine" id="cb1348-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1348-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(manufacturer, year) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1348-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">N =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1348-5" title="5"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">n</span>() <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1348-6" title="6"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 18 x 12
 # Groups:   manufacturer, year [9]
    manufacturer model displ  year   cyl trans drv     cty   hwy fl    class
@@ -1687,61 +1695,61 @@ Figure 4.8: group_by() 함수 다이어그램
 </ul>
 </blockquote>
 
-<div class="sourceCode" id="cb1348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1348-1" title="1"><span class="co"># mtcars 데이터셋 사용</span></a>
-<a class="sourceLine" id="cb1348-2" title="2"><span class="co">## filter_all()</span></a>
-<a class="sourceLine" id="cb1348-3" title="3"><span class="co">### 모든 변수들이 100 보다 큰 케이스 추출</span></a>
-<a class="sourceLine" id="cb1348-4" title="4">mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1348-5" title="5"><span class="st">  </span><span class="kw">filter_all</span>(<span class="kw">all_vars</span>(. <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1348-6" title="6"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1350-1" title="1"><span class="co"># mtcars 데이터셋 사용</span></a>
+<a class="sourceLine" id="cb1350-2" title="2"><span class="co">## filter_all()</span></a>
+<a class="sourceLine" id="cb1350-3" title="3"><span class="co">### 모든 변수들이 100 보다 큰 케이스 추출</span></a>
+<a class="sourceLine" id="cb1350-4" title="4">mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1350-5" title="5"><span class="st">  </span><span class="kw">filter_all</span>(<span class="kw">all_vars</span>(. <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1350-6" title="6"><span class="st">  </span>print</a></code></pre></div>
 <pre><code> [1] mpg  cyl  disp hp   drat wt   qsec vs   am   gear carb
 &lt;0 행&gt; &lt;또는 row.names의 길이가 0입니다&gt;</code></pre>
-<div class="sourceCode" id="cb1350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1350-1" title="1"><span class="co">### 모든 변수들 중 하나라도 300 보다 큰 케이스 추출</span></a>
-<a class="sourceLine" id="cb1350-2" title="2">mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1350-3" title="3"><span class="st">  </span><span class="kw">filter_all</span>(<span class="kw">any_vars</span>(. <span class="op">&gt;</span><span class="st"> </span><span class="dv">300</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1350-4" title="4"><span class="st">  </span>print</a></code></pre></div>
-<pre><code>    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-1  18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-2  14.3   8  360 245 3.21 3.570 15.84  0  0    3    4
-3  10.4   8  472 205 2.93 5.250 17.98  0  0    3    4
-4  10.4   8  460 215 3.00 5.424 17.82  0  0    3    4
-5  14.7   8  440 230 3.23 5.345 17.42  0  0    3    4
-6  15.5   8  318 150 2.76 3.520 16.87  0  0    3    2
-7  15.2   8  304 150 3.15 3.435 17.30  0  0    3    2
-8  13.3   8  350 245 3.73 3.840 15.41  0  0    3    4
-9  19.2   8  400 175 3.08 3.845 17.05  0  0    3    2
-10 15.8   8  351 264 4.22 3.170 14.50  0  1    5    4
-11 15.0   8  301 335 3.54 3.570 14.60  0  1    5    8</code></pre>
-<div class="sourceCode" id="cb1352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1352-1" title="1"><span class="co">## filter_at()</span></a>
-<a class="sourceLine" id="cb1352-2" title="2"><span class="co">### 기어 개수(gear)와 기화기 개수(carb)가 짝수인 케이스만 추출</span></a>
-<a class="sourceLine" id="cb1352-3" title="3">mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1352-4" title="4"><span class="st">  </span><span class="kw">filter_at</span>(<span class="kw">vars</span>(gear, carb),</a>
-<a class="sourceLine" id="cb1352-5" title="5">            <span class="op">~</span><span class="st"> </span>. <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># 대명사 앞에 ~ 표시를 꼭 사용해야 함</span></a>
-<a class="sourceLine" id="cb1352-6" title="6"><span class="st">  </span>print</a></code></pre></div>
-<pre><code>   mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-1 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-2 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-3 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
-4 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
-5 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
-6 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
-7 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
-8 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
-<div class="sourceCode" id="cb1354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1354-1" title="1"><span class="co">## filter_if()</span></a>
-<a class="sourceLine" id="cb1354-2" title="2"><span class="co">### 내림한 값이 원래 값과 같은 변수들 모두 0이 아닌 케이스 추출</span></a>
+<div class="sourceCode" id="cb1352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1352-1" title="1"><span class="co">### 모든 변수들 중 하나라도 300 보다 큰 케이스 추출</span></a>
+<a class="sourceLine" id="cb1352-2" title="2">mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1352-3" title="3"><span class="st">  </span><span class="kw">filter_all</span>(<span class="kw">any_vars</span>(. <span class="op">&gt;</span><span class="st"> </span><span class="dv">300</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1352-4" title="4"><span class="st">  </span>print</a></code></pre></div>
+<pre><code>                     mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Hornet Sportabout   18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+Duster 360          14.3   8  360 245 3.21 3.570 15.84  0  0    3    4
+Cadillac Fleetwood  10.4   8  472 205 2.93 5.250 17.98  0  0    3    4
+Lincoln Continental 10.4   8  460 215 3.00 5.424 17.82  0  0    3    4
+Chrysler Imperial   14.7   8  440 230 3.23 5.345 17.42  0  0    3    4
+Dodge Challenger    15.5   8  318 150 2.76 3.520 16.87  0  0    3    2
+AMC Javelin         15.2   8  304 150 3.15 3.435 17.30  0  0    3    2
+Camaro Z28          13.3   8  350 245 3.73 3.840 15.41  0  0    3    4
+Pontiac Firebird    19.2   8  400 175 3.08 3.845 17.05  0  0    3    2
+Ford Pantera L      15.8   8  351 264 4.22 3.170 14.50  0  1    5    4
+Maserati Bora       15.0   8  301 335 3.54 3.570 14.60  0  1    5    8</code></pre>
+<div class="sourceCode" id="cb1354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1354-1" title="1"><span class="co">## filter_at()</span></a>
+<a class="sourceLine" id="cb1354-2" title="2"><span class="co">### 기어 개수(gear)와 기화기 개수(carb)가 짝수인 케이스만 추출</span></a>
 <a class="sourceLine" id="cb1354-3" title="3">mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1354-4" title="4"><span class="st">  </span><span class="kw">filter_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">all</span>(<span class="kw">floor</span>(.) <span class="op">==</span><span class="st"> </span>.), </a>
-<a class="sourceLine" id="cb1354-5" title="5">            <span class="kw">all_vars</span>(. <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1354-6" title="6"><span class="st">  </span><span class="co"># filter_if(~ all(floor(.) == .),</span></a>
-<a class="sourceLine" id="cb1354-7" title="7"><span class="st">  </span><span class="co">#           ~ . != 0) %&gt;%</span></a>
-<a class="sourceLine" id="cb1354-8" title="8"><span class="st">  </span>print</a></code></pre></div>
-<pre><code>   mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-1 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
-2 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
-3 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
-4 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
-5 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
-6 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
-7 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+<a class="sourceLine" id="cb1354-4" title="4"><span class="st">  </span><span class="kw">filter_at</span>(<span class="kw">vars</span>(gear, carb),</a>
+<a class="sourceLine" id="cb1354-5" title="5">            <span class="op">~</span><span class="st"> </span>. <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># 대명사 앞에 ~ 표시를 꼭 사용해야 함</span></a>
+<a class="sourceLine" id="cb1354-6" title="6"><span class="st">  </span>print</a></code></pre></div>
+<pre><code>               mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4     21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+Merc 240D     24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+Merc 230      22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+Merc 280      19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+Merc 280C     17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+Honda Civic   30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+Volvo 142E    21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+<div class="sourceCode" id="cb1356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1356-1" title="1"><span class="co">## filter_if()</span></a>
+<a class="sourceLine" id="cb1356-2" title="2"><span class="co">### 내림한 값이 원래 값과 같은 변수들 모두 0이 아닌 케이스 추출</span></a>
+<a class="sourceLine" id="cb1356-3" title="3">mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1356-4" title="4"><span class="st">  </span><span class="kw">filter_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">all</span>(<span class="kw">floor</span>(.) <span class="op">==</span><span class="st"> </span>.), </a>
+<a class="sourceLine" id="cb1356-5" title="5">            <span class="kw">all_vars</span>(. <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1356-6" title="6"><span class="st">  </span><span class="co"># filter_if(~ all(floor(.) == .),</span></a>
+<a class="sourceLine" id="cb1356-7" title="7"><span class="st">  </span><span class="co">#           ~ . != 0) %&gt;%</span></a>
+<a class="sourceLine" id="cb1356-8" title="8"><span class="st">  </span>print</a></code></pre></div>
+<pre><code>                mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Datsun 710     22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+Fiat 128       32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+Honda Civic    30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+Fiat X1-9      27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
 
 </div>
 <div id="select-variant" class="section level4 unnumbered">
@@ -1750,11 +1758,11 @@ Figure 4.8: group_by() 함수 다이어그램
 <p>변수 선택과 변수명 변경을 동시에 수행</p>
 </blockquote>
 
-<div class="sourceCode" id="cb1356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1356-1" title="1"><span class="co"># select_all() 예시</span></a>
-<a class="sourceLine" id="cb1356-2" title="2"><span class="co">## mpg 데이터셋의 모든 변수명을 대문자로 변경</span></a>
-<a class="sourceLine" id="cb1356-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1356-4" title="4"><span class="st">  </span><span class="kw">select_all</span>(<span class="op">~</span><span class="kw">toupper</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1356-5" title="5"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1358-1" title="1"><span class="co"># select_all() 예시</span></a>
+<a class="sourceLine" id="cb1358-2" title="2"><span class="co">## mpg 데이터셋의 모든 변수명을 대문자로 변경</span></a>
+<a class="sourceLine" id="cb1358-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1358-4" title="4"><span class="st">  </span><span class="kw">select_all</span>(<span class="op">~</span><span class="kw">toupper</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1358-5" title="5"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 234 x 11
    MANUFACTURER MODEL    DISPL  YEAR   CYL TRANS   DRV     CTY   HWY FL    CLASS
    &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
@@ -1769,11 +1777,11 @@ Figure 4.8: group_by() 함수 다이어그램
  9 audi         a4 quat~   1.8  1999     4 auto(l~ 4        16    25 p     comp~
 10 audi         a4 quat~   2    2008     4 manual~ 4        20    28 p     comp~
 # ... with 224 more rows</code></pre>
-<div class="sourceCode" id="cb1358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1358-1" title="1"><span class="co"># select_if() 예시</span></a>
-<a class="sourceLine" id="cb1358-2" title="2"><span class="co">## 문자형 변수를 선택하고 선택한 변수의 이름을 대문자로 변경</span></a>
-<a class="sourceLine" id="cb1358-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1358-4" title="4"><span class="st">  </span><span class="kw">select_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.character</span>(.), <span class="op">~</span><span class="st"> </span><span class="kw">toupper</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1358-5" title="5"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1360-1" title="1"><span class="co"># select_if() 예시</span></a>
+<a class="sourceLine" id="cb1360-2" title="2"><span class="co">## 문자형 변수를 선택하고 선택한 변수의 이름을 대문자로 변경</span></a>
+<a class="sourceLine" id="cb1360-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1360-4" title="4"><span class="st">  </span><span class="kw">select_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.character</span>(.), <span class="op">~</span><span class="st"> </span><span class="kw">toupper</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1360-5" title="5"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 234 x 6
    MANUFACTURER MODEL      TRANS      DRV   FL    CLASS  
    &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  
@@ -1788,11 +1796,11 @@ Figure 4.8: group_by() 함수 다이어그램
  9 audi         a4 quattro auto(l5)   4     p     compact
 10 audi         a4 quattro manual(m6) 4     p     compact
 # ... with 224 more rows</code></pre>
-<div class="sourceCode" id="cb1360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1360-1" title="1"><span class="co"># select_at() 예시</span></a>
-<a class="sourceLine" id="cb1360-2" title="2"><span class="co">## model에서 cty 까지 변수를 선택하고 선택한 변수명을 대문자로 변경</span></a>
-<a class="sourceLine" id="cb1360-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1360-4" title="4"><span class="st">  </span><span class="kw">select_at</span>(<span class="kw">vars</span>(model<span class="op">:</span>cty), <span class="op">~</span><span class="st"> </span><span class="kw">toupper</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1360-5" title="5"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1362-1" title="1"><span class="co"># select_at() 예시</span></a>
+<a class="sourceLine" id="cb1362-2" title="2"><span class="co">## model에서 cty 까지 변수를 선택하고 선택한 변수명을 대문자로 변경</span></a>
+<a class="sourceLine" id="cb1362-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1362-4" title="4"><span class="st">  </span><span class="kw">select_at</span>(<span class="kw">vars</span>(model<span class="op">:</span>cty), <span class="op">~</span><span class="st"> </span><span class="kw">toupper</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1362-5" title="5"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 234 x 7
    MODEL      DISPL  YEAR   CYL TRANS      DRV     CTY
    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt;
@@ -1820,13 +1828,13 @@ Figure 4.8: group_by() 함수 다이어그램
 </ul>
 </blockquote>
 
-<div class="sourceCode" id="cb1362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1362-1" title="1"><span class="co"># mutate_all() 예시</span></a>
-<a class="sourceLine" id="cb1362-2" title="2"><span class="co">## 문자형 변수를 선택 후 모든 변수를 요인형으로 변환</span></a>
-<a class="sourceLine" id="cb1362-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1362-4" title="4"><span class="st">  </span><span class="kw">select_if</span>(<span class="op">~</span><span class="kw">is.character</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1362-5" title="5"><span class="st">  </span><span class="kw">mutate_all</span>(<span class="op">~</span><span class="kw">factor</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1362-6" title="6"><span class="st">  </span>head <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1362-7" title="7"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1364-1" title="1"><span class="co"># mutate_all() 예시</span></a>
+<a class="sourceLine" id="cb1364-2" title="2"><span class="co">## 문자형 변수를 선택 후 모든 변수를 요인형으로 변환</span></a>
+<a class="sourceLine" id="cb1364-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1364-4" title="4"><span class="st">  </span><span class="kw">select_if</span>(<span class="op">~</span><span class="kw">is.character</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1364-5" title="5"><span class="st">  </span><span class="kw">mutate_all</span>(<span class="op">~</span><span class="kw">factor</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1364-6" title="6"><span class="st">  </span>head <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1364-7" title="7"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 6 x 6
   manufacturer model trans      drv   fl    class  
   &lt;fct&gt;        &lt;fct&gt; &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;  
@@ -1836,13 +1844,13 @@ Figure 4.8: group_by() 함수 다이어그램
 4 audi         a4    auto(av)   f     p     compact
 5 audi         a4    auto(l5)   f     p     compact
 6 audi         a4    manual(m5) f     p     compact</code></pre>
-<div class="sourceCode" id="cb1364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1364-1" title="1"><span class="co"># mutate_at() 예시</span></a>
-<a class="sourceLine" id="cb1364-2" title="2"><span class="co">## cty, hwy 단위를 km/l로 변경</span></a>
-<a class="sourceLine" id="cb1364-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1364-4" title="4"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(cty, hwy), </a>
-<a class="sourceLine" id="cb1364-5" title="5">            <span class="op">~</span><span class="st"> </span>. <span class="op">*</span><span class="st"> </span>kpl) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># 원래 변수를 변경</span></a>
-<a class="sourceLine" id="cb1364-6" title="6"><span class="st">  </span>head <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1364-7" title="7"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1366-1" title="1"><span class="co"># mutate_at() 예시</span></a>
+<a class="sourceLine" id="cb1366-2" title="2"><span class="co">## cty, hwy 단위를 km/l로 변경</span></a>
+<a class="sourceLine" id="cb1366-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1366-4" title="4"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(cty, hwy), </a>
+<a class="sourceLine" id="cb1366-5" title="5">            <span class="op">~</span><span class="st"> </span>. <span class="op">*</span><span class="st"> </span>kpl) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># 원래 변수를 변경</span></a>
+<a class="sourceLine" id="cb1366-6" title="6"><span class="st">  </span>head <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1366-7" title="7"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 6 x 11
   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
@@ -1852,12 +1860,12 @@ Figure 4.8: group_by() 함수 다이어그램
 4 audi         a4      2    2008     4 auto(av)   f      8.92  12.7 p     compa~
 5 audi         a4      2.8  1999     6 auto(l5)   f      6.80  11.0 p     compa~
 6 audi         a4      2.8  1999     6 manual(m5) f      7.65  11.0 p     compa~</code></pre>
-<div class="sourceCode" id="cb1366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1366-1" title="1"><span class="co">## &quot;m&quot;으로 시작하거나 &quot;s&quot;로 끝나는 변수 선택 후 요인형으로 변환</span></a>
-<a class="sourceLine" id="cb1366-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1366-3" title="3"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&quot;m&quot;</span>), </a>
-<a class="sourceLine" id="cb1366-4" title="4">                 <span class="kw">ends_with</span>(<span class="st">&quot;s&quot;</span>)), </a>
-<a class="sourceLine" id="cb1366-5" title="5">            <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1366-6" title="6"><span class="st">  </span>summary</a></code></pre></div>
+<div class="sourceCode" id="cb1368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1368-1" title="1"><span class="co">## &quot;m&quot;으로 시작하거나 &quot;s&quot;로 끝나는 변수 선택 후 요인형으로 변환</span></a>
+<a class="sourceLine" id="cb1368-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1368-3" title="3"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(<span class="kw">starts_with</span>(<span class="st">&quot;m&quot;</span>), </a>
+<a class="sourceLine" id="cb1368-4" title="4">                 <span class="kw">ends_with</span>(<span class="st">&quot;s&quot;</span>)), </a>
+<a class="sourceLine" id="cb1368-5" title="5">            <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1368-6" title="6"><span class="st">  </span>summary</a></code></pre></div>
 <pre><code>     manufacturer                 model         displ            year     
  dodge     :37    caravan 2wd        : 11   Min.   :1.600   Min.   :1999  
  toyota    :34    ram 1500 pickup 4wd: 10   1st Qu.:2.400   1st Qu.:1999  
@@ -1882,11 +1890,11 @@ Figure 4.8: group_by() 함수 다이어그램
  3rd Qu.:27.00                      pickup    :33  
  Max.   :44.00                      subcompact:35  
                                     suv       :62  </code></pre>
-<div class="sourceCode" id="cb1368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1368-1" title="1"><span class="co"># mutate_if() 예시 </span></a>
-<a class="sourceLine" id="cb1368-2" title="2"><span class="co">## 문자형 변수를 요인형으로 변환</span></a>
-<a class="sourceLine" id="cb1368-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1368-4" title="4"><span class="st">  </span><span class="kw">mutate_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.character</span>(.), <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1368-5" title="5"><span class="st">  </span>summary</a></code></pre></div>
+<div class="sourceCode" id="cb1370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1370-1" title="1"><span class="co"># mutate_if() 예시 </span></a>
+<a class="sourceLine" id="cb1370-2" title="2"><span class="co">## 문자형 변수를 요인형으로 변환</span></a>
+<a class="sourceLine" id="cb1370-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1370-4" title="4"><span class="st">  </span><span class="kw">mutate_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.character</span>(.), <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1370-5" title="5"><span class="st">  </span>summary</a></code></pre></div>
 <pre><code>     manufacturer                 model         displ            year     
  dodge     :37    caravan 2wd        : 11   Min.   :1.600   Min.   :1999  
  toyota    :34    ram 1500 pickup 4wd: 10   1st Qu.:2.400   1st Qu.:1999  
@@ -1922,16 +1930,16 @@ Figure 4.8: group_by() 함수 다이어그램
 </ul>
 </blockquote>
 
-<div class="sourceCode" id="cb1370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1370-1" title="1"><span class="co"># summary_all() 예시</span></a>
-<a class="sourceLine" id="cb1370-2" title="2"><span class="co">## 모든 변수의 최솟값과 최댓값 요약</span></a>
-<a class="sourceLine" id="cb1370-3" title="3"><span class="co">## 문자형 변수는 알파벳 순으로 최솟값과 최댓값 반환</span></a>
-<a class="sourceLine" id="cb1370-4" title="4"><span class="co">## 복수의 함수를 적용 시 list()함수 사용</span></a>
-<a class="sourceLine" id="cb1370-5" title="5">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1370-6" title="6"><span class="st">  </span><span class="kw">summarise_all</span>(<span class="kw">list</span>(<span class="dt">min =</span> <span class="op">~</span><span class="st"> </span><span class="kw">min</span>(.), </a>
-<a class="sourceLine" id="cb1370-7" title="7">                     <span class="dt">max =</span> <span class="op">~</span><span class="st"> </span><span class="kw">max</span>(.))) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1370-8" title="8"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 1
-Variables: 22
+<div class="sourceCode" id="cb1372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1372-1" title="1"><span class="co"># summary_all() 예시</span></a>
+<a class="sourceLine" id="cb1372-2" title="2"><span class="co">## 모든 변수의 최솟값과 최댓값 요약</span></a>
+<a class="sourceLine" id="cb1372-3" title="3"><span class="co">## 문자형 변수는 알파벳 순으로 최솟값과 최댓값 반환</span></a>
+<a class="sourceLine" id="cb1372-4" title="4"><span class="co">## 복수의 함수를 적용 시 list()함수 사용</span></a>
+<a class="sourceLine" id="cb1372-5" title="5">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1372-6" title="6"><span class="st">  </span><span class="kw">summarise_all</span>(<span class="kw">list</span>(<span class="dt">min =</span> <span class="op">~</span><span class="st"> </span><span class="kw">min</span>(.), </a>
+<a class="sourceLine" id="cb1372-7" title="7">                     <span class="dt">max =</span> <span class="op">~</span><span class="st"> </span><span class="kw">max</span>(.))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1372-8" title="8"><span class="st">  </span>glimpse</a></code></pre></div>
+<pre><code>Rows: 1
+Columns: 22
 $ manufacturer_min &lt;chr&gt; &quot;audi&quot;
 $ model_min        &lt;chr&gt; &quot;4runner 4wd&quot;
 $ displ_min        &lt;dbl&gt; 1.6
@@ -1954,15 +1962,15 @@ $ cty_max          &lt;int&gt; 35
 $ hwy_max          &lt;int&gt; 44
 $ fl_max           &lt;chr&gt; &quot;r&quot;
 $ class_max        &lt;chr&gt; &quot;suv&quot;</code></pre>
-<div class="sourceCode" id="cb1372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1372-1" title="1"><span class="co"># summary_at() 예시</span></a>
-<a class="sourceLine" id="cb1372-2" title="2"><span class="co">## dipl, cyl, cty, hwy에 대해 제조사 별 n수와 평균과 표준편차 계산</span></a>
-<a class="sourceLine" id="cb1372-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1372-4" title="4"><span class="st">  </span><span class="kw">add_count</span>(manufacturer) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># 행 집계 결과를 열 변수로 추가하는 함수</span></a>
-<a class="sourceLine" id="cb1372-5" title="5"><span class="st">  </span><span class="kw">group_by</span>(manufacturer, n) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1372-6" title="6"><span class="st">  </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(displ, cyl, cty<span class="op">:</span>hwy), </a>
-<a class="sourceLine" id="cb1372-7" title="7">               <span class="kw">list</span>(<span class="dt">mean =</span> <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(.), </a>
-<a class="sourceLine" id="cb1372-8" title="8">                    <span class="dt">sd =</span> <span class="op">~</span><span class="st"> </span><span class="kw">sd</span>(.))) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1372-9" title="9"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1374"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1374-1" title="1"><span class="co"># summary_at() 예시</span></a>
+<a class="sourceLine" id="cb1374-2" title="2"><span class="co">## dipl, cyl, cty, hwy에 대해 제조사 별 n수와 평균과 표준편차 계산</span></a>
+<a class="sourceLine" id="cb1374-3" title="3">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1374-4" title="4"><span class="st">  </span><span class="kw">add_count</span>(manufacturer) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># 행 집계 결과를 열 변수로 추가하는 함수</span></a>
+<a class="sourceLine" id="cb1374-5" title="5"><span class="st">  </span><span class="kw">group_by</span>(manufacturer, n) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1374-6" title="6"><span class="st">  </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(displ, cyl, cty<span class="op">:</span>hwy), </a>
+<a class="sourceLine" id="cb1374-7" title="7">               <span class="kw">list</span>(<span class="dt">mean =</span> <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(.), </a>
+<a class="sourceLine" id="cb1374-8" title="8">                    <span class="dt">sd =</span> <span class="op">~</span><span class="st"> </span><span class="kw">sd</span>(.))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1374-9" title="9"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 15 x 10
 # Groups:   manufacturer [15]
    manufacturer     n displ_mean cyl_mean cty_mean hwy_mean displ_sd cyl_sd
@@ -1970,7 +1978,7 @@ $ class_max        &lt;chr&gt; &quot;suv&quot;</code></pre>
  1 audi            18       2.54     5.22     17.6     26.4    0.673  1.22 
  2 chevrolet       19       5.06     7.26     15       21.9    1.37   1.37 
  3 dodge           37       4.38     7.08     13.1     17.9    0.868  1.12 
- 4 ford            25       4.54     7.2      14       19.4    0.541  1.   
+ 4 ford            25       4.54     7.2      14       19.4    0.541  1    
  5 honda            9       1.71     4        24.4     32.6    0.145  0    
  6 hyundai         14       2.43     4.86     18.6     26.9    0.365  1.03 
  7 jeep             8       4.58     7.25     13.5     17.6    1.02   1.04 
@@ -1983,22 +1991,22 @@ $ class_max        &lt;chr&gt; &quot;suv&quot;</code></pre>
 14 toyota          34       2.95     5.12     18.5     24.9    0.931  1.32 
 15 volkswagen      27       2.26     4.59     20.9     29.2    0.443  0.844
 # ... with 2 more variables: cty_sd &lt;dbl&gt;, hwy_sd &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb1374"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1374-1" title="1"><span class="co"># summary_if() 예시</span></a>
-<a class="sourceLine" id="cb1374-2" title="2"><span class="co">## 1) 문자형 변수이거나 모든 값이 1999보다 크거나 같은 변수이거나 </span></a>
-<a class="sourceLine" id="cb1374-3" title="3"><span class="co">##     8보다 작거나 같고 정수인 변수를 factor 변환</span></a>
-<a class="sourceLine" id="cb1374-4" title="4"><span class="co">## 2) 수치형 변수에 대한 제조사 별 n, 평균, 표준편차를 구한 후</span></a>
-<a class="sourceLine" id="cb1374-5" title="5"><span class="co">## 3) 평균 cty (cty_mean) 기준 내림차순으로 정렬</span></a>
-<a class="sourceLine" id="cb1374-6" title="6">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1374-7" title="7"><span class="st">  </span><span class="kw">mutate_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.character</span>(.) <span class="op">|</span><span class="st"> </span><span class="kw">all</span>(. <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1999</span>) <span class="op">|</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1374-8" title="8"><span class="st">              </span>(<span class="kw">all</span>(. <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>) <span class="op">&amp;</span><span class="st"> </span><span class="kw">is.integer</span>(.)), </a>
-<a class="sourceLine" id="cb1374-9" title="9">            <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1374-10" title="10"><span class="st">  </span><span class="kw">add_count</span>(manufacturer) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1374-11" title="11"><span class="st">  </span><span class="kw">group_by</span>(manufacturer, n) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1374-12" title="12"><span class="st">  </span><span class="kw">summarise_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.numeric</span>(.), </a>
-<a class="sourceLine" id="cb1374-13" title="13">               <span class="kw">list</span>(<span class="dt">mean =</span> <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(.), </a>
-<a class="sourceLine" id="cb1374-14" title="14">                    <span class="dt">sd =</span> <span class="op">~</span><span class="st"> </span><span class="kw">sd</span>(.))) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1374-15" title="15"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cty_mean)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1374-16" title="16"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1376"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1376-1" title="1"><span class="co"># summary_if() 예시</span></a>
+<a class="sourceLine" id="cb1376-2" title="2"><span class="co">## 1) 문자형 변수이거나 모든 값이 1999보다 크거나 같은 변수이거나 </span></a>
+<a class="sourceLine" id="cb1376-3" title="3"><span class="co">##     8보다 작거나 같고 정수인 변수를 factor 변환</span></a>
+<a class="sourceLine" id="cb1376-4" title="4"><span class="co">## 2) 수치형 변수에 대한 제조사 별 n, 평균, 표준편차를 구한 후</span></a>
+<a class="sourceLine" id="cb1376-5" title="5"><span class="co">## 3) 평균 cty (cty_mean) 기준 내림차순으로 정렬</span></a>
+<a class="sourceLine" id="cb1376-6" title="6">mpg <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1376-7" title="7"><span class="st">  </span><span class="kw">mutate_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.character</span>(.) <span class="op">|</span><span class="st"> </span><span class="kw">all</span>(. <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1999</span>) <span class="op">|</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1376-8" title="8"><span class="st">              </span>(<span class="kw">all</span>(. <span class="op">&lt;=</span><span class="st"> </span><span class="dv">8</span>) <span class="op">&amp;</span><span class="st"> </span><span class="kw">is.integer</span>(.)), </a>
+<a class="sourceLine" id="cb1376-9" title="9">            <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1376-10" title="10"><span class="st">  </span><span class="kw">add_count</span>(manufacturer) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1376-11" title="11"><span class="st">  </span><span class="kw">group_by</span>(manufacturer, n) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1376-12" title="12"><span class="st">  </span><span class="kw">summarise_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.numeric</span>(.), </a>
+<a class="sourceLine" id="cb1376-13" title="13">               <span class="kw">list</span>(<span class="dt">mean =</span> <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(.), </a>
+<a class="sourceLine" id="cb1376-14" title="14">                    <span class="dt">sd =</span> <span class="op">~</span><span class="st"> </span><span class="kw">sd</span>(.))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1376-15" title="15"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(cty_mean)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1376-16" title="16"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 15 x 8
 # Groups:   manufacturer [15]
    manufacturer     n displ_mean cty_mean hwy_mean displ_sd cty_sd hwy_sd
@@ -2056,8 +2064,8 @@ $ class_max        &lt;chr&gt; &quot;suv&quot;</code></pre>
 <li><code>flights</code>, <code>airlines</code>, <code>airports</code>, <code>planes</code>, <code>weather</code> 총 5 개의 데이터 프레임으로 구성되어 있으며, 데이터 구조와 코드북은 다음과 같음</li>
 </ul>
 
-<div class="sourceCode" id="cb1376"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1376-1" title="1"><span class="co"># install.packages(&quot;nycflights13&quot;)</span></a>
-<a class="sourceLine" id="cb1376-2" title="2"><span class="kw">require</span>(nycflights13)</a></code></pre></div>
+<div class="sourceCode" id="cb1378"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1378-1" title="1"><span class="co"># install.packages(&quot;nycflights13&quot;)</span></a>
+<a class="sourceLine" id="cb1378-2" title="2"><span class="kw">require</span>(nycflights13)</a></code></pre></div>
 <pre><code>필요한 패키지를 로딩중입니다: nycflights13</code></pre>
 
 <ul>
@@ -2574,20 +2582,20 @@ Figure 4.9: NYC flight 2013 데이터 관계도(<a href="https://r4ds.had.co.nz/
 <p>두 데이터셋 모두에 존재하는 키 변수가 일치하는 행을 기준으로 병합</p>
 </blockquote>
 
-<div class="sourceCode" id="cb1383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1383-1" title="1">x &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
-<a class="sourceLine" id="cb1383-2" title="2">  <span class="op">~</span>key, <span class="op">~</span>val_x,</a>
-<a class="sourceLine" id="cb1383-3" title="3">     <span class="dv">1</span>, <span class="st">&quot;x1&quot;</span>,</a>
-<a class="sourceLine" id="cb1383-4" title="4">     <span class="dv">2</span>, <span class="st">&quot;x2&quot;</span>,</a>
-<a class="sourceLine" id="cb1383-5" title="5">     <span class="dv">3</span>, <span class="st">&quot;x3&quot;</span></a>
-<a class="sourceLine" id="cb1383-6" title="6">)</a>
-<a class="sourceLine" id="cb1383-7" title="7">y &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
-<a class="sourceLine" id="cb1383-8" title="8">  <span class="op">~</span>key, <span class="op">~</span>val_y,</a>
-<a class="sourceLine" id="cb1383-9" title="9">     <span class="dv">1</span>, <span class="st">&quot;y1&quot;</span>,</a>
-<a class="sourceLine" id="cb1383-10" title="10">     <span class="dv">2</span>, <span class="st">&quot;y2&quot;</span>,</a>
-<a class="sourceLine" id="cb1383-11" title="11">     <span class="dv">4</span>, <span class="st">&quot;y3&quot;</span></a>
-<a class="sourceLine" id="cb1383-12" title="12">)</a>
-<a class="sourceLine" id="cb1383-13" title="13"></a>
-<a class="sourceLine" id="cb1383-14" title="14"><span class="kw">inner_join</span>(x, y, <span class="dt">by =</span> <span class="st">&quot;key&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1385-1" title="1">x &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb1385-2" title="2">  <span class="op">~</span>key, <span class="op">~</span>val_x,</a>
+<a class="sourceLine" id="cb1385-3" title="3">     <span class="dv">1</span>, <span class="st">&quot;x1&quot;</span>,</a>
+<a class="sourceLine" id="cb1385-4" title="4">     <span class="dv">2</span>, <span class="st">&quot;x2&quot;</span>,</a>
+<a class="sourceLine" id="cb1385-5" title="5">     <span class="dv">3</span>, <span class="st">&quot;x3&quot;</span></a>
+<a class="sourceLine" id="cb1385-6" title="6">)</a>
+<a class="sourceLine" id="cb1385-7" title="7">y &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb1385-8" title="8">  <span class="op">~</span>key, <span class="op">~</span>val_y,</a>
+<a class="sourceLine" id="cb1385-9" title="9">     <span class="dv">1</span>, <span class="st">&quot;y1&quot;</span>,</a>
+<a class="sourceLine" id="cb1385-10" title="10">     <span class="dv">2</span>, <span class="st">&quot;y2&quot;</span>,</a>
+<a class="sourceLine" id="cb1385-11" title="11">     <span class="dv">4</span>, <span class="st">&quot;y3&quot;</span></a>
+<a class="sourceLine" id="cb1385-12" title="12">)</a>
+<a class="sourceLine" id="cb1385-13" title="13"></a>
+<a class="sourceLine" id="cb1385-14" title="14"><span class="kw">inner_join</span>(x, y, <span class="dt">by =</span> <span class="st">&quot;key&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 2 x 3
     key val_x val_y
   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
@@ -2604,7 +2612,7 @@ Figure 4.9: NYC flight 2013 데이터 관계도(<a href="https://r4ds.had.co.nz/
 <p>두 데이터셋 관계 중 왼쪽(<code>x</code>) 데이터셋의 행은 모두 보존</p>
 </blockquote>
 
-<div class="sourceCode" id="cb1385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1385-1" title="1"><span class="kw">left_join</span>(x, y, <span class="dt">by =</span> <span class="st">&quot;key&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1387-1" title="1"><span class="kw">left_join</span>(x, y, <span class="dt">by =</span> <span class="st">&quot;key&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 3 x 3
     key val_x val_y
   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
@@ -2622,7 +2630,7 @@ Figure 4.9: NYC flight 2013 데이터 관계도(<a href="https://r4ds.had.co.nz/
 <p>두 데이터셋 관계 중 오른쪽(<code>y</code>) 데이터셋의 행은 모두 보존</p>
 </blockquote>
 
-<div class="sourceCode" id="cb1387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1387-1" title="1"><span class="kw">right_join</span>(x, y, <span class="dt">by =</span> <span class="st">&quot;key&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1389-1" title="1"><span class="kw">right_join</span>(x, y, <span class="dt">by =</span> <span class="st">&quot;key&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 3 x 3
     key val_x val_y
   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
@@ -2640,7 +2648,7 @@ Figure 4.9: NYC flight 2013 데이터 관계도(<a href="https://r4ds.had.co.nz/
 <p>두 데이터셋의 관측치 모두를 보존</p>
 </blockquote>
 
-<div class="sourceCode" id="cb1389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1389-1" title="1"><span class="kw">full_join</span>(x, y, <span class="dt">by =</span> <span class="st">&quot;key&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1391-1" title="1"><span class="kw">full_join</span>(x, y, <span class="dt">by =</span> <span class="st">&quot;key&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 4 x 3
     key val_x val_y
   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
@@ -2656,14 +2664,14 @@ Figure 4.9: NYC flight 2013 데이터 관계도(<a href="https://r4ds.had.co.nz/
 <div id="nyc-flights-2013-데이터-join-예시" class="section level4">
 <h4><span class="header-section-number">4.4.11.1</span> NYC flights 2013 데이터 join 예시</h4>
 
-<div class="sourceCode" id="cb1391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1391-1" title="1"><span class="co"># flights 데이터 간소화(일부 열만 추출)</span></a>
-<a class="sourceLine" id="cb1391-2" title="2">flights2 &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1391-3" title="3"><span class="st">  </span><span class="kw">select</span>(year<span class="op">:</span>day, hour, origin, dest, tailnum, carrier)</a>
-<a class="sourceLine" id="cb1391-4" title="4"></a>
-<a class="sourceLine" id="cb1391-5" title="5"><span class="co"># flights2 와 airlines 병합</span></a>
-<a class="sourceLine" id="cb1391-6" title="6">flights2 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1391-7" title="7"><span class="st">  </span><span class="kw">left_join</span>(airlines, <span class="dt">by =</span> <span class="st">&quot;carrier&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1391-8" title="8"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1393-1" title="1"><span class="co"># flights 데이터 간소화(일부 열만 추출)</span></a>
+<a class="sourceLine" id="cb1393-2" title="2">flights2 &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1393-3" title="3"><span class="st">  </span><span class="kw">select</span>(year<span class="op">:</span>day, hour, origin, dest, tailnum, carrier)</a>
+<a class="sourceLine" id="cb1393-4" title="4"></a>
+<a class="sourceLine" id="cb1393-5" title="5"><span class="co"># flights2 와 airlines 병합</span></a>
+<a class="sourceLine" id="cb1393-6" title="6">flights2 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1393-7" title="7"><span class="st">  </span><span class="kw">left_join</span>(airlines, <span class="dt">by =</span> <span class="st">&quot;carrier&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1393-8" title="8"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 336,776 x 9
     year month   day  hour origin dest  tailnum carrier name                    
    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                   
@@ -2678,11 +2686,11 @@ Figure 4.9: NYC flight 2013 데이터 관계도(<a href="https://r4ds.had.co.nz/
  9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue Airways         
 10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American Airlines Inc.  
 # ... with 336,766 more rows</code></pre>
-<div class="sourceCode" id="cb1393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1393-1" title="1"><span class="co"># flights2와 airline, airports 병합</span></a>
-<a class="sourceLine" id="cb1393-2" title="2"><span class="co">## airports 데이터 간소화</span></a>
-<a class="sourceLine" id="cb1393-3" title="3">airports2 &lt;-<span class="st"> </span>airports <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1393-4" title="4"><span class="st">  </span><span class="kw">select</span>(faa<span class="op">:</span>name, <span class="dt">airport_name =</span> name) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1393-5" title="5"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1395"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1395-1" title="1"><span class="co"># flights2와 airline, airports 병합</span></a>
+<a class="sourceLine" id="cb1395-2" title="2"><span class="co">## airports 데이터 간소화</span></a>
+<a class="sourceLine" id="cb1395-3" title="3">airports2 &lt;-<span class="st"> </span>airports <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1395-4" title="4"><span class="st">  </span><span class="kw">select</span>(faa<span class="op">:</span>name, <span class="dt">airport_name =</span> name) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1395-5" title="5"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 1,458 x 2
    faa   airport_name                  
    &lt;chr&gt; &lt;chr&gt;                         
@@ -2697,10 +2705,10 @@ Figure 4.9: NYC flight 2013 데이터 관계도(<a href="https://r4ds.had.co.nz/
  9 0P2   Shoestring Aviation Airfield  
 10 0S9   Jefferson County Intl         
 # ... with 1,448 more rows</code></pre>
-<div class="sourceCode" id="cb1395"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1395-1" title="1">flights2 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1395-2" title="2"><span class="st">  </span><span class="kw">left_join</span>(airlines, <span class="dt">by =</span> <span class="st">&quot;carrier&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1395-3" title="3"><span class="st">  </span><span class="kw">left_join</span>(airports2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;origin&quot;</span> =<span class="st"> &quot;faa&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1395-4" title="4"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1397"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1397-1" title="1">flights2 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1397-2" title="2"><span class="st">  </span><span class="kw">left_join</span>(airlines, <span class="dt">by =</span> <span class="st">&quot;carrier&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1397-3" title="3"><span class="st">  </span><span class="kw">left_join</span>(airports2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;origin&quot;</span> =<span class="st"> &quot;faa&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1397-4" title="4"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 336,776 x 10
     year month   day  hour origin dest  tailnum carrier name       airport_name 
    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;        
@@ -2715,15 +2723,15 @@ Figure 4.9: NYC flight 2013 데이터 관계도(<a href="https://r4ds.had.co.nz/
  9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue A~ John F Kenne~
 10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American ~ La Guardia   
 # ... with 336,766 more rows</code></pre>
-<div class="sourceCode" id="cb1397"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1397-1" title="1"><span class="co"># flights2와 airline, airports, planes 병합</span></a>
-<a class="sourceLine" id="cb1397-2" title="2">planes2 &lt;-<span class="st"> </span>planes <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1397-3" title="3"><span class="st">  </span><span class="kw">select</span>(tailnum, model)</a>
-<a class="sourceLine" id="cb1397-4" title="4"></a>
-<a class="sourceLine" id="cb1397-5" title="5">flights2 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1397-6" title="6"><span class="st">  </span><span class="kw">left_join</span>(airlines, <span class="dt">by =</span> <span class="st">&quot;carrier&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1397-7" title="7"><span class="st">  </span><span class="kw">left_join</span>(airports2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;origin&quot;</span> =<span class="st"> &quot;faa&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1397-8" title="8"><span class="st">  </span><span class="kw">left_join</span>(planes2, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1397-9" title="9"><span class="st">  </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1399"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1399-1" title="1"><span class="co"># flights2와 airline, airports, planes 병합</span></a>
+<a class="sourceLine" id="cb1399-2" title="2">planes2 &lt;-<span class="st"> </span>planes <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1399-3" title="3"><span class="st">  </span><span class="kw">select</span>(tailnum, model)</a>
+<a class="sourceLine" id="cb1399-4" title="4"></a>
+<a class="sourceLine" id="cb1399-5" title="5">flights2 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1399-6" title="6"><span class="st">  </span><span class="kw">left_join</span>(airlines, <span class="dt">by =</span> <span class="st">&quot;carrier&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1399-7" title="7"><span class="st">  </span><span class="kw">left_join</span>(airports2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;origin&quot;</span> =<span class="st"> &quot;faa&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1399-8" title="8"><span class="st">  </span><span class="kw">left_join</span>(planes2, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1399-9" title="9"><span class="st">  </span>print</a></code></pre></div>
 <pre><code># A tibble: 336,776 x 11
     year month   day  hour origin dest  tailnum carrier name  airport_name model
    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;
@@ -2738,20 +2746,20 @@ Figure 4.9: NYC flight 2013 데이터 관계도(<a href="https://r4ds.had.co.nz/
  9  2013     1     1     6 JFK    MCO   N593JB  B6      JetB~ John F Kenn~ A320~
 10  2013     1     1     6 LGA    ORD   N3ALAA  AA      Amer~ La Guardia   &lt;NA&gt; 
 # ... with 336,766 more rows</code></pre>
-<div class="sourceCode" id="cb1399"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1399-1" title="1"><span class="co"># flights2와 airline, airports2, planes2, weather2 병합</span></a>
-<a class="sourceLine" id="cb1399-2" title="2"><span class="co">## weather 데이터 간소화</span></a>
-<a class="sourceLine" id="cb1399-3" title="3">weather2 &lt;-<span class="st"> </span>weather <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1399-4" title="4"><span class="st">  </span><span class="kw">select</span>(origin<span class="op">:</span>temp, wind_speed)</a>
-<a class="sourceLine" id="cb1399-5" title="5"></a>
-<a class="sourceLine" id="cb1399-6" title="6">flights2 <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1399-7" title="7"><span class="st">  </span><span class="kw">left_join</span>(airlines, <span class="dt">by =</span> <span class="st">&quot;carrier&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1399-8" title="8"><span class="st">  </span><span class="kw">left_join</span>(airports2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;origin&quot;</span> =<span class="st"> &quot;faa&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1399-9" title="9"><span class="st">  </span><span class="kw">left_join</span>(planes2, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1399-10" title="10"><span class="st">  </span><span class="kw">left_join</span>(weather2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;origin&quot;</span>, <span class="st">&quot;year&quot;</span>, </a>
-<a class="sourceLine" id="cb1399-11" title="11">                             <span class="st">&quot;month&quot;</span>, <span class="st">&quot;day&quot;</span>, <span class="st">&quot;hour&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1399-12" title="12"><span class="st">  </span>glimpse</a></code></pre></div>
-<pre><code>Observations: 336,776
-Variables: 13
+<div class="sourceCode" id="cb1401"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1401-1" title="1"><span class="co"># flights2와 airline, airports2, planes2, weather2 병합</span></a>
+<a class="sourceLine" id="cb1401-2" title="2"><span class="co">## weather 데이터 간소화</span></a>
+<a class="sourceLine" id="cb1401-3" title="3">weather2 &lt;-<span class="st"> </span>weather <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1401-4" title="4"><span class="st">  </span><span class="kw">select</span>(origin<span class="op">:</span>temp, wind_speed)</a>
+<a class="sourceLine" id="cb1401-5" title="5"></a>
+<a class="sourceLine" id="cb1401-6" title="6">flights2 <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1401-7" title="7"><span class="st">  </span><span class="kw">left_join</span>(airlines, <span class="dt">by =</span> <span class="st">&quot;carrier&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1401-8" title="8"><span class="st">  </span><span class="kw">left_join</span>(airports2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;origin&quot;</span> =<span class="st"> &quot;faa&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1401-9" title="9"><span class="st">  </span><span class="kw">left_join</span>(planes2, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1401-10" title="10"><span class="st">  </span><span class="kw">left_join</span>(weather2, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;origin&quot;</span>, <span class="st">&quot;year&quot;</span>, </a>
+<a class="sourceLine" id="cb1401-11" title="11">                             <span class="st">&quot;month&quot;</span>, <span class="st">&quot;day&quot;</span>, <span class="st">&quot;hour&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1401-12" title="12"><span class="st">  </span>glimpse</a></code></pre></div>
+<pre><code>Rows: 336,776
+Columns: 13
 $ year         &lt;int&gt; 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, 2013, ...
 $ month        &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
 $ day          &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
@@ -2890,7 +2898,7 @@ lifeexp
 <p><code>gapminder</code> 패키지 설치하기</p>
 </blockquote>
 
-<div class="sourceCode" id="cb1401"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1401-1" title="1"><span class="kw">install.packages</span>(<span class="st">&quot;gapminder&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1403-1" title="1"><span class="kw">install.packages</span>(<span class="st">&quot;gapminder&quot;</span>)</a></code></pre></div>
 
 
 
@@ -2903,28 +2911,28 @@ lifeexp
 <li><code>readxl</code> 패키지 + <code>%&gt;%</code>를 이용해 Gapminder 데이터(<code>gapminder-exercise.xlsx</code>) 불러오기</li>
 </ol>
 
-<div class="sourceCode" id="cb1402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1402-1" title="1"><span class="kw">require</span>(readxl)</a>
-<a class="sourceLine" id="cb1402-2" title="2"><span class="kw">require</span>(gapminder)</a></code></pre></div>
+<div class="sourceCode" id="cb1404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1404-1" title="1"><span class="kw">require</span>(readxl)</a>
+<a class="sourceLine" id="cb1404-2" title="2"><span class="kw">require</span>(gapminder)</a></code></pre></div>
 <pre><code>필요한 패키지를 로딩중입니다: gapminder</code></pre>
-<div class="sourceCode" id="cb1404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1404-1" title="1">path &lt;-<span class="st"> &quot;dataset/gapminder/gapminder-exercise.xlsx&quot;</span></a>
-<a class="sourceLine" id="cb1404-2" title="2"><span class="co"># base R 문법 적용</span></a>
-<a class="sourceLine" id="cb1404-3" title="3"><span class="co"># sheet_name &lt;- excel_sheets(path)</span></a>
-<a class="sourceLine" id="cb1404-4" title="4"><span class="co"># gapmL &lt;- lapply(sheet_name, function(x) read_excel(path = path, sheet = x))</span></a>
-<a class="sourceLine" id="cb1404-5" title="5"><span class="co"># names(gapmL) &lt;- sheet_name</span></a>
-<a class="sourceLine" id="cb1404-6" title="6"></a>
-<a class="sourceLine" id="cb1404-7" title="7"><span class="co"># pipe 연산자 이용</span></a>
-<a class="sourceLine" id="cb1404-8" title="8">path <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1404-9" title="9"><span class="st">  </span>excel_sheets <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1404-10" title="10"><span class="st">  </span>set_names <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1404-11" title="11"><span class="st">  </span><span class="kw">map</span>(read_excel, <span class="dt">path =</span> path) -&gt;<span class="st"> </span>gapmL</a>
-<a class="sourceLine" id="cb1404-12" title="12"></a>
-<a class="sourceLine" id="cb1404-13" title="13"><span class="co"># 개별 객체에 데이터 저장</span></a>
-<a class="sourceLine" id="cb1404-14" title="14">command &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="kw">names</span>(gapmL), <span class="st">&quot;&lt;-&quot;</span>, </a>
-<a class="sourceLine" id="cb1404-15" title="15">                 <span class="kw">paste0</span>(<span class="st">&quot;gapmL$&quot;</span>, <span class="kw">names</span>(gapmL)))</a>
-<a class="sourceLine" id="cb1404-16" title="16"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(command)) <span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> command[i]))</a>
-<a class="sourceLine" id="cb1404-17" title="17"></a>
-<a class="sourceLine" id="cb1404-18" title="18"><span class="co"># check</span></a>
-<a class="sourceLine" id="cb1404-19" title="19"><span class="kw">ls</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1406"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1406-1" title="1">path &lt;-<span class="st"> &quot;dataset/gapminder/gapminder-exercise.xlsx&quot;</span></a>
+<a class="sourceLine" id="cb1406-2" title="2"><span class="co"># base R 문법 적용</span></a>
+<a class="sourceLine" id="cb1406-3" title="3"><span class="co"># sheet_name &lt;- excel_sheets(path)</span></a>
+<a class="sourceLine" id="cb1406-4" title="4"><span class="co"># gapmL &lt;- lapply(sheet_name, function(x) read_excel(path = path, sheet = x))</span></a>
+<a class="sourceLine" id="cb1406-5" title="5"><span class="co"># names(gapmL) &lt;- sheet_name</span></a>
+<a class="sourceLine" id="cb1406-6" title="6"></a>
+<a class="sourceLine" id="cb1406-7" title="7"><span class="co"># pipe 연산자 이용</span></a>
+<a class="sourceLine" id="cb1406-8" title="8">path <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1406-9" title="9"><span class="st">  </span>excel_sheets <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1406-10" title="10"><span class="st">  </span>set_names <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1406-11" title="11"><span class="st">  </span><span class="kw">map</span>(read_excel, <span class="dt">path =</span> path) -&gt;<span class="st"> </span>gapmL</a>
+<a class="sourceLine" id="cb1406-12" title="12"></a>
+<a class="sourceLine" id="cb1406-13" title="13"><span class="co"># 개별 객체에 데이터 저장</span></a>
+<a class="sourceLine" id="cb1406-14" title="14">command &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="kw">names</span>(gapmL), <span class="st">&quot;&lt;-&quot;</span>, </a>
+<a class="sourceLine" id="cb1406-15" title="15">                 <span class="kw">paste0</span>(<span class="st">&quot;gapmL$&quot;</span>, <span class="kw">names</span>(gapmL)))</a>
+<a class="sourceLine" id="cb1406-16" title="16"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(command)) <span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> command[i]))</a>
+<a class="sourceLine" id="cb1406-17" title="17"></a>
+<a class="sourceLine" id="cb1406-18" title="18"><span class="co"># check</span></a>
+<a class="sourceLine" id="cb1406-19" title="19"><span class="kw">ls</span>()</a></code></pre></div>
 <pre><code> [1] &quot;airports2&quot;          &quot;audi&quot;               &quot;base::merge()&quot;     
  [4] &quot;by_mpg&quot;             &quot;codebook&quot;           &quot;command&quot;           
  [7] &quot;country_pop&quot;        &quot;covid19&quot;            &quot;dbp&quot;               
@@ -2948,7 +2956,7 @@ lifeexp
 [61] &quot;변수&quot;               &quot;변수명&quot;             &quot;변수설명(국문)&quot;    
 [64] &quot;변수설명(영문)&quot;     &quot;설명&quot;               &quot;시트 이름&quot;         
 [67] &quot;연비&quot;              </code></pre>
-<div class="sourceCode" id="cb1406"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1406-1" title="1">region <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1408-1" title="1">region <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 234 x 3
    iso   country             region           
    &lt;chr&gt; &lt;chr&gt;               &lt;chr&gt;            
@@ -2963,7 +2971,7 @@ lifeexp
  9 ARG   Argentina           South America    
 10 ARM   Armenia             Western Asia     
 # ... with 224 more rows</code></pre>
-<div class="sourceCode" id="cb1408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1408-1" title="1">country_pop <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1410-1" title="1">country_pop <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 59,297 x 4
    iso   country      year population
    &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;
@@ -2978,7 +2986,7 @@ lifeexp
  9 afg   Afghanistan  1808    3280000
 10 afg   Afghanistan  1809    3280000
 # ... with 59,287 more rows</code></pre>
-<div class="sourceCode" id="cb1410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1410-1" title="1">gdpcap <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1412-1" title="1">gdpcap <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 46,995 x 4
    iso_code country      year  gdp_total
    &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;
@@ -2993,7 +3001,7 @@ lifeexp
  9 afg      Afghanistan  1808 1977840000
 10 afg      Afghanistan  1809 1977840000
 # ... with 46,985 more rows</code></pre>
-<div class="sourceCode" id="cb1412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1412-1" title="1">lifeexp <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1414-1" title="1">lifeexp <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 56,130 x 4
    country     iso_code  year life_expectancy
    &lt;chr&gt;       &lt;chr&gt;    &lt;dbl&gt;           &lt;dbl&gt;
@@ -3013,14 +3021,14 @@ lifeexp
 <li><code>country_pop</code>, <code>gdpcap</code>, <code>lifeexp</code> 데이터 셋 결합</li>
 </ol>
 
-<div class="sourceCode" id="cb1414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1414-1" title="1">gap_unfilter &lt;-<span class="st"> </span>country_pop <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1414-2" title="2"><span class="st">  </span><span class="kw">left_join</span>(gdpcap, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso&quot;</span> =<span class="st"> &quot;iso_code&quot;</span>, </a>
-<a class="sourceLine" id="cb1414-3" title="3">                           <span class="st">&quot;country&quot;</span>, </a>
-<a class="sourceLine" id="cb1414-4" title="4">                           <span class="st">&quot;year&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1414-5" title="5"><span class="st">  </span><span class="kw">left_join</span>(lifeexp, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso&quot;</span> =<span class="st"> &quot;iso_code&quot;</span>, </a>
-<a class="sourceLine" id="cb1414-6" title="6">                            <span class="st">&quot;country&quot;</span>, </a>
-<a class="sourceLine" id="cb1414-7" title="7">                            <span class="st">&quot;year&quot;</span>))</a>
-<a class="sourceLine" id="cb1414-8" title="8">gap_unfilter <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1416-1" title="1">gap_unfilter &lt;-<span class="st"> </span>country_pop <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1416-2" title="2"><span class="st">  </span><span class="kw">left_join</span>(gdpcap, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso&quot;</span> =<span class="st"> &quot;iso_code&quot;</span>, </a>
+<a class="sourceLine" id="cb1416-3" title="3">                           <span class="st">&quot;country&quot;</span>, </a>
+<a class="sourceLine" id="cb1416-4" title="4">                           <span class="st">&quot;year&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1416-5" title="5"><span class="st">  </span><span class="kw">left_join</span>(lifeexp, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso&quot;</span> =<span class="st"> &quot;iso_code&quot;</span>, </a>
+<a class="sourceLine" id="cb1416-6" title="6">                            <span class="st">&quot;country&quot;</span>, </a>
+<a class="sourceLine" id="cb1416-7" title="7">                            <span class="st">&quot;year&quot;</span>))</a>
+<a class="sourceLine" id="cb1416-8" title="8">gap_unfilter <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 59,297 x 6
    iso   country      year population  gdp_total life_expectancy
    &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;           &lt;dbl&gt;
@@ -3040,10 +3048,10 @@ lifeexp
 <li>인구 수 6만 이상, 1950 ~ 2020년 년도 추출</li>
 </ol>
 
-<div class="sourceCode" id="cb1416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1416-1" title="1">gap_filter &lt;-<span class="st"> </span>gap_unfilter <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1416-2" title="2"><span class="st">  </span><span class="kw">filter</span>(population <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60000</span>, </a>
-<a class="sourceLine" id="cb1416-3" title="3">         <span class="kw">between</span>(year, <span class="dv">1950</span>, <span class="dv">2020</span>))</a>
-<a class="sourceLine" id="cb1416-4" title="4">gap_filter <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1418-1" title="1">gap_filter &lt;-<span class="st"> </span>gap_unfilter <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1418-2" title="2"><span class="st">  </span><span class="kw">filter</span>(population <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60000</span>, </a>
+<a class="sourceLine" id="cb1418-3" title="3">         <span class="kw">between</span>(year, <span class="dv">1950</span>, <span class="dv">2020</span>))</a>
+<a class="sourceLine" id="cb1418-4" title="4">gap_filter <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 13,159 x 6
    iso   country      year population   gdp_total life_expectancy
    &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;           &lt;dbl&gt;
@@ -3063,11 +3071,11 @@ lifeexp
 <li><code>iso</code> 변수 값을 대문자로 변환하고, 1인당 국민소득(<code>gdp_total/population</code>) 변수 <code>gdp_cap</code> 생성 후 <code>gdp_total</code> 제거</li>
 </ol>
 
-<div class="sourceCode" id="cb1418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1418-1" title="1">gap_filter &lt;-<span class="st"> </span>gap_filter <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1418-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">iso =</span> <span class="kw">toupper</span>(iso), </a>
-<a class="sourceLine" id="cb1418-3" title="3">         <span class="dt">gdp_cap =</span> gdp_total<span class="op">/</span>population) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1418-4" title="4"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>gdp_total) </a>
-<a class="sourceLine" id="cb1418-5" title="5">gap_filter <span class="op">%&gt;%</span><span class="st"> </span>print  </a></code></pre></div>
+<div class="sourceCode" id="cb1420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1420-1" title="1">gap_filter &lt;-<span class="st"> </span>gap_filter <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1420-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">iso =</span> <span class="kw">toupper</span>(iso), </a>
+<a class="sourceLine" id="cb1420-3" title="3">         <span class="dt">gdp_cap =</span> gdp_total<span class="op">/</span>population) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1420-4" title="4"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>gdp_total) </a>
+<a class="sourceLine" id="cb1420-5" title="5">gap_filter <span class="op">%&gt;%</span><span class="st"> </span>print  </a></code></pre></div>
 <pre><code># A tibble: 13,159 x 6
    iso   country      year population life_expectancy gdp_cap
    &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;           &lt;dbl&gt;   &lt;dbl&gt;
@@ -3087,10 +3095,10 @@ lifeexp
 <li><code>region</code> 데이터셋에서 대륙(<code>region</code>) 변수 결합</li>
 </ol>
 
-<div class="sourceCode" id="cb1420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1420-1" title="1">gap_filter &lt;-<span class="st"> </span>gap_filter <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1420-2" title="2"><span class="st">  </span><span class="kw">left_join</span>(region <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>country), </a>
-<a class="sourceLine" id="cb1420-3" title="3">            <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso&quot;</span>))</a>
-<a class="sourceLine" id="cb1420-4" title="4">gap_filter <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
+<div class="sourceCode" id="cb1422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1422-1" title="1">gap_filter &lt;-<span class="st"> </span>gap_filter <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1422-2" title="2"><span class="st">  </span><span class="kw">left_join</span>(region <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>country), </a>
+<a class="sourceLine" id="cb1422-3" title="3">            <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso&quot;</span>))</a>
+<a class="sourceLine" id="cb1422-4" title="4">gap_filter <span class="op">%&gt;%</span><span class="st"> </span>print</a></code></pre></div>
 <pre><code># A tibble: 13,159 x 7
    iso   country      year population life_expectancy gdp_cap region       
    &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;           &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;        
@@ -3110,52 +3118,53 @@ lifeexp
 <li>변수 정렬 (<code>iso</code>, <code>country</code>, <code>region</code>, <code>year:gdp_cap</code> 순서로)</li>
 </ol>
 
-<div class="sourceCode" id="cb1422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1422-1" title="1">gap_filter &lt;-<span class="st"> </span>gap_filter <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1422-2" title="2"><span class="st">  </span><span class="kw">select</span>(iso<span class="op">:</span>country, region, <span class="kw">everything</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb1424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1424-1" title="1">gap_filter &lt;-<span class="st"> </span>gap_filter <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1424-2" title="2"><span class="st">  </span><span class="kw">select</span>(iso<span class="op">:</span>country, region, <span class="kw">everything</span>())</a></code></pre></div>
 
 <ol start="7" style="list-style-type: decimal">
 <li>문자형 변수를 요인형으로 변환하고, <code>population</code>을 정수형으로 변환</li>
 </ol>
 
-<div class="sourceCode" id="cb1423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1423-1" title="1">gap_filter &lt;-<span class="st"> </span>gap_filter <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1423-2" title="2"><span class="st">  </span><span class="kw">mutate_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.character</span>(.), <span class="op">~</span><span class="kw">factor</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1423-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">population =</span> <span class="kw">as.integer</span>(population))</a></code></pre></div>
+<div class="sourceCode" id="cb1425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1425-1" title="1">gap_filter &lt;-<span class="st"> </span>gap_filter <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1425-2" title="2"><span class="st">  </span><span class="kw">mutate_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.character</span>(.), <span class="op">~</span><span class="kw">factor</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1425-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">population =</span> <span class="kw">as.integer</span>(population))</a></code></pre></div>
 
 <ol start="8" style="list-style-type: decimal">
 <li>2-7 절차를 pipe로 묶으면</li>
 </ol>
 
-<div class="sourceCode" id="cb1424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1424-1" title="1">gap_filter &lt;-<span class="st"> </span>country_pop <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1424-2" title="2"><span class="st">  </span><span class="kw">left_join</span>(gdpcap, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso&quot;</span> =<span class="st"> &quot;iso_code&quot;</span>, </a>
-<a class="sourceLine" id="cb1424-3" title="3">                           <span class="st">&quot;country&quot;</span>, </a>
-<a class="sourceLine" id="cb1424-4" title="4">                           <span class="st">&quot;year&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1424-5" title="5"><span class="st">  </span><span class="kw">left_join</span>(lifeexp, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso&quot;</span> =<span class="st"> &quot;iso_code&quot;</span>, </a>
-<a class="sourceLine" id="cb1424-6" title="6">                            <span class="st">&quot;country&quot;</span>, </a>
-<a class="sourceLine" id="cb1424-7" title="7">                            <span class="st">&quot;year&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1424-8" title="8"><span class="st">  </span><span class="kw">filter</span>(population <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60000</span>, </a>
-<a class="sourceLine" id="cb1424-9" title="9">         <span class="kw">between</span>(year, <span class="dv">1950</span>, <span class="dv">2020</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1424-10" title="10"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">iso =</span> <span class="kw">toupper</span>(iso), </a>
-<a class="sourceLine" id="cb1424-11" title="11">         <span class="dt">gdp_cap =</span> gdp_total<span class="op">/</span>population) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1424-12" title="12"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>gdp_total) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1424-13" title="13"><span class="st">  </span><span class="kw">left_join</span>(region <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>country), </a>
-<a class="sourceLine" id="cb1424-14" title="14">            <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1424-15" title="15"><span class="st">  </span><span class="kw">select</span>(iso<span class="op">:</span>country, region, <span class="kw">everything</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1424-16" title="16"><span class="st">  </span><span class="kw">mutate_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.character</span>(.), <span class="op">~</span><span class="kw">factor</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1424-17" title="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">population =</span> <span class="kw">as.integer</span>(population)) </a>
-<a class="sourceLine" id="cb1424-18" title="18"></a>
-<a class="sourceLine" id="cb1424-19" title="19"><span class="co"># write_csv(gap_filter, &quot;dataset/gapminder/gapminder_filter.csv&quot;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb1426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1426-1" title="1">gap_filter &lt;-<span class="st"> </span>country_pop <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1426-2" title="2"><span class="st">  </span><span class="kw">left_join</span>(gdpcap, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso&quot;</span> =<span class="st"> &quot;iso_code&quot;</span>, </a>
+<a class="sourceLine" id="cb1426-3" title="3">                           <span class="st">&quot;country&quot;</span>, </a>
+<a class="sourceLine" id="cb1426-4" title="4">                           <span class="st">&quot;year&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1426-5" title="5"><span class="st">  </span><span class="kw">left_join</span>(lifeexp, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso&quot;</span> =<span class="st"> &quot;iso_code&quot;</span>, </a>
+<a class="sourceLine" id="cb1426-6" title="6">                            <span class="st">&quot;country&quot;</span>, </a>
+<a class="sourceLine" id="cb1426-7" title="7">                            <span class="st">&quot;year&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1426-8" title="8"><span class="st">  </span><span class="kw">filter</span>(population <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60000</span>, </a>
+<a class="sourceLine" id="cb1426-9" title="9">         <span class="kw">between</span>(year, <span class="dv">1950</span>, <span class="dv">2020</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1426-10" title="10"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">iso =</span> <span class="kw">toupper</span>(iso), </a>
+<a class="sourceLine" id="cb1426-11" title="11">         <span class="dt">gdp_cap =</span> gdp_total<span class="op">/</span>population) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1426-12" title="12"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>gdp_total) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1426-13" title="13"><span class="st">  </span><span class="kw">left_join</span>(region <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>country), </a>
+<a class="sourceLine" id="cb1426-14" title="14">            <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1426-15" title="15"><span class="st">  </span><span class="kw">select</span>(iso<span class="op">:</span>country, region, <span class="kw">everything</span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1426-16" title="16"><span class="st">  </span><span class="kw">mutate_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">is.character</span>(.), <span class="op">~</span><span class="kw">factor</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1426-17" title="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">population =</span> <span class="kw">as.integer</span>(population)) </a>
+<a class="sourceLine" id="cb1426-18" title="18"></a>
+<a class="sourceLine" id="cb1426-19" title="19"><span class="co"># write_csv(gap_filter, &quot;dataset/gapminder/gapminder_filter.csv&quot;)</span></a></code></pre></div>
 
 <ol start="9" style="list-style-type: decimal">
 <li>2020년 현재 지역별 인구수, 평균 일인당 국민소득, 평균 기대수명 계산 후 인구 수로 내림차순 정렬</li>
 </ol>
 
-<div class="sourceCode" id="cb1425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1425-1" title="1">gap_filter <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1425-2" title="2"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">2020</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1425-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(region) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1425-4" title="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Population =</span> <span class="kw">sum</span>(population), </a>
-<a class="sourceLine" id="cb1425-5" title="5">            <span class="st">`</span><span class="dt">GDP/Captia</span><span class="st">`</span> =<span class="st"> </span><span class="kw">mean</span>(gdp_cap), </a>
-<a class="sourceLine" id="cb1425-6" title="6">            <span class="st">`</span><span class="dt">Life expect</span><span class="st">`</span> =<span class="st"> </span><span class="kw">mean</span>(life_expectancy, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1425-7" title="7"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Population))</a></code></pre></div>
+<div class="sourceCode" id="cb1427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1427-1" title="1">gap_filter <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1427-2" title="2"><span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">2020</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1427-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(region) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1427-4" title="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Population =</span> <span class="kw">sum</span>(population), </a>
+<a class="sourceLine" id="cb1427-5" title="5">            <span class="st">`</span><span class="dt">GDP/Captia</span><span class="st">`</span> =<span class="st"> </span><span class="kw">mean</span>(gdp_cap), </a>
+<a class="sourceLine" id="cb1427-6" title="6">            <span class="st">`</span><span class="dt">Life expect</span><span class="st">`</span> =<span class="st"> </span><span class="kw">mean</span>(life_expectancy, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1427-7" title="7"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Population))</a></code></pre></div>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["region"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["Population"],"name":[2],"type":["int"],"align":["right"]},{"label":["GDP/Captia"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Life expect"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Southern Asia","2":"1940369605","3":"8370.998","4":"73.39333"},{"1":"Eastern Asia","2":"1677440285","3":"30459.234","4":"78.94429"},{"1":"South-Eastern Asia","2":"668619854","3":"24279.406","4":"73.82545"},{"1":"Eastern Africa","2":"444237457","3":"4691.993","4":"66.12889"},{"1":"South America","2":"430457607","3":"13720.588","4":"76.42250"},{"1":"Western Africa","2":"401855184","3":"2882.280","4":"65.61812"},{"1":"Northen America","2":"368744804","3":"51031.640","4":"80.47500"},{"1":"Eastern Europe","2":"293013210","3":"23683.221","4":"75.55800"},{"1":"Western Asia","2":"279636774","3":"30616.466","4":"77.31333"},{"1":"Northern Africa","2":"245635178","3":"10702.228","4":"74.59000"},{"1":"Western Europe","2":"196068940","3":"54821.198","4":"82.38429"},{"1":"Central America","2":"179670186","3":"11340.196","4":"76.51375"},{"1":"Middle Africa","2":"179595125","3":"6080.158","4":"63.77778"},{"1":"Southern Europe","2":"152146805","3":"27723.358","4":"79.85083"},{"1":"Northern Europe","2":"105953515","3":"46376.315","4":"80.53500"},{"1":"Central Asia","2":"74338926","3":"11609.011","4":"71.68800"},{"1":"Southern Africa","2":"67503647","3":"10249.226","4":"64.75600"},{"1":"Caribbean America","2":"39195338","3":"15337.443","4":"74.52364"},{"1":"Oceania","2":"30322114","3":"41260.997","4":"82.46000"},{"1":"Melanesia Oceania","2":"10837499","3":"4814.621","4":"65.41500"},{"1":"Polynesia Oceania","2":"304107","3":"6292.408","4":"72.68500"},{"1":"Micronesia Oceania","2":"234467","3":"2660.223","4":"65.35000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}

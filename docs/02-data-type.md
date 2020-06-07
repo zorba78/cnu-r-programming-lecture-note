@@ -4691,7 +4691,7 @@ class(x); class(X)
 ```
 
 ```
-[1] "matrix"
+[1] "matrix" "array" 
 ```
 
 ```r
@@ -4756,7 +4756,7 @@ class(x); class(X)
 ```
 
 ```
-[1] "matrix"
+[1] "matrix" "array" 
 ```
 
 ```r
@@ -4853,7 +4853,7 @@ class(U) # 행렬
 ```
 
 ```
-[1] "matrix"
+[1] "matrix" "array" 
 ```
 
 ```r
@@ -4926,7 +4926,7 @@ class(z)
 ```
 
 ```
-[1] "matrix"
+[1] "matrix" "array" 
 ```
 
 ```r
@@ -7203,10 +7203,10 @@ merge(d1, d2,
 ```
        Name country Age
 1     Hanzo   Japan  38
-2     Mercy   Swiss  37
-3      Park   Korea  19
-4 Soldier76     USA  56
-5       Mei    <NA>  31
+2       Mei    <NA>  31
+3     Mercy   Swiss  37
+4      Park   Korea  19
+5 Soldier76     USA  56
 ```
 
  \normalsize
@@ -7761,7 +7761,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x000000001f64d440> 
+  .. ..- attr(*, ".Environment")=<environment: 0x000000001fa63480> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"
@@ -8189,8 +8189,7 @@ as.list(X); as.list(d)
 
 ```
 $group
-[1] A A B B C C
-Levels: A B C
+[1] "A" "A" "B" "B" "C" "C"
 
 $meas
 [1] 2.028870 1.996936 2.835169 1.105901 1.095014 2.927883
