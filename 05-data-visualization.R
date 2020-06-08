@@ -1,4 +1,4 @@
-## ---- echo=FALSE, message=FALSE------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ---- echo=FALSE, message=FALSE---------------------------------------------------------------------------------------------
 rm(list = ls())
 require(knitr)
 opts_chunk$set(size="footnotesize",
@@ -41,7 +41,7 @@ require(extrafont)
 
 ## 
 
-## ---- echo=FALSE, message=FALSE, warning=FALSE, fig.show="hold", fig.width=8, fig.height=6, fig.cap="Anscombe's quartet: https://goo.gl/Ugv3Cz 에서 스크립트 발췌"-------------------------
+## ---- echo=FALSE, message=FALSE, warning=FALSE, fig.show="hold", fig.width=8, fig.height=6, fig.cap="Anscombe's quartet: https://goo.gl/Ugv3Cz 에서 스크립트 발췌"----
 # Anscombe 데이터셋
 head(anscombe)
 apply(anscombe, 2, mean)
@@ -68,7 +68,7 @@ par(op)
 
 
 
-## ----r-graphic-layout, fig.align='center', echo=FALSE, fig.show='hold', fig.width=8, fig.height=6, fig.show="hold", fig.cap="R 그래프영역"-------------------------------------------------
+## ----r-graphic-layout, fig.align='center', echo=FALSE, fig.show='hold', fig.width=8, fig.height=6, fig.show="hold", fig.cap="R 그래프영역"----
 par(oma = c(2, 2, 2, 2))
 set.seed(10)
 x <- rnorm(100)
@@ -108,7 +108,7 @@ mtext(paste("Outer margin", i),
 
 ## 
 
-## ---- fig.width=9, fig.heigth=12, fig.show="hold"------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.width=9, fig.heigth=12, fig.show="hold"---------------------------------------------------------------------------
 #각 클래스에 적용되는 plot() 함수 리스트
 methods(plot)
 
@@ -119,7 +119,7 @@ plot(mtcars)
 
 
 
-## ---- message=FALSE, fig.width=9, fig.height=8, fig.show="hold"----------------------------------------------------------------------------------------------------------------------------
+## ---- message=FALSE, fig.width=9, fig.height=8, fig.show="hold"-------------------------------------------------------------
 # 예시2: lm()으로 도출된 객체(list)
 ## 연비(mpg)를 종속 변수, 배기량(disp)을 독립변수로 한 회귀모형
 ## lm() 함수 사용 -> 객체 클래스는 lm
@@ -132,14 +132,14 @@ dev.off() # 활성화된 그래프 장치 닫기
 
 
 
-## ---- message=FALSE, fig.width=9, fig.height=8, fig.show="hold"----------------------------------------------------------------------------------------------------------------------------
+## ---- message=FALSE, fig.width=9, fig.height=8, fig.show="hold"-------------------------------------------------------------
 # 예시3: 테이블 객체
 class(Titanic)
 plot(Titanic)
 
 
 
-## ---- out.width="50%"----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ---- out.width="50%"-------------------------------------------------------------------------------------------------------
 # 예시1: 데이터 객체를 하나만 인수로 받는 경우
 # -> x축은 객체의 색인이고, x의 데이터는 y 좌표에 매핑
 x <- mtcars$disp
@@ -148,7 +148,7 @@ y <- mtcars$mpg
 plot(x); plot(y)
 
 
-## ---- fig.width = 8, fig.height=6----------------------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.width = 8, fig.height=6-------------------------------------------------------------------------------------------
 # 두개의 객체를 인수로 받은 경우
 # -> 2차원 산점도 출력
 
@@ -156,7 +156,7 @@ plot(x, y)
 
 
 
-## ---- eval=FALSE---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ---- eval=FALSE------------------------------------------------------------------------------------------------------------
 ## plot(
 ##   x, # x 축에 대응하는 데이터 객체
 ##   y, # y 축에 대응하는 데이터 객체
@@ -173,7 +173,7 @@ plot(x, y)
 ## )
 
 
-## ---- fig.width=10, fig.height=6-----------------------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.width=10, fig.height=6--------------------------------------------------------------------------------------------
 # BOD 데이터셋 이용
 x <- BOD$Time; y <- BOD$demand
 x; y
@@ -200,7 +200,7 @@ par(op)
 
 
 
-## ---- fig.show="hold"----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold"-------------------------------------------------------------------------------------------------------
 op <- par(mfrow = c(2, 3))
 range <- data.frame(
   x1 = rep(c(0, 1), each = 3),
@@ -224,7 +224,7 @@ par(op)
 
 
 
-## ---- fig.show="hold", fig.width=10, fig.height=7------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=10, fig.height=7---------------------------------------------------------------------------
 x_lab <- c(" ", "Time (days)")
 y_lab <- c("Demand", "Oxygen demend (mg/l)")
 
@@ -243,7 +243,7 @@ par(op); dev.off()
 
 
 
-## ----plot-linetype, fig.show="hold", fig.width=8, fig.height=8, fig.cap="lty 파라미터 값에 따른 선 형태"-----------------------------------------------------------------------------------
+## ----plot-linetype, fig.show="hold", fig.width=8, fig.height=8, fig.cap="lty 파라미터 값에 따른 선 형태"--------------------
 line_type <- c("blank", "solid", "dashed", "dotted",
                "dotdash", "longdash", "twodash")
 plot(x = c(1:7), y = c(1:7), type="n", 
@@ -266,7 +266,7 @@ for (i in 1:length(line_type)) {
 
 
 
-## ----plot-symbol, fig.show="hold", fig.width=7, fig.height=7, fig.cap="R graphics 점 표현 기호 및 대응 번호"-------------------------------------------------------------------------------
+## ----plot-symbol, fig.show="hold", fig.width=7, fig.height=7, fig.cap="R graphics 점 표현 기호 및 대응 번호"----------------
 coord <- expand.grid(x = 1:5, y = 1:5)
 plot(coord, type = "n", 
      xlim = c(0.8, 5.5), 
@@ -282,7 +282,7 @@ text(coord + 0.2, labels = 1:25, cex = 1)
 
 
 
-## ---- fig.show="hold", fig.width=9, fig.height=7-------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=9, fig.height=7----------------------------------------------------------------------------
 par(mfrow = c(2, 3))
 plot(BOD, type = "p", cex = 2, 
      main = "cex = 2", 
@@ -307,7 +307,7 @@ plot(BOD, type = "p",
 
 
 
-## ---- fig.show="hold", fig.width=7, fig.height=7-------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=7, fig.height=7----------------------------------------------------------------------------
 coord <- expand.grid(x = 1:5, y = 1:5)
 plot(coord, type="n", 
      xlab = "cex", 
@@ -326,11 +326,11 @@ for (i in 1:5) {
 
 
 
-## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='100%'---------------------------------------------------------------------------------------------------------------------
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='100%'------------------------------------------------------
 knitr::include_graphics('figures/r-graphic-palette.png', dpi = NA)
 
 
-## ---- fig.show="hold", fig.width=8, fig.height=6-------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=8, fig.height=6----------------------------------------------------------------------------
 # car 패키지 설치
 # install.packages("car")
 # require(car)
@@ -338,7 +338,7 @@ car::scatterplot(mpg ~ disp, data = mtcars)
 
 
 
-## ---- fig.show="hold", fig.width=8, fig.heigh=6--------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=8, fig.heigh=6-----------------------------------------------------------------------------
 # help(scatterplot) 참고
 car::scatterplot(mpg ~ disp, data = mtcars, 
                  regLine = list(method = lm, lty = 1, col = "red"), 
@@ -346,19 +346,19 @@ car::scatterplot(mpg ~ disp, data = mtcars,
 
 
 
-## ---- fig.show="hold", fig.width=8, fig.heigh=8--------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=8, fig.heigh=8-----------------------------------------------------------------------------
 # iris dataset
 plot(iris)
 
 
 
-## ---- fig.show="hold", fig.width=8, fig.heigh=8--------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=8, fig.heigh=8-----------------------------------------------------------------------------
 # iris dataset
 car::scatterplotMatrix(iris, col = "black")
 
 
 
-## ---- fig.show="hold", fig.width=8, fig.heigh=8--------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=8, fig.heigh=8-----------------------------------------------------------------------------
 # help(scatterplotMatrix)
 car::scatterplotMatrix(iris, col = c("red", "blue", "green"), 
                        smooth = FALSE, 
@@ -369,7 +369,7 @@ car::scatterplotMatrix(iris, col = c("red", "blue", "green"),
 
 
 
-## ---- fig.show="hold", fig.width=8, fig.heigh=6--------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=8, fig.heigh=6-----------------------------------------------------------------------------
 # 행렬을 plot() 함수의 입력으로 받은 경우
 par(mfrow = c(1,2))
 x <- seq(-5, 5, 0.01)
@@ -389,7 +389,7 @@ text(0.2, 0.05, labels = "plot(X[,1], X[,2], type = `l`)")
 
 
 
-## ---- fig.show="hold", fig.width=8, fig.heigh=6--------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=8, fig.heigh=6-----------------------------------------------------------------------------
 # matplot 도표
 par(mfrow = c(1, 2))
 matplot(X, type = "l", 
@@ -401,7 +401,7 @@ matplot(x, X, type = "l",
 
 
 
-## ---- eval=FALSE---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ---- eval=FALSE------------------------------------------------------------------------------------------------------------
 ## hist(
 ##   x, # vector 객체
 ##   breaks, # 빈도 계산을 위한 구간
@@ -413,7 +413,7 @@ matplot(x, X, type = "l",
 ## )
 
 
-## ---- fig.show="hold", fig.width=8, fig.heigh=8--------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=8, fig.heigh=8-----------------------------------------------------------------------------
 # airquality 데이터 셋
 # help(airquality) 참고
 glimpse(airquality)
@@ -422,13 +422,13 @@ hist(temp)
 
 
 
-## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------------------------------------------------
 h <- hist(temp, plot = FALSE) # 그래프를 반환하지 않음
 h
 
 
-## ---- warning=FALSE, fig.show="hold", fig.width=8, fig.heigh=8-----------------------------------------------------------------------------------------------------------------------------
-
+## ---- warning=FALSE, fig.show="hold", fig.width=8, fig.heigh=8--------------------------------------------------------------
+par(family = "nanumgothic")
 hist(temp,
 main="La Guardia Airport 일중 최고 기온",
 xlab = "온도",
@@ -440,7 +440,8 @@ freq = FALSE
 
 
 
-## ---- warning=FALSE, fig.show="hold", fig.width=8, fig.heigh=8-----------------------------------------------------------------------------------------------------------------------------
+## ---- warning=FALSE, fig.show="hold", fig.width=8, fig.heigh=8--------------------------------------------------------------
+par(family = "nanumgothic")
 hist(temp,
 main = "La Guardia Airport 일중 최고 기온",
 xlab = "온도",
@@ -452,14 +453,14 @@ labels = TRUE
 
 
 
-## ---- warning=FALSE, fig.show="hold", fig.width=10, fig.height=7---------------------------------------------------------------------------------------------------------------------------
+## ---- warning=FALSE, fig.show="hold", fig.width=10, fig.height=7------------------------------------------------------------
 op <- par(mfrow = c(1, 2))
 hist(temp, breaks = 4, main = "breaks = 4")
 hist(temp, breaks = 15, main = "breaks = 15")
 par(op); dev.off()
 
 
-## ---- warning=FALSE, fig.show="hold", fig.width=8, fig.heigh=6-----------------------------------------------------------------------------------------------------------------------------
+## ---- warning=FALSE, fig.show="hold", fig.width=8, fig.heigh=6--------------------------------------------------------------
 x = c(1,2,2,1,3,3,1,5)
 par(mfrow = c(1, 2))
 hist(x); barplot(x)
@@ -467,7 +468,7 @@ hist(x); barplot(x)
 
 
 
-## ---- warning=FALSE, fig.show="hold", fig.width=8, fig.heigh=6-----------------------------------------------------------------------------------------------------------------------------
+## ---- warning=FALSE, fig.show="hold", fig.width=8, fig.heigh=6--------------------------------------------------------------
 ## Wool dataset: warpbreaks 
 ## 제직 중 방적 횟수
 ## 직조기 당 날실 파손 횟수 데이터
@@ -491,7 +492,7 @@ barplot(count, legend = TRUE, beside = TRUE,
 
 
 
-## ---- warning=FALSE, fig.show="hold", fig.width=8, fig.height=7----------------------------------------------------------------------------------------------------------------------------
+## ---- warning=FALSE, fig.show="hold", fig.width=8, fig.height=7-------------------------------------------------------------
 mean_breaks <- aggregate(breaks ~ wool + tension, 
                          data = warpbreaks, 
                          mean)
@@ -512,7 +513,7 @@ arrows(bp, cent - sem, bp, cent + sem, angle = 90, code = 3, length = 0.05)
 
 
 
-## ---- warning=FALSE, fig.show="hold", fig.width=9, fig.height=6----------------------------------------------------------------------------------------------------------------------------
+## ---- warning=FALSE, fig.show="hold", fig.width=9, fig.height=6-------------------------------------------------------------
 set.seed(20200522)
 x <- rnorm(100)
 plab <- c("min(x)", "quantile(x, 0.25)", "median(x)", 
@@ -545,7 +546,7 @@ text(x = -0.1, y = 1.3,
 
 
 
-## ---- eval=FALSE---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ---- eval=FALSE------------------------------------------------------------------------------------------------------------
 ## boxplot(x, # boxplot 대상 객체 명
 ##         ... # 두 개 이상 객체(보통은 벡터)
 ##         )
@@ -559,7 +560,7 @@ text(x = -0.1, y = 1.3,
 ## 
 
 
-## ----boxplot-ex, warning=FALSE, fig.show="hold", fig.width=8, fig.height=8-----------------------------------------------------------------------------------------------------------------
+## ----boxplot-ex, warning=FALSE, fig.show="hold", fig.width=8, fig.height=8--------------------------------------------------
 par(mfrow = c(2, 2))
 set.seed(20200522)
 y <- rnorm(100, 2, 1)
@@ -592,7 +593,7 @@ boxplot(xl,
 
 
 
-## ----vioplot-ex, warning=FALSE, fig.show="hold", fig.width=8, fig.height=8-----------------------------------------------------------------------------------------------------------------
+## ----vioplot-ex, warning=FALSE, fig.show="hold", fig.width=8, fig.height=8--------------------------------------------------
 # install.packages(vioplot)
 # require(vioplot)
 ## generating bimodal distribution
@@ -625,7 +626,7 @@ vioplot::vioplot(xl,
 ## 로그선형모형(log-linear model)은 다차원 교차표의 셀 빈도를 예측하기 위한 모형임. 해당 모형에 대한 기술은 본 강의의 범위 벗어나기 때문에 설명을 생략함.
 
 
-## ---- echo = FALSE, fig.show="hold", fig.width=9, fig.height=7-----------------------------------------------------------------------------------------------------------------------------
+## ---- echo = FALSE, fig.show="hold", fig.width=9, fig.height=7--------------------------------------------------------------
 # require(vcd)
 mosaicplot(~ Survived + Sex, data = Titanic, 
            shade = TRUE, 
@@ -638,7 +639,7 @@ text(0.68, 0.2, labels = mar_tab[4], col = "white", cex = 2)
 
 
 
-## ---- eval=FALSE---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ---- eval=FALSE------------------------------------------------------------------------------------------------------------
 ## mosaicplot(
 ##   x, # 테이블 객체
 ##   shade # goodness-of-test 결과 출력 여부
@@ -654,7 +655,7 @@ text(0.68, 0.2, labels = mar_tab[4], col = "white", cex = 2)
 ## 
 
 
-## ---- fig.show="hold", fig.width = 10, fig.height=7----------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width = 10, fig.height=7-------------------------------------------------------------------------
 dimnames(UCBAdmissions)
 collapse_admin_tab <- margin.table(UCBAdmissions, margin = c(1,2))
 is.table(collapse_admin_tab)
@@ -669,7 +670,7 @@ mosaicplot(~ Dept + Admit + Gender, data = UCBAdmissions,
            color = TRUE)
 
 
-## ---- fig.show="hold", fig.width = 10, fig.height=7----------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width = 10, fig.height=7-------------------------------------------------------------------------
 par(mfrow = c(2, 3), 
     oma = c(0, 0, 2, 0))
 for (i in 1:6) {
@@ -688,7 +689,7 @@ mtext(
 )
 
 
-## ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ---------------------------------------------------------------------------------------------------------------------------
 # 그래프 파라미터 조회 
 # 처음 12개 파라미터들에 대해서만 조회
 unlist(par()) %>% head(12)
@@ -697,7 +698,7 @@ unlist(par()) %>% head(12)
 par("mar")
 
 
-## ----tab-05-01, echo=FALSE-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ----tab-05-01, echo=FALSE--------------------------------------------------------------------------------------------------
 Parameter <- c("din, fin, pin", 
                "fig", "mai, mar", 
                "mfcol,mfrow", "mfg", 
@@ -736,7 +737,7 @@ kable(tab05_01,
 
 
 
-## ----layout-par, echo=FALSE, fig.show="hold", out.width="50%", fig.cap="레이아웃 파라미터. AIMS-R-Users 에서 발췌"-------------------------------------------------------------------------
+## ----layout-par, echo=FALSE, fig.show="hold", out.width="50%", fig.cap="레이아웃 파라미터. AIMS-R-Users 에서 발췌"----------
 knitr::include_graphics('figures/graphics-figureAnatomy1.png', dpi = NA)
 knitr::include_graphics('figures/graphics-figureAnatomy2.png', dpi = NA)
 
@@ -745,7 +746,7 @@ knitr::include_graphics('figures/graphics-figureAnatomy2.png', dpi = NA)
 
 ## 
 
-## ---- echo=FALSE, fig.show="hold", fig.width=8, fig.height=7, fig.show="hold"--------------------------------------------------------------------------------------------------------------
+## ---- echo=FALSE, fig.show="hold", fig.width=8, fig.height=7, fig.show="hold"-----------------------------------------------
 # set.seed(20200528)
 # x <- runif(30)
 # op <- par(
@@ -790,7 +791,7 @@ mtext(side = 3, line = 0, at = 0, adj = 0, paste0("par(\"fig\") = c(",
 
 
 
-## ---- echo=FALSE, fig.show="hold", fig.width=8, fig.height=7-------------------------------------------------------------------------------------------------------------------------------
+## ---- echo=FALSE, fig.show="hold", fig.width=8, fig.height=7----------------------------------------------------------------
 text_pos <- c(0, 1, 2, 3, 0, 1)
 at_pos <- c(rep(0, 4), 0.5, 0.5)
 par_nm <- c("mar", "mai", "fig", "fin", "plt", "pin")
@@ -828,7 +829,7 @@ mtext(sprintf("fin = c(Width = %.2f, Height = %.2f)",
 
 
 
-## ----fig-anatomy, fig.show="hold", fig.width=7, fig.height=7, fig.cap="fig 인수 조정 예시: Graphical parameters of R graphics package에서 발췌"--------------------------------------------
+## ----fig-anatomy, fig.show="hold", fig.width=7, fig.height=7, fig.cap="fig 인수 조정 예시: Graphical parameters of R graphics package에서 발췌"----
 text_loc <- seq(0, 0.25, by = 0.05)
 par_name <- c("mar", "mai", "fig", "fin", "plt", "pin")
 
@@ -870,7 +871,7 @@ plot_dim(0.5, 0.05, op, "Default plot dimensions", cex = 0.8)
 
 
 
-## ----mar-anatomy, echo=FALSE, fig.show="hold", fig.width=7, fig.height=7, fig.cap="Figure 영역에서 기본 여백: Graphical parameters of R graphics package 에서 발췌"------------------------
+## ----mar-anatomy, echo=FALSE, fig.show="hold", fig.width=7, fig.height=7, fig.cap="Figure 영역에서 기본 여백: Graphical parameters of R graphics package 에서 발췌"----
 par(op)
 # start by plotting plt parameter values
 # and fin
@@ -948,7 +949,7 @@ for(k in 0:1){
 text(0.05, 0.95, "Area limited by xlim and ylim", col = "blue", cex = 0.8, adj = 0)
 
 
-## ---- fig.show="hold", out.width="50%", fig.width=4, fig.height=8--------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", out.width="50%", fig.width=4, fig.height=8-----------------------------------------------------------
 par(oma = c(0, 0, 3, 0), # 윗쪽 여백 크기 조정
     mfrow = c(3, 2))
 for (i in 1:6) {
@@ -977,7 +978,7 @@ mtext(side = 3, line = 1, cex = 0.8, col = "blue",
 
 
 
-## ---- fig.show="hold", fig.width=8, fig.height=6-------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=8, fig.height=6----------------------------------------------------------------------------
 df_order <- expand.grid(x = 1:2,
                         y = 1:3)
 set.seed(123)
@@ -1001,7 +1002,7 @@ mtext(side = 3, line = 1, cex = 0.8, col = "blue",
 
 
 
-## ---- fig.show="hold", fig.width=8, fig.height=7-------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=8, fig.height=7----------------------------------------------------------------------------
 # mtcars 데이터셋
 graph_array <- matrix(c(1, 1, 2, 3), nrow = 2, byrow = TRUE)
 par(oma = c(0, 0 , 3, 0))
@@ -1019,7 +1020,7 @@ mtext(side = 3, line = 1, cex = 1, col = "blue",
 
 
 
-## ---- message=FALSE, fig.show="hold", fig.width=8, fig.height=6----------------------------------------------------------------------------------------------------------------------------
+## ---- message=FALSE, fig.show="hold", fig.width=8, fig.height=6-------------------------------------------------------------
 split.screen(fig = c(2, 2)) # 화면을 2 by 2로 분할
 par(oma = c(0, 0, 3, 0))
 screen(n = 4)
@@ -1040,7 +1041,7 @@ mtext(side = 3, line = 1, cex = 0.8, col = "blue",
 
 
 
-## ---- message=FALSE, fig.show="hold", fig.width=10, fig.height=7---------------------------------------------------------------------------------------------------------------------------
+## ---- message=FALSE, fig.show="hold", fig.width=10, fig.height=7------------------------------------------------------------
 # boxplot + violin plot
 ## iris 데이터 셋
 par(bty = "n") # x-y 축 스타일 지정
@@ -1057,7 +1058,7 @@ vioplot::vioplot(Sepal.Length ~ Species,
 
 
 
-## ----oma-anatomy, echo=FALSE, fig.show="hold", fig.width=9, fig.height=6, fig.cap="Outer 여백 조정 파라미터(mar = c(2, 3, 3, 1)) Graphical parameters of R graphics package에서 발췌"------
+## ----oma-anatomy, echo=FALSE, fig.show="hold", fig.width=9, fig.height=6, fig.cap="Outer 여백 조정 파라미터(mar = c(2, 3, 3, 1)) Graphical parameters of R graphics package에서 발췌"----
 outer_margin <- function() {
   par(las = 0)
       for(k in 0:1){
@@ -1098,7 +1099,7 @@ outer_margin()
 
 
 
-## ----points-ex, fig.show="hold", fig.width=10, fig.height=6--------------------------------------------------------------------------------------------------------------------------------
+## ----points-ex, fig.show="hold", fig.width=10, fig.height=6-----------------------------------------------------------------
 # cars 데이터셋
 par(mfrow = c(1, 2))
 plot(dist ~ speed, data = cars,
@@ -1122,7 +1123,7 @@ points(iris$Sepal.Length,
 
 
 
-## ----plot-linewidth, echo=FALSE, fig.show="hold", fig.width=7, fig.height=7, fig.cap="선 두께(lwd) 파라미터: Graphical parameters of R graphics package 에서 발췌"-------------------------
+## ----plot-linewidth, echo=FALSE, fig.show="hold", fig.width=7, fig.height=7, fig.cap="선 두께(lwd) 파라미터: Graphical parameters of R graphics package 에서 발췌"----
 # clean plot area to start drawing
 par(mar = rep(0, 4), lend = 1)
 plot(1, 1
@@ -1138,7 +1139,7 @@ for (k in 1:9){
 }
 
 
-## ---- fig.show="hold", fig.width=8, fig.height=6-------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=8, fig.height=6----------------------------------------------------------------------------
 # 정규분포 평균=0, 분산=1
 # 정규분포 평균=0, 분산=2
 # 정규분포 평균=0, 분산=3
@@ -1178,7 +1179,7 @@ mtext("Normal distribution", side = 3, adj = 0.2, cex = 2)
 
 
 
-## ----abline-example, fig.show="hold", fig.width=8, fig.height=6, fig.cap="abline(), lines() 함수를 이용한 회귀직선 및 오차 거리 표시 예제"-------------------------------------------------
+## ----abline-example, fig.show="hold", fig.width=8, fig.height=6, fig.cap="abline(), lines() 함수를 이용한 회귀직선 및 오차 거리 표시 예제"----
 # 회귀직선과 x, y의 평균선, 회귀직선으로부터 각 점 까지 거리를 직선 표시
 ## mtcars 데이터
 plot(mpg ~ hp, data = mtcars,
@@ -1226,7 +1227,7 @@ text(350, mean(mtcars$mpg),
 
 
 
-## ----arrow-type, fig.show="hold", fig.width=7, fig.height=7, fig.cap= "arrows() 함수 주요 파라미터 변경에 따른 화살표 출력 결과"-----------------------------------------------------------
+## ----arrow-type, fig.show="hold", fig.width=7, fig.height=7, fig.cap= "arrows() 함수 주요 파라미터 변경에 따른 화살표 출력 결과"----
 par(mar = rep(0, 4))
 plot(1, 1,
      type = 'n', axes = FALSE, ann = FALSE,
@@ -1271,7 +1272,7 @@ for (i in 1:3) {
 
 
 
-## ----rectangle-coord, fig.show="hold", fig.width=7, fig.height=7, fig.cap="rect() 좌표 인수"-----------------------------------------------------------------------------------------------
+## ----rectangle-coord, fig.show="hold", fig.width=7, fig.height=7, fig.cap="rect() 좌표 인수"--------------------------------
 # 길이와 높이가 5인 정사각형 그리기
 plot(x = 1:10,
      y = 1:10,
@@ -1290,7 +1291,7 @@ grid()
 
 
 
-## ---- fig.show="hold", fig.width=7, fig.height=7-------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=7, fig.height=7----------------------------------------------------------------------------
 # polygon() 사용 예시
 plot(x = 0:10,
      y = 0:10,
@@ -1343,7 +1344,7 @@ text(7, 4.1, "Triangle (perpendicular)", adj = 0.5, pos = 3, cex = 1.5)
 
 
 
-## ----polygon-example, fig.show="hold", fig.width=8, fig.height=6, fig.cap="polygon()을 이용한 확률밀도함수 곡선 아래 면적 표시 예시"-------------------------------------------------------
+## ----polygon-example, fig.show="hold", fig.width=8, fig.height=6, fig.cap="polygon()을 이용한 확률밀도함수 곡선 아래 면적 표시 예시"----
 # 표준정규분포 곡선 하 면적 표시
 x <- seq(-3, 3, by = 0.01)
 z <- dnorm(x)
@@ -1367,7 +1368,7 @@ text(x = 0.5, y = 0.15,
 
 
 
-## ---- eval=FALSE---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ---- eval=FALSE------------------------------------------------------------------------------------------------------------
 ## text(x, # x-좌표값
 ##      y, # y-좌표값
 ##      label, # 입력할 텍스트 문자열
@@ -1382,19 +1383,19 @@ text(x = 0.5, y = 0.15,
 ## 
 
 
-## ----text-adj-par, echo=FALSE, fig.show='hold', out.width='80%', fig.cap="text() 함수에서 adj 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌"--------------------------------------
+## ----text-adj-par, echo=FALSE, fig.show='hold', out.width='80%', fig.cap="text() 함수에서 adj 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌"----
 knitr::include_graphics('figures/graphics-adjPlot.png', dpi = NA)
 
 
-## ----text-pos-par, echo=FALSE, fig.show='hold', out.width='80%', fig.cap="text() 함수에서 pos 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌"--------------------------------------
+## ----text-pos-par, echo=FALSE, fig.show='hold', out.width='80%', fig.cap="text() 함수에서 pos 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌"----
 knitr::include_graphics('figures/graphics-posPlot.png', dpi = NA)
 
 
-## ----text-srt-par, echo=FALSE, fig.show='hold', out.width='80%', fig.cap="text() 함수에서 srt 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌"--------------------------------------
+## ----text-srt-par, echo=FALSE, fig.show='hold', out.width='80%', fig.cap="text() 함수에서 srt 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌"----
 knitr::include_graphics('figures/graphics-srtPlot.png', dpi = NA)
 
 
-## ---- eval=FALSE---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ---- eval=FALSE------------------------------------------------------------------------------------------------------------
 ## mtext(
 ##   text, # 입력할 텍스트 문자열
 ##   side, # 텍스트 문자열이 출력되는 여백 지정
@@ -1408,7 +1409,7 @@ knitr::include_graphics('figures/graphics-srtPlot.png', dpi = NA)
 ## 
 
 
-## ----mtext-anatomy, fig.show="hold", fig.width=9, fig.height=6-----------------------------------------------------------------------------------------------------------------------------
+## ----mtext-anatomy, fig.show="hold", fig.width=9, fig.height=6--------------------------------------------------------------
 par(mar = c(4, 4, 4, 4),
     oma = c(4, 0, 0, 0))
 set.seed(1345)
@@ -1461,7 +1462,7 @@ mtext("mtext parameter check",
 
 
 
-## ---- fig.show="hold", fig.width=9, fig.height=6-------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=9, fig.height=6----------------------------------------------------------------------------
 plot(Petal.Length ~ Sepal.Length, data = iris,
      type = "n",
      bty = "n",
@@ -1482,7 +1483,7 @@ legend("top",
 
 
 
-## ----expression-math, echo=FALSE, fig.show='hold', out.width='50%', fig.height=8, fig.width=6, fig.cap="R expression() 함수 내 수식 표현 방법"---------------------------------------------
+## ----expression-math, echo=FALSE, fig.show='hold', out.width='50%', fig.height=8, fig.width=6, fig.cap="R expression() 함수 내 수식 표현 방법"----
 knitr::include_graphics('figures/expression-table-01.png', dpi = NA)
 knitr::include_graphics('figures/expression-table-02.png', dpi = NA)
 
@@ -1492,12 +1493,12 @@ knitr::include_graphics('figures/expression-table-04.png', dpi = NA)
 knitr::include_graphics('figures/expression-table-05.png', dpi = NA)
 
 
-## ----greek-letters, echo=FALSE, fig.show='hold', fig.width=8, fig.height=7, fig.cap="R 그리스 문자 표현"-----------------------------------------------------------------------------------
+## ----greek-letters, echo=FALSE, fig.show='hold', fig.width=8, fig.height=7, fig.cap="R 그리스 문자 표현"--------------------
 knitr::include_graphics('figures/greek-letters.png', dpi = NA)
 
 
 
-## ---- fig.show="hold", fig.width=8, fig.height=6-------------------------------------------------------------------------------------------------------------------------------------------
+## ---- fig.show="hold", fig.width=8, fig.height=6----------------------------------------------------------------------------
 # 수식 표현 예시 expression() + paste()
 par(cex = 1.5 ,
     cex.lab = 1.2)
@@ -1519,7 +1520,7 @@ mtext(expression(paste("Respiration", ~(mL ~O[2] ~ h^-1))),
 
 
 
-## ---- eval=FALSE---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## ---- eval=FALSE, tidy=FALSE------------------------------------------------------------------------------------------------
 ## par(cex = 1.5)
 ## plot(0:6, 0:6,
 ##      type = "n",
@@ -1530,31 +1531,454 @@ mtext(expression(paste("Respiration", ~(mL ~O[2] ~ h^-1))),
 ## text(0.3, 5.8, "Normal distribution:", adj = 0)
 ## text(0.3, 4.8, expression(paste(f, "(", x, ";", list(mu, sigma), ")"
 ##                                 == frac(1, sigma*sqrt(2*pi))*~~exp *
-##                                   bgroup('(', -frac((x-mu)^2, 2*sigma^2), ')') )),
+##                                   bgroup('(', -frac((x-mu)^2,
+##                                                     2*sigma^2), ')')
+##                                 )),
 ##      adj = 0)
 ## text(4, 5.8, "Binomial distribution:", adj = 0)
 ## text(4, 4.8, expression(paste(f, "(", x, ";", list(n, p), ")"
-##                                 == bgroup("(", atop(n, x) ,")")*p^x*(1-p)^{n-x})),
+##                                 == bgroup("(", atop(n, x) ,")")
+##                               *p^x*(1-p)^{n-x})),
 ##      adj = 0)
 ## 
 ## text(0.3, 3.5, "Matrix:", adj = 0)
 ## text(0.3, 2.5,
-##      expression(bold(X) == bgroup("[", atop(1 ~~ 2 ~~ 3, 4 ~~ 5 ~~ 6), "]")),
+##      expression(bold(X) == bgroup("[", atop(1 ~~ 2 ~~ 3,
+##                                             4 ~~ 5 ~~ 6), "]")),
 ##      adj = 0)
 ## text(2, 3.5, "Multiple regression formula:",
 ##      adj = 0)
 ## text(2, 2.5,
-##      expression(paste(y[i] == beta[0] + beta[1]*x[1] + beta[2]*x[2] + epsilon[i]~~
+##      expression(paste(y[i] == beta[0] + beta[1]*x[1] +
+##                         beta[2]*x[2] + epsilon[i]~~
 ##                       "where", ~~i == list(1, ldots, n))),
 ##      adj = 0)
 ## 
 ## text(2, 1.5, "Regression equation:", adj = 0)
 ## text(2, 0.5,
-##      expression(hat(bold(beta)) == bgroup("(", bold(X)^T*bold(X), ")")^-1*bold(X)^T*bold(y)),
+##      expression(hat(bold(beta)) == bgroup("(", bold(X)^T*bold(X),
+##                                           ")")^-1*bold(X)^T*bold(y)),
 ##      adj = 0)
 ## 
 
 
-## ----math-example, echo=FALSE, fig.show='hold', out.width='100%', fig.width=8, fig.height=6, fig.cap="R 그래픽 수식 표현 예시"-------------------------------------------------------------
+## ----math-example, echo=FALSE, fig.show='hold', out.width='100%', fig.width=8, fig.height=6, fig.cap="R 그래픽 수식 표현 예시"----
 knitr::include_graphics('figures/math-example.png', dpi = NA)
+
+
+## ----save-graph-------------------------------------------------------------------------------------------------------------
+# save-example.png에 cars 산점도 저장
+png("figures/save-example.png")
+plot(cars)
+dev.off()
+
+
+
+## **Prerequisites**: tidyverse 패키지 또는 ggplot2 패키지 읽어오기: `require(tidyverse)` 또는 `require(ggplot2)` 실행
+
+## 
+
+
+## **Grammar of graphics**: 그래프를 구현하기 위한 일관적인 체계로 그래프를 데이터, 스케일, 레이어, 좌표 등과 같은 의미론적 요소(sementic components) 로 나눔
+
+
+## ----fig.align='center', echo=FALSE, fig.show='hold', out.width='90%', fig.cap=cap------------------------------------------
+cap <- "ggplot의 grammar of graphics 주요 구성 요소"
+knitr::include_graphics('figures/grammar-graphics-intro.png', dpi = NA)
+
+
+## ----base-barplot-a, fig.width=7, fig.height=5, fig.show="hold", fig.cap="R 기본 barplot() 생성 그래프"---------------------
+# R 기본 데이터셋: ToothGrowth
+ToothGrowth %>% 
+  group_by(supp, dose) %>% 
+  summarise(mean = mean(len)) %>% 
+  mutate(dose = factor(dose, 
+                       ordered = TRUE))-> tg_long
+tg_long %>% 
+  spread(supp, mean) %>% 
+  column_to_rownames("dose") %>% # 열 값을 열이름으로 변환(in tibble 패키지)
+  as.matrix -> tg_mat
+
+# R graphics: barplot() 사용
+barplot(tg_mat, beside = TRUE)
+
+
+
+## ----base-barplot-b, fig.width=7, fig.height=5, fig.show="hold", fig.cap="R 기본 barplot() 생성 그래프: 데이터 전치"--------
+# tg_mat 행렬 전치
+barplot(t(tg_mat), beside = TRUE)
+
+
+
+## ----base-lineplot, fig.width=7, fig.height=5, fig.show="hold", fig.cap="R 기본 선 그래프: plot(), lines() 함수 사용"-------
+plot(tg_mat[,1], type="l", col = "blue")
+lines(tg_mat[,2], type="l", col = "black")
+
+
+
+## ----ggplot-bar-intro-a, fig.widgh=7, fig.height=5, fig.show="hold", fig.cap="ggplot()과 geom_bar()을 이용한 막대 도표"-----
+# require(ggplot2)
+ggplot(data = tg_long, 
+       aes(y = mean)) -> gmap # 기본 mapping 유지를 위해 
+                              # ggplot 클래스 객체 저장
+gmap + 
+  geom_bar(aes(x = supp, fill = dose), 
+           stat = "identity", # 데이터 고유값을 막대 높이로 사용
+           position = "dodge") # 막대 위치 조정(beside 조건과 유사)
+
+
+## ----ggplot-bar-intro-b, fig.width=7, fig.height=5, fig.show="hold", fig.cap="x와 fill의 mapping 변경"----------------------
+gmap + 
+  geom_bar(aes(x = dose, fill = supp), 
+           stat = "identity", 
+           position = "dodge")
+
+
+## ----ggplot-line-intro, fig.width=7, fig.height=5, fig.show="hold", fig.cap="geom_line()을 이용한 선 그래프 생성"-----------
+gmap + 
+  geom_line(aes(x = dose, 
+                group = supp, 
+                color = supp), 
+            size = 1)
+  
+
+
+## ---- eval=FALSE------------------------------------------------------------------------------------------------------------
+## ggplot(data = <DATA>) +
+##   <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>)) +
+##   <SCALE_FUNCTION> +
+##   <LABEL or GUIDES> +
+##   <ANNOTATION> +
+##   <THEME>
+## 
+
+
+## ggplot 계열 함수에서 범주형 변수(categorical variable)은 이산형(**discrete**), 수치형 변수(numeric variable)을 연속형(**continuous**)이라고 명칭함.
+
+## 
+
+## ---- eval=FALSE------------------------------------------------------------------------------------------------------------
+## # ggplot()을 이용한 ggplot 생성
+## # 표현식 1
+## ggplot(data = <DATA>, # 데이터 프레임, 티블 객체
+##        mapping = aes(x = <X-axis>,
+##                      y = <Y-axis>,
+##                      color = <색 속성을 부여할 변수 이름>,
+##                      fill = <면의 색 속성을 부여할 변수 이름>,
+##                      group = <group 변수 지정>
+##                              # 보통 선 그래프 작성 시 이을 선에 대한
+##                              # 그룹을 지정하기 위해 사용
+##                      group
+##                      ...)) +
+##   <GEOM_FUNCTION>
+## # 표현식 2
+## ggplot(data = <DATA>) +
+##   aes(...) +
+##   <GEOM_FUNCTION>(mapping = aes(...))
+## 
+## # 표현식 3
+## ggplot(data = <DATA>) +
+##   <GEOM_FUNCTION>(mapping = aes(x, y, ...))
+## 
+## 
+## # 표현식 4
+## <GGPLOT_OBJECT> <- ggplot(data = <DATA>)
+## <GGPLOT_OBJECT> +
+##   <GEOM_FUNCTION>(mapping = aes(...))
+## 
+
+
+## ----ggplot-begin, eval=FALSE-----------------------------------------------------------------------------------------------
+## # cars 데이터셋
+## ## ggplot() 내에 aes() 지정
+## ggplot(data = cars,
+##        aes(x = speed, y = dist)) +
+##   geom_point()
+## 
+## ## aesthetic을 ggplot() 함수 밖에서 지정
+## ggplot(data = cars) +
+##   aes(x = speed, y = dist) +
+##   geom_point()
+## 
+## ## geom 계열 함수 내에서 asthetic 지정
+## ggplot(data = cars) +
+##   geom_point(aes(x = speed, y = dist))
+## 
+## ## ggplot 객체 생성
+## gp <- ggplot(data = cars); gp
+## 
+## gp <- gp +
+##   aes(x = speed, y = dist); gp
+## 
+## gp + geom_point()
+## 
+## ## 참고: R 기본 plot()의 결과는 객체로 저장되지 않음
+## grph <- plot(cars); grph
+## 
+## 
+
+
+## ---- out.width="50%", fig.width=7, fig.height=5, fig.show="hold", message=FALSE--------------------------------------------
+# 막대도표 예시
+# `aes()` 함수 외부에서 사용 시 단일 값을 입력
+gpcol <- ggplot(data = mpg, aes(x = class))
+gpcol + geom_bar() + 
+  labs(title = "Default geom_bar()") # 그래프 제목 지정
+
+gpcol + geom_bar(fill = "navy") + 
+  labs(title = "fill = 'navy'")
+  
+  
+
+
+## ---- out.width="50%", fig.width=7, fig.height=5, fig.show="hold", message=FALSE--------------------------------------------
+# 막대도표 예시
+gpcol + geom_bar(color = "red") + 
+  labs(title = "color = 'red'")
+
+gpcol + geom_bar(color = "red", fill = "white")+ 
+    labs(title = "color = 'red', fill = 'white'")
+
+
+
+## ---- out.width="50%", fig.width=7, fig.height=5, fig.show="hold", message=FALSE--------------------------------------------
+# 연료 타입에 따라 면 색 지정
+gpcol + 
+  geom_bar(aes(fill = fl)) + 
+  labs(title = "Filled by fuel types (fl)")
+
+# 연료 타입에 따라 막대 선 색 지정
+gpcol + 
+  geom_bar(aes(color = fl)) + 
+  labs(title = "Colored by fuel types (fl)")
+
+
+
+## ---- out.width="50%", fig.width=7, fig.height=5, fig.show="hold", message=FALSE--------------------------------------------
+# alpha: 0-1 사이 값을 갖고 투명도 지정
+# 주로 aes() 함수 밖에서 사용됨
+set.seed(20200605)
+df1 <- tibble(
+  x = rnorm(5000), 
+  y = rnorm(5000)
+)
+
+gpalpha <- ggplot(data = df1, aes(x, y))
+gpalpha + geom_point() + 
+  labs(title = "alpha = 1") 
+gpalpha + geom_point(alpha = 0.1) + 
+  labs(title = "alpha = 0.1")
+
+
+
+## ---- out.width="50%", fig.width=7, fig.height=5, fig.show="hold", message=FALSE--------------------------------------------
+# 다중 집단에 하나의 aesthetic만 적용한 경우
+## gapminder 데이터셋
+gapm <- read_csv("dataset/gapminder/gapminder_filter.csv")
+gapm_filter <- gapm %>% 
+  filter(grepl("Asia", region))
+gpgroup <- ggplot(data = gapm_filter, 
+                  aes(x = year, y = life_expectancy))
+
+gpgroup + geom_line(size = 0.5, alpha = 0.2) 
+gpgroup_l <- gpgroup + geom_line(aes(group = country), 
+                                 size = 0.5, alpha = 0.2)
+gpgroup_l
+
+
+
+## ---- out.width="50%", fig.width=7, fig.height=5, fig.show="hold", message=FALSE--------------------------------------------
+# 전체 아시아 국가의 평균 추세선 
+## geom_line과 geom_smooth 모두 group을 country로 지정
+gpgroup_l + 
+  geom_smooth(aes(group = country), 
+              method = "loess", 
+              size = 0.5, 
+              color = "blue", 
+              se = FALSE)
+
+## 모든 국가에 가장 적합한 하나의 곡선으로 fitting
+gpgroup_l + 
+  geom_smooth(aes(group = 1), 
+              method = "loess", 
+              size = 1, 
+              color = "blue", 
+              se = FALSE)
+
+
+
+## ---- out.width="50%", fig.width=7, fig.height=5, fig.show="hold", message=FALSE--------------------------------------------
+# size 지정
+gpsize <- ggplot(data = mtcars, 
+                 aes(disp, mpg))
+
+gpsize + geom_point(size = 4)
+
+gpsize + geom_point(aes(size = hp), 
+                    alpha = 0.5)
+
+
+
+## ---- out.width="50%", fig.width=7, fig.height=5, fig.show="hold", message=FALSE--------------------------------------------
+gpshape <- ggplot(data = mtcars, 
+                  aes(hp, mpg))
+gpshape + 
+  geom_point(shape = 5) # 
+
+# 실린더 개수에 따라 점 모양 지정
+gpshape + 
+  geom_point(aes(shape = factor(cyl)), 
+             size = 4)
+## pch를 인수로 사용해도 동일한 그래프 출력
+# gpshape + 
+#   geom_point(aes(pch = factor(cyl)), 
+#              size = 4)
+
+
+
+## ---- out.width="50%", fig.width=7, fig.height=5, fig.show="hold", message=FALSE--------------------------------------------
+# linetype 지정
+## economics_long 데이터셋
+gplty <- ggplot(data = economics_long, 
+                aes(x = date, y = value01))
+
+gplty + 
+  geom_line(aes(group = variable, color = variable), 
+            size = 0.5, 
+            linetype = 6)
+
+# 실린더 개수에 따라 점 모양 지정
+gplty + 
+  geom_line(aes(linetype = variable, 
+                color = variable), 
+            size = 0.5)
+
+
+
+## ---- fig.width=7, fig.height=5, fig.show="hold", message=FALSE-------------------------------------------------------------
+# gap-minder 데이터
+gpline <- ggplot(data = gapm_filter, 
+                  aes(y = gdp_cap)) 
+# geom_line
+gpline + 
+  geom_line(aes(x = year, 
+                group = country), 
+            size = 0.5, 
+            alpha = 0.3, 
+            linetype = "solid") -> gpline
+gpline
+
+
+
+## ---- fig.width=7, fig.height=5, fig.show="hold", message=FALSE-------------------------------------------------------------
+# geom_path
+highlight_country <- c("South Korea", "China", "Japan", 
+                       "India", "Taiwan", "Singapore")
+
+# dplyr 패키지 체인과 ggplot 함수 연결 가능
+gppath <- gapm %>% 
+  filter(year >= 2000, 
+         country %in% highlight_country) %>% 
+  ggplot(aes(x = gdp_cap, 
+             y = life_expectancy))
+
+gppath + geom_path(aes(group = country))
+
+
+
+
+## ---- fig.width=7, fig.height=5, fig.show="hold", message=FALSE-------------------------------------------------------------
+# 선 굵기 및 색상 조정
+gppath + 
+  geom_path(aes(color = country), 
+            size = 4, 
+            alpha = 0.5) -> gppath
+
+# 선과 점 동시에 출력
+gppath + 
+  geom_point(aes(shape = country), 
+             size = 2)
+
+
+## ---- fig.width=7, fig.height=5, fig.show="hold", message=FALSE-------------------------------------------------------------
+# geom_abline, geom_hline, geom_vline
+## abline
+m <- lm(gdp_cap ~ year, data = gapm_filter)
+gpline +   
+  geom_abline(slope = coef(m)[2], 
+              intercept = coef(m)[1], 
+              size = 2, 
+              color = "blue") -> gplines
+gplines
+
+
+## ---- fig.width=7, fig.height=5, fig.show="hold", message=FALSE, out.width="50%"--------------------------------------------
+## hline
+gplines + 
+  geom_hline(yintercept = mean(gapm_filter$gdp_cap, 
+                               na.rm = TRUE), 
+             color = "red", 
+             size = 1) -> gplines
+gplines + ggtitle("Addling a horizontal line: mean of gdp_cap")
+
+## vline  
+gplines + 
+  geom_vline(xintercept = mean(gapm_filter$year, 
+                               na.rm = TRUE), 
+             color = "red", 
+             size = 1) + 
+  ggtitle("Adding a vertical line: mean of year")
+
+
+
+## ---- fig.width=7, fig.height=5, fig.show="hold", message=FALSE-------------------------------------------------------------
+# geom_point
+## 갭마인더 데이터: 2015년 기대수명 vs. 일인당 국민소득 산점도
+gppoint <- gapm %>% 
+  mutate(continent = gsub("(.+\\s)", "", region) %>% 
+  # region 변수에서 공백 앞 문자 모두 제거
+           factor) %>% 
+  filter(year == 2015) %>% 
+  ggplot(aes(x = life_expectancy, y = gdp_cap))
+
+gppoint + 
+  geom_point(size = 1)
+
+
+
+## ---- fig.width=7, fig.height=5, fig.show="hold", message=FALSE-------------------------------------------------------------
+## 점의 크기는 해당 국가 인구수(log10 변환) 에 비례
+## 각 대륙에 따라 색 구분
+## 투명도는 0.3
+## --> Bubble plot
+gppoint + 
+  geom_point(aes(size = log(population, base=10), 
+                 color = continent), 
+             alpha = 0.3)
+
+
+
+## ---- fig.width=7, fig.height=5, fig.show="hold", message=FALSE-------------------------------------------------------------
+## mpg 데이터 셋
+## cylinder 개수에 따른 시내 연비
+gppoint2 <- ggplot(data = mpg, 
+                   aes(x = cyl, y = cty))
+gppoint2 + geom_point(size = 3)
+
+
+
+## ---- fig.width=7, fig.height=5, fig.show="hold", message=FALSE, out.width="50%"--------------------------------------------
+# geom_jitter
+## geom_point에서 position 인수 조정
+gppoint2 + 
+  geom_point(position = "jitter") + 
+  ggtitle("geom_point() with position = 'jitter'")
+
+## geom_jitter: jittering 크기는 0.3
+## class로 색 조정
+gppoint2 + 
+  geom_jitter(aes(color = class), 
+              width = 0.3) + 
+  ggtitle("Jittering using geom_jitter()")
+
 

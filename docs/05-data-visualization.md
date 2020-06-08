@@ -23,16 +23,11 @@
 
 \footnotesize
 
-
-```
-  x1 x2 x3 x4   y1   y2    y3   y4
-1 10 10 10  8 8.04 9.14  7.46 6.58
-2  8  8  8  8 6.95 8.14  6.77 5.76
-3 13 13 13  8 7.58 8.74 12.74 7.71
-4  9  9  9  8 8.81 8.77  7.11 8.84
-5 11 11 11  8 8.33 9.26  7.81 8.47
-6 14 14 14  8 9.96 8.10  8.84 7.04
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["x3"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["x4"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["y1"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["y2"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["y3"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["y4"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"10","3":"10","4":"8","5":"8.04","6":"9.14","7":"7.46","8":"6.58","_rn_":"1"},{"1":"8","2":"8","3":"8","4":"8","5":"6.95","6":"8.14","7":"6.77","8":"5.76","_rn_":"2"},{"1":"13","2":"13","3":"13","4":"8","5":"7.58","6":"8.74","7":"12.74","8":"7.71","_rn_":"3"},{"1":"9","2":"9","3":"9","4":"8","5":"8.81","6":"8.77","7":"7.11","8":"8.84","_rn_":"4"},{"1":"11","2":"11","3":"11","4":"8","5":"8.33","6":"9.26","7":"7.81","8":"8.47","_rn_":"5"},{"1":"14","2":"14","3":"14","4":"8","5":"9.96","6":"8.10","7":"8.84","8":"7.04","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```
       x1       x2       x3       x4       y1       y2       y3       y4 
@@ -45,7 +40,7 @@
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-3-1.svg" alt="Anscombe's quartet: https://goo.gl/Ugv3Cz 에서 스크립트 발췌"  />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-3-1.svg" alt="Anscombe's quartet: https://goo.gl/Ugv3Cz 에서 스크립트 발췌" width="768" />
 <p class="caption">(\#fig:unnamed-chunk-3)Anscombe's quartet: https://goo.gl/Ugv3Cz 에서 스크립트 발췌</p>
 </div>
 
@@ -80,7 +75,7 @@
 \footnotesize
 
 <div class="figure" style="text-align: center">
-<img src="05-data-visualization_files/figure-epub3/r-graphic-layout-1.svg" alt="R 그래프영역"  />
+<img src="05-data-visualization_files/figure-html/r-graphic-layout-1.svg" alt="R 그래프영역" width="768" />
 <p class="caption">(\#fig:r-graphic-layout)R 그래프영역</p>
 </div>
 
@@ -169,7 +164,7 @@ class(mtcars)
 plot(mtcars)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-6-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-6-1.svg" width="864" />
 
  \normalsize
 
@@ -200,7 +195,7 @@ null device
           1 
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-7-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-7-1.svg" width="864" />
 
  \normalsize
 
@@ -220,7 +215,7 @@ class(Titanic)
 plot(Titanic)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-8-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-8-1.svg" width="864" />
 
  \normalsize
 
@@ -239,7 +234,7 @@ y <- mtcars$mpg
 plot(x); plot(y)
 ```
 
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-9-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-9-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-9-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-9-2.svg" width="50%" />
 
  \normalsize
 
@@ -253,7 +248,7 @@ plot(x); plot(y)
 plot(x, y)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-10-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-10-1.svg" width="768" />
 
  \normalsize
 
@@ -322,7 +317,7 @@ for (i in 1:length(ctype)) {
 }
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-12-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-12-1.svg" width="960" />
 
 ```r
 par(op)
@@ -359,7 +354,7 @@ for (i in 1:6) {
 par(op)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-13-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-13-1.svg" width="672" />
 
  \normalsize
 
@@ -391,7 +386,7 @@ null device
           1 
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-14-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-14-1.svg" width="960" />
 
  \normalsize
 
@@ -422,7 +417,7 @@ for (i in 1:length(line_type)) {
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/plot-linetype-1.svg" alt="lty 파라미터 값에 따른 선 형태"  />
+<img src="05-data-visualization_files/figure-html/plot-linetype-1.svg" alt="lty 파라미터 값에 따른 선 형태" width="768" />
 <p class="caption">(\#fig:plot-linetype)lty 파라미터 값에 따른 선 형태</p>
 </div>
 
@@ -450,7 +445,7 @@ text(coord + 0.2, labels = 1:25, cex = 1)
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/plot-symbol-1.svg" alt="R graphics 점 표현 기호 및 대응 번호"  />
+<img src="05-data-visualization_files/figure-html/plot-symbol-1.svg" alt="R graphics 점 표현 기호 및 대응 번호" width="672" />
 <p class="caption">(\#fig:plot-symbol)R graphics 점 표현 기호 및 대응 번호</p>
 </div>
 
@@ -490,7 +485,7 @@ plot(BOD, type = "p",
      sub = "Subtitle")
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-15-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-15-1.svg" width="864" />
 
  \normalsize
 
@@ -519,7 +514,7 @@ for (i in 1:5) {
 }
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-16-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-16-1.svg" width="672" />
 
  \normalsize
 
@@ -561,7 +556,7 @@ for (i in 1:5) {
 car::scatterplot(mpg ~ disp, data = mtcars)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-18-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-18-1.svg" width="768" />
 
  \normalsize
 
@@ -577,7 +572,7 @@ car::scatterplot(mpg ~ disp, data = mtcars,
                  col = "black", cex = 2, pch = 16)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-19-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-19-1.svg" width="768" />
 
  \normalsize
 
@@ -594,7 +589,7 @@ car::scatterplot(mpg ~ disp, data = mtcars,
 plot(iris)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-20-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-20-1.svg" width="768" />
 
  \normalsize
 
@@ -612,7 +607,7 @@ plot(iris)
 car::scatterplotMatrix(iris, col = "black")
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-21-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-21-1.svg" width="768" />
 
  \normalsize
 
@@ -630,7 +625,7 @@ car::scatterplotMatrix(iris, col = c("red", "blue", "green"),
                        pch = (15:17))
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-22-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-22-1.svg" width="768" />
 
  \normalsize
 
@@ -672,7 +667,7 @@ plot(X[, 1], X[, 2], type = "l",
 text(0.2, 0.05, labels = "plot(X[,1], X[,2], type = `l`)")
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-23-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-23-1.svg" width="768" />
 
  \normalsize
 
@@ -696,7 +691,7 @@ matplot(x, X, type = "l",
         main = "matplot() with x")
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-24-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-24-1.svg" width="768" />
 
  \normalsize
 
@@ -748,7 +743,7 @@ temp <- airquality$Temp
 hist(temp)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-26-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-26-1.svg" width="768" />
 
  \normalsize
 
@@ -806,7 +801,7 @@ freq = FALSE
 )
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-28-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-28-1.svg" width="768" />
 
  \normalsize
 
@@ -827,7 +822,7 @@ labels = TRUE
 )
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-29-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-29-1.svg" width="768" />
 
  \normalsize
 
@@ -848,7 +843,7 @@ null device
           1 
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-30-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-30-1.svg" width="960" />
 
  \normalsize
 
@@ -867,7 +862,7 @@ par(mfrow = c(1, 2))
 hist(x); barplot(x)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-31-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-31-1.svg" width="768" />
 
  \normalsize
 
@@ -886,15 +881,11 @@ hist(x); barplot(x)
 head(warpbreaks)
 ```
 
-```
-  breaks wool tension
-1     26    A       L
-2     30    A       L
-3     54    A       L
-4     25    A       L
-5     70    A       L
-6     52    A       L
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["breaks"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["wool"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["tension"],"name":[3],"type":["fctr"],"align":["left"]}],"data":[{"1":"26","2":"A","3":"L","_rn_":"1"},{"1":"30","2":"A","3":"L","_rn_":"2"},{"1":"54","2":"A","3":"L","_rn_":"3"},{"1":"25","2":"A","3":"L","_rn_":"4"},{"1":"70","2":"A","3":"L","_rn_":"5"},{"1":"52","2":"A","3":"L","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 count <- with(warpbreaks, 
@@ -915,7 +906,7 @@ barplot(count, legend = TRUE, beside = TRUE,
         cex.lab = 1.5) # 분리 형태
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-32-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-32-1.svg" width="768" />
 
  \normalsize
 
@@ -945,7 +936,7 @@ sem <- matrix(se_breaks$breaks, 2, 3)
 arrows(bp, cent - sem, bp, cent + sem, angle = 90, code = 3, length = 0.05)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-33-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-33-1.svg" width="768" />
 
  \normalsize
 
@@ -988,7 +979,7 @@ text(x = -0.1, y = 1.3,
      adj = 0.5, pos = 3) # 
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-34-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-34-1.svg" width="864" />
 
  \normalsize
 
@@ -1070,7 +1061,7 @@ boxplot(xl,
         col = "lightgray")
 ```
 
-![](05-data-visualization_files/figure-epub3/boxplot-ex-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/boxplot-ex-1.svg" width="768" />
 
  \normalsize
 
@@ -1117,7 +1108,7 @@ vioplot::vioplot(xl,
                 col = rainbow(4))
 ```
 
-![](05-data-visualization_files/figure-epub3/vioplot-ex-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/vioplot-ex-1.svg" width="768" />
 
  \normalsize
 
@@ -1137,7 +1128,7 @@ vioplot::vioplot(xl,
 
 \footnotesize
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-37-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-37-1.svg" width="864" />
 
  \normalsize
 
@@ -1209,7 +1200,7 @@ mosaicplot(~ Dept + Admit + Gender, data = UCBAdmissions,
            color = TRUE)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-39-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-39-1.svg" width="960" />
 
  \normalsize
 
@@ -1237,7 +1228,7 @@ mtext(
 )
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-40-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-40-1.svg" width="960" />
 
  \normalsize
 
@@ -1368,7 +1359,7 @@ par("mar")
 
 \footnotesize
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-43-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-43-1.svg" width="768" />
 
  \normalsize
 
@@ -1378,7 +1369,7 @@ par("mar")
 
 \footnotesize
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-44-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-44-1.svg" width="768" />
 
  \normalsize
 
@@ -1434,7 +1425,7 @@ plot_dim(0.5, 0.05, op, "Default plot dimensions", cex = 0.8)
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/fig-anatomy-1.svg" alt="fig 인수 조정 예시: Graphical parameters of R graphics package에서 발췌"  />
+<img src="05-data-visualization_files/figure-html/fig-anatomy-1.svg" alt="fig 인수 조정 예시: Graphical parameters of R graphics package에서 발췌" width="672" />
 <p class="caption">(\#fig:fig-anatomy)fig 인수 조정 예시: Graphical parameters of R graphics package에서 발췌</p>
 </div>
 
@@ -1450,7 +1441,7 @@ plot_dim(0.5, 0.05, op, "Default plot dimensions", cex = 0.8)
 \footnotesize
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/mar-anatomy-1.svg" alt="Figure 영역에서 기본 여백: Graphical parameters of R graphics package 에서 발췌"  />
+<img src="05-data-visualization_files/figure-html/mar-anatomy-1.svg" alt="Figure 영역에서 기본 여백: Graphical parameters of R graphics package 에서 발췌" width="672" />
 <p class="caption">(\#fig:mar-anatomy)Figure 영역에서 기본 여백: Graphical parameters of R graphics package 에서 발췌</p>
 </div>
 
@@ -1493,7 +1484,7 @@ mtext(side = 3, line = 1, cex = 0.8, col = "blue",
     outer = TRUE)
 ```
 
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-45-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-45-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-45-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-45-2.svg" width="50%" />
 
  \normalsize
 
@@ -1529,7 +1520,7 @@ mtext(side = 3, line = 1, cex = 0.8, col = "blue",
     outer = TRUE)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-46-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-46-1.svg" width="768" />
 
  \normalsize
 
@@ -1557,7 +1548,7 @@ mtext(side = 3, line = 1, cex = 1, col = "blue",
       outer = TRUE)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-47-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-47-1.svg" width="768" />
 
  \normalsize
 
@@ -1595,7 +1586,7 @@ mtext(side = 3, line = 1, cex = 0.8, col = "blue",
       outer = TRUE)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-48-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-48-1.svg" width="768" />
 
  \normalsize
 
@@ -1626,7 +1617,7 @@ vioplot::vioplot(Sepal.Length ~ Species,
                  ann = FALSE)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-49-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-49-1.svg" width="960" />
 
  \normalsize
 
@@ -1640,7 +1631,7 @@ vioplot::vioplot(Sepal.Length ~ Species,
 \footnotesize
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/oma-anatomy-1.svg" alt="Outer 여백 조정 파라미터(mar = c(2, 3, 3, 1)) Graphical parameters of R graphics package에서 발췌"  />
+<img src="05-data-visualization_files/figure-html/oma-anatomy-1.svg" alt="Outer 여백 조정 파라미터(mar = c(2, 3, 3, 1)) Graphical parameters of R graphics package에서 발췌" width="864" />
 <p class="caption">(\#fig:oma-anatomy)Outer 여백 조정 파라미터(mar = c(2, 3, 3, 1)) Graphical parameters of R graphics package에서 발췌</p>
 </div>
 
@@ -1679,7 +1670,7 @@ points(iris$Sepal.Length,
        cex = 1.5)
 ```
 
-![](05-data-visualization_files/figure-epub3/points-ex-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/points-ex-1.svg" width="960" />
 
  \normalsize
 
@@ -1693,7 +1684,7 @@ points(iris$Sepal.Length,
 \footnotesize
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/plot-linewidth-1.svg" alt="선 두께(lwd) 파라미터: Graphical parameters of R graphics package 에서 발췌"  />
+<img src="05-data-visualization_files/figure-html/plot-linewidth-1.svg" alt="선 두께(lwd) 파라미터: Graphical parameters of R graphics package 에서 발췌" width="672" />
 <p class="caption">(\#fig:plot-linewidth)선 두께(lwd) 파라미터: Graphical parameters of R graphics package 에서 발췌</p>
 </div>
 
@@ -1743,7 +1734,7 @@ text(2.1, max(y[,3]),
 mtext("Normal distribution", side = 3, adj = 0.2, cex = 2)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-50-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-50-1.svg" width="768" />
 
  \normalsize
 
@@ -1806,7 +1797,7 @@ text(350, mean(mtcars$mpg),
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/abline-example-1.svg" alt="abline(), lines() 함수를 이용한 회귀직선 및 오차 거리 표시 예제"  />
+<img src="05-data-visualization_files/figure-html/abline-example-1.svg" alt="abline(), lines() 함수를 이용한 회귀직선 및 오차 거리 표시 예제" width="768" />
 <p class="caption">(\#fig:abline-example)abline(), lines() 함수를 이용한 회귀직선 및 오차 거리 표시 예제</p>
 </div>
 
@@ -1868,7 +1859,7 @@ for (i in 1:3) {
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/arrow-type-1.svg" alt="arrows() 함수 주요 파라미터 변경에 따른 화살표 출력 결과"  />
+<img src="05-data-visualization_files/figure-html/arrow-type-1.svg" alt="arrows() 함수 주요 파라미터 변경에 따른 화살표 출력 결과" width="672" />
 <p class="caption">(\#fig:arrow-type)arrows() 함수 주요 파라미터 변경에 따른 화살표 출력 결과</p>
 </div>
 
@@ -1904,7 +1895,7 @@ grid()
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/rectangle-coord-1.svg" alt="rect() 좌표 인수"  />
+<img src="05-data-visualization_files/figure-html/rectangle-coord-1.svg" alt="rect() 좌표 인수" width="672" />
 <p class="caption">(\#fig:rectangle-coord)rect() 좌표 인수</p>
 </div>
 
@@ -1979,7 +1970,7 @@ polygon(x4, y4, lwd = 3) # 직각표시
 text(7, 4.1, "Triangle (perpendicular)", adj = 0.5, pos = 3, cex = 1.5)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-51-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-51-1.svg" width="672" />
 
  \normalsize
 
@@ -2013,7 +2004,7 @@ text(x = 0.5, y = 0.15,
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/polygon-example-1.svg" alt="polygon()을 이용한 확률밀도함수 곡선 아래 면적 표시 예시"  />
+<img src="05-data-visualization_files/figure-html/polygon-example-1.svg" alt="polygon()을 이용한 확률밀도함수 곡선 아래 면적 표시 예시" width="768" />
 <p class="caption">(\#fig:polygon-example)polygon()을 이용한 확률밀도함수 곡선 아래 면적 표시 예시</p>
 </div>
 
@@ -2146,7 +2137,7 @@ mtext("mtext parameter check",
       adj = 0)
 ```
 
-![](05-data-visualization_files/figure-epub3/mtext-anatomy-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/mtext-anatomy-1.svg" width="864" />
 
  \normalsize
 
@@ -2181,7 +2172,7 @@ legend("top",
        ncol = 3) # # legend 영역 열 개수 지정
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-54-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-54-1.svg" width="864" />
 
  \normalsize
 
@@ -2341,7 +2332,7 @@ mtext(expression(paste("Respiration", ~(mL ~O[2] ~ h^-1))),
       cex = 1.5)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-55-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-55-1.svg" width="768" />
 
  \normalsize
 
@@ -2487,7 +2478,7 @@ barplot(tg_mat, beside = TRUE)
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/base-barplot-a-1.svg" alt="R 기본 barplot() 생성 그래프"  />
+<img src="05-data-visualization_files/figure-html/base-barplot-a-1.svg" alt="R 기본 barplot() 생성 그래프" width="672" />
 <p class="caption">(\#fig:base-barplot-a)R 기본 barplot() 생성 그래프</p>
 </div>
 
@@ -2504,7 +2495,7 @@ barplot(t(tg_mat), beside = TRUE)
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/base-barplot-b-1.svg" alt="R 기본 barplot() 생성 그래프: 데이터 전치"  />
+<img src="05-data-visualization_files/figure-html/base-barplot-b-1.svg" alt="R 기본 barplot() 생성 그래프: 데이터 전치" width="672" />
 <p class="caption">(\#fig:base-barplot-b)R 기본 barplot() 생성 그래프: 데이터 전치</p>
 </div>
 
@@ -2521,7 +2512,7 @@ lines(tg_mat[,2], type="l", col = "black")
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/base-lineplot-1.svg" alt="R 기본 선 그래프: plot(), lines() 함수 사용"  />
+<img src="05-data-visualization_files/figure-html/base-lineplot-1.svg" alt="R 기본 선 그래프: plot(), lines() 함수 사용" width="672" />
 <p class="caption">(\#fig:base-lineplot)R 기본 선 그래프: plot(), lines() 함수 사용</p>
 </div>
 
@@ -2546,7 +2537,7 @@ gmap +
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/ggplot-bar-intro-a-1.svg" alt="ggplot()과 geom_bar()을 이용한 막대 도표"  />
+<img src="05-data-visualization_files/figure-html/ggplot-bar-intro-a-1.svg" alt="ggplot()과 geom_bar()을 이용한 막대 도표" width="672" />
 <p class="caption">(\#fig:ggplot-bar-intro-a)ggplot()과 geom_bar()을 이용한 막대 도표</p>
 </div>
 
@@ -2565,7 +2556,7 @@ gmap +
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/ggplot-bar-intro-b-1.svg" alt="x와 fill의 mapping 변경"  />
+<img src="05-data-visualization_files/figure-html/ggplot-bar-intro-b-1.svg" alt="x와 fill의 mapping 변경" width="672" />
 <p class="caption">(\#fig:ggplot-bar-intro-b)x와 fill의 mapping 변경</p>
 </div>
 
@@ -2586,7 +2577,7 @@ gmap +
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-epub3/ggplot-line-intro-1.svg" alt="geom_line()을 이용한 선 그래프 생성"  />
+<img src="05-data-visualization_files/figure-html/ggplot-line-intro-1.svg" alt="geom_line()을 이용한 선 그래프 생성" width="672" />
 <p class="caption">(\#fig:ggplot-line-intro)geom_line()을 이용한 선 그래프 생성</p>
 </div>
 
@@ -2744,7 +2735,7 @@ gpcol + geom_bar(fill = "navy") +
   labs(title = "fill = 'navy'")
 ```
 
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-63-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-63-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-63-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-63-2.svg" width="50%" />
 
  \normalsize
 
@@ -2760,7 +2751,7 @@ gpcol + geom_bar(color = "red", fill = "white")+
     labs(title = "color = 'red', fill = 'white'")
 ```
 
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-64-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-64-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-64-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-64-2.svg" width="50%" />
 
  \normalsize
 
@@ -2779,7 +2770,7 @@ gpcol +
   labs(title = "Colored by fuel types (fl)")
 ```
 
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-65-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-65-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-65-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-65-2.svg" width="50%" />
 
  \normalsize
 
@@ -2802,7 +2793,7 @@ gpalpha + geom_point(alpha = 0.1) +
   labs(title = "alpha = 0.1")
 ```
 
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-66-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-66-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-66-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-66-2.svg" width="50%" />
 
  \normalsize
 
@@ -2828,7 +2819,7 @@ gpgroup_l <- gpgroup + geom_line(aes(group = country),
 gpgroup_l
 ```
 
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-67-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-67-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-67-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-67-2.svg" width="50%" />
 
  \normalsize
 
@@ -2855,7 +2846,7 @@ gpgroup_l +
               se = FALSE)
 ```
 
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-68-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-68-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-68-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-68-2.svg" width="50%" />
 
  \normalsize
 
@@ -2876,7 +2867,7 @@ gpsize + geom_point(aes(size = hp),
                     alpha = 0.5)
 ```
 
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-69-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-69-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-69-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-69-2.svg" width="50%" />
 
  \normalsize
 
@@ -2900,7 +2891,7 @@ gpshape +
 #              size = 4)
 ```
 
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-70-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-70-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-70-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-70-2.svg" width="50%" />
 
  \normalsize
 
@@ -2927,7 +2918,7 @@ gplty +
             size = 0.5)
 ```
 
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-71-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-71-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-71-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-71-2.svg" width="50%" />
 
  \normalsize
 
@@ -2959,7 +2950,7 @@ gpline +
 gpline
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-72-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-72-1.svg" width="672" />
 
  \normalsize
 
@@ -2982,7 +2973,7 @@ gppath <- gapm %>%
 gppath + geom_path(aes(group = country))
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-73-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-73-1.svg" width="672" />
 
  \normalsize
 
@@ -3003,7 +2994,7 @@ gppath +
              size = 2)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-74-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-74-1.svg" width="672" />
 
  \normalsize
 
@@ -3023,7 +3014,7 @@ gpline +
 gplines
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-75-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-75-1.svg" width="672" />
 
  \normalsize
 
@@ -3049,7 +3040,7 @@ gplines +
   ggtitle("Adding a vertical line: mean of year")
 ```
 
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-76-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-76-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-76-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-76-2.svg" width="50%" />
 
  \normalsize
 
@@ -3076,7 +3067,7 @@ gppoint +
   geom_point(size = 1)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-77-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-77-1.svg" width="672" />
 
  \normalsize
 
@@ -3095,7 +3086,7 @@ gppoint +
              alpha = 0.3)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-78-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-78-1.svg" width="672" />
 
  \normalsize
 
@@ -3111,7 +3102,7 @@ gppoint2 <- ggplot(data = mpg,
 gppoint2 + geom_point(size = 3)
 ```
 
-![](05-data-visualization_files/figure-epub3/unnamed-chunk-79-1.svg)<!-- -->
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-79-1.svg" width="672" />
 
  \normalsize
 
@@ -3133,27 +3124,52 @@ gppoint2 +
   ggtitle("Jittering using geom_jitter()")
 ```
 
-<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-80-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-80-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-html/unnamed-chunk-80-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-80-2.svg" width="50%" />
+
+ \normalsize
+
+### Geoms: 막대 geometrics {#geom-bars}
+
+- `geom_bar()`: 범주형(factor 또는 문자열) 변수에 대응하는 케이스의 수를 막대의 높이로 나타냄.
+   - 기본적으로 `stat_count()`를 통해 각 집단 별 케이스 수가 그래프에 표현
+   - 함수 내 `stat` 인수 값을 "identity"로 설정 시 데이터 값 표현 가능
+- `geom_col()`: 데이터 값 자체를 높이로 표현
+   - `stat_identity()`를 사용
+
+\footnotesize
+
+
+```r
+# geom_bar(), geom_col() 주요 함수 인수
+<MAPPING> = aes() 함수를 통해 수행
+            geom_bar()의 경우 aes() 내 x 위치에 대응하는
+            변수명만 입력해도 되지만, geom_col()의 경우, 
+            x, y 에 대응하는 변수 모두 입력
+<ARGUMENTS>
+  - width: 상자의 너비 조정
+  - positon: 문자열 또는 위치 조정 관련 함수 호출 가능
+    두 개 이상의 범주가 한 그래프에 표현된 경우, 
+    디폴트 값은 "stack" (position_stack() 호출). 
+```
 
  \normalsize
 
 
+#### `geom_bar()`
 
 
 
-<!-- #### `geom_bar()` -->
+#### `geom_errorbar()`
 
-<!-- #### `geom_errorbar()` -->
+#### `geom_text()`
 
-<!-- #### `geom_text()` -->
+#### `geom_histogram()`
 
-<!-- #### `geom_histogram()` -->
+#### `geom_boxplot()`
 
-<!-- #### `geom_boxplot()` -->
+#### `geom_density()`
 
-<!-- #### `geom_density()` -->
-
-<!-- #### `geom_smooth()` -->
+#### `geom_smooth()`
 
 
 <!-- ### Scales -->
