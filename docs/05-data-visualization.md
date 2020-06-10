@@ -23,11 +23,16 @@
 
 \footnotesize
 
-<div data-pagedtable="false">
-  <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["x3"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["x4"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["y1"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["y2"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["y3"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["y4"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"10","3":"10","4":"8","5":"8.04","6":"9.14","7":"7.46","8":"6.58","_rn_":"1"},{"1":"8","2":"8","3":"8","4":"8","5":"6.95","6":"8.14","7":"6.77","8":"5.76","_rn_":"2"},{"1":"13","2":"13","3":"13","4":"8","5":"7.58","6":"8.74","7":"12.74","8":"7.71","_rn_":"3"},{"1":"9","2":"9","3":"9","4":"8","5":"8.81","6":"8.77","7":"7.11","8":"8.84","_rn_":"4"},{"1":"11","2":"11","3":"11","4":"8","5":"8.33","6":"9.26","7":"7.81","8":"8.47","_rn_":"5"},{"1":"14","2":"14","3":"14","4":"8","5":"9.96","6":"8.10","7":"8.84","8":"7.04","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+
+```
+  x1 x2 x3 x4   y1   y2    y3   y4
+1 10 10 10  8 8.04 9.14  7.46 6.58
+2  8  8  8  8 6.95 8.14  6.77 5.76
+3 13 13 13  8 7.58 8.74 12.74 7.71
+4  9  9  9  8 8.81 8.77  7.11 8.84
+5 11 11 11  8 8.33 9.26  7.81 8.47
+6 14 14 14  8 9.96 8.10  8.84 7.04
+```
 
 ```
       x1       x2       x3       x4       y1       y2       y3       y4 
@@ -40,7 +45,7 @@
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-3-1.svg" alt="Anscombe's quartet: https://goo.gl/Ugv3Cz 에서 스크립트 발췌" width="768" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-3-1.svg" alt="Anscombe's quartet: https://goo.gl/Ugv3Cz 에서 스크립트 발췌"  />
 <p class="caption">(\#fig:unnamed-chunk-3)Anscombe's quartet: https://goo.gl/Ugv3Cz 에서 스크립트 발췌</p>
 </div>
 
@@ -75,7 +80,7 @@
 \footnotesize
 
 <div class="figure" style="text-align: center">
-<img src="05-data-visualization_files/figure-html/r-graphic-layout-1.svg" alt="R 그래프영역" width="768" />
+<img src="05-data-visualization_files/figure-epub3/r-graphic-layout-1.svg" alt="R 그래프영역"  />
 <p class="caption">(\#fig:r-graphic-layout)R 그래프영역</p>
 </div>
 
@@ -164,7 +169,7 @@ class(mtcars)
 plot(mtcars)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-6-1.svg" width="864" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-6-1.svg)<!-- -->
 
  \normalsize
 
@@ -195,7 +200,7 @@ null device
           1 
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-7-1.svg" width="864" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-7-1.svg)<!-- -->
 
  \normalsize
 
@@ -215,7 +220,7 @@ class(Titanic)
 plot(Titanic)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-8-1.svg" width="864" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-8-1.svg)<!-- -->
 
  \normalsize
 
@@ -234,7 +239,7 @@ y <- mtcars$mpg
 plot(x); plot(y)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-9-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-9-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-9-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-9-2.svg" width="50%" />
 
  \normalsize
 
@@ -248,7 +253,7 @@ plot(x); plot(y)
 plot(x, y)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-10-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-10-1.svg)<!-- -->
 
  \normalsize
 
@@ -317,7 +322,7 @@ for (i in 1:length(ctype)) {
 }
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-12-1.svg" width="960" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-12-1.svg)<!-- -->
 
 ```r
 par(op)
@@ -354,7 +359,7 @@ for (i in 1:6) {
 par(op)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-13-1.svg" width="672" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-13-1.svg)<!-- -->
 
  \normalsize
 
@@ -386,7 +391,7 @@ null device
           1 
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-14-1.svg" width="960" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-14-1.svg)<!-- -->
 
  \normalsize
 
@@ -417,7 +422,7 @@ for (i in 1:length(line_type)) {
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/plot-linetype-1.svg" alt="lty 파라미터 값에 따른 선 형태" width="768" />
+<img src="05-data-visualization_files/figure-epub3/plot-linetype-1.svg" alt="lty 파라미터 값에 따른 선 형태"  />
 <p class="caption">(\#fig:plot-linetype)lty 파라미터 값에 따른 선 형태</p>
 </div>
 
@@ -445,7 +450,7 @@ text(coord + 0.2, labels = 1:25, cex = 1)
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/plot-symbol-1.svg" alt="R graphics 점 표현 기호 및 대응 번호" width="672" />
+<img src="05-data-visualization_files/figure-epub3/plot-symbol-1.svg" alt="R graphics 점 표현 기호 및 대응 번호"  />
 <p class="caption">(\#fig:plot-symbol)R graphics 점 표현 기호 및 대응 번호</p>
 </div>
 
@@ -485,7 +490,7 @@ plot(BOD, type = "p",
      sub = "Subtitle")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-15-1.svg" width="864" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-15-1.svg)<!-- -->
 
  \normalsize
 
@@ -514,7 +519,7 @@ for (i in 1:5) {
 }
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-16-1.svg" width="672" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-16-1.svg)<!-- -->
 
  \normalsize
 
@@ -556,7 +561,7 @@ for (i in 1:5) {
 car::scatterplot(mpg ~ disp, data = mtcars)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-18-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-18-1.svg)<!-- -->
 
  \normalsize
 
@@ -572,7 +577,7 @@ car::scatterplot(mpg ~ disp, data = mtcars,
                  col = "black", cex = 2, pch = 16)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-19-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-19-1.svg)<!-- -->
 
  \normalsize
 
@@ -589,7 +594,7 @@ car::scatterplot(mpg ~ disp, data = mtcars,
 plot(iris)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-20-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-20-1.svg)<!-- -->
 
  \normalsize
 
@@ -607,7 +612,7 @@ plot(iris)
 car::scatterplotMatrix(iris, col = "black")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-21-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-21-1.svg)<!-- -->
 
  \normalsize
 
@@ -625,7 +630,7 @@ car::scatterplotMatrix(iris, col = c("red", "blue", "green"),
                        pch = (15:17))
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-22-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-22-1.svg)<!-- -->
 
  \normalsize
 
@@ -667,7 +672,7 @@ plot(X[, 1], X[, 2], type = "l",
 text(0.2, 0.05, labels = "plot(X[,1], X[,2], type = `l`)")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-23-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-23-1.svg)<!-- -->
 
  \normalsize
 
@@ -691,7 +696,7 @@ matplot(x, X, type = "l",
         main = "matplot() with x")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-24-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-24-1.svg)<!-- -->
 
  \normalsize
 
@@ -743,7 +748,7 @@ temp <- airquality$Temp
 hist(temp)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-26-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-26-1.svg)<!-- -->
 
  \normalsize
 
@@ -801,7 +806,7 @@ freq = FALSE
 )
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-28-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-28-1.svg)<!-- -->
 
  \normalsize
 
@@ -822,7 +827,7 @@ labels = TRUE
 )
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-29-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-29-1.svg)<!-- -->
 
  \normalsize
 
@@ -843,7 +848,7 @@ null device
           1 
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-30-1.svg" width="960" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-30-1.svg)<!-- -->
 
  \normalsize
 
@@ -862,7 +867,7 @@ par(mfrow = c(1, 2))
 hist(x); barplot(x)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-31-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-31-1.svg)<!-- -->
 
  \normalsize
 
@@ -881,11 +886,15 @@ hist(x); barplot(x)
 head(warpbreaks)
 ```
 
-<div data-pagedtable="false">
-  <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["breaks"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["wool"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["tension"],"name":[3],"type":["fctr"],"align":["left"]}],"data":[{"1":"26","2":"A","3":"L","_rn_":"1"},{"1":"30","2":"A","3":"L","_rn_":"2"},{"1":"54","2":"A","3":"L","_rn_":"3"},{"1":"25","2":"A","3":"L","_rn_":"4"},{"1":"70","2":"A","3":"L","_rn_":"5"},{"1":"52","2":"A","3":"L","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+```
+  breaks wool tension
+1     26    A       L
+2     30    A       L
+3     54    A       L
+4     25    A       L
+5     70    A       L
+6     52    A       L
+```
 
 ```r
 count <- with(warpbreaks, 
@@ -906,7 +915,7 @@ barplot(count, legend = TRUE, beside = TRUE,
         cex.lab = 1.5) # 분리 형태
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-32-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-32-1.svg)<!-- -->
 
  \normalsize
 
@@ -936,7 +945,7 @@ sem <- matrix(se_breaks$breaks, 2, 3)
 arrows(bp, cent - sem, bp, cent + sem, angle = 90, code = 3, length = 0.05)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-33-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-33-1.svg)<!-- -->
 
  \normalsize
 
@@ -979,7 +988,7 @@ text(x = -0.1, y = 1.3,
      adj = 0.5, pos = 3) # 
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-34-1.svg" width="864" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-34-1.svg)<!-- -->
 
  \normalsize
 
@@ -1061,7 +1070,7 @@ boxplot(xl,
         col = "lightgray")
 ```
 
-<img src="05-data-visualization_files/figure-html/boxplot-ex-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/boxplot-ex-1.svg)<!-- -->
 
  \normalsize
 
@@ -1108,7 +1117,7 @@ vioplot::vioplot(xl,
                 col = rainbow(4))
 ```
 
-<img src="05-data-visualization_files/figure-html/vioplot-ex-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/vioplot-ex-1.svg)<!-- -->
 
  \normalsize
 
@@ -1128,7 +1137,7 @@ vioplot::vioplot(xl,
 
 \footnotesize
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-37-1.svg" width="864" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-37-1.svg)<!-- -->
 
  \normalsize
 
@@ -1200,7 +1209,7 @@ mosaicplot(~ Dept + Admit + Gender, data = UCBAdmissions,
            color = TRUE)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-39-1.svg" width="960" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-39-1.svg)<!-- -->
 
  \normalsize
 
@@ -1228,7 +1237,7 @@ mtext(
 )
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-40-1.svg" width="960" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-40-1.svg)<!-- -->
 
  \normalsize
 
@@ -1359,7 +1368,7 @@ par("mar")
 
 \footnotesize
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-43-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-43-1.svg)<!-- -->
 
  \normalsize
 
@@ -1369,7 +1378,7 @@ par("mar")
 
 \footnotesize
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-44-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-44-1.svg)<!-- -->
 
  \normalsize
 
@@ -1425,7 +1434,7 @@ plot_dim(0.5, 0.05, op, "Default plot dimensions", cex = 0.8)
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/fig-anatomy-1.svg" alt="fig 인수 조정 예시: Graphical parameters of R graphics package에서 발췌" width="672" />
+<img src="05-data-visualization_files/figure-epub3/fig-anatomy-1.svg" alt="fig 인수 조정 예시: Graphical parameters of R graphics package에서 발췌"  />
 <p class="caption">(\#fig:fig-anatomy)fig 인수 조정 예시: Graphical parameters of R graphics package에서 발췌</p>
 </div>
 
@@ -1441,7 +1450,7 @@ plot_dim(0.5, 0.05, op, "Default plot dimensions", cex = 0.8)
 \footnotesize
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/mar-anatomy-1.svg" alt="Figure 영역에서 기본 여백: Graphical parameters of R graphics package 에서 발췌" width="672" />
+<img src="05-data-visualization_files/figure-epub3/mar-anatomy-1.svg" alt="Figure 영역에서 기본 여백: Graphical parameters of R graphics package 에서 발췌"  />
 <p class="caption">(\#fig:mar-anatomy)Figure 영역에서 기본 여백: Graphical parameters of R graphics package 에서 발췌</p>
 </div>
 
@@ -1484,7 +1493,7 @@ mtext(side = 3, line = 1, cex = 0.8, col = "blue",
     outer = TRUE)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-45-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-45-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-45-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-45-2.svg" width="50%" />
 
  \normalsize
 
@@ -1520,7 +1529,7 @@ mtext(side = 3, line = 1, cex = 0.8, col = "blue",
     outer = TRUE)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-46-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-46-1.svg)<!-- -->
 
  \normalsize
 
@@ -1548,7 +1557,7 @@ mtext(side = 3, line = 1, cex = 1, col = "blue",
       outer = TRUE)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-47-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-47-1.svg)<!-- -->
 
  \normalsize
 
@@ -1586,7 +1595,7 @@ mtext(side = 3, line = 1, cex = 0.8, col = "blue",
       outer = TRUE)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-48-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-48-1.svg)<!-- -->
 
  \normalsize
 
@@ -1617,7 +1626,7 @@ vioplot::vioplot(Sepal.Length ~ Species,
                  ann = FALSE)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-49-1.svg" width="960" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-49-1.svg)<!-- -->
 
  \normalsize
 
@@ -1631,7 +1640,7 @@ vioplot::vioplot(Sepal.Length ~ Species,
 \footnotesize
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/oma-anatomy-1.svg" alt="Outer 여백 조정 파라미터(mar = c(2, 3, 3, 1)) Graphical parameters of R graphics package에서 발췌" width="864" />
+<img src="05-data-visualization_files/figure-epub3/oma-anatomy-1.svg" alt="Outer 여백 조정 파라미터(mar = c(2, 3, 3, 1)) Graphical parameters of R graphics package에서 발췌"  />
 <p class="caption">(\#fig:oma-anatomy)Outer 여백 조정 파라미터(mar = c(2, 3, 3, 1)) Graphical parameters of R graphics package에서 발췌</p>
 </div>
 
@@ -1670,7 +1679,7 @@ points(iris$Sepal.Length,
        cex = 1.5)
 ```
 
-<img src="05-data-visualization_files/figure-html/points-ex-1.svg" width="960" />
+![](05-data-visualization_files/figure-epub3/points-ex-1.svg)<!-- -->
 
  \normalsize
 
@@ -1684,7 +1693,7 @@ points(iris$Sepal.Length,
 \footnotesize
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/plot-linewidth-1.svg" alt="선 두께(lwd) 파라미터: Graphical parameters of R graphics package 에서 발췌" width="672" />
+<img src="05-data-visualization_files/figure-epub3/plot-linewidth-1.svg" alt="선 두께(lwd) 파라미터: Graphical parameters of R graphics package 에서 발췌"  />
 <p class="caption">(\#fig:plot-linewidth)선 두께(lwd) 파라미터: Graphical parameters of R graphics package 에서 발췌</p>
 </div>
 
@@ -1734,7 +1743,7 @@ text(2.1, max(y[,3]),
 mtext("Normal distribution", side = 3, adj = 0.2, cex = 2)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-50-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-50-1.svg)<!-- -->
 
  \normalsize
 
@@ -1797,7 +1806,7 @@ text(350, mean(mtcars$mpg),
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/abline-example-1.svg" alt="abline(), lines() 함수를 이용한 회귀직선 및 오차 거리 표시 예제" width="768" />
+<img src="05-data-visualization_files/figure-epub3/abline-example-1.svg" alt="abline(), lines() 함수를 이용한 회귀직선 및 오차 거리 표시 예제"  />
 <p class="caption">(\#fig:abline-example)abline(), lines() 함수를 이용한 회귀직선 및 오차 거리 표시 예제</p>
 </div>
 
@@ -1859,7 +1868,7 @@ for (i in 1:3) {
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/arrow-type-1.svg" alt="arrows() 함수 주요 파라미터 변경에 따른 화살표 출력 결과" width="672" />
+<img src="05-data-visualization_files/figure-epub3/arrow-type-1.svg" alt="arrows() 함수 주요 파라미터 변경에 따른 화살표 출력 결과"  />
 <p class="caption">(\#fig:arrow-type)arrows() 함수 주요 파라미터 변경에 따른 화살표 출력 결과</p>
 </div>
 
@@ -1895,7 +1904,7 @@ grid()
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/rectangle-coord-1.svg" alt="rect() 좌표 인수" width="672" />
+<img src="05-data-visualization_files/figure-epub3/rectangle-coord-1.svg" alt="rect() 좌표 인수"  />
 <p class="caption">(\#fig:rectangle-coord)rect() 좌표 인수</p>
 </div>
 
@@ -1938,16 +1947,8 @@ y <- sin(theta2)
 x2 <- 2*x + 7; y2 <- -2*y + 7
 polygon(x2, y2,
         col = "#05B8FF",
-        bolder = "black",
+        border = "black",
         lwd = 4)
-```
-
-```
-Warning in polygon(x2, y2, col = "#05B8FF", bolder = "black", lwd = 4):
-"bolder"는 그래픽 매개변수가 아닙니다
-```
-
-```r
 text(7, 9.2, "Octagon", adj = 0.5, pos = 3, cex = 1.5)
 
 # 별표시
@@ -1970,7 +1971,7 @@ polygon(x4, y4, lwd = 3) # 직각표시
 text(7, 4.1, "Triangle (perpendicular)", adj = 0.5, pos = 3, cex = 1.5)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-51-1.svg" width="672" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-51-1.svg)<!-- -->
 
  \normalsize
 
@@ -2004,7 +2005,7 @@ text(x = 0.5, y = 0.15,
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/polygon-example-1.svg" alt="polygon()을 이용한 확률밀도함수 곡선 아래 면적 표시 예시" width="768" />
+<img src="05-data-visualization_files/figure-epub3/polygon-example-1.svg" alt="polygon()을 이용한 확률밀도함수 곡선 아래 면적 표시 예시"  />
 <p class="caption">(\#fig:polygon-example)polygon()을 이용한 확률밀도함수 곡선 아래 면적 표시 예시</p>
 </div>
 
@@ -2137,7 +2138,7 @@ mtext("mtext parameter check",
       adj = 0)
 ```
 
-<img src="05-data-visualization_files/figure-html/mtext-anatomy-1.svg" width="864" />
+![](05-data-visualization_files/figure-epub3/mtext-anatomy-1.svg)<!-- -->
 
  \normalsize
 
@@ -2172,7 +2173,7 @@ legend("top",
        ncol = 3) # # legend 영역 열 개수 지정
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-54-1.svg" width="864" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-54-1.svg)<!-- -->
 
  \normalsize
 
@@ -2332,7 +2333,7 @@ mtext(expression(paste("Respiration", ~(mL ~O[2] ~ h^-1))),
       cex = 1.5)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-55-1.svg" width="768" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-55-1.svg)<!-- -->
 
  \normalsize
 
@@ -2478,7 +2479,7 @@ barplot(tg_mat, beside = TRUE)
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/base-barplot-a-1.svg" alt="R 기본 barplot() 생성 그래프" width="672" />
+<img src="05-data-visualization_files/figure-epub3/base-barplot-a-1.svg" alt="R 기본 barplot() 생성 그래프"  />
 <p class="caption">(\#fig:base-barplot-a)R 기본 barplot() 생성 그래프</p>
 </div>
 
@@ -2495,7 +2496,7 @@ barplot(t(tg_mat), beside = TRUE)
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/base-barplot-b-1.svg" alt="R 기본 barplot() 생성 그래프: 데이터 전치" width="672" />
+<img src="05-data-visualization_files/figure-epub3/base-barplot-b-1.svg" alt="R 기본 barplot() 생성 그래프: 데이터 전치"  />
 <p class="caption">(\#fig:base-barplot-b)R 기본 barplot() 생성 그래프: 데이터 전치</p>
 </div>
 
@@ -2512,7 +2513,7 @@ lines(tg_mat[,2], type="l", col = "black")
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/base-lineplot-1.svg" alt="R 기본 선 그래프: plot(), lines() 함수 사용" width="672" />
+<img src="05-data-visualization_files/figure-epub3/base-lineplot-1.svg" alt="R 기본 선 그래프: plot(), lines() 함수 사용"  />
 <p class="caption">(\#fig:base-lineplot)R 기본 선 그래프: plot(), lines() 함수 사용</p>
 </div>
 
@@ -2537,7 +2538,7 @@ gmap +
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/ggplot-bar-intro-a-1.svg" alt="ggplot()과 geom_bar()을 이용한 막대 도표" width="672" />
+<img src="05-data-visualization_files/figure-epub3/ggplot-bar-intro-a-1.svg" alt="ggplot()과 geom_bar()을 이용한 막대 도표"  />
 <p class="caption">(\#fig:ggplot-bar-intro-a)ggplot()과 geom_bar()을 이용한 막대 도표</p>
 </div>
 
@@ -2556,7 +2557,7 @@ gmap +
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/ggplot-bar-intro-b-1.svg" alt="x와 fill의 mapping 변경" width="672" />
+<img src="05-data-visualization_files/figure-epub3/ggplot-bar-intro-b-1.svg" alt="x와 fill의 mapping 변경"  />
 <p class="caption">(\#fig:ggplot-bar-intro-b)x와 fill의 mapping 변경</p>
 </div>
 
@@ -2577,7 +2578,7 @@ gmap +
 ```
 
 <div class="figure">
-<img src="05-data-visualization_files/figure-html/ggplot-line-intro-1.svg" alt="geom_line()을 이용한 선 그래프 생성" width="672" />
+<img src="05-data-visualization_files/figure-epub3/ggplot-line-intro-1.svg" alt="geom_line()을 이용한 선 그래프 생성"  />
 <p class="caption">(\#fig:ggplot-line-intro)geom_line()을 이용한 선 그래프 생성</p>
 </div>
 
@@ -2735,7 +2736,7 @@ gpcol + geom_bar(fill = "navy") +
   labs(title = "fill = 'navy'")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-63-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-63-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-63-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-63-2.svg" width="50%" />
 
  \normalsize
 
@@ -2751,7 +2752,7 @@ gpcol + geom_bar(color = "red", fill = "white")+
     labs(title = "color = 'red', fill = 'white'")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-64-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-64-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-64-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-64-2.svg" width="50%" />
 
  \normalsize
 
@@ -2770,7 +2771,7 @@ gpcol +
   labs(title = "Colored by fuel types (fl)")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-65-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-65-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-65-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-65-2.svg" width="50%" />
 
  \normalsize
 
@@ -2793,7 +2794,7 @@ gpalpha + geom_point(alpha = 0.1) +
   labs(title = "alpha = 0.1")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-66-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-66-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-66-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-66-2.svg" width="50%" />
 
  \normalsize
 
@@ -2819,7 +2820,7 @@ gpgroup_l <- gpgroup + geom_line(aes(group = country),
 gpgroup_l
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-67-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-67-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-67-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-67-2.svg" width="50%" />
 
  \normalsize
 
@@ -2846,7 +2847,7 @@ gpgroup_l +
               se = FALSE)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-68-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-68-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-68-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-68-2.svg" width="50%" />
 
  \normalsize
 
@@ -2867,7 +2868,7 @@ gpsize + geom_point(aes(size = hp),
                     alpha = 0.5)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-69-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-69-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-69-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-69-2.svg" width="50%" />
 
  \normalsize
 
@@ -2891,7 +2892,7 @@ gpshape +
 #              size = 4)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-70-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-70-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-70-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-70-2.svg" width="50%" />
 
  \normalsize
 
@@ -2918,7 +2919,7 @@ gplty +
             size = 0.5)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-71-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-71-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-71-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-71-2.svg" width="50%" />
 
  \normalsize
 
@@ -2950,7 +2951,7 @@ gpline +
 gpline
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-72-1.svg" width="672" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-72-1.svg)<!-- -->
 
  \normalsize
 
@@ -2973,7 +2974,7 @@ gppath <- gapm %>%
 gppath + geom_path(aes(group = country))
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-73-1.svg" width="672" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-73-1.svg)<!-- -->
 
  \normalsize
 
@@ -2994,7 +2995,7 @@ gppath +
              size = 2)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-74-1.svg" width="672" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-74-1.svg)<!-- -->
 
  \normalsize
 
@@ -3014,7 +3015,7 @@ gpline +
 gplines
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-75-1.svg" width="672" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-75-1.svg)<!-- -->
 
  \normalsize
 
@@ -3040,7 +3041,7 @@ gplines +
   ggtitle("Adding a vertical line: mean of year")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-76-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-76-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-76-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-76-2.svg" width="50%" />
 
  \normalsize
 
@@ -3067,7 +3068,7 @@ gppoint +
   geom_point(size = 1)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-77-1.svg" width="672" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-77-1.svg)<!-- -->
 
  \normalsize
 
@@ -3086,7 +3087,7 @@ gppoint +
              alpha = 0.3)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-78-1.svg" width="672" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-78-1.svg)<!-- -->
 
  \normalsize
 
@@ -3102,7 +3103,7 @@ gppoint2 <- ggplot(data = mpg,
 gppoint2 + geom_point(size = 3)
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-79-1.svg" width="672" />
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-79-1.svg)<!-- -->
 
  \normalsize
 
@@ -3124,7 +3125,7 @@ gppoint2 +
   ggtitle("Jittering using geom_jitter()")
 ```
 
-<img src="05-data-visualization_files/figure-html/unnamed-chunk-80-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-80-2.svg" width="50%" />
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-80-1.svg" width="50%" /><img src="05-data-visualization_files/figure-epub3/unnamed-chunk-80-2.svg" width="50%" />
 
  \normalsize
 
@@ -3150,48 +3151,1712 @@ gppoint2 +
   - positon: 문자열 또는 위치 조정 관련 함수 호출 가능
     두 개 이상의 범주가 한 그래프에 표현된 경우, 
     디폴트 값은 "stack" (position_stack() 호출). 
+    두 번째 범주에 해당하는 막대를 나란히 배열하고자 할 때, 
+    positon = "dodge", "dodge2", 또는 position_dodge(값) 사용
+```
+
+ \normalsize
+
+#### **Examples** {#geom-bars-example .unnumbered}
+
+\footnotesize
+
+
+```r
+# geom_bar()와 geom_col() 예시
+p1 <- ggplot(data = mpg, 
+       aes(x = class)) + 
+  geom_bar() + 
+  labs(title = "p2: Barplot via geom_bar()", 
+       caption = "The y-axis indicates the number of cases in each class")
+
+p2 <- mpg %>% 
+  group_by(class) %>% 
+  summarise(mean = mean(cty)) %>% 
+  ggplot(aes(x = class, y = mean)) + 
+  geom_col() +
+  labs(title = "p1: Barplot via geom_col()", 
+       caption = "The y axis indicates the identical values of means")
+```
+
+ \normalsize
+
+\footnotesize
+
+![](05-data-visualization_files/figure-epub3/bar-plots-ex-1.svg)<!-- -->
+
+ \normalsize
+
+
+\footnotesize
+
+
+```r
+# geom_bar(stat = "identity") 인 경우 geom_col()과 동일한 결과 도출
+p1 <- mpg %>% 
+  group_by(class) %>% 
+  summarise(mean = mean(cty)) %>% 
+  ggplot(aes(x = class, y = mean)) + 
+  geom_bar(stat = "identity") +
+  labs(title = "p1: Barplot via geom_bar(stat = 'identity')")
+```
+
+```
+`summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```r
+# 막대도표 x-y 축 변환
+# 이 경우 geom_bar()에 aesthetic 추가
+p2 <- ggplot(mpg) + 
+  geom_bar(aes(y = class)) + 
+  labs(title = "p2: Map 'class' variable to y")
 ```
 
  \normalsize
 
 
-#### `geom_bar()`
+\footnotesize
+
+![](05-data-visualization_files/figure-epub3/bar-plots-ex2-1.svg)<!-- -->
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+# diamonds dataset
+# 2개의 범주형 변수가 aesthetic에 mapping된 경우
+# stacked barplot
+gbar_init <- ggplot(data = diamonds) + 
+  aes(x = color, fill = cut)
+p1 <- gbar_init + 
+  geom_bar()
+  
+# fill에 해당하는 범주에 대해 나란히 배열
+p2 <- gbar_init + 
+  geom_bar(position = "dodge2")
+```
+
+ \normalsize
+
+\footnotesize
+
+![](05-data-visualization_files/figure-epub3/bar-plots-ex3-1.svg)<!-- -->
+
+ \normalsize
+
+- 막대도표 값 순으로 정렬하기
+
+\footnotesize
+
+
+```r
+# gapminder region 별 중위수 계산
+gapm_median <- gapm %>%
+  filter(year == 2015) %>%
+  group_by(region) %>%
+  summarise(median = median(gdp_cap, na.rm = TRUE))
+```
+
+```
+`summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```r
+p1 <- ggplot(gapm_median) + 
+  aes(x = region, y = median) + 
+  geom_bar(stat = "identity") + 
+  coord_flip()
+
+p2 <- gapm_median %>% 
+  mutate(region = reorder(region, median)) %>% 
+  ggplot(aes(x = region, y = median)) +
+  geom_bar(stat = "identity") +
+  coord_flip() # x-y 축 뒤집기
+```
+
+ \normalsize
+
+
+\footnotesize
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-86-1.svg)<!-- -->
+
+ \normalsize
 
 
 
-#### `geom_errorbar()`
 
-#### `geom_text()`
+### Geom: 수직 범위선 관련 geometrics {#geom-intervals}
 
-#### `geom_histogram()`
+오차 막대, 신뢰구간 등을 도식화 할 때 많이 활용되며 데이터의 변수를 mapping 시 위치 관련 aesthetic에 `x`, `y` 외에 `ymin`(또는 `xmin`), `ymax`(또는 `xmax`)가 사용
 
-#### `geom_boxplot()`
+- `geom_errorbar()`: 주어진 범위(구간) 내 오차막대(errorbar) 생성 $\rightarrow$ 오차막대는 선 끝에 범위 선과 수직인 선이 생성
+- `geom_linerange()`: 주어진 범위(구간) 내 선 생성
 
-#### `geom_density()`
-
-#### `geom_smooth()`
+\footnotesize
 
 
-<!-- ### Scales -->
+```r
+# geom_errorbar(), geom_linerange() 주요 함수 인수
+<MAPPING> = 기본 x, y에 대한 aesthetic 기본 mapping 이외
+            범위를 지정하는 ymin (ymax), xmin (ymax) 지정 필수
 
-<!-- #### labs() -->
+<ARGUMENTS>
+  - width: geom_errorbar()에서 범위선에 수직인 선의 너비 짖어
+  - positon: 문자열 또는 위치 조정 관련 함수 호출 가능
+    positon = "dodge", "dodge2", 또는 position_dodge(값) 사용
+```
 
-<!-- #### `scale_x_*`, `scale_y_*` -->
-
-
-<!-- ### Coordinate systems -->
-
-<!-- ### Guides -->
-
+ \normalsize
 
 
-<!-- ### Themes -->
+\footnotesize
 
-<!-- #### `theme()` -->
 
-<!-- #### `facet_grid()`, `facet_wrap()` -->
+```r
+# geom_errorbar() 예시
+# diamonds cut, color에 따른 carat의 평균, 표준편차,  95% 신뢰구간 계산
+# dplyr + pipe operator를 이용한 통계량 계산
+carat_summ <- diamonds %>% 
+  group_by(cut, color) %>% 
+  summarise(N = n(), 
+            mean = mean(carat), 
+            sd = sd(carat)) %>% 
+  # 95 % 신뢰구간(모분산 모른다고 가정)
+  mutate(lcl = mean - qt(0.975, N-1)*sd/sqrt(N), 
+         ucl = mean + qt(0.975, N-1)*sd/sqrt(N))
+```
 
-<!-- #### `coord_flip()` -->
+```
+`summarise()` regrouping output by 'cut' (override with `.groups` argument)
+```
+
+```r
+gerror_init <- ggplot(data = carat_summ) + 
+  aes(x = cut, y = mean, color = color) 
+
+# 오차 막대 도표 (디폴트) 오차 범위는 95 % 신뢰구간
+gerror_init + 
+  geom_errorbar(aes(ymin = lcl, 
+                    ymax = ucl))
+```
+
+![](05-data-visualization_files/figure-epub3/errorbar-ex1-1.svg)<!-- -->
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+# 오차 막대 도표2
+# 선과 점 추가
+# 집단 별 위치 및 막대 조정
+gerror_init + 
+  geom_errorbar(aes(ymin = lcl, 
+                    ymax = ucl), 
+                width = 0.1,  # 선 너비 지정
+                position = position_dodge(0.8)) + 
+  geom_line(aes(group = color)) + 
+  geom_point(size = 3)
+```
+
+![](05-data-visualization_files/figure-epub3/errobar-ex2-1.svg)<!-- -->
+
+ \normalsize
+
+- 평균-95 % 신뢰구간 오차 막대 도표 예시
+
+\footnotesize
+
+
+```r
+# 점과 선에 대해서도 동일하게 position 조정 필요
+# position은 수동으로 조정("dodge" 등 대신 position_dodge(value) 입력)
+gerror_init + 
+  geom_errorbar(aes(ymin = lcl, 
+                    ymax = ucl), 
+                width = 0.1,  # 선 너비 지정
+                position = position_dodge(0.8)) + 
+  geom_line(aes(group = color), 
+            position = position_dodge(0.8)) + 
+  geom_point(size = 3, 
+             position = position_dodge(0.8))
+```
+
+![](05-data-visualization_files/figure-epub3/errobar-ex3-1.svg)<!-- -->
+
+ \normalsize
+
+
+- 막대도표 위에 오차 막대 표시 예제
+
+\footnotesize
+
+
+```r
+# warpbreaks 데이터
+# R 기본 그래픽스 barplot() 예제와 동일한 그래프 생성
+
+break_summ <- warpbreaks %>%
+  group_by(wool, tension) %>% 
+  summarise(N = n(),  
+            mean = mean(breaks), 
+            sem = sd(breaks)/sqrt(N)) 
+```
+
+```
+`summarise()` regrouping output by 'wool' (override with `.groups` argument)
+```
+
+```r
+ggplot(data = break_summ) + 
+  aes(x = tension, y = mean, fill = wool) + # aesthetic 지정
+  geom_col(position = position_dodge(0.9), 
+           color = "black") + # 테두리 선 색상 지정(검정)
+  geom_errorbar(aes(ymin = mean - sem, 
+                    ymax = mean + sem), 
+                position = position_dodge(0.9), 
+                width = 0.1)
+```
+
+![](05-data-visualization_files/figure-epub3/errobar-ex4-1.svg)<!-- -->
+
+ \normalsize
+
+
+
+- 95 % 신뢰구간 시뮬레이션 예제
+
+\footnotesize
+
+
+```r
+# geom_linerange 예시
+# 정규 난수 생성
+# 표본 크기 n = 30, 반복 N = 200
+# 평균 mu = 20, 표준편차 sx = 10
+# 각 표본에 대한 95 % 신뢰구간 계산(모분산은 안다고 가정)
+set.seed(20200609)
+n <- 30; N = 200
+mu <- 20; sx <- 10
+X <- mapply(rnorm, 
+            rep(n, N), 
+            rep(mu, N), 
+            rep(sx, N))
+mi <- apply(X, 2, mean) # 각 반복에 대한 표본 평균 계산
+si <- apply(X, 2, sd) # 각 반복에 대한 표준편차 계산
+alpha <- 0.05 # 유의수준
+lower_ci <- mi - qnorm(1-alpha/2)*si/sqrt(n) # 신뢰구간 하한
+upper_ci <- mi + qnorm(1-alpha/2)*si/sqrt(n) # 신뢰구간 상한
+df_ci <- tibble(lower_ci, upper_ci) %>% 
+  mutate(nsim = seq_len(N), 
+         mu_contain = lower_ci <= mu & 
+           mu <= upper_ci)
+
+ggci_init <- ggplot(df_ci) +
+  aes(x = nsim) # simulation 횟수 정보
+
+ggci_init + 
+  geom_linerange(
+    aes(ymin = lower_ci, # 하한
+        ymax =upper_ci,  # 상한
+        color = mu_contain), # 색 지정
+    size = 1.2, 
+    alpha = 0.3
+  ) + 
+  geom_hline(yintercept = mu,
+             color = "tomato", 
+             size = 1)
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-88-1.svg)<!-- -->
+
+ \normalsize
+
+### Geoms: 텍스트 관련 geometrics {#geom-texts}
+
+x-y 좌표축에 텍스트를 추가하기 위한 함수. 여기서 미리 지정된 x-y aesthetic에 대한 매핑은 사용할 수 있으며, 별도의 aesthetic 정의를 통해 새로운 좌표점에 텍스트 추가 가능
+
+- `geom_text()`
+- `geom_label()`: 추가한 텍스트 뒤에 사각형을 동시에 출력
+
+\footnotesize
+
+
+```r
+<MAPPING>: 필수 aesthetic은 x, y, label 임
+
+다음 aesthetic 속성들은 geom_text() 또는 geom_label() 
+함수에서 인수(aes() 함수 외부)로 사용 가능
+
+- angle: 텍스트 각도 조정
+- family: 텍스트 폰트 페미리
+- fontface: 텍스트 형태("bold", "italic", "bold.italic", "plain" 가능)
+- hjust: 텍스트 수평 위치 조정
+- vjust: 텍스트 수직 위지 초정
+
+<ARGUMENTS> (중요 인수)
+  - parse: 논리값, 기본 그래픽스 수식 표현식(expression(), 또는 bquote()) 사용 여부
+  - check_overlap: 이전에 생성된 텍스트 위에 새로운 텍스트가 중첩(overlapping)될 경우
+                   인수값이 TRUE 이면 출력하지 않음. (geom_text()에서만 사용 가능)
+```
+
+ \normalsize
+
+- `geom_text() 예시`
+
+\footnotesize
+
+
+```r
+gtext_init <- mtcars %>% 
+  rownames_to_column(var = "model") %>% 
+  ggplot(aes(x = wt, y = mpg)) 
+
+gtext1 <- gtext_init + 
+  geom_text(aes(label = model), 
+            size = 4) +  # x-y aesthetic 사용
+  labs(title = "geom_text() with size = 4")
+  
+# 중첩되는 텍스트 제거
+gtext2 <- gtext_init + 
+  geom_text(aes(label = model), 
+            size = 4, 
+            check_overlap = TRUE) + 
+  labs(title = "Remove overlapped text with check_overlap = TRUE")
+
+# geom_label() 
+# check_overlap 옵션 사용할 수 없음
+gtext3 <- gtext_init + 
+  geom_label(aes(label = model), 
+             size = 4) + 
+  labs(title = "geom_label()")
+
+gtext4 <- gtext_init + 
+  geom_point(size = 1) + 
+  geom_text(aes(label = model, 
+                color = factor(cyl)), 
+            size = 4, 
+            fontface = "italic", 
+            check_overlap = TRUE) + 
+  labs(title = "Both points and texts: using italic fontface")
+```
+
+ \normalsize
+
+
+\footnotesize
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-91-1.svg)<!-- -->
+
+ \normalsize
+
+
+#### ggplot 텍스트 위치 조정 {#text-adjustment .unnumbered}
+
+R 기본 그래픽 함수 `text()` 함수의 `adj` 인수와 유사 
+
+- vjust: (-) 방향 $\uparrow$; middle = 0.5; (+) 방향 $\downarrow$
+- hjust: (-) 방향 $\rightarrow$; middle = 0.5; (+) 방향 $\leftarrow$
+
+\footnotesize
+
+\BeginKnitrBlock{rmdwarning}<div class="rmdwarning">`vjust`, `hjust` 모두 (0, 1) 밖의 값을 갖을 수 있으나, 이러한 위치 조정은 그래프의 크기에 상대적이기 때문에 해당 값들을 이용해 텍스트 위치를 과도하게 조정하는 것이 바람직한 방법은 아님. 
+</div>\EndKnitrBlock{rmdwarning}
+
+ \normalsize
+
+
+\footnotesize
+
+
+```r
+# hjust, vjust 별 문자 위치 표시
+adj_val <- c(-0.5, 0, 0.5, 1)
+df_adjust <- expand.grid(hjust = adj_val, 
+                         vjust = adj_val)
+df_adjust <- df_adjust %>% 
+  mutate(just_label = sprintf("(h=%.1f, v=%.1f)", 
+                              hjust, vjust))
+ggplot(data = df_adjust) + 
+  aes(x = hjust, y = vjust) + 
+  geom_point(color = "gray", 
+             alpha = 0.8, 
+             size = 5) + 
+  geom_text(aes(label = just_label, 
+                hjust = hjust, 
+                vjust = vjust))
+```
+
+<div class="figure">
+<img src="05-data-visualization_files/figure-epub3/unnamed-chunk-93-1.svg" alt="hjust와 vjust 값에 따른 텍스트 위치. https://ggplot2.tidyverse.org/articles/ggplot2-specs.html 인용"  />
+<p class="caption">(\#fig:unnamed-chunk-93)hjust와 vjust 값에 따른 텍스트 위치. https://ggplot2.tidyverse.org/articles/ggplot2-specs.html 인용</p>
+</div>
+
+ \normalsize
+
+
+#### geom_text() 수식(math) 표기 {#geomtext-math-expression .unnumbered}
+
+- R 기본 그래픽 함수에서 적용한 `expression()`, `bquote()` 함수를 이용해 수식 표현 가능.
+- `bquote()`를 이용 시 생성한 표현을 다시 parsing (문자열을 expression 구문으로 해석) 하기 위해 `deparse()` 함수를 통해 문자열로 변환해줘야 함. 이 때 텍스트가 `label`의 값으로 입력이 되기 때문에 `parse = TRUE` 로 설정해야만 수식 표현 가능
+
+\footnotesize
+
+
+```r
+set.seed(12345)
+x <- rnorm(100, 5, 2)
+df_dummy <- data.frame(x = 0, y = 0)
+# 정규분포 pdf 
+expr1 <- expression(paste(f, 
+                          "(", x, ";", list(mu, sigma), ")"
+                          == frac(1, sigma*sqrt(2*pi))*~~exp *
+                            bgroup('(', 
+                                   -frac((x-mu)^2, 
+                                         2*sigma^2), ')')))
+# 회귀계수 추정 공식
+expr2 <- expression(hat(bold(beta)) ==
+                    bgroup("(", bold(X)^T*bold(X), 
+                     ")")^-1*bold(X)^T*bold(y))
+# 그리스 문자
+expr3 <- expression(alpha[1]~~beta[2]~~gamma[3]~~delta[4]
+                    ~~epsilon[5]~~theta[6]~~pi[7])
+# 
+expr4 <- bquote(paste("Estimated" ~~ 
+                        hat(mu) == 
+                        .(sprintf("%.2f", mean(x)))))
+
+ggplot(data = df_dummy) + 
+  aes(x = x, y = y) + 
+  geom_point(size = 0) + 
+  geom_text(x = 0, y = 0, label = expr1, 
+            size = 10) + 
+  geom_text(x = 0, y = -0.025, label = expr2, 
+            size = 10) + 
+  geom_text(x = 0, y = -0.04, 
+            label = "y[i] == beta[0] + beta[1]~x + epsilon[i]", 
+            parse = TRUE, # 수식 내용이 문자열로 label 값으로 사용
+            size = 10) +
+  geom_text(x = 0, y = 0.025, label = expr3, 
+            size = 10) + 
+  geom_text(x = 0, y = 0.04, label = deparse(expr4), 
+            parse = TRUE, 
+            size = 10)
+
+## ggplot 객체 저장
+# ggsave("figures/ggplot-text-math.png", plot = last_plot())
+```
+
+ \normalsize
+
+
+\footnotesize
+
+<img src="figures/ggplot-text-math.png" width="100%" style="display: block; margin: auto;" />
+
+ \normalsize
+
+### Geoms: 면적 관련 geometrics {#geom-areas}
+
+- `geom_ribbon()`: 각 `x` 값에 대해 `ymin`과 `ymax`로 정의된 간격을 면적으로 표시
+- `geom_area()`: `geom_ribbon()`의 special csae 로 `ymin = 0`이고 `ymax` 대신 `y` 를 사용하여 면적 영역 표시
+
+
+\footnotesize
+
+
+```r
+<MAPPING> = 기본 x, y에 대한 aesthetic 기본 mapping 이외
+            범위를 지정하는 ymin (ymax), xmin (ymax) 지정 필수
+```
+
+ \normalsize
+
+#### Examples {#geom-areas-example .unnumbered}
+
+- `geom_ribbon()` 예시
+
+\footnotesize
+
+
+```r
+# gapminder 데이터셋
+gapm %>% 
+  filter(iso == "KOR") %>% 
+  select(year, gdp_cap) %>% 
+  ggplot(aes(x = year, y = gdp_cap)) + 
+  geom_ribbon(aes(ymin = gdp_cap - 5000, 
+                  ymax = gdp_cap + 5000), 
+              fill = "gray", 
+              alpha = 0.5) + 
+  geom_line(size = 1.5, 
+            color = "black")
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-97-1.svg)<!-- -->
+
+ \normalsize
+
+- 표준정규분포 밀도함수 곡선 아래 면적 표시(그림 \@ref(fig:polygon-example) 참고)
+- $Z ~  \stackrel{i.i.d}{\sim} N(0, 1)$ 라고 할 때 $P(-1.2 < Z < 0.7)$ 에 해당하는 영역과 확률값 표시
+
+\footnotesize
+
+
+```r
+x <- seq(-3, 3, by = 0.01)
+z <- dnorm(x)
+df_norm <- data.frame(x, z)
+idx <- -1.2 < x  & x < 0.7 # 해당 구간 index 설정
+df_area <- df_norm %>% 
+  filter(idx)
+expr <- bquote(P({-1.2 < Z} < 0.7 ) == 
+                 .(sprintf("%.3f", pnorm(0.7) - pnorm(-1.2))))
+
+# 각 geom 별로 다른 데이터 적용
+ggplot() + 
+  geom_line(data = df_norm, 
+            aes(x = x, y = z), size = 1) + 
+  geom_area(data = df_area, 
+            aes(x = x, y = z), 
+            fill = "red", alpha = 0.2) + 
+  geom_text(aes(x = -1, y = 0.2, 
+                # expr 이 3 행으로 구성되었기 때문에 paste로 collapse
+                label = paste(deparse(expr), collapse = "")),
+            parse = TRUE, size = 5, 
+            hjust = 0)
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-98-1.svg)<!-- -->
+
+ \normalsize
+
+
+
+### Geoms: 통계 그래프 관련 geometrics {#geom-statistics}
+
+다음 소개하는 그래프 함수는 기본적으로 `stat_*` 함수로 도출한 통계량을 바탕으로 그래프 생성
+
+-`geom_histogram()`: `stat_bin()` (연속형 변수)를 사용한 히스토그램 생성
+
+\footnotesize
+
+
+```r
+<MAPPING>: 하나의 변수를 x 또는 y에 대응
+<ARGUMENTS>
+  - binwidth: 히스토그램의 너비 조정. 결국 범주의 개수 조정
+  - bins: 히스토그램 생성 시 범주화 개수(기본값 = 30)
+```
+
+ \normalsize
+
+#### geom_histogram 예시 {#geom-hist-example .unnumbered}
+
+- 히스토그램 인수 조정
+
+\footnotesize
+
+
+```r
+# diamonds 데이터셋
+p0 <- ggplot(data = diamonds, aes(x = carat))
+p1 <- p0 + geom_histogram() + 
+  labs(title = "bins, binwidth = default")
+p2 <- p0 + geom_histogram(binwidth = 0.01) + 
+  labs(title = "binwidth = 0.05")
+p3 <- p0 + geom_histogram(bins = 150) + 
+  labs(title = "bins = 150")
+p4 <- ggplot(data = diamonds, aes(y = carat)) + 
+  geom_histogram() + # y 축 기준으로 히스토그램 생성
+  labs(title = "Map to y (flipped)")
+```
+
+ \normalsize
+
+
+\footnotesize
+
+
+```
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-101-1.svg)<!-- -->
+
+ \normalsize
+
+
+- 다중 집단 히스토그램
+
+\footnotesize
+
+
+```r
+# iris 데이터셋. 변수: Sepal Length
+p0 <- ggplot(data = iris, aes(x = Petal.Length))
+p1 <- p0 + 
+  geom_histogram(aes(fill = Species), 
+                 color = "white",
+                 bins = 20, 
+                 alpha = 0.2) + 
+  labs(title = "p1: Histograms of petal length: frequency")
+
+p2 <- p0 + 
+  geom_histogram(aes(fill = Species, 
+                     y = ..density..), # y축을 밀도로 변경
+                 color = "white", # 막대 테두리선 지정
+                 alpha = 0.2, 
+                 bins = 20) +  
+  labs(title = "p2: Histograms of petal length: density")
+```
+
+ \normalsize
+
+\footnotesize
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-103-1.svg)<!-- -->
+
+ \normalsize
+
+-`geom_density()`: 막대 형태의 히스토그램을 부드러운(smoothed) 선(여기서 y 값은 밀도임)으로 나타낸 곡선으로, 커널 밀도 추정(kernel density estimate)을 통해 밀도 곡선 추정
+
+\footnotesize
+
+
+```r
+<MAPPING>: 커널 밀도를 추정할 변수 (x 또는 y)
+
+<ARGUMENTS>
+   - adjust: 커널 함수의 복잡도 조정(수치영 값 입력)
+```
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+# geom_histogram() 예시 이어서
+# dataset: iris
+
+p1 <- p0 + 
+  geom_density() + 
+  labs(title = "p1: Basic geom_density()")
+
+p2 <- p0 + 
+  geom_density(aes(color = Species)) + 
+  labs(title = "p2: geom_density(aes(color = Species))")
+
+p3 <- p0 + 
+  geom_density(aes(fill = Species, 
+                   color = Species), 
+               alpha = 0.2) + 
+  labs(title = "p3: geom_density(aes(color = Species))")
+p4 <- p0 + 
+  geom_density(aes(fill = Species, 
+                   color = Species), 
+               alpha = 0.2) + 
+  geom_histogram(aes(y = ..density.., # 밀도로 변환 필요
+                     fill = Species), 
+                 color = "white", 
+                 alpha = 0.3, 
+                 bins = 20) + 
+  labs(title = "p4: Overlaying multiple histograms with multiple densities")
+```
+
+ \normalsize
+
+\footnotesize
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-106-1.svg)<!-- -->
+
+ \normalsize
+
+
+-`geom_boxplot()`: R 기본 그래픽스 함수 `boxplot()`과 유사. `stat_boxplot()` 함수의 결과값을 기반으로 그래프 도출
+
+
+\footnotesize
+
+
+```r
+<MAPPING>
+  - x: 이산형(discrete) 변수를 x에 대한 aesthetic으로 mapping
+  - y: 상자그림으로 표현할 변수
+
+<ARGUMENTS>
+  - outlier.*: outlier의 aesthetic 조정 (*=color, fill, shape, size, ...)
+  - width: 상자의 너비 조정
+  - varwidth: 논리값. 상자의 크기를 sqrt(n)에 비례하여 조정
+```
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+# diamond 데이터 셋
+## cut 범주에 따른 carat의 분포
+
+p0 <- ggplot(data = diamonds, 
+             aes(y = carat))
+p1 <- p0 + 
+  geom_boxplot() # 디폴트 상자 그림
+
+p2 <- p0 + 
+  geom_boxplot(aes(x = cut, 
+                   fill = cut))
+
+p3 <- p0 + 
+  geom_boxplot(aes(x = cut, 
+                   fill = cut), 
+               width = 0.5) # 상자 크기 조정
+
+p4 <- p0 + 
+  geom_boxplot(aes(x = cut, 
+# aesthetic에 x 이외의 factor가 추가된 경우 자동으로 dodge                   
+                   fill = color), 
+               # outlier 표시 모양 및 색상 지정
+               outlier.shape = 4, 
+               outlier.color = "red")
+```
+
+ \normalsize
+
+\footnotesize
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-109-1.svg)<!-- -->
+
+ \normalsize
+
+- `geom_boxplot()` + `geom_jitter()` 콜라보레이션
+
+\footnotesize
+
+
+```r
+# mpg 데이터셋
+p0 <- ggplot(data = mpg) + 
+  aes(x = class, y = cty)
+
+p1 <- p0 + 
+  geom_boxplot(aes(fill = class), 
+               outlier.shape = NA, 
+               alpha = 0.1) + # 이상치 표시하지 않음
+  geom_jitter(aes(color = class), 
+              alpha = 0.5, 
+              width = 0.2) + 
+  labs(title = "p1: boxplot with jittered data points per each class (unordered)")
+
+p2 <- mpg %>% 
+  # stats::reorder() 함수를 이용해 특정 통계량 기준으로 데이터 정렬 가능
+  mutate(class = reorder(class, cty, median)) %>% 
+  ggplot(aes(x = class, y = cty)) + 
+  geom_boxplot(aes(fill = class), 
+               outlier.shape = NA, 
+               alpha = 0.1) + 
+  geom_jitter(aes(color = class), 
+              alpha = 0.5, 
+              width = 0.2) + 
+  labs(title = "p2: ordered by median of cty for each car class")
+```
+
+ \normalsize
+
+
+\footnotesize
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-111-1.svg)<!-- -->
+
+ \normalsize
+
+
+-`geom_smooth()`: x-y 관계에 대한 패턴을 도식화하기 위한 그래프로 아래와 같은 방법(`method`)을 이용해 추세선과 추정 직선의 오차 그래프 출력
+
+   - 선형 회귀 곡선(linear model, `lm`)
+   - 일반화 선형 모형(generalized linear model, `glm`)
+   - 국소 다항 회귀 곡선(locally estimated scatterplot smoothing, `loess`)
+   - generalized addictive model (GAM, `gam`)
+
+
+\footnotesize
+
+
+```r
+p0 <- ggplot(data = diamonds) + 
+  aes(x = carat, y = price)
+
+p1 <- p0 + 
+  geom_point(alpha = 0.2) + 
+  geom_smooth() + 
+  labs(title = "p1: geom_smooth() default")
+
+p2 <- p0 + 
+  geom_point(aes(color = color), 
+             alpha = 0.2) + 
+  geom_smooth(aes(color = color)) + 
+  labs(title = "p2: geom_smooth() for different color groups")
+
+p3 <- p0 + 
+  geom_point(aes(color = color), 
+             alpha = 0.2) + 
+  geom_smooth(aes(color = color), 
+              se = FALSE) + # 표준오차 영역 삭제
+  labs(title = "p3: geom_smooth() without the SE region")
+
+p4 <- p0 + 
+    geom_point(aes(color = color), 
+             alpha = 0.2) + 
+  geom_smooth(aes(color = color), 
+              se = FALSE, 
+# 선형 회귀 곡선을 추세선으로 사용
+              method = "lm") + 
+  labs(title = "p4: geom_smooth() using the linear regression curve")  
+```
+
+ \normalsize
+
+
+\footnotesize
+
+
+```
+`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+```
+
+```
+`geom_smooth()` using formula 'y ~ x'
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-113-1.svg)<!-- -->
+
+ \normalsize
+
+
+
+### Scales: x-y 축 관련 aesthetic 조정 {#scale-x-y}
+
+- `scale_x_*`, `scale_y_*`: x-y 축의 범위, plot 상 눈금선, 축 제목 등을 조정
+   - `xlim()`, `ylim()`: `scale_x_*`, `scale_y_*`의 특별한 케이스로 x-y 축의 범위 조정
+
+
+
+### Scales: 색상 관련 aesthetic 조정 {#scale-colors-fill}
+
+- `scale_color_*`, `scale_fill_*`: `aes()`에 color 또는 fill이 정의된 경우, 기본 색상 변경 가능
+- 색상 조정은 palette를 통해 가능하며, 색상 파레트를 사용할 경우 `scale_*_brewer()`를 통해 palette 설정 가능
+- RColorBrewer 패키지 설치 시 보다 다양한 palette 사용 가능
+
+### Scales: 크기, 선 종류, 점 모양 aesthetic 조정 {#scale-size-line-shape}
+
+- `scale_size_*`: size에 대한 세부적인 값 지정 가능
+- `scale_shape_*`: shape가 aes() 함수에 사용된 경우, shape에 대한 세부 값(점 모양, 크기, 색 등 지정 가능)
+- `scale_linetype_*`: linetype이 aes() 함수에 사용된 경우, linetype에 대한 세부 값(선 종류, 굵기 등 조정 가능)
+
+#### scale_size_* 예시
+
+\footnotesize
+
+
+```r
+gppoint + 
+  geom_point(aes(size = population, 
+                 color = continent), 
+             alpha = 0.3) + 
+  scale_size_continuous(range = c(1, 20))
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-114-1.svg)<!-- -->
+
+ \normalsize
+
+
+
+### Coordinate systems
+
+- `coord_flip()`: x-y 축 뒤집기
+
+\footnotesize
+
+
+```r
+p0 <- ggplot(data = diamonds, 
+             aes(y = carat))
+p1 <- p0 + geom_boxplot(aes(x = color, 
+                   fill = color), 
+               width = 0.5)
+p2 <- p1 + 
+  coord_flip()
+```
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+ggarrange(p1, p2, ncol = 2)
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-116-1.svg)<!-- -->
+
+ \normalsize
+
+
+
+### Guides: x-y 축 및 그래프 제목 관련 
+
+- `labs()`: x-y 축 제목, 부제목, 캡션 조정
+   - `xlab()`, `ylab()`, `ggtitle()`: `labs()`의 조정 인수를 개별 함수로 구현
+- `guide_legend()`: `guides()` 함수 내부에서 사용되며, 범례 영역 조정하기 위한 함수
+   - 이미 정의한 aesthetic에 대한 범례 영역의 세부 속성을 변경하고 싶은 경우 `overrride.aes` 인수 조정(입력값은 리스트)
+
+
+\footnotesize
+
+
+```r
+# gap-minder 데이터 
+gapm <- read_csv("dataset/gapminder/gapminder_filter.csv")
+```
+
+```
+Parsed with column specification:
+cols(
+  iso = col_character(),
+  country = col_character(),
+  region = col_character(),
+  year = col_double(),
+  population = col_double(),
+  life_expectancy = col_double(),
+  gdp_cap = col_double()
+)
+```
+
+```r
+gapm %>% 
+  mutate(continent = gsub("(.+\\s)", "", region) %>% 
+           factor) %>% 
+  filter(year == 2015) %>% 
+  ggplot(aes(x = life_expectancy, y = gdp_cap)) + 
+  geom_point(aes(size = population, 
+                 color = continent), 
+             alpha = 0.3) -> p1
+
+p2 <- p1 + 
+  guides(size = FALSE, # size 관련 guide(범례는 출력하지 않음)
+         color = guide_legend(
+           title = "Contient", # 범례 제목 변경
+           title.theme = element_text(face = "bold"), # 범례 제목 폰트 굵은체
+           override.aes = list(size = 5) # 범례 표시 점의 크기를 5로
+         )) + 
+  theme(legend.position = "top") # 범례 위치를 맨 위로 조정
+```
+
+ \normalsize
+
+
+\footnotesize
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-118-1.svg)<!-- -->
+
+ \normalsize
+
+
+
+### Facets: 국소 시각화 기법
+
+- `facet_grid()`: 행과 열에 대한 facet (면 또는 패널)을 정의한 변수에 의해 패널 행렬을 구성한 그래프로 두 개 이상의 범주형(이산) 변수가 있고 변수의 모든 조합이 데이터에 존제하는 경우 유용
+
+\footnotesize
+
+
+```r
+facet_grid(<ROW VARIABLE> ~ <COLUMN VARIABLE>, ...)
+```
+
+ \normalsize
+
+
+- `facet_wrap()`: 1차원 패널을 2차원으로 변환. 일반적으로 `facet_grid()` 보다 화면 분할이 효율적이고, 서로 다른 단위로 측정된 변수를 패널 형태로 출력하고자 할 때 데이터를 long format으로 변환 후 적용
+
+
+\footnotesize
+
+
+```r
+facet_wrap(~ <DISCRETE VARIABLE>, 
+           ncol = n,  # 열 개수
+           nrow = m,  # 행 개수
+           scale: x, y 스케일
+                  "free": x-y 스케일을 모든 패널에 동일하게 고정
+                  "free": x-y 모두 각 panel에 맞게 조정
+                  "free_x": y의 스케일은 모든 고정하고 x 만 각 페널에 맞게 조정
+                  "free_y": x의 스케일은 모든 고정하고 y 만 각 페널에 맞게 조정
+           )
+```
+
+ \normalsize
+
+
+\footnotesize
+
+
+```r
+# mpg 데이터 셋
+p0 <- ggplot(data = mpg) + 
+  aes(x = displ, y = hwy)
+
+# class 별 displ vs. hwy 산점도
+p1 <- p0 + 
+  geom_point(size = 2) + 
+  facet_grid(. ~ class)
+p1
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-121-1.svg)<!-- -->
+
+ \normalsize
+
+- `cyl`을 행, `class`를 열로 사용하여 `cyl`과 `class`의 수준 조합 별 산점도 출력
+
+\footnotesize
+
+
+```r
+p2 <- p0 + 
+  # 모든 facet에 동일한 데이터를 표현하려면 
+  #  geom 내부에서 데이터를 재정의
+  geom_point(data = mpg %>% select(-class, -cyl), 
+             color = "gray", alpha = 0.3) + 
+  geom_point(size = 2) + 
+  facet_grid(cyl ~ class)
+p2
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-122-1.svg)<!-- -->
+
+ \normalsize
+
+- `facet_wrap()`을 이용한 다변수 패널 도표
+
+\footnotesize
+
+
+```r
+# economics_long 데이터셋
+glimpse(economics_long)
+```
+
+```
+Rows: 2,870
+Columns: 4
+$ date     <date> 1967-07-01, 1967-08-01, 1967-09-01, 1967-10-01, 1967-11-0...
+$ variable <chr> "pce", "pce", "pce", "pce", "pce", "pce", "pce", "pce", "p...
+$ value    <dbl> 506.7, 509.8, 515.6, 512.2, 517.4, 525.1, 530.9, 533.6, 54...
+$ value01  <dbl> 0.0000000000, 0.0002652497, 0.0007615234, 0.0004706043, 0....
+```
+
+```r
+economics_long %>% 
+  mutate(variable = factor(variable, 
+                           levels = unique(variable), 
+                           labels = c("Personal consumption expenditures", 
+                                      "Total population", 
+                                      "Personal saving rates", 
+                                      "Median duration of unemployment", 
+                                      "# of unemployed in thausand"))) %>% 
+  ggplot(aes(x = date, y = value)) + 
+  geom_line(size = 1) + 
+  facet_wrap(~ variable, nrow = 2, 
+             scale = "free_y") + 
+  theme(
+    strip.background = element_blank(), 
+    strip.text = element_text(hjust = 0, 
+                              face = "bold")
+  )
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-123-1.svg)<!-- -->
+
+ \normalsize
+
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">두 개 이상의 ggplot 객체를 한 화면에 출력하고자 할 때(R 기본 그래픽스에서 `par(mfrow = c(n, m))`와 유사하게), 별도의 패키지(예: gridExtra, ggpubr, cowplot 패키지 등)가 요구됨. 이 중 가장 사용하기 용이한 패키지와 함수는 `ggubr::ggarrange()` 임. 
+</div>\EndKnitrBlock{rmdtip}
+
+ \normalsize
+
+### Themes
+
+- `theme()`: ggplot의 결과에서 비데이터(non-data)적 요소(예: 제목, 레이블, 글꼴, 배경, 눈금선, 범례)를 조정하기 위한 함수로 출력 그래프의 전반적인 형태를 정의함. 
+- `theme()`을  이용한 비데이터적 요소는 다음의 4 가지 속성을 가짐
+   - **line**: 모든 선 구성 요소(x-y 축선, 눈금선, 보조선 등) $\rightarrow$ `element_line()`
+   - **rect**: 모든 사각형 구성 요소(facet strips, 범례, 배경 등) $\rightarrow$ `element_rect()`
+   - **text**: 모든 텍스트 구성 요소(눈금선 레이블, 범례 표시 텍스트, ...) $\rightarrow$ `element_text()`
+   - **title**: 모든 제목 요소(plot, 축, 범례 등) $\rightarrow$ `element_text()`
+- **`element_blank()`**: 특정 요소를 없앨 때 사용
+
+
+**<`element_text()`>**
+
+- **axis.title**: ggplot에 표현된 모든 축의 제목 조정(크기, 폰트 등) 
+   - **axis.title.x**, **axis.title.y**: x, y 축 각각의 제목 조정
+- **axis.text**: 모든 축의 눈금 레이블 크기 폰트 등 조정
+   - **axis.text.x**, **axis.text.y**: x, y 축 각각의 눈금선 레이블 조정
+- legend.text: 범례표시의 텍스트 조정
+- legend.title: 범례 제목 조정
+- **plot.title**, plot.subtitle, plot.caption: ggplot 제목, 부제목, 캡션 텍스트 조정
+- **strip.text**: facet 레이블 텍스트 조정
+   - **strip.text.x**, **strip.text.y**
+
+
+**<`element_line()`>**: 선과 관련된 모든 요소 조정
+
+- **axis.ticks**: 모든 눈금선 조정
+   - **axis.ticks.x**, **axis.ticks.y**: x, y 축 각각의 눈금선 조정
+- **axis.line**: 모든 axis 선 설정 조정
+   - **axis.line.x**, **axis.line.y**: 
+- **panel.grid**: plot 내 주(major) 또는 보조(minor) 격자선 조정
+   - **panel.grid.minor**, **panel.grid.minor.x**, **panel.grid.minor.y**
+   - **panel.grid.major**, **panel.grid.major.x**, **panel.grid.major.y**
+   
+
+**<`element_rect()`>**: plot 배경 및 범례 배경 및 표시 상자 설정
+
+**기타**
+
+- **legend.position**: 범례 위치 조정
+   - "none", "left", "right", "bottom", "top" 과 같은 문자열 값 또는 좌표의 상대적 위치(0에서 1사이 값)을 나타내는 2차원 벡터 값을 가짐
+- **legend.direction**: 범례 표시 방향 설정
+   - "horizontal" (수평) 또는 "vertical" (수직)
+
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">**`theme()`** 함수를 이용한 그래프 조정 옵션은 `help(theme)` 또는 [ggplot2 공식 메뉴얼](https://ggplot2.tidyverse.org/reference/theme.html) 또는 [Statistical tools for high-throughput data analysis](http://www.sthda.com/english/wiki/ggplot2-themes-and-background-colors-the-3-elements)를 참고
+</div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+   
+
+#### 가능한 완성 theme {#theme-complete .unnumbered}
+
+- ggplot2 패키지 제공 theme
+  - `theme_grey()`
+  - `theme_bw()`
+  - `theme_light()`
+  - `theme_minimal()`
+  - `theme_classic()`
+
+
+\footnotesize
+
+
+```r
+p0 <- ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() 
+
+p1 <- p0 + theme_grey() + 
+  labs(title = "Basic theme: theme_grey() (default)")
+
+p2 <- p0 + theme_bw() + 
+  labs(title = "Basic theme: theme_bw()")
+
+p3 <- p0 + theme_light() + 
+  labs(title = "Basic theme: theme_light()")
+
+p4 <- p0 + theme_minimal() + 
+  labs(title = "Basic theme: theme_minimal()")
+
+p5 <- p0 + theme_classic() + 
+  labs(title = "Basic theme: theme_classic()")
+
+p6 <- p0 + theme_linedraw() + 
+  labs(title = "Basic theme: theme_linedraw()")
+```
+
+ \normalsize
+
+
+\footnotesize
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-127-1.svg)<!-- -->
+
+ \normalsize
+
+  
+
+\footnotesize
+
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">**ggplot 관련 알아두면 유용한 팁
+
+   - [ggplot2](https://ggplot2.tidyverse.org/reference/index.html)는 ggplot2에 포함된 모든 함수에 대한 메뉴얼을 제공
+   - [r-statistics.co](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)에서 ggplot 예시 확인 가능
+   - ggplot2 패키지에서 제공하는 기본 theme 외에 ggtheme, ggpubr 과 같은 패키지를 통해 보다 다양한 theme을 적용할 수 있음
+</div>\EndKnitrBlock{rmdtip}
+
+ \normalsize
+
+
+### 확장 예제 {#ggplot-application}
+
+- [Our World in Data](https://ourworldindata.org/)에서 각 국가별 코로나 19 바이러스 통계 데이터 제공
+- 감염자 및 사망자 수 통계는 하루 단위로 업데이트가 되고 있고, 각 국가별 검사 수는 일주일 단위로 업데이트
+
+**데이터 전처리**
+
+- 데이터 불러오기: `covid19-cases-20200601.txt`, `country_pubhealth.csv`, `country_info.txt`
+
+\footnotesize
+
+
+```r
+covid19 <- read_delim("dataset/covid-19-dataset/covid19-cases-20200601.txt", 
+                      delim = "\t")
+```
+
+```
+Parsed with column specification:
+cols(
+  iso_code = col_character(),
+  date = col_date(format = ""),
+  total_cases = col_double(),
+  new_cases = col_double(),
+  total_deaths = col_double(),
+  new_deaths = col_double(),
+  total_tests = col_double(),
+  new_tests = col_double(),
+  new_tests_smoothed = col_double()
+)
+```
+
+```r
+country <- readxl::read_excel("dataset/covid-19-dataset/country_info.xlsx")
+country_pubhealth <- read_csv("dataset/covid-19-dataset/country_pubhealth.csv")
+```
+
+```
+Parsed with column specification:
+cols(
+  location = col_character(),
+  cvd_death_rate = col_double(),
+  diabetes_prevalence = col_double(),
+  female_smokers = col_double(),
+  male_smokers = col_double(),
+  handwashing_facilities = col_double(),
+  hospital_beds_per_100k = col_double()
+)
+```
+
+```r
+# glimpse(covid19); glimpse(country); 
+# glimpse(country_pubhealth)
+```
+
+ \normalsize
+
+> 데이터 코드북
+
+\footnotesize
+
+
+```
+# A tibble: 10 x 3
+   Dataset Varialbe           Description     
+   <chr>   <chr>              <chr>           
+ 1 country iso_code           3자리 국가코드  
+ 2 country location           국가명          
+ 3 country region             지역            
+ 4 country population         총인구수        
+ 5 country population_density 인구밀도        
+ 6 country median_age         중위연령        
+ 7 country aged_65_older      65세 이상 인구수
+ 8 country aged_70_older      70세 이상 인구수
+ 9 country gdp_per_capita     일인당 국민소득 
+10 country extreme_poverty    극빈층 비율     
+```
+
+```
+# A tibble: 7 x 3
+  Dataset   Variable               Description            
+  <chr>     <chr>                  <chr>                  
+1 pubhealth location               국가명                 
+2 pubhealth cvd_death_rate         심혈관계 질환 사망률   
+3 pubhealth diabetes_prevalence    당뇨병 유병률          
+4 pubhealth female_smokers         여성 흡연율            
+5 pubhealth male_smokers           남성흡연율             
+6 pubhealth handwashing_facilities 구내 세수시설 설치 비율
+7 pubhealth hospital_beds_per_100k 1000명 당 병상 수      
+```
+
+```
+# A tibble: 9 x 3
+  Dataset Variable           Description                  
+  <chr>   <chr>              <chr>                        
+1 covid19 iso_code           3자리 국가코드               
+2 covid19 date               조사일자                     
+3 covid19 total_cases        누적(전체) 확진자            
+4 covid19 new_cases          신규 확진자 수               
+5 covid19 total_deaths       누적(전체) 사망자 수         
+6 covid19 new_deaths         신규사망자 수                
+7 covid19 total_tests        누적(전체) 검사 수           
+8 covid19 new_tests          신규 검사수                  
+9 covid19 new_tests_smoothed 신규 검사 수(7일 이동평균 값)
+```
+
+ \normalsize
+
+#### 데이터 전처리 {#ggplot-data-preprocessing .unnumbered}
+
+1. **Filtering**
+   - `covid19` 에서 `iso_code`가 "OWID_WRL"인 케이스 제외
+   - 2020년 3월 1일 부터 2020년 5월 31 일 까지 데이터만 추출
+
+
+\footnotesize
+
+
+```r
+covid19_full <- covid19 %>% 
+  filter(iso_code != "OWID_WRL", 
+         date >= as.Date("2020-03-01") &
+           date <= as.Date("2020-05-31")) 
+# glimpse(covid19_full)
+```
+
+ \normalsize
+
+2. **Join**: `covid19`를 기준으로 나머지 두 데이터셋(`country`, `country_pubhealth`) 결합
+
+\footnotesize
+
+
+```r
+covid19_full <- covid19_full %>% 
+  left_join(country, by = "iso_code") %>%  #country의 siso_code와 공통 변수
+  left_join(country_pubhealth, by = c("location")) # 공통 변수: location
+# glimpse(covid19_full)
+```
+
+ \normalsize
+
+3. 대륙(continent) 변수 생성(`region` 변수를 활용해서)
+
+\footnotesize
+
+
+```r
+covid19_full <- covid19_full %>% 
+  # 하나 이상의 어떤 문자와 공백을 포함한 문자열을 그룹화
+    mutate(continent = gsub("(.+\\s)", "", region) %>% 
+           factor) 
+# glimpse(covid19_full)
+```
+
+ \normalsize
+
+4. 케이스, 사망자 수 관련 변수를 이용해 100만명 당 확진자 수 및 사망자 수 계산(변수이름은 기존 변수명 마지막에  "_per_million"을 추가)
+
+
+\footnotesize
+
+
+```r
+covid19_full <- covid19_full %>% 
+    mutate_at(vars(matches("cases|deaths")), 
+          list(per_million =~ ./population * 10^6)) 
+# glimpse(covid19_full)
+```
+
+ \normalsize
+
+5. 2020년 5월 31일 기준 총 확진자 수가 2000 명 이상인 국가만 추출
+
+\footnotesize
+
+
+```r
+# 각 국가별로 grouping을 한 후 total_case의 최댓값이 1000 명을 초과한 경우만 추출
+covid19_full <- covid19_full %>% 
+  group_by(location) %>%  
+  filter(max(total_cases) > 1000)
+# glimpse(covid19_full)
+```
+
+ \normalsize
+
+6. 각 국가별 total_test 결측값 대체
+   - 최초 시점의 total_test가 결측인 경우 0으로 대체
+   - 기록 중 중간에 결측이 발생한 경우 이전 시점 값으로 대체
+   
+\footnotesize
+
+
+```r
+# 위에서 location 에 대한 grouping이 유지가 되고 있음
+# 각 국가별 첫 번째 행이고 그 첫 번째 행이 결측이면 0 값을 대체하고
+# 아니면 원래 관측값을 반환
+covid19_full <- covid19_full %>% 
+  mutate(total_tests = ifelse(row_number() == 1 & 
+# 첫 번째 값을 추출하기 위해 dplyr 제공 first() 함수 사용
+                                is.na(first(total_tests)), 
+                              0, total_tests)) %>% 
+# help(fill) 참고  
+  fill(total_tests, .direction = "down") %>% 
+  ungroup 
+# glimpse(covid19_full)
+```
+
+ \normalsize
+
+7. "_tests"가 포함된 변수들에 대해 인구 천 명당 검사 수 계산(변수이름은 기존 변수명 마지막에  "_per_thousand"을 추가)
+
+
+\footnotesize
+
+
+```r
+# 4 번과 유사
+covid19_full <- covid19_full %>% 
+    mutate_at(vars(contains("_tests")),
+                 list(per_thousand = ~ ./population * 10^3))
+# glimpse(covid19_full)
+```
+
+ \normalsize
+
+8. `iso_code`, `date`, `location`, `continent`, `population`, 그리고 "case", "deaths", "tests"가 포함된 변수 선택
+
+\footnotesize
+
+
+```r
+covid19_full <- covid19_full %>% 
+  select(iso_code:date, location, continent, population, 
+         matches("cases|deaths|tests"))
+glimpse(covid19_full)
+```
+
+```
+Rows: 9,733
+Columns: 19
+$ iso_code                        <chr> "AFG", "AFG", "AFG", "AFG", "AFG", ...
+$ date                            <date> 2020-03-01, 2020-03-02, 2020-03-08...
+$ location                        <chr> "Afghanistan", "Afghanistan", "Afgh...
+$ continent                       <fct> Asia, Asia, Asia, Asia, Asia, Asia,...
+$ population                      <dbl> 38928341, 38928341, 38928341, 38928...
+$ total_cases                     <dbl> 1, 1, 4, 7, 10, 16, 21, 22, 22, 22,...
+$ new_cases                       <dbl> 0, 0, 3, 3, 3, 6, 5, 1, 0, 0, 2, 0,...
+$ total_deaths                    <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
+$ new_deaths                      <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
+$ total_tests                     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
+$ new_tests                       <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+$ new_tests_smoothed              <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+$ total_cases_per_million         <dbl> 0.02568823, 0.02568823, 0.10275290,...
+$ new_cases_per_million           <dbl> 0.00000000, 0.00000000, 0.07706468,...
+$ total_deaths_per_million        <dbl> 0.00000000, 0.00000000, 0.00000000,...
+$ new_deaths_per_million          <dbl> 0.00000000, 0.00000000, 0.00000000,...
+$ total_tests_per_thousand        <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
+$ new_tests_per_thousand          <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+$ new_tests_smoothed_per_thousand <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+```
+
+ \normalsize
+
+
+
+#### 시각화 {#covid-19-visualization .unnumbered}
+
+1. 대륙별 일별 일일 확진자 수(`new_case` 기준)에 대한 시각화
+
+\footnotesize
+
+
+```r
+Sys.setlocale("LC_TIME", "english")
+```
+
+```
+[1] "English_United States.1252"
+```
+
+```r
+covid19_full %>%
+  ungroup %>%
+  group_by(continent, date) %>%
+  summarise(confirm_case_date = sum(new_cases)) %>%
+  ungroup %>%
+  ggplot(aes(x = date)) +
+  geom_bar(aes(y = confirm_case_date,
+               fill = continent,
+               alpha = continent),
+           stat = "identity",
+           position = "identity",
+           # color = "white"
+           alpha = 0.3) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_x_date(date_breaks = "2 weeks",
+               date_labels = "%b-%d") +
+  theme_minimal(base_size = 15) +
+  labs(x = "", y = "",
+       title = "World COVID-19 cases over time") +
+  theme(
+    legend.position = "bottom",
+    panel.grid = element_line(size = 0.5,
+                              linetype = "dashed"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank()
+  )
+```
+
+```
+`summarise()` regrouping output by 'continent' (override with `.groups` argument)
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-139-1.svg)<!-- -->
+
+ \normalsize
+
+
+
+2. 대한민국 일일 검사수와 검사수와 7일 이동평균선(new_tests_smoothed) 시각화
+  - 일일 검사수는 막대도표로 표시
+  - 7일 이동 평균선은 빨강색으로 표시
+
+\footnotesize
+
+
+```r
+Sys.setlocale("LC_TIME", "english") # date 영문 표시를 위해 필요
+```
+
+```
+[1] "English_United States.1252"
+```
+
+```r
+covid19_full %>% 
+  filter(iso_code == "KOR") %>% 
+  mutate(total_tests_n = max(total_tests)) %>% 
+  ungroup %>% 
+  ggplot(aes(x = date)) + 
+  geom_bar(aes(y = new_tests), 
+           stat = "identity", 
+           fill = "lightblue", 
+           color = "white") + 
+  geom_line(aes(y = new_tests_smoothed, 
+                group = location), 
+            size = 1, 
+            color = "red") + 
+  # x의 데이터 유형이 date
+  # date label에 대한 자세한 설명은 help(strptime)으로 확인
+  scale_x_date(date_breaks = "2 weeks", 
+               date_labels = "%b-%d") + 
+  # y = Inf 는 텍스트의 위치를 맨 위에 위치시킬 때 유용
+  geom_text(aes(x = as.Date('2020-03-01'), y = Inf, 
+                label = paste("Total number of COVID-19 tests performed:", 
+                              # 출력 숫자 자리수 콤마 표시를 위해 사
+                              format(unique(total_tests_n), 
+                               big.mark = ","))), 
+            vjust = 1, 
+            hjust = 0, 
+            color = "black", 
+            size = 4) +  
+  theme_minimal(base_size = 15) + # minimal theme 사용
+  labs(x = "", 
+       y = "", 
+       title = "Daily COVID-19 tests in South Korea", 
+       subtitle = "Test unit: people tested") + 
+  theme(
+    legend.position = "none", # 범례 표시 제거
+    panel.grid = element_line(size = 0.5, linetype = "dashed"), 
+    panel.grid.minor.x = element_blank(), 
+    panel.grid.major.x = element_blank(), 
+    axis.ticks = element_blank()
+  )
+```
+
+```
+Warning: Removed 2 rows containing missing values (position_stack).
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-140-1.svg)<!-- -->
+
+ \normalsize
+
+
+3. 2020년 5월 31일 기준 상위 24개 국가의 국가 별 확진자 대비 COVID-19 검사 수(전체, 전체 검사수/전체 확진자 수)를 도식화
+   - 막대도표 사용
+   
+\footnotesize
+
+
+```r
+require(RColorBrewer)
+```
+
+```
+필요한 패키지를 로딩중입니다: RColorBrewer
+```
+
+```r
+getPalette = colorRampPalette(brewer.pal(9, "Set1"))
+covid19_full %>%
+  filter(date == as.Date("2020-05-31")) %>%
+  mutate(total_tests_per_cases = total_tests/total_cases) %>%
+  filter(total_tests_per_cases != 0) %>%
+  select(iso_code:continent,
+         total_tests_per_cases) %>%
+  arrange(desc(total_tests_per_cases)) %>% 
+  slice(1:24) %>% 
+  mutate(location = factor(location,
+                           levels = unique(location))) %>%
+  ggplot(aes(x = reorder(location, desc(location)),
+             y = total_tests_per_cases)) +
+  geom_bar(aes(fill = location),
+           stat = "identity") +
+  geom_text(aes(label = sprintf("%.1f", total_tests_per_cases)),
+            hjust = -0.5,
+            size = 4) +
+  scale_y_continuous(expand = c(0, 0),
+                     limits = c(0, 300),
+                     breaks = c(0, 100, 200)) +
+  scale_fill_manual(values = getPalette(24)) +
+  labs(x = "", y = "",
+       title = "Total COVID-19 tests per each confirmed case at May 31, 2020")  +
+  coord_flip() +
+  theme_minimal(base_size = 15) +
+  theme(
+    legend.position = "none",
+    panel.grid = element_line(size = 0.5,
+                              linetype = "dashed"),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank()
+  )
+```
+
+![](05-data-visualization_files/figure-epub3/unnamed-chunk-141-1.svg)<!-- -->
+
+ \normalsize
+   
+
+
+
+
+
 
 
 

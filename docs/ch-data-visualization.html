@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5 데이터 시각화 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5 데이터 시각화 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-06-07" />
+<meta name="date" content="2020-06-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,7 @@
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -286,6 +287,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4.2" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-lines"><i class="fa fa-check"></i><b>5.4.2</b> Geoms: 선 관련 geometric</a></li>
 <li class="chapter" data-level="5.4.3" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-points"><i class="fa fa-check"></i><b>5.4.3</b> Geoms: 점 geometrics</a></li>
 <li class="chapter" data-level="5.4.4" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-bars"><i class="fa fa-check"></i><b>5.4.4</b> Geoms: 막대 geometrics</a></li>
+<li class="chapter" data-level="5.4.5" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-intervals"><i class="fa fa-check"></i><b>5.4.5</b> Geom: 수직 범위선 관련 geometrics</a></li>
+<li class="chapter" data-level="5.4.6" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-texts"><i class="fa fa-check"></i><b>5.4.6</b> Geoms: 텍스트 관련 geometrics</a></li>
+<li class="chapter" data-level="5.4.7" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-areas"><i class="fa fa-check"></i><b>5.4.7</b> Geoms: 면적 관련 geometrics</a></li>
+<li class="chapter" data-level="5.4.8" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-statistics"><i class="fa fa-check"></i><b>5.4.8</b> Geoms: 통계 그래프 관련 geometrics</a></li>
+<li class="chapter" data-level="5.4.9" data-path="ggplot2-package.html"><a href="ggplot2-package.html#scale-x-y"><i class="fa fa-check"></i><b>5.4.9</b> Scales: x-y 축 관련 aesthetic 조정</a></li>
+<li class="chapter" data-level="5.4.10" data-path="ggplot2-package.html"><a href="ggplot2-package.html#scale-colors-fill"><i class="fa fa-check"></i><b>5.4.10</b> Scales: 색상 관련 aesthetic 조정</a></li>
+<li class="chapter" data-level="5.4.11" data-path="ggplot2-package.html"><a href="ggplot2-package.html#scale-size-line-shape"><i class="fa fa-check"></i><b>5.4.11</b> Scales: 크기, 선 종류, 점 모양 aesthetic 조정</a></li>
+<li class="chapter" data-level="5.4.12" data-path="ggplot2-package.html"><a href="ggplot2-package.html#coordinate-systems"><i class="fa fa-check"></i><b>5.4.12</b> Coordinate systems</a></li>
+<li class="chapter" data-level="5.4.13" data-path="ggplot2-package.html"><a href="ggplot2-package.html#guides-x-y-축-및-그래프-제목-관련"><i class="fa fa-check"></i><b>5.4.13</b> Guides: x-y 축 및 그래프 제목 관련</a></li>
+<li class="chapter" data-level="5.4.14" data-path="ggplot2-package.html"><a href="ggplot2-package.html#facets-국소-시각화-기법"><i class="fa fa-check"></i><b>5.4.14</b> Facets: 국소 시각화 기법</a></li>
+<li class="chapter" data-level="5.4.15" data-path="ggplot2-package.html"><a href="ggplot2-package.html#themes"><i class="fa fa-check"></i><b>5.4.15</b> Themes</a></li>
+<li class="chapter" data-level="5.4.16" data-path="ggplot2-package.html"><a href="ggplot2-package.html#ggplot-application"><i class="fa fa-check"></i><b>5.4.16</b> 확장 예제</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -318,7 +331,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 
-<p></p>
+
 <blockquote>
 <p>“The simple graph has brought more information to the data analyst’s mind than any other device.”</p>
 <p><span class="math inline">\(\rightarrow\)</span> <strong>John Tukey</strong></p>
@@ -340,10 +353,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="figure"><span id="fig:unnamed-chunk-3"></span>
 <img src="05-data-visualization_files/figure-html/unnamed-chunk-3-1.svg" alt="Anscombe's quartet: https://goo.gl/Ugv3Cz 에서 스크립트 발췌" width="768" />
 <p class="caption">
-Figure 5.1: Anscombe’s quartet: <a href="https://goo.gl/Ugv3Cz" class="uri">https://goo.gl/Ugv3Cz</a> 에서 스크립트 발췌
+Figure 4.1: Anscombe’s quartet: <a href="https://goo.gl/Ugv3Cz" class="uri">https://goo.gl/Ugv3Cz</a> 에서 스크립트 발췌
 </p>
 </div>
-<p></p>
+
 <ul>
 <li>시각화는 분석에 필요한 통계량 또는 분석 방법론에 대한 가이드를 제시</li>
 <li>인간의 뇌 구조 상 추상적인 숫자나 문자 보다는 그림이나 도표를 더 빨리 이해</li>

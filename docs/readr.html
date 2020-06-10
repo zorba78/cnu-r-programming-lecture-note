@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-06-07" />
+<meta name="date" content="2020-06-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -286,6 +286,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4.1" data-path="ggplot2-package.html"><a href="ggplot2-package.html#basic-grammar"><i class="fa fa-check"></i><b>5.4.1</b> 기본 문법</a></li>
 <li class="chapter" data-level="5.4.2" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-lines"><i class="fa fa-check"></i><b>5.4.2</b> Geoms: 선 관련 geometric</a></li>
 <li class="chapter" data-level="5.4.3" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-points"><i class="fa fa-check"></i><b>5.4.3</b> Geoms: 점 geometrics</a></li>
+<li class="chapter" data-level="5.4.4" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-bars"><i class="fa fa-check"></i><b>5.4.4</b> Geoms: 막대 geometrics</a></li>
+<li class="chapter" data-level="5.4.5" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-intervals"><i class="fa fa-check"></i><b>5.4.5</b> Geom: 수직 범위선 관련 geometrics</a></li>
+<li class="chapter" data-level="5.4.6" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-texts"><i class="fa fa-check"></i><b>5.4.6</b> Geoms: 텍스트 관련 geometrics</a></li>
+<li class="chapter" data-level="5.4.7" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-areas"><i class="fa fa-check"></i><b>5.4.7</b> Geoms: 면적 관련 geometrics</a></li>
+<li class="chapter" data-level="5.4.8" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-statistics"><i class="fa fa-check"></i><b>5.4.8</b> Geoms: 통계 그래프 관련 geometrics</a></li>
+<li class="chapter" data-level="5.4.9" data-path="ggplot2-package.html"><a href="ggplot2-package.html#scale-x-y"><i class="fa fa-check"></i><b>5.4.9</b> Scales: x-y 축 관련 aesthetic 조정</a></li>
+<li class="chapter" data-level="5.4.10" data-path="ggplot2-package.html"><a href="ggplot2-package.html#scale-colors-fill"><i class="fa fa-check"></i><b>5.4.10</b> Scales: 색상 관련 aesthetic 조정</a></li>
+<li class="chapter" data-level="5.4.11" data-path="ggplot2-package.html"><a href="ggplot2-package.html#scale-size-line-shape"><i class="fa fa-check"></i><b>5.4.11</b> Scales: 크기, 선 종류, 점 모양 aesthetic 조정</a></li>
+<li class="chapter" data-level="5.4.12" data-path="ggplot2-package.html"><a href="ggplot2-package.html#coordinate-systems"><i class="fa fa-check"></i><b>5.4.12</b> Coordinate systems</a></li>
+<li class="chapter" data-level="5.4.13" data-path="ggplot2-package.html"><a href="ggplot2-package.html#guides-x-y-축-및-그래프-제목-관련"><i class="fa fa-check"></i><b>5.4.13</b> Guides: x-y 축 및 그래프 제목 관련</a></li>
+<li class="chapter" data-level="5.4.14" data-path="ggplot2-package.html"><a href="ggplot2-package.html#facets-국소-시각화-기법"><i class="fa fa-check"></i><b>5.4.14</b> Facets: 국소 시각화 기법</a></li>
+<li class="chapter" data-level="5.4.15" data-path="ggplot2-package.html"><a href="ggplot2-package.html#themes"><i class="fa fa-check"></i><b>5.4.15</b> Themes</a></li>
+<li class="chapter" data-level="5.4.16" data-path="ggplot2-package.html"><a href="ggplot2-package.html#ggplot-application"><i class="fa fa-check"></i><b>5.4.16</b> 확장 예제</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -399,11 +412,11 @@ cols(
 <pre><code>필요한 패키지를 로딩중입니다: feather</code></pre>
 <div class="sourceCode" id="cb1229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1229-1" title="1"><span class="kw">system.time</span>(pulse &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;dataset/pulse.csv&quot;</span>, <span class="dt">header =</span> T))</a></code></pre></div>
 <pre><code> 사용자  시스템 elapsed 
-  20.20    0.00   20.22 </code></pre>
+  21.53    0.02   21.56 </code></pre>
 <div class="sourceCode" id="cb1231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1231-1" title="1"><span class="kw">write_feather</span>(pulse, <span class="st">&quot;dataset/pulse.feather&quot;</span>)</a>
 <a class="sourceLine" id="cb1231-2" title="2"><span class="kw">system.time</span>(pulse &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;output/pulse.rds&quot;</span>))</a></code></pre></div>
 <pre><code> 사용자  시스템 elapsed 
-   0.09    0.00    0.10 </code></pre>
+   0.11    0.00    0.11 </code></pre>
 <div class="sourceCode" id="cb1233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1233-1" title="1"><span class="kw">system.time</span>(pulse &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataset/pulse.csv&quot;</span>))</a></code></pre></div>
 <pre><code>Parsed with column specification:
 cols(
@@ -411,10 +424,10 @@ cols(
 )</code></pre>
 <pre><code>See spec(...) for full column specifications.</code></pre>
 <pre><code> 사용자  시스템 elapsed 
-  15.78    0.05   15.84 </code></pre>
+  16.56    0.01   16.58 </code></pre>
 <div class="sourceCode" id="cb1237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1237-1" title="1"><span class="kw">system.time</span>(pulse &lt;-<span class="st"> </span><span class="kw">read_feather</span>(<span class="st">&quot;dataset/pulse.feather&quot;</span>))</a></code></pre></div>
 <pre><code> 사용자  시스템 elapsed 
-   0.15    0.01    0.17 </code></pre>
+   0.19    0.00    0.19 </code></pre>
 
 <div id="import-export-excel" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Excel 파일 입출력</h3>
@@ -511,7 +524,7 @@ cols(
 <a class="sourceLine" id="cb1246-2" title="2"><span class="kw">tibble</span>(<span class="dt">x =</span> letters, <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dv">26</span>), <span class="dt">z =</span> y<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["x"],"name":[1],"type":["chr"],"align":["left"]},{"label":["y"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["z"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"a","2":"-2.520352598","3":"6.352177e+00"},{"1":"b","2":"0.009794219","3":"9.592672e-05"},{"1":"c","2":"0.970590135","3":"9.420452e-01"},{"1":"d","2":"1.848561466","3":"3.417179e+00"},{"1":"e","2":"-2.287718707","3":"5.233657e+00"},{"1":"f","2":"-0.944511199","3":"8.921014e-01"},{"1":"g","2":"-1.084086567","3":"1.175244e+00"},{"1":"h","2":"0.248800943","3":"6.190191e-02"},{"1":"i","2":"0.407389720","3":"1.659664e-01"},{"1":"j","2":"-0.966712992","3":"9.345340e-01"},{"1":"k","2":"-1.366077675","3":"1.866168e+00"},{"1":"l","2":"-0.070476684","3":"4.966963e-03"},{"1":"m","2":"0.337946702","3":"1.142080e-01"},{"1":"n","2":"0.524851350","3":"2.754689e-01"},{"1":"o","2":"0.799935666","3":"6.398971e-01"},{"1":"p","2":"-0.140143391","3":"1.964017e-02"},{"1":"q","2":"-0.722695896","3":"5.222894e-01"},{"1":"r","2":"-3.137183894","3":"9.841923e+00"},{"1":"s","2":"0.352493768","3":"1.242519e-01"},{"1":"t","2":"-0.499545334","3":"2.495455e-01"},{"1":"u","2":"0.646990804","3":"4.185971e-01"},{"1":"v","2":"0.473788847","3":"2.244759e-01"},{"1":"w","2":"-1.028093325","3":"1.056976e+00"},{"1":"x","2":"0.574145520","3":"3.296431e-01"},{"1":"y","2":"0.048916453","3":"2.392819e-03"},{"1":"z","2":"-0.177316308","3":"3.144107e-02"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["x"],"name":[1],"type":["chr"],"align":["left"]},{"label":["y"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["z"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"a","2":"0.03429932","3":"0.001176444"},{"1":"b","2":"-0.24284339","3":"0.058972910"},{"1":"c","2":"0.07337994","3":"0.005384616"},{"1":"d","2":"0.04951671","3":"0.002451905"},{"1":"e","2":"0.53505739","3":"0.286286415"},{"1":"f","2":"0.10282311","3":"0.010572591"},{"1":"g","2":"-0.20083091","3":"0.040333054"},{"1":"h","2":"1.04330112","3":"1.088477222"},{"1":"i","2":"-0.72732304","3":"0.528998801"},{"1":"j","2":"-0.06747792","3":"0.004553270"},{"1":"k","2":"0.69780916","3":"0.486937619"},{"1":"l","2":"-0.30705373","3":"0.094281993"},{"1":"m","2":"0.41007307","3":"0.168159925"},{"1":"n","2":"-0.13391440","3":"0.017933066"},{"1":"o","2":"0.51306702","3":"0.263237769"},{"1":"p","2":"-1.00956843","3":"1.019228423"},{"1":"q","2":"-0.53361729","3":"0.284747415"},{"1":"r","2":"-1.63111020","3":"2.660520492"},{"1":"s","2":"0.16469734","3":"0.027125212"},{"1":"t","2":"-1.84170575","3":"3.391880066"},{"1":"u","2":"-1.23290775","3":"1.520061510"},{"1":"v","2":"-0.36970575","3":"0.136682343"},{"1":"w","2":"1.14810626","3":"1.318147983"},{"1":"x","2":"1.92112840","3":"3.690734348"},{"1":"y","2":"-0.67886841","3":"0.460862322"},{"1":"z","2":"-0.49340306","3":"0.243446581"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <div class="sourceCode" id="cb1247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1247-1" title="1"><span class="co"># 데이터 프레임으로 위와 동일하게 적용하면?</span></a>

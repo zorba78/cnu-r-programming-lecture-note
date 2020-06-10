@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5.3 저수준 그래프 함수 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2020년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트는 https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인 가능" />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5.3 저수준 그래프 함수 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-06-07" />
+<meta name="date" content="2020-06-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,7 @@
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -286,6 +287,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4.2" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-lines"><i class="fa fa-check"></i><b>5.4.2</b> Geoms: 선 관련 geometric</a></li>
 <li class="chapter" data-level="5.4.3" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-points"><i class="fa fa-check"></i><b>5.4.3</b> Geoms: 점 geometrics</a></li>
 <li class="chapter" data-level="5.4.4" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-bars"><i class="fa fa-check"></i><b>5.4.4</b> Geoms: 막대 geometrics</a></li>
+<li class="chapter" data-level="5.4.5" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-intervals"><i class="fa fa-check"></i><b>5.4.5</b> Geom: 수직 범위선 관련 geometrics</a></li>
+<li class="chapter" data-level="5.4.6" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-texts"><i class="fa fa-check"></i><b>5.4.6</b> Geoms: 텍스트 관련 geometrics</a></li>
+<li class="chapter" data-level="5.4.7" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-areas"><i class="fa fa-check"></i><b>5.4.7</b> Geoms: 면적 관련 geometrics</a></li>
+<li class="chapter" data-level="5.4.8" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-statistics"><i class="fa fa-check"></i><b>5.4.8</b> Geoms: 통계 그래프 관련 geometrics</a></li>
+<li class="chapter" data-level="5.4.9" data-path="ggplot2-package.html"><a href="ggplot2-package.html#scale-x-y"><i class="fa fa-check"></i><b>5.4.9</b> Scales: x-y 축 관련 aesthetic 조정</a></li>
+<li class="chapter" data-level="5.4.10" data-path="ggplot2-package.html"><a href="ggplot2-package.html#scale-colors-fill"><i class="fa fa-check"></i><b>5.4.10</b> Scales: 색상 관련 aesthetic 조정</a></li>
+<li class="chapter" data-level="5.4.11" data-path="ggplot2-package.html"><a href="ggplot2-package.html#scale-size-line-shape"><i class="fa fa-check"></i><b>5.4.11</b> Scales: 크기, 선 종류, 점 모양 aesthetic 조정</a></li>
+<li class="chapter" data-level="5.4.12" data-path="ggplot2-package.html"><a href="ggplot2-package.html#coordinate-systems"><i class="fa fa-check"></i><b>5.4.12</b> Coordinate systems</a></li>
+<li class="chapter" data-level="5.4.13" data-path="ggplot2-package.html"><a href="ggplot2-package.html#guides-x-y-축-및-그래프-제목-관련"><i class="fa fa-check"></i><b>5.4.13</b> Guides: x-y 축 및 그래프 제목 관련</a></li>
+<li class="chapter" data-level="5.4.14" data-path="ggplot2-package.html"><a href="ggplot2-package.html#facets-국소-시각화-기법"><i class="fa fa-check"></i><b>5.4.14</b> Facets: 국소 시각화 기법</a></li>
+<li class="chapter" data-level="5.4.15" data-path="ggplot2-package.html"><a href="ggplot2-package.html#themes"><i class="fa fa-check"></i><b>5.4.15</b> Themes</a></li>
+<li class="chapter" data-level="5.4.16" data-path="ggplot2-package.html"><a href="ggplot2-package.html#ggplot-application"><i class="fa fa-check"></i><b>5.4.16</b> 확장 예제</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -321,19 +334,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>par()</code> 함수를 통해 그래픽 파라미터 설정 및 조회 가능</li>
 </ul>
 
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1"><span class="co"># 그래프 파라미터 조회 </span></a>
-<a class="sourceLine" id="cb66-2" title="2"><span class="co"># 처음 12개 파라미터들에 대해서만 조회</span></a>
-<a class="sourceLine" id="cb66-3" title="3"><span class="kw">unlist</span>(<span class="kw">par</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">12</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1559"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1559-1" title="1"><span class="co"># 그래프 파라미터 조회 </span></a>
+<a class="sourceLine" id="cb1559-2" title="2"><span class="co"># 처음 12개 파라미터들에 대해서만 조회</span></a>
+<a class="sourceLine" id="cb1559-3" title="3"><span class="kw">unlist</span>(<span class="kw">par</span>()) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">12</span>)</a></code></pre></div>
 <pre><code>         xlog          ylog           adj           ann           ask 
       &quot;FALSE&quot;       &quot;FALSE&quot;         &quot;0.5&quot;        &quot;TRUE&quot;       &quot;FALSE&quot; 
            bg           bty           cex      cex.axis       cex.lab 
 &quot;transparent&quot;           &quot;o&quot;           &quot;1&quot;           &quot;1&quot;           &quot;1&quot; 
      cex.main       cex.sub 
         &quot;1.2&quot;           &quot;1&quot; </code></pre>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1"><span class="co"># 파라미터 이름으로 값 추출</span></a>
-<a class="sourceLine" id="cb68-2" title="2"><span class="kw">par</span>(<span class="st">&quot;mar&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1561"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1561-1" title="1"><span class="co"># 파라미터 이름으로 값 추출</span></a>
+<a class="sourceLine" id="cb1561-2" title="2"><span class="kw">par</span>(<span class="st">&quot;mar&quot;</span>)</a></code></pre></div>
 <pre><code>[1] 5.1 4.1 4.1 2.1</code></pre>
-<p></p>
+
 <ul>
 <li><code>par()</code> 함수 조정 파라미터 리스트</li>
 </ul>
@@ -437,13 +450,13 @@ Outer margin (여백) 각 영역별 크기 조정(인치 또는 설정 텍스트
 </table>
 
 <ul>
-<li>R 그래픽 레이아웃(그림 <a href="r-basic-graphics.html#fig:r-graphic-layout">5.2</a> 참조) 조정 파라미터</li>
+<li>R 그래픽 레이아웃(그림 <a href="r-basic-graphics.html#fig:r-graphic-layout">5.1</a> 참조) 조정 파라미터</li>
 </ul>
 
 <div class="figure"><span id="fig:layout-par"></span>
 <img src="figures/graphics-figureAnatomy1.png" alt="레이아웃 파라미터. AIMS-R-Users 에서 발췌" width="50%" /><img src="figures/graphics-figureAnatomy2.png" alt="레이아웃 파라미터. AIMS-R-Users 에서 발췌" width="50%" />
 <p class="caption">
-Figure 5.5: 레이아웃 파라미터. AIMS-R-Users 에서 발췌
+Figure 5.4: 레이아웃 파라미터. AIMS-R-Users 에서 발췌
 </p>
 </div>
 
@@ -482,48 +495,48 @@ Figure 5.5: 레이아웃 파라미터. AIMS-R-Users 에서 발췌
 </ul>
 </blockquote>
 
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" title="1">text_loc &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="dt">by =</span> <span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb70-2" title="2">par_name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;mar&quot;</span>, <span class="st">&quot;mai&quot;</span>, <span class="st">&quot;fig&quot;</span>, <span class="st">&quot;fin&quot;</span>, <span class="st">&quot;plt&quot;</span>, <span class="st">&quot;pin&quot;</span>)</a>
-<a class="sourceLine" id="cb70-3" title="3"></a>
-<a class="sourceLine" id="cb70-4" title="4">plot_dim &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, op, title, ...) {</a>
-<a class="sourceLine" id="cb70-5" title="5">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(text_loc)) {</a>
-<a class="sourceLine" id="cb70-6" title="6">    <span class="kw">text</span>(x, y <span class="op">+</span><span class="st"> </span>text_loc[i], </a>
-<a class="sourceLine" id="cb70-7" title="7">         <span class="kw">paste0</span>(par_name[i], <span class="st">&quot; = c(&quot;</span>, </a>
-<a class="sourceLine" id="cb70-8" title="8">                <span class="kw">paste</span>(<span class="kw">round</span>(op[[par_name[i]]]), </a>
-<a class="sourceLine" id="cb70-9" title="9">                            <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>), <span class="st">&quot;)&quot;</span>), </a>
-<a class="sourceLine" id="cb70-10" title="10">         <span class="dt">adj =</span> <span class="dv">0</span>, ...)</a>
-<a class="sourceLine" id="cb70-11" title="11">  }</a>
-<a class="sourceLine" id="cb70-12" title="12">  <span class="kw">text</span>(x, y <span class="op">+</span><span class="st"> </span>text_loc[i] <span class="op">+</span><span class="st"> </span><span class="fl">0.05</span>, title, <span class="dt">adj =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb70-13" title="13">}</a>
-<a class="sourceLine" id="cb70-14" title="14"></a>
-<a class="sourceLine" id="cb70-15" title="15"></a>
-<a class="sourceLine" id="cb70-16" title="16"><span class="co"># 1. plot area available when internal margins are 0</span></a>
-<a class="sourceLine" id="cb70-17" title="17"><span class="kw">par</span>(op)</a>
-<a class="sourceLine" id="cb70-18" title="18"><span class="kw">par</span>(<span class="dt">mai =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">xaxs =</span> <span class="st">&#39;i&#39;</span>, <span class="dt">yaxs =</span> <span class="st">&#39;i&#39;</span>)</a>
-<a class="sourceLine" id="cb70-19" title="19"><span class="kw">plot.new</span>()</a>
-<a class="sourceLine" id="cb70-20" title="20"><span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">c</span>(<span class="fl">0.4</span>, <span class="fl">0.9</span>), <span class="dt">v =</span> <span class="kw">c</span>(<span class="fl">0.4</span>, <span class="fl">0.9</span>), <span class="dt">lty =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb70-21" title="21"><span class="kw">rect</span>(<span class="fl">0.4</span>, <span class="fl">0.4</span>, <span class="fl">0.9</span>, <span class="fl">0.9</span>, <span class="dt">border =</span> <span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb70-22" title="22"><span class="kw">par</span>(op)</a>
-<a class="sourceLine" id="cb70-23" title="23"></a>
-<a class="sourceLine" id="cb70-24" title="24"></a>
-<a class="sourceLine" id="cb70-25" title="25"><span class="co"># 2. Plot new fig</span></a>
-<a class="sourceLine" id="cb70-26" title="26">newfig &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.4</span>, <span class="fl">0.9</span>, <span class="fl">0.4</span>, <span class="fl">0.9</span>)</a>
-<a class="sourceLine" id="cb70-27" title="27"><span class="kw">par</span>(<span class="dt">fig =</span> newfig, <span class="dt">new =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb70-28" title="28">op_reduced &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">no.readonly =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb70-29" title="29"><span class="kw">set.seed</span>(<span class="dv">12345</span>)</a>
-<a class="sourceLine" id="cb70-30" title="30"><span class="kw">plot</span>(<span class="kw">runif</span>(<span class="dv">10</span>), <span class="kw">runif</span>(<span class="dv">10</span>), <span class="dt">typ =</span> <span class="st">&#39;p&#39;</span>, </a>
-<a class="sourceLine" id="cb70-31" title="31">    <span class="dt">xlab =</span> <span class="st">&#39;X&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Y&#39;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb70-32" title="32"><span class="kw">par</span>(op)</a>
-<a class="sourceLine" id="cb70-33" title="33"><span class="kw">par</span>(<span class="dt">mai =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">xaxs =</span> <span class="st">&#39;i&#39;</span>, <span class="dt">yaxs =</span> <span class="st">&#39;i&#39;</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb70-34" title="34"></a>
-<a class="sourceLine" id="cb70-35" title="35"><span class="co"># 3. Info about dimensions</span></a>
-<a class="sourceLine" id="cb70-36" title="36"><span class="kw">plot.new</span>()</a>
-<a class="sourceLine" id="cb70-37" title="37"><span class="kw">plot_dim</span>(<span class="fl">0.05</span>, <span class="fl">0.5</span>, op_reduced, <span class="st">&quot;New plot dimension on the right&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.9</span>)</a>
-<a class="sourceLine" id="cb70-38" title="38"><span class="kw">plot_dim</span>(<span class="fl">0.5</span>, <span class="fl">0.05</span>, op, <span class="st">&quot;Default plot dimensions&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1563"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1563-1" title="1">text_loc &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="dt">by =</span> <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb1563-2" title="2">par_name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;mar&quot;</span>, <span class="st">&quot;mai&quot;</span>, <span class="st">&quot;fig&quot;</span>, <span class="st">&quot;fin&quot;</span>, <span class="st">&quot;plt&quot;</span>, <span class="st">&quot;pin&quot;</span>)</a>
+<a class="sourceLine" id="cb1563-3" title="3"></a>
+<a class="sourceLine" id="cb1563-4" title="4">plot_dim &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, op, title, ...) {</a>
+<a class="sourceLine" id="cb1563-5" title="5">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(text_loc)) {</a>
+<a class="sourceLine" id="cb1563-6" title="6">    <span class="kw">text</span>(x, y <span class="op">+</span><span class="st"> </span>text_loc[i], </a>
+<a class="sourceLine" id="cb1563-7" title="7">         <span class="kw">paste0</span>(par_name[i], <span class="st">&quot; = c(&quot;</span>, </a>
+<a class="sourceLine" id="cb1563-8" title="8">                <span class="kw">paste</span>(<span class="kw">round</span>(op[[par_name[i]]]), </a>
+<a class="sourceLine" id="cb1563-9" title="9">                            <span class="dt">collapse =</span> <span class="st">&quot;, &quot;</span>), <span class="st">&quot;)&quot;</span>), </a>
+<a class="sourceLine" id="cb1563-10" title="10">         <span class="dt">adj =</span> <span class="dv">0</span>, ...)</a>
+<a class="sourceLine" id="cb1563-11" title="11">  }</a>
+<a class="sourceLine" id="cb1563-12" title="12">  <span class="kw">text</span>(x, y <span class="op">+</span><span class="st"> </span>text_loc[i] <span class="op">+</span><span class="st"> </span><span class="fl">0.05</span>, title, <span class="dt">adj =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1563-13" title="13">}</a>
+<a class="sourceLine" id="cb1563-14" title="14"></a>
+<a class="sourceLine" id="cb1563-15" title="15"></a>
+<a class="sourceLine" id="cb1563-16" title="16"><span class="co"># 1. plot area available when internal margins are 0</span></a>
+<a class="sourceLine" id="cb1563-17" title="17"><span class="kw">par</span>(op)</a>
+<a class="sourceLine" id="cb1563-18" title="18"><span class="kw">par</span>(<span class="dt">mai =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">xaxs =</span> <span class="st">&#39;i&#39;</span>, <span class="dt">yaxs =</span> <span class="st">&#39;i&#39;</span>)</a>
+<a class="sourceLine" id="cb1563-19" title="19"><span class="kw">plot.new</span>()</a>
+<a class="sourceLine" id="cb1563-20" title="20"><span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">c</span>(<span class="fl">0.4</span>, <span class="fl">0.9</span>), <span class="dt">v =</span> <span class="kw">c</span>(<span class="fl">0.4</span>, <span class="fl">0.9</span>), <span class="dt">lty =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb1563-21" title="21"><span class="kw">rect</span>(<span class="fl">0.4</span>, <span class="fl">0.4</span>, <span class="fl">0.9</span>, <span class="fl">0.9</span>, <span class="dt">border =</span> <span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb1563-22" title="22"><span class="kw">par</span>(op)</a>
+<a class="sourceLine" id="cb1563-23" title="23"></a>
+<a class="sourceLine" id="cb1563-24" title="24"></a>
+<a class="sourceLine" id="cb1563-25" title="25"><span class="co"># 2. Plot new fig</span></a>
+<a class="sourceLine" id="cb1563-26" title="26">newfig &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.4</span>, <span class="fl">0.9</span>, <span class="fl">0.4</span>, <span class="fl">0.9</span>)</a>
+<a class="sourceLine" id="cb1563-27" title="27"><span class="kw">par</span>(<span class="dt">fig =</span> newfig, <span class="dt">new =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1563-28" title="28">op_reduced &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">no.readonly =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1563-29" title="29"><span class="kw">set.seed</span>(<span class="dv">12345</span>)</a>
+<a class="sourceLine" id="cb1563-30" title="30"><span class="kw">plot</span>(<span class="kw">runif</span>(<span class="dv">10</span>), <span class="kw">runif</span>(<span class="dv">10</span>), <span class="dt">typ =</span> <span class="st">&#39;p&#39;</span>, </a>
+<a class="sourceLine" id="cb1563-31" title="31">    <span class="dt">xlab =</span> <span class="st">&#39;X&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Y&#39;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb1563-32" title="32"><span class="kw">par</span>(op)</a>
+<a class="sourceLine" id="cb1563-33" title="33"><span class="kw">par</span>(<span class="dt">mai =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">xaxs =</span> <span class="st">&#39;i&#39;</span>, <span class="dt">yaxs =</span> <span class="st">&#39;i&#39;</span>, <span class="dt">new =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1563-34" title="34"></a>
+<a class="sourceLine" id="cb1563-35" title="35"><span class="co"># 3. Info about dimensions</span></a>
+<a class="sourceLine" id="cb1563-36" title="36"><span class="kw">plot.new</span>()</a>
+<a class="sourceLine" id="cb1563-37" title="37"><span class="kw">plot_dim</span>(<span class="fl">0.05</span>, <span class="fl">0.5</span>, op_reduced, <span class="st">&quot;New plot dimension on the right&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.9</span>)</a>
+<a class="sourceLine" id="cb1563-38" title="38"><span class="kw">plot_dim</span>(<span class="fl">0.5</span>, <span class="fl">0.05</span>, op, <span class="st">&quot;Default plot dimensions&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>)</a></code></pre></div>
 <div class="figure"><span id="fig:fig-anatomy"></span>
 <img src="05-data-visualization_files/figure-html/fig-anatomy-1.svg" alt="fig 인수 조정 예시: Graphical parameters of R graphics package에서 발췌" width="672" />
 <p class="caption">
-Figure 5.6: fig 인수 조정 예시: Graphical parameters of R graphics package에서 발췌
+Figure 5.5: fig 인수 조정 예시: Graphical parameters of R graphics package에서 발췌
 </p>
 </div>
 
@@ -541,7 +554,7 @@ Figure 5.6: fig 인수 조정 예시: Graphical parameters of R graphics package
 <div class="figure"><span id="fig:mar-anatomy"></span>
 <img src="05-data-visualization_files/figure-html/mar-anatomy-1.svg" alt="Figure 영역에서 기본 여백: Graphical parameters of R graphics package 에서 발췌" width="672" />
 <p class="caption">
-Figure 5.7: Figure 영역에서 기본 여백: Graphical parameters of R graphics package 에서 발췌
+Figure 5.6: Figure 영역에서 기본 여백: Graphical parameters of R graphics package 에서 발췌
 </p>
 </div>
 
@@ -556,30 +569,30 @@ Figure 5.7: Figure 영역에서 기본 여백: Graphical parameters of R graphic
 </ul>
 </blockquote>
 
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1"><span class="kw">par</span>(<span class="dt">oma =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>), <span class="co"># 윗쪽 여백 크기 조정</span></a>
-<a class="sourceLine" id="cb71-2" title="2">    <span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb71-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) {</a>
-<a class="sourceLine" id="cb71-4" title="4">  <span class="kw">set.seed</span>(<span class="dv">12345</span>)</a>
-<a class="sourceLine" id="cb71-5" title="5">  <span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>), <span class="kw">rnorm</span>(<span class="dv">20</span>),</a>
-<a class="sourceLine" id="cb71-6" title="6">       <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;Plot&quot;</span>, i))</a>
-<a class="sourceLine" id="cb71-7" title="7">  <span class="kw">box</span>(<span class="st">&quot;figure&quot;</span>)</a>
-<a class="sourceLine" id="cb71-8" title="8">}</a>
-<a class="sourceLine" id="cb71-9" title="9"><span class="co"># 윗쪽 여백(side=3)에 텍스트 출력</span></a>
-<a class="sourceLine" id="cb71-10" title="10"><span class="kw">mtext</span>(<span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">line =</span> <span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,</a>
-<a class="sourceLine" id="cb71-11" title="11">    <span class="st">&quot;Muptiple plots with mfrow = c(2, 3)&quot;</span>,</a>
-<a class="sourceLine" id="cb71-12" title="12">    <span class="dt">outer =</span> <span class="ot">TRUE</span>) <span class="co"># outer 여백 사용 여부</span></a>
-<a class="sourceLine" id="cb71-13" title="13"></a>
-<a class="sourceLine" id="cb71-14" title="14"><span class="kw">par</span>(<span class="dt">oma =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>),</a>
-<a class="sourceLine" id="cb71-15" title="15">    <span class="dt">mfcol =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb71-16" title="16"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) {</a>
-<a class="sourceLine" id="cb71-17" title="17">  <span class="kw">set.seed</span>(<span class="dv">12345</span>)</a>
-<a class="sourceLine" id="cb71-18" title="18">  <span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>), <span class="kw">rnorm</span>(<span class="dv">20</span>),</a>
-<a class="sourceLine" id="cb71-19" title="19">       <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;Plot&quot;</span>, i))</a>
-<a class="sourceLine" id="cb71-20" title="20">  <span class="kw">box</span>(<span class="st">&quot;figure&quot;</span>)</a>
-<a class="sourceLine" id="cb71-21" title="21">}</a>
-<a class="sourceLine" id="cb71-22" title="22"><span class="kw">mtext</span>(<span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">line =</span> <span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,</a>
-<a class="sourceLine" id="cb71-23" title="23">    <span class="st">&quot;Muptiple plots with mfcol = c(3, 2)&quot;</span>,</a>
-<a class="sourceLine" id="cb71-24" title="24">    <span class="dt">outer =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1564"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1564-1" title="1"><span class="kw">par</span>(<span class="dt">oma =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>), <span class="co"># 윗쪽 여백 크기 조정</span></a>
+<a class="sourceLine" id="cb1564-2" title="2">    <span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb1564-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) {</a>
+<a class="sourceLine" id="cb1564-4" title="4">  <span class="kw">set.seed</span>(<span class="dv">12345</span>)</a>
+<a class="sourceLine" id="cb1564-5" title="5">  <span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>), <span class="kw">rnorm</span>(<span class="dv">20</span>),</a>
+<a class="sourceLine" id="cb1564-6" title="6">       <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;Plot&quot;</span>, i))</a>
+<a class="sourceLine" id="cb1564-7" title="7">  <span class="kw">box</span>(<span class="st">&quot;figure&quot;</span>)</a>
+<a class="sourceLine" id="cb1564-8" title="8">}</a>
+<a class="sourceLine" id="cb1564-9" title="9"><span class="co"># 윗쪽 여백(side=3)에 텍스트 출력</span></a>
+<a class="sourceLine" id="cb1564-10" title="10"><span class="kw">mtext</span>(<span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">line =</span> <span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,</a>
+<a class="sourceLine" id="cb1564-11" title="11">    <span class="st">&quot;Muptiple plots with mfrow = c(2, 3)&quot;</span>,</a>
+<a class="sourceLine" id="cb1564-12" title="12">    <span class="dt">outer =</span> <span class="ot">TRUE</span>) <span class="co"># outer 여백 사용 여부</span></a>
+<a class="sourceLine" id="cb1564-13" title="13"></a>
+<a class="sourceLine" id="cb1564-14" title="14"><span class="kw">par</span>(<span class="dt">oma =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb1564-15" title="15">    <span class="dt">mfcol =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb1564-16" title="16"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) {</a>
+<a class="sourceLine" id="cb1564-17" title="17">  <span class="kw">set.seed</span>(<span class="dv">12345</span>)</a>
+<a class="sourceLine" id="cb1564-18" title="18">  <span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>), <span class="kw">rnorm</span>(<span class="dv">20</span>),</a>
+<a class="sourceLine" id="cb1564-19" title="19">       <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;Plot&quot;</span>, i))</a>
+<a class="sourceLine" id="cb1564-20" title="20">  <span class="kw">box</span>(<span class="st">&quot;figure&quot;</span>)</a>
+<a class="sourceLine" id="cb1564-21" title="21">}</a>
+<a class="sourceLine" id="cb1564-22" title="22"><span class="kw">mtext</span>(<span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">line =</span> <span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,</a>
+<a class="sourceLine" id="cb1564-23" title="23">    <span class="st">&quot;Muptiple plots with mfcol = c(3, 2)&quot;</span>,</a>
+<a class="sourceLine" id="cb1564-24" title="24">    <span class="dt">outer =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="05-data-visualization_files/figure-html/unnamed-chunk-45-1.svg" width="50%" /><img src="05-data-visualization_files/figure-html/unnamed-chunk-45-2.svg" width="50%" /></p>
 
 </div>
@@ -593,25 +606,25 @@ Figure 5.7: Figure 영역에서 기본 여백: Graphical parameters of R graphic
 </ul>
 </blockquote>
 
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1">df_order &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb72-2" title="2">                        <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb72-3" title="3"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb72-4" title="4">idx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">6</span>, <span class="kw">nrow</span>(df_order)<span class="op">-</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb72-5" title="5">df_order &lt;-<span class="st"> </span>df_order[<span class="kw">c</span>(<span class="dv">1</span>,idx), ]</a>
-<a class="sourceLine" id="cb72-6" title="6"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb72-7" title="7">    <span class="dt">oma =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb72-8" title="8"></a>
-<a class="sourceLine" id="cb72-9" title="9"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">0</span><span class="op">:</span><span class="dv">5</span>) {</a>
-<a class="sourceLine" id="cb72-10" title="10">  <span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb72-11" title="11">  <span class="kw">par</span>(<span class="dt">mfg =</span> <span class="kw">as.numeric</span>(df_order[i<span class="op">+</span><span class="dv">1</span>, ]))</a>
-<a class="sourceLine" id="cb72-12" title="12">  <span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>), <span class="kw">rnorm</span>(<span class="dv">20</span>),</a>
-<a class="sourceLine" id="cb72-13" title="13">       <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;Plot&quot;</span>, i<span class="op">+</span><span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb72-14" title="14">  <span class="kw">box</span>(<span class="st">&quot;figure&quot;</span>)</a>
-<a class="sourceLine" id="cb72-15" title="15">}</a>
-<a class="sourceLine" id="cb72-16" title="16"></a>
-<a class="sourceLine" id="cb72-17" title="17"><span class="kw">mtext</span>(<span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">line =</span> <span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,</a>
-<a class="sourceLine" id="cb72-18" title="18">    <span class="st">&quot;Multiple plots by row: order in mfrow changed by mfg parameter.&quot;</span>,</a>
-<a class="sourceLine" id="cb72-19" title="19">    <span class="dt">outer =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1565"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1565-1" title="1">df_order &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb1565-2" title="2">                        <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb1565-3" title="3"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb1565-4" title="4">idx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">6</span>, <span class="kw">nrow</span>(df_order)<span class="op">-</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1565-5" title="5">df_order &lt;-<span class="st"> </span>df_order[<span class="kw">c</span>(<span class="dv">1</span>,idx), ]</a>
+<a class="sourceLine" id="cb1565-6" title="6"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb1565-7" title="7">    <span class="dt">oma =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb1565-8" title="8"></a>
+<a class="sourceLine" id="cb1565-9" title="9"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">0</span><span class="op">:</span><span class="dv">5</span>) {</a>
+<a class="sourceLine" id="cb1565-10" title="10">  <span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb1565-11" title="11">  <span class="kw">par</span>(<span class="dt">mfg =</span> <span class="kw">as.numeric</span>(df_order[i<span class="op">+</span><span class="dv">1</span>, ]))</a>
+<a class="sourceLine" id="cb1565-12" title="12">  <span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>), <span class="kw">rnorm</span>(<span class="dv">20</span>),</a>
+<a class="sourceLine" id="cb1565-13" title="13">       <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;Plot&quot;</span>, i<span class="op">+</span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb1565-14" title="14">  <span class="kw">box</span>(<span class="st">&quot;figure&quot;</span>)</a>
+<a class="sourceLine" id="cb1565-15" title="15">}</a>
+<a class="sourceLine" id="cb1565-16" title="16"></a>
+<a class="sourceLine" id="cb1565-17" title="17"><span class="kw">mtext</span>(<span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">line =</span> <span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,</a>
+<a class="sourceLine" id="cb1565-18" title="18">    <span class="st">&quot;Multiple plots by row: order in mfrow changed by mfg parameter.&quot;</span>,</a>
+<a class="sourceLine" id="cb1565-19" title="19">    <span class="dt">outer =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="05-data-visualization_files/figure-html/unnamed-chunk-46-1.svg" width="768" /></p>
 
 <ul>
@@ -619,20 +632,20 @@ Figure 5.7: Figure 영역에서 기본 여백: Graphical parameters of R graphic
 <li><p><code>layout()</code>: 행렬 객체를 인수로 받아 화면 분할</p></li>
 </ul>
 
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="co"># mtcars 데이터셋</span></a>
-<a class="sourceLine" id="cb73-2" title="2">graph_array &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb73-3" title="3"><span class="kw">par</span>(<span class="dt">oma =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span> , <span class="dv">3</span>, <span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb73-4" title="4"><span class="kw">layout</span>(<span class="dt">mat =</span> graph_array)</a>
-<a class="sourceLine" id="cb73-5" title="5"><span class="kw">plot</span>(mpg <span class="op">~</span><span class="st"> </span>disp, <span class="co"># 데이터 프레임인 경우 수식 표현도 가능</span></a>
-<a class="sourceLine" id="cb73-6" title="6">     <span class="dt">data =</span> mtcars,</a>
-<a class="sourceLine" id="cb73-7" title="7">     <span class="dt">main =</span> <span class="st">&quot;layout 1&quot;</span>)</a>
-<a class="sourceLine" id="cb73-8" title="8"><span class="kw">hist</span>(mtcars<span class="op">$</span>disp,</a>
-<a class="sourceLine" id="cb73-9" title="9">     <span class="dt">main =</span> <span class="st">&quot;layout 2&quot;</span>)</a>
-<a class="sourceLine" id="cb73-10" title="10"><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg,</a>
-<a class="sourceLine" id="cb73-11" title="11">     <span class="dt">main =</span> <span class="st">&quot;layout 3&quot;</span>)</a>
-<a class="sourceLine" id="cb73-12" title="12"><span class="kw">mtext</span>(<span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">line =</span> <span class="dv">1</span>, <span class="dt">cex =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,</a>
-<a class="sourceLine" id="cb73-13" title="13">      <span class="st">&quot;c(1, 1): scatter plot, c(2) = histogram: dsip, c(3) = histogram: mpg&quot;</span>,</a>
-<a class="sourceLine" id="cb73-14" title="14">      <span class="dt">outer =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1566"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1566-1" title="1"><span class="co"># mtcars 데이터셋</span></a>
+<a class="sourceLine" id="cb1566-2" title="2">graph_array &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1566-3" title="3"><span class="kw">par</span>(<span class="dt">oma =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span> , <span class="dv">3</span>, <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb1566-4" title="4"><span class="kw">layout</span>(<span class="dt">mat =</span> graph_array)</a>
+<a class="sourceLine" id="cb1566-5" title="5"><span class="kw">plot</span>(mpg <span class="op">~</span><span class="st"> </span>disp, <span class="co"># 데이터 프레임인 경우 수식 표현도 가능</span></a>
+<a class="sourceLine" id="cb1566-6" title="6">     <span class="dt">data =</span> mtcars,</a>
+<a class="sourceLine" id="cb1566-7" title="7">     <span class="dt">main =</span> <span class="st">&quot;layout 1&quot;</span>)</a>
+<a class="sourceLine" id="cb1566-8" title="8"><span class="kw">hist</span>(mtcars<span class="op">$</span>disp,</a>
+<a class="sourceLine" id="cb1566-9" title="9">     <span class="dt">main =</span> <span class="st">&quot;layout 2&quot;</span>)</a>
+<a class="sourceLine" id="cb1566-10" title="10"><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg,</a>
+<a class="sourceLine" id="cb1566-11" title="11">     <span class="dt">main =</span> <span class="st">&quot;layout 3&quot;</span>)</a>
+<a class="sourceLine" id="cb1566-12" title="12"><span class="kw">mtext</span>(<span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">line =</span> <span class="dv">1</span>, <span class="dt">cex =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,</a>
+<a class="sourceLine" id="cb1566-13" title="13">      <span class="st">&quot;c(1, 1): scatter plot, c(2) = histogram: dsip, c(3) = histogram: mpg&quot;</span>,</a>
+<a class="sourceLine" id="cb1566-14" title="14">      <span class="dt">outer =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="05-data-visualization_files/figure-html/unnamed-chunk-47-1.svg" width="768" /></p>
 
 <ul>
@@ -643,24 +656,24 @@ Figure 5.7: Figure 영역에서 기본 여백: Graphical parameters of R graphic
 </ul></li>
 </ul>
 
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1"><span class="kw">split.screen</span>(<span class="dt">fig =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># 화면을 2 by 2로 분할</span></a></code></pre></div>
+<div class="sourceCode" id="cb1567"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1567-1" title="1"><span class="kw">split.screen</span>(<span class="dt">fig =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># 화면을 2 by 2로 분할</span></a></code></pre></div>
 <pre><code>[1] 1 2 3 4</code></pre>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" title="1"><span class="kw">par</span>(<span class="dt">oma =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb76-2" title="2"><span class="kw">screen</span>(<span class="dt">n =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb76-3" title="3">vioplot<span class="op">::</span><span class="kw">vioplot</span>(mpg <span class="op">~</span><span class="st"> </span>cyl, <span class="dt">data =</span> mtcars,</a>
-<a class="sourceLine" id="cb76-4" title="4">                 <span class="dt">main =</span> <span class="st">&quot;screen n = 4&quot;</span>)</a>
-<a class="sourceLine" id="cb76-5" title="5"><span class="kw">screen</span>(<span class="dt">n =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb76-6" title="6"><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg,</a>
-<a class="sourceLine" id="cb76-7" title="7">     <span class="dt">main =</span> <span class="st">&quot;screen n = 1&quot;</span>)</a>
-<a class="sourceLine" id="cb76-8" title="8"><span class="kw">screen</span>(<span class="dt">n =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb76-9" title="9"><span class="kw">plot</span>(mpg <span class="op">~</span><span class="st"> </span>wt, <span class="dt">data =</span> mtcars,</a>
-<a class="sourceLine" id="cb76-10" title="10">     <span class="dt">main =</span> <span class="st">&quot;screen n = 3&quot;</span>)</a>
-<a class="sourceLine" id="cb76-11" title="11"><span class="kw">screen</span>(<span class="dt">n =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb76-12" title="12"><span class="kw">boxplot</span>(mpg <span class="op">~</span><span class="st"> </span>gear, <span class="dt">data =</span> mtcars,</a>
-<a class="sourceLine" id="cb76-13" title="13">        <span class="dt">main =</span> <span class="st">&quot;screen n = 2&quot;</span>)</a>
-<a class="sourceLine" id="cb76-14" title="14"><span class="kw">mtext</span>(<span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">line =</span> <span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,</a>
-<a class="sourceLine" id="cb76-15" title="15">      <span class="st">&quot;Split using split.screen()&quot;</span>,</a>
-<a class="sourceLine" id="cb76-16" title="16">      <span class="dt">outer =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1569"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1569-1" title="1"><span class="kw">par</span>(<span class="dt">oma =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb1569-2" title="2"><span class="kw">screen</span>(<span class="dt">n =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb1569-3" title="3">vioplot<span class="op">::</span><span class="kw">vioplot</span>(mpg <span class="op">~</span><span class="st"> </span>cyl, <span class="dt">data =</span> mtcars,</a>
+<a class="sourceLine" id="cb1569-4" title="4">                 <span class="dt">main =</span> <span class="st">&quot;screen n = 4&quot;</span>)</a>
+<a class="sourceLine" id="cb1569-5" title="5"><span class="kw">screen</span>(<span class="dt">n =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1569-6" title="6"><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg,</a>
+<a class="sourceLine" id="cb1569-7" title="7">     <span class="dt">main =</span> <span class="st">&quot;screen n = 1&quot;</span>)</a>
+<a class="sourceLine" id="cb1569-8" title="8"><span class="kw">screen</span>(<span class="dt">n =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb1569-9" title="9"><span class="kw">plot</span>(mpg <span class="op">~</span><span class="st"> </span>wt, <span class="dt">data =</span> mtcars,</a>
+<a class="sourceLine" id="cb1569-10" title="10">     <span class="dt">main =</span> <span class="st">&quot;screen n = 3&quot;</span>)</a>
+<a class="sourceLine" id="cb1569-11" title="11"><span class="kw">screen</span>(<span class="dt">n =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb1569-12" title="12"><span class="kw">boxplot</span>(mpg <span class="op">~</span><span class="st"> </span>gear, <span class="dt">data =</span> mtcars,</a>
+<a class="sourceLine" id="cb1569-13" title="13">        <span class="dt">main =</span> <span class="st">&quot;screen n = 2&quot;</span>)</a>
+<a class="sourceLine" id="cb1569-14" title="14"><span class="kw">mtext</span>(<span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">line =</span> <span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,</a>
+<a class="sourceLine" id="cb1569-15" title="15">      <span class="st">&quot;Split using split.screen()&quot;</span>,</a>
+<a class="sourceLine" id="cb1569-16" title="16">      <span class="dt">outer =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="05-data-visualization_files/figure-html/unnamed-chunk-48-1.svg" width="768" /></p>
 
 </div>
@@ -674,19 +687,19 @@ Figure 5.7: Figure 영역에서 기본 여백: Graphical parameters of R graphic
 </ul>
 </blockquote>
 
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1"><span class="co"># boxplot + violin plot</span></a>
-<a class="sourceLine" id="cb77-2" title="2"><span class="co">## iris 데이터 셋</span></a>
-<a class="sourceLine" id="cb77-3" title="3"><span class="kw">par</span>(<span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>) <span class="co"># x-y 축 스타일 지정</span></a>
-<a class="sourceLine" id="cb77-4" title="4"><span class="kw">boxplot</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species,</a>
-<a class="sourceLine" id="cb77-5" title="5">        <span class="dt">data =</span> iris)</a>
-<a class="sourceLine" id="cb77-6" title="6">new_fig &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.46</span>, <span class="fl">0.4</span>, <span class="fl">0.99</span>)</a>
-<a class="sourceLine" id="cb77-7" title="7"><span class="kw">par</span>(<span class="dt">new =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb77-8" title="8">    <span class="dt">fig =</span> new_fig)</a>
-<a class="sourceLine" id="cb77-9" title="9">vioplot<span class="op">::</span><span class="kw">vioplot</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species,</a>
-<a class="sourceLine" id="cb77-10" title="10">                 <span class="dt">data =</span> iris,</a>
-<a class="sourceLine" id="cb77-11" title="11">                 <span class="dt">col =</span> <span class="st">&quot;skyblue&quot;</span>,</a>
-<a class="sourceLine" id="cb77-12" title="12">                 <span class="dt">yaxt =</span> <span class="st">&quot;s&quot;</span>,</a>
-<a class="sourceLine" id="cb77-13" title="13">                 <span class="dt">ann =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1570"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1570-1" title="1"><span class="co"># boxplot + violin plot</span></a>
+<a class="sourceLine" id="cb1570-2" title="2"><span class="co">## iris 데이터 셋</span></a>
+<a class="sourceLine" id="cb1570-3" title="3"><span class="kw">par</span>(<span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>) <span class="co"># x-y 축 스타일 지정</span></a>
+<a class="sourceLine" id="cb1570-4" title="4"><span class="kw">boxplot</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species,</a>
+<a class="sourceLine" id="cb1570-5" title="5">        <span class="dt">data =</span> iris)</a>
+<a class="sourceLine" id="cb1570-6" title="6">new_fig &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.46</span>, <span class="fl">0.4</span>, <span class="fl">0.99</span>)</a>
+<a class="sourceLine" id="cb1570-7" title="7"><span class="kw">par</span>(<span class="dt">new =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb1570-8" title="8">    <span class="dt">fig =</span> new_fig)</a>
+<a class="sourceLine" id="cb1570-9" title="9">vioplot<span class="op">::</span><span class="kw">vioplot</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species,</a>
+<a class="sourceLine" id="cb1570-10" title="10">                 <span class="dt">data =</span> iris,</a>
+<a class="sourceLine" id="cb1570-11" title="11">                 <span class="dt">col =</span> <span class="st">&quot;skyblue&quot;</span>,</a>
+<a class="sourceLine" id="cb1570-12" title="12">                 <span class="dt">yaxt =</span> <span class="st">&quot;s&quot;</span>,</a>
+<a class="sourceLine" id="cb1570-13" title="13">                 <span class="dt">ann =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p><img src="05-data-visualization_files/figure-html/unnamed-chunk-49-1.svg" width="960" /></p>
 
 </div>
@@ -703,7 +716,7 @@ Figure 5.7: Figure 영역에서 기본 여백: Graphical parameters of R graphic
 <div class="figure"><span id="fig:oma-anatomy"></span>
 <img src="05-data-visualization_files/figure-html/oma-anatomy-1.svg" alt="Outer 여백 조정 파라미터(mar = c(2, 3, 3, 1)) Graphical parameters of R graphics package에서 발췌" width="864" />
 <p class="caption">
-Figure 5.8: Outer 여백 조정 파라미터(mar = c(2, 3, 3, 1)) Graphical parameters of R graphics package에서 발췌
+Figure 5.7: Outer 여백 조정 파라미터(mar = c(2, 3, 3, 1)) Graphical parameters of R graphics package에서 발췌
 </p>
 </div>
 
@@ -714,29 +727,29 @@ Figure 5.8: Outer 여백 조정 파라미터(mar = c(2, 3, 3, 1)) Graphical para
 <ul>
 <li>점을 그리는 저수준 그래프 함수로 이미 출력된 x-y 좌표 위에 지정한 점 문자 출력</li>
 <li>x-y 좌표 지정은 <code>plot()</code> 함수와 동일</li>
-<li>많이 사용되는 점 문자 기호(symbol)은 그림 <a href="high-level-graph.html#fig:plot-symbol">5.4</a> 참고</li>
+<li>많이 사용되는 점 문자 기호(symbol)은 그림 <a href="high-level-graph.html#fig:plot-symbol">5.3</a> 참고</li>
 </ul>
 
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1"><span class="co"># cars 데이터셋</span></a>
-<a class="sourceLine" id="cb78-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb78-3" title="3"><span class="kw">plot</span>(dist <span class="op">~</span><span class="st"> </span>speed, <span class="dt">data =</span> cars,</a>
-<a class="sourceLine" id="cb78-4" title="4">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb78-5" title="5">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb78-6" title="6">     <span class="dt">main =</span> <span class="st">&quot;points() function example 1: cars dataset&quot;</span>)</a>
-<a class="sourceLine" id="cb78-7" title="7"><span class="kw">points</span>(cars<span class="op">$</span>speed, cars<span class="op">$</span>dist,</a>
-<a class="sourceLine" id="cb78-8" title="8">       <span class="dt">pch =</span> <span class="dv">16</span>,</a>
-<a class="sourceLine" id="cb78-9" title="9">       <span class="dt">col =</span> <span class="st">&quot;darkgreen&quot;</span>,</a>
-<a class="sourceLine" id="cb78-10" title="10">       <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb78-11" title="11">shapes &lt;-<span class="st"> </span><span class="dv">15</span><span class="op">:</span><span class="dv">17</span> <span class="co"># pch 지정</span></a>
-<a class="sourceLine" id="cb78-12" title="12"><span class="kw">plot</span>(Petal.Length <span class="op">~</span><span class="st"> </span>Sepal.Length, <span class="dt">data =</span> iris,</a>
-<a class="sourceLine" id="cb78-13" title="13">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb78-14" title="14">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb78-15" title="15">     <span class="dt">main =</span> <span class="st">&quot;points() function example 2: iris dataset&quot;</span>)</a>
-<a class="sourceLine" id="cb78-16" title="16"><span class="kw">points</span>(iris<span class="op">$</span>Sepal.Length,</a>
-<a class="sourceLine" id="cb78-17" title="17">       iris<span class="op">$</span>Petal.Length,</a>
-<a class="sourceLine" id="cb78-18" title="18">       <span class="dt">pch =</span> shapes[<span class="kw">as.numeric</span>(iris<span class="op">$</span>Species)], <span class="co"># 각 Species에 대해 shapes 할당</span></a>
-<a class="sourceLine" id="cb78-19" title="19">       <span class="dt">col =</span> <span class="kw">as.numeric</span>(iris<span class="op">$</span>Species),</a>
-<a class="sourceLine" id="cb78-20" title="20">       <span class="dt">cex =</span> <span class="fl">1.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1571"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1571-1" title="1"><span class="co"># cars 데이터셋</span></a>
+<a class="sourceLine" id="cb1571-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb1571-3" title="3"><span class="kw">plot</span>(dist <span class="op">~</span><span class="st"> </span>speed, <span class="dt">data =</span> cars,</a>
+<a class="sourceLine" id="cb1571-4" title="4">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1571-5" title="5">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1571-6" title="6">     <span class="dt">main =</span> <span class="st">&quot;points() function example 1: cars dataset&quot;</span>)</a>
+<a class="sourceLine" id="cb1571-7" title="7"><span class="kw">points</span>(cars<span class="op">$</span>speed, cars<span class="op">$</span>dist,</a>
+<a class="sourceLine" id="cb1571-8" title="8">       <span class="dt">pch =</span> <span class="dv">16</span>,</a>
+<a class="sourceLine" id="cb1571-9" title="9">       <span class="dt">col =</span> <span class="st">&quot;darkgreen&quot;</span>,</a>
+<a class="sourceLine" id="cb1571-10" title="10">       <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb1571-11" title="11">shapes &lt;-<span class="st"> </span><span class="dv">15</span><span class="op">:</span><span class="dv">17</span> <span class="co"># pch 지정</span></a>
+<a class="sourceLine" id="cb1571-12" title="12"><span class="kw">plot</span>(Petal.Length <span class="op">~</span><span class="st"> </span>Sepal.Length, <span class="dt">data =</span> iris,</a>
+<a class="sourceLine" id="cb1571-13" title="13">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1571-14" title="14">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1571-15" title="15">     <span class="dt">main =</span> <span class="st">&quot;points() function example 2: iris dataset&quot;</span>)</a>
+<a class="sourceLine" id="cb1571-16" title="16"><span class="kw">points</span>(iris<span class="op">$</span>Sepal.Length,</a>
+<a class="sourceLine" id="cb1571-17" title="17">       iris<span class="op">$</span>Petal.Length,</a>
+<a class="sourceLine" id="cb1571-18" title="18">       <span class="dt">pch =</span> shapes[<span class="kw">as.numeric</span>(iris<span class="op">$</span>Species)], <span class="co"># 각 Species에 대해 shapes 할당</span></a>
+<a class="sourceLine" id="cb1571-19" title="19">       <span class="dt">col =</span> <span class="kw">as.numeric</span>(iris<span class="op">$</span>Species),</a>
+<a class="sourceLine" id="cb1571-20" title="20">       <span class="dt">cex =</span> <span class="fl">1.5</span>)</a></code></pre></div>
 <p><img src="05-data-visualization_files/figure-html/points-ex-1.svg" width="960" /></p>
 
 </div>
@@ -745,13 +758,13 @@ Figure 5.8: Outer 여백 조정 파라미터(mar = c(2, 3, 3, 1)) Graphical para
 <ul>
 <li>x-y 좌표의 점을 이어 선을 만드는 함수</li>
 <li><code>plot()</code> 함수에서 <code>type</code> 인수에 “l”을 사용한 것과 유사</li>
-<li>선의 모양(<code>lty</code>)과 굵기(<code>lwd</code>)를 지정할 수 있으며 그림 <a href="high-level-graph.html#fig:plot-linetype">5.3</a>와 그림 <a href="low-level-graphic.html#fig:plot-linewidth">5.9</a>를 참고</li>
+<li>선의 모양(<code>lty</code>)과 굵기(<code>lwd</code>)를 지정할 수 있으며 그림 <a href="high-level-graph.html#fig:plot-linetype">5.2</a>와 그림 <a href="low-level-graphic.html#fig:plot-linewidth">5.8</a>를 참고</li>
 </ul>
 
 <div class="figure"><span id="fig:plot-linewidth"></span>
 <img src="05-data-visualization_files/figure-html/plot-linewidth-1.svg" alt="선 두께(lwd) 파라미터: Graphical parameters of R graphics package 에서 발췌" width="672" />
 <p class="caption">
-Figure 5.9: 선 두께(lwd) 파라미터: Graphical parameters of R graphics package 에서 발췌
+Figure 5.8: 선 두께(lwd) 파라미터: Graphical parameters of R graphics package 에서 발췌
 </p>
 </div>
 
@@ -759,42 +772,42 @@ Figure 5.9: 선 두께(lwd) 파라미터: Graphical parameters of R graphics pac
 <li><code>line()</code> 함수 사용 예시: 정규분포 분포 그리기</li>
 </ul>
 
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" title="1"><span class="co"># 정규분포 평균=0, 분산=1</span></a>
-<a class="sourceLine" id="cb79-2" title="2"><span class="co"># 정규분포 평균=0, 분산=2</span></a>
-<a class="sourceLine" id="cb79-3" title="3"><span class="co"># 정규분포 평균=0, 분산=3</span></a>
-<a class="sourceLine" id="cb79-4" title="4"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb79-5" title="5">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb79-6" title="6">y &lt;-<span class="st"> </span><span class="kw">mapply</span>(dnorm,</a>
-<a class="sourceLine" id="cb79-7" title="7">            <span class="kw">list</span>(x, x, x),</a>
-<a class="sourceLine" id="cb79-8" title="8">            <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</a>
-<a class="sourceLine" id="cb79-9" title="9">            <span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">sqrt</span>(<span class="dv">2</span>), <span class="kw">sqrt</span>(<span class="dv">3</span>)))</a>
-<a class="sourceLine" id="cb79-10" title="10"></a>
-<a class="sourceLine" id="cb79-11" title="11"><span class="kw">plot</span>(x, y[,<span class="dv">1</span>],</a>
-<a class="sourceLine" id="cb79-12" title="12">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb79-13" title="13">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb79-14" title="14">     <span class="dt">yaxt =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb79-15" title="15">     <span class="dt">ann =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb79-16" title="16">     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb79-17" title="17"><span class="kw">lines</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">max</span>(y[,<span class="dv">1</span>])), <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">&quot;lightgray&quot;</span>)</a>
-<a class="sourceLine" id="cb79-18" title="18"><span class="kw">lines</span>(x, y[,<span class="dv">1</span>], <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb79-19" title="19">      <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>)</a>
-<a class="sourceLine" id="cb79-20" title="20"><span class="kw">lines</span>(<span class="kw">c</span>(<span class="fl">0.3</span>, <span class="dv">2</span>), <span class="kw">rep</span>(<span class="kw">max</span>(y[,<span class="dv">1</span>]), <span class="dv">2</span>), <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>)</a>
-<a class="sourceLine" id="cb79-21" title="21"><span class="kw">text</span>(<span class="fl">2.1</span>, <span class="kw">max</span>(y[,<span class="dv">1</span>]),</a>
-<a class="sourceLine" id="cb79-22" title="22">     <span class="kw">expression</span>(<span class="kw">paste</span>(mu <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;,&quot;</span> <span class="op">~</span><span class="er">~</span><span class="st"> </span>sigma <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)), <span class="co"># 수식 표현</span></a>
-<a class="sourceLine" id="cb79-23" title="23">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb79-24" title="24"></a>
-<a class="sourceLine" id="cb79-25" title="25"><span class="kw">lines</span>(x, y[,<span class="dv">2</span>], <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</a>
-<a class="sourceLine" id="cb79-26" title="26"><span class="kw">lines</span>(<span class="kw">c</span>(<span class="fl">0.3</span>, <span class="dv">2</span>), <span class="kw">rep</span>(<span class="kw">max</span>(y[, <span class="dv">2</span>]), <span class="dv">2</span>), <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>)</a>
-<a class="sourceLine" id="cb79-27" title="27"><span class="kw">text</span>(<span class="fl">2.1</span>, <span class="kw">max</span>(y[,<span class="dv">2</span>]),</a>
-<a class="sourceLine" id="cb79-28" title="28">     <span class="kw">expression</span>(<span class="kw">paste</span>(mu <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;,&quot;</span> <span class="op">~</span><span class="er">~</span><span class="st"> </span>sigma <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)), <span class="co"># 수식 표현</span></a>
-<a class="sourceLine" id="cb79-29" title="29">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb79-30" title="30"></a>
-<a class="sourceLine" id="cb79-31" title="31"><span class="kw">lines</span>(x, y[,<span class="dv">3</span>], <span class="dt">lty =</span> <span class="dv">3</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>)</a>
-<a class="sourceLine" id="cb79-32" title="32"><span class="kw">lines</span>(<span class="kw">c</span>(<span class="fl">0.3</span>, <span class="dv">2</span>), <span class="kw">rep</span>(<span class="kw">max</span>(y[,<span class="dv">3</span>]), <span class="dv">2</span>), <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>)</a>
-<a class="sourceLine" id="cb79-33" title="33"><span class="kw">text</span>(<span class="fl">2.1</span>, <span class="kw">max</span>(y[,<span class="dv">3</span>]),</a>
-<a class="sourceLine" id="cb79-34" title="34">     <span class="kw">expression</span>(<span class="kw">paste</span>(mu <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;,&quot;</span> <span class="op">~</span><span class="er">~</span><span class="st"> </span>sigma <span class="op">==</span><span class="st"> </span><span class="dv">3</span>)), <span class="co"># 수식 표현</span></a>
-<a class="sourceLine" id="cb79-35" title="35">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb79-36" title="36"><span class="kw">mtext</span>(<span class="st">&quot;Normal distribution&quot;</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="fl">0.2</span>, <span class="dt">cex =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1572"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1572-1" title="1"><span class="co"># 정규분포 평균=0, 분산=1</span></a>
+<a class="sourceLine" id="cb1572-2" title="2"><span class="co"># 정규분포 평균=0, 분산=2</span></a>
+<a class="sourceLine" id="cb1572-3" title="3"><span class="co"># 정규분포 평균=0, 분산=3</span></a>
+<a class="sourceLine" id="cb1572-4" title="4"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb1572-5" title="5">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb1572-6" title="6">y &lt;-<span class="st"> </span><span class="kw">mapply</span>(dnorm,</a>
+<a class="sourceLine" id="cb1572-7" title="7">            <span class="kw">list</span>(x, x, x),</a>
+<a class="sourceLine" id="cb1572-8" title="8">            <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb1572-9" title="9">            <span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">sqrt</span>(<span class="dv">2</span>), <span class="kw">sqrt</span>(<span class="dv">3</span>)))</a>
+<a class="sourceLine" id="cb1572-10" title="10"></a>
+<a class="sourceLine" id="cb1572-11" title="11"><span class="kw">plot</span>(x, y[,<span class="dv">1</span>],</a>
+<a class="sourceLine" id="cb1572-12" title="12">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1572-13" title="13">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1572-14" title="14">     <span class="dt">yaxt =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1572-15" title="15">     <span class="dt">ann =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb1572-16" title="16">     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb1572-17" title="17"><span class="kw">lines</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">max</span>(y[,<span class="dv">1</span>])), <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">&quot;lightgray&quot;</span>)</a>
+<a class="sourceLine" id="cb1572-18" title="18"><span class="kw">lines</span>(x, y[,<span class="dv">1</span>], <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb1572-19" title="19">      <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>)</a>
+<a class="sourceLine" id="cb1572-20" title="20"><span class="kw">lines</span>(<span class="kw">c</span>(<span class="fl">0.3</span>, <span class="dv">2</span>), <span class="kw">rep</span>(<span class="kw">max</span>(y[,<span class="dv">1</span>]), <span class="dv">2</span>), <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>)</a>
+<a class="sourceLine" id="cb1572-21" title="21"><span class="kw">text</span>(<span class="fl">2.1</span>, <span class="kw">max</span>(y[,<span class="dv">1</span>]),</a>
+<a class="sourceLine" id="cb1572-22" title="22">     <span class="kw">expression</span>(<span class="kw">paste</span>(mu <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;,&quot;</span> <span class="op">~</span><span class="er">~</span><span class="st"> </span>sigma <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)), <span class="co"># 수식 표현</span></a>
+<a class="sourceLine" id="cb1572-23" title="23">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1572-24" title="24"></a>
+<a class="sourceLine" id="cb1572-25" title="25"><span class="kw">lines</span>(x, y[,<span class="dv">2</span>], <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb1572-26" title="26"><span class="kw">lines</span>(<span class="kw">c</span>(<span class="fl">0.3</span>, <span class="dv">2</span>), <span class="kw">rep</span>(<span class="kw">max</span>(y[, <span class="dv">2</span>]), <span class="dv">2</span>), <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>)</a>
+<a class="sourceLine" id="cb1572-27" title="27"><span class="kw">text</span>(<span class="fl">2.1</span>, <span class="kw">max</span>(y[,<span class="dv">2</span>]),</a>
+<a class="sourceLine" id="cb1572-28" title="28">     <span class="kw">expression</span>(<span class="kw">paste</span>(mu <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;,&quot;</span> <span class="op">~</span><span class="er">~</span><span class="st"> </span>sigma <span class="op">==</span><span class="st"> </span><span class="dv">2</span>)), <span class="co"># 수식 표현</span></a>
+<a class="sourceLine" id="cb1572-29" title="29">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1572-30" title="30"></a>
+<a class="sourceLine" id="cb1572-31" title="31"><span class="kw">lines</span>(x, y[,<span class="dv">3</span>], <span class="dt">lty =</span> <span class="dv">3</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>)</a>
+<a class="sourceLine" id="cb1572-32" title="32"><span class="kw">lines</span>(<span class="kw">c</span>(<span class="fl">0.3</span>, <span class="dv">2</span>), <span class="kw">rep</span>(<span class="kw">max</span>(y[,<span class="dv">3</span>]), <span class="dv">2</span>), <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>)</a>
+<a class="sourceLine" id="cb1572-33" title="33"><span class="kw">text</span>(<span class="fl">2.1</span>, <span class="kw">max</span>(y[,<span class="dv">3</span>]),</a>
+<a class="sourceLine" id="cb1572-34" title="34">     <span class="kw">expression</span>(<span class="kw">paste</span>(mu <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;,&quot;</span> <span class="op">~</span><span class="er">~</span><span class="st"> </span>sigma <span class="op">==</span><span class="st"> </span><span class="dv">3</span>)), <span class="co"># 수식 표현</span></a>
+<a class="sourceLine" id="cb1572-35" title="35">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1572-36" title="36"><span class="kw">mtext</span>(<span class="st">&quot;Normal distribution&quot;</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="fl">0.2</span>, <span class="dt">cex =</span> <span class="dv">2</span>)</a></code></pre></div>
 <p><img src="05-data-visualization_files/figure-html/unnamed-chunk-50-1.svg" width="768" /></p>
 
 </div>
@@ -810,53 +823,53 @@ Figure 5.9: 선 두께(lwd) 파라미터: Graphical parameters of R graphics pac
 </ul></li>
 </ul>
 
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" title="1"><span class="co"># 회귀직선과 x, y의 평균선, 회귀직선으로부터 각 점 까지 거리를 직선 표시</span></a>
-<a class="sourceLine" id="cb80-2" title="2"><span class="co">## mtcars 데이터</span></a>
-<a class="sourceLine" id="cb80-3" title="3"><span class="kw">plot</span>(mpg <span class="op">~</span><span class="st"> </span>hp, <span class="dt">data =</span> mtcars,</a>
-<a class="sourceLine" id="cb80-4" title="4">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb80-5" title="5">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb80-6" title="6">     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">350</span>),</a>
-<a class="sourceLine" id="cb80-7" title="7">     <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">40</span>),</a>
-<a class="sourceLine" id="cb80-8" title="8">     <span class="dt">main =</span> <span class="st">&quot;abline() examples with mtcars dataset&quot;</span>,</a>
-<a class="sourceLine" id="cb80-9" title="9">     <span class="dt">xlab =</span> <span class="st">&quot;Horse power&quot;</span>,</a>
-<a class="sourceLine" id="cb80-10" title="10">     <span class="dt">ylab =</span> <span class="st">&quot;Miles/gallon&quot;</span>,</a>
-<a class="sourceLine" id="cb80-11" title="11">     <span class="dt">cex.main =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb80-12" title="12">m &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>hp, <span class="dt">data =</span> mtcars) <span class="co"># 일변량 회귀모형</span></a>
-<a class="sourceLine" id="cb80-13" title="13">yhat &lt;-<span class="st"> </span><span class="kw">predict</span>(m) <span class="co"># 회귀모형의 예측값</span></a>
-<a class="sourceLine" id="cb80-14" title="14"></a>
-<a class="sourceLine" id="cb80-15" title="15"><span class="co"># 회귀직선으로부터 각 관측점 까지 거리(오차) 직선 표시 함수</span></a>
-<a class="sourceLine" id="cb80-16" title="16">dist_error &lt;-<span class="st"> </span><span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb80-17" title="17">  <span class="kw">lines</span>(<span class="kw">c</span>(mtcars<span class="op">$</span>hp[i], mtcars<span class="op">$</span>hp[i]),</a>
-<a class="sourceLine" id="cb80-18" title="18">        <span class="kw">c</span>(mtcars<span class="op">$</span>mpg[i], yhat[i]),</a>
-<a class="sourceLine" id="cb80-19" title="19">        <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>,</a>
-<a class="sourceLine" id="cb80-20" title="20">        <span class="dt">lwd =</span> <span class="fl">0.8</span>,</a>
-<a class="sourceLine" id="cb80-21" title="21">        <span class="dt">lty =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb80-22" title="22">}</a>
-<a class="sourceLine" id="cb80-23" title="23"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(mtcars)) <span class="kw">dist_error</span>(i)</a>
-<a class="sourceLine" id="cb80-24" title="24"></a>
-<a class="sourceLine" id="cb80-25" title="25"><span class="kw">with</span>(mtcars,</a>
-<a class="sourceLine" id="cb80-26" title="26">     <span class="kw">points</span>(hp, mpg,</a>
-<a class="sourceLine" id="cb80-27" title="27">            <span class="dt">pch =</span> <span class="dv">16</span>,</a>
-<a class="sourceLine" id="cb80-28" title="28">            <span class="dt">cex =</span> <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb80-29" title="29"><span class="kw">abline</span>(m, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb80-30" title="30"><span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">mean</span>(mtcars<span class="op">$</span>mpg),</a>
-<a class="sourceLine" id="cb80-31" title="31">       <span class="dt">lty =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb80-32" title="32">       <span class="dt">col =</span> <span class="st">&quot;darkgray&quot;</span>) <span class="co"># mpg 평균</span></a>
-<a class="sourceLine" id="cb80-33" title="33"><span class="kw">abline</span>(<span class="dt">v =</span> <span class="kw">mean</span>(mtcars<span class="op">$</span>hp),</a>
-<a class="sourceLine" id="cb80-34" title="34">       <span class="dt">lty =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb80-35" title="35">       <span class="dt">col =</span> <span class="st">&quot;darkgray&quot;</span>) <span class="co"># hp 평균</span></a>
-<a class="sourceLine" id="cb80-36" title="36"><span class="kw">text</span>(<span class="kw">mean</span>(mtcars<span class="op">$</span>hp), <span class="dv">40</span>,</a>
-<a class="sourceLine" id="cb80-37" title="37">     <span class="co"># text 수식 표현 참고</span></a>
-<a class="sourceLine" id="cb80-38" title="38">     <span class="kw">bquote</span>(<span class="kw">paste</span>(<span class="kw">bar</span>(x) <span class="op">==</span><span class="st"> </span>.(<span class="kw">sprintf</span>(<span class="st">&quot;%.1f&quot;</span>, <span class="kw">mean</span>(mtcars<span class="op">$</span>hp))))),</a>
-<a class="sourceLine" id="cb80-39" title="39">     <span class="dt">adj =</span> <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb80-40" title="40">     <span class="dt">pos =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb80-41" title="41"><span class="kw">text</span>(<span class="dv">350</span>, <span class="kw">mean</span>(mtcars<span class="op">$</span>mpg),</a>
-<a class="sourceLine" id="cb80-42" title="42">     <span class="kw">bquote</span>(<span class="kw">paste</span>(<span class="kw">bar</span>(x) <span class="op">==</span><span class="st"> </span>.(<span class="kw">sprintf</span>(<span class="st">&quot;%.1f&quot;</span>, <span class="kw">mean</span>(mtcars<span class="op">$</span>mpg))))),</a>
-<a class="sourceLine" id="cb80-43" title="43">     <span class="dt">pos =</span> <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1573"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1573-1" title="1"><span class="co"># 회귀직선과 x, y의 평균선, 회귀직선으로부터 각 점 까지 거리를 직선 표시</span></a>
+<a class="sourceLine" id="cb1573-2" title="2"><span class="co">## mtcars 데이터</span></a>
+<a class="sourceLine" id="cb1573-3" title="3"><span class="kw">plot</span>(mpg <span class="op">~</span><span class="st"> </span>hp, <span class="dt">data =</span> mtcars,</a>
+<a class="sourceLine" id="cb1573-4" title="4">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1573-5" title="5">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1573-6" title="6">     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">350</span>),</a>
+<a class="sourceLine" id="cb1573-7" title="7">     <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">40</span>),</a>
+<a class="sourceLine" id="cb1573-8" title="8">     <span class="dt">main =</span> <span class="st">&quot;abline() examples with mtcars dataset&quot;</span>,</a>
+<a class="sourceLine" id="cb1573-9" title="9">     <span class="dt">xlab =</span> <span class="st">&quot;Horse power&quot;</span>,</a>
+<a class="sourceLine" id="cb1573-10" title="10">     <span class="dt">ylab =</span> <span class="st">&quot;Miles/gallon&quot;</span>,</a>
+<a class="sourceLine" id="cb1573-11" title="11">     <span class="dt">cex.main =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb1573-12" title="12">m &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>hp, <span class="dt">data =</span> mtcars) <span class="co"># 일변량 회귀모형</span></a>
+<a class="sourceLine" id="cb1573-13" title="13">yhat &lt;-<span class="st"> </span><span class="kw">predict</span>(m) <span class="co"># 회귀모형의 예측값</span></a>
+<a class="sourceLine" id="cb1573-14" title="14"></a>
+<a class="sourceLine" id="cb1573-15" title="15"><span class="co"># 회귀직선으로부터 각 관측점 까지 거리(오차) 직선 표시 함수</span></a>
+<a class="sourceLine" id="cb1573-16" title="16">dist_error &lt;-<span class="st"> </span><span class="cf">function</span>(i) {</a>
+<a class="sourceLine" id="cb1573-17" title="17">  <span class="kw">lines</span>(<span class="kw">c</span>(mtcars<span class="op">$</span>hp[i], mtcars<span class="op">$</span>hp[i]),</a>
+<a class="sourceLine" id="cb1573-18" title="18">        <span class="kw">c</span>(mtcars<span class="op">$</span>mpg[i], yhat[i]),</a>
+<a class="sourceLine" id="cb1573-19" title="19">        <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>,</a>
+<a class="sourceLine" id="cb1573-20" title="20">        <span class="dt">lwd =</span> <span class="fl">0.8</span>,</a>
+<a class="sourceLine" id="cb1573-21" title="21">        <span class="dt">lty =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1573-22" title="22">}</a>
+<a class="sourceLine" id="cb1573-23" title="23"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(mtcars)) <span class="kw">dist_error</span>(i)</a>
+<a class="sourceLine" id="cb1573-24" title="24"></a>
+<a class="sourceLine" id="cb1573-25" title="25"><span class="kw">with</span>(mtcars,</a>
+<a class="sourceLine" id="cb1573-26" title="26">     <span class="kw">points</span>(hp, mpg,</a>
+<a class="sourceLine" id="cb1573-27" title="27">            <span class="dt">pch =</span> <span class="dv">16</span>,</a>
+<a class="sourceLine" id="cb1573-28" title="28">            <span class="dt">cex =</span> <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb1573-29" title="29"><span class="kw">abline</span>(m, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb1573-30" title="30"><span class="kw">abline</span>(<span class="dt">h =</span> <span class="kw">mean</span>(mtcars<span class="op">$</span>mpg),</a>
+<a class="sourceLine" id="cb1573-31" title="31">       <span class="dt">lty =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb1573-32" title="32">       <span class="dt">col =</span> <span class="st">&quot;darkgray&quot;</span>) <span class="co"># mpg 평균</span></a>
+<a class="sourceLine" id="cb1573-33" title="33"><span class="kw">abline</span>(<span class="dt">v =</span> <span class="kw">mean</span>(mtcars<span class="op">$</span>hp),</a>
+<a class="sourceLine" id="cb1573-34" title="34">       <span class="dt">lty =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb1573-35" title="35">       <span class="dt">col =</span> <span class="st">&quot;darkgray&quot;</span>) <span class="co"># hp 평균</span></a>
+<a class="sourceLine" id="cb1573-36" title="36"><span class="kw">text</span>(<span class="kw">mean</span>(mtcars<span class="op">$</span>hp), <span class="dv">40</span>,</a>
+<a class="sourceLine" id="cb1573-37" title="37">     <span class="co"># text 수식 표현 참고</span></a>
+<a class="sourceLine" id="cb1573-38" title="38">     <span class="kw">bquote</span>(<span class="kw">paste</span>(<span class="kw">bar</span>(x) <span class="op">==</span><span class="st"> </span>.(<span class="kw">sprintf</span>(<span class="st">&quot;%.1f&quot;</span>, <span class="kw">mean</span>(mtcars<span class="op">$</span>hp))))),</a>
+<a class="sourceLine" id="cb1573-39" title="39">     <span class="dt">adj =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb1573-40" title="40">     <span class="dt">pos =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb1573-41" title="41"><span class="kw">text</span>(<span class="dv">350</span>, <span class="kw">mean</span>(mtcars<span class="op">$</span>mpg),</a>
+<a class="sourceLine" id="cb1573-42" title="42">     <span class="kw">bquote</span>(<span class="kw">paste</span>(<span class="kw">bar</span>(x) <span class="op">==</span><span class="st"> </span>.(<span class="kw">sprintf</span>(<span class="st">&quot;%.1f&quot;</span>, <span class="kw">mean</span>(mtcars<span class="op">$</span>mpg))))),</a>
+<a class="sourceLine" id="cb1573-43" title="43">     <span class="dt">pos =</span> <span class="dv">3</span>)</a></code></pre></div>
 <div class="figure"><span id="fig:abline-example"></span>
 <img src="05-data-visualization_files/figure-html/abline-example-1.svg" alt="abline(), lines() 함수를 이용한 회귀직선 및 오차 거리 표시 예제" width="768" />
 <p class="caption">
-Figure 5.10: abline(), lines() 함수를 이용한 회귀직선 및 오차 거리 표시 예제
+Figure 5.9: abline(), lines() 함수를 이용한 회귀직선 및 오차 거리 표시 예제
 </p>
 </div>
 
@@ -871,50 +884,50 @@ Figure 5.10: abline(), lines() 함수를 이용한 회귀직선 및 오차 거�
 <li><code>angle</code>, <code>length</code>, <code>code</code> 인수 조정을 통해 화살표 스타일 지정</li>
 </ul>
 
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</a>
-<a class="sourceLine" id="cb81-2" title="2"><span class="kw">plot</span>(<span class="dv">1</span>, <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb81-3" title="3">     <span class="dt">type =</span> <span class="st">&#39;n&#39;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, <span class="dt">ann =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb81-4" title="4">     <span class="dt">xaxs =</span> <span class="st">&#39;i&#39;</span>, <span class="dt">yaxs =</span> <span class="st">&#39;i&#39;</span>,</a>
-<a class="sourceLine" id="cb81-5" title="5">     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">11</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">11</span>))</a>
-<a class="sourceLine" id="cb81-6" title="6"><span class="kw">text</span>(<span class="fl">5.5</span>, <span class="fl">10.5</span>,</a>
-<a class="sourceLine" id="cb81-7" title="7">     <span class="st">&quot;Type of arrows by values of angle, length, and codes&quot;</span>,</a>
-<a class="sourceLine" id="cb81-8" title="8">     <span class="dt">font =</span> <span class="dv">2</span>, <span class="co"># 2=bold, 3=italic, 4=bold italic</span></a>
-<a class="sourceLine" id="cb81-9" title="9">     <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">0</span>),</a>
-<a class="sourceLine" id="cb81-10" title="10">     <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb81-11" title="11"></a>
-<a class="sourceLine" id="cb81-12" title="12">angle_val &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">60</span>, <span class="dv">90</span>, <span class="dv">120</span>)</a>
-<a class="sourceLine" id="cb81-13" title="13">length_val &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.1</span>, <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb81-14" title="14">code_val &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb81-15" title="15"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
-<a class="sourceLine" id="cb81-16" title="16">  <span class="kw">arrows</span>(<span class="dv">1</span>, <span class="dv">9</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">9</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb81-17" title="17">         <span class="dt">length =</span> length_val[i])</a>
-<a class="sourceLine" id="cb81-18" title="18">  <span class="kw">text</span>(<span class="dv">6</span>, <span class="dv">9</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>, <span class="dt">pos =</span> <span class="dv">4</span>,</a>
-<a class="sourceLine" id="cb81-19" title="19">       <span class="kw">sprintf</span>(<span class="st">&quot;angle = 30, length = %.2f, code = 2&quot;</span>,</a>
-<a class="sourceLine" id="cb81-20" title="20">               length_val[i]))</a>
-<a class="sourceLine" id="cb81-21" title="21">}</a>
-<a class="sourceLine" id="cb81-22" title="22"></a>
-<a class="sourceLine" id="cb81-23" title="23"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
-<a class="sourceLine" id="cb81-24" title="24">  <span class="kw">arrows</span>(<span class="dv">1</span>, <span class="dv">6</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">6</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb81-25" title="25">         <span class="dt">length =</span> <span class="fl">0.25</span>,</a>
-<a class="sourceLine" id="cb81-26" title="26">         <span class="dt">angle =</span> angle_val[i])</a>
-<a class="sourceLine" id="cb81-27" title="27">  <span class="kw">text</span>(<span class="dv">6</span>, <span class="dv">6</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>, <span class="dt">pos =</span> <span class="dv">4</span>,</a>
-<a class="sourceLine" id="cb81-28" title="28">       <span class="kw">sprintf</span>(<span class="st">&quot;angle = %d, length = 0.25, code = 2&quot;</span>,</a>
-<a class="sourceLine" id="cb81-29" title="29">               angle_val[i]))</a>
-<a class="sourceLine" id="cb81-30" title="30">}</a>
-<a class="sourceLine" id="cb81-31" title="31"></a>
-<a class="sourceLine" id="cb81-32" title="32"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
-<a class="sourceLine" id="cb81-33" title="33">  <span class="kw">arrows</span>(<span class="dv">1</span>, <span class="dv">3</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">3</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb81-34" title="34">         <span class="dt">length =</span> <span class="fl">0.25</span>,</a>
-<a class="sourceLine" id="cb81-35" title="35">         <span class="dt">angle =</span> <span class="dv">30</span>,</a>
-<a class="sourceLine" id="cb81-36" title="36">         <span class="dt">code =</span> code_val[i])</a>
-<a class="sourceLine" id="cb81-37" title="37">  <span class="kw">text</span>(<span class="dv">6</span>, <span class="dv">3</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>, <span class="dt">pos =</span> <span class="dv">4</span>,</a>
-<a class="sourceLine" id="cb81-38" title="38">       <span class="kw">sprintf</span>(<span class="st">&quot;angle = 30, length = 0.25, code = %d&quot;</span>,</a>
-<a class="sourceLine" id="cb81-39" title="39">               code_val[i]))</a>
-<a class="sourceLine" id="cb81-40" title="40">}</a></code></pre></div>
+<div class="sourceCode" id="cb1574"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1574-1" title="1"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb1574-2" title="2"><span class="kw">plot</span>(<span class="dv">1</span>, <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb1574-3" title="3">     <span class="dt">type =</span> <span class="st">&#39;n&#39;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, <span class="dt">ann =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb1574-4" title="4">     <span class="dt">xaxs =</span> <span class="st">&#39;i&#39;</span>, <span class="dt">yaxs =</span> <span class="st">&#39;i&#39;</span>,</a>
+<a class="sourceLine" id="cb1574-5" title="5">     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">11</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">11</span>))</a>
+<a class="sourceLine" id="cb1574-6" title="6"><span class="kw">text</span>(<span class="fl">5.5</span>, <span class="fl">10.5</span>,</a>
+<a class="sourceLine" id="cb1574-7" title="7">     <span class="st">&quot;Type of arrows by values of angle, length, and codes&quot;</span>,</a>
+<a class="sourceLine" id="cb1574-8" title="8">     <span class="dt">font =</span> <span class="dv">2</span>, <span class="co"># 2=bold, 3=italic, 4=bold italic</span></a>
+<a class="sourceLine" id="cb1574-9" title="9">     <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb1574-10" title="10">     <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb1574-11" title="11"></a>
+<a class="sourceLine" id="cb1574-12" title="12">angle_val &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">60</span>, <span class="dv">90</span>, <span class="dv">120</span>)</a>
+<a class="sourceLine" id="cb1574-13" title="13">length_val &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.1</span>, <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb1574-14" title="14">code_val &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb1574-15" title="15"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
+<a class="sourceLine" id="cb1574-16" title="16">  <span class="kw">arrows</span>(<span class="dv">1</span>, <span class="dv">9</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">9</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb1574-17" title="17">         <span class="dt">length =</span> length_val[i])</a>
+<a class="sourceLine" id="cb1574-18" title="18">  <span class="kw">text</span>(<span class="dv">6</span>, <span class="dv">9</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>, <span class="dt">pos =</span> <span class="dv">4</span>,</a>
+<a class="sourceLine" id="cb1574-19" title="19">       <span class="kw">sprintf</span>(<span class="st">&quot;angle = 30, length = %.2f, code = 2&quot;</span>,</a>
+<a class="sourceLine" id="cb1574-20" title="20">               length_val[i]))</a>
+<a class="sourceLine" id="cb1574-21" title="21">}</a>
+<a class="sourceLine" id="cb1574-22" title="22"></a>
+<a class="sourceLine" id="cb1574-23" title="23"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
+<a class="sourceLine" id="cb1574-24" title="24">  <span class="kw">arrows</span>(<span class="dv">1</span>, <span class="dv">6</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">6</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb1574-25" title="25">         <span class="dt">length =</span> <span class="fl">0.25</span>,</a>
+<a class="sourceLine" id="cb1574-26" title="26">         <span class="dt">angle =</span> angle_val[i])</a>
+<a class="sourceLine" id="cb1574-27" title="27">  <span class="kw">text</span>(<span class="dv">6</span>, <span class="dv">6</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>, <span class="dt">pos =</span> <span class="dv">4</span>,</a>
+<a class="sourceLine" id="cb1574-28" title="28">       <span class="kw">sprintf</span>(<span class="st">&quot;angle = %d, length = 0.25, code = 2&quot;</span>,</a>
+<a class="sourceLine" id="cb1574-29" title="29">               angle_val[i]))</a>
+<a class="sourceLine" id="cb1574-30" title="30">}</a>
+<a class="sourceLine" id="cb1574-31" title="31"></a>
+<a class="sourceLine" id="cb1574-32" title="32"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
+<a class="sourceLine" id="cb1574-33" title="33">  <span class="kw">arrows</span>(<span class="dv">1</span>, <span class="dv">3</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">3</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb1574-34" title="34">         <span class="dt">length =</span> <span class="fl">0.25</span>,</a>
+<a class="sourceLine" id="cb1574-35" title="35">         <span class="dt">angle =</span> <span class="dv">30</span>,</a>
+<a class="sourceLine" id="cb1574-36" title="36">         <span class="dt">code =</span> code_val[i])</a>
+<a class="sourceLine" id="cb1574-37" title="37">  <span class="kw">text</span>(<span class="dv">6</span>, <span class="dv">3</span><span class="op">-</span>i<span class="op">+</span><span class="dv">1</span>, <span class="dt">pos =</span> <span class="dv">4</span>,</a>
+<a class="sourceLine" id="cb1574-38" title="38">       <span class="kw">sprintf</span>(<span class="st">&quot;angle = 30, length = 0.25, code = %d&quot;</span>,</a>
+<a class="sourceLine" id="cb1574-39" title="39">               code_val[i]))</a>
+<a class="sourceLine" id="cb1574-40" title="40">}</a></code></pre></div>
 <div class="figure"><span id="fig:arrow-type"></span>
 <img src="05-data-visualization_files/figure-html/arrow-type-1.svg" alt="arrows() 함수 주요 파라미터 변경에 따른 화살표 출력 결과" width="672" />
 <p class="caption">
-Figure 5.11: arrows() 함수 주요 파라미터 변경에 따른 화살표 출력 결과
+Figure 5.10: arrows() 함수 주요 파라미터 변경에 따른 화살표 출력 결과
 </p>
 </div>
 
@@ -931,24 +944,24 @@ Figure 5.11: arrows() 함수 주요 파라미터 변경에 따른 화살표 출�
 </ul></li>
 </ul>
 
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1"><span class="co"># 길이와 높이가 5인 정사각형 그리기</span></a>
-<a class="sourceLine" id="cb82-2" title="2"><span class="kw">plot</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,</a>
-<a class="sourceLine" id="cb82-3" title="3">     <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,</a>
-<a class="sourceLine" id="cb82-4" title="4">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb82-5" title="5">     <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
-<a class="sourceLine" id="cb82-6" title="6">     <span class="dt">main =</span> <span class="st">&quot;Rectangle coordinates used in rect()&quot;</span>)</a>
-<a class="sourceLine" id="cb82-7" title="7"><span class="kw">rect</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">8</span>,</a>
-<a class="sourceLine" id="cb82-8" title="8">     <span class="dt">density =</span> <span class="dv">10</span>, <span class="co"># 사각형 내부를 선으로 채움</span></a>
-<a class="sourceLine" id="cb82-9" title="9">     <span class="dt">angle =</span> <span class="dv">315</span>) <span class="co"># 내부 선의 기울기 각도(degree)</span></a>
-<a class="sourceLine" id="cb82-10" title="10"><span class="kw">text</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="st">&quot;(xleft = 3, ybottom = 3)&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>,  <span class="dt">pos =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb82-11" title="11"><span class="kw">text</span>(<span class="dv">8</span>, <span class="dv">3</span>, <span class="st">&quot;(xright = 8, ybottom = 3)&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>, <span class="dt">pos =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb82-12" title="12"><span class="kw">text</span>(<span class="dv">8</span>, <span class="dv">8</span>, <span class="st">&quot;(xright = 8, ytop = 8)&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>, <span class="dt">pos =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb82-13" title="13"><span class="kw">text</span>(<span class="dv">3</span>, <span class="dv">8</span>, <span class="st">&quot;(xleft = 3, ytop = 8)&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>, <span class="dt">pos =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb82-14" title="14"><span class="kw">grid</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1575"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1575-1" title="1"><span class="co"># 길이와 높이가 5인 정사각형 그리기</span></a>
+<a class="sourceLine" id="cb1575-2" title="2"><span class="kw">plot</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb1575-3" title="3">     <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb1575-4" title="4">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1575-5" title="5">     <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb1575-6" title="6">     <span class="dt">main =</span> <span class="st">&quot;Rectangle coordinates used in rect()&quot;</span>)</a>
+<a class="sourceLine" id="cb1575-7" title="7"><span class="kw">rect</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">8</span>,</a>
+<a class="sourceLine" id="cb1575-8" title="8">     <span class="dt">density =</span> <span class="dv">10</span>, <span class="co"># 사각형 내부를 선으로 채움</span></a>
+<a class="sourceLine" id="cb1575-9" title="9">     <span class="dt">angle =</span> <span class="dv">315</span>) <span class="co"># 내부 선의 기울기 각도(degree)</span></a>
+<a class="sourceLine" id="cb1575-10" title="10"><span class="kw">text</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="st">&quot;(xleft = 3, ybottom = 3)&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>,  <span class="dt">pos =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1575-11" title="11"><span class="kw">text</span>(<span class="dv">8</span>, <span class="dv">3</span>, <span class="st">&quot;(xright = 8, ybottom = 3)&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>, <span class="dt">pos =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1575-12" title="12"><span class="kw">text</span>(<span class="dv">8</span>, <span class="dv">8</span>, <span class="st">&quot;(xright = 8, ytop = 8)&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>, <span class="dt">pos =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb1575-13" title="13"><span class="kw">text</span>(<span class="dv">3</span>, <span class="dv">8</span>, <span class="st">&quot;(xleft = 3, ytop = 8)&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>, <span class="dt">pos =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb1575-14" title="14"><span class="kw">grid</span>()</a></code></pre></div>
 <div class="figure"><span id="fig:rectangle-coord"></span>
 <img src="05-data-visualization_files/figure-html/rectangle-coord-1.svg" alt="rect() 좌표 인수" width="672" />
 <p class="caption">
-Figure 5.12: rect() 좌표 인수
+Figure 5.11: rect() 좌표 인수
 </p>
 </div>
 
@@ -960,57 +973,55 @@ Figure 5.12: rect() 좌표 인수
 <li>좌표 지정 방법은 <code>plot()</code> 함수와 동일</li>
 </ul>
 
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1"><span class="co"># polygon() 사용 예시</span></a>
-<a class="sourceLine" id="cb83-2" title="2"><span class="kw">plot</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,</a>
-<a class="sourceLine" id="cb83-3" title="3">     <span class="dt">y =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,</a>
-<a class="sourceLine" id="cb83-4" title="4">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb83-5" title="5">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb83-6" title="6">     <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb83-7" title="7">     <span class="dt">yaxt =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb83-8" title="8">     <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
-<a class="sourceLine" id="cb83-9" title="9">     <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
-<a class="sourceLine" id="cb83-10" title="10">     <span class="dt">main =</span> <span class="st">&quot;Polygon examples&quot;</span>)</a>
-<a class="sourceLine" id="cb83-11" title="11"></a>
-<a class="sourceLine" id="cb83-12" title="12"><span class="co"># Pentagon</span></a>
-<a class="sourceLine" id="cb83-13" title="13">theta1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span>pi, pi, <span class="dt">length =</span> <span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb83-14" title="14">x &lt;-<span class="st"> </span><span class="kw">cos</span>(theta1 <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span><span class="op">*</span>pi) <span class="co"># cosine 함수</span></a>
-<a class="sourceLine" id="cb83-15" title="15">y &lt;-<span class="st"> </span><span class="kw">sin</span>(theta1 <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span><span class="op">*</span>pi)</a>
-<a class="sourceLine" id="cb83-16" title="16">x1 &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>; y1 &lt;-<span class="st"> </span><span class="dv">-2</span><span class="op">*</span>y <span class="op">+</span><span class="st"> </span><span class="dv">7</span></a>
-<a class="sourceLine" id="cb83-17" title="17"><span class="kw">polygon</span>(x1, y1)</a>
-<a class="sourceLine" id="cb83-18" title="18"><span class="kw">text</span>(<span class="dv">2</span>, <span class="fl">9.2</span>, <span class="st">&quot;Pentagon&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>, <span class="dt">pos =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb83-19" title="19"></a>
-<a class="sourceLine" id="cb83-20" title="20"><span class="co"># Octagon</span></a>
-<a class="sourceLine" id="cb83-21" title="21">theta2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span>pi, pi, <span class="dt">length =</span> <span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb83-22" title="22">x &lt;-<span class="st"> </span><span class="kw">cos</span>(theta2) <span class="co"># cosine 함수</span></a>
-<a class="sourceLine" id="cb83-23" title="23">y &lt;-<span class="st"> </span><span class="kw">sin</span>(theta2)</a>
-<a class="sourceLine" id="cb83-24" title="24"></a>
-<a class="sourceLine" id="cb83-25" title="25">x2 &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span><span class="dv">7</span>; y2 &lt;-<span class="st"> </span><span class="dv">-2</span><span class="op">*</span>y <span class="op">+</span><span class="st"> </span><span class="dv">7</span></a>
-<a class="sourceLine" id="cb83-26" title="26"><span class="kw">polygon</span>(x2, y2,</a>
-<a class="sourceLine" id="cb83-27" title="27">        <span class="dt">col =</span> <span class="st">&quot;#05B8FF&quot;</span>,</a>
-<a class="sourceLine" id="cb83-28" title="28">        <span class="dt">bolder =</span> <span class="st">&quot;black&quot;</span>,</a>
-<a class="sourceLine" id="cb83-29" title="29">        <span class="dt">lwd =</span> <span class="dv">4</span>)</a></code></pre></div>
-<pre><code>Warning in polygon(x2, y2, col = &quot;#05B8FF&quot;, bolder = &quot;black&quot;, lwd = 4):
-&quot;bolder&quot;는 그래픽 매개변수가 아닙니다</code></pre>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1"><span class="kw">text</span>(<span class="dv">7</span>, <span class="fl">9.2</span>, <span class="st">&quot;Octagon&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>, <span class="dt">pos =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb85-2" title="2"></a>
-<a class="sourceLine" id="cb85-3" title="3"><span class="co"># 별표시</span></a>
-<a class="sourceLine" id="cb85-4" title="4">x2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">4</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">8</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">10</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">8</span><span class="op">/</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb85-5" title="5">y2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="fl">3.0</span>, <span class="dv">3</span>, <span class="fl">2.0</span>, <span class="dv">1</span>, <span class="fl">1.0</span>, <span class="dv">0</span>, <span class="fl">1.0</span>, <span class="dv">1</span>,  <span class="fl">2.0</span>, <span class="dv">3</span>, <span class="fl">3.0</span>)</a>
-<a class="sourceLine" id="cb85-6" title="6"><span class="kw">polygon</span>(x2, y2,</a>
-<a class="sourceLine" id="cb85-7" title="7">        <span class="dt">density =</span> <span class="dv">20</span>,</a>
-<a class="sourceLine" id="cb85-8" title="8">        <span class="dt">angle =</span> <span class="dv">135</span>,</a>
-<a class="sourceLine" id="cb85-9" title="9">        <span class="dt">lty =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb85-10" title="10">        <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb85-11" title="11"><span class="kw">text</span>(<span class="dv">2</span>, <span class="fl">4.1</span>, <span class="st">&quot;Star (Jewish)&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>, <span class="dt">pos =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb85-12" title="12"></a>
-<a class="sourceLine" id="cb85-13" title="13"><span class="co"># Triangle (perpendicular)</span></a>
-<a class="sourceLine" id="cb85-14" title="14">x3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb85-15" title="15">y3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb85-16" title="16"><span class="kw">polygon</span>(x3, y3, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>)</a>
-<a class="sourceLine" id="cb85-17" title="17">x4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="fl">5.3</span>, <span class="fl">5.3</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb85-18" title="18">y4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.0</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>)</a>
-<a class="sourceLine" id="cb85-19" title="19"><span class="kw">polygon</span>(x4, y4, <span class="dt">lwd =</span> <span class="dv">3</span>) <span class="co"># 직각표시</span></a>
-<a class="sourceLine" id="cb85-20" title="20"><span class="kw">text</span>(<span class="dv">7</span>, <span class="fl">4.1</span>, <span class="st">&quot;Triangle (perpendicular)&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>, <span class="dt">pos =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1576"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1576-1" title="1"><span class="co"># polygon() 사용 예시</span></a>
+<a class="sourceLine" id="cb1576-2" title="2"><span class="kw">plot</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb1576-3" title="3">     <span class="dt">y =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb1576-4" title="4">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1576-5" title="5">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1576-6" title="6">     <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1576-7" title="7">     <span class="dt">yaxt =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1576-8" title="8">     <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb1576-9" title="9">     <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb1576-10" title="10">     <span class="dt">main =</span> <span class="st">&quot;Polygon examples&quot;</span>)</a>
+<a class="sourceLine" id="cb1576-11" title="11"></a>
+<a class="sourceLine" id="cb1576-12" title="12"><span class="co"># Pentagon</span></a>
+<a class="sourceLine" id="cb1576-13" title="13">theta1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span>pi, pi, <span class="dt">length =</span> <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb1576-14" title="14">x &lt;-<span class="st"> </span><span class="kw">cos</span>(theta1 <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span><span class="op">*</span>pi) <span class="co"># cosine 함수</span></a>
+<a class="sourceLine" id="cb1576-15" title="15">y &lt;-<span class="st"> </span><span class="kw">sin</span>(theta1 <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span><span class="op">*</span>pi)</a>
+<a class="sourceLine" id="cb1576-16" title="16">x1 &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>; y1 &lt;-<span class="st"> </span><span class="dv">-2</span><span class="op">*</span>y <span class="op">+</span><span class="st"> </span><span class="dv">7</span></a>
+<a class="sourceLine" id="cb1576-17" title="17"><span class="kw">polygon</span>(x1, y1)</a>
+<a class="sourceLine" id="cb1576-18" title="18"><span class="kw">text</span>(<span class="dv">2</span>, <span class="fl">9.2</span>, <span class="st">&quot;Pentagon&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>, <span class="dt">pos =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb1576-19" title="19"></a>
+<a class="sourceLine" id="cb1576-20" title="20"><span class="co"># Octagon</span></a>
+<a class="sourceLine" id="cb1576-21" title="21">theta2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span>pi, pi, <span class="dt">length =</span> <span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb1576-22" title="22">x &lt;-<span class="st"> </span><span class="kw">cos</span>(theta2) <span class="co"># cosine 함수</span></a>
+<a class="sourceLine" id="cb1576-23" title="23">y &lt;-<span class="st"> </span><span class="kw">sin</span>(theta2)</a>
+<a class="sourceLine" id="cb1576-24" title="24"></a>
+<a class="sourceLine" id="cb1576-25" title="25">x2 &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span><span class="dv">7</span>; y2 &lt;-<span class="st"> </span><span class="dv">-2</span><span class="op">*</span>y <span class="op">+</span><span class="st"> </span><span class="dv">7</span></a>
+<a class="sourceLine" id="cb1576-26" title="26"><span class="kw">polygon</span>(x2, y2,</a>
+<a class="sourceLine" id="cb1576-27" title="27">        <span class="dt">col =</span> <span class="st">&quot;#05B8FF&quot;</span>,</a>
+<a class="sourceLine" id="cb1576-28" title="28">        <span class="dt">border =</span> <span class="st">&quot;black&quot;</span>,</a>
+<a class="sourceLine" id="cb1576-29" title="29">        <span class="dt">lwd =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb1576-30" title="30"><span class="kw">text</span>(<span class="dv">7</span>, <span class="fl">9.2</span>, <span class="st">&quot;Octagon&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>, <span class="dt">pos =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb1576-31" title="31"></a>
+<a class="sourceLine" id="cb1576-32" title="32"><span class="co"># 별표시</span></a>
+<a class="sourceLine" id="cb1576-33" title="33">x2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">4</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">8</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">10</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">8</span><span class="op">/</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb1576-34" title="34">y2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="fl">3.0</span>, <span class="dv">3</span>, <span class="fl">2.0</span>, <span class="dv">1</span>, <span class="fl">1.0</span>, <span class="dv">0</span>, <span class="fl">1.0</span>, <span class="dv">1</span>,  <span class="fl">2.0</span>, <span class="dv">3</span>, <span class="fl">3.0</span>)</a>
+<a class="sourceLine" id="cb1576-35" title="35"><span class="kw">polygon</span>(x2, y2,</a>
+<a class="sourceLine" id="cb1576-36" title="36">        <span class="dt">density =</span> <span class="dv">20</span>,</a>
+<a class="sourceLine" id="cb1576-37" title="37">        <span class="dt">angle =</span> <span class="dv">135</span>,</a>
+<a class="sourceLine" id="cb1576-38" title="38">        <span class="dt">lty =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb1576-39" title="39">        <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb1576-40" title="40"><span class="kw">text</span>(<span class="dv">2</span>, <span class="fl">4.1</span>, <span class="st">&quot;Star (Jewish)&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>, <span class="dt">pos =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb1576-41" title="41"></a>
+<a class="sourceLine" id="cb1576-42" title="42"><span class="co"># Triangle (perpendicular)</span></a>
+<a class="sourceLine" id="cb1576-43" title="43">x3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb1576-44" title="44">y3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb1576-45" title="45"><span class="kw">polygon</span>(x3, y3, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>)</a>
+<a class="sourceLine" id="cb1576-46" title="46">x4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="fl">5.3</span>, <span class="fl">5.3</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb1576-47" title="47">y4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.0</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>)</a>
+<a class="sourceLine" id="cb1576-48" title="48"><span class="kw">polygon</span>(x4, y4, <span class="dt">lwd =</span> <span class="dv">3</span>) <span class="co"># 직각표시</span></a>
+<a class="sourceLine" id="cb1576-49" title="49"><span class="kw">text</span>(<span class="dv">7</span>, <span class="fl">4.1</span>, <span class="st">&quot;Triangle (perpendicular)&quot;</span>, <span class="dt">adj =</span> <span class="fl">0.5</span>, <span class="dt">pos =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a></code></pre></div>
 <p><img src="05-data-visualization_files/figure-html/unnamed-chunk-51-1.svg" width="672" /></p>
 
 <ul>
@@ -1018,30 +1029,30 @@ Figure 5.12: rect() 좌표 인수
 <li><span class="math inline">\(Z ~ \stackrel{i.i.d}{\sim} N(0, 1)\)</span> 라고 할 때 <span class="math inline">\(P(-1.5 &lt; Z &lt; 0.7)\)</span>에 해당하는 부분 표시</li>
 </ul>
 
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1"><span class="co"># 표준정규분포 곡선 하 면적 표시</span></a>
-<a class="sourceLine" id="cb86-2" title="2">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb86-3" title="3">z &lt;-<span class="st"> </span><span class="kw">dnorm</span>(x)</a>
-<a class="sourceLine" id="cb86-4" title="4"><span class="kw">plot</span>(x, z,</a>
-<a class="sourceLine" id="cb86-5" title="5">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb86-6" title="6">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb86-7" title="7">     <span class="dt">xlab =</span> <span class="kw">expression</span>(<span class="kw">bold</span>(Z)),</a>
-<a class="sourceLine" id="cb86-8" title="8">     <span class="dt">ylab =</span> <span class="st">&quot;Density&quot;</span>,</a>
-<a class="sourceLine" id="cb86-9" title="9">     <span class="dt">main =</span> <span class="st">&quot;Standard normal distribution&quot;</span>)</a>
-<a class="sourceLine" id="cb86-10" title="10">idx &lt;-<span class="st"> </span>x <span class="op">&gt;</span><span class="st"> </span><span class="fl">-1.5</span> <span class="op">&amp;</span><span class="st"> </span>x <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.7</span> <span class="co"># 해당 구간 index 설정</span></a>
-<a class="sourceLine" id="cb86-11" title="11"><span class="kw">polygon</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, x[idx], <span class="fl">0.7</span>),</a>
-<a class="sourceLine" id="cb86-12" title="12">        <span class="kw">c</span>(<span class="dv">0</span>, z[idx], <span class="dv">0</span>),</a>
-<a class="sourceLine" id="cb86-13" title="13">        <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>,</a>
-<a class="sourceLine" id="cb86-14" title="14">        <span class="dt">border =</span> <span class="st">&quot;green&quot;</span>)</a>
-<a class="sourceLine" id="cb86-15" title="15"><span class="kw">lines</span>(x, z, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb86-16" title="16"><span class="kw">text</span>(<span class="dt">x =</span> <span class="fl">0.5</span>, <span class="dt">y =</span> <span class="fl">0.15</span>,</a>
-<a class="sourceLine" id="cb86-17" title="17">     <span class="kw">bquote</span>(<span class="kw">P</span>({<span class="op">-</span><span class="fl">1.5</span> <span class="op">&lt;</span><span class="st"> </span>Z} <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.7</span> ) <span class="op">==</span></a>
-<a class="sourceLine" id="cb86-18" title="18"><span class="st">              </span>.(<span class="kw">sprintf</span>(<span class="st">&quot;%.3f&quot;</span>, <span class="kw">pnorm</span>(<span class="fl">0.7</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="fl">1.5</span>)))),</a>
-<a class="sourceLine" id="cb86-19" title="19">     <span class="co"># pnorm = P(Z &lt;= c), 평균=0, 분산=1 인 경우</span></a>
-<a class="sourceLine" id="cb86-20" title="20">     <span class="dt">adj =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1577"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1577-1" title="1"><span class="co"># 표준정규분포 곡선 하 면적 표시</span></a>
+<a class="sourceLine" id="cb1577-2" title="2">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb1577-3" title="3">z &lt;-<span class="st"> </span><span class="kw">dnorm</span>(x)</a>
+<a class="sourceLine" id="cb1577-4" title="4"><span class="kw">plot</span>(x, z,</a>
+<a class="sourceLine" id="cb1577-5" title="5">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1577-6" title="6">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1577-7" title="7">     <span class="dt">xlab =</span> <span class="kw">expression</span>(<span class="kw">bold</span>(Z)),</a>
+<a class="sourceLine" id="cb1577-8" title="8">     <span class="dt">ylab =</span> <span class="st">&quot;Density&quot;</span>,</a>
+<a class="sourceLine" id="cb1577-9" title="9">     <span class="dt">main =</span> <span class="st">&quot;Standard normal distribution&quot;</span>)</a>
+<a class="sourceLine" id="cb1577-10" title="10">idx &lt;-<span class="st"> </span>x <span class="op">&gt;</span><span class="st"> </span><span class="fl">-1.5</span> <span class="op">&amp;</span><span class="st"> </span>x <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.7</span> <span class="co"># 해당 구간 index 설정</span></a>
+<a class="sourceLine" id="cb1577-11" title="11"><span class="kw">polygon</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>, x[idx], <span class="fl">0.7</span>),</a>
+<a class="sourceLine" id="cb1577-12" title="12">        <span class="kw">c</span>(<span class="dv">0</span>, z[idx], <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb1577-13" title="13">        <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>,</a>
+<a class="sourceLine" id="cb1577-14" title="14">        <span class="dt">border =</span> <span class="st">&quot;green&quot;</span>)</a>
+<a class="sourceLine" id="cb1577-15" title="15"><span class="kw">lines</span>(x, z, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb1577-16" title="16"><span class="kw">text</span>(<span class="dt">x =</span> <span class="fl">0.5</span>, <span class="dt">y =</span> <span class="fl">0.15</span>,</a>
+<a class="sourceLine" id="cb1577-17" title="17">     <span class="kw">bquote</span>(<span class="kw">P</span>({<span class="op">-</span><span class="fl">1.5</span> <span class="op">&lt;</span><span class="st"> </span>Z} <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.7</span> ) <span class="op">==</span></a>
+<a class="sourceLine" id="cb1577-18" title="18"><span class="st">              </span>.(<span class="kw">sprintf</span>(<span class="st">&quot;%.3f&quot;</span>, <span class="kw">pnorm</span>(<span class="fl">0.7</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="fl">1.5</span>)))),</a>
+<a class="sourceLine" id="cb1577-19" title="19">     <span class="co"># pnorm = P(Z &lt;= c), 평균=0, 분산=1 인 경우</span></a>
+<a class="sourceLine" id="cb1577-20" title="20">     <span class="dt">adj =</span> <span class="dv">1</span>)</a></code></pre></div>
 <div class="figure"><span id="fig:polygon-example"></span>
 <img src="05-data-visualization_files/figure-html/polygon-example-1.svg" alt="polygon()을 이용한 확률밀도함수 곡선 아래 면적 표시 예시" width="768" />
 <p class="caption">
-Figure 5.13: polygon()을 이용한 확률밀도함수 곡선 아래 면적 표시 예시
+Figure 5.12: polygon()을 이용한 확률밀도함수 곡선 아래 면적 표시 예시
 </p>
 </div>
 
@@ -1052,23 +1063,23 @@ Figure 5.13: polygon()을 이용한 확률밀도함수 곡선 아래 면적 표�
 <li><code>text()</code>: x-y 좌표에 문자열을 입력하는 함수</li>
 </ul>
 
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="kw">text</span>(x, <span class="co"># x-좌표값</span></a>
-<a class="sourceLine" id="cb87-2" title="2">     y, <span class="co"># y-좌표값</span></a>
-<a class="sourceLine" id="cb87-3" title="3">     label, <span class="co"># 입력할 텍스트 문자열</span></a>
-<a class="sourceLine" id="cb87-4" title="4">     adj, <span class="co"># 원점 좌표를 기준으로 텍스트 문자열 자리 맞춤</span></a>
-<a class="sourceLine" id="cb87-5" title="5">          <span class="co"># 0 - 1 사이 값은 수평 맞추기 지정</span></a>
-<a class="sourceLine" id="cb87-6" title="6">          <span class="co"># 0=오른쪽, 0.5=가운데 정렬, 1=왼쪽 정렬 (원점 기준)</span></a>
-<a class="sourceLine" id="cb87-7" title="7">     pos, <span class="co"># adj를 단순화하여 텍스트 자리 맞춤</span></a>
-<a class="sourceLine" id="cb87-8" title="8">          <span class="co"># 1=bottom, 2=left, 3=top, 4=right,</span></a>
-<a class="sourceLine" id="cb87-9" title="9">     srt  <span class="co"># 문자열 회전(in degree)</span></a>
-<a class="sourceLine" id="cb87-10" title="10">     ...</a>
-<a class="sourceLine" id="cb87-11" title="11">     )</a></code></pre></div>
+<div class="sourceCode" id="cb1578"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1578-1" title="1"><span class="kw">text</span>(x, <span class="co"># x-좌표값</span></a>
+<a class="sourceLine" id="cb1578-2" title="2">     y, <span class="co"># y-좌표값</span></a>
+<a class="sourceLine" id="cb1578-3" title="3">     label, <span class="co"># 입력할 텍스트 문자열</span></a>
+<a class="sourceLine" id="cb1578-4" title="4">     adj, <span class="co"># 원점 좌표를 기준으로 텍스트 문자열 자리 맞춤</span></a>
+<a class="sourceLine" id="cb1578-5" title="5">          <span class="co"># 0 - 1 사이 값은 수평 맞추기 지정</span></a>
+<a class="sourceLine" id="cb1578-6" title="6">          <span class="co"># 0=오른쪽, 0.5=가운데 정렬, 1=왼쪽 정렬 (원점 기준)</span></a>
+<a class="sourceLine" id="cb1578-7" title="7">     pos, <span class="co"># adj를 단순화하여 텍스트 자리 맞춤</span></a>
+<a class="sourceLine" id="cb1578-8" title="8">          <span class="co"># 1=bottom, 2=left, 3=top, 4=right,</span></a>
+<a class="sourceLine" id="cb1578-9" title="9">     srt  <span class="co"># 문자열 회전(in degree)</span></a>
+<a class="sourceLine" id="cb1578-10" title="10">     ...</a>
+<a class="sourceLine" id="cb1578-11" title="11">     )</a></code></pre></div>
 
 
 <div class="figure"><span id="fig:text-adj-par"></span>
 <img src="figures/graphics-adjPlot.png" alt="text() 함수에서 adj 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌" width="80%" />
 <p class="caption">
-Figure 5.14: text() 함수에서 adj 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌
+Figure 5.13: text() 함수에서 adj 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌
 </p>
 </div>
 
@@ -1076,7 +1087,7 @@ Figure 5.14: text() 함수에서 adj 파라미터 값에 따른 텍스트 위치
 <div class="figure"><span id="fig:text-pos-par"></span>
 <img src="figures/graphics-posPlot.png" alt="text() 함수에서 pos 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌" width="80%" />
 <p class="caption">
-Figure 5.15: text() 함수에서 pos 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌
+Figure 5.14: text() 함수에서 pos 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌
 </p>
 </div>
 
@@ -1084,7 +1095,7 @@ Figure 5.15: text() 함수에서 pos 파라미터 값에 따른 텍스트 위치
 <div class="figure"><span id="fig:text-srt-par"></span>
 <img src="figures/graphics-srtPlot.png" alt="text() 함수에서 srt 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌" width="80%" />
 <p class="caption">
-Figure 5.16: text() 함수에서 srt 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌
+Figure 5.15: text() 함수에서 srt 파라미터 값에 따른 텍스트 위치: AIMS-R-users 에서 발췌
 </p>
 </div>
 
@@ -1092,65 +1103,65 @@ Figure 5.16: text() 함수에서 srt 파라미터 값에 따른 텍스트 위치
 <li><code>mtext()</code>: plot 여백 또는 outer 여백 상에 문자를 출력하는 함수</li>
 </ul>
 
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1"><span class="kw">mtext</span>(</a>
-<a class="sourceLine" id="cb88-2" title="2">  text, <span class="co"># 입력할 텍스트 문자열</span></a>
-<a class="sourceLine" id="cb88-3" title="3">  side, <span class="co"># 텍스트 문자열이 출력되는 여백 지정</span></a>
-<a class="sourceLine" id="cb88-4" title="4">        <span class="co"># 1=bottom, 2=left, 3=top, 4=right</span></a>
-<a class="sourceLine" id="cb88-5" title="5">  line, <span class="co"># 지정 여백에서 텍스트 출력 위치 지정</span></a>
-<a class="sourceLine" id="cb88-6" title="6">  outer, <span class="co"># outer 여백 사용 여부</span></a>
-<a class="sourceLine" id="cb88-7" title="7">  at,  <span class="co"># line 내에서 텍스트 열 위치(좌표축 기준) 지정</span></a>
-<a class="sourceLine" id="cb88-8" title="8">  adj, <span class="co"># text() 함수의 adj 파라미터와 동일</span></a>
-<a class="sourceLine" id="cb88-9" title="9">  ...</a>
-<a class="sourceLine" id="cb88-10" title="10">)</a></code></pre></div>
+<div class="sourceCode" id="cb1579"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1579-1" title="1"><span class="kw">mtext</span>(</a>
+<a class="sourceLine" id="cb1579-2" title="2">  text, <span class="co"># 입력할 텍스트 문자열</span></a>
+<a class="sourceLine" id="cb1579-3" title="3">  side, <span class="co"># 텍스트 문자열이 출력되는 여백 지정</span></a>
+<a class="sourceLine" id="cb1579-4" title="4">        <span class="co"># 1=bottom, 2=left, 3=top, 4=right</span></a>
+<a class="sourceLine" id="cb1579-5" title="5">  line, <span class="co"># 지정 여백에서 텍스트 출력 위치 지정</span></a>
+<a class="sourceLine" id="cb1579-6" title="6">  outer, <span class="co"># outer 여백 사용 여부</span></a>
+<a class="sourceLine" id="cb1579-7" title="7">  at,  <span class="co"># line 내에서 텍스트 열 위치(좌표축 기준) 지정</span></a>
+<a class="sourceLine" id="cb1579-8" title="8">  adj, <span class="co"># text() 함수의 adj 파라미터와 동일</span></a>
+<a class="sourceLine" id="cb1579-9" title="9">  ...</a>
+<a class="sourceLine" id="cb1579-10" title="10">)</a></code></pre></div>
 
 
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>),</a>
-<a class="sourceLine" id="cb89-2" title="2">    <span class="dt">oma =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb89-3" title="3"><span class="kw">set.seed</span>(<span class="dv">1345</span>)</a>
-<a class="sourceLine" id="cb89-4" title="4"><span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>),</a>
-<a class="sourceLine" id="cb89-5" title="5">     <span class="dt">type =</span> <span class="st">&quot;o&quot;</span>,</a>
-<a class="sourceLine" id="cb89-6" title="6">     <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb89-7" title="7"><span class="co"># side = 3 (top), line=0, 1, 2, 3 변경</span></a>
-<a class="sourceLine" id="cb89-8" title="8"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">0</span><span class="op">:</span><span class="dv">4</span>) {</a>
-<a class="sourceLine" id="cb89-9" title="9">  <span class="kw">mtext</span>(<span class="kw">paste</span>(<span class="st">&quot;Side = 3, line =&quot;</span>, i),</a>
-<a class="sourceLine" id="cb89-10" title="10">        <span class="dt">side =</span> <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb89-11" title="11">        <span class="dt">line =</span> i)</a>
-<a class="sourceLine" id="cb89-12" title="12">}</a>
-<a class="sourceLine" id="cb89-13" title="13"><span class="co"># side = 3 (top), outer 여백 사용, line=0, 1, 2, 3 변경</span></a>
-<a class="sourceLine" id="cb89-14" title="14"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">0</span><span class="op">:</span><span class="dv">4</span>) {</a>
-<a class="sourceLine" id="cb89-15" title="15">  <span class="kw">mtext</span>(<span class="kw">paste</span>(<span class="st">&quot;Side = 1, outer = TRUE, line =&quot;</span>, i),</a>
-<a class="sourceLine" id="cb89-16" title="16">        <span class="dt">side =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb89-17" title="17">        <span class="dt">line =</span> i,</a>
-<a class="sourceLine" id="cb89-18" title="18">        <span class="dt">outer =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb89-19" title="19">}</a>
-<a class="sourceLine" id="cb89-20" title="20"></a>
-<a class="sourceLine" id="cb89-21" title="21"><span class="co"># adj 인수 조정</span></a>
-<a class="sourceLine" id="cb89-22" title="22">adj_par &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb89-23" title="23"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
-<a class="sourceLine" id="cb89-24" title="24">  <span class="kw">mtext</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Side = 1, line = %d, adj = %.1f&quot;</span>,</a>
-<a class="sourceLine" id="cb89-25" title="25">                i, adj_par[i]),</a>
-<a class="sourceLine" id="cb89-26" title="26">  <span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">line =</span> i, <span class="dt">adj =</span> adj_par[i])</a>
-<a class="sourceLine" id="cb89-27" title="27">}</a>
-<a class="sourceLine" id="cb89-28" title="28"></a>
-<a class="sourceLine" id="cb89-29" title="29"><span class="co"># side = 2 (left)</span></a>
-<a class="sourceLine" id="cb89-30" title="30"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
-<a class="sourceLine" id="cb89-31" title="31">  <span class="kw">mtext</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Side = 2, line = %d, adj = %.1f&quot;</span>,</a>
-<a class="sourceLine" id="cb89-32" title="32">                i, adj_par[i]),</a>
-<a class="sourceLine" id="cb89-33" title="33">  <span class="dt">side =</span> <span class="dv">2</span>, <span class="dt">line =</span> i, <span class="dt">adj =</span> adj_par[i])</a>
-<a class="sourceLine" id="cb89-34" title="34">}</a>
-<a class="sourceLine" id="cb89-35" title="35"></a>
-<a class="sourceLine" id="cb89-36" title="36"><span class="co"># side = 4 (right), at 조정</span></a>
-<a class="sourceLine" id="cb89-37" title="37">at_val &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb89-38" title="38"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
-<a class="sourceLine" id="cb89-39" title="39">  <span class="kw">mtext</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Side = 4, line = %d, at = %.1f&quot;</span>,</a>
-<a class="sourceLine" id="cb89-40" title="40">                i, adj_par[i]),</a>
-<a class="sourceLine" id="cb89-41" title="41">  <span class="dt">side =</span> <span class="dv">4</span>, <span class="dt">line =</span> i, <span class="dt">at =</span> at_val[i])</a>
-<a class="sourceLine" id="cb89-42" title="42">}</a>
-<a class="sourceLine" id="cb89-43" title="43"><span class="kw">mtext</span>(<span class="st">&quot;mtext parameter check&quot;</span>,</a>
-<a class="sourceLine" id="cb89-44" title="44">      <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,</a>
-<a class="sourceLine" id="cb89-45" title="45">      <span class="dt">cex =</span> <span class="fl">0.8</span>,</a>
-<a class="sourceLine" id="cb89-46" title="46">      <span class="dt">line =</span> <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb89-47" title="47">      <span class="dt">adj =</span> <span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1580"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1580-1" title="1"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb1580-2" title="2">    <span class="dt">oma =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb1580-3" title="3"><span class="kw">set.seed</span>(<span class="dv">1345</span>)</a>
+<a class="sourceLine" id="cb1580-4" title="4"><span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>),</a>
+<a class="sourceLine" id="cb1580-5" title="5">     <span class="dt">type =</span> <span class="st">&quot;o&quot;</span>,</a>
+<a class="sourceLine" id="cb1580-6" title="6">     <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb1580-7" title="7"><span class="co"># side = 3 (top), line=0, 1, 2, 3 변경</span></a>
+<a class="sourceLine" id="cb1580-8" title="8"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">0</span><span class="op">:</span><span class="dv">4</span>) {</a>
+<a class="sourceLine" id="cb1580-9" title="9">  <span class="kw">mtext</span>(<span class="kw">paste</span>(<span class="st">&quot;Side = 3, line =&quot;</span>, i),</a>
+<a class="sourceLine" id="cb1580-10" title="10">        <span class="dt">side =</span> <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb1580-11" title="11">        <span class="dt">line =</span> i)</a>
+<a class="sourceLine" id="cb1580-12" title="12">}</a>
+<a class="sourceLine" id="cb1580-13" title="13"><span class="co"># side = 3 (top), outer 여백 사용, line=0, 1, 2, 3 변경</span></a>
+<a class="sourceLine" id="cb1580-14" title="14"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">0</span><span class="op">:</span><span class="dv">4</span>) {</a>
+<a class="sourceLine" id="cb1580-15" title="15">  <span class="kw">mtext</span>(<span class="kw">paste</span>(<span class="st">&quot;Side = 1, outer = TRUE, line =&quot;</span>, i),</a>
+<a class="sourceLine" id="cb1580-16" title="16">        <span class="dt">side =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb1580-17" title="17">        <span class="dt">line =</span> i,</a>
+<a class="sourceLine" id="cb1580-18" title="18">        <span class="dt">outer =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1580-19" title="19">}</a>
+<a class="sourceLine" id="cb1580-20" title="20"></a>
+<a class="sourceLine" id="cb1580-21" title="21"><span class="co"># adj 인수 조정</span></a>
+<a class="sourceLine" id="cb1580-22" title="22">adj_par &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1580-23" title="23"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
+<a class="sourceLine" id="cb1580-24" title="24">  <span class="kw">mtext</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Side = 1, line = %d, adj = %.1f&quot;</span>,</a>
+<a class="sourceLine" id="cb1580-25" title="25">                i, adj_par[i]),</a>
+<a class="sourceLine" id="cb1580-26" title="26">  <span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">line =</span> i, <span class="dt">adj =</span> adj_par[i])</a>
+<a class="sourceLine" id="cb1580-27" title="27">}</a>
+<a class="sourceLine" id="cb1580-28" title="28"></a>
+<a class="sourceLine" id="cb1580-29" title="29"><span class="co"># side = 2 (left)</span></a>
+<a class="sourceLine" id="cb1580-30" title="30"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
+<a class="sourceLine" id="cb1580-31" title="31">  <span class="kw">mtext</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Side = 2, line = %d, adj = %.1f&quot;</span>,</a>
+<a class="sourceLine" id="cb1580-32" title="32">                i, adj_par[i]),</a>
+<a class="sourceLine" id="cb1580-33" title="33">  <span class="dt">side =</span> <span class="dv">2</span>, <span class="dt">line =</span> i, <span class="dt">adj =</span> adj_par[i])</a>
+<a class="sourceLine" id="cb1580-34" title="34">}</a>
+<a class="sourceLine" id="cb1580-35" title="35"></a>
+<a class="sourceLine" id="cb1580-36" title="36"><span class="co"># side = 4 (right), at 조정</span></a>
+<a class="sourceLine" id="cb1580-37" title="37">at_val &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1580-38" title="38"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
+<a class="sourceLine" id="cb1580-39" title="39">  <span class="kw">mtext</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Side = 4, line = %d, at = %.1f&quot;</span>,</a>
+<a class="sourceLine" id="cb1580-40" title="40">                i, adj_par[i]),</a>
+<a class="sourceLine" id="cb1580-41" title="41">  <span class="dt">side =</span> <span class="dv">4</span>, <span class="dt">line =</span> i, <span class="dt">at =</span> at_val[i])</a>
+<a class="sourceLine" id="cb1580-42" title="42">}</a>
+<a class="sourceLine" id="cb1580-43" title="43"><span class="kw">mtext</span>(<span class="st">&quot;mtext parameter check&quot;</span>,</a>
+<a class="sourceLine" id="cb1580-44" title="44">      <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,</a>
+<a class="sourceLine" id="cb1580-45" title="45">      <span class="dt">cex =</span> <span class="fl">0.8</span>,</a>
+<a class="sourceLine" id="cb1580-46" title="46">      <span class="dt">line =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb1580-47" title="47">      <span class="dt">adj =</span> <span class="dv">0</span>)</a></code></pre></div>
 <p><img src="05-data-visualization_files/figure-html/mtext-anatomy-1.svg" width="864" /></p>
 
 </div>
@@ -1165,23 +1176,23 @@ Figure 5.16: text() 함수에서 srt 파라미터 값에 따른 텍스트 위치
 </ul></li>
 </ul>
 
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="kw">plot</span>(Petal.Length <span class="op">~</span><span class="st"> </span>Sepal.Length, <span class="dt">data =</span> iris,</a>
-<a class="sourceLine" id="cb90-2" title="2">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb90-3" title="3">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb90-4" title="4">     <span class="dt">main =</span> <span class="st">&quot;points() function example 2: iris dataset&quot;</span>)</a>
-<a class="sourceLine" id="cb90-5" title="5"><span class="kw">points</span>(iris<span class="op">$</span>Sepal.Length,</a>
-<a class="sourceLine" id="cb90-6" title="6">       iris<span class="op">$</span>Petal.Length,</a>
-<a class="sourceLine" id="cb90-7" title="7">       <span class="dt">pch =</span> shapes[<span class="kw">as.numeric</span>(iris<span class="op">$</span>Species)], <span class="co"># 각 Species에 대해 shapes 할당</span></a>
-<a class="sourceLine" id="cb90-8" title="8">       <span class="dt">col =</span> <span class="kw">as.numeric</span>(iris<span class="op">$</span>Species),</a>
-<a class="sourceLine" id="cb90-9" title="9">       <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb90-10" title="10"><span class="kw">legend</span>(<span class="st">&quot;bottomright&quot;</span>, <span class="dt">legend =</span> <span class="kw">unique</span>(iris<span class="op">$</span>Species), <span class="dt">pch =</span> <span class="dv">15</span><span class="op">:</span><span class="dv">17</span>, <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb90-11" title="11"><span class="kw">legend</span>(<span class="fl">4.5</span>, <span class="dv">6</span>, <span class="dt">legend =</span> <span class="kw">unique</span>(iris<span class="op">$</span>Species), <span class="dt">pch =</span> <span class="dv">15</span><span class="op">:</span><span class="dv">17</span>, <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb90-12" title="12"></a>
-<a class="sourceLine" id="cb90-13" title="13"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>,</a>
-<a class="sourceLine" id="cb90-14" title="14">       <span class="dt">legend =</span> <span class="kw">unique</span>(iris<span class="op">$</span>Species),</a>
-<a class="sourceLine" id="cb90-15" title="15">       <span class="dt">pch =</span> <span class="dv">15</span><span class="op">:</span><span class="dv">17</span>, <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb90-16" title="16">       <span class="dt">pt.cex =</span> <span class="dv">3</span>, <span class="co"># legend 점 크기 조정</span></a>
-<a class="sourceLine" id="cb90-17" title="17">       <span class="dt">ncol =</span> <span class="dv">3</span>) <span class="co"># # legend 영역 열 개수 지정</span></a></code></pre></div>
+<div class="sourceCode" id="cb1581"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1581-1" title="1"><span class="kw">plot</span>(Petal.Length <span class="op">~</span><span class="st"> </span>Sepal.Length, <span class="dt">data =</span> iris,</a>
+<a class="sourceLine" id="cb1581-2" title="2">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1581-3" title="3">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1581-4" title="4">     <span class="dt">main =</span> <span class="st">&quot;points() function example 2: iris dataset&quot;</span>)</a>
+<a class="sourceLine" id="cb1581-5" title="5"><span class="kw">points</span>(iris<span class="op">$</span>Sepal.Length,</a>
+<a class="sourceLine" id="cb1581-6" title="6">       iris<span class="op">$</span>Petal.Length,</a>
+<a class="sourceLine" id="cb1581-7" title="7">       <span class="dt">pch =</span> shapes[<span class="kw">as.numeric</span>(iris<span class="op">$</span>Species)], <span class="co"># 각 Species에 대해 shapes 할당</span></a>
+<a class="sourceLine" id="cb1581-8" title="8">       <span class="dt">col =</span> <span class="kw">as.numeric</span>(iris<span class="op">$</span>Species),</a>
+<a class="sourceLine" id="cb1581-9" title="9">       <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb1581-10" title="10"><span class="kw">legend</span>(<span class="st">&quot;bottomright&quot;</span>, <span class="dt">legend =</span> <span class="kw">unique</span>(iris<span class="op">$</span>Species), <span class="dt">pch =</span> <span class="dv">15</span><span class="op">:</span><span class="dv">17</span>, <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb1581-11" title="11"><span class="kw">legend</span>(<span class="fl">4.5</span>, <span class="dv">6</span>, <span class="dt">legend =</span> <span class="kw">unique</span>(iris<span class="op">$</span>Species), <span class="dt">pch =</span> <span class="dv">15</span><span class="op">:</span><span class="dv">17</span>, <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb1581-12" title="12"></a>
+<a class="sourceLine" id="cb1581-13" title="13"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>,</a>
+<a class="sourceLine" id="cb1581-14" title="14">       <span class="dt">legend =</span> <span class="kw">unique</span>(iris<span class="op">$</span>Species),</a>
+<a class="sourceLine" id="cb1581-15" title="15">       <span class="dt">pch =</span> <span class="dv">15</span><span class="op">:</span><span class="dv">17</span>, <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb1581-16" title="16">       <span class="dt">pt.cex =</span> <span class="dv">3</span>, <span class="co"># legend 점 크기 조정</span></a>
+<a class="sourceLine" id="cb1581-17" title="17">       <span class="dt">ncol =</span> <span class="dv">3</span>) <span class="co"># # legend 영역 열 개수 지정</span></a></code></pre></div>
 <p><img src="05-data-visualization_files/figure-html/unnamed-chunk-54-1.svg" width="864" /></p>
 
 </div>
@@ -1194,7 +1205,7 @@ Figure 5.16: text() 함수에서 srt 파라미터 값에 따른 텍스트 위치
 <blockquote>
 <ul>
 <li>그래프 상 수식은 <code>expression()</code>, <code>bquote()</code>, <code>substitute()</code> 함수로 표현 가능</li>
-<li>TeX<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>과 유사한 수식 형태를 표현하기 위해 복잡한 표현식들이 사용됨 <span class="math inline">\(\rightarrow\)</span> 아래 표 참고(<code>demo(plotmath)</code>를 통해 동일한 표 출력 가능)</li>
+<li>TeX<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>과 유사한 수식 형태를 표현하기 위해 복잡한 표현식들이 사용됨 <span class="math inline">\(\rightarrow\)</span> 아래 표 참고(<code>demo(plotmath)</code>를 통해 동일한 표 출력 가능)</li>
 </ul>
 </blockquote>
 <!-- ```{r, echo=FALSE, message=FALSE, results=FALSE, out.width="50%", fig.height=8, fig.width=6.5, fig.show="hold"} -->
@@ -1204,7 +1215,7 @@ Figure 5.16: text() 함수에서 srt 파라미터 값에 따른 텍스트 위치
 <div class="figure"><span id="fig:expression-math"></span>
 <img src="figures/expression-table-01.png" alt="R expression() 함수 내 수식 표현 방법" width="50%" /><img src="figures/expression-table-02.png" alt="R expression() 함수 내 수식 표현 방법" width="50%" /><img src="figures/expression-table-03.png" alt="R expression() 함수 내 수식 표현 방법" width="50%" /><img src="figures/expression-table-04.png" alt="R expression() 함수 내 수식 표현 방법" width="50%" /><img src="figures/expression-table-05.png" alt="R expression() 함수 내 수식 표현 방법" width="50%" />
 <p class="caption">
-Figure 5.17: R expression() 함수 내 수식 표현 방법
+Figure 5.16: R expression() 함수 내 수식 표현 방법
 </p>
 </div>
 
@@ -1215,7 +1226,7 @@ Figure 5.17: R expression() 함수 내 수식 표현 방법
 <div class="figure"><span id="fig:greek-letters"></span>
 <img src="figures/greek-letters.png" alt="R 그리스 문자 표현"  />
 <p class="caption">
-Figure 5.18: R 그리스 문자 표현
+Figure 5.17: R 그리스 문자 표현
 </p>
 </div>
 
@@ -1280,78 +1291,78 @@ Figure 5.18: R 그리스 문자 표현
 <!-- ``` -->
 <ul>
 <li><code>expression()</code>: 문자 TeX 형태와 유사한 기호 및 표현을 이용해 수식 표현</li>
-<li><code>bquote()</code>: <code>.()</code> 안에 있는 표현을 먼저 평가 한 후 그 값을 변환해 수식 표현식 안에 들어가는 값으로 사용 <span class="math inline">\(\rightarrow\)</span> 그림 <a href="low-level-graphic.html#fig:abline-example">5.10</a>, 그림 <a href="low-level-graphic.html#fig:polygon-example">5.13</a> 예시 및 스크립트 참고</li>
+<li><code>bquote()</code>: <code>.()</code> 안에 있는 표현을 먼저 평가 한 후 그 값을 변환해 수식 표현식 안에 들어가는 값으로 사용 <span class="math inline">\(\rightarrow\)</span> 그림 <a href="low-level-graphic.html#fig:abline-example">5.9</a>, 그림 <a href="low-level-graphic.html#fig:polygon-example">5.12</a> 예시 및 스크립트 참고</li>
 </ul>
 <blockquote>
 <p>두 함수 모두 <code>paste()</code> 함수와 같이 사용 하는 것이 일반적인 수식과 문자 표현 방법임.</p>
 </blockquote>
 
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="co"># 수식 표현 예시 expression() + paste()</span></a>
-<a class="sourceLine" id="cb91-2" title="2"><span class="kw">par</span>(<span class="dt">cex =</span> <span class="fl">1.5</span> ,</a>
-<a class="sourceLine" id="cb91-3" title="3">    <span class="dt">cex.lab =</span> <span class="fl">1.2</span>)</a>
-<a class="sourceLine" id="cb91-4" title="4"><span class="kw">set.seed</span>(<span class="dv">202005</span>)</a>
-<a class="sourceLine" id="cb91-5" title="5">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb91-6" title="6">y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb91-7" title="7"></a>
-<a class="sourceLine" id="cb91-8" title="8"><span class="kw">plot</span>(x, y,</a>
-<a class="sourceLine" id="cb91-9" title="9">     <span class="dt">type =</span> <span class="st">&quot;p&quot;</span>,</a>
-<a class="sourceLine" id="cb91-10" title="10">     <span class="dt">axes =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb91-11" title="11">     <span class="dt">ann =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb91-12" title="12">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</a>
-<a class="sourceLine" id="cb91-13" title="13"><span class="kw">mtext</span>(<span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Temperature&quot;</span>, <span class="op">~</span>(degree<span class="op">*</span>C))),</a>
-<a class="sourceLine" id="cb91-14" title="14">      <span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">line =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb91-15" title="15"><span class="kw">mtext</span>(<span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Respiration&quot;</span>, <span class="op">~</span>(mL <span class="op">~</span>O[<span class="dv">2</span>] <span class="op">~</span><span class="st"> </span>h<span class="op">^-</span><span class="dv">1</span>))),</a>
-<a class="sourceLine" id="cb91-16" title="16">      <span class="dt">side =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb91-17" title="17">      <span class="dt">line =</span> <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb91-18" title="18">      <span class="dt">cex =</span> <span class="fl">1.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1582"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1582-1" title="1"><span class="co"># 수식 표현 예시 expression() + paste()</span></a>
+<a class="sourceLine" id="cb1582-2" title="2"><span class="kw">par</span>(<span class="dt">cex =</span> <span class="fl">1.5</span> ,</a>
+<a class="sourceLine" id="cb1582-3" title="3">    <span class="dt">cex.lab =</span> <span class="fl">1.2</span>)</a>
+<a class="sourceLine" id="cb1582-4" title="4"><span class="kw">set.seed</span>(<span class="dv">202005</span>)</a>
+<a class="sourceLine" id="cb1582-5" title="5">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb1582-6" title="6">y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb1582-7" title="7"></a>
+<a class="sourceLine" id="cb1582-8" title="8"><span class="kw">plot</span>(x, y,</a>
+<a class="sourceLine" id="cb1582-9" title="9">     <span class="dt">type =</span> <span class="st">&quot;p&quot;</span>,</a>
+<a class="sourceLine" id="cb1582-10" title="10">     <span class="dt">axes =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb1582-11" title="11">     <span class="dt">ann =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb1582-12" title="12">     <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</a>
+<a class="sourceLine" id="cb1582-13" title="13"><span class="kw">mtext</span>(<span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Temperature&quot;</span>, <span class="op">~</span>(degree<span class="op">*</span>C))),</a>
+<a class="sourceLine" id="cb1582-14" title="14">      <span class="dt">side =</span> <span class="dv">1</span>, <span class="dt">line =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb1582-15" title="15"><span class="kw">mtext</span>(<span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Respiration&quot;</span>, <span class="op">~</span>(mL <span class="op">~</span>O[<span class="dv">2</span>] <span class="op">~</span><span class="st"> </span>h<span class="op">^-</span><span class="dv">1</span>))),</a>
+<a class="sourceLine" id="cb1582-16" title="16">      <span class="dt">side =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb1582-17" title="17">      <span class="dt">line =</span> <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb1582-18" title="18">      <span class="dt">cex =</span> <span class="fl">1.5</span>)</a></code></pre></div>
 <p><img src="05-data-visualization_files/figure-html/unnamed-chunk-55-1.svg" width="768" /></p>
 
 <div class="tiny">
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1"><span class="kw">par</span>(<span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb92-2" title="2"><span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">0</span><span class="op">:</span><span class="dv">6</span>,</a>
-<a class="sourceLine" id="cb92-3" title="3">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb92-4" title="4">     <span class="dt">bty =</span> <span class="st">&quot;o&quot;</span>,</a>
-<a class="sourceLine" id="cb92-5" title="5">     <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb92-6" title="6">     <span class="dt">yaxt =</span> <span class="st">&quot;n&quot;</span>,</a>
-<a class="sourceLine" id="cb92-7" title="7">     <span class="dt">ann =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb92-8" title="8"><span class="kw">text</span>(<span class="fl">0.3</span>, <span class="fl">5.8</span>, <span class="st">&quot;Normal distribution:&quot;</span>, <span class="dt">adj =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb92-9" title="9"><span class="kw">text</span>(<span class="fl">0.3</span>, <span class="fl">4.8</span>, <span class="kw">expression</span>(<span class="kw">paste</span>(f, <span class="st">&quot;(&quot;</span>, x, <span class="st">&quot;;&quot;</span>, <span class="kw">list</span>(mu, sigma), <span class="st">&quot;)&quot;</span></a>
-<a class="sourceLine" id="cb92-10" title="10">                                <span class="op">==</span><span class="st"> </span><span class="kw">frac</span>(<span class="dv">1</span>, sigma<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>pi))<span class="op">*</span><span class="er">~~</span>exp <span class="op">*</span></a>
-<a class="sourceLine" id="cb92-11" title="11"><span class="st">                                  </span><span class="kw">bgroup</span>(<span class="st">&#39;(&#39;</span>, <span class="op">-</span><span class="kw">frac</span>((x<span class="op">-</span>mu)<span class="op">^</span><span class="dv">2</span>, </a>
-<a class="sourceLine" id="cb92-12" title="12">                                                    <span class="dv">2</span><span class="op">*</span>sigma<span class="op">^</span><span class="dv">2</span>), <span class="st">&#39;)&#39;</span>) </a>
-<a class="sourceLine" id="cb92-13" title="13">                                )),</a>
-<a class="sourceLine" id="cb92-14" title="14">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb92-15" title="15"><span class="kw">text</span>(<span class="dv">4</span>, <span class="fl">5.8</span>, <span class="st">&quot;Binomial distribution:&quot;</span>, <span class="dt">adj =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb92-16" title="16"><span class="kw">text</span>(<span class="dv">4</span>, <span class="fl">4.8</span>, <span class="kw">expression</span>(<span class="kw">paste</span>(f, <span class="st">&quot;(&quot;</span>, x, <span class="st">&quot;;&quot;</span>, <span class="kw">list</span>(n, p), <span class="st">&quot;)&quot;</span></a>
-<a class="sourceLine" id="cb92-17" title="17">                                <span class="op">==</span><span class="st"> </span><span class="kw">bgroup</span>(<span class="st">&quot;(&quot;</span>, <span class="kw">atop</span>(n, x) ,<span class="st">&quot;)&quot;</span>)</a>
-<a class="sourceLine" id="cb92-18" title="18">                              <span class="op">*</span>p<span class="op">^</span>x<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">^</span>{n<span class="op">-</span>x})),</a>
-<a class="sourceLine" id="cb92-19" title="19">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb92-20" title="20"></a>
-<a class="sourceLine" id="cb92-21" title="21"><span class="kw">text</span>(<span class="fl">0.3</span>, <span class="fl">3.5</span>, <span class="st">&quot;Matrix:&quot;</span>, <span class="dt">adj =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb92-22" title="22"><span class="kw">text</span>(<span class="fl">0.3</span>, <span class="fl">2.5</span>,</a>
-<a class="sourceLine" id="cb92-23" title="23">     <span class="kw">expression</span>(<span class="kw">bold</span>(X) <span class="op">==</span><span class="st"> </span><span class="kw">bgroup</span>(<span class="st">&quot;[&quot;</span>, <span class="kw">atop</span>(<span class="dv">1</span> <span class="op">~</span><span class="er">~</span><span class="st"> </span><span class="dv">2</span> <span class="op">~</span><span class="er">~</span><span class="st"> </span><span class="dv">3</span>, </a>
-<a class="sourceLine" id="cb92-24" title="24">                                            <span class="dv">4</span> <span class="op">~</span><span class="er">~</span><span class="st"> </span><span class="dv">5</span> <span class="op">~</span><span class="er">~</span><span class="st"> </span><span class="dv">6</span>), <span class="st">&quot;]&quot;</span>)),</a>
-<a class="sourceLine" id="cb92-25" title="25">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb92-26" title="26"><span class="kw">text</span>(<span class="dv">2</span>, <span class="fl">3.5</span>, <span class="st">&quot;Multiple regression formula:&quot;</span>,</a>
-<a class="sourceLine" id="cb92-27" title="27">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb92-28" title="28"><span class="kw">text</span>(<span class="dv">2</span>, <span class="fl">2.5</span>,</a>
-<a class="sourceLine" id="cb92-29" title="29">     <span class="kw">expression</span>(<span class="kw">paste</span>(y[i] <span class="op">==</span><span class="st"> </span>beta[<span class="dv">0</span>] <span class="op">+</span><span class="st"> </span>beta[<span class="dv">1</span>]<span class="op">*</span>x[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb92-30" title="30"><span class="st">                        </span>beta[<span class="dv">2</span>]<span class="op">*</span>x[<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span>epsilon[i]<span class="op">~</span><span class="er">~</span></a>
-<a class="sourceLine" id="cb92-31" title="31"><span class="st">                      &quot;where&quot;</span>, <span class="op">~</span><span class="er">~</span>i <span class="op">==</span><span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span>, ldots, n))),</a>
-<a class="sourceLine" id="cb92-32" title="32">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb92-33" title="33"></a>
-<a class="sourceLine" id="cb92-34" title="34"><span class="kw">text</span>(<span class="dv">2</span>, <span class="fl">1.5</span>, <span class="st">&quot;Regression equation:&quot;</span>, <span class="dt">adj =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb92-35" title="35"><span class="kw">text</span>(<span class="dv">2</span>, <span class="fl">0.5</span>,</a>
-<a class="sourceLine" id="cb92-36" title="36">     <span class="kw">expression</span>(<span class="kw">hat</span>(<span class="kw">bold</span>(beta)) <span class="op">==</span><span class="st"> </span><span class="kw">bgroup</span>(<span class="st">&quot;(&quot;</span>, <span class="kw">bold</span>(X)<span class="op">^</span>T<span class="op">*</span><span class="kw">bold</span>(X), </a>
-<a class="sourceLine" id="cb92-37" title="37">                                          <span class="st">&quot;)&quot;</span>)<span class="op">^-</span><span class="dv">1</span><span class="op">*</span><span class="kw">bold</span>(X)<span class="op">^</span>T<span class="op">*</span><span class="kw">bold</span>(y)),</a>
-<a class="sourceLine" id="cb92-38" title="38">     <span class="dt">adj =</span> <span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1583"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1583-1" title="1"><span class="kw">par</span>(<span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb1583-2" title="2"><span class="kw">plot</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">0</span><span class="op">:</span><span class="dv">6</span>,</a>
+<a class="sourceLine" id="cb1583-3" title="3">     <span class="dt">type =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1583-4" title="4">     <span class="dt">bty =</span> <span class="st">&quot;o&quot;</span>,</a>
+<a class="sourceLine" id="cb1583-5" title="5">     <span class="dt">xaxt =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1583-6" title="6">     <span class="dt">yaxt =</span> <span class="st">&quot;n&quot;</span>,</a>
+<a class="sourceLine" id="cb1583-7" title="7">     <span class="dt">ann =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb1583-8" title="8"><span class="kw">text</span>(<span class="fl">0.3</span>, <span class="fl">5.8</span>, <span class="st">&quot;Normal distribution:&quot;</span>, <span class="dt">adj =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1583-9" title="9"><span class="kw">text</span>(<span class="fl">0.3</span>, <span class="fl">4.8</span>, <span class="kw">expression</span>(<span class="kw">paste</span>(f, <span class="st">&quot;(&quot;</span>, x, <span class="st">&quot;;&quot;</span>, <span class="kw">list</span>(mu, sigma), <span class="st">&quot;)&quot;</span></a>
+<a class="sourceLine" id="cb1583-10" title="10">                                <span class="op">==</span><span class="st"> </span><span class="kw">frac</span>(<span class="dv">1</span>, sigma<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>pi))<span class="op">*</span><span class="er">~~</span>exp <span class="op">*</span></a>
+<a class="sourceLine" id="cb1583-11" title="11"><span class="st">                                  </span><span class="kw">bgroup</span>(<span class="st">&#39;(&#39;</span>, <span class="op">-</span><span class="kw">frac</span>((x<span class="op">-</span>mu)<span class="op">^</span><span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb1583-12" title="12">                                                    <span class="dv">2</span><span class="op">*</span>sigma<span class="op">^</span><span class="dv">2</span>), <span class="st">&#39;)&#39;</span>) </a>
+<a class="sourceLine" id="cb1583-13" title="13">                                )),</a>
+<a class="sourceLine" id="cb1583-14" title="14">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1583-15" title="15"><span class="kw">text</span>(<span class="dv">4</span>, <span class="fl">5.8</span>, <span class="st">&quot;Binomial distribution:&quot;</span>, <span class="dt">adj =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1583-16" title="16"><span class="kw">text</span>(<span class="dv">4</span>, <span class="fl">4.8</span>, <span class="kw">expression</span>(<span class="kw">paste</span>(f, <span class="st">&quot;(&quot;</span>, x, <span class="st">&quot;;&quot;</span>, <span class="kw">list</span>(n, p), <span class="st">&quot;)&quot;</span></a>
+<a class="sourceLine" id="cb1583-17" title="17">                                <span class="op">==</span><span class="st"> </span><span class="kw">bgroup</span>(<span class="st">&quot;(&quot;</span>, <span class="kw">atop</span>(n, x) ,<span class="st">&quot;)&quot;</span>)</a>
+<a class="sourceLine" id="cb1583-18" title="18">                              <span class="op">*</span>p<span class="op">^</span>x<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">^</span>{n<span class="op">-</span>x})),</a>
+<a class="sourceLine" id="cb1583-19" title="19">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1583-20" title="20"></a>
+<a class="sourceLine" id="cb1583-21" title="21"><span class="kw">text</span>(<span class="fl">0.3</span>, <span class="fl">3.5</span>, <span class="st">&quot;Matrix:&quot;</span>, <span class="dt">adj =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1583-22" title="22"><span class="kw">text</span>(<span class="fl">0.3</span>, <span class="fl">2.5</span>,</a>
+<a class="sourceLine" id="cb1583-23" title="23">     <span class="kw">expression</span>(<span class="kw">bold</span>(X) <span class="op">==</span><span class="st"> </span><span class="kw">bgroup</span>(<span class="st">&quot;[&quot;</span>, <span class="kw">atop</span>(<span class="dv">1</span> <span class="op">~</span><span class="er">~</span><span class="st"> </span><span class="dv">2</span> <span class="op">~</span><span class="er">~</span><span class="st"> </span><span class="dv">3</span>, </a>
+<a class="sourceLine" id="cb1583-24" title="24">                                            <span class="dv">4</span> <span class="op">~</span><span class="er">~</span><span class="st"> </span><span class="dv">5</span> <span class="op">~</span><span class="er">~</span><span class="st"> </span><span class="dv">6</span>), <span class="st">&quot;]&quot;</span>)),</a>
+<a class="sourceLine" id="cb1583-25" title="25">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1583-26" title="26"><span class="kw">text</span>(<span class="dv">2</span>, <span class="fl">3.5</span>, <span class="st">&quot;Multiple regression formula:&quot;</span>,</a>
+<a class="sourceLine" id="cb1583-27" title="27">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1583-28" title="28"><span class="kw">text</span>(<span class="dv">2</span>, <span class="fl">2.5</span>,</a>
+<a class="sourceLine" id="cb1583-29" title="29">     <span class="kw">expression</span>(<span class="kw">paste</span>(y[i] <span class="op">==</span><span class="st"> </span>beta[<span class="dv">0</span>] <span class="op">+</span><span class="st"> </span>beta[<span class="dv">1</span>]<span class="op">*</span>x[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1583-30" title="30"><span class="st">                        </span>beta[<span class="dv">2</span>]<span class="op">*</span>x[<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span>epsilon[i]<span class="op">~</span><span class="er">~</span></a>
+<a class="sourceLine" id="cb1583-31" title="31"><span class="st">                      &quot;where&quot;</span>, <span class="op">~</span><span class="er">~</span>i <span class="op">==</span><span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span>, ldots, n))),</a>
+<a class="sourceLine" id="cb1583-32" title="32">     <span class="dt">adj =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1583-33" title="33"></a>
+<a class="sourceLine" id="cb1583-34" title="34"><span class="kw">text</span>(<span class="dv">2</span>, <span class="fl">1.5</span>, <span class="st">&quot;Regression equation:&quot;</span>, <span class="dt">adj =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1583-35" title="35"><span class="kw">text</span>(<span class="dv">2</span>, <span class="fl">0.5</span>,</a>
+<a class="sourceLine" id="cb1583-36" title="36">     <span class="kw">expression</span>(<span class="kw">hat</span>(<span class="kw">bold</span>(beta)) <span class="op">==</span><span class="st"> </span><span class="kw">bgroup</span>(<span class="st">&quot;(&quot;</span>, <span class="kw">bold</span>(X)<span class="op">^</span>T<span class="op">*</span><span class="kw">bold</span>(X), </a>
+<a class="sourceLine" id="cb1583-37" title="37">                                          <span class="st">&quot;)&quot;</span>)<span class="op">^-</span><span class="dv">1</span><span class="op">*</span><span class="kw">bold</span>(X)<span class="op">^</span>T<span class="op">*</span><span class="kw">bold</span>(y)),</a>
+<a class="sourceLine" id="cb1583-38" title="38">     <span class="dt">adj =</span> <span class="dv">0</span>)</a></code></pre></div>
 <p></p>
 </div>
 
 <div class="figure"><span id="fig:math-example"></span>
 <img src="figures/math-example.png" alt="R 그래픽 수식 표현 예시" width="100%" />
 <p class="caption">
-Figure 5.19: R 그래픽 수식 표현 예시
+Figure 5.18: R 그래픽 수식 표현 예시
 </p>
 </div>
 
@@ -1360,10 +1371,10 @@ Figure 5.19: R 그래픽 수식 표현 예시
 <h3><span class="header-section-number">5.3.11</span> R 기본 그래프 이미지 파일로 저장</h3>
 <p><a href="r-basic-graphics.html#r-basic-graphics">5.1</a> 절 R 기본 그래프 함수에서 언급한 그래픽 파일에 해당하는 함수로 그래픽 장치를 먼저 연 다음 그래프 생성 후 저장</p>
 
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1"><span class="co"># save-example.png에 cars 산점도 저장</span></a>
-<a class="sourceLine" id="cb93-2" title="2"><span class="kw">png</span>(<span class="st">&quot;figures/save-example.png&quot;</span>)</a>
-<a class="sourceLine" id="cb93-3" title="3"><span class="kw">plot</span>(cars)</a>
-<a class="sourceLine" id="cb93-4" title="4"><span class="kw">dev.off</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1584"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1584-1" title="1"><span class="co"># save-example.png에 cars 산점도 저장</span></a>
+<a class="sourceLine" id="cb1584-2" title="2"><span class="kw">png</span>(<span class="st">&quot;figures/save-example.png&quot;</span>)</a>
+<a class="sourceLine" id="cb1584-3" title="3"><span class="kw">plot</span>(cars)</a>
+<a class="sourceLine" id="cb1584-4" title="4"><span class="kw">dev.off</span>()</a></code></pre></div>
 <pre><code>pdf 
   2 </code></pre>
 
@@ -1371,8 +1382,8 @@ Figure 5.19: R 그래픽 수식 표현 예시
 </div>
 <div class="footnotes">
 <hr />
-<ol start="1">
-<li id="fn1"><p>도널드 커누스가 만든 문서 조판 프로그램으로, 수학, 통계학, 물리학 등 자연과학 및 공학 분야에서 논문, 책자, 슬라이드 등 다양한 형태의 문서 작성을 위해 사용됨. 특히 수식 표현에 있어 다른 워드 프로세서와 비교할 수 없을 정도로 강력하며, 구조적 문서 작성을 강제함.<a href="low-level-graphic.html#fnref1" class="footnote-back">↩</a></p></li>
+<ol start="11">
+<li id="fn11"><p>도널드 커누스가 만든 문서 조판 프로그램으로, 수학, 통계학, 물리학 등 자연과학 및 공학 분야에서 논문, 책자, 슬라이드 등 다양한 형태의 문서 작성을 위해 사용됨. 특히 수식 표현에 있어 다른 워드 프로세서와 비교할 수 없을 정도로 강력하며, 구조적 문서 작성을 강제함.<a href="low-level-graphic.html#fnref11" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
