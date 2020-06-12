@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2020-06-10" />
+<meta name="date" content="2020-06-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1116,7 +1116,7 @@ Figure 5.25: geom_line()을 이용한 선 그래프 생성
 <a class="sourceLine" id="cb1634-10" title="10"><span class="op">-</span><span class="st"> </span>vjust<span class="op">:</span><span class="st"> </span>텍스트 수직 위지 초정</a>
 <a class="sourceLine" id="cb1634-11" title="11"></a>
 <a class="sourceLine" id="cb1634-12" title="12"><span class="op">&lt;</span>ARGUMENTS<span class="op">&gt;</span><span class="st"> </span>(중요 인수)</a>
-<a class="sourceLine" id="cb1634-13" title="13">  <span class="op">-</span><span class="st"> </span>parse<span class="op">:</span><span class="st"> </span>논리값, 기본 그래픽스 수식 표현식(<span class="kw">expression</span>(), 또는 <span class="kw">bquote</span>()) 사용 여부</a>
+<a class="sourceLine" id="cb1634-13" title="13">  <span class="op">-</span><span class="st"> </span>parse<span class="op">:</span><span class="st"> </span>논리값, 문자열을 parsing 하여 <span class="kw">expression</span>() 함수로 표현</a>
 <a class="sourceLine" id="cb1634-14" title="14">  <span class="op">-</span><span class="st"> </span>check_overlap<span class="op">:</span><span class="st"> </span>이전에 생성된 텍스트 위에 새로운 텍스트가 중첩(overlapping)될 경우</a>
 <a class="sourceLine" id="cb1634-15" title="15">                   인수값이 <span class="ot">TRUE</span> 이면 출력하지 않음. (<span class="kw">geom_text</span>()에서만 사용 가능)</a></code></pre></div>
 
@@ -1201,7 +1201,7 @@ Figure 5.26: hjust와 vjust 값에 따른 텍스트 위치. <a href="https://ggp
 <h4>geom_text() 수식(math) 표기</h4>
 <ul>
 <li>R 기본 그래픽 함수에서 적용한 <code>expression()</code>, <code>bquote()</code> 함수를 이용해 수식 표현 가능.</li>
-<li><code>bquote()</code>를 이용 시 생성한 표현을 다시 parsing (문자열을 expression 구문으로 해석) 하기 위해 <code>deparse()</code> 함수를 통해 문자열로 변환해줘야 함. 이 때 텍스트가 <code>label</code>의 값으로 입력이 되기 때문에 <code>parse = TRUE</code> 로 설정해야만 수식 표현 가능</li>
+<li><code>bquote()</code>를 이용 시 생성한 표현을 다시 parsing (문자열을 expression 구문으로 해석) 하기 위해 <code>deparse()</code> 함수를 통해 문자열로 변환해줘야 함. 이 때 텍스트가 <code>label</code>의 값으로 입력이 되기 때문에 텍스트를 expression() 형태로 바꿔주기 위해 <code>parse = TRUE</code> 로 설정해야 수식 표현 가능</li>
 </ul>
 
 <div class="sourceCode" id="cb1637"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1637-1" title="1"><span class="kw">set.seed</span>(<span class="dv">12345</span>)</a>
@@ -1259,7 +1259,7 @@ Figure 5.26: hjust와 vjust 값에 따른 텍스트 위치. <a href="https://ggp
 </ul>
 
 <div class="sourceCode" id="cb1638"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1638-1" title="1"><span class="op">&lt;</span>MAPPING<span class="op">&gt;</span><span class="st"> </span><span class="er">=</span><span class="st"> </span>기본 x, y에 대한 aesthetic 기본 mapping 이외</a>
-<a class="sourceLine" id="cb1638-2" title="2">            범위를 지정하는 <span class="kw">ymin</span> (ymax), <span class="kw">xmin</span> (ymax) 지정 필수</a></code></pre></div>
+<a class="sourceLine" id="cb1638-2" title="2">            범위를 지정하는 <span class="kw">ymin</span> (ymax), <span class="kw">xmin</span> (xmax) 지정 필수</a></code></pre></div>
 
 <div id="geom-areas-example" class="section level4 unnumbered">
 <h4>Examples</h4>
@@ -1372,7 +1372,7 @@ Figure 5.26: hjust와 vjust 값에 따른 텍스트 위치. <a href="https://ggp
 <div class="sourceCode" id="cb1645"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1645-1" title="1"><span class="op">&lt;</span>MAPPING<span class="op">&gt;</span><span class="er">:</span><span class="st"> </span>커널 밀도를 추정할 변수 (x 또는 y)</a>
 <a class="sourceLine" id="cb1645-2" title="2"></a>
 <a class="sourceLine" id="cb1645-3" title="3"><span class="op">&lt;</span>ARGUMENTS<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb1645-4" title="4"><span class="st">   </span><span class="op">-</span><span class="st"> </span>adjust<span class="op">:</span><span class="st"> </span>커널 함수의 복잡도 조정(수치영 값 입력)</a></code></pre></div>
+<a class="sourceLine" id="cb1645-4" title="4"><span class="st">   </span><span class="op">-</span><span class="st"> </span>adjust<span class="op">:</span><span class="st"> </span>커널 함수의 복잡도 조정(수치형 값 입력)</a></code></pre></div>
 
 
 <div class="sourceCode" id="cb1646"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1646-1" title="1"><span class="co"># geom_histogram() 예시 이어서</span></a>
@@ -1644,7 +1644,7 @@ cols(
 <a class="sourceLine" id="cb1660-2" title="2">           <span class="dt">ncol =</span> n,  <span class="co"># 열 개수</span></a>
 <a class="sourceLine" id="cb1660-3" title="3">           <span class="dt">nrow =</span> m,  <span class="co"># 행 개수</span></a>
 <a class="sourceLine" id="cb1660-4" title="4">           scale<span class="op">:</span><span class="st"> </span>x, y 스케일</a>
-<a class="sourceLine" id="cb1660-5" title="5">                  <span class="st">&quot;free&quot;</span><span class="op">:</span><span class="st"> </span>x<span class="op">-</span>y 스케일을 모든 패널에 동일하게 고정</a>
+<a class="sourceLine" id="cb1660-5" title="5">                  <span class="st">&quot;fixed&quot;</span><span class="op">:</span><span class="st"> </span>x<span class="op">-</span>y 스케일을 모든 패널에 동일하게 고정</a>
 <a class="sourceLine" id="cb1660-6" title="6">                  <span class="st">&quot;free&quot;</span><span class="op">:</span><span class="st"> </span>x<span class="op">-</span>y 모두 각 panel에 맞게 조정</a>
 <a class="sourceLine" id="cb1660-7" title="7">                  <span class="st">&quot;free_x&quot;</span><span class="op">:</span><span class="st"> </span>y의 스케일은 모든 고정하고 x 만 각 페널에 맞게 조정</a>
 <a class="sourceLine" id="cb1660-8" title="8">                  <span class="st">&quot;free_y&quot;</span><span class="op">:</span><span class="st"> </span>x의 스케일은 모든 고정하고 y 만 각 페널에 맞게 조정</a>

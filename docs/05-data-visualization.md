@@ -3500,7 +3500,7 @@ x-y 좌표축에 텍스트를 추가하기 위한 함수. 여기서 미리 지�
 - vjust: 텍스트 수직 위지 초정
 
 <ARGUMENTS> (중요 인수)
-  - parse: 논리값, 기본 그래픽스 수식 표현식(expression(), 또는 bquote()) 사용 여부
+  - parse: 논리값, 문자열을 parsing 하여 expression() 함수로 표현
   - check_overlap: 이전에 생성된 텍스트 위에 새로운 텍스트가 중첩(overlapping)될 경우
                    인수값이 TRUE 이면 출력하지 않음. (geom_text()에서만 사용 가능)
 ```
@@ -3603,7 +3603,7 @@ ggplot(data = df_adjust) +
 #### geom_text() 수식(math) 표기 {#geomtext-math-expression .unnumbered}
 
 - R 기본 그래픽 함수에서 적용한 `expression()`, `bquote()` 함수를 이용해 수식 표현 가능.
-- `bquote()`를 이용 시 생성한 표현을 다시 parsing (문자열을 expression 구문으로 해석) 하기 위해 `deparse()` 함수를 통해 문자열로 변환해줘야 함. 이 때 텍스트가 `label`의 값으로 입력이 되기 때문에 `parse = TRUE` 로 설정해야만 수식 표현 가능
+- `bquote()`를 이용 시 생성한 표현을 다시 parsing (문자열을 expression 구문으로 해석) 하기 위해 `deparse()` 함수를 통해 문자열로 변환해줘야 함. 이 때 텍스트가 `label`의 값으로 입력이 되기 때문에 텍스트를 expression() 형태로 바꿔주기 위해 `parse = TRUE` 로 설정해야 수식 표현 가능
 
 \footnotesize
 
@@ -3672,7 +3672,7 @@ ggplot(data = df_dummy) +
 
 ```r
 <MAPPING> = 기본 x, y에 대한 aesthetic 기본 mapping 이외
-            범위를 지정하는 ymin (ymax), xmin (ymax) 지정 필수
+            범위를 지정하는 ymin (ymax), xmin (xmax) 지정 필수
 ```
 
  \normalsize
@@ -3834,7 +3834,7 @@ p2 <- p0 +
 <MAPPING>: 커널 밀도를 추정할 변수 (x 또는 y)
 
 <ARGUMENTS>
-   - adjust: 커널 함수의 복잡도 조정(수치영 값 입력)
+   - adjust: 커널 함수의 복잡도 조정(수치형 값 입력)
 ```
 
  \normalsize
@@ -4199,7 +4199,7 @@ facet_wrap(~ <DISCRETE VARIABLE>,
            ncol = n,  # 열 개수
            nrow = m,  # 행 개수
            scale: x, y 스케일
-                  "free": x-y 스케일을 모든 패널에 동일하게 고정
+                  "fixed": x-y 스케일을 모든 패널에 동일하게 고정
                   "free": x-y 모두 각 panel에 맞게 조정
                   "free_x": y의 스케일은 모든 고정하고 x 만 각 페널에 맞게 조정
                   "free_y": x의 스케일은 모든 고정하고 y 만 각 페널에 맞게 조정

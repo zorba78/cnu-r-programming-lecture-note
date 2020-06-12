@@ -500,7 +500,7 @@ system.time(pulse <- read.csv("dataset/pulse.csv", header = T))
 
 ```
  사용자  시스템 elapsed 
-  21.81    0.04   21.88 
+  20.56    0.03   20.60 
 ```
 
 ```r
@@ -521,7 +521,7 @@ system.time(pulse <- readRDS("output/pulse.rds"))
 
 ```
  사용자  시스템 elapsed 
-   0.11    0.00    0.11 
+   0.08    0.01    0.09 
 ```
 
  \normalsize
@@ -772,7 +772,7 @@ system.time(pulse <- read.csv("dataset/pulse.csv", header = T))
 
 ```
  사용자  시스템 elapsed 
-  21.49    0.04   21.53 
+  20.03    0.03   20.06 
 ```
 
 ```r
@@ -782,7 +782,7 @@ system.time(pulse <- readRDS("output/pulse.rds"))
 
 ```
  사용자  시스템 elapsed 
-   0.09    0.00    0.10 
+   0.08    0.02    0.09 
 ```
 
 ```r
@@ -802,7 +802,7 @@ See spec(...) for full column specifications.
 
 ```
  사용자  시스템 elapsed 
-  16.89    0.02   16.93 
+  15.95    0.03   16.01 
 ```
 
 ```r
@@ -811,7 +811,7 @@ system.time(pulse <- read_feather("dataset/pulse.feather"))
 
 ```
  사용자  시스템 elapsed 
-   0.21    0.00    0.21 
+   0.18    0.00    0.19 
 ```
 
  \normalsize
@@ -975,16 +975,16 @@ tibble(x = letters, y = rnorm(26), z = y^2)
 # A tibble: 26 x 3
    x           y       z
    <chr>   <dbl>   <dbl>
- 1 a      0.671  0.450  
- 2 b      0.626  0.392  
- 3 c     -0.124  0.0153 
- 4 d     -1.25   1.57   
- 5 e      0.968  0.938  
- 6 f      0.0524 0.00274
- 7 g     -0.420  0.177  
- 8 h     -1.49   2.22   
- 9 i     -0.699  0.489  
-10 j     -0.720  0.518  
+ 1 a     -0.0338 0.00114
+ 2 b     -1.03   1.06   
+ 3 c      0.356  0.126  
+ 4 d      0.277  0.0765 
+ 5 e      0.154  0.0238 
+ 6 f     -0.697  0.486  
+ 7 g      0.926  0.858  
+ 8 h      1.04   1.09   
+ 9 i      0.671  0.450  
+10 j     -1.76   3.09   
 # ... with 16 more rows
 ```
 
@@ -2538,9 +2538,9 @@ mpg %>% sample_n(3)
 # A tibble: 3 x 11
   manufacturer model     displ  year   cyl trans   drv     cty   hwy fl    class
   <chr>        <chr>     <dbl> <int> <int> <chr>   <chr> <int> <int> <chr> <chr>
-1 toyota       4runner ~   4    2008     6 auto(l~ 4        16    20 r     suv  
-2 lincoln      navigato~   5.4  1999     8 auto(l~ r        11    16 p     suv  
-3 toyota       camry so~   3    1999     6 auto(l~ f        18    26 r     comp~
+1 mercury      mountain~   5    1999     8 auto(l~ 4        13    17 r     suv  
+2 chevrolet    corvette    6.2  2008     8 manual~ r        16    26 p     2sea~
+3 toyota       toyota t~   2.7  1999     4 auto(l~ 4        16    20 r     pick~
 ```
 
 ```r
@@ -2550,20 +2550,20 @@ mpg %>% sample_frac(0.05)
 
 ```
 # A tibble: 12 x 11
-   manufacturer model    displ  year   cyl trans  drv     cty   hwy fl    class 
-   <chr>        <chr>    <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr> 
- 1 subaru       foreste~   2.5  1999     4 auto(~ 4        18    24 r     suv   
- 2 nissan       pathfin~   5.6  2008     8 auto(~ 4        12    18 p     suv   
- 3 hyundai      sonata     2.5  1999     6 manua~ f        18    26 r     midsi~
- 4 toyota       camry      2.2  1999     4 auto(~ f        21    27 r     midsi~
- 5 dodge        caravan~   3.3  2008     6 auto(~ f        17    24 r     miniv~
- 6 hyundai      tiburon    2    2008     4 manua~ f        20    28 r     subco~
- 7 ford         f150 pi~   5.4  2008     8 auto(~ 4        13    17 r     pickup
- 8 toyota       toyota ~   3.4  1999     6 auto(~ 4        15    19 r     pickup
- 9 dodge        ram 150~   4.7  2008     8 auto(~ 4         9    12 e     pickup
-10 volkswagen   passat     2.8  1999     6 manua~ f        18    26 p     midsi~
-11 volkswagen   jetta      2    1999     4 manua~ f        21    29 r     compa~
-12 subaru       foreste~   2.5  1999     4 manua~ 4        18    25 r     suv   
+   manufacturer model     displ  year   cyl trans  drv     cty   hwy fl    class
+   <chr>        <chr>     <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr>
+ 1 ford         explorer~   4    2008     6 auto(~ 4        13    19 r     suv  
+ 2 toyota       camry       2.2  1999     4 manua~ f        21    29 r     mids~
+ 3 toyota       corolla     1.8  1999     4 auto(~ f        24    33 r     comp~
+ 4 subaru       forester~   2.5  2008     4 manua~ 4        19    25 p     suv  
+ 5 lincoln      navigato~   5.4  1999     8 auto(~ r        11    16 p     suv  
+ 6 jeep         grand ch~   6.1  2008     8 auto(~ 4        11    14 p     suv  
+ 7 subaru       forester~   2.5  2008     4 auto(~ 4        20    26 r     suv  
+ 8 hyundai      sonata      2.4  1999     4 manua~ f        18    27 r     mids~
+ 9 volkswagen   jetta       2    2008     4 auto(~ f        22    29 p     comp~
+10 volkswagen   jetta       1.9  1999     4 manua~ f        33    44 d     comp~
+11 chevrolet    malibu      3.5  2008     6 auto(~ f        18    29 r     mids~
+12 dodge        ram 1500~   4.7  2008     8 manua~ 4        12    16 r     pick~
 ```
 
  \normalsize
