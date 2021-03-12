@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.2 스칼라(scalar) | 통계 프로그래밍 언어</title>
+  <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.2 스칼라(scalar) | 통계 프로그래밍 언어" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.2 스칼라(scalar) | 통계 프로그래밍 언어" />
+  
+  <meta name="twitter:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  
+
+<meta name="author" content="한국한의학연구원, 구본초" />
+
+
+<meta name="date" content="2021-03-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="프로그래밍.html"/>
+<link rel="next" href="vector.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">통계 프로그래밍 언어</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Overview</a></li>
+<li class="part"><span><b>I Get Started</b></span></li>
+<li class="chapter" data-level="1" data-path="intro-chap.html"><a href="intro-chap.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1.1</b> R 설치하기</a></li>
+<li class="chapter" data-level="1.2" data-path="r-check.html"><a href="r-check.html"><i class="fa fa-check"></i><b>1.2</b> R 시작 및 작동 체크</a></li>
+<li class="chapter" data-level="1.3" data-path="rconsle-script.html"><a href="rconsle-script.html"><i class="fa fa-check"></i><b>1.3</b> R script 편집기 사용</a></li>
+<li class="chapter" data-level="1.4" data-path="r-studio.html"><a href="r-studio.html"><i class="fa fa-check"></i><b>1.4</b> RStudio</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="r-studio.html"><a href="r-studio.html#rstudio-install"><i class="fa fa-check"></i><b>1.4.1</b> RStudio 설치하기</a></li>
+<li class="chapter" data-level="1.4.2" data-path="r-studio.html"><a href="r-studio.html#rstudio-component"><i class="fa fa-check"></i><b>1.4.2</b> RStudio IDE 화면 구성</a></li>
+<li class="chapter" data-level="1.4.3" data-path="r-studio.html"><a href="r-studio.html#rstudio-glob-options"><i class="fa fa-check"></i><b>1.4.3</b> RStudio 환경 설정</a></li>
+<li class="chapter" data-level="1.4.4" data-path="r-studio.html"><a href="r-studio.html#rstudio-project"><i class="fa fa-check"></i><b>1.4.4</b> RStudio 프로젝트</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="r-package.html"><a href="r-package.html"><i class="fa fa-check"></i><b>1.5</b> R 패키지</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="r-package.html"><a href="r-package.html#r-package-path"><i class="fa fa-check"></i><b>1.5.1</b> R 패키지 경로 확인 및 변경</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-package.html"><a href="r-package.html#r-package-install"><i class="fa fa-check"></i><b>1.5.2</b> R 패키지 설치하기</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-package.html"><a href="r-package.html#r-package-load"><i class="fa fa-check"></i><b>1.5.3</b> R 패키지 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basic.html"><a href="r-basic.html"><i class="fa fa-check"></i><b>1.6</b> R 기초 문법</a></li>
+<li class="chapter" data-level="1.7" data-path="r-markdown-get-start.html"><a href="r-markdown-get-start.html"><i class="fa fa-check"></i><b>1.7</b> R Markdown (맛보기)</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-type.html"><a href="data-type.html"><i class="fa fa-check"></i><b>2</b> R 객체(R object)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="프로그래밍.html"><a href="프로그래밍.html"><i class="fa fa-check"></i><b>2.1</b> 프로그래밍</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="프로그래밍.html"><a href="프로그래밍.html#prerequisites"><i class="fa fa-check"></i><b>2.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2.1.2" data-path="프로그래밍.html"><a href="프로그래밍.html#control-program"><i class="fa fa-check"></i><b>2.1.2</b> 프로그램</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="scalar.html"><a href="scalar.html"><i class="fa fa-check"></i><b>2.2</b> 스칼라(scalar)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="scalar.html"><a href="scalar.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> 선언</a></li>
+<li class="chapter" data-level="2.2.2" data-path="scalar.html"><a href="scalar.html#numeric"><i class="fa fa-check"></i><b>2.2.2</b> 숫자형</a></li>
+<li class="chapter" data-level="2.2.3" data-path="scalar.html"><a href="scalar.html#character"><i class="fa fa-check"></i><b>2.2.3</b> 문자형</a></li>
+<li class="chapter" data-level="2.2.4" data-path="scalar.html"><a href="scalar.html#logical"><i class="fa fa-check"></i><b>2.2.4</b> 논리형 스칼라</a></li>
+<li class="chapter" data-level="2.2.5" data-path="scalar.html"><a href="scalar.html#missing-value"><i class="fa fa-check"></i><b>2.2.5</b> 결측값(missing value)</a></li>
+<li class="chapter" data-level="2.2.6" data-path="scalar.html"><a href="scalar.html#null"><i class="fa fa-check"></i><b>2.2.6</b> NULL 값</a></li>
+<li class="chapter" data-level="2.2.7" data-path="scalar.html"><a href="scalar.html#finite"><i class="fa fa-check"></i><b>2.2.7</b> 무한대/무한소/숫자아님</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>2.3</b> 벡터(vector)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="vector.html"><a href="vector.html#vector-prop"><i class="fa fa-check"></i><b>2.3.1</b> 벡터의 특징</a></li>
+<li class="chapter" data-level="2.3.2" data-path="vector.html"><a href="vector.html#vector-operation"><i class="fa fa-check"></i><b>2.3.2</b> 벡터의 연산</a></li>
+<li class="chapter" data-level="2.3.3" data-path="vector.html"><a href="vector.html#vector-index"><i class="fa fa-check"></i><b>2.3.3</b> 벡터의 색인(indexing)</a></li>
+<li class="chapter" data-level="2.3.4" data-path="vector.html"><a href="vector.html#vector-function"><i class="fa fa-check"></i><b>2.3.4</b> 벡터 관련 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="list.html"><a href="list.html"><i class="fa fa-check"></i><b>2.4</b> 리스트(list)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="list.html"><a href="list.html#make-list"><i class="fa fa-check"></i><b>2.4.1</b> 리스트 생성</a></li>
+<li class="chapter" data-level="2.4.2" data-path="list.html"><a href="list.html#list-index"><i class="fa fa-check"></i><b>2.4.2</b> 리스트 색인</a></li>
+<li class="chapter" data-level="2.4.3" data-path="list.html"><a href="list.html#list-add-delete"><i class="fa fa-check"></i><b>2.4.3</b> 리스트에 원소 추가/제거</a></li>
+<li class="chapter" data-level="2.4.4" data-path="list.html"><a href="list.html#list-combine"><i class="fa fa-check"></i><b>2.4.4</b> 리스트의 결합</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="matrix.html"><a href="matrix.html"><i class="fa fa-check"></i><b>2.5</b> 행렬(matrix)</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="matrix.html"><a href="matrix.html#matrix-operation"><i class="fa fa-check"></i><b>2.5.1</b> 행렬의 연산</a></li>
+<li class="chapter" data-level="2.5.2" data-path="matrix.html"><a href="matrix.html#mat-index"><i class="fa fa-check"></i><b>2.5.2</b> 행렬의 색인</a></li>
+<li class="chapter" data-level="2.5.3" data-path="matrix.html"><a href="matrix.html#행과-열-추가-및-제거"><i class="fa fa-check"></i><b>2.5.3</b> 행과 열 추가 및 제거</a></li>
+<li class="chapter" data-level="2.5.4" data-path="matrix.html"><a href="matrix.html#행렬-관련-함수"><i class="fa fa-check"></i><b>2.5.4</b> 행렬 관련 함수</a></li>
+<li class="chapter" data-level="2.5.5" data-path="matrix.html"><a href="matrix.html#vec-mat-diff"><i class="fa fa-check"></i><b>2.5.5</b> 벡터와 행렬의 차이점</a></li>
+<li class="chapter" data-level="2.5.6" data-path="matrix.html"><a href="matrix.html#mat-dim-reduc-sway"><i class="fa fa-check"></i><b>2.5.6</b> 의도치 않은 차원축소 피하기</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="array.html"><a href="array.html"><i class="fa fa-check"></i><b>2.6</b> 배열(array)</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="array.html"><a href="array.html#make-array"><i class="fa fa-check"></i><b>2.6.1</b> 배열의 생성 및 색인</a></li>
+<li class="chapter" data-level="2.6.2" data-path="array.html"><a href="array.html#rray-extend-example"><i class="fa fa-check"></i><b>2.6.2</b> 배열의 확장 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="factor-table.html"><a href="factor-table.html"><i class="fa fa-check"></i><b>2.7</b> 요인(factor)과 테이블(table)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="factor-table.html"><a href="factor-table.html#factor"><i class="fa fa-check"></i><b>2.7.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.7.2" data-path="factor-table.html"><a href="factor-table.html#table"><i class="fa fa-check"></i><b>2.7.2</b> 테이블(table)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>2.8</b> 데이터 프레임(data frame)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="data-frame.html"><a href="data-frame.html#create-data-frame"><i class="fa fa-check"></i><b>2.8.1</b> 데이터 프레임 생성</a></li>
+<li class="chapter" data-level="2.8.2" data-path="data-frame.html"><a href="data-frame.html#data-frame-get"><i class="fa fa-check"></i><b>2.8.2</b> 데이터 프레임 접근 및 필터링</a></li>
+<li class="chapter" data-level="2.8.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.8.3</b> 데이터 프레임 관련 함수</a></li>
+<li class="chapter" data-level="2.8.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.8.4</b> <code>*apply()</code> 계열 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="is-as-function.html"><a href="is-as-function.html"><i class="fa fa-check"></i><b>2.9</b> 객체의 유형 판별 및 변환</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계 프로그래밍 언어</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="scalar" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> 스칼라(scalar)</h2>
+<ul>
+<li>단일 차원의 값(하나의 값): <span class="math inline">\(1 \times 1\)</span> 백터로 표현 <span class="math inline">\(\rightarrow\)</span> R 데이터 객체의 기본은 벡터!!</li>
+<li>데이터 객체의 유형은 크게 숫자형, 문자열, 논리형이 있음</li>
+</ul>
+
+<div class="rmdtip">
+스칼라를 입력시 R의 벡터 지정 함수인 <code>c()</code>(벡터 부분에서 상세 내용 학습)를 꼭 사용해서 입력할 필요가 없다. 단, 연속되지 않은 두 개 이상 스칼라면 벡터이므로 꼭 c()를 써야 한다.
+</div>
+<p></p>
+<div id="definition" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> 선언</h3>
+<ul>
+<li>일반적으로 컴파일이 필요한 언어(예: <code>C</code> 언어)의 경우 변수 또는 객체를 사용 전에 선언이 필요</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="scalar.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x; </span>
+<span id="cb11-2"><a href="scalar.html#cb11-2" aria-hidden="true" tabindex="-1"></a>x = <span class="dv">1</span>;</span></code></pre></div>
+<p></p>
+<ul>
+<li><p>위 코드에서 <code>int x;</code> 없이 <code>x = 1</code>을 입력 후 컴파일 하면 에러가 나타나지만 <code>R</code> 언어에서는 <strong>변수를 선언할 필요가 전혀 없음</strong></p></li>
+<li><p><code>z</code> 가 어떤 데이터 타입인지 언급할 필요가 전혀 없음 <span class="math inline">\(\rightarrow\)</span> <code>Python</code>, <code>Perl</code>, <code>Matlab</code> 등과 같은 스크립트 언어의 특징. 아래 코드 참조</p></li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="scalar.html#cb12-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb12-2"><a href="scalar.html#cb12-2" aria-hidden="true" tabindex="-1"></a>z</span></code></pre></div>
+<pre><code>[1] 3</code></pre>
+<p></p>
+</div>
+<div id="numeric" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> 숫자형</h3>
+<ul>
+<li>정수형(integer)과 실수형(double)로 구분됨</li>
+<li>정수형 구분시 숫자 뒤 <code>L</code>을 표시</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="scalar.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 정수형 구분자 사용 예시</span></span>
+<span id="cb14-2"><a href="scalar.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># typeof(): R 객체의 데이터 타입 반환하는 함수</span></span>
+<span id="cb14-3"><a href="scalar.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(10L)</span></code></pre></div>
+<pre><code>[1] &quot;integer&quot;</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="scalar.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>[1] &quot;double&quot;</code></pre>
+<p></p>
+<ul>
+<li>수치연산(<code>+, -, *, ^, **, /, %%, %/%</code>) 가능: R은 함수형 언어이기 때문에 앞에 기술한 연산자도 하나의 함수로 인식함.</li>
+<li>수치 연산자(operator) 및 기본 수학 함수</li>
+</ul>
+<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:operation">Table 2.2: </span>R언어의 기본 수치 연산자
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+수치형 연산자
+</th>
+<th style="text-align:left;">
+설명
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 4cm; font-family: monospace;">
++, -, *, /
+</td>
+<td style="text-align:left;width: 6cm; font-family: monospace;">
+사칙연산
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; font-family: monospace;">
+n %% m
+</td>
+<td style="text-align:left;width: 6cm; font-family: monospace;">
+n을 m 으로 나눈 나머지
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; font-family: monospace;">
+n %/% m
+</td>
+<td style="text-align:left;width: 6cm; font-family: monospace;">
+n을 m 으로 나눈 몫
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; font-family: monospace;">
+n ^ m 또는 n ** m
+</td>
+<td style="text-align:left;width: 6cm; font-family: monospace;">
+n 의 m 승
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<p><strong>숫자형 스칼라 연산 적용 예시</strong></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="scalar.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 숫자형 스칼라</span></span>
+<span id="cb18-2"><a href="scalar.html#cb18-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb18-3"><a href="scalar.html#cb18-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb18-4"><a href="scalar.html#cb18-4" aria-hidden="true" tabindex="-1"></a>a; b</span></code></pre></div>
+<pre><code>[1] 3</code></pre>
+<pre><code>[1] 10</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="scalar.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 덧셈</span></span>
+<span id="cb21-2"><a href="scalar.html#cb21-2" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> a <span class="sc">+</span> b</span>
+<span id="cb21-3"><a href="scalar.html#cb21-3" aria-hidden="true" tabindex="-1"></a>c</span></code></pre></div>
+<pre><code>[1] 13</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="scalar.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 덧셈을 함수로 입력</span></span>
+<span id="cb23-2"><a href="scalar.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;+&quot;(a, b)로 입력한 결과</span></span>
+<span id="cb23-3"><a href="scalar.html#cb23-3" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="st">&quot;+&quot;</span>(a, b)</span>
+<span id="cb23-4"><a href="scalar.html#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="scalar.html#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 뺄셈</span></span>
+<span id="cb23-6"><a href="scalar.html#cb23-6" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> b <span class="sc">-</span> a</span>
+<span id="cb23-7"><a href="scalar.html#cb23-7" aria-hidden="true" tabindex="-1"></a>d</span></code></pre></div>
+<pre><code>[1] 7</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="scalar.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 곱셈</span></span>
+<span id="cb25-2"><a href="scalar.html#cb25-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> a <span class="sc">*</span> b</span>
+<span id="cb25-3"><a href="scalar.html#cb25-3" aria-hidden="true" tabindex="-1"></a>m</span></code></pre></div>
+<pre><code>[1] 30</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="scalar.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 나누기</span></span>
+<span id="cb27-2"><a href="scalar.html#cb27-2" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> b<span class="sc">/</span>a</span>
+<span id="cb27-3"><a href="scalar.html#cb27-3" aria-hidden="true" tabindex="-1"></a>dd</span></code></pre></div>
+<pre><code>[1] 3.333333</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="scalar.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 멱승</span></span>
+<span id="cb29-2"><a href="scalar.html#cb29-2" aria-hidden="true" tabindex="-1"></a>b<span class="sc">^</span>a</span></code></pre></div>
+<pre><code>[1] 1000</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="scalar.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 나누기의 나머지(remainder) 반환</span></span>
+<span id="cb31-2"><a href="scalar.html#cb31-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> b <span class="sc">%%</span> a</span>
+<span id="cb31-3"><a href="scalar.html#cb31-3" aria-hidden="true" tabindex="-1"></a>r</span></code></pre></div>
+<pre><code>[1] 1</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="scalar.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 나누기의 몫(quotient) 반환</span></span>
+<span id="cb33-2"><a href="scalar.html#cb33-2" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> b <span class="sc">%/%</span> a</span>
+<span id="cb33-3"><a href="scalar.html#cb33-3" aria-hidden="true" tabindex="-1"></a>q</span></code></pre></div>
+<pre><code>[1] 3</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="scalar.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 연산 우선 순위</span></span>
+<span id="cb35-2"><a href="scalar.html#cb35-2" aria-hidden="true" tabindex="-1"></a>nn <span class="ot">&lt;-</span> (<span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span>)<span class="sc">*</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">4</span><span class="sc">**</span><span class="dv">2</span><span class="sc">/</span><span class="dv">4</span></span>
+<span id="cb35-3"><a href="scalar.html#cb35-3" aria-hidden="true" tabindex="-1"></a>nn</span></code></pre></div>
+<pre><code>[1] 20</code></pre>
+<p></p>
+</div>
+<div id="character" class="section level3" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> 문자형</h3>
+<ul>
+<li>수치형이 아닌 문자 형식의 단일 원소</li>
+<li>C와 같은 언어에서 볼수 있는 한개 문자에 대한 데이터 타입 존재하지 않음</li>
+<li>수치연산 불가능</li>
+<li>따옴표(<code>"</code> 또는 <code>'</code>)로 문자를 묶어서 문자열 표시</li>
+<li>문자열을 다루는 자세한 설명은 5주차에서 자세히 설명할 예정임</li>
+</ul>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="scalar.html#cb37-1" aria-hidden="true" tabindex="-1"></a>h1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Hello CNU!!&quot;</span>)</span>
+<span id="cb37-2"><a href="scalar.html#cb37-2" aria-hidden="true" tabindex="-1"></a>h2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;R is not too difficult.&quot;</span>)</span>
+<span id="cb37-3"><a href="scalar.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(h1); <span class="fu">typeof</span>(h2)</span></code></pre></div>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="scalar.html#cb40-1" aria-hidden="true" tabindex="-1"></a>h1</span></code></pre></div>
+<pre><code>[1] &quot;Hello CNU!!&quot;</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="scalar.html#cb42-1" aria-hidden="true" tabindex="-1"></a>h2</span></code></pre></div>
+<pre><code>[1] &quot;R is not too difficult.&quot;</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="scalar.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 문자열의 문자 수 반환</span></span>
+<span id="cb44-2"><a href="scalar.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nchar</span>(h1); <span class="fu">nchar</span>(h2)</span></code></pre></div>
+<pre><code>[1] 11</code></pre>
+<pre><code>[1] 23</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="scalar.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 문자열 연산 error 예시</span></span>
+<span id="cb47-2"><a href="scalar.html#cb47-2" aria-hidden="true" tabindex="-1"></a>h1 <span class="sc">-</span> h2</span></code></pre></div>
+<pre><code>Error in h1 - h2: 이항연산자에 수치가 아닌 인수입니다</code></pre>
+<p></p>
+</div>
+<div id="logical" class="section level3" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> 논리형 스칼라</h3>
+<ul>
+<li>참(<code>TRUE</code>, <code>T</code>) 또는 거짓(<code>FALSE</code>, <code>F</code>)를 나타내는 값</li>
+<li><code>TRUE</code>/<code>FALSE</code>: 예약어(reserved word)</li>
+<li><code>T</code>/<code>F</code>: <code>TRUE</code>와 <code>FALSE</code>로 초기화된 전역 변수
+<ul>
+<li><code>T</code>에 <code>FALSE</code> 또는 어떤 값도 할당 가능 <span class="math inline">\(\rightarrow\)</span> 가급적 <code>TRUE/FALSE</code>를 명시하는 것이 편함</li>
+</ul></li>
+<li>논리형 연산자(logical operator)</li>
+</ul>
+<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:logic-op-tab">Table 2.3: </span>R언어의 논리형 연산자
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+논리형 연산자
+</th>
+<th style="text-align:left;">
+설명
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+&amp;
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+AND (vectorized)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+&amp;&amp;
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+AND (atomic)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+|
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+OR (vectorized)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+||
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+OR (atomic)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+!
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+NOT
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<ul>
+<li>비교 연산자를 적용할 경우 논리값을 반환</li>
+</ul>
+<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption style="font-size: initial !important;">
+<span id="tab:comp-op-tab">Table 2.4: </span>R언어의 비교 연산자
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+비교 연산자
+</th>
+<th style="text-align:left;">
+설명
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+&gt;
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+크다(greater-than)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+&lt;
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+작다(less-than)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+==
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+같다(equal)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+&gt;=
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+크거나 같다(greater than equal)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+&lt;=
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+작거나 같다(less than equal)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+!=
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+같지 않다(not equal)
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> 기술한 비교 연산자는 수치형 및 논리형 데이터 타입 모두에 적용 가능 하지만, 문자형은 비교 연산은 ==, != 만 가능함
+</td>
+</tr>
+</tfoot>
+</table>
+<p></p>
+
+<div class="rmdnote">
+<p><strong>참고</strong></p>
+<ul>
+<li>논리형 스칼라도 숫자형 연산 가능 <span class="math inline">\(\rightarrow\)</span> 컴퓨터는 <code>TRUE</code>/<code>FALSE</code>를 1과 0 숫자로 인식</li>
+<li>수치 연산자는 스칼라 뿐 아니라 아래에서 다룰 벡터, 행렬, 리스트, 데이터프레임 객체의 연산에 사용 가능</li>
+<li><code>&amp;</code>/<code>|</code>와 <code>&amp;&amp;</code>/<code>||</code>는 동일하게 AND/OR를 의미하지만 연산 결과가 다름.</li>
+<li><code>&amp;</code>의 연산 대상이 벡터인 경우 백터 구성 값 각각에 대해 <code>&amp;</code> 연산을 실행 하지만 <code>&amp;&amp;</code>는 하나의 값(스칼라)에만 논리 연산이 적용(아래 예시 참고)</li>
+</ul>
+</div>
+<p></p>
+<ul>
+<li>논리형 스칼라의 논리 및 비교 연산 예시</li>
+</ul>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="scalar.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="cn">TRUE</span>)  <span class="co"># TRUE의 데이터 타입</span></span></code></pre></div>
+<pre><code>[1] &quot;logical&quot;</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="scalar.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">&amp;</span> <span class="cn">TRUE</span>  <span class="co"># TRUE 반환</span></span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="scalar.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">&amp;</span> <span class="cn">FALSE</span>  <span class="co"># FALSE 반환</span></span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="scalar.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 아래 연산은 모두 TRUE 반환</span></span>
+<span id="cb55-2"><a href="scalar.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">|</span> <span class="cn">TRUE</span></span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="scalar.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">|</span> <span class="cn">FALSE</span></span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="scalar.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># TRUE와 FALSE의 반대</span></span>
+<span id="cb59-2"><a href="scalar.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span><span class="cn">TRUE</span></span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="scalar.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span><span class="cn">FALSE</span></span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="scalar.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 전역변수 T에 FALSE 값 할당</span></span>
+<span id="cb63-2"><a href="scalar.html#cb63-2" aria-hidden="true" tabindex="-1"></a>T <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb63-3"><a href="scalar.html#cb63-3" aria-hidden="true" tabindex="-1"></a>T</span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="scalar.html#cb65-1" aria-hidden="true" tabindex="-1"></a>T <span class="ot">&lt;-</span> <span class="cn">TRUE</span>  <span class="co"># 원상복귀</span></span>
+<span id="cb65-2"><a href="scalar.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="co"># TRUE/FALSE에 값을 할당할 수 없음</span></span>
+<span id="cb65-3"><a href="scalar.html#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="cn">TRUE</span> <span class="ot">&lt;-</span> <span class="dv">1</span></span></code></pre></div>
+<pre><code>Error in TRUE &lt;- 1: 대입에 유효하지 않은 (do_set) 좌변입니다</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="scalar.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="cn">TRUE</span> <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span></code></pre></div>
+<pre><code>Error in TRUE &lt;- FALSE: 대입에 유효하지 않은 (do_set) 좌변입니다</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="scalar.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &amp;(|)와 &amp;&amp;(||)의 차이</span></span>
+<span id="cb69-2"><a href="scalar.html#cb69-2" aria-hidden="true" tabindex="-1"></a>l<span class="fl">.01</span> <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)  <span class="co"># 논리형 값으로 구성된 벡터</span></span>
+<span id="cb69-3"><a href="scalar.html#cb69-3" aria-hidden="true" tabindex="-1"></a>l<span class="fl">.02</span> <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb69-4"><a href="scalar.html#cb69-4" aria-hidden="true" tabindex="-1"></a>l<span class="fl">.01</span> <span class="sc">&amp;</span> l<span class="fl">.02</span>  <span class="co"># l.01과 l.02 각 원소 별 &amp; 연산</span></span></code></pre></div>
+<pre><code>[1] FALSE  TRUE FALSE  TRUE</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="scalar.html#cb71-1" aria-hidden="true" tabindex="-1"></a>l<span class="fl">.01</span> <span class="sc">&amp;&amp;</span> l<span class="fl">.02</span>  <span class="co"># l.01과 l.02의 첫 번째 원소에 대해 &amp; 연산</span></span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="scalar.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 비교 연산자</span></span>
+<span id="cb73-2"><a href="scalar.html#cb73-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">9</span></span>
+<span id="cb73-3"><a href="scalar.html#cb73-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb73-4"><a href="scalar.html#cb73-4" aria-hidden="true" tabindex="-1"></a><span class="co"># x &gt; y 의 반환값 데이터 타입</span></span>
+<span id="cb73-5"><a href="scalar.html#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(x <span class="sc">&gt;</span> y)</span></code></pre></div>
+<pre><code>[1] &quot;logical&quot;</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="scalar.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 논리형 값 반환</span></span>
+<span id="cb75-2"><a href="scalar.html#cb75-2" aria-hidden="true" tabindex="-1"></a>x <span class="sc">&gt;</span> y</span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="scalar.html#cb77-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">&lt;</span> y</span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="scalar.html#cb79-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">==</span> y</span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="scalar.html#cb81-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">!=</span> y</span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<p></p>
+</div>
+<div id="missing-value" class="section level3" number="2.2.5">
+<h3><span class="header-section-number">2.2.5</span> 결측값(missing value)</h3>
+<ul>
+<li>결측치 지정 <strong>상수</strong>: <code>NA</code> <span class="math inline">\(\rightarrow\)</span> R과 다른 언어의 가장 큰 차이점 중 하나</li>
+<li>예를 들어 4명의 통계학과 학생 중 3명의 통계학 개론 중간고사 점수가 각각 80, 90, 75점이고 4번 째 학생의 점수가 없는 경우 <code>NA</code>로 결측값 표현</li>
+<li><code>is.na()</code> 함수를 이용해 해당 값이 결측을 포함하고 있는지 확인</li>
+</ul>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="scalar.html#cb83-1" aria-hidden="true" tabindex="-1"></a>one <span class="ot">&lt;-</span> <span class="dv">80</span>; two <span class="ot">&lt;-</span> <span class="dv">90</span>; three <span class="ot">&lt;-</span> <span class="dv">75</span>; four <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb83-2"><a href="scalar.html#cb83-2" aria-hidden="true" tabindex="-1"></a>four</span></code></pre></div>
+<pre><code>[1] NA</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="scalar.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;is.na()&#39; 결측 NA가 포함되어 있으면 TRUE </span></span>
+<span id="cb85-2"><a href="scalar.html#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(four)</span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<p></p>
+
+<div class="rmdtip">
+<p><code>is.na(object_name)</code>: 객체를 구성하고 있는 원소 중 <code>NA</code>를 포함하고 있는지 확인 <span class="math inline">\(\rightarrow\)</span> <code>NA</code>를 포함하면 <code>TRUE</code>, 아니면 <code>FALSE</code> 반환</p>
+<p><strong>참고</strong>: 자료에 <code>NA</code>가 포함된 경우 연산 결과는 모두 <code>NA</code>가 반환</p>
+</div>
+<p></p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="scalar.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="cn">NA</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
+<pre><code>[1] NA</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="scalar.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="cn">NA</span> <span class="sc">&amp;</span> <span class="cn">TRUE</span></span></code></pre></div>
+<pre><code>[1] NA</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="scalar.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="cn">NA</span> <span class="sc">&lt;=</span> <span class="dv">3</span></span></code></pre></div>
+<pre><code>[1] NA</code></pre>
+<p></p>
+</div>
+<div id="null" class="section level3" number="2.2.6">
+<h3><span class="header-section-number">2.2.6</span> NULL 값</h3>
+<ul>
+<li><code>NULL</code>: 초기화 되지 않은 변수 또는 <strong>객체</strong>를 지칭함</li>
+<li><code>is.null()</code> 함수를 통해 객체가 <code>NULL</code>인지 판단</li>
+</ul>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="scalar.html#cb93-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="cn">NULL</span> <span class="co"># NULL 지정</span></span>
+<span id="cb93-2"><a href="scalar.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.null</span>(x) <span class="co"># NULL 객체인지 판단</span></span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="scalar.html#cb95-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb95-2"><a href="scalar.html#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.null</span>(x) </span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<p></p>
+
+<div class="rmdnote">
+<p><strong><code>NA</code>와 <code>NULL</code>의 차이점</strong>: 자료의 공백을 의미한다는 점에서 유사한 측면이 있으나 아래 내용처럼 큰 차이가 있음</p>
+<ul>
+<li><code>NULL</code>: 값을 지정하지 않은 객체를 표현하는데 사용. 즉 아직 변수 또는 객체의 상태가 아직 미정인 상태를 나타냄</li>
+<li><code>NA</code>: 데이터 값이 결측임을 지정해주는 논리형 상수</li>
+</ul>
+</div>
+<p></p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="scalar.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NA와 NULL은 다름</span></span>
+<span id="cb97-2"><a href="scalar.html#cb97-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb97-3"><a href="scalar.html#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="fu">is.null</span>(<span class="cn">NA</span>)</span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="scalar.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(<span class="cn">NULL</span>)</span></code></pre></div>
+<pre><code>logical(0)</code></pre>
+<p></p>
+<!-- # 데이터에서 NA와 NULL의 차이점 -->
+<!-- x <- c(80, 90, 75, NA) -->
+<!-- x -->
+<!-- x <- c(80, 90, 75, NULL) -->
+<!-- x -->
+</div>
+<div id="finite" class="section level3" number="2.2.7">
+<h3><span class="header-section-number">2.2.7</span> 무한대/무한소/숫자아님</h3>
+<ul>
+<li><code>Inf</code>: 무한대(<span class="math inline">\(+\infty\)</span>, <span class="math inline">\(1/0\)</span>)</li>
+<li><code>-Inf</code>: 무한소(<span class="math inline">\(-\infty\)</span>, <span class="math inline">\(-1/0\)</span>)</li>
+<li><code>NaN</code>: 숫자아님(Not a Number, <span class="math inline">\(0/0\)</span>)</li>
+<li><code>is.finite()</code>, <code>is.infinite()</code>, <code>is.nan()</code> 함수를 통해 객체가 <code>Inf</code> 또는 <code>NaN</code>을 포함하는지 확인</li>
+</ul>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="scalar.html#cb101-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="cn">Inf</span></span>
+<span id="cb101-2"><a href="scalar.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.finite</span>(x)</span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="scalar.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.infinite</span>(x)</span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="scalar.html#cb105-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">/</span><span class="dv">0</span></span>
+<span id="cb105-2"><a href="scalar.html#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.nan</span>(x)</span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="scalar.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.infinite</span>(x)</span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<p></p>
+
+<div class="rmdnote">
+<p>지금까지 요인형(factor)을 제외하고 R 언어에서 객체가 가질 수 있는 데이터 유형에 대해 알아봄. 요인형은 4주 차에 예정된 “R 자료형: 팩터, 테이블, 데이터 프레임”에서 상세하게 배울 예정임.</p>
+</div>
+<p></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="프로그래밍.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="vector.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/02-data-type.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["cnu-r-programming.pdf", "cnu-r-programming.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
