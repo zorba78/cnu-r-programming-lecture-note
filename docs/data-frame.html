@@ -405,7 +405,13 @@ $row.names
 <p></p>
 
 <div class="rmdtip">
-<code>summary()</code> 함수는 객체의 클래스에 따라 요약 통계량을 출력해주는 함수로 특히 데이터 프레임이 가지고 있는 변수들의 특징을 손쉽게 알아볼 수 있기 때문에 가장 많이 호출되는 함수 중 하나임. 숫자형 벡터에 대해서는 최솟값(minimum), 1/4 분위수(1<sup>st</sup> quantile), 중앙값(median), 평균(mean), 3/4 분위수(3<sup>rd</sup> quantile), 최댓값을 출력하고, factor 형 객체에 대해서는 factor의 각 수준 별 빈도를 출력함. 2차원 이상 <code>table()</code> 객체에 적용 시 <span class="math inline">\(\chi^2\)</span> 검정(독립성 검정) 결과값을 출력함.
+<ul>
+<li><code>summary()</code> 함수는 객체의 클래스에 따라 요약 통계량을 출력해주는 함수</li>
+<li>데이터 프레임이 가지고 있는 변수들의 특징을 손쉽게 알아볼 수 있기 때문에 가장 많이 호출되는 함수 중 하나</li>
+<li>숫자형 벡터: 최솟값(minimum), 1/4 분위수(1<sup>st</sup> quantile), 중앙값(median), 평균(mean), 3/4 분위수(3<sup>rd</sup> quantile), 최댓값을 출력</li>
+<li>요인형 객체: 요인의 각 수준 별 빈도를 출력</li>
+<li>2차원 이상 <code>table()</code> 객체에 적용 시 <span class="math inline">\(\chi^2\)</span> 검정(독립성 검정) 결과값을 출력함.</li>
+</ul>
 </div>
 <p></p>
 <ul>
@@ -413,7 +419,7 @@ $row.names
 <ul>
 <li>예를 들어 <code>dbp</code>라는 벡터에 이완기 혈압(diastolic blood pressure) 데이터가 입력되어 있고 <code>df</code>에 <code>dbp</code> 변수를 새롭게 추가 시 <code>df$dbp &lt;- x</code> 형태로 추가</li>
 <li>위 형태로 이미 존재하고 있는 변수(열)에 새로운 값 재할당 가능</li>
-<li>이러한 형태로 문자형 벡터 추가 시 문자형 벡터는 자동으로 factor로 형 변환 되지 않음</li>
+<li>이러한 형태로 문자형 벡터 추가 시 문자형 벡터는 자동으로 factor로 형 변환 되지는 않음</li>
 </ul></li>
 </ul>
 <div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb748-1"><a href="data-frame.html#cb748-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df)</span>
@@ -494,9 +500,10 @@ $row.names
 <p></p>
 
 <div class="rmdtip">
-<p><strong>참고</strong>: R Markdown에서 데이터 프레임을 손쉽게 html 파일에 출력하는 방법</p>
+<p><strong>참고</strong>: R Markdown에서 데이터 프레임의 데이터를 손쉽게 테이블로 출력하는 방법(html 문서)</p>
 <ul>
-<li>R Markdwon의 YAML 부분에 다음과 같이 옵션을 추가하면 별다른 함수 처리 없이 데이터 프레임을 테이블 형태로 html 문서에 붙일 수 있음. 아래 예시에서 <code>output</code> 이후 <code>df_print: paged</code> 옵션을 추가</li>
+<li>R Markdwon의 YAML 부분에 다음과 같이 옵션을 추가하면 별다른 함수 처리 없이 데이터 프레임을 표 형태로 html 문서에 붙일 수 있음.
+아래 예시에서 <code>output</code> 이후 <code>df_print: paged</code> 옵션을 추가</li>
 <li>옵션 추가 시 들여쓰기(탭 구분)은 YAML 문서의 트리 구조를 표현한 것이기 때문에 <strong>꼭</strong> 들여쓰기를 정확히 일치시켜야 함</li>
 </ul>
 </div>
@@ -685,7 +692,7 @@ $class
 </div>
 <p></p>
 <ul>
-<li><code>within()</code> 함수는 <code>with()</code>와 유사하지만 코드블록(<code>{...}</code>)을 이용해 보다 자유롭게 데이터 수정 및 추가 가능</li>
+<li><code>within()</code> 함수는 <code>with()</code>와 유사하지만 코드블록(<code>{...}</code>)을 이용해 보다 자유롭게 데이터를 수정 및 추가할 수 있음</li>
 </ul>
 <div class="sourceCode" id="cb796"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb796-1"><a href="data-frame.html#cb796-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">within</span>(df, {</span>
 <span id="cb796-2"><a href="data-frame.html#cb796-2" aria-hidden="true" tabindex="-1"></a>  hospital <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>, </span>
@@ -937,7 +944,7 @@ j 10 Male  42 109    162     60  64       Y</code></pre>
 <h3><span class="header-section-number">2.8.4</span> <code>*apply()</code> 계열 함수</h3>
 <ul>
 <li><code>apply()</code>, <code>lapply()</code>, <code>sapply()</code> 등 <code>apply</code> 계열 함수는 R에서 가장 일반적으로 사용되는 함수 중 하나</li>
-<li>보통 <code>for-loop</code>를 대신하기 위해 활용되며, R 객체를 입력 받아 원소 별 혹은 그루 별 함수를 적용</li>
+<li>반복문(<code>for-loop</code>)를 대신하기 위해 활용되며, R 객체를 입력 받아 원소 별 혹은 그루 별 함수를 적용</li>
 <li>데이터 전체에 함수를 한번에 적용하는 vectorizing 연산을 수행함</li>
 </ul>
 <div id="apply" class="section level4 unnumbered">
@@ -1006,7 +1013,7 @@ j 10 Male  42 109    162     60  64       Y</code></pre>
 </ul>
 
 <div class="rmdnote">
-Abalone dataset 변수 설명
+Abalone dataset 변수 설명(코드북)
 </div>
 <p></p>
 <!-- Predicting the age of abalone from physical measurements. The age of abalone is determined by cutting the shell through the cone, staining it, and counting the number of rings through a microscope -- a boring and time-consuming task. Other measurements, which are easier to obtain, are used to predict the age. Further information, such as weather patterns and location (hence food availability) may be required to solve the problem. -->
@@ -1069,8 +1076,11 @@ Abalone dataset 변수 설명
 <p></p>
 
 <div class="rmdtip">
-<p><strong>참고 1</strong>: 결측이 포함된 벡터 연산 시 결측에 대한 처리 지정 없이 함수를 적용하면 결측값을 반환함. 따라서 R에서 제공되는 연산 관련 일반 함수는 결측처리에 대한 옵션을 인수로 받음. 보통 인수 형태는 <code>na.rm = T/F</code> 형태이고 다음의 함수를 통해 데이터에 결측 처리에 대한 속성 및 클래스를 부여함</p>
+<p><strong>참고 1</strong>:</p>
 <ul>
+<li>결측이 포함된 벡터 연산 시 결측에 대한 처리 지정 없이 함수를 적용하면 결측값을 반환</li>
+<li>R에서 제공되는 연산 관련 일반 함수는 결측처리에 대한 옵션을 인수로 받음</li>
+<li>보통 인수 형태는 <code>na.rm = T/F</code> 형태이고 다음의 함수를 통해 데이터에 결측 처리에 대한 속성 및 클래스를 부여함</li>
 <li><code>na.omit()</code>/<code>na.exclude()</code>: <code>NA</code>가 포함되어 있는 행 생략</li>
 </ul>
 <p>위 두 함수는 기본적으로 동일하지만, 특정 함수(예: 회귀분석을 수행하는 <code>lm()</code>) 함수에서는 다른 결과를 출력</p>
@@ -1194,7 +1204,7 @@ Abalone dataset 변수 설명
   .. ..- attr(*, &quot;order&quot;)= int 1
   .. ..- attr(*, &quot;intercept&quot;)= int 1
   .. ..- attr(*, &quot;response&quot;)= int 1
-  .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x55611b555660&gt; 
+  .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x5603de8b4148&gt; 
   .. ..- attr(*, &quot;predvars&quot;)= language list(abalone$rings, x)
   .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
   .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;abalone$rings&quot; &quot;x&quot;
@@ -1314,8 +1324,8 @@ $dimnames[[2]]
 <div id="mapply" class="section level4 unnumbered">
 <h4><code>mapply()</code> 함수</h4>
 <ul>
-<li><code>mapply()</code>와 유사하지만 다수의 인수를 함수에 전달해 적용</li>
-<li>임의의 함수 <code>FUN()</code>이 있고, <code>FUN()</code>이 사용할 인수가 데이터로 저장되어 있을 때 이를 불러들여 함수를 적용</li>
+<li><code>sapply()</code>와 유사하지만 다수의 인수를 함수에 전달해 적용</li>
+<li>임의의 함수 <code>FUN()</code>이 있고, <code>FUN()</code>을 수행하기 위해 필요한 인수가 데이터로 저장되어 있을 때 이를 불러들여 함수를 적용</li>
 </ul>
 <div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb871-1"><a href="data-frame.html#cb871-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapply</span>(</span>
 <span id="cb871-2"><a href="data-frame.html#cb871-2" aria-hidden="true" tabindex="-1"></a>  FUN, <span class="co"># 적용할 함수</span></span>

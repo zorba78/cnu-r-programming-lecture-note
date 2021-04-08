@@ -6570,14 +6570,21 @@ summary(df)
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}<div class="rmdtip">`summary()` 함수는 객체의 클래스에 따라 요약 통계량을 출력해주는 함수로 특히 데이터 프레임이 가지고 있는 변수들의 특징을 손쉽게 알아볼 수 있기 때문에 가장 많이 호출되는 함수 중 하나임. 숫자형 벡터에 대해서는 최솟값(minimum), 1/4 분위수(1^st^ quantile), 중앙값(median), 평균(mean), 3/4 분위수(3^rd^ quantile), 최댓값을 출력하고, factor 형 객체에 대해서는 factor의 각 수준 별 빈도를 출력함. 2차원 이상 `table()` 객체에 적용 시 $\chi^2$ 검정(독립성 검정)  결과값을 출력함. </div>\EndKnitrBlock{rmdtip}
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">
+- `summary()` 함수는 객체의 클래스에 따라 요약 통계량을 출력해주는 함수
+- 데이터 프레임이 가지고 있는 변수들의 특징을 손쉽게 알아볼 수 있기 때문에 가장 많이 호출되는 함수 중 하나
+- 숫자형 벡터: 최솟값(minimum), 1/4 분위수(1^st^ quantile), 중앙값(median), 평균(mean), 3/4 분위수(3^rd^ quantile), 최댓값을 출력
+- 요인형 객체: 요인의 각 수준 별 빈도를 출력
+- 2차원 이상 `table()` 객체에 적용 시 $\chi^2$ 검정(독립성 검정)  결과값을 출력함. 
+</div>\EndKnitrBlock{rmdtip}
 
  \normalsize
 
 - 이미 정의된 데이터 프레임에 데이터를 추가 가능
    - 예를 들어 `dbp`라는 벡터에 이완기 혈압(diastolic blood pressure) 데이터가 입력되어 있고  `df`에  `dbp` 변수를 새롭게 추가 시 `df$dbp <- x` 형태로 추가
    - 위 형태로 이미 존재하고 있는 변수(열)에 새로운 값 재할당 가능
-   - 이러한 형태로 문자형 벡터 추가 시 문자형 벡터는 자동으로 factor로 형 변환 되지 않음
+   - 이러한 형태로 문자형 벡터 추가 시 문자형 벡터는 자동으로 factor로 형 변환 되지는 않음
+
 
 \footnotesize
 
@@ -6720,11 +6727,12 @@ df
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}<div class="rmdtip">**참고**: R Markdown에서 데이터 프레임을 손쉽게 html 파일에 출력하는 방법
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">**참고**: R Markdown에서 데이터 프레임의 데이터를 손쉽게 테이블로 출력하는 방법(html 문서)
 
 
-   - R Markdwon의 YAML 부분에 다음과 같이 옵션을 추가하면 별다른 함수 처리 없이 데이터 프레임을 테이블 형태로 html 문서에 붙일 수 있음. 아래 예시에서 `output` 이후 `df_print: paged` 옵션을 추가
-   - 옵션 추가 시 들여쓰기(탭 구분)은 YAML 문서의 트리 구조를 표현한 것이기 때문에 **꼭** 들여쓰기를 정확히 일치시켜야 함
+- R Markdwon의 YAML 부분에 다음과 같이 옵션을 추가하면 별다른 함수 처리 없이 데이터 프레임을 표 형태로 html 문서에 붙일 수 있음. 
+아래 예시에서 `output` 이후 `df_print: paged` 옵션을 추가
+- 옵션 추가 시 들여쓰기(탭 구분)은 YAML 문서의 트리 구조를 표현한 것이기 때문에 **꼭** 들여쓰기를 정확히 일치시켜야 함
 </div>\EndKnitrBlock{rmdtip}
 
  \normalsize
@@ -7048,7 +7056,7 @@ with(df, df[sex == "Female" & age >= 40, ])
 
  \normalsize
 
-- `within()` 함수는 `with()`와 유사하지만 코드블록(`{...}`)을 이용해 보다 자유롭게 데이터 수정 및 추가 가능
+- `within()` 함수는 `with()`와 유사하지만 코드블록(`{...}`)을 이용해 보다 자유롭게 데이터를 수정 및 추가할 수 있음
 
 
 \footnotesize
@@ -7427,7 +7435,7 @@ df[order(df$height, decreasing = T), ]
 ### `*apply()` 계열 함수 {#apply-related-fun}
 
 - `apply()`, `lapply()`, `sapply()` 등 `apply` 계열 함수는 R에서 가장 일반적으로 사용되는 함수 중 하나
-- 보통 `for-loop`를 대신하기 위해 활용되며, R 객체를 입력 받아 원소 별 혹은 그루 별 함수를 적용
+- 반복문(`for-loop`)를 대신하기 위해 활용되며, R 객체를 입력 받아 원소 별 혹은 그루 별 함수를 적용
 - 데이터 전체에 함수를 한번에 적용하는 vectorizing 연산을 수행함
 
 #### `apply()` 함수 {#apply .unnumbered}
@@ -7538,7 +7546,7 @@ apply(Z, c(1, 3), mean)
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">Abalone dataset 변수 설명</div>\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">Abalone dataset 변수 설명(코드북)</div>\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -7647,8 +7655,11 @@ apply(ab2[, -1], 2, mean, na.rm = TRUE)
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}<div class="rmdtip">**참고 1**: 결측이 포함된 벡터 연산 시 결측에 대한 처리 지정 없이 함수를 적용하면 결측값을 반환함. 따라서 R에서 제공되는 연산 관련 일반 함수는 결측처리에 대한 옵션을 인수로 받음. 보통 인수 형태는 `na.rm = T/F` 형태이고 다음의 함수를 통해 데이터에  결측 처리에 대한 속성 및 클래스를 부여함
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">**참고 1**: 
   
+  - 결측이 포함된 벡터 연산 시 결측에 대한 처리 지정 없이 함수를 적용하면 결측값을 반환
+  - R에서 제공되는 연산 관련 일반 함수는 결측처리에 대한 옵션을 인수로 받음
+  - 보통 인수 형태는 `na.rm = T/F` 형태이고 다음의 함수를 통해 데이터에 결측 처리에 대한 속성 및 클래스를 부여함
   - `na.omit()`/`na.exclude()`: `NA`가 포함되어 있는 행 생략 
 
 
@@ -7827,7 +7838,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x55611b555660> 
+  .. ..- attr(*, ".Environment")=<environment: 0x5603de8b4148> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"
@@ -7985,8 +7996,8 @@ $dimnames[[2]]
 
 #### `mapply()` 함수 {#mapply .unnumbered}
 
-- `mapply()`와 유사하지만 다수의 인수를 함수에 전달해 적용
-- 임의의 함수 `FUN()`이 있고, `FUN()`이 사용할 인수가 데이터로 저장되어 있을 때 이를 불러들여 함수를 적용
+- `sapply()`와 유사하지만 다수의 인수를 함수에 전달해 적용
+- 임의의 함수 `FUN()`이 있고, `FUN()`을 수행하기 위해 필요한 인수가 데이터로 저장되어 있을 때 이를 불러들여 함수를 적용
 
 
 \footnotesize
@@ -8037,18 +8048,20 @@ sapply(rn_res, mean); sapply(rn_res, sd)
 
 지금까지 R 객체를 알아보면서 `is.na()`, `is.null()` 등 스칼라의 데이터 타입을 확인하는 함수부터 
 `str()`, `attributes()`, `class()`와 같이 객체의 속성 및 구조에 대해 확인하는 함수들에 대해 간략히 소개함. 
-앞서 언급한 것 처럼 R은 스크립트 언어이기 때문에 모든 명령 실행이 함수 기반으로 이루어짐. 
-특정 객제에만 적용할 수 있는 함수들이 있는 반면, 함수를 통해 새로운 속성을 갖는 객제가 생성되기도 함.
-그렇기 때문에 함수 적용 또는 반환 후 생성된 객체의 타입을 확인하거나 객체의 유형 변환 작업은 
-R을 통해 데이터를 분석하는 과정에서 빈번하게 발생함. 
+
+R은 스크립트 언어이기 때문에 모든 명령 실행이 함수 기반으로 이루어짐. 
+특정 객체에만 적용할 수 있는 함수들이 있는 반면, 함수를 통해 새로운 속성을 갖는 객체가 생성되기도 함.
+그렇기 때문에 함수 적용 또는 반환 후 생성된 객체의 타입을 확인하거나 객체의 유형을 변환하는 작업은 
+R에서 데이터 분석을 진행하는 과정에서 빈번하게 발생함. 
 
 
-R에서는 캑체 유형 판별을 위해 `is.type_name()`, 객체 타입 변환을 위해 `as.type_name()` 형태의 함수를 제공함. 지금까지 배운 R 객체에 대한 `is.` 과 `as.` 계열 함수는 아래와 같음. 
+객체 유형 판별을 위해 `is.type_name()`, 객체 타입 변환을 위해 `as.type_name()` 형태의 함수를 제공함. 
+지금까지 배운 R 객체에 대한 `is.` 과 `as.` 계열 함수는 아래와 같음. 
 
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:is-as-fun)R 객체 타입 판별 및 변환 함수</caption>
  <thead>
   <tr>
