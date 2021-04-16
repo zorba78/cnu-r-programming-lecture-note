@@ -1545,7 +1545,7 @@ jude_w2
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:meta-char)정규표현식 메타 문자: 기본</caption>
  <thead>
   <tr>
@@ -2024,7 +2024,7 @@ str[g]
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:meta-char2)정규표현식 메타 문자: 문자집합</caption>
  <thead>
   <tr>
