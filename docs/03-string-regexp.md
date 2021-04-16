@@ -2165,7 +2165,7 @@ blank[g]
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:meta-char3)정규표현식 주요 문자 클래스</caption>
  <thead>
   <tr>
@@ -2212,7 +2212,7 @@ blank[g]
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:meta-char4)정규표현식: POSIX 문자 클래스</caption>
  <thead>
   <tr>
