@@ -2,7 +2,7 @@
 title: "통계 프로그래밍 언어"
 subtitle: "2021년도 1학기 충남대학교 정보통계학과 강의노트"
 author: "한국한의학연구원, 구본초"
-date: "2021-03-12"
+date: "2021-04-16"
 knit: "bookdown::render_book"
 documentclass: krantz
 bibliography: [book.bib, packages.bib]
@@ -25,8 +25,7 @@ editor_options:
 
 # Course Overview{-#overview}
 
-\BeginKnitrBlock{rmdnote}
-
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">
 - 본 문서는 2021년도 1학기 충남대학교 정보통계학과에서 개설한 "통계 프로그래밍 언어" 강의를 위해 개발한 강의 노트임 
 - 주 단위로 업데이트 될 예정 
 - https://zorba78.github.io/cnu-r-programming-lecture-note/ 에서 확인
@@ -38,8 +37,7 @@ editor_options:
 본 문서는 Yihui Xie가 개발한 **bookdown** 패키지 [@xie-2016]를 활용하여 생성한 문서임. 충남대학교 정보통계학과 이상인 교수님의 2019년도 2학기 "통계패키지활용" 
 강의 자료 내용과 구성을 참고하여 작성함. 
 
-
-\EndKnitrBlock{rmdnote}
+</div>\EndKnitrBlock{rmdnote}
 
 
 #### 강의소개{#intro-lec .unnumbered}

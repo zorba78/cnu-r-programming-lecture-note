@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.2 정규표현식 기본 함수 | 통계 프로그래밍 언어</title>
+  <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.2 정규표현식 기본 함수 | 통계 프로그래밍 언어" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.2 정규표현식 기본 함수 | 통계 프로그래밍 언어" />
+  
+  <meta name="twitter:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  
+
+<meta name="author" content="한국한의학연구원, 구본초" />
+
+
+<meta name="date" content="2021-04-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="유용한-문자열-관련-함수.html"/>
+<link rel="next" href="reg-exp.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">통계 프로그래밍 언어</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Overview</a></li>
+<li class="part"><span><b>I Get Started</b></span></li>
+<li class="chapter" data-level="1" data-path="intro-chap.html"><a href="intro-chap.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1.1</b> R 설치하기</a></li>
+<li class="chapter" data-level="1.2" data-path="r-check.html"><a href="r-check.html"><i class="fa fa-check"></i><b>1.2</b> R 시작 및 작동 체크</a></li>
+<li class="chapter" data-level="1.3" data-path="rconsle-script.html"><a href="rconsle-script.html"><i class="fa fa-check"></i><b>1.3</b> R script 편집기 사용</a></li>
+<li class="chapter" data-level="1.4" data-path="r-studio.html"><a href="r-studio.html"><i class="fa fa-check"></i><b>1.4</b> RStudio</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="r-studio.html"><a href="r-studio.html#rstudio-install"><i class="fa fa-check"></i><b>1.4.1</b> RStudio 설치하기</a></li>
+<li class="chapter" data-level="1.4.2" data-path="r-studio.html"><a href="r-studio.html#rstudio-component"><i class="fa fa-check"></i><b>1.4.2</b> RStudio IDE 화면 구성</a></li>
+<li class="chapter" data-level="1.4.3" data-path="r-studio.html"><a href="r-studio.html#rstudio-glob-options"><i class="fa fa-check"></i><b>1.4.3</b> RStudio 환경 설정</a></li>
+<li class="chapter" data-level="1.4.4" data-path="r-studio.html"><a href="r-studio.html#rstudio-project"><i class="fa fa-check"></i><b>1.4.4</b> RStudio 프로젝트</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="r-package.html"><a href="r-package.html"><i class="fa fa-check"></i><b>1.5</b> R 패키지</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="r-package.html"><a href="r-package.html#r-package-path"><i class="fa fa-check"></i><b>1.5.1</b> R 패키지 경로 확인 및 변경</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-package.html"><a href="r-package.html#r-package-install"><i class="fa fa-check"></i><b>1.5.2</b> R 패키지 설치하기</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-package.html"><a href="r-package.html#r-package-load"><i class="fa fa-check"></i><b>1.5.3</b> R 패키지 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basic.html"><a href="r-basic.html"><i class="fa fa-check"></i><b>1.6</b> R 기초 문법</a></li>
+<li class="chapter" data-level="1.7" data-path="r-markdown-get-start.html"><a href="r-markdown-get-start.html"><i class="fa fa-check"></i><b>1.7</b> R Markdown (맛보기)</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-type.html"><a href="data-type.html"><i class="fa fa-check"></i><b>2</b> R 객체(R object)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="프로그래밍.html"><a href="프로그래밍.html"><i class="fa fa-check"></i><b>2.1</b> 프로그래밍</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="프로그래밍.html"><a href="프로그래밍.html#prerequisites"><i class="fa fa-check"></i><b>2.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2.1.2" data-path="프로그래밍.html"><a href="프로그래밍.html#control-program"><i class="fa fa-check"></i><b>2.1.2</b> 프로그램</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="scalar.html"><a href="scalar.html"><i class="fa fa-check"></i><b>2.2</b> 스칼라(scalar)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="scalar.html"><a href="scalar.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> 선언</a></li>
+<li class="chapter" data-level="2.2.2" data-path="scalar.html"><a href="scalar.html#numeric"><i class="fa fa-check"></i><b>2.2.2</b> 숫자형</a></li>
+<li class="chapter" data-level="2.2.3" data-path="scalar.html"><a href="scalar.html#character"><i class="fa fa-check"></i><b>2.2.3</b> 문자형</a></li>
+<li class="chapter" data-level="2.2.4" data-path="scalar.html"><a href="scalar.html#logical"><i class="fa fa-check"></i><b>2.2.4</b> 논리형 스칼라</a></li>
+<li class="chapter" data-level="2.2.5" data-path="scalar.html"><a href="scalar.html#missing-value"><i class="fa fa-check"></i><b>2.2.5</b> 결측값(missing value)</a></li>
+<li class="chapter" data-level="2.2.6" data-path="scalar.html"><a href="scalar.html#null"><i class="fa fa-check"></i><b>2.2.6</b> NULL 값</a></li>
+<li class="chapter" data-level="2.2.7" data-path="scalar.html"><a href="scalar.html#finite"><i class="fa fa-check"></i><b>2.2.7</b> 무한대/무한소/숫자아님</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>2.3</b> 벡터(vector)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="vector.html"><a href="vector.html#vector-prop"><i class="fa fa-check"></i><b>2.3.1</b> 벡터의 특징</a></li>
+<li class="chapter" data-level="2.3.2" data-path="vector.html"><a href="vector.html#vector-operation"><i class="fa fa-check"></i><b>2.3.2</b> 벡터의 연산</a></li>
+<li class="chapter" data-level="2.3.3" data-path="vector.html"><a href="vector.html#vector-index"><i class="fa fa-check"></i><b>2.3.3</b> 벡터의 색인(indexing)</a></li>
+<li class="chapter" data-level="2.3.4" data-path="vector.html"><a href="vector.html#vector-function"><i class="fa fa-check"></i><b>2.3.4</b> 벡터 관련 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="list.html"><a href="list.html"><i class="fa fa-check"></i><b>2.4</b> 리스트(list)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="list.html"><a href="list.html#make-list"><i class="fa fa-check"></i><b>2.4.1</b> 리스트 생성</a></li>
+<li class="chapter" data-level="2.4.2" data-path="list.html"><a href="list.html#list-index"><i class="fa fa-check"></i><b>2.4.2</b> 리스트 색인</a></li>
+<li class="chapter" data-level="2.4.3" data-path="list.html"><a href="list.html#list-add-delete"><i class="fa fa-check"></i><b>2.4.3</b> 리스트에 원소 추가/제거</a></li>
+<li class="chapter" data-level="2.4.4" data-path="list.html"><a href="list.html#list-combine"><i class="fa fa-check"></i><b>2.4.4</b> 리스트의 결합</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="matrix.html"><a href="matrix.html"><i class="fa fa-check"></i><b>2.5</b> 행렬(matrix)</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="matrix.html"><a href="matrix.html#matrix-operation"><i class="fa fa-check"></i><b>2.5.1</b> 행렬의 연산</a></li>
+<li class="chapter" data-level="2.5.2" data-path="matrix.html"><a href="matrix.html#mat-index"><i class="fa fa-check"></i><b>2.5.2</b> 행렬의 색인</a></li>
+<li class="chapter" data-level="2.5.3" data-path="matrix.html"><a href="matrix.html#행과-열-추가-및-제거"><i class="fa fa-check"></i><b>2.5.3</b> 행과 열 추가 및 제거</a></li>
+<li class="chapter" data-level="2.5.4" data-path="matrix.html"><a href="matrix.html#행렬-관련-함수"><i class="fa fa-check"></i><b>2.5.4</b> 행렬 관련 함수</a></li>
+<li class="chapter" data-level="2.5.5" data-path="matrix.html"><a href="matrix.html#vec-mat-diff"><i class="fa fa-check"></i><b>2.5.5</b> 벡터와 행렬의 차이점</a></li>
+<li class="chapter" data-level="2.5.6" data-path="matrix.html"><a href="matrix.html#mat-dim-reduc-sway"><i class="fa fa-check"></i><b>2.5.6</b> 의도치 않은 차원축소 피하기</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="array.html"><a href="array.html"><i class="fa fa-check"></i><b>2.6</b> 배열(array)</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="array.html"><a href="array.html#make-array"><i class="fa fa-check"></i><b>2.6.1</b> 배열의 생성 및 색인</a></li>
+<li class="chapter" data-level="2.6.2" data-path="array.html"><a href="array.html#rray-extend-example"><i class="fa fa-check"></i><b>2.6.2</b> 배열의 확장 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="factor-table.html"><a href="factor-table.html"><i class="fa fa-check"></i><b>2.7</b> 요인(factor)과 테이블(table)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="factor-table.html"><a href="factor-table.html#factor"><i class="fa fa-check"></i><b>2.7.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.7.2" data-path="factor-table.html"><a href="factor-table.html#table"><i class="fa fa-check"></i><b>2.7.2</b> 테이블(table)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>2.8</b> 데이터 프레임(data frame)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="data-frame.html"><a href="data-frame.html#create-data-frame"><i class="fa fa-check"></i><b>2.8.1</b> 데이터 프레임 생성</a></li>
+<li class="chapter" data-level="2.8.2" data-path="data-frame.html"><a href="data-frame.html#data-frame-get"><i class="fa fa-check"></i><b>2.8.2</b> 데이터 프레임 접근 및 필터링</a></li>
+<li class="chapter" data-level="2.8.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.8.3</b> 데이터 프레임 관련 함수</a></li>
+<li class="chapter" data-level="2.8.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.8.4</b> <code>*apply()</code> 계열 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="is-as-function.html"><a href="is-as-function.html"><i class="fa fa-check"></i><b>2.9</b> 객체의 유형 판별 및 변환</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="string-regexp.html"><a href="string-regexp.html"><i class="fa fa-check"></i><b>3</b> 문자열 처리와 정규표현식</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html"><i class="fa fa-check"></i><b>3.1</b> 유용한 문자열 관련 함수</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#nchar"><i class="fa fa-check"></i><b>3.1.1</b> <strong><code>nchar()</code></strong></a></li>
+<li class="chapter" data-level="3.1.2" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#paste"><i class="fa fa-check"></i><b>3.1.2</b> <strong><code>paste()</code></strong>, <strong><code>paste0()</code></strong></a></li>
+<li class="chapter" data-level="3.1.3" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#sprintf"><i class="fa fa-check"></i><b>3.1.3</b> <strong><code>sprintf()</code></strong></a></li>
+<li class="chapter" data-level="3.1.4" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#substr"><i class="fa fa-check"></i><b>3.1.4</b> <strong><code>substr()</code></strong></a></li>
+<li class="chapter" data-level="3.1.5" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#low-up-fun"><i class="fa fa-check"></i><b>3.1.5</b> <strong><code>tolower()</code>, <code>toupper()</code></strong></a></li>
+<li class="chapter" data-level="3.1.6" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#glue-패키지를-활용한-문자열-다루기"><i class="fa fa-check"></i><b>3.1.6</b> glue 패키지를 활용한 문자열 다루기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html"><i class="fa fa-check"></i><b>3.2</b> 정규표현식 기본 함수</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#grep-grepl"><i class="fa fa-check"></i><b>3.2.1</b> <strong><code>grep()</code>, <code>grepl()</code></strong></a></li>
+<li class="chapter" data-level="3.2.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexpr-gregexpr"><i class="fa fa-check"></i><b>3.2.2</b> <strong><code>regexpr()</code></strong>, <strong><code>gregexpr()</code></strong></a></li>
+<li class="chapter" data-level="3.2.3" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#sub-gsub-fun"><i class="fa fa-check"></i><b>3.2.3</b> <strong><code>sub()</code></strong>, <strong><code>gsub()</code></strong></a></li>
+<li class="chapter" data-level="3.2.4" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexec-fun"><i class="fa fa-check"></i><b>3.2.4</b> <strong><code>regexec()</code></strong></a></li>
+<li class="chapter" data-level="3.2.5" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#strsplit"><i class="fa fa-check"></i><b>3.2.5</b> <strong><code>strsplit()</code></strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="reg-exp.html"><a href="reg-exp.html"><i class="fa fa-check"></i><b>3.3</b> 정규 표현식(regular expression)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="reg-exp.html"><a href="reg-exp.html#basic-meta"><i class="fa fa-check"></i><b>3.3.1</b> 기본 메타 문자</a></li>
+<li class="chapter" data-level="3.3.2" data-path="reg-exp.html"><a href="reg-exp.html#character-set"><i class="fa fa-check"></i><b>3.3.2</b> 문자 집합</a></li>
+<li class="chapter" data-level="3.3.3" data-path="reg-exp.html"><a href="reg-exp.html#character-class"><i class="fa fa-check"></i><b>3.3.3</b> 문자 클래스</a></li>
+<li class="chapter" data-level="3.3.4" data-path="reg-exp.html"><a href="reg-exp.html#regexp-ex"><i class="fa fa-check"></i><b>3.3.4</b> 정규 표현식 예시</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계 프로그래밍 언어</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regexp-basic-fun" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> 정규표현식 기본 함수</h2>
+<div id="grep-grepl" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> <strong><code>grep()</code>, <code>grepl()</code></strong></h3>
+<p>정규표현식을 이용한 특정 문자 패턴 검색 시 가장 빈번히 사용되는 함수들 중 하나임.</p>
+<div id="grep" class="section level4 unnumbered">
+<h4><strong><code>grep()</code></strong></h4>
+<p>특정 문자 벡터에서 찾고자 하는 패턴과 일치하는 원소의 인덱스, 원소값 반환</p>
+<div class="sourceCode" id="cb1085"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1085-1"><a href="regexp-basic-fun.html#cb1085-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 일치하는 특정 문자열을 포함하는 원소값(문자형) 또는 인덱스(정수)를 반환</span></span>
+<span id="cb1085-2"><a href="regexp-basic-fun.html#cb1085-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1085-3"><a href="regexp-basic-fun.html#cb1085-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span>(</span>
+<span id="cb1085-4"><a href="regexp-basic-fun.html#cb1085-4" aria-hidden="true" tabindex="-1"></a>  pattern, <span class="co"># 정규 표현식 또는 문자 패턴</span></span>
+<span id="cb1085-5"><a href="regexp-basic-fun.html#cb1085-5" aria-hidden="true" tabindex="-1"></a>  string,  <span class="co"># 패턴을 검색할 문자열 벡터</span></span>
+<span id="cb1085-6"><a href="regexp-basic-fun.html#cb1085-6" aria-hidden="true" tabindex="-1"></a>  value    <span class="co"># 논리값 </span></span>
+<span id="cb1085-7"><a href="regexp-basic-fun.html#cb1085-7" aria-hidden="true" tabindex="-1"></a>           <span class="co"># TRUE: pattern에 해당하는 원소값 반환</span></span>
+<span id="cb1085-8"><a href="regexp-basic-fun.html#cb1085-8" aria-hidden="true" tabindex="-1"></a>           <span class="co"># FALSE: pattern이 있는 원소의 색인 반환</span></span>
+<span id="cb1085-9"><a href="regexp-basic-fun.html#cb1085-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p></p>
+<div class="sourceCode" id="cb1086"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1086-1"><a href="regexp-basic-fun.html#cb1086-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Equator&quot;</span>, <span class="st">&quot;North Pole&quot;</span>, <span class="st">&quot;South Pole&quot;</span>)</span>
+<span id="cb1086-2"><a href="regexp-basic-fun.html#cb1086-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1086-3"><a href="regexp-basic-fun.html#cb1086-3" aria-hidden="true" tabindex="-1"></a><span class="co"># x에서 Pole 이 있는 원소의 문자열 반환</span></span>
+<span id="cb1086-4"><a href="regexp-basic-fun.html#cb1086-4" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span>(<span class="st">&quot;Pole&quot;</span>, x, <span class="at">value =</span> T)</span></code></pre></div>
+<pre><code>[1] &quot;North Pole&quot; &quot;South Pole&quot;</code></pre>
+<div class="sourceCode" id="cb1088"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1088-1"><a href="regexp-basic-fun.html#cb1088-1" aria-hidden="true" tabindex="-1"></a><span class="co"># x에서 Pole 이 있는 원소의 색인 반환</span></span>
+<span id="cb1088-2"><a href="regexp-basic-fun.html#cb1088-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span>(<span class="st">&quot;Pole&quot;</span>, x, <span class="at">value =</span> F)</span></code></pre></div>
+<pre><code>[1] 2 3</code></pre>
+<div class="sourceCode" id="cb1090"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1090-1"><a href="regexp-basic-fun.html#cb1090-1" aria-hidden="true" tabindex="-1"></a><span class="co"># x에서 Eq를 포함한 원소 색인 반환</span></span>
+<span id="cb1090-2"><a href="regexp-basic-fun.html#cb1090-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span>(<span class="st">&quot;Eq&quot;</span>, x)</span></code></pre></div>
+<pre><code>[1] 1</code></pre>
+<p></p>
+</div>
+<div id="grepl" class="section level4 unnumbered">
+<h4><strong><code>grepl()</code></strong></h4>
+<p><code>grep()</code>과 유사한 기능을 갖지만, 함수의 반환값이 논리형 벡터임</p>
+<div class="sourceCode" id="cb1092"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1092-1"><a href="regexp-basic-fun.html#cb1092-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 일치하는 특정 문자열을 포함하는 원소 색인에 대한 논리값 반환</span></span>
+<span id="cb1092-2"><a href="regexp-basic-fun.html#cb1092-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1092-3"><a href="regexp-basic-fun.html#cb1092-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(</span>
+<span id="cb1092-4"><a href="regexp-basic-fun.html#cb1092-4" aria-hidden="true" tabindex="-1"></a>  pattern, <span class="co"># 정규 표현식 또는 문자 패턴</span></span>
+<span id="cb1092-5"><a href="regexp-basic-fun.html#cb1092-5" aria-hidden="true" tabindex="-1"></a>  string  <span class="co"># 패턴을 검색할 문자열 벡터</span></span>
+<span id="cb1092-6"><a href="regexp-basic-fun.html#cb1092-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p></p>
+<ul>
+<li>사용 예시</li>
+</ul>
+<div class="sourceCode" id="cb1093"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1093-1"><a href="regexp-basic-fun.html#cb1093-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grepl() 예시</span></span>
+<span id="cb1093-2"><a href="regexp-basic-fun.html#cb1093-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Titanic data 불러오기</span></span>
+<span id="cb1093-3"><a href="regexp-basic-fun.html#cb1093-3" aria-hidden="true" tabindex="-1"></a>url1 <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/&quot;</span></span>
+<span id="cb1093-4"><a href="regexp-basic-fun.html#cb1093-4" aria-hidden="true" tabindex="-1"></a>url2 <span class="ot">&lt;-</span> <span class="st">&quot;agconti/kaggle-titanic/master/data/train.csv&quot;</span></span>
+<span id="cb1093-5"><a href="regexp-basic-fun.html#cb1093-5" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(url1, url2), </span>
+<span id="cb1093-6"><a href="regexp-basic-fun.html#cb1093-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1093-7"><a href="regexp-basic-fun.html#cb1093-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1093-8"><a href="regexp-basic-fun.html#cb1093-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 승객이름 추출 </span></span>
+<span id="cb1093-9"><a href="regexp-basic-fun.html#cb1093-9" aria-hidden="true" tabindex="-1"></a>pname <span class="ot">&lt;-</span> titanic<span class="sc">$</span>Name</span>
+<span id="cb1093-10"><a href="regexp-basic-fun.html#cb1093-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1093-11"><a href="regexp-basic-fun.html#cb1093-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 승객 이름이 James 인 사람만 추출</span></span>
+<span id="cb1093-12"><a href="regexp-basic-fun.html#cb1093-12" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;James&quot;</span>, pname)</span>
+<span id="cb1093-13"><a href="regexp-basic-fun.html#cb1093-13" aria-hidden="true" tabindex="-1"></a>pname[g]</span></code></pre></div>
+<pre><code> [1] &quot;Moran, Mr. James&quot;                                    
+ [2] &quot;Crease, Mr. Ernest James&quot;                            
+ [3] &quot;Sobey, Mr. Samuel James Hayden&quot;                      
+ [4] &quot;Bateman, Rev. Robert James&quot;                          
+ [5] &quot;Watt, Mrs. James (Elizabeth \&quot;Bessie\&quot; Inglis Milne)&quot;
+ [6] &quot;Smith, Mr. James Clinch&quot;                             
+ [7] &quot;Brown, Mrs. James Joseph (Margaret Tobin)&quot;           
+ [8] &quot;Bracken, Mr. James H&quot;                                
+ [9] &quot;Reed, Mr. James George&quot;                              
+[10] &quot;Baxter, Mrs. James (Helene DeLaudeniere Chaput)&quot;     
+[11] &quot;Drew, Mrs. James Vivian (Lulu Thorne Christian)&quot;     
+[12] &quot;Flynn, Mr. James&quot;                                    
+[13] &quot;Scanlan, Mr. James&quot;                                  
+[14] &quot;Webber, Mr. James&quot;                                   
+[15] &quot;McGough, Mr. James Robert&quot;                           
+[16] &quot;Farrell, Mr. James&quot;                                  
+[17] &quot;Sharp, Mr. Percival James R&quot;                         
+[18] &quot;Downton, Mr. William James&quot;                          
+[19] &quot;Elsbury, Mr. William James&quot;                          
+[20] &quot;Kelly, Mr. James&quot;                                    
+[21] &quot;Hawksford, Mr. Walter James&quot;                         
+[22] &quot;Lester, Mr. James&quot;                                   
+[23] &quot;Slemen, Mr. Richard James&quot;                           
+[24] &quot;Banfield, Mr. Frederick James&quot;                       </code></pre>
+<p></p>
+</div>
+</div>
+<div id="regexpr-gregexpr" class="section level3" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> <strong><code>regexpr()</code></strong>, <strong><code>gregexpr()</code></strong></h3>
+<p><code>grep()</code>과 <code>grepl()</code>의 한계점 보완: 특정 문자 패턴의 일치여부에 대한 정보를 제공하지만 위치 및 정규식의 일치 여부를 알려주지는 않음</p>
+<div id="regexpr" class="section level4 unnumbered">
+<h4><strong><code>regexpr()</code></strong></h4>
+<ul>
+<li>문자열에서 패턴이 일치하는 문자(표현)가 첫 번째 등장하는 위치와 몇 개의 문자로 구성(길이) 되어 있는지를 반환</li>
+<li>예시</li>
+</ul>
+<div class="sourceCode" id="cb1095"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1095-1"><a href="regexp-basic-fun.html#cb1095-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Darth Vader: If you only knew the power of the Dark Side. </span></span>
+<span id="cb1095-2"><a href="regexp-basic-fun.html#cb1095-2" aria-hidden="true" tabindex="-1"></a><span class="st">       Obi-Wan never told you what happend to your father&quot;</span>, </span>
+<span id="cb1095-3"><a href="regexp-basic-fun.html#cb1095-3" aria-hidden="true" tabindex="-1"></a>       <span class="st">&quot;Luke: He told me enough! It was you who killed him!&quot;</span>, </span>
+<span id="cb1095-4"><a href="regexp-basic-fun.html#cb1095-4" aria-hidden="true" tabindex="-1"></a>       <span class="st">&quot;Darth Vader: No. I&#39;m your father&quot;</span>)</span>
+<span id="cb1095-5"><a href="regexp-basic-fun.html#cb1095-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1095-6"><a href="regexp-basic-fun.html#cb1095-6" aria-hidden="true" tabindex="-1"></a><span class="co"># grep 계열 함수</span></span>
+<span id="cb1095-7"><a href="regexp-basic-fun.html#cb1095-7" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span>(<span class="st">&quot;you&quot;</span>, x); <span class="fu">grepl</span>(<span class="st">&quot;you&quot;</span>, x)</span></code></pre></div>
+<pre><code>[1] 1 2 3</code></pre>
+<pre><code>[1] TRUE TRUE TRUE</code></pre>
+<div class="sourceCode" id="cb1098"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1098-1"><a href="regexp-basic-fun.html#cb1098-1" aria-hidden="true" tabindex="-1"></a><span class="co"># regexpr() </span></span>
+<span id="cb1098-2"><a href="regexp-basic-fun.html#cb1098-2" aria-hidden="true" tabindex="-1"></a><span class="fu">regexpr</span>(<span class="st">&quot;you&quot;</span>, x) <span class="co"># 각 x의 문자열에서 you가 처음 나타난 위치 및 길이 반환</span></span></code></pre></div>
+<pre><code>[1] 17 33 22
+attr(,&quot;match.length&quot;)
+[1] 3 3 3
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE</code></pre>
+<div class="sourceCode" id="cb1100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1100-1"><a href="regexp-basic-fun.html#cb1100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">regexpr</span>(<span class="st">&quot;father&quot;</span>, x) <span class="co"># 패턴을 포함하지 않은 경우 -1 반환</span></span></code></pre></div>
+<pre><code>[1] 111  -1  27
+attr(,&quot;match.length&quot;)
+[1]  6 -1  6
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE</code></pre>
+<p></p>
+<ul>
+<li><code>substr()</code> 함수와 <code>regexpr()</code> 함수를 이용해 텍스트 내 원하는 문자 추출 가능</li>
+</ul>
+<div class="sourceCode" id="cb1102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1102-1"><a href="regexp-basic-fun.html#cb1102-1" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">regexpr</span>(<span class="st">&quot;father&quot;</span>, x)</span>
+<span id="cb1102-2"><a href="regexp-basic-fun.html#cb1102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">substr</span>(x, idx, idx <span class="sc">+</span> <span class="fu">attr</span>(idx, <span class="st">&quot;match.length&quot;</span>) <span class="sc">-</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>[1] &quot;father&quot; &quot;&quot;       &quot;father&quot;</code></pre>
+<p></p>
+</div>
+<div id="gregexpr" class="section level4 unnumbered">
+<h4><strong><code>gregexpr()</code></strong></h4>
+<ul>
+<li>영역에 걸쳐 패턴과 일치하는 문자의 위치 및 길이 반환(<code>regexpr()</code>의 global 버전)</li>
+</ul>
+<div class="sourceCode" id="cb1104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1104-1"><a href="regexp-basic-fun.html#cb1104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gregexpr</span>(<span class="st">&quot;you&quot;</span>, x) <span class="co"># 각 x의 문자열에서 you가 나타난 모든 위치 및 길이 반환</span></span></code></pre></div>
+<pre><code>[[1]]
+[1]  17  86 106
+attr(,&quot;match.length&quot;)
+[1] 3 3 3
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE
+
+[[2]]
+[1] 33
+attr(,&quot;match.length&quot;)
+[1] 3
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE
+
+[[3]]
+[1] 22
+attr(,&quot;match.length&quot;)
+[1] 3
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE</code></pre>
+<div class="sourceCode" id="cb1106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1106-1"><a href="regexp-basic-fun.html#cb1106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gregexpr</span>(<span class="st">&quot;father&quot;</span>, x) <span class="co"># 패턴을 포함하지 않은 경우 -1 반환</span></span></code></pre></div>
+<pre><code>[[1]]
+[1] 111
+attr(,&quot;match.length&quot;)
+[1] 6
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE
+
+[[2]]
+[1] -1
+attr(,&quot;match.length&quot;)
+[1] -1
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE
+
+[[3]]
+[1] 27
+attr(,&quot;match.length&quot;)
+[1] 6
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE</code></pre>
+<p></p>
+</div>
+</div>
+<div id="sub-gsub-fun" class="section level3" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> <strong><code>sub()</code></strong>, <strong><code>gsub()</code></strong></h3>
+<ul>
+<li><p>검색하고자 하는 패턴을 원하는 문자로 변경</p></li>
+<li><p>문자열 벡터의 패턴을 일치시키거나 문자열 정리가 필요할 때 사용</p></li>
+</ul>
+<div id="sub" class="section level4 unnumbered">
+<h4><strong><code>sub()</code></strong></h4>
+<ul>
+<li>문자열에서 첫 번째 일치하는 패턴만 변경</li>
+</ul>
+<div class="sourceCode" id="cb1108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1108-1"><a href="regexp-basic-fun.html#cb1108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sub</span>(pattern, <span class="co"># 검색하고자 하는 문자, 패턴, 표현</span></span>
+<span id="cb1108-2"><a href="regexp-basic-fun.html#cb1108-2" aria-hidden="true" tabindex="-1"></a>    replacement, <span class="co"># 검색할 패턴 대신 변경하고자 하는 문자 및 표현</span></span>
+<span id="cb1108-3"><a href="regexp-basic-fun.html#cb1108-3" aria-hidden="true" tabindex="-1"></a>    x <span class="co"># 문자형 벡터</span></span>
+<span id="cb1108-4"><a href="regexp-basic-fun.html#cb1108-4" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<p></p>
+<ul>
+<li>예시</li>
+</ul>
+<div class="sourceCode" id="cb1109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1109-1"><a href="regexp-basic-fun.html#cb1109-1" aria-hidden="true" tabindex="-1"></a>jude <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Hey Jude, don&#39;t make it bad&quot;</span>, </span>
+<span id="cb1109-2"><a href="regexp-basic-fun.html#cb1109-2" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Take a sad song and make it better&quot;</span>, </span>
+<span id="cb1109-3"><a href="regexp-basic-fun.html#cb1109-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Remember to let her into your heart&quot;</span>, </span>
+<span id="cb1109-4"><a href="regexp-basic-fun.html#cb1109-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Then you can start to make it better&quot;</span>)</span>
+<span id="cb1109-5"><a href="regexp-basic-fun.html#cb1109-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1109-6"><a href="regexp-basic-fun.html#cb1109-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sub</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;X&quot;</span>, jude)</span></code></pre></div>
+<pre><code>[1] &quot;Hey Jude, don&#39;t mXke it bad&quot;         
+[2] &quot;TXke a sad song and make it better&quot;  
+[3] &quot;Remember to let her into your heXrt&quot; 
+[4] &quot;Then you cXn start to make it better&quot;</code></pre>
+<p></p>
+</div>
+<div id="gsub-fun" class="section level4 unnumbered">
+<h4><strong><code>gsub()</code></strong></h4>
+<ul>
+<li>문자열에서 일치하는 모든 패턴 변경</li>
+<li>예시</li>
+</ul>
+<div class="sourceCode" id="cb1111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1111-1"><a href="regexp-basic-fun.html#cb1111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sub</span>(<span class="st">&quot; &quot;</span>, <span class="st">&quot;_&quot;</span>, jude)</span></code></pre></div>
+<pre><code>[1] &quot;Hey_Jude, don&#39;t make it bad&quot;         
+[2] &quot;Take_a sad song and make it better&quot;  
+[3] &quot;Remember_to let her into your heart&quot; 
+[4] &quot;Then_you can start to make it better&quot;</code></pre>
+<div class="sourceCode" id="cb1113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1113-1"><a href="regexp-basic-fun.html#cb1113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gsub</span>(<span class="st">&quot; &quot;</span>, <span class="st">&quot;_&quot;</span>, jude)</span></code></pre></div>
+<pre><code>[1] &quot;Hey_Jude,_don&#39;t_make_it_bad&quot;         
+[2] &quot;Take_a_sad_song_and_make_it_better&quot;  
+[3] &quot;Remember_to_let_her_into_your_heart&quot; 
+[4] &quot;Then_you_can_start_to_make_it_better&quot;</code></pre>
+<div class="sourceCode" id="cb1115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1115-1"><a href="regexp-basic-fun.html#cb1115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gsub</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;X&quot;</span>, jude)</span></code></pre></div>
+<pre><code>[1] &quot;Hey Jude, don&#39;t mXke it bXd&quot;         
+[2] &quot;TXke X sXd song Xnd mXke it better&quot;  
+[3] &quot;Remember to let her into your heXrt&quot; 
+[4] &quot;Then you cXn stXrt to mXke it better&quot;</code></pre>
+<p></p>
+</div>
+</div>
+<div id="regexec-fun" class="section level3" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> <strong><code>regexec()</code></strong></h3>
+<p><code>regexpr()</code>과 유사하게 작동하지만 괄호(<code>()</code>)로 묶인 하위 표현식에 대한 인덱스를 제공</p>
+<ul>
+<li><code>()</code>: 정규 표현식의 메타 문자 중 하나로 그룹을 나타냄 <span class="math inline">\(\rightarrow\)</span> 정규표현식 내 논리적 테스트 수행 가능</li>
+</ul>
+<div class="sourceCode" id="cb1117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1117-1"><a href="regexp-basic-fun.html#cb1117-1" aria-hidden="true" tabindex="-1"></a>bla <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;I like statistics&quot;</span>, </span>
+<span id="cb1117-2"><a href="regexp-basic-fun.html#cb1117-2" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;I like R programming&quot;</span>, </span>
+<span id="cb1117-3"><a href="regexp-basic-fun.html#cb1117-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;I like bananas&quot;</span>, </span>
+<span id="cb1117-4"><a href="regexp-basic-fun.html#cb1117-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Estates and statues are too expensive&quot;</span>)</span>
+<span id="cb1117-5"><a href="regexp-basic-fun.html#cb1117-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1117-6"><a href="regexp-basic-fun.html#cb1117-6" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(<span class="st">&quot;like&quot;</span>, bla)</span></code></pre></div>
+<pre><code>[1]  TRUE  TRUE  TRUE FALSE</code></pre>
+<div class="sourceCode" id="cb1119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1119-1"><a href="regexp-basic-fun.html#cb1119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(<span class="st">&quot;are&quot;</span>, bla)</span></code></pre></div>
+<pre><code>[1] FALSE FALSE FALSE  TRUE</code></pre>
+<div class="sourceCode" id="cb1121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1121-1"><a href="regexp-basic-fun.html#cb1121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(<span class="st">&quot;(like|are)&quot;</span>, bla)</span></code></pre></div>
+<pre><code>[1] TRUE TRUE TRUE TRUE</code></pre>
+<p></p>
+<ul>
+<li>찾고자 하는 패턴을 두 그룹으로 나눌 때 유용</li>
+<li>예시</li>
+</ul>
+<div class="sourceCode" id="cb1123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1123-1"><a href="regexp-basic-fun.html#cb1123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gregexpr</span>(<span class="st">&quot;stat&quot;</span>, bla) </span></code></pre></div>
+<pre><code>[[1]]
+[1] 8
+attr(,&quot;match.length&quot;)
+[1] 4
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE
+
+[[2]]
+[1] -1
+attr(,&quot;match.length&quot;)
+[1] -1
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE
+
+[[3]]
+[1] -1
+attr(,&quot;match.length&quot;)
+[1] -1
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE
+
+[[4]]
+[1]  2 13
+attr(,&quot;match.length&quot;)
+[1] 4 4
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE</code></pre>
+<div class="sourceCode" id="cb1125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1125-1"><a href="regexp-basic-fun.html#cb1125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gregexpr</span>(<span class="st">&quot;(st)(at)&quot;</span>, bla) </span></code></pre></div>
+<pre><code>[[1]]
+[1] 8
+attr(,&quot;match.length&quot;)
+[1] 4
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE
+
+[[2]]
+[1] -1
+attr(,&quot;match.length&quot;)
+[1] -1
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE
+
+[[3]]
+[1] -1
+attr(,&quot;match.length&quot;)
+[1] -1
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE
+
+[[4]]
+[1]  2 13
+attr(,&quot;match.length&quot;)
+[1] 4 4
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE</code></pre>
+<div class="sourceCode" id="cb1127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1127-1"><a href="regexp-basic-fun.html#cb1127-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;at&quot;에 대한 패턴을 찾지 못하고 </span></span>
+<span id="cb1127-2"><a href="regexp-basic-fun.html#cb1127-2" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;stat&quot; 패턴과 과 동일한 결과 반환</span></span>
+<span id="cb1127-3"><a href="regexp-basic-fun.html#cb1127-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1127-4"><a href="regexp-basic-fun.html#cb1127-4" aria-hidden="true" tabindex="-1"></a><span class="fu">regexec</span>(<span class="st">&quot;(st)(at)&quot;</span>, bla)</span></code></pre></div>
+<pre><code>[[1]]
+[1]  8  8 10
+attr(,&quot;match.length&quot;)
+[1] 4 2 2
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE
+
+[[2]]
+[1] -1
+attr(,&quot;match.length&quot;)
+[1] -1
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE
+
+[[3]]
+[1] -1
+attr(,&quot;match.length&quot;)
+[1] -1
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE
+
+[[4]]
+[1] 2 2 4
+attr(,&quot;match.length&quot;)
+[1] 4 2 2
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE</code></pre>
+<div class="sourceCode" id="cb1129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1129-1"><a href="regexp-basic-fun.html#cb1129-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;stat&quot; 패턴도 동시에 반환됨을 유의</span></span>
+<span id="cb1129-2"><a href="regexp-basic-fun.html#cb1129-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 첫 번째 일치 패턴만 반환</span></span></code></pre></div>
+<p></p>
+</div>
+<div id="strsplit" class="section level3" number="3.2.5">
+<h3><span class="header-section-number">3.2.5</span> <strong><code>strsplit()</code></strong></h3>
+<ul>
+<li>문자열에서 매칭되는 특정 패턴(문자)을 기준으로 문자열을 분할함</li>
+</ul>
+<div class="sourceCode" id="cb1130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1130-1"><a href="regexp-basic-fun.html#cb1130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">strsplit</span>(</span>
+<span id="cb1130-2"><a href="regexp-basic-fun.html#cb1130-2" aria-hidden="true" tabindex="-1"></a>  x,    <span class="co"># 문자형 벡터</span></span>
+<span id="cb1130-3"><a href="regexp-basic-fun.html#cb1130-3" aria-hidden="true" tabindex="-1"></a>  split <span class="co"># 분할 구분 문자(정규표현식 포함)</span></span>
+<span id="cb1130-4"><a href="regexp-basic-fun.html#cb1130-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p></p>
+<ul>
+<li>예시</li>
+</ul>
+<div class="sourceCode" id="cb1131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1131-1"><a href="regexp-basic-fun.html#cb1131-1" aria-hidden="true" tabindex="-1"></a>jude_w1 <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(jude, <span class="st">&quot; &quot;</span>)</span>
+<span id="cb1131-2"><a href="regexp-basic-fun.html#cb1131-2" aria-hidden="true" tabindex="-1"></a>jude_w1</span></code></pre></div>
+<pre><code>[[1]]
+[1] &quot;Hey&quot;   &quot;Jude,&quot; &quot;don&#39;t&quot; &quot;make&quot;  &quot;it&quot;    &quot;bad&quot;  
+
+[[2]]
+[1] &quot;Take&quot;   &quot;a&quot;      &quot;sad&quot;    &quot;song&quot;   &quot;and&quot;    &quot;make&quot;   &quot;it&quot;     &quot;better&quot;
+
+[[3]]
+[1] &quot;Remember&quot; &quot;to&quot;       &quot;let&quot;      &quot;her&quot;      &quot;into&quot;     &quot;your&quot;     &quot;heart&quot;   
+
+[[4]]
+[1] &quot;Then&quot;   &quot;you&quot;    &quot;can&quot;    &quot;start&quot;  &quot;to&quot;     &quot;make&quot;   &quot;it&quot;     &quot;better&quot;</code></pre>
+<div class="sourceCode" id="cb1133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1133-1"><a href="regexp-basic-fun.html#cb1133-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 공백, 쉼표가 있는 경우 구분</span></span>
+<span id="cb1133-2"><a href="regexp-basic-fun.html#cb1133-2" aria-hidden="true" tabindex="-1"></a>jude_w2 <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(jude, <span class="st">&quot;(</span><span class="sc">\\</span><span class="st">s|,)&quot;</span>)</span>
+<span id="cb1133-3"><a href="regexp-basic-fun.html#cb1133-3" aria-hidden="true" tabindex="-1"></a>jude_w2</span></code></pre></div>
+<pre><code>[[1]]
+[1] &quot;Hey&quot;   &quot;Jude&quot;  &quot;&quot;      &quot;don&#39;t&quot; &quot;make&quot;  &quot;it&quot;    &quot;bad&quot;  
+
+[[2]]
+[1] &quot;Take&quot;   &quot;a&quot;      &quot;sad&quot;    &quot;song&quot;   &quot;and&quot;    &quot;make&quot;   &quot;it&quot;     &quot;better&quot;
+
+[[3]]
+[1] &quot;Remember&quot; &quot;to&quot;       &quot;let&quot;      &quot;her&quot;      &quot;into&quot;     &quot;your&quot;     &quot;heart&quot;   
+
+[[4]]
+[1] &quot;Then&quot;   &quot;you&quot;    &quot;can&quot;    &quot;start&quot;  &quot;to&quot;     &quot;make&quot;   &quot;it&quot;     &quot;better&quot;</code></pre>
+<p></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="유용한-문자열-관련-함수.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="reg-exp.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/03-string-regexp.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["cnu-r-programming.pdf", "cnu-r-programming.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

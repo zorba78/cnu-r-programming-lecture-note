@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.2 R 시작 및 작동 체크 | 통계 프로그래밍 언어</title>
+  <title>3 문자열 처리와 정규표현식 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.2 R 시작 및 작동 체크 | 통계 프로그래밍 언어" />
+  <meta property="og:title" content="3 문자열 처리와 정규표현식 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.2 R 시작 및 작동 체크 | 통계 프로그래밍 언어" />
+  <meta name="twitter:title" content="3 문자열 처리와 정규표현식 | 통계 프로그래밍 언어" />
   
   <meta name="twitter:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="installation.html"/>
-<link rel="next" href="rconsle-script.html"/>
+<link rel="prev" href="is-as-function.html"/>
+<link rel="next" href="유용한-문자열-관련-함수.html"/>
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -266,214 +266,101 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="r-check" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> R 시작 및 작동 체크</h2>
+<div id="string-regexp" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> 문자열 처리와 정규표현식</h1>
 
 <div class="rmdimportant">
-<strong>실습</strong>: 설치된 R을 실행 후 보이는 R 콘솔(consle) 창에서 명령어를 실행하고 결과 확인
-</div>
-<p>Figure <a href="installation.html#fig:r-console">1.1</a> 에서 <code>&gt;</code> 기호는 R의 명령 프롬프트(command prompt) 임</p>
+<p><strong>학습 목표</strong></p>
 <ul>
-<li><span class="math inline">\(\rightarrow\)</span> 컴퓨터가 사용자 명령을 기다리고 있다는 기호</li>
+<li>텍스트 문자 처리에 있어 가장 기본인 정규 표현식(regular rexpression)에 대해 알아본다.</li>
+<li>R에서 기본으로 제공하는 문자열 차리 함수에 대해 알아본다</li>
 </ul>
-<ol style="list-style-type: decimal">
-<li>현재 R session<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> 정보(R 설치 버전, locale, 로딩 packages) 출력</li>
-</ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-check.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R의 설치 버전 및 현재 설정된 locale(언어, 시간대) 및 로딩된 R package 정보 출력</span></span>
-<span id="cb1-2"><a href="r-check.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>() </span></code></pre></div>
-<pre><code>R version 4.0.5 (2021-03-31)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 18.04.5 LTS
-
-Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3
-LAPACK: /usr/lib/x86_64-linux-gnu/libopenblasp-r0.2.20.so
-
-locale:
- [1] LC_CTYPE=ko_KR.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=ko_KR.UTF-8        LC_COLLATE=ko_KR.UTF-8    
- [5] LC_MONETARY=ko_KR.UTF-8    LC_MESSAGES=ko_KR.UTF-8   
- [7] LC_PAPER=ko_KR.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=ko_KR.UTF-8 LC_IDENTIFICATION=C       
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-other attached packages:
- [1] kableExtra_1.3.4 gtsummary_1.3.7  gt_0.2.2         glue_1.4.2      
- [5] forcats_0.5.1    stringr_1.4.0    dplyr_1.0.4      purrr_0.3.4     
- [9] readr_1.4.0      tidyr_1.1.3      tibble_3.1.0     ggplot2_3.3.3   
-[13] tidyverse_1.3.0  rmarkdown_2.7    knitr_1.31      
-
-loaded via a namespace (and not attached):
- [1] Rcpp_1.0.6          svglite_2.0.0       lubridate_1.7.10   
- [4] lattice_0.20-41     assertthat_0.2.1    digest_0.6.27      
- [7] utf8_1.1.4          R6_2.5.0            cellranger_1.1.0   
-[10] backports_1.2.1     reprex_1.0.0        evaluate_0.14      
-[13] highr_0.8           httr_1.4.2          pillar_1.5.0       
-[16] rlang_0.4.10        readxl_1.3.1        rstudioapi_0.13    
-[19] jquerylib_0.1.3     Matrix_1.3-2        splines_4.0.5      
-[22] webshot_0.5.2       munsell_0.5.0       broom_0.7.5        
-[25] compiler_4.0.5      modelr_0.1.8        xfun_0.21          
-[28] systemfonts_1.0.1   pkgconfig_2.0.3     htmltools_0.5.1.1  
-[31] tidyselect_1.1.0    bookdown_0.21       viridisLite_0.3.0  
-[34] fansi_0.4.2         crayon_1.4.1        dbplyr_2.1.0       
-[37] withr_2.4.1         grid_4.0.5          jsonlite_1.7.2     
-[40] gtable_0.3.0        lifecycle_1.0.0     DBI_1.1.1          
-[43] magrittr_2.0.1      scales_1.1.1        cli_2.3.1          
-[46] stringi_1.5.3       broom.helpers_1.2.1 fs_1.5.0           
-[49] xml2_1.3.2          bslib_0.2.4         ellipsis_0.3.1     
-[52] generics_0.1.0      vctrs_0.3.6         tools_4.0.5        
-[55] hms_1.0.0           survival_3.2-10     yaml_2.2.1         
-[58] colorspace_2.0-0    rvest_0.3.6         haven_2.3.1        
-[61] usethis_2.0.1       sass_0.3.1         </code></pre>
+</div>
 <p></p>
-<p><br/></p>
-<ol start="2" style="list-style-type: decimal">
-<li>문자열 출력</li>
-</ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="r-check.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#문자열 출력</span></span>
-<span id="cb3-2"><a href="r-check.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Hello R&quot;</span>) <span class="co">#문자열</span></span></code></pre></div>
-<pre><code>[1] &quot;Hello R&quot;</code></pre>
-<p></p>
+<div id="ch03-require" class="section level4 unnumbered">
+<h4><strong>학습 필요성</strong></h4>
+<ul>
+<li><p>실제 데이터는 다양한 형태의 텍스트(문자열)을 포함</p></li>
+<li><p>R에서 문자열을 이용한 반복 계산 가능</p></li>
+<li><p>대규모 텍스트 데이터(웹문서, 블로그, SNS, 뉴스, 논문, 상품평, …)로부터 새로운 정보 및 지식을 도출하기 위한 텍스트 처리에 대한 기본적 이해</p></li>
+<li><p>여러 문자열로 이루어진 방대한 텍스트 벡터에서 특정 패턴을 갖고 있는 구문을 선별해야 할 경우, 패턴을 도식화 할 수 있는 함축적 표현 필요 <span class="math inline">\(\rightarrow\)</span> <strong>정규 표현식</strong></p></li>
+</ul>
+</div>
+<div id="regex-prim-fun" class="section level4 unnumbered">
+<h4><strong>정규 표현식의 기본함수</strong></h4>
 <blockquote>
-<p><code>#</code> 기호는 주석의 시작을 의미하고 실제로 실행되지 않음 같은 행에서 <code>#</code> 뒤 내용의 코드 역시 실행되지 않음</p>
-</blockquote>
-<ol start="3" style="list-style-type: decimal">
-<li><code>a</code> 라는 변수에 숫자 9, <code>b</code>라는 변수에 숫자 7를 할당 후 출력</li>
-</ol>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="r-check.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 수치형 값(scalar)을 변수에 할당(assign)</span></span>
-<span id="cb5-2"><a href="r-check.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 여러 명령어를 한줄에 입력할 때에는 세미콜론(;)으로 구분</span></span>
-<span id="cb5-3"><a href="r-check.html#cb5-3" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="dv">9</span>; b <span class="ot">=</span> <span class="dv">7</span></span>
-<span id="cb5-4"><a href="r-check.html#cb5-4" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
-<pre><code>[1] 9</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="r-check.html#cb7-1" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div>
-<pre><code>[1] 7</code></pre>
-<p></p>
-<p><br/></p>
-<ol start="4" style="list-style-type: decimal">
-<li>변수 <code>a</code>와 <code>b</code>의 사칙연산</li>
-</ol>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="r-check.html#cb9-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">+</span>b; a<span class="sc">-</span>b; a<span class="sc">*</span>b; a<span class="sc">/</span>b</span></code></pre></div>
-<pre><code>[1] 16</code></pre>
-<pre><code>[1] 2</code></pre>
-<pre><code>[1] 63</code></pre>
-<pre><code>[1] 1.285714</code></pre>
-<p></p>
-<p><br/></p>
-<ol start="5" style="list-style-type: decimal">
-<li>R 그래픽 맛보기: 정규분포로부터 난수 100개 생성 후 생성된 데이터에 대한 히스토그램 작성</li>
-</ol>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="r-check.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 난수 생성 시 값은 매번 달라지기 때문에 seed를 주어 일정값이 생성되도록 고정</span></span>
-<span id="cb14-2"><a href="r-check.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;=&quot;과 &quot;&lt;-&quot;는 모두 동일한 기능을 가진 할당 연산자임</span></span>
-<span id="cb14-3"><a href="r-check.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#평균이 0 이고 분산이 1인 정규분포에서 난수 100개 생성</span></span>
-<span id="cb14-4"><a href="r-check.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>) <span class="co"># random seed 지정</span></span>
-<span id="cb14-5"><a href="r-check.html#cb14-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>) <span class="co"># 난수 생성</span></span>
-<span id="cb14-6"><a href="r-check.html#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x) <span class="co"># 히스토그램</span></span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:check-04"></span>
-<img src="01-introduction_files/figure-html/check-04-1.svg" alt="정규분포 100개의 히스토그램" width="672" />
-<p class="caption">
-Figure 1.2: 정규분포 100개의 히스토그램
-</p>
-</div>
-<p></p>
-<p><br/></p>
-
-<div class="rmdtip">
-R 명령어 또는 전체 프로그램 소스 실행 시 매우 빈번히 오류가 나타나는데, 이를 해결할 수 있는 가장 좋은 방법은 앞에서 언급한 Google을 이용한 검색 또는 R 설치 시 자체적으로 내장되어 있는 도움말을 참고하는 것이 가장 효율적임.
-</div>
-<p></p>
-<p><br/></p>
-<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">
-<span id="tab:tab-help">Table 1.1: </span>R help 관련 명령어 리스트
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-도움말 보기 명령어
-</th>
-<th style="text-align:left;">
-설명
-</th>
-<th style="text-align:left;">
-사용법
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-<code>help</code> 또는 <code>?</code>
-</td>
-<td style="text-align:left;width: 5cm; ">
-도움말 시스템 호출
-</td>
-<td style="text-align:left;">
-<code>help(함수명)</code>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>help.search</code> 또는 <code>??</code>
-</td>
-<td style="text-align:left;width: 5cm; ">
-주어진 문자열을 포함한 문서 검색
-</td>
-<td style="text-align:left;">
-<code>help.search(pattern)</code>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>example</code>
-</td>
-<td style="text-align:left;width: 5cm; ">
-topic의 도움말 페이지에 있는 examples section 실행
-</td>
-<td style="text-align:left;">
-<code>example(함수명)</code>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-<code>vignette</code>
-</td>
-<td style="text-align:left;width: 5cm; ">
-topic의 pdf 또는 html 레퍼런스 메뉴얼 불러오기
-</td>
-<td style="text-align:left;">
-<code>vignette(패키지명 또는 패턴)</code>
-</td>
-</tr>
-</tbody>
-</table>
-<p></p>
-<p><br/></p>
-
-<div class="rmdtip">
-<p><strong>Vignette</strong> 의 활용: 데이터를 기반으로 사용하고자 하는 패키지의 실제 활용 예시를 작성한 문서이기 때문에 초보자들이 R 패키지 활용에 대한 접근성을 높혀줌.</p>
 <ul>
-<li><code>vignette()</code></li>
-<li><code>browseVignettes()</code></li>
+<li><p><strong><code>grep()</code>, <code>grepl()</code></strong>: 문자형 벡터에서 정규 표현식 또는 문자 패턴의 일치를 검색.</p>
+<ul>
+<li><strong><code>grep()</code></strong>: 일치하는 특정 문자열을 포함하는 문자형 벡터 또는 인덱스를 반환</li>
+<li><strong><code>grepl()</code></strong>: 문자열 포함 여부에 대한 논리값 반환<br />
+</li>
+</ul></li>
+<li><p><strong><code>regexpr()</code>, <code>gregexpr()</code></strong>: 문자형 벡터에서 정규 표현식 또는 문자열 패턴과 일치하는 원소를 검색하고, 일치가 시작되는 문자열의 인덱스와 일치 길이를 반환</p></li>
+<li><p><strong><code>sub()</code>, <code>gsub()</code></strong>: 문자열 벡터에서 정규 표현식 또는 문자열 패턴과 일치하는 원소를 검색하고 해당 문자열을 다른 문자열로 변경</p></li>
+<li><p><strong><code>regexec()</code>: <code>regexpr()</code></strong>와 동일하게 일치가 시작되는 문자열의 인덱스를 반환하지만 괄호로 묶인 하위 표현식의 위치를 추가로 반환</p></li>
+</ul>
+</blockquote>
+
+<div class="rmdnote">
+정규 표현식 및 문자열 처리를 위한 함수의 종류는 매우 다양하지만, 본 강의에서는 정규 표현식의 이해를 위해 일부만 소개할 것임
+</div>
+<p></p>
+</div>
+<div id="string-basic" class="section level4 unnumbered">
+<h4><strong>문자열 기초</strong></h4>
+<ul>
+<li>탈출 지시자(escape indicator): <code>\</code>
+<ul>
+<li>키보드로 입력할 수 없는 문자를 입력하기 위해 사용</li>
+<li>문자열에 백슬래쉬 <code>\</code>를 입력하려면 <code>\\</code>로 표시</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb973"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb973-1"><a href="string-regexp.html#cb973-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 문자열에 따옴표(single of double quote, &#39;, &quot;) 입력</span></span>
+<span id="cb973-2"><a href="string-regexp.html#cb973-2" aria-hidden="true" tabindex="-1"></a>double_quote <span class="ot">&lt;-</span> <span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">&quot;</span> </span>
+<span id="cb973-3"><a href="string-regexp.html#cb973-3" aria-hidden="true" tabindex="-1"></a>double_quote</span></code></pre></div>
+<pre><code>[1] &quot;\&quot;&quot;</code></pre>
+<div class="sourceCode" id="cb975"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb975-1"><a href="string-regexp.html#cb975-1" aria-hidden="true" tabindex="-1"></a>single_quote <span class="ot">&lt;-</span> <span class="st">&#39;</span><span class="sc">\&#39;</span><span class="st">&#39;</span> </span>
+<span id="cb975-2"><a href="string-regexp.html#cb975-2" aria-hidden="true" tabindex="-1"></a>single_quote</span></code></pre></div>
+<pre><code>[1] &quot;&#39;&quot;</code></pre>
+<div class="sourceCode" id="cb977"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb977-1"><a href="string-regexp.html#cb977-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">&quot;</span>, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">&quot;</span>, <span class="st">&#39;</span><span class="sc">\&#39;</span><span class="st">&#39;</span>)</span>
+<span id="cb977-2"><a href="string-regexp.html#cb977-2" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(x)</span></code></pre></div>
+<pre><code>&quot;
+\
+&#39;</code></pre>
+<div class="sourceCode" id="cb979"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb979-1"><a href="string-regexp.html#cb979-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 백슬레쉬가 포함된 문자열</span></span>
+<span id="cb979-2"><a href="string-regexp.html#cb979-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">&quot;abc</span><span class="sc">\n\t</span><span class="st">abc&quot;</span></span>
+<span id="cb979-3"><a href="string-regexp.html#cb979-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb979-4"><a href="string-regexp.html#cb979-4" aria-hidden="true" tabindex="-1"></a><span class="co"># \n: Enter</span></span>
+<span id="cb979-5"><a href="string-regexp.html#cb979-5" aria-hidden="true" tabindex="-1"></a><span class="co"># \t: tab 문자를 표현</span></span>
+<span id="cb979-6"><a href="string-regexp.html#cb979-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb979-7"><a href="string-regexp.html#cb979-7" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(x)</span></code></pre></div>
+<pre><code>abc
+    abc</code></pre>
+<div class="sourceCode" id="cb981"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb981-1"><a href="string-regexp.html#cb981-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 특수문자 표현</span></span>
+<span id="cb981-2"><a href="string-regexp.html#cb981-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">&quot;\u00b5&quot;</span> <span class="co"># 그리스 문자 mu 표현 (유니코드)</span></span>
+<span id="cb981-3"><a href="string-regexp.html#cb981-3" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>[1] &quot;µ&quot;</code></pre>
+<p></p>
+
+<div class="rmdtip">
+<p><strong>참고자료</strong></p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=q8SzNKib5-4&amp;t=18s">Youtube 동영상</a>: 영어 강의가 옥의 티…</li>
+<li><a href="https://regexr.com">regexr.com</a>: 정규 표현식의 패턴 확인 가능</li>
+<li><a href="https://en.wikibooks.org/wiki/R_Programming/Text_Processing">Wikibooks R programming: Text processing</a></li>
 </ul>
 </div>
 <p></p>
 </div>
-<div class="footnotes">
-<hr />
-<ol start="3">
-<li id="fn3"><p>현재 실행되고 있는 R의 작업공간<a href="r-check.html#fnref3" class="footnote-back">↩︎</a></p></li>
-</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="installation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="rconsle-script.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="is-as-function.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="유용한-문자열-관련-함수.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -504,7 +391,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/01-introduction.Rmd",
+"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/03-string-regexp.Rmd",
 "text": "Edit"
 },
 "history": {

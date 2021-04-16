@@ -1,0 +1,1298 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# 문자열 처리와 정규표현식 {#string-regexp}
+
+```{r, echo=FALSE, message=FALSE}
+require(knitr)
+opts_chunk$set(size="footnotesize",
+                      comment = NA,
+                      highlight = TRUE)
+def.chunk.hook  <- knitr::knit_hooks$get("chunk")
+knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
+})
+
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$linewidth)) {
+    x = knitr:::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  }
+  hook_output(x, options)
+})
+opts_chunk$set(tidy.opts=list(blank=FALSE, width.cutoff=80))
+options(linewidth = 60)
+
+require(tidyverse)
+require(rmarkdown)
+require(knitr)
+require(kableExtra)
+```
+
+
+```{block2, type="rmdimportant"}
+**학습 목표**
+
+- 텍스트 문자 처리에 있어 가장 기본인 정규 표현식(regular rexpression)에 대해 알아본다.
+- R에서 기본으로 제공하는 문자열 차리 함수에 대해 알아본다
+
+```
+
+
+#### **학습 필요성** {#ch03-require .unnumbered}
+
+
+- 실제 데이터는 다양한 형태의 텍스트(문자열)을 포함
+
+
+- R에서 문자열을 이용한 반복 계산 가능
+
+
+- 대규모 텍스트 데이터(웹문서, 블로그, SNS, 뉴스, 논문, 상품평, ...)로부터 새로운 정보 및 지식을 도출하기 위한 텍스트 처리에 대한 기본적 이해
+
+
+- 여러 문자열로 이루어진 방대한 텍스트 벡터에서 특정 패턴을 갖고 있는 구문을 선별해야 할 경우, 패턴을 도식화 할 수 있는 함축적 표현 필요 $\rightarrow$ **정규 표현식**
+
+
+#### **정규 표현식의 기본함수** {#regex-prim-fun .unnumbered}
+
+
+>- **`grep()`, `grepl()`**: 문자형 벡터에서 정규 표현식 또는 문자 패턴의 일치를 검색. 
+>   - **`grep()`**: 일치하는 특정 문자열을 포함하는 문자형 벡터 또는 인덱스를 반환
+>   - **`grepl()`**: 문자열 포함 여부에 대한 논리값 반환  
+>- **`regexpr()`, `gregexpr()`**: 문자형 벡터에서 정규 표현식 또는 문자열 패턴과 일치하는 원소를 검색하고, 일치가 시작되는 문자열의 인덱스와 일치 길이를 반환
+>
+>- **`sub()`, `gsub()`**: 문자열 벡터에서 정규 표현식 또는 문자열 패턴과 일치하는 원소를 검색하고 해당 문자열을 다른 문자열로 변경
+>
+>- **`regexec()`: `regexpr()`**와 동일하게 일치가 시작되는 문자열의 인덱스를 반환하지만 괄호로 묶인 하위 표현식의 위치를 추가로 반환
+
+
+
+```{block2, type="rmdnote"}
+정규 표현식 및 문자열 처리를 위한 함수의 종류는 매우 다양하지만, 본 강의에서는 정규 표현식의 이해를 위해 일부만 소개할 것임
+```
+
+
+
+
+#### **문자열 기초** {#string-basic .unnumbered}
+
+
+- 탈출 지시자(escape indicator): `\` 
+   - 키보드로 입력할 수 없는 문자를 입력하기 위해 사용
+   - 문자열에 백슬래쉬 `\`를 입력하려면 `\\`로 표시
+
+
+```{r back-slash}
+# 문자열에 따옴표(single of double quote, ', ") 입력
+double_quote <- "\"" 
+double_quote
+single_quote <- '\'' 
+single_quote
+
+x <- c("\"", "\\", '\'')
+writeLines(x)
+
+# 백슬레쉬가 포함된 문자열
+x <- "abc\n\tabc"
+
+# \n: Enter
+# \t: tab 문자를 표현
+
+writeLines(x)
+
+# 특수문자 표현
+x <- "\u00b5" # 그리스 문자 mu 표현 (유니코드)
+x
+```
+
+
+```{block2, type="rmdtip"}
+**참고자료**
+
+   - [Youtube 동영상](https://www.youtube.com/watch?v=q8SzNKib5-4&t=18s): 영어 강의가 옥의 티...
+   - [regexr.com](https://regexr.com): 정규 표현식의 패턴 확인 가능
+   - [Wikibooks R programming: Text processing](https://en.wikibooks.org/wiki/R_Programming/Text_Processing)
+
+```
+
+
+## 유용한 문자열 관련 함수
+
+### **`nchar()`** {#nchar}
+
+- 인간이 눈으로 읽을 수 있는 문자의 개수(길이)를 반환
+- 공백, 줄바꿈 표시자(예: `\n`)도 하나의 문자 개수로 인식
+- 한글의 한 글자는 2 바이트(byte)지만 한 글자로 인식 $\rightarrow$ byte 단위 반환 가능
+
+```{r nchar-proto, eval=FALSE}
+# 문자열을 구성하는 문자 개수 반환
+nchar(
+  x, # 문자형 벡터
+  type # "bytes": 바이트 단위 길이 반환
+       # "char": 인간이 읽을 수 있는 글자 길이 반환
+       # "width": 문자열이 표현된 폭의 길이 반환
+)
+```
+
+
+- 예시
+
+
+```{r nchar-ex}
+x <- "Carlos Gardel's song: Por Una Cabeza"
+nchar(x)
+
+y <- "abcde\nfghij"
+nchar(y)
+
+z <- "양준일: 가나다라마바사"
+nchar(z)
+
+# 문자열 벡터
+str <- sentences[1:10]
+nchar(str)
+
+s <- c("abc", "가나다", "1234[]", "R programming\n", "\"R\"")
+
+nchar(s, type = "char")
+nchar(s, type = "byte")
+nchar(s, type = "width")
+
+```
+
+
+```{block2, type="rmdwarning"}
+백터의 원소 개수를 반환하는 `length()` 함수와는 다름. 
+```
+
+
+
+### **`paste()`**, **`paste0()`** {#paste}
+
+- 하나 이상의 문자열을 연결하여 하나의 문자열로 만들어주는 함수
+- Excel의 문자열 연결자인 `&`와 거의 동일한 기능을 수행
+
+
+```{r paste-proto, eval=FALSE}
+paste(
+  ..., # 한 개 이상의 R 객체. 강제로 문자형 변환
+  sep  # 연결 구분자: 디폴트 값은 공백(" ")
+  collapse # 묶을 객체가 하나의 문자열 벡터인 경우
+           # 모든 원소를 collapse 구분자로 묶은 길이가 1인 벡터 반환
+)
+```
+
+
+- `paste0()`은 `paste()`의 wrapper 함수이고 `paste()`의 구분자 인수 `sep = ""` 일 때와 동일한 결과 반환
+- 예시
+
+```{r paste-ex}
+i <- 1:length(letters)
+
+paste(letters, i) # sep = " "
+paste(letters, i, sep = "_") # sep = "-"
+
+paste0(letters, i) # paste(letters, i, sep = "") 동일
+
+# collapse 인수 활용
+paste(letters, collapse = "")
+writeLines(paste(str, collapse = "\n"))
+
+# 3개 이상 객체 묶기
+paste("Col", 1:2, c(TRUE, FALSE, TRUE), sep =" ", collapse = "<->")
+
+
+# paste 함수 응용
+# 스트링 명령어 실행 
+exprs <- paste("lm(mpg ~", names(mtcars)[3:5], ", data = mtcars)")
+exprs
+sapply(1:length(exprs), function(i) coef(eval(parse(text = exprs[i]))))
+
+```
+
+
+### **`sprintf()`** {#sprintf}
+
+- `C` 언어의 `sprintf()` 함수와 동일하며 특정 변수들의 값을 이용해 문자열을 반환함
+- 수치형 값의 소숫점 자리수를 맞추거나 할 때 유용하게 사용
+- 포맷팅 문자열을 통해 수치형의 자릿수를 지정 뿐 아니라 전체 문자열의 길이 및 정렬 가능
+- 대표적인 포맷팅 문자열은 아래 표와 같음. 
+
+```{r sprintf-format, echo=FALSE, message=FALSE}
+Format <- c("%s", "%d", "%f", "%e, %E")
+`설명` <- c("문자열", "정수형", "부동 소수점 수", "지수형")
+sprintf_fmt <- data.frame(Format, `설명`, check.names = F, 
+                          stringsAsFactors = FALSE)
+kable(sprintf_fmt)
+```
+
+
+- 예시 
+
+```{r sprintf-ex, error=TRUE}
+options()$digits #
+pi # 파이 값
+sprintf("%f", pi) 
+
+# 소숫점 자리수 3자리 까지 출력
+sprintf("%.3f", pi)
+
+# 소숫점 출력 하지 않음
+sprintf("%1.0f", pi)
+
+# 출력 문자열의 길이를 5로 고정 후
+# 소숫점 한 자리까지 출력
+sprintf("%5.1f", pi)
+nchar(sprintf("%5.1f", pi))
+
+# 빈 공백에 0값 대입
+sprintf("%05.1f", pi)
+
+# 양수/음수 표현
+sprintf("%+f", pi)
+sprintf("%+f", -pi)
+
+# 출력 문자열의 첫 번째 값을 공백으로
+sprintf("% f", pi) 
+
+# 왼쪽 정렬
+sprintf("%-10.3f", pi)
+
+# 수치형에 정수 포맷을 입력하면?
+sprintf("%d", pi)
+sprintf("%d", 100); sprintf("%d", 20L)
+
+# 지수형
+sprintf("%e", pi)
+sprintf("%E", pi)
+sprintf("%.2E", pi)
+
+
+# 문자열 
+sprintf("%s = %.2f", "Mean", pi)
+
+# 응용 
+mn <- apply(cars, 2, mean)
+std <- apply(cars, 2, sd)
+
+# Mean ± SD 형태로 결과 출력 (소숫점 2자리 고정)
+res <- sprintf("%.2f \U00B1 %.2f", mn, std)
+resp <- paste(paste0(names(cars), ": ", res), collapse = "\n")
+writeLines(resp)
+```
+
+
+### **`substr()`** {#substr}
+
+
+- 문자열에서 특정 부분을 추출하는 함수
+- 보통 한 문자열이 주어졌을 때 `start`에서 `end` 까지 추출
+
+```{r substr-proto, eval=FALSE}
+substr(
+  x, # 문자형 벡터
+  start, # 문자열 추출 시작 위치
+  stop # 무자열 추출 종료 위치
+)
+```
+
+- 예시 
+
+```{r substr-ex}
+cnu <- "충남대학교 자연과학대학 정보통계학과"
+substr(cnu, start = 14, stop = nchar(str))
+
+# 문자열 벡터에서 각 원소 별 적용
+substr(str, 5, 15)
+
+```
+
+### **`tolower()`, `toupper()`** {#low-up-fun}
+
+- 대문자를 소문자(`tolower()`) 혹은 소문자를 대문자(`toupper()`)로 변환
+
+```{r low-up-fun-ex}
+LETTERS; tolower(LETTERS)
+
+letters; toupper(letters)
+```
+
+
+### glue 패키지를 활용한 문자열 다루기 
+
+```{block2, type="rmdtip"}
+- glue 패키지에서 제공하는 `glue()` 함수를 통해 지금까지 학습한 `paste()`, `paste0()` 
+보다 손쉽게 문자열을 결합할 수 있음
+
+- 중괄호(`{}`, curly bracket)를 활용해 R 객체에 저장되어 있는 값과 지정한 문자열을 결합
+```
+
+
+#### **glue** 패키지 설치 
+
+```{r, eval=FALSE}
+# CRAN에 배포된 패키지 설치
+install.packages('glue')
+
+# 개발자 버전 설치
+install.packages("devtools")
+devtools::install_github("tidyverse/glue")
+
+```
+
+
+#### **사용 방법**
+
+R 객체를 직접 문자열과 결합 $\rightarrow$ `문자열 + {R 객체명}`
+
+
+```{r}
+library(glue)
+name <- "Boncho Ku"
+glue("My name is {name}.")
+
+```
+
+
+긴 문자열과 R 객체를 결합 시 함수 내 `,`로 구분 후 결합 가능
+
+
+```{r}
+name <- "Boncho Ku"
+age <- 42
+anniversary <- as.Date("2013-03-24")
+
+glue("My name is {name}, ", 
+     "My age next year is {age + 1}, ", 
+     "My wedding aniversary is {anniversary}.")
+
+
+```
+
+
+함수 내 임시변수를 활용한 문자열 결함
+
+```{r}
+glue("My name is {name_temp}, ", 
+     "My age next year is {age_temp + 1}, ", 
+     "My wedding aniversary is {anniversary_temp}.", 
+     name_temp = "Boncho Ku", 
+     age_temp = 42, 
+     anniversary_temp = as.Date("2013-03-24"))
+```
+
+
+데이터 프레임 변수에 일괄 적용 가능
+
+
+```{r}
+dat <- head(iris)
+glue("The {dat$Species} has a sepal length {dat$Sepal.Length}")
+
+
+```
+
+
+단순히 새로 줄바꿈(`Enter`)으로 두 줄 이상 문자열을 생성 가능
+
+
+```{r}
+
+glue("The first line
+     The second line
+     The third line")
+
+```
+
+
+문장 끝에 `\\`를 붙이면 줄바꿈이 실행되지 않음
+
+
+```{r}
+
+glue("The first line, \\
+     The second line, \\
+     The third line")
+
+```
+
+
+이중 중괄호(`{{}}`): `{R 객체명}`을 그대로 출럭
+
+
+```{r}
+name <- "Boncho Ku"
+glue("My name is {name}, not {{name}}.")
+```
+
+`.open` 및 `.close`를 사용해 대체 구분기호 지정 가능
+
+```{r, results='markup'}
+one <- 1
+glue("The value of $\\int (\\sqrt{2\\pi}\\sigma)^{-1}", 
+     "\\exp[-(x - \\mu)^2/2\\sigma^2] dx$", 
+     " is $<<one>>$", .open = "<<", .close = ">>")
+
+```
+
+위 문자열을 Rmarkdown 문서에 수식으로 표현하고 싶다면 inline R code chunk 사용
+
+```` `r ```` `glue("The value of $\\int (\\sqrt{2\\pi}\\sigma)^{-1}", "\\exp[-(x - \\mu)^2/2\\sigma^2] dx$", " is $<<one>>$", .open = "<<", .close = ">>")` ```` ` ````
+
+`r glue("The value of $\\int (\\sqrt{2\\pi}\\sigma)^{-1}", "\\exp[-(x - \\mu)^2/2\\sigma^2] dx$", " is $<<one>>$", .open = "<<", .close = ">>")`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 정규표현식 기본 함수 {#regexp-basic-fun}
+
+### **`grep()`, `grepl()`** {#grep-grepl}
+
+정규표현식을 이용한 특정 문자 패턴 검색 시 가장 빈번히 사용되는 함수들 중 하나임. 
+
+#### **`grep()`** {#grep .unnumbered}
+
+특정 문자 벡터에서 찾고자 하는 패턴과 일치하는 원소의 인덱스, 원소값 반환
+
+
+```{r grep-proto, eval=FALSE}
+# 일치하는 특정 문자열을 포함하는 원소값(문자형) 또는 인덱스(정수)를 반환
+
+grep(
+  pattern, # 정규 표현식 또는 문자 패턴
+  string,  # 패턴을 검색할 문자열 벡터
+  value    # 논리값 
+           # TRUE: pattern에 해당하는 원소값 반환
+           # FALSE: pattern이 있는 원소의 색인 반환
+)
+
+```
+
+
+```{r grep-ex}
+x <- c("Equator", "North Pole", "South Pole")
+
+# x에서 Pole 이 있는 원소의 문자열 반환
+grep("Pole", x, value = T)
+
+# x에서 Pole 이 있는 원소의 색인 반환
+grep("Pole", x, value = F)
+
+# x에서 Eq를 포함한 원소 색인 반환
+grep("Eq", x)
+```
+
+
+#### **`grepl()`** {#grepl .unnumbered}
+
+
+`grep()`과 유사한 기능을 갖지만, 함수의 반환값이 논리형 벡터임
+
+
+```{r grepl-proto, eval=FALSE}
+# 일치하는 특정 문자열을 포함하는 원소 색인에 대한 논리값 반환
+
+grepl(
+  pattern, # 정규 표현식 또는 문자 패턴
+  string  # 패턴을 검색할 문자열 벡터
+)
+
+```
+
+- 사용 예시
+
+```{r grepl-ex}
+# grepl() 예시
+# Titanic data 불러오기
+url1 <- "https://raw.githubusercontent.com/"
+url2 <- "agconti/kaggle-titanic/master/data/train.csv"
+titanic <- read.csv(paste0(url1, url2), 
+                    stringsAsFactors = FALSE)
+
+# 승객이름 추출 
+pname <- titanic$Name
+
+# 승객 이름이 James 인 사람만 추출
+g <- grepl("James", pname)
+pname[g]
+
+```
+
+
+### **`regexpr()`**, **`gregexpr()`**
+
+`grep()`과 `grepl()`의 한계점 보완: 특정 문자 패턴의 일치여부에 대한 정보를 제공하지만 위치 및 정규식의 일치 여부를 알려주지는 않음
+
+#### **`regexpr()`** {#regexpr .unnumbered}
+
+- 문자열에서 패턴이 일치하는 문자(표현)가 첫 번째 등장하는 위치와 몇 개의 문자로 구성(길이) 되어 있는지를 반환
+- 예시
+
+```{r regexpr-ex1}
+
+x <- c("Darth Vader: If you only knew the power of the Dark Side. 
+       Obi-Wan never told you what happend to your father", 
+       "Luke: He told me enough! It was you who killed him!", 
+       "Darth Vader: No. I'm your father")
+
+# grep 계열 함수
+grep("you", x); grepl("you", x)
+
+# regexpr() 
+regexpr("you", x) # 각 x의 문자열에서 you가 처음 나타난 위치 및 길이 반환
+regexpr("father", x) # 패턴을 포함하지 않은 경우 -1 반환
+
+```
+
+- `substr()` 함수와 `regexpr()` 함수를 이용해 텍스트 내 원하는 문자 추출 가능
+
+```{r regexpr-ex2}
+idx <- regexpr("father", x)
+substr(x, idx, idx + attr(idx, "match.length") - 1)
+```
+
+
+#### **`gregexpr()`** {#gregexpr .unnumbered}
+
+- 영역에 걸쳐 패턴과 일치하는 문자의 위치 및 길이 반환(`regexpr()`의 global 버전)  
+
+
+```{r gregexpr-ex}
+gregexpr("you", x) # 각 x의 문자열에서 you가 나타난 모든 위치 및 길이 반환
+gregexpr("father", x) # 패턴을 포함하지 않은 경우 -1 반환
+```
+
+
+### **`sub()`**, **`gsub()`** {#sub-gsub-fun}
+
+- 검색하고자 하는 패턴을 원하는 문자로 변경
+
+- 문자열 벡터의 패턴을 일치시키거나 문자열 정리가 필요할 때 사용
+
+
+#### **`sub()`** {#sub .unnumbered}
+
+- 문자열에서 첫 번째 일치하는 패턴만 변경
+
+```{r sub-proto, eval=FALSE}
+sub(pattern, # 검색하고자 하는 문자, 패턴, 표현
+    replacement, # 검색할 패턴 대신 변경하고자 하는 문자 및 표현
+    x # 문자형 벡터
+    )
+```
+
+- 예시 
+
+```{r sub-ex}
+jude <- c("Hey Jude, don't make it bad", 
+         "Take a sad song and make it better", 
+         "Remember to let her into your heart", 
+         "Then you can start to make it better")
+
+sub("a", "X", jude)
+
+```
+
+#### **`gsub()`** {#gsub-fun .unnumbered}
+
+- 문자열에서 일치하는 모든 패턴 변경
+- 예시
+
+```{r gsub-ex}
+sub(" ", "_", jude)
+
+gsub(" ", "_", jude)
+
+gsub("a", "X", jude)
+
+```
+
+
+### **`regexec()`** {#regexec-fun}
+
+
+`regexpr()`과 유사하게 작동하지만 괄호(`()`)로 묶인 하위 표현식에 대한 인덱스를 제공
+
+- `()`: 정규 표현식의 메타 문자 중 하나로 그룹을 나타냄 $\rightarrow$ 정규표현식 내 논리적 테스트 수행 가능
+
+
+```{r}
+bla <- c("I like statistics", 
+         "I like R programming", 
+         "I like bananas", 
+         "Estates and statues are too expensive")
+
+grepl("like", bla)
+
+grepl("are", bla)
+
+grepl("(like|are)", bla)
+
+```
+
+- 찾고자 하는 패턴을 두 그룹으로 나눌 때 유용
+- 예시
+
+```{r}
+gregexpr("stat", bla) 
+gregexpr("(st)(at)", bla) 
+
+# "at"에 대한 패턴을 찾지 못하고 
+# "stat" 패턴과 과 동일한 결과 반환
+
+regexec("(st)(at)", bla)
+# "stat" 패턴도 동시에 반환됨을 유의
+# 첫 번째 일치 패턴만 반환
+
+```
+
+
+### **`strsplit()`** {#strsplit}
+
+- 문자열에서 매칭되는 특정 패턴(문자)을 기준으로 문자열을 분할함
+
+```{r strsplt-proto, eval=FALSE}
+strsplit(
+  x,    # 문자형 벡터
+  split # 분할 구분 문자(정규표현식 포함)
+)
+```
+
+- 예시 
+
+```{r strsplit-ex}
+jude_w1 <- strsplit(jude, " ")
+jude_w1
+
+# 공백, 쉼표가 있는 경우 구분
+jude_w2 <- strsplit(jude, "(\\s|,)")
+jude_w2
+```
+
+
+
+## 정규 표현식(regular expression) {#reg-exp}
+
+- 주어진 문자열에 특정한 패턴이 있는 경우, 해당 패턴을 일반화(수식화)한 문자열
+
+- 특정 패턴을 표현한 문자열을 메타 문자(meta character) 라고 지칭
+
+- 일반적으로 특정 규칙 또는 패턴이 문자열을 **찾고(to find)**, 해당 규칙에 해당하는 문자열을 **대체(replace, substitute)** 하기 위해 사용
+
+- R 언어 뿐 아니라 타 프로그래밍 언어(C, Perl, Python 등) 워드 프로세서, 텍스트 편집기, 검색 엔진, 운영체제(Windows, Linux 등)에서도 범용적으로 사용
+
+- 정규식이라고도 불리우며 영어로는 regex 또는 regexp 로 명칭됨
+
+
+### 기본 메타 문자 {#basic-meta}
+
+```{r meta-char, echo=FALSE, message=FALSE}
+Expression <- c("\\.", "\\+", "\\*", "?", "^", "$", "{}", "()", "|")
+Name <- c("Period (마침표)", "Plus", "Asterisk", "Question mark", 
+          "Caret", "Dollar", "Curly bracket", "Parenthesis", "Vertical bar")
+`설명` <- c("무엇이든 한 글자를 의미", 
+            "\\+ 앞에 오는 표현이 하나 이상 포함", 
+            "\\* 앞에 오는 표현이 0 또는 하나 이상 포함", 
+            "? 앞에 오는 표현이 0 또는 하나 포함", 
+            "^ 뒤에 오는 표현으로 시작", 
+            "$ 앞에 오는 표연으로 끝나는 경우", 
+            "{} 앞에 정확히 {}에 있는 숫자만큼 반복되는 패턴 (예시 참고)", 
+            "() 정규 표현식 내 하위(그룹) 표현식 (예시 참고)", 
+            "| 의 왼쪽 또는 오른쪽 표현이 존재하는지")
+
+meta_char1 <- data.frame(Expression, 
+                         Name, `설명`, 
+                         check.names = FALSE, 
+                         stringsAsFactors = FALSE)
+
+kable(meta_char1,
+      align = "lll",
+      escape = TRUE, 
+      booktabs = T, caption = "정규표현식 메타 문자: 기본") %>%
+  kable_styling(bootstrap_options = c("condensed", "striped"), 
+                position = "center", 
+                font_size = 10, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1:2, width = "3cm") %>% 
+  column_spec(3, width = "7cm") %>% 
+  row_spec(1:9, monospace = TRUE)
+```
+
+
+- 메타 문자를 메타 문자가 아닌 문자 자체로 인식하기 위해서는 해당 문자 앞에 `\\`를 붙임
+
+
+```{r escape-ex1, error=TRUE}
+# 마침표가 있는 위치 반환
+str2 <- str[1:2]
+regexpr(".", str2)
+```
+
+```{r escape-ex2, error=TRUE}
+# 에러 출력
+regexpr("\.", str2)
+
+```
+
+```{r  escape-ex3, error=TRUE}
+# 정확한 표현
+regexpr("\\.", str2)
+
+```
+
+
+
+#### **`.` 마침표(period)** {#period .unnumbered}
+
+- 어떤 임의의 한 문자를 의미
+
+```{r dot-ex}
+# 문자열 자체가 존재하니까 참값 반환
+grepl(".", jude) 
+grepl(".", "#@#%@FDSAGF$%") 
+
+# 문자없음 ""
+grepl(".", "")
+
+# a로 시작하고 중간에 어떤 글자가 하나 존재하고 b로 끝나는 패턴 
+bla2 <- c("aac", "aab", "accb", "acadb")
+g <- grepl("a.b", bla2)
+bla2[g]
+
+# a와 b 사이 어떤 두 문자 존재하는 패턴
+g <- grepl("a..b", bla2)
+bla2[g]
+```
+
+
+#### **`+` (plus)** {#plus .unnumbered}
+
+- `+` 에 선행된 패턴이 한 번 이상 매칭 $\rightarrow$ `+` 앞에 문자를 1개 이상 포함
+
+```{r plus-ex}
+# "a"를 적어도 하나 이상 포함한 원소 반환
+grepl("a+", c("ab", "aa", "aab", "aaab", "b"))
+
+# "l"과 "n" 사이에 "o"가 하나 이상인 원소 반환
+grepl("lo+n", c("bloon", "blno", "leno", "lnooon", "lololon"))
+
+```
+
+
+#### **`*` (asterisk)** {#asterisk .unnumbered}
+
+- `*` 앞에 선행된 문자 또는 패턴이 0번 이상 매치 $\rightarrow$ `*` 앞에 문자를 0개 또는 1개 이상 포함
+
+
+```{r asterisk-ex}
+# xx가 "a"를 0 또는 1개 이상 포함하고 있는가?
+xx <- c("bbb", "acb", "def", "cde", "zde", "era", "xsery")
+# "a" 존재와 상관 없이 모든 문자열이 조건에 부합
+g <- grepl("a*", xx)
+xx[g]
+
+# "aab"와 "c" 사이에 "d"가 없거나 하나 이상인 경우 
+# "caabec"인 경우 "aab"와 "c" 사이에 "e"가 존재하기 때문에 FALSE
+grepl("aabd*c", c("aabddc", "caabec", "aabc"))
+
+```
+
+
+#### **`?` (question)** {#question .unnumbered}
+
+- `?` 앞에 항목은 선택 사항이며 많아야 한 번 매치 $\rightarrow$ `?` 앞의 문자를 0개 또는 1개 포함
+
+```{r question-ex}
+xx <- c("ac", "abbc", "abc", "abcd", "abbdc")
+
+g <- grepl("ab?c", xx) ## "a"와 "c" 사이 "b"가 0개 또는 1개 포함
+xx[g]
+
+yy <- c("aabc", "aabbc", "daabec", "aabbbc", "aabbbbc")
+g <- grepl("aabb?c", yy) ## "aab"와 "c" 사이에 "b"가 0개 또는 1개 있는 경우 일치
+yy[g]
+
+```
+
+
+#### **`^` (caret)** {#caret  .unnumbered}
+
+- `^` 뒤에 나오는 문자(열)로 시작하는 문자열 반환
+
+```{r caret-ex1}
+# str에서 "The"로 시작하는 문자열 반환
+g <- grepl("^The", str)
+str[g]
+```
+
+- `[^]`: 대괄호(straight bracket) 안에 첫 번째 문자가 `^`인 경우 `^`뒤에 있는 문자들을 제외한 모든 문자와 매치
+
+
+```{r caret-ex2}
+xx <- c("abc", "def", "xyz", "werx", "wbcsp", "cba")
+# "a", "b", "c"를 순서 상관 없이 동시에 포함하지 않은 문자열 반환
+g <- grepl("[^abc]", xx)
+xx[g]
+```
+
+
+- `^[]`: `[]` 안에 들어간 문자 중 어느 한 단어로 시작하는 문자열 반환
+
+```{r caret-ex3}
+xx <- c("def", "wasp", "sepcial", "statisitc", "abbey load", "cross", "batman")
+g <- grepl("^[abc]", xx)
+xx[g]
+```
+
+
+#### **`$` (dollar)** {#dollar  .unnumbered}
+
+- `$` 앞에 나오는 문자 및 패턴과 문자열의 맨 마지막 문자 패턴과 매치
+
+```{r dollar-ex}
+g <- grepl("father$", x)
+writeLines(x[g])
+```
+
+
+#### **`{}` (curly bracket)** {#c-bracket  .unnumbered}
+
+- `{}` 앞의 문자 패턴이 `{}` 안에 숫자만큼 반복되는 패턴을 매치
+   - `{n}`: 정확히 n 번 매치
+   - `{n,m}`: n 번에서 m 번 매치
+   - `{n, }`: 적어도 n 번 이상 매치 
+
+```{r c-bracket-ex}
+xx <- c("tango", "jazz", "swing jazz", "hip hop", 
+        "groove", "rock'n roll", "heavy metal")
+
+# "z"가 정확히 2번 반복되는 원소 반환
+g <- grepl("z{2}", xx)
+xx[g]
+
+# "e"가 2번 이상 반복되는 원소 반환
+yy <- c("deer", "abacd", "abcd", "daaeb", "eel", "greeeeg")
+g <- grepl("e{2,}", yy)
+xx[g]
+
+# "b"가 2번 이상 4번 이하 반복되고 앞에 "a"가 있는 원소 반환
+zz <- c("ababababab", "abbb", "cbbe", "xabbbbcd")
+g <- grepl("ab{2,4}", zz)
+zz[g]
+```
+
+
+```{block2, type="rmdnote"}
+**참고**: 위에서 소개한 메타 문자 중 `*`는 `{0,}`, `+`는 `{1,}`, `?`는 `{0,1}`과 동일한 의미를 가짐
+```
+
+
+
+#### **`()` (parenthesis)** {#parenthesis  .unnumbered}
+
+- 특정 문자열을 `()`로 grouping
+- 한 개 이상의 그룹 지정 가능
+
+
+```{r parenthesis-ex}
+# ab가 1~4회 이상 반복되는 문자열 반환
+g <- grepl("(ab){1,4}", zz)
+zz[g]
+
+# "The"로 시작하고  "punch"가 포함된 문자열 ㅂ반환
+g <- grepl("^(The)+.*(punch)", str)
+str[g]
+
+```
+
+
+#### **`|` (vertical bar)** {#vertical-bar  .unnumbered}
+
+
+- `|`를 기준으로 좌우 문자 패턴 중 하나를 의미하며 `OR` 조건과 동일한 의미를 가짐
+- `[]` 의 경우 메타문자나 문자 한글자에 대해서만 적용되는 반면 `|`는 문자를 묶어 문자열로 지정 가능
+
+
+```{r vertical-bar-ex}
+g <- grepl("(is|was)", str)
+str[g]
+
+g <- grepl("(are|were)", str)
+str[g]
+```
+
+
+### 문자 집합 {#character-set}
+
+```{r meta-char2, echo=FALSE, message=FALSE}
+Expression <- c("\\\\w", "\\\\d", "\\\\s", "\\\\W", "\\\\D", "\\\\S")
+`설명` <- c("문자(letter), 숫자(digit), 또는 _ (underscore) 포함", 
+            "숫자 0에서 9", 
+            "공백문자(line break, tab, spaces)", 
+            "\\\\w에 포함하지 않는 표현", 
+            "숫자가 아닌 표현", 
+            "공백이 아닌 표현")
+meta_char2 <- data.frame(Expression, 
+                         `설명`, 
+                         check.names = FALSE, 
+                         stringsAsFactors = FALSE)
+
+kable(meta_char2,
+      align = "ll",
+      escape = TRUE, 
+      booktabs = T, caption = "정규표현식 메타 문자: 문자집합") %>%
+  kable_styling(bootstrap_options = c("condensed", "striped"), 
+                position = "center", 
+                font_size = 10, 
+                full_width = TRUE, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "3cm") %>% 
+  column_spec(2, width = "7cm") %>% 
+  row_spec(1:6, monospace = TRUE)
+```
+
+
+```{r char-set-ex1}
+# \w 를 이용해 email 추출
+
+email <- c("demo@naver.com", 
+           "sample@gmail.com", 
+           "coffee@daum.net", 
+           "redbull@nate.com", 
+           "android@gmail.com", 
+           "secondmoon@gmail.com", 
+           "zorba1997@korea.re.kr")
+
+# 이메일 주소가 naver 또는 gmail만 추출
+g <- grepl("\\w+@(naver|gmail)\\.\\w+", email)
+email[g]
+
+# 숫자를 포함하는 문자열 추출: \d
+ex <- c("ticket", "51203", "+-.,!@#", "ABCD", "_", "010-123-4567")
+g <- grepl("\\d", ex)
+ex[g]
+
+
+# 뒤쪽 공백문자 제거
+xx <- c("some text on the line 1; \n and then some text on line two        ")
+sub("\\s+$", "", xx)
+
+
+# 영문자(소문자 및 대문자 포함), 숫자, 언더바(_)를 제외한 문자 포함 
+g <- grepl("\\W", ex)
+ex[g]
+
+# 숫자를 제외한 모든 문자 반환
+g <- grepl("\\D", ex)
+ex[g]
+
+# 영문자, 숫자, 언더바를 제외한 모든 문자 포함하고
+# 숫자와 특수문자를 포함하는 문자열도 제외
+g <- grepl("\\W\\D", ex)
+ex[g]
+
+## 공백, 탭을 제외한 모든 문자 포함
+
+blank <- c(" ", "_", "abcd", "\t", "%^$#*#*") 
+g <- grepl("\\S", blank)
+blank[g]
+
+```
+
+
+### 문자 클래스 {#character-class}
+
+- 문자 집합을 더 세분화하여 특정 목적에 맞는 정규 표현형 
+
+- 대괄호(`[]`) 안에 특정 패턴에 해당하는 문자로 규칙 표현하고 하이픈(`-`)을 사용해 특정 문자의 범위 지정 가능
+
+- 응용 가능한 문자 클래스 
+
+
+```{r meta-char3, echo=FALSE, message=FALSE}
+Expression <- c("[a-z]", "[A-Z]", "[0-9]", "[a-zA-Z]", 
+                "[a-z0-9]", "[가-힝]", "[(abc)d]")
+`설명` <- c("알파벳 소문자 중 하나", 
+            "알파벳 대문자 중 하나", 
+            "0에서 9까지 숫자 중 하나", 
+            "모든 알파벳 중 하나", 
+            "알파벳 소문자나 숫자 중 한 문자", 
+            "모든 한글 중 하나", 
+            "문자열 'abc'와 문자 'd' 중 하나")
+
+meta_char3 <- data.frame(Expression, 
+                         `설명`, 
+                         check.names = FALSE, 
+                         stringsAsFactors = FALSE)
+
+kable(meta_char3,
+      align = "ll",
+      escape = TRUE, 
+      booktabs = T, caption = "정규표현식 주요 문자 클래스") %>%
+  kable_styling(bootstrap_options = c("condensed", "striped"), 
+                position = "center", 
+                font_size = 10, 
+                full_width = TRUE, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "3cm") %>% 
+  column_spec(2, width = "7cm") %>% 
+  row_spec(1:7, monospace = TRUE)
+```
+
+- POSIX (Portable Operating System Interface): 서로 다른 UNIX OS의 API를 정리하여 이식성이 높은 유닉스 응용 프로그램을 개발하기 위한 목적으로 IEEE가 책정한 애플리케이션 인터페이스 규격 [@POSIX]
+
+
+```{r meta-char4, echo=FALSE, message=FALSE}
+Expression <- c("[[:punct:]]", "[[:alpha:]]", "[[:lower:]]", "[[:upper:]]", 
+                "[[:digit:]]", "[[:alnum:]]", "[[:cntrl:]]", "[[:print:]]", 
+                "[[:space:]]", "[[:blank:]]", "[[:xdigit:]]")
+`설명` <- c("구둣점 문자 [][!#$%&’()*+,./:;<=>?@\\\\^_`{|}~-]", 
+            "알파벳 [A-Za-z]와 동일한 표현", 
+            "소문자 알파벳 [a-z]와 동일", 
+            "대문자 알파벳 [A-Z]와 동일", 
+            "숫자 0 ~ 9 [0-9]와 동일", 
+            "알파벳과 숫자 [0-9A-Za-z]와 동일", 
+            "제어문자 b", 
+            "모든 인쇄 가능한 문자", 
+            "공백문자 \\\\t\\\\r\\\\n\\\\v\\\\f", 
+            "공백문자 중 \\\\t \\\\n", 
+            "16 진수")
+
+meta_char4 <- data.frame(Expression, 
+                         `설명`, 
+                         check.names = FALSE, 
+                         stringsAsFactors = FALSE)
+
+kable(meta_char4,
+      align = "ll",
+      escape = TRUE, 
+      booktabs = T, caption = "정규표현식: POSIX 문자 클래스") %>%
+  kable_styling(bootstrap_options = c("condensed", "striped"), 
+                position = "center", 
+                font_size = 10, 
+                full_width = TRUE, 
+                latex_options = c("striped", "HOLD_position")) %>% 
+  column_spec(1, width = "3cm") %>% 
+  column_spec(2, width = "7cm") %>% 
+  row_spec(1:11, monospace = TRUE)
+```
+
+```{r}
+movie <- c("terminator 3: rise of the machiens", 
+           "les miserables", 
+           "avengers: infinity war", 
+           "iron man", 
+           "indiana jones: the last crusade", 
+           "irish man", 
+           "mission impossible", 
+           "the devil wears prada", 
+           "parasite (gisaengchung)", 
+           "once upon a time in hollywood")
+
+# 각 영화제목의 첫글자를 대문자로 변경
+# \b는 단어의 양쪽 가장 자리의 빈 문자를 의미
+# \\1은 () 첫 번째 그룹, \\U는 대문자(perl)
+gsub("\\b(\\w)", "\\U\\1", movie, perl = T)
+
+
+# 엑셀에서 ()로 표시된 음수 데이터를 읽어온 경우
+# 이를 음수로 표시
+num <- c("0.123", "0.456", "(0.45)", "1.25")
+gsub("\\(([0-9.]+)\\)", "-\\1", num)
+
+```
+
+
+### 정규 표현식 예시 {#regexp-ex}
+
+
+- 텍스트 데이터를 처리할 때 일반적으로 많이 활용되는 정규 표현식 
+- 정제되지 않은 데이터 가공 시 유용하게 활용
+
+
+#### **공백 제거** {#regex-blank-ex .unnumbered}
+
+- 선행 예제에서 문자열 뒤에 존재하는 공백 제거 예시 확인
+- 다음 예시들은 선행 및 모든 공백 제거에 대한 정규 표현식에 대해 살펴봄
+
+
+**필요 표현식**
+
+1) 공백을 다른 문자로 교체 해주는 함수 $\rightarrow$ `gsub()`
+2) 공백 character class: `\\s`
+3) 처음과 끝 지정 meta character: `^`, `$`
+4) 조건을 찾기 위한 meta character: `+`, `|`
+
+
+- 모든 공백을 제거하려면 $\rightarrow$ `\\s`
+- 앞쪽 공백만 제거하려면? $\rightarrow$ `^\\s+`
+- 뒤쪽 공백만 제거하려면? $\rightarrow$ `\\s+$`
+- 양쪽 공백 모두를 제거하려면? 문장의 맨 앞에 곻백이 하나 이상 존재하거나(OR, `|`), 문장 맨 끝에 공백이 하나 이상 존재 $\rightarrow$ `(^\\s+|\\s+$)`
+
+
+
+```{r blank-det-ex}
+txt <- c("        신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가
+         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.   ")
+txt
+# 모근 공백 제거
+gsub("\\s", "", txt)
+
+# 앞쪽 공백만 제거
+gsub("^\\s+", "", txt)
+
+# 뒤쪽 공백만 제거
+gsub("\\s+$", "", txt)
+
+# 양쪽에 존재하는 공백들 제거
+gsub("(^\\s+|\\s+$)", "", txt)
+
+# 가운데 \n 뒤에 존재하는 공백들을 없애려면??
+gsub("(^\\s+| {2,}|\\s+$)", "", txt)
+
+```
+
+
+#### **핸드폰 번호 추출** {#regex-cellphone .unnumbered}
+
+- 대한민국 핸드폰 번호의 형태
+
+```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='90%'}
+knitr::include_graphics('figures/cellphone-str.png', dpi = NA)
+```
+
+**필요한 표현식**
+
+1) 처음 세 자리: `^(01)\\d{1}`
+2) 가운데 3~4자리: `-\\d{3,4}`
+3) 마지막 4자리: `-\\d{4}`
+
+
+```{r cellphone-ex}
+phone <- c("042-868-9999", "02-3345-1234", 
+           "010-5661-7578", "016-123-4567", 
+           "063-123-5678", "070-5498- 1904", 
+           "011-423-2912", "010-6745-2973")
+
+g <- grepl("^(01)\\d{1}-\\d{3,4}-\\d{4}", phone)
+phone[g]
+```
+
+
+#### **이메일 추출** {#regex-email .unnumbered}
+
+- 정규 표현식을 이용해 이메일(e-mail) 주소만 텍스트 문서에서 추출
+- 이메일 주소 구성
+
+
+```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='90%'}
+knitr::include_graphics('figures/email-str.png', dpi = NA)
+```
+
+**필요한 표현식**
+
+1) E-mail ID(@ 왼쪽): 어떤 알파벳, 숫자, 특수문자가 1개 이상 $\rightarrow$ `[A-Za-z0-9[:punct:]]+`
+2) E-mail ID(@ 오른쪽-1): 어떤 알파벳이나 숫자가 하나 이상 존재하고 특수문자 포함(`.xx.xx` 추출에 필요)  $\rightarrow$  `@[A-Za-z0-9[:punct:]]+`
+3) E-mail ID(@ 오른쪽-2): `.xx` 또는 `.xxx` 검색  $\rightarrow$ `\\.[A-Za-z]+`
+
+**예시**
+
+- [네이버 뉴스 크롤링](https://dr-hkim.github.io/Naver-News-Web-Scraping-using-Keywords-in-R/) [@naver-scraping]
+   - 검색 포탈: 네이버
+   - 검색범위: 2020년 4월 21일
+   - 검색 keyword: 21대 국회위원 선거
+   - 검색 뉴스 개수: 39개
+   - 검색결과 저장 파일: `dataset/news-scraping.csv`
+   
+- 개별 기사에 해당하는 URL로부터 ID 생성
+- 각 뉴스로부터 기자들의 e-mail 추출
+- 추출 후 기사 ID, 기사제목, e-mail 주소로 구성된 데이터 프레임 생성
+
+```{r email-ex}
+# 크롤링한 데이터 불러오기
+news_naver <- read.csv("dataset/test.news-scraping.csv", header = T, 
+                       stringsAsFactors = FALSE)
+
+# regmatches 함수: regexpr(), gregexpr(), regexec()로 검색한 패턴을
+# 텍스트(문자열)에서 추출
+
+# ID 추출
+id <- regmatches(news_naver$url, regexpr("\\d{10}", news_naver$url))
+contents <- news_naver$news_content
+news_naver2 <- data.frame(id, title = news_naver$news_title, 
+                          stringsAsFactors = FALSE)
+tmp <- regmatches(contents, 
+                  gregexpr("\\b[A-Za-z0-9[:punct:]]+@[A-Za-z0-9[:punct:]]+\\.[A-Za-z]+", 
+                           contents))
+names(tmp) <- id
+x <- t(sapply(tmp, function(x) x[1:2], simplify = "array"))
+colnames(x) <- paste0("email", 1:2)
+email <- data.frame(id = row.names(x), x, stringsAsFactors = F)
+res <- merge(news_naver2, email, by = "id")
+head(res)
+
+# stringr 패키지 사용
+
+# email <- str_extract_all(contents,
+#          "\\b[A-Za-z0-9[:punct:]]+@[A-Za-z0-9[:punct:]]+\\.[A-Za-z]+",
+#          simplify = TRUE)
+# email <- data.frame(email, stringsAsFactors = FALSE)
+# names(email) <- paste0("email", 1:2)
+# res <- data.frame(id, title = news_naver$news_title, email,
+#                   stringsAsFactors = FALSE)
+# head(res)
+
+
+```
+
+
+
+
+
+
+<!-- #### 핸드폰 번호 {#regex-cellphone .unnumbered} -->
+
+
+
+
+<!-- #### 일반 전화번호 {#regex-phone .unnumbered} -->
+
+<!-- ### 확장 예제 -->
+
+
+
+
+
+
+
+
+
+
+
+
