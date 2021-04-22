@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.3 R script 편집기 사용 | 통계 프로그래밍 언어</title>
+  <title>4.2 통계 분포 함수 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.3 R script 편집기 사용 | 통계 프로그래밍 언어" />
+  <meta property="og:title" content="4.2 통계 분포 함수 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.3 R script 편집기 사용 | 통계 프로그래밍 언어" />
+  <meta name="twitter:title" content="4.2 통계 분포 함수 | 통계 프로그래밍 언어" />
   
   <meta name="twitter:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="r-check.html"/>
-<link rel="next" href="r-studio.html"/>
+<link rel="prev" href="수학함수.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -271,64 +271,256 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="rconsle-script" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> R script 편집기 사용</h2>
+<div id="통계-분포-함수" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> 통계 분포 함수</h2>
+<p>R은 현존하는 대부분의 통계 확률 분포 함수를 제공하고 <code>접두사 + 분포이름</code> 형태의 함수명을 갖고 있으며, 보통 다음과 같은 접두사를 통해 분포 함수 생성</p>
+<ul>
+<li><code>d</code>: 밀도(density)의 약어로 확률 밀도함수(probability density function, pdf) 또는 이산형 분포의 확률 질량 함수(probability mass function, pmf)</li>
+<li><code>q</code>: 분위수(quantile)의 약어로 상위 %에 해당하는 <span class="math inline">\(x\)</span> 값을 반환</li>
+<li><code>p</code>: 누적분포함수(cumulative density function, cdf)</li>
+<li><code>r</code>: 특정 분포로부터 난수(확률변수) 생성</li>
+</ul>
+<blockquote>
+<p>예: <code>dnorm()</code>, <code>qnorm()</code>, <code>pnorm()</code>, <code>rnorm()</code> 은 정규분포 관련 함수임</p>
+</blockquote>
+<table class=" lightable-paper lightable-striped" style="font-size: 12px; font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-7">Table 4.1: </span>일반적인 R 통계 분포함수(일부 제시)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Distribution
+</th>
+<th style="text-align:left;">
+Density/Mass function
+</th>
+<th style="text-align:left;">
+R pdf
+</th>
+<th style="text-align:left;">
+R cdf
+</th>
+<th style="text-align:left;">
+R quantile
+</th>
+<th style="text-align:left;">
+RV generation
+</th>
+<th style="text-align:left;">
+Parameter
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+균일분포
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{1}{b -a},~\mathrm{for}~x \in [a, b]\)</span>
+</td>
+<td style="text-align:left;">
+dunif
+</td>
+<td style="text-align:left;">
+punif
+</td>
+<td style="text-align:left;">
+qunif
+</td>
+<td style="text-align:left;">
+runif
+</td>
+<td style="text-align:left;">
+min (a), max (b)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+지수분포
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\lambda \exp{(-\lambda x)}\)</span>
+</td>
+<td style="text-align:left;">
+dexp
+</td>
+<td style="text-align:left;">
+pexp
+</td>
+<td style="text-align:left;">
+qexp
+</td>
+<td style="text-align:left;">
+rexp
+</td>
+<td style="text-align:left;">
+rate (<span class="math inline">\(\lambda\)</span>)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+정규분포
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{1}{\sqrt{2\pi}\sigma}\exp \left\{-\frac{(x - \mu)^2}{2\sigma^2} \right \}\)</span>
+</td>
+<td style="text-align:left;">
+dnorm
+</td>
+<td style="text-align:left;">
+pnorm
+</td>
+<td style="text-align:left;">
+qnorm
+</td>
+<td style="text-align:left;">
+rnorm
+</td>
+<td style="text-align:left;">
+mean (<span class="math inline">\(\mu\)</span>), sd (<span class="math inline">\(\sigma\)</span>)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(\chi^2\)</span> 분포
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{1}{\Gamma(\nu/2)2^{\nu/2}}x^{(\nu/2) - 1}e^{(-x/2)}\)</span>
+</td>
+<td style="text-align:left;">
+dchisq
+</td>
+<td style="text-align:left;">
+pchisq
+</td>
+<td style="text-align:left;">
+qchisq
+</td>
+<td style="text-align:left;">
+rchisq
+</td>
+<td style="text-align:left;">
+df (<span class="math inline">\(\nu\)</span>)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math inline">\(t\)</span> 분포
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{\Gamma(\frac{\nu + 1}{2})}{\Gamma{(\frac{\nu}{2}})}\frac{1}{\sqrt{\nu\pi}}\frac{1}{(1 + x^2/\nu)^{(\nu + 1)/2}}\)</span>
+</td>
+<td style="text-align:left;">
+dt
+</td>
+<td style="text-align:left;">
+pt
+</td>
+<td style="text-align:left;">
+qt
+</td>
+<td style="text-align:left;">
+rt
+</td>
+<td style="text-align:left;">
+df (<span class="math inline">\(\nu\)</span>)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+이항분포
+</td>
+<td style="text-align:left;">
+<span class="math inline">\({n \choose x} p^x (1 - p)^{n - x}\)</span>
+</td>
+<td style="text-align:left;">
+dbinom
+</td>
+<td style="text-align:left;">
+pbinom
+</td>
+<td style="text-align:left;">
+qbinom
+</td>
+<td style="text-align:left;">
+rbinom
+</td>
+<td style="text-align:left;">
+size (<span class="math inline">\(n\)</span>), prob (<span class="math inline">\(p\)</span>)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+포아송 분포
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{e^{-\lambda}\lambda^x}{x!}\)</span>
+</td>
+<td style="text-align:left;">
+dpois
+</td>
+<td style="text-align:left;">
+ppois
+</td>
+<td style="text-align:left;">
+qpois
+</td>
+<td style="text-align:left;">
+rpois
+</td>
+<td style="text-align:left;">
+lambda (<span class="math inline">\(\lambda\)</span>)
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<p><strong>예제: 확률 분포 함수</strong></p>
+<div class="sourceCode" id="cb1250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1250-1"><a href="통계-분포-함수.html#cb1250-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 카이제곱분포 </span></span>
+<span id="cb1250-2"><a href="통계-분포-함수.html#cb1250-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb1250-3"><a href="통계-분포-함수.html#cb1250-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dchisq</span>(x, <span class="at">df =</span> <span class="dv">3</span>) <span class="co"># 자유도가 3인 카이제곱분포 밀도 함수</span></span>
+<span id="cb1250-4"><a href="통계-분포-함수.html#cb1250-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb1250-5"><a href="통계-분포-함수.html#cb1250-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>, </span>
+<span id="cb1250-6"><a href="통계-분포-함수.html#cb1250-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb1250-7"><a href="통계-분포-함수.html#cb1250-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;PDF of &quot;</span>, <span class="sc">~</span>chi<span class="sc">^</span><span class="dv">2</span>, <span class="st">&quot; distribution&quot;</span>)), </span>
+<span id="cb1250-8"><a href="통계-분포-함수.html#cb1250-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb1250-9"><a href="통계-분포-함수.html#cb1250-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> <span class="dv">2</span>)</span>
+<span id="cb1250-10"><a href="통계-분포-함수.html#cb1250-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1250-11"><a href="통계-분포-함수.html#cb1250-11" aria-hidden="true" tabindex="-1"></a><span class="co"># P(5 &lt; V &lt; 10)</span></span>
+<span id="cb1250-12"><a href="통계-분포-함수.html#cb1250-12" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="dv">10</span>, <span class="at">df =</span> <span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="dv">5</span>, <span class="at">df =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>[1] 0.153231</code></pre>
+<div class="sourceCode" id="cb1252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1252-1"><a href="통계-분포-함수.html#cb1252-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 그림에 표현</span></span>
+<span id="cb1252-2"><a href="통계-분포-함수.html#cb1252-2" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> x <span class="sc">&gt;=</span> <span class="dv">5</span> <span class="sc">&amp;</span> x <span class="sc">&lt;=</span> <span class="dv">10</span></span>
+<span id="cb1252-3"><a href="통계-분포-함수.html#cb1252-3" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(<span class="dv">5</span>, x[idx], <span class="dv">10</span>), </span>
+<span id="cb1252-4"><a href="통계-분포-함수.html#cb1252-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">0</span>, y[idx], <span class="dv">0</span>), </span>
+<span id="cb1252-5"><a href="통계-분포-함수.html#cb1252-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb1252-6"><a href="통계-분포-함수.html#cb1252-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb1252-7"><a href="통계-분포-함수.html#cb1252-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;darkgray&quot;</span>)</span>
+<span id="cb1252-8"><a href="통계-분포-함수.html#cb1252-8" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">y =</span> <span class="fl">0.05</span>, <span class="at">cex =</span> <span class="dv">2</span>, </span>
+<span id="cb1252-9"><a href="통계-분포-함수.html#cb1252-9" aria-hidden="true" tabindex="-1"></a>     <span class="fu">bquote</span>(<span class="fu">P</span>({<span class="dv">5</span> <span class="sc">&lt;=</span> V} <span class="sc">&lt;=</span> <span class="dv">10</span> ) <span class="sc">==</span></span>
+<span id="cb1252-10"><a href="통계-분포-함수.html#cb1252-10" aria-hidden="true" tabindex="-1"></a>              .(<span class="fu">sprintf</span>(<span class="st">&quot;%.3f&quot;</span>, <span class="fu">pchisq</span>(<span class="dv">10</span>, <span class="at">df =</span> <span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="dv">5</span>, <span class="at">df =</span> <span class="dv">3</span>)))),</span>
+<span id="cb1252-11"><a href="통계-분포-함수.html#cb1252-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">adj =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="04-math-distribution-functions_files/figure-html/unnamed-chunk-8-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb1253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1253-1"><a href="통계-분포-함수.html#cb1253-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 분위수</span></span>
+<span id="cb1253-2"><a href="통계-분포-함수.html#cb1253-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qchisq</span>(<span class="fu">pchisq</span>(<span class="dv">10</span>, <span class="at">df =</span> <span class="dv">3</span>), <span class="at">df =</span> <span class="dv">3</span>) </span></code></pre></div>
+<pre><code>[1] 10</code></pre>
+<div class="sourceCode" id="cb1255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1255-1"><a href="통계-분포-함수.html#cb1255-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 난수 생성</span></span>
+<span id="cb1255-2"><a href="통계-분포-함수.html#cb1255-2" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">rchisq</span>(<span class="dv">1000</span>, <span class="at">df =</span> <span class="dv">3</span>)</span>
+<span id="cb1255-3"><a href="통계-분포-함수.html#cb1255-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(v) <span class="co"># 카이제곱분포의 평균은 이론적으로 자유도 값과 같음 </span></span></code></pre></div>
+<pre><code>[1] 2.994</code></pre>
+<p></p>
 
-<div class="rmdimportant">
-<p><strong>실습</strong>: R 설치 후 Rgui 에서 제공하는 편집기(R editor)에 명령어를 입력하고 실행</p>
 </div>
-<p>설치된 R을 실행 후 상단 pull-down 메뉴에서 [<strong>File</strong>] <span class="math inline">\(\rightarrow\)</span> [<strong>새 스크립트</strong>]를 선택하면 아래 그림과 같이 편집창(R 인스톨 시 SDI 옵션 기준)이 나타남</p>
-<p><img src="figures/r-console-edit.png" width="100%" style="display: block; margin: auto;" /></p>
-<p></p>
-<p>편집기 창에 다음 명령어 입력</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="rconsle-script.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R에 내장된 cars 데이터셋 불러오기 cars dataset에 포함된 변수들의 기초통계량</span></span>
-<span id="cb15-2"><a href="rconsle-script.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 출력 2차원 산점도</span></span>
-<span id="cb15-3"><a href="rconsle-script.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(cars)</span>
-<span id="cb15-4"><a href="rconsle-script.html#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(cars)  <span class="co"># cars 데이터셋에 대한 설명 help 창에 출력</span></span>
-<span id="cb15-5"><a href="rconsle-script.html#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cars)  <span class="co"># cars 데이터셋 처음 6개 행 데이터 출력</span></span>
-<span id="cb15-6"><a href="rconsle-script.html#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cars)  <span class="co"># cars 데이터셋 요약</span></span>
-<span id="cb15-7"><a href="rconsle-script.html#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cars)  <span class="co"># 변수가 2개인 경우 산점도 출력</span></span></code></pre></div>
-<p></p>
-<ul>
-<li>편집창에서 한 줄을 실행시키려면 명령어가 입력된 줄에서 <strong>[Ctrl]</strong> + <strong>[R]</strong> 입력</li>
-<li>편집창에 입력한 모든 명령어를 실행시키려면 모든 줄을 선택(마우스 또는 [Shift] + <span class="math inline">\(\downarrow\)</span>)</li>
-</ul>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["speed"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["dist"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"4","2":"2","_rn_":"1"},{"1":"4","2":"10","_rn_":"2"},{"1":"7","2":"4","_rn_":"3"},{"1":"7","2":"22","_rn_":"4"},{"1":"8","2":"16","_rn_":"5"},{"1":"9","2":"10","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-<pre><code>     speed           dist       
- Min.   : 4.0   Min.   :  2.00  
- 1st Qu.:12.0   1st Qu.: 26.00  
- Median :15.0   Median : 36.00  
- Mean   :15.4   Mean   : 42.98  
- 3rd Qu.:19.0   3rd Qu.: 56.00  
- Max.   :25.0   Max.   :120.00  </code></pre>
-<div class="figure"><span id="fig:check-edit-out"></span>
-<img src="01-introduction_files/figure-html/check-edit-out-1.svg" alt="cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄." width="672" />
-<p class="caption">
-Figure 1.3: cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄.
-</p>
-</div>
-<p></p>
-<ul>
-<li>R은 명령어를 입력하고 실행결과를 확인하는 대화형(interpreter) 방식</li>
-<li>콘솔창에서 <span class="math inline">\(\uparrow\)</span>/<span class="math inline">\(\downarrow\)</span>를 누르면 이전/이후 실행 명령 기록 확인 가능</li>
-<li>여러 줄 이상 R 명령어라든가 반복적, 장기간 작업을 수행해야 할 경우 R 명령어로 구성된 스크립트 작성 후 일괄 실행하는 것이 일반적</li>
-<li>여러 다중 명령 코딩 시 콘솔창에 직접 입력하는 것은 비효율적이므로 스크립트 에디터를 사용</li>
-<li>위 예시처럼 R 에디터 사용할 수 있으나 가독성 및 코딩 효율이 떨어짐</li>
-<li>과거 많이 사용됐던 R 에디터: <a href="http://www.winedt.com">WinEdt</a>, <a href="https://sourceforge.net/projects/tinn-r/">Tinn-R</a>, <a href="http://www.vim.org/scripts/script.php?script_id=2628">Vim</a></li>
-<li>현재 가장 범용적 R 에디터: <strong>Rstudio</strong></li>
-</ul>
-</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="r-check.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="r-studio.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="수학함수.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -359,7 +551,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/01-introduction.Rmd",
+"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/04-math-distribution-functions.Rmd",
 "text": "Edit"
 },
 "history": {
