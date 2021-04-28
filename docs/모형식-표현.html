@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.3 모형식 표현 | 통계 프로그래밍 언어</title>
+  <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.3 모형식 표현 | 통계 프로그래밍 언어" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.3 모형식 표현 | 통계 프로그래밍 언어" />
+  
+  <meta name="twitter:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  
+
+<meta name="author" content="한국한의학연구원, 구본초" />
+
+
+<meta name="date" content="2021-04-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="통계-분포-함수.html"/>
+<link rel="next" href="r-markdown.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">통계 프로그래밍 언어</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Overview</a></li>
+<li class="part"><span><b>I Get Started</b></span></li>
+<li class="chapter" data-level="1" data-path="intro-chap.html"><a href="intro-chap.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1.1</b> R 설치하기</a></li>
+<li class="chapter" data-level="1.2" data-path="r-check.html"><a href="r-check.html"><i class="fa fa-check"></i><b>1.2</b> R 시작 및 작동 체크</a></li>
+<li class="chapter" data-level="1.3" data-path="rconsle-script.html"><a href="rconsle-script.html"><i class="fa fa-check"></i><b>1.3</b> R script 편집기 사용</a></li>
+<li class="chapter" data-level="1.4" data-path="r-studio.html"><a href="r-studio.html"><i class="fa fa-check"></i><b>1.4</b> RStudio</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="r-studio.html"><a href="r-studio.html#rstudio-install"><i class="fa fa-check"></i><b>1.4.1</b> RStudio 설치하기</a></li>
+<li class="chapter" data-level="1.4.2" data-path="r-studio.html"><a href="r-studio.html#rstudio-component"><i class="fa fa-check"></i><b>1.4.2</b> RStudio IDE 화면 구성</a></li>
+<li class="chapter" data-level="1.4.3" data-path="r-studio.html"><a href="r-studio.html#rstudio-glob-options"><i class="fa fa-check"></i><b>1.4.3</b> RStudio 환경 설정</a></li>
+<li class="chapter" data-level="1.4.4" data-path="r-studio.html"><a href="r-studio.html#rstudio-project"><i class="fa fa-check"></i><b>1.4.4</b> RStudio 프로젝트</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="r-package.html"><a href="r-package.html"><i class="fa fa-check"></i><b>1.5</b> R 패키지</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="r-package.html"><a href="r-package.html#r-package-path"><i class="fa fa-check"></i><b>1.5.1</b> R 패키지 경로 확인 및 변경</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-package.html"><a href="r-package.html#r-package-install"><i class="fa fa-check"></i><b>1.5.2</b> R 패키지 설치하기</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-package.html"><a href="r-package.html#r-package-load"><i class="fa fa-check"></i><b>1.5.3</b> R 패키지 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basic.html"><a href="r-basic.html"><i class="fa fa-check"></i><b>1.6</b> R 기초 문법</a></li>
+<li class="chapter" data-level="1.7" data-path="r-markdown-get-start.html"><a href="r-markdown-get-start.html"><i class="fa fa-check"></i><b>1.7</b> R Markdown (맛보기)</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-type.html"><a href="data-type.html"><i class="fa fa-check"></i><b>2</b> R 객체(R object)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="프로그래밍.html"><a href="프로그래밍.html"><i class="fa fa-check"></i><b>2.1</b> 프로그래밍</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="프로그래밍.html"><a href="프로그래밍.html#prerequisites"><i class="fa fa-check"></i><b>2.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2.1.2" data-path="프로그래밍.html"><a href="프로그래밍.html#control-program"><i class="fa fa-check"></i><b>2.1.2</b> 프로그램</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="scalar.html"><a href="scalar.html"><i class="fa fa-check"></i><b>2.2</b> 스칼라(scalar)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="scalar.html"><a href="scalar.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> 선언</a></li>
+<li class="chapter" data-level="2.2.2" data-path="scalar.html"><a href="scalar.html#numeric"><i class="fa fa-check"></i><b>2.2.2</b> 숫자형</a></li>
+<li class="chapter" data-level="2.2.3" data-path="scalar.html"><a href="scalar.html#character"><i class="fa fa-check"></i><b>2.2.3</b> 문자형</a></li>
+<li class="chapter" data-level="2.2.4" data-path="scalar.html"><a href="scalar.html#logical"><i class="fa fa-check"></i><b>2.2.4</b> 논리형 스칼라</a></li>
+<li class="chapter" data-level="2.2.5" data-path="scalar.html"><a href="scalar.html#missing-value"><i class="fa fa-check"></i><b>2.2.5</b> 결측값(missing value)</a></li>
+<li class="chapter" data-level="2.2.6" data-path="scalar.html"><a href="scalar.html#null"><i class="fa fa-check"></i><b>2.2.6</b> NULL 값</a></li>
+<li class="chapter" data-level="2.2.7" data-path="scalar.html"><a href="scalar.html#finite"><i class="fa fa-check"></i><b>2.2.7</b> 무한대/무한소/숫자아님</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>2.3</b> 벡터(vector)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="vector.html"><a href="vector.html#vector-prop"><i class="fa fa-check"></i><b>2.3.1</b> 벡터의 특징</a></li>
+<li class="chapter" data-level="2.3.2" data-path="vector.html"><a href="vector.html#vector-operation"><i class="fa fa-check"></i><b>2.3.2</b> 벡터의 연산</a></li>
+<li class="chapter" data-level="2.3.3" data-path="vector.html"><a href="vector.html#vector-index"><i class="fa fa-check"></i><b>2.3.3</b> 벡터의 색인(indexing)</a></li>
+<li class="chapter" data-level="2.3.4" data-path="vector.html"><a href="vector.html#vector-function"><i class="fa fa-check"></i><b>2.3.4</b> 벡터 관련 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="list.html"><a href="list.html"><i class="fa fa-check"></i><b>2.4</b> 리스트(list)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="list.html"><a href="list.html#make-list"><i class="fa fa-check"></i><b>2.4.1</b> 리스트 생성</a></li>
+<li class="chapter" data-level="2.4.2" data-path="list.html"><a href="list.html#list-index"><i class="fa fa-check"></i><b>2.4.2</b> 리스트 색인</a></li>
+<li class="chapter" data-level="2.4.3" data-path="list.html"><a href="list.html#list-add-delete"><i class="fa fa-check"></i><b>2.4.3</b> 리스트에 원소 추가/제거</a></li>
+<li class="chapter" data-level="2.4.4" data-path="list.html"><a href="list.html#list-combine"><i class="fa fa-check"></i><b>2.4.4</b> 리스트의 결합</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="matrix.html"><a href="matrix.html"><i class="fa fa-check"></i><b>2.5</b> 행렬(matrix)</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="matrix.html"><a href="matrix.html#matrix-operation"><i class="fa fa-check"></i><b>2.5.1</b> 행렬의 연산</a></li>
+<li class="chapter" data-level="2.5.2" data-path="matrix.html"><a href="matrix.html#mat-index"><i class="fa fa-check"></i><b>2.5.2</b> 행렬의 색인</a></li>
+<li class="chapter" data-level="2.5.3" data-path="matrix.html"><a href="matrix.html#행과-열-추가-및-제거"><i class="fa fa-check"></i><b>2.5.3</b> 행과 열 추가 및 제거</a></li>
+<li class="chapter" data-level="2.5.4" data-path="matrix.html"><a href="matrix.html#행렬-관련-함수"><i class="fa fa-check"></i><b>2.5.4</b> 행렬 관련 함수</a></li>
+<li class="chapter" data-level="2.5.5" data-path="matrix.html"><a href="matrix.html#vec-mat-diff"><i class="fa fa-check"></i><b>2.5.5</b> 벡터와 행렬의 차이점</a></li>
+<li class="chapter" data-level="2.5.6" data-path="matrix.html"><a href="matrix.html#mat-dim-reduc-sway"><i class="fa fa-check"></i><b>2.5.6</b> 의도치 않은 차원축소 피하기</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="array.html"><a href="array.html"><i class="fa fa-check"></i><b>2.6</b> 배열(array)</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="array.html"><a href="array.html#make-array"><i class="fa fa-check"></i><b>2.6.1</b> 배열의 생성 및 색인</a></li>
+<li class="chapter" data-level="2.6.2" data-path="array.html"><a href="array.html#rray-extend-example"><i class="fa fa-check"></i><b>2.6.2</b> 배열의 확장 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="factor-table.html"><a href="factor-table.html"><i class="fa fa-check"></i><b>2.7</b> 요인(factor)과 테이블(table)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="factor-table.html"><a href="factor-table.html#factor"><i class="fa fa-check"></i><b>2.7.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.7.2" data-path="factor-table.html"><a href="factor-table.html#table"><i class="fa fa-check"></i><b>2.7.2</b> 테이블(table)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>2.8</b> 데이터 프레임(data frame)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="data-frame.html"><a href="data-frame.html#create-data-frame"><i class="fa fa-check"></i><b>2.8.1</b> 데이터 프레임 생성</a></li>
+<li class="chapter" data-level="2.8.2" data-path="data-frame.html"><a href="data-frame.html#data-frame-get"><i class="fa fa-check"></i><b>2.8.2</b> 데이터 프레임 접근 및 필터링</a></li>
+<li class="chapter" data-level="2.8.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.8.3</b> 데이터 프레임 관련 함수</a></li>
+<li class="chapter" data-level="2.8.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.8.4</b> <code>*apply()</code> 계열 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="is-as-function.html"><a href="is-as-function.html"><i class="fa fa-check"></i><b>2.9</b> 객체의 유형 판별 및 변환</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="string-regexp.html"><a href="string-regexp.html"><i class="fa fa-check"></i><b>3</b> 문자열 처리와 정규표현식</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html"><i class="fa fa-check"></i><b>3.1</b> 유용한 문자열 관련 함수</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#nchar"><i class="fa fa-check"></i><b>3.1.1</b> <strong><code>nchar()</code></strong></a></li>
+<li class="chapter" data-level="3.1.2" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#paste"><i class="fa fa-check"></i><b>3.1.2</b> <strong><code>paste()</code></strong>, <strong><code>paste0()</code></strong></a></li>
+<li class="chapter" data-level="3.1.3" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#sprintf"><i class="fa fa-check"></i><b>3.1.3</b> <strong><code>sprintf()</code></strong></a></li>
+<li class="chapter" data-level="3.1.4" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#substr"><i class="fa fa-check"></i><b>3.1.4</b> <strong><code>substr()</code></strong></a></li>
+<li class="chapter" data-level="3.1.5" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#low-up-fun"><i class="fa fa-check"></i><b>3.1.5</b> <strong><code>tolower()</code>, <code>toupper()</code></strong></a></li>
+<li class="chapter" data-level="3.1.6" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#glue-패키지를-활용한-문자열-다루기"><i class="fa fa-check"></i><b>3.1.6</b> glue 패키지를 활용한 문자열 다루기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html"><i class="fa fa-check"></i><b>3.2</b> 정규표현식 기본 함수</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#grep-grepl"><i class="fa fa-check"></i><b>3.2.1</b> <strong><code>grep()</code>, <code>grepl()</code></strong></a></li>
+<li class="chapter" data-level="3.2.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexpr-gregexpr"><i class="fa fa-check"></i><b>3.2.2</b> <strong><code>regexpr()</code></strong>, <strong><code>gregexpr()</code></strong></a></li>
+<li class="chapter" data-level="3.2.3" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#sub-gsub-fun"><i class="fa fa-check"></i><b>3.2.3</b> <strong><code>sub()</code></strong>, <strong><code>gsub()</code></strong></a></li>
+<li class="chapter" data-level="3.2.4" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexec-fun"><i class="fa fa-check"></i><b>3.2.4</b> <strong><code>regexec()</code></strong></a></li>
+<li class="chapter" data-level="3.2.5" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#strsplit"><i class="fa fa-check"></i><b>3.2.5</b> <strong><code>strsplit()</code></strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="reg-exp.html"><a href="reg-exp.html"><i class="fa fa-check"></i><b>3.3</b> 정규 표현식(regular expression)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="reg-exp.html"><a href="reg-exp.html#basic-meta"><i class="fa fa-check"></i><b>3.3.1</b> 기본 메타 문자</a></li>
+<li class="chapter" data-level="3.3.2" data-path="reg-exp.html"><a href="reg-exp.html#character-set"><i class="fa fa-check"></i><b>3.3.2</b> 문자 집합</a></li>
+<li class="chapter" data-level="3.3.3" data-path="reg-exp.html"><a href="reg-exp.html#character-class"><i class="fa fa-check"></i><b>3.3.3</b> 문자 클래스</a></li>
+<li class="chapter" data-level="3.3.4" data-path="reg-exp.html"><a href="reg-exp.html#regexp-ex"><i class="fa fa-check"></i><b>3.3.4</b> 정규 표현식 예시</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="r-수학-함수-분포-함수-모형식-표현.html"><a href="r-수학-함수-분포-함수-모형식-표현.html"><i class="fa fa-check"></i><b>4</b> R 수학 함수, 분포 함수, 모형식 표현</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="수학함수.html"><a href="수학함수.html"><i class="fa fa-check"></i><b>4.1</b> 수학함수</a></li>
+<li class="chapter" data-level="4.2" data-path="통계-분포-함수.html"><a href="통계-분포-함수.html"><i class="fa fa-check"></i><b>4.2</b> 통계 분포 함수</a></li>
+<li class="chapter" data-level="4.3" data-path="모형식-표현.html"><a href="모형식-표현.html"><i class="fa fa-check"></i><b>4.3</b> 모형식 표현</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>5</b> R Markdown</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="r-markdown의-구성.html"><a href="r-markdown의-구성.html"><i class="fa fa-check"></i><b>5.1</b> R Markdown의 구성</a></li>
+<li class="chapter" data-level="5.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html"><i class="fa fa-check"></i><b>5.2</b> R Markdown 기본 문법(syntax)</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#텍스트-문법"><i class="fa fa-check"></i><b>5.2.1</b> 텍스트 문법</a></li>
+<li class="chapter" data-level="5.2.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#block-level-elements"><i class="fa fa-check"></i><b>5.2.2</b> Block-level elements</a></li>
+<li class="chapter" data-level="5.2.3" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#수식표현math-expression"><i class="fa fa-check"></i><b>5.2.3</b> 수식표현(math expression)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="r-code-chunks.html"><a href="r-code-chunks.html"><i class="fa fa-check"></i><b>5.3</b> R Code Chunks</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#code-chunk"><i class="fa fa-check"></i>자주 활용하는 chunk 옵션</a></li>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#typical-chunk"><i class="fa fa-check"></i>알아두면 좋은 청크 형태</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="inline-code.html"><a href="inline-code.html"><i class="fa fa-check"></i><b>5.4</b> 인라인(inline) R 코드</a></li>
+<li class="chapter" data-level="5.5" data-path="yaml.html"><a href="yaml.html"><i class="fa fa-check"></i><b>5.5</b> YAML</a>
+<ul>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#basic-syntax"><i class="fa fa-check"></i>기본 문법</a></li>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#rmarkdown-yaml-structure"><i class="fa fa-check"></i>R Markdown 기본 YAML 구조</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rmarkdown-citation.html"><a href="rmarkdown-citation.html"><i class="fa fa-check"></i><b>5.6</b> 참고문헌 인용</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계 프로그래밍 언어</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="모형식-표현" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> 모형식 표현</h2>
+<!-- ### Prerequisites  -->
+<!-- #### 표준 평가(standard evaluation)와 비표준 평가(non-standard evaluation) {.unnumbered} -->
+<!-- 1. 표준 평가(standard evaluation): R이 변수와 그에 대한 값을 찾아가는 일반적인 방법 $\rightarrow$ Lexical Scoping -->
+<!-- ```{r} -->
+<!-- d <- data.frame(x = c(1, 3, 5), y = c(2, 4, 6)) -->
+<!-- x <- "y" -->
+<!-- d[, x, drop = FALSE] -->
+<!-- ``` -->
+<!-- - `x` 는 변수명이고 `x`에 할당된 값 "y"를 사용해 데이터 열을 입력 -->
+<!-- - 위 예제에서 데이터프레임 `d` 에서 변수명 "x"를 가져오고 싶다면  -->
+<!-- ```{r, eval=FALSE} -->
+<!-- d[, "x", drop = FALSE] -->
+<!-- ``` -->
+<!-- > 표준평가에서 사용자가 작성한 이름은 R 환경에서 정의한 값에 대한 참조로 취급하고,  -->
+<!-- 특정 객체 내 이름을 참조하기 위해서는 문자열로 표현되는 리터럴 값(literal value)이  -->
+<!-- 필요하고, 이를 위해 따옴표를 사용함 -->
+<!-- 2. 비표준 평가(non-standard evaluation, NSE): 대부분의 프로그래밍 언어는 함수의 인수로  -->
+<!-- 값만 부여할 수 있는 반면, R은 인수에 표현식을 할당해 함수의 인수로 지정 가능. 이러한  -->
+<!-- 표현식을 인수로 할당한 겨우 표현을 평가(계산 또는 실행)하지 않고, 함수 내부의  -->
+<!-- 원하는 곳에서 실행하도록 하는 방식 -->
+<!-- ```{r, eval=FALSE} -->
+<!-- mtcars[mtcars$mpg < 20 & mtcars$cyl == 6, ] -->
+<!-- subset(mtcars, mpg < 20 & cyl == 6) -->
+<!-- ``` -->
+<!-- > 비표준 평가 시 사용자가 작성한 이름은 리터럴로 취급 -->
+<!-- ```{block2, type="rmdimportant"} -->
+<!-- **R의 유래**: LISP 프로그래밍 언어가 출발점 -->
+<!--    - LISP: (**LIS**)t (**P**)rocessing 의 약어 -->
+<!--    - Meta programming -->
+<!--    - REPL 방식으로 작동: (**R**)ead [읽고], (**E**)valuate [평가하고], (**P**)rint [출력하는] 과정을 (**L**)oop [반복] -->
+<!-- **예**: 사용자가 콘솔에 '1+2'를 입력 $\rightarrow$ '1+2'는 단순 문자열임 -->
+<!-- 1. Read -->
+<!--    - R은 '1+2' 을 R 문법에 맞춰서 읽음(Read). 이러한 과정을 파싱(parsing)이라고 함.  -->
+<!--    - Parsing 처리 이후 '1+2'는 `+()` 함수에 1과 2를 인수로 넘겨 처리 -->
+<!-- 2. Evaluate: `+(1, 2)`를 수행 후 3이라는 결과를 얻음 -->
+<!-- 3. Print: R 콘솔에 3을 출력 -->
+<!-- ``` -->
+<!-- #### `substitute()`/`deparse()` 함수 {.unnumbered} -->
+<!-- > - R 코드 상 NSE 구현을 가능하게 해주는 함수 중 하나  -->
+<!-- > - 프로그램의 일부를 파싱만 하고 평가(evaluate) 하지 않고 코드를 확인 -->
+<!-- > - Lexical scoping 사용 $\rightarrow$ `substitute(x)`는 `x` 가 무엇인지를 참조 후,  -->
+<!-- x에 들어 있는 표현식을 인용 -->
+<!-- > - `substitute()`가 반환한 결과 $\rightarrow$ **promise** -->
+<!-- ```{block2, type="rmdnote"} -->
+<!-- **promise**: 값을 계산하기 위해 필요한 표현(**expression)**과 환경으로  -->
+<!-- 일반적으로 주어진 R 환경에서 즉각적으로 평가되고 값을 산출하기 때문에  -->
+<!-- 사용자가 인식하지 못함 -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- f <- function(x) substitute(x) -->
+<!-- # x가 실행되지 않고 파싱 결과만 출력 -->
+<!-- f(1+2); f(1:10) -->
+<!-- x <- 10 -->
+<!-- f(x = x) -->
+<!-- y <- 13 -->
+<!-- f(x = x + y^2) -->
+<!-- ``` -->
+<!-- > - `substitute()` 함수는 `deparse()` 함수와 쌍을 이룸 -->
+<!-- > - `deparse()` 함수는 `substitute()` 함수의 결과인 표현식을 문자형 벡터로 변환 -->
+<!-- ```{r} -->
+<!-- g <- function(x) deparse(substitute(x)) -->
+<!-- f(1+2); g(1+2) -->
+<!-- g(x); g(x = x + y^2) -->
+<!-- ``` -->
+
+<div class="rmdtip">
+<p><strong>R에서 통계적 모형 표현 방법</strong></p>
+<ul>
+<li>지금까지 별다른 설명 없이 <code>~</code>가 들어간 수식표현을 특정함수(예: <code>lm()</code>, <code>t.test()</code>, 심지어 그래프 생성에 필요한 함수 등)의 인수로 사용함.</li>
+<li>R은 (통계적) 모형을 표현하기 위해 <strong>formula</strong> 표현을 사용 <span class="math inline">\(\rightarrow\)</span> 일반적으로 <code>좌변 ~ 우변</code>형태로 표시</li>
+<li>보통은 특정 함수 내에서 호출되며 데이터에 포함되어 있는 변수를 평가하지 않고 해당 함수에서 해석할 수 있도록 변수값을 불러올 수 있음.</li>
+<li><strong>formula</strong>는 “language” 객체의 일종이며 “formula” 클래스를 속성으로 갖는 평가되지 않은 표현식(unevaluated expression)</li>
+</ul>
+</div>
+<p></p>
+<div class="sourceCode" id="cb1257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1257-1"><a href="모형식-표현.html#cb1257-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">quote</span>(x <span class="sc">+</span> <span class="dv">10</span>)) <span class="co"># 객체의 형태가 &quot;language&quot;</span></span></code></pre></div>
+<pre><code>[1] &quot;language&quot;</code></pre>
+<div class="sourceCode" id="cb1259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1259-1"><a href="모형식-표현.html#cb1259-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">quote</span>(x <span class="sc">+</span> <span class="dv">10</span>)) <span class="co"># 객체의 클래스가 &quot;call&quot;</span></span></code></pre></div>
+<pre><code>[1] &quot;call&quot;</code></pre>
+<p></p>
+<ul>
+<li>R에서 <strong>formula</strong>을 특정하는 <code>~</code>의 의미는 “즉시 평가(evaluate)하지 않고 이 코드의 의미를 전달(캡쳐)” <span class="math inline">\(\rightarrow\)</span> 인용(quote) 연산자로 볼 수 있는 이유임</li>
+</ul>
+<div class="sourceCode" id="cb1261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1261-1"><a href="모형식-표현.html#cb1261-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 수식 표현</span></span>
+<span id="cb1261-2"><a href="모형식-표현.html#cb1261-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> y <span class="sc">~</span> x</span>
+<span id="cb1261-3"><a href="모형식-표현.html#cb1261-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> y <span class="sc">~</span> x <span class="sc">+</span> b</span>
+<span id="cb1261-4"><a href="모형식-표현.html#cb1261-4" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="er">~</span> x <span class="sc">+</span> y <span class="sc">+</span> z</span>
+<span id="cb1261-5"><a href="모형식-표현.html#cb1261-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1261-6"><a href="모형식-표현.html#cb1261-6" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(c); <span class="fu">class</span>(c); <span class="fu">attributes</span>(c)</span></code></pre></div>
+<pre><code>[1] &quot;language&quot;</code></pre>
+<pre><code>[1] &quot;formula&quot;</code></pre>
+<pre><code>$class
+[1] &quot;formula&quot;
+
+$.Environment
+&lt;environment: R_GlobalEnv&gt;</code></pre>
+<p></p>
+<ul>
+<li>가장 기본적인 <strong>formula</strong>의 형태는 아래와 같음</li>
+</ul>
+<pre><code>반응변수(response variable) ~ 독립변수(independent variables)</code></pre>
+<ul>
+<li><code>~</code> 는 “(좌변)은 (우변)의 함수로 나타낸 모형” 으로 해석됨.</li>
+<li>우변과 좌변 모두 일반적으로 여러 개의 변수들이 있을 수 있으며, 해당 변수듸 추가는 <code>+</code>로 표시됨</li>
+<li>좌변은 반응변수, 우변은 설명변수를 의미</li>
+</ul>
+
+<div class="rmdtip">
+<p>일반적으로 좌편에 <span class="math inline">\(y\)</span>로 표현되는 반응변수는 학문 분야에 따라 종속변수(dependent variable), 표적변수(target variable), 결과변수(outcome variable),
+레이블(label, <span class="math inline">\(y\)</span>가 범주형일 경우) 등으로 명칭되며, 우변에 <span class="math inline">\(y\)</span>를 설명하기 위해 사용하는 변수(<span class="math inline">\(x\)</span>)를 마찬가지로 분야와 성격에 따라 독립변수(independent variable),
+설명변수(exploratory variable), 예측변수(predictor variable), 위험 인자(risck factor), 공변량(covariate) 등으로 명칭된다.</p>
+</div>
+<p></p>
+<ul>
+<li><strong>formula</strong>를 구성하는 항으로 벡터 객체를 직접 사용할 수 있으나, 데이터 프레임의 변수명을 <strong>formula</strong>의 항으로 구성할 수 있음.</li>
+<li><strong>formula</strong>의 항으로 지정된 벡터 또는 변수들의 값은 <strong>formula</strong>를 호출해 사용할 때 까지 연결되지 않은 “언어”로써만 존재</li>
+<li><strong>formula</strong>는 양면수식(two-sided formula, 좌변과 우변 모두에 하나 이상의 항이 존재)과 단면수식(one-sided formula, 우변에만 하나 이상의 항 존재)</li>
+</ul>
+<div class="sourceCode" id="cb1266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1266-1"><a href="모형식-표현.html#cb1266-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1266-2"><a href="모형식-표현.html#cb1266-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb1266-3"><a href="모형식-표현.html#cb1266-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb1266-4"><a href="모형식-표현.html#cb1266-4" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="dv">100</span>, <span class="dv">3</span>)</span>
+<span id="cb1266-5"><a href="모형식-표현.html#cb1266-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fl">0.5</span><span class="sc">*</span>x3 <span class="sc">+</span> <span class="dv">5</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb1266-6"><a href="모형식-표현.html#cb1266-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1266-7"><a href="모형식-표현.html#cb1266-7" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> y <span class="sc">~</span> x <span class="co"># y는 x의 함수</span></span>
+<span id="cb1266-8"><a href="모형식-표현.html#cb1266-8" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="co"># y는 x1과 x2의 함수를 지칭하는 모형</span></span>
+<span id="cb1266-9"><a href="모형식-표현.html#cb1266-9" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(f2); <span class="fu">class</span>(f2); <span class="fu">attributes</span>(f2)</span></code></pre></div>
+<pre><code>[1] &quot;language&quot;</code></pre>
+<pre><code>[1] &quot;formula&quot;</code></pre>
+<pre><code>$class
+[1] &quot;formula&quot;
+
+$.Environment
+&lt;environment: R_GlobalEnv&gt;</code></pre>
+<div class="sourceCode" id="cb1270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1270-1"><a href="모형식-표현.html#cb1270-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(iris)</span></code></pre></div>
+<pre><code>[1] &quot;Sepal.Length&quot; &quot;Sepal.Width&quot;  &quot;Petal.Length&quot; &quot;Petal.Width&quot;  &quot;Species&quot;     </code></pre>
+<div class="sourceCode" id="cb1272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1272-1"><a href="모형식-표현.html#cb1272-1" aria-hidden="true" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> Species <span class="sc">~</span> Sepal.Length <span class="sc">+</span> Sepal.Width <span class="sc">+</span> Petal.Length</span>
+<span id="cb1272-2"><a href="모형식-표현.html#cb1272-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 붓꽃의 종은 꽃받침 길이와 너비, 꽃잎의 길이에 대한 함수</span></span>
+<span id="cb1272-3"><a href="모형식-표현.html#cb1272-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1272-4"><a href="모형식-표현.html#cb1272-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1272-5"><a href="모형식-표현.html#cb1272-5" aria-hidden="true" tabindex="-1"></a>f4 <span class="ot">&lt;-</span> <span class="er">~</span> x1 <span class="sc">+</span> x2</span>
+<span id="cb1272-6"><a href="모형식-표현.html#cb1272-6" aria-hidden="true" tabindex="-1"></a>f5 <span class="ot">&lt;-</span> y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3</span>
+<span id="cb1272-7"><a href="모형식-표현.html#cb1272-7" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(f3); <span class="fu">length</span>(f4)</span></code></pre></div>
+<pre><code>[1] 3</code></pre>
+<pre><code>[1] 2</code></pre>
+<div class="sourceCode" id="cb1275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1275-1"><a href="모형식-표현.html#cb1275-1" aria-hidden="true" tabindex="-1"></a>f4[[<span class="dv">1</span>]]; f4[[<span class="dv">2</span>]]</span></code></pre></div>
+<pre><code>`~`</code></pre>
+<pre><code>x1 + x2</code></pre>
+<div class="sourceCode" id="cb1278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1278-1"><a href="모형식-표현.html#cb1278-1" aria-hidden="true" tabindex="-1"></a>f5[[<span class="dv">1</span>]]; f5[[<span class="dv">2</span>]]; f5[[<span class="dv">3</span>]]</span></code></pre></div>
+<pre><code>`~`</code></pre>
+<pre><code>y</code></pre>
+<pre><code>x1 + x2 + x3</code></pre>
+<p></p>
+<p><strong>수식 사용 이유</strong></p>
+<blockquote>
+<ul>
+<li>변수 간의 관계를 알기 쉽게 표현</li>
+<li>복잡한 변수의 관계를 표현해 함수 내에서 손쉽게 해당 항에 대응하는 데이터 값에 접근 가능</li>
+</ul>
+</blockquote>
+<p><strong>수식표현 방법</strong></p>
+<ul>
+<li>위에서 기술환대로 <code>좌변항 ~ 우변항</code>으로 표현</li>
+<li><code>formula()</code> 또는 <code>as.formula()</code> 함수를 통해 텍스트를 <strong>formula</strong> 형태로 생성 가능</li>
+</ul>
+<div class="sourceCode" id="cb1282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1282-1"><a href="모형식-표현.html#cb1282-1" aria-hidden="true" tabindex="-1"></a>f6 <span class="ot">&lt;-</span> <span class="st">&quot;y ~ x1 + x2 + x3&quot;</span></span>
+<span id="cb1282-2"><a href="모형식-표현.html#cb1282-2" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(f6)</span>
+<span id="cb1282-3"><a href="모형식-표현.html#cb1282-3" aria-hidden="true" tabindex="-1"></a>h</span></code></pre></div>
+<pre><code>y ~ x1 + x2 + x3</code></pre>
+<div class="sourceCode" id="cb1284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1284-1"><a href="모형식-표현.html#cb1284-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">formula</span>(f6)</span>
+<span id="cb1284-2"><a href="모형식-표현.html#cb1284-2" aria-hidden="true" tabindex="-1"></a>h</span></code></pre></div>
+<pre><code>y ~ x1 + x2 + x3</code></pre>
+<div class="sourceCode" id="cb1286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1286-1"><a href="모형식-표현.html#cb1286-1" aria-hidden="true" tabindex="-1"></a>fs <span class="ot">&lt;-</span> <span class="fu">c</span>(f1, f2, f6) <span class="co"># formula 객체를 concatenate 할 경우 list 객체</span></span>
+<span id="cb1286-2"><a href="모형식-표현.html#cb1286-2" aria-hidden="true" tabindex="-1"></a>fl <span class="ot">&lt;-</span> <span class="fu">lapply</span>(fs, as.formula)</span></code></pre></div>
+<p></p>
+<p><strong>formula</strong>로 표현한 모형의 항에 대응하는 값으로 데이터 행렬 및 데이터 프레임 생성</p>
+<ul>
+<li><code>model.frame()</code>: formula 객체에 표현된 항에 대응하는 데이터 값으로 이루어진 데이터 프레임 반환</li>
+<li><code>model.matrix()</code>: 디자인 행렬을 생성하는 함수로</li>
+</ul>
+<div class="sourceCode" id="cb1287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1287-1"><a href="모형식-표현.html#cb1287-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">model.frame</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2) <span class="co"># 벡터값을 데이터 프레임으로 반환</span></span>
+<span id="cb1287-2"><a href="모형식-표현.html#cb1287-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d1)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["y"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x1"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"15.23103","2":"-0.5058152","3":"2.535016","_rn_":"1"},{"1":"25.03651","2":"2.7345733","3":"2.437291","_rn_":"2"},{"1":"19.26211","2":"-1.3425144","3":"3.033594","_rn_":"3"},{"1":"29.55232","2":"8.3811232","3":"2.537901","_rn_":"4"},{"1":"10.58213","2":"3.3180311","3":"2.362337","_rn_":"5"},{"1":"25.53836","2":"-1.2818735","3":"3.037152","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb1288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1288-1"><a href="모형식-표현.html#cb1288-1" aria-hidden="true" tabindex="-1"></a><span class="co"># formula를 구성하고 있는 변수명에 대응하는 변수를 데이터 프레임에서 추출</span></span>
+<span id="cb1288-2"><a href="모형식-표현.html#cb1288-2" aria-hidden="true" tabindex="-1"></a>f3</span></code></pre></div>
+<pre><code>Species ~ Sepal.Length + Sepal.Width + Petal.Length</code></pre>
+<div class="sourceCode" id="cb1290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1290-1"><a href="모형식-표현.html#cb1290-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">model.frame</span>(f3, iris) </span>
+<span id="cb1290-2"><a href="모형식-표현.html#cb1290-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d2)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Species"],"name":[1],"type":["fct"],"align":["left"]},{"label":["Sepal.Length"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Sepal.Width"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Petal.Length"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"setosa","2":"5.1","3":"3.5","4":"1.4","_rn_":"1"},{"1":"setosa","2":"4.9","3":"3.0","4":"1.4","_rn_":"2"},{"1":"setosa","2":"4.7","3":"3.2","4":"1.3","_rn_":"3"},{"1":"setosa","2":"4.6","3":"3.1","4":"1.5","_rn_":"4"},{"1":"setosa","2":"5.0","3":"3.6","4":"1.4","_rn_":"5"},{"1":"setosa","2":"5.4","3":"3.9","4":"1.7","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb1291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1291-1"><a href="모형식-표현.html#cb1291-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model.matrix()에서는 디자인 행렬만 반환</span></span>
+<span id="cb1291-2"><a href="모형식-표현.html#cb1291-2" aria-hidden="true" tabindex="-1"></a><span class="co"># y 값은 포함하지 않고 우변에 해당하는 항에 대응하는 데이터 반환</span></span>
+<span id="cb1291-3"><a href="모형식-표현.html#cb1291-3" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
+<span id="cb1291-4"><a href="모형식-표현.html#cb1291-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(X1)</span></code></pre></div>
+<pre><code>  (Intercept)         x1       x2
+1           1 -0.5058152 2.535016
+2           1  2.7345733 2.437291
+3           1 -1.3425144 3.033594
+4           1  8.3811232 2.537901
+5           1  3.3180311 2.362337
+6           1 -1.2818735 3.037152</code></pre>
+<p></p>
+<p><strong>formula</strong> 관련 함수</p>
+<ul>
+<li><code>terms()</code>: formula 객체에 포함되어 있는 항의 구조 파악</li>
+<li><code>all.vars()</code>: formula에 포함되어 있는 변수명 추출</li>
+<li><code>update()</code>: formula를 구성하는 항을 수정</li>
+</ul>
+<div class="sourceCode" id="cb1293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1293-1"><a href="모형식-표현.html#cb1293-1" aria-hidden="true" tabindex="-1"></a><span class="fu">terms</span>(f2)</span></code></pre></div>
+<pre><code>y ~ x1 + x2
+attr(,&quot;variables&quot;)
+list(y, x1, x2)
+attr(,&quot;factors&quot;)
+   x1 x2
+y   0  0
+x1  1  0
+x2  0  1
+attr(,&quot;term.labels&quot;)
+[1] &quot;x1&quot; &quot;x2&quot;
+attr(,&quot;order&quot;)
+[1] 1 1
+attr(,&quot;intercept&quot;)
+[1] 1
+attr(,&quot;response&quot;)
+[1] 1
+attr(,&quot;.Environment&quot;)
+&lt;environment: R_GlobalEnv&gt;</code></pre>
+<div class="sourceCode" id="cb1295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1295-1"><a href="모형식-표현.html#cb1295-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.vars</span>(f2)</span></code></pre></div>
+<pre><code>[1] &quot;y&quot;  &quot;x1&quot; &quot;x2&quot;</code></pre>
+<div class="sourceCode" id="cb1297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1297-1"><a href="모형식-표현.html#cb1297-1" aria-hidden="true" tabindex="-1"></a><span class="fu">update</span>(f2, <span class="sc">~</span> . <span class="sc">+</span> x3)</span></code></pre></div>
+<pre><code>y ~ x1 + x2 + x3</code></pre>
+<p></p>
+<p><strong>formula</strong>에 사용되는 연산자와 의미</p>
+<table>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Example</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>+</code></td>
+<td><code>X + Z</code></td>
+<td>변수 항 포함</td>
+</tr>
+<tr class="even">
+<td><code>-</code></td>
+<td><code>X + Z - X</code></td>
+<td>변수 항 제거</td>
+</tr>
+<tr class="odd">
+<td><code>:</code></td>
+<td><code>X:W</code></td>
+<td>X와 W의 교호작용</td>
+</tr>
+<tr class="even">
+<td><code>%in%</code></td>
+<td><code>X:W</code></td>
+<td>지분(nesting)</td>
+</tr>
+<tr class="odd">
+<td><code>*</code></td>
+<td><code>X*Z</code></td>
+<td>X + Z + X:Z</td>
+</tr>
+<tr class="even">
+<td><code>^</code></td>
+<td><code>(X+W+Z)^3</code></td>
+<td>3차 교호작용항까지 모든 항을 포함</td>
+</tr>
+<tr class="odd">
+<td><code>I</code></td>
+<td><code>I(X^2)</code></td>
+<td>as is: X^2을 포함</td>
+</tr>
+<tr class="even">
+<td><code>1</code></td>
+<td><code>X - 1</code></td>
+<td>절편 제거</td>
+</tr>
+<tr class="odd">
+<td><code>.</code></td>
+<td><code>Y ~ .</code></td>
+<td>모든 변수 포함(X + W + Z)</td>
+</tr>
+</tbody>
+</table>
+
+<div class="rmdtip">
+<p>일반 연산 시 <code>A %in% B</code>의 의미는 <code>A</code>가 <code>B</code>의 원소를 포함하는지에 대한 논리값을 반환해 주지만, <strong>formula</strong>에서 <code>%in%</code>은 중첩 또는 지분(nesting)을 내포함.
+R의 리스트 객체는 중첩 및 지분 구조의 대표적 형태임. 예를 들어 리스트에 포함된 한 원소에 대응하는 데이터의 형태 및 값은 동일 리스트의 다른 원소에 대응한
+데이터의 형태 및 값이 다름. 즉, 리스트 객체는 한 객체에 여러 형태의 데이터 구조를 가질 수 있고 이를 중접된 구조라고 함.</p>
+<p>또한 실험계획법(experimental design)에서 지분 설계(nested design) 방법이 있는데, 두 개 요인(factor) A와 B가 존재할 때 A의 수준에 따른 B의 수준이 모두 다른 경우,
+즉 교호작용이 존재하지 않는 형태의 실험설계법을 지칭함. 예를 들어 A사와 B사의 오랜지 주스 당도에 차이가 있는지를 알기 위해 각 회사에서 생산하고 있는 주스 3종을
+랜덤하게 선택했다고 가정해 보자. 여기서 주 관심사는 두 회사에서 생산한 주스의 당도의 동질성이지 오랜지 주스 간 당도 차이는 관삼사항이 아님. 이 경우,
+주 관심요인은 회사(C)이고, 요인 C는 회사 A, B라는 두 개의 수준(level)을 갖고 있음. 오랜지 주스(O)는 각 회사 별로 3개의 수준을 갖고 있는데,
+각 회사에서 생산하는 오랜지 주스는 생산 공정에 차이가 있기 떄문에 각 회사에 지분되어 있음. 즉, 회사 A에서 생산한 오랜지 주스 O<sub>1</sub>, O<sub>2</sub>, O<sub>3</sub>은
+회사 B에서 생산한 O<sub>1</sub>, O<sub>2</sub>, O<sub>3</sub>과 다름.</p>
+</div>
+<p></p>
+<div class="sourceCode" id="cb1299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1299-1"><a href="모형식-표현.html#cb1299-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb1299-2"><a href="모형식-표현.html#cb1299-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">30</span>)</span>
+<span id="cb1299-3"><a href="모형식-표현.html#cb1299-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">30</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb1299-4"><a href="모형식-표현.html#cb1299-4" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="dv">30</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1299-5"><a href="모형식-표현.html#cb1299-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="fl">2.5</span><span class="sc">*</span>x <span class="sc">+</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">1.5</span><span class="sc">*</span>z <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> w <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>w<span class="sc">*</span>x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb1299-6"><a href="모형식-표현.html#cb1299-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1299-7"><a href="모형식-표현.html#cb1299-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">model.matrix</span>(<span class="sc">~</span> x))</span></code></pre></div>
+<pre><code>  (Intercept)          x
+1           1 0.50747820
+2           1 0.30676851
+3           1 0.42690767
+4           1 0.69310208
+5           1 0.08513597
+6           1 0.22543662</code></pre>
+<div class="sourceCode" id="cb1301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1301-1"><a href="모형식-표현.html#cb1301-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">model.matrix</span>(<span class="sc">~</span> x <span class="sc">+</span> z)) <span class="co"># x + z</span></span></code></pre></div>
+<pre><code>  (Intercept)          x        z
+1           1 0.50747820 2.535597
+2           1 0.30676851 2.093088
+3           1 0.42690767 2.169803
+4           1 0.69310208 2.899832
+5           1 0.08513597 2.422638
+6           1 0.22543662 2.747746</code></pre>
+<div class="sourceCode" id="cb1303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1303-1"><a href="모형식-표현.html#cb1303-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">model.matrix</span>(<span class="sc">~</span> x <span class="sc">+</span> z <span class="sc">-</span> x)) <span class="co"># x + z에서 z 항 제거</span></span></code></pre></div>
+<pre><code>  (Intercept)        z
+1           1 2.535597
+2           1 2.093088
+3           1 2.169803
+4           1 2.899832
+5           1 2.422638
+6           1 2.747746</code></pre>
+<div class="sourceCode" id="cb1305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1305-1"><a href="모형식-표현.html#cb1305-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">model.matrix</span>(<span class="sc">~</span> x<span class="sc">:</span>w)) <span class="co"># 교호작용항만 포함</span></span></code></pre></div>
+<pre><code>  (Intercept)       x:w
+1           1 0.5074782
+2           1 0.3067685
+3           1 0.0000000
+4           1 0.0000000
+5           1 0.0000000
+6           1 0.0000000</code></pre>
+<div class="sourceCode" id="cb1307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1307-1"><a href="모형식-표현.html#cb1307-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">model.matrix</span>(<span class="sc">~</span> x<span class="sc">*</span>w)) <span class="co"># x + w + x:w</span></span></code></pre></div>
+<pre><code>  (Intercept)          x w       x:w
+1           1 0.50747820 1 0.5074782
+2           1 0.30676851 1 0.3067685
+3           1 0.42690767 0 0.0000000
+4           1 0.69310208 0 0.0000000
+5           1 0.08513597 0 0.0000000
+6           1 0.22543662 0 0.0000000</code></pre>
+<div class="sourceCode" id="cb1309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1309-1"><a href="모형식-표현.html#cb1309-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">model.matrix</span>(<span class="sc">~</span> (x <span class="sc">+</span> z <span class="sc">+</span> w)<span class="sc">^</span><span class="dv">3</span>)) <span class="co"># x + z + w + x:z + z:w + x:w + x:w:z</span></span></code></pre></div>
+<pre><code>  (Intercept)          x        z w       x:z       x:w      z:w     x:z:w
+1           1 0.50747820 2.535597 1 1.2867602 0.5074782 2.535597 1.2867602
+2           1 0.30676851 2.093088 1 0.6420935 0.3067685 2.093088 0.6420935
+3           1 0.42690767 2.169803 0 0.9263056 0.0000000 0.000000 0.0000000
+4           1 0.69310208 2.899832 0 2.0098799 0.0000000 0.000000 0.0000000
+5           1 0.08513597 2.422638 0 0.2062536 0.0000000 0.000000 0.0000000
+6           1 0.22543662 2.747746 0 0.6194427 0.0000000 0.000000 0.0000000</code></pre>
+<div class="sourceCode" id="cb1311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1311-1"><a href="모형식-표현.html#cb1311-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">model.matrix</span>(<span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>))) <span class="co"># x + x^2</span></span></code></pre></div>
+<pre><code>  (Intercept)          x      I(x^2)
+1           1 0.50747820 0.257534127
+2           1 0.30676851 0.094106916
+3           1 0.42690767 0.182250156
+4           1 0.69310208 0.480390494
+5           1 0.08513597 0.007248133
+6           1 0.22543662 0.050821668</code></pre>
+<div class="sourceCode" id="cb1313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1313-1"><a href="모형식-표현.html#cb1313-1" aria-hidden="true" tabindex="-1"></a><span class="co"># head(model.matrix(~ x + x^2))</span></span>
+<span id="cb1313-2"><a href="모형식-표현.html#cb1313-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">model.matrix</span>(<span class="sc">~</span> x <span class="sc">-</span> <span class="dv">1</span>))</span></code></pre></div>
+<pre><code>           x
+1 0.50747820
+2 0.30676851
+3 0.42690767
+4 0.69310208
+5 0.08513597
+6 0.22543662</code></pre>
+<div class="sourceCode" id="cb1315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1315-1"><a href="모형식-표현.html#cb1315-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, x, w, z)</span>
+<span id="cb1315-2"><a href="모형식-표현.html#cb1315-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">model.matrix</span>(y <span class="sc">~</span> ., <span class="at">data =</span> dat))</span></code></pre></div>
+<pre><code>  (Intercept)          x w        z
+1           1 0.50747820 1 2.535597
+2           1 0.30676851 1 2.093088
+3           1 0.42690767 0 2.169803
+4           1 0.69310208 0 2.899832
+5           1 0.08513597 0 2.422638
+6           1 0.22543662 0 2.747746</code></pre>
+<div class="sourceCode" id="cb1317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1317-1"><a href="모형식-표현.html#cb1317-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">model.matrix</span>(y <span class="sc">~</span> .<span class="sc">^</span><span class="dv">2</span>, <span class="at">data =</span> dat))</span></code></pre></div>
+<pre><code>  (Intercept)          x w        z       x:w       x:z      w:z
+1           1 0.50747820 1 2.535597 0.5074782 1.2867602 2.535597
+2           1 0.30676851 1 2.093088 0.3067685 0.6420935 2.093088
+3           1 0.42690767 0 2.169803 0.0000000 0.9263056 0.000000
+4           1 0.69310208 0 2.899832 0.0000000 2.0098799 0.000000
+5           1 0.08513597 0 2.422638 0.0000000 0.2062536 0.000000
+6           1 0.22543662 0 2.747746 0.0000000 0.6194427 0.000000</code></pre>
+<div class="sourceCode" id="cb1319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1319-1"><a href="모형식-표현.html#cb1319-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nested 구조</span></span>
+<span id="cb1319-2"><a href="모형식-표현.html#cb1319-2" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">C =</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="at">O =</span> <span class="fu">paste0</span>(<span class="st">&quot;O&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>), </span>
+<span id="cb1319-3"><a href="모형식-표현.html#cb1319-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb1319-4"><a href="모형식-표현.html#cb1319-4" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> dat2[<span class="fu">order</span>(dat2<span class="sc">$</span>C, dat2<span class="sc">$</span>O), ]</span>
+<span id="cb1319-5"><a href="모형식-표현.html#cb1319-5" aria-hidden="true" tabindex="-1"></a><span class="fu">model.matrix</span>(y <span class="sc">~</span> C <span class="sc">+</span> O <span class="sc">%in%</span> C, <span class="at">data =</span> dat2)</span></code></pre></div>
+<pre><code>   (Intercept) CB CA:OO2 CB:OO2 CA:OO3 CB:OO3
+1            1  0      0      0      0      0
+7            1  0      0      0      0      0
+13           1  0      0      0      0      0
+3            1  0      1      0      0      0
+9            1  0      1      0      0      0
+15           1  0      1      0      0      0
+5            1  0      0      0      1      0
+11           1  0      0      0      1      0
+17           1  0      0      0      1      0
+2            1  1      0      0      0      0
+8            1  1      0      0      0      0
+14           1  1      0      0      0      0
+4            1  1      0      1      0      0
+10           1  1      0      1      0      0
+16           1  1      0      1      0      0
+6            1  1      0      0      0      1
+12           1  1      0      0      0      1
+18           1  1      0      0      0      1
+attr(,&quot;assign&quot;)
+[1] 0 1 2 2 2 2
+attr(,&quot;contrasts&quot;)
+attr(,&quot;contrasts&quot;)$C
+[1] &quot;contr.treatment&quot;
+
+attr(,&quot;contrasts&quot;)$O
+[1] &quot;contr.treatment&quot;</code></pre>
+<p></p>
+
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="통계-분포-함수.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-markdown.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/04-math-distribution-functions.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["cnu-r-programming.pdf", "cnu-r-programming.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

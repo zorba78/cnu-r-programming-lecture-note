@@ -268,33 +268,33 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] kableExtra_1.3.4 gtsummary_1.3.7  gt_0.2.2         glue_1.4.2      
- [5] forcats_0.5.1    stringr_1.4.0    dplyr_1.0.4      purrr_0.3.4     
- [9] readr_1.4.0      tidyr_1.1.3      tibble_3.1.0     ggplot2_3.3.3   
-[13] tidyverse_1.3.0  rmarkdown_2.7    knitr_1.31      
+ [1] kableExtra_1.3.4 gtsummary_1.4.0  gt_0.2.2         glue_1.4.2      
+ [5] forcats_0.5.1    stringr_1.4.0    dplyr_1.0.5      purrr_0.3.4     
+ [9] readr_1.4.0      tidyr_1.1.3      tibble_3.1.1     ggplot2_3.3.3   
+[13] tidyverse_1.3.1  rmarkdown_2.7    knitr_1.33      
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.6          svglite_2.0.0       lubridate_1.7.10   
  [4] lattice_0.20-41     assertthat_0.2.1    digest_0.6.27      
- [7] utf8_1.1.4          R6_2.5.0            cellranger_1.1.0   
-[10] backports_1.2.1     reprex_1.0.0        evaluate_0.14      
-[13] highr_0.8           httr_1.4.2          pillar_1.5.0       
+ [7] utf8_1.2.1          R6_2.5.0            cellranger_1.1.0   
+[10] backports_1.2.1     reprex_2.0.0        evaluate_0.14      
+[13] highr_0.9           httr_1.4.2          pillar_1.6.0       
 [16] rlang_0.4.10        readxl_1.3.1        rstudioapi_0.13    
-[19] jquerylib_0.1.3     Matrix_1.3-2        splines_4.0.5      
-[22] webshot_0.5.2       munsell_0.5.0       broom_0.7.5        
-[25] compiler_4.0.5      modelr_0.1.8        xfun_0.21          
+[19] jquerylib_0.1.4     Matrix_1.3-2        splines_4.0.5      
+[22] webshot_0.5.2       munsell_0.5.0       broom_0.7.6        
+[25] compiler_4.0.5      modelr_0.1.8        xfun_0.22          
 [28] systemfonts_1.0.1   pkgconfig_2.0.3     htmltools_0.5.1.1  
-[31] tidyselect_1.1.0    bookdown_0.21       viridisLite_0.3.0  
-[34] fansi_0.4.2         crayon_1.4.1        dbplyr_2.1.0       
-[37] withr_2.4.1         grid_4.0.5          jsonlite_1.7.2     
+[31] tidyselect_1.1.0    bookdown_0.22       viridisLite_0.4.0  
+[34] fansi_0.4.2         crayon_1.4.1        dbplyr_2.1.1       
+[37] withr_2.4.2         grid_4.0.5          jsonlite_1.7.2     
 [40] gtable_0.3.0        lifecycle_1.0.0     DBI_1.1.1          
-[43] magrittr_2.0.1      scales_1.1.1        cli_2.3.1          
-[46] stringi_1.5.3       broom.helpers_1.2.1 fs_1.5.0           
+[43] magrittr_2.0.1      scales_1.1.1        cli_2.5.0          
+[46] stringi_1.5.3       broom.helpers_1.3.0 fs_1.5.0           
 [49] xml2_1.3.2          bslib_0.2.4         ellipsis_0.3.1     
-[52] generics_0.1.0      vctrs_0.3.6         tools_4.0.5        
+[52] generics_0.1.0      vctrs_0.3.7         tools_4.0.5        
 [55] hms_1.0.0           survival_3.2-10     yaml_2.2.1         
-[58] colorspace_2.0-0    rvest_0.3.6         haven_2.3.1        
-[61] usethis_2.0.1       sass_0.3.1         
+[58] colorspace_2.0-0    rvest_1.0.0         haven_2.4.1        
+[61] sass_0.3.1         
 ```
 
  \normalsize
@@ -826,35 +826,37 @@ dir()
  [9] "03-string-regexp.Rmd"                
 [10] "04-math-distribution-functions_files"
 [11] "04-math-distribution-functions.Rmd"  
-[12] "11-references.Rmd"                   
-[13] "2020"                                
-[14] "assignment"                          
-[15] "book.bib"                            
-[16] "cnu-r-programming-lecture-note.Rproj"
-[17] "cnu-r-programming.log"               
-[18] "cnu-r-programming.rds"               
-[19] "cnu-r-programming.tex"               
-[20] "code"                                
-[21] "css"                                 
-[22] "data"                                
-[23] "dataset"                             
-[24] "dataset.zip"                         
-[25] "demo"                                
-[26] "docs"                                
-[27] "examples"                            
-[28] "figures"                             
-[29] "images"                              
-[30] "index.md"                            
-[31] "index.Rmd"                           
-[32] "index.utf8.md"                       
-[33] "init-funs"                           
-[34] "krantz.cls"                          
-[35] "latex"                               
-[36] "output"                              
-[37] "packages.bib"                        
-[38] "README.md"                           
-[39] "rendercce14a2d01f8.rds"              
-[40] "test"                                
+[12] "05-rmarkdown-more_files"             
+[13] "05-rmarkdown-more.Rmd"               
+[14] "11-references.Rmd"                   
+[15] "2020"                                
+[16] "assignment"                          
+[17] "book.bib"                            
+[18] "cnu-r-programming-lecture-note.Rproj"
+[19] "cnu-r-programming.log"               
+[20] "cnu-r-programming.rds"               
+[21] "cnu-r-programming.tex"               
+[22] "code"                                
+[23] "css"                                 
+[24] "data"                                
+[25] "dataset"                             
+[26] "dataset.zip"                         
+[27] "demo"                                
+[28] "docs"                                
+[29] "examples"                            
+[30] "figures"                             
+[31] "images"                              
+[32] "index.md"                            
+[33] "index.Rmd"                           
+[34] "index.utf8.md"                       
+[35] "init-funs"                           
+[36] "krantz.cls"                          
+[37] "latex"                               
+[38] "output"                              
+[39] "packages.bib"                        
+[40] "README.md"                           
+[41] "render15ae83779e1e9.rds"             
+[42] "test"                                
 ```
 
 ```r
@@ -909,35 +911,37 @@ getwd(); dir()
  [9] "03-string-regexp.Rmd"                
 [10] "04-math-distribution-functions_files"
 [11] "04-math-distribution-functions.Rmd"  
-[12] "11-references.Rmd"                   
-[13] "2020"                                
-[14] "assignment"                          
-[15] "book.bib"                            
-[16] "cnu-r-programming-lecture-note.Rproj"
-[17] "cnu-r-programming.log"               
-[18] "cnu-r-programming.rds"               
-[19] "cnu-r-programming.tex"               
-[20] "code"                                
-[21] "css"                                 
-[22] "data"                                
-[23] "dataset"                             
-[24] "dataset.zip"                         
-[25] "demo"                                
-[26] "docs"                                
-[27] "examples"                            
-[28] "figures"                             
-[29] "images"                              
-[30] "index.md"                            
-[31] "index.Rmd"                           
-[32] "index.utf8.md"                       
-[33] "init-funs"                           
-[34] "krantz.cls"                          
-[35] "latex"                               
-[36] "output"                              
-[37] "packages.bib"                        
-[38] "README.md"                           
-[39] "rendercce14a2d01f8.rds"              
-[40] "test"                                
+[12] "05-rmarkdown-more_files"             
+[13] "05-rmarkdown-more.Rmd"               
+[14] "11-references.Rmd"                   
+[15] "2020"                                
+[16] "assignment"                          
+[17] "book.bib"                            
+[18] "cnu-r-programming-lecture-note.Rproj"
+[19] "cnu-r-programming.log"               
+[20] "cnu-r-programming.rds"               
+[21] "cnu-r-programming.tex"               
+[22] "code"                                
+[23] "css"                                 
+[24] "data"                                
+[25] "dataset"                             
+[26] "dataset.zip"                         
+[27] "demo"                                
+[28] "docs"                                
+[29] "examples"                            
+[30] "figures"                             
+[31] "images"                              
+[32] "index.md"                            
+[33] "index.Rmd"                           
+[34] "index.utf8.md"                       
+[35] "init-funs"                           
+[36] "krantz.cls"                          
+[37] "latex"                               
+[38] "output"                              
+[39] "packages.bib"                        
+[40] "README.md"                           
+[41] "render15ae83779e1e9.rds"             
+[42] "test"                                
 ```
 
  \normalsize
