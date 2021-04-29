@@ -7838,7 +7838,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x55ee426f10e8> 
+  .. ..- attr(*, ".Environment")=<environment: 0x5598df0192c8> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"
