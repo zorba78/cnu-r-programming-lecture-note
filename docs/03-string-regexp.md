@@ -120,7 +120,7 @@ x
 ```
 
 ```
-[1] "µ"
+[1] "\u03bc"
 ```
 
  \normalsize
@@ -220,7 +220,7 @@ nchar(s, type = "byte")
 ```
 
 ```
-[1]  3  9  6 14  3
+[1]  3  6  6 14  3
 ```
 
 ```r
@@ -2475,7 +2475,7 @@ phone[g]
 
 ```r
 # 크롤링한 데이터 불러오기
-news_naver <- read.csv("dataset/test.news-scraping.csv", header = T, 
+news_naver <- read.csv("dataset/news-scraping.csv", header = T, 
                        stringsAsFactors = FALSE)
 
 # regmatches 함수: regexpr(), gregexpr(), regexec()로 검색한 패턴을

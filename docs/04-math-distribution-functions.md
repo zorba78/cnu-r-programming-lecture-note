@@ -634,14 +634,14 @@ $.Environment
 
 
 - `~` 는 "(좌변)은 (우변)의 함수로 나타낸 모형" 으로 해석됨. 
-- 우변과 좌변 모두 일반적으로 여러 개의 변수들이 있을 수 있으며, 해당 변수듸 추가는 `+`로 표시됨
+- 우변과 좌변 모두 일반적으로 여러 개의 변수들이 있을 수 있으며, 해당 변수의 추가는 `+`로 표시됨
 - 좌변은 반응변수, 우변은 설명변수를 의미
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}<div class="rmdtip">일반적으로 좌편에 $y$로 표현되는 반응변수는 학문 분야에 따라 종속변수(dependent variable), 표적변수(target variable), 결과변수(outcome variable), 
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">일반적으로 좌변에 $y$로 표현되는 반응변수는 학문 분야에 따라 종속변수(dependent variable), 표적변수(target variable), 결과변수(outcome variable), 
 레이블(label, $y$가 범주형일 경우) 등으로 명칭되며, 우변에 $y$를 설명하기 위해 사용하는 변수($x$)를 마찬가지로 분야와 성격에 따라 독립변수(independent variable), 
-설명변수(exploratory variable), 예측변수(predictor variable), 위험 인자(risck factor), 공변량(covariate) 등으로 명칭된다. 
+설명변수(exploratory variable), 예측변수(predictor variable), 위험 인자(risk factor), 공변량(covariate) 등으로 명칭된다. 
 </div>\EndKnitrBlock{rmdtip}
 
  \normalsize
@@ -784,7 +784,7 @@ fl <- lapply(fs, as.formula)
 **formula**로 표현한 모형의 항에 대응하는 값으로 데이터 행렬 및 데이터 프레임 생성
 
 - `model.frame()`: formula 객체에 표현된 항에 대응하는 데이터 값으로 이루어진 데이터 프레임 반환
-- `model.matrix()`: 디자인 행렬을 생성하는 함수로 
+- `model.matrix()`: 디자인 행렬을 생성하는 함수
 
 
 

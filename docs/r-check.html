@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1.2 R 시작 및 작동 체크 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1.2 R 시작 및 작동 체크 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -53,8 +53,6 @@
 
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
@@ -65,6 +63,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -123,29 +122,6 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
 </style>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
@@ -334,53 +310,48 @@ div.csl-indent {
 </ol>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-check.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R의 설치 버전 및 현재 설정된 locale(언어, 시간대) 및 로딩된 R package 정보 출력</span></span>
 <span id="cb1-2"><a href="r-check.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>() </span></code></pre></div>
-<pre><code>R version 4.0.5 (2021-03-31)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 18.04.5 LTS
+<pre><code>R version 4.0.4 (2021-02-15)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 18363)
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3
-LAPACK: /usr/lib/x86_64-linux-gnu/libopenblasp-r0.2.20.so
 
 locale:
- [1] LC_CTYPE=ko_KR.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=ko_KR.UTF-8        LC_COLLATE=ko_KR.UTF-8    
- [5] LC_MONETARY=ko_KR.UTF-8    LC_MESSAGES=ko_KR.UTF-8   
- [7] LC_PAPER=ko_KR.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=ko_KR.UTF-8 LC_IDENTIFICATION=C       
+[1] LC_COLLATE=Korean_Korea.949  LC_CTYPE=Korean_Korea.949   
+[3] LC_MONETARY=Korean_Korea.949 LC_NUMERIC=C                
+[5] LC_TIME=Korean_Korea.949    
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] kableExtra_1.3.4 gtsummary_1.4.0  gt_0.2.2         glue_1.4.2      
- [5] forcats_0.5.1    stringr_1.4.0    dplyr_1.0.5      purrr_0.3.4     
- [9] readr_1.4.0      tidyr_1.1.3      tibble_3.1.1     ggplot2_3.3.3   
-[13] tidyverse_1.3.1  rmarkdown_2.7    knitr_1.33      
+ [1] kableExtra_1.3.4 gtsummary_1.3.7  gt_0.2.2         glue_1.4.2      
+ [5] forcats_0.5.1    stringr_1.4.0    dplyr_1.0.4      purrr_0.3.4     
+ [9] readr_1.4.0      tidyr_1.1.3      tibble_3.0.6     ggplot2_3.3.3   
+[13] tidyverse_1.3.0  rmarkdown_2.7    knitr_1.31      
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.6          svglite_2.0.0       lubridate_1.7.10   
  [4] lattice_0.20-41     assertthat_0.2.1    digest_0.6.27      
- [7] utf8_1.2.1          R6_2.5.0            cellranger_1.1.0   
-[10] backports_1.2.1     reprex_2.0.0        evaluate_0.14      
-[13] highr_0.9           httr_1.4.2          pillar_1.6.0       
+ [7] utf8_1.1.4          R6_2.5.0            cellranger_1.1.0   
+[10] backports_1.2.1     reprex_1.0.0        evaluate_0.14      
+[13] highr_0.8           httr_1.4.2          pillar_1.5.0       
 [16] rlang_0.4.10        readxl_1.3.1        rstudioapi_0.13    
-[19] jquerylib_0.1.4     Matrix_1.3-2        splines_4.0.5      
-[22] webshot_0.5.2       munsell_0.5.0       broom_0.7.6        
-[25] compiler_4.0.5      modelr_0.1.8        xfun_0.22          
+[19] jquerylib_0.1.3     Matrix_1.3-2        splines_4.0.4      
+[22] webshot_0.5.2       munsell_0.5.0       broom_0.7.5        
+[25] compiler_4.0.4      modelr_0.1.8        xfun_0.21          
 [28] systemfonts_1.0.1   pkgconfig_2.0.3     htmltools_0.5.1.1  
-[31] tidyselect_1.1.0    bookdown_0.22       viridisLite_0.4.0  
-[34] fansi_0.4.2         crayon_1.4.1        dbplyr_2.1.1       
-[37] withr_2.4.2         grid_4.0.5          jsonlite_1.7.2     
+[31] tidyselect_1.1.0    bookdown_0.21       viridisLite_0.3.0  
+[34] fansi_0.4.2         crayon_1.4.1        dbplyr_2.1.0       
+[37] withr_2.4.1         grid_4.0.4          jsonlite_1.7.2     
 [40] gtable_0.3.0        lifecycle_1.0.0     DBI_1.1.1          
-[43] magrittr_2.0.1      scales_1.1.1        cli_2.5.0          
-[46] stringi_1.5.3       broom.helpers_1.3.0 fs_1.5.0           
+[43] magrittr_2.0.1      scales_1.1.1        cli_2.3.1          
+[46] stringi_1.5.3       broom.helpers_1.2.1 fs_1.5.0           
 [49] xml2_1.3.2          bslib_0.2.4         ellipsis_0.3.1     
-[52] generics_0.1.0      vctrs_0.3.7         tools_4.0.5        
-[55] hms_1.0.0           survival_3.2-10     yaml_2.2.1         
-[58] colorspace_2.0-0    rvest_1.0.0         haven_2.4.1        
-[61] sass_0.3.1         </code></pre>
+[52] generics_0.1.0      vctrs_0.3.6         tools_4.0.4        
+[55] hms_1.0.0           survival_3.2-7      yaml_2.2.1         
+[58] colorspace_2.0-0    rvest_0.3.6         haven_2.3.1        
+[61] usethis_2.0.1       sass_0.3.1         </code></pre>
 <p></p>
 <p><br/></p>
 <ol start="2" style="list-style-type: decimal">
@@ -549,7 +520,6 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
