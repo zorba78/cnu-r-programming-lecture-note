@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5.3 R Code Chunks | 통계 프로그래밍 언어</title>
+  <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5.3 R Code Chunks | 통계 프로그래밍 언어" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5.3 R Code Chunks | 통계 프로그래밍 언어" />
+  
+  <meta name="twitter:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  
+
+<meta name="author" content="한국한의학연구원, 구본초" />
+
+
+<meta name="date" content="2021-05-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="r-markdown-기본-문법syntax.html"/>
+<link rel="next" href="inline-code.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">통계 프로그래밍 언어</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Overview</a></li>
+<li class="part"><span><b>I Get Started</b></span></li>
+<li class="chapter" data-level="1" data-path="intro-chap.html"><a href="intro-chap.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1.1</b> R 설치하기</a></li>
+<li class="chapter" data-level="1.2" data-path="r-check.html"><a href="r-check.html"><i class="fa fa-check"></i><b>1.2</b> R 시작 및 작동 체크</a></li>
+<li class="chapter" data-level="1.3" data-path="rconsle-script.html"><a href="rconsle-script.html"><i class="fa fa-check"></i><b>1.3</b> R script 편집기 사용</a></li>
+<li class="chapter" data-level="1.4" data-path="r-studio.html"><a href="r-studio.html"><i class="fa fa-check"></i><b>1.4</b> RStudio</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="r-studio.html"><a href="r-studio.html#rstudio-install"><i class="fa fa-check"></i><b>1.4.1</b> RStudio 설치하기</a></li>
+<li class="chapter" data-level="1.4.2" data-path="r-studio.html"><a href="r-studio.html#rstudio-component"><i class="fa fa-check"></i><b>1.4.2</b> RStudio IDE 화면 구성</a></li>
+<li class="chapter" data-level="1.4.3" data-path="r-studio.html"><a href="r-studio.html#rstudio-glob-options"><i class="fa fa-check"></i><b>1.4.3</b> RStudio 환경 설정</a></li>
+<li class="chapter" data-level="1.4.4" data-path="r-studio.html"><a href="r-studio.html#rstudio-project"><i class="fa fa-check"></i><b>1.4.4</b> RStudio 프로젝트</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="r-package.html"><a href="r-package.html"><i class="fa fa-check"></i><b>1.5</b> R 패키지</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="r-package.html"><a href="r-package.html#r-package-path"><i class="fa fa-check"></i><b>1.5.1</b> R 패키지 경로 확인 및 변경</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-package.html"><a href="r-package.html#r-package-install"><i class="fa fa-check"></i><b>1.5.2</b> R 패키지 설치하기</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-package.html"><a href="r-package.html#r-package-load"><i class="fa fa-check"></i><b>1.5.3</b> R 패키지 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basic.html"><a href="r-basic.html"><i class="fa fa-check"></i><b>1.6</b> R 기초 문법</a></li>
+<li class="chapter" data-level="1.7" data-path="r-markdown-get-start.html"><a href="r-markdown-get-start.html"><i class="fa fa-check"></i><b>1.7</b> R Markdown (맛보기)</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-type.html"><a href="data-type.html"><i class="fa fa-check"></i><b>2</b> R 객체(R object)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="프로그래밍.html"><a href="프로그래밍.html"><i class="fa fa-check"></i><b>2.1</b> 프로그래밍</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="프로그래밍.html"><a href="프로그래밍.html#prerequisites"><i class="fa fa-check"></i><b>2.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2.1.2" data-path="프로그래밍.html"><a href="프로그래밍.html#control-program"><i class="fa fa-check"></i><b>2.1.2</b> 프로그램</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="scalar.html"><a href="scalar.html"><i class="fa fa-check"></i><b>2.2</b> 스칼라(scalar)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="scalar.html"><a href="scalar.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> 선언</a></li>
+<li class="chapter" data-level="2.2.2" data-path="scalar.html"><a href="scalar.html#numeric"><i class="fa fa-check"></i><b>2.2.2</b> 숫자형</a></li>
+<li class="chapter" data-level="2.2.3" data-path="scalar.html"><a href="scalar.html#character"><i class="fa fa-check"></i><b>2.2.3</b> 문자형</a></li>
+<li class="chapter" data-level="2.2.4" data-path="scalar.html"><a href="scalar.html#logical"><i class="fa fa-check"></i><b>2.2.4</b> 논리형 스칼라</a></li>
+<li class="chapter" data-level="2.2.5" data-path="scalar.html"><a href="scalar.html#missing-value"><i class="fa fa-check"></i><b>2.2.5</b> 결측값(missing value)</a></li>
+<li class="chapter" data-level="2.2.6" data-path="scalar.html"><a href="scalar.html#null"><i class="fa fa-check"></i><b>2.2.6</b> NULL 값</a></li>
+<li class="chapter" data-level="2.2.7" data-path="scalar.html"><a href="scalar.html#finite"><i class="fa fa-check"></i><b>2.2.7</b> 무한대/무한소/숫자아님</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>2.3</b> 벡터(vector)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="vector.html"><a href="vector.html#vector-prop"><i class="fa fa-check"></i><b>2.3.1</b> 벡터의 특징</a></li>
+<li class="chapter" data-level="2.3.2" data-path="vector.html"><a href="vector.html#vector-operation"><i class="fa fa-check"></i><b>2.3.2</b> 벡터의 연산</a></li>
+<li class="chapter" data-level="2.3.3" data-path="vector.html"><a href="vector.html#vector-index"><i class="fa fa-check"></i><b>2.3.3</b> 벡터의 색인(indexing)</a></li>
+<li class="chapter" data-level="2.3.4" data-path="vector.html"><a href="vector.html#vector-function"><i class="fa fa-check"></i><b>2.3.4</b> 벡터 관련 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="list.html"><a href="list.html"><i class="fa fa-check"></i><b>2.4</b> 리스트(list)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="list.html"><a href="list.html#make-list"><i class="fa fa-check"></i><b>2.4.1</b> 리스트 생성</a></li>
+<li class="chapter" data-level="2.4.2" data-path="list.html"><a href="list.html#list-index"><i class="fa fa-check"></i><b>2.4.2</b> 리스트 색인</a></li>
+<li class="chapter" data-level="2.4.3" data-path="list.html"><a href="list.html#list-add-delete"><i class="fa fa-check"></i><b>2.4.3</b> 리스트에 원소 추가/제거</a></li>
+<li class="chapter" data-level="2.4.4" data-path="list.html"><a href="list.html#list-combine"><i class="fa fa-check"></i><b>2.4.4</b> 리스트의 결합</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="matrix.html"><a href="matrix.html"><i class="fa fa-check"></i><b>2.5</b> 행렬(matrix)</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="matrix.html"><a href="matrix.html#matrix-operation"><i class="fa fa-check"></i><b>2.5.1</b> 행렬의 연산</a></li>
+<li class="chapter" data-level="2.5.2" data-path="matrix.html"><a href="matrix.html#mat-index"><i class="fa fa-check"></i><b>2.5.2</b> 행렬의 색인</a></li>
+<li class="chapter" data-level="2.5.3" data-path="matrix.html"><a href="matrix.html#행과-열-추가-및-제거"><i class="fa fa-check"></i><b>2.5.3</b> 행과 열 추가 및 제거</a></li>
+<li class="chapter" data-level="2.5.4" data-path="matrix.html"><a href="matrix.html#행렬-관련-함수"><i class="fa fa-check"></i><b>2.5.4</b> 행렬 관련 함수</a></li>
+<li class="chapter" data-level="2.5.5" data-path="matrix.html"><a href="matrix.html#vec-mat-diff"><i class="fa fa-check"></i><b>2.5.5</b> 벡터와 행렬의 차이점</a></li>
+<li class="chapter" data-level="2.5.6" data-path="matrix.html"><a href="matrix.html#mat-dim-reduc-sway"><i class="fa fa-check"></i><b>2.5.6</b> 의도치 않은 차원축소 피하기</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="array.html"><a href="array.html"><i class="fa fa-check"></i><b>2.6</b> 배열(array)</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="array.html"><a href="array.html#make-array"><i class="fa fa-check"></i><b>2.6.1</b> 배열의 생성 및 색인</a></li>
+<li class="chapter" data-level="2.6.2" data-path="array.html"><a href="array.html#rray-extend-example"><i class="fa fa-check"></i><b>2.6.2</b> 배열의 확장 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="factor-table.html"><a href="factor-table.html"><i class="fa fa-check"></i><b>2.7</b> 요인(factor)과 테이블(table)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="factor-table.html"><a href="factor-table.html#factor"><i class="fa fa-check"></i><b>2.7.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.7.2" data-path="factor-table.html"><a href="factor-table.html#table"><i class="fa fa-check"></i><b>2.7.2</b> 테이블(table)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>2.8</b> 데이터 프레임(data frame)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="data-frame.html"><a href="data-frame.html#create-data-frame"><i class="fa fa-check"></i><b>2.8.1</b> 데이터 프레임 생성</a></li>
+<li class="chapter" data-level="2.8.2" data-path="data-frame.html"><a href="data-frame.html#data-frame-get"><i class="fa fa-check"></i><b>2.8.2</b> 데이터 프레임 접근 및 필터링</a></li>
+<li class="chapter" data-level="2.8.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.8.3</b> 데이터 프레임 관련 함수</a></li>
+<li class="chapter" data-level="2.8.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.8.4</b> <code>*apply()</code> 계열 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="is-as-function.html"><a href="is-as-function.html"><i class="fa fa-check"></i><b>2.9</b> 객체의 유형 판별 및 변환</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="string-regexp.html"><a href="string-regexp.html"><i class="fa fa-check"></i><b>3</b> 문자열 처리와 정규표현식</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html"><i class="fa fa-check"></i><b>3.1</b> 유용한 문자열 관련 함수</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#nchar"><i class="fa fa-check"></i><b>3.1.1</b> <strong><code>nchar()</code></strong></a></li>
+<li class="chapter" data-level="3.1.2" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#paste"><i class="fa fa-check"></i><b>3.1.2</b> <strong><code>paste()</code></strong>, <strong><code>paste0()</code></strong></a></li>
+<li class="chapter" data-level="3.1.3" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#sprintf"><i class="fa fa-check"></i><b>3.1.3</b> <strong><code>sprintf()</code></strong></a></li>
+<li class="chapter" data-level="3.1.4" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#substr"><i class="fa fa-check"></i><b>3.1.4</b> <strong><code>substr()</code></strong></a></li>
+<li class="chapter" data-level="3.1.5" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#low-up-fun"><i class="fa fa-check"></i><b>3.1.5</b> <strong><code>tolower()</code>, <code>toupper()</code></strong></a></li>
+<li class="chapter" data-level="3.1.6" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#glue-패키지를-활용한-문자열-다루기"><i class="fa fa-check"></i><b>3.1.6</b> glue 패키지를 활용한 문자열 다루기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html"><i class="fa fa-check"></i><b>3.2</b> 정규표현식 기본 함수</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#grep-grepl"><i class="fa fa-check"></i><b>3.2.1</b> <strong><code>grep()</code>, <code>grepl()</code></strong></a></li>
+<li class="chapter" data-level="3.2.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexpr-gregexpr"><i class="fa fa-check"></i><b>3.2.2</b> <strong><code>regexpr()</code></strong>, <strong><code>gregexpr()</code></strong></a></li>
+<li class="chapter" data-level="3.2.3" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#sub-gsub-fun"><i class="fa fa-check"></i><b>3.2.3</b> <strong><code>sub()</code></strong>, <strong><code>gsub()</code></strong></a></li>
+<li class="chapter" data-level="3.2.4" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexec-fun"><i class="fa fa-check"></i><b>3.2.4</b> <strong><code>regexec()</code></strong></a></li>
+<li class="chapter" data-level="3.2.5" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#strsplit"><i class="fa fa-check"></i><b>3.2.5</b> <strong><code>strsplit()</code></strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="reg-exp.html"><a href="reg-exp.html"><i class="fa fa-check"></i><b>3.3</b> 정규 표현식(regular expression)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="reg-exp.html"><a href="reg-exp.html#basic-meta"><i class="fa fa-check"></i><b>3.3.1</b> 기본 메타 문자</a></li>
+<li class="chapter" data-level="3.3.2" data-path="reg-exp.html"><a href="reg-exp.html#character-set"><i class="fa fa-check"></i><b>3.3.2</b> 문자 집합</a></li>
+<li class="chapter" data-level="3.3.3" data-path="reg-exp.html"><a href="reg-exp.html#character-class"><i class="fa fa-check"></i><b>3.3.3</b> 문자 클래스</a></li>
+<li class="chapter" data-level="3.3.4" data-path="reg-exp.html"><a href="reg-exp.html#regexp-ex"><i class="fa fa-check"></i><b>3.3.4</b> 정규 표현식 예시</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="r-수학-함수-분포-함수-모형식-표현.html"><a href="r-수학-함수-분포-함수-모형식-표현.html"><i class="fa fa-check"></i><b>4</b> R 수학 함수, 분포 함수, 모형식 표현</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="수학함수.html"><a href="수학함수.html"><i class="fa fa-check"></i><b>4.1</b> 수학함수</a></li>
+<li class="chapter" data-level="4.2" data-path="통계-분포-함수.html"><a href="통계-분포-함수.html"><i class="fa fa-check"></i><b>4.2</b> 통계 분포 함수</a></li>
+<li class="chapter" data-level="4.3" data-path="모형식-표현.html"><a href="모형식-표현.html"><i class="fa fa-check"></i><b>4.3</b> 모형식 표현</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>5</b> R Markdown</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="r-markdown의-구성.html"><a href="r-markdown의-구성.html"><i class="fa fa-check"></i><b>5.1</b> R Markdown의 구성</a></li>
+<li class="chapter" data-level="5.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html"><i class="fa fa-check"></i><b>5.2</b> R Markdown 기본 문법(syntax)</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#텍스트-문법"><i class="fa fa-check"></i><b>5.2.1</b> 텍스트 문법</a></li>
+<li class="chapter" data-level="5.2.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#block-level-elements"><i class="fa fa-check"></i><b>5.2.2</b> Block-level elements</a></li>
+<li class="chapter" data-level="5.2.3" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#수식표현math-expression"><i class="fa fa-check"></i><b>5.2.3</b> 수식표현(math expression)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="r-code-chunks.html"><a href="r-code-chunks.html"><i class="fa fa-check"></i><b>5.3</b> R Code Chunks</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#code-chunk"><i class="fa fa-check"></i>자주 활용하는 chunk 옵션</a></li>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#typical-chunk"><i class="fa fa-check"></i>알아두면 좋은 청크 형태</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="inline-code.html"><a href="inline-code.html"><i class="fa fa-check"></i><b>5.4</b> 인라인(inline) R 코드</a></li>
+<li class="chapter" data-level="5.5" data-path="yaml.html"><a href="yaml.html"><i class="fa fa-check"></i><b>5.5</b> YAML</a>
+<ul>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#basic-syntax"><i class="fa fa-check"></i>기본 문법</a></li>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#rmarkdown-yaml-structure"><i class="fa fa-check"></i>R Markdown 기본 YAML 구조</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rmarkdown-citation.html"><a href="rmarkdown-citation.html"><i class="fa fa-check"></i><b>5.6</b> 참고문헌 인용</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r-외부-데이터-입출력.html"><a href="r-외부-데이터-입출력.html"><i class="fa fa-check"></i><b>6</b> R 외부 데이터 입출력</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="text-import-export.html"><a href="text-import-export.html"><i class="fa fa-check"></i><b>6.1</b> <strong>텍스트 파일 입출력</strong></a></li>
+<li class="chapter" data-level="6.2" data-path="binary-import-export.html"><a href="binary-import-export.html"><i class="fa fa-check"></i><b>6.2</b> R 바이너리(binary) 파일 입출력</a></li>
+<li class="chapter" data-level="6.3" data-path="import-export-excel.html"><a href="import-export-excel.html"><i class="fa fa-check"></i><b>6.3</b> Excel 파일 입출력</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계 프로그래밍 언어</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-code-chunks" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> R Code Chunks</h2>
+<ul>
+<li>실제 R code가 실행되는 부분임</li>
+<li>Code chunk 실행 시 다양한 옵션 존재(본 강의에서는 몇 개의 옵션만 다룰 것이며, 더 자세한 내용은 <a href="https://yihui.org/knitr/options/" class="uri">https://yihui.org/knitr/options/</a> 또는 <a href="https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown 레퍼런스 가이드</a> 참조</li>
+<li>Code chunk는 <code>```{r}</code>로 시작되며 <code>r</code>은 code 언어 이름을 나타냄.</li>
+<li>Code chunk는 <code>```</code> 로 종료</li>
+<li>R Markdown 문서 작성 시 단축키 <code>[Ctrl] + [Alt] + [I]</code>를 입력하면 Chunk 입력창이 자동 생성됨</li>
+<li>Code chunk의 옵션 조정을 통해 코드의 출력여부, 코드 출력 시 코드의 출력 형태, 코드의 결과물 출력 조정 가능</li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:r-code-chunk"></span>
+<img src="figures/chunk-parts.png" alt="Chunk anatomy (https://ulyngs.github.io/rmarkdown-workshop-2019 에서 발췌)" width="100%" />
+<p class="caption">
+Figure 5.3: Chunk anatomy (<a href="https://ulyngs.github.io/rmarkdown-workshop-2019" class="uri">https://ulyngs.github.io/rmarkdown-workshop-2019</a> 에서 발췌)
+</p>
+</div>
+<p></p>
+<div id="code-chunk" class="section level3 unnumbered">
+<h3>자주 활용하는 chunk 옵션</h3>
+<p><strong>코드 실행 관련 청크</strong></p>
+<table class="table table-condensed table-striped" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:chunk-tab-01">Table 5.1: </span>코드 실행 관련 청크
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Chunk 옵션
+</th>
+<th style="text-align:left;">
+Default
+</th>
+<th style="text-align:left;">
+설명
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 3cm; ">
+eval
+</td>
+<td style="text-align:left;width: 3cm; ">
+TRUE
+</td>
+<td style="text-align:left;width: 8cm; ">
+R 실행(코드 실행 결과)에 대응하는 결과 출력 여부
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; ">
+include
+</td>
+<td style="text-align:left;width: 3cm; ">
+TRUE
+</td>
+<td style="text-align:left;width: 8cm; ">
+출력 문서에 코드 청크의 내용을 포함할지 여부
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div class="sourceCode" id="cb1331"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1331-1"><a href="r-code-chunks.html#cb1331-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex01-1, eval=TRUE}</span></span>
+<span id="cb1331-2"><a href="r-code-chunks.html#cb1331-2" aria-hidden="true" tabindex="-1"></a><span class="in">summary(iris)</span></span>
+<span id="cb1331-3"><a href="r-code-chunks.html#cb1331-3" aria-hidden="true" tabindex="-1"></a><span class="in">hist(iris$Sepal.Length)</span></span>
+<span id="cb1331-4"><a href="r-code-chunks.html#cb1331-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1331-5"><a href="r-code-chunks.html#cb1331-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1331-6"><a href="r-code-chunks.html#cb1331-6" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex01-2, eval=FALSE}</span></span>
+<span id="cb1331-7"><a href="r-code-chunks.html#cb1331-7" aria-hidden="true" tabindex="-1"></a><span class="in">summary(iris)</span></span>
+<span id="cb1331-8"><a href="r-code-chunks.html#cb1331-8" aria-hidden="true" tabindex="-1"></a><span class="in">hist(iris$Sepal.Length)</span></span>
+<span id="cb1331-9"><a href="r-code-chunks.html#cb1331-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb1332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1332-1"><a href="r-code-chunks.html#cb1332-1" aria-hidden="true" tabindex="-1"></a><span class="co">#청크 옵션 eval=TRUE</span></span>
+<span id="cb1332-2"><a href="r-code-chunks.html#cb1332-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iris)</span></code></pre></div>
+<pre><code>  Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+ Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+ 1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+ Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+ Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+ 3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+ Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+       Species  
+ setosa    :50  
+ versicolor:50  
+ virginica :50  
+                
+                
+                </code></pre>
+<div class="sourceCode" id="cb1334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1334-1"><a href="r-code-chunks.html#cb1334-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iris<span class="sc">$</span>Sepal.Length)</span></code></pre></div>
+<p><img src="05-rmarkdown-more_files/figure-html/ex01-1-1.svg" width="672" /></p>
+<p></p>
+<div class="sourceCode" id="cb1335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1335-1"><a href="r-code-chunks.html#cb1335-1" aria-hidden="true" tabindex="-1"></a><span class="co">#청크 옵션 eval=FALSE</span></span>
+<span id="cb1335-2"><a href="r-code-chunks.html#cb1335-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iris)</span>
+<span id="cb1335-3"><a href="r-code-chunks.html#cb1335-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(iris<span class="sc">$</span>Sepal.Length)</span></code></pre></div>
+<p></p>
+<p><strong>소스 코드 출력(텍스트) 결과 관련 청크</strong></p>
+<table class="table table-condensed table-striped" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:chunk-tab-02">Table 5.2: </span>소스 코드 출력 결과 관련 청크
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Chunk 옵션
+</th>
+<th style="text-align:left;">
+Default
+</th>
+<th style="text-align:left;">
+설명
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 3cm; ">
+echo
+</td>
+<td style="text-align:left;width: 3cm; ">
+TRUE
+</td>
+<td style="text-align:left;width: 8cm; ">
+R 실행 결과에 대응하는 코드 출력 여부
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; ">
+results
+</td>
+<td style="text-align:left;width: 3cm; ">
+markup
+</td>
+<td style="text-align:left;width: 8cm; ">
+출력 결과 포맷 지정을 위한 옵션으로 추가적으로 3 가지 옵션 선택 가능: ‘hide,’ ‘asis,’ ‘hold,’ ‘markup’
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; ">
+error
+</td>
+<td style="text-align:left;width: 3cm; ">
+TRUE
+</td>
+<td style="text-align:left;width: 8cm; ">
+코드 또는 스크립트에 구문오류 메세지 출력 여부
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; ">
+message
+</td>
+<td style="text-align:left;width: 3cm; ">
+TRUE
+</td>
+<td style="text-align:left;width: 8cm; ">
+코드로부터 생성된 메세지 출력 여부
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; ">
+warning
+</td>
+<td style="text-align:left;width: 3cm; ">
+TRUE
+</td>
+<td style="text-align:left;width: 8cm; ">
+경고 메세지 출력 여부
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<ul>
+<li><code>echo</code>: 코드 청크에 작성한 R-script 출력 여부 결정
+<ul>
+<li><code>echo = FALSE</code> 이면 소스 코드 출력 없이 그림 결과만 출력</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1336"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1336-1"><a href="r-code-chunks.html#cb1336-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex01-2, echo=TRUE}</span></span>
+<span id="cb1336-2"><a href="r-code-chunks.html#cb1336-2" aria-hidden="true" tabindex="-1"></a><span class="in">require(ggthemes) # ggtheme 패키지 불러오기</span></span>
+<span id="cb1336-3"><a href="r-code-chunks.html#cb1336-3" aria-hidden="true" tabindex="-1"></a><span class="in">require(ggpubr) # ggpubr 패키지 불러오기</span></span>
+<span id="cb1336-4"><a href="r-code-chunks.html#cb1336-4" aria-hidden="true" tabindex="-1"></a><span class="in">iris %&gt;%</span></span>
+<span id="cb1336-5"><a href="r-code-chunks.html#cb1336-5" aria-hidden="true" tabindex="-1"></a><span class="in">   ggplot(aes(x = Sepal.Length, y = Petal.Width, color = Species)) +</span></span>
+<span id="cb1336-6"><a href="r-code-chunks.html#cb1336-6" aria-hidden="true" tabindex="-1"></a><span class="in">   geom_point(size = 5) +</span></span>
+<span id="cb1336-7"><a href="r-code-chunks.html#cb1336-7" aria-hidden="true" tabindex="-1"></a><span class="in">   theme_pubclean() +</span></span>
+<span id="cb1336-8"><a href="r-code-chunks.html#cb1336-8" aria-hidden="true" tabindex="-1"></a><span class="in">   theme(axis.line = element_line(size = 0.8),</span></span>
+<span id="cb1336-9"><a href="r-code-chunks.html#cb1336-9" aria-hidden="true" tabindex="-1"></a><span class="in">         legend.title = element_text(face = &quot;bold&quot;, size = 15),</span></span>
+<span id="cb1336-10"><a href="r-code-chunks.html#cb1336-10" aria-hidden="true" tabindex="-1"></a><span class="in">         legend.text = element_text(face = &quot;bold&quot;, size = 12))</span></span>
+<span id="cb1336-11"><a href="r-code-chunks.html#cb1336-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1336-12"><a href="r-code-chunks.html#cb1336-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1336-13"><a href="r-code-chunks.html#cb1336-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1336-14"><a href="r-code-chunks.html#cb1336-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1336-15"><a href="r-code-chunks.html#cb1336-15" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex01-3, echo=FALSE}</span></span>
+<span id="cb1336-16"><a href="r-code-chunks.html#cb1336-16" aria-hidden="true" tabindex="-1"></a><span class="in">require(ggthemes) # ggtheme 패키지 불러오기</span></span>
+<span id="cb1336-17"><a href="r-code-chunks.html#cb1336-17" aria-hidden="true" tabindex="-1"></a><span class="in">require(ggpubr) # ggpubr 패키지 불러오기</span></span>
+<span id="cb1336-18"><a href="r-code-chunks.html#cb1336-18" aria-hidden="true" tabindex="-1"></a><span class="in">iris %&gt;%</span></span>
+<span id="cb1336-19"><a href="r-code-chunks.html#cb1336-19" aria-hidden="true" tabindex="-1"></a><span class="in">   ggplot(aes(x = Sepal.Length, y = Petal.Width, color = Species)) +</span></span>
+<span id="cb1336-20"><a href="r-code-chunks.html#cb1336-20" aria-hidden="true" tabindex="-1"></a><span class="in">   geom_point(size = 5) +</span></span>
+<span id="cb1336-21"><a href="r-code-chunks.html#cb1336-21" aria-hidden="true" tabindex="-1"></a><span class="in">   theme_pubclean() +</span></span>
+<span id="cb1336-22"><a href="r-code-chunks.html#cb1336-22" aria-hidden="true" tabindex="-1"></a><span class="in">   theme(axis.line = element_line(size = 0.8),</span></span>
+<span id="cb1336-23"><a href="r-code-chunks.html#cb1336-23" aria-hidden="true" tabindex="-1"></a><span class="in">         legend.title = element_text(face = &quot;bold&quot;, size = 15),</span></span>
+<span id="cb1336-24"><a href="r-code-chunks.html#cb1336-24" aria-hidden="true" tabindex="-1"></a><span class="in">         legend.text = element_text(face = &quot;bold&quot;, size = 12))</span></span>
+<span id="cb1336-25"><a href="r-code-chunks.html#cb1336-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1336-26"><a href="r-code-chunks.html#cb1336-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb1337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1337-1"><a href="r-code-chunks.html#cb1337-1" aria-hidden="true" tabindex="-1"></a><span class="co"># echo = TRUE</span></span>
+<span id="cb1337-2"><a href="r-code-chunks.html#cb1337-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggthemes) <span class="co"># ggtheme 패키지 불러오기</span></span>
+<span id="cb1337-3"><a href="r-code-chunks.html#cb1337-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggpubr) <span class="co"># ggpubr 패키지 불러오기</span></span>
+<span id="cb1337-4"><a href="r-code-chunks.html#cb1337-4" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb1337-5"><a href="r-code-chunks.html#cb1337-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Petal.Width, <span class="at">color =</span> Species)) <span class="sc">+</span></span>
+<span id="cb1337-6"><a href="r-code-chunks.html#cb1337-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb1337-7"><a href="r-code-chunks.html#cb1337-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_pubclean</span>() <span class="sc">+</span></span>
+<span id="cb1337-8"><a href="r-code-chunks.html#cb1337-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="fl">0.8</span>),</span>
+<span id="cb1337-9"><a href="r-code-chunks.html#cb1337-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">15</span>),</span>
+<span id="cb1337-10"><a href="r-code-chunks.html#cb1337-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
+<p><img src="05-rmarkdown-more_files/figure-html/unnamed-chunk-4-1.svg" width="672" /></p>
+<p></p>
+<ul>
+<li><code>results</code>: 코드의 텍스트 출력 결과 포맷 지정
+<ul>
+<li><code>markup</code> (default): 코드 청크 내 스크립트의 출력 형태에 따라 텍스트 출력 결과를 mark-up</li>
+<li><code>asis</code>: 변환하지 않은 원래 R 출력 결과 그대로(as is) 출력</li>
+<li><code>hide</code>: R 스크립트로 생성된 텍스트 출력을 보여주지 않음(warning, message 출력 예외)</li>
+<li><code>hold</code>: 코드 청크로 생성된 모든 소스 및 출력을 단일 블록으로 축소</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1338-1"><a href="r-code-chunks.html#cb1338-1" aria-hidden="true" tabindex="-1"></a><span class="co"># results = &#39;markup&#39;인 경우 아래 텍스트를 mark-up</span></span>
+<span id="cb1338-2"><a href="r-code-chunks.html#cb1338-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (이 경우 아래 텍스트는 ``` ``` 블럭 처리)한 결과를 md 파일로 전송</span></span>
+<span id="cb1338-3"><a href="r-code-chunks.html#cb1338-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;I&#39;m raw **Markdown** content.</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>I&#39;m raw **Markdown** content.</code></pre>
+<p></p>
+<div class="figure" style="text-align: center"><span id="fig:code-chunk-markup"></span>
+<img src="figures/code-chunk-markup.png" alt="청크 옵션 results = 'markup'인 경우 rmd vs. md 파일 비교" width="100%" />
+<p class="caption">
+Figure 5.4: 청크 옵션 results = ’markup’인 경우 rmd vs. md 파일 비교
+</p>
+</div>
+<p></p>
+<div class="sourceCode" id="cb1340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1340-1"><a href="r-code-chunks.html#cb1340-1" aria-hidden="true" tabindex="-1"></a><span class="co"># results = &#39;asis&#39; 인 경우 텍스트를 그대로 md 파일에 입력</span></span>
+<span id="cb1340-2"><a href="r-code-chunks.html#cb1340-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;I&#39;m raw **Markdown** content.</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p>I’m raw <strong>Markdown</strong> content.</p>
+<p></p>
+<div class="figure" style="text-align: center"><span id="fig:code-chunk-asis"></span>
+<img src="figures/code-chunk-asis.png" alt="청크 옵션 results = 'asis'인 경우 rmd vs. md 파일 비교" width="100%" />
+<p class="caption">
+Figure 5.5: 청크 옵션 results = ’asis’인 경우 rmd vs. md 파일 비교
+</p>
+</div>
+<p></p>
+<div class="sourceCode" id="cb1341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1341-1"><a href="r-code-chunks.html#cb1341-1" aria-hidden="true" tabindex="-1"></a><span class="co"># results = &#39;hide&#39;</span></span>
+<span id="cb1341-2"><a href="r-code-chunks.html#cb1341-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;I&#39;m raw **Markdown** content.</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1341-3"><a href="r-code-chunks.html#cb1341-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1341-4"><a href="r-code-chunks.html#cb1341-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 텍스트 결과를 출력하지 않음</span></span></code></pre></div>
+<p></p>
+<div class="sourceCode" id="cb1342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1342-1"><a href="r-code-chunks.html#cb1342-1" aria-hidden="true" tabindex="-1"></a><span class="co"># results = &#39;hold&#39;가 아닌 경우 한 라인 별 출력 결과 생성</span></span>
+<span id="cb1342-2"><a href="r-code-chunks.html#cb1342-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
+<span id="cb1342-3"><a href="r-code-chunks.html#cb1342-3" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code> [1] -0.4289115 -1.2824332  0.1297959 -0.4714858 -0.2015276 -0.6904662
+ [7]  0.5390250 -0.1285427 -0.3327077 -1.9904997</code></pre>
+<div class="sourceCode" id="cb1344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1344-1"><a href="r-code-chunks.html#cb1344-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb1344-2"><a href="r-code-chunks.html#cb1344-2" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code> [1] -4.59314317  2.69201234  1.13781809  1.96436536  0.14238225  2.78860183
+ [7]  2.76960579  2.03942225  1.19566411  0.05245327</code></pre>
+<div class="sourceCode" id="cb1346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1346-1"><a href="r-code-chunks.html#cb1346-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> y</span></code></pre></div>
+<pre><code> [1] -5.02205463  1.40957912  1.26761399  1.49287955 -0.05914538  2.09813560
+ [7]  3.30863079  1.91087954  0.86295640 -1.93804644</code></pre>
+<p></p>
+<div class="sourceCode" id="cb1348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1348-1"><a href="r-code-chunks.html#cb1348-1" aria-hidden="true" tabindex="-1"></a><span class="co"># results = &#39;hold&#39;인 경우 코드 부분과 출력 부분이 따로 블록 처리</span></span>
+<span id="cb1348-2"><a href="r-code-chunks.html#cb1348-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
+<span id="cb1348-3"><a href="r-code-chunks.html#cb1348-3" aria-hidden="true" tabindex="-1"></a>x</span>
+<span id="cb1348-4"><a href="r-code-chunks.html#cb1348-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb1348-5"><a href="r-code-chunks.html#cb1348-5" aria-hidden="true" tabindex="-1"></a>y</span>
+<span id="cb1348-6"><a href="r-code-chunks.html#cb1348-6" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> y</span></code></pre></div>
+<pre><code> [1]  0.03107940 -0.03577431 -1.25567215  0.51058806  0.72396908 -0.41175530
+ [7]  0.25201323 -0.35197994 -0.31278168 -0.42815060
+ [1] -0.7291730 -0.1038958 -2.5023236  1.9405774  0.6629792 -2.0354173
+ [7]  1.7975326  2.1869051 -0.1525506  0.9459035
+ [1] -0.6980936 -0.1396701 -3.7579957  2.4511655  1.3869483 -2.4471726
+ [7]  2.0495458  1.8349252 -0.4653322  0.5177529</code></pre>
+<p></p>
+<ul>
+<li><code>error</code>: 코드 청크 내 스크립트에 오류에 대한 보존 여부(<code>stop()</code>)
+<ul>
+<li>기본적으로 Rmarkdown 컴파일 시 <code>error</code>에 대한 옵션이 <code>FALSE</code>이기 때문에 스크립트(코드)에 오류가 포함되면 컴파일이 정지됨.</li>
+<li><code>error = TRUE</code> 이면 오류 메세지를 포함한 텍스트 결과를 출력</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1350-1"><a href="r-code-chunks.html#cb1350-1" aria-hidden="true" tabindex="-1"></a>3x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb1350-2"><a href="r-code-chunks.html#cb1350-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">25</span> <span class="co"># 위 행이 구문 오류를 포함하고 있기 때문에</span></span>
+<span id="cb1350-3"><a href="r-code-chunks.html#cb1350-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 오류 이후의 코드는 실행되지 않음</span></span>
+<span id="cb1350-4"><a href="r-code-chunks.html#cb1350-4" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>Error: &lt;text&gt;:1:2: 예상하지 못한 기호(symbol)입니다.
+1: 3x
+     ^</code></pre>
+<p></p>
+<ul>
+<li><code>message</code>/<code>warning</code>: 텍스트 출력물 중 경고(warning, <code>warning()</code> 함수의 출력 결과) 메세지 출력 여부 결정</li>
+</ul>
+<div class="sourceCode" id="cb1352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1352-1"><a href="r-code-chunks.html#cb1352-1" aria-hidden="true" tabindex="-1"></a><span class="co"># message = TRUE 인 경우 함수 message 출력</span></span>
+<span id="cb1352-2"><a href="r-code-chunks.html#cb1352-2" aria-hidden="true" tabindex="-1"></a>testit <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb1352-3"><a href="r-code-chunks.html#cb1352-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;testing package startup messages&quot;</span>)</span>
+<span id="cb1352-4"><a href="r-code-chunks.html#cb1352-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">packageStartupMessage</span>(<span class="st">&quot;initializing ...&quot;</span>, <span class="at">appendLF =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1352-5"><a href="r-code-chunks.html#cb1352-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)</span>
+<span id="cb1352-6"><a href="r-code-chunks.html#cb1352-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">packageStartupMessage</span>(<span class="st">&quot; done&quot;</span>)</span>
+<span id="cb1352-7"><a href="r-code-chunks.html#cb1352-7" aria-hidden="true" tabindex="-1"></a>} <span class="co"># help(message) 예시 중 발췌</span></span>
+<span id="cb1352-8"><a href="r-code-chunks.html#cb1352-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1352-9"><a href="r-code-chunks.html#cb1352-9" aria-hidden="true" tabindex="-1"></a><span class="fu">testit</span>()</span></code></pre></div>
+<pre><code>testing package startup messages</code></pre>
+<pre><code>initializing ... done</code></pre>
+<p></p>
+<div class="sourceCode" id="cb1355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1355-1"><a href="r-code-chunks.html#cb1355-1" aria-hidden="true" tabindex="-1"></a><span class="co"># message=FALSE -&gt; 메세지 출력하지 않음</span></span>
+<span id="cb1355-2"><a href="r-code-chunks.html#cb1355-2" aria-hidden="true" tabindex="-1"></a><span class="fu">testit</span>()</span></code></pre></div>
+<p></p>
+<div class="sourceCode" id="cb1356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1356-1"><a href="r-code-chunks.html#cb1356-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 경고 메세지 출력</span></span>
+<span id="cb1356-2"><a href="r-code-chunks.html#cb1356-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">&quot;new&quot;</span>, <span class="dv">4</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb1356-3"><a href="r-code-chunks.html#cb1356-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(x)</span></code></pre></div>
+<pre><code>Warning: 강제형변환에 의해 생성된 NA 입니다</code></pre>
+<p></p>
+<p><strong>코드 서식 관련 청크 옵션</strong></p>
+<table class="table table-condensed table-striped" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:chunk-tab-03">Table 5.3: </span>코드 서식 관련 청크
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Chunk 옵션
+</th>
+<th style="text-align:left;">
+Default
+</th>
+<th style="text-align:left;">
+설명
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 3cm; ">
+comment
+</td>
+<td style="text-align:left;width: 3cm; ">
+TRUE
+</td>
+<td style="text-align:left;width: 8cm; ">
+소스 코드 실행 출력의 각 줄 앞에 붙는 표시문자 출력 여부: 기본 값은 ‘##’ 임
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; ">
+highlight
+</td>
+<td style="text-align:left;width: 3cm; ">
+TRUE
+</td>
+<td style="text-align:left;width: 8cm; ">
+구문 강조 여부
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; ">
+prompt
+</td>
+<td style="text-align:left;width: 3cm; ">
+FALSE
+</td>
+<td style="text-align:left;width: 8cm; ">
+R 프롬프트 출력 여부
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; ">
+tidy
+</td>
+<td style="text-align:left;width: 3cm; ">
+FALSE
+</td>
+<td style="text-align:left;width: 8cm; ">
+R 소스 코드 출력 정리 여부
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<ul>
+<li><code>comment</code>: 텍스트 출력물에 주석 표시(default)를 함으로써 소스 코드와 출력 결과를 동시 선택과 복사를 가능(##는 주석 표시이기 때문에 실행되지 않음)
+<ul>
+<li>주석 표시를 제거하고 싶다면 <code>comment = NA</code> 또는 <code>comment = ''</code></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1358-1"><a href="r-code-chunks.html#cb1358-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 디폴트 comment 사용</span></span>
+<span id="cb1358-2"><a href="r-code-chunks.html#cb1358-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(iris)</span></code></pre></div>
+<pre><code>##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## </code></pre>
+<p></p>
+<ul>
+<li><code>highlight</code>: 구문 강조 표시 여부
+<ul>
+<li><code>highlight=FALSE</code> 일 때 소스 코드 출력 결과</li>
+</ul></li>
+</ul>
+<pre class="text"><code># highlight=FALSE
+
+iris %&gt;%
+   ggplot(aes(x = Sepal.Length, y = Petal.Width, color = Species)) +
+   geom_point(size = 5) +
+   theme_pubclean() +
+   theme(axis.line = element_line(size = 0.8),
+         legend.title = element_text(face = &quot;bold&quot;, size = 15),
+         legend.text = element_text(face = &quot;bold&quot;, size = 12))</code></pre>
+<p></p>
+<ul>
+<li><code>prompt</code>: R 콘솔 상 프롬프트 <code>&gt;</code>, <code>+</code> 출력 여부</li>
+</ul>
+<div class="sourceCode" id="cb1361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1361-1"><a href="r-code-chunks.html#cb1361-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># prompt = TRUE 인 경우 코드 출력 결과</span></span>
+<span id="cb1361-2"><a href="r-code-chunks.html#cb1361-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">require</span>(ggthemes) <span class="co"># ggtheme 패키지 불러오기</span></span>
+<span id="cb1361-3"><a href="r-code-chunks.html#cb1361-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">require</span>(ggpubr) <span class="co"># ggpubr 패키지 불러오기</span></span>
+<span id="cb1361-4"><a href="r-code-chunks.html#cb1361-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> iris <span class="sc">%&gt;%</span></span>
+<span id="cb1361-5"><a href="r-code-chunks.html#cb1361-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Petal.Width, <span class="at">color =</span> Species)) <span class="sc">+</span></span>
+<span id="cb1361-6"><a href="r-code-chunks.html#cb1361-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb1361-7"><a href="r-code-chunks.html#cb1361-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>    <span class="fu">theme_pubclean</span>() <span class="sc">+</span></span>
+<span id="cb1361-8"><a href="r-code-chunks.html#cb1361-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>    <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="fl">0.8</span>),</span>
+<span id="cb1361-9"><a href="r-code-chunks.html#cb1361-9" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>          <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">15</span>),</span>
+<span id="cb1361-10"><a href="r-code-chunks.html#cb1361-10" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>          <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
+<p></p>
+<ul>
+<li><code>tidy</code>: 코드를 사용자가 지정(혹은 <code>formatR::tidy_sorce()</code> 함수에 초기값으로 지정된 코드 정리 값)한 줄 당 문자 길이 등을 반영해 코드를 정리
+<ul>
+<li><code>tidy=TRUE</code> 인 경우 자동으로 줄 바꿈</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1362-1"><a href="r-code-chunks.html#cb1362-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># tidy = FALSE 인 경우 코드 출력 결과</span></span>
+<span id="cb1362-2"><a href="r-code-chunks.html#cb1362-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">require</span>(ggthemes) <span class="co"># ggtheme 패키지 불러오기</span></span>
+<span id="cb1362-3"><a href="r-code-chunks.html#cb1362-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">require</span>(ggpubr) <span class="co"># ggpubr 패키지 불러오기</span></span>
+<span id="cb1362-4"><a href="r-code-chunks.html#cb1362-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> iris <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Petal.Width, <span class="at">color =</span> Species)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fu">theme_pubclean</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="fl">0.8</span>), <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">15</span>), <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
+<p></p>
+<div class="sourceCode" id="cb1363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1363-1"><a href="r-code-chunks.html#cb1363-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># tidy = TRUE 인 경우 코드 출력 결과</span></span>
+<span id="cb1363-2"><a href="r-code-chunks.html#cb1363-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">require</span>(ggthemes)  <span class="co"># ggtheme 패키지 불러오기</span></span>
+<span id="cb1363-3"><a href="r-code-chunks.html#cb1363-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">require</span>(ggpubr)  <span class="co"># ggpubr 패키지 불러오기</span></span>
+<span id="cb1363-4"><a href="r-code-chunks.html#cb1363-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> iris <span class="sc">%&gt;%</span></span>
+<span id="cb1363-5"><a href="r-code-chunks.html#cb1363-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>     <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Petal.Width, <span class="at">color =</span> Species)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span> </span>
+<span id="cb1363-6"><a href="r-code-chunks.html#cb1363-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>     <span class="fu">theme_pubclean</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="fl">0.8</span>), <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, </span>
+<span id="cb1363-7"><a href="r-code-chunks.html#cb1363-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>     <span class="at">size =</span> <span class="dv">15</span>), <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
+<p></p>
+<p><strong>그림(plot) 출력 관련 청크 옵션</strong></p>
+<table class="table table-condensed table-striped" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:chunk-tab-04">Table 5.4: </span>Plot 출력 관련 청크
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Chunk 옵션
+</th>
+<th style="text-align:left;">
+Default
+</th>
+<th style="text-align:left;">
+설명
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 5cm; ">
+fig.align
+</td>
+<td style="text-align:left;width: 5cm; ">
+default
+</td>
+<td style="text-align:left;width: 8cm; ">
+최종 문서에 plot 정렬 방식 결정(center/left/right)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 5cm; ">
+fig.height/fig.width
+</td>
+<td style="text-align:left;width: 5cm; ">
+7
+</td>
+<td style="text-align:left;width: 8cm; ">
+그림 크기(단위: 인치)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 5cm; ">
+fig.cap
+</td>
+<td style="text-align:left;width: 5cm; ">
+NULL
+</td>
+<td style="text-align:left;width: 8cm; ">
+그림 캡션(문자열 입력)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 5cm; ">
+dpi
+</td>
+<td style="text-align:left;width: 5cm; ">
+72
+</td>
+<td style="text-align:left;width: 8cm; ">
+dot per inche: 출력 그림 해상도
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+<div id="typical-chunk" class="section level3 unnumbered">
+<h3>알아두면 좋은 청크 형태</h3>
+<p><strong>Setup 청크</strong></p>
+<ul>
+<li>일반적으로 Rmarkdown 문서는 YAML 해더 뒤에 전역적 청크 옵션 지정과 R 패키지를 불러오는 것으로 시작</li>
+<li>청크 옵션은 <code>knitr::opts_chunk$set(청크 옵션 지정)</code> 형태로 지정 가능</li>
+<li>다음은 RStudio 에서 Rmd 문서 생성 시 맨 처음 나오는 코드 청크 예시임</li>
+</ul>
+<div class="sourceCode" id="cb1364"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1364-1"><a href="r-code-chunks.html#cb1364-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex01-2, include=FALSE}</span></span>
+<span id="cb1364-2"><a href="r-code-chunks.html#cb1364-2" aria-hidden="true" tabindex="-1"></a><span class="in">knitr::opts_chunk$set(echo = TRUE)</span></span>
+<span id="cb1364-3"><a href="r-code-chunks.html#cb1364-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<ul>
+<li>일반적 활용 예시</li>
+</ul>
+<div class="sourceCode" id="cb1365"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1365-1"><a href="r-code-chunks.html#cb1365-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r option-init, include=FALSE}</span></span>
+<span id="cb1365-2"><a href="r-code-chunks.html#cb1365-2" aria-hidden="true" tabindex="-1"></a><span class="in">knitr::opts_chunk$set(root.dir = &#39;../..&#39;, # 프로젝트 폴더 지정</span></span>
+<span id="cb1365-3"><a href="r-code-chunks.html#cb1365-3" aria-hidden="true" tabindex="-1"></a><span class="in">                      eval = TRUE,</span></span>
+<span id="cb1365-4"><a href="r-code-chunks.html#cb1365-4" aria-hidden="true" tabindex="-1"></a><span class="in">                      echo = FALSE,</span></span>
+<span id="cb1365-5"><a href="r-code-chunks.html#cb1365-5" aria-hidden="true" tabindex="-1"></a><span class="in">                      cache = FALSE,</span></span>
+<span id="cb1365-6"><a href="r-code-chunks.html#cb1365-6" aria-hidden="true" tabindex="-1"></a><span class="in">                      include = TRUE,</span></span>
+<span id="cb1365-7"><a href="r-code-chunks.html#cb1365-7" aria-hidden="true" tabindex="-1"></a><span class="in">                      tidy = TRUE,</span></span>
+<span id="cb1365-8"><a href="r-code-chunks.html#cb1365-8" aria-hidden="true" tabindex="-1"></a><span class="in">                      tidy.opts = list(blank=FALSE, width.cutoff=120), # 소스 출력길이 지정</span></span>
+<span id="cb1365-9"><a href="r-code-chunks.html#cb1365-9" aria-hidden="true" tabindex="-1"></a><span class="in">                      message = FALSE,</span></span>
+<span id="cb1365-10"><a href="r-code-chunks.html#cb1365-10" aria-hidden="true" tabindex="-1"></a><span class="in">                      warning = FALSE,</span></span>
+<span id="cb1365-11"><a href="r-code-chunks.html#cb1365-11" aria-hidden="true" tabindex="-1"></a><span class="in">                      engine = &quot;R&quot;, # Chunks will always have R code, unless noted</span></span>
+<span id="cb1365-12"><a href="r-code-chunks.html#cb1365-12" aria-hidden="true" tabindex="-1"></a><span class="in">                      error = TRUE,</span></span>
+<span id="cb1365-13"><a href="r-code-chunks.html#cb1365-13" aria-hidden="true" tabindex="-1"></a><span class="in">                      fig.path=&quot;Figures/&quot;,  # Set the figure options</span></span>
+<span id="cb1365-14"><a href="r-code-chunks.html#cb1365-14" aria-hidden="true" tabindex="-1"></a><span class="in">                      fig.align = &quot;center&quot;,</span></span>
+<span id="cb1365-15"><a href="r-code-chunks.html#cb1365-15" aria-hidden="true" tabindex="-1"></a><span class="in">                      fig.width = 7,</span></span>
+<span id="cb1365-16"><a href="r-code-chunks.html#cb1365-16" aria-hidden="true" tabindex="-1"></a><span class="in">                      fig.height = 7,</span></span>
+<span id="cb1365-17"><a href="r-code-chunks.html#cb1365-17" aria-hidden="true" tabindex="-1"></a><span class="in">                      fig.keep=&#39;all&#39;, fig.retina=2)</span></span>
+<span id="cb1365-18"><a href="r-code-chunks.html#cb1365-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<p><strong>이미지 불러오기</strong></p>
+<div class="sourceCode" id="cb1366"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1366-1"><a href="r-code-chunks.html#cb1366-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.cap = &quot;Taj Mahal&quot;}</span></span>
+<span id="cb1366-2"><a href="r-code-chunks.html#cb1366-2" aria-hidden="true" tabindex="-1"></a><span class="in">knitr::include_graphics(&quot;figures/taj.JPG&quot;, dpi = NA)</span></span>
+<span id="cb1366-3"><a href="r-code-chunks.html#cb1366-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-19"></span>
+<img src="figures/taj.JPG" alt="Taj Mahal"  />
+<p class="caption">
+Figure 5.6: Taj Mahal
+</p>
+</div>
+<p></p>
+<div class="sourceCode" id="cb1367"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1367-1"><a href="r-code-chunks.html#cb1367-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.cap = &quot;Scatterplot of the car dataset&quot;}</span></span>
+<span id="cb1367-2"><a href="r-code-chunks.html#cb1367-2" aria-hidden="true" tabindex="-1"></a><span class="in">cars %&gt;%</span></span>
+<span id="cb1367-3"><a href="r-code-chunks.html#cb1367-3" aria-hidden="true" tabindex="-1"></a><span class="in">   ggplot(aes(x = speed, y = dist)) +</span></span>
+<span id="cb1367-4"><a href="r-code-chunks.html#cb1367-4" aria-hidden="true" tabindex="-1"></a><span class="in">   geom_point(size = 5) +</span></span>
+<span id="cb1367-5"><a href="r-code-chunks.html#cb1367-5" aria-hidden="true" tabindex="-1"></a><span class="in">   theme_tufte(base_size = 15) # ggtheme::theme_tufte()</span></span>
+<span id="cb1367-6"><a href="r-code-chunks.html#cb1367-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<p><strong>R 생성 도표 포함</strong></p>
+<div class="figure"><span id="fig:plot-example"></span>
+<img src="05-rmarkdown-more_files/figure-html/plot-example-1.svg" alt="Scatterplot of the car dataset" width="960" />
+<p class="caption">
+Figure 5.7: Scatterplot of the car dataset
+</p>
+</div>
+<p></p>
+<p><strong>테이블 삽입</strong></p>
+<ul>
+<li>가장 간단한 테이블은 <code>knitr::kable()</code> 함수를 통해 생성 가능</li>
+<li><code>kable()</code> 함수는 가장 단순한 형태의 표만 생성하기 때문에 복잡한 표를 만들기에는 한계가 존재함</li>
+<li>이를 보완하기 위해 다음과 같은 패키지 활용
+<ul>
+<li><code>kableExtra</code>: HTML 또는 LaTeX 용 표 생성
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html" class="uri">https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html</a></li>
+<li><a href="https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_pdf.pdf" class="uri">https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_pdf.pdf</a></li>
+</ul></li>
+<li><code>flextable</code> + <code>officer</code>: HTML, 워드 문서 표 작성
+<ul>
+<li><a href="https://davidgohel.github.io/flextable/" class="uri">https://davidgohel.github.io/flextable/</a></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1368"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1368-1"><a href="r-code-chunks.html#cb1368-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1368-2"><a href="r-code-chunks.html#cb1368-2" aria-hidden="true" tabindex="-1"></a><span class="in">knitr::kable(head(iris))</span></span>
+<span id="cb1368-3"><a href="r-code-chunks.html#cb1368-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:right;">
+Sepal.Length
+</th>
+<th style="text-align:right;">
+Sepal.Width
+</th>
+<th style="text-align:right;">
+Petal.Length
+</th>
+<th style="text-align:right;">
+Petal.Width
+</th>
+<th style="text-align:left;">
+Species
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+5.1
+</td>
+<td style="text-align:right;">
+3.5
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.9
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.7
+</td>
+<td style="text-align:right;">
+3.2
+</td>
+<td style="text-align:right;">
+1.3
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.6
+</td>
+<td style="text-align:right;">
+3.1
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+3.6
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5.4
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+<td style="text-align:right;">
+1.7
+</td>
+<td style="text-align:right;">
+0.4
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="r-markdown-기본-문법syntax.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="inline-code.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/05-rmarkdown-more.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["cnu-r-programming.pdf", "cnu-r-programming.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

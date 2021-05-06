@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.3 정규 표현식(regular expression) | 통계 프로그래밍 언어</title>
+  <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.3 정규 표현식(regular expression) | 통계 프로그래밍 언어" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.3 정규 표현식(regular expression) | 통계 프로그래밍 언어" />
+  
+  <meta name="twitter:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  
+
+<meta name="author" content="한국한의학연구원, 구본초" />
+
+
+<meta name="date" content="2021-05-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="regexp-basic-fun.html"/>
+<link rel="next" href="r-수학-함수-분포-함수-모형식-표현.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">통계 프로그래밍 언어</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Overview</a></li>
+<li class="part"><span><b>I Get Started</b></span></li>
+<li class="chapter" data-level="1" data-path="intro-chap.html"><a href="intro-chap.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1.1</b> R 설치하기</a></li>
+<li class="chapter" data-level="1.2" data-path="r-check.html"><a href="r-check.html"><i class="fa fa-check"></i><b>1.2</b> R 시작 및 작동 체크</a></li>
+<li class="chapter" data-level="1.3" data-path="rconsle-script.html"><a href="rconsle-script.html"><i class="fa fa-check"></i><b>1.3</b> R script 편집기 사용</a></li>
+<li class="chapter" data-level="1.4" data-path="r-studio.html"><a href="r-studio.html"><i class="fa fa-check"></i><b>1.4</b> RStudio</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="r-studio.html"><a href="r-studio.html#rstudio-install"><i class="fa fa-check"></i><b>1.4.1</b> RStudio 설치하기</a></li>
+<li class="chapter" data-level="1.4.2" data-path="r-studio.html"><a href="r-studio.html#rstudio-component"><i class="fa fa-check"></i><b>1.4.2</b> RStudio IDE 화면 구성</a></li>
+<li class="chapter" data-level="1.4.3" data-path="r-studio.html"><a href="r-studio.html#rstudio-glob-options"><i class="fa fa-check"></i><b>1.4.3</b> RStudio 환경 설정</a></li>
+<li class="chapter" data-level="1.4.4" data-path="r-studio.html"><a href="r-studio.html#rstudio-project"><i class="fa fa-check"></i><b>1.4.4</b> RStudio 프로젝트</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="r-package.html"><a href="r-package.html"><i class="fa fa-check"></i><b>1.5</b> R 패키지</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="r-package.html"><a href="r-package.html#r-package-path"><i class="fa fa-check"></i><b>1.5.1</b> R 패키지 경로 확인 및 변경</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-package.html"><a href="r-package.html#r-package-install"><i class="fa fa-check"></i><b>1.5.2</b> R 패키지 설치하기</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-package.html"><a href="r-package.html#r-package-load"><i class="fa fa-check"></i><b>1.5.3</b> R 패키지 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basic.html"><a href="r-basic.html"><i class="fa fa-check"></i><b>1.6</b> R 기초 문법</a></li>
+<li class="chapter" data-level="1.7" data-path="r-markdown-get-start.html"><a href="r-markdown-get-start.html"><i class="fa fa-check"></i><b>1.7</b> R Markdown (맛보기)</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-type.html"><a href="data-type.html"><i class="fa fa-check"></i><b>2</b> R 객체(R object)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="프로그래밍.html"><a href="프로그래밍.html"><i class="fa fa-check"></i><b>2.1</b> 프로그래밍</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="프로그래밍.html"><a href="프로그래밍.html#prerequisites"><i class="fa fa-check"></i><b>2.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2.1.2" data-path="프로그래밍.html"><a href="프로그래밍.html#control-program"><i class="fa fa-check"></i><b>2.1.2</b> 프로그램</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="scalar.html"><a href="scalar.html"><i class="fa fa-check"></i><b>2.2</b> 스칼라(scalar)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="scalar.html"><a href="scalar.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> 선언</a></li>
+<li class="chapter" data-level="2.2.2" data-path="scalar.html"><a href="scalar.html#numeric"><i class="fa fa-check"></i><b>2.2.2</b> 숫자형</a></li>
+<li class="chapter" data-level="2.2.3" data-path="scalar.html"><a href="scalar.html#character"><i class="fa fa-check"></i><b>2.2.3</b> 문자형</a></li>
+<li class="chapter" data-level="2.2.4" data-path="scalar.html"><a href="scalar.html#logical"><i class="fa fa-check"></i><b>2.2.4</b> 논리형 스칼라</a></li>
+<li class="chapter" data-level="2.2.5" data-path="scalar.html"><a href="scalar.html#missing-value"><i class="fa fa-check"></i><b>2.2.5</b> 결측값(missing value)</a></li>
+<li class="chapter" data-level="2.2.6" data-path="scalar.html"><a href="scalar.html#null"><i class="fa fa-check"></i><b>2.2.6</b> NULL 값</a></li>
+<li class="chapter" data-level="2.2.7" data-path="scalar.html"><a href="scalar.html#finite"><i class="fa fa-check"></i><b>2.2.7</b> 무한대/무한소/숫자아님</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>2.3</b> 벡터(vector)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="vector.html"><a href="vector.html#vector-prop"><i class="fa fa-check"></i><b>2.3.1</b> 벡터의 특징</a></li>
+<li class="chapter" data-level="2.3.2" data-path="vector.html"><a href="vector.html#vector-operation"><i class="fa fa-check"></i><b>2.3.2</b> 벡터의 연산</a></li>
+<li class="chapter" data-level="2.3.3" data-path="vector.html"><a href="vector.html#vector-index"><i class="fa fa-check"></i><b>2.3.3</b> 벡터의 색인(indexing)</a></li>
+<li class="chapter" data-level="2.3.4" data-path="vector.html"><a href="vector.html#vector-function"><i class="fa fa-check"></i><b>2.3.4</b> 벡터 관련 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="list.html"><a href="list.html"><i class="fa fa-check"></i><b>2.4</b> 리스트(list)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="list.html"><a href="list.html#make-list"><i class="fa fa-check"></i><b>2.4.1</b> 리스트 생성</a></li>
+<li class="chapter" data-level="2.4.2" data-path="list.html"><a href="list.html#list-index"><i class="fa fa-check"></i><b>2.4.2</b> 리스트 색인</a></li>
+<li class="chapter" data-level="2.4.3" data-path="list.html"><a href="list.html#list-add-delete"><i class="fa fa-check"></i><b>2.4.3</b> 리스트에 원소 추가/제거</a></li>
+<li class="chapter" data-level="2.4.4" data-path="list.html"><a href="list.html#list-combine"><i class="fa fa-check"></i><b>2.4.4</b> 리스트의 결합</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="matrix.html"><a href="matrix.html"><i class="fa fa-check"></i><b>2.5</b> 행렬(matrix)</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="matrix.html"><a href="matrix.html#matrix-operation"><i class="fa fa-check"></i><b>2.5.1</b> 행렬의 연산</a></li>
+<li class="chapter" data-level="2.5.2" data-path="matrix.html"><a href="matrix.html#mat-index"><i class="fa fa-check"></i><b>2.5.2</b> 행렬의 색인</a></li>
+<li class="chapter" data-level="2.5.3" data-path="matrix.html"><a href="matrix.html#행과-열-추가-및-제거"><i class="fa fa-check"></i><b>2.5.3</b> 행과 열 추가 및 제거</a></li>
+<li class="chapter" data-level="2.5.4" data-path="matrix.html"><a href="matrix.html#행렬-관련-함수"><i class="fa fa-check"></i><b>2.5.4</b> 행렬 관련 함수</a></li>
+<li class="chapter" data-level="2.5.5" data-path="matrix.html"><a href="matrix.html#vec-mat-diff"><i class="fa fa-check"></i><b>2.5.5</b> 벡터와 행렬의 차이점</a></li>
+<li class="chapter" data-level="2.5.6" data-path="matrix.html"><a href="matrix.html#mat-dim-reduc-sway"><i class="fa fa-check"></i><b>2.5.6</b> 의도치 않은 차원축소 피하기</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="array.html"><a href="array.html"><i class="fa fa-check"></i><b>2.6</b> 배열(array)</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="array.html"><a href="array.html#make-array"><i class="fa fa-check"></i><b>2.6.1</b> 배열의 생성 및 색인</a></li>
+<li class="chapter" data-level="2.6.2" data-path="array.html"><a href="array.html#rray-extend-example"><i class="fa fa-check"></i><b>2.6.2</b> 배열의 확장 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="factor-table.html"><a href="factor-table.html"><i class="fa fa-check"></i><b>2.7</b> 요인(factor)과 테이블(table)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="factor-table.html"><a href="factor-table.html#factor"><i class="fa fa-check"></i><b>2.7.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.7.2" data-path="factor-table.html"><a href="factor-table.html#table"><i class="fa fa-check"></i><b>2.7.2</b> 테이블(table)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>2.8</b> 데이터 프레임(data frame)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="data-frame.html"><a href="data-frame.html#create-data-frame"><i class="fa fa-check"></i><b>2.8.1</b> 데이터 프레임 생성</a></li>
+<li class="chapter" data-level="2.8.2" data-path="data-frame.html"><a href="data-frame.html#data-frame-get"><i class="fa fa-check"></i><b>2.8.2</b> 데이터 프레임 접근 및 필터링</a></li>
+<li class="chapter" data-level="2.8.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.8.3</b> 데이터 프레임 관련 함수</a></li>
+<li class="chapter" data-level="2.8.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.8.4</b> <code>*apply()</code> 계열 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="is-as-function.html"><a href="is-as-function.html"><i class="fa fa-check"></i><b>2.9</b> 객체의 유형 판별 및 변환</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="string-regexp.html"><a href="string-regexp.html"><i class="fa fa-check"></i><b>3</b> 문자열 처리와 정규표현식</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html"><i class="fa fa-check"></i><b>3.1</b> 유용한 문자열 관련 함수</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#nchar"><i class="fa fa-check"></i><b>3.1.1</b> <strong><code>nchar()</code></strong></a></li>
+<li class="chapter" data-level="3.1.2" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#paste"><i class="fa fa-check"></i><b>3.1.2</b> <strong><code>paste()</code></strong>, <strong><code>paste0()</code></strong></a></li>
+<li class="chapter" data-level="3.1.3" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#sprintf"><i class="fa fa-check"></i><b>3.1.3</b> <strong><code>sprintf()</code></strong></a></li>
+<li class="chapter" data-level="3.1.4" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#substr"><i class="fa fa-check"></i><b>3.1.4</b> <strong><code>substr()</code></strong></a></li>
+<li class="chapter" data-level="3.1.5" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#low-up-fun"><i class="fa fa-check"></i><b>3.1.5</b> <strong><code>tolower()</code>, <code>toupper()</code></strong></a></li>
+<li class="chapter" data-level="3.1.6" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#glue-패키지를-활용한-문자열-다루기"><i class="fa fa-check"></i><b>3.1.6</b> glue 패키지를 활용한 문자열 다루기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html"><i class="fa fa-check"></i><b>3.2</b> 정규표현식 기본 함수</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#grep-grepl"><i class="fa fa-check"></i><b>3.2.1</b> <strong><code>grep()</code>, <code>grepl()</code></strong></a></li>
+<li class="chapter" data-level="3.2.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexpr-gregexpr"><i class="fa fa-check"></i><b>3.2.2</b> <strong><code>regexpr()</code></strong>, <strong><code>gregexpr()</code></strong></a></li>
+<li class="chapter" data-level="3.2.3" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#sub-gsub-fun"><i class="fa fa-check"></i><b>3.2.3</b> <strong><code>sub()</code></strong>, <strong><code>gsub()</code></strong></a></li>
+<li class="chapter" data-level="3.2.4" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexec-fun"><i class="fa fa-check"></i><b>3.2.4</b> <strong><code>regexec()</code></strong></a></li>
+<li class="chapter" data-level="3.2.5" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#strsplit"><i class="fa fa-check"></i><b>3.2.5</b> <strong><code>strsplit()</code></strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="reg-exp.html"><a href="reg-exp.html"><i class="fa fa-check"></i><b>3.3</b> 정규 표현식(regular expression)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="reg-exp.html"><a href="reg-exp.html#basic-meta"><i class="fa fa-check"></i><b>3.3.1</b> 기본 메타 문자</a></li>
+<li class="chapter" data-level="3.3.2" data-path="reg-exp.html"><a href="reg-exp.html#character-set"><i class="fa fa-check"></i><b>3.3.2</b> 문자 집합</a></li>
+<li class="chapter" data-level="3.3.3" data-path="reg-exp.html"><a href="reg-exp.html#character-class"><i class="fa fa-check"></i><b>3.3.3</b> 문자 클래스</a></li>
+<li class="chapter" data-level="3.3.4" data-path="reg-exp.html"><a href="reg-exp.html#regexp-ex"><i class="fa fa-check"></i><b>3.3.4</b> 정규 표현식 예시</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="r-수학-함수-분포-함수-모형식-표현.html"><a href="r-수학-함수-분포-함수-모형식-표현.html"><i class="fa fa-check"></i><b>4</b> R 수학 함수, 분포 함수, 모형식 표현</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="수학함수.html"><a href="수학함수.html"><i class="fa fa-check"></i><b>4.1</b> 수학함수</a></li>
+<li class="chapter" data-level="4.2" data-path="통계-분포-함수.html"><a href="통계-분포-함수.html"><i class="fa fa-check"></i><b>4.2</b> 통계 분포 함수</a></li>
+<li class="chapter" data-level="4.3" data-path="모형식-표현.html"><a href="모형식-표현.html"><i class="fa fa-check"></i><b>4.3</b> 모형식 표현</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>5</b> R Markdown</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="r-markdown의-구성.html"><a href="r-markdown의-구성.html"><i class="fa fa-check"></i><b>5.1</b> R Markdown의 구성</a></li>
+<li class="chapter" data-level="5.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html"><i class="fa fa-check"></i><b>5.2</b> R Markdown 기본 문법(syntax)</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#텍스트-문법"><i class="fa fa-check"></i><b>5.2.1</b> 텍스트 문법</a></li>
+<li class="chapter" data-level="5.2.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#block-level-elements"><i class="fa fa-check"></i><b>5.2.2</b> Block-level elements</a></li>
+<li class="chapter" data-level="5.2.3" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#수식표현math-expression"><i class="fa fa-check"></i><b>5.2.3</b> 수식표현(math expression)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="r-code-chunks.html"><a href="r-code-chunks.html"><i class="fa fa-check"></i><b>5.3</b> R Code Chunks</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#code-chunk"><i class="fa fa-check"></i>자주 활용하는 chunk 옵션</a></li>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#typical-chunk"><i class="fa fa-check"></i>알아두면 좋은 청크 형태</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="inline-code.html"><a href="inline-code.html"><i class="fa fa-check"></i><b>5.4</b> 인라인(inline) R 코드</a></li>
+<li class="chapter" data-level="5.5" data-path="yaml.html"><a href="yaml.html"><i class="fa fa-check"></i><b>5.5</b> YAML</a>
+<ul>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#basic-syntax"><i class="fa fa-check"></i>기본 문법</a></li>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#rmarkdown-yaml-structure"><i class="fa fa-check"></i>R Markdown 기본 YAML 구조</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rmarkdown-citation.html"><a href="rmarkdown-citation.html"><i class="fa fa-check"></i><b>5.6</b> 참고문헌 인용</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r-외부-데이터-입출력.html"><a href="r-외부-데이터-입출력.html"><i class="fa fa-check"></i><b>6</b> R 외부 데이터 입출력</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="text-import-export.html"><a href="text-import-export.html"><i class="fa fa-check"></i><b>6.1</b> <strong>텍스트 파일 입출력</strong></a></li>
+<li class="chapter" data-level="6.2" data-path="binary-import-export.html"><a href="binary-import-export.html"><i class="fa fa-check"></i><b>6.2</b> R 바이너리(binary) 파일 입출력</a></li>
+<li class="chapter" data-level="6.3" data-path="import-export-excel.html"><a href="import-export-excel.html"><i class="fa fa-check"></i><b>6.3</b> Excel 파일 입출력</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계 프로그래밍 언어</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="reg-exp" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> 정규 표현식(regular expression)</h2>
+<ul>
+<li><p>주어진 문자열에 특정한 패턴이 있는 경우, 해당 패턴을 일반화(수식화)한 문자열</p></li>
+<li><p>특정 패턴을 표현한 문자열을 메타 문자(meta character) 라고 지칭</p></li>
+<li><p>일반적으로 특정 규칙 또는 패턴이 문자열을 <strong>찾고(to find)</strong>, 해당 규칙에 해당하는 문자열을 <strong>대체(replace, substitute)</strong> 하기 위해 사용</p></li>
+<li><p>R 언어 뿐 아니라 타 프로그래밍 언어(C, Perl, Python 등) 워드 프로세서, 텍스트 편집기, 검색 엔진, 운영체제(Windows, Linux 등)에서도 범용적으로 사용</p></li>
+<li><p>정규식이라고도 불리우며 영어로는 regex 또는 regexp 로 명칭됨</p></li>
+</ul>
+<div id="basic-meta" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> 기본 메타 문자</h3>
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:meta-char">Table 3.1: </span>정규표현식 메타 문자: 기본
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Expression
+</th>
+<th style="text-align:left;">
+Name
+</th>
+<th style="text-align:left;">
+설명
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+.
+</td>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+Period (마침표)
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+무엇이든 한 글자를 의미
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
++
+</td>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+Plus
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
++ 앞에 오는 표현이 하나 이상 포함
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+*
+</td>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+Asterisk
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+* 앞에 오는 표현이 0 또는 하나 이상 포함
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+?
+</td>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+Question mark
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+? 앞에 오는 표현이 0 또는 하나 포함
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+^
+</td>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+Caret
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+^ 뒤에 오는 표현으로 시작
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+$
+</td>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+Dollar
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+$ 앞에 오는 표연으로 끝나는 경우
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+{}
+</td>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+Curly bracket
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+{} 앞에 정확히 {}에 있는 숫자만큼 반복되는 패턴 (예시 참고)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+()
+</td>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+Parenthesis
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+() 정규 표현식 내 하위(그룹) 표현식 (예시 참고)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+|
+</td>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+Vertical bar
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+| 의 왼쪽 또는 오른쪽 표현이 존재하는지
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<ul>
+<li>메타 문자를 메타 문자가 아닌 문자 자체로 인식하기 위해서는 해당 문자 앞에 <code>\\</code>를 붙임</li>
+</ul>
+<div class="sourceCode" id="cb1135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1135-1"><a href="reg-exp.html#cb1135-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 마침표가 있는 위치 반환</span></span>
+<span id="cb1135-2"><a href="reg-exp.html#cb1135-2" aria-hidden="true" tabindex="-1"></a>str2 <span class="ot">&lt;-</span> str[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb1135-3"><a href="reg-exp.html#cb1135-3" aria-hidden="true" tabindex="-1"></a><span class="fu">regexpr</span>(<span class="st">&quot;.&quot;</span>, str2)</span></code></pre></div>
+<pre><code>[1] 1 1
+attr(,&quot;match.length&quot;)
+[1] 1 1
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE</code></pre>
+<p></p>
+<div class="sourceCode" id="cb1137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1137-1"><a href="reg-exp.html#cb1137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 에러 출력</span></span>
+<span id="cb1137-2"><a href="reg-exp.html#cb1137-2" aria-hidden="true" tabindex="-1"></a><span class="fu">regexpr</span>(<span class="st">&quot;\.&quot;</span>, str2)</span></code></pre></div>
+<pre><code>Error: &quot;&quot;\.&quot;로 시작하는 문자열 중에서 &#39;\.&#39;는 인식할 수 없는 이스케이프입니다</code></pre>
+<p></p>
+<div class="sourceCode" id="cb1139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1139-1"><a href="reg-exp.html#cb1139-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 정확한 표현</span></span>
+<span id="cb1139-2"><a href="reg-exp.html#cb1139-2" aria-hidden="true" tabindex="-1"></a><span class="fu">regexpr</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>, str2)</span></code></pre></div>
+<pre><code>[1] 42 43
+attr(,&quot;match.length&quot;)
+[1] 1 1
+attr(,&quot;index.type&quot;)
+[1] &quot;chars&quot;
+attr(,&quot;useBytes&quot;)
+[1] TRUE</code></pre>
+<p></p>
+<div id="period" class="section level4 unnumbered">
+<h4><strong><code>.</code> 마침표(period)</strong></h4>
+<ul>
+<li>어떤 임의의 한 문자를 의미</li>
+</ul>
+<div class="sourceCode" id="cb1141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1141-1"><a href="reg-exp.html#cb1141-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 문자열 자체가 존재하니까 참값 반환</span></span>
+<span id="cb1141-2"><a href="reg-exp.html#cb1141-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(<span class="st">&quot;.&quot;</span>, jude) </span></code></pre></div>
+<pre><code>[1] TRUE TRUE TRUE TRUE</code></pre>
+<div class="sourceCode" id="cb1143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1143-1"><a href="reg-exp.html#cb1143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(<span class="st">&quot;.&quot;</span>, <span class="st">&quot;#@#%@FDSAGF$%&quot;</span>) </span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<div class="sourceCode" id="cb1145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1145-1"><a href="reg-exp.html#cb1145-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 문자없음 &quot;&quot;</span></span>
+<span id="cb1145-2"><a href="reg-exp.html#cb1145-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(<span class="st">&quot;.&quot;</span>, <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<div class="sourceCode" id="cb1147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1147-1"><a href="reg-exp.html#cb1147-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a로 시작하고 중간에 어떤 글자가 하나 존재하고 b로 끝나는 패턴 </span></span>
+<span id="cb1147-2"><a href="reg-exp.html#cb1147-2" aria-hidden="true" tabindex="-1"></a>bla2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;aac&quot;</span>, <span class="st">&quot;aab&quot;</span>, <span class="st">&quot;accb&quot;</span>, <span class="st">&quot;acadb&quot;</span>)</span>
+<span id="cb1147-3"><a href="reg-exp.html#cb1147-3" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;a.b&quot;</span>, bla2)</span>
+<span id="cb1147-4"><a href="reg-exp.html#cb1147-4" aria-hidden="true" tabindex="-1"></a>bla2[g]</span></code></pre></div>
+<pre><code>[1] &quot;aab&quot;   &quot;acadb&quot;</code></pre>
+<div class="sourceCode" id="cb1149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1149-1"><a href="reg-exp.html#cb1149-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a와 b 사이 어떤 두 문자 존재하는 패턴</span></span>
+<span id="cb1149-2"><a href="reg-exp.html#cb1149-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;a..b&quot;</span>, bla2)</span>
+<span id="cb1149-3"><a href="reg-exp.html#cb1149-3" aria-hidden="true" tabindex="-1"></a>bla2[g]</span></code></pre></div>
+<pre><code>[1] &quot;accb&quot;</code></pre>
+<p></p>
+</div>
+<div id="plus" class="section level4 unnumbered">
+<h4><strong><code>+</code> (plus)</strong></h4>
+<ul>
+<li><code>+</code> 에 선행된 패턴이 한 번 이상 매칭 <span class="math inline">\(\rightarrow\)</span> <code>+</code> 앞에 문자를 1개 이상 포함</li>
+</ul>
+<div class="sourceCode" id="cb1151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1151-1"><a href="reg-exp.html#cb1151-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;a&quot;를 적어도 하나 이상 포함한 원소 반환</span></span>
+<span id="cb1151-2"><a href="reg-exp.html#cb1151-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(<span class="st">&quot;a+&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;ab&quot;</span>, <span class="st">&quot;aa&quot;</span>, <span class="st">&quot;aab&quot;</span>, <span class="st">&quot;aaab&quot;</span>, <span class="st">&quot;b&quot;</span>))</span></code></pre></div>
+<pre><code>[1]  TRUE  TRUE  TRUE  TRUE FALSE</code></pre>
+<div class="sourceCode" id="cb1153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1153-1"><a href="reg-exp.html#cb1153-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;l&quot;과 &quot;n&quot; 사이에 &quot;o&quot;가 하나 이상인 원소 반환</span></span>
+<span id="cb1153-2"><a href="reg-exp.html#cb1153-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(<span class="st">&quot;lo+n&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;bloon&quot;</span>, <span class="st">&quot;blno&quot;</span>, <span class="st">&quot;leno&quot;</span>, <span class="st">&quot;lnooon&quot;</span>, <span class="st">&quot;lololon&quot;</span>))</span></code></pre></div>
+<pre><code>[1]  TRUE FALSE FALSE FALSE  TRUE</code></pre>
+<p></p>
+</div>
+<div id="asterisk" class="section level4 unnumbered">
+<h4><strong><code>*</code> (asterisk)</strong></h4>
+<ul>
+<li><code>*</code> 앞에 선행된 문자 또는 패턴이 0번 이상 매치 <span class="math inline">\(\rightarrow\)</span> <code>*</code> 앞에 문자를 0개 또는 1개 이상 포함</li>
+</ul>
+<div class="sourceCode" id="cb1155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1155-1"><a href="reg-exp.html#cb1155-1" aria-hidden="true" tabindex="-1"></a><span class="co"># xx가 &quot;a&quot;를 0 또는 1개 이상 포함하고 있는가?</span></span>
+<span id="cb1155-2"><a href="reg-exp.html#cb1155-2" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;bbb&quot;</span>, <span class="st">&quot;acb&quot;</span>, <span class="st">&quot;def&quot;</span>, <span class="st">&quot;cde&quot;</span>, <span class="st">&quot;zde&quot;</span>, <span class="st">&quot;era&quot;</span>, <span class="st">&quot;xsery&quot;</span>)</span>
+<span id="cb1155-3"><a href="reg-exp.html#cb1155-3" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;a&quot; 존재와 상관 없이 모든 문자열이 조건에 부합</span></span>
+<span id="cb1155-4"><a href="reg-exp.html#cb1155-4" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;a*&quot;</span>, xx)</span>
+<span id="cb1155-5"><a href="reg-exp.html#cb1155-5" aria-hidden="true" tabindex="-1"></a>xx[g]</span></code></pre></div>
+<pre><code>[1] &quot;bbb&quot;   &quot;acb&quot;   &quot;def&quot;   &quot;cde&quot;   &quot;zde&quot;   &quot;era&quot;   &quot;xsery&quot;</code></pre>
+<div class="sourceCode" id="cb1157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1157-1"><a href="reg-exp.html#cb1157-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;aab&quot;와 &quot;c&quot; 사이에 &quot;d&quot;가 없거나 하나 이상인 경우 </span></span>
+<span id="cb1157-2"><a href="reg-exp.html#cb1157-2" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;caabec&quot;인 경우 &quot;aab&quot;와 &quot;c&quot; 사이에 &quot;e&quot;가 존재하기 때문에 FALSE</span></span>
+<span id="cb1157-3"><a href="reg-exp.html#cb1157-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(<span class="st">&quot;aabd*c&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;aabddc&quot;</span>, <span class="st">&quot;caabec&quot;</span>, <span class="st">&quot;aabc&quot;</span>))</span></code></pre></div>
+<pre><code>[1]  TRUE FALSE  TRUE</code></pre>
+<p></p>
+</div>
+<div id="question" class="section level4 unnumbered">
+<h4><strong><code>?</code> (question)</strong></h4>
+<ul>
+<li><code>?</code> 앞에 항목은 선택 사항이며 많아야 한 번 매치 <span class="math inline">\(\rightarrow\)</span> <code>?</code> 앞의 문자를 0개 또는 1개 포함</li>
+</ul>
+<div class="sourceCode" id="cb1159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1159-1"><a href="reg-exp.html#cb1159-1" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ac&quot;</span>, <span class="st">&quot;abbc&quot;</span>, <span class="st">&quot;abc&quot;</span>, <span class="st">&quot;abcd&quot;</span>, <span class="st">&quot;abbdc&quot;</span>)</span>
+<span id="cb1159-2"><a href="reg-exp.html#cb1159-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1159-3"><a href="reg-exp.html#cb1159-3" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;ab?c&quot;</span>, xx) <span class="do">## &quot;a&quot;와 &quot;c&quot; 사이 &quot;b&quot;가 0개 또는 1개 포함</span></span>
+<span id="cb1159-4"><a href="reg-exp.html#cb1159-4" aria-hidden="true" tabindex="-1"></a>xx[g]</span></code></pre></div>
+<pre><code>[1] &quot;ac&quot;   &quot;abc&quot;  &quot;abcd&quot;</code></pre>
+<div class="sourceCode" id="cb1161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1161-1"><a href="reg-exp.html#cb1161-1" aria-hidden="true" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;aabc&quot;</span>, <span class="st">&quot;aabbc&quot;</span>, <span class="st">&quot;daabec&quot;</span>, <span class="st">&quot;aabbbc&quot;</span>, <span class="st">&quot;aabbbbc&quot;</span>)</span>
+<span id="cb1161-2"><a href="reg-exp.html#cb1161-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;aabb?c&quot;</span>, yy) <span class="do">## &quot;aab&quot;와 &quot;c&quot; 사이에 &quot;b&quot;가 0개 또는 1개 있는 경우 일치</span></span>
+<span id="cb1161-3"><a href="reg-exp.html#cb1161-3" aria-hidden="true" tabindex="-1"></a>yy[g]</span></code></pre></div>
+<pre><code>[1] &quot;aabc&quot;  &quot;aabbc&quot;</code></pre>
+<p></p>
+</div>
+<div id="caret" class="section level4 unnumbered">
+<h4><strong><code>^</code> (caret)</strong></h4>
+<ul>
+<li><code>^</code> 뒤에 나오는 문자(열)로 시작하는 문자열 반환</li>
+</ul>
+<div class="sourceCode" id="cb1163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1163-1"><a href="reg-exp.html#cb1163-1" aria-hidden="true" tabindex="-1"></a><span class="co"># str에서 &quot;The&quot;로 시작하는 문자열 반환</span></span>
+<span id="cb1163-2"><a href="reg-exp.html#cb1163-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;^The&quot;</span>, str)</span>
+<span id="cb1163-3"><a href="reg-exp.html#cb1163-3" aria-hidden="true" tabindex="-1"></a>str[g]</span></code></pre></div>
+<pre><code>[1] &quot;The birch canoe slid on the smooth planks.&quot; 
+[2] &quot;These days a chicken leg is a rare dish.&quot;   
+[3] &quot;The juice of lemons makes fine punch.&quot;      
+[4] &quot;The box was thrown beside the parked truck.&quot;
+[5] &quot;The hogs were fed chopped corn and garbage.&quot;</code></pre>
+<p></p>
+<ul>
+<li><code>[^]</code>: 대괄호(straight bracket) 안에 첫 번째 문자가 <code>^</code>인 경우 <code>^</code>뒤에 있는 문자들을 제외한 모든 문자와 매치</li>
+</ul>
+<div class="sourceCode" id="cb1165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1165-1"><a href="reg-exp.html#cb1165-1" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>, <span class="st">&quot;xyz&quot;</span>, <span class="st">&quot;werx&quot;</span>, <span class="st">&quot;wbcsp&quot;</span>, <span class="st">&quot;cba&quot;</span>)</span>
+<span id="cb1165-2"><a href="reg-exp.html#cb1165-2" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;a&quot;, &quot;b&quot;, &quot;c&quot;를 순서 상관 없이 동시에 포함하지 않은 문자열 반환</span></span>
+<span id="cb1165-3"><a href="reg-exp.html#cb1165-3" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;[^abc]&quot;</span>, xx)</span>
+<span id="cb1165-4"><a href="reg-exp.html#cb1165-4" aria-hidden="true" tabindex="-1"></a>xx[g]</span></code></pre></div>
+<pre><code>[1] &quot;def&quot;   &quot;xyz&quot;   &quot;werx&quot;  &quot;wbcsp&quot;</code></pre>
+<p></p>
+<ul>
+<li><code>^[]</code>: <code>[]</code> 안에 들어간 문자 중 어느 한 단어로 시작하는 문자열 반환</li>
+</ul>
+<div class="sourceCode" id="cb1167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1167-1"><a href="reg-exp.html#cb1167-1" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;def&quot;</span>, <span class="st">&quot;wasp&quot;</span>, <span class="st">&quot;sepcial&quot;</span>, <span class="st">&quot;statisitc&quot;</span>, <span class="st">&quot;abbey load&quot;</span>, <span class="st">&quot;cross&quot;</span>, <span class="st">&quot;batman&quot;</span>)</span>
+<span id="cb1167-2"><a href="reg-exp.html#cb1167-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;^[abc]&quot;</span>, xx)</span>
+<span id="cb1167-3"><a href="reg-exp.html#cb1167-3" aria-hidden="true" tabindex="-1"></a>xx[g]</span></code></pre></div>
+<pre><code>[1] &quot;abbey load&quot; &quot;cross&quot;      &quot;batman&quot;    </code></pre>
+<p></p>
+</div>
+<div id="dollar" class="section level4 unnumbered">
+<h4><strong><code>$</code> (dollar)</strong></h4>
+<ul>
+<li><code>$</code> 앞에 나오는 문자 및 패턴과 문자열의 맨 마지막 문자 패턴과 매치</li>
+</ul>
+<div class="sourceCode" id="cb1169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1169-1"><a href="reg-exp.html#cb1169-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;father$&quot;</span>, x)</span>
+<span id="cb1169-2"><a href="reg-exp.html#cb1169-2" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(x[g])</span></code></pre></div>
+<pre><code>Darth Vader: If you only knew the power of the Dark Side. 
+       Obi-Wan never told you what happend to your father
+Darth Vader: No. I&#39;m your father</code></pre>
+<p></p>
+</div>
+<div id="c-bracket" class="section level4 unnumbered">
+<h4><strong><code>{}</code> (curly bracket)</strong></h4>
+<ul>
+<li><code>{}</code> 앞의 문자 패턴이 <code>{}</code> 안에 숫자만큼 반복되는 패턴을 매치
+<ul>
+<li><code>{n}</code>: 정확히 n 번 매치</li>
+<li><code>{n,m}</code>: n 번에서 m 번 매치</li>
+<li><code>{n, }</code>: 적어도 n 번 이상 매치</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1171-1"><a href="reg-exp.html#cb1171-1" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;tango&quot;</span>, <span class="st">&quot;jazz&quot;</span>, <span class="st">&quot;swing jazz&quot;</span>, <span class="st">&quot;hip hop&quot;</span>, </span>
+<span id="cb1171-2"><a href="reg-exp.html#cb1171-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;groove&quot;</span>, <span class="st">&quot;rock&#39;n roll&quot;</span>, <span class="st">&quot;heavy metal&quot;</span>)</span>
+<span id="cb1171-3"><a href="reg-exp.html#cb1171-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1171-4"><a href="reg-exp.html#cb1171-4" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;z&quot;가 정확히 2번 반복되는 원소 반환</span></span>
+<span id="cb1171-5"><a href="reg-exp.html#cb1171-5" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;z{2}&quot;</span>, xx)</span>
+<span id="cb1171-6"><a href="reg-exp.html#cb1171-6" aria-hidden="true" tabindex="-1"></a>xx[g]</span></code></pre></div>
+<pre><code>[1] &quot;jazz&quot;       &quot;swing jazz&quot;</code></pre>
+<div class="sourceCode" id="cb1173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1173-1"><a href="reg-exp.html#cb1173-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;e&quot;가 2번 이상 반복되는 원소 반환</span></span>
+<span id="cb1173-2"><a href="reg-exp.html#cb1173-2" aria-hidden="true" tabindex="-1"></a>yy <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;deer&quot;</span>, <span class="st">&quot;abacd&quot;</span>, <span class="st">&quot;abcd&quot;</span>, <span class="st">&quot;daaeb&quot;</span>, <span class="st">&quot;eel&quot;</span>, <span class="st">&quot;greeeeg&quot;</span>)</span>
+<span id="cb1173-3"><a href="reg-exp.html#cb1173-3" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;e{2,}&quot;</span>, yy)</span>
+<span id="cb1173-4"><a href="reg-exp.html#cb1173-4" aria-hidden="true" tabindex="-1"></a>xx[g]</span></code></pre></div>
+<pre><code>[1] &quot;tango&quot;       &quot;groove&quot;      &quot;rock&#39;n roll&quot; &quot;heavy metal&quot;</code></pre>
+<div class="sourceCode" id="cb1175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1175-1"><a href="reg-exp.html#cb1175-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;b&quot;가 2번 이상 4번 이하 반복되고 앞에 &quot;a&quot;가 있는 원소 반환</span></span>
+<span id="cb1175-2"><a href="reg-exp.html#cb1175-2" aria-hidden="true" tabindex="-1"></a>zz <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ababababab&quot;</span>, <span class="st">&quot;abbb&quot;</span>, <span class="st">&quot;cbbe&quot;</span>, <span class="st">&quot;xabbbbcd&quot;</span>)</span>
+<span id="cb1175-3"><a href="reg-exp.html#cb1175-3" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;ab{2,4}&quot;</span>, zz)</span>
+<span id="cb1175-4"><a href="reg-exp.html#cb1175-4" aria-hidden="true" tabindex="-1"></a>zz[g]</span></code></pre></div>
+<pre><code>[1] &quot;abbb&quot;     &quot;xabbbbcd&quot;</code></pre>
+<p></p>
+
+<div class="rmdnote">
+<strong>참고</strong>: 위에서 소개한 메타 문자 중 <code>*</code>는 <code>{0,}</code>, <code>+</code>는 <code>{1,}</code>, <code>?</code>는 <code>{0,1}</code>과 동일한 의미를 가짐
+</div>
+<p></p>
+</div>
+<div id="parenthesis" class="section level4 unnumbered">
+<h4><strong><code>()</code> (parenthesis)</strong></h4>
+<ul>
+<li>특정 문자열을 <code>()</code>로 grouping</li>
+<li>한 개 이상의 그룹 지정 가능</li>
+</ul>
+<div class="sourceCode" id="cb1177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1177-1"><a href="reg-exp.html#cb1177-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ab가 1~4회 이상 반복되는 문자열 반환</span></span>
+<span id="cb1177-2"><a href="reg-exp.html#cb1177-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;(ab){1,4}&quot;</span>, zz)</span>
+<span id="cb1177-3"><a href="reg-exp.html#cb1177-3" aria-hidden="true" tabindex="-1"></a>zz[g]</span></code></pre></div>
+<pre><code>[1] &quot;ababababab&quot; &quot;abbb&quot;       &quot;xabbbbcd&quot;  </code></pre>
+<div class="sourceCode" id="cb1179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1179-1"><a href="reg-exp.html#cb1179-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;The&quot;로 시작하고  &quot;punch&quot;가 포함된 문자열 ㅂ반환</span></span>
+<span id="cb1179-2"><a href="reg-exp.html#cb1179-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;^(The)+.*(punch)&quot;</span>, str)</span>
+<span id="cb1179-3"><a href="reg-exp.html#cb1179-3" aria-hidden="true" tabindex="-1"></a>str[g]</span></code></pre></div>
+<pre><code>[1] &quot;The juice of lemons makes fine punch.&quot;</code></pre>
+<p></p>
+</div>
+<div id="vertical-bar" class="section level4 unnumbered">
+<h4><strong><code>|</code> (vertical bar)</strong></h4>
+<ul>
+<li><code>|</code>를 기준으로 좌우 문자 패턴 중 하나를 의미하며 <code>OR</code> 조건과 동일한 의미를 가짐</li>
+<li><code>[]</code> 의 경우 메타문자나 문자 한글자에 대해서만 적용되는 반면 <code>|</code>는 문자를 묶어 문자열로 지정 가능</li>
+</ul>
+<div class="sourceCode" id="cb1181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1181-1"><a href="reg-exp.html#cb1181-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;(is|was)&quot;</span>, str)</span>
+<span id="cb1181-2"><a href="reg-exp.html#cb1181-2" aria-hidden="true" tabindex="-1"></a>str[g]</span></code></pre></div>
+<pre><code>[1] &quot;These days a chicken leg is a rare dish.&quot;   
+[2] &quot;Rice is often served in round bowls.&quot;       
+[3] &quot;The box was thrown beside the parked truck.&quot;
+[4] &quot;Large size in stockings is hard to sell.&quot;   </code></pre>
+<div class="sourceCode" id="cb1183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1183-1"><a href="reg-exp.html#cb1183-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;(are|were)&quot;</span>, str)</span>
+<span id="cb1183-2"><a href="reg-exp.html#cb1183-2" aria-hidden="true" tabindex="-1"></a>str[g]</span></code></pre></div>
+<pre><code>[1] &quot;These days a chicken leg is a rare dish.&quot;   
+[2] &quot;The hogs were fed chopped corn and garbage.&quot;</code></pre>
+<p></p>
+</div>
+</div>
+<div id="character-set" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> 문자 집합</h3>
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:meta-char2">Table 3.2: </span>정규표현식 메타 문자: 문자집합
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Expression
+</th>
+<th style="text-align:left;">
+설명
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+\w
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+문자(letter), 숫자(digit), 또는 _ (underscore) 포함
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+\d
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+숫자 0에서 9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+\s
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+공백문자(line break, tab, spaces)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+\W
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+\w에 포함하지 않는 표현
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+\D
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+숫자가 아닌 표현
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+\S
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+공백이 아닌 표현
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div class="sourceCode" id="cb1185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1185-1"><a href="reg-exp.html#cb1185-1" aria-hidden="true" tabindex="-1"></a><span class="co"># \w 를 이용해 email 추출</span></span>
+<span id="cb1185-2"><a href="reg-exp.html#cb1185-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1185-3"><a href="reg-exp.html#cb1185-3" aria-hidden="true" tabindex="-1"></a>email <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;demo@naver.com&quot;</span>, </span>
+<span id="cb1185-4"><a href="reg-exp.html#cb1185-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;sample@gmail.com&quot;</span>, </span>
+<span id="cb1185-5"><a href="reg-exp.html#cb1185-5" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;coffee@daum.net&quot;</span>, </span>
+<span id="cb1185-6"><a href="reg-exp.html#cb1185-6" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;redbull@nate.com&quot;</span>, </span>
+<span id="cb1185-7"><a href="reg-exp.html#cb1185-7" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;android@gmail.com&quot;</span>, </span>
+<span id="cb1185-8"><a href="reg-exp.html#cb1185-8" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;secondmoon@gmail.com&quot;</span>, </span>
+<span id="cb1185-9"><a href="reg-exp.html#cb1185-9" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;zorba1997@korea.re.kr&quot;</span>)</span>
+<span id="cb1185-10"><a href="reg-exp.html#cb1185-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1185-11"><a href="reg-exp.html#cb1185-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 이메일 주소가 naver 또는 gmail만 추출</span></span>
+<span id="cb1185-12"><a href="reg-exp.html#cb1185-12" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">w+@(naver|gmail)</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">w+&quot;</span>, email)</span>
+<span id="cb1185-13"><a href="reg-exp.html#cb1185-13" aria-hidden="true" tabindex="-1"></a>email[g]</span></code></pre></div>
+<pre><code>[1] &quot;demo@naver.com&quot;       &quot;sample@gmail.com&quot;     &quot;android@gmail.com&quot;   
+[4] &quot;secondmoon@gmail.com&quot;</code></pre>
+<div class="sourceCode" id="cb1187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1187-1"><a href="reg-exp.html#cb1187-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 숫자를 포함하는 문자열 추출: \d</span></span>
+<span id="cb1187-2"><a href="reg-exp.html#cb1187-2" aria-hidden="true" tabindex="-1"></a>ex <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ticket&quot;</span>, <span class="st">&quot;51203&quot;</span>, <span class="st">&quot;+-.,!@#&quot;</span>, <span class="st">&quot;ABCD&quot;</span>, <span class="st">&quot;_&quot;</span>, <span class="st">&quot;010-123-4567&quot;</span>)</span>
+<span id="cb1187-3"><a href="reg-exp.html#cb1187-3" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">d&quot;</span>, ex)</span>
+<span id="cb1187-4"><a href="reg-exp.html#cb1187-4" aria-hidden="true" tabindex="-1"></a>ex[g]</span></code></pre></div>
+<pre><code>[1] &quot;51203&quot;        &quot;010-123-4567&quot;</code></pre>
+<div class="sourceCode" id="cb1189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1189-1"><a href="reg-exp.html#cb1189-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 뒤쪽 공백문자 제거</span></span>
+<span id="cb1189-2"><a href="reg-exp.html#cb1189-2" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;some text on the line 1; </span><span class="sc">\n</span><span class="st"> and then some text on line two        &quot;</span>)</span>
+<span id="cb1189-3"><a href="reg-exp.html#cb1189-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">s+$&quot;</span>, <span class="st">&quot;&quot;</span>, xx)</span></code></pre></div>
+<pre><code>[1] &quot;some text on the line 1; \n and then some text on line two&quot;</code></pre>
+<div class="sourceCode" id="cb1191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1191-1"><a href="reg-exp.html#cb1191-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 영문자(소문자 및 대문자 포함), 숫자, 언더바(_)를 제외한 문자 포함 </span></span>
+<span id="cb1191-2"><a href="reg-exp.html#cb1191-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">W&quot;</span>, ex)</span>
+<span id="cb1191-3"><a href="reg-exp.html#cb1191-3" aria-hidden="true" tabindex="-1"></a>ex[g]</span></code></pre></div>
+<pre><code>[1] &quot;+-.,!@#&quot;      &quot;010-123-4567&quot;</code></pre>
+<div class="sourceCode" id="cb1193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1193-1"><a href="reg-exp.html#cb1193-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 숫자를 제외한 모든 문자 반환</span></span>
+<span id="cb1193-2"><a href="reg-exp.html#cb1193-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">D&quot;</span>, ex)</span>
+<span id="cb1193-3"><a href="reg-exp.html#cb1193-3" aria-hidden="true" tabindex="-1"></a>ex[g]</span></code></pre></div>
+<pre><code>[1] &quot;ticket&quot;       &quot;+-.,!@#&quot;      &quot;ABCD&quot;         &quot;_&quot;            &quot;010-123-4567&quot;</code></pre>
+<div class="sourceCode" id="cb1195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1195-1"><a href="reg-exp.html#cb1195-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 영문자, 숫자, 언더바를 제외한 모든 문자 포함하고</span></span>
+<span id="cb1195-2"><a href="reg-exp.html#cb1195-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 숫자와 특수문자를 포함하는 문자열도 제외</span></span>
+<span id="cb1195-3"><a href="reg-exp.html#cb1195-3" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">W</span><span class="sc">\\</span><span class="st">D&quot;</span>, ex)</span>
+<span id="cb1195-4"><a href="reg-exp.html#cb1195-4" aria-hidden="true" tabindex="-1"></a>ex[g]</span></code></pre></div>
+<pre><code>[1] &quot;+-.,!@#&quot;</code></pre>
+<div class="sourceCode" id="cb1197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1197-1"><a href="reg-exp.html#cb1197-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 공백, 탭을 제외한 모든 문자 포함</span></span>
+<span id="cb1197-2"><a href="reg-exp.html#cb1197-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1197-3"><a href="reg-exp.html#cb1197-3" aria-hidden="true" tabindex="-1"></a>blank <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot; &quot;</span>, <span class="st">&quot;_&quot;</span>, <span class="st">&quot;abcd&quot;</span>, <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="st">&quot;%^$#*#*&quot;</span>) </span>
+<span id="cb1197-4"><a href="reg-exp.html#cb1197-4" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">S&quot;</span>, blank)</span>
+<span id="cb1197-5"><a href="reg-exp.html#cb1197-5" aria-hidden="true" tabindex="-1"></a>blank[g]</span></code></pre></div>
+<pre><code>[1] &quot;_&quot;       &quot;abcd&quot;    &quot;%^$#*#*&quot;</code></pre>
+<p></p>
+</div>
+<div id="character-class" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> 문자 클래스</h3>
+<ul>
+<li><p>문자 집합을 더 세분화하여 특정 목적에 맞는 정규 표현형</p></li>
+<li><p>대괄호(<code>[]</code>) 안에 특정 패턴에 해당하는 문자로 규칙 표현하고 하이픈(<code>-</code>)을 사용해 특정 문자의 범위 지정 가능</p></li>
+<li><p>응용 가능한 문자 클래스</p></li>
+</ul>
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:meta-char3">Table 3.3: </span>정규표현식 주요 문자 클래스
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Expression
+</th>
+<th style="text-align:left;">
+설명
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[a-z]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+알파벳 소문자 중 하나
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[A-Z]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+알파벳 대문자 중 하나
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[0-9]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+0에서 9까지 숫자 중 하나
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[a-zA-Z]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+모든 알파벳 중 하나
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[a-z0-9]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+알파벳 소문자나 숫자 중 한 문자
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[가-힝]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+모든 한글 중 하나
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[(abc)d]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+문자열 ‘abc’와 문자 ’d’ 중 하나
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<ul>
+<li>POSIX (Portable Operating System Interface): 서로 다른 UNIX OS의 API를 정리하여 이식성이 높은 유닉스 응용 프로그램을 개발하기 위한 목적으로 IEEE가 책정한 애플리케이션 인터페이스 규격 <span class="citation">(<a href="#ref-POSIX" role="doc-biblioref"><span>“<span>POSIX</span>”</span> 2018 Accessed: 2020-04-16</a>)</span></li>
+</ul>
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:meta-char4">Table 3.4: </span>정규표현식: POSIX 문자 클래스
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Expression
+</th>
+<th style="text-align:left;">
+설명
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[[:punct:]]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+구둣점 문자 [][!#$%&amp;’()*+,./:;&lt;=&gt;?@\^_`{|}~-]
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[[:alpha:]]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+알파벳 [A-Za-z]와 동일한 표현
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[[:lower:]]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+소문자 알파벳 [a-z]와 동일
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[[:upper:]]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+대문자 알파벳 [A-Z]와 동일
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[[:digit:]]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+숫자 0 ~ 9 [0-9]와 동일
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[[:alnum:]]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+알파벳과 숫자 [0-9A-Za-z]와 동일
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[[:cntrl:]]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+제어문자 b
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[[:print:]]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+모든 인쇄 가능한 문자
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[[:space:]]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+공백문자 \t\r\n\v\f
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[[:blank:]]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+공백문자 중 \t \n
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 3cm; font-family: monospace;">
+[[:xdigit:]]
+</td>
+<td style="text-align:left;width: 7cm; font-family: monospace;">
+16 진수
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<div class="sourceCode" id="cb1199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1199-1"><a href="reg-exp.html#cb1199-1" aria-hidden="true" tabindex="-1"></a>movie <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;terminator 3: rise of the machiens&quot;</span>, </span>
+<span id="cb1199-2"><a href="reg-exp.html#cb1199-2" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;les miserables&quot;</span>, </span>
+<span id="cb1199-3"><a href="reg-exp.html#cb1199-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;avengers: infinity war&quot;</span>, </span>
+<span id="cb1199-4"><a href="reg-exp.html#cb1199-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;iron man&quot;</span>, </span>
+<span id="cb1199-5"><a href="reg-exp.html#cb1199-5" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;indiana jones: the last crusade&quot;</span>, </span>
+<span id="cb1199-6"><a href="reg-exp.html#cb1199-6" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;irish man&quot;</span>, </span>
+<span id="cb1199-7"><a href="reg-exp.html#cb1199-7" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;mission impossible&quot;</span>, </span>
+<span id="cb1199-8"><a href="reg-exp.html#cb1199-8" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;the devil wears prada&quot;</span>, </span>
+<span id="cb1199-9"><a href="reg-exp.html#cb1199-9" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;parasite (gisaengchung)&quot;</span>, </span>
+<span id="cb1199-10"><a href="reg-exp.html#cb1199-10" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;once upon a time in hollywood&quot;</span>)</span>
+<span id="cb1199-11"><a href="reg-exp.html#cb1199-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1199-12"><a href="reg-exp.html#cb1199-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 각 영화제목의 첫글자를 대문자로 변경</span></span>
+<span id="cb1199-13"><a href="reg-exp.html#cb1199-13" aria-hidden="true" tabindex="-1"></a><span class="co"># \b는 단어의 양쪽 가장 자리의 빈 문자를 의미</span></span>
+<span id="cb1199-14"><a href="reg-exp.html#cb1199-14" aria-hidden="true" tabindex="-1"></a><span class="co"># \\1은 () 첫 번째 그룹, \\U는 대문자(perl)</span></span>
+<span id="cb1199-15"><a href="reg-exp.html#cb1199-15" aria-hidden="true" tabindex="-1"></a><span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">b(</span><span class="sc">\\</span><span class="st">w)&quot;</span>, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">U</span><span class="sc">\\</span><span class="st">1&quot;</span>, movie, <span class="at">perl =</span> T)</span></code></pre></div>
+<pre><code> [1] &quot;Terminator 3: Rise Of The Machiens&quot; &quot;Les Miserables&quot;                    
+ [3] &quot;Avengers: Infinity War&quot;             &quot;Iron Man&quot;                          
+ [5] &quot;Indiana Jones: The Last Crusade&quot;    &quot;Irish Man&quot;                         
+ [7] &quot;Mission Impossible&quot;                 &quot;The Devil Wears Prada&quot;             
+ [9] &quot;Parasite (Gisaengchung)&quot;            &quot;Once Upon A Time In Hollywood&quot;     </code></pre>
+<div class="sourceCode" id="cb1201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1201-1"><a href="reg-exp.html#cb1201-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 엑셀에서 ()로 표시된 음수 데이터를 읽어온 경우</span></span>
+<span id="cb1201-2"><a href="reg-exp.html#cb1201-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 이를 음수로 표시</span></span>
+<span id="cb1201-3"><a href="reg-exp.html#cb1201-3" aria-hidden="true" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;0.123&quot;</span>, <span class="st">&quot;0.456&quot;</span>, <span class="st">&quot;(0.45)&quot;</span>, <span class="st">&quot;1.25&quot;</span>)</span>
+<span id="cb1201-4"><a href="reg-exp.html#cb1201-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">(([0-9.]+)</span><span class="sc">\\</span><span class="st">)&quot;</span>, <span class="st">&quot;-</span><span class="sc">\\</span><span class="st">1&quot;</span>, num)</span></code></pre></div>
+<pre><code>[1] &quot;0.123&quot; &quot;0.456&quot; &quot;-0.45&quot; &quot;1.25&quot; </code></pre>
+<p></p>
+</div>
+<div id="regexp-ex" class="section level3" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> 정규 표현식 예시</h3>
+<ul>
+<li>텍스트 데이터를 처리할 때 일반적으로 많이 활용되는 정규 표현식</li>
+<li>정제되지 않은 데이터 가공 시 유용하게 활용</li>
+</ul>
+<div id="regex-blank-ex" class="section level4 unnumbered">
+<h4><strong>공백 제거</strong></h4>
+<ul>
+<li>선행 예제에서 문자열 뒤에 존재하는 공백 제거 예시 확인</li>
+<li>다음 예시들은 선행 및 모든 공백 제거에 대한 정규 표현식에 대해 살펴봄</li>
+</ul>
+<p><strong>필요 표현식</strong></p>
+<ol style="list-style-type: decimal">
+<li>공백을 다른 문자로 교체 해주는 함수 <span class="math inline">\(\rightarrow\)</span> <code>gsub()</code></li>
+<li>공백 character class: <code>\\s</code></li>
+<li>처음과 끝 지정 meta character: <code>^</code>, <code>$</code></li>
+<li>조건을 찾기 위한 meta character: <code>+</code>, <code>|</code></li>
+</ol>
+<ul>
+<li>모든 공백을 제거하려면 <span class="math inline">\(\rightarrow\)</span> <code>\\s</code></li>
+<li>앞쪽 공백만 제거하려면? <span class="math inline">\(\rightarrow\)</span> <code>^\\s+</code></li>
+<li>뒤쪽 공백만 제거하려면? <span class="math inline">\(\rightarrow\)</span> <code>\\s+$</code></li>
+<li>양쪽 공백 모두를 제거하려면? 문장의 맨 앞에 곻백이 하나 이상 존재하거나(OR, <code>|</code>), 문장 맨 끝에 공백이 하나 이상 존재 <span class="math inline">\(\rightarrow\)</span> <code>(^\\s+|\\s+$)</code></li>
+</ul>
+<div class="sourceCode" id="cb1203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1203-1"><a href="reg-exp.html#cb1203-1" aria-hidden="true" tabindex="-1"></a>txt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;        신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가</span></span>
+<span id="cb1203-2"><a href="reg-exp.html#cb1203-2" aria-hidden="true" tabindex="-1"></a><span class="st">         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.   &quot;</span>)</span>
+<span id="cb1203-3"><a href="reg-exp.html#cb1203-3" aria-hidden="true" tabindex="-1"></a>txt</span></code></pre></div>
+<pre><code>[1] &quot;        신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가\n         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.   &quot;</code></pre>
+<div class="sourceCode" id="cb1205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1205-1"><a href="reg-exp.html#cb1205-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모근 공백 제거</span></span>
+<span id="cb1205-2"><a href="reg-exp.html#cb1205-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">s&quot;</span>, <span class="st">&quot;&quot;</span>, txt)</span></code></pre></div>
+<pre><code>[1] &quot;신종코로나바이러스감염증(코로나19)환자가운데회복해서항체가생긴사람중절반가량은체내에바이러스가남아있는것으로나타났다.&quot;</code></pre>
+<div class="sourceCode" id="cb1207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1207-1"><a href="reg-exp.html#cb1207-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 앞쪽 공백만 제거</span></span>
+<span id="cb1207-2"><a href="reg-exp.html#cb1207-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gsub</span>(<span class="st">&quot;^</span><span class="sc">\\</span><span class="st">s+&quot;</span>, <span class="st">&quot;&quot;</span>, txt)</span></code></pre></div>
+<pre><code>[1] &quot;신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가\n         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.   &quot;</code></pre>
+<div class="sourceCode" id="cb1209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1209-1"><a href="reg-exp.html#cb1209-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 뒤쪽 공백만 제거</span></span>
+<span id="cb1209-2"><a href="reg-exp.html#cb1209-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">s+$&quot;</span>, <span class="st">&quot;&quot;</span>, txt)</span></code></pre></div>
+<pre><code>[1] &quot;        신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가\n         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.&quot;</code></pre>
+<div class="sourceCode" id="cb1211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1211-1"><a href="reg-exp.html#cb1211-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 양쪽에 존재하는 공백들 제거</span></span>
+<span id="cb1211-2"><a href="reg-exp.html#cb1211-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gsub</span>(<span class="st">&quot;(^</span><span class="sc">\\</span><span class="st">s+|</span><span class="sc">\\</span><span class="st">s+$)&quot;</span>, <span class="st">&quot;&quot;</span>, txt)</span></code></pre></div>
+<pre><code>[1] &quot;신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가\n         생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.&quot;</code></pre>
+<div class="sourceCode" id="cb1213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1213-1"><a href="reg-exp.html#cb1213-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 가운데 \n 뒤에 존재하는 공백들을 없애려면??</span></span>
+<span id="cb1213-2"><a href="reg-exp.html#cb1213-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gsub</span>(<span class="st">&quot;(^</span><span class="sc">\\</span><span class="st">s+| {2,}|</span><span class="sc">\\</span><span class="st">s+$)&quot;</span>, <span class="st">&quot;&quot;</span>, txt)</span></code></pre></div>
+<pre><code>[1] &quot;신종 코로나바이러스 감염증(코로나19) 환자 가운데 회복해서 항체가\n생긴 사람 중 절반가량은 체내에 바이러스가 남아 있는 것으로 나타났다.&quot;</code></pre>
+<p></p>
+</div>
+<div id="regex-cellphone" class="section level4 unnumbered">
+<h4><strong>핸드폰 번호 추출</strong></h4>
+<ul>
+<li>대한민국 핸드폰 번호의 형태</li>
+</ul>
+<p><img src="figures/cellphone-str.png" width="90%" style="display: block; margin: auto;" /></p>
+<p></p>
+<p><strong>필요한 표현식</strong></p>
+<ol style="list-style-type: decimal">
+<li>처음 세 자리: <code>^(01)\\d{1}</code></li>
+<li>가운데 3~4자리: <code>-\\d{3,4}</code></li>
+<li>마지막 4자리: <code>-\\d{4}</code></li>
+</ol>
+<div class="sourceCode" id="cb1215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1215-1"><a href="reg-exp.html#cb1215-1" aria-hidden="true" tabindex="-1"></a>phone <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;042-868-9999&quot;</span>, <span class="st">&quot;02-3345-1234&quot;</span>, </span>
+<span id="cb1215-2"><a href="reg-exp.html#cb1215-2" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;010-5661-7578&quot;</span>, <span class="st">&quot;016-123-4567&quot;</span>, </span>
+<span id="cb1215-3"><a href="reg-exp.html#cb1215-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;063-123-5678&quot;</span>, <span class="st">&quot;070-5498- 1904&quot;</span>, </span>
+<span id="cb1215-4"><a href="reg-exp.html#cb1215-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;011-423-2912&quot;</span>, <span class="st">&quot;010-6745-2973&quot;</span>)</span>
+<span id="cb1215-5"><a href="reg-exp.html#cb1215-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1215-6"><a href="reg-exp.html#cb1215-6" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">&quot;^(01)</span><span class="sc">\\</span><span class="st">d{1}-</span><span class="sc">\\</span><span class="st">d{3,4}-</span><span class="sc">\\</span><span class="st">d{4}&quot;</span>, phone)</span>
+<span id="cb1215-7"><a href="reg-exp.html#cb1215-7" aria-hidden="true" tabindex="-1"></a>phone[g]</span></code></pre></div>
+<pre><code>[1] &quot;010-5661-7578&quot; &quot;016-123-4567&quot;  &quot;011-423-2912&quot;  &quot;010-6745-2973&quot;</code></pre>
+<p></p>
+</div>
+<div id="regex-email" class="section level4 unnumbered">
+<h4><strong>이메일 추출</strong></h4>
+<ul>
+<li>정규 표현식을 이용해 이메일(e-mail) 주소만 텍스트 문서에서 추출</li>
+<li>이메일 주소 구성</li>
+</ul>
+<p><img src="figures/email-str.png" width="90%" style="display: block; margin: auto;" /></p>
+<p></p>
+<p><strong>필요한 표현식</strong></p>
+<ol style="list-style-type: decimal">
+<li>E-mail ID(@ 왼쪽): 어떤 알파벳, 숫자, 특수문자가 1개 이상 <span class="math inline">\(\rightarrow\)</span> <code>[A-Za-z0-9[:punct:]]+</code></li>
+<li>E-mail ID(@ 오른쪽-1): 어떤 알파벳이나 숫자가 하나 이상 존재하고 특수문자 포함(<code>.xx.xx</code> 추출에 필요) <span class="math inline">\(\rightarrow\)</span> <code>@[A-Za-z0-9[:punct:]]+</code></li>
+<li>E-mail ID(@ 오른쪽-2): <code>.xx</code> 또는 <code>.xxx</code> 검색 <span class="math inline">\(\rightarrow\)</span> <code>\\.[A-Za-z]+</code></li>
+</ol>
+<p><strong>예시</strong></p>
+<ul>
+<li><a href="https://dr-hkim.github.io/Naver-News-Web-Scraping-using-Keywords-in-R/">네이버 뉴스 크롤링</a> <span class="citation">(<a href="#ref-naver-scraping" role="doc-biblioref"><span>“<span>R 에서 원하는 키워드의 네이버 뉴스를 웹크롤링(스크래핑) 하는 방법</span>”</span> 2018</a>)</span>
+<ul>
+<li>검색 포탈: 네이버</li>
+<li>검색범위: 2020년 4월 21일</li>
+<li>검색 keyword: 21대 국회위원 선거</li>
+<li>검색 뉴스 개수: 39개</li>
+<li>검색결과 저장 파일: <code>dataset/news-scraping.csv</code></li>
+</ul></li>
+<li>개별 기사에 해당하는 URL로부터 ID 생성</li>
+<li>각 뉴스로부터 기자들의 e-mail 추출</li>
+<li>추출 후 기사 ID, 기사제목, e-mail 주소로 구성된 데이터 프레임 생성</li>
+</ul>
+<div class="sourceCode" id="cb1217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1217-1"><a href="reg-exp.html#cb1217-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 크롤링한 데이터 불러오기</span></span>
+<span id="cb1217-2"><a href="reg-exp.html#cb1217-2" aria-hidden="true" tabindex="-1"></a>news_naver <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;dataset/test.news-scraping.csv&quot;</span>, <span class="at">header =</span> T, </span>
+<span id="cb1217-3"><a href="reg-exp.html#cb1217-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1217-4"><a href="reg-exp.html#cb1217-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1217-5"><a href="reg-exp.html#cb1217-5" aria-hidden="true" tabindex="-1"></a><span class="co"># regmatches 함수: regexpr(), gregexpr(), regexec()로 검색한 패턴을</span></span>
+<span id="cb1217-6"><a href="reg-exp.html#cb1217-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 텍스트(문자열)에서 추출</span></span>
+<span id="cb1217-7"><a href="reg-exp.html#cb1217-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1217-8"><a href="reg-exp.html#cb1217-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ID 추출</span></span>
+<span id="cb1217-9"><a href="reg-exp.html#cb1217-9" aria-hidden="true" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="fu">regmatches</span>(news_naver<span class="sc">$</span>url, <span class="fu">regexpr</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">d{10}&quot;</span>, news_naver<span class="sc">$</span>url))</span>
+<span id="cb1217-10"><a href="reg-exp.html#cb1217-10" aria-hidden="true" tabindex="-1"></a>contents <span class="ot">&lt;-</span> news_naver<span class="sc">$</span>news_content</span>
+<span id="cb1217-11"><a href="reg-exp.html#cb1217-11" aria-hidden="true" tabindex="-1"></a>news_naver2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(id, <span class="at">title =</span> news_naver<span class="sc">$</span>news_title, </span>
+<span id="cb1217-12"><a href="reg-exp.html#cb1217-12" aria-hidden="true" tabindex="-1"></a>                          <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1217-13"><a href="reg-exp.html#cb1217-13" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">regmatches</span>(contents, </span>
+<span id="cb1217-14"><a href="reg-exp.html#cb1217-14" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">gregexpr</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">b[A-Za-z0-9[:punct:]]+@[A-Za-z0-9[:punct:]]+</span><span class="sc">\\</span><span class="st">.[A-Za-z]+&quot;</span>, </span>
+<span id="cb1217-15"><a href="reg-exp.html#cb1217-15" aria-hidden="true" tabindex="-1"></a>                           contents))</span>
+<span id="cb1217-16"><a href="reg-exp.html#cb1217-16" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(tmp) <span class="ot">&lt;-</span> id</span>
+<span id="cb1217-17"><a href="reg-exp.html#cb1217-17" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">sapply</span>(tmp, <span class="cf">function</span>(x) x[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">simplify =</span> <span class="st">&quot;array&quot;</span>))</span>
+<span id="cb1217-18"><a href="reg-exp.html#cb1217-18" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(x) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;email&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
+<span id="cb1217-19"><a href="reg-exp.html#cb1217-19" aria-hidden="true" tabindex="-1"></a>email <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="fu">row.names</span>(x), x, <span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb1217-20"><a href="reg-exp.html#cb1217-20" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">merge</span>(news_naver2, email, <span class="at">by =</span> <span class="st">&quot;id&quot;</span>)</span>
+<span id="cb1217-21"><a href="reg-exp.html#cb1217-21" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["title"],"name":[2],"type":["chr"],"align":["left"]},{"label":["email1"],"name":[3],"type":["chr"],"align":["left"]},{"label":["email2"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"0000026769","2":"그림으로 보는 제21대 국회의원 선거 결과","3":"cyr@sisain.co.kr","4":"NA","_rn_":"1"},{"1":"0000091243","2":"'스트레이트' 꼼수로 얼룩진 21대 총선… 후퇴한 정치개혁","3":"NA","4":"NA","_rn_":"2"},{"1":"0000425146","2":"[뉴스1번지] 20대 국회 막판 달구는 긴급재난지원금 논쟁","3":"NA","4":"NA","_rn_":"3"},{"1":"0000425152","2":"[뉴스1번지] 주호영 당선인에게 듣는 슬기로운 국회생활","3":"NA","4":"NA","_rn_":"4"},{"1":"0000489588","2":"[엄창섭의 몸과 삶] 나쁜 유전자, 나쁜 국회의원","3":"NA","4":"NA","_rn_":"5"},{"1":"0000535054","2":"고용진·전재수·유동수 의원 다시 금배지…'보험업계 숙원법안' 21대 국회 통과 기대","3":"huropa@inews24.com","4":"NA","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb1218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1218-1"><a href="reg-exp.html#cb1218-1" aria-hidden="true" tabindex="-1"></a><span class="co"># stringr 패키지 사용</span></span>
+<span id="cb1218-2"><a href="reg-exp.html#cb1218-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1218-3"><a href="reg-exp.html#cb1218-3" aria-hidden="true" tabindex="-1"></a><span class="co"># email &lt;- str_extract_all(contents,</span></span>
+<span id="cb1218-4"><a href="reg-exp.html#cb1218-4" aria-hidden="true" tabindex="-1"></a><span class="co">#          &quot;\\b[A-Za-z0-9[:punct:]]+@[A-Za-z0-9[:punct:]]+\\.[A-Za-z]+&quot;,</span></span>
+<span id="cb1218-5"><a href="reg-exp.html#cb1218-5" aria-hidden="true" tabindex="-1"></a><span class="co">#          simplify = TRUE)</span></span>
+<span id="cb1218-6"><a href="reg-exp.html#cb1218-6" aria-hidden="true" tabindex="-1"></a><span class="co"># email &lt;- data.frame(email, stringsAsFactors = FALSE)</span></span>
+<span id="cb1218-7"><a href="reg-exp.html#cb1218-7" aria-hidden="true" tabindex="-1"></a><span class="co"># names(email) &lt;- paste0(&quot;email&quot;, 1:2)</span></span>
+<span id="cb1218-8"><a href="reg-exp.html#cb1218-8" aria-hidden="true" tabindex="-1"></a><span class="co"># res &lt;- data.frame(id, title = news_naver$news_title, email,</span></span>
+<span id="cb1218-9"><a href="reg-exp.html#cb1218-9" aria-hidden="true" tabindex="-1"></a><span class="co">#                   stringsAsFactors = FALSE)</span></span>
+<span id="cb1218-10"><a href="reg-exp.html#cb1218-10" aria-hidden="true" tabindex="-1"></a><span class="co"># head(res)</span></span></code></pre></div>
+<p></p>
+<!-- #### 핸드폰 번호 {#regex-cellphone .unnumbered} -->
+<!-- #### 일반 전화번호 {#regex-phone .unnumbered} -->
+<!-- ### 확장 예제 -->
+
+</div>
+</div>
+</div>
+<!-- </div> -->
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-POSIX" class="csl-entry">
+<span>“<span>POSIX</span>.”</span> 2018 Accessed: 2020-04-16. <a href="https://ko.wikipedia.org/wiki/POSIX">https://ko.wikipedia.org/wiki/POSIX</a>.
+</div>
+<div id="ref-naver-scraping" class="csl-entry">
+<span>“<span>R 에서 원하는 키워드의 네이버 뉴스를 웹크롤링(스크래핑) 하는 방법</span>.”</span> 2018. <a href="https://dr-hkim.github.io/Naver-News-Web-Scraping-using-Keywords-in-R/">https://dr-hkim.github.io/Naver-News-Web-Scraping-using-Keywords-in-R/</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="regexp-basic-fun.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-수학-함수-분포-함수-모형식-표현.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/03-string-regexp.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["cnu-r-programming.pdf", "cnu-r-programming.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

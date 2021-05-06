@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1.7 R Markdown (맛보기) | 통계 프로그래밍 언어</title>
+  <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1.7 R Markdown (맛보기) | 통계 프로그래밍 언어" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1.7 R Markdown (맛보기) | 통계 프로그래밍 언어" />
+  
+  <meta name="twitter:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  
+
+<meta name="author" content="한국한의학연구원, 구본초" />
+
+
+<meta name="date" content="2021-05-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="r-basic.html"/>
+<link rel="next" href="data-type.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">통계 프로그래밍 언어</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Overview</a></li>
+<li class="part"><span><b>I Get Started</b></span></li>
+<li class="chapter" data-level="1" data-path="intro-chap.html"><a href="intro-chap.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1.1</b> R 설치하기</a></li>
+<li class="chapter" data-level="1.2" data-path="r-check.html"><a href="r-check.html"><i class="fa fa-check"></i><b>1.2</b> R 시작 및 작동 체크</a></li>
+<li class="chapter" data-level="1.3" data-path="rconsle-script.html"><a href="rconsle-script.html"><i class="fa fa-check"></i><b>1.3</b> R script 편집기 사용</a></li>
+<li class="chapter" data-level="1.4" data-path="r-studio.html"><a href="r-studio.html"><i class="fa fa-check"></i><b>1.4</b> RStudio</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="r-studio.html"><a href="r-studio.html#rstudio-install"><i class="fa fa-check"></i><b>1.4.1</b> RStudio 설치하기</a></li>
+<li class="chapter" data-level="1.4.2" data-path="r-studio.html"><a href="r-studio.html#rstudio-component"><i class="fa fa-check"></i><b>1.4.2</b> RStudio IDE 화면 구성</a></li>
+<li class="chapter" data-level="1.4.3" data-path="r-studio.html"><a href="r-studio.html#rstudio-glob-options"><i class="fa fa-check"></i><b>1.4.3</b> RStudio 환경 설정</a></li>
+<li class="chapter" data-level="1.4.4" data-path="r-studio.html"><a href="r-studio.html#rstudio-project"><i class="fa fa-check"></i><b>1.4.4</b> RStudio 프로젝트</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="r-package.html"><a href="r-package.html"><i class="fa fa-check"></i><b>1.5</b> R 패키지</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="r-package.html"><a href="r-package.html#r-package-path"><i class="fa fa-check"></i><b>1.5.1</b> R 패키지 경로 확인 및 변경</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-package.html"><a href="r-package.html#r-package-install"><i class="fa fa-check"></i><b>1.5.2</b> R 패키지 설치하기</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-package.html"><a href="r-package.html#r-package-load"><i class="fa fa-check"></i><b>1.5.3</b> R 패키지 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basic.html"><a href="r-basic.html"><i class="fa fa-check"></i><b>1.6</b> R 기초 문법</a></li>
+<li class="chapter" data-level="1.7" data-path="r-markdown-get-start.html"><a href="r-markdown-get-start.html"><i class="fa fa-check"></i><b>1.7</b> R Markdown (맛보기)</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-type.html"><a href="data-type.html"><i class="fa fa-check"></i><b>2</b> R 객체(R object)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="프로그래밍.html"><a href="프로그래밍.html"><i class="fa fa-check"></i><b>2.1</b> 프로그래밍</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="프로그래밍.html"><a href="프로그래밍.html#prerequisites"><i class="fa fa-check"></i><b>2.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2.1.2" data-path="프로그래밍.html"><a href="프로그래밍.html#control-program"><i class="fa fa-check"></i><b>2.1.2</b> 프로그램</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="scalar.html"><a href="scalar.html"><i class="fa fa-check"></i><b>2.2</b> 스칼라(scalar)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="scalar.html"><a href="scalar.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> 선언</a></li>
+<li class="chapter" data-level="2.2.2" data-path="scalar.html"><a href="scalar.html#numeric"><i class="fa fa-check"></i><b>2.2.2</b> 숫자형</a></li>
+<li class="chapter" data-level="2.2.3" data-path="scalar.html"><a href="scalar.html#character"><i class="fa fa-check"></i><b>2.2.3</b> 문자형</a></li>
+<li class="chapter" data-level="2.2.4" data-path="scalar.html"><a href="scalar.html#logical"><i class="fa fa-check"></i><b>2.2.4</b> 논리형 스칼라</a></li>
+<li class="chapter" data-level="2.2.5" data-path="scalar.html"><a href="scalar.html#missing-value"><i class="fa fa-check"></i><b>2.2.5</b> 결측값(missing value)</a></li>
+<li class="chapter" data-level="2.2.6" data-path="scalar.html"><a href="scalar.html#null"><i class="fa fa-check"></i><b>2.2.6</b> NULL 값</a></li>
+<li class="chapter" data-level="2.2.7" data-path="scalar.html"><a href="scalar.html#finite"><i class="fa fa-check"></i><b>2.2.7</b> 무한대/무한소/숫자아님</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>2.3</b> 벡터(vector)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="vector.html"><a href="vector.html#vector-prop"><i class="fa fa-check"></i><b>2.3.1</b> 벡터의 특징</a></li>
+<li class="chapter" data-level="2.3.2" data-path="vector.html"><a href="vector.html#vector-operation"><i class="fa fa-check"></i><b>2.3.2</b> 벡터의 연산</a></li>
+<li class="chapter" data-level="2.3.3" data-path="vector.html"><a href="vector.html#vector-index"><i class="fa fa-check"></i><b>2.3.3</b> 벡터의 색인(indexing)</a></li>
+<li class="chapter" data-level="2.3.4" data-path="vector.html"><a href="vector.html#vector-function"><i class="fa fa-check"></i><b>2.3.4</b> 벡터 관련 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="list.html"><a href="list.html"><i class="fa fa-check"></i><b>2.4</b> 리스트(list)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="list.html"><a href="list.html#make-list"><i class="fa fa-check"></i><b>2.4.1</b> 리스트 생성</a></li>
+<li class="chapter" data-level="2.4.2" data-path="list.html"><a href="list.html#list-index"><i class="fa fa-check"></i><b>2.4.2</b> 리스트 색인</a></li>
+<li class="chapter" data-level="2.4.3" data-path="list.html"><a href="list.html#list-add-delete"><i class="fa fa-check"></i><b>2.4.3</b> 리스트에 원소 추가/제거</a></li>
+<li class="chapter" data-level="2.4.4" data-path="list.html"><a href="list.html#list-combine"><i class="fa fa-check"></i><b>2.4.4</b> 리스트의 결합</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="matrix.html"><a href="matrix.html"><i class="fa fa-check"></i><b>2.5</b> 행렬(matrix)</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="matrix.html"><a href="matrix.html#matrix-operation"><i class="fa fa-check"></i><b>2.5.1</b> 행렬의 연산</a></li>
+<li class="chapter" data-level="2.5.2" data-path="matrix.html"><a href="matrix.html#mat-index"><i class="fa fa-check"></i><b>2.5.2</b> 행렬의 색인</a></li>
+<li class="chapter" data-level="2.5.3" data-path="matrix.html"><a href="matrix.html#행과-열-추가-및-제거"><i class="fa fa-check"></i><b>2.5.3</b> 행과 열 추가 및 제거</a></li>
+<li class="chapter" data-level="2.5.4" data-path="matrix.html"><a href="matrix.html#행렬-관련-함수"><i class="fa fa-check"></i><b>2.5.4</b> 행렬 관련 함수</a></li>
+<li class="chapter" data-level="2.5.5" data-path="matrix.html"><a href="matrix.html#vec-mat-diff"><i class="fa fa-check"></i><b>2.5.5</b> 벡터와 행렬의 차이점</a></li>
+<li class="chapter" data-level="2.5.6" data-path="matrix.html"><a href="matrix.html#mat-dim-reduc-sway"><i class="fa fa-check"></i><b>2.5.6</b> 의도치 않은 차원축소 피하기</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="array.html"><a href="array.html"><i class="fa fa-check"></i><b>2.6</b> 배열(array)</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="array.html"><a href="array.html#make-array"><i class="fa fa-check"></i><b>2.6.1</b> 배열의 생성 및 색인</a></li>
+<li class="chapter" data-level="2.6.2" data-path="array.html"><a href="array.html#rray-extend-example"><i class="fa fa-check"></i><b>2.6.2</b> 배열의 확장 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="factor-table.html"><a href="factor-table.html"><i class="fa fa-check"></i><b>2.7</b> 요인(factor)과 테이블(table)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="factor-table.html"><a href="factor-table.html#factor"><i class="fa fa-check"></i><b>2.7.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.7.2" data-path="factor-table.html"><a href="factor-table.html#table"><i class="fa fa-check"></i><b>2.7.2</b> 테이블(table)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>2.8</b> 데이터 프레임(data frame)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="data-frame.html"><a href="data-frame.html#create-data-frame"><i class="fa fa-check"></i><b>2.8.1</b> 데이터 프레임 생성</a></li>
+<li class="chapter" data-level="2.8.2" data-path="data-frame.html"><a href="data-frame.html#data-frame-get"><i class="fa fa-check"></i><b>2.8.2</b> 데이터 프레임 접근 및 필터링</a></li>
+<li class="chapter" data-level="2.8.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.8.3</b> 데이터 프레임 관련 함수</a></li>
+<li class="chapter" data-level="2.8.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.8.4</b> <code>*apply()</code> 계열 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="is-as-function.html"><a href="is-as-function.html"><i class="fa fa-check"></i><b>2.9</b> 객체의 유형 판별 및 변환</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="string-regexp.html"><a href="string-regexp.html"><i class="fa fa-check"></i><b>3</b> 문자열 처리와 정규표현식</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html"><i class="fa fa-check"></i><b>3.1</b> 유용한 문자열 관련 함수</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#nchar"><i class="fa fa-check"></i><b>3.1.1</b> <strong><code>nchar()</code></strong></a></li>
+<li class="chapter" data-level="3.1.2" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#paste"><i class="fa fa-check"></i><b>3.1.2</b> <strong><code>paste()</code></strong>, <strong><code>paste0()</code></strong></a></li>
+<li class="chapter" data-level="3.1.3" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#sprintf"><i class="fa fa-check"></i><b>3.1.3</b> <strong><code>sprintf()</code></strong></a></li>
+<li class="chapter" data-level="3.1.4" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#substr"><i class="fa fa-check"></i><b>3.1.4</b> <strong><code>substr()</code></strong></a></li>
+<li class="chapter" data-level="3.1.5" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#low-up-fun"><i class="fa fa-check"></i><b>3.1.5</b> <strong><code>tolower()</code>, <code>toupper()</code></strong></a></li>
+<li class="chapter" data-level="3.1.6" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#glue-패키지를-활용한-문자열-다루기"><i class="fa fa-check"></i><b>3.1.6</b> glue 패키지를 활용한 문자열 다루기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html"><i class="fa fa-check"></i><b>3.2</b> 정규표현식 기본 함수</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#grep-grepl"><i class="fa fa-check"></i><b>3.2.1</b> <strong><code>grep()</code>, <code>grepl()</code></strong></a></li>
+<li class="chapter" data-level="3.2.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexpr-gregexpr"><i class="fa fa-check"></i><b>3.2.2</b> <strong><code>regexpr()</code></strong>, <strong><code>gregexpr()</code></strong></a></li>
+<li class="chapter" data-level="3.2.3" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#sub-gsub-fun"><i class="fa fa-check"></i><b>3.2.3</b> <strong><code>sub()</code></strong>, <strong><code>gsub()</code></strong></a></li>
+<li class="chapter" data-level="3.2.4" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexec-fun"><i class="fa fa-check"></i><b>3.2.4</b> <strong><code>regexec()</code></strong></a></li>
+<li class="chapter" data-level="3.2.5" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#strsplit"><i class="fa fa-check"></i><b>3.2.5</b> <strong><code>strsplit()</code></strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="reg-exp.html"><a href="reg-exp.html"><i class="fa fa-check"></i><b>3.3</b> 정규 표현식(regular expression)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="reg-exp.html"><a href="reg-exp.html#basic-meta"><i class="fa fa-check"></i><b>3.3.1</b> 기본 메타 문자</a></li>
+<li class="chapter" data-level="3.3.2" data-path="reg-exp.html"><a href="reg-exp.html#character-set"><i class="fa fa-check"></i><b>3.3.2</b> 문자 집합</a></li>
+<li class="chapter" data-level="3.3.3" data-path="reg-exp.html"><a href="reg-exp.html#character-class"><i class="fa fa-check"></i><b>3.3.3</b> 문자 클래스</a></li>
+<li class="chapter" data-level="3.3.4" data-path="reg-exp.html"><a href="reg-exp.html#regexp-ex"><i class="fa fa-check"></i><b>3.3.4</b> 정규 표현식 예시</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="r-수학-함수-분포-함수-모형식-표현.html"><a href="r-수학-함수-분포-함수-모형식-표현.html"><i class="fa fa-check"></i><b>4</b> R 수학 함수, 분포 함수, 모형식 표현</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="수학함수.html"><a href="수학함수.html"><i class="fa fa-check"></i><b>4.1</b> 수학함수</a></li>
+<li class="chapter" data-level="4.2" data-path="통계-분포-함수.html"><a href="통계-분포-함수.html"><i class="fa fa-check"></i><b>4.2</b> 통계 분포 함수</a></li>
+<li class="chapter" data-level="4.3" data-path="모형식-표현.html"><a href="모형식-표현.html"><i class="fa fa-check"></i><b>4.3</b> 모형식 표현</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>5</b> R Markdown</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="r-markdown의-구성.html"><a href="r-markdown의-구성.html"><i class="fa fa-check"></i><b>5.1</b> R Markdown의 구성</a></li>
+<li class="chapter" data-level="5.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html"><i class="fa fa-check"></i><b>5.2</b> R Markdown 기본 문법(syntax)</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#텍스트-문법"><i class="fa fa-check"></i><b>5.2.1</b> 텍스트 문법</a></li>
+<li class="chapter" data-level="5.2.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#block-level-elements"><i class="fa fa-check"></i><b>5.2.2</b> Block-level elements</a></li>
+<li class="chapter" data-level="5.2.3" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#수식표현math-expression"><i class="fa fa-check"></i><b>5.2.3</b> 수식표현(math expression)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="r-code-chunks.html"><a href="r-code-chunks.html"><i class="fa fa-check"></i><b>5.3</b> R Code Chunks</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#code-chunk"><i class="fa fa-check"></i>자주 활용하는 chunk 옵션</a></li>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#typical-chunk"><i class="fa fa-check"></i>알아두면 좋은 청크 형태</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="inline-code.html"><a href="inline-code.html"><i class="fa fa-check"></i><b>5.4</b> 인라인(inline) R 코드</a></li>
+<li class="chapter" data-level="5.5" data-path="yaml.html"><a href="yaml.html"><i class="fa fa-check"></i><b>5.5</b> YAML</a>
+<ul>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#basic-syntax"><i class="fa fa-check"></i>기본 문법</a></li>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#rmarkdown-yaml-structure"><i class="fa fa-check"></i>R Markdown 기본 YAML 구조</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rmarkdown-citation.html"><a href="rmarkdown-citation.html"><i class="fa fa-check"></i><b>5.6</b> 참고문헌 인용</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r-외부-데이터-입출력.html"><a href="r-외부-데이터-입출력.html"><i class="fa fa-check"></i><b>6</b> R 외부 데이터 입출력</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="text-import-export.html"><a href="text-import-export.html"><i class="fa fa-check"></i><b>6.1</b> <strong>텍스트 파일 입출력</strong></a></li>
+<li class="chapter" data-level="6.2" data-path="binary-import-export.html"><a href="binary-import-export.html"><i class="fa fa-check"></i><b>6.2</b> R 바이너리(binary) 파일 입출력</a></li>
+<li class="chapter" data-level="6.3" data-path="import-export-excel.html"><a href="import-export-excel.html"><i class="fa fa-check"></i><b>6.3</b> Excel 파일 입출력</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계 프로그래밍 언어</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-markdown-get-start" class="section level2" number="1.7">
+<h2><span class="header-section-number">1.7</span> R Markdown (맛보기)</h2>
+
+<div class="rmdnote">
+<a href="r-basic.html#r-basic">R 기초 문법</a> 절과 마찬가지로 R Markdown을 이용해 최소한의 문서(<code>html</code> 문서)를 작성하고 생성하는 방법에 대해 기술함.
+R Markdown에 대한 보다 상세한 내용은 9주차에 다룰 예정임.
+</div>
+<p></p>
+<ol style="list-style-type: decimal">
+<li>R Markdown은 R 코드와 분석 결과(표, 그림 등)을 포함한 문서 또는 컨텐츠를 제작하는 도구로 일반적으로 아래 열거한 형태로 활용함
+<ul>
+<li>문서 또는 논문(<code>pdf</code>, <code>html</code>, <code>docx</code>)</li>
+<li>프리젠테이션(<code>pdf</code>, <code>html</code>, <code>pptx</code>)</li>
+<li>웹 또는 블로그</li>
+</ul></li>
+<li>재현가능(reproducible)한 분석 및 연구<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> 가능
+<ul>
+<li>신뢰성 있는 문서 작성</li>
+<li><code>Copy &amp; paste</code>를 하지 않고 효율적 작업 가능</li>
+</ul></li>
+<li>R Markdown 문서를 통해 최종 결과물(<code>pdf</code>, <code>html</code>, <code>docx</code>)이 도출되는 process
+<ul>
+<li>현재 공식적인 프로세스는 <code>knitr</code> + <code>rmarkdown</code> + <code>pandoc</code> + <code>RStudio</code> + <code>github</code></li>
+</ul></li>
+</ol>
+<div class="figure" style="text-align: center"><span id="fig:rmarkdown-flow"></span>
+<img src="figures/rmarkdown-flow.png" alt="R Markdown의 최종 결과물 산출과정(http://applied-r.com/project-reporting-template/)" width="60%" />
+<p class="caption">
+Figure 1.9: R Markdown의 최종 결과물 산출과정(<a href="http://applied-r.com/project-reporting-template/" class="uri">http://applied-r.com/project-reporting-template/</a>)
+</p>
+</div>
+<p></p>
+<div id="create-rmd-file" class="section level4 unnumbered">
+<h4>R Markdown 문서 시작하기</h4>
+<ul>
+<li><strong>R Markdown</strong> 문서 생성: <code>[File] -&gt; [New File] -&gt; [R Markdown..]</code>을 선택</li>
+</ul>
+
+<div class="rmdcaution">
+RStudio를 처음 설치하고 위와 같이 진행할 경우 아래와 같은 패키지 설치 여부를 묻는 팝업 창이 나타남. 패키지 설치 여부에 <code>[Yes]</code>를 클릭하면 R Markdown 문서 생성을 위해 필요한 패키지들이 자동으로 설치
+</div>
+<p></p>
+<p><img src="figures/rmarkdown-new-01.png" width="80%" style="display: block; margin: auto;" /></p>
+<p></p>
+<ul>
+<li>설치 완료 후 R Markdown으로 생성할 최종 문서 유형 선택 질의 창이 나타남. 아래 창에서 제목(Title)과 저자(Author) 이름 입력 후 <code>[OK]</code> 버튼 클릭(<code>Document</code>, <code>html</code> 문서 선택)</li>
+</ul>
+<p><img src="figures/rmarkdown-new-02.png" width="80%" style="display: block; margin: auto;" /></p>
+<p></p>
+<ul>
+<li>아래 그림과 같이 새로운 문서 창이 생성되고 <code>test.Rmd</code> 파일로 저장<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></li>
+</ul>
+<p><img src="figures/rmarkdown-new-03.png" width="80%" style="display: block; margin: auto;" /></p>
+<p></p>
+<ul>
+<li>문서 상단에 <code>Knit</code> 아이콘을 클릭 후 <code>Knit to HTML</code> 클릭 또는 문서 아무 곳에 커서를 위치하고 단축키 <code>[Ctrl] + [Shift] + [K]</code> 입력</li>
+</ul>
+<p><img src="figures/rmarkdown-new-04.png" width="80%" style="display: block; margin: auto;" /></p>
+<p></p>
+<ul>
+<li><code>knitr</code> + <code>R Markdown</code> + <code>pandoc</code> <span class="math inline">\(\rightarrow\)</span> <code>html</code> 파일 생성 결과</li>
+</ul>
+<div class="figure" style="text-align: center"><span id="fig:rmarkdown-new-out"></span>
+<img src="figures/rmarkdown-new-out.png" alt="test.html 문서 화면(저장 폴더 내 `test.html`을 크롬 브라우저로 실행)" width="80%" />
+<p class="caption">
+Figure 1.10: test.html 문서 화면(저장 폴더 내 <code>test.html</code>을 크롬 브라우저로 실행)
+</p>
+</div>
+<p></p>
+</div>
+<div id="r-markdown-문서-구성" class="section level4" number="1.7.0.1">
+<h4><span class="header-section-number">1.7.0.1</span> R Markdown 문서 구성</h4>
+<p>R Markdown 문서는 아래 그림과 같이 <strong>YAML</strong>, <strong>Markdown 텍스트</strong>, <strong>Code Chunk</strong> 세 부분으로 구성됨.</p>
+<p><img src="figures/rmarkdown-part.png" width="80%" style="display: block; margin: auto;" /></p>
+<p></p>
+<p><strong>1. YAML (YAML Ain’t Markup Language)</strong></p>
+<ul>
+<li>R Markdown 문서의 metadata로 문서의 맨 처음에 항상 포함되어야 함.</li>
+<li>R Markdown 문서의 최종 출력 형태, 제목, 저자, 날짜 등의 정보 등을 포함</li>
+<li>YAML 언어에 대한 사용 예시는 <span class="citation"><a href="#ref-xie-2016" role="doc-biblioref">Xie</a> (<a href="#ref-xie-2016" role="doc-biblioref">2016</a>)</span> 의 <a href="https://bookdown.org/yihui/bookdown/r-markdown.html">Appendix B.2</a> 참고</li>
+<li>최소 형태의 YAML 예시</li>
+</ul>
+<div class="sourceCode" id="cb71"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb71-1"><a href="r-markdown-get-start.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb71-2"><a href="r-markdown-get-start.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Hello R Markdown&quot;</span></span>
+<span id="cb71-3"><a href="r-markdown-get-start.html#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Zorba&quot;</span></span>
+<span id="cb71-4"><a href="r-markdown-get-start.html#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;2020-03-17&quot;</span></span>
+<span id="cb71-5"><a href="r-markdown-get-start.html#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
+<span id="cb71-6"><a href="r-markdown-get-start.html#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<p></p>
+<p><strong>2. Markdown 텍스트</strong></p>
+<ul>
+<li>Markdown 문법은 15주 차 강의에서 배울 예정임</li>
+<li><a href="https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown 레퍼런스 가이드</a> 참조</li>
+<li>그림 삽입: <code>![](path/filename)</code></li>
+</ul>
+<div class="sourceCode" id="cb72"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb72-1"><a href="r-markdown-get-start.html#cb72-1" aria-hidden="true" tabindex="-1"></a>그립 삽입 구문</span>
+<span id="cb72-2"><a href="r-markdown-get-start.html#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="al">![](figures/son.jpg)</span>   </span></code></pre></div>
+<p><img src="figures/son.jpg" /></p>
+<p><strong>3. Code Chunk</strong></p>
+<ul>
+<li>실제 R code가 실행되는 부분임</li>
+<li>Code chunk 실행 시 다양한 옵션들이 있으나 이 부분 역시 15주 차 강의에서 간략히 다룰 예정임</li>
+<li>Code chunk는 <code>```{r}</code>로 시작되며 <code>r</code>은 code 언어 이름을 나타냄.</li>
+<li>Code chunk는 <code>```</code> 로 종료</li>
+<li>R Markdown 문서 작성 시 단축키 <code>[Ctrl] + [Alt] + [I]</code>를 입력하면 Chunk 입력창이 자동 생성됨</li>
+<li>Chunk option에 대한 상세 내용은 <a href="https://yihui.org/knitr/options/" class="uri">https://yihui.org/knitr/options/</a> 또는 <a href="https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown 레퍼런스 가이드</a> 참조</li>
+</ul>
+<div class="sourceCode" id="cb73"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb73-1"><a href="r-markdown-get-start.html#cb73-1" aria-hidden="true" tabindex="-1"></a>Code chunk 예시</span>
+<span id="cb73-2"><a href="r-markdown-get-start.html#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-3"><a href="r-markdown-get-start.html#cb73-3" aria-hidden="true" tabindex="-1"></a>Xie의 R Markdown: The Definitive Guide에서 발췌</span>
+<span id="cb73-4"><a href="r-markdown-get-start.html#cb73-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-5"><a href="r-markdown-get-start.html#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-6"><a href="r-markdown-get-start.html#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="in">fit = lm(dist ~ speed, data = cars)</span></span>
+<span id="cb73-7"><a href="r-markdown-get-start.html#cb73-7" aria-hidden="true" tabindex="-1"></a><span class="in">b   = coef(fit)</span></span>
+<span id="cb73-8"><a href="r-markdown-get-start.html#cb73-8" aria-hidden="true" tabindex="-1"></a><span class="in">plot(cars)</span></span>
+<span id="cb73-9"><a href="r-markdown-get-start.html#cb73-9" aria-hidden="true" tabindex="-1"></a><span class="in">abline(fit)</span></span>
+<span id="cb73-10"><a href="r-markdown-get-start.html#cb73-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="r-markdown-get-start.html#cb74-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">=</span> <span class="fu">lm</span>(dist <span class="sc">~</span> speed, <span class="at">data =</span> cars)</span>
+<span id="cb74-2"><a href="r-markdown-get-start.html#cb74-2" aria-hidden="true" tabindex="-1"></a>b   <span class="ot">=</span> <span class="fu">coef</span>(fit)</span>
+<span id="cb74-3"><a href="r-markdown-get-start.html#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cars)</span>
+<span id="cb74-4"><a href="r-markdown-get-start.html#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit)</span></code></pre></div>
+<p><img src="01-introduction_files/figure-html/unnamed-chunk-45-1.svg" width="672" /></p>
+<p></p>
+<ul>
+<li>Code chunk에서 외부 그림 파일 불러오기(<span class="citation"><a href="#ref-xie-2018" role="doc-biblioref">Xie, Allaire, and Grolemund</a> (<a href="#ref-xie-2018" role="doc-biblioref">2018</a>)</span> 에서 예시 발췌)</li>
+</ul>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="r-markdown-get-start.html#cb75-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">rep</span>(<span class="st">&#39;figures/knit-logo.png&#39;</span>, <span class="dv">3</span>))</span></code></pre></div>
+<p><img src="figures/knit-logo.png" width="32.8%" /><img src="figures/knit-logo.png" width="32.8%" /><img src="figures/knit-logo.png" width="32.8%" /></p>
+<p></p>
+
+<div class="rmdimportant">
+<p><strong>Homework 1</strong>: R Markdown 문서에 아래 내용을 포함한 문서를 <code>html</code> 파일 형식으로 출력 후 제출</p>
+<ul>
+<li>간략한 자기소개 및 “통계 프로그래밍 언어” 수업에 대한 본인만의 목표 기술</li>
+<li>본인이 setting 한 RStudio 구성 캡쳐 화면을 그림 파일로 저장하고 R Markdown 문서에 삽입(화면 캡쳐 시 생성 프로젝트 내 폴더 내용 반드시 포함)</li>
+<li>현재 R 작업폴더(처음 R 시작 시 디폴트로 설정된 폴더) 및 작업폴더 내에 있는 파일명 출력</li>
+<li>현재 R 작업폴더에서 차상위 폴더의 파일명 출력</li>
+<li>패키지 <code>ggplot2</code> 패키지 설치 후 <code>cars</code> 데이터셋의 2차원 산점도(<strong>hint</strong>: <code>help(geom_point)</code> 또는 googling 활용)를 문서에 포함</li>
+</ul>
+</div>
+<p></p>
+<!--  -->
+<!-- # References {-} -->
+<!--  -->
+
+</div>
+</div>
+<!-- </div> -->
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-xie-2016" class="csl-entry">
+Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with <span>R</span> Markdown</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.
+</div>
+<div id="ref-xie-2018" class="csl-entry">
+Xie, Yihui, J. J. Allaire, and Garrett Grolemund. 2018. <em>R Markdown: The Definitive Guide</em>. Boca Raton, Florida: Chapman; Hall/CRC. <a href="https://bookdown.org/yihui/rmarkdown">https://bookdown.org/yihui/rmarkdown</a>.
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="5">
+<li id="fn5"><p>과학적 연구의 결과물을 오픈소스로 내놓고 누구라도 검증 가능<a href="r-markdown-get-start.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p><a href="r-studio.html#rstudio-project">RStudio 프로젝트</a>에서 생성한 폴더 내에 파일 저장<a href="r-markdown-get-start.html#fnref6" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="r-basic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-type.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/01-introduction.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["cnu-r-programming.pdf", "cnu-r-programming.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
