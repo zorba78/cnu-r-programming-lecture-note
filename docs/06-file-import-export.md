@@ -406,7 +406,7 @@ system.time(pulse <- read.csv("dataset/pulse.csv", header = T))
 
 ```
  사용자  시스템 elapsed 
-  4.611   0.024   4.637 
+  4.630   0.011   4.645 
 ```
 
 ```r
