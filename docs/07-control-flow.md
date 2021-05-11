@@ -18,17 +18,23 @@ editor_options:
 
 \footnotesize
 
-<div class="figure" style="text-align: center">
-<img src="figures/foxtrot-loop.jpg" alt="Flow-control example (https://homerhanumat.github.io/r-notes/flow.html)" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-1)Flow-control example (https://homerhanumat.github.io/r-notes/flow.html)</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{figures/foxtrot-loop} 
+
+}
+
+\caption{Flow-control example (https://homerhanumat.github.io/r-notes/flow.html)}(\#fig:unnamed-chunk-1)
+\end{figure}
 
  \normalsize
 
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">**참고**: 본 장의 내용은 [데이터과학 민주화](https://statkclee.github.io/r4inf/)와 [Beginning Computer Programming with R](https://homerhanumat.github.io/r-notes/prompting-the-user.html)의 내용을 기반으로 재구성함</div>\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}
+**참고**: 본 장의 내용은 [데이터과학 민주화](https://statkclee.github.io/r4inf/)와 [Beginning Computer Programming with R](https://homerhanumat.github.io/r-notes/prompting-the-user.html)의 내용을 기반으로 재구성함
+\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -110,10 +116,14 @@ if (x > 0) {
 
 \footnotesize
 
-<div class="figure" style="text-align: center">
-<img src="figures/if-flow-chart.png" alt="if 구문 기본 flow-chart" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-6)if 구문 기본 flow-chart</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{figures/if-flow-chart} 
+
+}
+
+\caption{if 구문 기본 flow-chart}(\#fig:unnamed-chunk-6)
+\end{figure}
 
  \normalsize
 
@@ -180,10 +190,14 @@ if (x %% 2 == 0) {
 
 \footnotesize
 
-<div class="figure" style="text-align: center">
-<img src="figures/if-else-flow-chart.png" alt="대안실행(if-else 구문) flow-chart" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-9)대안실행(if-else 구문) flow-chart</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{figures/if-else-flow-chart} 
+
+}
+
+\caption{대안실행(if-else 구문) flow-chart}(\#fig:unnamed-chunk-9)
+\end{figure}
 
  \normalsize
 
@@ -235,10 +249,14 @@ if (x < y) {
 
 \footnotesize
 
-<div class="figure" style="text-align: center">
-<img src="figures/if-chain-flowchart.png" alt="연쇄조건(if-else if-else 구문) flow-chart" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-12)연쇄조건(if-else if-else 구문) flow-chart</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{figures/if-chain-flowchart} 
+
+}
+
+\caption{연쇄조건(if-else if-else 구문) flow-chart}(\#fig:unnamed-chunk-12)
+\end{figure}
 
  \normalsize
 
@@ -294,20 +312,26 @@ if (x == y) {
 
 \footnotesize
 
-<div class="figure" style="text-align: center">
-<img src="figures/nested-condition.png" alt="중첩 조건문 flow-chart" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-15)중첩 조건문 flow-chart</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{figures/nested-condition} 
+
+}
+
+\caption{중첩 조건문 flow-chart}(\#fig:unnamed-chunk-15)
+\end{figure}
 
  \normalsize
 
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">
+\BeginKnitrBlock{rmdnote}
+
 - 중첩 조건문은 코드의 가독성을 떨어뜨리기 때문에 피하는 것을 권장
 - 중첩 조건문을 피하기 위한 한 가지 방법은 논리 연산자를 활용
-</div>\EndKnitrBlock{rmdnote}
+
+\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -508,10 +532,14 @@ repeat {
 
 \footnotesize
 
-<div class="figure" style="text-align: center">
-<img src="figures/repeat-flowchart.png" alt="REPEAT 구문 flow-chart" width="60%" />
-<p class="caption">(\#fig:unnamed-chunk-25)REPEAT 구문 flow-chart</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{figures/repeat-flowchart} 
+
+}
+
+\caption{REPEAT 구문 flow-chart}(\#fig:unnamed-chunk-25)
+\end{figure}
 
  \normalsize
 
@@ -615,10 +643,14 @@ while (조건) {
 
 \footnotesize
 
-<div class="figure" style="text-align: center">
-<img src="figures/while-flowchart.png" alt="WHILE 구문 flow-chart" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-30)WHILE 구문 flow-chart</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{figures/while-flowchart} 
+
+}
+
+\caption{WHILE 구문 flow-chart}(\#fig:unnamed-chunk-30)
+\end{figure}
 
  \normalsize
 
@@ -730,10 +762,12 @@ temp 단어는 해당 문자열 벡터에 존재하지 않습니다.
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">
+\BeginKnitrBlock{rmdnote}
+
 - `repeat`, `while`과 같이 반복의 횟수가 지정되지 않는 반목구문을 불확정 반복문(indefinite loop)이라고 함. 
 - 다음에 배울 `for` 구문은 위 두 반복문과는 다르게 반복의 범위를 명확히 지정하기 때문에 확정 반복문(definite loop)라고 함.
-</div>\EndKnitrBlock{rmdnote}
+
+\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -761,10 +795,14 @@ for (반복변수 in sequence) {
 
 \footnotesize
 
-<div class="figure" style="text-align: center">
-<img src="figures/for-flowchart.png" alt="FOR 구문 flow-chart" width="70%" />
-<p class="caption">(\#fig:unnamed-chunk-36)FOR 구문 flow-chart</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{figures/for-flowchart} 
+
+}
+
+\caption{FOR 구문 flow-chart}(\#fig:unnamed-chunk-36)
+\end{figure}
 
  \normalsize
 
@@ -883,9 +921,11 @@ for (i in seq_along(student_name)) {
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">- 불확정 반복문 학습 시 무한루프로부터 `break`를 통해 루프에서 탈출
+\BeginKnitrBlock{rmdnote}
+- 불확정 반복문 학습 시 무한루프로부터 `break`를 통해 루프에서 탈출
 - 루프를 완전히 탈출하지 않고 현재 반복을 중지하고 그 다음 반복을 진행하고 싶을 경우 `next` 예약어를 사용
-  </div>\EndKnitrBlock{rmdnote}
+  
+\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -917,10 +957,9 @@ e 가 7 번 째 인덱스에 있네요!!
 
 \footnotesize
 
-<div class="figure">
-<img src="figures/function-machine-picture.png" alt="함수" width="32.8%" /><img src="figures/function-machine-03.png" alt="함수" width="32.8%" /><img src="figures/function-machine-04.png" alt="함수" width="32.8%" />
-<p class="caption">(\#fig:function-illust)함수</p>
-</div>
+\begin{figure}
+\includegraphics[width=0.328\linewidth]{figures/function-machine-picture} \includegraphics[width=0.328\linewidth]{figures/function-machine-03} \includegraphics[width=0.328\linewidth]{figures/function-machine-04} \caption{함수}(\#fig:function-illust)
+\end{figure}
 
  \normalsize
 
@@ -955,7 +994,9 @@ function (..., na.rm = FALSE)  .Primitive("sum")
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">R의 스크립트는 내장된 혹은 사용자가 정의한 함수들을 호출함으로써 작성됨</div>\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}
+R의 스크립트는 내장된 혹은 사용자가 정의한 함수들을 호출함으로써 작성됨
+\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -1192,8 +1233,10 @@ Data:  1.16 -0.59 NA -1.33 -0.45 0.57 NA -0.87 -0.46 -0.56 NA -0.15 -0.63 1.32 -
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">**call by value**와 상반되는 개념으로 참조에 의한 호출(**call by reference**)로 값이 아니라 값이 저장되어 있는 메모리의 주소 값을 전달하는 방식(대표적인 예: `C 언어`의 포인터)임. 계산 효율은 참조에 의한 호출이 월등히 뛰어나지만, 프로그램의 구조가 복잡하다는 단점을 가짐. R은 데이터 분석에 특화된 프로그램이기 때문에 직관적인 **call by value** 방식을 택함. 
-</div>\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}
+**call by value**와 상반되는 개념으로 참조에 의한 호출(**call by reference**)로 값이 아니라 값이 저장되어 있는 메모리의 주소 값을 전달하는 방식(대표적인 예: `C 언어`의 포인터)임. 계산 효율은 참조에 의한 호출이 월등히 뛰어나지만, 프로그램의 구조가 복잡하다는 단점을 가짐. R은 데이터 분석에 특화된 프로그램이기 때문에 직관적인 **call by value** 방식을 택함. 
+
+\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -1333,10 +1376,9 @@ Error in stdev(dat = dat, na.rm = TRUE): 사용되지 않은 인자 (dat = dat)
 
 \footnotesize
 
-<div class="figure">
-<img src="figures/function-structure.png" alt="함수의 기본 구조" width="100%" />
-<p class="caption">(\#fig:function-structure)함수의 기본 구조</p>
-</div>
+\begin{figure}
+\includegraphics[width=1\linewidth]{figures/function-structure} \caption{함수의 기본 구조}(\#fig:function-structure)
+\end{figure}
 
  \normalsize
 
@@ -1521,7 +1563,9 @@ mean_manual(x = xna, trim = 0.2, na.rm = TRUE)
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}<div class="rmdtip">함수 몸체 안에 `browser()`을 입력하면, `browser()` 전 까지 함수 몸체 안 명령들이 수행되고, 이후 명령들이 어떻게 실행되는지 확인할 수 있음. 함수 작성 시 함수 로직을 세우고 디버깅 할 때 매우 유용하게 사용</div>\EndKnitrBlock{rmdtip}
+\BeginKnitrBlock{rmdtip}
+함수 몸체 안에 `browser()`을 입력하면, `browser()` 전 까지 함수 몸체 안 명령들이 수행되고, 이후 명령들이 어떻게 실행되는지 확인할 수 있음. 함수 작성 시 함수 로직을 세우고 디버깅 할 때 매우 유용하게 사용
+\EndKnitrBlock{rmdtip}
 
  \normalsize
 
@@ -1743,8 +1787,10 @@ center(xna, "median", na.rm = TRUE)
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">`switch()` 함수는 `ifelse()` 함수의 확장 버전으로 $n$ 개의 조건에 대한 분기 가능
-</div>\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}
+`switch()` 함수는 `ifelse()` 함수의 확장 버전으로 $n$ 개의 조건에 대한 분기 가능
+
+\EndKnitrBlock{rmdnote}
 
  \normalsize
 

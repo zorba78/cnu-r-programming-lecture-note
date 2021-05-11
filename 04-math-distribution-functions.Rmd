@@ -201,37 +201,38 @@ R은 현존하는 대부분의 통계 확률 분포 함수를 제공하고 `접�
 
 
 ```{r, echo=FALSE, message=FALSE}
+
 Distribution <- c("균일분포", "지수분포", "정규분포", "$\\chi^2$ 분포", "$t$ 분포", "이항분포", "포아송 분포")
-`Density/Mass function` <- c("$\\frac{1}{b -a},~\\mathrm{for}~x \\in [a, b]$", 
-                             "$\\lambda \\exp{(-\\lambda x)}$", 
-                             "$\\frac{1}{\\sqrt{2\\pi}\\sigma}\\exp \\left\\{-\\frac{(x - \\mu)^2}{2\\sigma^2} \\right \\}$", 
-                             "$\\frac{1}{\\Gamma(\\nu/2)2^{\\nu/2}}x^{(\\nu/2) - 1}e^{(-x/2)}$", 
-                             "$\\frac{\\Gamma(\\frac{\\nu + 1}{2})}{\\Gamma{(\\frac{\\nu}{2}})}\\frac{1}{\\sqrt{\\nu\\pi}}\\frac{1}{(1 + x^2/\\nu)^{(\\nu + 1)/2}}$", 
-                             "${n \\choose x} p^x (1 - p)^{n - x}$", 
+`Density/Mass function` <- c("$\\frac{1}{b -a},~\\mathrm{for}~x \\in [a, b]$",
+                             "$\\lambda \\exp{(-\\lambda x)}$",
+                             "$\\frac{1}{\\sqrt{2\\pi}\\sigma}\\exp \\left\\{-\\frac{(x - \\mu)^2}{2\\sigma^2} \\right \\}$",
+                             "$\\frac{1}{\\Gamma(\\nu/2)2^{\\nu/2}}x^{(\\nu/2) - 1}e^{(-x/2)}$",
+                             "$\\frac{\\Gamma(\\frac{\\nu + 1}{2})}{\\Gamma{(\\frac{\\nu}{2}})}\\frac{1}{\\sqrt{\\nu\\pi}}\\frac{1}{(1 + x^2/\\nu)^{(\\nu + 1)/2}}$",
+                             "${n \\choose x} p^x (1 - p)^{n - x}$",
                              "$\\frac{e^{-\\lambda}\\lambda^x}{x!}$")
 `R pdf`         <- c("dunif", "dexp", "dnorm", "dchisq", "dt", "dbinom", "dpois")
 `R cdf`         <- c("punif", "pexp", "pnorm", "pchisq", "pt", "pbinom", "ppois")
 `R quantile`    <- c("qunif", "qexp", "qnorm", "qchisq", "qt", "qbinom", "qpois")
 `RV generation` <- c("runif", "rexp", "rnorm", "rchisq", "rt", "rbinom", "rpois")
-Parameter       <- c("min (a), max (b)", 
-                     "rate ($\\lambda$)", 
-                     "mean ($\\mu$), sd ($\\sigma$)", 
-                     "df ($\\nu$)", 
-                     "df ($\\nu$)", 
-                     "size ($n$), prob ($p$)", 
+Parameter       <- c("min (a), max (b)",
+                     "rate ($\\lambda$)",
+                     "mean ($\\mu$), sd ($\\sigma$)",
+                     "df ($\\nu$)",
+                     "df ($\\nu$)",
+                     "size ($n$), prob ($p$)",
                      "lambda ($\\lambda$)")
 
 
-tab_dist <- tibble(Distribution, 
-                   `Density/Mass function`, 
-                   `R pdf`, 
-                   `R cdf`, 
-                   `R quantile`, 
-                   `RV generation`, 
+tab_dist <- tibble(Distribution,
+                   `Density/Mass function`,
+                   `R pdf`,
+                   `R cdf`,
+                   `R quantile`,
+                   `RV generation`,
                    Parameter)
-tab_dist %>% 
-  kbl(echo = FALSE, 
-      caption = "일반적인 R 통계 분포함수(일부 제시)") %>% 
+tab_dist %>%
+  kbl(caption = "일반적인 R 통계 분포함수(일부 제시)", 
+      escape = FALSE) %>%
   kable_paper("striped", full_width = TRUE, font_size = 12)
 
 
