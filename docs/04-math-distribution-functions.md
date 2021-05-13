@@ -297,85 +297,31 @@ R은 현존하는 대부분의 통계 확률 분포 함수를 제공하고 `접�
 
 \footnotesize
 
-<table class=" lightable-paper lightable-striped" style='font-size: 12px; font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;'>
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-7)일반적인 R 통계 분포함수(일부 제시)</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Distribution </th>
-   <th style="text-align:left;"> Density/Mass function </th>
-   <th style="text-align:left;"> R pdf </th>
-   <th style="text-align:left;"> R cdf </th>
-   <th style="text-align:left;"> R quantile </th>
-   <th style="text-align:left;"> RV generation </th>
-   <th style="text-align:left;"> Parameter </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> 균일분포 </td>
-   <td style="text-align:left;"> $\frac{1}{b -a},~\mathrm{for}~x \in [a, b]$ </td>
-   <td style="text-align:left;"> dunif </td>
-   <td style="text-align:left;"> punif </td>
-   <td style="text-align:left;"> qunif </td>
-   <td style="text-align:left;"> runif </td>
-   <td style="text-align:left;"> min (a), max (b) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 지수분포 </td>
-   <td style="text-align:left;"> $\lambda \exp{(-\lambda x)}$ </td>
-   <td style="text-align:left;"> dexp </td>
-   <td style="text-align:left;"> pexp </td>
-   <td style="text-align:left;"> qexp </td>
-   <td style="text-align:left;"> rexp </td>
-   <td style="text-align:left;"> rate ($\lambda$) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 정규분포 </td>
-   <td style="text-align:left;"> $\frac{1}{\sqrt{2\pi}\sigma}\exp \left\{-\frac{(x - \mu)^2}{2\sigma^2} \right \}$ </td>
-   <td style="text-align:left;"> dnorm </td>
-   <td style="text-align:left;"> pnorm </td>
-   <td style="text-align:left;"> qnorm </td>
-   <td style="text-align:left;"> rnorm </td>
-   <td style="text-align:left;"> mean ($\mu$), sd ($\sigma$) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $\chi^2$ 분포 </td>
-   <td style="text-align:left;"> $\frac{1}{\Gamma(\nu/2)2^{\nu/2}}x^{(\nu/2) - 1}e^{(-x/2)}$ </td>
-   <td style="text-align:left;"> dchisq </td>
-   <td style="text-align:left;"> pchisq </td>
-   <td style="text-align:left;"> qchisq </td>
-   <td style="text-align:left;"> rchisq </td>
-   <td style="text-align:left;"> df ($\nu$) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> $t$ 분포 </td>
-   <td style="text-align:left;"> $\frac{\Gamma(\frac{\nu + 1}{2})}{\Gamma{(\frac{\nu}{2}})}\frac{1}{\sqrt{\nu\pi}}\frac{1}{(1 + x^2/\nu)^{(\nu + 1)/2}}$ </td>
-   <td style="text-align:left;"> dt </td>
-   <td style="text-align:left;"> pt </td>
-   <td style="text-align:left;"> qt </td>
-   <td style="text-align:left;"> rt </td>
-   <td style="text-align:left;"> df ($\nu$) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 이항분포 </td>
-   <td style="text-align:left;"> ${n \choose x} p^x (1 - p)^{n - x}$ </td>
-   <td style="text-align:left;"> dbinom </td>
-   <td style="text-align:left;"> pbinom </td>
-   <td style="text-align:left;"> qbinom </td>
-   <td style="text-align:left;"> rbinom </td>
-   <td style="text-align:left;"> size ($n$), prob ($p$) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 포아송 분포 </td>
-   <td style="text-align:left;"> $\frac{e^{-\lambda}\lambda^x}{x!}$ </td>
-   <td style="text-align:left;"> dpois </td>
-   <td style="text-align:left;"> ppois </td>
-   <td style="text-align:left;"> qpois </td>
-   <td style="text-align:left;"> rpois </td>
-   <td style="text-align:left;"> lambda ($\lambda$) </td>
-  </tr>
-</tbody>
-</table>
+\begin{table}
+
+\caption{(\#tab:unnamed-chunk-7)일반적인 R 통계 분포함수(일부 제시)}
+\centering
+\fontsize{12}{14}\selectfont
+\begin{tabu} to \linewidth {>{\raggedright}X>{\raggedright}X>{\raggedright}X>{\raggedright}X>{\raggedright}X>{\raggedright}X>{\raggedright}X}
+\hline
+Distribution & Density/Mass function & R pdf & R cdf & R quantile & RV generation & Parameter\\
+\hline
+균일분포 & $\frac{1}{b -a},~\mathrm{for}~x \in [a, b]$ & dunif & punif & qunif & runif & min (a), max (b)\\
+\hline
+지수분포 & $\lambda \exp{(-\lambda x)}$ & dexp & pexp & qexp & rexp & rate ($\lambda$)\\
+\hline
+정규분포 & $\frac{1}{\sqrt{2\pi}\sigma}\exp \left\{-\frac{(x - \mu)^2}{2\sigma^2} \right \}$ & dnorm & pnorm & qnorm & rnorm & mean ($\mu$), sd ($\sigma$)\\
+\hline
+$\chi^2$ 분포 & $\frac{1}{\Gamma(\nu/2)2^{\nu/2}}x^{(\nu/2) - 1}e^{(-x/2)}$ & dchisq & pchisq & qchisq & rchisq & df ($\nu$)\\
+\hline
+$t$ 분포 & $\frac{\Gamma(\frac{\nu + 1}{2})}{\Gamma{(\frac{\nu}{2}})}\frac{1}{\sqrt{\nu\pi}}\frac{1}{(1 + x^2/\nu)^{(\nu + 1)/2}}$ & dt & pt & qt & rt & df ($\nu$)\\
+\hline
+이항분포 & ${n \choose x} p^x (1 - p)^{n - x}$ & dbinom & pbinom & qbinom & rbinom & size ($n$), prob ($p$)\\
+\hline
+포아송 분포 & $\frac{e^{-\lambda}\lambda^x}{x!}$ & dpois & ppois & qpois & rpois & lambda ($\lambda$)\\
+\hline
+\end{tabu}
+\end{table}
 
  \normalsize
 
@@ -419,7 +365,7 @@ text(x = 10, y = 0.05, cex = 2,
      adj = 0)
 ```
 
-<img src="04-math-distribution-functions_files/figure-html/unnamed-chunk-8-1.svg" width="672" />
+![](04-math-distribution-functions_files/figure-latex/unnamed-chunk-8-1.pdf)<!-- --> 
 
 ```r
 # 분위수
@@ -560,13 +506,15 @@ mean(v) # 카이제곱분포의 평균은 이론적으로 자유도 값과 같�
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}<div class="rmdtip">**R에서 통계적 모형 표현 방법**
+\BeginKnitrBlock{rmdtip}
+**R에서 통계적 모형 표현 방법**
 
 - 지금까지 별다른 설명 없이 `~`가 들어간 수식표현을 특정함수(예: `lm()`, `t.test()`, 심지어 그래프 생성에 필요한 함수 등)의 인수로 사용함.
 - R은 (통계적) 모형을 표현하기 위해 **formula** 표현을 사용 $\rightarrow$ 일반적으로 `좌변 ~ 우변`형태로 표시
 - 보통은 특정 함수 내에서 호출되며 데이터에 포함되어 있는 변수를 평가하지 않고 해당 함수에서 해석할 수 있도록 변수값을 불러올 수 있음.
 - **formula**는 "language" 객체의 일종이며 "formula" 클래스를 속성으로 갖는 평가되지 않은 표현식(unevaluated expression)
-</div>\EndKnitrBlock{rmdtip}
+
+\EndKnitrBlock{rmdtip}
 
  \normalsize
 
@@ -639,10 +587,12 @@ $.Environment
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}<div class="rmdtip">일반적으로 좌변에 $y$로 표현되는 반응변수는 학문 분야에 따라 종속변수(dependent variable), 표적변수(target variable), 결과변수(outcome variable), 
+\BeginKnitrBlock{rmdtip}
+일반적으로 좌변에 $y$로 표현되는 반응변수는 학문 분야에 따라 종속변수(dependent variable), 표적변수(target variable), 결과변수(outcome variable), 
 레이블(label, $y$가 범주형일 경우) 등으로 명칭되며, 우변에 $y$를 설명하기 위해 사용하는 변수($x$)를 마찬가지로 분야와 성격에 따라 독립변수(independent variable), 
 설명변수(exploratory variable), 예측변수(predictor variable), 위험 인자(risk factor), 공변량(covariate) 등으로 명칭된다. 
-</div>\EndKnitrBlock{rmdtip}
+
+\EndKnitrBlock{rmdtip}
 
  \normalsize
 
@@ -796,11 +746,15 @@ d1 <- model.frame(y ~ x1 + x2) # 벡터값을 데이터 프레임으로 반환
 head(d1)
 ```
 
-<div data-pagedtable="false">
-  <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["y"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x1"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"15.23103","2":"-0.5058152","3":"2.535016","_rn_":"1"},{"1":"25.03651","2":"2.7345733","3":"2.437291","_rn_":"2"},{"1":"19.26211","2":"-1.3425144","3":"3.033594","_rn_":"3"},{"1":"29.55232","2":"8.3811232","3":"2.537901","_rn_":"4"},{"1":"10.58213","2":"3.3180311","3":"2.362337","_rn_":"5"},{"1":"25.53836","2":"-1.2818735","3":"3.037152","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+```
+         y         x1       x2
+1 15.23103 -0.5058152 2.535016
+2 25.03651  2.7345733 2.437291
+3 19.26211 -1.3425144 3.033594
+4 29.55232  8.3811232 2.537901
+5 10.58213  3.3180311 2.362337
+6 25.53836 -1.2818735 3.037152
+```
 
 ```r
 # formula를 구성하고 있는 변수명에 대응하는 변수를 데이터 프레임에서 추출
@@ -816,11 +770,15 @@ d2 <- model.frame(f3, iris)
 head(d2)
 ```
 
-<div data-pagedtable="false">
-  <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Species"],"name":[1],"type":["fct"],"align":["left"]},{"label":["Sepal.Length"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Sepal.Width"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Petal.Length"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"setosa","2":"5.1","3":"3.5","4":"1.4","_rn_":"1"},{"1":"setosa","2":"4.9","3":"3.0","4":"1.4","_rn_":"2"},{"1":"setosa","2":"4.7","3":"3.2","4":"1.3","_rn_":"3"},{"1":"setosa","2":"4.6","3":"3.1","4":"1.5","_rn_":"4"},{"1":"setosa","2":"5.0","3":"3.6","4":"1.4","_rn_":"5"},{"1":"setosa","2":"5.4","3":"3.9","4":"1.7","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+```
+  Species Sepal.Length Sepal.Width Petal.Length
+1  setosa          5.1         3.5          1.4
+2  setosa          4.9         3.0          1.4
+3  setosa          4.7         3.2          1.3
+4  setosa          4.6         3.1          1.5
+5  setosa          5.0         3.6          1.4
+6  setosa          5.4         3.9          1.7
+```
 
 ```r
 # model.matrix()에서는 디자인 행렬만 반환
@@ -915,7 +873,8 @@ y ~ x1 + x2 + x3
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}<div class="rmdtip">일반 연산 시 `A %in% B`의 의미는 `A`가 `B`의 원소를 포함하는지에 대한 논리값을 반환해 주지만, **formula**에서 `%in%`은 중첩 또는 지분(nesting)을 내포함. 
+\BeginKnitrBlock{rmdtip}
+일반 연산 시 `A %in% B`의 의미는 `A`가 `B`의 원소를 포함하는지에 대한 논리값을 반환해 주지만, **formula**에서 `%in%`은 중첩 또는 지분(nesting)을 내포함. 
 R의 리스트 객체는 중첩 및 지분 구조의 대표적 형태임. 예를 들어 리스트에 포함된 한 원소에 대응하는 데이터의 형태 및 값은 동일 리스트의 다른 원소에 대응한 
 데이터의 형태 및 값이 다름. 즉, 리스트 객체는 한 객체에 여러 형태의 데이터 구조를 가질 수 있고 이를 중접된 구조라고 함. 
 
@@ -925,7 +884,8 @@ R의 리스트 객체는 중첩 및 지분 구조의 대표적 형태임. 예를
 주 관심요인은 회사(C)이고, 요인 C는 회사 A, B라는 두 개의 수준(level)을 갖고 있음. 오랜지 주스(O)는 각 회사 별로 3개의 수준을 갖고 있는데, 
 각 회사에서 생산하는 오랜지 주스는 생산 공정에 차이가 있기 떄문에 각 회사에 지분되어 있음. 즉, 회사 A에서 생산한 오랜지 주스 O~1~, O~2~, O~3~은 
 회사 B에서 생산한 O~1~, O~2~, O~3~과 다름. 
-</div>\EndKnitrBlock{rmdtip}
+
+\EndKnitrBlock{rmdtip}
 
  \normalsize
 

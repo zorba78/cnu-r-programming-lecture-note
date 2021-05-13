@@ -3,7 +3,7 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
-\mainmatter
+
 
 
 
@@ -26,10 +26,14 @@ editor_options:
 
 \footnotesize
 
-<div class="figure" style="text-align: center">
-<img src="figures/rmarkdown_universe.jpg" alt="R markdown 세계(https://ulyngs.github.io/rmarkdown-workshop-2019 에서 발췌)" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-1)R markdown 세계(https://ulyngs.github.io/rmarkdown-workshop-2019 에서 발췌)</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{figures/rmarkdown_universe} 
+
+}
+
+\caption{R markdown 세계(https://ulyngs.github.io/rmarkdown-workshop-2019 에서 발췌)}(\#fig:unnamed-chunk-1)
+\end{figure}
 
  \normalsize
 
@@ -39,7 +43,9 @@ editor_options:
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">본 절의 내용 중 일부는 지난 학기 강의노트 1.7절과 중복되거나 재구성한 내용이 포함됨. </div>\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}
+본 절의 내용 중 일부는 지난 학기 강의노트 1.7절과 중복되거나 재구성한 내용이 포함됨. 
+\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -97,10 +103,14 @@ plot(pressure)
 
 \footnotesize
 
-<div class="figure" style="text-align: center">
-<img src="figures/rmarkrdown-structure.png" alt="R markdown structure" width="100%" />
-<p class="caption">(\#fig:rmarkdown-structure)R markdown structure</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{figures/rmarkrdown-structure} 
+
+}
+
+\caption{R markdown structure}(\#fig:rmarkdown-structure)
+\end{figure}
 
  \normalsize
 
@@ -119,10 +129,14 @@ plot(pressure)
 
 \footnotesize
 
-<div class="figure" style="text-align: center">
-<img src="figures/rmarkdown-flow.png" alt="R Markdown의 최종 결과물 산출과정(http://applied-r.com/project-reporting-template/)" width="60%" />
-<p class="caption">(\#fig:rmarkdown-flow)R Markdown의 최종 결과물 산출과정(http://applied-r.com/project-reporting-template/)</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{figures/rmarkdown-flow} 
+
+}
+
+\caption{R Markdown의 최종 결과물 산출과정(http://applied-r.com/project-reporting-template/)}(\#fig:rmarkdown-flow)
+\end{figure}
 
  \normalsize
 
@@ -212,7 +226,9 @@ a new paragraph
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}<div class="rmdtip">RStudio에서 단축키 `[Ctrl]` + `[Shift]` + `[C]`를 통해 전체 line 에 대해 주석처리 가능</div>\EndKnitrBlock{rmdtip}
+\BeginKnitrBlock{rmdtip}
+RStudio에서 단축키 `[Ctrl]` + `[Shift]` + `[C]`를 통해 전체 line 에 대해 주석처리 가능
+\EndKnitrBlock{rmdtip}
 
  \normalsize
 
@@ -367,10 +383,14 @@ g(X_{n}) &= g(\theta)+g'({\tilde{\theta}})(X_{n}-\theta) \notag \\
 
 \footnotesize
 
-<div class="figure" style="text-align: center">
-<img src="figures/chunk-parts.png" alt="Chunk anatomy (https://ulyngs.github.io/rmarkdown-workshop-2019 에서 발췌)" width="100%" />
-<p class="caption">(\#fig:r-code-chunk)Chunk anatomy (https://ulyngs.github.io/rmarkdown-workshop-2019 에서 발췌)</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{figures/chunk-parts} 
+
+}
+
+\caption{Chunk anatomy (https://ulyngs.github.io/rmarkdown-workshop-2019 에서 발췌)}(\#fig:r-code-chunk)
+\end{figure}
 
  \normalsize
 
@@ -381,28 +401,20 @@ g(X_{n}) &= g(\theta)+g'({\tilde{\theta}})(X_{n}-\theta) \notag \\
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:chunk-tab-01)코드 실행 관련 청크</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Chunk 옵션 </th>
-   <th style="text-align:left;"> Default </th>
-   <th style="text-align:left;"> 설명 </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;width: 3cm; "> eval </td>
-   <td style="text-align:left;width: 3cm; "> TRUE </td>
-   <td style="text-align:left;width: 8cm; "> R 실행(코드 실행 결과)에 대응하는 결과 출력 여부 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;width: 3cm; "> include </td>
-   <td style="text-align:left;width: 3cm; "> TRUE </td>
-   <td style="text-align:left;width: 8cm; "> 출력 문서에 코드 청크의 내용을 포함할지 여부 </td>
-  </tr>
-</tbody>
-</table>
+\begin{table}[H]
+
+\caption{(\#tab:chunk-tab-01)코드 실행 관련 청크}
+\centering
+\fontsize{14}{16}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{8cm}}
+\toprule
+Chunk 옵션 & Default & 설명\\
+\midrule
+\cellcolor{gray!6}{eval} & \cellcolor{gray!6}{TRUE} & \cellcolor{gray!6}{R 실행(코드 실행 결과)에 대응하는 결과 출력 여부}\\
+include & TRUE & 출력 문서에 코드 청크의 내용을 포함할지 여부\\
+\bottomrule
+\end{tabular}
+\end{table}
 
  \normalsize
 
@@ -449,7 +461,7 @@ summary(iris)
 hist(iris$Sepal.Length)
 ```
 
-<img src="05-rmarkdown-more_files/figure-html/ex01-1-1.svg" width="672" />
+![](05-rmarkdown-more_files/figure-latex/ex01-1-1.pdf)<!-- --> 
 
  \normalsize
 
@@ -472,43 +484,23 @@ hist(iris$Sepal.Length)
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:chunk-tab-02)소스 코드 출력 결과 관련 청크</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Chunk 옵션 </th>
-   <th style="text-align:left;"> Default </th>
-   <th style="text-align:left;"> 설명 </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;width: 3cm; "> echo </td>
-   <td style="text-align:left;width: 3cm; "> TRUE </td>
-   <td style="text-align:left;width: 8cm; "> R 실행 결과에 대응하는 코드 출력 여부 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;width: 3cm; "> results </td>
-   <td style="text-align:left;width: 3cm; "> markup </td>
-   <td style="text-align:left;width: 8cm; "> 출력 결과 포맷 지정을 위한 옵션으로 추가적으로 3 가지 옵션 선택 가능: 'hide', 'asis', 'hold', 'markup' </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;width: 3cm; "> error </td>
-   <td style="text-align:left;width: 3cm; "> TRUE </td>
-   <td style="text-align:left;width: 8cm; "> 코드 또는 스크립트에 구문오류 메세지 출력 여부 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;width: 3cm; "> message </td>
-   <td style="text-align:left;width: 3cm; "> TRUE </td>
-   <td style="text-align:left;width: 8cm; "> 코드로부터 생성된 메세지 출력 여부 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;width: 3cm; "> warning </td>
-   <td style="text-align:left;width: 3cm; "> TRUE </td>
-   <td style="text-align:left;width: 8cm; "> 경고 메세지 출력 여부 </td>
-  </tr>
-</tbody>
-</table>
+\begin{table}[H]
+
+\caption{(\#tab:chunk-tab-02)소스 코드 출력 결과 관련 청크}
+\centering
+\fontsize{14}{16}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{8cm}}
+\toprule
+Chunk 옵션 & Default & 설명\\
+\midrule
+\cellcolor{gray!6}{echo} & \cellcolor{gray!6}{TRUE} & \cellcolor{gray!6}{R 실행 결과에 대응하는 코드 출력 여부}\\
+results & markup & 출력 결과 포맷 지정을 위한 옵션으로 추가적으로 3 가지 옵션 선택 가능: 'hide', 'asis', 'hold', 'markup'\\
+\cellcolor{gray!6}{error} & \cellcolor{gray!6}{TRUE} & \cellcolor{gray!6}{코드 또는 스크립트에 구문오류 메세지 출력 여부}\\
+message & TRUE & 코드로부터 생성된 메세지 출력 여부\\
+\cellcolor{gray!6}{warning} & \cellcolor{gray!6}{TRUE} & \cellcolor{gray!6}{경고 메세지 출력 여부}\\
+\bottomrule
+\end{tabular}
+\end{table}
 
  \normalsize
 
@@ -563,7 +555,7 @@ iris %>%
          legend.text = element_text(face = "bold", size = 12))
 ```
 
-<img src="05-rmarkdown-more_files/figure-html/unnamed-chunk-4-1.svg" width="672" />
+![](05-rmarkdown-more_files/figure-latex/unnamed-chunk-4-1.pdf)<!-- --> 
 
  \normalsize
 
@@ -592,10 +584,14 @@ I'm raw **Markdown** content.
 
 \footnotesize
 
-<div class="figure" style="text-align: center">
-<img src="figures/code-chunk-markup.png" alt="청크 옵션 results = 'markup'인 경우 rmd vs. md 파일 비교" width="100%" />
-<p class="caption">(\#fig:code-chunk-markup)청크 옵션 results = 'markup'인 경우 rmd vs. md 파일 비교</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{figures/code-chunk-markup} 
+
+}
+
+\caption{청크 옵션 results = 'markup'인 경우 rmd vs. md 파일 비교}(\#fig:code-chunk-markup)
+\end{figure}
 
  \normalsize
 
@@ -616,10 +612,14 @@ I'm raw **Markdown** content.
 
 \footnotesize
 
-<div class="figure" style="text-align: center">
-<img src="figures/code-chunk-asis.png" alt="청크 옵션 results = 'asis'인 경우 rmd vs. md 파일 비교" width="100%" />
-<p class="caption">(\#fig:code-chunk-asis)청크 옵션 results = 'asis'인 경우 rmd vs. md 파일 비교</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{figures/code-chunk-asis} 
+
+}
+
+\caption{청크 옵션 results = 'asis'인 경우 rmd vs. md 파일 비교}(\#fig:code-chunk-asis)
+\end{figure}
 
  \normalsize
 
@@ -647,8 +647,8 @@ x
 ```
 
 ```
- [1] -0.1103066  1.0164484 -1.9014203  0.9789864  0.1042325  0.7418681
- [7]  0.9901213  0.9306231  0.6086295 -0.7769809
+ [1]  0.92560925  0.59209156 -0.97279402  0.97204027  0.53272799  0.28991516
+ [7]  1.48929423  0.05612251  0.47178716 -0.25449511
 ```
 
 ```r
@@ -657,8 +657,8 @@ y
 ```
 
 ```
- [1]  1.1673563 -2.0844712  1.0564231 -0.6243259  0.9505592  5.1100353
- [7] -0.2290572 -0.5554451  0.5512707 -2.4086507
+ [1] -2.2217266  0.6392319  2.2060090  1.4437142  4.3164234  1.2584198
+ [7]  1.4392009 -0.1761128 -0.4293102  1.8221492
 ```
 
 ```r
@@ -666,8 +666,8 @@ x + y
 ```
 
 ```
- [1]  1.0570497 -1.0680228 -0.8449972  0.3546605  1.0547917  5.8519034
- [7]  0.7610641  0.3751780  1.1599002 -3.1856317
+ [1] -1.29611733  1.23132348  1.23321496  2.41575448  4.84915140  1.54833501
+ [7]  2.92849514 -0.11999030  0.04247693  1.56765414
 ```
 
  \normalsize
@@ -687,12 +687,12 @@ x + y
 ```
 
 ```
- [1]  0.2749257  1.0494261 -1.1771364  0.4538792 -0.1603765 -2.2842755
- [7]  0.7980939  0.6764664 -1.4264329 -1.1854830
- [1]  1.78252882 -0.10261420 -1.49908127  0.08374511  1.48723354 -0.39386096
- [7]  3.33355100  0.95474578  2.85899063  0.02794116
- [1]  2.0574545  0.9468119 -2.6762176  0.5376243  1.3268570 -2.6781364
- [7]  4.1316449  1.6312121  1.4325577 -1.1575419
+ [1]  0.18694162 -1.64445087 -0.74018545 -0.75173049  0.46636454  0.06584075
+ [7] -0.42189227 -0.27127502 -0.03889222  0.73725778
+ [1]  1.1292312 -0.9943128  0.9976850  0.3791069  2.1838304  0.1306882
+ [7] -0.5296781  0.4904477  1.6768282  4.8176863
+ [1]  1.3161728 -2.6387636  0.2574996 -0.3726236  2.6501949  0.1965289
+ [7] -0.9515704  0.2191726  1.6379360  5.5549440
 ```
 
  \normalsize
@@ -782,38 +782,22 @@ Warning: 강제형변환에 의해 생성된 NA 입니다
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:chunk-tab-03)코드 서식 관련 청크</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Chunk 옵션 </th>
-   <th style="text-align:left;"> Default </th>
-   <th style="text-align:left;"> 설명 </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;width: 3cm; "> comment </td>
-   <td style="text-align:left;width: 3cm; "> TRUE </td>
-   <td style="text-align:left;width: 8cm; "> 소스 코드 실행 출력의 각 줄 앞에 붙는 표시문자 출력 여부: 기본 값은 '\#\#' 임 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;width: 3cm; "> highlight </td>
-   <td style="text-align:left;width: 3cm; "> TRUE </td>
-   <td style="text-align:left;width: 8cm; "> 구문 강조 여부 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;width: 3cm; "> prompt </td>
-   <td style="text-align:left;width: 3cm; "> FALSE </td>
-   <td style="text-align:left;width: 8cm; "> R 프롬프트 출력 여부 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;width: 3cm; "> tidy </td>
-   <td style="text-align:left;width: 3cm; "> FALSE </td>
-   <td style="text-align:left;width: 8cm; "> R 소스 코드 출력 정리 여부 </td>
-  </tr>
-</tbody>
-</table>
+\begin{table}[H]
+
+\caption{(\#tab:chunk-tab-03)코드 서식 관련 청크}
+\centering
+\fontsize{14}{16}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{8cm}}
+\toprule
+Chunk 옵션 & Default & 설명\\
+\midrule
+\cellcolor{gray!6}{comment} & \cellcolor{gray!6}{TRUE} & \cellcolor{gray!6}{소스 코드 실행 출력의 각 줄 앞에 붙는 표시문자 출력 여부: 기본 값은 '\#\#' 임}\\
+highlight & TRUE & 구문 강조 여부\\
+\cellcolor{gray!6}{prompt} & \cellcolor{gray!6}{FALSE} & \cellcolor{gray!6}{R 프롬프트 출력 여부}\\
+tidy & FALSE & R 소스 코드 출력 정리 여부\\
+\bottomrule
+\end{tabular}
+\end{table}
 
  \normalsize
 
@@ -928,38 +912,22 @@ iris %>%
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:chunk-tab-04)Plot 출력 관련 청크</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Chunk 옵션 </th>
-   <th style="text-align:left;"> Default </th>
-   <th style="text-align:left;"> 설명 </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;width: 5cm; "> fig.align </td>
-   <td style="text-align:left;width: 5cm; "> default </td>
-   <td style="text-align:left;width: 8cm; "> 최종 문서에 plot 정렬 방식 결정(center/left/right) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;width: 5cm; "> fig.height/fig.width </td>
-   <td style="text-align:left;width: 5cm; "> 7 </td>
-   <td style="text-align:left;width: 8cm; "> 그림 크기(단위: 인치) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;width: 5cm; "> fig.cap </td>
-   <td style="text-align:left;width: 5cm; "> NULL </td>
-   <td style="text-align:left;width: 8cm; "> 그림 캡션(문자열 입력) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;width: 5cm; "> dpi </td>
-   <td style="text-align:left;width: 5cm; "> 72 </td>
-   <td style="text-align:left;width: 8cm; "> dot per inche: 출력 그림 해상도 </td>
-  </tr>
-</tbody>
-</table>
+\begin{table}[H]
+
+\caption{(\#tab:chunk-tab-04)Plot 출력 관련 청크}
+\centering
+\fontsize{14}{16}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{8cm}}
+\toprule
+Chunk 옵션 & Default & 설명\\
+\midrule
+\cellcolor{gray!6}{fig.align} & \cellcolor{gray!6}{default} & \cellcolor{gray!6}{최종 문서에 plot 정렬 방식 결정(center/left/right)}\\
+fig.height/fig.width & 7 & 그림 크기(단위: 인치)\\
+\cellcolor{gray!6}{fig.cap} & \cellcolor{gray!6}{NULL} & \cellcolor{gray!6}{그림 캡션(문자열 입력)}\\
+dpi & 72 & dot per inche: 출력 그림 해상도\\
+\bottomrule
+\end{tabular}
+\end{table}
 
  \normalsize
 
@@ -1014,10 +982,7 @@ knitr::include_graphics("figures/taj.JPG", dpi = NA)
 
 \footnotesize
 
-<div class="figure">
-<img src="figures/taj.JPG" alt="Taj Mahal"  />
-<p class="caption">(\#fig:unnamed-chunk-19)Taj Mahal</p>
-</div>
+![(\#fig:unnamed-chunk-19)Taj Mahal](figures/taj.JPG) 
 
  \normalsize
 
@@ -1035,10 +1000,7 @@ cars %>%
 
 \footnotesize
 
-<div class="figure">
-<img src="05-rmarkdown-more_files/figure-html/plot-example-1.svg" alt="Scatterplot of the car dataset" width="960" />
-<p class="caption">(\#fig:plot-example)Scatterplot of the car dataset</p>
-</div>
+![(\#fig:plot-example)Scatterplot of the car dataset](05-rmarkdown-more_files/figure-latex/plot-example-1.pdf) 
 
  \normalsize
 
@@ -1063,61 +1025,24 @@ knitr::kable(head(iris))
 
 \footnotesize
 
-<table>
- <thead>
-  <tr>
-   <th style="text-align:right;"> Sepal.Length </th>
-   <th style="text-align:right;"> Sepal.Width </th>
-   <th style="text-align:right;"> Petal.Length </th>
-   <th style="text-align:right;"> Petal.Width </th>
-   <th style="text-align:left;"> Species </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 5.1 </td>
-   <td style="text-align:right;"> 3.5 </td>
-   <td style="text-align:right;"> 1.4 </td>
-   <td style="text-align:right;"> 0.2 </td>
-   <td style="text-align:left;"> setosa </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 4.9 </td>
-   <td style="text-align:right;"> 3.0 </td>
-   <td style="text-align:right;"> 1.4 </td>
-   <td style="text-align:right;"> 0.2 </td>
-   <td style="text-align:left;"> setosa </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 4.7 </td>
-   <td style="text-align:right;"> 3.2 </td>
-   <td style="text-align:right;"> 1.3 </td>
-   <td style="text-align:right;"> 0.2 </td>
-   <td style="text-align:left;"> setosa </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 4.6 </td>
-   <td style="text-align:right;"> 3.1 </td>
-   <td style="text-align:right;"> 1.5 </td>
-   <td style="text-align:right;"> 0.2 </td>
-   <td style="text-align:left;"> setosa </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 5.0 </td>
-   <td style="text-align:right;"> 3.6 </td>
-   <td style="text-align:right;"> 1.4 </td>
-   <td style="text-align:right;"> 0.2 </td>
-   <td style="text-align:left;"> setosa </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 5.4 </td>
-   <td style="text-align:right;"> 3.9 </td>
-   <td style="text-align:right;"> 1.7 </td>
-   <td style="text-align:right;"> 0.4 </td>
-   <td style="text-align:left;"> setosa </td>
-  </tr>
-</tbody>
-</table>
+
+\begin{tabular}{r|r|r|r|l}
+\hline
+Sepal.Length & Sepal.Width & Petal.Length & Petal.Width & Species\\
+\hline
+5.1 & 3.5 & 1.4 & 0.2 & setosa\\
+\hline
+4.9 & 3.0 & 1.4 & 0.2 & setosa\\
+\hline
+4.7 & 3.2 & 1.3 & 0.2 & setosa\\
+\hline
+4.6 & 3.1 & 1.5 & 0.2 & setosa\\
+\hline
+5.0 & 3.6 & 1.4 & 0.2 & setosa\\
+\hline
+5.4 & 3.9 & 1.7 & 0.4 & setosa\\
+\hline
+\end{tabular}
 
  \normalsize
 
@@ -1137,11 +1062,14 @@ knitr::kable(head(iris))
 head(mtcars, 5)
 ```
 
-<div data-pagedtable="false">
-  <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["mpg"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["cyl"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["disp"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["hp"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["drat"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["wt"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["qsec"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["vs"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["am"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["gear"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["carb"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"21.0","2":"6","3":"160","4":"110","5":"3.90","6":"2.620","7":"16.46","8":"0","9":"1","10":"4","11":"4","_rn_":"Mazda RX4"},{"1":"21.0","2":"6","3":"160","4":"110","5":"3.90","6":"2.875","7":"17.02","8":"0","9":"1","10":"4","11":"4","_rn_":"Mazda RX4 Wag"},{"1":"22.8","2":"4","3":"108","4":"93","5":"3.85","6":"2.320","7":"18.61","8":"1","9":"1","10":"4","11":"1","_rn_":"Datsun 710"},{"1":"21.4","2":"6","3":"258","4":"110","5":"3.08","6":"3.215","7":"19.44","8":"1","9":"0","10":"3","11":"1","_rn_":"Hornet 4 Drive"},{"1":"18.7","2":"8","3":"360","4":"175","5":"3.15","6":"3.440","7":"17.02","8":"0","9":"0","10":"3","11":"2","_rn_":"Hornet Sportabout"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+```
+                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+```
 
 ```r
 N <- nrow(mtcars)
@@ -1217,7 +1145,7 @@ bibliography: 참고문헌.bib # bibtex 서식 활용
 
 \footnotesize
 
-![](figures/bibtex-yaml.png)<!-- -->
+![](figures/bibtex-yaml.png)<!-- --> 
 
  \normalsize
 
@@ -1226,7 +1154,7 @@ bibliography: 참고문헌.bib # bibtex 서식 활용
 
 \footnotesize
 
-![](figures/citationPNG.PNG)<!-- -->
+![](figures/citationPNG.PNG)<!-- --> 
 
  \normalsize
 
