@@ -10,13 +10,11 @@ editor_options:
 
 \footnotesize
 
-\BeginKnitrBlock{rmdimportant}
-**학습 목표**
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**학습 목표**
 
 - 텍스트 문자 처리에 있어 가장 기본인 정규 표현식(regular rexpression)에 대해 알아본다.
 - R에서 기본으로 제공하는 문자열 차리 함수에 대해 알아본다
-
-\EndKnitrBlock{rmdimportant}
+</div>\EndKnitrBlock{rmdimportant}
 
  \normalsize
 
@@ -52,9 +50,7 @@ editor_options:
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}
-정규 표현식 및 문자열 처리를 위한 함수의 종류는 매우 다양하지만, 본 강의에서는 정규 표현식의 이해를 위해 일부만 소개할 것임
-\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">정규 표현식 및 문자열 처리를 위한 함수의 종류는 매우 다양하지만, 본 강의에서는 정규 표현식의 이해를 위해 일부만 소개할 것임</div>\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -132,14 +128,12 @@ x
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}
-**참고자료**
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">**참고자료**
 
    - [Youtube 동영상](https://www.youtube.com/watch?v=q8SzNKib5-4&t=18s): 영어 강의가 옥의 티...
    - [regexr.com](https://regexr.com): 정규 표현식의 패턴 확인 가능
    - [Wikibooks R programming: Text processing](https://en.wikibooks.org/wiki/R_Programming/Text_Processing)
-
-\EndKnitrBlock{rmdtip}
+</div>\EndKnitrBlock{rmdtip}
 
  \normalsize
 
@@ -242,9 +236,7 @@ nchar(s, type = "width")
 
 \footnotesize
 
-\BeginKnitrBlock{rmdwarning}
-백터의 원소 개수를 반환하는 `length()` 함수와는 다름. 
-\EndKnitrBlock{rmdwarning}
+\BeginKnitrBlock{rmdwarning}<div class="rmdwarning">백터의 원소 개수를 반환하는 `length()` 함수와는 다름. </div>\EndKnitrBlock{rmdwarning}
 
  \normalsize
 
@@ -378,20 +370,32 @@ disp        -0.04121512 -0.06822828  7.678233
 
 \footnotesize
 
-
-\begin{tabular}{l|l}
-\hline
-Format & 설명\\
-\hline
-\%s & 문자열\\
-\hline
-\%d & 정수형\\
-\hline
-\%f & 부동 소수점 수\\
-\hline
-\%e, \%E & 지수형\\
-\hline
-\end{tabular}
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Format </th>
+   <th style="text-align:left;"> 설명 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> %s </td>
+   <td style="text-align:left;"> 문자열 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> %d </td>
+   <td style="text-align:left;"> 정수형 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> %f </td>
+   <td style="text-align:left;"> 부동 소수점 수 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> %e, %E </td>
+   <td style="text-align:left;"> 지수형 </td>
+  </tr>
+</tbody>
+</table>
 
  \normalsize
 
@@ -666,14 +670,12 @@ letters; toupper(letters)
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}
-- glue 패키지에서 제공하는 `glue()` 함수를 통해 지금까지 학습한 `paste()`, `paste0()` 
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">- glue 패키지에서 제공하는 `glue()` 함수를 통해 지금까지 학습한 `paste()`, `paste0()` 
 보다 손쉽게 문자열을 결합할 수 있음
 
 - 중괄호(`{}`, curly bracket)를 활용해 R 객체에 저장되어 있는 값과 지정한 문자열을 결합
 
-
-\EndKnitrBlock{rmdtip}
+</div>\EndKnitrBlock{rmdtip}
 
  \normalsize
 
@@ -1545,28 +1547,63 @@ jude_w2
 
 \footnotesize
 
-\begin{table}[H]
-
-\caption{(\#tab:meta-char)정규표현식 메타 문자: 기본}
-\centering
-\fontsize{12}{14}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
-\toprule
-Expression & Name & 설명\\
-\midrule
-\ttfamily{\cellcolor{gray!6}{\textbackslash{}.}} & \ttfamily{\cellcolor{gray!6}{Period (마침표)}} & \ttfamily{\cellcolor{gray!6}{무엇이든 한 글자를 의미}}\\
-\ttfamily{\textbackslash{}+} & \ttfamily{Plus} & \ttfamily{\textbackslash{}+ 앞에 오는 표현이 하나 이상 포함}\\
-\ttfamily{\cellcolor{gray!6}{\textbackslash{}*}} & \ttfamily{\cellcolor{gray!6}{Asterisk}} & \ttfamily{\cellcolor{gray!6}{\textbackslash{}* 앞에 오는 표현이 0 또는 하나 이상 포함}}\\
-\ttfamily{?} & \ttfamily{Question mark} & \ttfamily{? 앞에 오는 표현이 0 또는 하나 포함}\\
-\ttfamily{\cellcolor{gray!6}{\textasciicircum{}}} & \ttfamily{\cellcolor{gray!6}{Caret}} & \ttfamily{\cellcolor{gray!6}{\textasciicircum{} 뒤에 오는 표현으로 시작}}\\
-\addlinespace
-\ttfamily{\$} & \ttfamily{Dollar} & \ttfamily{\$ 앞에 오는 표연으로 끝나는 경우}\\
-\ttfamily{\cellcolor{gray!6}{\{\}}} & \ttfamily{\cellcolor{gray!6}{Curly bracket}} & \ttfamily{\cellcolor{gray!6}{\{\} 앞에 정확히 \{\}에 있는 숫자만큼 반복되는 패턴 (예시 참고)}}\\
-\ttfamily{()} & \ttfamily{Parenthesis} & \ttfamily{() 정규 표현식 내 하위(그룹) 표현식 (예시 참고)}\\
-\ttfamily{\cellcolor{gray!6}{|}} & \ttfamily{\cellcolor{gray!6}{Vertical bar}} & \ttfamily{\cellcolor{gray!6}{| 의 왼쪽 또는 오른쪽 표현이 존재하는지}}\\
-\bottomrule
-\end{tabular}
-\end{table}
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:meta-char)정규표현식 메타 문자: 기본</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Expression </th>
+   <th style="text-align:left;"> Name </th>
+   <th style="text-align:left;"> 설명 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> \. </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> Period (마침표) </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 무엇이든 한 글자를 의미 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> \+ </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> Plus </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> \+ 앞에 오는 표현이 하나 이상 포함 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> \* </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> Asterisk </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> \* 앞에 오는 표현이 0 또는 하나 이상 포함 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> ? </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> Question mark </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> ? 앞에 오는 표현이 0 또는 하나 포함 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> ^ </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> Caret </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> ^ 뒤에 오는 표현으로 시작 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> $ </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> Dollar </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> $ 앞에 오는 표연으로 끝나는 경우 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> {} </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> Curly bracket </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> {} 앞에 정확히 {}에 있는 숫자만큼 반복되는 패턴 (예시 참고) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> () </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> Parenthesis </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> () 정규 표현식 내 하위(그룹) 표현식 (예시 참고) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> | </td>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> Vertical bar </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> | 의 왼쪽 또는 오른쪽 표현이 존재하는지 </td>
+  </tr>
+</tbody>
+</table>
 
  \normalsize
 
@@ -1912,9 +1949,7 @@ zz[g]
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}
-**참고**: 위에서 소개한 메타 문자 중 `*`는 `{0,}`, `+`는 `{1,}`, `?`는 `{0,1}`과 동일한 의미를 가짐
-\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">**참고**: 위에서 소개한 메타 문자 중 `*`는 `{0,}`, `+`는 `{1,}`, `?`는 `{0,1}`과 동일한 의미를 가짐</div>\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -1991,25 +2026,41 @@ str[g]
 
 \footnotesize
 
-\begin{table}[H]
-
-\caption{(\#tab:meta-char2)정규표현식 메타 문자: 문자집합}
-\centering
-\fontsize{12}{14}\selectfont
-\begin{tabu} to \linewidth {>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
-\toprule
-Expression & 설명\\
-\midrule
-\ttfamily{\cellcolor{gray!6}{\textbackslash{}\textbackslash{}w}} & \ttfamily{\cellcolor{gray!6}{문자(letter), 숫자(digit), 또는 \_ (underscore) 포함}}\\
-\ttfamily{\textbackslash{}\textbackslash{}d} & \ttfamily{숫자 0에서 9}\\
-\ttfamily{\cellcolor{gray!6}{\textbackslash{}\textbackslash{}s}} & \ttfamily{\cellcolor{gray!6}{공백문자(line break, tab, spaces)}}\\
-\ttfamily{\textbackslash{}\textbackslash{}W} & \ttfamily{\textbackslash{}\textbackslash{}w에 포함하지 않는 표현}\\
-\ttfamily{\cellcolor{gray!6}{\textbackslash{}\textbackslash{}D}} & \ttfamily{\cellcolor{gray!6}{숫자가 아닌 표현}}\\
-\addlinespace
-\ttfamily{\textbackslash{}\textbackslash{}S} & \ttfamily{공백이 아닌 표현}\\
-\bottomrule
-\end{tabu}
-\end{table}
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:meta-char2)정규표현식 메타 문자: 문자집합</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Expression </th>
+   <th style="text-align:left;"> 설명 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> \\w </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 문자(letter), 숫자(digit), 또는 _ (underscore) 포함 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> \\d </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 숫자 0에서 9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> \\s </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 공백문자(line break, tab, spaces) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> \\W </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> \\w에 포함하지 않는 표현 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> \\D </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 숫자가 아닌 표현 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> \\S </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 공백이 아닌 표현 </td>
+  </tr>
+</tbody>
+</table>
 
  \normalsize
 
@@ -2116,26 +2167,45 @@ blank[g]
 
 \footnotesize
 
-\begin{table}[H]
-
-\caption{(\#tab:meta-char3)정규표현식 주요 문자 클래스}
-\centering
-\fontsize{12}{14}\selectfont
-\begin{tabu} to \linewidth {>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
-\toprule
-Expression & 설명\\
-\midrule
-\ttfamily{\cellcolor{gray!6}{{}[a-z]}} & \ttfamily{\cellcolor{gray!6}{알파벳 소문자 중 하나}}\\
-\ttfamily{{}[A-Z]} & \ttfamily{알파벳 대문자 중 하나}\\
-\ttfamily{\cellcolor{gray!6}{{}[0-9]}} & \ttfamily{\cellcolor{gray!6}{0에서 9까지 숫자 중 하나}}\\
-\ttfamily{{}[a-zA-Z]} & \ttfamily{모든 알파벳 중 하나}\\
-\ttfamily{\cellcolor{gray!6}{{}[a-z0-9]}} & \ttfamily{\cellcolor{gray!6}{알파벳 소문자나 숫자 중 한 문자}}\\
-\addlinespace
-\ttfamily{{}[가-힝]} & \ttfamily{모든 한글 중 하나}\\
-\ttfamily{\cellcolor{gray!6}{{}[(abc)d]}} & \ttfamily{\cellcolor{gray!6}{문자열 'abc'와 문자 'd' 중 하나}}\\
-\bottomrule
-\end{tabu}
-\end{table}
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:meta-char3)정규표현식 주요 문자 클래스</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Expression </th>
+   <th style="text-align:left;"> 설명 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [a-z] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 알파벳 소문자 중 하나 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [A-Z] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 알파벳 대문자 중 하나 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [0-9] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 0에서 9까지 숫자 중 하나 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [a-zA-Z] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 모든 알파벳 중 하나 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [a-z0-9] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 알파벳 소문자나 숫자 중 한 문자 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [가-힝] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 모든 한글 중 하나 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [(abc)d] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 문자열 'abc'와 문자 'd' 중 하나 </td>
+  </tr>
+</tbody>
+</table>
 
  \normalsize
 
@@ -2144,31 +2214,61 @@ Expression & 설명\\
 
 \footnotesize
 
-\begin{table}[H]
-
-\caption{(\#tab:meta-char4)정규표현식: POSIX 문자 클래스}
-\centering
-\fontsize{12}{14}\selectfont
-\begin{tabu} to \linewidth {>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
-\toprule
-Expression & 설명\\
-\midrule
-\ttfamily{\cellcolor{gray!6}{{}[[:punct:]]}} & \ttfamily{\cellcolor{gray!6}{구둣점 문자 [][!\#\$\%\&’()*+,./:;<=>?@\textbackslash{}\textbackslash{}\textasciicircum{}\_`\{|\}\textasciitilde{}-]}}\\
-\ttfamily{{}[[:alpha:]]} & \ttfamily{알파벳 [A-Za-z]와 동일한 표현}\\
-\ttfamily{\cellcolor{gray!6}{{}[[:lower:]]}} & \ttfamily{\cellcolor{gray!6}{소문자 알파벳 [a-z]와 동일}}\\
-\ttfamily{{}[[:upper:]]} & \ttfamily{대문자 알파벳 [A-Z]와 동일}\\
-\ttfamily{\cellcolor{gray!6}{{}[[:digit:]]}} & \ttfamily{\cellcolor{gray!6}{숫자 0 \textasciitilde{} 9 [0-9]와 동일}}\\
-\addlinespace
-\ttfamily{{}[[:alnum:]]} & \ttfamily{알파벳과 숫자 [0-9A-Za-z]와 동일}\\
-\ttfamily{\cellcolor{gray!6}{{}[[:cntrl:]]}} & \ttfamily{\cellcolor{gray!6}{제어문자 b}}\\
-\ttfamily{{}[[:print:]]} & \ttfamily{모든 인쇄 가능한 문자}\\
-\ttfamily{\cellcolor{gray!6}{{}[[:space:]]}} & \ttfamily{\cellcolor{gray!6}{공백문자 \textbackslash{}\textbackslash{}t\textbackslash{}\textbackslash{}r\textbackslash{}\textbackslash{}n\textbackslash{}\textbackslash{}v\textbackslash{}\textbackslash{}f}}\\
-\ttfamily{{}[[:blank:]]} & \ttfamily{공백문자 중 \textbackslash{}\textbackslash{}t \textbackslash{}\textbackslash{}n}\\
-\addlinespace
-\ttfamily{\cellcolor{gray!6}{{}[[:xdigit:]]}} & \ttfamily{\cellcolor{gray!6}{16 진수}}\\
-\bottomrule
-\end{tabu}
-\end{table}
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:meta-char4)정규표현식: POSIX 문자 클래스</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Expression </th>
+   <th style="text-align:left;"> 설명 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [[:punct:]] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 구둣점 문자 [][!#$%&amp;’()*+,./:;&lt;=&gt;?@\\^_`{|}~-] </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [[:alpha:]] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 알파벳 [A-Za-z]와 동일한 표현 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [[:lower:]] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 소문자 알파벳 [a-z]와 동일 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [[:upper:]] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 대문자 알파벳 [A-Z]와 동일 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [[:digit:]] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 숫자 0 ~ 9 [0-9]와 동일 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [[:alnum:]] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 알파벳과 숫자 [0-9A-Za-z]와 동일 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [[:cntrl:]] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 제어문자 b </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [[:print:]] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 모든 인쇄 가능한 문자 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [[:space:]] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 공백문자 \\t\\r\\n\\v\\f </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [[:blank:]] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 공백문자 중 \\t \\n </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 3cm; font-family: monospace;"> [[:xdigit:]] </td>
+   <td style="text-align:left;width: 7cm; font-family: monospace;"> 16 진수 </td>
+  </tr>
+</tbody>
+</table>
 
  \normalsize
 
@@ -2310,8 +2410,7 @@ gsub("(^\\s+| {2,}|\\s+$)", "", txt)
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/cellphone-str} \end{center}
+<img src="figures/cellphone-str.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -2350,8 +2449,7 @@ phone[g]
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/email-str} \end{center}
+<img src="figures/email-str.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -2401,29 +2499,11 @@ res <- merge(news_naver2, email, by = "id")
 head(res)
 ```
 
-```
-          id
-1 0000026769
-2 0000091243
-3 0000425146
-4 0000425152
-5 0000489588
-6 0000535054
-                                                                             title
-1                                          그림으로 보는 제21대 국회의원 선거 결과
-2                           '스트레이트' 꼼수로 얼룩진 21대 총선… 후퇴한 정치개혁
-3                            [뉴스1번지] 20대 국회 막판 달구는 긴급재난지원금 논쟁
-4                             [뉴스1번지] 주호영 당선인에게 듣는 슬기로운 국회생활
-5                                    [엄창섭의 몸과 삶] 나쁜 유전자, 나쁜 국회의원
-6 고용진·전재수·유동수 의원 다시 금배지…'보험업계 숙원법안' 21대 국회 통과 기대
-              email1 email2
-1   cyr@sisain.co.kr   <NA>
-2               <NA>   <NA>
-3               <NA>   <NA>
-4               <NA>   <NA>
-5               <NA>   <NA>
-6 huropa@inews24.com   <NA>
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["title"],"name":[2],"type":["chr"],"align":["left"]},{"label":["email1"],"name":[3],"type":["chr"],"align":["left"]},{"label":["email2"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"0000026769","2":"그림으로 보는 제21대 국회의원 선거 결과","3":"cyr@sisain.co.kr","4":"NA","_rn_":"1"},{"1":"0000091243","2":"'스트레이트' 꼼수로 얼룩진 21대 총선… 후퇴한 정치개혁","3":"NA","4":"NA","_rn_":"2"},{"1":"0000425146","2":"[뉴스1번지] 20대 국회 막판 달구는 긴급재난지원금 논쟁","3":"NA","4":"NA","_rn_":"3"},{"1":"0000425152","2":"[뉴스1번지] 주호영 당선인에게 듣는 슬기로운 국회생활","3":"NA","4":"NA","_rn_":"4"},{"1":"0000489588","2":"[엄창섭의 몸과 삶] 나쁜 유전자, 나쁜 국회의원","3":"NA","4":"NA","_rn_":"5"},{"1":"0000535054","2":"고용진·전재수·유동수 의원 다시 금배지…'보험업계 숙원법안' 21대 국회 통과 기대","3":"huropa@inews24.com","4":"NA","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```r
 # stringr 패키지 사용
