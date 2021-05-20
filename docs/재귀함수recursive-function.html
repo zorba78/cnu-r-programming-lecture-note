@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8.2 재귀함수(Recursive function) | 통계 프로그래밍 언어</title>
+  <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8.2 재귀함수(Recursive function) | 통계 프로그래밍 언어" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8.2 재귀함수(Recursive function) | 통계 프로그래밍 언어" />
+  
+  <meta name="twitter:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  
+
+<meta name="author" content="한국한의학연구원, 구본초" />
+
+
+<meta name="date" content="2021-05-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="알고리즘algorithm.html"/>
+<link rel="next" href="선형이진-탐색linearbinary-search.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">통계 프로그래밍 언어</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Overview</a></li>
+<li class="part"><span><b>I Get Started</b></span></li>
+<li class="chapter" data-level="1" data-path="intro-chap.html"><a href="intro-chap.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1.1</b> R 설치하기</a></li>
+<li class="chapter" data-level="1.2" data-path="r-check.html"><a href="r-check.html"><i class="fa fa-check"></i><b>1.2</b> R 시작 및 작동 체크</a></li>
+<li class="chapter" data-level="1.3" data-path="rconsle-script.html"><a href="rconsle-script.html"><i class="fa fa-check"></i><b>1.3</b> R script 편집기 사용</a></li>
+<li class="chapter" data-level="1.4" data-path="r-studio.html"><a href="r-studio.html"><i class="fa fa-check"></i><b>1.4</b> RStudio</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="r-studio.html"><a href="r-studio.html#rstudio-install"><i class="fa fa-check"></i><b>1.4.1</b> RStudio 설치하기</a></li>
+<li class="chapter" data-level="1.4.2" data-path="r-studio.html"><a href="r-studio.html#rstudio-component"><i class="fa fa-check"></i><b>1.4.2</b> RStudio IDE 화면 구성</a></li>
+<li class="chapter" data-level="1.4.3" data-path="r-studio.html"><a href="r-studio.html#rstudio-glob-options"><i class="fa fa-check"></i><b>1.4.3</b> RStudio 환경 설정</a></li>
+<li class="chapter" data-level="1.4.4" data-path="r-studio.html"><a href="r-studio.html#rstudio-project"><i class="fa fa-check"></i><b>1.4.4</b> RStudio 프로젝트</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="r-package.html"><a href="r-package.html"><i class="fa fa-check"></i><b>1.5</b> R 패키지</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="r-package.html"><a href="r-package.html#r-package-path"><i class="fa fa-check"></i><b>1.5.1</b> R 패키지 경로 확인 및 변경</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-package.html"><a href="r-package.html#r-package-install"><i class="fa fa-check"></i><b>1.5.2</b> R 패키지 설치하기</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-package.html"><a href="r-package.html#r-package-load"><i class="fa fa-check"></i><b>1.5.3</b> R 패키지 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basic.html"><a href="r-basic.html"><i class="fa fa-check"></i><b>1.6</b> R 기초 문법</a></li>
+<li class="chapter" data-level="1.7" data-path="r-markdown-get-start.html"><a href="r-markdown-get-start.html"><i class="fa fa-check"></i><b>1.7</b> R Markdown (맛보기)</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-type.html"><a href="data-type.html"><i class="fa fa-check"></i><b>2</b> R 객체(R object)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="프로그래밍.html"><a href="프로그래밍.html"><i class="fa fa-check"></i><b>2.1</b> 프로그래밍</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="프로그래밍.html"><a href="프로그래밍.html#prerequisites"><i class="fa fa-check"></i><b>2.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2.1.2" data-path="프로그래밍.html"><a href="프로그래밍.html#control-program"><i class="fa fa-check"></i><b>2.1.2</b> 프로그램</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="scalar.html"><a href="scalar.html"><i class="fa fa-check"></i><b>2.2</b> 스칼라(scalar)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="scalar.html"><a href="scalar.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> 선언</a></li>
+<li class="chapter" data-level="2.2.2" data-path="scalar.html"><a href="scalar.html#numeric"><i class="fa fa-check"></i><b>2.2.2</b> 숫자형</a></li>
+<li class="chapter" data-level="2.2.3" data-path="scalar.html"><a href="scalar.html#character"><i class="fa fa-check"></i><b>2.2.3</b> 문자형</a></li>
+<li class="chapter" data-level="2.2.4" data-path="scalar.html"><a href="scalar.html#logical"><i class="fa fa-check"></i><b>2.2.4</b> 논리형 스칼라</a></li>
+<li class="chapter" data-level="2.2.5" data-path="scalar.html"><a href="scalar.html#missing-value"><i class="fa fa-check"></i><b>2.2.5</b> 결측값(missing value)</a></li>
+<li class="chapter" data-level="2.2.6" data-path="scalar.html"><a href="scalar.html#null"><i class="fa fa-check"></i><b>2.2.6</b> NULL 값</a></li>
+<li class="chapter" data-level="2.2.7" data-path="scalar.html"><a href="scalar.html#finite"><i class="fa fa-check"></i><b>2.2.7</b> 무한대/무한소/숫자아님</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>2.3</b> 벡터(vector)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="vector.html"><a href="vector.html#vector-prop"><i class="fa fa-check"></i><b>2.3.1</b> 벡터의 특징</a></li>
+<li class="chapter" data-level="2.3.2" data-path="vector.html"><a href="vector.html#vector-operation"><i class="fa fa-check"></i><b>2.3.2</b> 벡터의 연산</a></li>
+<li class="chapter" data-level="2.3.3" data-path="vector.html"><a href="vector.html#vector-index"><i class="fa fa-check"></i><b>2.3.3</b> 벡터의 색인(indexing)</a></li>
+<li class="chapter" data-level="2.3.4" data-path="vector.html"><a href="vector.html#vector-function"><i class="fa fa-check"></i><b>2.3.4</b> 벡터 관련 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="list.html"><a href="list.html"><i class="fa fa-check"></i><b>2.4</b> 리스트(list)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="list.html"><a href="list.html#make-list"><i class="fa fa-check"></i><b>2.4.1</b> 리스트 생성</a></li>
+<li class="chapter" data-level="2.4.2" data-path="list.html"><a href="list.html#list-index"><i class="fa fa-check"></i><b>2.4.2</b> 리스트 색인</a></li>
+<li class="chapter" data-level="2.4.3" data-path="list.html"><a href="list.html#list-add-delete"><i class="fa fa-check"></i><b>2.4.3</b> 리스트에 원소 추가/제거</a></li>
+<li class="chapter" data-level="2.4.4" data-path="list.html"><a href="list.html#list-combine"><i class="fa fa-check"></i><b>2.4.4</b> 리스트의 결합</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="matrix.html"><a href="matrix.html"><i class="fa fa-check"></i><b>2.5</b> 행렬(matrix)</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="matrix.html"><a href="matrix.html#matrix-operation"><i class="fa fa-check"></i><b>2.5.1</b> 행렬의 연산</a></li>
+<li class="chapter" data-level="2.5.2" data-path="matrix.html"><a href="matrix.html#mat-index"><i class="fa fa-check"></i><b>2.5.2</b> 행렬의 색인</a></li>
+<li class="chapter" data-level="2.5.3" data-path="matrix.html"><a href="matrix.html#행과-열-추가-및-제거"><i class="fa fa-check"></i><b>2.5.3</b> 행과 열 추가 및 제거</a></li>
+<li class="chapter" data-level="2.5.4" data-path="matrix.html"><a href="matrix.html#행렬-관련-함수"><i class="fa fa-check"></i><b>2.5.4</b> 행렬 관련 함수</a></li>
+<li class="chapter" data-level="2.5.5" data-path="matrix.html"><a href="matrix.html#vec-mat-diff"><i class="fa fa-check"></i><b>2.5.5</b> 벡터와 행렬의 차이점</a></li>
+<li class="chapter" data-level="2.5.6" data-path="matrix.html"><a href="matrix.html#mat-dim-reduc-sway"><i class="fa fa-check"></i><b>2.5.6</b> 의도치 않은 차원축소 피하기</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="array.html"><a href="array.html"><i class="fa fa-check"></i><b>2.6</b> 배열(array)</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="array.html"><a href="array.html#make-array"><i class="fa fa-check"></i><b>2.6.1</b> 배열의 생성 및 색인</a></li>
+<li class="chapter" data-level="2.6.2" data-path="array.html"><a href="array.html#rray-extend-example"><i class="fa fa-check"></i><b>2.6.2</b> 배열의 확장 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="factor-table.html"><a href="factor-table.html"><i class="fa fa-check"></i><b>2.7</b> 요인(factor)과 테이블(table)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="factor-table.html"><a href="factor-table.html#factor"><i class="fa fa-check"></i><b>2.7.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.7.2" data-path="factor-table.html"><a href="factor-table.html#table"><i class="fa fa-check"></i><b>2.7.2</b> 테이블(table)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>2.8</b> 데이터 프레임(data frame)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="data-frame.html"><a href="data-frame.html#create-data-frame"><i class="fa fa-check"></i><b>2.8.1</b> 데이터 프레임 생성</a></li>
+<li class="chapter" data-level="2.8.2" data-path="data-frame.html"><a href="data-frame.html#data-frame-get"><i class="fa fa-check"></i><b>2.8.2</b> 데이터 프레임 접근 및 필터링</a></li>
+<li class="chapter" data-level="2.8.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.8.3</b> 데이터 프레임 관련 함수</a></li>
+<li class="chapter" data-level="2.8.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.8.4</b> <code>*apply()</code> 계열 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="is-as-function.html"><a href="is-as-function.html"><i class="fa fa-check"></i><b>2.9</b> 객체의 유형 판별 및 변환</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="string-regexp.html"><a href="string-regexp.html"><i class="fa fa-check"></i><b>3</b> 문자열 처리와 정규표현식</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html"><i class="fa fa-check"></i><b>3.1</b> 유용한 문자열 관련 함수</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#nchar"><i class="fa fa-check"></i><b>3.1.1</b> <strong><code>nchar()</code></strong></a></li>
+<li class="chapter" data-level="3.1.2" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#paste"><i class="fa fa-check"></i><b>3.1.2</b> <strong><code>paste()</code></strong>, <strong><code>paste0()</code></strong></a></li>
+<li class="chapter" data-level="3.1.3" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#sprintf"><i class="fa fa-check"></i><b>3.1.3</b> <strong><code>sprintf()</code></strong></a></li>
+<li class="chapter" data-level="3.1.4" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#substr"><i class="fa fa-check"></i><b>3.1.4</b> <strong><code>substr()</code></strong></a></li>
+<li class="chapter" data-level="3.1.5" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#low-up-fun"><i class="fa fa-check"></i><b>3.1.5</b> <strong><code>tolower()</code>, <code>toupper()</code></strong></a></li>
+<li class="chapter" data-level="3.1.6" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#glue-패키지를-활용한-문자열-다루기"><i class="fa fa-check"></i><b>3.1.6</b> glue 패키지를 활용한 문자열 다루기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html"><i class="fa fa-check"></i><b>3.2</b> 정규표현식 기본 함수</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#grep-grepl"><i class="fa fa-check"></i><b>3.2.1</b> <strong><code>grep()</code>, <code>grepl()</code></strong></a></li>
+<li class="chapter" data-level="3.2.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexpr-gregexpr"><i class="fa fa-check"></i><b>3.2.2</b> <strong><code>regexpr()</code></strong>, <strong><code>gregexpr()</code></strong></a></li>
+<li class="chapter" data-level="3.2.3" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#sub-gsub-fun"><i class="fa fa-check"></i><b>3.2.3</b> <strong><code>sub()</code></strong>, <strong><code>gsub()</code></strong></a></li>
+<li class="chapter" data-level="3.2.4" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexec-fun"><i class="fa fa-check"></i><b>3.2.4</b> <strong><code>regexec()</code></strong></a></li>
+<li class="chapter" data-level="3.2.5" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#strsplit"><i class="fa fa-check"></i><b>3.2.5</b> <strong><code>strsplit()</code></strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="reg-exp.html"><a href="reg-exp.html"><i class="fa fa-check"></i><b>3.3</b> 정규 표현식(regular expression)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="reg-exp.html"><a href="reg-exp.html#basic-meta"><i class="fa fa-check"></i><b>3.3.1</b> 기본 메타 문자</a></li>
+<li class="chapter" data-level="3.3.2" data-path="reg-exp.html"><a href="reg-exp.html#character-set"><i class="fa fa-check"></i><b>3.3.2</b> 문자 집합</a></li>
+<li class="chapter" data-level="3.3.3" data-path="reg-exp.html"><a href="reg-exp.html#character-class"><i class="fa fa-check"></i><b>3.3.3</b> 문자 클래스</a></li>
+<li class="chapter" data-level="3.3.4" data-path="reg-exp.html"><a href="reg-exp.html#regexp-ex"><i class="fa fa-check"></i><b>3.3.4</b> 정규 표현식 예시</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="r-수학-함수-분포-함수-모형식-표현.html"><a href="r-수학-함수-분포-함수-모형식-표현.html"><i class="fa fa-check"></i><b>4</b> R 수학 함수, 분포 함수, 모형식 표현</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="수학함수.html"><a href="수학함수.html"><i class="fa fa-check"></i><b>4.1</b> 수학함수</a></li>
+<li class="chapter" data-level="4.2" data-path="통계-분포-함수.html"><a href="통계-분포-함수.html"><i class="fa fa-check"></i><b>4.2</b> 통계 분포 함수</a></li>
+<li class="chapter" data-level="4.3" data-path="모형식-표현.html"><a href="모형식-표현.html"><i class="fa fa-check"></i><b>4.3</b> 모형식 표현</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>5</b> R Markdown</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="r-markdown의-구성.html"><a href="r-markdown의-구성.html"><i class="fa fa-check"></i><b>5.1</b> R Markdown의 구성</a></li>
+<li class="chapter" data-level="5.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html"><i class="fa fa-check"></i><b>5.2</b> R Markdown 기본 문법(syntax)</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#텍스트-문법"><i class="fa fa-check"></i><b>5.2.1</b> 텍스트 문법</a></li>
+<li class="chapter" data-level="5.2.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#block-level-elements"><i class="fa fa-check"></i><b>5.2.2</b> Block-level elements</a></li>
+<li class="chapter" data-level="5.2.3" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#수식표현math-expression"><i class="fa fa-check"></i><b>5.2.3</b> 수식표현(math expression)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="r-code-chunks.html"><a href="r-code-chunks.html"><i class="fa fa-check"></i><b>5.3</b> R Code Chunks</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#code-chunk"><i class="fa fa-check"></i>자주 활용하는 chunk 옵션</a></li>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#typical-chunk"><i class="fa fa-check"></i>알아두면 좋은 청크 형태</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="inline-code.html"><a href="inline-code.html"><i class="fa fa-check"></i><b>5.4</b> 인라인(inline) R 코드</a></li>
+<li class="chapter" data-level="5.5" data-path="yaml.html"><a href="yaml.html"><i class="fa fa-check"></i><b>5.5</b> YAML</a>
+<ul>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#basic-syntax"><i class="fa fa-check"></i>기본 문법</a></li>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#rmarkdown-yaml-structure"><i class="fa fa-check"></i>R Markdown 기본 YAML 구조</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rmarkdown-citation.html"><a href="rmarkdown-citation.html"><i class="fa fa-check"></i><b>5.6</b> 참고문헌 인용</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r-외부-데이터-입출력.html"><a href="r-외부-데이터-입출력.html"><i class="fa fa-check"></i><b>6</b> R 외부 데이터 입출력</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="text-import-export.html"><a href="text-import-export.html"><i class="fa fa-check"></i><b>6.1</b> <strong>텍스트 파일 입출력</strong></a></li>
+<li class="chapter" data-level="6.2" data-path="binary-import-export.html"><a href="binary-import-export.html"><i class="fa fa-check"></i><b>6.2</b> R 바이너리(binary) 파일 입출력</a></li>
+<li class="chapter" data-level="6.3" data-path="import-export-excel.html"><a href="import-export-excel.html"><i class="fa fa-check"></i><b>6.3</b> Excel 파일 입출력</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="control-structure.html"><a href="control-structure.html"><i class="fa fa-check"></i><b>7</b> 제어문(Control Structure)</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="condition.html"><a href="condition.html"><i class="fa fa-check"></i><b>7.1</b> 조건문(Conditionals)</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="condition.html"><a href="condition.html#if-basic"><i class="fa fa-check"></i><b>7.1.1</b> <strong>기본 구문</strong></a></li>
+<li><a href="condition.html#if-else"><strong>대안 실행(alternative execution)</strong></a></li>
+<li class="chapter" data-level="7.1.2" data-path="condition.html"><a href="condition.html#chain-cond"><i class="fa fa-check"></i><b>7.1.2</b> <strong>연쇄 조건문(chained condition)</strong></a></li>
+<li class="chapter" data-level="7.1.3" data-path="condition.html"><a href="condition.html#nest-cond"><i class="fa fa-check"></i><b>7.1.3</b> <strong>중첩 조건문(nested contition)</strong></a></li>
+<li class="chapter" data-level="7.1.4" data-path="condition.html"><a href="condition.html#ifelse-fun"><i class="fa fa-check"></i><b>7.1.4</b> <strong><code>ifelse()</code> 함수</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="looping.html"><a href="looping.html"><i class="fa fa-check"></i><b>7.2</b> 반복문(Looping)</a>
+<ul>
+<li class="chapter" data-level="" data-path="looping.html"><a href="looping.html#loop-pre"><i class="fa fa-check"></i>Prerequisite</a></li>
+<li class="chapter" data-level="7.2.1" data-path="looping.html"><a href="looping.html#repeat"><i class="fa fa-check"></i><b>7.2.1</b> <strong><code>repeat</code> 구문</strong></a></li>
+<li class="chapter" data-level="7.2.2" data-path="looping.html"><a href="looping.html#while"><i class="fa fa-check"></i><b>7.2.2</b> <strong><code>while</code> 구문</strong></a></li>
+<li class="chapter" data-level="7.2.3" data-path="looping.html"><a href="looping.html#for-구문"><i class="fa fa-check"></i><b>7.2.3</b> <strong><code>for</code> 구문</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="function.html"><a href="function.html"><i class="fa fa-check"></i><b>7.3</b> 함수 (function)</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="function.html"><a href="function.html#함수의-정의"><i class="fa fa-check"></i><b>7.3.1</b> 함수의 정의</a></li>
+<li class="chapter" data-level="7.3.2" data-path="function.html"><a href="function.html#함수의-인수-전달-방법"><i class="fa fa-check"></i><b>7.3.2</b> 함수의 인수 전달 방법</a></li>
+<li class="chapter" data-level="7.3.3" data-path="function.html"><a href="function.html#함수의-기본-구성-요소"><i class="fa fa-check"></i><b>7.3.3</b> 함수의 기본 구성 요소</a></li>
+<li class="chapter" data-level="7.3.4" data-path="function.html"><a href="function.html#함수의-적용-범위scoping-rule"><i class="fa fa-check"></i><b>7.3.4</b> 함수의 적용 범위(scoping rule)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="몇-가지-기초적인-알고리즘.html"><a href="몇-가지-기초적인-알고리즘.html"><i class="fa fa-check"></i><b>8</b> 몇 가지 기초적인 알고리즘</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="알고리즘algorithm.html"><a href="알고리즘algorithm.html"><i class="fa fa-check"></i><b>8.1</b> 알고리즘(Algorithm)</a></li>
+<li class="chapter" data-level="8.2" data-path="재귀함수recursive-function.html"><a href="재귀함수recursive-function.html"><i class="fa fa-check"></i><b>8.2</b> 재귀함수(Recursive function)</a></li>
+<li class="chapter" data-level="8.3" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html"><i class="fa fa-check"></i><b>8.3</b> 선형/이진 탐색(Linear/Binary search)</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#선형-탐색linear-search"><i class="fa fa-check"></i><b>8.3.1</b> 선형 탐색(Linear Search)</a></li>
+<li class="chapter" data-level="8.3.2" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#이진-탐색binary-search"><i class="fa fa-check"></i><b>8.3.2</b> 이진 탐색(Binary Search)</a></li>
+<li class="chapter" data-level="8.3.3" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#선형탐색과-이진탐색-비교"><i class="fa fa-check"></i><b>8.3.3</b> 선형탐색과 이진탐색 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html"><i class="fa fa-check"></i><b>8.4</b> 뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계 프로그래밍 언어</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="재귀함수recursive-function" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> 재귀함수(Recursive function)</h2>
+<p>함수 자신을 다시 호출하는 함수로 직관적으로 이해하기 쉽고 간결함</p>
+<ul>
+<li>재귀함수 작성 시 재귀호출을 탈출하는 조건을 명확히 하는 것이 관건</li>
+</ul>
+<p><strong>예제1: 계승(factorial) 계산하기</strong></p>
+<p><span class="math display">\[
+ n! = \begin{cases}
+ n \times (n - 1)!, &amp; n=1, \cdots \\
+ 1, &amp; n = 0
+ \end{cases}
+\]</span></p>
+<p><span class="math inline">\(f(n) = n!\)</span> 이라고 하면 <span class="math inline">\(f(n)\)</span>은 아래와 같이 나타낼 수 있음.</p>
+<p><span class="math display">\[
+ n! = \begin{cases}
+ n \times f(n-1), &amp; n=1, \cdots \\
+ 1, &amp; n = 0
+ \end{cases}
+\]</span></p>
+<p>위 식을 이용해 <span class="math inline">\(3!\)</span>을 구하는 과정:
+- <span class="math inline">\(f(3) = 3\times f(2) = 3\times 2 \times f(1) = 3 \times 2\times 1\times f(0) = 3\times 2\times 1\times 1\times = 6\)</span></p>
+<div class="sourceCode" id="cb1647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1647-1"><a href="재귀함수recursive-function.html#cb1647-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">3</span>) <span class="ot">=</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">f</span>(<span class="dv">2</span>)</span>
+<span id="cb1647-2"><a href="재귀함수recursive-function.html#cb1647-2" aria-hidden="true" tabindex="-1"></a>         <span class="fu">f</span>(<span class="dv">2</span>) <span class="ot">=</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">f</span>(<span class="dv">1</span>)</span>
+<span id="cb1647-3"><a href="재귀함수recursive-function.html#cb1647-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">f</span>(<span class="dv">1</span>) <span class="ot">=</span> <span class="dv">1</span></span></code></pre></div>
+<p></p>
+<p>위 과정을 함수로 구현</p>
+<div class="sourceCode" id="cb1648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1648-1"><a href="재귀함수recursive-function.html#cb1648-1" aria-hidden="true" tabindex="-1"></a>factorial_manual <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb1648-2"><a href="재귀함수recursive-function.html#cb1648-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="dv">1</span>)</span>
+<span id="cb1648-3"><a href="재귀함수recursive-function.html#cb1648-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(n <span class="sc">*</span> <span class="fu">factorial_manual</span>(n<span class="dv">-1</span>))</span>
+<span id="cb1648-4"><a href="재귀함수recursive-function.html#cb1648-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1648-5"><a href="재귀함수recursive-function.html#cb1648-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1648-6"><a href="재귀함수recursive-function.html#cb1648-6" aria-hidden="true" tabindex="-1"></a><span class="co"># test</span></span>
+<span id="cb1648-7"><a href="재귀함수recursive-function.html#cb1648-7" aria-hidden="true" tabindex="-1"></a><span class="fu">factorial_manual</span>(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>[1] 6</code></pre>
+<div class="sourceCode" id="cb1650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1650-1"><a href="재귀함수recursive-function.html#cb1650-1" aria-hidden="true" tabindex="-1"></a><span class="fu">factorial_manual</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>[1] 3628800</code></pre>
+<div class="sourceCode" id="cb1652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1652-1"><a href="재귀함수recursive-function.html#cb1652-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R 내장함수로 검증</span></span>
+<span id="cb1652-2"><a href="재귀함수recursive-function.html#cb1652-2" aria-hidden="true" tabindex="-1"></a><span class="fu">factorial</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>[1] 3628800</code></pre>
+<p></p>
+<p><strong>확장예제: 하노이 탑(tower of Hanoi)</strong></p>
+<blockquote>
+<p>“인도 바라나시에 있는 한 사원에는 세상의 중심을 나타내는 큰 돔이 있고 그 안에 세 개의 다이아몬드 바늘이 동판 위에 세워져 있습니다. 바늘의 높이는 1 큐빗이고 굵기는 벌의 몸통만 합니다. 바늘 가운데 하나에는 신이 64개의 순금 원판을 끼워 놓았습니다. 가장 큰 원판이 바닥에 놓여 있고, 나머지 원판들이 점점 작아지며 꼭대기까지 쌓아 있습니다. 이것은 신성한 브라흐마의 탑입니다. 브라흐마의 지시에 따라 승려들은 모든 원판을 다른 바늘로 옮기기 위해 밤낮 없이 차례로 제단에 올라 규칙에 따라 원판을 하나씩 옮깁니다. 이 일이 끝날 때, 탑은 무너지고 세상은 종말을 맞이하게 됩니다.”</p>
+<p>Wikipedia 발췌</p>
+</blockquote>
+<p><strong>문제</strong>: 3개의 기둥 A, B, C가 있고, 기둥 A에 <span class="math inline">\(N\)</span> 개의 원판이 크기 순서대로 쌓여져 있을 때(제일 밑에 원판이 가장 큼), 모든 원판을 기둥 C로 옮기기</p>
+<p><strong>조건</strong></p>
+<ul>
+<li>한 번에 하나의 원판만 옮길 수 있음</li>
+<li>큰 원판이 작은 원판 위에 있으면 안됨</li>
+</ul>
+<div class="figure"><span id="fig:hanoi-problem"></span>
+<img src="figures/hanoi-problem.gif" alt="하노이 탑 문제 " width="100%" />
+<p class="caption">
+Figure 8.2: 하노이 탑 문제
+</p>
+</div>
+<p></p>
+<p><strong>Solution</strong></p>
+<p>원판의 크기가 제일 작은 것 부터 큰 것 까지 각각 1, 2, 3 번을 부여 했을 때</p>
+<ul>
+<li>1 번 원판을 봉 A에서 C로 옮김 (A <span class="math inline">\(\rightarrow\)</span> C)</li>
+<li>2 번 원판을 봉 A에서 B로 옮김 (A <span class="math inline">\(\rightarrow\)</span> B)</li>
+<li>1 번 원판을 봉 C에서 B로 옮김 (C <span class="math inline">\(\rightarrow\)</span> B)</li>
+<li>3 번 원판을 봉 A에서 C로 옮김 (A <span class="math inline">\(\rightarrow\)</span> C)</li>
+<li>1 번 원판을 봉 B에서 A로 옮김 (B <span class="math inline">\(\rightarrow\)</span> A)</li>
+<li>2 번 원판을 봉 B에서 C로 옮김 (B <span class="math inline">\(\rightarrow\)</span> C)</li>
+<li>1 번 원판을 봉 A에서 C로 옮김 (A <span class="math inline">\(\rightarrow\)</span> C)</li>
+</ul>
+<blockquote>
+<p>원판이 3개인 경우 총 7번의 이동이 필요 <span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(n\)</span>개의 원판이 있을 경우 <span class="math inline">\(2^n - 1\)</span> 번의 이동이 필요</p>
+</blockquote>
+<div class="figure"><span id="fig:hanoi-solution"></span>
+<img src="figures/hanoi-solution.gif" alt="하노이 탑 문제 " width="100%" />
+<p class="caption">
+Figure 8.3: 하노이 탑 문제
+</p>
+</div>
+<p></p>
+<p><strong>알고리즘 구현</strong></p>
+<div class="sourceCode" id="cb1654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1654-1"><a href="재귀함수recursive-function.html#cb1654-1" aria-hidden="true" tabindex="-1"></a>move_hanoi <span class="ot">&lt;-</span> <span class="cf">function</span>(n, from, to, via) {</span>
+<span id="cb1654-2"><a href="재귀함수recursive-function.html#cb1654-2" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb1654-3"><a href="재귀함수recursive-function.html#cb1654-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">print</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%d 번 원판을 %s 에서 %s 로 이동&quot;</span>, <span class="dv">1</span>, from, to))</span>
+<span id="cb1654-4"><a href="재귀함수recursive-function.html#cb1654-4" aria-hidden="true" tabindex="-1"></a> } <span class="cf">else</span> {</span>
+<span id="cb1654-5"><a href="재귀함수recursive-function.html#cb1654-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">move_hanoi</span>(n <span class="sc">-</span> <span class="dv">1</span>, <span class="at">from =</span> from, <span class="at">to =</span> via, <span class="at">via =</span> to)</span>
+<span id="cb1654-6"><a href="재귀함수recursive-function.html#cb1654-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">print</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%d 번 원판을 %s 에서 %s 로 이동&quot;</span>, </span>
+<span id="cb1654-7"><a href="재귀함수recursive-function.html#cb1654-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">from =</span> n, </span>
+<span id="cb1654-8"><a href="재귀함수recursive-function.html#cb1654-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">to =</span> from, </span>
+<span id="cb1654-9"><a href="재귀함수recursive-function.html#cb1654-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">via =</span> to))</span>
+<span id="cb1654-10"><a href="재귀함수recursive-function.html#cb1654-10" aria-hidden="true" tabindex="-1"></a>   <span class="fu">move_hanoi</span>(n <span class="sc">-</span> <span class="dv">1</span>, via, to, from)</span>
+<span id="cb1654-11"><a href="재귀함수recursive-function.html#cb1654-11" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb1654-12"><a href="재귀함수recursive-function.html#cb1654-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1654-13"><a href="재귀함수recursive-function.html#cb1654-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1654-14"><a href="재귀함수recursive-function.html#cb1654-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1654-15"><a href="재귀함수recursive-function.html#cb1654-15" aria-hidden="true" tabindex="-1"></a><span class="fu">move_hanoi</span>(<span class="dv">3</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;B&quot;</span>)</span></code></pre></div>
+<pre><code>[1] &quot;1 번 원판을 A 에서 C 로 이동&quot;
+[1] &quot;2 번 원판을 A 에서 B 로 이동&quot;
+[1] &quot;1 번 원판을 C 에서 B 로 이동&quot;
+[1] &quot;3 번 원판을 A 에서 C 로 이동&quot;
+[1] &quot;1 번 원판을 B 에서 A 로 이동&quot;
+[1] &quot;2 번 원판을 B 에서 C 로 이동&quot;
+[1] &quot;1 번 원판을 A 에서 C 로 이동&quot;</code></pre>
+<div class="sourceCode" id="cb1656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1656-1"><a href="재귀함수recursive-function.html#cb1656-1" aria-hidden="true" tabindex="-1"></a><span class="fu">move_hanoi</span>(<span class="dv">4</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;B&quot;</span>)</span></code></pre></div>
+<pre><code>[1] &quot;1 번 원판을 A 에서 B 로 이동&quot;
+[1] &quot;2 번 원판을 A 에서 C 로 이동&quot;
+[1] &quot;1 번 원판을 B 에서 C 로 이동&quot;
+[1] &quot;3 번 원판을 A 에서 B 로 이동&quot;
+[1] &quot;1 번 원판을 C 에서 A 로 이동&quot;
+[1] &quot;2 번 원판을 C 에서 B 로 이동&quot;
+[1] &quot;1 번 원판을 A 에서 B 로 이동&quot;
+[1] &quot;4 번 원판을 A 에서 C 로 이동&quot;
+[1] &quot;1 번 원판을 B 에서 C 로 이동&quot;
+[1] &quot;2 번 원판을 B 에서 A 로 이동&quot;
+[1] &quot;1 번 원판을 C 에서 A 로 이동&quot;
+[1] &quot;3 번 원판을 B 에서 C 로 이동&quot;
+[1] &quot;1 번 원판을 A 에서 B 로 이동&quot;
+[1] &quot;2 번 원판을 A 에서 C 로 이동&quot;
+[1] &quot;1 번 원판을 B 에서 C 로 이동&quot;</code></pre>
+<p></p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="알고리즘algorithm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="선형이진-탐색linearbinary-search.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/08-algorithms.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["cnu-r-programming.pdf", "PDF"]],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

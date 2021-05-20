@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2021-05-13" />
+<meta name="date" content="2021-05-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="looping.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="몇-가지-기초적인-알고리즘.html"/>
 <script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -332,6 +332,18 @@ div.csl-indent {
 <li class="chapter" data-level="7.3.4" data-path="function.html"><a href="function.html#함수의-적용-범위scoping-rule"><i class="fa fa-check"></i><b>7.3.4</b> 함수의 적용 범위(scoping rule)</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="몇-가지-기초적인-알고리즘.html"><a href="몇-가지-기초적인-알고리즘.html"><i class="fa fa-check"></i><b>8</b> 몇 가지 기초적인 알고리즘</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="알고리즘algorithm.html"><a href="알고리즘algorithm.html"><i class="fa fa-check"></i><b>8.1</b> 알고리즘(Algorithm)</a></li>
+<li class="chapter" data-level="8.2" data-path="재귀함수recursive-function.html"><a href="재귀함수recursive-function.html"><i class="fa fa-check"></i><b>8.2</b> 재귀함수(Recursive function)</a></li>
+<li class="chapter" data-level="8.3" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html"><i class="fa fa-check"></i><b>8.3</b> 선형/이진 탐색(Linear/Binary search)</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#선형-탐색linear-search"><i class="fa fa-check"></i><b>8.3.1</b> 선형 탐색(Linear Search)</a></li>
+<li class="chapter" data-level="8.3.2" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#이진-탐색binary-search"><i class="fa fa-check"></i><b>8.3.2</b> 이진 탐색(Binary Search)</a></li>
+<li class="chapter" data-level="8.3.3" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#선형탐색과-이진탐색-비교"><i class="fa fa-check"></i><b>8.3.3</b> 선형탐색과 이진탐색 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html"><i class="fa fa-check"></i><b>8.4</b> 뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm)</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -367,7 +379,7 @@ Figure 7.8: 함수
 <li>R 콘솔에서 함수 명칭(예: <code>sum</code>)을 입력 후 실행하면 함수 내부 확인 가능</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb1461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1461-1"><a href="function.html#cb1461-1" aria-hidden="true" tabindex="-1"></a>sum</span></code></pre></div>
+<div class="sourceCode" id="cb1499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1499-1"><a href="function.html#cb1499-1" aria-hidden="true" tabindex="-1"></a>sum</span></code></pre></div>
 <pre><code>function (..., na.rm = FALSE)  .Primitive(&quot;sum&quot;)</code></pre>
 <p></p>
 <ul>
@@ -404,102 +416,102 @@ R의 스크립트는 내장된 혹은 사용자가 정의한 함수들을 호출
 <li>값을 반환하지 않는 함수</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb1463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1463-1"><a href="function.html#cb1463-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) 인수를 갖는 함수</span></span>
-<span id="cb1463-2"><a href="function.html#cb1463-2" aria-hidden="true" tabindex="-1"></a><span class="do">## (모)분산을 계산하는 함수</span></span>
-<span id="cb1463-3"><a href="function.html#cb1463-3" aria-hidden="true" tabindex="-1"></a>var_pop <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb1463-4"><a href="function.html#cb1463-4" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb1463-5"><a href="function.html#cb1463-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;</span> <span class="dv">2</span>) {</span>
-<span id="cb1463-6"><a href="function.html#cb1463-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;적어도 두 개 이상의 관찰값이 존재해야 합니다&quot;</span>)</span>
-<span id="cb1463-7"><a href="function.html#cb1463-7" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1463-8"><a href="function.html#cb1463-8" aria-hidden="true" tabindex="-1"></a>  mx <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
-<span id="cb1463-9"><a href="function.html#cb1463-9" aria-hidden="true" tabindex="-1"></a>  v <span class="ot">&lt;-</span> <span class="fu">sum</span>((x <span class="sc">-</span> mx)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>n</span>
-<span id="cb1463-10"><a href="function.html#cb1463-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(v) <span class="co"># 결과를 반환하는 함수: v를 함수의 출력값으로 설정</span></span>
-<span id="cb1463-11"><a href="function.html#cb1463-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1463-12"><a href="function.html#cb1463-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1463-13"><a href="function.html#cb1463-13" aria-hidden="true" tabindex="-1"></a><span class="do">## test</span></span>
-<span id="cb1463-14"><a href="function.html#cb1463-14" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co"># 동일한 난수 생성을 위해 seed 번호 부여</span></span>
-<span id="cb1463-15"><a href="function.html#cb1463-15" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
-<span id="cb1463-16"><a href="function.html#cb1463-16" aria-hidden="true" tabindex="-1"></a><span class="fu">var_pop</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb1501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1501-1"><a href="function.html#cb1501-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) 인수를 갖는 함수</span></span>
+<span id="cb1501-2"><a href="function.html#cb1501-2" aria-hidden="true" tabindex="-1"></a><span class="do">## (모)분산을 계산하는 함수</span></span>
+<span id="cb1501-3"><a href="function.html#cb1501-3" aria-hidden="true" tabindex="-1"></a>var_pop <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1501-4"><a href="function.html#cb1501-4" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb1501-5"><a href="function.html#cb1501-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;</span> <span class="dv">2</span>) {</span>
+<span id="cb1501-6"><a href="function.html#cb1501-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;적어도 두 개 이상의 관찰값이 존재해야 합니다&quot;</span>)</span>
+<span id="cb1501-7"><a href="function.html#cb1501-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1501-8"><a href="function.html#cb1501-8" aria-hidden="true" tabindex="-1"></a>  mx <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb1501-9"><a href="function.html#cb1501-9" aria-hidden="true" tabindex="-1"></a>  v <span class="ot">&lt;-</span> <span class="fu">sum</span>((x <span class="sc">-</span> mx)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>n</span>
+<span id="cb1501-10"><a href="function.html#cb1501-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(v) <span class="co"># 결과를 반환하는 함수: v를 함수의 출력값으로 설정</span></span>
+<span id="cb1501-11"><a href="function.html#cb1501-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1501-12"><a href="function.html#cb1501-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1501-13"><a href="function.html#cb1501-13" aria-hidden="true" tabindex="-1"></a><span class="do">## test</span></span>
+<span id="cb1501-14"><a href="function.html#cb1501-14" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co"># 동일한 난수 생성을 위해 seed 번호 부여</span></span>
+<span id="cb1501-15"><a href="function.html#cb1501-15" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb1501-16"><a href="function.html#cb1501-16" aria-hidden="true" tabindex="-1"></a><span class="fu">var_pop</span>(x)</span></code></pre></div>
 <pre><code>Error in var_pop(x): 적어도 두 개 이상의 관찰값이 존재해야 합니다</code></pre>
-<div class="sourceCode" id="cb1465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1465-1"><a href="function.html#cb1465-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1000</span>)</span>
-<span id="cb1465-2"><a href="function.html#cb1465-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">2</span>, <span class="dv">4</span>) <span class="co"># 평균이 2이고 표준편차가 4인 정규분포로부터 1000개 난수 추출</span></span>
-<span id="cb1465-3"><a href="function.html#cb1465-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var_pop</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb1503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1503-1"><a href="function.html#cb1503-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1000</span>)</span>
+<span id="cb1503-2"><a href="function.html#cb1503-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">2</span>, <span class="dv">4</span>) <span class="co"># 평균이 2이고 표준편차가 4인 정규분포로부터 1000개 난수 추출</span></span>
+<span id="cb1503-3"><a href="function.html#cb1503-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var_pop</span>(x)</span></code></pre></div>
 <pre><code>[1] 15.40581</code></pre>
 <p></p>
-<div class="sourceCode" id="cb1467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1467-1"><a href="function.html#cb1467-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) 인수를 갖지 않는 함수</span></span>
-<span id="cb1467-2"><a href="function.html#cb1467-2" aria-hidden="true" tabindex="-1"></a>print_lyrics_let_it_be <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb1467-3"><a href="function.html#cb1467-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;When I find myself in times of trouble, &quot;</span>)</span>
-<span id="cb1467-4"><a href="function.html#cb1467-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Mother Mary comes to me.&quot;</span>)</span>
-<span id="cb1467-5"><a href="function.html#cb1467-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Speaking words of wisdom &#39;let it be&#39;.&quot;</span>)</span>
-<span id="cb1467-6"><a href="function.html#cb1467-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1467-7"><a href="function.html#cb1467-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1467-8"><a href="function.html#cb1467-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print_lyrics_let_it_be</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1505-1"><a href="function.html#cb1505-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) 인수를 갖지 않는 함수</span></span>
+<span id="cb1505-2"><a href="function.html#cb1505-2" aria-hidden="true" tabindex="-1"></a>print_lyrics_let_it_be <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb1505-3"><a href="function.html#cb1505-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;When I find myself in times of trouble, &quot;</span>)</span>
+<span id="cb1505-4"><a href="function.html#cb1505-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Mother Mary comes to me.&quot;</span>)</span>
+<span id="cb1505-5"><a href="function.html#cb1505-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Speaking words of wisdom &#39;let it be&#39;.&quot;</span>)</span>
+<span id="cb1505-6"><a href="function.html#cb1505-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1505-7"><a href="function.html#cb1505-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1505-8"><a href="function.html#cb1505-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print_lyrics_let_it_be</span>()</span></code></pre></div>
 <pre><code>[1] &quot;When I find myself in times of trouble, &quot;
 [1] &quot;Mother Mary comes to me.&quot;
 [1] &quot;Speaking words of wisdom &#39;let it be&#39;.&quot;</code></pre>
-<div class="sourceCode" id="cb1469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1469-1"><a href="function.html#cb1469-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print_lyrics_let_it_be</span>(beatles)</span></code></pre></div>
+<div class="sourceCode" id="cb1507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1507-1"><a href="function.html#cb1507-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print_lyrics_let_it_be</span>(beatles)</span></code></pre></div>
 <pre><code>Error in print_lyrics_let_it_be(beatles): 사용되지 않은 인자 (beatles)</code></pre>
-<div class="sourceCode" id="cb1471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1471-1"><a href="function.html#cb1471-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 주사위를 돌리는 함수</span></span>
-<span id="cb1471-2"><a href="function.html#cb1471-2" aria-hidden="true" tabindex="-1"></a>rolling_dice <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb1471-3"><a href="function.html#cb1471-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1471-4"><a href="function.html#cb1471-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1471-5"><a href="function.html#cb1471-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1471-6"><a href="function.html#cb1471-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rolling_dice</span>(); <span class="fu">rolling_dice</span>(); <span class="fu">rolling_dice</span>(); </span></code></pre></div>
+<div class="sourceCode" id="cb1509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1509-1"><a href="function.html#cb1509-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 주사위를 돌리는 함수</span></span>
+<span id="cb1509-2"><a href="function.html#cb1509-2" aria-hidden="true" tabindex="-1"></a>rolling_dice <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb1509-3"><a href="function.html#cb1509-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1509-4"><a href="function.html#cb1509-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1509-5"><a href="function.html#cb1509-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1509-6"><a href="function.html#cb1509-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rolling_dice</span>(); <span class="fu">rolling_dice</span>(); <span class="fu">rolling_dice</span>(); </span></code></pre></div>
 <pre><code>[1] 4</code></pre>
 <pre><code>[1] 4</code></pre>
 <pre><code>[1] 4</code></pre>
 <p></p>
-<div class="sourceCode" id="cb1475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1475-1"><a href="function.html#cb1475-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (3) 값을 반환하는 함수</span></span>
-<span id="cb1475-2"><a href="function.html#cb1475-2" aria-hidden="true" tabindex="-1"></a>manual_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb1475-3"><a href="function.html#cb1475-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb1475-4"><a href="function.html#cb1475-4" aria-hidden="true" tabindex="-1"></a>  sumi <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb1475-5"><a href="function.html#cb1475-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb1475-6"><a href="function.html#cb1475-6" aria-hidden="true" tabindex="-1"></a>    sumi <span class="ot">&lt;-</span> sumi <span class="sc">+</span> x[i]</span>
-<span id="cb1475-7"><a href="function.html#cb1475-7" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1475-8"><a href="function.html#cb1475-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sumi<span class="sc">/</span>n) </span>
-<span id="cb1475-9"><a href="function.html#cb1475-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1475-10"><a href="function.html#cb1475-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1475-11"><a href="function.html#cb1475-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20</span>)</span>
-<span id="cb1475-12"><a href="function.html#cb1475-12" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="dv">20</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>) <span class="co"># 1 ~ 200 중 랜덤하게 20개 추출(비복원)</span></span>
-<span id="cb1475-13"><a href="function.html#cb1475-13" aria-hidden="true" tabindex="-1"></a><span class="fu">manual_mean</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb1513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1513-1"><a href="function.html#cb1513-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (3) 값을 반환하는 함수</span></span>
+<span id="cb1513-2"><a href="function.html#cb1513-2" aria-hidden="true" tabindex="-1"></a>manual_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1513-3"><a href="function.html#cb1513-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb1513-4"><a href="function.html#cb1513-4" aria-hidden="true" tabindex="-1"></a>  sumi <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb1513-5"><a href="function.html#cb1513-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb1513-6"><a href="function.html#cb1513-6" aria-hidden="true" tabindex="-1"></a>    sumi <span class="ot">&lt;-</span> sumi <span class="sc">+</span> x[i]</span>
+<span id="cb1513-7"><a href="function.html#cb1513-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1513-8"><a href="function.html#cb1513-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sumi<span class="sc">/</span>n) </span>
+<span id="cb1513-9"><a href="function.html#cb1513-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1513-10"><a href="function.html#cb1513-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1513-11"><a href="function.html#cb1513-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20</span>)</span>
+<span id="cb1513-12"><a href="function.html#cb1513-12" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="dv">20</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>) <span class="co"># 1 ~ 200 중 랜덤하게 20개 추출(비복원)</span></span>
+<span id="cb1513-13"><a href="function.html#cb1513-13" aria-hidden="true" tabindex="-1"></a><span class="fu">manual_mean</span>(x)</span></code></pre></div>
 <pre><code>[1] 107</code></pre>
-<div class="sourceCode" id="cb1477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1477-1"><a href="function.html#cb1477-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 미리 정의하지 않은 인수를 입력한 경우</span></span>
-<span id="cb1477-2"><a href="function.html#cb1477-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
-<span id="cb1477-3"><a href="function.html#cb1477-3" aria-hidden="true" tabindex="-1"></a>na_idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x), <span class="dv">4</span>)</span>
-<span id="cb1477-4"><a href="function.html#cb1477-4" aria-hidden="true" tabindex="-1"></a>x[na_idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb1477-5"><a href="function.html#cb1477-5" aria-hidden="true" tabindex="-1"></a><span class="fu">manual_mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1515-1"><a href="function.html#cb1515-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 미리 정의하지 않은 인수를 입력한 경우</span></span>
+<span id="cb1515-2"><a href="function.html#cb1515-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
+<span id="cb1515-3"><a href="function.html#cb1515-3" aria-hidden="true" tabindex="-1"></a>na_idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x), <span class="dv">4</span>)</span>
+<span id="cb1515-4"><a href="function.html#cb1515-4" aria-hidden="true" tabindex="-1"></a>x[na_idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1515-5"><a href="function.html#cb1515-5" aria-hidden="true" tabindex="-1"></a><span class="fu">manual_mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>Error in manual_mean(x, na.rm = TRUE): 사용되지 않은 인자 (na.rm = TRUE)</code></pre>
 <p></p>
-<div class="sourceCode" id="cb1479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1479-1"><a href="function.html#cb1479-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (4) 값을 반환하지 않는 함수(void function)</span></span>
-<span id="cb1479-2"><a href="function.html#cb1479-2" aria-hidden="true" tabindex="-1"></a>summary_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x, ...) {</span>
-<span id="cb1479-3"><a href="function.html#cb1479-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))</span>
-<span id="cb1479-4"><a href="function.html#cb1479-4" aria-hidden="true" tabindex="-1"></a>  mx <span class="ot">&lt;-</span> <span class="fu">sum</span>(x, ...)<span class="sc">/</span>n</span>
-<span id="cb1479-5"><a href="function.html#cb1479-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Data: &quot;</span>, <span class="fu">sprintf</span>(<span class="st">&quot;%.2f&quot;</span>, x), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="co"># 소숫점 2째 짜리 까지 출력</span></span>
-<span id="cb1479-6"><a href="function.html#cb1479-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;전체 관찰값 개수(결측 제외) = &quot;</span>, n, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb1479-7"><a href="function.html#cb1479-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;산술평균 = &quot;</span>, mx, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb1479-8"><a href="function.html#cb1479-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1479-9"><a href="function.html#cb1479-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1479-10"><a href="function.html#cb1479-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1479-11"><a href="function.html#cb1479-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20</span>)</span>
-<span id="cb1479-12"><a href="function.html#cb1479-12" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>)</span>
-<span id="cb1479-13"><a href="function.html#cb1479-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary_mean</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb1517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1517-1"><a href="function.html#cb1517-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (4) 값을 반환하지 않는 함수(void function)</span></span>
+<span id="cb1517-2"><a href="function.html#cb1517-2" aria-hidden="true" tabindex="-1"></a>summary_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x, ...) {</span>
+<span id="cb1517-3"><a href="function.html#cb1517-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))</span>
+<span id="cb1517-4"><a href="function.html#cb1517-4" aria-hidden="true" tabindex="-1"></a>  mx <span class="ot">&lt;-</span> <span class="fu">sum</span>(x, ...)<span class="sc">/</span>n</span>
+<span id="cb1517-5"><a href="function.html#cb1517-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Data: &quot;</span>, <span class="fu">sprintf</span>(<span class="st">&quot;%.2f&quot;</span>, x), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>) <span class="co"># 소숫점 2째 짜리 까지 출력</span></span>
+<span id="cb1517-6"><a href="function.html#cb1517-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;전체 관찰값 개수(결측 제외) = &quot;</span>, n, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1517-7"><a href="function.html#cb1517-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;산술평균 = &quot;</span>, mx, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1517-8"><a href="function.html#cb1517-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1517-9"><a href="function.html#cb1517-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1517-10"><a href="function.html#cb1517-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1517-11"><a href="function.html#cb1517-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20</span>)</span>
+<span id="cb1517-12"><a href="function.html#cb1517-12" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>)</span>
+<span id="cb1517-13"><a href="function.html#cb1517-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary_mean</span>(x)</span></code></pre></div>
 <pre><code>Data:  1.16 -0.59 1.79 -1.33 -0.45 0.57 -2.89 -0.87 -0.46 -0.56 -0.02 -0.15 -0.63 1.32 -1.52 -0.44 0.97 0.03 -0.09 0.39 
 전체 관찰값 개수(결측 제외) =  20 
 산술평균 =  -0.1877639 </code></pre>
-<div class="sourceCode" id="cb1481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1481-1"><a href="function.html#cb1481-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">summary_mean</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb1519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1519-1"><a href="function.html#cb1519-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">summary_mean</span>(x)</span></code></pre></div>
 <pre><code>Data:  1.16 -0.59 1.79 -1.33 -0.45 0.57 -2.89 -0.87 -0.46 -0.56 -0.02 -0.15 -0.63 1.32 -1.52 -0.44 0.97 0.03 -0.09 0.39 
 전체 관찰값 개수(결측 제외) =  20 
 산술평균 =  -0.1877639 </code></pre>
-<div class="sourceCode" id="cb1483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1483-1"><a href="function.html#cb1483-1" aria-hidden="true" tabindex="-1"></a>result </span></code></pre></div>
+<div class="sourceCode" id="cb1521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1521-1"><a href="function.html#cb1521-1" aria-hidden="true" tabindex="-1"></a>result </span></code></pre></div>
 <pre><code>NULL</code></pre>
-<div class="sourceCode" id="cb1485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1485-1"><a href="function.html#cb1485-1" aria-hidden="true" tabindex="-1"></a>x[na_idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb1485-2"><a href="function.html#cb1485-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ...를 통해 미리 정하지 않은 인수를 </span></span>
-<span id="cb1485-3"><a href="function.html#cb1485-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 함수 내부에서 호출한 다른 함수로 전달 가능</span></span>
-<span id="cb1485-4"><a href="function.html#cb1485-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary_mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb1523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1523-1"><a href="function.html#cb1523-1" aria-hidden="true" tabindex="-1"></a>x[na_idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1523-2"><a href="function.html#cb1523-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ...를 통해 미리 정하지 않은 인수를 </span></span>
+<span id="cb1523-3"><a href="function.html#cb1523-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 함수 내부에서 호출한 다른 함수로 전달 가능</span></span>
+<span id="cb1523-4"><a href="function.html#cb1523-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary_mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
 <pre><code>Data:  1.16 -0.59 NA -1.33 -0.45 0.57 NA -0.87 -0.46 -0.56 NA -0.15 -0.63 1.32 -1.52 -0.44 0.97 0.03 NA 0.39 
 전체 관찰값 개수(결측 제외) =  16 
 산술평균 =  -0.1590692 </code></pre>
-<div class="sourceCode" id="cb1487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1487-1"><a href="function.html#cb1487-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">summary_mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1525-1"><a href="function.html#cb1525-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">summary_mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>Data:  1.16 -0.59 NA -1.33 -0.45 0.57 NA -0.87 -0.46 -0.56 NA -0.15 -0.63 1.32 -1.52 -0.44 0.97 0.03 NA 0.39 
 전체 관찰값 개수(결측 제외) =  16 
 산술평균 =  -0.1590692 </code></pre>
@@ -520,18 +532,18 @@ R의 스크립트는 내장된 혹은 사용자가 정의한 함수들을 호출
 <ul>
 <li>예시</li>
 </ul>
-<div class="sourceCode" id="cb1489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1489-1"><a href="function.html#cb1489-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 두 변수의 값을 바꾸는 함수: swap </span></span>
-<span id="cb1489-2"><a href="function.html#cb1489-2" aria-hidden="true" tabindex="-1"></a>swap <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
-<span id="cb1489-3"><a href="function.html#cb1489-3" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> x</span>
-<span id="cb1489-4"><a href="function.html#cb1489-4" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> y</span>
-<span id="cb1489-5"><a href="function.html#cb1489-5" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> temp</span>
-<span id="cb1489-6"><a href="function.html#cb1489-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;두 값이 바뀌었습니다.&quot;</span>, <span class="fu">sprintf</span>(<span class="st">&quot;x = %d, y = %d&quot;</span>, x, y)  ,<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb1489-7"><a href="function.html#cb1489-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1489-8"><a href="function.html#cb1489-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1489-9"><a href="function.html#cb1489-9" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span>; y <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb1489-10"><a href="function.html#cb1489-10" aria-hidden="true" tabindex="-1"></a><span class="fu">swap</span>(x, y)</span></code></pre></div>
+<div class="sourceCode" id="cb1527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1527-1"><a href="function.html#cb1527-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 두 변수의 값을 바꾸는 함수: swap </span></span>
+<span id="cb1527-2"><a href="function.html#cb1527-2" aria-hidden="true" tabindex="-1"></a>swap <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb1527-3"><a href="function.html#cb1527-3" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> x</span>
+<span id="cb1527-4"><a href="function.html#cb1527-4" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> y</span>
+<span id="cb1527-5"><a href="function.html#cb1527-5" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> temp</span>
+<span id="cb1527-6"><a href="function.html#cb1527-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;두 값이 바뀌었습니다.&quot;</span>, <span class="fu">sprintf</span>(<span class="st">&quot;x = %d, y = %d&quot;</span>, x, y)  ,<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1527-7"><a href="function.html#cb1527-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1527-8"><a href="function.html#cb1527-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1527-9"><a href="function.html#cb1527-9" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span>; y <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb1527-10"><a href="function.html#cb1527-10" aria-hidden="true" tabindex="-1"></a><span class="fu">swap</span>(x, y)</span></code></pre></div>
 <pre><code>두 값이 바뀌었습니다. x = 10, y = 3 </code></pre>
-<div class="sourceCode" id="cb1491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1491-1"><a href="function.html#cb1491-1" aria-hidden="true" tabindex="-1"></a>x; y <span class="co"># x, y 두 값이 바뀌지 않음</span></span></code></pre></div>
+<div class="sourceCode" id="cb1529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1529-1"><a href="function.html#cb1529-1" aria-hidden="true" tabindex="-1"></a>x; y <span class="co"># x, y 두 값이 바뀌지 않음</span></span></code></pre></div>
 <pre><code>[1] 3</code></pre>
 <pre><code>[1] 10</code></pre>
 <p></p>
@@ -542,44 +554,44 @@ R의 스크립트는 내장된 혹은 사용자가 정의한 함수들을 호출
 <li>인수의 <strong>이름</strong>에 의한 전달: 위치와 관계 없이 정의한 인수의 이름을 지정하여 값을 전달</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb1494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1494-1"><a href="function.html#cb1494-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 표준편차 계산 함수: stdev</span></span>
-<span id="cb1494-2"><a href="function.html#cb1494-2" aria-hidden="true" tabindex="-1"></a>stdev <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) {</span>
-<span id="cb1494-3"><a href="function.html#cb1494-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.matrix</span>(x)) <span class="fu">apply</span>(x, <span class="dv">2</span>, sd, <span class="at">na.rm =</span> na.rm)</span>
-<span id="cb1494-4"><a href="function.html#cb1494-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.vector</span>(x)) <span class="fu">sqrt</span>(<span class="fu">var</span>(x, <span class="at">na.rm =</span> na.rm))</span>
-<span id="cb1494-5"><a href="function.html#cb1494-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.data.frame</span>(x)) <span class="fu">sapply</span>(x, sd, <span class="at">na.rm =</span> na.rm)</span>
-<span id="cb1494-6"><a href="function.html#cb1494-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">sqrt</span>(<span class="fu">var</span>(<span class="fu">as.vector</span>(x), <span class="at">na.rm =</span> na.rm))</span>
-<span id="cb1494-7"><a href="function.html#cb1494-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1494-8"><a href="function.html#cb1494-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1494-9"><a href="function.html#cb1494-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1000</span>)</span>
-<span id="cb1494-10"><a href="function.html#cb1494-10" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>), <span class="dv">100</span>, <span class="dv">10</span>)</span>
-<span id="cb1494-11"><a href="function.html#cb1494-11" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="dv">50</span>, <span class="at">lambda =</span> <span class="dv">10</span>) <span class="co"># 포아송 분포(lambda = 10)에서 50개 난수 추출</span></span>
-<span id="cb1494-12"><a href="function.html#cb1494-12" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> mtcars <span class="co"># R 내장 데이터를 dat 에 저장</span></span>
-<span id="cb1494-13"><a href="function.html#cb1494-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1494-14"><a href="function.html#cb1494-14" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) 순서에 의한 전달</span></span>
-<span id="cb1494-15"><a href="function.html#cb1494-15" aria-hidden="true" tabindex="-1"></a><span class="fu">stdev</span>(X, T); <span class="fu">stdev</span>(X) <span class="co"># 동일한 결과</span></span></code></pre></div>
+<div class="sourceCode" id="cb1532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1532-1"><a href="function.html#cb1532-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 표준편차 계산 함수: stdev</span></span>
+<span id="cb1532-2"><a href="function.html#cb1532-2" aria-hidden="true" tabindex="-1"></a>stdev <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb1532-3"><a href="function.html#cb1532-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.matrix</span>(x)) <span class="fu">apply</span>(x, <span class="dv">2</span>, sd, <span class="at">na.rm =</span> na.rm)</span>
+<span id="cb1532-4"><a href="function.html#cb1532-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.vector</span>(x)) <span class="fu">sqrt</span>(<span class="fu">var</span>(x, <span class="at">na.rm =</span> na.rm))</span>
+<span id="cb1532-5"><a href="function.html#cb1532-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.data.frame</span>(x)) <span class="fu">sapply</span>(x, sd, <span class="at">na.rm =</span> na.rm)</span>
+<span id="cb1532-6"><a href="function.html#cb1532-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">sqrt</span>(<span class="fu">var</span>(<span class="fu">as.vector</span>(x), <span class="at">na.rm =</span> na.rm))</span>
+<span id="cb1532-7"><a href="function.html#cb1532-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1532-8"><a href="function.html#cb1532-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1532-9"><a href="function.html#cb1532-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1000</span>)</span>
+<span id="cb1532-10"><a href="function.html#cb1532-10" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>), <span class="dv">100</span>, <span class="dv">10</span>)</span>
+<span id="cb1532-11"><a href="function.html#cb1532-11" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="dv">50</span>, <span class="at">lambda =</span> <span class="dv">10</span>) <span class="co"># 포아송 분포(lambda = 10)에서 50개 난수 추출</span></span>
+<span id="cb1532-12"><a href="function.html#cb1532-12" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> mtcars <span class="co"># R 내장 데이터를 dat 에 저장</span></span>
+<span id="cb1532-13"><a href="function.html#cb1532-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1532-14"><a href="function.html#cb1532-14" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) 순서에 의한 전달</span></span>
+<span id="cb1532-15"><a href="function.html#cb1532-15" aria-hidden="true" tabindex="-1"></a><span class="fu">stdev</span>(X, T); <span class="fu">stdev</span>(X) <span class="co"># 동일한 결과</span></span></code></pre></div>
 <pre><code> [1] 1.0065940 0.9033927 0.9727257 0.9905631 0.8202803 1.0114516 0.9855547
  [8] 1.0211373 1.0716219 1.0426811</code></pre>
 <pre><code> [1] 1.0065940 0.9033927 0.9727257 0.9905631 0.8202803 1.0114516 0.9855547
  [8] 1.0211373 1.0716219 1.0426811</code></pre>
-<div class="sourceCode" id="cb1497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1497-1"><a href="function.html#cb1497-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stdev</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb1535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1535-1"><a href="function.html#cb1535-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stdev</span>(x)</span></code></pre></div>
 <pre><code>[1] 3.41569</code></pre>
-<div class="sourceCode" id="cb1499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1499-1"><a href="function.html#cb1499-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stdev</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb1537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1537-1"><a href="function.html#cb1537-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stdev</span>(dat)</span></code></pre></div>
 <pre><code>        mpg         cyl        disp          hp        drat          wt 
   6.0269481   1.7859216 123.9386938  68.5628685   0.5346787   0.9784574 
        qsec          vs          am        gear        carb 
   1.7869432   0.5040161   0.4989909   0.7378041   1.6152000 </code></pre>
-<div class="sourceCode" id="cb1501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1501-1"><a href="function.html#cb1501-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stdev</span>(<span class="cn">TRUE</span>, dat) <span class="co"># 오류 why??</span></span></code></pre></div>
+<div class="sourceCode" id="cb1539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1539-1"><a href="function.html#cb1539-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stdev</span>(<span class="cn">TRUE</span>, dat) <span class="co"># 오류 why??</span></span></code></pre></div>
 <pre><code>Warning in if (na.rm) &quot;na.or.complete&quot; else &quot;everything&quot;: length &gt; 1 이라는 조건
 이 있고, 첫번째 요소만이 사용될 것입니다</code></pre>
 <pre><code>Error in if (na.rm) &quot;na.or.complete&quot; else &quot;everything&quot;: argument is not interpretable as logical</code></pre>
-<div class="sourceCode" id="cb1504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1504-1"><a href="function.html#cb1504-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) 이름에 의한 전달</span></span>
-<span id="cb1504-2"><a href="function.html#cb1504-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">5</span>)</span>
-<span id="cb1504-3"><a href="function.html#cb1504-3" aria-hidden="true" tabindex="-1"></a>na_idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>, <span class="dv">5</span>)</span>
-<span id="cb1504-4"><a href="function.html#cb1504-4" aria-hidden="true" tabindex="-1"></a>x[na_idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb1504-5"><a href="function.html#cb1504-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1504-6"><a href="function.html#cb1504-6" aria-hidden="true" tabindex="-1"></a><span class="fu">stdev</span>(<span class="at">na.rm =</span> T, <span class="at">x =</span> x)</span></code></pre></div>
+<div class="sourceCode" id="cb1542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1542-1"><a href="function.html#cb1542-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) 이름에 의한 전달</span></span>
+<span id="cb1542-2"><a href="function.html#cb1542-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">5</span>)</span>
+<span id="cb1542-3"><a href="function.html#cb1542-3" aria-hidden="true" tabindex="-1"></a>na_idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>, <span class="dv">5</span>)</span>
+<span id="cb1542-4"><a href="function.html#cb1542-4" aria-hidden="true" tabindex="-1"></a>x[na_idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1542-5"><a href="function.html#cb1542-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1542-6"><a href="function.html#cb1542-6" aria-hidden="true" tabindex="-1"></a><span class="fu">stdev</span>(<span class="at">na.rm =</span> T, <span class="at">x =</span> x)</span></code></pre></div>
 <pre><code>[1] 3.411211</code></pre>
-<div class="sourceCode" id="cb1506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1506-1"><a href="function.html#cb1506-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stdev</span>(<span class="at">dat =</span> dat, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 오류 why???</span></span></code></pre></div>
+<div class="sourceCode" id="cb1544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1544-1"><a href="function.html#cb1544-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stdev</span>(<span class="at">dat =</span> dat, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 오류 why???</span></span></code></pre></div>
 <pre><code>Error in stdev(dat = dat, na.rm = TRUE): 사용되지 않은 인자 (dat = dat)</code></pre>
 <p></p>
 </div>
@@ -611,82 +623,82 @@ Figure 7.9: 함수의 기본 구조
 </ul></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb1508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1508-1"><a href="function.html#cb1508-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) 인수에 default 값을 주지 않은 함수</span></span>
-<span id="cb1508-2"><a href="function.html#cb1508-2" aria-hidden="true" tabindex="-1"></a>fun_without_arg_default <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
-<span id="cb1508-3"><a href="function.html#cb1508-3" aria-hidden="true" tabindex="-1"></a>  x<span class="sc">*</span>y</span>
-<span id="cb1508-4"><a href="function.html#cb1508-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1508-5"><a href="function.html#cb1508-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1508-6"><a href="function.html#cb1508-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
-<span id="cb1508-7"><a href="function.html#cb1508-7" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="dv">10</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="co"># 복원 추출</span></span>
-<span id="cb1508-8"><a href="function.html#cb1508-8" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">7</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb1508-9"><a href="function.html#cb1508-9" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb1508-10"><a href="function.html#cb1508-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1508-11"><a href="function.html#cb1508-11" aria-hidden="true" tabindex="-1"></a><span class="fu">fun_without_arg_default</span>(a, b)</span></code></pre></div>
+<div class="sourceCode" id="cb1546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1546-1"><a href="function.html#cb1546-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) 인수에 default 값을 주지 않은 함수</span></span>
+<span id="cb1546-2"><a href="function.html#cb1546-2" aria-hidden="true" tabindex="-1"></a>fun_without_arg_default <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb1546-3"><a href="function.html#cb1546-3" aria-hidden="true" tabindex="-1"></a>  x<span class="sc">*</span>y</span>
+<span id="cb1546-4"><a href="function.html#cb1546-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1546-5"><a href="function.html#cb1546-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1546-6"><a href="function.html#cb1546-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb1546-7"><a href="function.html#cb1546-7" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="dv">10</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="co"># 복원 추출</span></span>
+<span id="cb1546-8"><a href="function.html#cb1546-8" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">7</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1546-9"><a href="function.html#cb1546-9" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb1546-10"><a href="function.html#cb1546-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1546-11"><a href="function.html#cb1546-11" aria-hidden="true" tabindex="-1"></a><span class="fu">fun_without_arg_default</span>(a, b)</span></code></pre></div>
 <pre><code> [1] 55 45 50 80 60 40 NA 95 75 75</code></pre>
-<div class="sourceCode" id="cb1510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1510-1"><a href="function.html#cb1510-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) 인수에 default 값을 부여한 함수</span></span>
-<span id="cb1510-2"><a href="function.html#cb1510-2" aria-hidden="true" tabindex="-1"></a>fun_with_arg_default <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x =</span> <span class="dv">5</span>, <span class="at">y =</span> <span class="dv">8</span>) {</span>
-<span id="cb1510-3"><a href="function.html#cb1510-3" aria-hidden="true" tabindex="-1"></a>  x<span class="sc">*</span>y</span>
-<span id="cb1510-4"><a href="function.html#cb1510-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1510-5"><a href="function.html#cb1510-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1510-6"><a href="function.html#cb1510-6" aria-hidden="true" tabindex="-1"></a><span class="fu">fun_with_arg_default</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1548-1"><a href="function.html#cb1548-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) 인수에 default 값을 부여한 함수</span></span>
+<span id="cb1548-2"><a href="function.html#cb1548-2" aria-hidden="true" tabindex="-1"></a>fun_with_arg_default <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x =</span> <span class="dv">5</span>, <span class="at">y =</span> <span class="dv">8</span>) {</span>
+<span id="cb1548-3"><a href="function.html#cb1548-3" aria-hidden="true" tabindex="-1"></a>  x<span class="sc">*</span>y</span>
+<span id="cb1548-4"><a href="function.html#cb1548-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1548-5"><a href="function.html#cb1548-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1548-6"><a href="function.html#cb1548-6" aria-hidden="true" tabindex="-1"></a><span class="fu">fun_with_arg_default</span>()</span></code></pre></div>
 <pre><code>[1] 40</code></pre>
-<div class="sourceCode" id="cb1512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1512-1"><a href="function.html#cb1512-1" aria-hidden="true" tabindex="-1"></a>trim_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">trim =</span> <span class="dv">0</span>, <span class="at">na.rm =</span> F) {</span>
-<span id="cb1512-2"><a href="function.html#cb1512-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(x, <span class="at">trim =</span> trim, <span class="at">na.rm =</span> na.rm)</span>
-<span id="cb1512-3"><a href="function.html#cb1512-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1512-4"><a href="function.html#cb1512-4" aria-hidden="true" tabindex="-1"></a><span class="fu">trim_mean</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb1550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1550-1"><a href="function.html#cb1550-1" aria-hidden="true" tabindex="-1"></a>trim_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">trim =</span> <span class="dv">0</span>, <span class="at">na.rm =</span> F) {</span>
+<span id="cb1550-2"><a href="function.html#cb1550-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(x, <span class="at">trim =</span> trim, <span class="at">na.rm =</span> na.rm)</span>
+<span id="cb1550-3"><a href="function.html#cb1550-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1550-4"><a href="function.html#cb1550-4" aria-hidden="true" tabindex="-1"></a><span class="fu">trim_mean</span>(a)</span></code></pre></div>
 <pre><code>[1] NA</code></pre>
-<div class="sourceCode" id="cb1514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1514-1"><a href="function.html#cb1514-1" aria-hidden="true" tabindex="-1"></a><span class="fu">trim_mean</span>(<span class="at">x =</span> a, <span class="at">trim =</span> <span class="fl">0.2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 인수 이름으로 값 전달</span></span></code></pre></div>
+<div class="sourceCode" id="cb1552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1552-1"><a href="function.html#cb1552-1" aria-hidden="true" tabindex="-1"></a><span class="fu">trim_mean</span>(<span class="at">x =</span> a, <span class="at">trim =</span> <span class="fl">0.2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 인수 이름으로 값 전달</span></span></code></pre></div>
 <pre><code>[1] 12.57143</code></pre>
-<div class="sourceCode" id="cb1516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1516-1"><a href="function.html#cb1516-1" aria-hidden="true" tabindex="-1"></a><span class="fu">trim_mean</span>(a, <span class="fl">0.3</span>, <span class="cn">TRUE</span>)  <span class="co"># 인수 순서대로 값 전달</span></span></code></pre></div>
+<div class="sourceCode" id="cb1554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1554-1"><a href="function.html#cb1554-1" aria-hidden="true" tabindex="-1"></a><span class="fu">trim_mean</span>(a, <span class="fl">0.3</span>, <span class="cn">TRUE</span>)  <span class="co"># 인수 순서대로 값 전달</span></span></code></pre></div>
 <pre><code>[1] 12.6</code></pre>
-<div class="sourceCode" id="cb1518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1518-1"><a href="function.html#cb1518-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (3) ... 인수 사용 예제</span></span>
-<span id="cb1518-2"><a href="function.html#cb1518-2" aria-hidden="true" tabindex="-1"></a><span class="co"># list() 함수를 이용해 `...`에 해당하는 인수들을 리스트 객체로 만든 후 </span></span>
-<span id="cb1518-3"><a href="function.html#cb1518-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 이를 함수에서 사용</span></span>
-<span id="cb1518-4"><a href="function.html#cb1518-4" aria-hidden="true" tabindex="-1"></a>dot_example <span class="ot">&lt;-</span> <span class="cf">function</span>(x, ...) {</span>
-<span id="cb1518-5"><a href="function.html#cb1518-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># browser()</span></span>
-<span id="cb1518-6"><a href="function.html#cb1518-6" aria-hidden="true" tabindex="-1"></a>  trim <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb1518-7"><a href="function.html#cb1518-7" aria-hidden="true" tabindex="-1"></a>  na.rm <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
-<span id="cb1518-8"><a href="function.html#cb1518-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1518-9"><a href="function.html#cb1518-9" aria-hidden="true" tabindex="-1"></a>  dots <span class="ot">&lt;-</span> <span class="fu">list</span>(...) <span class="co"># ...에 해당하는 인수 추출</span></span>
-<span id="cb1518-10"><a href="function.html#cb1518-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (arg <span class="cf">in</span> <span class="fu">names</span>(dots)) {</span>
-<span id="cb1518-11"><a href="function.html#cb1518-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (arg <span class="sc">==</span> <span class="st">&quot;trim&quot;</span>) trim <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dots[arg])</span>
-<span id="cb1518-12"><a href="function.html#cb1518-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (arg <span class="sc">==</span> <span class="st">&quot;na.rm&quot;</span>) na.rm <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(dots[arg])</span>
-<span id="cb1518-13"><a href="function.html#cb1518-13" aria-hidden="true" tabindex="-1"></a>  } </span>
-<span id="cb1518-14"><a href="function.html#cb1518-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1518-15"><a href="function.html#cb1518-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(x, <span class="at">trim =</span> trim, <span class="at">na.rm =</span> na.rm)</span>
-<span id="cb1518-16"><a href="function.html#cb1518-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1518-17"><a href="function.html#cb1518-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1518-18"><a href="function.html#cb1518-18" aria-hidden="true" tabindex="-1"></a><span class="fu">dot_example</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb1556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1556-1"><a href="function.html#cb1556-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (3) ... 인수 사용 예제</span></span>
+<span id="cb1556-2"><a href="function.html#cb1556-2" aria-hidden="true" tabindex="-1"></a><span class="co"># list() 함수를 이용해 `...`에 해당하는 인수들을 리스트 객체로 만든 후 </span></span>
+<span id="cb1556-3"><a href="function.html#cb1556-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 이를 함수에서 사용</span></span>
+<span id="cb1556-4"><a href="function.html#cb1556-4" aria-hidden="true" tabindex="-1"></a>dot_example <span class="ot">&lt;-</span> <span class="cf">function</span>(x, ...) {</span>
+<span id="cb1556-5"><a href="function.html#cb1556-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># browser()</span></span>
+<span id="cb1556-6"><a href="function.html#cb1556-6" aria-hidden="true" tabindex="-1"></a>  trim <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb1556-7"><a href="function.html#cb1556-7" aria-hidden="true" tabindex="-1"></a>  na.rm <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb1556-8"><a href="function.html#cb1556-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1556-9"><a href="function.html#cb1556-9" aria-hidden="true" tabindex="-1"></a>  dots <span class="ot">&lt;-</span> <span class="fu">list</span>(...) <span class="co"># ...에 해당하는 인수 추출</span></span>
+<span id="cb1556-10"><a href="function.html#cb1556-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (arg <span class="cf">in</span> <span class="fu">names</span>(dots)) {</span>
+<span id="cb1556-11"><a href="function.html#cb1556-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (arg <span class="sc">==</span> <span class="st">&quot;trim&quot;</span>) trim <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dots[arg])</span>
+<span id="cb1556-12"><a href="function.html#cb1556-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (arg <span class="sc">==</span> <span class="st">&quot;na.rm&quot;</span>) na.rm <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(dots[arg])</span>
+<span id="cb1556-13"><a href="function.html#cb1556-13" aria-hidden="true" tabindex="-1"></a>  } </span>
+<span id="cb1556-14"><a href="function.html#cb1556-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1556-15"><a href="function.html#cb1556-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(x, <span class="at">trim =</span> trim, <span class="at">na.rm =</span> na.rm)</span>
+<span id="cb1556-16"><a href="function.html#cb1556-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1556-17"><a href="function.html#cb1556-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1556-18"><a href="function.html#cb1556-18" aria-hidden="true" tabindex="-1"></a><span class="fu">dot_example</span>(a)</span></code></pre></div>
 <pre><code>[1] NA</code></pre>
-<div class="sourceCode" id="cb1520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1520-1"><a href="function.html#cb1520-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>)</span>
-<span id="cb1520-2"><a href="function.html#cb1520-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>, <span class="dv">15</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="co"># 복원 추출</span></span>
-<span id="cb1520-3"><a href="function.html#cb1520-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dot_example</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb1558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1558-1"><a href="function.html#cb1558-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>)</span>
+<span id="cb1558-2"><a href="function.html#cb1558-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>, <span class="dv">15</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="co"># 복원 추출</span></span>
+<span id="cb1558-3"><a href="function.html#cb1558-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dot_example</span>(a)</span></code></pre></div>
 <pre><code>[1] 17.06667</code></pre>
-<div class="sourceCode" id="cb1522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1522-1"><a href="function.html#cb1522-1" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">9</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb1522-2"><a href="function.html#cb1522-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dot_example</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb1560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1560-1"><a href="function.html#cb1560-1" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">9</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1560-2"><a href="function.html#cb1560-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dot_example</span>(a)</span></code></pre></div>
 <pre><code>[1] NA</code></pre>
-<div class="sourceCode" id="cb1524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1524-1"><a href="function.html#cb1524-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dot_example</span>(a, <span class="at">trim =</span> <span class="fl">0.1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1562-1"><a href="function.html#cb1562-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dot_example</span>(a, <span class="at">trim =</span> <span class="fl">0.1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>[1] 17.75</code></pre>
 <p></p>
-<div class="sourceCode" id="cb1526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1526-1"><a href="function.html#cb1526-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (4) `...` 인수가 함수 내 사용(호출)된 </span></span>
-<span id="cb1526-2"><a href="function.html#cb1526-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 다른 함수의 인수로 전달하는 경우</span></span>
-<span id="cb1526-3"><a href="function.html#cb1526-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary_mean() 함수 예제와 유사</span></span>
-<span id="cb1526-4"><a href="function.html#cb1526-4" aria-hidden="true" tabindex="-1"></a>mean_manual <span class="ot">&lt;-</span> <span class="cf">function</span>(x, ...) {</span>
-<span id="cb1526-5"><a href="function.html#cb1526-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(x, ...)</span>
-<span id="cb1526-6"><a href="function.html#cb1526-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1526-7"><a href="function.html#cb1526-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1526-8"><a href="function.html#cb1526-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>)</span>
-<span id="cb1526-9"><a href="function.html#cb1526-9" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
-<span id="cb1526-10"><a href="function.html#cb1526-10" aria-hidden="true" tabindex="-1"></a>na_idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>, <span class="dv">3</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1526-11"><a href="function.html#cb1526-11" aria-hidden="true" tabindex="-1"></a>xna <span class="ot">&lt;-</span> x; xna[na_idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb1526-12"><a href="function.html#cb1526-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1526-13"><a href="function.html#cb1526-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mean_manual</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb1564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1564-1"><a href="function.html#cb1564-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (4) `...` 인수가 함수 내 사용(호출)된 </span></span>
+<span id="cb1564-2"><a href="function.html#cb1564-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 다른 함수의 인수로 전달하는 경우</span></span>
+<span id="cb1564-3"><a href="function.html#cb1564-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary_mean() 함수 예제와 유사</span></span>
+<span id="cb1564-4"><a href="function.html#cb1564-4" aria-hidden="true" tabindex="-1"></a>mean_manual <span class="ot">&lt;-</span> <span class="cf">function</span>(x, ...) {</span>
+<span id="cb1564-5"><a href="function.html#cb1564-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(x, ...)</span>
+<span id="cb1564-6"><a href="function.html#cb1564-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1564-7"><a href="function.html#cb1564-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1564-8"><a href="function.html#cb1564-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>)</span>
+<span id="cb1564-9"><a href="function.html#cb1564-9" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb1564-10"><a href="function.html#cb1564-10" aria-hidden="true" tabindex="-1"></a>na_idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>, <span class="dv">3</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1564-11"><a href="function.html#cb1564-11" aria-hidden="true" tabindex="-1"></a>xna <span class="ot">&lt;-</span> x; xna[na_idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1564-12"><a href="function.html#cb1564-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1564-13"><a href="function.html#cb1564-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mean_manual</span>(x)</span></code></pre></div>
 <pre><code>[1] 8.347683</code></pre>
-<div class="sourceCode" id="cb1528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1528-1"><a href="function.html#cb1528-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean_manual</span>(xna)</span></code></pre></div>
+<div class="sourceCode" id="cb1566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1566-1"><a href="function.html#cb1566-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean_manual</span>(xna)</span></code></pre></div>
 <pre><code>[1] NA</code></pre>
-<div class="sourceCode" id="cb1530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1530-1"><a href="function.html#cb1530-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean_manual</span>(xna, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1568-1"><a href="function.html#cb1568-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean_manual</span>(xna, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>[1] 8.127862</code></pre>
-<div class="sourceCode" id="cb1532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1532-1"><a href="function.html#cb1532-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean_manual</span>(<span class="at">x =</span> xna, <span class="at">trim =</span> <span class="fl">0.2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1570-1"><a href="function.html#cb1570-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean_manual</span>(<span class="at">x =</span> xna, <span class="at">trim =</span> <span class="fl">0.2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>[1] 7.534424</code></pre>
 <p></p>
 
@@ -698,17 +710,17 @@ Figure 7.9: 함수의 기본 구조
 <ul>
 <li><code>args()</code>: 특정 함수에서 사용되는 인수 확인</li>
 </ul>
-<div class="sourceCode" id="cb1534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1534-1"><a href="function.html#cb1534-1" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(fun_without_arg_default)</span></code></pre></div>
+<div class="sourceCode" id="cb1572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1572-1"><a href="function.html#cb1572-1" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(fun_without_arg_default)</span></code></pre></div>
 <pre><code>function (x, y) 
 NULL</code></pre>
-<div class="sourceCode" id="cb1536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1536-1"><a href="function.html#cb1536-1" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(rnorm)</span></code></pre></div>
+<div class="sourceCode" id="cb1574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1574-1"><a href="function.html#cb1574-1" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(rnorm)</span></code></pre></div>
 <pre><code>function (n, mean = 0, sd = 1) 
 NULL</code></pre>
 <p></p>
 <ul>
 <li><code>body()</code>: 함수의 몸체 조회</li>
 </ul>
-<div class="sourceCode" id="cb1538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1538-1"><a href="function.html#cb1538-1" aria-hidden="true" tabindex="-1"></a><span class="fu">body</span>(var_pop)</span></code></pre></div>
+<div class="sourceCode" id="cb1576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1576-1"><a href="function.html#cb1576-1" aria-hidden="true" tabindex="-1"></a><span class="fu">body</span>(var_pop)</span></code></pre></div>
 <pre><code>{
     n &lt;- length(x)
     if (n &lt; 2) {
@@ -718,7 +730,7 @@ NULL</code></pre>
     v &lt;- sum((x - mx)^2)/n
     return(v)
 }</code></pre>
-<div class="sourceCode" id="cb1540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1540-1"><a href="function.html#cb1540-1" aria-hidden="true" tabindex="-1"></a><span class="fu">body</span>(dot_example)</span></code></pre></div>
+<div class="sourceCode" id="cb1578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1578-1"><a href="function.html#cb1578-1" aria-hidden="true" tabindex="-1"></a><span class="fu">body</span>(dot_example)</span></code></pre></div>
 <pre><code>{
     trim &lt;- 0
     na.rm &lt;- FALSE
@@ -740,72 +752,72 @@ NULL</code></pre>
 <li>several.ok: 복수 선택 여부(<code>TRUE/FALSE</code>)</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb1542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1542-1"><a href="function.html#cb1542-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 인수의 매치</span></span>
-<span id="cb1542-2"><a href="function.html#cb1542-2" aria-hidden="true" tabindex="-1"></a><span class="fu">match.arg</span>(<span class="at">arg =</span> <span class="fu">c</span>(<span class="st">&quot;med&quot;</span>, <span class="st">&quot;max&quot;</span>), </span>
-<span id="cb1542-3"><a href="function.html#cb1542-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;median&quot;</span>, <span class="st">&quot;iqr&quot;</span>, <span class="st">&quot;minimum&quot;</span>, <span class="st">&quot;maximum&quot;</span>, <span class="st">&quot;range&quot;</span>), </span>
-<span id="cb1542-4"><a href="function.html#cb1542-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">several.ok =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1580-1"><a href="function.html#cb1580-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 인수의 매치</span></span>
+<span id="cb1580-2"><a href="function.html#cb1580-2" aria-hidden="true" tabindex="-1"></a><span class="fu">match.arg</span>(<span class="at">arg =</span> <span class="fu">c</span>(<span class="st">&quot;med&quot;</span>, <span class="st">&quot;max&quot;</span>), </span>
+<span id="cb1580-3"><a href="function.html#cb1580-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;median&quot;</span>, <span class="st">&quot;iqr&quot;</span>, <span class="st">&quot;minimum&quot;</span>, <span class="st">&quot;maximum&quot;</span>, <span class="st">&quot;range&quot;</span>), </span>
+<span id="cb1580-4"><a href="function.html#cb1580-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">several.ok =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>[1] &quot;median&quot;  &quot;maximum&quot;</code></pre>
-<div class="sourceCode" id="cb1544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1544-1"><a href="function.html#cb1544-1" aria-hidden="true" tabindex="-1"></a><span class="fu">match.arg</span>(<span class="at">arg =</span> <span class="fu">c</span>(<span class="st">&quot;median&quot;</span>, <span class="st">&quot;maximuum&quot;</span>), </span>
-<span id="cb1544-2"><a href="function.html#cb1544-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;med&quot;</span>, <span class="st">&quot;iqr&quot;</span>, <span class="st">&quot;minimum&quot;</span>, <span class="st">&quot;max&quot;</span>, <span class="st">&quot;range&quot;</span>), </span>
-<span id="cb1544-3"><a href="function.html#cb1544-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">several.ok =</span> <span class="cn">TRUE</span>) <span class="co"># 오류 why??</span></span></code></pre></div>
+<div class="sourceCode" id="cb1582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1582-1"><a href="function.html#cb1582-1" aria-hidden="true" tabindex="-1"></a><span class="fu">match.arg</span>(<span class="at">arg =</span> <span class="fu">c</span>(<span class="st">&quot;median&quot;</span>, <span class="st">&quot;maximuum&quot;</span>), </span>
+<span id="cb1582-2"><a href="function.html#cb1582-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;med&quot;</span>, <span class="st">&quot;iqr&quot;</span>, <span class="st">&quot;minimum&quot;</span>, <span class="st">&quot;max&quot;</span>, <span class="st">&quot;range&quot;</span>), </span>
+<span id="cb1582-3"><a href="function.html#cb1582-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">several.ok =</span> <span class="cn">TRUE</span>) <span class="co"># 오류 why??</span></span></code></pre></div>
 <pre><code>Error in match.arg(arg = c(&quot;median&quot;, &quot;maximuum&quot;), choices = c(&quot;mean&quot;, : &#39;arg&#39;은 반드시 &quot;mean&quot;, &quot;med&quot;, &quot;iqr&quot;, &quot;minimum&quot;, &quot;max&quot;, &quot;range&quot; 중 하나이어야 합니다</code></pre>
-<div class="sourceCode" id="cb1546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1546-1"><a href="function.html#cb1546-1" aria-hidden="true" tabindex="-1"></a><span class="fu">match.arg</span>(<span class="at">arg =</span> <span class="fu">c</span>(<span class="st">&quot;med&quot;</span>, <span class="st">&quot;max&quot;</span>), </span>
-<span id="cb1546-2"><a href="function.html#cb1546-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;median&quot;</span>, <span class="st">&quot;iqr&quot;</span>, <span class="st">&quot;minimum&quot;</span>, <span class="st">&quot;maximum&quot;</span>, <span class="st">&quot;range&quot;</span>), </span>
-<span id="cb1546-3"><a href="function.html#cb1546-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">several.ok =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1584-1"><a href="function.html#cb1584-1" aria-hidden="true" tabindex="-1"></a><span class="fu">match.arg</span>(<span class="at">arg =</span> <span class="fu">c</span>(<span class="st">&quot;med&quot;</span>, <span class="st">&quot;max&quot;</span>), </span>
+<span id="cb1584-2"><a href="function.html#cb1584-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;median&quot;</span>, <span class="st">&quot;iqr&quot;</span>, <span class="st">&quot;minimum&quot;</span>, <span class="st">&quot;maximum&quot;</span>, <span class="st">&quot;range&quot;</span>), </span>
+<span id="cb1584-3"><a href="function.html#cb1584-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">several.ok =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>Error in match.arg(arg = c(&quot;med&quot;, &quot;max&quot;), choices = c(&quot;mean&quot;, &quot;median&quot;, : &#39;arg&#39;는 반드시 길이가 1이어야 합니다</code></pre>
 <p></p>
-<div class="sourceCode" id="cb1548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1548-1"><a href="function.html#cb1548-1" aria-hidden="true" tabindex="-1"></a><span class="co"># match.arg() 함수 응용</span></span>
-<span id="cb1548-2"><a href="function.html#cb1548-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 중심값 관련 통계량 계산 함수</span></span>
-<span id="cb1548-3"><a href="function.html#cb1548-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 평균(mean), 절삭평균(trimmed mean), 중앙값(median), 최빈수(mode) 계산</span></span>
-<span id="cb1548-4"><a href="function.html#cb1548-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1548-5"><a href="function.html#cb1548-5" aria-hidden="true" tabindex="-1"></a><span class="co"># pkg_list &lt;- rownames(installed.packages()) # 설치된 패키지 목록</span></span>
-<span id="cb1548-6"><a href="function.html#cb1548-6" aria-hidden="true" tabindex="-1"></a><span class="co"># if (!(&quot;DescTools&quot; %in% pkg_list)) </span></span>
-<span id="cb1548-7"><a href="function.html#cb1548-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   install.packages(&quot;DescTools&quot;) # 최빈수를 구하기 위한 패키지 설치</span></span>
-<span id="cb1548-8"><a href="function.html#cb1548-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1548-9"><a href="function.html#cb1548-9" aria-hidden="true" tabindex="-1"></a>center <span class="ot">&lt;-</span> <span class="cf">function</span>(x, </span>
-<span id="cb1548-10"><a href="function.html#cb1548-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;trimmed&quot;</span>, <span class="st">&quot;median&quot;</span>, <span class="st">&quot;mode&quot;</span>), </span>
-<span id="cb1548-11"><a href="function.html#cb1548-11" aria-hidden="true" tabindex="-1"></a>                   ...</span>
-<span id="cb1548-12"><a href="function.html#cb1548-12" aria-hidden="true" tabindex="-1"></a>                   ) </span>
-<span id="cb1548-13"><a href="function.html#cb1548-13" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb1548-14"><a href="function.html#cb1548-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># browser()</span></span>
-<span id="cb1548-15"><a href="function.html#cb1548-15" aria-hidden="true" tabindex="-1"></a>  trim <span class="ot">=</span> <span class="dv">0</span>; na.rm <span class="ot">=</span> <span class="cn">FALSE</span> <span class="co"># dot 인수 초기값</span></span>
-<span id="cb1548-16"><a href="function.html#cb1548-16" aria-hidden="true" tabindex="-1"></a>  type <span class="ot">&lt;-</span> <span class="fu">match.arg</span>(type)</span>
-<span id="cb1548-17"><a href="function.html#cb1548-17" aria-hidden="true" tabindex="-1"></a>  dots <span class="ot">&lt;-</span> <span class="fu">list</span>(...)</span>
-<span id="cb1548-18"><a href="function.html#cb1548-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (arg <span class="cf">in</span> <span class="fu">names</span>(dots)) {</span>
-<span id="cb1548-19"><a href="function.html#cb1548-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (arg <span class="sc">==</span> <span class="st">&quot;trim&quot;</span>) trim <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dots[arg])</span>
-<span id="cb1548-20"><a href="function.html#cb1548-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (arg <span class="sc">==</span> <span class="st">&quot;na.rm&quot;</span>) na.rm <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(dots[arg])</span>
-<span id="cb1548-21"><a href="function.html#cb1548-21" aria-hidden="true" tabindex="-1"></a>  } </span>
-<span id="cb1548-22"><a href="function.html#cb1548-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1548-23"><a href="function.html#cb1548-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span>(type, </span>
-<span id="cb1548-24"><a href="function.html#cb1548-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">mean =</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> na.rm),</span>
-<span id="cb1548-25"><a href="function.html#cb1548-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">trimmed =</span> <span class="fu">mean</span>(x, <span class="at">trim =</span> trim, <span class="at">na.rm =</span> na.rm),</span>
-<span id="cb1548-26"><a href="function.html#cb1548-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">median =</span> <span class="fu">median</span>(x, <span class="at">na.rm =</span> na.rm),</span>
-<span id="cb1548-27"><a href="function.html#cb1548-27" aria-hidden="true" tabindex="-1"></a>         <span class="at">mode =</span> DescTools<span class="sc">::</span><span class="fu">Mode</span>(<span class="fu">round</span>(x, <span class="dv">1</span>), <span class="at">na.rm =</span> na.rm)</span>
-<span id="cb1548-28"><a href="function.html#cb1548-28" aria-hidden="true" tabindex="-1"></a>         <span class="co"># DescTools 패키지 내 Mode 함수를 </span></span>
-<span id="cb1548-29"><a href="function.html#cb1548-29" aria-hidden="true" tabindex="-1"></a>         <span class="co"># workspace에 불러오지 않고 사용</span></span>
-<span id="cb1548-30"><a href="function.html#cb1548-30" aria-hidden="true" tabindex="-1"></a>         )</span>
-<span id="cb1548-31"><a href="function.html#cb1548-31" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1548-32"><a href="function.html#cb1548-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1548-33"><a href="function.html#cb1548-33" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
-<span id="cb1548-34"><a href="function.html#cb1548-34" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rchisq</span>(<span class="dv">100</span>, <span class="at">df =</span> <span class="dv">3</span>) <span class="co"># 자유도가 3인 카이제곱분포에서 난수 추출</span></span>
-<span id="cb1548-35"><a href="function.html#cb1548-35" aria-hidden="true" tabindex="-1"></a>xna <span class="ot">&lt;-</span> x; xna[na_idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb1548-36"><a href="function.html#cb1548-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1548-37"><a href="function.html#cb1548-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1548-38"><a href="function.html#cb1548-38" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(x, <span class="st">&quot;mean&quot;</span>); <span class="fu">center</span>(x, <span class="st">&quot;me&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1586-1"><a href="function.html#cb1586-1" aria-hidden="true" tabindex="-1"></a><span class="co"># match.arg() 함수 응용</span></span>
+<span id="cb1586-2"><a href="function.html#cb1586-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 중심값 관련 통계량 계산 함수</span></span>
+<span id="cb1586-3"><a href="function.html#cb1586-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 평균(mean), 절삭평균(trimmed mean), 중앙값(median), 최빈수(mode) 계산</span></span>
+<span id="cb1586-4"><a href="function.html#cb1586-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1586-5"><a href="function.html#cb1586-5" aria-hidden="true" tabindex="-1"></a><span class="co"># pkg_list &lt;- rownames(installed.packages()) # 설치된 패키지 목록</span></span>
+<span id="cb1586-6"><a href="function.html#cb1586-6" aria-hidden="true" tabindex="-1"></a><span class="co"># if (!(&quot;DescTools&quot; %in% pkg_list)) </span></span>
+<span id="cb1586-7"><a href="function.html#cb1586-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   install.packages(&quot;DescTools&quot;) # 최빈수를 구하기 위한 패키지 설치</span></span>
+<span id="cb1586-8"><a href="function.html#cb1586-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1586-9"><a href="function.html#cb1586-9" aria-hidden="true" tabindex="-1"></a>center <span class="ot">&lt;-</span> <span class="cf">function</span>(x, </span>
+<span id="cb1586-10"><a href="function.html#cb1586-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;trimmed&quot;</span>, <span class="st">&quot;median&quot;</span>, <span class="st">&quot;mode&quot;</span>), </span>
+<span id="cb1586-11"><a href="function.html#cb1586-11" aria-hidden="true" tabindex="-1"></a>                   ...</span>
+<span id="cb1586-12"><a href="function.html#cb1586-12" aria-hidden="true" tabindex="-1"></a>                   ) </span>
+<span id="cb1586-13"><a href="function.html#cb1586-13" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1586-14"><a href="function.html#cb1586-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># browser()</span></span>
+<span id="cb1586-15"><a href="function.html#cb1586-15" aria-hidden="true" tabindex="-1"></a>  trim <span class="ot">=</span> <span class="dv">0</span>; na.rm <span class="ot">=</span> <span class="cn">FALSE</span> <span class="co"># dot 인수 초기값</span></span>
+<span id="cb1586-16"><a href="function.html#cb1586-16" aria-hidden="true" tabindex="-1"></a>  type <span class="ot">&lt;-</span> <span class="fu">match.arg</span>(type)</span>
+<span id="cb1586-17"><a href="function.html#cb1586-17" aria-hidden="true" tabindex="-1"></a>  dots <span class="ot">&lt;-</span> <span class="fu">list</span>(...)</span>
+<span id="cb1586-18"><a href="function.html#cb1586-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (arg <span class="cf">in</span> <span class="fu">names</span>(dots)) {</span>
+<span id="cb1586-19"><a href="function.html#cb1586-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (arg <span class="sc">==</span> <span class="st">&quot;trim&quot;</span>) trim <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dots[arg])</span>
+<span id="cb1586-20"><a href="function.html#cb1586-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (arg <span class="sc">==</span> <span class="st">&quot;na.rm&quot;</span>) na.rm <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(dots[arg])</span>
+<span id="cb1586-21"><a href="function.html#cb1586-21" aria-hidden="true" tabindex="-1"></a>  } </span>
+<span id="cb1586-22"><a href="function.html#cb1586-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1586-23"><a href="function.html#cb1586-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span>(type, </span>
+<span id="cb1586-24"><a href="function.html#cb1586-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">mean =</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> na.rm),</span>
+<span id="cb1586-25"><a href="function.html#cb1586-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">trimmed =</span> <span class="fu">mean</span>(x, <span class="at">trim =</span> trim, <span class="at">na.rm =</span> na.rm),</span>
+<span id="cb1586-26"><a href="function.html#cb1586-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">median =</span> <span class="fu">median</span>(x, <span class="at">na.rm =</span> na.rm),</span>
+<span id="cb1586-27"><a href="function.html#cb1586-27" aria-hidden="true" tabindex="-1"></a>         <span class="at">mode =</span> DescTools<span class="sc">::</span><span class="fu">Mode</span>(<span class="fu">round</span>(x, <span class="dv">1</span>), <span class="at">na.rm =</span> na.rm)</span>
+<span id="cb1586-28"><a href="function.html#cb1586-28" aria-hidden="true" tabindex="-1"></a>         <span class="co"># DescTools 패키지 내 Mode 함수를 </span></span>
+<span id="cb1586-29"><a href="function.html#cb1586-29" aria-hidden="true" tabindex="-1"></a>         <span class="co"># workspace에 불러오지 않고 사용</span></span>
+<span id="cb1586-30"><a href="function.html#cb1586-30" aria-hidden="true" tabindex="-1"></a>         )</span>
+<span id="cb1586-31"><a href="function.html#cb1586-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1586-32"><a href="function.html#cb1586-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1586-33"><a href="function.html#cb1586-33" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb1586-34"><a href="function.html#cb1586-34" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rchisq</span>(<span class="dv">100</span>, <span class="at">df =</span> <span class="dv">3</span>) <span class="co"># 자유도가 3인 카이제곱분포에서 난수 추출</span></span>
+<span id="cb1586-35"><a href="function.html#cb1586-35" aria-hidden="true" tabindex="-1"></a>xna <span class="ot">&lt;-</span> x; xna[na_idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1586-36"><a href="function.html#cb1586-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1586-37"><a href="function.html#cb1586-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1586-38"><a href="function.html#cb1586-38" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(x, <span class="st">&quot;mean&quot;</span>); <span class="fu">center</span>(x, <span class="st">&quot;me&quot;</span>)</span></code></pre></div>
 <pre><code>[1] 2.929673</code></pre>
 <pre><code>Error in match.arg(type): &#39;arg&#39;은 반드시 &quot;mean&quot;, &quot;trimmed&quot;, &quot;median&quot;, &quot;mode&quot; 중 하나이어야 합니다</code></pre>
 <pre><code>[1] 2.929673</code></pre>
-<div class="sourceCode" id="cb1552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1552-1"><a href="function.html#cb1552-1" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(x, <span class="st">&quot;trimmed&quot;</span>, <span class="at">trim =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1590-1"><a href="function.html#cb1590-1" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(x, <span class="st">&quot;trimmed&quot;</span>, <span class="at">trim =</span> <span class="fl">0.1</span>)</span></code></pre></div>
 <pre><code>[1] 2.565866</code></pre>
-<div class="sourceCode" id="cb1554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1554-1"><a href="function.html#cb1554-1" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(x, <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1592-1"><a href="function.html#cb1592-1" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(x, <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>[1] 2.45614</code></pre>
-<div class="sourceCode" id="cb1556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1556-1"><a href="function.html#cb1556-1" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(x, <span class="st">&quot;mode&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1594-1"><a href="function.html#cb1594-1" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(x, <span class="st">&quot;mode&quot;</span>)</span></code></pre></div>
 <pre><code>[1] 1.7
 attr(,&quot;freq&quot;)
 [1] 6</code></pre>
-<div class="sourceCode" id="cb1558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1558-1"><a href="function.html#cb1558-1" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(xna, <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1596-1"><a href="function.html#cb1596-1" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(xna, <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>[1] NA</code></pre>
-<div class="sourceCode" id="cb1560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1560-1"><a href="function.html#cb1560-1" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(xna, <span class="st">&quot;median&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1598-1"><a href="function.html#cb1598-1" aria-hidden="true" tabindex="-1"></a><span class="fu">center</span>(xna, <span class="st">&quot;median&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>[1] 2.423723</code></pre>
 <p></p>
 
@@ -820,16 +832,16 @@ attr(,&quot;freq&quot;)
 <li>강제 종료가 필요한 경우 응용 가능</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb1562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1562-1"><a href="function.html#cb1562-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) 객체 반환</span></span>
-<span id="cb1562-2"><a href="function.html#cb1562-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
-<span id="cb1562-3"><a href="function.html#cb1562-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">24</span>, <span class="at">sd =</span> <span class="fl">2.2</span>)</span>
-<span id="cb1562-4"><a href="function.html#cb1562-4" aria-hidden="true" tabindex="-1"></a>value_return1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb1562-5"><a href="function.html#cb1562-5" aria-hidden="true" tabindex="-1"></a>  tot <span class="ot">&lt;-</span> <span class="fu">sum</span>(x)</span>
-<span id="cb1562-6"><a href="function.html#cb1562-6" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb1562-7"><a href="function.html#cb1562-7" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">size =</span> n, <span class="at">total =</span> tot, <span class="at">average =</span> <span class="fu">mean</span>(x), <span class="at">stdev =</span> <span class="fu">sd</span>(x))</span>
-<span id="cb1562-8"><a href="function.html#cb1562-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
-<span id="cb1562-9"><a href="function.html#cb1562-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1562-10"><a href="function.html#cb1562-10" aria-hidden="true" tabindex="-1"></a><span class="fu">value_return1</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb1600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1600-1"><a href="function.html#cb1600-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) 객체 반환</span></span>
+<span id="cb1600-2"><a href="function.html#cb1600-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb1600-3"><a href="function.html#cb1600-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">24</span>, <span class="at">sd =</span> <span class="fl">2.2</span>)</span>
+<span id="cb1600-4"><a href="function.html#cb1600-4" aria-hidden="true" tabindex="-1"></a>value_return1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1600-5"><a href="function.html#cb1600-5" aria-hidden="true" tabindex="-1"></a>  tot <span class="ot">&lt;-</span> <span class="fu">sum</span>(x)</span>
+<span id="cb1600-6"><a href="function.html#cb1600-6" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb1600-7"><a href="function.html#cb1600-7" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">size =</span> n, <span class="at">total =</span> tot, <span class="at">average =</span> <span class="fu">mean</span>(x), <span class="at">stdev =</span> <span class="fu">sd</span>(x))</span>
+<span id="cb1600-8"><a href="function.html#cb1600-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb1600-9"><a href="function.html#cb1600-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1600-10"><a href="function.html#cb1600-10" aria-hidden="true" tabindex="-1"></a><span class="fu">value_return1</span>(x)</span></code></pre></div>
 <pre><code>$size
 [1] 100
 
@@ -841,24 +853,24 @@ $average
 
 $stdev
 [1] 2.245563</code></pre>
-<div class="sourceCode" id="cb1564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1564-1"><a href="function.html#cb1564-1" aria-hidden="true" tabindex="-1"></a>desc <span class="ot">&lt;-</span> <span class="fu">value_return1</span>(x)</span>
-<span id="cb1564-2"><a href="function.html#cb1564-2" aria-hidden="true" tabindex="-1"></a>desc<span class="sc">$</span>stdev</span></code></pre></div>
+<div class="sourceCode" id="cb1602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1602-1"><a href="function.html#cb1602-1" aria-hidden="true" tabindex="-1"></a>desc <span class="ot">&lt;-</span> <span class="fu">value_return1</span>(x)</span>
+<span id="cb1602-2"><a href="function.html#cb1602-2" aria-hidden="true" tabindex="-1"></a>desc<span class="sc">$</span>stdev</span></code></pre></div>
 <pre><code>[1] 2.245563</code></pre>
-<div class="sourceCode" id="cb1566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1566-1"><a href="function.html#cb1566-1" aria-hidden="true" tabindex="-1"></a>value_return2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb1566-2"><a href="function.html#cb1566-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>(x)<span class="sc">/</span><span class="fu">length</span>(x))</span>
-<span id="cb1566-3"><a href="function.html#cb1566-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1566-4"><a href="function.html#cb1566-4" aria-hidden="true" tabindex="-1"></a><span class="fu">value_return2</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb1604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1604-1"><a href="function.html#cb1604-1" aria-hidden="true" tabindex="-1"></a>value_return2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1604-2"><a href="function.html#cb1604-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>(x)<span class="sc">/</span><span class="fu">length</span>(x))</span>
+<span id="cb1604-3"><a href="function.html#cb1604-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1604-4"><a href="function.html#cb1604-4" aria-hidden="true" tabindex="-1"></a><span class="fu">value_return2</span>(x)</span></code></pre></div>
 <pre><code>[1] 24.00641</code></pre>
-<div class="sourceCode" id="cb1568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1568-1"><a href="function.html#cb1568-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) 강제 종료 시 활용</span></span>
-<span id="cb1568-2"><a href="function.html#cb1568-2" aria-hidden="true" tabindex="-1"></a>value_return3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb1568-3"><a href="function.html#cb1568-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">anyNA</span>(x)) return</span>
-<span id="cb1568-4"><a href="function.html#cb1568-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>(x)<span class="sc">/</span><span class="fu">length</span>(x))</span>
-<span id="cb1568-5"><a href="function.html#cb1568-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1568-6"><a href="function.html#cb1568-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1568-7"><a href="function.html#cb1568-7" aria-hidden="true" tabindex="-1"></a>xna <span class="ot">&lt;-</span> x; xna[na_idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb1568-8"><a href="function.html#cb1568-8" aria-hidden="true" tabindex="-1"></a><span class="fu">value_return3</span>(xna)</span></code></pre></div>
+<div class="sourceCode" id="cb1606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1606-1"><a href="function.html#cb1606-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (2) 강제 종료 시 활용</span></span>
+<span id="cb1606-2"><a href="function.html#cb1606-2" aria-hidden="true" tabindex="-1"></a>value_return3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1606-3"><a href="function.html#cb1606-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">anyNA</span>(x)) return</span>
+<span id="cb1606-4"><a href="function.html#cb1606-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>(x)<span class="sc">/</span><span class="fu">length</span>(x))</span>
+<span id="cb1606-5"><a href="function.html#cb1606-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1606-6"><a href="function.html#cb1606-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1606-7"><a href="function.html#cb1606-7" aria-hidden="true" tabindex="-1"></a>xna <span class="ot">&lt;-</span> x; xna[na_idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb1606-8"><a href="function.html#cb1606-8" aria-hidden="true" tabindex="-1"></a><span class="fu">value_return3</span>(xna)</span></code></pre></div>
 <pre><code>[1] NA</code></pre>
-<div class="sourceCode" id="cb1570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1570-1"><a href="function.html#cb1570-1" aria-hidden="true" tabindex="-1"></a><span class="fu">value_return3</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb1608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1608-1"><a href="function.html#cb1608-1" aria-hidden="true" tabindex="-1"></a><span class="fu">value_return3</span>(x)</span></code></pre></div>
 <pre><code>[1] 24.00641</code></pre>
 <p></p>
 <ul>
@@ -867,19 +879,19 @@ $stdev
 <li>인수로 문자열을 가짐</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb1572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1572-1"><a href="function.html#cb1572-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) stop() 함수 사용</span></span>
-<span id="cb1572-2"><a href="function.html#cb1572-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 복소수 값을 실수와 허수로 분할</span></span>
-<span id="cb1572-3"><a href="function.html#cb1572-3" aria-hidden="true" tabindex="-1"></a>split_complex <span class="ot">&lt;-</span> <span class="cf">function</span>(z) {</span>
-<span id="cb1572-4"><a href="function.html#cb1572-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.complex</span>(z)) </span>
-<span id="cb1572-5"><a href="function.html#cb1572-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;입력값이 복소수가 아닙니다&quot;</span>)</span>
-<span id="cb1572-6"><a href="function.html#cb1572-6" aria-hidden="true" tabindex="-1"></a>  re <span class="ot">&lt;-</span> <span class="fu">Re</span>(z)</span>
-<span id="cb1572-7"><a href="function.html#cb1572-7" aria-hidden="true" tabindex="-1"></a>  im <span class="ot">&lt;-</span> <span class="fu">Im</span>(z)</span>
-<span id="cb1572-8"><a href="function.html#cb1572-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">real =</span> re, <span class="at">imaginary =</span> im))</span>
-<span id="cb1572-9"><a href="function.html#cb1572-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1572-10"><a href="function.html#cb1572-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1572-11"><a href="function.html#cb1572-11" aria-hidden="true" tabindex="-1"></a><span class="fu">split_complex</span>(pi)</span></code></pre></div>
+<div class="sourceCode" id="cb1610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1610-1"><a href="function.html#cb1610-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) stop() 함수 사용</span></span>
+<span id="cb1610-2"><a href="function.html#cb1610-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 복소수 값을 실수와 허수로 분할</span></span>
+<span id="cb1610-3"><a href="function.html#cb1610-3" aria-hidden="true" tabindex="-1"></a>split_complex <span class="ot">&lt;-</span> <span class="cf">function</span>(z) {</span>
+<span id="cb1610-4"><a href="function.html#cb1610-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.complex</span>(z)) </span>
+<span id="cb1610-5"><a href="function.html#cb1610-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;입력값이 복소수가 아닙니다&quot;</span>)</span>
+<span id="cb1610-6"><a href="function.html#cb1610-6" aria-hidden="true" tabindex="-1"></a>  re <span class="ot">&lt;-</span> <span class="fu">Re</span>(z)</span>
+<span id="cb1610-7"><a href="function.html#cb1610-7" aria-hidden="true" tabindex="-1"></a>  im <span class="ot">&lt;-</span> <span class="fu">Im</span>(z)</span>
+<span id="cb1610-8"><a href="function.html#cb1610-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">real =</span> re, <span class="at">imaginary =</span> im))</span>
+<span id="cb1610-9"><a href="function.html#cb1610-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1610-10"><a href="function.html#cb1610-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1610-11"><a href="function.html#cb1610-11" aria-hidden="true" tabindex="-1"></a><span class="fu">split_complex</span>(pi)</span></code></pre></div>
 <pre><code>Error in split_complex(pi): 입력값이 복소수가 아닙니다</code></pre>
-<div class="sourceCode" id="cb1574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1574-1"><a href="function.html#cb1574-1" aria-hidden="true" tabindex="-1"></a><span class="fu">split_complex</span>(<span class="dv">23</span> <span class="sc">+</span> 7i)</span></code></pre></div>
+<div class="sourceCode" id="cb1612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1612-1"><a href="function.html#cb1612-1" aria-hidden="true" tabindex="-1"></a><span class="fu">split_complex</span>(<span class="dv">23</span> <span class="sc">+</span> 7i)</span></code></pre></div>
 <pre><code>$real
 [1] 23
 
@@ -898,20 +910,20 @@ $imaginary
 <li><strong>지역변수(local variable)</strong>: 함수의 몸체 부분에서 정의된 변수들을 지칭하며 함수의 종료와 동시에 재사용 불가</li>
 <li><strong>전역변수(global variable)</strong>: 함수의 외부(workspace)에서 정의된 변수로 함수 내부에서 값을 할당하지 않더라도 사용 가능</li>
 </ol>
-<div class="sourceCode" id="cb1576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1576-1"><a href="function.html#cb1576-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) 매개변수, 지역변수, 전역변수 구분</span></span>
-<span id="cb1576-2"><a href="function.html#cb1576-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># 전역변수</span></span>
-<span id="cb1576-3"><a href="function.html#cb1576-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># 전역변수</span></span>
-<span id="cb1576-4"><a href="function.html#cb1576-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1576-5"><a href="function.html#cb1576-5" aria-hidden="true" tabindex="-1"></a>scope1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb1576-6"><a href="function.html#cb1576-6" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb1576-7"><a href="function.html#cb1576-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(x) <span class="co"># 매개변수</span></span>
-<span id="cb1576-8"><a href="function.html#cb1576-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(y) <span class="co"># 지역변수</span></span>
-<span id="cb1576-9"><a href="function.html#cb1576-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1576-10"><a href="function.html#cb1576-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1576-11"><a href="function.html#cb1576-11" aria-hidden="true" tabindex="-1"></a>x; y <span class="co"># 전역변수가 출력</span></span></code></pre></div>
+<div class="sourceCode" id="cb1614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1614-1"><a href="function.html#cb1614-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) 매개변수, 지역변수, 전역변수 구분</span></span>
+<span id="cb1614-2"><a href="function.html#cb1614-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># 전역변수</span></span>
+<span id="cb1614-3"><a href="function.html#cb1614-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># 전역변수</span></span>
+<span id="cb1614-4"><a href="function.html#cb1614-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1614-5"><a href="function.html#cb1614-5" aria-hidden="true" tabindex="-1"></a>scope1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1614-6"><a href="function.html#cb1614-6" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb1614-7"><a href="function.html#cb1614-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(x) <span class="co"># 매개변수</span></span>
+<span id="cb1614-8"><a href="function.html#cb1614-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(y) <span class="co"># 지역변수</span></span>
+<span id="cb1614-9"><a href="function.html#cb1614-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1614-10"><a href="function.html#cb1614-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1614-11"><a href="function.html#cb1614-11" aria-hidden="true" tabindex="-1"></a>x; y <span class="co"># 전역변수가 출력</span></span></code></pre></div>
 <pre><code>[1] 10</code></pre>
 <pre><code>[1] 5</code></pre>
-<div class="sourceCode" id="cb1579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1579-1"><a href="function.html#cb1579-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scope1</span>(<span class="at">x =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1617-1"><a href="function.html#cb1617-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scope1</span>(<span class="at">x =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>[1] 10
 [1] 100</code></pre>
 <p></p>
@@ -922,22 +934,22 @@ $imaginary
 <li>지역변수 <code>y</code>의 사용 범위는 함수 몸체이기 때문에 함수 밖에 있는 y는 값이 변하지 않음</li>
 </ul>
 </blockquote>
-<div class="sourceCode" id="cb1581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1581-1"><a href="function.html#cb1581-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># 전역변수</span></span>
-<span id="cb1581-2"><a href="function.html#cb1581-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># 전역변수</span></span>
-<span id="cb1581-3"><a href="function.html#cb1581-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(z)</span>
-<span id="cb1581-4"><a href="function.html#cb1581-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1581-5"><a href="function.html#cb1581-5" aria-hidden="true" tabindex="-1"></a>scope2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb1581-6"><a href="function.html#cb1581-6" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb1581-7"><a href="function.html#cb1581-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(x) <span class="co"># 매개변수</span></span>
-<span id="cb1581-8"><a href="function.html#cb1581-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(y) <span class="co"># 지역변수</span></span>
-<span id="cb1581-9"><a href="function.html#cb1581-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(z) </span>
-<span id="cb1581-10"><a href="function.html#cb1581-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1581-11"><a href="function.html#cb1581-11" aria-hidden="true" tabindex="-1"></a><span class="fu">scope2</span>(<span class="at">x =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1619-1"><a href="function.html#cb1619-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># 전역변수</span></span>
+<span id="cb1619-2"><a href="function.html#cb1619-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># 전역변수</span></span>
+<span id="cb1619-3"><a href="function.html#cb1619-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(z)</span>
+<span id="cb1619-4"><a href="function.html#cb1619-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1619-5"><a href="function.html#cb1619-5" aria-hidden="true" tabindex="-1"></a>scope2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1619-6"><a href="function.html#cb1619-6" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb1619-7"><a href="function.html#cb1619-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(x) <span class="co"># 매개변수</span></span>
+<span id="cb1619-8"><a href="function.html#cb1619-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(y) <span class="co"># 지역변수</span></span>
+<span id="cb1619-9"><a href="function.html#cb1619-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(z) </span>
+<span id="cb1619-10"><a href="function.html#cb1619-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1619-11"><a href="function.html#cb1619-11" aria-hidden="true" tabindex="-1"></a><span class="fu">scope2</span>(<span class="at">x =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>[1] 5
 [1] 25</code></pre>
 <pre><code>Error in print(z): 객체 &#39;z&#39;를 찾을 수 없습니다</code></pre>
-<div class="sourceCode" id="cb1584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1584-1"><a href="function.html#cb1584-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">13</span> <span class="co"># 전역변수로 z 할당</span></span>
-<span id="cb1584-2"><a href="function.html#cb1584-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scope2</span>(<span class="at">x =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1622-1"><a href="function.html#cb1622-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">13</span> <span class="co"># 전역변수로 z 할당</span></span>
+<span id="cb1622-2"><a href="function.html#cb1622-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scope2</span>(<span class="at">x =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>[1] 5
 [1] 25
 [1] 13</code></pre>
@@ -949,47 +961,55 @@ $imaginary
 </ul>
 </blockquote>
 <p>지역변수의 사용 범위는 함수 몸체 안이지만 그 범위를 밖으로 확장할 수 있음 <span class="math inline">\(\rightarrow\)</span> <code>&lt;&lt;-</code> 또는 <code>-&gt;&gt;</code> 사용</p>
-<div class="sourceCode" id="cb1586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1586-1"><a href="function.html#cb1586-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 지경변수의 확장 예제</span></span>
-<span id="cb1586-2"><a href="function.html#cb1586-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span>; y <span class="ot">&lt;-</span> <span class="dv">2</span>; z <span class="ot">&lt;-</span> <span class="dv">3</span>; k <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb1586-3"><a href="function.html#cb1586-3" aria-hidden="true" tabindex="-1"></a>scope3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb1586-4"><a href="function.html#cb1586-4" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;&lt;-</span> x <span class="sc">+</span> <span class="dv">10</span></span>
-<span id="cb1586-5"><a href="function.html#cb1586-5" aria-hidden="true" tabindex="-1"></a>  y <span class="sc">*</span> <span class="dv">3</span> <span class="ot">-&gt;&gt;</span> z</span>
-<span id="cb1586-6"><a href="function.html#cb1586-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1586-7"><a href="function.html#cb1586-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(x) <span class="co"># 매개변수</span></span>
-<span id="cb1586-8"><a href="function.html#cb1586-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(y) <span class="co"># 지역변수</span></span>
-<span id="cb1586-9"><a href="function.html#cb1586-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(z) <span class="co"># 지역변수</span></span>
-<span id="cb1586-10"><a href="function.html#cb1586-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(k) <span class="co"># 자유변수</span></span>
-<span id="cb1586-11"><a href="function.html#cb1586-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1586-12"><a href="function.html#cb1586-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1586-13"><a href="function.html#cb1586-13" aria-hidden="true" tabindex="-1"></a>x;y;z;k</span></code></pre></div>
+<div class="sourceCode" id="cb1624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1624-1"><a href="function.html#cb1624-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 지경변수의 확장 예제</span></span>
+<span id="cb1624-2"><a href="function.html#cb1624-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span>; y <span class="ot">&lt;-</span> <span class="dv">2</span>; z <span class="ot">&lt;-</span> <span class="dv">3</span>; k <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb1624-3"><a href="function.html#cb1624-3" aria-hidden="true" tabindex="-1"></a>scope3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1624-4"><a href="function.html#cb1624-4" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;&lt;-</span> x <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb1624-5"><a href="function.html#cb1624-5" aria-hidden="true" tabindex="-1"></a>  y <span class="sc">*</span> <span class="dv">3</span> <span class="ot">-&gt;&gt;</span> z</span>
+<span id="cb1624-6"><a href="function.html#cb1624-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1624-7"><a href="function.html#cb1624-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(x) <span class="co"># 매개변수</span></span>
+<span id="cb1624-8"><a href="function.html#cb1624-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(y) <span class="co"># 지역변수</span></span>
+<span id="cb1624-9"><a href="function.html#cb1624-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(z) <span class="co"># 지역변수</span></span>
+<span id="cb1624-10"><a href="function.html#cb1624-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(k) <span class="co"># 자유변수</span></span>
+<span id="cb1624-11"><a href="function.html#cb1624-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1624-12"><a href="function.html#cb1624-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1624-13"><a href="function.html#cb1624-13" aria-hidden="true" tabindex="-1"></a>x;y;z;k</span></code></pre></div>
 <pre><code>[1] 1</code></pre>
 <pre><code>[1] 2</code></pre>
 <pre><code>[1] 3</code></pre>
 <pre><code>[1] 10</code></pre>
-<div class="sourceCode" id="cb1591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1591-1"><a href="function.html#cb1591-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scope3</span>(<span class="at">x =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1629-1"><a href="function.html#cb1629-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scope3</span>(<span class="at">x =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>[1] 2
 [1] 12
 [1] 36
 [1] 10</code></pre>
-<div class="sourceCode" id="cb1593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1593-1"><a href="function.html#cb1593-1" aria-hidden="true" tabindex="-1"></a>x;y;z;k</span></code></pre></div>
+<div class="sourceCode" id="cb1631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1631-1"><a href="function.html#cb1631-1" aria-hidden="true" tabindex="-1"></a>x;y;z;k</span></code></pre></div>
 <pre><code>[1] 1</code></pre>
 <pre><code>[1] 12</code></pre>
 <pre><code>[1] 36</code></pre>
 <pre><code>[1] 10</code></pre>
 <p></p>
 <p>하나의 함수 내부에 또 다른 함수 생성 가능</p>
-<div class="sourceCode" id="cb1598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1598-1"><a href="function.html#cb1598-1" aria-hidden="true" tabindex="-1"></a>mean_manual2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb1598-2"><a href="function.html#cb1598-2" aria-hidden="true" tabindex="-1"></a>  tot <span class="ot">&lt;-</span> <span class="fu">sum</span>(x)</span>
-<span id="cb1598-3"><a href="function.html#cb1598-3" aria-hidden="true" tabindex="-1"></a>  size <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb1598-4"><a href="function.html#cb1598-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">length</span>(x))</span>
-<span id="cb1598-5"><a href="function.html#cb1598-5" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1598-6"><a href="function.html#cb1598-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(tot<span class="sc">/</span><span class="fu">size</span>(x))</span>
-<span id="cb1598-7"><a href="function.html#cb1598-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1598-8"><a href="function.html#cb1598-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1598-9"><a href="function.html#cb1598-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mean_manual2</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1636-1"><a href="function.html#cb1636-1" aria-hidden="true" tabindex="-1"></a>mean_manual2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1636-2"><a href="function.html#cb1636-2" aria-hidden="true" tabindex="-1"></a>  tot <span class="ot">&lt;-</span> <span class="fu">sum</span>(x)</span>
+<span id="cb1636-3"><a href="function.html#cb1636-3" aria-hidden="true" tabindex="-1"></a>  size <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1636-4"><a href="function.html#cb1636-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">length</span>(x))</span>
+<span id="cb1636-5"><a href="function.html#cb1636-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1636-6"><a href="function.html#cb1636-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(tot<span class="sc">/</span><span class="fu">size</span>(x))</span>
+<span id="cb1636-7"><a href="function.html#cb1636-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1636-8"><a href="function.html#cb1636-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1636-9"><a href="function.html#cb1636-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mean_manual2</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code></pre></div>
 <pre><code>[1] 5.5</code></pre>
 <p></p>
 
+<pre><code>## Warning: 패키지 &#39;knitr&#39;는 R 버전 4.0.5에서 작성되었습니다</code></pre>
+<pre><code>Warning: 패키지 &#39;tidyverse&#39;는 R 버전 4.0.5에서 작성되었습니다</code></pre>
+<pre><code>Warning: 패키지 &#39;ggplot2&#39;는 R 버전 4.0.4에서 작성되었습니다</code></pre>
+<pre><code>Warning: 패키지 &#39;tibble&#39;는 R 버전 4.0.5에서 작성되었습니다</code></pre>
+<pre><code>Warning: 패키지 &#39;tidyr&#39;는 R 버전 4.0.4에서 작성되었습니다</code></pre>
+<pre><code>Warning: 패키지 &#39;dplyr&#39;는 R 버전 4.0.5에서 작성되었습니다</code></pre>
+<pre><code>Warning: 패키지 &#39;rmarkdown&#39;는 R 버전 4.0.5에서 작성되었습니다</code></pre>
+<p></p>
 </div>
 </div>
 <!-- </div> -->
@@ -999,7 +1019,7 @@ $imaginary
         </div>
       </div>
 <a href="looping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="몇-가지-기초적인-알고리즘.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

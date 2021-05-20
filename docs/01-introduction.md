@@ -6,11 +6,45 @@ editor_options:
 \mainmatter
 
 
+```
+## Warning: 패키지 'knitr'는 R 버전 4.0.5에서 작성되었습니다
+```
 
 
 \footnotesize
 
 
+```
+Warning: 패키지 'rmarkdown'는 R 버전 4.0.5에서 작성되었습니다
+```
+
+```
+Warning: 패키지 'tidyverse'는 R 버전 4.0.5에서 작성되었습니다
+```
+
+```
+Warning: 패키지 'ggplot2'는 R 버전 4.0.4에서 작성되었습니다
+```
+
+```
+Warning: 패키지 'tibble'는 R 버전 4.0.5에서 작성되었습니다
+```
+
+```
+Warning: 패키지 'tidyr'는 R 버전 4.0.4에서 작성되었습니다
+```
+
+```
+Warning: 패키지 'dplyr'는 R 버전 4.0.5에서 작성되었습니다
+```
+
+```
+Warning: 패키지 'gt'는 R 버전 4.0.5에서 작성되었습니다
+```
+
+```
+Warning: 패키지 'gtsummary'는 R 버전 4.0.5에서 작성되었습니다
+```
 
  \normalsize
 
@@ -38,15 +72,13 @@ editor_options:
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}
-**유용한 웹 사이트**: R과 관련한 거의 모든 문제는 Googling (구글을 이용한 검색)을 통해 해결 가능(검색주제 + "in R" or "in R software")하고 많은 해답들이 아래 열거한 웹 페이지에 게시되어 있음. 
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">**유용한 웹 사이트**: R과 관련한 거의 모든 문제는 Googling (구글을 이용한 검색)을 통해 해결 가능(검색주제 + "in R" or "in R software")하고 많은 해답들이 아래 열거한 웹 페이지에 게시되어 있음. 
 
 - R 프로그래밍에 대한 Q&A: [Stack Overflow](https://stackoverflow.com)
 - R 관련 웹 문서 모음: [Rpubs](https://rpubs.com/)
 - R package에 대한 raw source code 제공: [Github](https://github.com)
 - R을 이용한 통계 분석: [Statistical tools for high-throughput data analysis (STHDA)](http://www.sthda.com/english/)
-
-\EndKnitrBlock{rmdtip}
+</div>\EndKnitrBlock{rmdtip}
 
  \normalsize
 
@@ -61,8 +93,7 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/Rorg-main-add} \end{center}
+<img src="figures/Rorg-main-add.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -73,8 +104,7 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/CRAN-korea-01} \end{center}
+<img src="figures/CRAN-korea-01.PNG" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -85,8 +115,7 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/Rinstall-01} \end{center}
+<img src="figures/Rinstall-01.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -96,8 +125,7 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/Rinstall-02} \end{center}
+<img src="figures/Rinstall-02.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -105,14 +133,12 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}
-다음 하위폴더에 대한 간략 설멍
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">다음 하위폴더에 대한 간략 설멍
 
 - **`base`**: R 실행 프로그램
 - **`contrib`**: R package의 바이너리 파일
 - **`Rtools`**: R package 개발 및 배포를 위한 프로그램
-
-\EndKnitrBlock{rmdtip}
+</div>\EndKnitrBlock{rmdtip}
 
  \normalsize
 
@@ -122,8 +148,7 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/Rinstall-03} \end{center}
+<img src="figures/Rinstall-03.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -135,8 +160,7 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/R-install-F01} \end{center}
+<img src="figures/R-install-F01.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -146,8 +170,7 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/R-install-F02} \end{center}
+<img src="figures/R-install-F02.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -159,15 +182,13 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/R-install-F03} \end{center}
+<img src="figures/R-install-F03.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/R-install-F04} \end{center}
+<img src="figures/R-install-F04.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -179,8 +200,7 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/R-install-F05} \end{center}
+<img src="figures/R-install-F05.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -192,8 +212,7 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/R-install-F06} \end{center}
+<img src="figures/R-install-F06.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -203,8 +222,7 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/R-install-F07} \end{center}
+<img src="figures/R-install-F07.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -216,8 +234,7 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/R-install-F08} \end{center}
+<img src="figures/R-install-F08.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -229,8 +246,7 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/R-install-F09} \end{center}
+<img src="figures/R-install-F09.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -240,22 +256,16 @@ R 다운로드 사이트: https://www.r-project.org 또는 https://cran.r-projec
 
 \footnotesize
 
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{figures/Rgui} 
-
-}
-
-\caption{Windows에서 R 실행화면(콘솔 창, SDI 모드)}(\#fig:r-console)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="figures/Rgui.png" alt="Windows에서 R 실행화면(콘솔 창, SDI 모드)" width="100%" />
+<p class="caption">(\#fig:r-console)Windows에서 R 실행화면(콘솔 창, SDI 모드)</p>
+</div>
 
  \normalsize
 
 ## R 시작 및 작동 체크{#r-check}
 
-\BeginKnitrBlock{rmdimportant}
-**실습**: 설치된 R을 실행 후 보이는 R 콘솔(consle) 창에서 명령어를 실행하고 결과 확인
-\EndKnitrBlock{rmdimportant}
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**실습**: 설치된 R을 실행 후 보이는 R 콘솔(consle) 창에서 명령어를 실행하고 결과 확인</div>\EndKnitrBlock{rmdimportant}
 
 Figure \@ref(fig:r-console) 에서 `>` 기호는 R의 명령 프롬프트(command prompt) 임 
 
@@ -272,13 +282,12 @@ sessionInfo()
 ```
 
 ```
-R version 4.0.5 (2021-03-31)
+R version 4.0.3 (2020-10-10)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 18.04.5 LTS
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3
-LAPACK: /usr/lib/x86_64-linux-gnu/libopenblasp-r0.2.20.so
+BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/libopenblasp-r0.2.20.so
 
 locale:
  [1] LC_CTYPE=ko_KR.UTF-8       LC_NUMERIC=C              
@@ -292,31 +301,33 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] kableExtra_1.3.4 gtsummary_1.4.0  gt_0.2.2         glue_1.4.2      
+ [1] kableExtra_1.3.4 gtsummary_1.4.0  gt_0.3.0         glue_1.4.2      
  [5] forcats_0.5.1    stringr_1.4.0    dplyr_1.0.6      purrr_0.3.4     
- [9] readr_1.4.0      tidyr_1.1.3      tibble_3.1.1     ggplot2_3.3.3   
+ [9] readr_1.4.0      tidyr_1.1.3      tibble_3.1.2     ggplot2_3.3.3   
 [13] tidyverse_1.3.1  rmarkdown_2.8    knitr_1.33      
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.6          svglite_2.0.0       lubridate_1.7.10   
- [4] lattice_0.20-44     assertthat_0.2.1    digest_0.6.27      
+ [4] lattice_0.20-41     assertthat_0.2.1    digest_0.6.27      
  [7] utf8_1.2.1          R6_2.5.0            cellranger_1.1.0   
 [10] backports_1.2.1     reprex_2.0.0        evaluate_0.14      
-[13] httr_1.4.2          pillar_1.6.0        rlang_0.4.11       
-[16] readxl_1.3.1        rstudioapi_0.13     Matrix_1.3-3       
-[19] splines_4.0.5       webshot_0.5.2       munsell_0.5.0      
-[22] broom_0.7.6         compiler_4.0.5      modelr_0.1.8       
-[25] xfun_0.22           pkgconfig_2.0.3     systemfonts_1.0.2  
-[28] htmltools_0.5.1.1   tidyselect_1.1.1    bookdown_0.22      
-[31] fansi_0.4.2         viridisLite_0.4.0   crayon_1.4.1       
-[34] dbplyr_2.1.1        withr_2.4.2         grid_4.0.5         
-[37] jsonlite_1.7.2      gtable_0.3.0        lifecycle_1.0.0    
-[40] DBI_1.1.1           magrittr_2.0.1      scales_1.1.1       
-[43] cli_2.5.0           stringi_1.6.1       broom.helpers_1.3.0
-[46] fs_1.5.0            xml2_1.3.2          ellipsis_0.3.2     
-[49] generics_0.1.0      vctrs_0.3.8         tools_4.0.5        
-[52] hms_1.0.0           survival_3.2-11     yaml_2.2.1         
-[55] colorspace_2.0-1    rvest_1.0.0         haven_2.4.1        
+[13] highr_0.9           httr_1.4.2          pillar_1.6.1       
+[16] rlang_0.4.11        readxl_1.3.1        rstudioapi_0.13    
+[19] jquerylib_0.1.4     Matrix_1.3-3        splines_4.0.3      
+[22] webshot_0.5.2       munsell_0.5.0       broom_0.7.6        
+[25] compiler_4.0.3      modelr_0.1.8        xfun_0.23          
+[28] systemfonts_1.0.2   pkgconfig_2.0.3     htmltools_0.5.1.1  
+[31] tidyselect_1.1.1    bookdown_0.22       viridisLite_0.4.0  
+[34] fansi_0.4.2         crayon_1.4.1        dbplyr_2.1.1       
+[37] withr_2.4.2         grid_4.0.3          jsonlite_1.7.2     
+[40] gtable_0.3.0        lifecycle_1.0.0     DBI_1.1.1          
+[43] magrittr_2.0.1      scales_1.1.1        cli_2.5.0          
+[46] stringi_1.6.2       broom.helpers_1.3.0 fs_1.5.0           
+[49] xml2_1.3.2          bslib_0.2.5         ellipsis_0.3.2     
+[52] generics_0.1.0      vctrs_0.3.8         tools_4.0.3        
+[55] hms_1.0.0           survival_3.2-7      yaml_2.2.1         
+[58] colorspace_2.0-1    rvest_1.0.0         haven_2.4.1        
+[61] sass_0.4.0         
 ```
 
  \normalsize
@@ -412,14 +423,10 @@ x <- rnorm(100) # 난수 생성
 hist(x) # 히스토그램
 ```
 
-\begin{figure}
-
-{\centering \includegraphics{01-introduction_files/figure-latex/check-04-1} 
-
-}
-
-\caption{정규분포 100개의 히스토그램}(\#fig:check-04)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="01-introduction_files/figure-html/check-04-1.svg" alt="정규분포 100개의 히스토그램" width="672" />
+<p class="caption">(\#fig:check-04)정규분포 100개의 히스토그램</p>
+</div>
 
  \normalsize
 
@@ -427,9 +434,7 @@ hist(x) # 히스토그램
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}
-R 명령어 또는 전체 프로그램 소스 실행 시 매우 빈번히 오류가 나타나는데, 이를 해결할 수 있는 가장 좋은 방법은 앞에서 언급한 Google을 이용한 검색 또는 R 설치 시 자체적으로 내장되어 있는 도움말을 참고하는 것이 가장 효율적임. 
-\EndKnitrBlock{rmdtip}
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">R 명령어 또는 전체 프로그램 소스 실행 시 매우 빈번히 오류가 나타나는데, 이를 해결할 수 있는 가장 좋은 방법은 앞에서 언급한 Google을 이용한 검색 또는 R 설치 시 자체적으로 내장되어 있는 도움말을 참고하는 것이 가장 효율적임. </div>\EndKnitrBlock{rmdtip}
 
  \normalsize
 
@@ -437,22 +442,38 @@ R 명령어 또는 전체 프로그램 소스 실행 시 매우 빈번히 오류
 
 \footnotesize
 
-\begin{table}[H]
-
-\caption{(\#tab:tab-help)R help 관련 명령어 리스트}
-\centering
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{l>{\raggedright\arraybackslash}p{5cm}l}
-\toprule
-도움말 보기 명령어 & 설명 & 사용법\\
-\midrule
-\cellcolor{gray!6}{`help` 또는 `?`} & \cellcolor{gray!6}{도움말 시스템 호출} & \cellcolor{gray!6}{`help(함수명)`}\\
-`help.search` 또는 `??` & 주어진 문자열을 포함한 문서 검색 & `help.search(pattern)`\\
-\cellcolor{gray!6}{`example`} & \cellcolor{gray!6}{topic의 도움말 페이지에 있는 examples section 실행} & \cellcolor{gray!6}{`example(함수명)`}\\
-`vignette` & topic의 pdf 또는 html 레퍼런스 메뉴얼 불러오기 & `vignette(패키지명 또는 패턴)`\\
-\bottomrule
-\end{tabular}
-\end{table}
+<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">(\#tab:tab-help)R help 관련 명령어 리스트</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> 도움말 보기 명령어 </th>
+   <th style="text-align:left;"> 설명 </th>
+   <th style="text-align:left;"> 사용법 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> `help` 또는 `?` </td>
+   <td style="text-align:left;width: 5cm; "> 도움말 시스템 호출 </td>
+   <td style="text-align:left;"> `help(함수명)` </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `help.search` 또는 `??` </td>
+   <td style="text-align:left;width: 5cm; "> 주어진 문자열을 포함한 문서 검색 </td>
+   <td style="text-align:left;"> `help.search(pattern)` </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `example` </td>
+   <td style="text-align:left;width: 5cm; "> topic의 도움말 페이지에 있는 examples section 실행 </td>
+   <td style="text-align:left;"> `example(함수명)` </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> `vignette` </td>
+   <td style="text-align:left;width: 5cm; "> topic의 pdf 또는 html 레퍼런스 메뉴얼 불러오기 </td>
+   <td style="text-align:left;"> `vignette(패키지명 또는 패턴)` </td>
+  </tr>
+</tbody>
+</table>
 
  \normalsize
 
@@ -460,29 +481,24 @@ R 명령어 또는 전체 프로그램 소스 실행 시 매우 빈번히 오류
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}
-**Vignette** 의 활용: 데이터를 기반으로 사용하고자 하는 패키지의 실제 활용 예시를 작성한 문서이기 때문에 초보자들이 R 패키지 활용에 대한 접근성을 높혀줌.
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">**Vignette** 의 활용: 데이터를 기반으로 사용하고자 하는 패키지의 실제 활용 예시를 작성한 문서이기 때문에 초보자들이 R 패키지 활용에 대한 접근성을 높혀줌.
 
 - `vignette()`
 - `browseVignettes()`
-
-\EndKnitrBlock{rmdtip}
+</div>\EndKnitrBlock{rmdtip}
 
  \normalsize
 
 ## R script 편집기 사용{#rconsle-script}
 
-\BeginKnitrBlock{rmdimportant}
-**실습**: R 설치 후 Rgui 에서 제공하는 편집기(R editor)에 명령어를 입력하고 실행
-
-\EndKnitrBlock{rmdimportant}
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**실습**: R 설치 후 Rgui 에서 제공하는 편집기(R editor)에 명령어를 입력하고 실행
+</div>\EndKnitrBlock{rmdimportant}
 
 설치된 R을 실행 후 상단 pull-down 메뉴에서 [**File**] $\rightarrow$ [**새 스크립트**]를 선택하면 아래 그림과 같이 편집창(R 인스톨 시 SDI 옵션 기준)이 나타남
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=1\linewidth]{figures/r-console-edit} \end{center}
+<img src="figures/r-console-edit.png" width="100%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -509,16 +525,11 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
 
 \footnotesize
 
-
-```
-  speed dist
-1     4    2
-2     4   10
-3     7    4
-4     7   22
-5     8   16
-6     9   10
-```
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["speed"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["dist"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"4","2":"2","_rn_":"1"},{"1":"4","2":"10","_rn_":"2"},{"1":"7","2":"4","_rn_":"3"},{"1":"7","2":"22","_rn_":"4"},{"1":"8","2":"16","_rn_":"5"},{"1":"9","2":"10","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 
 ```
      speed           dist       
@@ -530,7 +541,10 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
  Max.   :25.0   Max.   :120.00  
 ```
 
-![(\#fig:check-edit-out)cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄.](01-introduction_files/figure-latex/check-edit-out-1.pdf) 
+<div class="figure">
+<img src="01-introduction_files/figure-html/check-edit-out-1.svg" alt="cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄." width="672" />
+<p class="caption">(\#fig:check-edit-out)cars 데이터셋의 speed와 dist 간 2차원 산점도: speed는 자동차 속도(mph)이고 dist는 해당 속도에서 브레이크를 밟았을 때 멈출 때 까지 걸린 거리(ft)를 나타냄.</p>
+</div>
 
  \normalsize
 
@@ -556,8 +570,7 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/rstudio-homepage} \end{center}
+<img src="figures/rstudio-homepage.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -568,8 +581,7 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
   
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.7\linewidth]{figures/rstudio-download} \end{center}
+<img src="figures/rstudio-download.png" width="70%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -577,8 +589,7 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.6\linewidth]{figures/r-studio-download-02} \end{center}
+<img src="figures/r-studio-download-02.png" width="60%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -588,8 +599,7 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
 
 \footnotesize
 
-
-\begin{center}\includegraphics{figures/Rstudio-installer} \end{center}
+<img src="figures/Rstudio-installer.png" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -597,8 +607,7 @@ plot(cars)  # 변수가 2개인 경우 산점도 출력
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/Rstudio-init} \end{center}
+<img src="figures/Rstudio-init.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -608,14 +617,10 @@ RStudio는 아래 그림과 같이 4개 창으로 구성^[각 창의 위치는 �
 
 \footnotesize
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{figures/Rstudio-cap1} 
-
-}
-
-\caption{RStudio 화면구성: 우하단 그림은 http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html 에서 발췌}(\#fig:rstudio-windows)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="figures/Rstudio-cap1.png" alt="RStudio 화면구성: 우하단 그림은 http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html 에서 발췌" width="90%" />
+<p class="caption">(\#fig:rstudio-windows)RStudio 화면구성: 우하단 그림은 http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html 에서 발췌</p>
+</div>
 
  \normalsize
 
@@ -627,14 +632,10 @@ RStudio는 아래 그림과 같이 4개 창으로 구성^[각 창의 위치는 �
 
 \footnotesize
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{figures/rstudio-console} 
-
-}
-
-\caption{RStudio 콘솔창에서 명령어 실행 후 출력결과 화면}(\#fig:rstudio-console)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="figures/rstudio-console.png" alt="RStudio 콘솔창에서 명령어 실행 후 출력결과 화면" width="80%" />
+<p class="caption">(\#fig:rstudio-console)RStudio 콘솔창에서 명령어 실행 후 출력결과 화면</p>
+</div>
 
  \normalsize
 
@@ -657,14 +658,10 @@ RStudio는 아래 그림과 같이 4개 창으로 구성^[각 창의 위치는 �
 
 \footnotesize
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{figures/rstudio-open-new-script} 
-
-}
-
-\caption{RStudio 스크립트 새로 열기}(\#fig:rstudio-new-script)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="figures/rstudio-open-new-script.png" alt="RStudio 스크립트 새로 열기" width="80%" />
+<p class="caption">(\#fig:rstudio-new-script)RStudio 스크립트 새로 열기</p>
+</div>
 
  \normalsize
 
@@ -672,10 +669,8 @@ RStudio는 아래 그림과 같이 4개 창으로 구성^[각 창의 위치는 �
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}
-RStudio는 코딩 및 소스 작성의 효율성을 위해 여러 가지 단축 키를 제공하고 있음. 단축키는 아래 그림과 같이 pull down 메뉴 `[Tools]` 또는 `[Help]`에서 `[Keyboard shortcut help]` 또는 `[Alt] + [Shift] + [K]` 단축키를 통해 확인할 수 있음. 또는 Rstudio cheatsheet에서 단축키에 대한 정보를 제공하는데 pull down 메뉴 `[Help]` $\rightarrow$ `[Cheatsheets]` $\rightarrow$ `[RStudio IDE Cheat Sheet]`을 선택하면 각 아이콘 및 메뉴 기능에 대한 개괄적 설명 확인 가능함. 
-
-\EndKnitrBlock{rmdtip}
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">RStudio는 코딩 및 소스 작성의 효율성을 위해 여러 가지 단축 키를 제공하고 있음. 단축키는 아래 그림과 같이 pull down 메뉴 `[Tools]` 또는 `[Help]`에서 `[Keyboard shortcut help]` 또는 `[Alt] + [Shift] + [K]` 단축키를 통해 확인할 수 있음. 또는 Rstudio cheatsheet에서 단축키에 대한 정보를 제공하는데 pull down 메뉴 `[Help]` $\rightarrow$ `[Cheatsheets]` $\rightarrow$ `[RStudio IDE Cheat Sheet]`을 선택하면 각 아이콘 및 메뉴 기능에 대한 개괄적 설명 확인 가능함. 
+</div>\EndKnitrBlock{rmdtip}
 
  \normalsize
 
@@ -687,14 +682,10 @@ RStudio는 코딩 및 소스 작성의 효율성을 위해 여러 가지 단축 
 
 \footnotesize
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{figures/rstudio-environment} 
-
-}
-
-\caption{RStudio Environment 창 객체 상세 정보 및 스프레드 시트 출력 결과}(\#fig:rstudio-env)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="figures/rstudio-environment.png" alt="RStudio Environment 창 객체 상세 정보 및 스프레드 시트 출력 결과" width="90%" />
+<p class="caption">(\#fig:rstudio-env)RStudio Environment 창 객체 상세 정보 및 스프레드 시트 출력 결과</p>
+</div>
 
  \normalsize
 
@@ -702,8 +693,7 @@ RStudio는 코딩 및 소스 작성의 효율성을 위해 여러 가지 단축 
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/Rstudio-historywin} \end{center}
+<img src="figures/Rstudio-historywin.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -714,8 +704,7 @@ RStudio는 코딩 및 소스 작성의 효율성을 위해 여러 가지 단축 
       
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/Rstudio-file} \end{center}
+<img src="figures/Rstudio-file.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -726,8 +715,7 @@ RStudio는 코딩 및 소스 작성의 효율성을 위해 여러 가지 단축 
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/RStudio-plotwin} \end{center}
+<img src="figures/RStudio-plotwin.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -736,8 +724,7 @@ RStudio는 코딩 및 소스 작성의 효율성을 위해 여러 가지 단축 
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/RStudio-packagewin} \end{center}
+<img src="figures/RStudio-packagewin.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -754,8 +741,7 @@ help(lm)
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/RStudio-helpwin} \end{center}
+<img src="figures/RStudio-helpwin.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -765,8 +751,7 @@ Pull-down 메뉴에서 `[Tools]` $\rightarrow$ `[Global Options...]`를 선택
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/rstudio-glob-menu} \end{center}
+<img src="figures/rstudio-glob-menu.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -775,14 +760,10 @@ Pull-down 메뉴에서 `[Tools]` $\rightarrow$ `[Global Options...]`를 선택
 
 \footnotesize
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{figures/rstudio-glob-option} 
-
-}
-
-\caption{R General option 팝업 창}(\#fig:rstudio-glob-option)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="figures/rstudio-glob-option.png" alt="R General option 팝업 창" width="80%" />
+<p class="caption">(\#fig:rstudio-glob-option)R General option 팝업 창</p>
+</div>
 
  \normalsize
 
@@ -809,8 +790,7 @@ Pull-down 메뉴에서 `[Tools]` $\rightarrow$ `[Global Options...]`를 선택
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/rstudio-wd-setting} \end{center}
+<img src="figures/rstudio-wd-setting.JPG" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -883,33 +863,36 @@ dir()
 [13] "05-rmarkdown-more.Rmd"               
 [14] "06-file-import-export.Rmd"           
 [15] "07-control-flow.Rmd"                 
-[16] "11-references.Rmd"                   
-[17] "2020"                                
-[18] "assignment"                          
-[19] "book.bib"                            
-[20] "cnu-r-programming-lecture-note.Rproj"
-[21] "cnu-r-programming.log"               
-[22] "cnu-r-programming.rds"               
-[23] "code"                                
-[24] "css"                                 
-[25] "data"                                
-[26] "dataset"                             
-[27] "dataset.zip"                         
-[28] "demo"                                
-[29] "docs"                                
-[30] "examples"                            
-[31] "figures"                             
-[32] "images"                              
-[33] "index.md"                            
-[34] "index.Rmd"                           
-[35] "init-funs"                           
-[36] "krantz.cls"                          
-[37] "latex"                               
-[38] "output"                              
-[39] "packages.bib"                        
-[40] "README.md"                           
-[41] "renderd59011ea8791.rds"              
-[42] "test"                                
+[16] "08-algorithms.Rmd"                   
+[17] "11-references.Rmd"                   
+[18] "2020"                                
+[19] "assignment"                          
+[20] "book.bib"                            
+[21] "cnu-r-programming-lecture-note.Rproj"
+[22] "cnu-r-programming.log"               
+[23] "cnu-r-programming.rds"               
+[24] "cnu-r-programming.tex"               
+[25] "code"                                
+[26] "css"                                 
+[27] "data"                                
+[28] "dataset"                             
+[29] "dataset.zip"                         
+[30] "demo"                                
+[31] "docs"                                
+[32] "examples"                            
+[33] "figures"                             
+[34] "images"                              
+[35] "index.md"                            
+[36] "index.Rmd"                           
+[37] "init-funs"                           
+[38] "krantz.cls"                          
+[39] "latex"                               
+[40] "output"                              
+[41] "packages.bib"                        
+[42] "README.md"                           
+[43] "rendera189f3a47b9.rds"               
+[44] "test"                                
+[45] "video"                               
 ```
 
 ```r
@@ -968,33 +951,36 @@ getwd(); dir()
 [13] "05-rmarkdown-more.Rmd"               
 [14] "06-file-import-export.Rmd"           
 [15] "07-control-flow.Rmd"                 
-[16] "11-references.Rmd"                   
-[17] "2020"                                
-[18] "assignment"                          
-[19] "book.bib"                            
-[20] "cnu-r-programming-lecture-note.Rproj"
-[21] "cnu-r-programming.log"               
-[22] "cnu-r-programming.rds"               
-[23] "code"                                
-[24] "css"                                 
-[25] "data"                                
-[26] "dataset"                             
-[27] "dataset.zip"                         
-[28] "demo"                                
-[29] "docs"                                
-[30] "examples"                            
-[31] "figures"                             
-[32] "images"                              
-[33] "index.md"                            
-[34] "index.Rmd"                           
-[35] "init-funs"                           
-[36] "krantz.cls"                          
-[37] "latex"                               
-[38] "output"                              
-[39] "packages.bib"                        
-[40] "README.md"                           
-[41] "renderd59011ea8791.rds"              
-[42] "test"                                
+[16] "08-algorithms.Rmd"                   
+[17] "11-references.Rmd"                   
+[18] "2020"                                
+[19] "assignment"                          
+[20] "book.bib"                            
+[21] "cnu-r-programming-lecture-note.Rproj"
+[22] "cnu-r-programming.log"               
+[23] "cnu-r-programming.rds"               
+[24] "cnu-r-programming.tex"               
+[25] "code"                                
+[26] "css"                                 
+[27] "data"                                
+[28] "dataset"                             
+[29] "dataset.zip"                         
+[30] "demo"                                
+[31] "docs"                                
+[32] "examples"                            
+[33] "figures"                             
+[34] "images"                              
+[35] "index.md"                            
+[36] "index.Rmd"                           
+[37] "init-funs"                           
+[38] "krantz.cls"                          
+[39] "latex"                               
+[40] "output"                              
+[41] "packages.bib"                        
+[42] "README.md"                           
+[43] "rendera189f3a47b9.rds"               
+[44] "test"                                
+[45] "video"                               
 ```
 
  \normalsize
@@ -1002,12 +988,10 @@ getwd(); dir()
 
 \footnotesize
 
-\BeginKnitrBlock{rmdcaution}
-R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하는 구분자는 `\`인데, R에서 `\`는 특수문자로 간주하기 때문에 Windows 의 폴더명을 그대로 사용 시 에러 메세지를 출력함. 이를 해결하기 위해 Windows 경로명을 그대로 복사한 경우 경로 구분자 `\` 대신 `\\`로 변경
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하는 구분자는 `\`인데, R에서 `\`는 특수문자로 간주하기 때문에 Windows 의 폴더명을 그대로 사용 시 에러 메세지를 출력함. 이를 해결하기 위해 Windows 경로명을 그대로 복사한 경우 경로 구분자 `\` 대신 `\\`로 변경
 
 **실습**:  R 에서 폴더 경로 자유롭게 이동해 보기
-
-\EndKnitrBlock{rmdcaution}
+</div>\EndKnitrBlock{rmdcaution}
 
  \normalsize
 
@@ -1017,8 +1001,7 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/rstudio-code-edit-option} \end{center}
+<img src="figures/rstudio-code-edit-option.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1036,8 +1019,7 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/rstudio-code-display} \end{center}
+<img src="figures/rstudio-code-display.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1057,8 +1039,7 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/rstudio-code-saving} \end{center}
+<img src="figures/rstudio-code-saving.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1075,8 +1056,7 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/rstudio-appearance} \end{center}
+<img src="figures/rstudio-appearance.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1088,17 +1068,14 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/rstudio-pane-layout} \end{center}
+<img src="figures/rstudio-pane-layout.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
 
 \footnotesize
 
-\BeginKnitrBlock{rmdimportant}
-**실습**: 개인 취향에 맞게 RStudio 에디터 및 theme을 변경해 보자!!
-\EndKnitrBlock{rmdimportant}
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**실습**: 개인 취향에 맞게 RStudio 에디터 및 theme을 변경해 보자!!</div>\EndKnitrBlock{rmdimportant}
 
  \normalsize
 
@@ -1126,8 +1103,7 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/R-newproject-01} \end{center}
+<img src="figures/R-newproject-01.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1135,8 +1111,7 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/R-newproject-02} \end{center}
+<img src="figures/R-newproject-02.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1145,8 +1120,7 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/R-newproject-03} \end{center}
+<img src="figures/R-newproject-03.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1154,27 +1128,23 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-\BeginKnitrBlock{rmdimportant}
-**실습**: 프로젝트 생성
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**실습**: 프로젝트 생성
 
    - 위에서 설정한 작업폴더 내에 `학번-r-programming` 프로젝트 생성
    - 생성한 프로젝트 폴더 내에 `docs`, `figures`, `script` 폴더 생성
-
-\EndKnitrBlock{rmdimportant}
+</div>\EndKnitrBlock{rmdimportant}
 
  \normalsize
 
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}
-
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">
 [**RStudio Cloud**](https://rstudio.cloud) 사용
 
 - R의 구동 환경은 Windows 보다는 Linux 운영 환경에 최적화됨
 - 온라인에서 리눅스 환경의 R Studio 사용 가능
-
-\EndKnitrBlock{rmdtip}
+</div>\EndKnitrBlock{rmdtip}
 
  \normalsize
 
@@ -1184,16 +1154,14 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}
-**R 패키지(package)**: 특수 목적을 위한 로직으로 구성된 코드들의 집합으로 R에서 구동되는 분석툴을 통칭
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">**R 패키지(package)**: 특수 목적을 위한 로직으로 구성된 코드들의 집합으로 R에서 구동되는 분석툴을 통칭
 
    - CRAN을 통해 배포: 3자가 이용하기 쉬움 $\rightarrow$ R 시스템 환경에서 패키지는 가장 중요한 역할
    - CRAN [available package by name](https://cran.r-project.org/web/packages/available_packages_by_date.html) 또는 [available package by    date](https://cran.r-project.org/web/packages/available_packages_by_name.html)에서 현재 등재된 패키지 리스트 확인 가능
    - R console에서 `available.packages()` 함수를 통해서도 확인 가능
    - 현재 CRAN 기준(2020-03-17) 배포된 패키지의 개수는 16045 개임
 
-**목적**: RStudio 환경에서 패키지를 설치하고 불러오기
-\EndKnitrBlock{rmdnote}
+**목적**: RStudio 환경에서 패키지를 설치하고 불러오기</div>\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -1212,9 +1180,7 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 ```
 [1] "/home/user/R/x86_64-pc-linux-gnu-library/4.0"
-[2] "/usr/local/lib/R/site-library"               
-[3] "/usr/lib/R/site-library"                     
-[4] "/usr/lib/R/library"                          
+[2] "/opt/R/4.0.3/lib/R/library"                  
 ```
 
  \normalsize
@@ -1230,8 +1196,7 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/window-env-system} \end{center}
+<img src="figures/window-env-system.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1239,8 +1204,7 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/window-env-var} \end{center}
+<img src="figures/window-env-var.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1248,8 +1212,7 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.9\linewidth]{figures/window-new-system-var} \end{center}
+<img src="figures/window-new-system-var.png" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1265,8 +1228,7 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/rstudio-package-install} \end{center}
+<img src="figures/rstudio-package-install.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1274,8 +1236,7 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/rstudio-pack-win-02} \end{center}
+<img src="figures/rstudio-pack-win-02.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1283,9 +1244,7 @@ R에서 디렉토리 또는 폴더 구분자는 `/` 임. Windows에서 사용하
 
 \footnotesize
 
-\BeginKnitrBlock{rmdimportant}
-**실습**: `install.packages()` 함수를 이용해 `tidyverse` 패키지 설치
-\EndKnitrBlock{rmdimportant}
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**실습**: `install.packages()` 함수를 이용해 `tidyverse` 패키지 설치</div>\EndKnitrBlock{rmdimportant}
 
  \normalsize
 
@@ -1313,9 +1272,7 @@ install.packages("tidyverse")
 
 \footnotesize
 
-\BeginKnitrBlock{rmdimportant}
-**실습**: `tidyverse` 패키지 불러오기
-\EndKnitrBlock{rmdimportant}
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**실습**: `tidyverse` 패키지 불러오기</div>\EndKnitrBlock{rmdimportant}
 
  \normalsize
 
@@ -1330,9 +1287,7 @@ require(tidyverse)
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}
-실무에서 R의 활용능력은 패키지 활용 여부에 달려 있음. 즉, 목적에 맞는 업무를 수행하기 위해 가장 적합한 패키지를 찾고 활용하느냐에 따라 R 활용능력의 차이를 보임. 앞서 언급한 바와 같이 CRAN에 등록된 패키지는 16000 개가 넘지만, 이 중 많이 활용되고 있는 패키지의 수는 약 200 ~ 300 개 내외이고, 실제 데이터 분석 시 10 ~ 20개 정도의 패키지가 사용됨. 앞 예제에서 설치하고 불러온 `tidyverse` 패키지는 Hadley Wickham [@tidyverse2019]이 개발한 데이터 전처리 및 시각화 패키지 번들임. 해당 패키지에 대한 자세한 내용은 2학기 "통계패키지활용" 수업에 다룰 예정임
-\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">실무에서 R의 활용능력은 패키지 활용 여부에 달려 있음. 즉, 목적에 맞는 업무를 수행하기 위해 가장 적합한 패키지를 찾고 활용하느냐에 따라 R 활용능력의 차이를 보임. 앞서 언급한 바와 같이 CRAN에 등록된 패키지는 16000 개가 넘지만, 이 중 많이 활용되고 있는 패키지의 수는 약 200 ~ 300 개 내외이고, 실제 데이터 분석 시 10 ~ 20개 정도의 패키지가 사용됨. 앞 예제에서 설치하고 불러온 `tidyverse` 패키지는 Hadley Wickham [@tidyverse2019]이 개발한 데이터 전처리 및 시각화 패키지 번들임. 해당 패키지에 대한 자세한 내용은 2학기 "통계패키지활용" 수업에 다룰 예정임</div>\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -1340,11 +1295,9 @@ require(tidyverse)
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}
-본 절에서 다루는 R 문법은 R 입문 시 객체(object)의 명명 규칙과 R 콘솔 창에서 가장 빈번하게 사용되는 기초적인 명령어만 다룰 예정임. 
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">본 절에서 다루는 R 문법은 R 입문 시 객체(object)의 명명 규칙과 R 콘솔 창에서 가장 빈번하게 사용되는 기초적인 명령어만 다룰 예정임. 
 자세한 내용은 2-3주 차에 다룰 예정. 
-
-\EndKnitrBlock{rmdnote}
+</div>\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -1354,8 +1307,7 @@ require(tidyverse)
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}
-알아두면 유용한(콘솔창에서 매우 많이 사용되는) 명령어 및 단축키
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">알아두면 유용한(콘솔창에서 매우 많이 사용되는) 명령어 및 단축키
 
 - `ls()`: 현재 R 작업공간에 저장된 모든 객체 리스트 출력
 - `rm(object_name)`: `object_name`에 해당하는 객체 삭제
@@ -1363,8 +1315,7 @@ require(tidyverse)
 - 단축키 `[Ctrl] + [L]`: R 콘솔 창 일괄 청소
 - 단축키 `[Ctrl] + [Shift] + [F10]`: R session 초기화
 
-**예시**
-\EndKnitrBlock{rmdtip}
+**예시**</div>\EndKnitrBlock{rmdtip}
 
  \normalsize
 
@@ -1587,10 +1538,8 @@ Error in 0.3 <- 10: 대입에 유효하지 않은 (do_set) 좌변입니다
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}
-[R 기초 문법] 절과 마찬가지로 R Markdown을 이용해 최소한의 문서(`html` 문서)를 작성하고 생성하는 방법에 대해 기술함. 
-R Markdown에 대한 보다 상세한 내용은 9주차에 다룰 예정임. 
-\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">[R 기초 문법] 절과 마찬가지로 R Markdown을 이용해 최소한의 문서(`html` 문서)를 작성하고 생성하는 방법에 대해 기술함. 
+R Markdown에 대한 보다 상세한 내용은 9주차에 다룰 예정임. </div>\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -1608,14 +1557,10 @@ R Markdown에 대한 보다 상세한 내용은 9주차에 다룰 예정임.
 
 \footnotesize
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.6\linewidth]{figures/rmarkdown-flow} 
-
-}
-
-\caption{R Markdown의 최종 결과물 산출과정(http://applied-r.com/project-reporting-template/)}(\#fig:rmarkdown-flow)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="figures/rmarkdown-flow.png" alt="R Markdown의 최종 결과물 산출과정(http://applied-r.com/project-reporting-template/)" width="60%" />
+<p class="caption">(\#fig:rmarkdown-flow)R Markdown의 최종 결과물 산출과정(http://applied-r.com/project-reporting-template/)</p>
+</div>
 
  \normalsize
 
@@ -1625,16 +1570,13 @@ R Markdown에 대한 보다 상세한 내용은 9주차에 다룰 예정임.
 
 \footnotesize
 
-\BeginKnitrBlock{rmdcaution}
-RStudio를 처음 설치하고 위와 같이 진행할 경우 아래와 같은 패키지 설치 여부를 묻는 팝업 창이 나타남. 패키지 설치 여부에 `[Yes]`를 클릭하면 R Markdown 문서 생성을 위해 필요한 패키지들이 자동으로 설치
-\EndKnitrBlock{rmdcaution}
+\BeginKnitrBlock{rmdcaution}<div class="rmdcaution">RStudio를 처음 설치하고 위와 같이 진행할 경우 아래와 같은 패키지 설치 여부를 묻는 팝업 창이 나타남. 패키지 설치 여부에 `[Yes]`를 클릭하면 R Markdown 문서 생성을 위해 필요한 패키지들이 자동으로 설치</div>\EndKnitrBlock{rmdcaution}
 
  \normalsize
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/rmarkdown-new-01} \end{center}
+<img src="figures/rmarkdown-new-01.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1642,8 +1584,7 @@ RStudio를 처음 설치하고 위와 같이 진행할 경우 아래와 같은 �
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/rmarkdown-new-02} \end{center}
+<img src="figures/rmarkdown-new-02.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1651,8 +1592,7 @@ RStudio를 처음 설치하고 위와 같이 진행할 경우 아래와 같은 �
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/rmarkdown-new-03} \end{center}
+<img src="figures/rmarkdown-new-03.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1660,8 +1600,7 @@ RStudio를 처음 설치하고 위와 같이 진행할 경우 아래와 같은 �
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/rmarkdown-new-04} \end{center}
+<img src="figures/rmarkdown-new-04.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1669,14 +1608,10 @@ RStudio를 처음 설치하고 위와 같이 진행할 경우 아래와 같은 �
 
 \footnotesize
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{figures/rmarkdown-new-out} 
-
-}
-
-\caption{test.html 문서 화면(저장 폴더 내 `test.html`을 크롬 브라우저로 실행)}(\#fig:rmarkdown-new-out)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="figures/rmarkdown-new-out.png" alt="test.html 문서 화면(저장 폴더 내 `test.html`을 크롬 브라우저로 실행)" width="80%" />
+<p class="caption">(\#fig:rmarkdown-new-out)test.html 문서 화면(저장 폴더 내 `test.html`을 크롬 브라우저로 실행)</p>
+</div>
 
  \normalsize
 
@@ -1686,8 +1621,7 @@ R Markdown 문서는 아래 그림과 같이 **YAML**, **Markdown 텍스트**, *
 
 \footnotesize
 
-
-\begin{center}\includegraphics[width=0.8\linewidth]{figures/rmarkdown-part} \end{center}
+<img src="figures/rmarkdown-part.png" width="80%" style="display: block; margin: auto;" />
 
  \normalsize
 
@@ -1758,7 +1692,7 @@ plot(cars)
 abline(fit)
 ```
 
-![](01-introduction_files/figure-latex/unnamed-chunk-45-1.pdf)<!-- --> 
+<img src="01-introduction_files/figure-html/unnamed-chunk-45-1.svg" width="672" />
 
  \normalsize
 
@@ -1771,16 +1705,14 @@ abline(fit)
 knitr::include_graphics(rep('figures/knit-logo.png', 3))
 ```
 
-
-\includegraphics[width=0.328\linewidth]{figures/knit-logo} \includegraphics[width=0.328\linewidth]{figures/knit-logo} \includegraphics[width=0.328\linewidth]{figures/knit-logo} 
+<img src="figures/knit-logo.png" width="32.8%" /><img src="figures/knit-logo.png" width="32.8%" /><img src="figures/knit-logo.png" width="32.8%" />
 
  \normalsize
 
 
 \footnotesize
 
-\BeginKnitrBlock{rmdimportant}
-
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">
 **Homework 1**: R Markdown 문서에 아래 내용을 포함한 문서를 `html` 파일 형식으로 출력 후 제출
 
    - 간략한 자기소개 및 "통계 프로그래밍 언어" 수업에 대한 본인만의 목표 기술
@@ -1788,11 +1720,12 @@ knitr::include_graphics(rep('figures/knit-logo.png', 3))
    - 현재 R 작업폴더(처음 R 시작 시 디폴트로 설정된 폴더) 및 작업폴더 내에 있는 파일명 출력
    - 현재 R 작업폴더에서 차상위 폴더의 파일명 출력
    - 패키지 `ggplot2` 패키지 설치 후 `cars` 데이터셋의 2차원 산점도(**hint**: `help(geom_point)` 또는 googling 활용)를 문서에 포함
-
-\EndKnitrBlock{rmdimportant}
+</div>\EndKnitrBlock{rmdimportant}
 
  \normalsize
 
 
+<!--  -->
+<!-- # References {-} -->
 <!--  -->
 

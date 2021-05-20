@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2021-05-13" />
+<meta name="date" content="2021-05-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -332,6 +332,18 @@ div.csl-indent {
 <li class="chapter" data-level="7.3.4" data-path="function.html"><a href="function.html#함수의-적용-범위scoping-rule"><i class="fa fa-check"></i><b>7.3.4</b> 함수의 적용 범위(scoping rule)</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="몇-가지-기초적인-알고리즘.html"><a href="몇-가지-기초적인-알고리즘.html"><i class="fa fa-check"></i><b>8</b> 몇 가지 기초적인 알고리즘</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="알고리즘algorithm.html"><a href="알고리즘algorithm.html"><i class="fa fa-check"></i><b>8.1</b> 알고리즘(Algorithm)</a></li>
+<li class="chapter" data-level="8.2" data-path="재귀함수recursive-function.html"><a href="재귀함수recursive-function.html"><i class="fa fa-check"></i><b>8.2</b> 재귀함수(Recursive function)</a></li>
+<li class="chapter" data-level="8.3" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html"><i class="fa fa-check"></i><b>8.3</b> 선형/이진 탐색(Linear/Binary search)</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#선형-탐색linear-search"><i class="fa fa-check"></i><b>8.3.1</b> 선형 탐색(Linear Search)</a></li>
+<li class="chapter" data-level="8.3.2" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#이진-탐색binary-search"><i class="fa fa-check"></i><b>8.3.2</b> 이진 탐색(Binary Search)</a></li>
+<li class="chapter" data-level="8.3.3" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#선형탐색과-이진탐색-비교"><i class="fa fa-check"></i><b>8.3.3</b> 선형탐색과 이진탐색 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html"><i class="fa fa-check"></i><b>8.4</b> 뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm)</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -557,37 +569,37 @@ lambda (<span class="math inline">\(\lambda\)</span>)
 </table>
 <p></p>
 <p><strong>예제: 확률 분포 함수</strong></p>
-<div class="sourceCode" id="cb1250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1250-1"><a href="통계-분포-함수.html#cb1250-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 카이제곱분포 </span></span>
-<span id="cb1250-2"><a href="통계-분포-함수.html#cb1250-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
-<span id="cb1250-3"><a href="통계-분포-함수.html#cb1250-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dchisq</span>(x, <span class="at">df =</span> <span class="dv">3</span>) <span class="co"># 자유도가 3인 카이제곱분포 밀도 함수</span></span>
-<span id="cb1250-4"><a href="통계-분포-함수.html#cb1250-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
-<span id="cb1250-5"><a href="통계-분포-함수.html#cb1250-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>, </span>
-<span id="cb1250-6"><a href="통계-분포-함수.html#cb1250-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, </span>
-<span id="cb1250-7"><a href="통계-분포-함수.html#cb1250-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;PDF of &quot;</span>, <span class="sc">~</span>chi<span class="sc">^</span><span class="dv">2</span>, <span class="st">&quot; distribution&quot;</span>)), </span>
-<span id="cb1250-8"><a href="통계-분포-함수.html#cb1250-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>, </span>
-<span id="cb1250-9"><a href="통계-분포-함수.html#cb1250-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> <span class="dv">2</span>)</span>
-<span id="cb1250-10"><a href="통계-분포-함수.html#cb1250-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1250-11"><a href="통계-분포-함수.html#cb1250-11" aria-hidden="true" tabindex="-1"></a><span class="co"># P(5 &lt; V &lt; 10)</span></span>
-<span id="cb1250-12"><a href="통계-분포-함수.html#cb1250-12" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="dv">10</span>, <span class="at">df =</span> <span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="dv">5</span>, <span class="at">df =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1280-1"><a href="통계-분포-함수.html#cb1280-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 카이제곱분포 </span></span>
+<span id="cb1280-2"><a href="통계-분포-함수.html#cb1280-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb1280-3"><a href="통계-분포-함수.html#cb1280-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dchisq</span>(x, <span class="at">df =</span> <span class="dv">3</span>) <span class="co"># 자유도가 3인 카이제곱분포 밀도 함수</span></span>
+<span id="cb1280-4"><a href="통계-분포-함수.html#cb1280-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb1280-5"><a href="통계-분포-함수.html#cb1280-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>, </span>
+<span id="cb1280-6"><a href="통계-분포-함수.html#cb1280-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb1280-7"><a href="통계-분포-함수.html#cb1280-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;PDF of &quot;</span>, <span class="sc">~</span>chi<span class="sc">^</span><span class="dv">2</span>, <span class="st">&quot; distribution&quot;</span>)), </span>
+<span id="cb1280-8"><a href="통계-분포-함수.html#cb1280-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb1280-9"><a href="통계-분포-함수.html#cb1280-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> <span class="dv">2</span>)</span>
+<span id="cb1280-10"><a href="통계-분포-함수.html#cb1280-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1280-11"><a href="통계-분포-함수.html#cb1280-11" aria-hidden="true" tabindex="-1"></a><span class="co"># P(5 &lt; V &lt; 10)</span></span>
+<span id="cb1280-12"><a href="통계-분포-함수.html#cb1280-12" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="dv">10</span>, <span class="at">df =</span> <span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="dv">5</span>, <span class="at">df =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>[1] 0.153231</code></pre>
-<div class="sourceCode" id="cb1252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1252-1"><a href="통계-분포-함수.html#cb1252-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 그림에 표현</span></span>
-<span id="cb1252-2"><a href="통계-분포-함수.html#cb1252-2" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> x <span class="sc">&gt;=</span> <span class="dv">5</span> <span class="sc">&amp;</span> x <span class="sc">&lt;=</span> <span class="dv">10</span></span>
-<span id="cb1252-3"><a href="통계-분포-함수.html#cb1252-3" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(<span class="dv">5</span>, x[idx], <span class="dv">10</span>), </span>
-<span id="cb1252-4"><a href="통계-분포-함수.html#cb1252-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">0</span>, y[idx], <span class="dv">0</span>), </span>
-<span id="cb1252-5"><a href="통계-분포-함수.html#cb1252-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, </span>
-<span id="cb1252-6"><a href="통계-분포-함수.html#cb1252-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="st">&quot;blue&quot;</span>)</span>
-<span id="cb1252-7"><a href="통계-분포-함수.html#cb1252-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;darkgray&quot;</span>)</span>
-<span id="cb1252-8"><a href="통계-분포-함수.html#cb1252-8" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">y =</span> <span class="fl">0.05</span>, <span class="at">cex =</span> <span class="dv">2</span>, </span>
-<span id="cb1252-9"><a href="통계-분포-함수.html#cb1252-9" aria-hidden="true" tabindex="-1"></a>     <span class="fu">bquote</span>(<span class="fu">P</span>({<span class="dv">5</span> <span class="sc">&lt;=</span> V} <span class="sc">&lt;=</span> <span class="dv">10</span> ) <span class="sc">==</span></span>
-<span id="cb1252-10"><a href="통계-분포-함수.html#cb1252-10" aria-hidden="true" tabindex="-1"></a>              .(<span class="fu">sprintf</span>(<span class="st">&quot;%.3f&quot;</span>, <span class="fu">pchisq</span>(<span class="dv">10</span>, <span class="at">df =</span> <span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="dv">5</span>, <span class="at">df =</span> <span class="dv">3</span>)))),</span>
-<span id="cb1252-11"><a href="통계-분포-함수.html#cb1252-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">adj =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1282-1"><a href="통계-분포-함수.html#cb1282-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 그림에 표현</span></span>
+<span id="cb1282-2"><a href="통계-분포-함수.html#cb1282-2" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> x <span class="sc">&gt;=</span> <span class="dv">5</span> <span class="sc">&amp;</span> x <span class="sc">&lt;=</span> <span class="dv">10</span></span>
+<span id="cb1282-3"><a href="통계-분포-함수.html#cb1282-3" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(<span class="dv">5</span>, x[idx], <span class="dv">10</span>), </span>
+<span id="cb1282-4"><a href="통계-분포-함수.html#cb1282-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">0</span>, y[idx], <span class="dv">0</span>), </span>
+<span id="cb1282-5"><a href="통계-분포-함수.html#cb1282-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb1282-6"><a href="통계-분포-함수.html#cb1282-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">border =</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb1282-7"><a href="통계-분포-함수.html#cb1282-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;darkgray&quot;</span>)</span>
+<span id="cb1282-8"><a href="통계-분포-함수.html#cb1282-8" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">y =</span> <span class="fl">0.05</span>, <span class="at">cex =</span> <span class="dv">2</span>, </span>
+<span id="cb1282-9"><a href="통계-분포-함수.html#cb1282-9" aria-hidden="true" tabindex="-1"></a>     <span class="fu">bquote</span>(<span class="fu">P</span>({<span class="dv">5</span> <span class="sc">&lt;=</span> V} <span class="sc">&lt;=</span> <span class="dv">10</span> ) <span class="sc">==</span></span>
+<span id="cb1282-10"><a href="통계-분포-함수.html#cb1282-10" aria-hidden="true" tabindex="-1"></a>              .(<span class="fu">sprintf</span>(<span class="st">&quot;%.3f&quot;</span>, <span class="fu">pchisq</span>(<span class="dv">10</span>, <span class="at">df =</span> <span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="dv">5</span>, <span class="at">df =</span> <span class="dv">3</span>)))),</span>
+<span id="cb1282-11"><a href="통계-분포-함수.html#cb1282-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">adj =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><img src="04-math-distribution-functions_files/figure-html/unnamed-chunk-8-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb1253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1253-1"><a href="통계-분포-함수.html#cb1253-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 분위수</span></span>
-<span id="cb1253-2"><a href="통계-분포-함수.html#cb1253-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qchisq</span>(<span class="fu">pchisq</span>(<span class="dv">10</span>, <span class="at">df =</span> <span class="dv">3</span>), <span class="at">df =</span> <span class="dv">3</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb1283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1283-1"><a href="통계-분포-함수.html#cb1283-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 분위수</span></span>
+<span id="cb1283-2"><a href="통계-분포-함수.html#cb1283-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qchisq</span>(<span class="fu">pchisq</span>(<span class="dv">10</span>, <span class="at">df =</span> <span class="dv">3</span>), <span class="at">df =</span> <span class="dv">3</span>) </span></code></pre></div>
 <pre><code>[1] 10</code></pre>
-<div class="sourceCode" id="cb1255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1255-1"><a href="통계-분포-함수.html#cb1255-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 난수 생성</span></span>
-<span id="cb1255-2"><a href="통계-분포-함수.html#cb1255-2" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">rchisq</span>(<span class="dv">1000</span>, <span class="at">df =</span> <span class="dv">3</span>)</span>
-<span id="cb1255-3"><a href="통계-분포-함수.html#cb1255-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(v) <span class="co"># 카이제곱분포의 평균은 이론적으로 자유도 값과 같음 </span></span></code></pre></div>
+<div class="sourceCode" id="cb1285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1285-1"><a href="통계-분포-함수.html#cb1285-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 난수 생성</span></span>
+<span id="cb1285-2"><a href="통계-분포-함수.html#cb1285-2" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">rchisq</span>(<span class="dv">1000</span>, <span class="at">df =</span> <span class="dv">3</span>)</span>
+<span id="cb1285-3"><a href="통계-분포-함수.html#cb1285-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(v) <span class="co"># 카이제곱분포의 평균은 이론적으로 자유도 값과 같음 </span></span></code></pre></div>
 <pre><code>[1] 2.994</code></pre>
 <p></p>
 </div>

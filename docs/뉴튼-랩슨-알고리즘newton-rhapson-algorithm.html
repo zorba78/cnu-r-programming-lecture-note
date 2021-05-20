@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8.4 뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm) | 통계 프로그래밍 언어</title>
+  <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8.4 뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm) | 통계 프로그래밍 언어" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8.4 뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm) | 통계 프로그래밍 언어" />
+  
+  <meta name="twitter:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  
+
+<meta name="author" content="한국한의학연구원, 구본초" />
+
+
+<meta name="date" content="2021-05-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="선형이진-탐색linearbinary-search.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">통계 프로그래밍 언어</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Overview</a></li>
+<li class="part"><span><b>I Get Started</b></span></li>
+<li class="chapter" data-level="1" data-path="intro-chap.html"><a href="intro-chap.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1.1</b> R 설치하기</a></li>
+<li class="chapter" data-level="1.2" data-path="r-check.html"><a href="r-check.html"><i class="fa fa-check"></i><b>1.2</b> R 시작 및 작동 체크</a></li>
+<li class="chapter" data-level="1.3" data-path="rconsle-script.html"><a href="rconsle-script.html"><i class="fa fa-check"></i><b>1.3</b> R script 편집기 사용</a></li>
+<li class="chapter" data-level="1.4" data-path="r-studio.html"><a href="r-studio.html"><i class="fa fa-check"></i><b>1.4</b> RStudio</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="r-studio.html"><a href="r-studio.html#rstudio-install"><i class="fa fa-check"></i><b>1.4.1</b> RStudio 설치하기</a></li>
+<li class="chapter" data-level="1.4.2" data-path="r-studio.html"><a href="r-studio.html#rstudio-component"><i class="fa fa-check"></i><b>1.4.2</b> RStudio IDE 화면 구성</a></li>
+<li class="chapter" data-level="1.4.3" data-path="r-studio.html"><a href="r-studio.html#rstudio-glob-options"><i class="fa fa-check"></i><b>1.4.3</b> RStudio 환경 설정</a></li>
+<li class="chapter" data-level="1.4.4" data-path="r-studio.html"><a href="r-studio.html#rstudio-project"><i class="fa fa-check"></i><b>1.4.4</b> RStudio 프로젝트</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="r-package.html"><a href="r-package.html"><i class="fa fa-check"></i><b>1.5</b> R 패키지</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="r-package.html"><a href="r-package.html#r-package-path"><i class="fa fa-check"></i><b>1.5.1</b> R 패키지 경로 확인 및 변경</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-package.html"><a href="r-package.html#r-package-install"><i class="fa fa-check"></i><b>1.5.2</b> R 패키지 설치하기</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-package.html"><a href="r-package.html#r-package-load"><i class="fa fa-check"></i><b>1.5.3</b> R 패키지 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basic.html"><a href="r-basic.html"><i class="fa fa-check"></i><b>1.6</b> R 기초 문법</a></li>
+<li class="chapter" data-level="1.7" data-path="r-markdown-get-start.html"><a href="r-markdown-get-start.html"><i class="fa fa-check"></i><b>1.7</b> R Markdown (맛보기)</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-type.html"><a href="data-type.html"><i class="fa fa-check"></i><b>2</b> R 객체(R object)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="프로그래밍.html"><a href="프로그래밍.html"><i class="fa fa-check"></i><b>2.1</b> 프로그래밍</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="프로그래밍.html"><a href="프로그래밍.html#prerequisites"><i class="fa fa-check"></i><b>2.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2.1.2" data-path="프로그래밍.html"><a href="프로그래밍.html#control-program"><i class="fa fa-check"></i><b>2.1.2</b> 프로그램</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="scalar.html"><a href="scalar.html"><i class="fa fa-check"></i><b>2.2</b> 스칼라(scalar)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="scalar.html"><a href="scalar.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> 선언</a></li>
+<li class="chapter" data-level="2.2.2" data-path="scalar.html"><a href="scalar.html#numeric"><i class="fa fa-check"></i><b>2.2.2</b> 숫자형</a></li>
+<li class="chapter" data-level="2.2.3" data-path="scalar.html"><a href="scalar.html#character"><i class="fa fa-check"></i><b>2.2.3</b> 문자형</a></li>
+<li class="chapter" data-level="2.2.4" data-path="scalar.html"><a href="scalar.html#logical"><i class="fa fa-check"></i><b>2.2.4</b> 논리형 스칼라</a></li>
+<li class="chapter" data-level="2.2.5" data-path="scalar.html"><a href="scalar.html#missing-value"><i class="fa fa-check"></i><b>2.2.5</b> 결측값(missing value)</a></li>
+<li class="chapter" data-level="2.2.6" data-path="scalar.html"><a href="scalar.html#null"><i class="fa fa-check"></i><b>2.2.6</b> NULL 값</a></li>
+<li class="chapter" data-level="2.2.7" data-path="scalar.html"><a href="scalar.html#finite"><i class="fa fa-check"></i><b>2.2.7</b> 무한대/무한소/숫자아님</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>2.3</b> 벡터(vector)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="vector.html"><a href="vector.html#vector-prop"><i class="fa fa-check"></i><b>2.3.1</b> 벡터의 특징</a></li>
+<li class="chapter" data-level="2.3.2" data-path="vector.html"><a href="vector.html#vector-operation"><i class="fa fa-check"></i><b>2.3.2</b> 벡터의 연산</a></li>
+<li class="chapter" data-level="2.3.3" data-path="vector.html"><a href="vector.html#vector-index"><i class="fa fa-check"></i><b>2.3.3</b> 벡터의 색인(indexing)</a></li>
+<li class="chapter" data-level="2.3.4" data-path="vector.html"><a href="vector.html#vector-function"><i class="fa fa-check"></i><b>2.3.4</b> 벡터 관련 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="list.html"><a href="list.html"><i class="fa fa-check"></i><b>2.4</b> 리스트(list)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="list.html"><a href="list.html#make-list"><i class="fa fa-check"></i><b>2.4.1</b> 리스트 생성</a></li>
+<li class="chapter" data-level="2.4.2" data-path="list.html"><a href="list.html#list-index"><i class="fa fa-check"></i><b>2.4.2</b> 리스트 색인</a></li>
+<li class="chapter" data-level="2.4.3" data-path="list.html"><a href="list.html#list-add-delete"><i class="fa fa-check"></i><b>2.4.3</b> 리스트에 원소 추가/제거</a></li>
+<li class="chapter" data-level="2.4.4" data-path="list.html"><a href="list.html#list-combine"><i class="fa fa-check"></i><b>2.4.4</b> 리스트의 결합</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="matrix.html"><a href="matrix.html"><i class="fa fa-check"></i><b>2.5</b> 행렬(matrix)</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="matrix.html"><a href="matrix.html#matrix-operation"><i class="fa fa-check"></i><b>2.5.1</b> 행렬의 연산</a></li>
+<li class="chapter" data-level="2.5.2" data-path="matrix.html"><a href="matrix.html#mat-index"><i class="fa fa-check"></i><b>2.5.2</b> 행렬의 색인</a></li>
+<li class="chapter" data-level="2.5.3" data-path="matrix.html"><a href="matrix.html#행과-열-추가-및-제거"><i class="fa fa-check"></i><b>2.5.3</b> 행과 열 추가 및 제거</a></li>
+<li class="chapter" data-level="2.5.4" data-path="matrix.html"><a href="matrix.html#행렬-관련-함수"><i class="fa fa-check"></i><b>2.5.4</b> 행렬 관련 함수</a></li>
+<li class="chapter" data-level="2.5.5" data-path="matrix.html"><a href="matrix.html#vec-mat-diff"><i class="fa fa-check"></i><b>2.5.5</b> 벡터와 행렬의 차이점</a></li>
+<li class="chapter" data-level="2.5.6" data-path="matrix.html"><a href="matrix.html#mat-dim-reduc-sway"><i class="fa fa-check"></i><b>2.5.6</b> 의도치 않은 차원축소 피하기</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="array.html"><a href="array.html"><i class="fa fa-check"></i><b>2.6</b> 배열(array)</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="array.html"><a href="array.html#make-array"><i class="fa fa-check"></i><b>2.6.1</b> 배열의 생성 및 색인</a></li>
+<li class="chapter" data-level="2.6.2" data-path="array.html"><a href="array.html#rray-extend-example"><i class="fa fa-check"></i><b>2.6.2</b> 배열의 확장 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="factor-table.html"><a href="factor-table.html"><i class="fa fa-check"></i><b>2.7</b> 요인(factor)과 테이블(table)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="factor-table.html"><a href="factor-table.html#factor"><i class="fa fa-check"></i><b>2.7.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.7.2" data-path="factor-table.html"><a href="factor-table.html#table"><i class="fa fa-check"></i><b>2.7.2</b> 테이블(table)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>2.8</b> 데이터 프레임(data frame)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="data-frame.html"><a href="data-frame.html#create-data-frame"><i class="fa fa-check"></i><b>2.8.1</b> 데이터 프레임 생성</a></li>
+<li class="chapter" data-level="2.8.2" data-path="data-frame.html"><a href="data-frame.html#data-frame-get"><i class="fa fa-check"></i><b>2.8.2</b> 데이터 프레임 접근 및 필터링</a></li>
+<li class="chapter" data-level="2.8.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.8.3</b> 데이터 프레임 관련 함수</a></li>
+<li class="chapter" data-level="2.8.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.8.4</b> <code>*apply()</code> 계열 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="is-as-function.html"><a href="is-as-function.html"><i class="fa fa-check"></i><b>2.9</b> 객체의 유형 판별 및 변환</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="string-regexp.html"><a href="string-regexp.html"><i class="fa fa-check"></i><b>3</b> 문자열 처리와 정규표현식</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html"><i class="fa fa-check"></i><b>3.1</b> 유용한 문자열 관련 함수</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#nchar"><i class="fa fa-check"></i><b>3.1.1</b> <strong><code>nchar()</code></strong></a></li>
+<li class="chapter" data-level="3.1.2" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#paste"><i class="fa fa-check"></i><b>3.1.2</b> <strong><code>paste()</code></strong>, <strong><code>paste0()</code></strong></a></li>
+<li class="chapter" data-level="3.1.3" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#sprintf"><i class="fa fa-check"></i><b>3.1.3</b> <strong><code>sprintf()</code></strong></a></li>
+<li class="chapter" data-level="3.1.4" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#substr"><i class="fa fa-check"></i><b>3.1.4</b> <strong><code>substr()</code></strong></a></li>
+<li class="chapter" data-level="3.1.5" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#low-up-fun"><i class="fa fa-check"></i><b>3.1.5</b> <strong><code>tolower()</code>, <code>toupper()</code></strong></a></li>
+<li class="chapter" data-level="3.1.6" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#glue-패키지를-활용한-문자열-다루기"><i class="fa fa-check"></i><b>3.1.6</b> glue 패키지를 활용한 문자열 다루기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html"><i class="fa fa-check"></i><b>3.2</b> 정규표현식 기본 함수</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#grep-grepl"><i class="fa fa-check"></i><b>3.2.1</b> <strong><code>grep()</code>, <code>grepl()</code></strong></a></li>
+<li class="chapter" data-level="3.2.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexpr-gregexpr"><i class="fa fa-check"></i><b>3.2.2</b> <strong><code>regexpr()</code></strong>, <strong><code>gregexpr()</code></strong></a></li>
+<li class="chapter" data-level="3.2.3" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#sub-gsub-fun"><i class="fa fa-check"></i><b>3.2.3</b> <strong><code>sub()</code></strong>, <strong><code>gsub()</code></strong></a></li>
+<li class="chapter" data-level="3.2.4" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexec-fun"><i class="fa fa-check"></i><b>3.2.4</b> <strong><code>regexec()</code></strong></a></li>
+<li class="chapter" data-level="3.2.5" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#strsplit"><i class="fa fa-check"></i><b>3.2.5</b> <strong><code>strsplit()</code></strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="reg-exp.html"><a href="reg-exp.html"><i class="fa fa-check"></i><b>3.3</b> 정규 표현식(regular expression)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="reg-exp.html"><a href="reg-exp.html#basic-meta"><i class="fa fa-check"></i><b>3.3.1</b> 기본 메타 문자</a></li>
+<li class="chapter" data-level="3.3.2" data-path="reg-exp.html"><a href="reg-exp.html#character-set"><i class="fa fa-check"></i><b>3.3.2</b> 문자 집합</a></li>
+<li class="chapter" data-level="3.3.3" data-path="reg-exp.html"><a href="reg-exp.html#character-class"><i class="fa fa-check"></i><b>3.3.3</b> 문자 클래스</a></li>
+<li class="chapter" data-level="3.3.4" data-path="reg-exp.html"><a href="reg-exp.html#regexp-ex"><i class="fa fa-check"></i><b>3.3.4</b> 정규 표현식 예시</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="r-수학-함수-분포-함수-모형식-표현.html"><a href="r-수학-함수-분포-함수-모형식-표현.html"><i class="fa fa-check"></i><b>4</b> R 수학 함수, 분포 함수, 모형식 표현</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="수학함수.html"><a href="수학함수.html"><i class="fa fa-check"></i><b>4.1</b> 수학함수</a></li>
+<li class="chapter" data-level="4.2" data-path="통계-분포-함수.html"><a href="통계-분포-함수.html"><i class="fa fa-check"></i><b>4.2</b> 통계 분포 함수</a></li>
+<li class="chapter" data-level="4.3" data-path="모형식-표현.html"><a href="모형식-표현.html"><i class="fa fa-check"></i><b>4.3</b> 모형식 표현</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>5</b> R Markdown</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="r-markdown의-구성.html"><a href="r-markdown의-구성.html"><i class="fa fa-check"></i><b>5.1</b> R Markdown의 구성</a></li>
+<li class="chapter" data-level="5.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html"><i class="fa fa-check"></i><b>5.2</b> R Markdown 기본 문법(syntax)</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#텍스트-문법"><i class="fa fa-check"></i><b>5.2.1</b> 텍스트 문법</a></li>
+<li class="chapter" data-level="5.2.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#block-level-elements"><i class="fa fa-check"></i><b>5.2.2</b> Block-level elements</a></li>
+<li class="chapter" data-level="5.2.3" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#수식표현math-expression"><i class="fa fa-check"></i><b>5.2.3</b> 수식표현(math expression)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="r-code-chunks.html"><a href="r-code-chunks.html"><i class="fa fa-check"></i><b>5.3</b> R Code Chunks</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#code-chunk"><i class="fa fa-check"></i>자주 활용하는 chunk 옵션</a></li>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#typical-chunk"><i class="fa fa-check"></i>알아두면 좋은 청크 형태</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="inline-code.html"><a href="inline-code.html"><i class="fa fa-check"></i><b>5.4</b> 인라인(inline) R 코드</a></li>
+<li class="chapter" data-level="5.5" data-path="yaml.html"><a href="yaml.html"><i class="fa fa-check"></i><b>5.5</b> YAML</a>
+<ul>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#basic-syntax"><i class="fa fa-check"></i>기본 문법</a></li>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#rmarkdown-yaml-structure"><i class="fa fa-check"></i>R Markdown 기본 YAML 구조</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rmarkdown-citation.html"><a href="rmarkdown-citation.html"><i class="fa fa-check"></i><b>5.6</b> 참고문헌 인용</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r-외부-데이터-입출력.html"><a href="r-외부-데이터-입출력.html"><i class="fa fa-check"></i><b>6</b> R 외부 데이터 입출력</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="text-import-export.html"><a href="text-import-export.html"><i class="fa fa-check"></i><b>6.1</b> <strong>텍스트 파일 입출력</strong></a></li>
+<li class="chapter" data-level="6.2" data-path="binary-import-export.html"><a href="binary-import-export.html"><i class="fa fa-check"></i><b>6.2</b> R 바이너리(binary) 파일 입출력</a></li>
+<li class="chapter" data-level="6.3" data-path="import-export-excel.html"><a href="import-export-excel.html"><i class="fa fa-check"></i><b>6.3</b> Excel 파일 입출력</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="control-structure.html"><a href="control-structure.html"><i class="fa fa-check"></i><b>7</b> 제어문(Control Structure)</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="condition.html"><a href="condition.html"><i class="fa fa-check"></i><b>7.1</b> 조건문(Conditionals)</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="condition.html"><a href="condition.html#if-basic"><i class="fa fa-check"></i><b>7.1.1</b> <strong>기본 구문</strong></a></li>
+<li><a href="condition.html#if-else"><strong>대안 실행(alternative execution)</strong></a></li>
+<li class="chapter" data-level="7.1.2" data-path="condition.html"><a href="condition.html#chain-cond"><i class="fa fa-check"></i><b>7.1.2</b> <strong>연쇄 조건문(chained condition)</strong></a></li>
+<li class="chapter" data-level="7.1.3" data-path="condition.html"><a href="condition.html#nest-cond"><i class="fa fa-check"></i><b>7.1.3</b> <strong>중첩 조건문(nested contition)</strong></a></li>
+<li class="chapter" data-level="7.1.4" data-path="condition.html"><a href="condition.html#ifelse-fun"><i class="fa fa-check"></i><b>7.1.4</b> <strong><code>ifelse()</code> 함수</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="looping.html"><a href="looping.html"><i class="fa fa-check"></i><b>7.2</b> 반복문(Looping)</a>
+<ul>
+<li class="chapter" data-level="" data-path="looping.html"><a href="looping.html#loop-pre"><i class="fa fa-check"></i>Prerequisite</a></li>
+<li class="chapter" data-level="7.2.1" data-path="looping.html"><a href="looping.html#repeat"><i class="fa fa-check"></i><b>7.2.1</b> <strong><code>repeat</code> 구문</strong></a></li>
+<li class="chapter" data-level="7.2.2" data-path="looping.html"><a href="looping.html#while"><i class="fa fa-check"></i><b>7.2.2</b> <strong><code>while</code> 구문</strong></a></li>
+<li class="chapter" data-level="7.2.3" data-path="looping.html"><a href="looping.html#for-구문"><i class="fa fa-check"></i><b>7.2.3</b> <strong><code>for</code> 구문</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="function.html"><a href="function.html"><i class="fa fa-check"></i><b>7.3</b> 함수 (function)</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="function.html"><a href="function.html#함수의-정의"><i class="fa fa-check"></i><b>7.3.1</b> 함수의 정의</a></li>
+<li class="chapter" data-level="7.3.2" data-path="function.html"><a href="function.html#함수의-인수-전달-방법"><i class="fa fa-check"></i><b>7.3.2</b> 함수의 인수 전달 방법</a></li>
+<li class="chapter" data-level="7.3.3" data-path="function.html"><a href="function.html#함수의-기본-구성-요소"><i class="fa fa-check"></i><b>7.3.3</b> 함수의 기본 구성 요소</a></li>
+<li class="chapter" data-level="7.3.4" data-path="function.html"><a href="function.html#함수의-적용-범위scoping-rule"><i class="fa fa-check"></i><b>7.3.4</b> 함수의 적용 범위(scoping rule)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="몇-가지-기초적인-알고리즘.html"><a href="몇-가지-기초적인-알고리즘.html"><i class="fa fa-check"></i><b>8</b> 몇 가지 기초적인 알고리즘</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="알고리즘algorithm.html"><a href="알고리즘algorithm.html"><i class="fa fa-check"></i><b>8.1</b> 알고리즘(Algorithm)</a></li>
+<li class="chapter" data-level="8.2" data-path="재귀함수recursive-function.html"><a href="재귀함수recursive-function.html"><i class="fa fa-check"></i><b>8.2</b> 재귀함수(Recursive function)</a></li>
+<li class="chapter" data-level="8.3" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html"><i class="fa fa-check"></i><b>8.3</b> 선형/이진 탐색(Linear/Binary search)</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#선형-탐색linear-search"><i class="fa fa-check"></i><b>8.3.1</b> 선형 탐색(Linear Search)</a></li>
+<li class="chapter" data-level="8.3.2" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#이진-탐색binary-search"><i class="fa fa-check"></i><b>8.3.2</b> 이진 탐색(Binary Search)</a></li>
+<li class="chapter" data-level="8.3.3" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#선형탐색과-이진탐색-비교"><i class="fa fa-check"></i><b>8.3.3</b> 선형탐색과 이진탐색 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html"><i class="fa fa-check"></i><b>8.4</b> 뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계 프로그래밍 언어</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="뉴튼-랩슨-알고리즘newton-rhapson-algorithm" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> 뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm)</h2>
+<p>임의의 함수 <span class="math inline">\(f(x)\)</span>가 주어졌을 때 <span class="math inline">\(f(x) = 0\)</span> (<span class="math inline">\(f(x)\)</span>의 해)를 만족하는 <span class="math inline">\(x\)</span>를 반복적인 수치계산을 통해 찾는 방법</p>
+<ul>
+<li>Newton-Raphson (N-R) 방법 적용 시 <span class="math inline">\(f(x)\)</span>의 만족 조건
+<ul>
+<li><span class="math inline">\(x\)</span>의 특정 범위 내에서 <span class="math inline">\(f(x) = 0\)</span>를 만족하는 유일한 실수값 존재</li>
+<li><span class="math inline">\(f(x)\)</span>는 미분 가능한 함수</li>
+</ul></li>
+</ul>
+<div class="figure">
+<video src="video/newton-raphson-ex.mp4" style="width:100.0%" controls=""><a href="video/newton-raphson-ex.mp4"></a></video>
+<p class="caption">Newton-Raphson 알고리즘 예시</p>
+</div>
+<p><strong>N-R 알고리즘(스케치)</strong></p>
+<ul>
+<li><p>step 1: 초기치 <span class="math inline">\(x_{old}\)</span>를 설정</p></li>
+<li><p>step 2: <span class="math inline">\(x_{old}\)</span>에서 <span class="math inline">\(f(x_{old})\)</span> 값 계산</p></li>
+<li><p>step 3: <span class="math inline">\(x_{old}\)</span>에서 접선의 기울기(미분계수) <span class="math inline">\(f&#39;(x_{old})\)</span> 계산</p></li>
+<li><p>step 4: <span class="math inline">\(f&#39;(x_{old})\)</span>의 접선이 <span class="math inline">\(x\)</span>축과 만나는 점을 새로운 값 <span class="math inline">\(x_{new}\)</span>로 업데이트</p></li>
+</ul>
+<p><span class="math display">\[
+ x_{new} = x_{old} - \frac{f(x_{old})}{f&#39;(x_{old})}
+\]</span></p>
+<ul>
+<li><p>step 5: 일정 조건을 만족할 때 까지 step 1 ~ step 4 반복</p></li>
+<li><p><strong>step 4</strong>에서 초기값 <span class="math inline">\(x_0\)</span>이 주어졌을 때 <span class="math inline">\(f(x_0)\)</span>의 접선은 <span class="math inline">\(f&#39;(x_0)\)</span> 이고 <span class="math inline">\((x_0, f(x_0))\)</span>를 통과하므로 접선의 식은 아래와 같음</p></li>
+</ul>
+<p><span class="math display">\[
+f(x) = f&#39;(x_0)(x - x_0) + f(x_0)
+\]</span></p>
+<ul>
+<li><span class="math inline">\(f(x) = 0\)</span> 일때 <span class="math inline">\(x\)</span>의 값은</li>
+</ul>
+<p><span class="math display">\[
+ x = x_0 -\frac{f(x_0)}{f&#39;(x_0)}
+\]</span>
+- 따라서 다음 단계에서 해의 근사치 <span class="math inline">\(x_{1} = x_0 - f(x_0)/f&#39;(x_0)\)</span> 이고, 이를 조금 더 일반화 하면,</p>
+<p><span class="math display">\[
+ x_{n+1} = x_n - \frac{f(x_n)}{f&#39;(x_n)}
+\]</span></p>
+<ul>
+<li>위 식은 <strong>테일러 전개(Taylor expansion)</strong>를 통해 도출 가능(한 번 생각해 볼 것!!)</li>
+</ul>
+<p><strong>N-R 알고리즘의 특징</strong></p>
+<ol style="list-style-type: decimal">
+<li>현재 <span class="math inline">\(x_{old}\)</span> 또는 <span class="math inline">\(x_{n}\)</span>이 0을 만족할 경우, 더 이상 다음 단계로 가지 않음.</li>
+<li>현재 함수값이 0에서 멀리 떨어져 있을수록 다음 스텝이 커지고, 미분계수의 절대값이 클수록 다음 스텝이 작아짐
+<ul>
+<li>미분계수의 절대값이 크다 <span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(x_n\)</span>을 조금만 움직여도 함수값이 크게 변한다는 의미</li>
+<li>따라서 미분계수의 값을 다음 스텝에 반영해야 함.</li>
+</ul></li>
+<li>다음 <span class="math inline">\(x_{new}\)</span>의 방향은 <span class="math inline">\(f(x_{old})/f&#39;(x_{old})\)</span> 부호와 반대방향으로 결정</li>
+<li>수렴속도가 빠르지만 초기값에 따라 알고리즘의 성능이 달라짐</li>
+<li><span class="math inline">\(f&#39;(x)\)</span>를 반복적으로 계산해야 하고, 경우에 따라 <span class="math inline">\(f&#39;(x) = 0\)</span>이면 반복식 계산이 불가</li>
+</ol>
+<p><strong>반복 종료 조건</strong></p>
+<ul>
+<li>처음 설정한 최대 반복 횟수를 넘었을 때</li>
+<li>더 이상 <span class="math inline">\(x\)</span>의 값이 움직이지 않는다고 판단되었을 경우</li>
+<li>함수의 값이 충분히 0에 가까워 졌을 경우</li>
+</ul>
+<p><strong>N-R 알고리즘 구현</strong></p>
+
+<div class="rmdnote">
+<ul>
+<li>알고리즘에 입력되어야 할 변수
+<ul>
+<li>초기값과 해를 찾을 범위 지정 <span class="math inline">\(\rightarrow\)</span> 만약 초기값이 해당 범위를 벗어난 값이 입력되었다면 함수 종료</li>
+<li>함수</li>
+<li>반복횟수</li>
+<li>0과 충분히 가까운 상수(종료 시 필요) <span class="math inline">\(\rightarrow\)</span> <code>tol</code></li>
+</ul></li>
+<li>함수 내부 또는 함수 외부에서 1차 미분 함수가 요구
+<ul>
+<li>함수 인수로 입력 vs. 함수 내부에서 도함수 계산?</li>
+<li>도함수 계산 시 위 예제에서 사용한 R 내장 함수 사용 vs. 미분식 사용?</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+\lim_{d \rightarrow 0} \frac{f(x + d) - f(x)}{d}
+\]</span></p>
+<ul>
+<li>반복 종료조건에 도달할 때 까지 반복이 필요 <span class="math inline">\(\rightarrow\)</span> <code>while</code> 문 사용</li>
+<li>반복 조건: 반복이 최대 반복수보다 작고 <span class="math inline">\(|f(x_{new})|\)</span> 값이 <code>tol</code> 값보다 클 때 까지</li>
+</ul>
+</div>
+<p></p>
+<div class="sourceCode" id="cb1664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1664-1"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-1" aria-hidden="true" tabindex="-1"></a>newton_raphson <span class="ot">&lt;-</span> <span class="cf">function</span>(FUN, <span class="co"># 함수</span></span>
+<span id="cb1664-2"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">x0 =</span> <span class="dv">1</span>, <span class="co"># 초기값</span></span>
+<span id="cb1664-3"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">max_iters =</span> <span class="dv">5000</span>, <span class="co"># 최대 반복 횟수</span></span>
+<span id="cb1664-4"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">tol =</span> <span class="fl">1.0e-9</span>, </span>
+<span id="cb1664-5"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">range =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="cn">Inf</span>), </span>
+<span id="cb1664-6"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-6" aria-hidden="true" tabindex="-1"></a>                           ...) </span>
+<span id="cb1664-7"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-7" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1664-8"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-8" aria-hidden="true" tabindex="-1"></a> iters <span class="ot">&lt;-</span> <span class="dv">1</span>;</span>
+<span id="cb1664-9"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-9" aria-hidden="true" tabindex="-1"></a> grads <span class="ot">&lt;-</span> <span class="fu">deriv</span>(<span class="fu">as.expression</span>(<span class="fu">body</span>(FUN)), <span class="st">&quot;x&quot;</span>, <span class="at">function.arg =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1664-10"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-10" aria-hidden="true" tabindex="-1"></a> <span class="co"># grads 반환값 중 &quot;gradient&quot; 값 = f&#39;(x0)</span></span>
+<span id="cb1664-11"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-11" aria-hidden="true" tabindex="-1"></a> gap <span class="ot">&lt;-</span> x0 <span class="sc">-</span> <span class="fu">FUN</span>(x0)<span class="sc">/</span><span class="fu">attr</span>(<span class="fu">grads</span>(x0), <span class="st">&quot;gradient&quot;</span>) </span>
+<span id="cb1664-12"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-12" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1664-13"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-13" aria-hidden="true" tabindex="-1"></a> <span class="cf">while</span>(iters <span class="sc">&lt;</span> max_iters <span class="sc">&amp;</span> <span class="fu">abs</span>(gap) <span class="sc">&gt;</span> tol) {</span>
+<span id="cb1664-14"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-14" aria-hidden="true" tabindex="-1"></a>   <span class="co"># x_new 계산 </span></span>
+<span id="cb1664-15"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-15" aria-hidden="true" tabindex="-1"></a>   x_new <span class="ot">&lt;-</span> x0 <span class="sc">-</span> <span class="fu">FUN</span>(x0)<span class="sc">/</span><span class="fu">attr</span>(<span class="fu">grads</span>(x0), <span class="st">&quot;gradient&quot;</span>)</span>
+<span id="cb1664-16"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-16" aria-hidden="true" tabindex="-1"></a>   gap <span class="ot">&lt;-</span> <span class="fu">FUN</span>(x_new) </span>
+<span id="cb1664-17"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-17" aria-hidden="true" tabindex="-1"></a>   <span class="co"># x_new 가 범위를 벗어난 경우 처리</span></span>
+<span id="cb1664-18"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-18" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> (x_new <span class="sc">&lt;=</span> range[<span class="dv">1</span>]) x_new <span class="ot">&lt;-</span> range[<span class="dv">1</span>] </span>
+<span id="cb1664-19"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-19" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> (x_new <span class="sc">&gt;=</span> range[<span class="dv">2</span>]) x_new <span class="ot">&lt;-</span> range[<span class="dv">2</span>]</span>
+<span id="cb1664-20"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-20" aria-hidden="true" tabindex="-1"></a>   iters <span class="ot">&lt;-</span> iters <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb1664-21"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-21" aria-hidden="true" tabindex="-1"></a>   x0 <span class="ot">&lt;-</span> x_new <span class="co"># 초기값 업데이트</span></span>
+<span id="cb1664-22"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-22" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb1664-23"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-23" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1664-24"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-24" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> (x_new <span class="sc">==</span> range[<span class="dv">1</span>] <span class="sc">|</span> x_new <span class="sc">==</span> range[<span class="dv">2</span>]) </span>
+<span id="cb1664-25"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-25" aria-hidden="true" tabindex="-1"></a>   <span class="fu">warning</span>(<span class="st">&quot;마지막 점이 x 범위의 경계선 상에 있습니다.&quot;</span>)</span>
+<span id="cb1664-26"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-26" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> (iters <span class="sc">&gt;</span> max_iters) </span>
+<span id="cb1664-27"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-27" aria-hidden="true" tabindex="-1"></a>   <span class="fu">warning</span>(<span class="st">&quot;최대 반복 때 까지 해를 찾지 못했습니다.&quot;</span>)</span>
+<span id="cb1664-28"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-28" aria-hidden="true" tabindex="-1"></a> <span class="fu">cat</span>(<span class="st">&quot;x 가&quot;</span>, x_new, <span class="st">&quot;일 때 함수값:&quot;</span>, <span class="fu">FUN</span>(x_new), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1664-29"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-29" aria-hidden="true" tabindex="-1"></a> <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">solution =</span> x_new, <span class="at">iteration =</span> iters))</span>
+<span id="cb1664-30"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-30" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1664-31"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1664-32"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1664-33"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-33" aria-hidden="true" tabindex="-1"></a><span class="do">## test: 위 동영상과 동일한 해를 갖는지 확인</span></span>
+<span id="cb1664-34"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-34" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">5</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">7</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">40</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="dv">100</span> </span>
+<span id="cb1664-35"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-35" aria-hidden="true" tabindex="-1"></a><span class="fu">newton_raphson</span>(<span class="at">FUN =</span> f, </span>
+<span id="cb1664-36"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-36" aria-hidden="true" tabindex="-1"></a>               <span class="at">x0 =</span> <span class="dv">1</span>,</span>
+<span id="cb1664-37"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1664-37" aria-hidden="true" tabindex="-1"></a>               <span class="at">range =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>)) <span class="ot">-&gt;</span> sols</span></code></pre></div>
+<pre><code>x 가 -3.151719 일 때 함수값: -3.547029e-11 </code></pre>
+<p></p>
+
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="선형이진-탐색linearbinary-search.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/08-algorithms.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["cnu-r-programming.pdf", "PDF"]],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
