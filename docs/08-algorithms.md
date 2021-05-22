@@ -691,16 +691,17 @@ factorial(10)
 
 
 ```r
-move_hanoi <- function(n, from, to, via) {
- if (n == 1) {
+move_hanoi <- function(k, from, to, via) {
+ # browser()
+ if (k == 1) {
    print(sprintf("%d 번 원판을 %s 에서 %s 로 이동", 1, from, to))
  } else {
-   move_hanoi(n - 1, from = from, to = via, via = to)
+   move_hanoi(k - 1, from = from, to = via, via = to)
    print(sprintf("%d 번 원판을 %s 에서 %s 로 이동", 
-                 from = n, 
+                 from = k, 
                  to = from, 
                  via = to))
-   move_hanoi(n - 1, from = via, to = to, via = from)
+   move_hanoi(k - 1, from = via, to = to, via = from)
  }
 }
 
