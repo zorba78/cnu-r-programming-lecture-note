@@ -6,33 +6,6 @@ editor_options:
 # 문자열 처리와 정규표현식 {#string-regexp}
 
 
-```
-## Warning: 패키지 'knitr'는 R 버전 4.0.5에서 작성되었습니다
-```
-
-```
-## Warning: 패키지 'tidyverse'는 R 버전 4.0.5에서 작성되었습니다
-```
-
-```
-## Warning: 패키지 'ggplot2'는 R 버전 4.0.4에서 작성되었습니다
-```
-
-```
-## Warning: 패키지 'tibble'는 R 버전 4.0.5에서 작성되었습니다
-```
-
-```
-## Warning: 패키지 'tidyr'는 R 버전 4.0.4에서 작성되었습니다
-```
-
-```
-## Warning: 패키지 'dplyr'는 R 버전 4.0.5에서 작성되었습니다
-```
-
-```
-## Warning: 패키지 'rmarkdown'는 R 버전 4.0.5에서 작성되었습니다
-```
 
 
 \footnotesize

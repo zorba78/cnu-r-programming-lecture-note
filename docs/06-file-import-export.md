@@ -6,9 +6,6 @@ editor_options:
 
 
 
-```
-## Warning: 패키지 'knitr'는 R 버전 4.0.5에서 작성되었습니다
-```
 
 
 # R 외부 데이터 입출력
@@ -409,7 +406,7 @@ system.time(pulse <- read.csv("dataset/pulse.csv", header = T))
 
 ```
  사용자  시스템 elapsed 
-  4.882   0.073   4.958 
+  4.641   0.000   4.643 
 ```
 
 ```r
@@ -430,7 +427,7 @@ system.time(pulse <- readRDS("output/pulse.rds"))
 
 ```
  사용자  시스템 elapsed 
-   0.08    0.00    0.08 
+  0.079   0.000   0.079 
 ```
 
  \normalsize

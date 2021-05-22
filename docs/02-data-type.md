@@ -2,33 +2,6 @@
 # R 객체(R object) {#data-type}
 
 
-```
-## Warning: 패키지 'knitr'는 R 버전 4.0.5에서 작성되었습니다
-```
-
-```
-## Warning: 패키지 'tidyverse'는 R 버전 4.0.5에서 작성되었습니다
-```
-
-```
-## Warning: 패키지 'ggplot2'는 R 버전 4.0.4에서 작성되었습니다
-```
-
-```
-## Warning: 패키지 'tibble'는 R 버전 4.0.5에서 작성되었습니다
-```
-
-```
-## Warning: 패키지 'tidyr'는 R 버전 4.0.4에서 작성되었습니다
-```
-
-```
-## Warning: 패키지 'dplyr'는 R 버전 4.0.5에서 작성되었습니다
-```
-
-```
-## Warning: 패키지 'rmarkdown'는 R 버전 4.0.5에서 작성되었습니다
-```
 
 \footnotesize
 
@@ -7865,7 +7838,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x56477acbf9e0> 
+  .. ..- attr(*, ".Environment")=<environment: 0x55c99ccffc20> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"

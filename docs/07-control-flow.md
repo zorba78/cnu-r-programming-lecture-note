@@ -6,9 +6,6 @@ editor_options:
 
 
 
-```
-## Warning: 패키지 'knitr'는 R 버전 4.0.5에서 작성되었습니다
-```
 
 
 # 제어문(Control Structure) {#control-structure}

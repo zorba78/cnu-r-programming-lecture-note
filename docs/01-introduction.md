@@ -6,45 +6,11 @@ editor_options:
 \mainmatter
 
 
-```
-## Warning: 패키지 'knitr'는 R 버전 4.0.5에서 작성되었습니다
-```
 
 
 \footnotesize
 
 
-```
-Warning: 패키지 'rmarkdown'는 R 버전 4.0.5에서 작성되었습니다
-```
-
-```
-Warning: 패키지 'tidyverse'는 R 버전 4.0.5에서 작성되었습니다
-```
-
-```
-Warning: 패키지 'ggplot2'는 R 버전 4.0.4에서 작성되었습니다
-```
-
-```
-Warning: 패키지 'tibble'는 R 버전 4.0.5에서 작성되었습니다
-```
-
-```
-Warning: 패키지 'tidyr'는 R 버전 4.0.4에서 작성되었습니다
-```
-
-```
-Warning: 패키지 'dplyr'는 R 버전 4.0.5에서 작성되었습니다
-```
-
-```
-Warning: 패키지 'gt'는 R 버전 4.0.5에서 작성되었습니다
-```
-
-```
-Warning: 패키지 'gtsummary'는 R 버전 4.0.5에서 작성되었습니다
-```
 
  \normalsize
 
@@ -863,36 +829,37 @@ dir()
 [13] "05-rmarkdown-more.Rmd"               
 [14] "06-file-import-export.Rmd"           
 [15] "07-control-flow.Rmd"                 
-[16] "08-algorithms.Rmd"                   
-[17] "11-references.Rmd"                   
-[18] "2020"                                
-[19] "assignment"                          
-[20] "book.bib"                            
-[21] "cnu-r-programming-lecture-note.Rproj"
-[22] "cnu-r-programming.log"               
-[23] "cnu-r-programming.rds"               
-[24] "cnu-r-programming.tex"               
-[25] "code"                                
-[26] "css"                                 
-[27] "data"                                
-[28] "dataset"                             
-[29] "dataset.zip"                         
-[30] "demo"                                
-[31] "docs"                                
-[32] "examples"                            
-[33] "figures"                             
-[34] "images"                              
-[35] "index.md"                            
-[36] "index.Rmd"                           
-[37] "init-funs"                           
-[38] "krantz.cls"                          
-[39] "latex"                               
-[40] "output"                              
-[41] "packages.bib"                        
-[42] "README.md"                           
-[43] "rendera189f3a47b9.rds"               
-[44] "test"                                
-[45] "video"                               
+[16] "08-algorithms_files"                 
+[17] "08-algorithms.Rmd"                   
+[18] "11-references.Rmd"                   
+[19] "2020"                                
+[20] "assignment"                          
+[21] "book.bib"                            
+[22] "cnu-r-programming-lecture-note.Rproj"
+[23] "cnu-r-programming.log"               
+[24] "cnu-r-programming.rds"               
+[25] "cnu-r-programming.tex"               
+[26] "code"                                
+[27] "css"                                 
+[28] "data"                                
+[29] "dataset"                             
+[30] "dataset.zip"                         
+[31] "demo"                                
+[32] "docs"                                
+[33] "examples"                            
+[34] "figures"                             
+[35] "images"                              
+[36] "index.md"                            
+[37] "index.Rmd"                           
+[38] "init-funs"                           
+[39] "krantz.cls"                          
+[40] "latex"                               
+[41] "output"                              
+[42] "packages.bib"                        
+[43] "README.md"                           
+[44] "render1562810c624f3.rds"             
+[45] "test"                                
+[46] "video"                               
 ```
 
 ```r
@@ -951,36 +918,37 @@ getwd(); dir()
 [13] "05-rmarkdown-more.Rmd"               
 [14] "06-file-import-export.Rmd"           
 [15] "07-control-flow.Rmd"                 
-[16] "08-algorithms.Rmd"                   
-[17] "11-references.Rmd"                   
-[18] "2020"                                
-[19] "assignment"                          
-[20] "book.bib"                            
-[21] "cnu-r-programming-lecture-note.Rproj"
-[22] "cnu-r-programming.log"               
-[23] "cnu-r-programming.rds"               
-[24] "cnu-r-programming.tex"               
-[25] "code"                                
-[26] "css"                                 
-[27] "data"                                
-[28] "dataset"                             
-[29] "dataset.zip"                         
-[30] "demo"                                
-[31] "docs"                                
-[32] "examples"                            
-[33] "figures"                             
-[34] "images"                              
-[35] "index.md"                            
-[36] "index.Rmd"                           
-[37] "init-funs"                           
-[38] "krantz.cls"                          
-[39] "latex"                               
-[40] "output"                              
-[41] "packages.bib"                        
-[42] "README.md"                           
-[43] "rendera189f3a47b9.rds"               
-[44] "test"                                
-[45] "video"                               
+[16] "08-algorithms_files"                 
+[17] "08-algorithms.Rmd"                   
+[18] "11-references.Rmd"                   
+[19] "2020"                                
+[20] "assignment"                          
+[21] "book.bib"                            
+[22] "cnu-r-programming-lecture-note.Rproj"
+[23] "cnu-r-programming.log"               
+[24] "cnu-r-programming.rds"               
+[25] "cnu-r-programming.tex"               
+[26] "code"                                
+[27] "css"                                 
+[28] "data"                                
+[29] "dataset"                             
+[30] "dataset.zip"                         
+[31] "demo"                                
+[32] "docs"                                
+[33] "examples"                            
+[34] "figures"                             
+[35] "images"                              
+[36] "index.md"                            
+[37] "index.Rmd"                           
+[38] "init-funs"                           
+[39] "krantz.cls"                          
+[40] "latex"                               
+[41] "output"                              
+[42] "packages.bib"                        
+[43] "README.md"                           
+[44] "render1562810c624f3.rds"             
+[45] "test"                                
+[46] "video"                               
 ```
 
  \normalsize

@@ -5,7 +5,7 @@ editor_options:
 ---
 
 
-```{r chunk-setup, echo=FALSE, message=FALSE}
+```{r chunk-setup, echo=FALSE, message=FALSE, warning=FALSE}
 require(knitr)
 opts_chunk$set(size="footnotesize",
                       comment = NA,
@@ -34,7 +34,7 @@ opts_chunk$set(tidy.opts=list(blank=FALSE, width.cutoff=80))
 ```
 
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 require(tidyverse)
 require(rmarkdown)
 require(knitr)
@@ -44,7 +44,7 @@ require(kableExtra)
 
 
 
-# 몇 가지 기초적인 알고리즘 
+# 알고리즘의 기초
 
 
 > **Sketch**
@@ -76,13 +76,13 @@ knitr::include_graphics('figures/program_scroll_mv2.gif', dpi = NA)
 #### 좋은 알고리즘의 특징 {.unnumbered}
 
 
-- 정밀성: 변하지 않는 명확한 작업 단계로 구성
-- 유일성: 각 단계마다 명확한 다음 단계를 가져야 함 
-- 타당성: 구현할 수 있고 실용적
-- 입력: 정의된 입력을 받을 수 있어야 함
-- 출력: 답으로 출력을 내보낼 수 있어야 함
-- 유한성: 특정 수의 작업 이후에 정지 
-- 일반성: 정의된 입력들에 대해 일반적으로 적용할 수 있어야 함
+> - 정밀성: 변하지 않는 명확한 작업 단계로 구성
+> - 유일성: 각 단계마다 명확한 다음 단계를 가져야 함 
+> - 타당성: 구현할 수 있고 실용적
+> - 입력: 정의된 입력을 받을 수 있어야 함
+> - 출력: 답으로 출력을 내보낼 수 있어야 함
+> - 유한성: 특정 수의 작업 이후에 정지 
+> - 일반성: 정의된 입력들에 대해 일반적으로 적용할 수 있어야 함
 
 
 
@@ -95,11 +95,142 @@ knitr::include_graphics('figures/program_scroll_mv2.gif', dpi = NA)
 검증 $\rightarrow$ 분석 $\rightarrow$ 구현 $\rightarrow$ 테스트 $\rightarrow$ 문서화
 
 
+#### **알고리즘의 성능** {.unnumbered}
 
-#### 알고리즘의 복잡성 표시 {.unnumbered}
+```{block2, type="rmdnote"}
+"알고리즘 성능"과 관련한 내용은 https://makemethink.tistory.com/105 에서 
+관련 내용을 참고해 재구성함
+
+```
 
 
-**Big O notation (빅오 표기법)**
+
+**성능(performance/efficiency)**
+
+- 동일한 결과를 산출하는 알고리즘에도 차이가 존재
+- 보통 그 차이는 알고리즘의 수행시간(자원, resource)과 밀접한 연관이 있음 
+- 예: 특정 학생의 전화번호 탐색 알고리즘(정답을 출력한다고 가정)
+   - A 알고리즘 수행 시간: 0.1초
+   - B 알고리즘 수행 시간: 1.0초 
+
+$\rightarrow$ A 알고리즘이 더 효율적임
+
+- 즉 성능은 **동일한 결과를 도출하기 위해 필요한 자원(시간과 공간)의 크기**
+
+
+$$
+\mathrm{performance} = \mathrm{\frac{solution}{resource}}
+$$
+
+성능은 다음과 같은 측면으로 고려해볼 수 있음
+
+- 최선(best)의 경우 $\rightarrow$ 빠르면 1초 내에 전화번호 탐색
+- 평균(average)의 경우 $\rightarrow$ 평균 10 초 이내에 전화번호 탐색
+- 최악(worst)의 경우 $\rightarrow$ 아무리 늦어도 1분 이내 번호 탐색
+
+
+일반적으로 성능은 최악의 경우를 상정함 $\rightarrow$ 위의 예시에서 최악은 
+적어도 기대 시간이 1분 보다는 빠르기 때문에 위 두 가지를 모두 포괄
+
+
+**자원(resource)을 결정 짓는 요소** 
+
+```{block2, type="rmdtip"}
+**시간 복잡도(time complexity)**: 알고리즘 실행 완료 시 까지 걸린 시간
+
+- 사칙연산(`+`, `-`, `*`, `\`)
+- 비교연산(`>`, `<`, `==`)
+- 반복(`for`, `while`, `repeat`)
+- 함수호출
+
+
+**공간 복잡도(space complexity)**: 알고리즘 실행 완료를 위해 필요한 메모리(공간) 
+크기
+
+- 변수 개수
+- 데이터 구조
+- 함수 호출
+- 알고리즘 내 자료 재햘당 여부
+
+
+```
+
+
+> 일반적으로 **시간**이 **공간**보다 더 소중한 자원임
+
+
+
+#### 시간 복잡도 및 공간 복잡도 예 {.unnumbered}
+
+
+```{r}
+# 프로그램 1
+x <- numeric(100)
+for (i in seq_along(x)) {
+  x[i] <- i
+}
+
+# 프로그램 2
+x <- NULL
+for (i in 1:100) {
+  x <- c(x, i)
+}
+
+```
+
+
+- 프로그램 1의 `for` 반복의 시간복잡도는 $\mathcal{O}(n)$ 이고, 공간 복잡도의 경우 
+반복문 내에세 미리 정의한 `x` 벡터에 값을 할당하는 것이기 때문에 $\mathcal{O}(1)$
+
+- 프로그램 2의 경우에는 반복문 내에서 `x`의 저장공간이 반복에 따라 추가적으로 $n$ 까지 
+증가하기 때문에 공간 복잡도는 $\mathcal{O}(n)$
+
+
+#### 알고리즘 성능의 점근적 분석 {.unnumbered}
+
+- 성능은 입력의 크기에 따라 결정됨
+- $n$을 입력의 크기라고 할 때 시간 복잡도를 $n$에 대한 함수로 표현 $\rightarrow$ $f(n)$ 
+- `f(n)` 은 다음과 같은 형태를 가질 수 있음
+
+
+```{r complexity-pattern, fig.width = 12, fig.height = 9, warning=FALSE, echo=FALSE}
+plot(x = 0:10, y = 0:10, 
+     type = "n", xlab = "N", ylab = "Time", 
+     bty = "n", axes = FALSE, cex.lab = 1.5)
+box(bty = "l")
+
+lines(x = 1:8, y = 1:8, lwd = 1.5, col = "orange")
+text(8, 8, "입력에 따라 시간 증가(일반적)", adj = 0, pos = 3, cex = 1.5)
+lines(x = 1:9, y = rep(4.5, 9), lwd = 1.5, col = "blue")
+text(9, 4.5, "입력과 관계없이 일정(최고)", adj = 0, pos = 1, cex = 1.5)
+lines(x = 8:1, y = 1:8, lwd = 1.5, col = "red")
+text(8, 1, "입력에 따라 시간 감소(존재하지 않음)", adj = 0, pos = 1, cex = 1.5)
+
+
+
+```
+
+
+- 시간 복잡도는 **매우 큰 입력**에 대해 측정하는데, 입력에 대한 함수 $f(n)$ 보다 
+성능이 특정 입력보다 커지면 항상 나쁜 $g(n)$을 이용해 $f(n)$의 성능을 표현
+
+   - $g(n)$은 $f(n)$ 보다 상상 성능이 나쁘다 $\rightarrow$ $f(n)$의 최악
+   - 최악의 경우에도 $f(n)$은 $g(n)$보다 성능이 좋음
+   - $f(n)$의 상한은 $g(n)$임 
+   - $f(n) \leq g(n)$ 
+   
+
+> - 많이 사용되는 표준 함수 사용(예: 1, $n$, $\log n$, $n^2$, $n\log n$, $2^n$)
+
+
+- 예: $g(n) = n^2$ 
+   - $f(n)$은 어떤 경우에도 $n^2$ 보다는 빠름 
+   - $f(n)$의 최악의 경우가 $n^2$ 임 
+   - $f(n)$의 상한은 $n^2$
+
+
+#### **Big O notation (빅오 표기법)** {.unnumbered}
+
 
 - 어떤 함수의 증가 양상을 다른 함수와 비교하기 위한 점근 표기법(asymptotic notation) 
 중 하나
@@ -108,12 +239,12 @@ knitr::include_graphics('figures/program_scroll_mv2.gif', dpi = NA)
 - 알고리즘의 복잡도를 단순화 하거나 무한급수의 뒷부분 간소화 할 때 사용
 - 알고리즘의 효율성을 나타내기 위한 방법으로 시간 복잡도(실행시간)와 공간 
 복잡도(실행공간, 메모리)로 이루어짐. 
-- $\mathcal{O}(g(n))$은 $g(n)$의 증가율보다 작거나 같은 함수들의 집합임 
-   - $\mathcal{O}(n^2)$은 $\mathcal{O}(1)$, $\mathcal{O}(n)$, $\mathcal{O}(n\log n)$ 을 
-   포함
 
 
-**수학적 정의**
+
+
+
+#### **수학적 정의** {.unnumbered}
 
 > 모든 정수 또는 실수 집합에서 정의한 $n$에 대한 실수 집합의 함수를 
 $f$ 와 $g$ 라고 하자. $|f(x)| \leq C |g(x)|$를 만족하는 상수 
@@ -130,10 +261,15 @@ knitr::include_graphics('figures/big-o-explain.png', dpi = NA)
 
 ```
 
+
 - 여기서 $k$와 $C$를 $f(x)$가 $\mathcal{O}(g(x))$ 관계에 대한 증인(witness)라 부름
 - 즉 $f(x)$가 $\mathcal{O}(g(x))$ 라는 것을 증명하기 위해서는 위 정의를 만족하는 
 $k$와 $C$를 찾으면 됨
 - 만약 $k$, $C$ 한 쌍이 존재하면 무수히 많은 $k$와 $C$가 존재함
+- $\mathcal{O}(g(n))$은 $g(n)$의 증가율보다 작거나 같은 함수들의 집합임 
+   - $\mathcal{O}(n^2)$은 $\mathcal{O}(1)$, $\mathcal{O}(n)$, $\mathcal{O}(n\log n)$ 을 
+   포함
+
 
 
 ```{block2, type="rmdnote"}
@@ -146,20 +282,93 @@ $k$와 $C$를 찾으면 됨
 ```
 
 
-**예제 1**
+**Big O 복잡도 도표**
 
-$f(x) = x^2 + 2x + 1$이 $\mathcal{O}(x^2)$ 임을 증명 하시오. 
+![](https://amitshahi.dev/static/756663638e3de206cc41988bfa13b7db/2d017/bigocomplexitychart.jpg)
 
-> $x = 1$ 인 경우 $f(x) = 4 = 4\times 1^2 = 4x^2$ 이기 때문에 
-$x > 1$이고 $C = 4$인 경우 $f(x)$ 가 $\mathcal{O}(x^2)$ 의 증인이기 때문에 
-$f(x) = \mathcal{O}(x^2)$ 성립
+![출처: https://amitshahi.dev/blog/2019-06-23-big-o-notation/](https://amitshahi.dev/static/0ee99fe5aafd4b17e417cf70eaeb1e50/b28c0/bigonotation.png)
 
 
-**예제 2**
+<!-- - $\mathcal{O}(1)$: $n$과 관계없이 일정 시간 이하로 수행되는 알고리즘 -->
+<!--    - 예: 파일의 첫 번째 byte 가 null 인지, 주어진 벡터의 첫 번째 값이 0인지 검사 -->
 
-$f(x) = 6x^4 -2x^3 - 2x^2 + 5$의 Big O를 구하시오. 
+<!-- - $\mathcal{O}(\log n)$: 알고리즘의 수행속도가 $\log_2 n$에 비례하여 수행됨 -->
+<!--    - 예: 이진 탐색(binary search) -->
 
-> $k = 1$, $C = 15$ 일 때, 
+<!-- - $\mathcal{O}(n)$: 알고리즘의 수행속도가 선형적($n$)으로 비례하여 수행 -->
+<!--    - 예: 단순 검색(simple search) -->
+
+- 기울기가 높아질수록 성능이 시간이 오래 걸림 $\rightarrow$ 효율이 떨어지므로 성능 또한 좋지 않음 
+- Big O의 차이에 따른 알고리즘 성능 비교
+
+
+```{r, echo=FALSE}
+N <- c(1, 10, 100)
+o1 <- c("1", "1", "1")
+ologn  <- c("1", "2", "5")
+on <- c("1", "10", "100")
+onlogn <- c("1", "23", "461")
+on2 <- c("1", "100", "10000")
+o2n <- c("1", "1024", "1.27E10+30")
+onf <- c("1", "3.63E+06", "9.33E10+157")
+
+coln <- c("N", "$\\mathcal{O}(1)$","$\\mathcal{O}(\\log n)$",
+          "$\\mathcal{O}(n)$","$\\mathcal{O}(n\\log n)$",
+          "$\\mathcal{O}(n^2)$","$\\mathcal{O}(2^n)$",
+          "$\\mathcal{O}(n!)$")
+
+tab1 <- data.frame(N, o1, ologn, on, onlogn, on2, o2n, onf)
+names(tab1) <- coln
+
+kable(tab1,
+      align = rep("l", 8),
+      escape = TRUE, 
+      booktabs = T, caption = "Big-O 복잡도 비교") %>%
+  kable_styling(bootstrap_options = c("condensed", "striped"), 
+                position = "center", 
+                font_size = 12, 
+                latex_options = c("striped", "HOLD_position"))
+
+
+```
+
+
+
+
+
+#### **Big O 표기법 규칙** {.unnumbered}
+
+
+```{block2, type="rmdtip"}
+**극한의 성질**
+  
+  1. 합의 법칙: $\lim\limits_{x \to a} [f(x) + g(x)] = \lim\limits_{x \to a} f(x) + \lim\limits_{x \to a} g(x)$
+
+  2. 차의 법칙: $\lim\limits_{x \to a} [f(x) - g(x)] = \lim\limits_{x \to a} f(x) - \lim\limits_{x \to a} g(x)$
+
+  3. 상수 곱의 법칙: $\lim\limits_{x \to a} [cf(x)] = c\lim\limits_{x \to a} f(x)$
+
+  4. 곱의 법칙: $\lim\limits_{x \to a} [f(x) \cdot g(x)] = \lim\limits_{x \to a} f(x) \cdot \lim\limits_{x \to a} g(x)$
+
+
+
+```
+
+
+##### **1. 계수 법칙** {.unnumbered}
+
+> 상수 $C > 0$ 일 때, $f(x) = \mathcal{O}(g(x))$ 이면 $Cf(x) = \mathcal{O}(g(x))$ 
+
+- 입력의 크기 $x$가 무한대에 가까워 지는 경우 양수 $C$의 크기는 의미가 없음
+   - $100 \infty = \infty$
+- Big O 표기는 정확한 수치를 나타내는 것이 아니기 때문에 중요하지 않은 항과 상수, 계수를 제거한 
+**점근적 표기법(asymptotic notation)** 임(drop non-dominants)
+
+
+**예제 1**: $f(x) = 6x^4 -2x^3 - 2x^2 + 5$의 Big O를 구하시오. 
+
+
+$k = 1$, $C = 15$ 일 때, 
 
 \[
 \begin{aligned}
@@ -173,29 +382,158 @@ $f(x) = 6x^4 -2x^3 - 2x^2 + 5$의 Big O를 구하시오.
 $f(x) = \mathcal{O}(x^4)$ 임. 
 
 
+**직관적 풀이**: 위 함수의 $x$에 매우 큰 값을 대입한 경우, 4차항 이하의 
+값은 점점 의미가 없어지기 때문에 중요한 것은 $6x^4$ 임(). 따라서 
+$\mathcal{O}(6x^4) = 6\mathcal{O}(x^4) = \mathcal{O}(x^4)$ 임. 
+
+
+**예제 2**: 아래 두 코드의 복잡도를 Big-O로 표시하시오. 
+
 
 ```{r}
-x <- c(1:1000000)
-y <- 1
-while(y <= length(x)) {
-    y <- 2*y
-    print(y)
+# case 1
+bigo_case1 <- function(n) {
+  sum <- 0 
+  for (i in 1:n) {
+    sum <- sum + i
+  }
+  return(sum)
 }
+
+
+# case 2
+bigo_case2 <- function(n) {
+  sum <- 0 
+  for (i in 1:5*n) {
+    sum <- sum + i
+  }
+  return(sum)
+}
+
+
+```
+
+- case 1: $\mathcal{O}(n)$
+- case 2: $\mathcal{O}(5n) = 5\mathcal{O}(n) = \mathcal{O}(n)$
+
+##### **2. 합의 법칙** {.unnumbered}
+
+
+> $f(x) = \mathcal{O}(h(x))$ 이고, $g(y) = \mathcal{O}(p(x))$ 이면, 
+$f(x) + g(x) = O(h(x) + p(x))$ 이다. 
+
+
+- 두 함수의 입력항이 동일한지를 파악하는 것이 중요: 두 함수의 입력항이 같다면 
+1의 규칙에 따라 단순화가 가능하지만, 다른 경우 따로 표시를 해줘야만 함
+
+
+**예제 1**: $f(x) = 3x^2 + 5x + 3$, $g(x) = 6x^2 + 20x + 45$ 일때 $f(x) +g(x)$의 
+Big O를 구하시오. 
+
+
+$f(x) + g(x) = \mathcal{O}(3x^2 + 6x^2) = \mathcal{O}(9x^2) = \mathcal{O}(x^2)$
+
+
+
+**예제 2**: $f(x) = 7x^4$, $g(y) = 9y^2 + 6y + 1$ 일때 $f(x) +g(y)$의 
+Big O를 구하시오. 
+
+
+$f(x) + g(y) = \mathcal{O}(7x^4) + \mathcal{O}(6y^2) = 7\mathcal{O}(x^4) + 6\mathcal{O}(y^2) = \mathcal{O}(x^4) + \mathcal{O}(y^2) = \mathcal{O}(x^4 + y^2)$
+
+
+
+**예제 3** 다음 함수의 시간 복잡도를 구하시오. 
+
+
+```{r}
+# case 3
+bigo_case3 <- function(n) {
+   sum <- 0 
+  for (i in 1:n) {
+    sum <- sum + i
+  }
+   
+  for (i in 1:5*n) {
+    sum <- sum + i
+  }
+  return(sum)
+}
+
+
+#case 4
+bigo_case4 <- function(n, m) {
+  sum <- 0
+  for (i in 1:n) {
+    sum <- sum + i
+  }
   
+  for (j in 1:m) {
+    sum <- sum + m
+  }
+}
+
 
 ```
 
 
+- case 3: $\mathcal{O}(n) + \mathcal{O}(5n) = \mathcal{O}(6n) = \mathcal{O}(n)$
+- case 4: $\mathcal{O}(n) + \mathcal{O}(m) = \mathcal{O}(n + m)$
 
 
-- $\mathcal{O}(1)$: $n$과 관계없이 일정 시간 이하로 수행되는 알고리즘
-   - 예: 파일의 첫 번째 byte 가 null 인지, 주어진 벡터의 첫 번째 값이 0인지 검사
+##### **3. 곱의 법칙** {.unnumbered}
 
-- $\mathcal{O}(\log n)$: 알고리즘의 수행속도가 $\log_2 n$에 비례하여 수행됨
-   - 예: 이진 탐색(binary search)
-   
-- $\mathcal{O}(n)$: 알고리즘의 수행속도가 선형적($n$)으로 비례하여 수행
-   - 예: 단순 검색(simple search)
+> $f(x) = \mathcal{O}(h(x))$이고 $g(x) = \mathcal{O}(p(x))$ 이면, 
+$f(x)\cdot g(x) = \mathcal{O}(h(x)\cdot p(x))$ 이다. 
+
+
+- 이중 `for` 반복문이 대표적인 경우 
+
+```{r}
+bigo_case5 <- function(n) {
+  sum <- 0 
+  for (i in 1:n) {
+    sum <- sum + i
+    for (j in 1:5*n) {
+      sum <- sum + j
+    }
+  }
+  return(sum)
+}
+
+
+```
+
+
+- case 5: $\mathcal{O}(n \times 5n) = 5\mathcal{O}(n^2) = \mathcal{O}(n^2)$
+
+
+
+##### **4. 다항 법칙** {.unnumbered}
+
+> $f(x)$가 $k$차 다항식이면 $f(x) = \mathcal{O}(x^k)$ 이다. 
+
+
+##### **5. 전이 법칙** {.unnumbered}
+
+
+> $f(x)$가 $\mathcal{O}(g(x))$ 이고 $g(x)$ 가 $\mathcal{O}(h(x))$이면, 
+$f(x) = \mathcal{O}(h(x))$ 이다. 
+
+
+
+
+
+<!-- ```{r} -->
+<!-- x <- c(1:1000000) -->
+<!-- y <- 1 -->
+<!-- while(y <= length(x)) { -->
+<!--     y <- 2*y -->
+<!--     print(y) -->
+<!-- } -->
+
+
+<!-- ``` -->
 
 
 
@@ -228,7 +566,7 @@ $$
 $$
 
 위 식을 이용해 $3!$을 구하는 과정: 
-   - $f(3) = 3\times f(2) = 3\times 2 \times f(1) = 3 \times 2\times 1\times f(0) = 3\times 2\times 1\times 1\times = 6$
+   - $f(3) = 3\times f(2) = 3\times 2 \times f(1) = 3 \times 2\times 1\times f(0) = 3\times 2\times 1\times 1 = 6$
 
 
 ```{r, eval=FALSE}
@@ -243,6 +581,7 @@ f(3) = 3*f(2)
 
 ```{r}
 factorial_manual <- function(n) {
+  # browser()
   if (n == 0) return(1)
   return(n * factorial_manual(n-1))
 }
@@ -317,7 +656,7 @@ move_hanoi <- function(n, from, to, via) {
                  from = n, 
                  to = from, 
                  via = to))
-   move_hanoi(n - 1, via, to, from)
+   move_hanoi(n - 1, from = via, to = to, via = from)
  }
 }
 
@@ -471,15 +810,25 @@ rbinary_search(target = k, ovec = x, minL = 1, maxL = length(x))
 
 ![이진탐색 성능이 가장 좋은 경우: https://blog.penjee.com/binary-vs-linear-search-animated-gifs/ 에서 발췌](https://blog.penjee.com/wp-content/uploads/2015/12/linear-vs-binary-search-best-case.gif)
 
-#### 알고리즘 효율 비교
+#### 두 탐색 알고리즘의 시간 복잡도 비교 {.unnumbered}
 
-**선형 검색**
+- **선형 탐색**: $\mathcal{O}(n)$
+
+- **이진 탐색**
+   - 반복 1: $n$
+   - 반복 2: $n/2$
+   - 반복 3: $n/2^2$
+   - ...
+   - 반복 k: $n/2^k$ $\rightarrow$ $k$ 번 까지 반복(나눔) 시 검색해야할 배열(벡터)
+   의 길이는 1임. 
+   
+> - 즉 최악의 경우 $n/2^k = 1$ 이므로 양변에 밑이 2인 로그를 취하면
+> - $\log_2n = k\log_2 2 = k$ 이므로 이진 탐색의 시간 복잡도는 $\mathcal{O}(\log_2n)$ 임. 
+   
 
 
 
-
-
-<!-- ## 선택정렬(Selection sort) -->
+## 정렬 알고리즘(Sorting algorithms)
 
 
 
