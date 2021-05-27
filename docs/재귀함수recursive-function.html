@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2021-05-23" />
+<meta name="date" content="2021-05-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -65,6 +65,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -369,7 +370,54 @@ div.csl-indent {
 <ul>
 <li>재귀함수 작성 시 재귀호출을 탈출하는 조건을 명확히 하는 것이 관건</li>
 </ul>
-<p><strong>예제1: 계승(factorial) 계산하기</strong></p>
+<div id="일반적-함수의-호출-및-리턴-과정" class="section level4 unnumbered">
+<h4>일반적 함수의 호출 및 리턴 과정</h4>
+<div class="figure">
+<img src="http://10bun.tv/assets/img/pic-1.fbffa400.png" alt="" />
+<p class="caption"><a href="http://10bun.tv/beginner/episode-4/" class="uri">http://10bun.tv/beginner/episode-4/</a> 에서 발췌</p>
+</div>
+<ul>
+<li><code>main()</code> 함수 안에서 함수 <code>A</code>가 호출되면, 코드 진행은 함수 <code>A</code>의 처음으로 옮겨짐.</li>
+<li>마찬가지로 함수 <code>A</code> 내부에서 함수 <code>B</code>가 호출되면서 코드 진행은 함수 <code>B</code>의
+처음으로 옮겨짐.</li>
+<li>함수 <code>B</code>가 진행되면 중간에 함수 <code>C</code>가 호출되면서 함수 <code>C</code>의 처음으로 진행이 옮겨짐</li>
+<li>함수 <code>C</code>가 모든 실행을 마치면 함수 <code>B</code>에서 <code>C</code>를 호출했던 다음 줄로 돌아감(return)</li>
+<li>함수 <code>B</code>의 모든 실행을 마치면 함수 <code>A</code>에서 <code>B</code>를 호출했던 다음 줄로 돌아감(return)</li>
+<li>함수 <code>A</code>의 모든 실행을 마치면 <code>main()</code> 함수에서 <code>A</code>를 호출했던 다음 줄로 돌아감(return)</li>
+</ul>
+</div>
+<div id="재귀-함수의-호출-및-리턴-과정" class="section level4 unnumbered">
+<h4>재귀 함수의 호출 및 리턴 과정</h4>
+<div class="figure">
+<img src="http://10bun.tv/assets/img/pic-3.15b299dc.png" alt="" />
+<p class="caption"><a href="http://10bun.tv/beginner/episode-4/" class="uri">http://10bun.tv/beginner/episode-4/</a> 에서 발췌</p>
+</div>
+<ul>
+<li>모든 재귀함수의 호출 시 새로운 작업공간(메모리)을 확보해 진행</li>
+<li>동일한 코드가 작업공간만 옮겨 다니며 무한히 반복되는 구조이기 때문에
+<strong>탈출조건</strong>이 필요</li>
+</ul>
+<p><strong>예제1: 재귀함수를 이용한 1부터 <code>n</code> 까지 합을 구하는 함수</strong></p>
+<div class="sourceCode" id="cb1604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1604-1"><a href="재귀함수recursive-function.html#cb1604-1" aria-hidden="true" tabindex="-1"></a>recursive_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb1604-2"><a href="재귀함수recursive-function.html#cb1604-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>)  <span class="fu">return</span>(n) <span class="co"># 종료 조건 </span></span>
+<span id="cb1604-3"><a href="재귀함수recursive-function.html#cb1604-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(n <span class="sc">+</span> <span class="fu">recursive_sum</span>(n<span class="dv">-1</span>))</span>
+<span id="cb1604-4"><a href="재귀함수recursive-function.html#cb1604-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1604-5"><a href="재귀함수recursive-function.html#cb1604-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1604-6"><a href="재귀함수recursive-function.html#cb1604-6" aria-hidden="true" tabindex="-1"></a><span class="fu">recursive_sum</span>(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>[1] 6</code></pre>
+<p></p>
+<div class="figure">
+<img src="http://10bun.tv/assets/img/pic-4.0c2bbb4c.png" alt="" />
+<p class="caption"><a href="http://10bun.tv/beginner/episode-4/" class="uri">http://10bun.tv/beginner/episode-4/</a> 에서 발췌</p>
+</div>
+<ul>
+<li><code>recursive_sum(3)</code> 실행 시 <code>n</code>이 1이 아니기 때문에 <code>recursive_sum(2)</code> 호출</li>
+<li><code>recursive_sum(2)</code> 실행 시 <code>n</code>이 1이 아니기 때문에 <code>recursive_sum(1)</code> 호출</li>
+<li><code>recursive_sum(1)</code> 이면 <code>n == 1</code> 을 만족하기 때문에 1 반환(return)</li>
+<li><code>recursive_sum(2)</code>는 <code>recursive_sum(1)</code>에서 반환 받은 1과 <code>n = 2</code>을 더해서 3을 반환(return)</li>
+<li><code>recursive_sum(3)</code>은 <code>recursive_sum(2)</code> 에서 반환 받은 3과 <code>n = 3</code>을 더해서 6을 반환 <span class="math inline">\(\rightarrow\)</span> 종료</li>
+</ul>
+<p><strong>예제2: 계승(factorial) 계산하기</strong></p>
 <p><span class="math display">\[
  n! = \begin{cases}
  n \times (n - 1)!, &amp; n=1, \cdots \\
@@ -385,24 +433,24 @@ div.csl-indent {
 \]</span></p>
 <p>위 식을 이용해 <span class="math inline">\(3!\)</span>을 구하는 과정:
 - <span class="math inline">\(f(3) = 3\times f(2) = 3\times 2 \times f(1) = 3 \times 2\times 1\times f(0) = 3\times 2\times 1\times 1 = 6\)</span></p>
-<div class="sourceCode" id="cb1609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1609-1"><a href="재귀함수recursive-function.html#cb1609-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">3</span>) <span class="ot">=</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">f</span>(<span class="dv">2</span>)</span>
-<span id="cb1609-2"><a href="재귀함수recursive-function.html#cb1609-2" aria-hidden="true" tabindex="-1"></a>         <span class="fu">f</span>(<span class="dv">2</span>) <span class="ot">=</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">f</span>(<span class="dv">1</span>)</span>
-<span id="cb1609-3"><a href="재귀함수recursive-function.html#cb1609-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">f</span>(<span class="dv">1</span>) <span class="ot">=</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb1606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1606-1"><a href="재귀함수recursive-function.html#cb1606-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">3</span>) <span class="ot">=</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">f</span>(<span class="dv">2</span>)</span>
+<span id="cb1606-2"><a href="재귀함수recursive-function.html#cb1606-2" aria-hidden="true" tabindex="-1"></a>         <span class="fu">f</span>(<span class="dv">2</span>) <span class="ot">=</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">f</span>(<span class="dv">1</span>)</span>
+<span id="cb1606-3"><a href="재귀함수recursive-function.html#cb1606-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">f</span>(<span class="dv">1</span>) <span class="ot">=</span> <span class="dv">1</span></span></code></pre></div>
 <p></p>
 <p>위 과정을 함수로 구현</p>
-<div class="sourceCode" id="cb1610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1610-1"><a href="재귀함수recursive-function.html#cb1610-1" aria-hidden="true" tabindex="-1"></a>factorial_manual <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb1610-2"><a href="재귀함수recursive-function.html#cb1610-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># browser()</span></span>
-<span id="cb1610-3"><a href="재귀함수recursive-function.html#cb1610-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="dv">1</span>)</span>
-<span id="cb1610-4"><a href="재귀함수recursive-function.html#cb1610-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(n <span class="sc">*</span> <span class="fu">factorial_manual</span>(n<span class="dv">-1</span>))</span>
-<span id="cb1610-5"><a href="재귀함수recursive-function.html#cb1610-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1610-6"><a href="재귀함수recursive-function.html#cb1610-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1610-7"><a href="재귀함수recursive-function.html#cb1610-7" aria-hidden="true" tabindex="-1"></a><span class="co"># test</span></span>
-<span id="cb1610-8"><a href="재귀함수recursive-function.html#cb1610-8" aria-hidden="true" tabindex="-1"></a><span class="fu">factorial_manual</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1607-1"><a href="재귀함수recursive-function.html#cb1607-1" aria-hidden="true" tabindex="-1"></a>factorial_manual <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb1607-2"><a href="재귀함수recursive-function.html#cb1607-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># browser()</span></span>
+<span id="cb1607-3"><a href="재귀함수recursive-function.html#cb1607-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="dv">1</span>)</span>
+<span id="cb1607-4"><a href="재귀함수recursive-function.html#cb1607-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(n <span class="sc">*</span> <span class="fu">factorial_manual</span>(n<span class="dv">-1</span>))</span>
+<span id="cb1607-5"><a href="재귀함수recursive-function.html#cb1607-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1607-6"><a href="재귀함수recursive-function.html#cb1607-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1607-7"><a href="재귀함수recursive-function.html#cb1607-7" aria-hidden="true" tabindex="-1"></a><span class="co"># test</span></span>
+<span id="cb1607-8"><a href="재귀함수recursive-function.html#cb1607-8" aria-hidden="true" tabindex="-1"></a><span class="fu">factorial_manual</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>[1] 6</code></pre>
-<div class="sourceCode" id="cb1612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1612-1"><a href="재귀함수recursive-function.html#cb1612-1" aria-hidden="true" tabindex="-1"></a><span class="fu">factorial_manual</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1609-1"><a href="재귀함수recursive-function.html#cb1609-1" aria-hidden="true" tabindex="-1"></a><span class="fu">factorial_manual</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>[1] 3628800</code></pre>
-<div class="sourceCode" id="cb1614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1614-1"><a href="재귀함수recursive-function.html#cb1614-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R 내장함수로 검증</span></span>
-<span id="cb1614-2"><a href="재귀함수recursive-function.html#cb1614-2" aria-hidden="true" tabindex="-1"></a><span class="fu">factorial</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1611-1"><a href="재귀함수recursive-function.html#cb1611-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R 내장함수로 검증</span></span>
+<span id="cb1611-2"><a href="재귀함수recursive-function.html#cb1611-2" aria-hidden="true" tabindex="-1"></a><span class="fu">factorial</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>[1] 3628800</code></pre>
 <p></p>
 <p><strong>확장예제: 하노이 탑(tower of Hanoi)</strong></p>
@@ -445,22 +493,22 @@ Figure 8.3: 하노이 탑 문제
 </div>
 <p></p>
 <p><strong>알고리즘 구현</strong></p>
-<div class="sourceCode" id="cb1616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1616-1"><a href="재귀함수recursive-function.html#cb1616-1" aria-hidden="true" tabindex="-1"></a>move_hanoi <span class="ot">&lt;-</span> <span class="cf">function</span>(k, from, to, via) {</span>
-<span id="cb1616-2"><a href="재귀함수recursive-function.html#cb1616-2" aria-hidden="true" tabindex="-1"></a> <span class="co"># browser()</span></span>
-<span id="cb1616-3"><a href="재귀함수recursive-function.html#cb1616-3" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> (k <span class="sc">==</span> <span class="dv">1</span>) {</span>
-<span id="cb1616-4"><a href="재귀함수recursive-function.html#cb1616-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">print</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%d 번 원판을 %s 에서 %s 로 이동&quot;</span>, <span class="dv">1</span>, from, to))</span>
-<span id="cb1616-5"><a href="재귀함수recursive-function.html#cb1616-5" aria-hidden="true" tabindex="-1"></a> } <span class="cf">else</span> {</span>
-<span id="cb1616-6"><a href="재귀함수recursive-function.html#cb1616-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, <span class="at">from =</span> from, <span class="at">to =</span> via, <span class="at">via =</span> to)</span>
-<span id="cb1616-7"><a href="재귀함수recursive-function.html#cb1616-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">print</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%d 번 원판을 %s 에서 %s 로 이동&quot;</span>, </span>
-<span id="cb1616-8"><a href="재귀함수recursive-function.html#cb1616-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">from =</span> k, </span>
-<span id="cb1616-9"><a href="재귀함수recursive-function.html#cb1616-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">to =</span> from, </span>
-<span id="cb1616-10"><a href="재귀함수recursive-function.html#cb1616-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">via =</span> to))</span>
-<span id="cb1616-11"><a href="재귀함수recursive-function.html#cb1616-11" aria-hidden="true" tabindex="-1"></a>   <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, <span class="at">from =</span> via, <span class="at">to =</span> to, <span class="at">via =</span> from)</span>
-<span id="cb1616-12"><a href="재귀함수recursive-function.html#cb1616-12" aria-hidden="true" tabindex="-1"></a> }</span>
-<span id="cb1616-13"><a href="재귀함수recursive-function.html#cb1616-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1616-14"><a href="재귀함수recursive-function.html#cb1616-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1616-15"><a href="재귀함수recursive-function.html#cb1616-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1616-16"><a href="재귀함수recursive-function.html#cb1616-16" aria-hidden="true" tabindex="-1"></a><span class="fu">move_hanoi</span>(<span class="dv">3</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;B&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1613-1"><a href="재귀함수recursive-function.html#cb1613-1" aria-hidden="true" tabindex="-1"></a>move_hanoi <span class="ot">&lt;-</span> <span class="cf">function</span>(k, from, to, via) {</span>
+<span id="cb1613-2"><a href="재귀함수recursive-function.html#cb1613-2" aria-hidden="true" tabindex="-1"></a> <span class="co"># browser()</span></span>
+<span id="cb1613-3"><a href="재귀함수recursive-function.html#cb1613-3" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> (k <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb1613-4"><a href="재귀함수recursive-function.html#cb1613-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">print</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%d 번 원판을 %s 에서 %s 로 이동&quot;</span>, <span class="dv">1</span>, from, to))</span>
+<span id="cb1613-5"><a href="재귀함수recursive-function.html#cb1613-5" aria-hidden="true" tabindex="-1"></a> } <span class="cf">else</span> {</span>
+<span id="cb1613-6"><a href="재귀함수recursive-function.html#cb1613-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, <span class="at">from =</span> from, <span class="at">to =</span> via, <span class="at">via =</span> to)</span>
+<span id="cb1613-7"><a href="재귀함수recursive-function.html#cb1613-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">print</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%d 번 원판을 %s 에서 %s 로 이동&quot;</span>, </span>
+<span id="cb1613-8"><a href="재귀함수recursive-function.html#cb1613-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">from =</span> k, </span>
+<span id="cb1613-9"><a href="재귀함수recursive-function.html#cb1613-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">to =</span> from, </span>
+<span id="cb1613-10"><a href="재귀함수recursive-function.html#cb1613-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">via =</span> to))</span>
+<span id="cb1613-11"><a href="재귀함수recursive-function.html#cb1613-11" aria-hidden="true" tabindex="-1"></a>   <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, <span class="at">from =</span> via, <span class="at">to =</span> to, <span class="at">via =</span> from)</span>
+<span id="cb1613-12"><a href="재귀함수recursive-function.html#cb1613-12" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb1613-13"><a href="재귀함수recursive-function.html#cb1613-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1613-14"><a href="재귀함수recursive-function.html#cb1613-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1613-15"><a href="재귀함수recursive-function.html#cb1613-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1613-16"><a href="재귀함수recursive-function.html#cb1613-16" aria-hidden="true" tabindex="-1"></a><span class="fu">move_hanoi</span>(<span class="dv">3</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;B&quot;</span>)</span></code></pre></div>
 <pre><code>[1] &quot;1 번 원판을 A 에서 C 로 이동&quot;
 [1] &quot;2 번 원판을 A 에서 B 로 이동&quot;
 [1] &quot;1 번 원판을 C 에서 B 로 이동&quot;
@@ -468,7 +516,7 @@ Figure 8.3: 하노이 탑 문제
 [1] &quot;1 번 원판을 B 에서 A 로 이동&quot;
 [1] &quot;2 번 원판을 B 에서 C 로 이동&quot;
 [1] &quot;1 번 원판을 A 에서 C 로 이동&quot;</code></pre>
-<div class="sourceCode" id="cb1618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1618-1"><a href="재귀함수recursive-function.html#cb1618-1" aria-hidden="true" tabindex="-1"></a><span class="fu">move_hanoi</span>(<span class="dv">4</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;B&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1615-1"><a href="재귀함수recursive-function.html#cb1615-1" aria-hidden="true" tabindex="-1"></a><span class="fu">move_hanoi</span>(<span class="dv">4</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;B&quot;</span>)</span></code></pre></div>
 <pre><code>[1] &quot;1 번 원판을 A 에서 B 로 이동&quot;
 [1] &quot;2 번 원판을 A 에서 C 로 이동&quot;
 [1] &quot;1 번 원판을 B 에서 C 로 이동&quot;
@@ -485,6 +533,7 @@ Figure 8.3: 하노이 탑 문제
 [1] &quot;2 번 원판을 A 에서 C 로 이동&quot;
 [1] &quot;1 번 원판을 B 에서 C 로 이동&quot;</code></pre>
 <p></p>
+</div>
 </div>
             </section>
 

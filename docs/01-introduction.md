@@ -248,12 +248,13 @@ sessionInfo()
 ```
 
 ```
-R version 4.0.3 (2020-10-10)
+R version 4.0.5 (2021-03-31)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 18.04.5 LTS
 
 Matrix products: default
-BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/libopenblasp-r0.2.20.so
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3
+LAPACK: /usr/lib/x86_64-linux-gnu/libopenblasp-r0.2.20.so
 
 locale:
  [1] LC_CTYPE=ko_KR.UTF-8       LC_NUMERIC=C              
@@ -279,19 +280,19 @@ loaded via a namespace (and not attached):
 [10] backports_1.2.1     reprex_2.0.0        evaluate_0.14      
 [13] highr_0.9           httr_1.4.2          pillar_1.6.1       
 [16] rlang_0.4.11        readxl_1.3.1        rstudioapi_0.13    
-[19] jquerylib_0.1.4     Matrix_1.3-3        splines_4.0.3      
+[19] jquerylib_0.1.4     Matrix_1.3-3        splines_4.0.5      
 [22] webshot_0.5.2       munsell_0.5.0       broom_0.7.6        
-[25] compiler_4.0.3      modelr_0.1.8        xfun_0.23          
+[25] compiler_4.0.5      modelr_0.1.8        xfun_0.23          
 [28] systemfonts_1.0.2   pkgconfig_2.0.3     htmltools_0.5.1.1  
 [31] tidyselect_1.1.1    bookdown_0.22       viridisLite_0.4.0  
 [34] fansi_0.4.2         crayon_1.4.1        dbplyr_2.1.1       
-[37] withr_2.4.2         grid_4.0.3          jsonlite_1.7.2     
+[37] withr_2.4.2         grid_4.0.5          jsonlite_1.7.2     
 [40] gtable_0.3.0        lifecycle_1.0.0     DBI_1.1.1          
 [43] magrittr_2.0.1      scales_1.1.1        cli_2.5.0          
 [46] stringi_1.6.2       broom.helpers_1.3.0 fs_1.5.0           
 [49] xml2_1.3.2          bslib_0.2.5         ellipsis_0.3.2     
-[52] generics_0.1.0      vctrs_0.3.8         tools_4.0.3        
-[55] hms_1.0.0           survival_3.2-7      yaml_2.2.1         
+[52] generics_0.1.0      vctrs_0.3.8         tools_4.0.5        
+[55] hms_1.0.0           survival_3.2-10     yaml_2.2.1         
 [58] colorspace_2.0-1    rvest_1.0.0         haven_2.4.1        
 [61] sass_0.4.0         
 ```
@@ -857,7 +858,7 @@ dir()
 [41] "output"                              
 [42] "packages.bib"                        
 [43] "README.md"                           
-[44] "render164566d24cada.rds"             
+[44] "render30f62bc329ee.rds"              
 [45] "test"                                
 [46] "video"                               
 ```
@@ -946,7 +947,7 @@ getwd(); dir()
 [41] "output"                              
 [42] "packages.bib"                        
 [43] "README.md"                           
-[44] "render164566d24cada.rds"             
+[44] "render30f62bc329ee.rds"              
 [45] "test"                                
 [46] "video"                               
 ```
@@ -1148,7 +1149,7 @@ getwd(); dir()
 
 ```
 [1] "/home/user/R/x86_64-pc-linux-gnu-library/4.0"
-[2] "/opt/R/4.0.3/lib/R/library"                  
+[2] "/opt/R/4.0.5/lib/R/library"                  
 ```
 
  \normalsize

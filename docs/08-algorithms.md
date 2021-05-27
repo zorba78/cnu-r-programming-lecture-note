@@ -552,7 +552,63 @@ $f(x) = \mathcal{O}(h(x))$ 이다.
   - 재귀함수 작성 시 재귀호출을 탈출하는 조건을 명확히 하는 것이 관건
   
 
-**예제1: 계승(factorial) 계산하기**
+#### 일반적 함수의 호출 및 리턴 과정 {.unnumbered}
+
+![http://10bun.tv/beginner/episode-4/ 에서 발췌](http://10bun.tv/assets/img/pic-1.fbffa400.png)
+
+
+- `main()` 함수 안에서 함수 `A`가 호출되면, 코드 진행은 함수 `A`의 처음으로 옮겨짐. 
+- 마찬가지로 함수 `A` 내부에서 함수 `B`가 호출되면서 코드 진행은 함수 `B`의 
+처음으로 옮겨짐. 
+- 함수 `B`가 진행되면 중간에 함수 `C`가 호출되면서 함수 `C`의 처음으로 진행이 옮겨짐
+- 함수 `C`가 모든 실행을 마치면 함수 `B`에서 `C`를 호출했던 다음 줄로 돌아감(return)
+- 함수 `B`의 모든 실행을 마치면 함수 `A`에서 `B`를 호출했던 다음 줄로 돌아감(return)
+- 함수 `A`의 모든 실행을 마치면 `main()` 함수에서 `A`를 호출했던 다음 줄로 돌아감(return)
+
+
+#### 재귀 함수의 호출 및 리턴 과정 {.unnumbered}
+
+
+![http://10bun.tv/beginner/episode-4/ 에서 발췌](http://10bun.tv/assets/img/pic-3.15b299dc.png)
+
+
+- 모든 재귀함수의 호출 시 새로운 작업공간(메모리)을 확보해 진행
+- 동일한 코드가 작업공간만 옮겨 다니며 무한히 반복되는 구조이기 때문에 
+**탈출조건**이 필요
+
+
+**예제1: 재귀함수를 이용한 1부터 `n` 까지 합을 구하는 함수**
+
+\footnotesize
+
+
+```r
+recursive_sum <- function(n) {
+  if (n == 1)  return(n) # 종료 조건 
+  return(n + recursive_sum(n-1))
+}
+
+recursive_sum(3)
+```
+
+```
+[1] 6
+```
+
+ \normalsize
+
+
+![http://10bun.tv/beginner/episode-4/ 에서 발췌](http://10bun.tv/assets/img/pic-4.0c2bbb4c.png)
+
+- `recursive_sum(3)` 실행 시 `n`이 1이 아니기 때문에 `recursive_sum(2)` 호출
+- `recursive_sum(2)` 실행 시 `n`이 1이 아니기 때문에 `recursive_sum(1)` 호출
+- `recursive_sum(1)` 이면 `n == 1` 을 만족하기 때문에 1 반환(return)
+- `recursive_sum(2)`는 `recursive_sum(1)`에서 반환 받은 1과 `n = 2`을 더해서 3을 반환(return)
+- `recursive_sum(3)`은 `recursive_sum(2)` 에서 반환 받은 3과 `n = 3`을 더해서 6을 반환 $\rightarrow$ 종료 
+
+
+
+**예제2: 계승(factorial) 계산하기**
 
 
 $$
