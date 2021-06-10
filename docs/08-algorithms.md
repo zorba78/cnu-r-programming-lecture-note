@@ -1084,7 +1084,7 @@ $$
 
 **자리 교환 횟수**
 
-- 최선의 경우: 이미 정렬된 벡터인 경우 자리 교환이 한 번도 이루어지지 않기 때문에 $\mathcal{O}(1)$ 임. 
+- 최선의 경우: 이미 정렬된 벡터인 경우 자리 교환이 한 번도 이루어지지 않기 때문에 $\mathcal{O}(n)$ 임. 
 - 최악의 경우: 역순으로 정렬된 경우 원소를 비교할 때 마다 자리 교환을 수행해야 하기 때문에  $\mathcal{O}(n^2)$ 임. 
 
 > 즉 버블 정렬의 시간복잡도는 $\mathcal{O}(n^2)$
@@ -1123,7 +1123,7 @@ $$
 ![](https://upload.wikimedia.org/wikipedia/commons/9/9c/Insertion-sort-example.gif)
 
 
-> - 두 번째 원소부터 시작해 앞(윈쪽)의 원소와 비교하면서 삽입 위치 지정 후 
+> - 두 번째 원소부터 시작해 앞(왼쪽)의 원소와 비교하면서 삽입 위치 지정 후 
 자료를 뒤로 옮기고 지정 위치(인덱스)에 원소를 삽입하면서 정렬
 > - 두 번째 자료는 첫 번째 자료, 세 번째 자료는 두 번째와 첫 번째 자료, 네 번째 
 자료는 세 번째, 두 번째, 첫 번째 원소와 비교 후 삽입 위치(인덱스) 탐색
@@ -1298,8 +1298,8 @@ insertion_sort(x)
 
 - 왼쪽 부분 벡터와 오른쪽 부분 벡터의 원소를 비교해 더 작은 값이 `temp`에 저장
 - 만약 `left` 의 `lstart` 인덱스에 해당하는 값이 `right`의 `rstart` 인덱스에 해당하는 값보다 
-작다면 `temp`의 $i$ 번째 인덱스에 `left[lstart]` 값 저장 후 `astart` 값을 하나씩 증가
-- 반대의 경우 `temp`의 $i$ 번째 인덱스에 `right[rstart]` 값 저장 후 `bstart` 값을 하나씩 증가
+작다면 `temp`의 $i$ 번째 인덱스에 `left[lstart]` 값 저장 후 `lstart` 값을 하나씩 증가
+- 반대의 경우 `temp`의 $i$ 번째 인덱스에 `right[rstart]` 값 저장 후 `rstart` 값을 하나씩 증가
    
 
 
@@ -1308,7 +1308,7 @@ insertion_sort(x)
 > 1. `temp <- numeric(length(left) + length(right))`
 > 2. `n1 <- length(left)`
 > 3. `n2 <- length(right)`
-> 4. `astart <- 1; bstart <- 1`
+> 4. `lstart <- 1; rstart <- 1`
 > 4. `for (i in 1:length(temp))`
 > 5. &nbsp;&nbsp; `if (left[lstart] <= right[rstart])`
 > 6. &nbsp;&nbsp;&nbsp;&nbsp; `temp[i] <- left[lstart]`
@@ -1371,21 +1371,34 @@ x_sort <- merge_sort(x)
 
 #### 시간 복잡도 {.unnumbered}
 
-> 1. 분할 단계($n = 2^k$로 가정): 
->   - 단계 1: $n/2$
->   - 단계 2: $n/2^2$
->   - $\ldots$ 
->   - 단계 k: $n/2^k \rightarrow k$ 번까지 반복 
+1. 재귀함수의 깊이($n = 2^k$로 가정): 
 
-$\rightarrow$ 최악의 경우 $n/2^k = 1$ 이므로 양변에 로그를 취하면 
-$\log_2n = k\log_22 = k \rightarrow \mathcal{O}(\log_2n)$ 임.
+> - 단계 1: $n/2$
+> - 단계 2: $n/2^2$
+> - $\ldots$ 
+> - 단계 k: $n/2^k \rightarrow k$ 번까지 반복 
 
-> 2. 병합단계
->   - 총 부분 벡터에 들어있는 원소의 개수가 $n$ 개인 경우 데이터의 이동은 총 $2n$ 번이 
-필요하고, 재귀호출의 깊이만큼을 곱해줘야 하기 때문에 병합 단계의 시간 복잡도는 
-$2n\log_2n$ 임. 
+$\rightarrow$ 최악의 경우 $n/2^k = 1$ 이므로 양변에 로그를 취하면 $\log_2n$ 임. 
+각 합병 단계에서 
 
-총 시간복잡도는 
+> - $n = 8$인 경우 크기가 1인 부분 벡터 2개를 병합 시 최대 2 번의 연산이 필요하고,
+부분 배열의 쌍이 4개이기 때문에 최대 $2\times 4= 8$ 번의 비교 연산이 필요
+> - 다음 단계에서 병합 시 길이가 2인 부분 벡터 2 개 병합 시 4 번의 비교 연산이 필요하고 
+부분 벡터의 쌍이 2이기 때문에 최대 $4\times 2= 8$ 번의 비교 연산 필요 
+> - 마지막 단계에서 길이가 4인 부분 벡터 2개 병합 시 8 번의 비교 연산이 필요하고, 
+부분 벡터의 쌍이 1이기 때문에 최대 $8\times 1= 8$ 번의 연산 필요
+> - $\rightarrow$ 최대 $n$ 번 
+> - $\therefore$ $n\times \log_2n = n\log_2n$ 
+
+
+2. 이동횟수
+
+> - 재귀함수의 깊이: $\log_2 n$
+> - 임시 벡터에 복사 후 다시 가져와야 하기 때문에 총 부분 배열에 들어 있는 원소의 
+개수가 $n$인 경우 원소의 이동이 총 $2n$ 번 발생
+> - $\therefore$ $2n\log_2 n$
+
+따라서 총 시간 복잡도는
 
 $n\log_2n + 2n\log_2n = 3n\log_2n \rightarrow \mathcal{O}(n\log_2n)$
 
@@ -1393,8 +1406,123 @@ $n\log_2n + 2n\log_2n = 3n\log_2n \rightarrow \mathcal{O}(n\log_2n)$
 
 ### 퀵 정렬(Quick Sort)
 
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">주어진 벡터(배열)을 단순히 균등하게 분할하는 대신 병합 과정 없이 
+한쪽 벡터에 포함된 원소가 다른 쪽 벡터에 포함된 원소보다 항상 작게 배열을 분할하는 
+방식으로 정렬을 수행함. 벡터에서 임의의 원소를 기준(pivot)으로 정한 후 
+기준보다 작거나 같은 원소는 왼쪽, 큰 원소는 오른쪽으로 보내는 과정을 수행
 
 
+- **불안정 정렬**
+- **분할 정복** 알고리즘 중 하나로 매우 좋은 효율을 보임
+- 다른 원소와 비교를 **재귀적**으로 수행 $\rightarrow$ **비교 정렬**
+- 병합 정렬과 달리 주어진 벡터(배열)을 비균등하게 분할
+
+</div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
+
+![Quick 정렬 애니메이션: 위키피디아 발췌](https://upload.wikimedia.org/wikipedia/commons/9/9c/Quicksort-example.gif)
+
+#### 퀵 정렬 과정 {.unnumbered}
+
+1. 벡터 내 한 원소를 임의로 선택 $\rightarrow$ **피벗(pivot)**
+2. 피벗을 기준으로 피벗보다 작은 원소는 모두 피벗의 왼쪽으로 옮기고, 
+피벗보다 끈 원소들은 모두 오른쪽으로 옮김 $\rightarrow$ **분할**
+3. 피벗을 제외한 왼쪽과 오른쪽 부분 벡터를 정렬 $\rightarrow$ **정복**
+   - 분할된 부분 벡터에 대해 재귀호출을 통해 정렬 반복
+   - 부분 벡터에 대해서도 다시 피벗을 정하고 피벗을 기준으로 2개의 부분 벡터로 나누는 과정 반복
+4. 부분 벡터들이 더 이상 분할할 수 없을 때 까지 반복
+   - 벡터의 크기가 1이 될 때 까지 반복
+5. 정렬한 부분 벡터를 하나의 벡터로 병합 $\rightarrow$ **결합**
+
+
+![Quick 정렬 알고리즘 과정: https://gmlwjd9405.github.io/ 에서 발췌](https://gmlwjd9405.github.io/images/algorithm-quick-sort/quick-sort.png)
+
+#### 특징 {.unnumbered}
+
+**장점**
+
+   - 속도가 빠름
+   - 추가 메모리 공간을 필요로 하지 않음 
+   - $\mathcal{O}(\log_2 n)$ 만큼의 메모리 필요
+
+
+**단점**
+
+   - 정렬된 벡터(배열)에 대해서는 불균형 분할로 인해 수행시간이 더 오래 걸림
+
+
+
+#### 구현 {.unnumbered}
+
+재귀함수를 이용한 퀵 정렬 알고리즘 구현
+
+##### Pseudocode {.unnumbered}
+
+`quicksort(x)`
+
+> 1. pivot 선택
+> 2. `left = x[x <= pivot]; right = x[x > pivot]`
+> 3. `if (l < 1) then quicksort(left)`
+> 4. `if (r < 1) then quicksort(right)`
+> 5. `merge (left, pivot, right)`
+
+
+\footnotesize
+
+
+```r
+# Quick 정렬
+quick_sort <- function(x) {
+  n <- length(x)
+  randi <- sample(1:n, 1)
+  pivot <- x[randi]
+  x <- x[-randi]
+  
+  left <- x[which(x <= pivot)]
+  right <- x[which(x > pivot)]
+  
+  if (length(left) > 1) left <- quick_sort(left)
+  if (length(right) > 1) right <- quick_sort(right)
+  out <- c(left, pivot, right)
+  out
+}
+
+x <- sample(1:100, 20)
+quick_sort(x)
+```
+
+```
+ [1]  1  3  9 12 13 14 16 20 25 30 32 36 60 62 64 72 75 76 80 84
+```
+
+ \normalsize
+
+
+#### 시간 복잡도 {.unnumbered}
+
+1. 최선의 경우
+   - pivot 좌우로 분할된 벡터의 크기가 각 재귀 단계마다 동등한 경우, 
+   재귀 단계에 대한 깊이는 병합 정렬과 동일하게 $\log_2 n$ 임. 
+   - 각 재귀 단계에서 비교 연산은 전체 $n$ 번의 비교가 필요
+   - $\therefore$ $\mathcal{O}(n\log_2 n)$
+   
+2. 최악의 경우
+   - 정렬된 벡터에서 계속해서 불균형하게 분할이 이루어지는 경우, 
+   재귀 단계의 깊이는 최대 $n$ 임
+   - 각 재귀 단계에서 비교는 전체 $n - 1$ 만큼 이루어짐 
+   - $\therefore$ $\mathcal{O}(n^2)$
+
+
+\footnotesize
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">Big-O 표기법에 따르면 퀵 정렬의 시간 복잡도는 $\mathcal{O}(n^2)$ 인데, 
+왜 빠르다고 할까??
+</div>\EndKnitrBlock{rmdnote}
+
+ \normalsize
 
 
 
