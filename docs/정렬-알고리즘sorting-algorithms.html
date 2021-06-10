@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>8.4 정렬 알고리즘(Sorting algorithms) | 통계 프로그래밍 언어</title>
+  <title>8.4 정렬 알고리즘(Sorting Algorithms) | 통계 프로그래밍 언어</title>
   <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="8.4 정렬 알고리즘(Sorting algorithms) | 통계 프로그래밍 언어" />
+  <meta property="og:title" content="8.4 정렬 알고리즘(Sorting Algorithms) | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8.4 정렬 알고리즘(Sorting algorithms) | 통계 프로그래밍 언어" />
+  <meta name="twitter:title" content="8.4 정렬 알고리즘(Sorting Algorithms) | 통계 프로그래밍 언어" />
   
   <meta name="twitter:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2021-05-27" />
+<meta name="date" content="2021-06-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -343,7 +343,13 @@ div.csl-indent {
 <li class="chapter" data-level="8.3.2" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#이진-탐색binary-search"><i class="fa fa-check"></i><b>8.3.2</b> 이진 탐색(Binary Search)</a></li>
 <li class="chapter" data-level="8.3.3" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#선형탐색과-이진탐색-비교"><i class="fa fa-check"></i><b>8.3.3</b> 선형탐색과 이진탐색 비교</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html"><i class="fa fa-check"></i><b>8.4</b> 정렬 알고리즘(Sorting algorithms)</a></li>
+<li class="chapter" data-level="8.4" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html"><i class="fa fa-check"></i><b>8.4</b> 정렬 알고리즘(Sorting Algorithms)</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html#버블-정렬bubble-sort"><i class="fa fa-check"></i><b>8.4.1</b> 버블 정렬(Bubble Sort)</a></li>
+<li class="chapter" data-level="8.4.2" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html#삽입-정렬insertion-sort"><i class="fa fa-check"></i><b>8.4.2</b> 삽입 정렬(Insertion Sort)</a></li>
+<li class="chapter" data-level="8.4.3" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html#병합-정렬merge-sort"><i class="fa fa-check"></i><b>8.4.3</b> 병합 정렬(Merge Sort)</a></li>
+<li class="chapter" data-level="8.4.4" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html#퀵-정렬quick-sort"><i class="fa fa-check"></i><b>8.4.4</b> 퀵 정렬(Quick Sort)</a></li>
+</ul></li>
 <li class="chapter" data-level="8.5" data-path="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html"><i class="fa fa-check"></i><b>8.5</b> 뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm)</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -365,7 +371,389 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="정렬-알고리즘sorting-algorithms" class="section level2" number="8.4">
-<h2><span class="header-section-number">8.4</span> 정렬 알고리즘(Sorting algorithms)</h2>
+<h2><span class="header-section-number">8.4</span> 정렬 알고리즘(Sorting Algorithms)</h2>
+<p>정렬 알고리즘은 특성에 따라 <strong>안정 정렬(stable sort)</strong>과 <strong>불안정 정렬(unstable sort)</strong> 로 구분</p>
+<p>정렬의 안정적 특성: 정렬되지 않은 상태에서 중복값이 존재하는 경우 정렬 후에도 그 순서가 그대로 유지</p>
+<blockquote>
+<ul>
+<li><strong>안정 정렬(stable sort)</strong>: 임의 배열(벡터)에 중복된 값이 존재하는 경우 정렬 후에도 입력 순서와 동일하게 정렬</li>
+<li><strong>불안정 정렬(unstable sort)</strong>: 처음 입력된 중복된 값의 순서가 정렬 후에도 유지된다는 보장이 없음</li>
+</ul>
+</blockquote>
+
+<div class="rmdnote">
+<p>다음부터 소개할 정렬 알고리즘은 모두 <strong>오름차순</strong> 정렬을 기준으로 설명</p>
+</div>
+<p></p>
+<div id="버블-정렬bubble-sort" class="section level3" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> 버블 정렬(Bubble Sort)</h3>
+
+<div class="rmdnote">
+<p><strong>서로 인접한 두 원소를 비교해 정렬하는 알고리즘</strong></p>
+<ul>
+<li>인접한 두 개의 값을 비교해 크기가 순서대로 입력되어 있지 않다면 서로 교환</li>
+</ul>
+</div>
+<p></p>
+<div class="figure">
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Bubble-sort.gif" alt="" />
+<p class="caption">버블정렬 원리: 위키피디아에서 발췌</p>
+</div>
+<blockquote>
+<ul>
+<li>첫 번째 자료와 두 번째 자료, 두 번째 자료와 세 번째 자료, … 형태로 마지막 (n-1) 번째
+자료와 마지막 자료를 비교해 교환하면서 자료 정렬</li>
+<li><strong>첫번 째 순회가 끝난 후 가장 큰 값은 맨 뒤로 이동</strong></li>
+<li>순회가 거듭될 때마다 정렬에서 제외되는 원소가 하나씩 증가 <span class="math inline">\(\rightarrow\)</span> 순회가 거듭될 때
+마다 비교 횟수가 줄어듬 <span class="math inline">\(\rightarrow\)</span> 모든 원소를 방문할 필요가 없음</li>
+<li>원소의 이동이 거품이 수면으로 올라오는 듯한 모습을 보이기 때문에 <strong>bubble sort</strong>라 명칭</li>
+</ul>
+</blockquote>
+<div class="figure">
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/37/Bubble_sort_animation.gif" alt="" />
+<p class="caption">버블정렬 애니메이션: 위키피디아 발췌</p>
+</div>
+<div id="pseudocode" class="section level4 unnumbered">
+<h4>Pseudocode</h4>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>데이터(벡터) 입력</li>
+<li>주어진 벡터의 인덱스가 <code>i=1</code>부터 <code>i + 1</code> 번째 원소와 비교</li>
+<li><code>i</code> 번째 인덱스의 원소가 <code>i+1</code> 번째 인덱스 원소보다 크다면 서로 교환 (반대의 경우 서로 교환하지 않음)</li>
+<li><code>i</code>를 증가하고 마지막 비교까지 2-3 단계 수행</li>
+<li>이미 정렬된 마지막 인덱스는 무시</li>
+<li>다시 인덱스 <code>i=1</code> 로 설정 후 2-5 단계 수행</li>
+</ol>
+</blockquote>
+</div>
+<div id="구현-3" class="section level4 unnumbered">
+<h4>구현</h4>
+<div class="sourceCode" id="cb1623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1623-1"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-1" aria-hidden="true" tabindex="-1"></a>bubble_sort <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1623-2"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb1623-3"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(n<span class="dv">-1</span>)) { </span>
+<span id="cb1623-4"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(n <span class="sc">-</span> i)) {</span>
+<span id="cb1623-5"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-5" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (x[j] <span class="sc">&gt;</span> x[j <span class="sc">+</span> <span class="dv">1</span>]) {</span>
+<span id="cb1623-6"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># x[j]가 x[j + 1] 보다 큰 경우 교환</span></span>
+<span id="cb1623-7"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-7" aria-hidden="true" tabindex="-1"></a>        temp <span class="ot">&lt;-</span> x[j]</span>
+<span id="cb1623-8"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-8" aria-hidden="true" tabindex="-1"></a>        x[j] <span class="ot">&lt;-</span> x[j <span class="sc">+</span> <span class="dv">1</span>]</span>
+<span id="cb1623-9"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-9" aria-hidden="true" tabindex="-1"></a>        x[j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> temp</span>
+<span id="cb1623-10"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-10" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb1623-11"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-11" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1623-12"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1623-13"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x)</span>
+<span id="cb1623-14"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1623-15"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1623-16"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-16" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb1623-17"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-17" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">100</span>)</span>
+<span id="cb1623-18"><a href="정렬-알고리즘sorting-algorithms.html#cb1623-18" aria-hidden="true" tabindex="-1"></a>x_sort <span class="ot">&lt;-</span> <span class="fu">bubble_sort</span>(x)</span></code></pre></div>
+<p></p>
+</div>
+<div id="시간-복잡도" class="section level4 unnumbered">
+<h4>시간 복잡도</h4>
+<p><strong>비교 횟수</strong></p>
+<p>한 번 순회를 마칠 때 마다 비교 대상이 하나씩 줄어듬. 즉 전체 원소의 개수가 <span class="math inline">\(n\)</span> 일 때
+총 <span class="math inline">\(n-1\)</span> 번의 순회하면 정렬이 종료됨. 총 원소의 개수가 10개이면,
+<span class="math inline">\(9 + 8 + \cdot + 1 = 45\)</span> 번 비교가 수행됨. 즉,</p>
+<p><span class="math display">\[
+(n - 1) + (n - 2) + \cdots + 1 = \frac{n(n-1)}{2}
+\]</span></p>
+<p><strong>자리 교환 횟수</strong></p>
+<ul>
+<li>최선의 경우: 이미 정렬된 벡터인 경우 자리 교환이 한 번도 이루어지지 않기 때문에 <span class="math inline">\(\mathcal{O}(1)\)</span> 임.</li>
+<li>최악의 경우: 역순으로 정렬된 경우 원소를 비교할 때 마다 자리 교환을 수행해야 하기 때문에 <span class="math inline">\(\mathcal{O}(n^2)\)</span> 임.</li>
+</ul>
+<blockquote>
+<p>즉 버블 정렬의 시간복잡도는 <span class="math inline">\(\mathcal{O}(n^2)\)</span></p>
+</blockquote>
+<p><strong>장점</strong></p>
+<ul>
+<li>구현이 쉽고 직관적</li>
+<li>정렬하고자 하는 벡터 안에서 교환하는 방식이기 때문에 메모리 공간이 일정함</li>
+<li>안정 정렬</li>
+</ul>
+<p><strong>단점</strong></p>
+<ul>
+<li>시간 복잡도가 비효율적 <span class="math inline">\(\rightarrow\)</span> 치명적임!!</li>
+</ul>
+</div>
+</div>
+<div id="삽입-정렬insertion-sort" class="section level3" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> 삽입 정렬(Insertion Sort)</h3>
+
+<div class="rmdnote">
+<p><strong>손 안의 카드를 정렬하는 방법과 유사</strong></p>
+<ul>
+<li>새로운 카드를 기존의 정렬된 카드 사이에 삽입</li>
+<li>새로 삽입될 카드의 수만큼 반복 후 전체 카드가 정렬</li>
+<li>자료의 모든 원소를 <strong>앞부터 차례대로 이미 정렬된 원소 부분과 비교</strong></li>
+<li>매 순서마다 해당 원소를 삽입할 수 있는 위치를 탐색</li>
+</ul>
+</div>
+<p></p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Insertion-sort-example.gif" /></p>
+<blockquote>
+<ul>
+<li>두 번째 원소부터 시작해 앞(윈쪽)의 원소와 비교하면서 삽입 위치 지정 후
+자료를 뒤로 옮기고 지정 위치(인덱스)에 원소를 삽입하면서 정렬</li>
+<li>두 번째 자료는 첫 번째 자료, 세 번째 자료는 두 번째와 첫 번째 자료, 네 번째
+자료는 세 번째, 두 번째, 첫 번째 원소와 비교 후 삽입 위치(인덱스) 탐색</li>
+<li>원소가 삽입될 위치를 찾았다면 원소를 한 칸씩 뒤로 이동</li>
+</ul>
+</blockquote>
+<div class="figure">
+<img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Insertion_sort.gif" alt="" />
+<p class="caption">삽입정렬 애니메이션: 위키피디아에서 발췌</p>
+</div>
+<p>예시: <code>c(8, 5, 6, 2, 4)</code> 오름차순 정렬</p>
+<div class="figure">
+<img src="https://gmlwjd9405.github.io/images/algorithm-insertion-sort/insertion-sort.png" alt="" />
+<p class="caption"><a href="https://gmlwjd9405.github.io/" class="uri">https://gmlwjd9405.github.io/</a> 에서 발췌</p>
+</div>
+<div id="pseudocode-1" class="section level4 unnumbered">
+<h4>Pseudocode</h4>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>벡터가 주어졌을 때,</li>
+<li>두 번째 인덱스 <code>i=2</code>에 대응하는 원소를 키 값으로 저장</li>
+<li><code>i</code> 바로 앞 인덱스 <code>j = i - 1</code> 지정</li>
+<li><code>j</code> 가 0 보다 크고, <code>j</code> 번째 원소가 키 값보다 크다면</li>
+<li><code>j + 1</code> 번째 원소를 <code>j</code> 번째 원소와 교환</li>
+<li><code>j</code>를 1만큼 감소</li>
+<li>4 ~ 6 반복</li>
+<li><code>j + 1</code> 번째 원소를 key 값으로 교환</li>
+<li>2 - 8 반복</li>
+</ol>
+</blockquote>
+</div>
+<div id="구현-4" class="section level4 unnumbered">
+<h4>구현</h4>
+<div class="sourceCode" id="cb1624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1624-1"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-1" aria-hidden="true" tabindex="-1"></a>insertion_sort <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1624-2"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb1624-3"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n) {</span>
+<span id="cb1624-4"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-4" aria-hidden="true" tabindex="-1"></a>    key <span class="ot">&lt;-</span> x[i]</span>
+<span id="cb1624-5"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-5" aria-hidden="true" tabindex="-1"></a>    j <span class="ot">&lt;-</span> i <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb1624-6"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span>(j <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;&amp;</span> x[j] <span class="sc">&gt;</span> key) {</span>
+<span id="cb1624-7"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-7" aria-hidden="true" tabindex="-1"></a>      x[j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> x[j]</span>
+<span id="cb1624-8"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-8" aria-hidden="true" tabindex="-1"></a>      j <span class="ot">&lt;-</span> j <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb1624-9"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1624-10"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-10" aria-hidden="true" tabindex="-1"></a>    x[j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> key</span>
+<span id="cb1624-11"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1624-12"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x)</span>
+<span id="cb1624-13"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1624-14"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1624-15"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-15" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb1624-16"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-16" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">10</span>)</span>
+<span id="cb1624-17"><a href="정렬-알고리즘sorting-algorithms.html#cb1624-17" aria-hidden="true" tabindex="-1"></a><span class="fu">insertion_sort</span>(x)</span></code></pre></div>
+<pre><code> [1] 14 24 51 58 75 80 88 90 92 93</code></pre>
+<p></p>
+</div>
+<div id="시간복잡도" class="section level4 unnumbered">
+<h4>시간복잡도</h4>
+
+<div class="rmdtip">
+<p>삽입 정렬을 이해하고 직접 구해보기!!</p>
+</div>
+<p></p>
+<p><strong>장점</strong></p>
+<ul>
+<li>알고리즘이 단순함</li>
+<li>대부분 원소가 이미 정렬되어 있는 경우 매우 효율적임</li>
+<li>안정 정렬</li>
+<li>버블 정렬에 비해 효율적임</li>
+</ul>
+<p><strong>단점</strong></p>
+<ul>
+<li>대체로 비효율적(시간 복잡도 확인)</li>
+</ul>
+</div>
+</div>
+<div id="병합-정렬merge-sort" class="section level3" number="8.4.3">
+<h3><span class="header-section-number">8.4.3</span> 병합 정렬(Merge Sort)</h3>
+
+<div class="rmdnote">
+<p><strong>분할 정복(Divide and Conquer)</strong></p>
+<ul>
+<li>크고 어려운 문제를 조금씩 쉽게 풀 수 있는 문제 단위로 <strong>나눠서</strong> 해결 후,
+이를 <strong>병합</strong>해 문제를 해결하는 방식</li>
+<li>가장 큰 특징 중 하나는 <strong>재귀적으로 호출</strong>을 통해 알고리즘 구현</li>
+</ul>
+<p><strong>알고리즘 기본설계</strong></p>
+<ul>
+<li>Divide (분할): 문제 분할이 가능한 경우 2개 이상의 문제로 나눔</li>
+<li>Conquer (정복): 나누어진 문제가 여전히 분할 가능하면 다시 분할 수행. 그렇지
+않은 경우 문제를 해결</li>
+<li>Combine (결합): 정복한 문제들을 통합해 원래 문제의 답을 도출</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>분할 정복 알고리즘 구현 시 분할을 어떻게 하는지가 가장 중요함</li>
+<li>재귀 호출로 인해 알고리즘의 효율성이 낮아질 수 있음</li>
+</ol>
+<p><strong>병합 정렬</strong></p>
+<ul>
+<li>주어진 벡터에서 가운데를 나누어 비슷한 크기의 벡터를 두 개로 만든 뒤 이를
+재귀 호출을 이용해 각각 정렬 후 정렬된 배열을 하나로 합침.</li>
+</ul>
+</div>
+<p></p>
+<div id="병합-정렬-과정" class="section level4 unnumbered">
+<h4>병합 정렬 과정</h4>
+<ol style="list-style-type: decimal">
+<li>벡터(배열)의 길이가 1 또는 2인 경우 이미 정렬이 된 것으로 간주.</li>
+<li>그렇지 않은 경우 정렬되지 않은 벡터를 절반으로 나눈 후 비슷한 크기의 부분 벡터 생성</li>
+<li>각 부분 벡터를 재귀적으로 병합 정렬 실시</li>
+<li>두 개의 부분 벡터를 다시 하나의 벡터로 결합</li>
+</ol>
+<blockquote>
+<ul>
+<li>추가적인 벡터가 필요</li>
+<li>각 부분 벡터 정렬 시 합병 정렬을 재귀적으로 호출</li>
+<li>합병 정렬 시 정렬이 이루어 지는 시점은 2개 리스트를 합병하는 단계임</li>
+</ul>
+</blockquote>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Merge-sort-example-300px.gif/220px-Merge-sort-example-300px.gif" /></p>
+</div>
+<div id="구현-5" class="section level4 unnumbered">
+<h4>구현</h4>
+<div id="분할merge_sort" class="section level5 unnumbered">
+<h5><strong>분할</strong>(<code>merge_sort()</code>)</h5>
+<blockquote>
+<p>벡터를 2개 부분으로 재귀적으로 나눔 <span class="math inline">\(\rightarrow\)</span> 벡터의 길이가 1이 될 때 까지</p>
+</blockquote>
+<p><strong>구현을 위해 필요한 요소</strong></p>
+<ul>
+<li>주어진 벡터의 첫 번째 인덱스 <span class="math inline">\(\rightarrow\)</span> 1</li>
+<li>주어진 벡터의 마지막 인덱스 <span class="math inline">\(\rightarrow\)</span> <code>n</code></li>
+<li>주어진 벡터의 가운데 인덱스 <span class="math inline">\(\rightarrow\)</span> <code>mid = ceiling(n/2)</code></li>
+</ul>
+<p>나누어진 벡터의 왼쪽과 오른쪽 부분을 저장한 객체를 각각<code>left</code>, <code>right</code>로 정의</p>
+<ul>
+<li><code>left</code>: 주어진 벡터의 첫 번째 인덱스에서 <code>mid</code> 번째 인덱스에 해당하는 값을 저장</li>
+<li><code>right</code>: 주어진 벡터의 <code>mid+1</code> 번째 인덱스에서 <code>n</code> 번째 인덱스에 해당하는 값을 저장</li>
+</ul>
+<p>이러한 구간을 분할 함수의 인자로 넘겨주는 작업을 재귀적으로 반복</p>
+<p><strong>Pseudocode</strong></p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>만약 벡터의 길이가 1보다 크다면,</li>
+<li><code>mid = ceiling(n/2)</code></li>
+<li><code>left = merge_sort(x[1:mid])</code></li>
+<li><code>right = merge_sort(x[(mid + 1):n])</code></li>
+</ol>
+</blockquote>
+</div>
+<div id="병합smerge" class="section level5 unnumbered">
+<h5><strong>병합</strong>(<code>smerge()</code>)</h5>
+<blockquote>
+<p>분할된 벡터를 정렬 후 병합하는 역할 수행</p>
+</blockquote>
+<p><strong>구현을 위해 필요한 요소</strong></p>
+<ul>
+<li>정렬한 벡터들을 임시로 저장할 공간(객체): <code>temp</code></li>
+<li>왼쪽과 오른쪽 부분 벡터의 길이 <span class="math inline">\(\rightarrow\)</span> <code>n1</code>, <code>n2</code></li>
+<li>왼쪽과 오른쪽 부분 벡터의 초기값 저장 <span class="math inline">\(\rightarrow\)</span> <code>lstart = 1</code>, <code>rstart = 1</code></li>
+</ul>
+<p><strong>Pseudocode (자연어)</strong></p>
+<ul>
+<li>왼쪽 부분 벡터와 오른쪽 부분 벡터의 원소를 비교해 더 작은 값이 <code>temp</code>에 저장</li>
+<li>만약 <code>left</code> 의 <code>lstart</code> 인덱스에 해당하는 값이 <code>right</code>의 <code>rstart</code> 인덱스에 해당하는 값보다
+작다면 <code>temp</code>의 <span class="math inline">\(i\)</span> 번째 인덱스에 <code>left[lstart]</code> 값 저장 후 <code>astart</code> 값을 하나씩 증가</li>
+<li>반대의 경우 <code>temp</code>의 <span class="math inline">\(i\)</span> 번째 인덱스에 <code>right[rstart]</code> 값 저장 후 <code>bstart</code> 값을 하나씩 증가</li>
+</ul>
+<p><strong>Pseudocode</strong></p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li><code>temp &lt;- numeric(length(left) + length(right))</code></li>
+<li><code>n1 &lt;- length(left)</code></li>
+<li><code>n2 &lt;- length(right)</code></li>
+<li><code>astart &lt;- 1; bstart &lt;- 1</code></li>
+<li><code>for (i in 1:length(temp))</code></li>
+<li>   <code>if (left[lstart] &lt;= right[rstart])</code></li>
+<li>     <code>temp[i] &lt;- left[lstart]</code></li>
+<li>     <code>lstart = lstart + 1</code></li>
+<li>   <code>else</code></li>
+<li>     <code>temp[i] &lt;- right[rstart]</code></li>
+<li>     <code>rstart = rstart + 1</code></li>
+</ol>
+</blockquote>
+<div class="figure">
+<img src="https://gmlwjd9405.github.io/images/algorithm-merge-sort/merge-sort.png" alt="" />
+<p class="caption">합병 및 정렬 수행 예시: <a href="https://gmlwjd9405.github.io/" class="uri">https://gmlwjd9405.github.io/</a> 에서 발췌</p>
+</div>
+</div>
+</div>
+<div id="최종-코드" class="section level4 unnumbered">
+<h4>최종 코드</h4>
+<div class="sourceCode" id="cb1626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1626-1"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 병합 정렬</span></span>
+<span id="cb1626-2"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 분할</span></span>
+<span id="cb1626-3"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-3" aria-hidden="true" tabindex="-1"></a>merge_sort <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1626-4"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-4" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb1626-5"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&gt;</span> <span class="dv">1</span>) {</span>
+<span id="cb1626-6"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-6" aria-hidden="true" tabindex="-1"></a>    mid <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(n<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb1626-7"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-7" aria-hidden="true" tabindex="-1"></a>    left <span class="ot">&lt;-</span> <span class="fu">merge_sort</span>(x[<span class="dv">1</span><span class="sc">:</span>mid])</span>
+<span id="cb1626-8"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-8" aria-hidden="true" tabindex="-1"></a>    right <span class="ot">&lt;-</span> <span class="fu">merge_sort</span>(x[(mid <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>n])</span>
+<span id="cb1626-9"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">smerge</span>(left, right)</span>
+<span id="cb1626-10"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-10" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb1626-11"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-11" aria-hidden="true" tabindex="-1"></a>    x</span>
+<span id="cb1626-12"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1626-13"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1626-14"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1626-15"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 병합 및 정렬</span></span>
+<span id="cb1626-16"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-16" aria-hidden="true" tabindex="-1"></a>smerge <span class="ot">&lt;-</span> <span class="cf">function</span>(left, right) {</span>
+<span id="cb1626-17"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-17" aria-hidden="true" tabindex="-1"></a>  n1 <span class="ot">&lt;-</span> <span class="fu">length</span>(left)</span>
+<span id="cb1626-18"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-18" aria-hidden="true" tabindex="-1"></a>  n2 <span class="ot">&lt;-</span> <span class="fu">length</span>(right)</span>
+<span id="cb1626-19"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-19" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n1 <span class="sc">+</span> n2)</span>
+<span id="cb1626-20"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-20" aria-hidden="true" tabindex="-1"></a>  lstart <span class="ot">&lt;-</span> rstart <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1626-21"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(temp)) {</span>
+<span id="cb1626-22"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ((left[lstart] <span class="sc">&lt;=</span> right[rstart] <span class="sc">&amp;</span> </span>
+<span id="cb1626-23"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-23" aria-hidden="true" tabindex="-1"></a>        lstart <span class="sc">&lt;=</span> <span class="fu">length</span>(left)) <span class="sc">||</span> </span>
+<span id="cb1626-24"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-24" aria-hidden="true" tabindex="-1"></a>        rstart <span class="sc">&gt;</span> <span class="fu">length</span>(right)) {</span>
+<span id="cb1626-25"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-25" aria-hidden="true" tabindex="-1"></a>      temp[i] <span class="ot">&lt;-</span> left[lstart]</span>
+<span id="cb1626-26"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-26" aria-hidden="true" tabindex="-1"></a>      lstart <span class="ot">&lt;-</span> lstart <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb1626-27"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-27" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb1626-28"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-28" aria-hidden="true" tabindex="-1"></a>      temp[i] <span class="ot">&lt;-</span> right[rstart]</span>
+<span id="cb1626-29"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-29" aria-hidden="true" tabindex="-1"></a>      rstart <span class="ot">&lt;-</span> rstart <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb1626-30"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-30" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1626-31"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-31" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1626-32"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-32" aria-hidden="true" tabindex="-1"></a>  temp</span>
+<span id="cb1626-33"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-33" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1626-34"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1626-35"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-35" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb1626-36"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-36" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">20</span>)</span>
+<span id="cb1626-37"><a href="정렬-알고리즘sorting-algorithms.html#cb1626-37" aria-hidden="true" tabindex="-1"></a>x_sort <span class="ot">&lt;-</span> <span class="fu">merge_sort</span>(x)</span></code></pre></div>
+<p></p>
+</div>
+<div id="시간-복잡도-1" class="section level4 unnumbered">
+<h4>시간 복잡도</h4>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>분할 단계(<span class="math inline">\(n = 2^k\)</span>로 가정):</li>
+</ol>
+<ul>
+<li>단계 1: <span class="math inline">\(n/2\)</span></li>
+<li>단계 2: <span class="math inline">\(n/2^2\)</span></li>
+<li><span class="math inline">\(\ldots\)</span></li>
+<li>단계 k: <span class="math inline">\(n/2^k \rightarrow k\)</span> 번까지 반복</li>
+</ul>
+</blockquote>
+<p><span class="math inline">\(\rightarrow\)</span> 최악의 경우 <span class="math inline">\(n/2^k = 1\)</span> 이므로 양변에 로그를 취하면
+<span class="math inline">\(\log_2n = k\log_22 = k \rightarrow \mathcal{O}(\log_2n)\)</span> 임.</p>
+<blockquote>
+<ol start="2" style="list-style-type: decimal">
+<li>병합단계</li>
+</ol>
+<ul>
+<li>총 부분 벡터에 들어있는 원소의 개수가 <span class="math inline">\(n\)</span> 개인 경우 데이터의 이동은 총 <span class="math inline">\(2n\)</span> 번이
+필요하고, 재귀호출의 깊이만큼을 곱해줘야 하기 때문에 병합 단계의 시간 복잡도는
+<span class="math inline">\(2n\log_2n\)</span> 임.</li>
+</ul>
+</blockquote>
+<p>총 시간복잡도는</p>
+<p><span class="math inline">\(n\log_2n + 2n\log_2n = 3n\log_2n \rightarrow \mathcal{O}(n\log_2n)\)</span></p>
+</div>
+</div>
+<div id="퀵-정렬quick-sort" class="section level3" number="8.4.4">
+<h3><span class="header-section-number">8.4.4</span> 퀵 정렬(Quick Sort)</h3>
+</div>
 </div>
             </section>
 

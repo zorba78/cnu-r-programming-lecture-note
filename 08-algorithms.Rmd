@@ -877,7 +877,395 @@ rbinary_search(target = k, ovec = x, minL = 1, maxL = length(x))
 
 
 
-## 정렬 알고리즘(Sorting algorithms)
+## 정렬 알고리즘(Sorting Algorithms)
+
+정렬 알고리즘은 특성에 따라 **안정 정렬(stable sort)**과 **불안정 정렬(unstable sort)** 로 구분
+
+정렬의 안정적 특성: 정렬되지 않은 상태에서 중복값이 존재하는 경우 정렬 후에도 그 순서가 그대로 유지
+
+
+> - **안정 정렬(stable sort)**: 임의 배열(벡터)에 중복된 값이 존재하는 경우 정렬 후에도 입력 순서와 동일하게 정렬
+> - **불안정 정렬(unstable sort)**: 처음 입력된 중복된 값의 순서가 정렬 후에도 유지된다는 보장이 없음
+
+
+```{block2, type="rmdnote"}
+다음부터 소개할 정렬 알고리즘은 모두 **오름차순** 정렬을 기준으로 설명
+
+```
+
+
+
+### 버블 정렬(Bubble Sort)
+
+```{block2, type="rmdnote"}
+**서로 인접한 두 원소를 비교해 정렬하는 알고리즘**
+
+- 인접한 두 개의 값을 비교해 크기가 순서대로 입력되어 있지 않다면 서로 교환
+
+
+```
+
+![버블정렬 원리: 위키피디아에서 발췌](https://upload.wikimedia.org/wikipedia/commons/0/06/Bubble-sort.gif)
+
+
+
+> - 첫 번째 자료와 두 번째 자료, 두 번째 자료와 세 번째 자료, ... 형태로 마지막 (n-1) 번째 
+자료와 마지막 자료를 비교해 교환하면서 자료 정렬
+> - **첫번 째 순회가 끝난 후  가장 큰 값은 맨 뒤로 이동**
+> - 순회가 거듭될 때마다 정렬에서 제외되는 원소가 하나씩 증가 $\rightarrow$ 순회가 거듭될 때 
+마다 비교 횟수가 줄어듬 $\rightarrow$ 모든 원소를 방문할 필요가 없음 
+> - 원소의 이동이 거품이 수면으로 올라오는 듯한 모습을 보이기 때문에 **bubble sort**라 명칭
+
+
+![버블정렬 애니메이션: 위키피디아 발췌](https://upload.wikimedia.org/wikipedia/commons/3/37/Bubble_sort_animation.gif)
+
+
+#### Pseudocode {.unnumbered}
+
+
+> 1. 데이터(벡터) 입력
+> 2. 주어진 벡터의 인덱스가 `i=1`부터 `i + 1` 번째 원소와 비교 
+> 3. `i` 번째 인덱스의 원소가 `i+1` 번째 인덱스 원소보다 크다면 서로 교환 (반대의 경우 서로 교환하지 않음)
+> 4. `i`를 증가하고 마지막 비교까지 2-3 단계 수행
+> 5. 이미 정렬된 마지막 인덱스는 무시
+> 6. 다시 인덱스 `i=1` 로 설정 후 2-5 단계 수행
+
+
+#### 구현 {.unnumbered}
+
+
+```{r}
+bubble_sort <- function(x) {
+  n <- length(x)
+  for(i in 1:(n-1)) { 
+    for (j in 1:(n - i)) {
+      if (x[j] > x[j + 1]) {
+        # x[j]가 x[j + 1] 보다 큰 경우 교환
+        temp <- x[j]
+        x[j] <- x[j + 1]
+        x[j + 1] <- temp
+      }
+    }
+  }
+  return(x)
+}
+
+set.seed(1234)
+x <- sample(1:100, 100)
+x_sort <- bubble_sort(x)
+
+
+```
+
+#### 시간 복잡도 {.unnumbered}
+
+**비교 횟수**
+
+한 번 순회를 마칠 때 마다 비교 대상이 하나씩 줄어듬. 즉 전체 원소의 개수가 $n$ 일 때 
+총 $n-1$ 번의 순회하면 정렬이 종료됨. 총 원소의 개수가 10개이면, 
+$9 + 8 + \cdot + 1 = 45$ 번 비교가 수행됨. 즉, 
+
+$$
+(n - 1) + (n - 2) + \cdots + 1 = \frac{n(n-1)}{2}
+$$
+
+**자리 교환 횟수**
+
+- 최선의 경우: 이미 정렬된 벡터인 경우 자리 교환이 한 번도 이루어지지 않기 때문에 $\mathcal{O}(1)$ 임. 
+- 최악의 경우: 역순으로 정렬된 경우 원소를 비교할 때 마다 자리 교환을 수행해야 하기 때문에  $\mathcal{O}(n^2)$ 임. 
+
+> 즉 버블 정렬의 시간복잡도는 $\mathcal{O}(n^2)$
+
+
+**장점**
+
+- 구현이 쉽고 직관적
+- 정렬하고자 하는 벡터 안에서 교환하는 방식이기 때문에 메모리 공간이 일정함 
+- 안정 정렬
+
+
+**단점**
+
+- 시간 복잡도가 비효율적 $\rightarrow$ 치명적임!!
+
+
+
+
+### 삽입 정렬(Insertion Sort)
+
+```{block2, type="rmdnote"}
+**손 안의 카드를 정렬하는 방법과 유사**
+
+- 새로운 카드를 기존의 정렬된 카드 사이에 삽입
+- 새로 삽입될 카드의 수만큼 반복 후 전체 카드가 정렬 
+- 자료의 모든 원소를 **앞부터 차례대로 이미 정렬된 원소 부분과 비교**
+- 매 순서마다 해당 원소를 삽입할 수 있는 위치를 탐색
+
+
+```
+
+
+![](https://upload.wikimedia.org/wikipedia/commons/9/9c/Insertion-sort-example.gif)
+
+
+> - 두 번째 원소부터 시작해 앞(윈쪽)의 원소와 비교하면서 삽입 위치 지정 후 
+자료를 뒤로 옮기고 지정 위치(인덱스)에 원소를 삽입하면서 정렬
+> - 두 번째 자료는 첫 번째 자료, 세 번째 자료는 두 번째와 첫 번째 자료, 네 번째 
+자료는 세 번째, 두 번째, 첫 번째 원소와 비교 후 삽입 위치(인덱스) 탐색
+> - 원소가 삽입될 위치를 찾았다면 원소를 한 칸씩 뒤로 이동
+
+
+![삽입정렬 애니메이션: 위키피디아에서 발췌](https://upload.wikimedia.org/wikipedia/commons/4/42/Insertion_sort.gif)
+
+
+
+예시: `c(8, 5, 6, 2, 4)` 오름차순 정렬 
+
+![https://gmlwjd9405.github.io/ 에서 발췌](https://gmlwjd9405.github.io/images/algorithm-insertion-sort/insertion-sort.png)
+
+
+#### Pseudocode {.unnumbered}
+
+> 1. 벡터가 주어졌을 때, 
+> 2. 두 번째 인덱스 `i=2`에 대응하는 원소를 키 값으로 저장
+> 3. `i` 바로 앞 인덱스 `j = i - 1` 지정
+> 4. `j` 가 0 보다 크고, `j` 번째 원소가 키 값보다 크다면 
+> 5. `j + 1` 번째 원소를 `j` 번째 원소와 교환
+> 6. `j`를 1만큼 감소
+> 7. 4 ~ 6 반복
+> 8. `j + 1` 번째 원소를 key 값으로 교환 
+> 9. 2 - 8 반복
+
+
+#### 구현 {.unnumbered}
+
+```{r}
+insertion_sort <- function(x) {
+  n <- length(x)
+  for (i in 2:n) {
+    key <- x[i]
+    j <- i - 1
+    while(j > 0 && x[j] > key) {
+      x[j + 1] <- x[j]
+      j <- j - 1
+    }
+    x[j + 1] <- key
+  }
+  return(x)
+}
+
+set.seed(12345)
+x <- sample(1:100, 10)
+insertion_sort(x)
+
+```
+
+
+#### 시간복잡도 {.unnumbered}
+
+```{block2, type="rmdtip"}
+삽입 정렬을 이해하고 직접 구해보기!!
+
+```
+
+
+**장점**
+
+- 알고리즘이 단순함
+- 대부분 원소가 이미 정렬되어 있는 경우 매우 효율적임
+- 안정 정렬
+- 버블 정렬에 비해 효율적임
+
+
+**단점**
+
+- 대체로 비효율적(시간 복잡도 확인)
+
+
+### 병합 정렬(Merge Sort)
+
+
+```{block2, type="rmdnote"}
+**분할 정복(Divide and Conquer)**
+
+   - 크고 어려운 문제를 조금씩 쉽게 풀 수 있는 문제 단위로 **나눠서** 해결 후, 
+이를 **병합**해 문제를 해결하는 방식
+   - 가장 큰 특징 중 하나는 **재귀적으로 호출**을 통해 알고리즘 구현
+
+**알고리즘 기본설계**
+  
+  - Divide (분할): 문제 분할이 가능한 경우 2개 이상의 문제로 나눔
+  - Conquer (정복): 나누어진 문제가 여전히 분할 가능하면 다시 분할 수행. 그렇지 
+않은 경우 문제를 해결 
+  - Combine (결합): 정복한 문제들을 통합해 원래 문제의 답을 도출
+
+
+
+1. 분할 정복 알고리즘 구현 시 분할을 어떻게 하는지가 가장 중요함 
+2. 재귀 호출로 인해 알고리즘의 효율성이 낮아질 수 있음
+
+
+**병합 정렬**
+
+- 주어진 벡터에서 가운데를 나누어 비슷한 크기의 벡터를 두 개로 만든 뒤 이를 
+재귀 호출을 이용해 각각 정렬 후 정렬된 배열을 하나로 합침. 
+
+```
+
+
+
+#### 병합 정렬 과정 {.unnumbered}
+
+1. 벡터(배열)의 길이가 1 또는 2인 경우 이미 정렬이 된 것으로 간주. 
+2. 그렇지 않은 경우 정렬되지 않은 벡터를 절반으로 나눈 후 비슷한 크기의 부분 벡터 생성
+3. 각 부분 벡터를 재귀적으로 병합 정렬 실시 
+4. 두 개의 부분 벡터를 다시 하나의 벡터로 결합
+
+
+> - 추가적인 벡터가 필요
+> - 각 부분 벡터 정렬 시 합병 정렬을 재귀적으로 호출
+> - 합병 정렬 시 정렬이 이루어 지는 시점은 2개 리스트를 합병하는 단계임
+
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Merge-sort-example-300px.gif/220px-Merge-sort-example-300px.gif)
+
+#### 구현 {.unnumbered}
+
+##### **분할**(`merge_sort()`) {.unnumbered}
+
+> 벡터를 2개 부분으로 재귀적으로 나눔 $\rightarrow$ 벡터의 길이가 1이 될 때 까지
+
+**구현을 위해 필요한 요소**
+
+   - 주어진 벡터의 첫 번째 인덱스 $\rightarrow$ 1
+   - 주어진 벡터의 마지막 인덱스 $\rightarrow$ `n`
+   - 주어진 벡터의 가운데 인덱스 $\rightarrow$ `mid = ceiling(n/2)`
+
+나누어진 벡터의 왼쪽과 오른쪽 부분을 저장한 객체를 각각`left`, `right`로 정의 
+
+   - `left`: 주어진 벡터의 첫 번째 인덱스에서 `mid` 번째 인덱스에 해당하는 값을 저장
+   - `right`: 주어진 벡터의 `mid+1` 번째 인덱스에서 `n` 번째 인덱스에 해당하는 값을 저장
+
+이러한 구간을 분할 함수의 인자로 넘겨주는 작업을 재귀적으로 반복
+
+**Pseudocode**
+
+> 1. 만약 벡터의 길이가 1보다 크다면, 
+> 2. `mid = ceiling(n/2)`
+> 3. `left = merge_sort(x[1:mid])`
+> 4. `right = merge_sort(x[(mid + 1):n])`
+
+
+##### **병합**(`smerge()`) {.unnumbered}
+
+> 분할된 벡터를 정렬 후 병합하는 역할 수행
+
+**구현을 위해 필요한 요소**
+
+   - 정렬한 벡터들을 임시로 저장할 공간(객체): `temp`
+   - 왼쪽과 오른쪽 부분 벡터의 길이 $\rightarrow$ `n1`, `n2`
+   - 왼쪽과 오른쪽 부분 벡터의 초기값 저장 $\rightarrow$ `lstart = 1`, `rstart = 1`
+
+
+**Pseudocode (자연어)**
+
+- 왼쪽 부분 벡터와 오른쪽 부분 벡터의 원소를 비교해 더 작은 값이 `temp`에 저장
+- 만약 `left` 의 `lstart` 인덱스에 해당하는 값이 `right`의 `rstart` 인덱스에 해당하는 값보다 
+작다면 `temp`의 $i$ 번째 인덱스에 `left[lstart]` 값 저장 후 `astart` 값을 하나씩 증가
+- 반대의 경우 `temp`의 $i$ 번째 인덱스에 `right[rstart]` 값 저장 후 `bstart` 값을 하나씩 증가
+   
+
+
+**Pseudocode**
+
+> 1. `temp <- numeric(length(left) + length(right))`
+> 2. `n1 <- length(left)`
+> 3. `n2 <- length(right)`
+> 4. `astart <- 1; bstart <- 1`
+> 4. `for (i in 1:length(temp))`
+> 5. &nbsp;&nbsp; `if (left[lstart] <= right[rstart])`
+> 6. &nbsp;&nbsp;&nbsp;&nbsp; `temp[i] <- left[lstart]`
+> 7. &nbsp;&nbsp;&nbsp;&nbsp; `lstart = lstart + 1`
+> 8. &nbsp;&nbsp; `else`
+> 9. &nbsp;&nbsp;&nbsp;&nbsp; `temp[i] <- right[rstart]`
+> 10. &nbsp;&nbsp;&nbsp;&nbsp; `rstart = rstart + 1`
+
+
+
+![합병 및 정렬 수행 예시: https://gmlwjd9405.github.io/ 에서 발췌](https://gmlwjd9405.github.io/images/algorithm-merge-sort/merge-sort.png)
+
+#### 최종 코드 {.unnumbered} 
+
+
+```{r}
+# 병합 정렬
+## 분할
+merge_sort <- function(x) {
+  n <- length(x)
+  if (n > 1) {
+    mid <- ceiling(n/2)
+    left <- merge_sort(x[1:mid])
+    right <- merge_sort(x[(mid + 1):n])
+    smerge(left, right)
+  } else {
+    x
+  }
+}
+
+## 병합 및 정렬
+smerge <- function(left, right) {
+  n1 <- length(left)
+  n2 <- length(right)
+  temp <- numeric(n1 + n2)
+  lstart <- rstart <- 1
+  for (i in 1:length(temp)) {
+    if ((left[lstart] <= right[rstart] & 
+        lstart <= length(left)) || 
+        rstart > length(right)) {
+      temp[i] <- left[lstart]
+      lstart <- lstart + 1
+    } else {
+      temp[i] <- right[rstart]
+      rstart <- rstart + 1
+    }
+  }
+  temp
+}
+
+set.seed(12345)
+x <- sample(1:100, 20)
+x_sort <- merge_sort(x)
+
+
+
+```
+
+#### 시간 복잡도 {.unnumbered}
+
+> 1. 분할 단계($n = 2^k$로 가정): 
+>   - 단계 1: $n/2$
+>   - 단계 2: $n/2^2$
+>   - $\ldots$ 
+>   - 단계 k: $n/2^k \rightarrow k$ 번까지 반복 
+
+$\rightarrow$ 최악의 경우 $n/2^k = 1$ 이므로 양변에 로그를 취하면 
+$\log_2n = k\log_22 = k \rightarrow \mathcal{O}(\log_2n)$ 임.
+
+> 2. 병합단계
+>   - 총 부분 벡터에 들어있는 원소의 개수가 $n$ 개인 경우 데이터의 이동은 총 $2n$ 번이 
+필요하고, 재귀호출의 깊이만큼을 곱해줘야 하기 때문에 병합 단계의 시간 복잡도는 
+$2n\log_2n$ 임. 
+
+총 시간복잡도는 
+
+$n\log_2n + 2n\log_2n = 3n\log_2n \rightarrow \mathcal{O}(n\log_2n)$
+
+
+
+### 퀵 정렬(Quick Sort)
+
+
+
 
 
 
