@@ -1481,9 +1481,12 @@ quick_sort <- function(x) {
   pivot <- x[randi]
   x <- x[-randi]
   
+  # 피벗을 기준으로 작은 값들은 left, 
+  # 큰 값은 right 로 분할
   left <- x[which(x <= pivot)]
   right <- x[which(x > pivot)]
   
+  # left에 대해 재귀적으로 분할 
   if (length(left) > 1) left <- quick_sort(left)
   if (length(right) > 1) right <- quick_sort(right)
   out <- c(left, pivot, right)
