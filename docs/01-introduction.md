@@ -248,7 +248,7 @@ sessionInfo()
 ```
 
 ```
-R version 4.0.5 (2021-03-31)
+R version 4.1.1 (2021-08-10)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 18.04.5 LTS
 
@@ -268,33 +268,33 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] kableExtra_1.3.4 gtsummary_1.4.0  gt_0.3.0         glue_1.4.2      
- [5] forcats_0.5.1    stringr_1.4.0    dplyr_1.0.6      purrr_0.3.4     
- [9] readr_1.4.0      tidyr_1.1.3      tibble_3.1.2     ggplot2_3.3.3   
-[13] tidyverse_1.3.1  rmarkdown_2.8    knitr_1.33      
+ [1] kableExtra_1.3.4 gtsummary_1.4.2  gt_0.3.1         glue_1.4.2      
+ [5] forcats_0.5.1    stringr_1.4.0    dplyr_1.0.7      purrr_0.3.4     
+ [9] readr_2.0.1      tidyr_1.1.3      tibble_3.1.4     ggplot2_3.3.5   
+[13] tidyverse_1.3.1  rmarkdown_2.10   knitr_1.33      
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.6          svglite_2.0.0       lubridate_1.7.10   
- [4] lattice_0.20-41     assertthat_0.2.1    digest_0.6.27      
- [7] utf8_1.2.1          R6_2.5.0            cellranger_1.1.0   
-[10] backports_1.2.1     reprex_2.0.0        evaluate_0.14      
-[13] highr_0.9           httr_1.4.2          pillar_1.6.1       
+ [1] Rcpp_1.0.7          svglite_2.0.0       lattice_0.20-44    
+ [4] lubridate_1.7.10    assertthat_0.2.1    digest_0.6.27      
+ [7] utf8_1.2.2          R6_2.5.1            cellranger_1.1.0   
+[10] backports_1.2.1     reprex_2.0.1        evaluate_0.14      
+[13] highr_0.9           httr_1.4.2          pillar_1.6.2       
 [16] rlang_0.4.11        readxl_1.3.1        rstudioapi_0.13    
-[19] jquerylib_0.1.4     Matrix_1.3-3        splines_4.0.5      
-[22] webshot_0.5.2       munsell_0.5.0       broom_0.7.6        
-[25] compiler_4.0.5      modelr_0.1.8        xfun_0.23          
-[28] systemfonts_1.0.2   pkgconfig_2.0.3     htmltools_0.5.1.1  
-[31] tidyselect_1.1.1    bookdown_0.22       viridisLite_0.4.0  
-[34] fansi_0.4.2         crayon_1.4.1        dbplyr_2.1.1       
-[37] withr_2.4.2         grid_4.0.5          jsonlite_1.7.2     
-[40] gtable_0.3.0        lifecycle_1.0.0     DBI_1.1.1          
-[43] magrittr_2.0.1      scales_1.1.1        cli_2.5.0          
-[46] stringi_1.6.2       broom.helpers_1.3.0 fs_1.5.0           
-[49] xml2_1.3.2          bslib_0.2.5         ellipsis_0.3.2     
-[52] generics_0.1.0      vctrs_0.3.8         tools_4.0.5        
-[55] hms_1.0.0           survival_3.2-10     yaml_2.2.1         
-[58] colorspace_2.0-1    rvest_1.0.0         haven_2.4.1        
-[61] sass_0.4.0         
+[19] jquerylib_0.1.4     Matrix_1.3-4        splines_4.1.1      
+[22] webshot_0.5.2       munsell_0.5.0       broom_0.7.9        
+[25] compiler_4.1.1      modelr_0.1.8        xfun_0.25          
+[28] systemfonts_1.0.2   pkgconfig_2.0.3     htmltools_0.5.2    
+[31] tidyselect_1.1.1    bookdown_0.23       viridisLite_0.4.0  
+[34] fansi_0.5.0         crayon_1.4.1        tzdb_0.1.2         
+[37] dbplyr_2.1.1        withr_2.4.2         grid_4.1.1         
+[40] jsonlite_1.7.2      gtable_0.3.0        lifecycle_1.0.0    
+[43] DBI_1.1.1           magrittr_2.0.1      scales_1.1.1       
+[46] cli_3.0.1           stringi_1.7.4       broom.helpers_1.3.0
+[49] fs_1.5.0            xml2_1.3.2          bslib_0.2.5.1      
+[52] ellipsis_0.3.2      generics_0.1.0      vctrs_0.3.8        
+[55] tools_4.1.1         hms_1.1.0           fastmap_1.1.0      
+[58] survival_3.2-13     yaml_2.2.1          colorspace_2.0-2   
+[61] rvest_1.0.1         haven_2.4.3         sass_0.4.0         
 ```
 
  \normalsize
@@ -820,48 +820,67 @@ dir()
  [3] "_output.yml"                         
  [4] "_render.R"                           
  [5] "01-introduction_files"               
- [6] "01-introduction.Rmd"                 
- [7] "02-data-type_files"                  
- [8] "02-data-type.Rmd"                    
- [9] "03-string-regexp.Rmd"                
-[10] "04-math-distribution-functions_files"
-[11] "04-math-distribution-functions.Rmd"  
-[12] "05-rmarkdown-more_files"             
-[13] "05-rmarkdown-more.Rmd"               
-[14] "06-file-import-export.Rmd"           
-[15] "07-control-flow.Rmd"                 
-[16] "08-algorithms_files"                 
-[17] "08-algorithms.Rmd"                   
-[18] "09-final-note.Rmd"                   
-[19] "11-references.Rmd"                   
-[20] "2020"                                
-[21] "assignment"                          
-[22] "book.bib"                            
-[23] "cnu-r-programming-lecture-note.Rproj"
-[24] "cnu-r-programming.log"               
-[25] "cnu-r-programming.rds"               
-[26] "cnu-r-programming.tex"               
-[27] "code"                                
-[28] "css"                                 
-[29] "data"                                
-[30] "dataset"                             
-[31] "dataset.zip"                         
-[32] "demo"                                
-[33] "docs"                                
-[34] "examples"                            
-[35] "figures"                             
-[36] "images"                              
-[37] "index.md"                            
-[38] "index.Rmd"                           
-[39] "init-funs"                           
-[40] "krantz.cls"                          
-[41] "latex"                               
-[42] "output"                              
-[43] "packages.bib"                        
-[44] "README.md"                           
-[45] "render1c9f611b0e72c.rds"             
-[46] "test"                                
-[47] "video"                               
+ [6] "01-introduction.md"                  
+ [7] "01-introduction.Rmd"                 
+ [8] "02-data-type_files"                  
+ [9] "02-data-type.md"                     
+[10] "02-data-type.Rmd"                    
+[11] "03-string-regexp.md"                 
+[12] "03-string-regexp.Rmd"                
+[13] "04-math-distribution-functions_files"
+[14] "04-math-distribution-functions.md"   
+[15] "04-math-distribution-functions.Rmd"  
+[16] "05-rmarkdown-more_files"             
+[17] "05-rmarkdown-more.md"                
+[18] "05-rmarkdown-more.Rmd"               
+[19] "06-file-import-export.md"            
+[20] "06-file-import-export.Rmd"           
+[21] "07-control-flow.md"                  
+[22] "07-control-flow.Rmd"                 
+[23] "08-algorithms_files"                 
+[24] "08-algorithms.md"                    
+[25] "08-algorithms.Rmd"                   
+[26] "09-final-note.md"                    
+[27] "09-final-note.Rmd"                   
+[28] "10-simulation_cache"                 
+[29] "10-simulation_files"                 
+[30] "10-simulation.md"                    
+[31] "10-simulation.Rmd"                   
+[32] "11-data-manupulation_files"          
+[33] "11-data-manupulation.md"             
+[34] "11-data-manupulation.Rmd"            
+[35] "12-data-visualization_files"         
+[36] "12-data-visualization.knit.md"       
+[37] "12-data-visualization.Rmd"           
+[38] "15-references.Rmd"                   
+[39] "2020"                                
+[40] "assignment"                          
+[41] "book.bib"                            
+[42] "cnu-r-programming-lecture-note.Rproj"
+[43] "cnu-r-programming.log"               
+[44] "cnu-r-programming.rds"               
+[45] "cnu-r-programming.tex"               
+[46] "code"                                
+[47] "css"                                 
+[48] "data"                                
+[49] "dataset"                             
+[50] "dataset.zip"                         
+[51] "demo"                                
+[52] "docs"                                
+[53] "examples"                            
+[54] "figures"                             
+[55] "images"                              
+[56] "index.md"                            
+[57] "index.Rmd"                           
+[58] "init-funs"                           
+[59] "krantz.cls"                          
+[60] "latex"                               
+[61] "output"                              
+[62] "packages.bib"                        
+[63] "README.md"                           
+[64] "render1dfc360afd9e4.rds"             
+[65] "test"                                
+[66] "video"                               
 ```
 
 ```r
@@ -910,48 +929,67 @@ getwd(); dir()
  [3] "_output.yml"                         
  [4] "_render.R"                           
  [5] "01-introduction_files"               
- [6] "01-introduction.Rmd"                 
- [7] "02-data-type_files"                  
- [8] "02-data-type.Rmd"                    
- [9] "03-string-regexp.Rmd"                
-[10] "04-math-distribution-functions_files"
-[11] "04-math-distribution-functions.Rmd"  
-[12] "05-rmarkdown-more_files"             
-[13] "05-rmarkdown-more.Rmd"               
-[14] "06-file-import-export.Rmd"           
-[15] "07-control-flow.Rmd"                 
-[16] "08-algorithms_files"                 
-[17] "08-algorithms.Rmd"                   
-[18] "09-final-note.Rmd"                   
-[19] "11-references.Rmd"                   
-[20] "2020"                                
-[21] "assignment"                          
-[22] "book.bib"                            
-[23] "cnu-r-programming-lecture-note.Rproj"
-[24] "cnu-r-programming.log"               
-[25] "cnu-r-programming.rds"               
-[26] "cnu-r-programming.tex"               
-[27] "code"                                
-[28] "css"                                 
-[29] "data"                                
-[30] "dataset"                             
-[31] "dataset.zip"                         
-[32] "demo"                                
-[33] "docs"                                
-[34] "examples"                            
-[35] "figures"                             
-[36] "images"                              
-[37] "index.md"                            
-[38] "index.Rmd"                           
-[39] "init-funs"                           
-[40] "krantz.cls"                          
-[41] "latex"                               
-[42] "output"                              
-[43] "packages.bib"                        
-[44] "README.md"                           
-[45] "render1c9f611b0e72c.rds"             
-[46] "test"                                
-[47] "video"                               
+ [6] "01-introduction.md"                  
+ [7] "01-introduction.Rmd"                 
+ [8] "02-data-type_files"                  
+ [9] "02-data-type.md"                     
+[10] "02-data-type.Rmd"                    
+[11] "03-string-regexp.md"                 
+[12] "03-string-regexp.Rmd"                
+[13] "04-math-distribution-functions_files"
+[14] "04-math-distribution-functions.md"   
+[15] "04-math-distribution-functions.Rmd"  
+[16] "05-rmarkdown-more_files"             
+[17] "05-rmarkdown-more.md"                
+[18] "05-rmarkdown-more.Rmd"               
+[19] "06-file-import-export.md"            
+[20] "06-file-import-export.Rmd"           
+[21] "07-control-flow.md"                  
+[22] "07-control-flow.Rmd"                 
+[23] "08-algorithms_files"                 
+[24] "08-algorithms.md"                    
+[25] "08-algorithms.Rmd"                   
+[26] "09-final-note.md"                    
+[27] "09-final-note.Rmd"                   
+[28] "10-simulation_cache"                 
+[29] "10-simulation_files"                 
+[30] "10-simulation.md"                    
+[31] "10-simulation.Rmd"                   
+[32] "11-data-manupulation_files"          
+[33] "11-data-manupulation.md"             
+[34] "11-data-manupulation.Rmd"            
+[35] "12-data-visualization_files"         
+[36] "12-data-visualization.knit.md"       
+[37] "12-data-visualization.Rmd"           
+[38] "15-references.Rmd"                   
+[39] "2020"                                
+[40] "assignment"                          
+[41] "book.bib"                            
+[42] "cnu-r-programming-lecture-note.Rproj"
+[43] "cnu-r-programming.log"               
+[44] "cnu-r-programming.rds"               
+[45] "cnu-r-programming.tex"               
+[46] "code"                                
+[47] "css"                                 
+[48] "data"                                
+[49] "dataset"                             
+[50] "dataset.zip"                         
+[51] "demo"                                
+[52] "docs"                                
+[53] "examples"                            
+[54] "figures"                             
+[55] "images"                              
+[56] "index.md"                            
+[57] "index.Rmd"                           
+[58] "init-funs"                           
+[59] "krantz.cls"                          
+[60] "latex"                               
+[61] "output"                              
+[62] "packages.bib"                        
+[63] "README.md"                           
+[64] "render1dfc360afd9e4.rds"             
+[65] "test"                                
+[66] "video"                               
 ```
 
  \normalsize
@@ -1150,8 +1188,10 @@ getwd(); dir()
 ```
 
 ```
-[1] "/home/user/R/x86_64-pc-linux-gnu-library/4.0"
-[2] "/opt/R/4.0.5/lib/R/library"                  
+[1] "/home/user/R/x86_64-pc-linux-gnu-library/4.1"
+[2] "/usr/local/lib/R/site-library"               
+[3] "/usr/lib/R/site-library"                     
+[4] "/usr/lib/R/library"                          
 ```
 
  \normalsize

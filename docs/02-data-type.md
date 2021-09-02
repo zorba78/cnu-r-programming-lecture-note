@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 
 # R 객체(R object) {#data-type}
 
@@ -5397,10 +5402,15 @@ require(cowplot)
 
 
 ```r
-myurl <- "https://img.livescore.co.kr/data/editor/1906/ba517de8162d92f4ea0e9de0ec98ba02.jpg"
-z <- tempfile()
-download.file(myurl,z,mode="wb")
-pic <- readJPEG(z)
+# URL을 주소로 직접 그림 읽어오기
+
+# myurl <- "https://img.livescore.co.kr/data/editor/1906/ba517de8162d92f4ea0e9de0ec98ba02.jpg"
+# z <- tempfile()
+# download.file(img,z,mode="wb")
+# pic <- readJPEG(z)
+
+img <- "figures/stranger-thing.jpg"
+pic <- readJPEG(img)
 ```
 
  \normalsize
@@ -5437,7 +5447,8 @@ ggdraw() +
 
 
 ```r
-pic <- readJPEG(z)
+# pic <- readJPEG(z)
+pic <- readJPEG(img)
 yr <- pic[300:460, 440:520, 1]
 yg <- pic[300:460, 440:520, 2]
 yb <- pic[300:460, 440:520, 3]
@@ -5565,7 +5576,8 @@ c(fscore, factor(4)) # 강제로 정수형 벡터로 변환
 ```
 
 ```
- [1] 1 1 1 1 2 2 2 2 3 3 3 3 1
+ [1] 4 4 4 4 5 5 5 5 6 6 6 6 4
+Levels: 4 5 6
 ```
 
  \normalsize
@@ -7168,7 +7180,7 @@ rbind(a, c) #변수명이 다르기때문에 행으로 묶을 수 없다.
 ```
 
 ```
-Error in match.names(clabs, names(xi)): names do not match previous names
+Error in match.names(clabs, names(xi)): 이전에 사용된 이름들과 일치하지 않습니다.
 ```
 
 ```r
@@ -7179,7 +7191,7 @@ abd
 
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"0","2":"x","_rn_":"1"},{"1":"0","2":"x","_rn_":"2"},{"1":"0","2":"x","_rn_":"3"},{"1":"0","2":"x","_rn_":"4"},{"1":"0","2":"x","_rn_":"5"},{"1":"1","2":"d","_rn_":"6"},{"1":"1","2":"d","_rn_":"7"},{"1":"1","2":"d","_rn_":"8"},{"1":"1","2":"d","_rn_":"9"},{"1":"1","2":"d","_rn_":"10"},{"1":"1","2":"d","_rn_":"11"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"0","2":"x"},{"1":"0","2":"x"},{"1":"0","2":"x"},{"1":"0","2":"x"},{"1":"0","2":"x"},{"1":"1","2":"d"},{"1":"1","2":"d"},{"1":"1","2":"d"},{"1":"1","2":"d"},{"1":"1","2":"d"},{"1":"1","2":"d"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -7838,7 +7850,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x55f11912cdc8> 
+  .. ..- attr(*, ".Environment")=<environment: 0x563952860c38> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"

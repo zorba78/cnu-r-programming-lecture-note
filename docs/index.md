@@ -2,7 +2,7 @@
 title: "통계 프로그래밍 언어"
 subtitle: "2021년도 1학기 충남대학교 정보통계학과 강의노트"
 author: "한국한의학연구원, 구본초"
-date: "2021-06-17"
+date: "2021-09-02"
 knit: "bookdown::render_book"
 documentclass: krantz
 bibliography: [book.bib, packages.bib]
@@ -23,7 +23,7 @@ editor_options:
 
 
 
-# Course Overview{-#overview}
+# Course Overview: 통계프로그래밍언어{-#overview01}
 
 \BeginKnitrBlock{rmdnote}<div class="rmdnote">
 - 본 문서는 2021년도 1학기 충남대학교 정보통계학과에서 개설한 "통계 프로그래밍 언어" 강의를 위해 개발한 강의 노트임 

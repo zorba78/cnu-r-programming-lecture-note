@@ -228,7 +228,7 @@ nchar(s, type = "width")
 ```
 
 ```
-[1]  3  6  6 14  3
+[1]  3  6  6 13  3
 ```
 
  \normalsize
