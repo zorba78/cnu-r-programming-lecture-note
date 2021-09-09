@@ -88,6 +88,33 @@ R을 이용한 데이터 분석 시 CRAN에 등록된 패키지를 활용한다.
 
  \normalsize
 
+## Prerequisites
+
+### 확률과 확률변수
+
+\footnotesize
+
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**필수 개념**
+
+1. 확률(probability)
+2. 확률변수(random variable)
+3. 기댓값(expectation)
+</div>\EndKnitrBlock{rmdimportant}
+
+ \normalsize
+
+
+- 확률(probability): 어떤 사건을 $E$ 라고 명명할 때, $E$가 발생할 확률은 만약 무작위적 과정을 매우 많이 반복 했을 때 사건 $E$가 발생한 비율을 의미함
+   - 예1: 한화 이글스가 플레이오프에서 승리 후 리그 1위 팀과 한국 시리즈에서 경기를 할 확률?
+   - 예2: 동전/주사위 던지기
+
+- 확률변수(random variable): 우연한 사건의 결과에 값을 핟당
+   - 예: 카지노 게임의 배당금
+   
+- 기댓값(expectation):  사건이 벌어졌을 때의 이득과 그 사건이 벌어질 확률을 곱한 것을 전체 사건에 대해 합한 값
+   - 확률변수의 기댓값은 평균으로 수렴
+   - 확률변수의 기댓값은 무작위 과정을 여러 번 반복했을 때 장기적인 측면에서 평균적으로 얻어질 것으로 기대되는 값
+
 
 ## 시뮬레이션(모의실험)의 의미
 
@@ -95,7 +122,8 @@ R을 이용한 데이터 분석 시 CRAN에 등록된 패키지를 활용한다.
 **알반적 의미**
 
 
-현실세계에서는 시간 및 비용 등의 문제로 실현하기 어렵거나 불가능한 시스템을 모형을 통해 실제 시스템을 모사함으로써 현상에 대한 문제를 이해하고자 하는 목적으로 고안한 일련의 방법
+현실 세계에서는 시간 및 비용 등의 문제로 실현하기 어렵거나 불가능한 시스템을 모형(혹은 가상 데이터 생성)
+을 통해 실제 시스템을 모사함으로써 현상에 대한 문제를 이해하고자 하는 목적으로 고안한 일련의 방법
 
 
 **시뮬레이션의 활용 사례**
@@ -110,16 +138,22 @@ R을 이용한 데이터 분석 시 CRAN에 등록된 패키지를 활용한다.
 **통계적 모의실험(statistical or stochastic simulation)**
 
 
-통계학의 표본이론과 확률론에 근간을 두고 난수(random number)와 임의표본(random sample)을 이용해 어떤 결과나 문제의 해를 근사해 실제 이론으로 도출한 해와 비교함. 이러한 형태의 모의실험 방법을 몬테칼로 시뮬레이션(Monte Carlo simulation)이라고 함. 
+통계학의 표본 이론과 확률론을 근간으로 확률모형으로부터 난수(random number)와 임의 표본(random sample)
+으로 가상의 데이터를 생성한 후 어떤 결과나 문제의 해를 근사해 실제 이론으로 도출한 결과와 비교하기 
+위한 방법론임. 이러한 형태의 모의실험 방법을 몬테칼로 시뮬레이션(Monte Carlo simulation)이라고 함. 
+
+- 확률 모형(stochastic model)은 데이터가 어떻게 생성되었는지를 수학적으로 표현. 
+- "모형을 시뮬레이션 한다" = 단계적으로 "데이터처럼 보이는 것", 생성하는 과정을 의미함
+   - 확률모형(분포)로 부터 도출한 **합성 데이터(synthetic data)**, **대리 데이터(surrogate data)** 생성
+- 각 시뮬레이션 결과는 동일한 초기값에서 랜덤 요소를 수반하기 때문에 동일한 결과를 보장하지 않음
 
 
-> 통계적 모의실험에 Monte carlo 라는 명칭이 붙게된 계기는 2차 세계대전 당시 미국의 원자폭탄 개발계획인 Manhattan 프로젝트에서 중성자의 특성을 연구하기 위한 모의실험의 명칭에 모나코의 유명한 도박 도시 Monte Carlo 이름을 붙힌 것에서 유래함. 
+>예시: $X_1 \sim \mathcal{N}(3, 2^2)$, $X_2 \sim \mathcal{N}(5, 3^2)$ 이고, $X \perp \!\!\! \perp Y$ 
+일 때 $X_3 = X_1 + 2X_2$ 의 분포는? 
 
-- 통계적 모형은 결국 수학적으로 데이터가 어떻게 생성되었는가를 의미함. 
-- "모형을 시뮬레이션 한다" = 단계적으로 "데이터 처럼 보이는 것"을 생성하기 위해 모형을 적용
-- 통계적 시뮬레이션 결과는 동일한 초기값에서 시작하더라도 동일한 결과를 보장하지 않음
-- 예시: $X_1 \sim \mathcal{N}(3, 2^2)$, $X_2 \sim \mathcal{N}(5, 3^2)$ 이고, $X \perp \!\!\! \perp Y$ 일때 $X_3 = X_1 + 2X_2$ 의 분포는? 
-   - $X3 \sim \mathcal{N}(3 + 2\times5, 2^2 + 4\times 3^2) = \mathcal{N}(13, 40)$
+
+- $X3 \sim \mathcal{N}(3 + 2\times5, 2^2 + 4\times 3^2) = \mathcal{N}(13, 40)$ 
+
 
 \footnotesize
 
@@ -142,19 +176,24 @@ mean(x3); var(x3)
 
  \normalsize
 
+> 통계적 모의실험에 Monte carlo 라는 명칭이 붙게된 계기는 2차 세계대전 당시 미국의 원자폭탄 
+개발계획인 Manhattan 프로젝트에서 중성자의 특성을 연구하기 위한 모의실험의 명칭에 모나코의 유명한 
+도박 도시 Monte Carlo 이름을 붙힌 것에서 유래함. 
+
 
 
 **통계적 모의실험의 특징**
 
-- 특정 분포를 따르는 확률변수의 관찰값이 필요
+- 특정 분포를 따르는 확률 변수에 대응하는 관찰값이 필요
 - 반복적으로 수많은 난수를 생성해야 하기 때문에 컴퓨터의 사용이 필수적
 - 기본적으로 통계학의 가장 기본적 개념인 **대수의 법칙(law of the large number)**을 활용
 
 
 **통계적 모의실험을 하는 방법**
 
-- 통계적(확률) 모형은 보통 한 변수($X$)가 주어졌을 때 다른 변수($Y$)에 대한 조건부 분포임. 
-- 대표적인 예: 단순선형회귀모형(simple linear regression model)
+- 통계적(확률) 모형은 보통 한 변수($X$)가 주어졌을 때 다른 변수($Y$)에 대한 조건부 분포임. 이러한 
+통계적 모형이 단순 선형회귀모형(simple linear regression model)임. 
+
 
 $$
 \begin{eqnarray}
@@ -162,7 +201,8 @@ X   & \sim & \mathcal{N}(\mu_x, \sigma_1^2) \\
 Y|X & \sim & \mathcal{N}(\beta_0 + \beta_1X, \sigma_2^2)
 \end{eqnarray}
 $$
-- 위 식에서 우변에 주어진 확률변수를 생성하는 방법을 알고 있다면 위 회귀모형에 대한 시뮬레이션 가능 $\rightarrow$ 모든 종류의 확률 모형에 대한 시뮬레이션의 일반적 전략임(통계 프로그래밍 언어 기말고사 마지막 문제 상기!!)
+- 위 식에서 우변에 주어진 확률변수를 생성하는 방법을 알고 있다면 위 회귀모형에 대한 
+시뮬레이션 가능 $\rightarrow$ 모든 종류의 확률 모형에 대한 시뮬레이션의 일반적 전략임. 
 
 
 \footnotesize
@@ -179,12 +219,14 @@ $$
 **난수 생성의 방법**
 
 - 난수(random number): 어떤 방법으로도 예측될 수 없는 일련의 수열(숫자)
-- 통계적 의미로 난수는 특정 범위(보통 0에서 1 사이)의 균일분포(uniform distribution)에서 추출된 표본들의 관찰값으로, 임의의 확률분포(예: 정규분포, 지수분포 등)를 따르는 확률변수와는 구별됨.
-   - 보통 확률 변수는 균일분포를 따르는 확률변수로부터 적절한 변환을 통해 얻을 수 있음. 
-- 난수를 발생하려면 어떤 알고리즘이 필요하고 알고리즘은 일정한 규칙에 의해 구현되기 때문에 컴퓨터로 발생한 난수는 엄밀한 의미에서 난수가 아님. 
+- 통계적 의미로 난수는 특정 범위(보통 0에서 1 사이)의 균일분포(uniform distribution)에서 
+추출된 표본들의 관찰값으로, 임의의 확률분포(예: 정규분포, 지수분포 등)를 따르는 확률 변수와는 구별됨.
+   - 특정 분포를 따르는 확률 변수는 균일 분포를 따르는 확률 변수로부터 적절한 변환을 통해 얻을 수 있음. 
+- 난수를 발생하려면 어떤 알고리즘이 필요하고 알고리즘은 일정한 규칙에 의해 구현되기 때문에 
+컴퓨터로 발생한 난수는 엄밀한 의미에서 난수가 아님. 
 - 이를 구별하기 위해 보통 컴퓨터로 생성한 난수를 유사난수(pseudo-random number)라 칭함
-- 난수 생성을 위한 알고리즘으로 합동법(congruential method), 역변환법(inversion method) 등이 널리 사용됨
-- 통계 시뮬레이션에서는 특히 변수변환방법(transformation)을 통해 확률변수 생성
+- 난수 생성을 위한 알고리즘으로 합동법(congruential method), 역변환법(inversion method) 등이 널리 활용
+- 통계 시뮬레이션에서는 주로 변수변환방법(transformation)을 통해 확률변수를 생성
    - $Z \sim \mathcal{N}(0, 1)$일 때 $\sigma Z + \mu \sim \mathcal{N}(\mu, \sigma^2)$
    - $Z^2 \sim \chi^2(1)$
 
@@ -242,43 +284,20 @@ $$
 
 
 
-## 확률과 확률변수
-
-\footnotesize
-
-\BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**필수 개념**
-
-1. 확률(probability)
-2. 확률변수(random variable)
-3. 기댓값(expectation)
-</div>\EndKnitrBlock{rmdimportant}
-
- \normalsize
-
-
-- 확률(probability): 어떤 사건을 $E$ 라고 명명할 때, $E$가 발생할 확률은 만약 무작위적 과정을 매우 많이 반복 했을 때 사건 $E$가 발생한 비율을 의미함
-   - 예1: 한화 이글스가 플레이오프에서 승리 후 리그 1위 팀과 한국 시리즈에서 경기를 할 확률?
-   - 예2: 동전/주사위 던지기
-
-- 확률변수(random variable): 우연한 사건의 결과에 값을 핟당
-   - 예: 카지노 게임의 배당금
-   
-- 기댓값(expectation):  사건이 벌어졌을 때의 이득과 그 사건이 벌어질 확률을 곱한 것을 전체 사건에 대해 합한 값
-   - 확률변수의 기댓값은 평균으로 수렴
-   - 확률변수의 기댓값은 무작위 과정을 여러 번 반복했을 때 장기적인 측면에서 평균적으로 얻어질 것으로 기대되는 값
-
-
 ## 몬테칼로 시뮬레이션
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">본 절에서 사용한 동영상 및 모의실험 코드는 Yihui Xie와 Lijia Yu가 배포한 animation 패키지의 내용을 기반으로 재구성함. </div>\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">본 절에서 사용한 동영상 및 모의실험 코드는 Yihui Xie와 Lijia Yu가 배포한 animation 패키지의 내용을 
+기반으로 재구성함. </div>\EndKnitrBlock{rmdnote}
 
  \normalsize
 
 
-- 우리가 알고 있는 확률과 기댓값의 정의는 모두 반복 횟수에 제한없이 무한대로 확률실험(무작위 과정)을 반복 했을 때의 상황을 설정한 것임
-- 즉 컴퓨터를 통해 수학적 확률 또는 기댓값을 정확히 계산할 수 없어도 무작위 실험을 매우 많이 반복해 특정 사건이 일어날 확률이나 기댓값 추정이 가능 $\rightarrow$ 몬테칼로 시뮬레이션의 기본 idea
+- 우리가 알고 있는 확률과 기댓값의 정의는 모두 반복 횟수에 제한 없이 무한대로 
+확률실험(무작위 과정)을 반복 했을 때의 상황을 설정한 것임
+- 즉 컴퓨터를 통해 수학적 확률 또는 기댓값을 정확히 계산할 수 없어도 무작위 실험을 매우 많이 반복해 
+특정 사건이 일어날 확률이나 기댓값 추정이 가능 $\rightarrow$ 몬테칼로 시뮬레이션의 기본 idea
 
 
 ### 동전 던지기 
@@ -377,7 +396,150 @@ Proprotion T: 0.50075
  \normalsize
 
 
-### 기댓값 추정
+### 주사위 던지기 
+
+\footnotesize
+
+<svg viewBox="0 0 448 512" style="position:relative;display:inline-block;top:.1em;height:5em;" xmlns="http://www.w3.org/2000/svg">  <path d="M384 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h320c35.35 0 64-28.65 64-64V96c0-35.35-28.65-64-64-64zM224 288c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"></path></svg><svg viewBox="0 0 448 512" style="position:relative;display:inline-block;top:.1em;height:5em;" xmlns="http://www.w3.org/2000/svg">  <path d="M384 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h320c35.35 0 64-28.65 64-64V96c0-35.35-28.65-64-64-64zM128 192c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm192 192c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"></path></svg><svg viewBox="0 0 448 512" style="position:relative;display:inline-block;top:.1em;height:5em;" xmlns="http://www.w3.org/2000/svg">  <path d="M384 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h320c35.35 0 64-28.65 64-64V96c0-35.35-28.65-64-64-64zM128 192c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm96 96c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm96 96c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"></path></svg><svg viewBox="0 0 448 512" style="position:relative;display:inline-block;top:.1em;height:5em;" xmlns="http://www.w3.org/2000/svg">  <path d="M384 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h320c35.35 0 64-28.65 64-64V96c0-35.35-28.65-64-64-64zM128 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm0-192c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm192 192c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm0-192c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"></path></svg><svg viewBox="0 0 448 512" style="position:relative;display:inline-block;top:.1em;height:5em;" xmlns="http://www.w3.org/2000/svg">  <path d="M384 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h320c35.35 0 64-28.65 64-64V96c0-35.35-28.65-64-64-64zM128 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm0-192c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm96 96c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm96 96c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm0-192c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"></path></svg><svg viewBox="0 0 448 512" style="position:relative;display:inline-block;top:.1em;height:5em;" xmlns="http://www.w3.org/2000/svg">  <path d="M384 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h320c35.35 0 64-28.65 64-64V96c0-35.35-28.65-64-64-64zM128 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm0-96c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm0-96c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm192 192c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm0-96c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm0-96c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"></path></svg>
+
+ \normalsize
+
+주사위를 던지는 게임을 모사
+
+- 주사위를 정의: 1 ~ 6 까지 숫자를 가짐
+- 각 주사위 눈이 나올 확률: 모두 1/6
+
+주사위 눈에 대한 기댓값
+
+$$
+1\times\frac{1}{6} + 2\times\frac{1}{6} + 3\times\frac{1}{6} + 4\times\frac{1}{6} + 5\times\frac{1}{6} + 6\times\frac{1}{6} = 3.5
+$$
+\footnotesize
+
+
+```r
+# 주사위 정의
+die <- c(1:6)
+probs <- rep(1/6, 6)
+
+# 주사위 던지기
+sample(die, 1, prob = probs)
+```
+
+```
+[1] 6
+```
+
+```r
+# 주사위 1000 번 던지기
+draw_res <- integer(length = 1000)
+
+for (i in 1:1000) draw_res[i] <- sample(die, 1, prob = probs)
+mean(draw_res)
+```
+
+```
+[1] 3.51
+```
+
+```r
+# for문을 사용하지 않고  sample 함수만 사용
+draw_res2 <- sample(die, 1000, prob = probs, replace = TRUE)
+```
+
+ \normalsize
+
+
+
+
+\footnotesize
+
+
+
+ \normalsize
+
+
+
+
+### 카드 생성기 
+
+카드(트럼프) 게임을 위한 카드 생성 
+
+카드의 구성: 
+
+\footnotesize
+
+<div class="figure" style="text-align: center">
+<img src="figures/trump-cards.png" alt="트럼프 구성(https://statkclee.github.io/r-algorithm/ 에서 발췌" width="90%" />
+<p class="caption">(\#fig:unnamed-chunk-12)트럼프 구성(https://statkclee.github.io/r-algorithm/ 에서 발췌</p>
+</div>
+
+ \normalsize
+
+\footnotesize
+
+
+```r
+shape <- c("Spade", "Diamond", "Heart", "Club")
+rank <- c("Ace", as.character(2:10), "Jack", "Queen", "King")
+deck <- expand.grid(rank = rank, shape = shape)
+
+# 카드 섞기
+# set.seed(12345)
+smpl_idx <- sample(1:52, 52, replace = FALSE) # 비복원 추출
+suffle_deck <- deck[smpl_idx, ]
+
+# 5 Cards Poker
+suffle_deck[1:20, ] -> chosen_cards
+chosen_cards$player <- rep(1:4, times = 5)
+
+# 1번 참가자
+chosen_cards[chosen_cards$player == 1, ]
+```
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["rank"],"name":[1],"type":["fct"],"align":["left"]},{"label":["shape"],"name":[2],"type":["fct"],"align":["left"]},{"label":["player"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"3","2":"Diamond","3":"1","_rn_":"16"},{"1":"3","2":"Spade","3":"1","_rn_":"3"},{"1":"7","2":"Club","3":"1","_rn_":"46"},{"1":"Queen","2":"Club","3":"1","_rn_":"51"},{"1":"5","2":"Heart","3":"1","_rn_":"31"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+```r
+# 2번 참가자
+chosen_cards[chosen_cards$player == 2, ]
+```
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["rank"],"name":[1],"type":["fct"],"align":["left"]},{"label":["shape"],"name":[2],"type":["fct"],"align":["left"]},{"label":["player"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"King","2":"Spade","3":"2","_rn_":"13"},{"1":"5","2":"Club","3":"2","_rn_":"44"},{"1":"8","2":"Diamond","3":"2","_rn_":"21"},{"1":"King","2":"Diamond","3":"2","_rn_":"26"},{"1":"10","2":"Club","3":"2","_rn_":"49"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+```r
+# 3번 참가자
+chosen_cards[chosen_cards$player == 3, ]
+```
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["rank"],"name":[1],"type":["fct"],"align":["left"]},{"label":["shape"],"name":[2],"type":["fct"],"align":["left"]},{"label":["player"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Ace","2":"Club","3":"3","_rn_":"40"},{"1":"6","2":"Heart","3":"3","_rn_":"32"},{"1":"7","2":"Heart","3":"3","_rn_":"33"},{"1":"4","2":"Club","3":"3","_rn_":"43"},{"1":"Queen","2":"Spade","3":"3","_rn_":"12"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+```r
+# 4번 참가자
+chosen_cards[chosen_cards$player == 4, ]
+```
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["rank"],"name":[1],"type":["fct"],"align":["left"]},{"label":["shape"],"name":[2],"type":["fct"],"align":["left"]},{"label":["player"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"10","2":"Diamond","3":"4","_rn_":"23"},{"1":"6","2":"Spade","3":"4","_rn_":"6"},{"1":"7","2":"Spade","3":"4","_rn_":"7"},{"1":"Jack","2":"Heart","3":"4","_rn_":"37"},{"1":"4","2":"Spade","3":"4","_rn_":"4"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+ \normalsize
+
+
+### 동전 던지기 게임
 
 정상적인 동전 두 번을 던졌을 때, 
 
@@ -506,6 +668,131 @@ sum(x*p) # 실제값
  \normalsize
 
 
+### 주사위 던지기 게임
+
+> **주사위 두 개**를 던졌을 때 두 주사위 눈이 모두 같을 경우 이기는 게임으로 이길 경우 상금 10,000원을 
+받고 질 경우 5000원을 잃는 게임
+
+문제: 
+
+   1. 500 번 동일한 게임을 반복했을 때 승리할 확률
+   2. 500 번 동일한 게밍을 반복한다면 나는 돈을 딸 수 있을까? 
+   
+   
+\footnotesize
+
+
+```r
+set.seed(12345)
+dice <- c(1:6); probs <- rep(1/6, 6)
+
+# 주사위 1 번 던지기
+draw1 <- sample(dice, 1, prob = probs)
+
+# 주사위 2 번 던지기
+draw2 <- sample(dice, 1, prob = probs)
+
+ifelse(draw1 == draw2, "승리", "패배")
+```
+
+```
+[1] "패배"
+```
+
+```r
+# 500 번 반복
+dice_game <- integer(500)
+for (i in 1:500) {
+  draw1 <- sample(dice, 1, prob = probs)
+  draw2 <- sample(dice, 1, prob = probs)
+  
+  dice_game[i] <- ifelse(draw1 == draw2, 1, 0)
+}
+mean(dice_game)
+```
+
+```
+[1] 0.184
+```
+
+```r
+# 문제 2번
+winning <- integer(500)
+for (i in 1:500) {
+  draw1 <- sample(dice, 1, prob = probs)
+  draw2 <- sample(dice, 1, prob = probs)
+  
+  winning[i] <- ifelse(draw1 == draw2, 10000, -5000)
+}
+
+mean(winning)
+```
+
+```
+[1] -2480
+```
+
+ \normalsize
+
+
+### 카드 게임
+
+> 13 장의 카드를 잘 섞어서 한 장씩 패를 뒤집었을 때 카드의 번호와 뒤집은 순서가 적어도 한 번 이상 
+일치한 경우 지는 게임
+
+
+\footnotesize
+
+
+```r
+thirteen_deck <- seq(from=1, to=13, by=1)
+shuffled_deck <- sample(thirteen_deck, 13, replace=FALSE)
+outcome <- integer(13)
+
+for (i in 1:13) {
+  outcome[i] <- ifelse(shuffled_deck[i] == i, 1, 0)
+  res <- ifelse(sum(outcome) == 0, "승리", "패배")
+}
+cat("게임 결과:", res)
+```
+
+```
+게임 결과: 승리
+```
+
+ \normalsize
+
+10,000 번 반복을 수행하기 위해 간단한 함수 생성 
+
+\footnotesize
+
+
+```r
+single_game <- function() {
+  shuffled_deck <- sample(thirteen_deck, 13, replace=FALSE)
+  outcome <- integer(13)
+  for (i in 1:13) {
+    outcome[i] <- ifelse(shuffled_deck[i] == i, 1, 0)
+    res <- ifelse(sum(outcome) == 0, "승리", "패배")
+  }
+  res
+}
+
+game_result <- character(length = 10000)
+
+set.seed(12345)
+for (i in 1:10000) {
+  game_result[i] <- single_game()
+}
+```
+
+ \normalsize
+
+
+
+
+
+
 \footnotesize
 
 \BeginKnitrBlock{rmdimportant}<div class="rmdimportant">확률 및 기대값 추정 모두 시행횟수가 증가할 수록 실제 이론적 값에 근사하는 것을 눈으로 확인 가능함. 즉, 통계학의 근간이 되는 **대수의 법칙(law of large number)**
@@ -558,7 +845,7 @@ text(1, 3.9, "Miss", cex = 2.5, adj = 0)
 text(2.2, 2.8, "f(x)", cex = 2.5)
 ```
 
-<img src="10-simulation_files/figure-html/unnamed-chunk-13-1.svg" width="960" />
+<img src="10-simulation_files/figure-html/unnamed-chunk-19-1.svg" width="960" />
 
  \normalsize
 
@@ -587,7 +874,7 @@ hit_pi <- function(ntry) {
     xy <- runif(2, 0, 1)^2  
     if (sum(xy) < 1) X <- X + 1
   }
-  cat("Estimated pi: ", sprintf("%.6f", 4 * X/ntry, "\n"))
+  cat("Estimated pi: ", sprintf("%.6f", 4 * X/ntry), "\n")
   
 }
 
@@ -596,12 +883,7 @@ hit_pi(100) # 100
 ```
 
 ```
-Warning in sprintf("%.6f", 4 * X/ntry, "\n"): one argument not used by format
-'%.6f'
-```
-
-```
-Estimated pi:  3.000000
+Estimated pi:  3.000000 
 ```
 
 ```r
@@ -609,12 +891,7 @@ hit_pi(1000) # 1,000
 ```
 
 ```
-Warning in sprintf("%.6f", 4 * X/ntry, "\n"): one argument not used by format
-'%.6f'
-```
-
-```
-Estimated pi:  3.184000
+Estimated pi:  3.184000 
 ```
 
 ```r
@@ -622,12 +899,7 @@ hit_pi(10000) # 10,000
 ```
 
 ```
-Warning in sprintf("%.6f", 4 * X/ntry, "\n"): one argument not used by format
-'%.6f'
-```
-
-```
-Estimated pi:  3.148000
+Estimated pi:  3.148000 
 ```
 
 ```r
@@ -635,12 +907,7 @@ hit_pi(100000) # 100,000
 ```
 
 ```
-Warning in sprintf("%.6f", 4 * X/ntry, "\n"): one argument not used by format
-'%.6f'
-```
-
-```
-Estimated pi:  3.140080
+Estimated pi:  3.140080 
 ```
 
 ```r
@@ -648,12 +915,7 @@ hit_pi(1000000) # 1,000,000
 ```
 
 ```
-Warning in sprintf("%.6f", 4 * X/ntry, "\n"): one argument not used by format
-'%.6f'
-```
-
-```
-Estimated pi:  3.137764
+Estimated pi:  3.137764 
 ```
 
 ```r
@@ -661,17 +923,12 @@ system.time(hit_pi(5000000)) # 5,000,000
 ```
 
 ```
-Warning in sprintf("%.6f", 4 * X/ntry, "\n"): one argument not used by format
-'%.6f'
-```
-
-```
-Estimated pi:  3.141950
+Estimated pi:  3.141950 
 ```
 
 ```
  사용자  시스템 elapsed 
- 10.646   0.029  10.684 
+ 10.732   0.013  10.758 
 ```
 
 ```r
@@ -766,7 +1023,7 @@ Estimated pi:  3.141221
 
 ```
  사용자  시스템 elapsed 
-  0.192   0.019   0.211 
+  0.224   0.012   0.236 
 ```
 
  \normalsize
@@ -791,7 +1048,7 @@ Estimated pi:  3.141221
 
 <div class="figure" style="text-align: center">
 <img src="figures/buffon-scheme.png" alt="Buffon의 바늘실험: 바늘이 선에 걸쳐진 경우" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-16)Buffon의 바늘실험: 바늘이 선에 걸쳐진 경우</p>
+<p class="caption">(\#fig:unnamed-chunk-22)Buffon의 바늘실험: 바늘이 선에 걸쳐진 경우</p>
 </div>
 
  \normalsize
@@ -802,7 +1059,7 @@ Estimated pi:  3.141221
 
 <div class="figure" style="text-align: center">
 <img src="figures/buffon-scheme-02.png" alt="Buffon의 바늘실험: 바늘이 선에 걸쳐지지 않은 경우" width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-17)Buffon의 바늘실험: 바늘이 선에 걸쳐지지 않은 경우</p>
+<p class="caption">(\#fig:unnamed-chunk-23)Buffon의 바늘실험: 바늘이 선에 걸쳐지지 않은 경우</p>
 </div>
 
  \normalsize
@@ -936,8 +1193,8 @@ text(x = pi/2, y = 0.2, "A", adj = 0, cex = 2)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="10-simulation_files/figure-html/unnamed-chunk-20-1.svg" alt="Buffon 바늘 실험의 표본 공간과 확률 영역" width="960" />
-<p class="caption">(\#fig:unnamed-chunk-20)Buffon 바늘 실험의 표본 공간과 확률 영역</p>
+<img src="10-simulation_files/figure-html/unnamed-chunk-26-1.svg" alt="Buffon 바늘 실험의 표본 공간과 확률 영역" width="960" />
+<p class="caption">(\#fig:unnamed-chunk-26)Buffon 바늘 실험의 표본 공간과 확률 영역</p>
 </div>
 
  \normalsize
@@ -1335,7 +1592,7 @@ DBP %>%
 ggarrange(p1, p2, ncol = 1, common.legend = TRUE)
 ```
 
-<img src="10-simulation_files/figure-html/unnamed-chunk-30-1.svg" width="672" />
+<img src="10-simulation_files/figure-html/unnamed-chunk-36-1.svg" width="672" />
 
  \normalsize
 
@@ -1504,7 +1761,7 @@ mean in group A mean in group B
 
 <div class="figure" style="text-align: center">
 <img src="figures/scheme-stat.jpg" alt="모집단, 표본, 통계량, 표본분포 관계" width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-33)모집단, 표본, 통계량, 표본분포 관계</p>
+<p class="caption">(\#fig:unnamed-chunk-39)모집단, 표본, 통계량, 표본분포 관계</p>
 </div>
 
  \normalsize
@@ -1553,7 +1810,7 @@ abline(v = tval, col = "red")
 qqnorm(t_star); qqline(t_star)
 ```
 
-<img src="10-simulation_files/figure-html/unnamed-chunk-34-1.svg" width="960" />
+<img src="10-simulation_files/figure-html/unnamed-chunk-40-1.svg" width="960" />
 
 ```r
 # p-value 계산: 귀무가설 하에 관찰한 통계량만큼 큰(작은) 값이 발생할 확률
@@ -2050,7 +2307,7 @@ legend("bottomright",
        bty = "n")
 ```
 
-<img src="10-simulation_files/figure-html/unnamed-chunk-48-1.svg" width="672" />
+<img src="10-simulation_files/figure-html/unnamed-chunk-54-1.svg" width="672" />
 
  \normalsize
 
@@ -2088,7 +2345,7 @@ legend("bottomright",
        bty = "n")
 ```
 
-<img src="10-simulation_files/figure-html/unnamed-chunk-49-1.svg" width="672" />
+<img src="10-simulation_files/figure-html/unnamed-chunk-55-1.svg" width="672" />
 
  \normalsize
 
@@ -2121,7 +2378,7 @@ hist(p, main = "Histogram of p-values under the null hypothesis",
      xlab = "Observed p-value", col = "#87DAFA")
 ```
 
-<img src="10-simulation_files/figure-html/unnamed-chunk-50-1.svg" width="672" />
+<img src="10-simulation_files/figure-html/unnamed-chunk-56-1.svg" width="672" />
 
  \normalsize
 
@@ -2152,7 +2409,7 @@ hist(p, main = "Histogram of p-values under the alternative hypothesis with ES =
      xlab = "Observed p-value", col = "#87DAFA")
 ```
 
-<img src="10-simulation_files/figure-html/unnamed-chunk-51-1.svg" width="672" />
+<img src="10-simulation_files/figure-html/unnamed-chunk-57-1.svg" width="672" />
 
  \normalsize
 
@@ -2181,7 +2438,7 @@ hist(p, main = "Histogram of p-values under the alternative hypothesis with 100 
      xlab = "Observed p-value", col = "#87DAFA")
 ```
 
-<img src="10-simulation_files/figure-html/unnamed-chunk-52-1.svg" width="672" />
+<img src="10-simulation_files/figure-html/unnamed-chunk-58-1.svg" width="672" />
 
  \normalsize
 
@@ -2210,7 +2467,7 @@ hist(p, main = "Histogram of p-values under the alternative hypothesis: n = 30, 
      xlab = "Observed p-value", col = "#87DAFA")
 ```
 
-<img src="10-simulation_files/figure-html/unnamed-chunk-53-1.svg" width="672" />
+<img src="10-simulation_files/figure-html/unnamed-chunk-59-1.svg" width="672" />
 
  \normalsize
 

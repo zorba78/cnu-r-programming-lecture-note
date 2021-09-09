@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2.8 데이터 프레임(data frame) | 통계 프로그래밍 언어</title>
   <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
-  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2.8 데이터 프레임(data frame) | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2021-09-02" />
+<meta name="date" content="2021-09-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -35,6 +35,7 @@
 <link rel="next" href="is-as-function.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -42,7 +43,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -357,14 +357,21 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="overview02.html"><a href="overview02.html"><i class="fa fa-check"></i>Course Overview: 통계패키지활용</a></li>
 <li class="chapter" data-level="10" data-path="Simulation.html"><a href="Simulation.html"><i class="fa fa-check"></i><b>10</b> 시뮬레이션</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="시뮬레이션모의실험의-의미.html"><a href="시뮬레이션모의실험의-의미.html"><i class="fa fa-check"></i><b>10.1</b> 시뮬레이션(모의실험)의 의미</a></li>
-<li class="chapter" data-level="10.2" data-path="확률과-확률변수.html"><a href="확률과-확률변수.html"><i class="fa fa-check"></i><b>10.2</b> 확률과 확률변수</a></li>
+<li class="chapter" data-level="10.1" data-path="prerequisites-1.html"><a href="prerequisites-1.html"><i class="fa fa-check"></i><b>10.1</b> Prerequisites</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="prerequisites-1.html"><a href="prerequisites-1.html#확률과-확률변수"><i class="fa fa-check"></i><b>10.1.1</b> 확률과 확률변수</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="시뮬레이션모의실험의-의미.html"><a href="시뮬레이션모의실험의-의미.html"><i class="fa fa-check"></i><b>10.2</b> 시뮬레이션(모의실험)의 의미</a></li>
 <li class="chapter" data-level="10.3" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html"><i class="fa fa-check"></i><b>10.3</b> 몬테칼로 시뮬레이션</a>
 <ul>
 <li class="chapter" data-level="10.3.1" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#동전-던지기"><i class="fa fa-check"></i><b>10.3.1</b> 동전 던지기</a></li>
-<li class="chapter" data-level="10.3.2" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#기댓값-추정"><i class="fa fa-check"></i><b>10.3.2</b> 기댓값 추정</a></li>
-<li class="chapter" data-level="10.3.3" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#몬테칼로-적분법sample-mean-monte-carlo-integration"><i class="fa fa-check"></i><b>10.3.3</b> 몬테칼로 적분법(sample-mean Monte-carlo integration)</a></li>
-<li class="chapter" data-level="10.3.4" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#buffon의-바늘-실험"><i class="fa fa-check"></i><b>10.3.4</b> Buffon의 바늘 실험</a></li>
+<li class="chapter" data-level="10.3.2" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#주사위-던지기"><i class="fa fa-check"></i><b>10.3.2</b> 주사위 던지기</a></li>
+<li class="chapter" data-level="10.3.3" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#카드-생성기"><i class="fa fa-check"></i><b>10.3.3</b> 카드 생성기</a></li>
+<li class="chapter" data-level="10.3.4" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#동전-던지기-게임"><i class="fa fa-check"></i><b>10.3.4</b> 동전 던지기 게임</a></li>
+<li class="chapter" data-level="10.3.5" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#주사위-던지기-게임"><i class="fa fa-check"></i><b>10.3.5</b> 주사위 던지기 게임</a></li>
+<li class="chapter" data-level="10.3.6" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#카드-게임"><i class="fa fa-check"></i><b>10.3.6</b> 카드 게임</a></li>
+<li class="chapter" data-level="10.3.7" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#몬테칼로-적분법sample-mean-monte-carlo-integration"><i class="fa fa-check"></i><b>10.3.7</b> 몬테칼로 적분법(sample-mean Monte-carlo integration)</a></li>
+<li class="chapter" data-level="10.3.8" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#buffon의-바늘-실험"><i class="fa fa-check"></i><b>10.3.8</b> Buffon의 바늘 실험</a></li>
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="시뮬레이션과-통계학.html"><a href="시뮬레이션과-통계학.html"><i class="fa fa-check"></i><b>10.4</b> 시뮬레이션과 통계학</a></li>
 </ul></li>
@@ -1431,7 +1438,7 @@ Abalone dataset 변수 설명(코드북)
   .. ..- attr(*, &quot;order&quot;)= int 1
   .. ..- attr(*, &quot;intercept&quot;)= int 1
   .. ..- attr(*, &quot;response&quot;)= int 1
-  .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x563952860c38&gt; 
+  .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x557cf6297790&gt; 
   .. ..- attr(*, &quot;predvars&quot;)= language list(abalone$rings, x)
   .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
   .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;abalone$rings&quot; &quot;x&quot;
@@ -1591,7 +1598,6 @@ $dimnames[[2]]
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -1632,7 +1638,7 @@ gitbook.start({
 },
 "download": [["cnu-r-programming.pdf", "PDF"]],
 "search": {
-"engine": "lunr",
+"engine": "fuse",
 "options": null
 },
 "toc": {

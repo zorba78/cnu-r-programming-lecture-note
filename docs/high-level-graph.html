@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>12.2 고수준 그래프 함수 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
-  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="12.2 고수준 그래프 함수 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2021-09-02" />
+<meta name="date" content="2021-09-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -35,6 +35,7 @@
 <link rel="next" href="low-level-graphic.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -42,7 +43,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -357,14 +357,21 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="overview02.html"><a href="overview02.html"><i class="fa fa-check"></i>Course Overview: 통계패키지활용</a></li>
 <li class="chapter" data-level="10" data-path="Simulation.html"><a href="Simulation.html"><i class="fa fa-check"></i><b>10</b> 시뮬레이션</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="시뮬레이션모의실험의-의미.html"><a href="시뮬레이션모의실험의-의미.html"><i class="fa fa-check"></i><b>10.1</b> 시뮬레이션(모의실험)의 의미</a></li>
-<li class="chapter" data-level="10.2" data-path="확률과-확률변수.html"><a href="확률과-확률변수.html"><i class="fa fa-check"></i><b>10.2</b> 확률과 확률변수</a></li>
+<li class="chapter" data-level="10.1" data-path="prerequisites-1.html"><a href="prerequisites-1.html"><i class="fa fa-check"></i><b>10.1</b> Prerequisites</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="prerequisites-1.html"><a href="prerequisites-1.html#확률과-확률변수"><i class="fa fa-check"></i><b>10.1.1</b> 확률과 확률변수</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="시뮬레이션모의실험의-의미.html"><a href="시뮬레이션모의실험의-의미.html"><i class="fa fa-check"></i><b>10.2</b> 시뮬레이션(모의실험)의 의미</a></li>
 <li class="chapter" data-level="10.3" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html"><i class="fa fa-check"></i><b>10.3</b> 몬테칼로 시뮬레이션</a>
 <ul>
 <li class="chapter" data-level="10.3.1" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#동전-던지기"><i class="fa fa-check"></i><b>10.3.1</b> 동전 던지기</a></li>
-<li class="chapter" data-level="10.3.2" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#기댓값-추정"><i class="fa fa-check"></i><b>10.3.2</b> 기댓값 추정</a></li>
-<li class="chapter" data-level="10.3.3" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#몬테칼로-적분법sample-mean-monte-carlo-integration"><i class="fa fa-check"></i><b>10.3.3</b> 몬테칼로 적분법(sample-mean Monte-carlo integration)</a></li>
-<li class="chapter" data-level="10.3.4" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#buffon의-바늘-실험"><i class="fa fa-check"></i><b>10.3.4</b> Buffon의 바늘 실험</a></li>
+<li class="chapter" data-level="10.3.2" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#주사위-던지기"><i class="fa fa-check"></i><b>10.3.2</b> 주사위 던지기</a></li>
+<li class="chapter" data-level="10.3.3" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#카드-생성기"><i class="fa fa-check"></i><b>10.3.3</b> 카드 생성기</a></li>
+<li class="chapter" data-level="10.3.4" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#동전-던지기-게임"><i class="fa fa-check"></i><b>10.3.4</b> 동전 던지기 게임</a></li>
+<li class="chapter" data-level="10.3.5" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#주사위-던지기-게임"><i class="fa fa-check"></i><b>10.3.5</b> 주사위 던지기 게임</a></li>
+<li class="chapter" data-level="10.3.6" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#카드-게임"><i class="fa fa-check"></i><b>10.3.6</b> 카드 게임</a></li>
+<li class="chapter" data-level="10.3.7" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#몬테칼로-적분법sample-mean-monte-carlo-integration"><i class="fa fa-check"></i><b>10.3.7</b> 몬테칼로 적분법(sample-mean Monte-carlo integration)</a></li>
+<li class="chapter" data-level="10.3.8" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#buffon의-바늘-실험"><i class="fa fa-check"></i><b>10.3.8</b> Buffon의 바늘 실험</a></li>
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="시뮬레이션과-통계학.html"><a href="시뮬레이션과-통계학.html"><i class="fa fa-check"></i><b>10.4</b> 시뮬레이션과 통계학</a></li>
 </ul></li>
@@ -475,8 +482,8 @@ div.csl-indent {
 <li>데이터가 저장되어 있는 객체(벡터, 행렬, 데이터 프레임 등) 하나 이상을 함수의 인수(argument)로 사용</li>
 <li>데이터의 클래스에 따라 출력되는 그래프 결과가 다름 <span class="math inline">\(\rightarrow\)</span> <code>methods(plot)</code>을 통해 <code>plot()</code> 함수가 적용되는 클래스 확인 가능</li>
 </ul>
-<div class="sourceCode" id="cb2013"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2013-1"><a href="high-level-graph.html#cb2013-1" aria-hidden="true" tabindex="-1"></a><span class="co">#각 클래스에 적용되는 plot() 함수 리스트</span></span>
-<span id="cb2013-2"><a href="high-level-graph.html#cb2013-2" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(plot)</span></code></pre></div>
+<div class="sourceCode" id="cb2025"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2025-1"><a href="high-level-graph.html#cb2025-1" aria-hidden="true" tabindex="-1"></a><span class="co">#각 클래스에 적용되는 plot() 함수 리스트</span></span>
+<span id="cb2025-2"><a href="high-level-graph.html#cb2025-2" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(plot)</span></code></pre></div>
 <pre><code> [1] plot,ANY-method     plot,color-method   plot.acf*          
  [4] plot.data.frame*    plot.decomposed.ts* plot.default       
  [7] plot.dendrogram*    plot.density*       plot.ecdf          
@@ -490,141 +497,141 @@ div.csl-indent {
 [31] plot.stl*           plot.table*         plot.trans*        
 [34] plot.ts             plot.tskernel*      plot.TukeyHSD*     
 see &#39;?methods&#39; for accessing help and source code</code></pre>
-<div class="sourceCode" id="cb2015"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2015-1"><a href="high-level-graph.html#cb2015-1" aria-hidden="true" tabindex="-1"></a><span class="co">#예시 1: 객체 클래스가 데이터 프레임인 경우</span></span>
-<span id="cb2015-2"><a href="high-level-graph.html#cb2015-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mtcars 데이터 예시</span></span>
-<span id="cb2015-3"><a href="high-level-graph.html#cb2015-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mtcars)</span></code></pre></div>
+<div class="sourceCode" id="cb2027"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2027-1"><a href="high-level-graph.html#cb2027-1" aria-hidden="true" tabindex="-1"></a><span class="co">#예시 1: 객체 클래스가 데이터 프레임인 경우</span></span>
+<span id="cb2027-2"><a href="high-level-graph.html#cb2027-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mtcars 데이터 예시</span></span>
+<span id="cb2027-3"><a href="high-level-graph.html#cb2027-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mtcars)</span></code></pre></div>
 <pre><code>[1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb2017"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2017-1"><a href="high-level-graph.html#cb2017-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars)</span></code></pre></div>
+<div class="sourceCode" id="cb2029"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2029-1"><a href="high-level-graph.html#cb2029-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-6-1.svg" width="864" /></p>
 <p></p>
-<div class="sourceCode" id="cb2018"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2018-1"><a href="high-level-graph.html#cb2018-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 예시2: lm()으로 도출된 객체(list)</span></span>
-<span id="cb2018-2"><a href="high-level-graph.html#cb2018-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 연비(mpg)를 종속 변수, 배기량(disp)을 독립변수로 한 회귀모형</span></span>
-<span id="cb2018-3"><a href="high-level-graph.html#cb2018-3" aria-hidden="true" tabindex="-1"></a><span class="do">## lm() 함수 사용 -&gt; 객체 클래스는 lm</span></span>
-<span id="cb2018-4"><a href="high-level-graph.html#cb2018-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2018-5"><a href="high-level-graph.html#cb2018-5" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
-<span id="cb2018-6"><a href="high-level-graph.html#cb2018-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb2030"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2030-1"><a href="high-level-graph.html#cb2030-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 예시2: lm()으로 도출된 객체(list)</span></span>
+<span id="cb2030-2"><a href="high-level-graph.html#cb2030-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 연비(mpg)를 종속 변수, 배기량(disp)을 독립변수로 한 회귀모형</span></span>
+<span id="cb2030-3"><a href="high-level-graph.html#cb2030-3" aria-hidden="true" tabindex="-1"></a><span class="do">## lm() 함수 사용 -&gt; 객체 클래스는 lm</span></span>
+<span id="cb2030-4"><a href="high-level-graph.html#cb2030-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2030-5"><a href="high-level-graph.html#cb2030-5" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb2030-6"><a href="high-level-graph.html#cb2030-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mod)</span></code></pre></div>
 <pre><code>[1] &quot;lm&quot;</code></pre>
-<div class="sourceCode" id="cb2020"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2020-1"><a href="high-level-graph.html#cb2020-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># 4개 도표를 한 화면에 표시(2행, 2열)</span></span>
-<span id="cb2020-2"><a href="high-level-graph.html#cb2020-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod)</span>
-<span id="cb2020-3"><a href="high-level-graph.html#cb2020-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>() <span class="co"># 활성화된 그래프 장치 닫기</span></span></code></pre></div>
+<div class="sourceCode" id="cb2032"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2032-1"><a href="high-level-graph.html#cb2032-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># 4개 도표를 한 화면에 표시(2행, 2열)</span></span>
+<span id="cb2032-2"><a href="high-level-graph.html#cb2032-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod)</span>
+<span id="cb2032-3"><a href="high-level-graph.html#cb2032-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>() <span class="co"># 활성화된 그래프 장치 닫기</span></span></code></pre></div>
 <pre><code>null device 
           1 </code></pre>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-7-1.svg" width="864" /></p>
 <p></p>
-<div class="sourceCode" id="cb2022"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2022-1"><a href="high-level-graph.html#cb2022-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 예시3: 테이블 객체</span></span>
-<span id="cb2022-2"><a href="high-level-graph.html#cb2022-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(Titanic)</span></code></pre></div>
+<div class="sourceCode" id="cb2034"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2034-1"><a href="high-level-graph.html#cb2034-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 예시3: 테이블 객체</span></span>
+<span id="cb2034-2"><a href="high-level-graph.html#cb2034-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(Titanic)</span></code></pre></div>
 <pre><code>[1] &quot;table&quot;</code></pre>
-<div class="sourceCode" id="cb2024"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2024-1"><a href="high-level-graph.html#cb2024-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Titanic)</span></code></pre></div>
+<div class="sourceCode" id="cb2036"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2036-1"><a href="high-level-graph.html#cb2036-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Titanic)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-8-1.svg" width="864" /></p>
 <p></p>
 <ul>
 <li>객체의 클래스가 벡터나 행렬인 경우, 객체에 저장된 데이터를 2차원 평면(x-y 좌표)에 출력</li>
 </ul>
-<div class="sourceCode" id="cb2025"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2025-1"><a href="high-level-graph.html#cb2025-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 예시1: 데이터 객체를 하나만 인수로 받는 경우</span></span>
-<span id="cb2025-2"><a href="high-level-graph.html#cb2025-2" aria-hidden="true" tabindex="-1"></a><span class="co"># -&gt; x축은 객체의 색인이고, x의 데이터는 y 좌표에 매핑</span></span>
-<span id="cb2025-3"><a href="high-level-graph.html#cb2025-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>disp</span>
-<span id="cb2025-4"><a href="high-level-graph.html#cb2025-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg</span>
-<span id="cb2025-5"><a href="high-level-graph.html#cb2025-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2025-6"><a href="high-level-graph.html#cb2025-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x); <span class="fu">plot</span>(y)</span></code></pre></div>
+<div class="sourceCode" id="cb2037"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2037-1"><a href="high-level-graph.html#cb2037-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 예시1: 데이터 객체를 하나만 인수로 받는 경우</span></span>
+<span id="cb2037-2"><a href="high-level-graph.html#cb2037-2" aria-hidden="true" tabindex="-1"></a><span class="co"># -&gt; x축은 객체의 색인이고, x의 데이터는 y 좌표에 매핑</span></span>
+<span id="cb2037-3"><a href="high-level-graph.html#cb2037-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>disp</span>
+<span id="cb2037-4"><a href="high-level-graph.html#cb2037-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg</span>
+<span id="cb2037-5"><a href="high-level-graph.html#cb2037-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2037-6"><a href="high-level-graph.html#cb2037-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x); <span class="fu">plot</span>(y)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-9-1.svg" width="50%" /><img src="12-data-visualization_files/figure-html/unnamed-chunk-9-2.svg" width="50%" /></p>
 <p></p>
-<div class="sourceCode" id="cb2026"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2026-1"><a href="high-level-graph.html#cb2026-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 두개의 객체를 인수로 받은 경우</span></span>
-<span id="cb2026-2"><a href="high-level-graph.html#cb2026-2" aria-hidden="true" tabindex="-1"></a><span class="co"># -&gt; 2차원 산점도 출력</span></span>
-<span id="cb2026-3"><a href="high-level-graph.html#cb2026-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2026-4"><a href="high-level-graph.html#cb2026-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span></code></pre></div>
+<div class="sourceCode" id="cb2038"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2038-1"><a href="high-level-graph.html#cb2038-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 두개의 객체를 인수로 받은 경우</span></span>
+<span id="cb2038-2"><a href="high-level-graph.html#cb2038-2" aria-hidden="true" tabindex="-1"></a><span class="co"># -&gt; 2차원 산점도 출력</span></span>
+<span id="cb2038-3"><a href="high-level-graph.html#cb2038-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2038-4"><a href="high-level-graph.html#cb2038-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-10-1.svg" width="768" /></p>
 <p></p>
 <ul>
 <li><code>plot()</code> 함수의 세부 옵션</li>
 </ul>
-<div class="sourceCode" id="cb2027"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2027-1"><a href="high-level-graph.html#cb2027-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
-<span id="cb2027-2"><a href="high-level-graph.html#cb2027-2" aria-hidden="true" tabindex="-1"></a>  x, <span class="co"># x 축에 대응하는 데이터 객체</span></span>
-<span id="cb2027-3"><a href="high-level-graph.html#cb2027-3" aria-hidden="true" tabindex="-1"></a>  y, <span class="co"># y 축에 대응하는 데이터 객체</span></span>
-<span id="cb2027-4"><a href="high-level-graph.html#cb2027-4" aria-hidden="true" tabindex="-1"></a>  type, <span class="co"># 그래프 타입(예시 참조)</span></span>
-<span id="cb2027-5"><a href="high-level-graph.html#cb2027-5" aria-hidden="true" tabindex="-1"></a>  main, <span class="co"># 제목 </span></span>
-<span id="cb2027-6"><a href="high-level-graph.html#cb2027-6" aria-hidden="true" tabindex="-1"></a>  sub,  <span class="co"># 부제목 </span></span>
-<span id="cb2027-7"><a href="high-level-graph.html#cb2027-7" aria-hidden="true" tabindex="-1"></a>  xlim, ylim, <span class="co"># x, y 축 범위 지정</span></span>
-<span id="cb2027-8"><a href="high-level-graph.html#cb2027-8" aria-hidden="true" tabindex="-1"></a>  xlab, ylab, <span class="co"># x-y 축 이름</span></span>
-<span id="cb2027-9"><a href="high-level-graph.html#cb2027-9" aria-hidden="true" tabindex="-1"></a>  lty, <span class="co"># 선 모양</span></span>
-<span id="cb2027-10"><a href="high-level-graph.html#cb2027-10" aria-hidden="true" tabindex="-1"></a>  pch, <span class="co"># 점 모양</span></span>
-<span id="cb2027-11"><a href="high-level-graph.html#cb2027-11" aria-hidden="true" tabindex="-1"></a>  cex, <span class="co"># 점 및 텍스트 크기</span></span>
-<span id="cb2027-12"><a href="high-level-graph.html#cb2027-12" aria-hidden="true" tabindex="-1"></a>  lwd, <span class="co"># 선 굵기</span></span>
-<span id="cb2027-13"><a href="high-level-graph.html#cb2027-13" aria-hidden="true" tabindex="-1"></a>  col  <span class="co"># 색상</span></span>
-<span id="cb2027-14"><a href="high-level-graph.html#cb2027-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2039"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2039-1"><a href="high-level-graph.html#cb2039-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb2039-2"><a href="high-level-graph.html#cb2039-2" aria-hidden="true" tabindex="-1"></a>  x, <span class="co"># x 축에 대응하는 데이터 객체</span></span>
+<span id="cb2039-3"><a href="high-level-graph.html#cb2039-3" aria-hidden="true" tabindex="-1"></a>  y, <span class="co"># y 축에 대응하는 데이터 객체</span></span>
+<span id="cb2039-4"><a href="high-level-graph.html#cb2039-4" aria-hidden="true" tabindex="-1"></a>  type, <span class="co"># 그래프 타입(예시 참조)</span></span>
+<span id="cb2039-5"><a href="high-level-graph.html#cb2039-5" aria-hidden="true" tabindex="-1"></a>  main, <span class="co"># 제목 </span></span>
+<span id="cb2039-6"><a href="high-level-graph.html#cb2039-6" aria-hidden="true" tabindex="-1"></a>  sub,  <span class="co"># 부제목 </span></span>
+<span id="cb2039-7"><a href="high-level-graph.html#cb2039-7" aria-hidden="true" tabindex="-1"></a>  xlim, ylim, <span class="co"># x, y 축 범위 지정</span></span>
+<span id="cb2039-8"><a href="high-level-graph.html#cb2039-8" aria-hidden="true" tabindex="-1"></a>  xlab, ylab, <span class="co"># x-y 축 이름</span></span>
+<span id="cb2039-9"><a href="high-level-graph.html#cb2039-9" aria-hidden="true" tabindex="-1"></a>  lty, <span class="co"># 선 모양</span></span>
+<span id="cb2039-10"><a href="high-level-graph.html#cb2039-10" aria-hidden="true" tabindex="-1"></a>  pch, <span class="co"># 점 모양</span></span>
+<span id="cb2039-11"><a href="high-level-graph.html#cb2039-11" aria-hidden="true" tabindex="-1"></a>  cex, <span class="co"># 점 및 텍스트 크기</span></span>
+<span id="cb2039-12"><a href="high-level-graph.html#cb2039-12" aria-hidden="true" tabindex="-1"></a>  lwd, <span class="co"># 선 굵기</span></span>
+<span id="cb2039-13"><a href="high-level-graph.html#cb2039-13" aria-hidden="true" tabindex="-1"></a>  col  <span class="co"># 색상</span></span>
+<span id="cb2039-14"><a href="high-level-graph.html#cb2039-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p></p>
 <ul>
 <li><code>type</code> 인수: 그래프 타입 지정</li>
 </ul>
-<div class="sourceCode" id="cb2028"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2028-1"><a href="high-level-graph.html#cb2028-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BOD 데이터셋 이용</span></span>
-<span id="cb2028-2"><a href="high-level-graph.html#cb2028-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> BOD<span class="sc">$</span>Time; y <span class="ot">&lt;-</span> BOD<span class="sc">$</span>demand</span>
-<span id="cb2028-3"><a href="high-level-graph.html#cb2028-3" aria-hidden="true" tabindex="-1"></a>x; y</span></code></pre></div>
+<div class="sourceCode" id="cb2040"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2040-1"><a href="high-level-graph.html#cb2040-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BOD 데이터셋 이용</span></span>
+<span id="cb2040-2"><a href="high-level-graph.html#cb2040-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> BOD<span class="sc">$</span>Time; y <span class="ot">&lt;-</span> BOD<span class="sc">$</span>demand</span>
+<span id="cb2040-3"><a href="high-level-graph.html#cb2040-3" aria-hidden="true" tabindex="-1"></a>x; y</span></code></pre></div>
 <pre><code>[1] 1 2 3 4 5 7</code></pre>
 <pre><code>[1]  8.3 10.3 19.0 16.0 15.6 19.8</code></pre>
-<div class="sourceCode" id="cb2031"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2031-1"><a href="high-level-graph.html#cb2031-1" aria-hidden="true" tabindex="-1"></a>ctype <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;p&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;o&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;h&quot;</span>, <span class="st">&quot;s&quot;</span>, <span class="st">&quot;n&quot;</span>)</span>
-<span id="cb2031-2"><a href="high-level-graph.html#cb2031-2" aria-hidden="true" tabindex="-1"></a>type_desc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;points&quot;</span>, <span class="st">&quot;lines&quot;</span>, </span>
-<span id="cb2031-3"><a href="high-level-graph.html#cb2031-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;both points and lines&quot;</span>, </span>
-<span id="cb2031-4"><a href="high-level-graph.html#cb2031-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;overlapped points and plots&quot;</span>, </span>
-<span id="cb2031-5"><a href="high-level-graph.html#cb2031-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;empty points joined by lines&quot;</span>, </span>
-<span id="cb2031-6"><a href="high-level-graph.html#cb2031-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;histogram like vertical lines&quot;</span>, </span>
-<span id="cb2031-7"><a href="high-level-graph.html#cb2031-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;stair steps&quot;</span>, </span>
-<span id="cb2031-8"><a href="high-level-graph.html#cb2031-8" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;no lines and points&quot;</span>)</span>
-<span id="cb2031-9"><a href="high-level-graph.html#cb2031-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2031-10"><a href="high-level-graph.html#cb2031-10" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>))</span>
-<span id="cb2031-11"><a href="high-level-graph.html#cb2031-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(ctype)) {</span>
-<span id="cb2031-12"><a href="high-level-graph.html#cb2031-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, y, </span>
-<span id="cb2031-13"><a href="high-level-graph.html#cb2031-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">type =</span> ctype[i], </span>
-<span id="cb2031-14"><a href="high-level-graph.html#cb2031-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;type =&quot;</span>, <span class="st">&quot;&#39;&quot;</span>, ctype[i], <span class="st">&quot;&#39;&quot;</span>),</span>
-<span id="cb2031-15"><a href="high-level-graph.html#cb2031-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">sub =</span> type_desc[i], </span>
-<span id="cb2031-16"><a href="high-level-graph.html#cb2031-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex.main =</span> <span class="fl">1.5</span>, </span>
-<span id="cb2031-17"><a href="high-level-graph.html#cb2031-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex.sub =</span> <span class="fl">1.5</span>, </span>
-<span id="cb2031-18"><a href="high-level-graph.html#cb2031-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex =</span> <span class="dv">2</span>)</span>
-<span id="cb2031-19"><a href="high-level-graph.html#cb2031-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2043"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2043-1"><a href="high-level-graph.html#cb2043-1" aria-hidden="true" tabindex="-1"></a>ctype <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;p&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;o&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;h&quot;</span>, <span class="st">&quot;s&quot;</span>, <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb2043-2"><a href="high-level-graph.html#cb2043-2" aria-hidden="true" tabindex="-1"></a>type_desc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;points&quot;</span>, <span class="st">&quot;lines&quot;</span>, </span>
+<span id="cb2043-3"><a href="high-level-graph.html#cb2043-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;both points and lines&quot;</span>, </span>
+<span id="cb2043-4"><a href="high-level-graph.html#cb2043-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;overlapped points and plots&quot;</span>, </span>
+<span id="cb2043-5"><a href="high-level-graph.html#cb2043-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;empty points joined by lines&quot;</span>, </span>
+<span id="cb2043-6"><a href="high-level-graph.html#cb2043-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;histogram like vertical lines&quot;</span>, </span>
+<span id="cb2043-7"><a href="high-level-graph.html#cb2043-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;stair steps&quot;</span>, </span>
+<span id="cb2043-8"><a href="high-level-graph.html#cb2043-8" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;no lines and points&quot;</span>)</span>
+<span id="cb2043-9"><a href="high-level-graph.html#cb2043-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2043-10"><a href="high-level-graph.html#cb2043-10" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>))</span>
+<span id="cb2043-11"><a href="high-level-graph.html#cb2043-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(ctype)) {</span>
+<span id="cb2043-12"><a href="high-level-graph.html#cb2043-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, y, </span>
+<span id="cb2043-13"><a href="high-level-graph.html#cb2043-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">type =</span> ctype[i], </span>
+<span id="cb2043-14"><a href="high-level-graph.html#cb2043-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;type =&quot;</span>, <span class="st">&quot;&#39;&quot;</span>, ctype[i], <span class="st">&quot;&#39;&quot;</span>),</span>
+<span id="cb2043-15"><a href="high-level-graph.html#cb2043-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">sub =</span> type_desc[i], </span>
+<span id="cb2043-16"><a href="high-level-graph.html#cb2043-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex.main =</span> <span class="fl">1.5</span>, </span>
+<span id="cb2043-17"><a href="high-level-graph.html#cb2043-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex.sub =</span> <span class="fl">1.5</span>, </span>
+<span id="cb2043-18"><a href="high-level-graph.html#cb2043-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb2043-19"><a href="high-level-graph.html#cb2043-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-12-1.svg" width="960" /></p>
-<div class="sourceCode" id="cb2032"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2032-1"><a href="high-level-graph.html#cb2032-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)</span></code></pre></div>
+<div class="sourceCode" id="cb2044"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2044-1"><a href="high-level-graph.html#cb2044-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)</span></code></pre></div>
 <p></p>
 <ul>
 <li><code>xlim</code>, <code>ylim</code> 인수: x, y 축의 범위 지정</li>
 </ul>
-<div class="sourceCode" id="cb2033"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2033-1"><a href="high-level-graph.html#cb2033-1" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
-<span id="cb2033-2"><a href="high-level-graph.html#cb2033-2" aria-hidden="true" tabindex="-1"></a>range <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb2033-3"><a href="high-level-graph.html#cb2033-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x1 =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">each =</span> <span class="dv">3</span>),</span>
-<span id="cb2033-4"><a href="high-level-graph.html#cb2033-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x2 =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">5</span>), <span class="at">each =</span> <span class="dv">3</span>), </span>
-<span id="cb2033-5"><a href="high-level-graph.html#cb2033-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">y1 =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">8</span>), <span class="at">times =</span> <span class="dv">2</span>), </span>
-<span id="cb2033-6"><a href="high-level-graph.html#cb2033-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">y2 =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">16</span>), <span class="at">times =</span> <span class="dv">2</span>)</span>
-<span id="cb2033-7"><a href="high-level-graph.html#cb2033-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2033-8"><a href="high-level-graph.html#cb2033-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) {</span>
-<span id="cb2033-9"><a href="high-level-graph.html#cb2033-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, y, </span>
-<span id="cb2033-10"><a href="high-level-graph.html#cb2033-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlim =</span> <span class="fu">as.numeric</span>(range[i, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]), </span>
-<span id="cb2033-11"><a href="high-level-graph.html#cb2033-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">as.numeric</span>(range[i, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]), </span>
-<span id="cb2033-12"><a href="high-level-graph.html#cb2033-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;xlim = c(&quot;</span>, </span>
-<span id="cb2033-13"><a href="high-level-graph.html#cb2033-13" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">paste</span>(<span class="fu">as.numeric</span>(range[i, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]), </span>
-<span id="cb2033-14"><a href="high-level-graph.html#cb2033-14" aria-hidden="true" tabindex="-1"></a>                           <span class="at">collapse =</span> <span class="st">&quot;, &quot;</span>), <span class="st">&quot;), &quot;</span>, </span>
-<span id="cb2033-15"><a href="high-level-graph.html#cb2033-15" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;ylim = c(&quot;</span>, </span>
-<span id="cb2033-16"><a href="high-level-graph.html#cb2033-16" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">paste</span>(<span class="fu">as.numeric</span>(range[i, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]), </span>
-<span id="cb2033-17"><a href="high-level-graph.html#cb2033-17" aria-hidden="true" tabindex="-1"></a>                           <span class="at">collapse =</span> <span class="st">&quot;, &quot;</span>), <span class="st">&quot;)&quot;</span>)</span>
-<span id="cb2033-18"><a href="high-level-graph.html#cb2033-18" aria-hidden="true" tabindex="-1"></a>       )</span>
-<span id="cb2033-19"><a href="high-level-graph.html#cb2033-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2033-20"><a href="high-level-graph.html#cb2033-20" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)</span></code></pre></div>
+<div class="sourceCode" id="cb2045"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2045-1"><a href="high-level-graph.html#cb2045-1" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb2045-2"><a href="high-level-graph.html#cb2045-2" aria-hidden="true" tabindex="-1"></a>range <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2045-3"><a href="high-level-graph.html#cb2045-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x1 =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">each =</span> <span class="dv">3</span>),</span>
+<span id="cb2045-4"><a href="high-level-graph.html#cb2045-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x2 =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">5</span>), <span class="at">each =</span> <span class="dv">3</span>), </span>
+<span id="cb2045-5"><a href="high-level-graph.html#cb2045-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">y1 =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">8</span>), <span class="at">times =</span> <span class="dv">2</span>), </span>
+<span id="cb2045-6"><a href="high-level-graph.html#cb2045-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">y2 =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">16</span>), <span class="at">times =</span> <span class="dv">2</span>)</span>
+<span id="cb2045-7"><a href="high-level-graph.html#cb2045-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2045-8"><a href="high-level-graph.html#cb2045-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) {</span>
+<span id="cb2045-9"><a href="high-level-graph.html#cb2045-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, y, </span>
+<span id="cb2045-10"><a href="high-level-graph.html#cb2045-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlim =</span> <span class="fu">as.numeric</span>(range[i, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]), </span>
+<span id="cb2045-11"><a href="high-level-graph.html#cb2045-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">as.numeric</span>(range[i, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]), </span>
+<span id="cb2045-12"><a href="high-level-graph.html#cb2045-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;xlim = c(&quot;</span>, </span>
+<span id="cb2045-13"><a href="high-level-graph.html#cb2045-13" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">paste</span>(<span class="fu">as.numeric</span>(range[i, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]), </span>
+<span id="cb2045-14"><a href="high-level-graph.html#cb2045-14" aria-hidden="true" tabindex="-1"></a>                           <span class="at">collapse =</span> <span class="st">&quot;, &quot;</span>), <span class="st">&quot;), &quot;</span>, </span>
+<span id="cb2045-15"><a href="high-level-graph.html#cb2045-15" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;ylim = c(&quot;</span>, </span>
+<span id="cb2045-16"><a href="high-level-graph.html#cb2045-16" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">paste</span>(<span class="fu">as.numeric</span>(range[i, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]), </span>
+<span id="cb2045-17"><a href="high-level-graph.html#cb2045-17" aria-hidden="true" tabindex="-1"></a>                           <span class="at">collapse =</span> <span class="st">&quot;, &quot;</span>), <span class="st">&quot;)&quot;</span>)</span>
+<span id="cb2045-18"><a href="high-level-graph.html#cb2045-18" aria-hidden="true" tabindex="-1"></a>       )</span>
+<span id="cb2045-19"><a href="high-level-graph.html#cb2045-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2045-20"><a href="high-level-graph.html#cb2045-20" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-13-1.svg" width="672" /></p>
 <p></p>
 <ul>
 <li><code>xlab</code>, <code>ylab</code> 인수: x축과 y축 이름 지정</li>
 </ul>
-<div class="sourceCode" id="cb2034"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2034-1"><a href="high-level-graph.html#cb2034-1" aria-hidden="true" tabindex="-1"></a>x_lab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot; &quot;</span>, <span class="st">&quot;Time (days)&quot;</span>)</span>
-<span id="cb2034-2"><a href="high-level-graph.html#cb2034-2" aria-hidden="true" tabindex="-1"></a>y_lab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Demand&quot;</span>, <span class="st">&quot;Oxygen demend (mg/l)&quot;</span>)</span>
-<span id="cb2034-3"><a href="high-level-graph.html#cb2034-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2034-4"><a href="high-level-graph.html#cb2034-4" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb2034-5"><a href="high-level-graph.html#cb2034-5" aria-hidden="true" tabindex="-1"></a>lab_d <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(x_lab, y_lab)</span>
-<span id="cb2034-6"><a href="high-level-graph.html#cb2034-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2034-7"><a href="high-level-graph.html#cb2034-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) {</span>
-<span id="cb2034-8"><a href="high-level-graph.html#cb2034-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, y, </span>
-<span id="cb2034-9"><a href="high-level-graph.html#cb2034-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> lab_d[i, <span class="dv">1</span>], </span>
-<span id="cb2034-10"><a href="high-level-graph.html#cb2034-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> lab_d[i, <span class="dv">2</span>], </span>
-<span id="cb2034-11"><a href="high-level-graph.html#cb2034-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;xlab = &quot;</span>, <span class="st">&quot;&#39;&quot;</span>, lab_d[i, <span class="dv">1</span>], <span class="st">&quot;&#39;&quot;</span>, <span class="st">&quot;, &quot;</span>, </span>
-<span id="cb2034-12"><a href="high-level-graph.html#cb2034-12" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;ylab = &quot;</span>, <span class="st">&quot;&#39;&quot;</span>, lab_d[i, <span class="dv">2</span>], <span class="st">&quot;&#39;&quot;</span>)</span>
-<span id="cb2034-13"><a href="high-level-graph.html#cb2034-13" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2034-14"><a href="high-level-graph.html#cb2034-14" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2034-15"><a href="high-level-graph.html#cb2034-15" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op); <span class="fu">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2046"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2046-1"><a href="high-level-graph.html#cb2046-1" aria-hidden="true" tabindex="-1"></a>x_lab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot; &quot;</span>, <span class="st">&quot;Time (days)&quot;</span>)</span>
+<span id="cb2046-2"><a href="high-level-graph.html#cb2046-2" aria-hidden="true" tabindex="-1"></a>y_lab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Demand&quot;</span>, <span class="st">&quot;Oxygen demend (mg/l)&quot;</span>)</span>
+<span id="cb2046-3"><a href="high-level-graph.html#cb2046-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2046-4"><a href="high-level-graph.html#cb2046-4" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb2046-5"><a href="high-level-graph.html#cb2046-5" aria-hidden="true" tabindex="-1"></a>lab_d <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(x_lab, y_lab)</span>
+<span id="cb2046-6"><a href="high-level-graph.html#cb2046-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2046-7"><a href="high-level-graph.html#cb2046-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) {</span>
+<span id="cb2046-8"><a href="high-level-graph.html#cb2046-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, y, </span>
+<span id="cb2046-9"><a href="high-level-graph.html#cb2046-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> lab_d[i, <span class="dv">1</span>], </span>
+<span id="cb2046-10"><a href="high-level-graph.html#cb2046-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> lab_d[i, <span class="dv">2</span>], </span>
+<span id="cb2046-11"><a href="high-level-graph.html#cb2046-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;xlab = &quot;</span>, <span class="st">&quot;&#39;&quot;</span>, lab_d[i, <span class="dv">1</span>], <span class="st">&quot;&#39;&quot;</span>, <span class="st">&quot;, &quot;</span>, </span>
+<span id="cb2046-12"><a href="high-level-graph.html#cb2046-12" aria-hidden="true" tabindex="-1"></a>                     <span class="st">&quot;ylab = &quot;</span>, <span class="st">&quot;&#39;&quot;</span>, lab_d[i, <span class="dv">2</span>], <span class="st">&quot;&#39;&quot;</span>)</span>
+<span id="cb2046-13"><a href="high-level-graph.html#cb2046-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2046-14"><a href="high-level-graph.html#cb2046-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2046-15"><a href="high-level-graph.html#cb2046-15" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op); <span class="fu">dev.off</span>()</span></code></pre></div>
 <pre><code>null device 
           1 </code></pre>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-14-1.svg" width="960" /></p>
@@ -632,23 +639,23 @@ see &#39;?methods&#39; for accessing help and source code</code></pre>
 <ul>
 <li><code>lty</code> 인수: 선의 형태 지정</li>
 </ul>
-<div class="sourceCode" id="cb2036"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2036-1"><a href="high-level-graph.html#cb2036-1" aria-hidden="true" tabindex="-1"></a>line_type <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;blank&quot;</span>, <span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>, <span class="st">&quot;dotted&quot;</span>,</span>
-<span id="cb2036-2"><a href="high-level-graph.html#cb2036-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;dotdash&quot;</span>, <span class="st">&quot;longdash&quot;</span>, <span class="st">&quot;twodash&quot;</span>)</span>
-<span id="cb2036-3"><a href="high-level-graph.html#cb2036-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>), <span class="at">type=</span><span class="st">&quot;n&quot;</span>, </span>
-<span id="cb2036-4"><a href="high-level-graph.html#cb2036-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb2036-5"><a href="high-level-graph.html#cb2036-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, </span>
-<span id="cb2036-6"><a href="high-level-graph.html#cb2036-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, </span>
-<span id="cb2036-7"><a href="high-level-graph.html#cb2036-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Basic Line Types&quot;</span>, </span>
-<span id="cb2036-8"><a href="high-level-graph.html#cb2036-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> <span class="fl">1.5</span>)</span>
-<span id="cb2036-9"><a href="high-level-graph.html#cb2036-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2036-10"><a href="high-level-graph.html#cb2036-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(line_type)) {</span>
-<span id="cb2036-11"><a href="high-level-graph.html#cb2036-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">5.2</span>), <span class="fu">c</span>(i, i), <span class="at">lty =</span> i <span class="sc">-</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">2</span>)  </span>
-<span id="cb2036-12"><a href="high-level-graph.html#cb2036-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="fl">5.5</span>, i, </span>
-<span id="cb2036-13"><a href="high-level-graph.html#cb2036-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">labels =</span> <span class="fu">paste0</span>(<span class="st">&quot;lty = &quot;</span>, i <span class="sc">-</span> <span class="dv">1</span>, <span class="st">&quot; (&quot;</span>, </span>
-<span id="cb2036-14"><a href="high-level-graph.html#cb2036-14" aria-hidden="true" tabindex="-1"></a>                       line_type[i], <span class="st">&quot;)&quot;</span>), </span>
-<span id="cb2036-15"><a href="high-level-graph.html#cb2036-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex =</span> <span class="fl">1.2</span>, </span>
-<span id="cb2036-16"><a href="high-level-graph.html#cb2036-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">adj =</span> <span class="dv">0</span>)</span>
-<span id="cb2036-17"><a href="high-level-graph.html#cb2036-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2048"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2048-1"><a href="high-level-graph.html#cb2048-1" aria-hidden="true" tabindex="-1"></a>line_type <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;blank&quot;</span>, <span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>, <span class="st">&quot;dotted&quot;</span>,</span>
+<span id="cb2048-2"><a href="high-level-graph.html#cb2048-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;dotdash&quot;</span>, <span class="st">&quot;longdash&quot;</span>, <span class="st">&quot;twodash&quot;</span>)</span>
+<span id="cb2048-3"><a href="high-level-graph.html#cb2048-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>), <span class="at">type=</span><span class="st">&quot;n&quot;</span>, </span>
+<span id="cb2048-4"><a href="high-level-graph.html#cb2048-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb2048-5"><a href="high-level-graph.html#cb2048-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb2048-6"><a href="high-level-graph.html#cb2048-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb2048-7"><a href="high-level-graph.html#cb2048-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Basic Line Types&quot;</span>, </span>
+<span id="cb2048-8"><a href="high-level-graph.html#cb2048-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> <span class="fl">1.5</span>)</span>
+<span id="cb2048-9"><a href="high-level-graph.html#cb2048-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2048-10"><a href="high-level-graph.html#cb2048-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(line_type)) {</span>
+<span id="cb2048-11"><a href="high-level-graph.html#cb2048-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">5.2</span>), <span class="fu">c</span>(i, i), <span class="at">lty =</span> i <span class="sc">-</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">2</span>)  </span>
+<span id="cb2048-12"><a href="high-level-graph.html#cb2048-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="fl">5.5</span>, i, </span>
+<span id="cb2048-13"><a href="high-level-graph.html#cb2048-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">labels =</span> <span class="fu">paste0</span>(<span class="st">&quot;lty = &quot;</span>, i <span class="sc">-</span> <span class="dv">1</span>, <span class="st">&quot; (&quot;</span>, </span>
+<span id="cb2048-14"><a href="high-level-graph.html#cb2048-14" aria-hidden="true" tabindex="-1"></a>                       line_type[i], <span class="st">&quot;)&quot;</span>), </span>
+<span id="cb2048-15"><a href="high-level-graph.html#cb2048-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex =</span> <span class="fl">1.2</span>, </span>
+<span id="cb2048-16"><a href="high-level-graph.html#cb2048-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">adj =</span> <span class="dv">0</span>)</span>
+<span id="cb2048-17"><a href="high-level-graph.html#cb2048-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:plot-linetype"></span>
 <img src="12-data-visualization_files/figure-html/plot-linetype-1.svg" alt="lty 파라미터 값에 따른 선 형태" width="768" />
 <p class="caption">
@@ -659,18 +666,18 @@ Figure 12.2: lty 파라미터 값에 따른 선 형태
 <ul>
 <li><code>pch</code> 인수: 점(point)의 모양을 지정</li>
 </ul>
-<div class="sourceCode" id="cb2037"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2037-1"><a href="high-level-graph.html#cb2037-1" aria-hidden="true" tabindex="-1"></a>coord <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">y =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
-<span id="cb2037-2"><a href="high-level-graph.html#cb2037-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coord, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, </span>
-<span id="cb2037-3"><a href="high-level-graph.html#cb2037-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">5.5</span>), </span>
-<span id="cb2037-4"><a href="high-level-graph.html#cb2037-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">5.5</span>), </span>
-<span id="cb2037-5"><a href="high-level-graph.html#cb2037-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, </span>
-<span id="cb2037-6"><a href="high-level-graph.html#cb2037-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, </span>
-<span id="cb2037-7"><a href="high-level-graph.html#cb2037-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Basic plotting characters&quot;</span>, </span>
-<span id="cb2037-8"><a href="high-level-graph.html#cb2037-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, </span>
-<span id="cb2037-9"><a href="high-level-graph.html#cb2037-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">yaxt =</span> <span class="st">&quot;n&quot;</span>)</span>
-<span id="cb2037-10"><a href="high-level-graph.html#cb2037-10" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
-<span id="cb2037-11"><a href="high-level-graph.html#cb2037-11" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(coord, <span class="at">pch=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>, <span class="at">cex =</span> <span class="fl">2.5</span>)</span>
-<span id="cb2037-12"><a href="high-level-graph.html#cb2037-12" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(coord <span class="sc">+</span> <span class="fl">0.2</span>, <span class="at">labels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2049"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2049-1"><a href="high-level-graph.html#cb2049-1" aria-hidden="true" tabindex="-1"></a>coord <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">y =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb2049-2"><a href="high-level-graph.html#cb2049-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coord, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, </span>
+<span id="cb2049-3"><a href="high-level-graph.html#cb2049-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">5.5</span>), </span>
+<span id="cb2049-4"><a href="high-level-graph.html#cb2049-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">5.5</span>), </span>
+<span id="cb2049-5"><a href="high-level-graph.html#cb2049-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb2049-6"><a href="high-level-graph.html#cb2049-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb2049-7"><a href="high-level-graph.html#cb2049-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Basic plotting characters&quot;</span>, </span>
+<span id="cb2049-8"><a href="high-level-graph.html#cb2049-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, </span>
+<span id="cb2049-9"><a href="high-level-graph.html#cb2049-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">yaxt =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb2049-10"><a href="high-level-graph.html#cb2049-10" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb2049-11"><a href="high-level-graph.html#cb2049-11" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(coord, <span class="at">pch=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>, <span class="at">cex =</span> <span class="fl">2.5</span>)</span>
+<span id="cb2049-12"><a href="high-level-graph.html#cb2049-12" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(coord <span class="sc">+</span> <span class="fl">0.2</span>, <span class="at">labels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:plot-symbol"></span>
 <img src="12-data-visualization_files/figure-html/plot-symbol-1.svg" alt="R graphics 점 표현 기호 및 대응 번호" width="672" />
 <p class="caption">
@@ -688,26 +695,26 @@ Figure 12.3: R graphics 점 표현 기호 및 대응 번호
 </ul></li>
 <li>텍스트 <code>cex</code> 인수 적용 예시</li>
 </ul>
-<div class="sourceCode" id="cb2038"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2038-1"><a href="high-level-graph.html#cb2038-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
-<span id="cb2038-2"><a href="high-level-graph.html#cb2038-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(BOD, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>, </span>
-<span id="cb2038-3"><a href="high-level-graph.html#cb2038-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;cex = 2&quot;</span>, </span>
-<span id="cb2038-4"><a href="high-level-graph.html#cb2038-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">sub =</span> <span class="st">&quot;Subtitle&quot;</span>)</span>
-<span id="cb2038-5"><a href="high-level-graph.html#cb2038-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(BOD, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>, </span>
-<span id="cb2038-6"><a href="high-level-graph.html#cb2038-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.axis =</span> <span class="dv">2</span>, </span>
-<span id="cb2038-7"><a href="high-level-graph.html#cb2038-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;cex.axis = 2&quot;</span>, </span>
-<span id="cb2038-8"><a href="high-level-graph.html#cb2038-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">sub =</span> <span class="st">&quot;Subtitle&quot;</span>)</span>
-<span id="cb2038-9"><a href="high-level-graph.html#cb2038-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(BOD, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>, </span>
-<span id="cb2038-10"><a href="high-level-graph.html#cb2038-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.lab =</span> <span class="dv">2</span>, </span>
-<span id="cb2038-11"><a href="high-level-graph.html#cb2038-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;cex.lab = 2&quot;</span>, </span>
-<span id="cb2038-12"><a href="high-level-graph.html#cb2038-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">sub =</span> <span class="st">&quot;Subtitle&quot;</span>)</span>
-<span id="cb2038-13"><a href="high-level-graph.html#cb2038-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(BOD, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>, </span>
-<span id="cb2038-14"><a href="high-level-graph.html#cb2038-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> <span class="dv">2</span>, </span>
-<span id="cb2038-15"><a href="high-level-graph.html#cb2038-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;cex.main = 2&quot;</span>, </span>
-<span id="cb2038-16"><a href="high-level-graph.html#cb2038-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">sub =</span> <span class="st">&quot;Subtitle&quot;</span>)</span>
-<span id="cb2038-17"><a href="high-level-graph.html#cb2038-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(BOD, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>,</span>
-<span id="cb2038-18"><a href="high-level-graph.html#cb2038-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.sub =</span> <span class="dv">2</span>, </span>
-<span id="cb2038-19"><a href="high-level-graph.html#cb2038-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;cex.sub = 2&quot;</span>, </span>
-<span id="cb2038-20"><a href="high-level-graph.html#cb2038-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">sub =</span> <span class="st">&quot;Subtitle&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2050"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2050-1"><a href="high-level-graph.html#cb2050-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb2050-2"><a href="high-level-graph.html#cb2050-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(BOD, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>, </span>
+<span id="cb2050-3"><a href="high-level-graph.html#cb2050-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;cex = 2&quot;</span>, </span>
+<span id="cb2050-4"><a href="high-level-graph.html#cb2050-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">sub =</span> <span class="st">&quot;Subtitle&quot;</span>)</span>
+<span id="cb2050-5"><a href="high-level-graph.html#cb2050-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(BOD, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>, </span>
+<span id="cb2050-6"><a href="high-level-graph.html#cb2050-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.axis =</span> <span class="dv">2</span>, </span>
+<span id="cb2050-7"><a href="high-level-graph.html#cb2050-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;cex.axis = 2&quot;</span>, </span>
+<span id="cb2050-8"><a href="high-level-graph.html#cb2050-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">sub =</span> <span class="st">&quot;Subtitle&quot;</span>)</span>
+<span id="cb2050-9"><a href="high-level-graph.html#cb2050-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(BOD, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>, </span>
+<span id="cb2050-10"><a href="high-level-graph.html#cb2050-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.lab =</span> <span class="dv">2</span>, </span>
+<span id="cb2050-11"><a href="high-level-graph.html#cb2050-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;cex.lab = 2&quot;</span>, </span>
+<span id="cb2050-12"><a href="high-level-graph.html#cb2050-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">sub =</span> <span class="st">&quot;Subtitle&quot;</span>)</span>
+<span id="cb2050-13"><a href="high-level-graph.html#cb2050-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(BOD, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>, </span>
+<span id="cb2050-14"><a href="high-level-graph.html#cb2050-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> <span class="dv">2</span>, </span>
+<span id="cb2050-15"><a href="high-level-graph.html#cb2050-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;cex.main = 2&quot;</span>, </span>
+<span id="cb2050-16"><a href="high-level-graph.html#cb2050-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">sub =</span> <span class="st">&quot;Subtitle&quot;</span>)</span>
+<span id="cb2050-17"><a href="high-level-graph.html#cb2050-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(BOD, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>,</span>
+<span id="cb2050-18"><a href="high-level-graph.html#cb2050-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.sub =</span> <span class="dv">2</span>, </span>
+<span id="cb2050-19"><a href="high-level-graph.html#cb2050-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;cex.sub = 2&quot;</span>, </span>
+<span id="cb2050-20"><a href="high-level-graph.html#cb2050-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">sub =</span> <span class="st">&quot;Subtitle&quot;</span>)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-15-1.svg" width="864" /></p>
 <p></p>
 <ul>
@@ -716,21 +723,21 @@ Figure 12.3: R graphics 점 표현 기호 및 대응 번호
 <li>점 <code>cex</code> 크기와 <code>lwd</code> 두께</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb2039"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2039-1"><a href="high-level-graph.html#cb2039-1" aria-hidden="true" tabindex="-1"></a>coord <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">y =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
-<span id="cb2039-2"><a href="high-level-graph.html#cb2039-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coord, <span class="at">type=</span><span class="st">&quot;n&quot;</span>, </span>
-<span id="cb2039-3"><a href="high-level-graph.html#cb2039-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;cex&quot;</span>, </span>
-<span id="cb2039-4"><a href="high-level-graph.html#cb2039-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;lwd&quot;</span>, </span>
-<span id="cb2039-5"><a href="high-level-graph.html#cb2039-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">5.5</span>), </span>
-<span id="cb2039-6"><a href="high-level-graph.html#cb2039-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">5.5</span>),</span>
-<span id="cb2039-7"><a href="high-level-graph.html#cb2039-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;pch and lwd size&quot;</span>, </span>
-<span id="cb2039-8"><a href="high-level-graph.html#cb2039-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> <span class="dv">2</span>, </span>
-<span id="cb2039-9"><a href="high-level-graph.html#cb2039-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.lab =</span> <span class="fl">1.5</span>)</span>
-<span id="cb2039-10"><a href="high-level-graph.html#cb2039-10" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(coord, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">col =</span> <span class="st">&quot;darkgray&quot;</span>)</span>
-<span id="cb2039-11"><a href="high-level-graph.html#cb2039-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
-<span id="cb2039-12"><a href="high-level-graph.html#cb2039-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, coord<span class="sc">$</span>y[coord<span class="sc">$</span>y <span class="sc">==</span> i], <span class="at">pch=</span><span class="dv">21</span>, </span>
-<span id="cb2039-13"><a href="high-level-graph.html#cb2039-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">cex =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, </span>
-<span id="cb2039-14"><a href="high-level-graph.html#cb2039-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">lwd =</span> i, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
-<span id="cb2039-15"><a href="high-level-graph.html#cb2039-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2051"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2051-1"><a href="high-level-graph.html#cb2051-1" aria-hidden="true" tabindex="-1"></a>coord <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">y =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb2051-2"><a href="high-level-graph.html#cb2051-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coord, <span class="at">type=</span><span class="st">&quot;n&quot;</span>, </span>
+<span id="cb2051-3"><a href="high-level-graph.html#cb2051-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;cex&quot;</span>, </span>
+<span id="cb2051-4"><a href="high-level-graph.html#cb2051-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;lwd&quot;</span>, </span>
+<span id="cb2051-5"><a href="high-level-graph.html#cb2051-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">5.5</span>), </span>
+<span id="cb2051-6"><a href="high-level-graph.html#cb2051-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">5.5</span>),</span>
+<span id="cb2051-7"><a href="high-level-graph.html#cb2051-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;pch and lwd size&quot;</span>, </span>
+<span id="cb2051-8"><a href="high-level-graph.html#cb2051-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> <span class="dv">2</span>, </span>
+<span id="cb2051-9"><a href="high-level-graph.html#cb2051-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.lab =</span> <span class="fl">1.5</span>)</span>
+<span id="cb2051-10"><a href="high-level-graph.html#cb2051-10" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(coord, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">col =</span> <span class="st">&quot;darkgray&quot;</span>)</span>
+<span id="cb2051-11"><a href="high-level-graph.html#cb2051-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb2051-12"><a href="high-level-graph.html#cb2051-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, coord<span class="sc">$</span>y[coord<span class="sc">$</span>y <span class="sc">==</span> i], <span class="at">pch=</span><span class="dv">21</span>, </span>
+<span id="cb2051-13"><a href="high-level-graph.html#cb2051-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">cex =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, </span>
+<span id="cb2051-14"><a href="high-level-graph.html#cb2051-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">lwd =</span> i, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb2051-15"><a href="high-level-graph.html#cb2051-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-16-1.svg" width="672" /></p>
 <p></p>
 <ul>
@@ -762,19 +769,19 @@ Figure 12.3: R graphics 점 표현 기호 및 대응 번호
 <ul>
 <li><code>plot(x, y)</code>를 통해 2차원 산점도를 그릴 수 있으나, car 패키지에 내장되어 있는 해당 함수를 이용해 보다 많은 정보(상자그림, 회귀곡선 등)를 포함</li>
 </ul>
-<div class="sourceCode" id="cb2040"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2040-1"><a href="high-level-graph.html#cb2040-1" aria-hidden="true" tabindex="-1"></a><span class="co"># car 패키지 설치</span></span>
-<span id="cb2040-2"><a href="high-level-graph.html#cb2040-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;car&quot;)</span></span>
-<span id="cb2040-3"><a href="high-level-graph.html#cb2040-3" aria-hidden="true" tabindex="-1"></a><span class="co"># require(car)</span></span>
-<span id="cb2040-4"><a href="high-level-graph.html#cb2040-4" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">scatterplot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span></code></pre></div>
+<div class="sourceCode" id="cb2052"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2052-1"><a href="high-level-graph.html#cb2052-1" aria-hidden="true" tabindex="-1"></a><span class="co"># car 패키지 설치</span></span>
+<span id="cb2052-2"><a href="high-level-graph.html#cb2052-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;car&quot;)</span></span>
+<span id="cb2052-3"><a href="high-level-graph.html#cb2052-3" aria-hidden="true" tabindex="-1"></a><span class="co"># require(car)</span></span>
+<span id="cb2052-4"><a href="high-level-graph.html#cb2052-4" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">scatterplot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-18-1.svg" width="768" /></p>
 <p></p>
 <ul>
 <li><code>plot()</code> 함수의 인수 적용 가능</li>
 </ul>
-<div class="sourceCode" id="cb2041"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2041-1"><a href="high-level-graph.html#cb2041-1" aria-hidden="true" tabindex="-1"></a><span class="co"># help(scatterplot) 참고</span></span>
-<span id="cb2041-2"><a href="high-level-graph.html#cb2041-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">scatterplot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars, </span>
-<span id="cb2041-3"><a href="high-level-graph.html#cb2041-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">regLine =</span> <span class="fu">list</span>(<span class="at">method =</span> lm, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>), </span>
-<span id="cb2041-4"><a href="high-level-graph.html#cb2041-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2053"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2053-1"><a href="high-level-graph.html#cb2053-1" aria-hidden="true" tabindex="-1"></a><span class="co"># help(scatterplot) 참고</span></span>
+<span id="cb2053-2"><a href="high-level-graph.html#cb2053-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">scatterplot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars, </span>
+<span id="cb2053-3"><a href="high-level-graph.html#cb2053-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">regLine =</span> <span class="fu">list</span>(<span class="at">method =</span> lm, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>), </span>
+<span id="cb2053-4"><a href="high-level-graph.html#cb2053-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-19-1.svg" width="768" /></p>
 <p></p>
 </div>
@@ -783,8 +790,8 @@ Figure 12.3: R graphics 점 표현 기호 및 대응 번호
 <ul>
 <li><code>pairs()</code>: 산점도 행렬을 생성해주는 함수로, 객체의 클래스가 데이터 프레임인 경우 <code>plot(dat)</code>과 동일한 그래프를 반환</li>
 </ul>
-<div class="sourceCode" id="cb2042"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2042-1"><a href="high-level-graph.html#cb2042-1" aria-hidden="true" tabindex="-1"></a><span class="co"># iris dataset</span></span>
-<span id="cb2042-2"><a href="high-level-graph.html#cb2042-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(iris)</span></code></pre></div>
+<div class="sourceCode" id="cb2054"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2054-1"><a href="high-level-graph.html#cb2054-1" aria-hidden="true" tabindex="-1"></a><span class="co"># iris dataset</span></span>
+<span id="cb2054-2"><a href="high-level-graph.html#cb2054-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(iris)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-20-1.svg" width="768" /></p>
 <p></p>
 </div>
@@ -793,17 +800,17 @@ Figure 12.3: R graphics 점 표현 기호 및 대응 번호
 <ul>
 <li>R graphics 패키지의 <code>pair()</code>와 유사하나 각 변수 쌍별 회귀 곡선 및 분포 확인 가능</li>
 </ul>
-<div class="sourceCode" id="cb2043"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2043-1"><a href="high-level-graph.html#cb2043-1" aria-hidden="true" tabindex="-1"></a><span class="co"># iris dataset</span></span>
-<span id="cb2043-2"><a href="high-level-graph.html#cb2043-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">scatterplotMatrix</span>(iris, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2055"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2055-1"><a href="high-level-graph.html#cb2055-1" aria-hidden="true" tabindex="-1"></a><span class="co"># iris dataset</span></span>
+<span id="cb2055-2"><a href="high-level-graph.html#cb2055-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">scatterplotMatrix</span>(iris, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-21-1.svg" width="768" /></p>
 <p></p>
-<div class="sourceCode" id="cb2044"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2044-1"><a href="high-level-graph.html#cb2044-1" aria-hidden="true" tabindex="-1"></a><span class="co"># help(scatterplotMatrix)</span></span>
-<span id="cb2044-2"><a href="high-level-graph.html#cb2044-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">scatterplotMatrix</span>(iris, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>), </span>
-<span id="cb2044-3"><a href="high-level-graph.html#cb2044-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">smooth =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb2044-4"><a href="high-level-graph.html#cb2044-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">groups =</span> iris<span class="sc">$</span>Species, </span>
-<span id="cb2044-5"><a href="high-level-graph.html#cb2044-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">by.groups =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb2044-6"><a href="high-level-graph.html#cb2044-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">regLine =</span> <span class="fu">list</span>(<span class="at">method =</span> lm, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>), </span>
-<span id="cb2044-7"><a href="high-level-graph.html#cb2044-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">pch =</span> (<span class="dv">15</span><span class="sc">:</span><span class="dv">17</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb2056"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2056-1"><a href="high-level-graph.html#cb2056-1" aria-hidden="true" tabindex="-1"></a><span class="co"># help(scatterplotMatrix)</span></span>
+<span id="cb2056-2"><a href="high-level-graph.html#cb2056-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">scatterplotMatrix</span>(iris, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>), </span>
+<span id="cb2056-3"><a href="high-level-graph.html#cb2056-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">smooth =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb2056-4"><a href="high-level-graph.html#cb2056-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">groups =</span> iris<span class="sc">$</span>Species, </span>
+<span id="cb2056-5"><a href="high-level-graph.html#cb2056-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">by.groups =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb2056-6"><a href="high-level-graph.html#cb2056-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">regLine =</span> <span class="fu">list</span>(<span class="at">method =</span> lm, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>), </span>
+<span id="cb2056-7"><a href="high-level-graph.html#cb2056-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">pch =</span> (<span class="dv">15</span><span class="sc">:</span><span class="dv">17</span>))</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-22-1.svg" width="768" /></p>
 <p></p>
 </div>
@@ -813,15 +820,15 @@ Figure 12.3: R graphics 점 표현 기호 및 대응 번호
 <ul>
 <li>행렬 객체를 <code>plot()</code> 함수의 입력으로 사용한 경우 1-2 번째 열 데이터로 산점도를 출력</li>
 </ul>
-<div class="sourceCode" id="cb2045"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2045-1"><a href="high-level-graph.html#cb2045-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 행렬을 plot() 함수의 입력으로 받은 경우</span></span>
-<span id="cb2045-2"><a href="high-level-graph.html#cb2045-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb2045-3"><a href="high-level-graph.html#cb2045-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.01</span>)</span>
-<span id="cb2045-4"><a href="high-level-graph.html#cb2045-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">mapply</span>(dnorm, </span>
-<span id="cb2045-5"><a href="high-level-graph.html#cb2045-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">list</span>(<span class="at">a =</span> x, <span class="at">b =</span> x, <span class="at">c =</span> x), </span>
-<span id="cb2045-6"><a href="high-level-graph.html#cb2045-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>), </span>
-<span id="cb2045-7"><a href="high-level-graph.html#cb2045-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>))</span>
-<span id="cb2045-8"><a href="high-level-graph.html#cb2045-8" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(X, <span class="at">nrow =</span> <span class="fu">length</span>(x), <span class="at">ncol =</span> <span class="dv">3</span>)</span>
-<span id="cb2045-9"><a href="high-level-graph.html#cb2045-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(X)</span></code></pre></div>
+<div class="sourceCode" id="cb2057"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2057-1"><a href="high-level-graph.html#cb2057-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 행렬을 plot() 함수의 입력으로 받은 경우</span></span>
+<span id="cb2057-2"><a href="high-level-graph.html#cb2057-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb2057-3"><a href="high-level-graph.html#cb2057-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.01</span>)</span>
+<span id="cb2057-4"><a href="high-level-graph.html#cb2057-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">mapply</span>(dnorm, </span>
+<span id="cb2057-5"><a href="high-level-graph.html#cb2057-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">list</span>(<span class="at">a =</span> x, <span class="at">b =</span> x, <span class="at">c =</span> x), </span>
+<span id="cb2057-6"><a href="high-level-graph.html#cb2057-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb2057-7"><a href="high-level-graph.html#cb2057-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>))</span>
+<span id="cb2057-8"><a href="high-level-graph.html#cb2057-8" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(X, <span class="at">nrow =</span> <span class="fu">length</span>(x), <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb2057-9"><a href="high-level-graph.html#cb2057-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(X)</span></code></pre></div>
 <pre><code>             [,1]        [,2]       [,3]
 [1,] 1.486720e-06 0.002215924 0.02156933
 [2,] 1.562867e-06 0.002249385 0.02166383
@@ -829,12 +836,12 @@ Figure 12.3: R graphics 점 표현 기호 및 대응 번호
 [4,] 1.726545e-06 0.002317658 0.02185368
 [5,] 1.814431e-06 0.002352479 0.02194902
 [6,] 1.906601e-06 0.002387763 0.02204463</code></pre>
-<div class="sourceCode" id="cb2047"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2047-1"><a href="high-level-graph.html#cb2047-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot() 함수를 이용한 행렬 그래프 출력</span></span>
-<span id="cb2047-2"><a href="high-level-graph.html#cb2047-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(X, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">main =</span> <span class="st">&quot;plot matrix (X) using plot()&quot;</span>)</span>
-<span id="cb2047-3"><a href="high-level-graph.html#cb2047-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.2</span>, <span class="fl">0.05</span>, <span class="at">labels =</span> <span class="st">&quot;plot(X, type = `l`)&quot;</span>)</span>
-<span id="cb2047-4"><a href="high-level-graph.html#cb2047-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
-<span id="cb2047-5"><a href="high-level-graph.html#cb2047-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;scatterplot between X[, 1] and X[, 2]&quot;</span>)</span>
-<span id="cb2047-6"><a href="high-level-graph.html#cb2047-6" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.2</span>, <span class="fl">0.05</span>, <span class="at">labels =</span> <span class="st">&quot;plot(X[,1], X[,2], type = `l`)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2059"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2059-1"><a href="high-level-graph.html#cb2059-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot() 함수를 이용한 행렬 그래프 출력</span></span>
+<span id="cb2059-2"><a href="high-level-graph.html#cb2059-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(X, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">main =</span> <span class="st">&quot;plot matrix (X) using plot()&quot;</span>)</span>
+<span id="cb2059-3"><a href="high-level-graph.html#cb2059-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.2</span>, <span class="fl">0.05</span>, <span class="at">labels =</span> <span class="st">&quot;plot(X, type = `l`)&quot;</span>)</span>
+<span id="cb2059-4"><a href="high-level-graph.html#cb2059-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="cb2059-5"><a href="high-level-graph.html#cb2059-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;scatterplot between X[, 1] and X[, 2]&quot;</span>)</span>
+<span id="cb2059-6"><a href="high-level-graph.html#cb2059-6" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">0.2</span>, <span class="fl">0.05</span>, <span class="at">labels =</span> <span class="st">&quot;plot(X[,1], X[,2], type = `l`)&quot;</span>)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-23-1.svg" width="768" /></p>
 <p></p>
 <div id="mat_plot" class="section level4 unnumbered">
@@ -846,14 +853,14 @@ Figure 12.3: R graphics 점 표현 기호 및 대응 번호
 <li>x 가 주어지지 않은 경우, 행렬의 색인을 x 축으로 사용</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb2048"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2048-1"><a href="high-level-graph.html#cb2048-1" aria-hidden="true" tabindex="-1"></a><span class="co"># matplot 도표</span></span>
-<span id="cb2048-2"><a href="high-level-graph.html#cb2048-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb2048-3"><a href="high-level-graph.html#cb2048-3" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(X, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
-<span id="cb2048-4"><a href="high-level-graph.html#cb2048-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">lwd =</span> <span class="dv">2</span>, </span>
-<span id="cb2048-5"><a href="high-level-graph.html#cb2048-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;matplot() without x&quot;</span>)</span>
-<span id="cb2048-6"><a href="high-level-graph.html#cb2048-6" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(x, X, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
-<span id="cb2048-7"><a href="high-level-graph.html#cb2048-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">lwd =</span> <span class="dv">2</span>, </span>
-<span id="cb2048-8"><a href="high-level-graph.html#cb2048-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;matplot() with x&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2060"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2060-1"><a href="high-level-graph.html#cb2060-1" aria-hidden="true" tabindex="-1"></a><span class="co"># matplot 도표</span></span>
+<span id="cb2060-2"><a href="high-level-graph.html#cb2060-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2060-3"><a href="high-level-graph.html#cb2060-3" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(X, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="cb2060-4"><a href="high-level-graph.html#cb2060-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb2060-5"><a href="high-level-graph.html#cb2060-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;matplot() without x&quot;</span>)</span>
+<span id="cb2060-6"><a href="high-level-graph.html#cb2060-6" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(x, X, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="cb2060-7"><a href="high-level-graph.html#cb2060-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb2060-8"><a href="high-level-graph.html#cb2060-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;matplot() with x&quot;</span>)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-24-1.svg" width="768" /></p>
 <p></p>
 </div>
@@ -862,19 +869,19 @@ Figure 12.3: R graphics 점 표현 기호 및 대응 번호
 <h3><span class="header-section-number">12.2.5</span> 히스토그램</h3>
 <div id="hist" class="section level4 unnumbered">
 <h4><strong><code>hist()</code></strong></h4>
-<div class="sourceCode" id="cb2049"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2049-1"><a href="high-level-graph.html#cb2049-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(</span>
-<span id="cb2049-2"><a href="high-level-graph.html#cb2049-2" aria-hidden="true" tabindex="-1"></a>  x, <span class="co"># vector 객체</span></span>
-<span id="cb2049-3"><a href="high-level-graph.html#cb2049-3" aria-hidden="true" tabindex="-1"></a>  breaks, <span class="co"># 빈도 계산을 위한 구간</span></span>
-<span id="cb2049-4"><a href="high-level-graph.html#cb2049-4" aria-hidden="true" tabindex="-1"></a>  freq, <span class="co"># y축 빈도 또는 밀도(density) 여부</span></span>
-<span id="cb2049-5"><a href="high-level-graph.html#cb2049-5" aria-hidden="true" tabindex="-1"></a>  col, <span class="co"># 막대 색상 지정</span></span>
-<span id="cb2049-6"><a href="high-level-graph.html#cb2049-6" aria-hidden="true" tabindex="-1"></a>  border, <span class="co"># 막대 테두리 색 지정</span></span>
-<span id="cb2049-7"><a href="high-level-graph.html#cb2049-7" aria-hidden="true" tabindex="-1"></a>  labels, <span class="co"># 막대 위 y 값 레이블 출력 여부 </span></span>
-<span id="cb2049-8"><a href="high-level-graph.html#cb2049-8" aria-hidden="true" tabindex="-1"></a>  ...</span>
-<span id="cb2049-9"><a href="high-level-graph.html#cb2049-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2061"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2061-1"><a href="high-level-graph.html#cb2061-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(</span>
+<span id="cb2061-2"><a href="high-level-graph.html#cb2061-2" aria-hidden="true" tabindex="-1"></a>  x, <span class="co"># vector 객체</span></span>
+<span id="cb2061-3"><a href="high-level-graph.html#cb2061-3" aria-hidden="true" tabindex="-1"></a>  breaks, <span class="co"># 빈도 계산을 위한 구간</span></span>
+<span id="cb2061-4"><a href="high-level-graph.html#cb2061-4" aria-hidden="true" tabindex="-1"></a>  freq, <span class="co"># y축 빈도 또는 밀도(density) 여부</span></span>
+<span id="cb2061-5"><a href="high-level-graph.html#cb2061-5" aria-hidden="true" tabindex="-1"></a>  col, <span class="co"># 막대 색상 지정</span></span>
+<span id="cb2061-6"><a href="high-level-graph.html#cb2061-6" aria-hidden="true" tabindex="-1"></a>  border, <span class="co"># 막대 테두리 색 지정</span></span>
+<span id="cb2061-7"><a href="high-level-graph.html#cb2061-7" aria-hidden="true" tabindex="-1"></a>  labels, <span class="co"># 막대 위 y 값 레이블 출력 여부 </span></span>
+<span id="cb2061-8"><a href="high-level-graph.html#cb2061-8" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb2061-9"><a href="high-level-graph.html#cb2061-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p></p>
-<div class="sourceCode" id="cb2050"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2050-1"><a href="high-level-graph.html#cb2050-1" aria-hidden="true" tabindex="-1"></a><span class="co"># airquality 데이터 셋</span></span>
-<span id="cb2050-2"><a href="high-level-graph.html#cb2050-2" aria-hidden="true" tabindex="-1"></a><span class="co"># help(airquality) 참고</span></span>
-<span id="cb2050-3"><a href="high-level-graph.html#cb2050-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(airquality)</span></code></pre></div>
+<div class="sourceCode" id="cb2062"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2062-1"><a href="high-level-graph.html#cb2062-1" aria-hidden="true" tabindex="-1"></a><span class="co"># airquality 데이터 셋</span></span>
+<span id="cb2062-2"><a href="high-level-graph.html#cb2062-2" aria-hidden="true" tabindex="-1"></a><span class="co"># help(airquality) 참고</span></span>
+<span id="cb2062-3"><a href="high-level-graph.html#cb2062-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(airquality)</span></code></pre></div>
 <pre><code>Rows: 153
 Columns: 6
 $ Ozone   &lt;int&gt; 41, 36, 12, 18, NA, 28, 23, 19, 8, NA, 7, 16, 11, 14, 18, 14, …
@@ -883,15 +890,15 @@ $ Wind    &lt;dbl&gt; 7.4, 8.0, 12.6, 11.5, 14.3, 14.9, 8.6, 13.8, 20.1, 8.6, 6.
 $ Temp    &lt;int&gt; 67, 72, 74, 62, 56, 66, 65, 59, 61, 69, 74, 69, 66, 68, 58, 64…
 $ Month   &lt;int&gt; 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,…
 $ Day     &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,…</code></pre>
-<div class="sourceCode" id="cb2052"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2052-1"><a href="high-level-graph.html#cb2052-1" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> airquality<span class="sc">$</span>Temp</span>
-<span id="cb2052-2"><a href="high-level-graph.html#cb2052-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(temp)</span></code></pre></div>
+<div class="sourceCode" id="cb2064"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2064-1"><a href="high-level-graph.html#cb2064-1" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> airquality<span class="sc">$</span>Temp</span>
+<span id="cb2064-2"><a href="high-level-graph.html#cb2064-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(temp)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-26-1.svg" width="768" /></p>
 <p></p>
 <ul>
 <li><code>hist()</code> 함수의 반환값</li>
 </ul>
-<div class="sourceCode" id="cb2053"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2053-1"><a href="high-level-graph.html#cb2053-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">hist</span>(temp, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="co"># 그래프를 반환하지 않음</span></span>
-<span id="cb2053-2"><a href="high-level-graph.html#cb2053-2" aria-hidden="true" tabindex="-1"></a>h</span></code></pre></div>
+<div class="sourceCode" id="cb2065"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2065-1"><a href="high-level-graph.html#cb2065-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">hist</span>(temp, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="co"># 그래프를 반환하지 않음</span></span>
+<span id="cb2065-2"><a href="high-level-graph.html#cb2065-2" aria-hidden="true" tabindex="-1"></a>h</span></code></pre></div>
 <pre><code>$breaks
  [1]  55  60  65  70  75  80  85  90  95 100
 
@@ -917,38 +924,38 @@ attr(,&quot;class&quot;)
 <ul>
 <li><code>hist()</code> 함수의 인수 사용(<code>plot()</code> 함수의 인수 거의 대부분 사용 가능)</li>
 </ul>
-<div class="sourceCode" id="cb2055"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2055-1"><a href="high-level-graph.html#cb2055-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">family =</span> <span class="st">&quot;nanumgothic&quot;</span>)</span>
-<span id="cb2055-2"><a href="high-level-graph.html#cb2055-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(temp,</span>
-<span id="cb2055-3"><a href="high-level-graph.html#cb2055-3" aria-hidden="true" tabindex="-1"></a><span class="at">main=</span><span class="st">&quot;La Guardia Airport 일중 최고 기온&quot;</span>,</span>
-<span id="cb2055-4"><a href="high-level-graph.html#cb2055-4" aria-hidden="true" tabindex="-1"></a><span class="at">xlab =</span> <span class="st">&quot;온도&quot;</span>,</span>
-<span id="cb2055-5"><a href="high-level-graph.html#cb2055-5" aria-hidden="true" tabindex="-1"></a><span class="at">ylab =</span> <span class="st">&quot;밀도&quot;</span>,</span>
-<span id="cb2055-6"><a href="high-level-graph.html#cb2055-6" aria-hidden="true" tabindex="-1"></a><span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">100</span>),</span>
-<span id="cb2055-7"><a href="high-level-graph.html#cb2055-7" aria-hidden="true" tabindex="-1"></a><span class="at">col =</span> <span class="st">&quot;orange&quot;</span>,</span>
-<span id="cb2055-8"><a href="high-level-graph.html#cb2055-8" aria-hidden="true" tabindex="-1"></a><span class="at">freq =</span> <span class="cn">FALSE</span></span>
-<span id="cb2055-9"><a href="high-level-graph.html#cb2055-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2067"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2067-1"><a href="high-level-graph.html#cb2067-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">family =</span> <span class="st">&quot;nanumgothic&quot;</span>)</span>
+<span id="cb2067-2"><a href="high-level-graph.html#cb2067-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(temp,</span>
+<span id="cb2067-3"><a href="high-level-graph.html#cb2067-3" aria-hidden="true" tabindex="-1"></a><span class="at">main=</span><span class="st">&quot;La Guardia Airport 일중 최고 기온&quot;</span>,</span>
+<span id="cb2067-4"><a href="high-level-graph.html#cb2067-4" aria-hidden="true" tabindex="-1"></a><span class="at">xlab =</span> <span class="st">&quot;온도&quot;</span>,</span>
+<span id="cb2067-5"><a href="high-level-graph.html#cb2067-5" aria-hidden="true" tabindex="-1"></a><span class="at">ylab =</span> <span class="st">&quot;밀도&quot;</span>,</span>
+<span id="cb2067-6"><a href="high-level-graph.html#cb2067-6" aria-hidden="true" tabindex="-1"></a><span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">100</span>),</span>
+<span id="cb2067-7"><a href="high-level-graph.html#cb2067-7" aria-hidden="true" tabindex="-1"></a><span class="at">col =</span> <span class="st">&quot;orange&quot;</span>,</span>
+<span id="cb2067-8"><a href="high-level-graph.html#cb2067-8" aria-hidden="true" tabindex="-1"></a><span class="at">freq =</span> <span class="cn">FALSE</span></span>
+<span id="cb2067-9"><a href="high-level-graph.html#cb2067-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-28-1.svg" width="768" /></p>
 <p></p>
 <ul>
 <li><code>labels</code> 인수를 통해 빈도값 출력</li>
 </ul>
-<div class="sourceCode" id="cb2056"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2056-1"><a href="high-level-graph.html#cb2056-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">family =</span> <span class="st">&quot;nanumgothic&quot;</span>)</span>
-<span id="cb2056-2"><a href="high-level-graph.html#cb2056-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(temp,</span>
-<span id="cb2056-3"><a href="high-level-graph.html#cb2056-3" aria-hidden="true" tabindex="-1"></a><span class="at">main =</span> <span class="st">&quot;La Guardia Airport 일중 최고 기온&quot;</span>,</span>
-<span id="cb2056-4"><a href="high-level-graph.html#cb2056-4" aria-hidden="true" tabindex="-1"></a><span class="at">xlab =</span> <span class="st">&quot;온도&quot;</span>,</span>
-<span id="cb2056-5"><a href="high-level-graph.html#cb2056-5" aria-hidden="true" tabindex="-1"></a><span class="at">ylab =</span> <span class="st">&quot;빈도&quot;</span>,</span>
-<span id="cb2056-6"><a href="high-level-graph.html#cb2056-6" aria-hidden="true" tabindex="-1"></a><span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">100</span>),</span>
-<span id="cb2056-7"><a href="high-level-graph.html#cb2056-7" aria-hidden="true" tabindex="-1"></a><span class="at">col =</span> <span class="st">&quot;orange&quot;</span>,</span>
-<span id="cb2056-8"><a href="high-level-graph.html#cb2056-8" aria-hidden="true" tabindex="-1"></a><span class="at">labels =</span> <span class="cn">TRUE</span></span>
-<span id="cb2056-9"><a href="high-level-graph.html#cb2056-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2068"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2068-1"><a href="high-level-graph.html#cb2068-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">family =</span> <span class="st">&quot;nanumgothic&quot;</span>)</span>
+<span id="cb2068-2"><a href="high-level-graph.html#cb2068-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(temp,</span>
+<span id="cb2068-3"><a href="high-level-graph.html#cb2068-3" aria-hidden="true" tabindex="-1"></a><span class="at">main =</span> <span class="st">&quot;La Guardia Airport 일중 최고 기온&quot;</span>,</span>
+<span id="cb2068-4"><a href="high-level-graph.html#cb2068-4" aria-hidden="true" tabindex="-1"></a><span class="at">xlab =</span> <span class="st">&quot;온도&quot;</span>,</span>
+<span id="cb2068-5"><a href="high-level-graph.html#cb2068-5" aria-hidden="true" tabindex="-1"></a><span class="at">ylab =</span> <span class="st">&quot;빈도&quot;</span>,</span>
+<span id="cb2068-6"><a href="high-level-graph.html#cb2068-6" aria-hidden="true" tabindex="-1"></a><span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">100</span>),</span>
+<span id="cb2068-7"><a href="high-level-graph.html#cb2068-7" aria-hidden="true" tabindex="-1"></a><span class="at">col =</span> <span class="st">&quot;orange&quot;</span>,</span>
+<span id="cb2068-8"><a href="high-level-graph.html#cb2068-8" aria-hidden="true" tabindex="-1"></a><span class="at">labels =</span> <span class="cn">TRUE</span></span>
+<span id="cb2068-9"><a href="high-level-graph.html#cb2068-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-29-1.svg" width="768" /></p>
 <p></p>
 <ul>
 <li><code>breaks</code> 인수를 통해 막대 구간 조정</li>
 </ul>
-<div class="sourceCode" id="cb2057"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2057-1"><a href="high-level-graph.html#cb2057-1" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb2057-2"><a href="high-level-graph.html#cb2057-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(temp, <span class="at">breaks =</span> <span class="dv">4</span>, <span class="at">main =</span> <span class="st">&quot;breaks = 4&quot;</span>)</span>
-<span id="cb2057-3"><a href="high-level-graph.html#cb2057-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(temp, <span class="at">breaks =</span> <span class="dv">15</span>, <span class="at">main =</span> <span class="st">&quot;breaks = 15&quot;</span>)</span>
-<span id="cb2057-4"><a href="high-level-graph.html#cb2057-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op); <span class="fu">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2069"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2069-1"><a href="high-level-graph.html#cb2069-1" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2069-2"><a href="high-level-graph.html#cb2069-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(temp, <span class="at">breaks =</span> <span class="dv">4</span>, <span class="at">main =</span> <span class="st">&quot;breaks = 4&quot;</span>)</span>
+<span id="cb2069-3"><a href="high-level-graph.html#cb2069-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(temp, <span class="at">breaks =</span> <span class="dv">15</span>, <span class="at">main =</span> <span class="st">&quot;breaks = 15&quot;</span>)</span>
+<span id="cb2069-4"><a href="high-level-graph.html#cb2069-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op); <span class="fu">dev.off</span>()</span></code></pre></div>
 <pre><code>null device 
           1 </code></pre>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-30-1.svg" width="960" /></p>
@@ -961,9 +968,9 @@ attr(,&quot;class&quot;)
 <li>히스토그램(<code>hist()</code>)은 연속형 데이터의 구간 별 빈도 또는 밀도를 나타냄</li>
 <li>막대 도표(bar plot)는 해당 좌표의 값(value)를 나타냄</li>
 </ul>
-<div class="sourceCode" id="cb2059"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2059-1"><a href="high-level-graph.html#cb2059-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">5</span>)</span>
-<span id="cb2059-2"><a href="high-level-graph.html#cb2059-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb2059-3"><a href="high-level-graph.html#cb2059-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x); <span class="fu">barplot</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb2071"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2071-1"><a href="high-level-graph.html#cb2071-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">5</span>)</span>
+<span id="cb2071-2"><a href="high-level-graph.html#cb2071-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2071-3"><a href="high-level-graph.html#cb2071-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x); <span class="fu">barplot</span>(x)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-31-1.svg" width="768" /></p>
 <p></p>
 <div id="barplot_fun" class="section level4 unnumbered">
@@ -972,54 +979,54 @@ attr(,&quot;class&quot;)
 <li><code>help(barplot)</code> 을 통해 함수 사용 방법 확인</li>
 <li>보통 요약통계량(예: 그룹별 빈도, 평군)의 시각화를 위해 많이 사용</li>
 </ul>
-<div class="sourceCode" id="cb2060"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2060-1"><a href="high-level-graph.html#cb2060-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Wool dataset: warpbreaks </span></span>
-<span id="cb2060-2"><a href="high-level-graph.html#cb2060-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 제직 중 방적 횟수</span></span>
-<span id="cb2060-3"><a href="high-level-graph.html#cb2060-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 직조기 당 날실 파손 횟수 데이터</span></span>
-<span id="cb2060-4"><a href="high-level-graph.html#cb2060-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(warpbreaks)</span></code></pre></div>
+<div class="sourceCode" id="cb2072"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2072-1"><a href="high-level-graph.html#cb2072-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Wool dataset: warpbreaks </span></span>
+<span id="cb2072-2"><a href="high-level-graph.html#cb2072-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 제직 중 방적 횟수</span></span>
+<span id="cb2072-3"><a href="high-level-graph.html#cb2072-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 직조기 당 날실 파손 횟수 데이터</span></span>
+<span id="cb2072-4"><a href="high-level-graph.html#cb2072-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(warpbreaks)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["breaks"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["wool"],"name":[2],"type":["fct"],"align":["left"]},{"label":["tension"],"name":[3],"type":["fct"],"align":["left"]}],"data":[{"1":"26","2":"A","3":"L","_rn_":"1"},{"1":"30","2":"A","3":"L","_rn_":"2"},{"1":"54","2":"A","3":"L","_rn_":"3"},{"1":"25","2":"A","3":"L","_rn_":"4"},{"1":"70","2":"A","3":"L","_rn_":"5"},{"1":"52","2":"A","3":"L","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb2061"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2061-1"><a href="high-level-graph.html#cb2061-1" aria-hidden="true" tabindex="-1"></a>count <span class="ot">&lt;-</span> <span class="fu">with</span>(warpbreaks, </span>
-<span id="cb2061-2"><a href="high-level-graph.html#cb2061-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">tapply</span>(breaks, <span class="fu">list</span>(wool, tension), </span>
-<span id="cb2061-3"><a href="high-level-graph.html#cb2061-3" aria-hidden="true" tabindex="-1"></a>                     sum))</span>
-<span id="cb2061-4"><a href="high-level-graph.html#cb2061-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2061-5"><a href="high-level-graph.html#cb2061-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb2061-6"><a href="high-level-graph.html#cb2061-6" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(count, <span class="at">legend =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb2061-7"><a href="high-level-graph.html#cb2061-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Tension&quot;</span>, </span>
-<span id="cb2061-8"><a href="high-level-graph.html#cb2061-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Number of breaks&quot;</span>, </span>
-<span id="cb2061-9"><a href="high-level-graph.html#cb2061-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">700</span>), </span>
-<span id="cb2061-10"><a href="high-level-graph.html#cb2061-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">cex.lab =</span> <span class="fl">1.5</span>) <span class="co"># stack 형태</span></span>
-<span id="cb2061-11"><a href="high-level-graph.html#cb2061-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2061-12"><a href="high-level-graph.html#cb2061-12" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(count, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb2061-13"><a href="high-level-graph.html#cb2061-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Tension&quot;</span>, </span>
-<span id="cb2061-14"><a href="high-level-graph.html#cb2061-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Number of breaks&quot;</span>, </span>
-<span id="cb2061-15"><a href="high-level-graph.html#cb2061-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">450</span>), </span>
-<span id="cb2061-16"><a href="high-level-graph.html#cb2061-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">cex.lab =</span> <span class="fl">1.5</span>) <span class="co"># 분리 형태</span></span></code></pre></div>
+<div class="sourceCode" id="cb2073"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2073-1"><a href="high-level-graph.html#cb2073-1" aria-hidden="true" tabindex="-1"></a>count <span class="ot">&lt;-</span> <span class="fu">with</span>(warpbreaks, </span>
+<span id="cb2073-2"><a href="high-level-graph.html#cb2073-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">tapply</span>(breaks, <span class="fu">list</span>(wool, tension), </span>
+<span id="cb2073-3"><a href="high-level-graph.html#cb2073-3" aria-hidden="true" tabindex="-1"></a>                     sum))</span>
+<span id="cb2073-4"><a href="high-level-graph.html#cb2073-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2073-5"><a href="high-level-graph.html#cb2073-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2073-6"><a href="high-level-graph.html#cb2073-6" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(count, <span class="at">legend =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb2073-7"><a href="high-level-graph.html#cb2073-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Tension&quot;</span>, </span>
+<span id="cb2073-8"><a href="high-level-graph.html#cb2073-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Number of breaks&quot;</span>, </span>
+<span id="cb2073-9"><a href="high-level-graph.html#cb2073-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">700</span>), </span>
+<span id="cb2073-10"><a href="high-level-graph.html#cb2073-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">cex.lab =</span> <span class="fl">1.5</span>) <span class="co"># stack 형태</span></span>
+<span id="cb2073-11"><a href="high-level-graph.html#cb2073-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2073-12"><a href="high-level-graph.html#cb2073-12" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(count, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb2073-13"><a href="high-level-graph.html#cb2073-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Tension&quot;</span>, </span>
+<span id="cb2073-14"><a href="high-level-graph.html#cb2073-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Number of breaks&quot;</span>, </span>
+<span id="cb2073-15"><a href="high-level-graph.html#cb2073-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">450</span>), </span>
+<span id="cb2073-16"><a href="high-level-graph.html#cb2073-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">cex.lab =</span> <span class="fl">1.5</span>) <span class="co"># 분리 형태</span></span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-32-1.svg" width="768" /></p>
 <p></p>
 <ul>
 <li>데이터 프레임을 대상으로 <code>barplot()</code> 실행 시 수식 표현 가능</li>
 <li>막대도표 + 표준오차</li>
 </ul>
-<div class="sourceCode" id="cb2062"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2062-1"><a href="high-level-graph.html#cb2062-1" aria-hidden="true" tabindex="-1"></a>mean_breaks <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(breaks <span class="sc">~</span> wool <span class="sc">+</span> tension, </span>
-<span id="cb2062-2"><a href="high-level-graph.html#cb2062-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">data =</span> warpbreaks, </span>
-<span id="cb2062-3"><a href="high-level-graph.html#cb2062-3" aria-hidden="true" tabindex="-1"></a>                         mean)</span>
-<span id="cb2062-4"><a href="high-level-graph.html#cb2062-4" aria-hidden="true" tabindex="-1"></a>se_breaks <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(breaks <span class="sc">~</span> wool <span class="sc">+</span> tension, </span>
-<span id="cb2062-5"><a href="high-level-graph.html#cb2062-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> warpbreaks, </span>
-<span id="cb2062-6"><a href="high-level-graph.html#cb2062-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">sd</span>(x)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(x)))</span>
-<span id="cb2062-7"><a href="high-level-graph.html#cb2062-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2062-8"><a href="high-level-graph.html#cb2062-8" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(breaks <span class="sc">~</span> wool <span class="sc">+</span> tension, </span>
-<span id="cb2062-9"><a href="high-level-graph.html#cb2062-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> mean_breaks, </span>
-<span id="cb2062-10"><a href="high-level-graph.html#cb2062-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">55</span>), </span>
-<span id="cb2062-11"><a href="high-level-graph.html#cb2062-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">beside =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb2062-12"><a href="high-level-graph.html#cb2062-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="co"># 범례</span></span>
-<span id="cb2062-13"><a href="high-level-graph.html#cb2062-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;skyblue&quot;</span>)</span>
-<span id="cb2062-14"><a href="high-level-graph.html#cb2062-14" aria-hidden="true" tabindex="-1"></a>        ) <span class="ot">-&gt;</span> bp</span>
-<span id="cb2062-15"><a href="high-level-graph.html#cb2062-15" aria-hidden="true" tabindex="-1"></a>cent <span class="ot">&lt;-</span> <span class="fu">matrix</span>(mean_breaks<span class="sc">$</span>breaks, <span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb2062-16"><a href="high-level-graph.html#cb2062-16" aria-hidden="true" tabindex="-1"></a>sem <span class="ot">&lt;-</span> <span class="fu">matrix</span>(se_breaks<span class="sc">$</span>breaks, <span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb2062-17"><a href="high-level-graph.html#cb2062-17" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(bp, cent <span class="sc">-</span> sem, bp, cent <span class="sc">+</span> sem, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">code =</span> <span class="dv">3</span>, <span class="at">length =</span> <span class="fl">0.05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2074"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2074-1"><a href="high-level-graph.html#cb2074-1" aria-hidden="true" tabindex="-1"></a>mean_breaks <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(breaks <span class="sc">~</span> wool <span class="sc">+</span> tension, </span>
+<span id="cb2074-2"><a href="high-level-graph.html#cb2074-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">data =</span> warpbreaks, </span>
+<span id="cb2074-3"><a href="high-level-graph.html#cb2074-3" aria-hidden="true" tabindex="-1"></a>                         mean)</span>
+<span id="cb2074-4"><a href="high-level-graph.html#cb2074-4" aria-hidden="true" tabindex="-1"></a>se_breaks <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(breaks <span class="sc">~</span> wool <span class="sc">+</span> tension, </span>
+<span id="cb2074-5"><a href="high-level-graph.html#cb2074-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> warpbreaks, </span>
+<span id="cb2074-6"><a href="high-level-graph.html#cb2074-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">sd</span>(x)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(x)))</span>
+<span id="cb2074-7"><a href="high-level-graph.html#cb2074-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2074-8"><a href="high-level-graph.html#cb2074-8" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(breaks <span class="sc">~</span> wool <span class="sc">+</span> tension, </span>
+<span id="cb2074-9"><a href="high-level-graph.html#cb2074-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> mean_breaks, </span>
+<span id="cb2074-10"><a href="high-level-graph.html#cb2074-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">55</span>), </span>
+<span id="cb2074-11"><a href="high-level-graph.html#cb2074-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">beside =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb2074-12"><a href="high-level-graph.html#cb2074-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="co"># 범례</span></span>
+<span id="cb2074-13"><a href="high-level-graph.html#cb2074-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;skyblue&quot;</span>)</span>
+<span id="cb2074-14"><a href="high-level-graph.html#cb2074-14" aria-hidden="true" tabindex="-1"></a>        ) <span class="ot">-&gt;</span> bp</span>
+<span id="cb2074-15"><a href="high-level-graph.html#cb2074-15" aria-hidden="true" tabindex="-1"></a>cent <span class="ot">&lt;-</span> <span class="fu">matrix</span>(mean_breaks<span class="sc">$</span>breaks, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb2074-16"><a href="high-level-graph.html#cb2074-16" aria-hidden="true" tabindex="-1"></a>sem <span class="ot">&lt;-</span> <span class="fu">matrix</span>(se_breaks<span class="sc">$</span>breaks, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb2074-17"><a href="high-level-graph.html#cb2074-17" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(bp, cent <span class="sc">-</span> sem, bp, cent <span class="sc">+</span> sem, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">code =</span> <span class="dv">3</span>, <span class="at">length =</span> <span class="fl">0.05</span>)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-33-1.svg" width="768" /></p>
 <p></p>
 </div>
@@ -1029,35 +1036,35 @@ attr(,&quot;class&quot;)
 <ul>
 <li>다섯 개의 통계량(5 numbers summary: 최솟값, 1사분위수, 중앙값, 3사분위수, 최댓값)을 이용해 연속형 자료를 그래프로 표현한 도표</li>
 </ul>
-<div class="sourceCode" id="cb2063"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2063-1"><a href="high-level-graph.html#cb2063-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20200522</span>)</span>
-<span id="cb2063-2"><a href="high-level-graph.html#cb2063-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb2063-3"><a href="high-level-graph.html#cb2063-3" aria-hidden="true" tabindex="-1"></a>plab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;min(x)&quot;</span>, <span class="st">&quot;quantile(x, 0.25)&quot;</span>, <span class="st">&quot;median(x)&quot;</span>, </span>
-<span id="cb2063-4"><a href="high-level-graph.html#cb2063-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;quantile(x, 0.75)&quot;</span>, <span class="st">&quot;max(x)&quot;</span>) <span class="co"># x-axis 레이블</span></span>
-<span id="cb2063-5"><a href="high-level-graph.html#cb2063-5" aria-hidden="true" tabindex="-1"></a>bxplt <span class="ot">&lt;-</span> <span class="fu">boxplot</span>(x, </span>
-<span id="cb2063-6"><a href="high-level-graph.html#cb2063-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">horizontal =</span> <span class="cn">TRUE</span>, <span class="co"># x-y 축 회전 여부</span></span>
-<span id="cb2063-7"><a href="high-level-graph.html#cb2063-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">axes =</span> F, <span class="co"># x-y 축 출력 여부</span></span>
-<span id="cb2063-8"><a href="high-level-graph.html#cb2063-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">main =</span> <span class="st">&quot;Boxplot anatomy&quot;</span>, </span>
-<span id="cb2063-9"><a href="high-level-graph.html#cb2063-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">cex.main =</span> <span class="dv">2</span></span>
-<span id="cb2063-10"><a href="high-level-graph.html#cb2063-10" aria-hidden="true" tabindex="-1"></a>                 ) <span class="co"># boxplot 수치 요약값 저장</span></span>
-<span id="cb2063-11"><a href="high-level-graph.html#cb2063-11" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> bxplt<span class="sc">$</span>stats, </span>
-<span id="cb2063-12"><a href="high-level-graph.html#cb2063-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb2063-13"><a href="high-level-graph.html#cb2063-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">las =</span> <span class="dv">2</span>) <span class="co"># x-axis 설졍</span></span>
-<span id="cb2063-14"><a href="high-level-graph.html#cb2063-14" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fu">c</span>(bxplt<span class="sc">$</span>stats), </span>
-<span id="cb2063-15"><a href="high-level-graph.html#cb2063-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> <span class="fl">0.4</span>, </span>
-<span id="cb2063-16"><a href="high-level-graph.html#cb2063-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> plab, </span>
-<span id="cb2063-17"><a href="high-level-graph.html#cb2063-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">xpd =</span> <span class="cn">TRUE</span>, <span class="co"># 텍스트 출력 영역 범위 지정</span></span>
-<span id="cb2063-18"><a href="high-level-graph.html#cb2063-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">srt =</span> <span class="dv">25</span>, <span class="co"># 레이블 로테이션 각도(degree)</span></span>
-<span id="cb2063-19"><a href="high-level-graph.html#cb2063-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">adj =</span> <span class="fl">1.1</span>, <span class="co"># 레이블 위치 조정</span></span>
-<span id="cb2063-20"><a href="high-level-graph.html#cb2063-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">1.2</span> <span class="co"># 레이블 크기 조정</span></span>
-<span id="cb2063-21"><a href="high-level-graph.html#cb2063-21" aria-hidden="true" tabindex="-1"></a>     ) <span class="co"># x-axis 레이블 조정</span></span>
-<span id="cb2063-22"><a href="high-level-graph.html#cb2063-22" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">c</span>(bxplt<span class="sc">$</span>stats), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>) <span class="co"># 수직 선 출력</span></span>
-<span id="cb2063-23"><a href="high-level-graph.html#cb2063-23" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="at">x0 =</span> <span class="fu">c</span>(bxplt<span class="sc">$</span>stats)[<span class="dv">2</span>], <span class="at">y0 =</span> <span class="fl">1.3</span>, </span>
-<span id="cb2063-24"><a href="high-level-graph.html#cb2063-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">x1 =</span> <span class="fu">c</span>(bxplt<span class="sc">$</span>stats)[<span class="dv">4</span>], <span class="at">y1 =</span> <span class="fl">1.3</span>, </span>
-<span id="cb2063-25"><a href="high-level-graph.html#cb2063-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">code =</span> <span class="dv">3</span>, </span>
-<span id="cb2063-26"><a href="high-level-graph.html#cb2063-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">length =</span> <span class="fl">0.1</span>) <span class="co"># IQR 범위에 화살표 출력</span></span>
-<span id="cb2063-27"><a href="high-level-graph.html#cb2063-27" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">y =</span> <span class="fl">1.3</span>, </span>
-<span id="cb2063-28"><a href="high-level-graph.html#cb2063-28" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="st">&quot;Interquartile range (IQR)&quot;</span>, </span>
-<span id="cb2063-29"><a href="high-level-graph.html#cb2063-29" aria-hidden="true" tabindex="-1"></a>     <span class="at">adj =</span> <span class="fl">0.5</span>, <span class="at">pos =</span> <span class="dv">3</span>) <span class="co"># </span></span></code></pre></div>
+<div class="sourceCode" id="cb2075"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2075-1"><a href="high-level-graph.html#cb2075-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20200522</span>)</span>
+<span id="cb2075-2"><a href="high-level-graph.html#cb2075-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb2075-3"><a href="high-level-graph.html#cb2075-3" aria-hidden="true" tabindex="-1"></a>plab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;min(x)&quot;</span>, <span class="st">&quot;quantile(x, 0.25)&quot;</span>, <span class="st">&quot;median(x)&quot;</span>, </span>
+<span id="cb2075-4"><a href="high-level-graph.html#cb2075-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;quantile(x, 0.75)&quot;</span>, <span class="st">&quot;max(x)&quot;</span>) <span class="co"># x-axis 레이블</span></span>
+<span id="cb2075-5"><a href="high-level-graph.html#cb2075-5" aria-hidden="true" tabindex="-1"></a>bxplt <span class="ot">&lt;-</span> <span class="fu">boxplot</span>(x, </span>
+<span id="cb2075-6"><a href="high-level-graph.html#cb2075-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">horizontal =</span> <span class="cn">TRUE</span>, <span class="co"># x-y 축 회전 여부</span></span>
+<span id="cb2075-7"><a href="high-level-graph.html#cb2075-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">axes =</span> F, <span class="co"># x-y 축 출력 여부</span></span>
+<span id="cb2075-8"><a href="high-level-graph.html#cb2075-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">main =</span> <span class="st">&quot;Boxplot anatomy&quot;</span>, </span>
+<span id="cb2075-9"><a href="high-level-graph.html#cb2075-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">cex.main =</span> <span class="dv">2</span></span>
+<span id="cb2075-10"><a href="high-level-graph.html#cb2075-10" aria-hidden="true" tabindex="-1"></a>                 ) <span class="co"># boxplot 수치 요약값 저장</span></span>
+<span id="cb2075-11"><a href="high-level-graph.html#cb2075-11" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> bxplt<span class="sc">$</span>stats, </span>
+<span id="cb2075-12"><a href="high-level-graph.html#cb2075-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb2075-13"><a href="high-level-graph.html#cb2075-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">las =</span> <span class="dv">2</span>) <span class="co"># x-axis 설졍</span></span>
+<span id="cb2075-14"><a href="high-level-graph.html#cb2075-14" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fu">c</span>(bxplt<span class="sc">$</span>stats), </span>
+<span id="cb2075-15"><a href="high-level-graph.html#cb2075-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> <span class="fl">0.4</span>, </span>
+<span id="cb2075-16"><a href="high-level-graph.html#cb2075-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> plab, </span>
+<span id="cb2075-17"><a href="high-level-graph.html#cb2075-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">xpd =</span> <span class="cn">TRUE</span>, <span class="co"># 텍스트 출력 영역 범위 지정</span></span>
+<span id="cb2075-18"><a href="high-level-graph.html#cb2075-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">srt =</span> <span class="dv">25</span>, <span class="co"># 레이블 로테이션 각도(degree)</span></span>
+<span id="cb2075-19"><a href="high-level-graph.html#cb2075-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">adj =</span> <span class="fl">1.1</span>, <span class="co"># 레이블 위치 조정</span></span>
+<span id="cb2075-20"><a href="high-level-graph.html#cb2075-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">1.2</span> <span class="co"># 레이블 크기 조정</span></span>
+<span id="cb2075-21"><a href="high-level-graph.html#cb2075-21" aria-hidden="true" tabindex="-1"></a>     ) <span class="co"># x-axis 레이블 조정</span></span>
+<span id="cb2075-22"><a href="high-level-graph.html#cb2075-22" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">c</span>(bxplt<span class="sc">$</span>stats), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>) <span class="co"># 수직 선 출력</span></span>
+<span id="cb2075-23"><a href="high-level-graph.html#cb2075-23" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="at">x0 =</span> <span class="fu">c</span>(bxplt<span class="sc">$</span>stats)[<span class="dv">2</span>], <span class="at">y0 =</span> <span class="fl">1.3</span>, </span>
+<span id="cb2075-24"><a href="high-level-graph.html#cb2075-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">x1 =</span> <span class="fu">c</span>(bxplt<span class="sc">$</span>stats)[<span class="dv">4</span>], <span class="at">y1 =</span> <span class="fl">1.3</span>, </span>
+<span id="cb2075-25"><a href="high-level-graph.html#cb2075-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">code =</span> <span class="dv">3</span>, </span>
+<span id="cb2075-26"><a href="high-level-graph.html#cb2075-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">length =</span> <span class="fl">0.1</span>) <span class="co"># IQR 범위에 화살표 출력</span></span>
+<span id="cb2075-27"><a href="high-level-graph.html#cb2075-27" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">y =</span> <span class="fl">1.3</span>, </span>
+<span id="cb2075-28"><a href="high-level-graph.html#cb2075-28" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="st">&quot;Interquartile range (IQR)&quot;</span>, </span>
+<span id="cb2075-29"><a href="high-level-graph.html#cb2075-29" aria-hidden="true" tabindex="-1"></a>     <span class="at">adj =</span> <span class="fl">0.5</span>, <span class="at">pos =</span> <span class="dv">3</span>) <span class="co"># </span></span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-34-1.svg" width="864" /></p>
 <p></p>
 <div id="boxplot_fun" class="section level4 unnumbered">
@@ -1065,16 +1072,16 @@ attr(,&quot;class&quot;)
 <ul>
 <li><code>help(boxplot)</code>을 통해 상세 함수 인수 내용 확인</li>
 </ul>
-<div class="sourceCode" id="cb2064"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2064-1"><a href="high-level-graph.html#cb2064-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x, <span class="co"># boxplot 대상 객체 명</span></span>
-<span id="cb2064-2"><a href="high-level-graph.html#cb2064-2" aria-hidden="true" tabindex="-1"></a>        ... <span class="co"># 두 개 이상 객체(보통은 벡터)</span></span>
-<span id="cb2064-3"><a href="high-level-graph.html#cb2064-3" aria-hidden="true" tabindex="-1"></a>        ) </span>
-<span id="cb2064-4"><a href="high-level-graph.html#cb2064-4" aria-hidden="true" tabindex="-1"></a>또는 </span>
-<span id="cb2064-5"><a href="high-level-graph.html#cb2064-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2064-6"><a href="high-level-graph.html#cb2064-6" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(formula, <span class="co"># 수식 표현</span></span>
-<span id="cb2064-7"><a href="high-level-graph.html#cb2064-7" aria-hidden="true" tabindex="-1"></a>        data, <span class="co"># 데이터 프레임 객체명</span></span>
-<span id="cb2064-8"><a href="high-level-graph.html#cb2064-8" aria-hidden="true" tabindex="-1"></a>        subset, <span class="co"># 부집단 선택</span></span>
-<span id="cb2064-9"><a href="high-level-graph.html#cb2064-9" aria-hidden="true" tabindex="-1"></a>        ... <span class="co"># help(boxplot)을 통해 인수 사용법 참고</span></span>
-<span id="cb2064-10"><a href="high-level-graph.html#cb2064-10" aria-hidden="true" tabindex="-1"></a>        )</span></code></pre></div>
+<div class="sourceCode" id="cb2076"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2076-1"><a href="high-level-graph.html#cb2076-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x, <span class="co"># boxplot 대상 객체 명</span></span>
+<span id="cb2076-2"><a href="high-level-graph.html#cb2076-2" aria-hidden="true" tabindex="-1"></a>        ... <span class="co"># 두 개 이상 객체(보통은 벡터)</span></span>
+<span id="cb2076-3"><a href="high-level-graph.html#cb2076-3" aria-hidden="true" tabindex="-1"></a>        ) </span>
+<span id="cb2076-4"><a href="high-level-graph.html#cb2076-4" aria-hidden="true" tabindex="-1"></a>또는 </span>
+<span id="cb2076-5"><a href="high-level-graph.html#cb2076-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2076-6"><a href="high-level-graph.html#cb2076-6" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(formula, <span class="co"># 수식 표현</span></span>
+<span id="cb2076-7"><a href="high-level-graph.html#cb2076-7" aria-hidden="true" tabindex="-1"></a>        data, <span class="co"># 데이터 프레임 객체명</span></span>
+<span id="cb2076-8"><a href="high-level-graph.html#cb2076-8" aria-hidden="true" tabindex="-1"></a>        subset, <span class="co"># 부집단 선택</span></span>
+<span id="cb2076-9"><a href="high-level-graph.html#cb2076-9" aria-hidden="true" tabindex="-1"></a>        ... <span class="co"># help(boxplot)을 통해 인수 사용법 참고</span></span>
+<span id="cb2076-10"><a href="high-level-graph.html#cb2076-10" aria-hidden="true" tabindex="-1"></a>        )</span></code></pre></div>
 <p></p>
 <ul>
 <li>벡터, 행렬, 데이터 프레임, 리스트 객체에 적용 가능</li>
@@ -1084,16 +1091,16 @@ attr(,&quot;class&quot;)
 <li><code>y ~ x + y</code>: 변수 <code>x</code>와 <code>y</code>의 조합에 따른 <code>y</code></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb2065"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2065-1"><a href="high-level-graph.html#cb2065-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb2065-2"><a href="high-level-graph.html#cb2065-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20200522</span>)</span>
-<span id="cb2065-3"><a href="high-level-graph.html#cb2065-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb2065-4"><a href="high-level-graph.html#cb2065-4" aria-hidden="true" tabindex="-1"></a><span class="co"># vector 객체 boxplot</span></span>
-<span id="cb2065-5"><a href="high-level-graph.html#cb2065-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x, y, </span>
-<span id="cb2065-6"><a href="high-level-graph.html#cb2065-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Boxplot for a vector object&quot;</span>)</span>
-<span id="cb2065-7"><a href="high-level-graph.html#cb2065-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>))</span>
-<span id="cb2065-8"><a href="high-level-graph.html#cb2065-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2065-9"><a href="high-level-graph.html#cb2065-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 행렬 객체 boxplot</span></span>
-<span id="cb2065-10"><a href="high-level-graph.html#cb2065-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(X)</span></code></pre></div>
+<div class="sourceCode" id="cb2077"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2077-1"><a href="high-level-graph.html#cb2077-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb2077-2"><a href="high-level-graph.html#cb2077-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20200522</span>)</span>
+<span id="cb2077-3"><a href="high-level-graph.html#cb2077-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb2077-4"><a href="high-level-graph.html#cb2077-4" aria-hidden="true" tabindex="-1"></a><span class="co"># vector 객체 boxplot</span></span>
+<span id="cb2077-5"><a href="high-level-graph.html#cb2077-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x, y, </span>
+<span id="cb2077-6"><a href="high-level-graph.html#cb2077-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Boxplot for a vector object&quot;</span>)</span>
+<span id="cb2077-7"><a href="high-level-graph.html#cb2077-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>))</span>
+<span id="cb2077-8"><a href="high-level-graph.html#cb2077-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2077-9"><a href="high-level-graph.html#cb2077-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 행렬 객체 boxplot</span></span>
+<span id="cb2077-10"><a href="high-level-graph.html#cb2077-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(X)</span></code></pre></div>
 <pre><code>             [,1]        [,2]       [,3]
 [1,] 1.486720e-06 0.002215924 0.02156933
 [2,] 1.562867e-06 0.002249385 0.02166383
@@ -1101,25 +1108,25 @@ attr(,&quot;class&quot;)
 [4,] 1.726545e-06 0.002317658 0.02185368
 [5,] 1.814431e-06 0.002352479 0.02194902
 [6,] 1.906601e-06 0.002387763 0.02204463</code></pre>
-<div class="sourceCode" id="cb2067"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2067-1"><a href="high-level-graph.html#cb2067-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(X, </span>
-<span id="cb2067-2"><a href="high-level-graph.html#cb2067-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Boxplot for a matrix `X`&quot;</span>)</span>
-<span id="cb2067-3"><a href="high-level-graph.html#cb2067-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2067-4"><a href="high-level-graph.html#cb2067-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 프레임 객체 boxplot</span></span>
-<span id="cb2067-5"><a href="high-level-graph.html#cb2067-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(breaks <span class="sc">~</span> wool <span class="sc">+</span> tension, </span>
-<span id="cb2067-6"><a href="high-level-graph.html#cb2067-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> warpbreaks, </span>
-<span id="cb2067-7"><a href="high-level-graph.html#cb2067-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Boxplot for a dataframe `warpbreaks`&quot;</span>, </span>
-<span id="cb2067-8"><a href="high-level-graph.html#cb2067-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">topo.colors</span>(<span class="dv">6</span>))</span>
-<span id="cb2067-9"><a href="high-level-graph.html#cb2067-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2067-10"><a href="high-level-graph.html#cb2067-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 리스트 객체 boxplot</span></span>
-<span id="cb2067-11"><a href="high-level-graph.html#cb2067-11" aria-hidden="true" tabindex="-1"></a><span class="do">## list 생성: mapply</span></span>
-<span id="cb2067-12"><a href="high-level-graph.html#cb2067-12" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20200522</span>)</span>
-<span id="cb2067-13"><a href="high-level-graph.html#cb2067-13" aria-hidden="true" tabindex="-1"></a>xl <span class="ot">&lt;-</span> <span class="fu">mapply</span>(rnorm, <span class="co"># 정규 난수 생성 함수</span></span>
-<span id="cb2067-14"><a href="high-level-graph.html#cb2067-14" aria-hidden="true" tabindex="-1"></a>             <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">150</span>, <span class="dv">200</span>), <span class="co"># 첫번째 인수 n</span></span>
-<span id="cb2067-15"><a href="high-level-graph.html#cb2067-15" aria-hidden="true" tabindex="-1"></a>             <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>), <span class="co"># 두 번째 인수 mean</span></span>
-<span id="cb2067-16"><a href="high-level-graph.html#cb2067-16" aria-hidden="true" tabindex="-1"></a>             <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># 세번째 인수 sd</span></span>
-<span id="cb2067-17"><a href="high-level-graph.html#cb2067-17" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(xl, </span>
-<span id="cb2067-18"><a href="high-level-graph.html#cb2067-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Boxplot for a list `xl`&quot;</span>, </span>
-<span id="cb2067-19"><a href="high-level-graph.html#cb2067-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;lightgray&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2079"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2079-1"><a href="high-level-graph.html#cb2079-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(X, </span>
+<span id="cb2079-2"><a href="high-level-graph.html#cb2079-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Boxplot for a matrix `X`&quot;</span>)</span>
+<span id="cb2079-3"><a href="high-level-graph.html#cb2079-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2079-4"><a href="high-level-graph.html#cb2079-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 프레임 객체 boxplot</span></span>
+<span id="cb2079-5"><a href="high-level-graph.html#cb2079-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(breaks <span class="sc">~</span> wool <span class="sc">+</span> tension, </span>
+<span id="cb2079-6"><a href="high-level-graph.html#cb2079-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> warpbreaks, </span>
+<span id="cb2079-7"><a href="high-level-graph.html#cb2079-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Boxplot for a dataframe `warpbreaks`&quot;</span>, </span>
+<span id="cb2079-8"><a href="high-level-graph.html#cb2079-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">topo.colors</span>(<span class="dv">6</span>))</span>
+<span id="cb2079-9"><a href="high-level-graph.html#cb2079-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2079-10"><a href="high-level-graph.html#cb2079-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 리스트 객체 boxplot</span></span>
+<span id="cb2079-11"><a href="high-level-graph.html#cb2079-11" aria-hidden="true" tabindex="-1"></a><span class="do">## list 생성: mapply</span></span>
+<span id="cb2079-12"><a href="high-level-graph.html#cb2079-12" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20200522</span>)</span>
+<span id="cb2079-13"><a href="high-level-graph.html#cb2079-13" aria-hidden="true" tabindex="-1"></a>xl <span class="ot">&lt;-</span> <span class="fu">mapply</span>(rnorm, <span class="co"># 정규 난수 생성 함수</span></span>
+<span id="cb2079-14"><a href="high-level-graph.html#cb2079-14" aria-hidden="true" tabindex="-1"></a>             <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">150</span>, <span class="dv">200</span>), <span class="co"># 첫번째 인수 n</span></span>
+<span id="cb2079-15"><a href="high-level-graph.html#cb2079-15" aria-hidden="true" tabindex="-1"></a>             <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>), <span class="co"># 두 번째 인수 mean</span></span>
+<span id="cb2079-16"><a href="high-level-graph.html#cb2079-16" aria-hidden="true" tabindex="-1"></a>             <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># 세번째 인수 sd</span></span>
+<span id="cb2079-17"><a href="high-level-graph.html#cb2079-17" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(xl, </span>
+<span id="cb2079-18"><a href="high-level-graph.html#cb2079-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Boxplot for a list `xl`&quot;</span>, </span>
+<span id="cb2079-19"><a href="high-level-graph.html#cb2079-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;lightgray&quot;</span>)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/boxplot-ex-1.svg" width="768" /></p>
 <p></p>
 </div>
@@ -1134,32 +1141,32 @@ attr(,&quot;class&quot;)
 <ul>
 <li><code>boxplot()</code>과 사용 방법이 유사</li>
 </ul>
-<div class="sourceCode" id="cb2068"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2068-1"><a href="high-level-graph.html#cb2068-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(vioplot)</span></span>
-<span id="cb2068-2"><a href="high-level-graph.html#cb2068-2" aria-hidden="true" tabindex="-1"></a><span class="co"># require(vioplot)</span></span>
-<span id="cb2068-3"><a href="high-level-graph.html#cb2068-3" aria-hidden="true" tabindex="-1"></a><span class="do">## generating bimodal distribution</span></span>
-<span id="cb2068-4"><a href="high-level-graph.html#cb2068-4" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">2</span>; sigma <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb2068-5"><a href="high-level-graph.html#cb2068-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20200522</span>)</span>
-<span id="cb2068-6"><a href="high-level-graph.html#cb2068-6" aria-hidden="true" tabindex="-1"></a>bimodal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">200</span>, mu, sigma), </span>
-<span id="cb2068-7"><a href="high-level-graph.html#cb2068-7" aria-hidden="true" tabindex="-1"></a>             <span class="fu">rnorm</span>(<span class="dv">300</span>, <span class="sc">-</span>mu, sigma)) <span class="co"># 두 정규분포 혼합</span></span>
-<span id="cb2068-8"><a href="high-level-graph.html#cb2068-8" aria-hidden="true" tabindex="-1"></a>normal <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">200</span>, <span class="dv">2</span><span class="sc">*</span>mu, sigma) <span class="co"># 정규분포</span></span>
-<span id="cb2068-9"><a href="high-level-graph.html#cb2068-9" aria-hidden="true" tabindex="-1"></a>unif <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">200</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>) <span class="co"># uniform 분포 (-2, 2)</span></span>
-<span id="cb2068-10"><a href="high-level-graph.html#cb2068-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2068-11"><a href="high-level-graph.html#cb2068-11" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb2068-12"><a href="high-level-graph.html#cb2068-12" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(bimodal, normal, unif, </span>
-<span id="cb2068-13"><a href="high-level-graph.html#cb2068-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Boxplot for each distribution (vectors)&quot;</span>)</span>
-<span id="cb2068-14"><a href="high-level-graph.html#cb2068-14" aria-hidden="true" tabindex="-1"></a>vioplot<span class="sc">::</span><span class="fu">vioplot</span>(bimodal, normal, unif, </span>
-<span id="cb2068-15"><a href="high-level-graph.html#cb2068-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">main =</span> <span class="st">&quot;Violin plot for each distribution (vectors)&quot;</span>, </span>
-<span id="cb2068-16"><a href="high-level-graph.html#cb2068-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col =</span> <span class="st">&quot;skyblue&quot;</span>)</span>
-<span id="cb2068-17"><a href="high-level-graph.html#cb2068-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2068-18"><a href="high-level-graph.html#cb2068-18" aria-hidden="true" tabindex="-1"></a>vioplot<span class="sc">::</span><span class="fu">vioplot</span>(breaks <span class="sc">~</span> wool <span class="sc">+</span> tension, </span>
-<span id="cb2068-19"><a href="high-level-graph.html#cb2068-19" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> warpbreaks, </span>
-<span id="cb2068-20"><a href="high-level-graph.html#cb2068-20" aria-hidden="true" tabindex="-1"></a>                 <span class="at">main =</span> <span class="st">&quot;Violin plot for a dataframe `warpbreaks`&quot;</span>, </span>
-<span id="cb2068-21"><a href="high-level-graph.html#cb2068-21" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col =</span> <span class="fu">heat.colors</span>(<span class="dv">6</span>))</span>
-<span id="cb2068-22"><a href="high-level-graph.html#cb2068-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2068-23"><a href="high-level-graph.html#cb2068-23" aria-hidden="true" tabindex="-1"></a>vioplot<span class="sc">::</span><span class="fu">vioplot</span>(xl, </span>
-<span id="cb2068-24"><a href="high-level-graph.html#cb2068-24" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> warpbreaks, </span>
-<span id="cb2068-25"><a href="high-level-graph.html#cb2068-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">main =</span> <span class="st">&quot;Violin plot for a list `xl`&quot;</span>, </span>
-<span id="cb2068-26"><a href="high-level-graph.html#cb2068-26" aria-hidden="true" tabindex="-1"></a>                <span class="at">col =</span> <span class="fu">rainbow</span>(<span class="dv">4</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb2080"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2080-1"><a href="high-level-graph.html#cb2080-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(vioplot)</span></span>
+<span id="cb2080-2"><a href="high-level-graph.html#cb2080-2" aria-hidden="true" tabindex="-1"></a><span class="co"># require(vioplot)</span></span>
+<span id="cb2080-3"><a href="high-level-graph.html#cb2080-3" aria-hidden="true" tabindex="-1"></a><span class="do">## generating bimodal distribution</span></span>
+<span id="cb2080-4"><a href="high-level-graph.html#cb2080-4" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">2</span>; sigma <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb2080-5"><a href="high-level-graph.html#cb2080-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20200522</span>)</span>
+<span id="cb2080-6"><a href="high-level-graph.html#cb2080-6" aria-hidden="true" tabindex="-1"></a>bimodal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rnorm</span>(<span class="dv">200</span>, mu, sigma), </span>
+<span id="cb2080-7"><a href="high-level-graph.html#cb2080-7" aria-hidden="true" tabindex="-1"></a>             <span class="fu">rnorm</span>(<span class="dv">300</span>, <span class="sc">-</span>mu, sigma)) <span class="co"># 두 정규분포 혼합</span></span>
+<span id="cb2080-8"><a href="high-level-graph.html#cb2080-8" aria-hidden="true" tabindex="-1"></a>normal <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">200</span>, <span class="dv">2</span><span class="sc">*</span>mu, sigma) <span class="co"># 정규분포</span></span>
+<span id="cb2080-9"><a href="high-level-graph.html#cb2080-9" aria-hidden="true" tabindex="-1"></a>unif <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">200</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>) <span class="co"># uniform 분포 (-2, 2)</span></span>
+<span id="cb2080-10"><a href="high-level-graph.html#cb2080-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2080-11"><a href="high-level-graph.html#cb2080-11" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb2080-12"><a href="high-level-graph.html#cb2080-12" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(bimodal, normal, unif, </span>
+<span id="cb2080-13"><a href="high-level-graph.html#cb2080-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Boxplot for each distribution (vectors)&quot;</span>)</span>
+<span id="cb2080-14"><a href="high-level-graph.html#cb2080-14" aria-hidden="true" tabindex="-1"></a>vioplot<span class="sc">::</span><span class="fu">vioplot</span>(bimodal, normal, unif, </span>
+<span id="cb2080-15"><a href="high-level-graph.html#cb2080-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">main =</span> <span class="st">&quot;Violin plot for each distribution (vectors)&quot;</span>, </span>
+<span id="cb2080-16"><a href="high-level-graph.html#cb2080-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col =</span> <span class="st">&quot;skyblue&quot;</span>)</span>
+<span id="cb2080-17"><a href="high-level-graph.html#cb2080-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2080-18"><a href="high-level-graph.html#cb2080-18" aria-hidden="true" tabindex="-1"></a>vioplot<span class="sc">::</span><span class="fu">vioplot</span>(breaks <span class="sc">~</span> wool <span class="sc">+</span> tension, </span>
+<span id="cb2080-19"><a href="high-level-graph.html#cb2080-19" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> warpbreaks, </span>
+<span id="cb2080-20"><a href="high-level-graph.html#cb2080-20" aria-hidden="true" tabindex="-1"></a>                 <span class="at">main =</span> <span class="st">&quot;Violin plot for a dataframe `warpbreaks`&quot;</span>, </span>
+<span id="cb2080-21"><a href="high-level-graph.html#cb2080-21" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col =</span> <span class="fu">heat.colors</span>(<span class="dv">6</span>))</span>
+<span id="cb2080-22"><a href="high-level-graph.html#cb2080-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2080-23"><a href="high-level-graph.html#cb2080-23" aria-hidden="true" tabindex="-1"></a>vioplot<span class="sc">::</span><span class="fu">vioplot</span>(xl, </span>
+<span id="cb2080-24"><a href="high-level-graph.html#cb2080-24" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> warpbreaks, </span>
+<span id="cb2080-25"><a href="high-level-graph.html#cb2080-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">main =</span> <span class="st">&quot;Violin plot for a list `xl`&quot;</span>, </span>
+<span id="cb2080-26"><a href="high-level-graph.html#cb2080-26" aria-hidden="true" tabindex="-1"></a>                <span class="at">col =</span> <span class="fu">rainbow</span>(<span class="dv">4</span>))</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/vioplot-ex-1.svg" width="768" /></p>
 <p></p>
 </div>
@@ -1185,18 +1192,18 @@ attr(,&quot;class&quot;)
 <li>기본적으로 table 객체(기본적으로 <code>table()</code>을 통해 생성된 객체)를 입력 데이터로 받음</li>
 <li>수식 표현을 통해 모자이크 데이터 프레임(또는 리스트), 객체로부터 도출한 테이블로 도표 생성 가능(테이블 객체에도 수식 표현 가능)</li>
 </ul>
-<div class="sourceCode" id="cb2069"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2069-1"><a href="high-level-graph.html#cb2069-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(</span>
-<span id="cb2069-2"><a href="high-level-graph.html#cb2069-2" aria-hidden="true" tabindex="-1"></a>  x, <span class="co"># 테이블 객체</span></span>
-<span id="cb2069-3"><a href="high-level-graph.html#cb2069-3" aria-hidden="true" tabindex="-1"></a>  shade <span class="co"># goodness-of-test 결과 출력 여부</span></span>
-<span id="cb2069-4"><a href="high-level-graph.html#cb2069-4" aria-hidden="true" tabindex="-1"></a>  ... </span>
-<span id="cb2069-5"><a href="high-level-graph.html#cb2069-5" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb2069-6"><a href="high-level-graph.html#cb2069-6" aria-hidden="true" tabindex="-1"></a>또는</span>
-<span id="cb2069-7"><a href="high-level-graph.html#cb2069-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2069-8"><a href="high-level-graph.html#cb2069-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(</span>
-<span id="cb2069-9"><a href="high-level-graph.html#cb2069-9" aria-hidden="true" tabindex="-1"></a>  formula, <span class="co"># 수식 표현식</span></span>
-<span id="cb2069-10"><a href="high-level-graph.html#cb2069-10" aria-hidden="true" tabindex="-1"></a>  data, <span class="co"># 데이터 프레임, 리스트 또는 테이블 </span></span>
-<span id="cb2069-11"><a href="high-level-graph.html#cb2069-11" aria-hidden="true" tabindex="-1"></a>  shade </span>
-<span id="cb2069-12"><a href="high-level-graph.html#cb2069-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2081"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2081-1"><a href="high-level-graph.html#cb2081-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(</span>
+<span id="cb2081-2"><a href="high-level-graph.html#cb2081-2" aria-hidden="true" tabindex="-1"></a>  x, <span class="co"># 테이블 객체</span></span>
+<span id="cb2081-3"><a href="high-level-graph.html#cb2081-3" aria-hidden="true" tabindex="-1"></a>  shade <span class="co"># goodness-of-test 결과 출력 여부</span></span>
+<span id="cb2081-4"><a href="high-level-graph.html#cb2081-4" aria-hidden="true" tabindex="-1"></a>  ... </span>
+<span id="cb2081-5"><a href="high-level-graph.html#cb2081-5" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb2081-6"><a href="high-level-graph.html#cb2081-6" aria-hidden="true" tabindex="-1"></a>또는</span>
+<span id="cb2081-7"><a href="high-level-graph.html#cb2081-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2081-8"><a href="high-level-graph.html#cb2081-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(</span>
+<span id="cb2081-9"><a href="high-level-graph.html#cb2081-9" aria-hidden="true" tabindex="-1"></a>  formula, <span class="co"># 수식 표현식</span></span>
+<span id="cb2081-10"><a href="high-level-graph.html#cb2081-10" aria-hidden="true" tabindex="-1"></a>  data, <span class="co"># 데이터 프레임, 리스트 또는 테이블 </span></span>
+<span id="cb2081-11"><a href="high-level-graph.html#cb2081-11" aria-hidden="true" tabindex="-1"></a>  shade </span>
+<span id="cb2081-12"><a href="high-level-graph.html#cb2081-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p></p>
 <ul>
 <li>예시: 버클리 주립대 대학원 합격자 데이터
@@ -1204,7 +1211,7 @@ attr(,&quot;class&quot;)
 <li>Simpson’s paradox를 설명하는 대표적인 예시로 많이 활용되는 데이터</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb2070"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2070-1"><a href="high-level-graph.html#cb2070-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(UCBAdmissions)</span></code></pre></div>
+<div class="sourceCode" id="cb2082"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2082-1"><a href="high-level-graph.html#cb2082-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(UCBAdmissions)</span></code></pre></div>
 <pre><code>$Admit
 [1] &quot;Admitted&quot; &quot;Rejected&quot;
 
@@ -1213,38 +1220,38 @@ $Gender
 
 $Dept
 [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot;</code></pre>
-<div class="sourceCode" id="cb2072"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2072-1"><a href="high-level-graph.html#cb2072-1" aria-hidden="true" tabindex="-1"></a>collapse_admin_tab <span class="ot">&lt;-</span> <span class="fu">margin.table</span>(UCBAdmissions, <span class="at">margin =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb2072-2"><a href="high-level-graph.html#cb2072-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.table</span>(collapse_admin_tab)</span></code></pre></div>
+<div class="sourceCode" id="cb2084"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2084-1"><a href="high-level-graph.html#cb2084-1" aria-hidden="true" tabindex="-1"></a>collapse_admin_tab <span class="ot">&lt;-</span> <span class="fu">margin.table</span>(UCBAdmissions, <span class="at">margin =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb2084-2"><a href="high-level-graph.html#cb2084-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.table</span>(collapse_admin_tab)</span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
-<div class="sourceCode" id="cb2074"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2074-1"><a href="high-level-graph.html#cb2074-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
-<span id="cb2074-2"><a href="high-level-graph.html#cb2074-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>)) <span class="co"># figure margin 조정</span></span>
-<span id="cb2074-3"><a href="high-level-graph.html#cb2074-3" aria-hidden="true" tabindex="-1"></a>                         <span class="co"># bottom, left, top, right</span></span>
-<span id="cb2074-4"><a href="high-level-graph.html#cb2074-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(collapse_admin_tab, </span>
-<span id="cb2074-5"><a href="high-level-graph.html#cb2074-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">main =</span> <span class="st">&quot;Student admissions at UC Berkeley&quot;</span>, </span>
-<span id="cb2074-6"><a href="high-level-graph.html#cb2074-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2074-7"><a href="high-level-graph.html#cb2074-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(<span class="sc">~</span> Dept <span class="sc">+</span> Admit <span class="sc">+</span> Gender, <span class="at">data =</span> UCBAdmissions, </span>
-<span id="cb2074-8"><a href="high-level-graph.html#cb2074-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2086"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2086-1"><a href="high-level-graph.html#cb2086-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb2086-2"><a href="high-level-graph.html#cb2086-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>)) <span class="co"># figure margin 조정</span></span>
+<span id="cb2086-3"><a href="high-level-graph.html#cb2086-3" aria-hidden="true" tabindex="-1"></a>                         <span class="co"># bottom, left, top, right</span></span>
+<span id="cb2086-4"><a href="high-level-graph.html#cb2086-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(collapse_admin_tab, </span>
+<span id="cb2086-5"><a href="high-level-graph.html#cb2086-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">main =</span> <span class="st">&quot;Student admissions at UC Berkeley&quot;</span>, </span>
+<span id="cb2086-6"><a href="high-level-graph.html#cb2086-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2086-7"><a href="high-level-graph.html#cb2086-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(<span class="sc">~</span> Dept <span class="sc">+</span> Admit <span class="sc">+</span> Gender, <span class="at">data =</span> UCBAdmissions, </span>
+<span id="cb2086-8"><a href="high-level-graph.html#cb2086-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-39-1.svg" width="960" /></p>
 <p></p>
 <ul>
 <li>각 학과 별 mosaic 도표(<code>help(UCBAdmissions)</code>의 예시 코드)</li>
 </ul>
-<div class="sourceCode" id="cb2075"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2075-1"><a href="high-level-graph.html#cb2075-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), </span>
-<span id="cb2075-2"><a href="high-level-graph.html#cb2075-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">oma =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>))</span>
-<span id="cb2075-3"><a href="high-level-graph.html#cb2075-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) {</span>
-<span id="cb2075-4"><a href="high-level-graph.html#cb2075-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mosaicplot</span>(</span>
-<span id="cb2075-5"><a href="high-level-graph.html#cb2075-5" aria-hidden="true" tabindex="-1"></a>    UCBAdmissions[, , i], </span>
-<span id="cb2075-6"><a href="high-level-graph.html#cb2075-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;Admit&quot;</span>, </span>
-<span id="cb2075-7"><a href="high-level-graph.html#cb2075-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;Sex&quot;</span>, </span>
-<span id="cb2075-8"><a href="high-level-graph.html#cb2075-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;Department&quot;</span>, LETTERS[i]), </span>
-<span id="cb2075-9"><a href="high-level-graph.html#cb2075-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="cn">TRUE</span></span>
-<span id="cb2075-10"><a href="high-level-graph.html#cb2075-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2075-11"><a href="high-level-graph.html#cb2075-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2075-12"><a href="high-level-graph.html#cb2075-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(</span>
-<span id="cb2075-13"><a href="high-level-graph.html#cb2075-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expression</span>(<span class="fu">bold</span>(<span class="st">&quot;Student admissions at UC Berkeley&quot;</span>)), </span>
-<span id="cb2075-14"><a href="high-level-graph.html#cb2075-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">outer =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb2075-15"><a href="high-level-graph.html#cb2075-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.2</span></span>
-<span id="cb2075-16"><a href="high-level-graph.html#cb2075-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2087"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2087-1"><a href="high-level-graph.html#cb2087-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), </span>
+<span id="cb2087-2"><a href="high-level-graph.html#cb2087-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">oma =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>))</span>
+<span id="cb2087-3"><a href="high-level-graph.html#cb2087-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) {</span>
+<span id="cb2087-4"><a href="high-level-graph.html#cb2087-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mosaicplot</span>(</span>
+<span id="cb2087-5"><a href="high-level-graph.html#cb2087-5" aria-hidden="true" tabindex="-1"></a>    UCBAdmissions[, , i], </span>
+<span id="cb2087-6"><a href="high-level-graph.html#cb2087-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;Admit&quot;</span>, </span>
+<span id="cb2087-7"><a href="high-level-graph.html#cb2087-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;Sex&quot;</span>, </span>
+<span id="cb2087-8"><a href="high-level-graph.html#cb2087-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;Department&quot;</span>, LETTERS[i]), </span>
+<span id="cb2087-9"><a href="high-level-graph.html#cb2087-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="cn">TRUE</span></span>
+<span id="cb2087-10"><a href="high-level-graph.html#cb2087-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2087-11"><a href="high-level-graph.html#cb2087-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2087-12"><a href="high-level-graph.html#cb2087-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(</span>
+<span id="cb2087-13"><a href="high-level-graph.html#cb2087-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expression</span>(<span class="fu">bold</span>(<span class="st">&quot;Student admissions at UC Berkeley&quot;</span>)), </span>
+<span id="cb2087-14"><a href="high-level-graph.html#cb2087-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">outer =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb2087-15"><a href="high-level-graph.html#cb2087-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.2</span></span>
+<span id="cb2087-16"><a href="high-level-graph.html#cb2087-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p><img src="12-data-visualization_files/figure-html/unnamed-chunk-40-1.svg" width="960" /></p>
 <p></p>
 </div>
@@ -1260,7 +1267,6 @@ $Dept
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -1301,7 +1307,7 @@ gitbook.start({
 },
 "download": [["cnu-r-programming.pdf", "PDF"]],
 "search": {
-"engine": "lunr",
+"engine": "fuse",
 "options": null
 },
 "toc": {

@@ -115,6 +115,31 @@ knitr::include_graphics('figures/ch3-uni-clt.gif', dpi = NA)
 
 ```
 
+## Prerequisites
+
+### 확률과 확률변수
+
+```{block2, type="rmdimportant"}
+**필수 개념**
+
+1. 확률(probability)
+2. 확률변수(random variable)
+3. 기댓값(expectation)
+
+```
+
+
+- 확률(probability): 어떤 사건을 $E$ 라고 명명할 때, $E$가 발생할 확률은 만약 무작위적 과정을 매우 많이 반복 했을 때 사건 $E$가 발생한 비율을 의미함
+   - 예1: 한화 이글스가 플레이오프에서 승리 후 리그 1위 팀과 한국 시리즈에서 경기를 할 확률?
+   - 예2: 동전/주사위 던지기
+
+- 확률변수(random variable): 우연한 사건의 결과에 값을 핟당
+   - 예: 카지노 게임의 배당금
+   
+- 기댓값(expectation):  사건이 벌어졌을 때의 이득과 그 사건이 벌어질 확률을 곱한 것을 전체 사건에 대해 합한 값
+   - 확률변수의 기댓값은 평균으로 수렴
+   - 확률변수의 기댓값은 무작위 과정을 여러 번 반복했을 때 장기적인 측면에서 평균적으로 얻어질 것으로 기대되는 값
+
 
 ## 시뮬레이션(모의실험)의 의미
 
@@ -122,7 +147,8 @@ knitr::include_graphics('figures/ch3-uni-clt.gif', dpi = NA)
 **알반적 의미**
 
 
-현실세계에서는 시간 및 비용 등의 문제로 실현하기 어렵거나 불가능한 시스템을 모형을 통해 실제 시스템을 모사함으로써 현상에 대한 문제를 이해하고자 하는 목적으로 고안한 일련의 방법
+현실 세계에서는 시간 및 비용 등의 문제로 실현하기 어렵거나 불가능한 시스템을 모형(혹은 가상 데이터 생성)
+을 통해 실제 시스템을 모사함으로써 현상에 대한 문제를 이해하고자 하는 목적으로 고안한 일련의 방법
 
 
 **시뮬레이션의 활용 사례**
@@ -137,16 +163,22 @@ knitr::include_graphics('figures/ch3-uni-clt.gif', dpi = NA)
 **통계적 모의실험(statistical or stochastic simulation)**
 
 
-통계학의 표본이론과 확률론에 근간을 두고 난수(random number)와 임의표본(random sample)을 이용해 어떤 결과나 문제의 해를 근사해 실제 이론으로 도출한 해와 비교함. 이러한 형태의 모의실험 방법을 몬테칼로 시뮬레이션(Monte Carlo simulation)이라고 함. 
+통계학의 표본 이론과 확률론을 근간으로 확률모형으로부터 난수(random number)와 임의 표본(random sample)
+으로 가상의 데이터를 생성한 후 어떤 결과나 문제의 해를 근사해 실제 이론으로 도출한 결과와 비교하기 
+위한 방법론임. 이러한 형태의 모의실험 방법을 몬테칼로 시뮬레이션(Monte Carlo simulation)이라고 함. 
+
+- 확률 모형(stochastic model)은 데이터가 어떻게 생성되었는지를 수학적으로 표현. 
+- "모형을 시뮬레이션 한다" = 단계적으로 "데이터처럼 보이는 것", 생성하는 과정을 의미함
+   - 확률모형(분포)로 부터 도출한 **합성 데이터(synthetic data)**, **대리 데이터(surrogate data)** 생성
+- 각 시뮬레이션 결과는 동일한 초기값에서 랜덤 요소를 수반하기 때문에 동일한 결과를 보장하지 않음
 
 
-> 통계적 모의실험에 Monte carlo 라는 명칭이 붙게된 계기는 2차 세계대전 당시 미국의 원자폭탄 개발계획인 Manhattan 프로젝트에서 중성자의 특성을 연구하기 위한 모의실험의 명칭에 모나코의 유명한 도박 도시 Monte Carlo 이름을 붙힌 것에서 유래함. 
+>예시: $X_1 \sim \mathcal{N}(3, 2^2)$, $X_2 \sim \mathcal{N}(5, 3^2)$ 이고, $X \perp \!\!\! \perp Y$ 
+일 때 $X_3 = X_1 + 2X_2$ 의 분포는? 
 
-- 통계적 모형은 결국 수학적으로 데이터가 어떻게 생성되었는가를 의미함. 
-- "모형을 시뮬레이션 한다" = 단계적으로 "데이터 처럼 보이는 것"을 생성하기 위해 모형을 적용
-- 통계적 시뮬레이션 결과는 동일한 초기값에서 시작하더라도 동일한 결과를 보장하지 않음
-- 예시: $X_1 \sim \mathcal{N}(3, 2^2)$, $X_2 \sim \mathcal{N}(5, 3^2)$ 이고, $X \perp \!\!\! \perp Y$ 일때 $X_3 = X_1 + 2X_2$ 의 분포는? 
-   - $X3 \sim \mathcal{N}(3 + 2\times5, 2^2 + 4\times 3^2) = \mathcal{N}(13, 40)$
+
+- $X3 \sim \mathcal{N}(3 + 2\times5, 2^2 + 4\times 3^2) = \mathcal{N}(13, 40)$ 
+
 
 ```{r}
 set.seed(10000)
@@ -158,19 +190,24 @@ mean(x3); var(x3)
 
 ```
 
+> 통계적 모의실험에 Monte carlo 라는 명칭이 붙게된 계기는 2차 세계대전 당시 미국의 원자폭탄 
+개발계획인 Manhattan 프로젝트에서 중성자의 특성을 연구하기 위한 모의실험의 명칭에 모나코의 유명한 
+도박 도시 Monte Carlo 이름을 붙힌 것에서 유래함. 
+
 
 
 **통계적 모의실험의 특징**
 
-- 특정 분포를 따르는 확률변수의 관찰값이 필요
+- 특정 분포를 따르는 확률 변수에 대응하는 관찰값이 필요
 - 반복적으로 수많은 난수를 생성해야 하기 때문에 컴퓨터의 사용이 필수적
 - 기본적으로 통계학의 가장 기본적 개념인 **대수의 법칙(law of the large number)**을 활용
 
 
 **통계적 모의실험을 하는 방법**
 
-- 통계적(확률) 모형은 보통 한 변수($X$)가 주어졌을 때 다른 변수($Y$)에 대한 조건부 분포임. 
-- 대표적인 예: 단순선형회귀모형(simple linear regression model)
+- 통계적(확률) 모형은 보통 한 변수($X$)가 주어졌을 때 다른 변수($Y$)에 대한 조건부 분포임. 이러한 
+통계적 모형이 단순 선형회귀모형(simple linear regression model)임. 
+
 
 $$
 \begin{eqnarray}
@@ -178,7 +215,8 @@ X   & \sim & \mathcal{N}(\mu_x, \sigma_1^2) \\
 Y|X & \sim & \mathcal{N}(\beta_0 + \beta_1X, \sigma_2^2)
 \end{eqnarray}
 $$
-- 위 식에서 우변에 주어진 확률변수를 생성하는 방법을 알고 있다면 위 회귀모형에 대한 시뮬레이션 가능 $\rightarrow$ 모든 종류의 확률 모형에 대한 시뮬레이션의 일반적 전략임(통계 프로그래밍 언어 기말고사 마지막 문제 상기!!)
+- 위 식에서 우변에 주어진 확률변수를 생성하는 방법을 알고 있다면 위 회귀모형에 대한 
+시뮬레이션 가능 $\rightarrow$ 모든 종류의 확률 모형에 대한 시뮬레이션의 일반적 전략임. 
 
 
 ```{block2, type="rmdimportant"}
@@ -193,12 +231,14 @@ $$
 **난수 생성의 방법**
 
 - 난수(random number): 어떤 방법으로도 예측될 수 없는 일련의 수열(숫자)
-- 통계적 의미로 난수는 특정 범위(보통 0에서 1 사이)의 균일분포(uniform distribution)에서 추출된 표본들의 관찰값으로, 임의의 확률분포(예: 정규분포, 지수분포 등)를 따르는 확률변수와는 구별됨.
-   - 보통 확률 변수는 균일분포를 따르는 확률변수로부터 적절한 변환을 통해 얻을 수 있음. 
-- 난수를 발생하려면 어떤 알고리즘이 필요하고 알고리즘은 일정한 규칙에 의해 구현되기 때문에 컴퓨터로 발생한 난수는 엄밀한 의미에서 난수가 아님. 
+- 통계적 의미로 난수는 특정 범위(보통 0에서 1 사이)의 균일분포(uniform distribution)에서 
+추출된 표본들의 관찰값으로, 임의의 확률분포(예: 정규분포, 지수분포 등)를 따르는 확률 변수와는 구별됨.
+   - 특정 분포를 따르는 확률 변수는 균일 분포를 따르는 확률 변수로부터 적절한 변환을 통해 얻을 수 있음. 
+- 난수를 발생하려면 어떤 알고리즘이 필요하고 알고리즘은 일정한 규칙에 의해 구현되기 때문에 
+컴퓨터로 발생한 난수는 엄밀한 의미에서 난수가 아님. 
 - 이를 구별하기 위해 보통 컴퓨터로 생성한 난수를 유사난수(pseudo-random number)라 칭함
-- 난수 생성을 위한 알고리즘으로 합동법(congruential method), 역변환법(inversion method) 등이 널리 사용됨
-- 통계 시뮬레이션에서는 특히 변수변환방법(transformation)을 통해 확률변수 생성
+- 난수 생성을 위한 알고리즘으로 합동법(congruential method), 역변환법(inversion method) 등이 널리 활용
+- 통계 시뮬레이션에서는 주로 변수변환방법(transformation)을 통해 확률변수를 생성
    - $Z \sim \mathcal{N}(0, 1)$일 때 $\sigma Z + \mu \sim \mathcal{N}(\mu, \sigma^2)$
    - $Z^2 \sim \chi^2(1)$
 
@@ -256,39 +296,18 @@ $$
 
 
 
-## 확률과 확률변수
-
-```{block2, type="rmdimportant"}
-**필수 개념**
-
-1. 확률(probability)
-2. 확률변수(random variable)
-3. 기댓값(expectation)
-
-```
-
-
-- 확률(probability): 어떤 사건을 $E$ 라고 명명할 때, $E$가 발생할 확률은 만약 무작위적 과정을 매우 많이 반복 했을 때 사건 $E$가 발생한 비율을 의미함
-   - 예1: 한화 이글스가 플레이오프에서 승리 후 리그 1위 팀과 한국 시리즈에서 경기를 할 확률?
-   - 예2: 동전/주사위 던지기
-
-- 확률변수(random variable): 우연한 사건의 결과에 값을 핟당
-   - 예: 카지노 게임의 배당금
-   
-- 기댓값(expectation):  사건이 벌어졌을 때의 이득과 그 사건이 벌어질 확률을 곱한 것을 전체 사건에 대해 합한 값
-   - 확률변수의 기댓값은 평균으로 수렴
-   - 확률변수의 기댓값은 무작위 과정을 여러 번 반복했을 때 장기적인 측면에서 평균적으로 얻어질 것으로 기대되는 값
-
-
 ## 몬테칼로 시뮬레이션
 
 ```{block2, type="rmdnote"}
-본 절에서 사용한 동영상 및 모의실험 코드는 Yihui Xie와 Lijia Yu가 배포한 animation 패키지의 내용을 기반으로 재구성함. 
+본 절에서 사용한 동영상 및 모의실험 코드는 Yihui Xie와 Lijia Yu가 배포한 animation 패키지의 내용을 
+기반으로 재구성함. 
 ```
 
 
-- 우리가 알고 있는 확률과 기댓값의 정의는 모두 반복 횟수에 제한없이 무한대로 확률실험(무작위 과정)을 반복 했을 때의 상황을 설정한 것임
-- 즉 컴퓨터를 통해 수학적 확률 또는 기댓값을 정확히 계산할 수 없어도 무작위 실험을 매우 많이 반복해 특정 사건이 일어날 확률이나 기댓값 추정이 가능 $\rightarrow$ 몬테칼로 시뮬레이션의 기본 idea
+- 우리가 알고 있는 확률과 기댓값의 정의는 모두 반복 횟수에 제한 없이 무한대로 
+확률실험(무작위 과정)을 반복 했을 때의 상황을 설정한 것임
+- 즉 컴퓨터를 통해 수학적 확률 또는 기댓값을 정확히 계산할 수 없어도 무작위 실험을 매우 많이 반복해 
+특정 사건이 일어날 확률이나 기댓값 추정이 가능 $\rightarrow$ 몬테칼로 시뮬레이션의 기본 idea
 
 
 ### 동전 던지기 
@@ -346,7 +365,103 @@ coin_flip(coin, ntry = 100000) # 100000회
 ```
 
 
-### 기댓값 추정
+### 주사위 던지기 
+
+```{r, echo=FALSE, message=FALSE}
+library(icons)
+fontawesome("dice-one", style = "solid") |> icon_style(scale = 5) 
+fontawesome("dice-two", style = "solid") |> icon_style(scale = 5) 
+fontawesome("dice-three", style = "solid") |> icon_style(scale = 5) 
+fontawesome("dice-four", style = "solid") |> icon_style(scale = 5) 
+fontawesome("dice-five", style = "solid") |> icon_style(scale = 5) 
+fontawesome("dice-six", style = "solid") |> icon_style(scale = 5) 
+
+```
+
+주사위를 던지는 게임을 모사
+
+- 주사위를 정의: 1 ~ 6 까지 숫자를 가짐
+- 각 주사위 눈이 나올 확률: 모두 1/6
+
+주사위 눈에 대한 기댓값
+
+$$
+1\times\frac{1}{6} + 2\times\frac{1}{6} + 3\times\frac{1}{6} + 4\times\frac{1}{6} + 5\times\frac{1}{6} + 6\times\frac{1}{6} = 3.5
+$$
+```{r}
+# 주사위 정의
+die <- c(1:6)
+probs <- rep(1/6, 6)
+
+# 주사위 던지기
+sample(die, 1, prob = probs)
+
+# 주사위 1000 번 던지기
+draw_res <- integer(length = 1000)
+
+for (i in 1:1000) draw_res[i] <- sample(die, 1, prob = probs)
+mean(draw_res)
+
+# for문을 사용하지 않고  sample 함수만 사용
+draw_res2 <- sample(die, 1000, prob = probs, replace = TRUE)
+
+```
+
+
+
+
+```{r dice}
+
+
+```
+
+
+
+
+### 카드 생성기 
+
+카드(트럼프) 게임을 위한 카드 생성 
+
+카드의 구성: 
+
+```{r fig.align='center', echo=FALSE, fig.show='hold', out.width='90%', fig.cap="트럼프 구성(https://statkclee.github.io/r-algorithm/ 에서 발췌"}
+options(knitr.graphics.auto_pdf = TRUE)
+knitr::include_graphics('figures/trump-cards.png', dpi = NA)
+
+```
+
+```{r}
+shape <- c("Spade", "Diamond", "Heart", "Club")
+rank <- c("Ace", as.character(2:10), "Jack", "Queen", "King")
+deck <- expand.grid(rank = rank, shape = shape)
+
+# 카드 섞기
+# set.seed(12345)
+smpl_idx <- sample(1:52, 52, replace = FALSE) # 비복원 추출
+suffle_deck <- deck[smpl_idx, ]
+
+# 5 Cards Poker
+suffle_deck[1:20, ] -> chosen_cards
+chosen_cards$player <- rep(1:4, times = 5)
+
+# 1번 참가자
+chosen_cards[chosen_cards$player == 1, ]
+
+# 2번 참가자
+chosen_cards[chosen_cards$player == 2, ]
+
+# 3번 참가자
+chosen_cards[chosen_cards$player == 3, ]
+
+# 4번 참가자
+chosen_cards[chosen_cards$player == 4, ]
+
+
+
+```
+
+
+### 동전 던지기 게임
 
 정상적인 동전 두 번을 던졌을 때, 
 
@@ -412,6 +527,103 @@ simple_game(x = x, p = p, ntry = 100000) # 100000회 실행
 sum(x*p) # 실제값
 
 ```
+
+
+### 주사위 던지기 게임
+
+> **주사위 두 개**를 던졌을 때 두 주사위 눈이 모두 같을 경우 이기는 게임으로 이길 경우 상금 10,000원을 
+받고 질 경우 5000원을 잃는 게임
+
+문제: 
+
+   1. 500 번 동일한 게임을 반복했을 때 승리할 확률
+   2. 500 번 동일한 게밍을 반복한다면 나는 돈을 딸 수 있을까? 
+   
+   
+```{r dice-02}
+set.seed(12345)
+dice <- c(1:6); probs <- rep(1/6, 6)
+
+# 주사위 1 번 던지기
+draw1 <- sample(dice, 1, prob = probs)
+
+# 주사위 2 번 던지기
+draw2 <- sample(dice, 1, prob = probs)
+
+ifelse(draw1 == draw2, "승리", "패배")
+
+# 500 번 반복
+dice_game <- integer(500)
+for (i in 1:500) {
+  draw1 <- sample(dice, 1, prob = probs)
+  draw2 <- sample(dice, 1, prob = probs)
+  
+  dice_game[i] <- ifelse(draw1 == draw2, 1, 0)
+}
+mean(dice_game)
+
+# 문제 2번
+winning <- integer(500)
+for (i in 1:500) {
+  draw1 <- sample(dice, 1, prob = probs)
+  draw2 <- sample(dice, 1, prob = probs)
+  
+  winning[i] <- ifelse(draw1 == draw2, 10000, -5000)
+}
+
+mean(winning)
+
+
+
+```
+
+
+### 카드 게임
+
+> 13 장의 카드를 잘 섞어서 한 장씩 패를 뒤집었을 때 카드의 번호와 뒤집은 순서가 적어도 한 번 이상 
+일치한 경우 지는 게임
+
+
+```{r}
+thirteen_deck <- seq(from=1, to=13, by=1)
+shuffled_deck <- sample(thirteen_deck, 13, replace=FALSE)
+outcome <- integer(13)
+
+for (i in 1:13) {
+  outcome[i] <- ifelse(shuffled_deck[i] == i, 1, 0)
+  res <- ifelse(sum(outcome) == 0, "승리", "패배")
+}
+cat("게임 결과:", res)
+
+
+```
+
+10,000 번 반복을 수행하기 위해 간단한 함수 생성 
+
+```{r}
+single_game <- function() {
+  shuffled_deck <- sample(thirteen_deck, 13, replace=FALSE)
+  outcome <- integer(13)
+  for (i in 1:13) {
+    outcome[i] <- ifelse(shuffled_deck[i] == i, 1, 0)
+    res <- ifelse(sum(outcome) == 0, "승리", "패배")
+  }
+  res
+}
+
+game_result <- character(length = 10000)
+
+set.seed(12345)
+for (i in 1:10000) {
+  game_result[i] <- single_game()
+}
+
+
+```
+
+
+
+
 
 
 ```{block2, type="rmdimportant"}
@@ -484,7 +696,7 @@ hit_pi <- function(ntry) {
     xy <- runif(2, 0, 1)^2  
     if (sum(xy) < 1) X <- X + 1
   }
-  cat("Estimated pi: ", sprintf("%.6f", 4 * X/ntry, "\n"))
+  cat("Estimated pi: ", sprintf("%.6f", 4 * X/ntry), "\n")
   
 }
 
