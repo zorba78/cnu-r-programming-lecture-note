@@ -1023,7 +1023,7 @@ Estimated pi:  3.141221
 
 ```
  사용자  시스템 elapsed 
-  0.175   0.011   0.187 
+  0.158   0.021   0.179 
 ```
 
  \normalsize
@@ -2220,11 +2220,11 @@ tval <- mean_diff/(sp * sqrt(sum(1/desc_sleep$N))); tval
 
 ```r
 # df = n1 + n2 - 2 = 10 + 10 - 2 = 18
-p.value <-  2*(1 - pt(tval, df = 18)); p.value
+p.value <-  2*pt(tval, df = 18); p.value
 ```
 
 ```
-[1] 1.920813
+[1] 0.07918671
 ```
 
  \normalsize

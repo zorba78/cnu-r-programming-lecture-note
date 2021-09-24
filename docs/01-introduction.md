@@ -867,7 +867,7 @@ dir()
 [50] "output"                              
 [51] "packages.bib"                        
 [52] "README.md"                           
-[53] "render5c827caabcfa.rds"              
+[53] "render16dc1202b3ebb.rds"             
 [54] "test"                                
 [55] "video"                               
 ```
@@ -899,7 +899,8 @@ getwd(); dir()
  [3] "code"                         "data"                        
  [5] "docs"                         "output"                      
  [7] "README.md"                    "render-slide.R"              
- [9] "slides"                       "ust-medical-statistics.Rproj"
+ [9] "slides"                       "test.svg"                    
+[11] "ust-medical-statistics.Rproj"
 ```
 
 ```r
@@ -965,7 +966,7 @@ getwd(); dir()
 [50] "output"                              
 [51] "packages.bib"                        
 [52] "README.md"                           
-[53] "render5c827caabcfa.rds"              
+[53] "render16dc1202b3ebb.rds"             
 [54] "test"                                
 [55] "video"                               
 ```
