@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 
 ```{r, echo=FALSE, message=FALSE}
 rm(list = ls())
@@ -3615,11 +3620,12 @@ ggarrange(p1, p2, p3, p4, p5, p6,
 
 - 데이터 불러오기: `covid19-cases-20200601.txt`, `country_pubhealth.csv`, `country_info.txt`
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 covid19 <- read_delim("dataset/covid-19-dataset/covid19-cases-20200601.txt", 
-                      delim = "\t")
+                      delim = "\t", show_col_types = FALSE)
 country <- readxl::read_excel("dataset/covid-19-dataset/country_info.xlsx")
-country_pubhealth <- read_csv("dataset/covid-19-dataset/country_pubhealth.csv")
+country_pubhealth <- read_csv("dataset/covid-19-dataset/country_pubhealth.csv"
+                              , show_col_types = FALSE)
 
 # glimpse(covid19); glimpse(country); 
 # glimpse(country_pubhealth)
@@ -3628,7 +3634,7 @@ country_pubhealth <- read_csv("dataset/covid-19-dataset/country_pubhealth.csv")
 
 > 데이터 코드북
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 owid_codebook <- readxl::read_excel("dataset/covid-19-dataset/owid_covid_codebook.xlsx")
 
 col_cntry <- names(country)
@@ -3766,7 +3772,8 @@ glimpse(covid19_full)
 1. 대륙별 일별 일일 확진자 수(`new_case` 기준)에 대한 시각화
 
 ```{r, fig.width=11, fig.height=5, fig.show="hold"}
-Sys.setlocale("LC_TIME", "english")
+# Sys.setlocale("LC_TIME", "english") # date 영문 표시를 위해 필요
+Sys.setlocale("LC_TIME", "en_US.UTF-8")
 covid19_full %>%
   ungroup %>%
   group_by(continent, date) %>%
@@ -3802,7 +3809,6 @@ covid19_full %>%
   - 7일 이동 평균선은 빨강색으로 표시
 
 ```{r, fig.width=11, fig.height=5, fig.show="hold"}
-Sys.setlocale("LC_TIME", "english") # date 영문 표시를 위해 필요
 covid19_full %>% 
   filter(iso_code == "KOR") %>% 
   mutate(total_tests_n = max(total_tests)) %>% 
@@ -3849,7 +3855,7 @@ covid19_full %>%
 3. 2020년 5월 31일 기준 상위 24개 국가의 국가 별 확진자 대비 COVID-19 검사 수(전체, 전체 검사수/전체 확진자 수)를 도식화
    - 막대도표 사용
    
-```{r, fig.width=11, fig.height=8, fig.show="hold"}
+```{r, fig.width=11, fig.height=8, fig.show="hold", warning=FALSE}
 require(RColorBrewer)
 getPalette = colorRampPalette(brewer.pal(9, "Set1"))
 covid19_full %>%

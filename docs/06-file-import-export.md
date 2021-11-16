@@ -406,7 +406,7 @@ system.time(pulse <- read.csv("dataset/pulse.csv", header = T))
 
 ```
  사용자  시스템 elapsed 
-  4.537   0.034   4.575 
+  4.595   0.038   4.638 
 ```
 
 ```r
@@ -427,7 +427,7 @@ system.time(pulse <- readRDS("output/pulse.rds"))
 
 ```
  사용자  시스템 elapsed 
-  0.074   0.004   0.079 
+  0.079   0.000   0.079 
 ```
 
  \normalsize
