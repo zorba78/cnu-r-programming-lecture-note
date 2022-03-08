@@ -2,6 +2,8 @@
 output: html_document
 editor_options: 
   chunk_output_type: console
+  markdown: 
+    wrap: 72
 ---
 
 # R 객체(R object) {#data-type}
@@ -41,47 +43,49 @@ require(kableExtra)
 **학습목표(2 주차)**: R에서 사용 가능한 데이터 타입에 대해 알아보고, 고유 데이터 타입으로 구성한 객체(스칼라, 백터, 리스트)와 이와 연관된 함수들을 익힌다.
 ```
 
-
-
 #### 학습 필요성 {#ch2-abstract .unnumbered}
 
-- R언어는 타 프로그래밍 언어와 유사한 데이터 타입(정수형, 실수형, 문자형 등)을 제공
-- R 언어가 다른 언어와 차이점 $\rightarrow$ **데이터 분석**에 특화된 벡터(vector), 행렬(matrix), 
-데이터프레임(data frame), 리스트(list)와 같은 객체 [^1] 제공
-- R 패키지에서 제공되는 함수 사용 방법은 R의 객체에 따라 달라질 수 있음  
-- R 언어를 원활히 다룰 수 있으려면 R에서 데이터 객체의 형태, 자료 할당 및 그 연산 방법에 대한 이해가 필수적으로 선행되어야 함
+-   R언어는 타 프로그래밍 언어와 유사한 데이터 타입(정수형, 실수형,
+    문자형 등)을 제공
+-   R 언어가 다른 언어와 차이점 $\rightarrow$ **데이터 분석**에 특화된
+    벡터(vector), 행렬(matrix), 데이터프레임(data frame), 리스트(list)와
+    같은 객체 [^data-type-1] 제공
+-   R 패키지에서 제공되는 함수 사용 방법은 R의 객체에 따라 달라질 수
+    있음\
+-   R 언어를 원활히 다룰 수 있으려면 R에서 데이터 객체의 형태, 자료 할당
+    및 그 연산 방법에 대한 이해가 필수적으로 선행되어야 함
 
-[^1]: R에서 사용자가 데이터 입력을 위해 생성 또는 읽어온 객체(object)는 종종 변수(variable)라는 말과 혼용. 
-본 문서에서는 최상위 데이터 저장장소를 객체라고 명명하며 데이터프레임과 같이 여러 종류의 데이터타입으로 이루어진 객체의 1차원 속성을 변수라고 칭함
+[^data-type-1]: R에서 사용자가 데이터 입력을 위해 생성 또는 읽어온
+    객체(object)는 종종 변수(variable)라는 말과 혼용. 본 문서에서는
+    최상위 데이터 저장장소를 객체라고 명명하며 데이터프레임과 같이 여러
+    종류의 데이터타입으로 이루어진 객체의 1차원 속성을 변수라고 칭함
 
 #### R의 데이터 타입 {#object-value .unnumbered}
 
-- **수치형(numeric)**: 숫자(정수, 소수)
+-   **수치형(numeric)**: 숫자(정수, 소수)
 
-- **문자열(string)**: `"충남대학교"`, `"R강의"`
+-   **문자열(string)**: `"충남대학교"`, `"R강의"`
 
-- **논리형(logical)**: `TRUE`/`FALSE`
+-   **논리형(logical)**: `TRUE`/`FALSE`
 
-- **결측값(`NA`)**: 자료에서 발생한 결측 표현
+-   **결측값(`NA`)**: 자료에서 발생한 결측 표현
 
-- **공백(`NULL`)**: 지정하지 않은 값
+-   **공백(`NULL`)**: 지정하지 않은 값
 
-- **요인(factor)**: 범주형 자료 표현(수치 + 문자 결합 형태로 이해하면 편함)
+-   **요인(factor)**: 범주형 자료 표현(수치 + 문자 결합 형태로 이해하면
+    편함)
 
-- **기타**: 숫자아님(`NaN`), 무한대(`Inf`) 등
-
+-   **기타**: 숫자아님(`NaN`), 무한대(`Inf`) 등
 
 #### R 객체의 종류 {#ch2-object-type .unnumbered}
 
-- 스칼라(상수형, scalar 또는 atomic)
-- 벡터(vector): **R의 기본연산 단위**
-- 리스트(list)
-- 행렬(matrix)
-- 배열(array)
-- 데이터프레임(data frame)
-<!-- - 함수(function) -->
-<!-- - 연산자(operator) -->
-<!-- - 표현식(expression) -->
+-   스칼라(상수형, scalar 또는 atomic)
+-   벡터(vector): **R의 기본연산 단위**
+-   리스트(list)
+-   행렬(matrix)
+-   배열(array)
+-   데이터프레임(data frame) <!-- - 함수(function) -->
+    <!-- - 연산자(operator) --> <!-- - 표현식(expression) -->
 
 <!-- R 객체 중 scalar, vector, matrix, data.frame $\rightarrow$ 데이터 객체(object) -->
 
@@ -92,13 +96,11 @@ cap <- "R 데이터 타입 구조 다이어그램: [R, Python 분석과 프로�
 knitr::include_graphics('figures/datatype-diagram.png', dpi = NA)
 ```
 
-
 ## 프로그래밍
 
 ### Prerequisites
 
-- 예약어(researved words): R에서 의미(sementic)를 미리 정해 놓은 단어
-
+-   예약어(researved words): R에서 의미(sementic)를 미리 정해 놓은 단어
 
 ```{r, echo=FALSE}
 `R 예약어` <- c("if, else, while, function, in, next, break", 
@@ -133,24 +135,31 @@ kable(tab2_01,
 
 ```
 
-
-- **변수(variable)**: 사용자가 프로그램 처리를 위해 지정한 단어
-   - 적당한 값을 저장하고 나중에 필요시 해당 값을 호출해 사용하기 위한 목적으로 사용되는 표식(label)
-   - 예약어를 변수명으로 사용할 수 없음
-   - [통계프로그래밍언어 강의노트: R 기초문법](https://zorba78.github.io/cnu-r-programming-lecture-note/r-basic.html) 참고
-   
-- **고수준 언어(high-level language)**: 사람이 읽고 쓰기 쉬운 형태의 명령어를 컴퓨터가 읽고 처리할 수 있도록 고안된 프로그래밍 언어
-   - 컴퓨터가 이해할 수 있는 언어 $\rightarrow$ 중앙처리장치(central processing unit, CPU)가 이해하는 언어 $\rightarrow$ 기계어(machine language)
-   - 기계어는 0과 1로 구성된 이진수(binary number)임(예: `0100101001001001001110110101101010110`)
-   - 고수준 언어의 종류: C, C++, JAVA, 베이직, Perl, Python, R, ...
-   
-- **번역기(translator)**: 사람이 이해할 수 있는 표현(언어)를 기계(컴퓨터)가 이해할 수 있는 언어(기계어)로 변환
-   - 인터프리터(interpreter)
-   - 컴파일러(compiler)
-
-- **인터프리터*: 코드(스크립트) 한 줄을 즉석에서 읽고, 파싱(프로그램을 검사하고 구문론적 구조를 분석)하고, 해석
-   - R, Python, MATLAB 등은 인터프리터를 번역기로 사용
-   - 인터엑티브 모드 $\rightarrow$ R 프롬프트(`>`) 뒤에 한 줄의 명령어를 작성하면 측석해서 처리 후 다음 입력에 대해 준비(prompt)함. 
+-   **변수(variable)**: 사용자가 프로그램 처리를 위해 지정한 단어
+    -   적당한 값을 저장하고 나중에 필요시 해당 값을 호출해 사용하기
+        위한 목적으로 사용되는 표식(label)
+    -   예약어를 변수명으로 사용할 수 없음
+    -   [통계프로그래밍언어 강의노트: R
+        기초문법](https://zorba78.github.io/cnu-r-programming-lecture-note/r-basic.html)
+        참고
+-   **고수준 언어(high-level language)**: 사람이 읽고 쓰기 쉬운 형태의
+    명령어를 컴퓨터가 읽고 처리할 수 있도록 고안된 프로그래밍 언어
+    -   컴퓨터가 이해할 수 있는 언어 $\rightarrow$ 중앙처리장치(central
+        processing unit, CPU)가 이해하는 언어 $\rightarrow$
+        기계어(machine language)
+    -   기계어는 0과 1로 구성된 이진수(binary number)임(예:
+        `0100101001001001001110110101101010110`)
+    -   고수준 언어의 종류: C, C++, JAVA, 베이직, Perl, Python, R, ...
+-   **번역기(translator)**: 사람이 이해할 수 있는 표현(언어)를
+    기계(컴퓨터)가 이해할 수 있는 언어(기계어)로 변환
+    -   인터프리터(interpreter)
+    -   컴파일러(compiler)
+-   **인터프리터**: 코드(스크립트) 한 줄을 즉석에서 읽고, 파싱(parsing,
+    프로그램을 검사하고 프로그램의 문법적 구조를 분석해 컴퓨터가 이해할
+    수 있도록 번역)하고 해석해 명령을 실행
+    -   R, Python, MATLAB 등은 인터프리터를 번역기로 사용
+    -   Interactive 모드 $\rightarrow$ R 프롬프트(`>`) 뒤에 한 줄의
+        명령어를 작성하면 즉시 처리 후 다음 입력을 받을 준비(prompt)를 함.
 
 ```{r, error=TRUE}
 안녕하세요!!
@@ -166,17 +175,18 @@ print("처음이라 실수가 많습니다.")
 print("앞으로 잘 부탁해요!!")
 ```
 
-
-
-- **컴파일러**: 완전한 프로그램을 하나의 파일에 담고 파일 안에 저장되어 있는 소스코드를 기계어로 번역 후 다음 실행할 수 있도록 변환한 기계어를 파일에 담음. 
-   - 보통은 `.exe`, `.dll` 파일 형태로 저장됨 
-      
-
+-   **컴파일러**: 완전한 프로그램을 하나의 파일에 담고 파일 안에
+    저장되어 있는 소스 코드를 기계어로 번역 후 다음 실행할 수 있도록
+    변환한 기계어를 파일에 담음.
+    -   보통은 `.exe`, `.dll` 파일 형태로 저장됨
 
 ### 프로그램 {#control-program}
 
-- **프로그램(program)**: 특정 작업(목적)을 수행할 수 있도록 작성한 일련의 R 문장(명령어)의 집합
-   - 일련의 문장(명령어)들은 텍스트 편집기를 통해 작성하며, **스크립트(script)**로 명칭되는 파일로 저장 $\rightarrow$ R 스크립트 `.R` 확장자를 가짐
+-   **프로그램(program)**: 특정 작업(목적)을 수행할 수 있도록 작성한
+    일련의 R 문장(명령어)의 집합
+    -   일련의 문장(명령어)들은 텍스트 편집기를 통해 작성하며,
+        **스크립트(script)**로 명칭 되는 파일로 저장 $\rightarrow$ R
+        스크립트 `.R` 확장자를 가짐
 
 ```{r, eval=FALSE}
 # Hello.R 
@@ -191,9 +201,9 @@ print("Γεια R!!") #그리스어
 source("examples/hello.R", encoding = "UTF-8")
 ```
 
-
-- 예시: 텍스트 파일에서 가장 자주 나오는 단어 찾기 프로그램
-   - https://statkclee.github.io/r4inf/r-intro.html#r-intro-what-is-a-program 참고
+-   예시: 텍스트 파일에서 가장 자주 나오는 단어 찾기 프로그램
+    -   <https://statkclee.github.io/r4inf/r-intro.html#r-intro-what-is-a-program>
+        참고
 
 ```{r, message=FALSE, warning=FALSE, results="hold"}
 require(tidyverse)
@@ -225,21 +235,31 @@ bind_cols("word" = unique_wd, "freq" = res_v) %>%
 
 ```
 
-- 프로그램 작성을 위한 개념적 요소
-   - **입력(input)**: 외부로부터 가져온 데이터, 값 등 
-   - **출력(output)**: 입력에 대한 반응(결과 출력, 파일 저장, 음악 재생, ...)
-   - **순차실행(sequential execution)**: 스크립트 또는 코드 작성 순서에 따라 한줄씩 실행
-   - **조건실행(conditional execution)**: 특정 조건에 따라 문장(명령)을 실행하거나 건너뜀
-   - **번복실행(iterative execution)**: 특정 명령을 반복적으로 실행 
-   - **재사용(resuse)**: 스크립트의 집합(다수 줄로 구성된 코드 또는 스크립트)에 이름을 부여하고 저장 $\rightarrow$ 사용자 지정 함수(function)
-   
-- 프로그램 오류의 종류
-   - **구문오류(syntax error)**: R 언어가 이해할 수 없는 문장 또는 문법으로 실행했을 때 나타나는 오류 $\rightarrow$ 가장 고치기 쉽고 즉각적으로 알려줌
-   - **논리 또는 run-time 오류(logic or run-time error)**: 구문은 완벽하지만 실행 순서 또는 논리적으로 연관방식에 문제가 있어서 명령어를 수행할 수 없는 경우
-   - **의미론적 오류(sementic error)**: 프로그램은 구문적으로 오류가 없고 실행되지만 올바른 결과를 출력하지 않는 경우 $\rightarrow$ **제일 고치기 어려움**
-
-
-- 가장 간단한 프로그래밍은 순차적으로 명령을 실행하되 입력 시 흐름을 잠시 중단하고 대기하는 방법 $\rightarrow$ 프롬프트 상 명령어 한 줄씩 입력
+-   프로그램 작성을 위한 개념적 요소
+    -   **입력(input)**: 외부로부터 가져온 데이터, 값 등
+    -   **출력(output)**: 입력에 대한 반응(결과 출력, 파일 저장, 음악
+        재생, ...)
+    -   **순차실행(sequential execution)**: 스크립트 또는 코드 작성
+        순서에 따라 한줄씩 실행
+    -   **조건실행(conditional execution)**: 특정 조건에 따라
+        문장(명령)을 실행하거나 건너뜀
+    -   **번복실행(iterative execution)**: 특정 명령을 반복적으로 실행
+    -   **재사용(resuse)**: 스크립트의 집합(다수 줄로 구성된 코드 또는
+        스크립트)에 이름을 부여하고 저장 $\rightarrow$ 사용자 지정
+        함수(function)
+-   프로그램 오류의 종류
+    -   **구문오류(syntax error)**: R 언어가 이해할 수 없는 문장 또는
+        문법으로 실행했을 때 나타나는 오류 $\rightarrow$ 가장 고치기
+        쉽고 즉각적으로 알려줌
+    -   **논리 또는 run-time 오류(logic or run-time error)**: 구문은
+        완벽하지만 실행 순서 또는 논리적으로 연관방식에 문제가 있어서
+        명령어를 수행할 수 없는 경우
+    -   **의미론적 오류(sementic error)**: 프로그램은 구문적으로 오류가
+        없고 실행되지만 올바른 결과를 출력하지 않는 경우 $\rightarrow$
+        **제일 고치기 어려움**
+-   가장 간단한 프로그래밍은 순차적으로 명령을 실행하되 입력 시 흐름을
+    잠시 중단하고 대기하는 방법 $\rightarrow$ 프롬프트 상 명령어 한 줄씩
+    입력
 
 ```{r, eval=FALSE, results="hold"}
 # 아주 간단한 프로그래밍 예제
@@ -248,8 +268,6 @@ name <- readline("What's your name?: ")
 cat("Hello, ", name, "!\n", sep = "")
 
 ```
-
-
 
 ```{r, eval=FALSE}
 # readline() 함수를 이용해 알바비 계산
@@ -261,11 +279,11 @@ cat("월 급여는 ", x * y * z, " 원 입니다.\n", sep = "")
 
 ```
 
-
 ## 스칼라(scalar) {#scalar}
 
-- 단일 차원의 값(하나의 값): $1 \times 1$ 백터로 표현 $\rightarrow$ R 데이터 객체의 기본은 벡터!!
-- 데이터 객체의 유형은 크게 숫자형, 문자열, 논리형이 있음
+-   단일 차원의 값(하나의 값): $1 \times 1$ 백터로 표현 $\rightarrow$ R
+    데이터 객체의 기본은 벡터!!
+-   데이터 객체의 유형은 크게 숫자형, 문자열, 논리형이 있음
 
 ```{block2, type="rmdtip"}
 스칼라를 입력시 R의 벡터 지정 함수인 `c()`(벡터 부분에서 상세 내용 학습)를 꼭 사용해서 입력할 필요가 없다. 단, 연속되지 않은 두 개 이상 스칼라면 벡터이므로 꼭 c()를 써야 한다.
@@ -273,27 +291,30 @@ cat("월 급여는 ", x * y * z, " 원 입니다.\n", sep = "")
 
 ### 선언 {#definition}
 
-- 일반적으로 컴파일이 필요한 언어(예: `C` 언어)의 경우 변수 또는 객체를 사용 전에 선언이 필요
+-   일반적으로 컴파일이 필요한 언어(예: `C` 언어)의 경우 변수 또는
+    객체를 사용 전에 선언이 필요
 
 ```{c, eval=FALSE}
 int x; 
 x = 1;
 ```
 
-- 위 코드에서 `int x;` 없이 `x = 1`을 입력 후 컴파일 하면 에러가 나타나지만 `R` 언어에서는 **변수를 선언할 필요가 전혀 없음** 
+-   위 코드에서 `int x;` 없이 `x = 1`을 입력 후 컴파일 하면 에러가
+    나타나지만 `R` 언어에서는 **변수를 선언할 필요가 전혀 없음**
 
-- `z` 가 어떤 데이터 타입인지 언급할 필요가 전혀 없음 $\rightarrow$ `Python`, `Perl`, `Matlab` 등과 같은 스크립트 언어의 특징. 아래 코드 참조
+-   `z` 가 어떤 데이터 타입인지 언급할 필요가 전혀 없음 $\rightarrow$
+    `Python`, `Perl`, `Matlab` 등과 같은 스크립트 언어의 특징. 아래 코드
+    참조
 
 ```{r, comment=NA, prompt=FALSE}
 z <- 3
 z
 ```
 
-
 ### 숫자형 {#numeric}
 
-- 정수형(integer)과 실수형(double)로 구분됨
-- 정수형 구분시 숫자 뒤 `L`을 표시
+-   정수형(integer)과 실수형(double)로 구분됨
+-   정수형 구분시 숫자 뒤 `L`을 표시
 
 ```{r, comment=NA}
 # 정수형 구분자 사용 예시
@@ -302,8 +323,9 @@ typeof(10L)
 typeof(10)
 ```
 
-- 수치연산(`+, -, *, ^, **, /, %%, %/%`) 가능: R은 함수형 언어이기 때문에 앞에 기술한 연산자도 하나의 함수로 인식함. 
-- 수치 연산자(operator) 및 기본 수학 함수
+-   수치연산(`+, -, *, ^, **, /, %%, %/%`) 가능: R은 함수형 언어이기
+    때문에 앞에 기술한 연산자도 하나의 함수로 인식함.
+-   수치 연산자(operator) 및 기본 수학 함수
 
 ```{r operation, echo=FALSE, message=FALSE, warning=FALSE}
 require(tidyverse)
@@ -378,11 +400,12 @@ nn
 
 ### 문자형 {#character}
 
-- 수치형이 아닌 문자 형식의 단일 원소
-- C와 같은 언어에서 볼수 있는 한개 문자에 대한 데이터 타입 존재하지 않음
-- 수치연산 불가능
-- 따옴표(`"` 또는 `'`)로 문자를 묶어서 문자열 표시
-- 문자열을 다루는 자세한 설명은 5주차에서 자세히 설명할 예정임
+-   수치형이 아닌 문자 형식의 단일 원소
+-   C와 같은 언어에서 볼수 있는 한개 문자에 대한 데이터 타입 존재하지
+    않음
+-   수치연산 불가능
+-   따옴표(`"` 또는 `'`)로 문자를 묶어서 문자열 표시
+-   문자열을 다루는 자세한 설명은 5주차에서 자세히 설명할 예정임
 
 ```{r ex-char, comment=NA, prompt=FALSE, error=TRUE}
 h1 <- c("Hello CNU!!")
@@ -400,11 +423,12 @@ h1 - h2
 
 ### 논리형 스칼라 {#logical}
 
-- 참(`TRUE`, `T`) 또는 거짓(`FALSE`, `F`)를 나타내는 값
-- `TRUE`/`FALSE`: 예약어(reserved word)
-- `T`/`F`: `TRUE`와 `FALSE`로 초기화된 전역 변수 
-   - `T`에 `FALSE` 또는 어떤 값도 할당 가능 $\rightarrow$ 가급적 `TRUE/FALSE`를 명시하는 것이 편함
-- 논리형 연산자(logical operator)
+-   참(`TRUE`, `T`) 또는 거짓(`FALSE`, `F`)를 나타내는 값
+-   `TRUE`/`FALSE`: 예약어(reserved word)
+-   `T`/`F`: `TRUE`와 `FALSE`로 초기화된 전역 변수
+    -   `T`에 `FALSE` 또는 어떤 값도 할당 가능 $\rightarrow$ 가급적
+        `TRUE/FALSE`를 명시하는 것이 편함
+-   논리형 연산자(logical operator)
 
 ```{r logic-op-tab, echo=FALSE, message=FALSE}
 `논리형 연산자` <- c("&", "&&", "|", "||", "!")
@@ -428,8 +452,7 @@ kable(tab2_02,
   
 ```
 
-
-- 비교 연산자를 적용할 경우 논리값을 반환
+-   비교 연산자를 적용할 경우 논리값을 반환
 
 ```{r comp-op-tab, echo=FALSE, message=FALSE}
 `비교 연산자` <- c(">", "<", "==", ">=", "<=", "!=")
@@ -454,7 +477,6 @@ kable(tab2_03,
   row_spec(1:6, monospace = TRUE)
 ```
 
-
 ```{block2, type="rmdnote"}
 **참고**
 
@@ -465,8 +487,7 @@ kable(tab2_03,
 
 ```
 
-
-- 논리형 스칼라의 논리 및 비교 연산 예시
+-   논리형 스칼라의 논리 및 비교 연산 예시
 
 ```{r logic-op-result, comment=NA, prompt=FALSE, tidy=TRUE, error=TRUE}
 typeof(TRUE) # TRUE의 데이터 타입
@@ -510,9 +531,12 @@ x != y
 
 ### 결측값(missing value) {#missing-value}
 
-- 결측치 지정 **상수**: `NA` $\rightarrow$ R과 다른 언어의 가장 큰 차이점 중 하나
-- 예를 들어 4명의 통계학과 학생 중 3명의 통계학 개론 중간고사 점수가 각각 80, 90, 75점이고 4번 째 학생의 점수가 없는 경우 `NA`로 결측값 표현
-- `is.na()` 함수를 이용해 해당 값이 결측을 포함하고 있는지 확인
+-   결측치 지정 **상수**: `NA` $\rightarrow$ R과 다른 언어의 가장 큰
+    차이점 중 하나
+-   예를 들어 4명의 통계학과 학생 중 3명의 통계학 개론 중간고사 점수가
+    각각 80, 90, 75점이고 4번 째 학생의 점수가 없는 경우 `NA`로 결측값
+    표현
+-   `is.na()` 함수를 이용해 해당 값이 결측을 포함하고 있는지 확인
 
 ```{r}
 one <- 80; two <- 90; three <- 75; four <- NA
@@ -537,8 +561,8 @@ NA <= 3
 
 ### NULL 값 {#null}
 
-- `NULL`: 초기화 되지 않은 변수 또는 **객체**를 지칭함
-- `is.null()` 함수를 통해 객체가 `NULL`인지 판단
+-   `NULL`: 초기화 되지 않은 변수 또는 **객체**를 지칭함
+-   `is.null()` 함수를 통해 객체가 `NULL`인지 판단
 
 ```{r comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 x <- NULL # NULL 지정
@@ -557,7 +581,6 @@ is.null(x)
 
 ```
 
-
 ```{r, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # NA와 NULL은 다름
 x <- NA
@@ -567,18 +590,22 @@ is.na(NULL)
 ```
 
 <!-- # 데이터에서 NA와 NULL의 차이점 -->
+
 <!-- x <- c(80, 90, 75, NA) -->
+
 <!-- x -->
 
 <!-- x <- c(80, 90, 75, NULL) -->
+
 <!-- x -->
 
 ### 무한대/무한소/숫자아님 {#finite}
 
-- `Inf`: 무한대($+\infty$, $1/0$)
-- `-Inf`: 무한소($-\infty$, $-1/0$)
-- `NaN`: 숫자아님(Not a Number, $0/0$)
-- `is.finite()`, `is.infinite()`, `is.nan()` 함수를 통해 객체가 `Inf` 또는 `NaN`을 포함하는지 확인
+-   `Inf`: 무한대($+\infty$, $1/0$)
+-   `-Inf`: 무한소($-\infty$, $-1/0$)
+-   `NaN`: 숫자아님(Not a Number, $0/0$)
+-   `is.finite()`, `is.infinite()`, `is.nan()` 함수를 통해 객체가 `Inf`
+    또는 `NaN`을 포함하는지 확인
 
 ```{r, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 x <- Inf
@@ -595,21 +622,23 @@ is.infinite(x)
 
 ```
 
-
 ## 벡터(vector) {#vector}
 
 ### 벡터의 특징 {#vector-prop}
 
-- 타 프로그래밍 언어의 배열(array)의 개념으로 **동일한 유형**의 데이터 원소가 하나 이상($n \times 1$, $n \geq 1$) 으로 구성된 자료 형태
-- R 언어의 가장 기본적인 데이터 형태로 R에서 행해지는 모든 연산의 기본(vectorization) $\rightarrow$ 벡터 연산 시 반복구문(예: `for loop`)이 필요 없음. 
-- \@ref(scalar) 절에서 기술한 [스칼라(scalar)]는 사실 $1 \times 1$ 벡터임
-- 수학적으로 벡터는 아래와 같이 나타낼 수 있음
+-   타 프로그래밍 언어의 배열(array)의 개념으로 **동일한 유형**의 데이터
+    원소가 하나 이상($n \times 1$, $n \geq 1$) 으로 구성된 자료 형태
+-   R 언어의 가장 기본적인 데이터 형태로 R에서 행해지는 모든 연산의
+    기본(vectorization) $\rightarrow$ 벡터 연산 시 반복구문(예:
+    `for loop`)이 필요 없음.
+-   \@ref(scalar) 절에서 기술한 [스칼라(scalar)](#scalar)는 사실
+    $1 \times 1$ 벡터임
+-   수학적으로 벡터는 아래와 같이 나타낼 수 있음
 
 $$\mathrm{\mathbf x} = [x_1, x_2, x_3, \ldots, x_n]^T
 $$
 
-
-- 벡터는 앞의 예시에서 본 바와 같이 `c()` 함수를 사용해 생성
+-   벡터는 앞의 예시에서 본 바와 같이 `c()` 함수를 사용해 생성
 
 ```{r vector-ex1, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # 숫자형 벡터 
@@ -621,8 +650,8 @@ y
 
 ```
 
-- 두 개 이상의 벡터는 `c()` 함수를 통해 결합 가능
-   - 함수 내 `,` 구분자를 통해 결합
+-   두 개 이상의 벡터는 `c()` 함수를 통해 결합 가능
+    -   함수 내 `,` 구분자를 통해 결합
 
 ```{r vector-ex2, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # 두 벡터의 결합 (1)
@@ -640,11 +669,11 @@ x2
 
 ```
 
-
-- 서로 다른 자료형으로 벡터를 구성한 경우 표현력이 높은 자료형으로 변환한 값 반환
-    - 예: 문자열 + 숫자로 구성된 벡터 $\rightarrow$ 문자형 벡터
-    - 변환규칙: `NULL < raw < logical < integer < double < complex < character < list < expression`
-
+-   서로 다른 자료형으로 벡터를 구성한 경우 표현력이 높은 자료형으로
+    변환한 값 반환
+    -   예: 문자열 + 숫자로 구성된 벡터 $\rightarrow$ 문자형 벡터
+    -   변환규칙:
+        `NULL < raw < logical < integer < double < complex < character < list < expression`
 
 ```{r vector-ex3, comment=NA, prompt=FALSE, error=TRUE}
 # 숫자형 벡터와 문자열 벡터 혼용
@@ -673,7 +702,8 @@ is.logical(z)
 
 ```
 
-- 두 벡터는 중첩이 불가능 $\rightarrow$ 동일한 벡터 2개를 결합 시 단일 차원 벡터 생성
+-   두 벡터는 중첩이 불가능 $\rightarrow$ 동일한 벡터 2개를 결합 시 단일
+    차원 벡터 생성
 
 ```{r vector-ex4, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 x <- y <- 1:3 # x와 y 동시에 [1, 2, 3] 할당
@@ -682,12 +712,13 @@ y
 z <- c(x, y)
 z
 ```
-    
 
-- 벡터 각 원소에 이름 부여 가능
-    - `names()` 함수를 이용해 원소 이름 지정
-    - 사용 프로토타입: `names(x) <- 문자열 벡터`, 단 `x`와 이름에 입력할 문자열 벡터의 길이는 같아야 함. 
-    - `c()` 함수에서 직접 이름 지정 $\rightarrow$ `c(atom_name1 = value, atom_name2 = value, ...)`
+-   벡터 각 원소에 이름 부여 가능
+    -   `names()` 함수를 이용해 원소 이름 지정
+    -   사용 프로토타입: `names(x) <- 문자열 벡터`, 단 `x`와 이름에
+        입력할 문자열 벡터의 길이는 같아야 함.
+    -   `c()` 함수에서 직접 이름 지정 $\rightarrow$
+        `c(atom_name1 = value, atom_name2 = value, ...)`
 
 ```{r vector-ex5, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 x <- c("Boncho Ku", "R programming", "Male", "sophomore", "2020-03-24")
@@ -699,9 +730,9 @@ y <- c(a = 10, b = 6, c = 9)
 names(y)
 
 ```
-    
-- 벡터의 길이(차원) 확인
-   - `length()` 또는 `NROW()` 사용
+
+-   벡터의 길이(차원) 확인
+    -   `length()` 또는 `NROW()` 사용
 
 ```{r vector-ex6, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 x <- 1:50
@@ -715,8 +746,11 @@ NROW(x)
 
 ### 벡터의 연산 {#vector-operation}
 
-- 원소 단위 사칙연산 및 비교연산 수행 $\rightarrow$ 벡터화 연산(vectorized operation)
-   - 예를 들어 $\mathrm{\mathbf x} = [1, 2, 3]^T$ 이고, $\mathrm{\mathbf y} = [2, 3, 4]^T$ 라고 할 때 $\mathrm{\mathbf x} + \mathrm{\mathbf y}$의 연산은 아래와 같음
+-   원소 단위 사칙연산 및 비교연산 수행 $\rightarrow$ 벡터화
+    연산(vectorized operation)
+    -   예를 들어 $\mathrm{\mathbf x} = [1, 2, 3]^T$ 이고,
+        $\mathrm{\mathbf y} = [2, 3, 4]^T$ 라고 할 때
+        $\mathrm{\mathbf x} + \mathrm{\mathbf y}$의 연산은 아래와 같음
 
 $$\begin{bmatrix}
 1 \\ 2\\ 3
@@ -729,8 +763,7 @@ $$\begin{bmatrix}
 \end{bmatrix}
 $$
 
-
-- `*` 연산 시 행렬 대수학에서 벡터의 곱(product)과 다름을 주의
+-   `*` 연산 시 행렬 대수학에서 벡터의 곱(product)과 다름을 주의
 
 $$\begin{bmatrix}
 1 \\ 2\\ 3
@@ -767,8 +800,7 @@ y ^ x
 
 ```
 
-
-- 차원이 서로 맞지 않는 경우 작은 차원(짧은 쪽)의 백터를 재사용함
+-   차원이 서로 맞지 않는 경우 작은 차원(짧은 쪽)의 백터를 재사용함
 
 $$\begin{bmatrix}
 1 \\ 2\\ 3
@@ -783,7 +815,6 @@ $$\begin{bmatrix}
 6 \\ 7 \\ 8
 \end{bmatrix}
 $$
-
 
 ```{r vector-ex8, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # 벡터(n by 1) vs. 스칼라(1 by 1)
@@ -802,9 +833,8 @@ x / y
 
 ```
 
-
-- 연산 순서는 일반적인 사칙연산의 순서를 준용
-   - 단 1단위 수열을 생성하는 `:` 연산자가 사칙연산을 우선함
+-   연산 순서는 일반적인 사칙연산의 순서를 준용
+    -   단 1단위 수열을 생성하는 `:` 연산자가 사칙연산을 우선함
 
 ```{r vector-ex9, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # 연산 우선 순위
@@ -813,9 +843,8 @@ x / y
 
 ```
 
-
-- 논리형 값으로 구성된 벡터의 기본 연산 시 수치형으로 변환된 연산 결과를 반환
-
+-   논리형 값으로 구성된 벡터의 기본 연산 시 수치형으로 변환된 연산
+    결과를 반환
 
 ```{r vector-ex10, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # 논리형 벡터
@@ -836,10 +865,9 @@ b1/b2
 
 ```
 
-
-- 두 벡터 간 비교 연산은 사칙연산과 마찬가지로 각 원소단위 연산을 수행하고 논리형 벡터 반환
-  - 재사용 규칙은 그대로 적용됨
-
+-   두 벡터 간 비교 연산은 사칙연산과 마찬가지로 각 원소단위 연산을
+    수행하고 논리형 벡터 반환
+    -   재사용 규칙은 그대로 적용됨
 
 ```{r vector-ex11, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # 두 벡터의 비교 연산
@@ -865,9 +893,7 @@ x <= y
 
 ```
 
-
-- 문자열 벡터의 연산은 `==` 또는 `!=` 만 가능(사칙연산 불가능)
-
+-   문자열 벡터의 연산은 `==` 또는 `!=` 만 가능(사칙연산 불가능)
 
 ```{r vector-ex12, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # 문자열 벡터 연산 (==, !=)
@@ -882,9 +908,8 @@ c1 != c2
 
 ```
 
-
-- `NA`를 포함한 두 벡터 연산 시 동일 위치에 `NA`가 존재하면 어떤 연산이든 `NA` 값을 반환
-
+-   `NA`를 포함한 두 벡터 연산 시 동일 위치에 `NA`가 존재하면 어떤
+    연산이든 `NA` 값을 반환
 
 ```{r vector-ex13, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # 결측을 포함한 벡터
@@ -902,8 +927,7 @@ x > y
 
 ```
 
-- `NULL`이 벡터에 포함되더라도 벡터의 길이에는 변동이 없음
-
+-   `NULL`이 벡터에 포함되더라도 벡터의 길이에는 변동이 없음
 
 ```{r vector-ex14, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # NULL을 포함한 벡터 
@@ -913,15 +937,13 @@ x
 
 ```
 
-
 ### 벡터의 색인(indexing) {#vector-index}
 
-- 벡터의 특정 위치에 있는 원소를 추출   
-- 색인(indexing)을 통해 벡터의 원소에 접근 가능
-- 타 언어는 대체로 첫 번째 색인이 0에서 시작하지만, R은 1부터 시작
-- `x[i]`: 벡터 `x`의 `i`번 째 요소
-- `x[start:end]`: `x`의 `start`부터 `end`까지 값 반환
-
+-   벡터의 특정 위치에 있는 원소를 추출\
+-   색인(indexing)을 통해 벡터의 원소에 접근 가능
+-   타 언어는 대체로 첫 번째 색인이 0에서 시작하지만, R은 1부터 시작
+-   `x[i]`: 벡터 `x`의 `i`번 째 요소
+-   `x[start:end]`: `x`의 `start`부터 `end`까지 값 반환
 
 ```{r vector-ex15, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 x <- c(1.2, 3.1, 4.2, 2.8, 3.3)
@@ -932,8 +954,7 @@ x[2:3]
 
 ```
 
-- `x[-i]`: 벡터 `x`에서 `i`번 째 요소를 제외한 나머지 값 반환
-
+-   `x[-i]`: 벡터 `x`에서 `i`번 째 요소를 제외한 나머지 값 반환
 
 ```{r vector-ex16, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # x의 3 번째 원소 제거
@@ -945,7 +966,10 @@ x[1:(length(x) - 1)]
 x[-length(x)]
 ```
 
-- `x[idx_vec]`: `idx_vec`가 인덱싱 벡터라고 할 때 `idx_vec`에 지정된 요소를 얻어옴. 일반적으로 `idx_vec`는 백터의 행 순서 번호 또는 각 벡터 원소의 이름에 대응하는 문자열 벡터를 인덱싱 벡터로 사용할 수 있음. 
+-   `x[idx_vec]`: `idx_vec`가 인덱싱 벡터라고 할 때 `idx_vec`에 지정된
+    요소를 얻어옴. 일반적으로 `idx_vec`는 백터의 행 순서 번호 또는 각
+    벡터 원소의 이름에 대응하는 문자열 벡터를 인덱싱 벡터로 사용할 수
+    있음.
 
 ```{r vector-ex17, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # 벡터를 이용한 인덱싱
@@ -967,8 +991,9 @@ x[c("x2", "x4")]
 
 ```
 
-- 필터링(filtering): 특정한 조건을 만족하는 원소 추출
-   - 비교 연산자를 이용한 조건 생성 $\rightarrow$ 논리값을 이용한 원소 추출
+-   필터링(filtering): 특정한 조건을 만족하는 원소 추출
+    -   비교 연산자를 이용한 조건 생성 $\rightarrow$ 논리값을 이용한
+        원소 추출
 
 ```{r vector-ex18-1, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 z <- c(5, 2, -3, 8)
@@ -977,9 +1002,10 @@ w <- z[z^2 > 8]
 w
 ```
 
-- 작동 원리 
-   - `z^2 > 8`은 벡터 `z`의 모든 원소 제곱값이 8 보다 큰 케이스를 논리형 값으로 반환
-   
+-   작동 원리
+    -   `z^2 > 8`은 벡터 `z`의 모든 원소 제곱값이 8 보다 큰 케이스를
+        논리형 값으로 반환
+
 ```{r vector-ex18-2, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 z^2
 idx <- z^2 > 8
@@ -987,24 +1013,23 @@ idx
 z[idx]
 ```
 
-- 특정 조건을 만족하는 벡터의 위치에 임의의 값을 치환할 수 있음
+-   특정 조건을 만족하는 벡터의 위치에 임의의 값을 치환할 수 있음
 
 ```{r}
 # 위 벡터 z 의 원소 중 z^2 > 8 인 원소의 값을 0으로 치환
 z[idx] <- 0
 ```
 
-
 ### 벡터 관련 함수 {#vector-function}
 
-- `c()` 함수 외에 R은 벡터 생성을 위해 몇 가지 유용한 함수를 제공함
-
+-   `c()` 함수 외에 R은 벡터 생성을 위해 몇 가지 유용한 함수를 제공함
 
 #### **`seq`** 계열 함수 {#fun-seq .unnumbered}
 
 > 보다 자세한 사용 설명은 `help(seq)` 참고
 
-**`seq()`**: 등차 수열 생성하는 함수로 `from`에서 `end` 까지 숫자 내에서 공차(간격)가 `by` 인 수열 생성 
+**`seq()`**: 등차 수열 생성하는 함수로 `from`에서 `end` 까지 숫자 내에서
+공차(간격)가 `by` 인 수열 생성
 
 ```{r, eval=FALSE}
 # seq(): 수열 생성 함수
@@ -1022,8 +1047,7 @@ seq(
 
 ```
 
-- **사용 예시**
-
+-   **사용 예시**
 
 ```{r seq-example, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 x <- seq(from = 2, to = 30, by = 2)
@@ -1049,35 +1073,34 @@ seq(x)
 
 ```
 
-
 **`seq_along()`**: 주어진 객체의 길이 만큼 1부터 1 간격의 수열 생성
 
-- `seq()` 함수와 매우 유사하나, 무조건 1부터 시작해서 인수로 `seq()`의 `along.with` 값을 이용한 함수
-- `seq()` 함수보다 조금 빠름
-- **사용 예시**
+-   `seq()` 함수와 매우 유사하나, 무조건 1부터 시작해서 인수로 `seq()`의
+    `along.with` 값을 이용한 함수
+-   `seq()` 함수보다 조금 빠름
+-   **사용 예시**
 
 ```{r seq_along_ex, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # 1부터 x 벡터의 길이 까지 1 단위 수열 값 반환
 seq_along(x)
 ```
 
-**`seq_len()`**: 인수로 받은 값 만큼 1부터 해당 값 까지 1 간격의 수열 생성
+**`seq_len()`**: 인수로 받은 값 만큼 1부터 해당 값 까지 1 간격의 수열
+생성
 
-- `seq()` 함수의 인수 중 `length.out` 값을 이용한 함수
-- **사용 예시**
+-   `seq()` 함수의 인수 중 `length.out` 값을 이용한 함수
+-   **사용 예시**
 
 ```{r seq_len_ex, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # 1부터 n 까지 1 단위 수열 값 반환
 seq_len(10)
 ```
 
-
 #### **`rep`** 계열 함수 {#fun-rep .unnumbered}
 
 > `help(rep)`을 통해 상세 내용 참고
 
 **`rep()`**: 주어진 벡터의 원소를 반복
-
 
 ```{r, eval=FALSE}
 # rep(): 벡터 또는 벡터의 개별 원소를 반복한 값 반환
@@ -1089,8 +1112,7 @@ rep(
 
 ```
 
-
-- **사용 예시**
+-   **사용 예시**
 
 ```{r rep-ex1, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 x <- rep(4, 5) # 4를 5번 반복
@@ -1116,10 +1138,10 @@ sexr <- rep(sex, each = 2, times = 4)
 sexr
 ```
 
+**`rep.int()` & `rep_len()`**: `rep()` 함수의 simple 버전으로
+속도(performance)가 요구되는 프로그래밍 시 사용
 
-**`rep.int()` & `rep_len()`**: `rep()` 함수의 simple 버전으로 속도(performance)가 요구되는 프로그래밍 시 사용
-
-- **사용 예시**
+-   **사용 예시**
 
 ```{r rep-ex2, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # 1:5 벡터를 3 번 반복
@@ -1129,15 +1151,14 @@ rep.int(1:5, 3)
 rep_len(1:5, length.out = 7)
 ```
 
-
 #### **Filtering 관련 함수** {#fun-filtering .unnumbered}
 
 > `help(subset)` 참고
 
-**`subset()`**: 기존 필터링 방식과 비교할 때 `NA`를 처리하는 방식에서 차이를 보임
+**`subset()`**: 기존 필터링 방식과 비교할 때 `NA`를 처리하는 방식에서
+차이를 보임
 
-- 벡터 뿐 아니라 앞으로 배울 행렬 및 데이터프레임 객체에도 적용 가능
-
+-   벡터 뿐 아니라 앞으로 배울 행렬 및 데이터프레임 객체에도 적용 가능
 
 ```{r subset-ex, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 x <- c(6, 1:3, NA, NA, 12)
@@ -1160,8 +1181,7 @@ which(
 )
 ```
 
-
-- **사용 예시**
+-   **사용 예시**
 
 ```{r which-ex, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 x <- c(3, 8, 3, 1, 7)
@@ -1191,17 +1211,19 @@ any(x > 9)
 
 #### **집합 관련 함수** {#set-function .unnumbered}
 
-- 벡터는 숫자, 문자열의 묶음, 즉 원소들의 집합(set)으로 볼 수 있기 때문에 집합 연산이 가능
-- 두 집합을 $X$와 $Y$로 정의 했을 때 아래와 같은 집합 연산 가능
-- **`setequal(X, Y)`**: `X`와 `Y`가 동일한지 판단 ($X = Y$) $\rightarrow$ 논리값 `TRUE` 또는 `FALSE` 반환
- 
+-   벡터는 숫자, 문자열의 묶음, 즉 원소들의 집합(set)으로 볼 수 있기
+    때문에 집합 연산이 가능
+-   두 집합을 $X$와 $Y$로 정의 했을 때 아래와 같은 집합 연산 가능
+-   **`setequal(X, Y)`**: `X`와 `Y`가 동일한지 판단 ($X = Y$)
+    $\rightarrow$ 논리값 `TRUE` 또는 `FALSE` 반환
+
 ```{r set-equal-ex, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 x <- y <- c(1, 9, 7, 3, 6)
 setequal(x, y)
 
 ```
 
-- **`union(X, Y)`**: `X`와 `Y`의 합집합 ($X \cup Y$)
+-   **`union(X, Y)`**: `X`와 `Y`의 합집합 ($X \cup Y$)
 
 ```{r set-union-ex, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 y <- c(1, 9, 8, 2, 0, 3)
@@ -1209,21 +1231,20 @@ union(x, y)
 
 ```
 
-
-- **`intersect(X, Y)`**: `X`와 `Y`의 교집합 ($X \cap Y$)
+-   **`intersect(X, Y)`**: `X`와 `Y`의 교집합 ($X \cap Y$)
 
 ```{r set-intersect-ex, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 intersect(x, y)
 ```
 
-- **`setdiff(X, Y)`**: `X`와 `Y`의 차집합 ($X - Y$)
+-   **`setdiff(X, Y)`**: `X`와 `Y`의 차집합 ($X - Y$)
 
 ```{r set-diff-ex, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 setdiff(x, y)
 setdiff(y, x)
 ```
 
-- **`X %in% Y`**: `X`(기준)가 집합 `Y`의 원소인지 논리값 반환
+-   **`X %in% Y`**: `X`(기준)가 집합 `Y`의 원소인지 논리값 반환
 
 ```{r in-op-ex, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 x <- c("apple", "banana", "strawberry", "mango", "peach", "orange")
@@ -1236,7 +1257,8 @@ y %in% x
 
 #### **두 벡터의 동일성 테스트** {#vec-identical .unnumbered}
 
-- 두 벡터가 동일한지 테스트 하기 위해 `x == y` 연산의 반환 값은 위의 예제에서 확인한 것 처럼 각 원소에 대한 논리값을 반환(아래 예제 확인)
+-   두 벡터가 동일한지 테스트 하기 위해 `x == y` 연산의 반환 값은 위의
+    예제에서 확인한 것 처럼 각 원소에 대한 논리값을 반환(아래 예제 확인)
 
 ```{r identical-ex, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 x <- 1:3
@@ -1244,20 +1266,21 @@ y <- c(1, 3, 4)
 x == y
 ```
 
-- 단지 두 벡터가 동일한지 아닌지를 확인하기 위해서는 하나의 논리값만 필요한 경우 `all()` 사용
+-   단지 두 벡터가 동일한지 아닌지를 확인하기 위해서는 하나의 논리값만
+    필요한 경우 `all()` 사용
 
 ```{r all-ex, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 all(x == y)
 ```
 
-- 보다 나은 방법으로 `identical()` 함수 적용
+-   보다 나은 방법으로 `identical()` 함수 적용
 
 ```{r identical-ex1, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # 두 객체의 동일성 여부 테스트
 identical(x, y)
 ```
 
-- `identical()` 함수는 벡터가 갖는 데이터 타입의 동일성 까지 체크함
+-   `identical()` 함수는 벡터가 갖는 데이터 타입의 동일성 까지 체크함
 
 ```{r identical-ex2, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 x <- 1:5; y <- c(1, 2, 3, 4, 5)
@@ -1278,9 +1301,10 @@ typeof(y)
 
 ## 리스트(list) {#list}
 
-- **리스트(list)**: `(key, value)` 형태로 데이터를 저장한 배열(벡터)
-- 서로 다른 데이터 타입을 가진 객체를 원소로 가질 수 있는 벡터
-   - 예: 한 리스트 안에는 상이한 데이터 타입(숫자형, 문자형, 논리형 등)을 갖는 원소(객체)들을 포함할 수 있음
+-   **리스트(list)**: `(key, value)` 형태로 데이터를 저장한 배열(벡터)
+-   서로 다른 데이터 타입을 가진 객체를 원소로 가질 수 있는 벡터
+    -   예: 한 리스트 안에는 상이한 데이터 타입(숫자형, 문자형, 논리형
+        등)을 갖는 원소(객체)들을 포함할 수 있음
 
 ```{block2, type="rmdnote"}
 **리스트 예시**: 통계프로그래밍언어 중간고사 성적 테이블
@@ -1291,7 +1315,7 @@ typeof(y)
 
 ```
 
-- 위 record를 벡터 생성함수 `c()`로 생성한 경우
+-   위 record를 벡터 생성함수 `c()`로 생성한 경우
 
 ```{r, comment=NA, prompt=FALSE}
 # 벡터로 위 record를 입력한 경우
@@ -1317,12 +1341,9 @@ typeof(vec)
 
 ```
 
-
-
-
 ### 리스트 생성 {#make-list}
 
-- **`list()`** 함수를 사용해 list 객체 생성
+-   **`list()`** 함수를 사용해 list 객체 생성
 
 ```{r, eval=FALSE}
 # list 함수 사용 prototype
@@ -1333,9 +1354,7 @@ list(name_1 = object_1, ..., name_m = object_m)
 
 ```
 
-
-- 중간고사 성적 테이블 예시
-
+-   중간고사 성적 테이블 예시
 
 ```{r list-ex1, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # lst 객체 생성
@@ -1351,23 +1370,20 @@ lapply(lst, typeof)
 
 ```
 
-- 리스트 원소에 이름이 부여된 경우 `names()`를 통해 확인 가능
+-   리스트 원소에 이름이 부여된 경우 `names()`를 통해 확인 가능
 
 ```{r, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 names(lst)
 ```
 
-
-- 이름(`name_1, .., name_n`) 없이도 리스트 생성 가능하나, 가급적 이름을 부여 하는 것이 더 명확
-
+-   이름(`name_1, .., name_n`) 없이도 리스트 생성 가능하나, 가급적
+    이름을 부여 하는 것이 더 명확
 
 ```{r list-ex2, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 list("김상자", "202015115", 95, "A-")
 ```
 
-
-- 리스트는 벡터이므로 `vector()` 함수를 통해 생성 가능
-
+-   리스트는 벡터이므로 `vector()` 함수를 통해 생성 가능
 
 ```{r list-ex3, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 # 길이가 1이고 객체가 NULL인 리스트 생성
@@ -1376,7 +1392,7 @@ z
 
 ```
 
-- 리스트의 값이 어떤 객체든 관계 없음
+-   리스트의 값이 어떤 객체든 관계 없음
 
 ```{r list-ex4, comment=NA, prompt=FALSE, error=TRUE, warning=TRUE}
 x <- list(name = c("A", "B", "C"), 
@@ -1386,15 +1402,15 @@ x
 
 ### 리스트 색인 {#list-index}
 
-
-- 리스트에 포함된 객체에 접근는 기본적으로 벡터의 색인 방법과 동일하게 색인 번호 또는 키(이름)을 통해 접근 가능
-- 리스트에 포함된 모든 객체의 원소값을 쉽게 확인하는 함수는 `unlist()`임 
+-   리스트에 포함된 객체에 접근는 기본적으로 벡터의 색인 방법과 동일하게
+    색인 번호 또는 키(이름)을 통해 접근 가능
+-   리스트에 포함된 모든 객체의 원소값을 쉽게 확인하는 함수는
+    `unlist()`임
 
 ```{r}
 lval <- unlist(x)
 typeof(lval)
 ```
-
 
 ```{r list-tab, echo=FALSE}
 `색인방법` <- c("x$name", "x[[i]] 또는 x[[name]]", "x[i] 또는 x[name]")
@@ -1418,15 +1434,13 @@ kable(tab2_04,
 
 ```
 
-
-- `x$name`을 통해 리스트 내 객체 접근
+-   `x$name`을 통해 리스트 내 객체 접근
 
 ```{r list-ex5, comment=NA, prompt=FALSE, error=TRUE}
 lst$`학번`
 ```
 
-- `x[[i]]` 또는 `x[[name]]` 을 통해 리스트 내 객체 접근
-
+-   `x[[i]]` 또는 `x[[name]]` 을 통해 리스트 내 객체 접근
 
 ```{r list-ex6, comment=NA, prompt=FALSE, error=TRUE}
 lst[[2]]
@@ -1436,7 +1450,7 @@ typeof(z)
 
 ```
 
-- `x[i]` 또는 `x[name]` 을 통해 리스트 내 부분 리스트 추출
+-   `x[i]` 또는 `x[name]` 을 통해 리스트 내 부분 리스트 추출
 
 ```{r list-ex7, comment=NA, prompt=FALSE, error=TRUE}
 lst[2]
@@ -1446,8 +1460,7 @@ typeof(j)
 
 ```
 
-
-- 리스트 또한 벡터로 볼 수 있기 때문에 여러 개의 부분 리스트 추출 가능
+-   리스트 또한 벡터로 볼 수 있기 때문에 여러 개의 부분 리스트 추출 가능
 
 ```{r lst-ex8, comment=NA, prompt=FALSE, error=TRUE}
 # 리스트 lst 에서 1 ~ 3 번째 까지 부분 리스트 추출
@@ -1455,7 +1468,7 @@ lst[1:3]
 
 ```
 
-- 리스트를 구성하는 객체 내 색인 
+-   리스트를 구성하는 객체 내 색인
 
 ```{r lst-ex9, comment=NA, prompt=FALSE, error=TRUE}
 x
@@ -1472,17 +1485,18 @@ x[2][[1]][2:3]
 
 ```
 
-- 리스트의 길이 반환: 벡터와 마찬가지로 `length()` 함수 적용 가능
+-   리스트의 길이 반환: 벡터와 마찬가지로 `length()` 함수 적용 가능
 
 ```{r lst-ex10, comment=NA, prompt=FALSE, error=TRUE}
 length(lst); length(x)
 ```
 
-
 ### 리스트에 원소 추가/제거 {#list-add-delete}
 
-- 주어진 리스트 `x`에 새로운 원소를 `x$new_obj <- value` 명령어 형태로 추가
-- 이미 존재하고 있는 리스트 원소 제거는 `x$exist_obj <- NULL` 형태로 제거
+-   주어진 리스트 `x`에 새로운 원소를 `x$new_obj <- value` 명령어 형태로
+    추가
+-   이미 존재하고 있는 리스트 원소 제거는 `x$exist_obj <- NULL` 형태로
+    제거
 
 ```{r lst-ex11, comment=NA, prompt=FALSE, error=TRUE}
 # 리스트 lst 에 5회 차 퀴즈 점수 추가
@@ -1508,17 +1522,15 @@ lst
 
 ```
 
-
 ### 리스트의 결합 {#list-combine}
 
-- 두 개 이상의 리스트를 결합 시 `c()` 사용 
+-   두 개 이상의 리스트를 결합 시 `c()` 사용
 
 ```{r lst-ex12, comment=NA, prompt=FALSE, error=TRUE}
 # 리스트 lst와 x 결합
 c(lst, x)
 
 ```
-
 
 ```{block2, type="rmdnote"}
 리스트 내에 리스트를 가질 수 있다. 이를 재귀 리스트(recursive list)라고 한다. 예를 들어 위 예제에서 각 학생의 성적 데이터가 리스트로 구성되어 있다면, 전체 성적 데이터베이스는 리스트로 구성된 리스트임. 아래 예제 처럼 간단한 재귀 리스트 구현이 가능
@@ -1532,7 +1544,6 @@ gr <- list(kim=kim, lee=lee)
 gr
 ```
 
-
 ## 행렬(matrix) {#matrix}
 
 ```{block2, type="rmdnote"}
@@ -1541,9 +1552,10 @@ gr
 
 #### **행렬의 정의** {#def-matrix .unnumbered}
 
-- 동일한 데이터 타입의 원소로 구성된 2차원 데이터 구조
--  $n \times 1$ 차원 벡터 $p$개로 묶여진 데이터 덩어리 $\rightarrow$ $n \times p$ 행렬로 명칭함
-- 행렬의 형태
+-   동일한 데이터 타입의 원소로 구성된 2차원 데이터 구조
+-   $n \times 1$ 차원 벡터 $p$개로 묶여진 데이터 덩어리 $\rightarrow$
+    $n \times p$ 행렬로 명칭함
+-   행렬의 형태
 
 $$\begin{bmatrix}
 x_{11} & x_{12} & \cdots & x_{1p} \\
@@ -1553,9 +1565,12 @@ x_{n1} & x_{n2} & \cdots & x_{np}
 \end{bmatrix}
 $$
 
-- R에서 행렬은 동일한 유형의 데이터 타입으로 구성 가능 $\rightarrow$ 첫 번째 행은 숫자형, 두 번째 행은 문자열로 입력해도 행렬을 만들 수 있지만, 표현력이 더 높은 문자형 행렬 반환
-- 행렬의 내부 저장공간은 "열 우선 배열"
-- 행렬 생성을 위한 R 함수는 `matrix()` 함수이고 사용 형태는 아래와 같음
+-   R에서 행렬은 동일한 유형의 데이터 타입으로 구성 가능 $\rightarrow$
+    첫 번째 행은 숫자형, 두 번째 행은 문자열로 입력해도 행렬을 만들 수
+    있지만, 표현력이 더 높은 문자형 행렬 반환
+-   행렬의 내부 저장공간은 "열 우선 배열"
+-   행렬 생성을 위한 R 함수는 `matrix()` 함수이고 사용 형태는 아래와
+    같음
 
 ```{r, eval=FALSE}
 # matrix(): 행렬 생성 함수
@@ -1570,7 +1585,7 @@ matrix(data, # 행렬을 생성할 데이터 벡터
        )
 ```
 
-- 행렬 생성 예시 
+-   행렬 생성 예시
 
 ```{r make-matrix-ex1, comment=NA}
 # byrow = FALSE
@@ -1583,7 +1598,8 @@ x
 
 ```
 
-- 행의 개수(`nrow`)나 열의 개수(`ncol`)로 나머지를 추정 가능하다면 둘 중 어떤 인수도 생략 가능
+-   행의 개수(`nrow`)나 열의 개수(`ncol`)로 나머지를 추정 가능하다면 둘
+    중 어떤 인수도 생략 가능
 
 ```{r make-matrix-ex2, comment=NA}
 x <- matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9), ncol = 3)
@@ -1592,7 +1608,8 @@ x <- matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9), nrow = 3)
 x
 ```
 
-- `nrow` $\times$ `ncol` 이 입력한 데이터(벡터)의 길이보다 작거나 큰 경우
+-   `nrow` $\times$ `ncol` 이 입력한 데이터(벡터)의 길이보다 작거나 큰
+    경우
 
 ```{r make-matrix-ex3, comment=NA}
 # length(x) < nrow * ncol 인 경우 
@@ -1610,7 +1627,8 @@ z
 
 ```
 
-- 행렬 구성 시 길이에 대한 약수가 아닌 값을  `nrow` 또는 `ncol`의 인수로 받은 경우
+-   행렬 구성 시 길이에 대한 약수가 아닌 값을 `nrow` 또는 `ncol`의
+    인수로 받은 경우
 
 ```{r make-matrix-ex4, comment=NA}
 # x (length=9)로 행렬 생성 시 nrow=4 를
@@ -1627,7 +1645,8 @@ h
 
 ### 행렬의 연산 {#matrix-operation}
 
-- 선형대수(linear algebra)에서 배우는 행렬-스칼라, 행렬-행렬 간 연산 가능
+-   선형대수(linear algebra)에서 배우는 행렬-스칼라, 행렬-행렬 간 연산
+    가능
 
 #### **행렬-스칼라 연산** {#mat-op-s .unnumbered}
 
@@ -1660,7 +1679,6 @@ x <-matrix(1:9, 3, 3, byrow = T)
 x + 4
 ```
 
-
 **곱 연산**
 
 $$\begin{bmatrix}
@@ -1681,11 +1699,11 @@ x*4
 
 #### **행렬-행렬 연산** {#mat-op-m .unnumbered}
 
-- 행렬 간 연산에서 스칼라 연산(일반 연산)과 다른 점은 차원이 개입
+-   행렬 간 연산에서 스칼라 연산(일반 연산)과 다른 점은 차원이 개입
 
 **행렬 간 합(차)**
 
-- 두 행렬의 동일 차원 간 합 연산 수행(`+` 또는 `-` 연산자 사용)
+-   두 행렬의 동일 차원 간 합 연산 수행(`+` 또는 `-` 연산자 사용)
 
 $$\begin{bmatrix}
 1 & 2 & 3 \\
@@ -1711,9 +1729,9 @@ y <- matrix(c(1, 3, -6, -1, 2, 3, 2, 4, -7), ncol = 3)
 x + y
 ```
 
-**행렬 곱/나누기(elementwise product/division)** 
+**행렬 곱/나누기(elementwise product/division)**
 
-- 연산자 `*` 또는 `/`  사용
+-   연산자 `*` 또는 `/` 사용
 
 $$\begin{bmatrix}
 1 & 2 & 3 \\
@@ -1737,7 +1755,8 @@ $$
 x * y
 ```
 
-- 행렬-행렬 합(차) 또는 곱(나누기) 연산 시 행렬의 열단위 원소가 재사용되지 않음
+-   행렬-행렬 합(차) 또는 곱(나누기) 연산 시 행렬의 열단위 원소가
+    재사용되지 않음
 
 > **동일 차원 간 연산만 가능!!**
 
@@ -1750,16 +1769,23 @@ x / z
 
 ```
 
-**행렬 간 곱(matrix product)** 
+**행렬 간 곱(matrix product)**
 
-- 두 행렬 $\mathrm{\mathbf X}_{n\times m}$, $\mathrm{\mathbf Y}_{m\times k}$ 이 주어졌을 때 두 행렬의 곱(matrix product) $\mathrm{\mathbf Z} = \mathrm{\mathbf {X\cdot Y}}$는 $n \times k$ 행렬이고 $\mathrm{\mathbf Z}$  원소 $z_{ij}$ ($i={1,\ldots,n}$, $j={1,\ldots,k}$) 아래와 같이 정의됨
+-   두 행렬 $\mathrm{\mathbf X}_{n\times m}$,
+    $\mathrm{\mathbf Y}_{m\times k}$ 이 주어졌을 때 두 행렬의 곱(matrix
+    product) $\mathrm{\mathbf Z} = \mathrm{\mathbf {X\cdot Y}}$는
+    $n \times k$ 행렬이고 $\mathrm{\mathbf Z}$ 원소 $z_{ij}$
+    ($i={1,\ldots,n}$, $j={1,\ldots,k}$) 아래와 같이 정의됨
 
 $$
  z_{ij} = \sum_{r=1}^{m}x_{ir}y_{rj},~~~~\forall~\{i, j\}
-$$
-- R에서 위와 같은 연산은 `%*%`를 사용
+$$ - R에서 위와 같은 연산은 `%*%`를 사용
 
-- 예시: 행렬 $\mathrm{\mathbf X}_{2\times 4}$, $\mathrm{\mathbf Y}_{4\times 3}$ 이 아래와 같이 주어졌을 때 두 행렬의 곱 $\mathrm{\mathbf Z}_{2\times 3} = \mathrm{\mathbf{X}}_{2\times 4}\mathrm{\mathbf{Y}}_{4 \times 3}$는 아래와 같음
+-   예시: 행렬 $\mathrm{\mathbf X}_{2\times 4}$,
+    $\mathrm{\mathbf Y}_{4\times 3}$ 이 아래와 같이 주어졌을 때 두
+    행렬의 곱
+    $\mathrm{\mathbf Z}_{2\times 3} = \mathrm{\mathbf{X}}_{2\times 4}\mathrm{\mathbf{Y}}_{4 \times 3}$는
+    아래와 같음
 
 $$
 \mathrm{\mathbf X}=
@@ -1775,8 +1801,6 @@ $$
 1 &~~~2 &~~~2
 \end{bmatrix}
 $$
-
-
 
 $$
 \mathrm{\mathbf{Z}} = \mathrm{\mathbf{X}}\mathrm{\mathbf{Y}} = 
@@ -1806,7 +1830,9 @@ Z
 
 **행렬-벡터 연산**
 
-- 행렬 $\mathrm{\mathbf{X}}$의 행 길이와  벡터 $\mathrm{\mathbf y}$의 길이가 같은 경우 $\rightarrow$ $\mathrm{\mathbf y}$를 열 단위로 재사용
+-   행렬 $\mathrm{\mathbf{X}}$의 행 길이와 벡터 $\mathrm{\mathbf y}$의
+    길이가 같은 경우 $\rightarrow$ $\mathrm{\mathbf y}$를 열 단위로
+    재사용
 
 $$\mathrm{\mathbf{X}} = 
 \begin{bmatrix}
@@ -1816,7 +1842,6 @@ $$\mathrm{\mathbf{X}} =
 \end{bmatrix}, ~~~~~
 \mathrm{\mathbf y} = [20, 18, 23]^T
 $$
-
 
 $$\mathrm{\mathbf{X}} + \mathrm{\mathbf{y}} = 
 \begin{bmatrix}
@@ -1836,7 +1861,6 @@ $$\mathrm{\mathbf{X}} + \mathrm{\mathbf{y}} =
 \end{bmatrix}
 $$
 
-
 ```{r mat-vec-op-01, comment=NA}
 #행렬-벡터 합 연산
 # X = 3 by 3 행렬; y = 3 by 1 벡터
@@ -1847,7 +1871,9 @@ y <- c(20, 18, 23)# 재사용
 X + y
 ```
 
-- 행렬 $\mathrm{\mathbf{X}}$의 길이와  벡터 $\mathrm{\mathbf y}$의 길이가 같은 경우 $\rightarrow$ 벡터 $\mathrm{\mathbf y}$를 자동으로 원소를 행렬(열단위)로 변환
+-   행렬 $\mathrm{\mathbf{X}}$의 길이와 벡터 $\mathrm{\mathbf y}$의
+    길이가 같은 경우 $\rightarrow$ 벡터 $\mathrm{\mathbf y}$를 자동으로
+    원소를 행렬(열단위)로 변환
 
 $$\mathrm{\mathbf{X}} = 
 \begin{bmatrix}
@@ -1857,8 +1883,6 @@ $$\mathrm{\mathbf{X}} =
 \end{bmatrix}, ~~~~~
 \mathrm{\mathbf y} = [1, 2, \ldots, 9]^T
 $$
-
-
 
 $$\mathrm{\mathbf{X}} + \mathrm{\mathbf{y}} = 
 \begin{bmatrix}
@@ -1878,8 +1902,6 @@ $$\mathrm{\mathbf{X}} + \mathrm{\mathbf{y}} =
 \end{bmatrix}
 $$
 
-
-
 ```{r mat-vec-op-02, comment=NA, error=TRUE}
 #행렬-벡터 합 연산
 # 행렬 X의 길이와 벡터 y의 길이가 같은 경우
@@ -1898,9 +1920,9 @@ y <- c(1:4)
 X + y
 ```
 
-
-- 행렬-벡터 `%*%` 적용 시 벡터는 $n \times 1$ 행렬로 간주하고 행렬 곱 연산 수행(단 $\mathrm{\mathbf X}$와 벡터 $\mathrm{\mathbf y}$의 길이는 같아야 함).
-
+-   행렬-벡터 `%*%` 적용 시 벡터는 $n \times 1$ 행렬로 간주하고 행렬 곱
+    연산 수행(단 $\mathrm{\mathbf X}$와 벡터 $\mathrm{\mathbf y}$의
+    길이는 같아야 함).
 
 $$\mathrm{\mathbf{X}}_{4\times 3} = 
 \begin{bmatrix}
@@ -1911,7 +1933,6 @@ $$\mathrm{\mathbf{X}}_{4\times 3} =
 \end{bmatrix}, ~~~~~
 \mathrm{\mathbf y}_{3\times 1} = [7, 6, 8]^T
 $$
-
 
 $$\mathrm{\mathbf{X}}\mathrm{\mathbf{y}} = 
 \begin{bmatrix}
@@ -1931,8 +1952,7 @@ $$\mathrm{\mathbf{X}}\mathrm{\mathbf{y}} =
 49 \\
 63
 \end{bmatrix}
-$$ 
-
+$$
 
 ```{r comment=NA}
 x <- c(1, 1, 1, 1, 2, 1, 3, 4, 1, 1, 3, 4)
@@ -1941,12 +1961,13 @@ X <- matrix(x, nrow = 4, ncol = 3)
 X %*% y
 ```
 
-
 **행렬의 전치(transpose)**
 
-- 전치 행렬(transpose matrix)는 임의의 행렬의 행과 열을 서로 맞바꾼 행렬임 
-- 행렬 $\mathrm{\mathbf X}$의 전치 행렬은 $\mathrm{\mathbf X}^T$ 또는 $\mathrm{\mathbf X}'$ 으로 나타냄
-- 행렬 $\mathrm{\mathbf X}$가 다음과 같이 주어졌을 때 전치 행렬 결과
+-   전치 행렬(transpose matrix)는 임의의 행렬의 행과 열을 서로 맞바꾼
+    행렬임
+-   행렬 $\mathrm{\mathbf X}$의 전치 행렬은 $\mathrm{\mathbf X}^T$ 또는
+    $\mathrm{\mathbf X}'$ 으로 나타냄
+-   행렬 $\mathrm{\mathbf X}$가 다음과 같이 주어졌을 때 전치 행렬 결과
 
 $$\mathrm{\mathbf{X}} = \begin{bmatrix}
 1 & 2 & 3\\
@@ -1960,7 +1981,7 @@ $$\mathrm{\mathbf{X}} = \begin{bmatrix}
 \end{bmatrix} 
 $$
 
-- R에서 행렬을 전치시키는 함수는 `t()` 임
+-   R에서 행렬을 전치시키는 함수는 `t()` 임
 
 ```{r transpose-ex, comment=NA}
 # t(object_name): 전치행렬 반환
@@ -1974,13 +1995,11 @@ X <- matrix(x, nrow = 5)
 t(X) %*% X
 ```
 
-- 벡터-벡터 곱 연산(`%*%` 사용)
-
+-   벡터-벡터 곱 연산(`%*%` 사용)
 
 $$
 \mathrm{\mathbf x} = [1, 2, 3, 4]^T
 $$
-
 
 $$\mathrm{\mathbf x}\mathrm{\mathbf x}^T = 
 \begin{bmatrix}
@@ -2000,7 +2019,6 @@ $$\mathrm{\mathbf x}\mathrm{\mathbf x}^T =
 \end{bmatrix}
 $$
 
-
 $$\mathrm{\mathbf x}^T\mathrm{\mathbf x} = 
 \begin{bmatrix}
 1 & 2 & 3 & 4
@@ -2013,15 +2031,12 @@ $$\mathrm{\mathbf x}^T\mathrm{\mathbf x} =
 \end{bmatrix} = 1 + 4 + 9 + 16 = 30
 $$
 
-
 ```{r vec-vec-transpose, comment=NA}
 x <- 1:4
 x %*% t(x) # 행렬 반환
 t(x) %*% x # 스칼라 반환 x %*% x와 동일 결과 출력
 
 ```
-
-
 
 ```{block2, type="rmdtip"}
 **참고**: 전치행렬의 성질(통계수학 II 강의내용 참고)
@@ -2036,15 +2051,20 @@ t(x) %*% x # 스칼라 반환 x %*% x와 동일 결과 출력
 
 **역행렬(inverse matrix)**
 
-- 행렬의 나눗셈 형태
-- 행렬 $\mathrm{\mathbf{X}}$ 가 $n \times n$ 정방행렬(square matrix)일 때, 아래를 만족하는 행렬 $\mathrm{\mathbf{Y}}_{n \times n}$가 존재하면 $\mathrm{\mathbf{Y}}$를 $\mathrm{\mathbf{X}}$의 역행렬(inverse matrix)라고 하고 $\mathrm{\mathbf{X}}^{-1}$로 나타냄.
+-   행렬의 나눗셈 형태
+-   행렬 $\mathrm{\mathbf{X}}$ 가 $n \times n$ 정방행렬(square matrix)일
+    때, 아래를 만족하는 행렬 $\mathrm{\mathbf{Y}}_{n \times n}$가
+    존재하면 $\mathrm{\mathbf{Y}}$를 $\mathrm{\mathbf{X}}$의
+    역행렬(inverse matrix)라고 하고 $\mathrm{\mathbf{X}}^{-1}$로 나타냄.
 
 $$
  \mathrm{\mathbf{X}\mathbf{X}^{-1}} = \mathrm{\mathbf{X}^{-1}\mathbf{X}} = \mathrm{\mathbf{I}}_{n\times n}
 $$
 
-- 여기서 $\mathrm{\mathbf{I}}_{n\times n}$은 대각 원소가 1이고 나머지 원소는 0인 항등 행렬임
-- $2 \times 2$ 행렬의 역행렬은 아래와 같이 구함($3\times 3$ 이상 역행렬 구하는 방법은 **통계수학 II** 강의 참고)
+-   여기서 $\mathrm{\mathbf{I}}_{n\times n}$은 대각 원소가 1이고 나머지
+    원소는 0인 항등 행렬임
+-   $2 \times 2$ 행렬의 역행렬은 아래와 같이 구함($3\times 3$ 이상
+    역행렬 구하는 방법은 **통계수학 II** 강의 참고)
 
 $$\mathrm{\mathbf{X}} = 
  \begin{bmatrix}
@@ -2059,7 +2079,7 @@ $$\mathrm{\mathbf{X}} =
  \end{bmatrix}
 $$
 
-- R에서 정방 행렬의 역행렬은 `solve()` 함수를 사용해 구함
+-   R에서 정방 행렬의 역행렬은 `solve()` 함수를 사용해 구함
 
 ```{r inv-mat, comment=NA}
 # 2 by 2 행렬의 역행렬
@@ -2072,7 +2092,6 @@ X %*% solve(X)
 
 ```
 
-
 ```{block2, type="rmdtip"}
 **참고**: 역행렬의 성질(통계수학 II 강의내용 참고)
 
@@ -2084,28 +2103,35 @@ X %*% solve(X)
 
 ```
 
-
-
 **행렬식(determinant)**
 
-- 행렬의 성질을 대표할 수 있는 하나의 값으로 $n \times n$ 정방행렬(square matrix)에서 정의
-- 역행렬을 구할 때 임의의 행렬이 0, 즉 위 $2\times 2$ 행렬에서 $ad - bc$의 값이 0이라면 역행렬이 존재할 수 없는데 여기서 $ad - bc$가 $2\times 2$ 행렬의 정방행렬임
-- 임의의 정방행렬 $\mathrm{\mathbf X}$의 행렬식은 $|\mathrm{\mathbf X}|$ 또는 $\det(\mathrm{\mathbf{X}})$로 표시함
-- $2\times 2$ 행렬의 행렬식은 넓이, $3\times 3$ 이상인 정방 행렬에서는 부피의 개념으로 이해할 수 있음
-- 정방행렬 $\mathrm{\mathbf X}_{n\times n}=\{x_{ij}\}$가 주어졌을 때, $i$ 번째 행과 $j$ 번째 열을 제외한 나머지 $(n-1)\times (n-1)$ 정방행렬의 행렬식을 $|\mathrm{\mathbf{X}}_{ij}|$ 라고 하면 이를 $x_{ij}$의 소행렬식(minor)이라 부르고 $x_{ij}$의 여인수(co-factor) $\mathrm{\mathbf{C}}_{ij}$ 는 아래와 같이 정의됨
+-   행렬의 성질을 대표할 수 있는 하나의 값으로 $n \times n$
+    정방행렬(square matrix)에서 정의
+-   역행렬을 구할 때 임의의 행렬이 0, 즉 위 $2\times 2$ 행렬에서
+    $ad - bc$의 값이 0이라면 역행렬이 존재할 수 없는데 여기서
+    $ad - bc$가 $2\times 2$ 행렬의 정방행렬임
+-   임의의 정방행렬 $\mathrm{\mathbf X}$의 행렬식은
+    $|\mathrm{\mathbf X}|$ 또는 $\det(\mathrm{\mathbf{X}})$로 표시함
+-   $2\times 2$ 행렬의 행렬식은 넓이, $3\times 3$ 이상인 정방 행렬에서는
+    부피의 개념으로 이해할 수 있음
+-   정방행렬 $\mathrm{\mathbf X}_{n\times n}=\{x_{ij}\}$가 주어졌을 때,
+    $i$ 번째 행과 $j$ 번째 열을 제외한 나머지 $(n-1)\times (n-1)$
+    정방행렬의 행렬식을 $|\mathrm{\mathbf{X}}_{ij}|$ 라고 하면 이를
+    $x_{ij}$의 소행렬식(minor)이라 부르고 $x_{ij}$의 여인수(co-factor)
+    $\mathrm{\mathbf{C}}_{ij}$ 는 아래와 같이 정의됨
 
 $$
  c_{ij} = (-1)^{i+j}|\mathrm{\mathbf{X}}_{ij}|
 $$
 
-- 이때 $\mathrm{\mathbf X}_{n\times n}$ 행렬식은 임의의 $i$ 또는 $j$에 대해 아래의 식을 통해 구할 수 있음
+-   이때 $\mathrm{\mathbf X}_{n\times n}$ 행렬식은 임의의 $i$ 또는 $j$에
+    대해 아래의 식을 통해 구할 수 있음
 
 $$
  \det(\mathrm{\mathbf{X}}) = \sum_{i=1}^{n}x_{ij}c_{ij} = \sum_{j=1}^n x_{ij}c_{ij}
 $$
 
-- 행렬식 계산 예시
-
+-   행렬식 계산 예시
 
 $$\mathrm{\mathbf{X}} = 
 \begin{bmatrix}
@@ -2114,8 +2140,6 @@ $$\mathrm{\mathbf{X}} =
 0 & -2  &~~~0
 \end{bmatrix}
 $$
-
-
 
 $$\begin{aligned}
 \det(\mathrm{\mathbf{X}}) &= x_{11}\det(\mathrm{\mathbf{X}}_{11}) - x_{12}\det(\mathrm{\mathbf{X}}_{12}) + x_{13}\det(\mathrm{\mathbf{X}}_{13}) \\
@@ -2136,15 +2160,12 @@ $$\begin{aligned}
 \end{aligned}
 $$
 
-
-- R에서 임의 행렬의 행렬식은 `det()` 함수를 이용해 구함
-
+-   R에서 임의 행렬의 행렬식은 `det()` 함수를 이용해 구함
 
 ```{r det-example, comment=NA}
 X <- matrix(c(1, 2, 0, 5, 4, -2, 0, -1, 0), ncol = 3)
 det(X)
 ```
-
 
 ```{block2, type="rmdtip"}
 **참고**: 행렬식의 성질(통계수학 II 강의내용 참고)
@@ -2185,13 +2206,14 @@ $$
   
 ```
 
-
 ### 행렬의 색인 {#mat-index}
 
-- R의 행렬 객체 내 데이터 접근은 벡터와 유사하게 행과 열에 대응하는 색인 또는 이름으로 접근 가능
-- 행렬의 행과 열은 꺽쇠 `[]' 안에서 ,(콤마)로 구분
-- `X[idx_row, idx_col]`: 행렬 `X`의 `idx_row` 행, `idx_col`행에 저장된 값 반환(색인번호는 1부터 시작)
-- `idx_row`, `idx_col`을 지정하지 않으면 전체 행 또는 열을 선택
+-   R의 행렬 객체 내 데이터 접근은 벡터와 유사하게 행과 열에 대응하는
+    색인 또는 이름으로 접근 가능
+-   행렬의 행과 열은 꺽쇠 \`[]' 안에서 ,(콤마)로 구분
+-   `X[idx_row, idx_col]`: 행렬 `X`의 `idx_row` 행, `idx_col`행에 저장된
+    값 반환(색인번호는 1부터 시작)
+-   `idx_row`, `idx_col`을 지정하지 않으면 전체 행 또는 열을 선택
 
 ```{r mat-index, comment=NA}
 x <- 1:12
@@ -2212,12 +2234,14 @@ X[1:2, 3:4]
 
 ```
 
-- 행렬의 각 행과 열에 이름 부여 가능 $\rightarrow$ `matrix()` 함수 인수 중 `dimnames` 에 속성 부여와 동일
-- `dimnames()` 함수를 통해 각 행과 열의 이름 확인 및 부여 가능
-- `dimnames(object)[[i]], i = 1, 2` 를 통해 행(`i = 1`)과 열(`i = 2`) 이름 변경 및 부여 가능
-- 위와 유사한 기능을 하는 함수
-   - `rownames()`: 헹 이름 반환 및 부여
-   - `colnames()`: 열 이름 반환 및 부여
+-   행렬의 각 행과 열에 이름 부여 가능 $\rightarrow$ `matrix()` 함수
+    인수 중 `dimnames` 에 속성 부여와 동일
+-   `dimnames()` 함수를 통해 각 행과 열의 이름 확인 및 부여 가능
+-   `dimnames(object)[[i]], i = 1, 2` 를 통해 행(`i = 1`)과 열(`i = 2`)
+    이름 변경 및 부여 가능
+-   위와 유사한 기능을 하는 함수
+    -   `rownames()`: 헹 이름 반환 및 부여
+    -   `colnames()`: 열 이름 반환 및 부여
 
 ```{r mat-row-col-name, comment=NA}
 # matrix 함수 내에서 행렬 이름 동시 부여
@@ -2253,7 +2277,8 @@ X
 
 ```
 
-- 행과 열에 대한 이름이 존재한다면 벡터와 마찬가지로 이름으로 색인 가능
+-   행과 열에 대한 이름이 존재한다면 벡터와 마찬가지로 이름으로 색인
+    가능
 
 ```{r mat-name-index, comment=NA}
 X[c("apple", "orange"), c("emart")]
@@ -2263,8 +2288,7 @@ X[, colnames(X)[-2]]
 
 ```
 
-
-- 색인한 행렬 원소에 다른 값 할당
+-   색인한 행렬 원소에 다른 값 할당
 
 ```{r mat-idx-assign, comment=NA}
 y <- c(1:12); Y <- matrix(y, ncol = 3)
@@ -2282,7 +2306,7 @@ X
 
 ```
 
-- 행렬 필터링 $\rightarrow$ 색인 대신 조건 사용(벡터와 동일)
+-   행렬 필터링 $\rightarrow$ 색인 대신 조건 사용(벡터와 동일)
 
 ```{r mat-filtering, comment=NA}
 X = matrix(c(1,2,4,3,2,3,5,6), nrow = 4, ncol = 2)
@@ -2295,11 +2319,12 @@ idx <- X[, 1] <= 3; idx
 X[idx, ]
 ```
 
-
 ### 행과 열 추가 및 제거
 
-- 행렬 재할당(re-assignment)를 통해 열이나 행을 직접 추가하거나 삭제 가능
-- `cbind()` (열 붙이기, column bind), `rbind()` (행 붙이기, row bind) 함수 사용
+-   행렬 재할당(re-assignment)를 통해 열이나 행을 직접 추가하거나 삭제
+    가능
+-   `cbind()` (열 붙이기, column bind), `rbind()` (행 붙이기, row bind)
+    함수 사용
 
 ```{r binding, comment=NA}
 j <- rep(1, 4)
@@ -2317,7 +2342,7 @@ Z <- rbind(Z, 2)
 
 ```
 
-- 행 또는 열의 제거는 벡터에서와 마찬가지로 색인 앞에 `-` 사용
+-   행 또는 열의 제거는 벡터에서와 마찬가지로 색인 앞에 `-` 사용
 
 ```{r mat-element-delete, comment=NA}
 # 첫 번째 행 제거
@@ -2327,21 +2352,20 @@ Z[-1, ]
 Z[-c(1, 5), -3]
 ```
 
-
 ```{block2, type="rmdnote"}
 `cbind()` 또는 `rbind()` 함수는 다음 주에 배울 데이터 프레임에도 적용 가능하다.
 ```
 
-
 ### 행렬 관련 함수
 
-
-- `diag()`: 대각행렬 생성 또는 대각원소(diagonal elements) 추출
-- 대각행렬: 주 대각선을 제외한 모든 원소가 0인 $n\times n$ 정방행렬로 다음과 같이 정의
+-   `diag()`: 대각행렬 생성 또는 대각원소(diagonal elements) 추출
+-   대각행렬: 주 대각선을 제외한 모든 원소가 0인 $n\times n$ 정방행렬로
+    다음과 같이 정의
 
 $$
  \mathrm{\mathbf{D}} = \{d_{ij}\},~~~~i, j \in \{1, 2, \ldots, n\},~~~~\forall~ i \neq j \rightarrow d_{ij} = 0
 $$
+
 ```{r diag-mat, comment=NA}
 D <- diag(c(1:5), 5)
 D
@@ -2362,8 +2386,8 @@ R은 앞서 언급한 바와 같이 객체지향언어(object oriented program, 
 
 ```
 
-
-- `dim(object_name)`: 행렬 또는 데이터 프레임의 행과 열의 개수(차원)를 반환
+-   `dim(object_name)`: 행렬 또는 데이터 프레임의 행과 열의 개수(차원)를
+    반환
 
 ```{r dim-ex, comment=NA}
 # dim(): 객체의 차원(dimension)을 반환
@@ -2371,21 +2395,20 @@ Z
 dim(Z)
 ```
 
-- `nrow()` 또는 `NROW()`: 행렬의 행 길이 반환
-- `ncol()` 또는 `NCOL()`: 행렬의 행 길이 반환
+-   `nrow()` 또는 `NROW()`: 행렬의 행 길이 반환
+-   `ncol()` 또는 `NCOL()`: 행렬의 행 길이 반환
 
 ```{r ncol-row-ex, comment=NA}
 nrow(Z); ncol(Z)
 ```
 
-
 > `nrow()/ncol()`과 `NROW()/NCOL()`의 차이점
-> 
-> - `nrow()/ncol()`은 행렬 또는 데이터 프레임에 적용되며 벡터가 인수로 사용될 때 `NULL` 값을 반환하는데 비해 `NROW()/NCOL()`은 벡터의 길이도 반환 가능
+>
+> -   `nrow()/ncol()`은 행렬 또는 데이터 프레임에 적용되며 벡터가 인수로
+>     사용될 때 `NULL` 값을 반환하는데 비해 `NROW()/NCOL()`은 벡터의
+>     길이도 반환 가능
 
-
-
-- `attributes()`: 객체가 갖는 속성을 반환함
+-   `attributes()`: 객체가 갖는 속성을 반환함
 
 ```{r attribute-ex-1, comment=NA}
 x <- 1:9; X <- matrix(x, ncol = 3)
@@ -2394,8 +2417,7 @@ attributes(x)
 attributes(X)
 ```
 
-
-- `class()`: 객체의 클래스 명칭 반환 및 클래스 부여
+-   `class()`: 객체의 클래스 명칭 반환 및 클래스 부여
 
 ```{r attribute-ex-2, comment=NA}
 # 객체의 class 확인
@@ -2404,7 +2426,7 @@ class(x); class(X)
 class(x) <- "this is a vector"
 ```
 
-- `str()`: 객체가 갖고 있는 데이터의 구조 확인
+-   `str()`: 객체가 갖고 있는 데이터의 구조 확인
 
 ```{r attribute-ex-3, comment=NA }
 # 객체의 구조 파악
@@ -2419,8 +2441,8 @@ class(x); class(X)
 str(x); str(X)
 ```
 
-
-- `attr(object, "attribute_name")`: 객체가 갖고 있는 속성을 지정해서 확인
+-   `attr(object, "attribute_name")`: 객체가 갖고 있는 속성을 지정해서
+    확인
 
 ```{r attributes-ex-4, comments=NA}
 # 객체 속성 요소 확인
@@ -2428,10 +2450,10 @@ attr(x, "names")
 attr(X, "dimnames")
 ```
 
-
 ### 벡터와 행렬의 차이점 {#vec-mat-diff}
 
-- 행렬은 개념적으로 $n \times 1$ 벡터가 2 개 이상 묶어져서 행과 열의 속성을 갖지만 기본적으로는 벡터
+-   행렬은 개념적으로 $n \times 1$ 벡터가 2 개 이상 묶어져서 행과 열의
+    속성을 갖지만 기본적으로는 벡터
 
 ```{r vec-mat-ex1, comment=NA}
 z <- 1:8
@@ -2439,8 +2461,7 @@ U <- matrix(z, 4, 2)
 length(z) # 입력 벡터 원소의 길이가 8
 ```
 
-- R에서 `U`가 행렬임을 나타내기 위해 추가적인 속성(attribute)를 부여
-
+-   R에서 `U`가 행렬임을 나타내기 위해 추가적인 속성(attribute)를 부여
 
 ```{r vec-mat-ex2, comment=NA}
 class(z) # 벡터
@@ -2450,10 +2471,9 @@ class(U) # 행렬
 attributes(U)
 ```
 
-
 ### 의도치 않은 차원축소 피하기 {#mat-dim-reduc-sway}
 
-- 다음 행렬에서 한 행을 추출
+-   다음 행렬에서 한 행을 추출
 
 ```{r}
 Z <- matrix(c(1:8), 4, 2)
@@ -2466,14 +2486,15 @@ attributes(z) # 차원이 존재하지 않음
 
 ```
 
-- 차원축소를 방지하는 방법 $\rightarrow$ `r`을 벡터가 아닌 $1 \times 2$ 행렬로 인식
+-   차원축소를 방지하는 방법 $\rightarrow$ `r`을 벡터가 아닌
+    $1 \times 2$ 행렬로 인식
 
 ```{r}
 z <- Z[2, , drop = FALSE]
 attributes(z)
 ```
 
-- `as.matrix()`를 이용한 직접 변환
+-   `as.matrix()`를 이용한 직접 변환
 
 ```{r}
 z <- as.matrix(Z[2, ])
@@ -2481,21 +2502,22 @@ class(z)
 z # 행렬이 변환됨을 유의
 ```
 
-
-
 ## 배열(array) {#array}
 
-
-- 통계학의 관점에서 R의 행렬의 행은 조사 대상이 되는 사람, 동물 등 관측 대상에 해당하고, 열은 대상의 특성을 표현하는 변수(예: 몸무게, 키, 혈압 등)에 해당 $\rightarrow$ 2차원 구조
-- 위와 같은 데이터를 년 단위로 수집한다면? $\rightarrow$ 한 대상자에 해당하는 변수들은 시간에 따라 변함 $\rightarrow$ 시간 차원이 하나 더 존재!
-- R에서 이러한 형태의 데이터 구조를 배열(array)이라고 지칭함
-
+-   통계학의 관점에서 R의 행렬의 행은 조사 대상이 되는 사람, 동물 등
+    관측 대상에 해당하고, 열은 대상의 특성을 표현하는 변수(예: 몸무게,
+    키, 혈압 등)에 해당 $\rightarrow$ 2차원 구조
+-   위와 같은 데이터를 년 단위로 수집한다면? $\rightarrow$ 한 대상자에
+    해당하는 변수들은 시간에 따라 변함 $\rightarrow$ 시간 차원이 하나 더
+    존재!
+-   R에서 이러한 형태의 데이터 구조를 배열(array)이라고 지칭함
 
 ### 배열의 생성 및 색인 {#make-array}
 
-- 동일한 유형의 데이터가 2차원 이상으로 구성된 데이터 구조
-- 동일한 차원($n\times p$)의 배열(행렬)이 $k$ 개 방에 저장된 데이터 구조
-- 배열 생성 함수
+-   동일한 유형의 데이터가 2차원 이상으로 구성된 데이터 구조
+-   동일한 차원($n\times p$)의 배열(행렬)이 $k$ 개 방에 저장된 데이터
+    구조
+-   배열 생성 함수
 
 ```{r, eval=FALSE}
 # array() 함수 인수 구조
@@ -2505,7 +2527,8 @@ array(data, # 저장할 데이터 벡터 또는 행렬
       )
 ```
 
-- 통계학과 3명의 학생에 대한 중간고사 기준 한 번의 퀴즈와 중간고사 점수, 그리고 기말고사 기준 한 번의 퀴즈와 기말고사 점수 데이터 가정
+-   통계학과 3명의 학생에 대한 중간고사 기준 한 번의 퀴즈와 중간고사
+    점수, 그리고 기말고사 기준 한 번의 퀴즈와 기말고사 점수 데이터 가정
 
 ```{r}
 x <- c(75, 84, 93, 65, 78, 92)
@@ -2532,7 +2555,7 @@ class(Z)
 str(Z)
 ```
 
-- 배열 내 데이터 접근은 색인을 통해 가능(벡터 행렬과 동일)
+-   배열 내 데이터 접근은 색인을 통해 가능(벡터 행렬과 동일)
 
 ```{r array-index, comment=NA}
 # 첫 번째 층만 추출
@@ -2542,18 +2565,24 @@ Z[, , 1]
 Z[2:3, , 2]
 ```
 
-
 ### 배열의 확장 예제 {#rray-extend-example}
 
-> [데이터 사이언스 스쿨](https://datascienceschool.net/view-notebook/9af8d8e93c084bc49f0ac2bb8a20e2a4/) 참고
+> [데이터 사이언스
+> 스쿨](https://datascienceschool.net/view-notebook/9af8d8e93c084bc49f0ac2bb8a20e2a4/)
+> 참고
 
-- 배열 구조를 갖는 가장 대표적인 데이터 중 하나가 이미지(사진)
-- 이미지 데이터는 픽셀(pixel) 이라는 세분화된 작은 이미지를 직사각형 형태로 모은 형태 
-- 전체 이미지는 세로픽셀수 $\times$ 가로픽셀수 로 표현됨 $\rightarrow$ **행렬**
-- 픽셀의 색을 숫자로 표현하는 방식을 색공간(color space)라고 명칭
-- 대표적 색공간은 흑백스케일(grey scale), RGB (Red-Green-Blue), HSV(Hue-Saturation-Value) 방식
-- RGB 색공간을 사용한 경우 각 색공간별로 동일한 크기의 행렬이 3개 층으로 저장된 상태 $\rightarrow$ **배열**
-- RGB는 0 ~ 255 까지 값을 갖고 빨강색 (255, 0, 0), 녹색 (0, 255, 0), 파란색은 (0, 0, 255)임
+-   배열 구조를 갖는 가장 대표적인 데이터 중 하나가 이미지(사진)
+-   이미지 데이터는 픽셀(pixel) 이라는 세분화된 작은 이미지를 직사각형
+    형태로 모은 형태
+-   전체 이미지는 세로픽셀수 $\times$ 가로픽셀수 로 표현됨 $\rightarrow$
+    **행렬**
+-   픽셀의 색을 숫자로 표현하는 방식을 색공간(color space)라고 명칭
+-   대표적 색공간은 흑백스케일(grey scale), RGB (Red-Green-Blue),
+    HSV(Hue-Saturation-Value) 방식
+-   RGB 색공간을 사용한 경우 각 색공간별로 동일한 크기의 행렬이 3개
+    층으로 저장된 상태 $\rightarrow$ **배열**
+-   RGB는 0 \~ 255 까지 값을 갖고 빨강색 (255, 0, 0), 녹색 (0, 255, 0),
+    파란색은 (0, 0, 255)임
 
 <br/>
 
@@ -2572,15 +2601,14 @@ knitr::include_graphics('figures/Pixel.jpg', dpi = NA)
 
 ```
 
-
-1. 이미지 입출력 패키지 installation 
+1.  이미지 입출력 패키지 installation
 
 ```{r ex-step1, eval=FALSE}
 install.packages("jpeg") # jpeg 파일 입출력 관련 package
 install.packages("cowplot") # ggplot add-on package
 ```
 
-2. 관련 패키지 불러오기
+2.  관련 패키지 불러오기
 
 ```{r ex-step2, comment=NA, echo=TRUE, message=FALSE}
 require(tidyverse)
@@ -2588,7 +2616,7 @@ require(jpeg)
 require(cowplot)
 ```
 
-3. 이미지 불러오기
+3.  이미지 불러오기
 
 ```{r ex-step3, comment=NA}
 # URL을 주소로 직접 그림 읽어오기
@@ -2603,7 +2631,7 @@ pic <- readJPEG(img)
 
 ```
 
-4. 이미지 그래프 출력창에서 확인
+4.  이미지 그래프 출력창에서 확인
 
 ```{r ex-step4, comment=NA, fig.align='center', echo=FALSE, fig.show='hold', out.width='90%'}
 ggdraw() +
@@ -2611,7 +2639,7 @@ ggdraw() +
 
 ```
 
-5. 이미지 임의 부분 편집하기
+5.  이미지 임의 부분 편집하기
 
 ```{r}
 pic[300:460, 440:520, 1] <- 0.5
@@ -2622,7 +2650,7 @@ ggdraw() +
   draw_image(pic)
 ```
 
-6. RGB값을 무작위로 샘플링 후 매개변수로 노이즈 가중치 조절해 보기
+6.  RGB값을 무작위로 샘플링 후 매개변수로 노이즈 가중치 조절해 보기
 
 ```{r}
 # pic <- readJPEG(z)
@@ -2647,26 +2675,28 @@ ggdraw() +
 
 ```
 
-
 ## 요인(factor)과 테이블(table) {#factor-table}
 
-- 요인(factor) 데이터 타입은 통계학에서 범주형 변수(categorical variable)을 표현하기 위한 R의 데이터 타입으로 범주형 자료는 크게 명목형(nominal)과 순서형(ordinal) 으로 구분
-- 테이블(table) 객체는 factor 객체에 대한 빈도를 나타내기 위해 사용
+-   요인(factor) 데이터 타입은 통계학에서 범주형 변수(categorical
+    variable)을 표현하기 위한 R의 데이터 타입으로 범주형 자료는 크게
+    명목형(nominal)과 순서형(ordinal) 으로 구분
+-   테이블(table) 객체는 factor 객체에 대한 빈도를 나타내기 위해 사용
 
 **범주형 자료**
 
-- 데이터가 사전에 정해진 특정 유형으로만 분류되는 경우: 성별, 인종, 혈액형 등
-- 범주형 자료는 명목형과 순서형으로 구분 가능
-- 순서형 자료 예: 성적, 교육수준, 선호도, 중증도 등 
-
+-   데이터가 사전에 정해진 특정 유형으로만 분류되는 경우: 성별, 인종,
+    혈액형 등
+-   범주형 자료는 명목형과 순서형으로 구분 가능
+-   순서형 자료 예: 성적, 교육수준, 선호도, 중증도 등
 
 ### 요인(factor) {#factor}
 
-- 범주형 자료를 표현하기 위한 R의 객체 클래스
-- Factor는 정수형 벡터를 기반으로 levels (수준) 이라는 속성이 추가된 객체임
-- 숫자 또는 문자로 표현 되었다 하더라도 범주형으로 이해
-- Factor는 level에 해당하는 값만 가질 수 있는 벡터로 간주
-- Factor 생성 함수
+-   범주형 자료를 표현하기 위한 R의 객체 클래스
+-   Factor는 정수형 벡터를 기반으로 levels (수준) 이라는 속성이 추가된
+    객체임
+-   숫자 또는 문자로 표현 되었다 하더라도 범주형으로 이해
+-   Factor는 level에 해당하는 값만 가질 수 있는 벡터로 간주
+-   Factor 생성 함수
 
 ```{r, eval=FALSE}
 # factor 정의 함수
@@ -2678,8 +2708,9 @@ factor(data, # factor로 표현하고자 하는 값. 주로 문자형
        )
 ```
 
-- 수치형을 factor로 만들어도 처음 입력 값은 문자형으로 변하고 level 값으로 치환
-- 대신 (1, 2, 3)이 중심값이 됨 $\rightarrow$ 정수형 벡터임
+-   수치형을 factor로 만들어도 처음 입력 값은 문자형으로 변하고 level
+    값으로 치환
+-   대신 (1, 2, 3)이 중심값이 됨 $\rightarrow$ 정수형 벡터임
 
 ```{r factor-ex1, comment=NA}
 score <- rep(c(4:6), each = 4)
@@ -2698,13 +2729,13 @@ levels(fscore)
 nlevels(fscore)
 ```
 
-- Factor를 벡터 결합 함수 `c()`로 결합
+-   Factor를 벡터 결합 함수 `c()`로 결합
 
 ```{r factor-ex2, comment=NA}
 c(fscore, factor(4)) # 강제로 정수형 벡터로 변환
 ```
 
-- Factor의 범주 수준(level) 및 범주명(label) 지정
+-   Factor의 범주 수준(level) 및 범주명(label) 지정
 
 ```{r factor-ex3, comment=NA}
 x <- rep(c(1:2), each = 4)
@@ -2727,7 +2758,7 @@ severity[1] <- "Good"
 severity
 ```
 
-- 순서형 factor 생성
+-   순서형 factor 생성
 
 ```{r factor-ex4}
 severity <- factor(rep(1:3, times = 3), levels = 1:3, 
@@ -2742,8 +2773,9 @@ is.ordered(severity) # 순서형 범주 체크
 
 **`tapply()` 함수**
 
-- 특정 요인 수준의 고유한 조합으로 각 그룹에 속한 값에 특정 함수를 적용한 결과를 반환
-- 일반적인 함수 사용 형태는 아래와 같음
+-   특정 요인 수준의 고유한 조합으로 각 그룹에 속한 값에 특정 함수를
+    적용한 결과를 반환
+-   일반적인 함수 사용 형태는 아래와 같음
 
 ```{r, eval=FALSE}
 # tapply() 함수 사용 인수
@@ -2754,7 +2786,7 @@ tapply(
 )
 ```
 
-- 예시: 2020년 4월 15일 총선의 연령별 지지율
+-   예시: 2020년 4월 15일 총선의 연령별 지지율
 
 ```{r factor-tapply-ex1}
 # 문자열을 INDEX의 인수로 받은 경우
@@ -2775,7 +2807,8 @@ tapply(x, f, mean)
 
 ```
 
-- Factor가 2개 이상인 경우 두 factor 객체의 수준의 조합(AND 조건)에 따른 그룹을 만든 후 그룹별 함수 적용
+-   Factor가 2개 이상인 경우 두 factor 객체의 수준의 조합(AND 조건)에
+    따른 그룹을 만든 후 그룹별 함수 적용
 
 ```{r}
 s <- rep(c("M","F"), each = 6)
@@ -2797,18 +2830,16 @@ tapply(income, list(sex = s, age = age), mean)
 
 ```
 
-
-
 ```{block2, type="rmdnote"}
 R에서 가장 많이 활용되는 함수 계열 중 하나로 `*apply()`를 들 수 있다. 벡터, 행렬 등과 같은 R 객체에  `for loop` 대신 반복적으로 동일한 함수를 적용할 때 활용된다. `*apply()` 계열 함수에 대해서는 데이터 프레임 에서 더 상세하게 배울 것임
 
 ```
 
-
 ##### `split()` 함수 {#split .unnumbered}
 
-- `tapply()`는 주어진 요인의 수준에 따라 특정 함수를 적용하지만, `split()`은 데이터를 요인의 수준(그룹) 별로 데이터를 나누어 리스트 형태로 반환
-
+-   `tapply()`는 주어진 요인의 수준에 따라 특정 함수를 적용하지만,
+    `split()`은 데이터를 요인의 수준(그룹) 별로 데이터를 나누어 리스트
+    형태로 반환
 
 ```{r, eval=FALSE}
 # split() 함수 사용 인수
@@ -2818,7 +2849,7 @@ split(
 )
 ```
 
-- `split()` 함수 사용 예시 
+-   `split()` 함수 사용 예시
 
 ```{r split-ex-fac}
 # 성별의 수준 남녀 별 소득 수준 분리
@@ -2841,16 +2872,16 @@ split(1:length(g), g)
 
 ```
 
-
 ### 테이블(table) {#table}
 
-- 범주형 변수의 빈도 또는 분할표(교차표)를 표현하기 위한 객체(클래스)
-- 범주 별 통계량(평균, 표준편차, 중위수, ...) 요약
-
+-   범주형 변수의 빈도 또는 분할표(교차표)를 표현하기 위한 객체(클래스)
+-   범주 별 통계량(평균, 표준편차, 중위수, ...) 요약
 
 **`tapply()`** 함수를 이용한 테이블 만들기
 
-- 길이가 12인 임의의 벡터 `u`를 수준의 개수가 각각 3, 2인 factor의 조합으로 부분벡터로 분리 후 `length()` 적용 $\rightarrow$ `tapply()` 함수 사용
+-   길이가 12인 임의의 벡터 `u`를 수준의 개수가 각각 3, 2인 factor의
+    조합으로 부분벡터로 분리 후 `length()` 적용 $\rightarrow$ `tapply()`
+    함수 사용
 
 ```{r}
 u <- runif(12)
@@ -2862,11 +2893,14 @@ tapply(u, list(f1, f2), length)
 
 ```
 
-- `u`의 값과 상관 없이 두 factor 형 변수 `f1`과 `f2`의 조합에 따른 개수 반환 $\rightarrow$ 분할표(contingency table)
-- 위 예시에서 `f1`이 "4" 이고 `f2`가 "b" 인 경우는 없기 때문에 0 값이 있어야 하나, `tapply()` 함수 적용 시 결측값 `NA`를 반환
-- `table()`: 하나 이상의 factor의 수준 또는 수준의 조합으로 분할표 생성
-- Factor가 3개 이상인 경우 배열로 다차원 분할표 표현
- 
+-   `u`의 값과 상관 없이 두 factor 형 변수 `f1`과 `f2`의 조합에 따른
+    개수 반환 $\rightarrow$ 분할표(contingency table)
+-   위 예시에서 `f1`이 "4" 이고 `f2`가 "b" 인 경우는 없기 때문에 0 값이
+    있어야 하나, `tapply()` 함수 적용 시 결측값 `NA`를 반환
+-   `table()`: 하나 이상의 factor의 수준 또는 수준의 조합으로 분할표
+    생성
+-   Factor가 3개 이상인 경우 배열로 다차원 분할표 표현
+
 ```{r table-ex}
 # table() 적용 예시
 t1 <- table(f1, f2)
@@ -2885,12 +2919,12 @@ table(gender, grade, year)
 
 ```
 
-
 #### 테이블 관련 함수 {#tab-related-fun .unnumbered}
 
 ##### `tabulate()` 함수 {#tab-fun1 .unnumbered}
 
-- 정수로 이루어진 벡터에 각 정수 값이 발생한 횟수를 카운팅한 결과를 반환 $\rightarrow$ `table()` 함수의 핵심 함수
+-   정수로 이루어진 벡터에 각 정수 값이 발생한 횟수를 카운팅한 결과를
+    반환 $\rightarrow$ `table()` 함수의 핵심 함수
 
 ```{r tabulate, eval=FALSE}
 # tabulate() 함수 사용 인수(argument)
@@ -2901,7 +2935,7 @@ tabulate(
 
 ```
 
-- `tabulate()` 함수 예시 
+-   `tabulate()` 함수 예시
 
 ```{r tabulate-ex}
 x <- c(2, 2, 2, 1, 3, 4, 5, 5, 10, 8, 8)
@@ -2911,7 +2945,8 @@ tabulate(x, nbins = 3)
 
 ##### `addmargins()` 함수 {#tab-fun2 .unnumbered}
 
-- 테이블 객체(분할표)를 인수로 받아 각 요인의 수준 및 수준 조합 별 합계 값을 테이블과 동시 반환
+-   테이블 객체(분할표)를 인수로 받아 각 요인의 수준 및 수준 조합 별
+    합계 값을 테이블과 동시 반환
 
 ```{r addmargins, eval=FALSE}
 # addmargins() 함수 사용 인수
@@ -2920,7 +2955,7 @@ addmargins(
 )
 ```
 
-- `addmargins()` 예시
+-   `addmargins()` 예시
 
 ```{r}
 t1 <- table(f1, f2)
@@ -2932,12 +2967,10 @@ is.table(t2); is.array(t2)
 addmargins(t2)
 ```
 
-
 ##### `ftable()` 함수 {#tab-fun3 .unnumbered}
 
-- "평평한(flat)" 교차표 생성
-- 다차원 교차표 작성 시 행변수와 열변수 교환을 통해 재사용 가능
-
+-   "평평한(flat)" 교차표 생성
+-   다차원 교차표 작성 시 행변수와 열변수 교환을 통해 재사용 가능
 
 ```{r ftable, eval=FALSE}
 ftable(
@@ -2947,7 +2980,7 @@ ftable(
 )
 ```
 
-- `ftable()` 함수 사용 예시
+-   `ftable()` 함수 사용 예시
 
 ```{r ftable-ex}
 t3 <- ftable(t2)
@@ -2962,12 +2995,10 @@ t5 <- ftable(t2, col.vars = 1)
 t5
 ```
 
+##### `margin.table()` 함수 {#table-fun4 .unnumbered}
 
-##### `margin.table()` 함수 {#table-fun4 .unnumbered} 
-
-
-- 배열 형식으로 지정된 교차표(`table()` 반환 결과)에서 지정된 차원 색인에 대한 표 합계 계산 결과 반환
-
+-   배열 형식으로 지정된 교차표(`table()` 반환 결과)에서 지정된 차원
+    색인에 대한 표 합계 계산 결과 반환
 
 ```{r margin.table, eval=FALSE}
 margin.table(
@@ -2976,7 +3007,7 @@ margin.table(
 )
 ```
 
-- `margin.table()` 예시
+-   `margin.table()` 예시
 
 ```{r margin-table-ex}
 t2
@@ -2986,10 +3017,10 @@ margin.table(t2, 3) # 3 차원(배열 방 번호): 학년
 
 ```
 
-##### `prop.table()` 함수 {#table-fun5 .unnumbered} 
+##### `prop.table()` 함수 {#table-fun5 .unnumbered}
 
-- `table` 객체 빈도에 대한 비율 계산
-- 전체, 차원 단위 비율 계산 가능
+-   `table` 객체 빈도에 대한 비율 계산
+-   전체, 차원 단위 비율 계산 가능
 
 ```{r prop.table, eval=FALSE}
 prop.table(
@@ -2998,11 +3029,12 @@ prop.table(
 )
 ```
 
-- `prop.table()` 예시
-   - `margin = NULL`: 각 셀을 전체 cell의 합으로 나눈 비율
-   - `margin = 1`: 각 행 별 셀에 대해 각 행에 해당하는 cell 합으로 나눈 비율 $(n_{ij}/n_{i.})$, $n_{i.} = \sum_{j=1}^{J} n_{ij}$
-   - `margin = 2`: 각 열 별 셀에 대해 각 열에 해당하는 cell 합으로 나눈 비율 $(n_{ij}/n_{.j})$, $n_{.j} = \sum_{i=1}^{I} n_{ij}$
-
+-   `prop.table()` 예시
+    -   `margin = NULL`: 각 셀을 전체 cell의 합으로 나눈 비율
+    -   `margin = 1`: 각 행 별 셀에 대해 각 행에 해당하는 cell 합으로
+        나눈 비율 $(n_{ij}/n_{i.})$, $n_{i.} = \sum_{j=1}^{J} n_{ij}$
+    -   `margin = 2`: 각 열 별 셀에 대해 각 열에 해당하는 cell 합으로
+        나눈 비율 $(n_{ij}/n_{.j})$, $n_{.j} = \sum_{i=1}^{I} n_{ij}$
 
 ```{r prop-table-ex}
 # 2차원 교차표
@@ -3011,16 +3043,13 @@ prop.table(t1, 1) # margin = 1 (row)
 prop.table(t1, 2) # margin = 2 (column)
 ```
 
-
-
 ## 데이터 프레임(data frame) {#data-frame}
 
 ```{block2, type="rmdnote"}
 **학습목표(4 주차)**: 데이터 프레임 클래스에 대해 알아보고, 데이터 프레임을 생성, 병합(merge), 연산에 대한 함수들에 대해 알아본다.
 ```
 
-
-- Excel 스프레드시트와 같은 형태
+-   Excel 스프레드시트와 같은 형태
 
 ```{r, echo = F}
 `이름` <- c("김어준", "주진우", "김용민", "정봉주")
@@ -3033,18 +3062,18 @@ kable(tab,
 
 ```
 
-
-- 데이터 프레임은 데이터 유형에 상관없이 2차원 형태의 데이터 구조
-- 행렬과 리스트를 혼합한 자료 형태 $\rightarrow$ 동일한 길이의 벡터로 이루어진 리스트를 구성요소로 갖는 리스트
-- 행렬과 유사한 구조를 갖고 있지만 각기 다른 유형의 자료형태로 자료행렬을 구성할 수 있다는 점에서 행렬과 차이를 갖음
-- 행렬과 마찬가지로 변수(열)의 길이(행의 개수)는 모두 동일해야 함
-- R에서 가장 빈번하게 활용되고 있는 데이터 클래스임
-- 데이터 프레임의 각 열(컬럼)은 벡터로 간주
-
+-   데이터 프레임은 데이터 유형에 상관없이 2차원 형태의 데이터 구조
+-   행렬과 리스트를 혼합한 자료 형태 $\rightarrow$ 동일한 길이의 벡터로
+    이루어진 리스트를 구성요소로 갖는 리스트
+-   행렬과 유사한 구조를 갖고 있지만 각기 다른 유형의 자료형태로
+    자료행렬을 구성할 수 있다는 점에서 행렬과 차이를 갖음
+-   행렬과 마찬가지로 변수(열)의 길이(행의 개수)는 모두 동일해야 함
+-   R에서 가장 빈번하게 활용되고 있는 데이터 클래스임
+-   데이터 프레임의 각 열(컬럼)은 벡터로 간주
 
 ### 데이터 프레임 생성 {#create-data-frame}
 
-- 데이터 프레임 생성 함수: `data.frame()`
+-   데이터 프레임 생성 함수: `data.frame()`
 
 ```{r eval=FALSE}
 data.frame(
@@ -3058,7 +3087,7 @@ data.frame(
 )
 ```
 
-- 데이터 프레임 생성 예시: 모 병원에서 얻은 환자의 인구학적 정보
+-   데이터 프레임 생성 예시: 모 병원에서 얻은 환자의 인구학적 정보
 
 ```{r create-data-frame}
 id <- c(1:10)
@@ -3089,11 +3118,13 @@ summary(df)
 
 ```
 
-- 이미 정의된 데이터 프레임에 데이터를 추가 가능
-   - 예를 들어 `dbp`라는 벡터에 이완기 혈압(diastolic blood pressure) 데이터가 입력되어 있고  `df`에  `dbp` 변수를 새롭게 추가 시 `df$dbp <- x` 형태로 추가
-   - 위 형태로 이미 존재하고 있는 변수(열)에 새로운 값 재할당 가능
-   - 이러한 형태로 문자형 벡터 추가 시 문자형 벡터는 자동으로 factor로 형 변환 되지는 않음
-
+-   이미 정의된 데이터 프레임에 데이터를 추가 가능
+    -   예를 들어 `dbp`라는 벡터에 이완기 혈압(diastolic blood pressure)
+        데이터가 입력되어 있고 `df`에 `dbp` 변수를 새롭게 추가 시
+        `df$dbp <- x` 형태로 추가
+    -   위 형태로 이미 존재하고 있는 변수(열)에 새로운 값 재할당 가능
+    -   이러한 형태로 문자형 벡터 추가 시 문자형 벡터는 자동으로
+        factor로 형 변환 되지는 않음
 
 ```{r}
 x <- 1:nrow(df)
@@ -3115,7 +3146,8 @@ str(df)
 
 ```
 
-- 행렬 및 벡터에서 언급 되었던 `rownames()`, `colnames()`, `names()`, `dim()`, `ncol()/NCOL()`,`nrow()/NROW()` 함수 적용 가능
+-   행렬 및 벡터에서 언급 되었던 `rownames()`, `colnames()`, `names()`,
+    `dim()`, `ncol()/NCOL()`,`nrow()/NROW()` 함수 적용 가능
 
 ```{r fun-ex}
 rownames(df); colnames(df); names(df)
@@ -3158,14 +3190,11 @@ output:
 ---
 ```
 
-
 ### 데이터 프레임 접근 및 필터링 {#data-frame-get}
-
 
 #### 접근방법 {#data-frame-index .unnumbered}
 
-
-- 리스트 데이터 접근 방식
+-   리스트 데이터 접근 방식
 
 ```{r df-idx-ex-1}
 # 추출(접근) 연산자(함수) `df$col_name` 형태로 접근
@@ -3183,7 +3212,7 @@ h <- df["height"]
 attributes(h); str(h)
 ```
 
-- 행렬 데이터 접근 방식
+-   행렬 데이터 접근 방식
 
 ```{r df-idx-ex-2}
 # df[idx_row, idx_col] 또는 df[row_name, col_name] 
@@ -3214,11 +3243,10 @@ df[-c(2:6), ]
 df[-c(1, 5:7), -c(1, 8)]
 ```
 
-
-
 #### 필터링 {#data-frame-filtering .unnumbered}
 
-- 벡터, 행렬과 마찬가지로 비교 연산자를 이용해 조건에 맞는 부분 데이터 추출 가능
+-   벡터, 행렬과 마찬가지로 비교 연산자를 이용해 조건에 맞는 부분 데이터
+    추출 가능
 
 ```{r condition-df-ex}
 # %in% 연산자를 이용해 데이터 프레임의 부분 변수 추출
@@ -3245,14 +3273,13 @@ subset(df, select = -c(id))
 
 ```
 
-
 ```{block2, type="rmdnote"}
 데이터 프레임 또는 리스트 접근 시 `df$col_name` 를 사용한다면 매번 데이터 프레임 이름과 `$`을 반복하기 때문에 코드가 불필요하게 복잡해짐. R에서는 데이터 프레임 내부의 열 이름을 직접 접근할 수 있도록 도와주는 몇 가지 함수(예: `with()`, `attach()` 등)가 있는데, `with()`와 `within()` 활용법에 대해 간략히 알아봄. 
 
 ```
 
-- 위 예제에서 sex 가 Female이고 나이가 40 이상인 데이터 추출한다고 했을 때 `with()` 함수 사용
-
+-   위 예제에서 sex 가 Female이고 나이가 40 이상인 데이터 추출한다고
+    했을 때 `with()` 함수 사용
 
 ```{r with-fun, eval=F}
 # with() 함수: 데이터 환경(객체 내)에서 주어진 표현식의 결과를 반환
@@ -3262,13 +3289,12 @@ with(
 )
 ```
 
-
 ```{r with-ex}
 with(df, df[sex == "Female" & age >= 40, ])
 ```
 
-- `within()` 함수는 `with()`와 유사하지만 코드블록(`{...}`)을 이용해 보다 자유롭게 데이터를 수정 및 추가할 수 있음
-
+-   `within()` 함수는 `with()`와 유사하지만 코드블록(`{...}`)을 이용해
+    보다 자유롭게 데이터를 수정 및 추가할 수 있음
 
 ```{r within-ex}
 df2 <- within(df, {
@@ -3278,19 +3304,20 @@ df2 <- within(df, {
 })
 ```
 
-
-
 ### 데이터 프레임 관련 함수 {#data-frame-function}
 
 #### 유틸리티 함수 {#data-frame-utility .unnumbered}
 
-- 보통 데이터 분석은 외부에서 데이터를 읽은 후 특정 객체에 읽어온 데이터를 할당하는데, 이 경우 데이터가 저장된 객체는 대부분은 데이터 프레임 형태임. 
-- 읽어온 데이터는 보통 많은 행(표본)으로 구성되어 있기 때문에 데이터를 손쉽게 살펴보는 방법이 필요
+-   보통 데이터 분석은 외부에서 데이터를 읽은 후 특정 객체에 읽어온
+    데이터를 할당하는데, 이 경우 데이터가 저장된 객체는 대부분은 데이터
+    프레임 형태임.
+-   읽어온 데이터는 보통 많은 행(표본)으로 구성되어 있기 때문에 데이터를
+    손쉽게 살펴보는 방법이 필요
 
+##### `head()`/`tail()` 함수 {#head-tail .unnumbered}
 
-##### `head()`/`tail()` 함수 {#head-tail .unnumbered} 
-
-- 객체(벡터, 행렬, 테이블, 데이터 프레임 등)의 처음 또는 끝에서 부터 몇 개의 데이터(`default = 6L`) 를 순차적으로 보여줌
+-   객체(벡터, 행렬, 테이블, 데이터 프레임 등)의 처음 또는 끝에서 부터
+    몇 개의 데이터(`default = 6L`) 를 순차적으로 보여줌
 
 ```{r head-tail-ex}
 # 앞에서 불러온 전복 데이터셋 확인
@@ -3304,18 +3331,17 @@ tail(abalone)
 
 ##### `View()` 함수 {#view-fun .unnumbered}
 
-- 2차원 데이터의 readble 한 스프레드시트 제공
+-   2차원 데이터의 readble 한 스프레드시트 제공
 
 ```{r view-ex, eval=FALSE}
 View(abalone)
 ```
 
-
 #### 데이터 프레임 결합 및 분리 함수 {#df-merge-split .unnumbered}
 
 ##### `rbind()`/`cbind()` 함수 {#rbind-cbind .unnumbered}
 
-- 행렬에서 사용한 `rbind()`/`cbind()`를 데이터 프레임에도 적용 가능
+-   행렬에서 사용한 `rbind()`/`cbind()`를 데이터 프레임에도 적용 가능
 
 ```{r rbind-cbind-ex, error=TRUE}
 a = data.frame(x1 = rep(0,5), x2 = rep("x",5))
@@ -3347,13 +3373,14 @@ ace <- cbind(ac, e)
 
 ```
 
-
 ##### `merge()` 함수 {#merge .unnumbered}
 
-- 두 데이터 프레임을 공통된 값을 기준으로 병합
-- Excel의 `vlookup()` 함수 또는 데이터베이스 SQL 쿼리 중 `join`과 동일한 역할을 함
-- `cbind()`의 경우는 단순히 열을 합치는 것이지만 `merge()`는 공통되는 열을 기준으로 두 데이터셋을 병합
-- 공통된 데이터가 있을 때만 데이터 병합 수행
+-   두 데이터 프레임을 공통된 값을 기준으로 병합
+-   Excel의 `vlookup()` 함수 또는 데이터베이스 SQL 쿼리 중 `join`과
+    동일한 역할을 함
+-   `cbind()`의 경우는 단순히 열을 합치는 것이지만 `merge()`는 공통되는
+    열을 기준으로 두 데이터셋을 병합
+-   공통된 데이터가 있을 때만 데이터 병합 수행
 
 ```{r merge-proto, eval=FALSE}
 # merge() 함수 인수 
@@ -3373,7 +3400,7 @@ merge(
 )
 ```
 
-- `merge()` 함수 예시
+-   `merge()` 함수 예시
 
 ```{r merge-ex}
 d1 = data.frame(Name = c("Park", "Hanzo", "Mercy", "Soldier76" ),
@@ -3397,22 +3424,20 @@ merge(d1, d2,
 
 ```
 
-
 ##### `split()` 함수 {#split-df .unnumbered}
 
-- Factor 형에서 언급한 `split()` 함수를 통해 그룹 별로 데이터 분할
-- 분할된 데이터는 리스트에 저장
+-   Factor 형에서 언급한 `split()` 함수를 통해 그룹 별로 데이터 분할
+-   분할된 데이터는 리스트에 저장
 
 ```{r split-df-ex}
 split(df, df$sex)
 ```
 
-
 #### 데이터 정렬 함수 {#sort-fun .unnumbered}
 
 ##### `sort()` 함수 {#sort .unnumbered}
 
-- 데이터(벡터)의 정렬(오름차순 또는 내림차순) 결과 반환
+-   데이터(벡터)의 정렬(오름차순 또는 내림차순) 결과 반환
 
 ```{r sort, eval=FALSE}
 # sort() 함수 인수
@@ -3425,7 +3450,7 @@ sort(
           # FALSE: 맨 처음 NA 위치
 ```
 
-- 예시
+-   예시
 
 ```{r sort-ex}
 # 오름차순 정렬
@@ -3435,11 +3460,10 @@ sort(df2$age)
 sort(df$height, decreasing = TRUE)
 ```
 
-
 ##### `order()` 함수 {#order .unnumbered}
 
-- 데이터 정렬을 위해 순서에 대한 색인 생성 결과 반환
-- 데이터 프레임에서 특정 열 기준으로 데이터 정렬 시 주로 사용
+-   데이터 정렬을 위해 순서에 대한 색인 생성 결과 반환
+-   데이터 프레임에서 특정 열 기준으로 데이터 정렬 시 주로 사용
 
 ```{r order-ex}
 # 나이 기준으로 오름차순으로 데이터 정렬
@@ -3449,18 +3473,20 @@ with(df, df[order(age), ])
 df[order(df$height, decreasing = T), ]
 ```
 
-
 ### `*apply()` 계열 함수 {#apply-related-fun}
 
-- `apply()`, `lapply()`, `sapply()` 등 `apply` 계열 함수는 R에서 가장 일반적으로 사용되는 함수 중 하나
-- 반복문(`for-loop`)를 대신하기 위해 활용되며, R 객체를 입력 받아 원소 별 혹은 그루 별 함수를 적용
-- 데이터 전체에 함수를 한번에 적용하는 vectorizing 연산을 수행함
+-   `apply()`, `lapply()`, `sapply()` 등 `apply` 계열 함수는 R에서 가장
+    일반적으로 사용되는 함수 중 하나
+-   반복문(`for-loop`)를 대신하기 위해 활용되며, R 객체를 입력 받아 원소
+    별 혹은 그루 별 함수를 적용
+-   데이터 전체에 함수를 한번에 적용하는 vectorizing 연산을 수행함
 
 #### `apply()` 함수 {#apply .unnumbered}
 
-- 배열 또는 행렬에 주어진 함수를 적용한 뒤 그 결과를 벡터 또는 리스트로 반환
-- 행 또는 열 차원 기준 함수 적용
-- 동일한 유형의 벡터로 구성된 데이터셋에 적용
+-   배열 또는 행렬에 주어진 함수를 적용한 뒤 그 결과를 벡터 또는
+    리스트로 반환
+-   행 또는 열 차원 기준 함수 적용
+-   동일한 유형의 벡터로 구성된 데이터셋에 적용
 
 ```{r apply-proto, eval=FALSE}
 apply(
@@ -3472,7 +3498,7 @@ apply(
   )
 ```
 
-- 예시1: 행렬 및 배열 `apply()` 적용
+-   예시1: 행렬 및 배열 `apply()` 적용
 
 ```{r apply-ex-01}
 X <- matrix(1:9, nrow = 3)
@@ -3494,8 +3520,9 @@ apply(Z, c(1, 3), mean)
 
 ```
 
-- 예시2: 데이터 프레임
-   - 위에서 사용한 `df`와 \@ref(factor) 요인(factor) 절에서 잠깐 예시로 사용된 전복(`abalone`) 데이터셋 사용
+-   예시2: 데이터 프레임
+    -   위에서 사용한 `df`와 \@ref(factor) 요인(factor) 절에서 잠깐
+        예시로 사용된 전복(`abalone`) 데이터셋 사용
 
 ```{block2, type="rmdnote"}
 Abalone dataset 변수 설명(코드북)
@@ -3534,7 +3561,6 @@ abal_desc <- data.frame(Origin,
 abal_desc
 ```
 
-
 ```{r apply-ex-2}
 names(abalone) <- c("sex", "length", "diameter", 
                     "height", "whole.wt", 
@@ -3571,7 +3597,6 @@ apply(ab2[, -1], 2, mean, na.rm = TRUE)
 
 ```
 
-
 ```{block2, type="rmdtip"}
 **참고 1**: 
   
@@ -3586,7 +3611,6 @@ apply(ab2[, -1], 2, mean, na.rm = TRUE)
   
 ```
 
-
 ```{block2, type="rmdtip"}
 **참고 2**: 위 예제에서 보여준 행 또는 열의 합 또는 평균 계산은 매우 자주 사용되기 때문에 `rowSums()`, `colSums()`, `rowMeans()`, `colMeans()` 함수가 제공됨
   
@@ -3596,17 +3620,16 @@ apply(ab2[, -1], 2, mean, na.rm = TRUE)
 colMeans(abalone[,-1]) # apply 결과와 비교
 ```
 
-
 #### `tapply()` 함수 {#tapply-df .unnumbered}
 
-- \@ref(factor) 요인(factor) 절에서 설명
-- `tapply()`는 1개의 벡터를 대상으로만 함수를 호출 
-- 데이터 프레임에 적용하려면? $\rightarrow$ `aggregate()` 함수 사용
+-   \@ref(factor) 요인(factor) 절에서 설명
+-   `tapply()`는 1개의 벡터를 대상으로만 함수를 호출
+-   데이터 프레임에 적용하려면? $\rightarrow$ `aggregate()` 함수 사용
 
 ##### `aggregate()` {#aggregate .unnumbered}
 
-- 데이터를 특정 factor의 수준 별로 나눈 후, 각 그룹마다 함수 적용
-- `aggregate()`는 다음 두 가지 형태로 함수 적용 가능
+-   데이터를 특정 factor의 수준 별로 나눈 후, 각 그룹마다 함수 적용
+-   `aggregate()`는 다음 두 가지 형태로 함수 적용 가능
 
 ```{r aggregate-proto, eval=FALSE}
 # aggregate() 기본 인수
@@ -3626,7 +3649,7 @@ aggregate(
 )
 ```
 
-- 예시: 임상연구 자료(`df`)
+-   예시: 임상연구 자료(`df`)
 
 ```{r aggregate-ex}
 # 성별에 따라 연속형 변수의 평균 계산
@@ -3648,10 +3671,10 @@ aggregate(. ~ sex + exercyn,
 
 ```
 
-
 #### `lapply()` 함수 {#lapply .unnumbered}
 
-- 특정 함수를 벡터, 리스트, 데이터 프레임 등에 적용하고 그 결과를 리스트로 반환
+-   특정 함수를 벡터, 리스트, 데이터 프레임 등에 적용하고 그 결과를
+    리스트로 반환
 
 ```{r lapply-proto, eval=FALSE}
 lapply(
@@ -3659,7 +3682,6 @@ lapply(
  FUN, # 적용할 함수
 )
 ```
-
 
 -예시: abalone 데이터를 사용해 일변량 회귀분석 실시
 
@@ -3692,11 +3714,11 @@ res <- do.call(rbind, res)
 res
 ```
 
-
 #### `sapply()` 힘수 {#sapply .unnumbered}
 
-- `lapply()` 함수와 유사하나(`lapply()`의 wrapper 함수), 결과를 벡터 또는 행렬로 반환하는 점에서 차이를 보임
-- 예시: 회귀분석 
+-   `lapply()` 함수와 유사하나(`lapply()`의 wrapper 함수), 결과를 벡터
+    또는 행렬로 반환하는 점에서 차이를 보임
+-   예시: 회귀분석
 
 ```{r sapply-ex}
 # 각 변수별 회귀계수(절편항과 설명변수) 반환
@@ -3710,12 +3732,11 @@ attributes(univ_reg2) # 행렬 반환
 
 ```
 
-
 #### `mapply()` 함수 {#mapply .unnumbered}
 
-- `sapply()`와 유사하지만 다수의 인수를 함수에 전달해 적용
-- 임의의 함수 `FUN()`이 있고, `FUN()`을 수행하기 위해 필요한 인수가 데이터로 저장되어 있을 때 이를 불러들여 함수를 적용
-
+-   `sapply()`와 유사하지만 다수의 인수를 함수에 전달해 적용
+-   임의의 함수 `FUN()`이 있고, `FUN()`을 수행하기 위해 필요한 인수가
+    데이터로 저장되어 있을 때 이를 불러들여 함수를 적용
 
 ```{r mapply-proto, eval=FALSE}
 mapply(
@@ -3725,8 +3746,9 @@ mapply(
 
 ```
 
-- 난수 생성 예시: `rnorm()` 함수 사용
-- `rnorm(n, mean, sd)`: 평균이 `mean`이고 표준편차가 `sd`인 정규분포에서 `n`개의 난수 생성
+-   난수 생성 예시: `rnorm()` 함수 사용
+-   `rnorm(n, mean, sd)`: 평균이 `mean`이고 표준편차가 `sd`인
+    정규분포에서 `n`개의 난수 생성
 
 ```{r mapply-ex}
 # 평균이 각각 0, 1, 2, 4 이고
@@ -3745,21 +3767,21 @@ sapply(rn_res, mean); sapply(rn_res, sd)
 
 ```
 
-
 ## 객체의 유형 판별 및 변환 {#is-as-function}
 
-지금까지 R 객체를 알아보면서 `is.na()`, `is.null()` 등 스칼라의 데이터 타입을 확인하는 함수부터 
-`str()`, `attributes()`, `class()`와 같이 객체의 속성 및 구조에 대해 확인하는 함수들에 대해 간략히 소개함. 
+지금까지 R 객체를 알아보면서 `is.na()`, `is.null()` 등 스칼라의 데이터
+타입을 확인하는 함수부터 `str()`, `attributes()`, `class()`와 같이
+객체의 속성 및 구조에 대해 확인하는 함수들에 대해 간략히 소개함.
 
-R은 스크립트 언어이기 때문에 모든 명령 실행이 함수 기반으로 이루어짐. 
-특정 객체에만 적용할 수 있는 함수들이 있는 반면, 함수를 통해 새로운 속성을 갖는 객체가 생성되기도 함.
-그렇기 때문에 함수 적용 또는 반환 후 생성된 객체의 타입을 확인하거나 객체의 유형을 변환하는 작업은 
-R에서 데이터 분석을 진행하는 과정에서 빈번하게 발생함. 
+R은 스크립트 언어이기 때문에 모든 명령 실행이 함수 기반으로 이루어짐.
+특정 객체에만 적용할 수 있는 함수들이 있는 반면, 함수를 통해 새로운
+속성을 갖는 객체가 생성되기도 함. 그렇기 때문에 함수 적용 또는 반환 후
+생성된 객체의 타입을 확인하거나 객체의 유형을 변환하는 작업은 R에서
+데이터 분석을 진행하는 과정에서 빈번하게 발생함.
 
-
-객체 유형 판별을 위해 `is.type_name()`, 객체 타입 변환을 위해 `as.type_name()` 형태의 함수를 제공함. 
-지금까지 배운 R 객체에 대한 `is.` 과 `as.` 계열 함수는 아래와 같음. 
-
+객체 유형 판별을 위해 `is.type_name()`, 객체 타입 변환을 위해
+`as.type_name()` 형태의 함수를 제공함. 지금까지 배운 R 객체에 대한 `is.`
+과 `as.` 계열 함수는 아래와 같음.
 
 ```{r is-as-fun, echo=FALSE}
 `is 계열 함수` <- c("is.factor()", "is.ordered()", "is.numeric()", "is.character()", 
@@ -3794,7 +3816,7 @@ kable(tab2_06,
 
 ```
 
-- `is/as`계열 함수 사용 예시
+-   `is/as`계열 함수 사용 예시
 
 ```{r}
 x <- c("M", "F"); f <- factor(x)
@@ -3816,7 +3838,7 @@ f
 as.factor(f)
 ```
 
-- 2차원 데이터 객체 유형 판별 및 변환
+-   2차원 데이터 객체 유형 판별 및 변환
 
 ```{r mat-is-as-fun}
 X <- matrix(rnorm(9), 3)
@@ -3836,11 +3858,7 @@ as.list(X); as.list(d)
 
 ```
 
-
-
-
 <!-- ### 외부 데이터 불러오기 및 저장하기 -->
-
 
 <!-- ## Homework #2 -->
 
@@ -3861,259 +3879,283 @@ as.list(X); as.list(d)
 <!-- 8. 두 벡터 ` {1, 2, 3, 0, -1, -2, -1, 0, 7}`와 `{6, -3, 0, 0, 4, -5, 0, 0, 2}` 를 각각 `x`와 `y` 객체에 저장하고, 해당 객체를 이용해 다음 행렬을 생성하시오 -->
 
 <!-- $$\mathrm{\mathbf{X}} =  -->
+
 <!-- \begin{bmatrix} -->
+
 <!-- 1   &  2 & 3 \\ -->
+
 <!-- 0   & -1 & -2 \\ -->
+
 <!-- -1  &  0 &  7 -->
+
 <!-- \end{bmatrix}, ~~~~ -->
+
 <!-- \mathrm{\mathbf{Y}} =  -->
+
 <!-- \begin{bmatrix} -->
+
 <!-- 6  & 0 & 0 \\ -->
+
 <!-- -3 & 4 & 0 \\ -->
+
 <!-- 0  &-5 & 2 -->
+
 <!-- \end{bmatrix} -->
+
 <!-- $$ -->
 
 <!-- 9. 위 두 행렬의 연산 결과를 출력 하시오 -->
 
 <!--    - $\mathrm{\mathbf{X}}\mathrm{\mathbf{X}}^T$ -->
-<!--    - $\mathrm{\mathbf{X}}\mathrm{\mathbf{Y}}$ -->
-<!--    - $\mathrm{\mathbf{Y}}\mathrm{\mathbf{X}}$ -->
-<!--    - $\det(\mathrm{\mathbf{X}})$ -->
-<!--    - $\mathrm{\mathbf{Y}}^{-1}$ -->
 
+<!--    - $\mathrm{\mathbf{X}}\mathrm{\mathbf{Y}}$ -->
+
+<!--    - $\mathrm{\mathbf{Y}}\mathrm{\mathbf{X}}$ -->
+
+<!--    - $\det(\mathrm{\mathbf{X}})$ -->
+
+<!--    - $\mathrm{\mathbf{Y}}^{-1}$ -->
 
 <!-- 10. `runif()` 함수를 이용해 난수 200개를 생성하여 `x`라는 객체에 저장 하시오.  -->
 
 <!--    - 생성한 `x` 를 이용해 `x`가 0.5 보다 작으면 0, 0.5 보다 크거나 같으면 1 값을 재할당 하시오. -->
+
 <!--    - 수준이 0, 1이고 수준이름이 각각 "Male", "Female"인 요인형 객체 sex를 생성하시오.  -->
 
-
 <!-- ```{block2, type="rmdimportant"} -->
+
 <!-- **과제 제출 방식** -->
 
 <!--    - R Markdown 문서(`Rmd`) 파일과 해당 문서를 컴파일 후 생성된 `html` 파일 모두 제출할 것 -->
-<!--    - 모든 문제에 대해 작성한 R 코드 및 결과가 `html` 문서에 포함되어야 함.  -->
-<!--    - 해당 과제에 대한 R Markdown 문서 템플릿은 https://github.com/zorba78/cnu-r-programming-lecture-note/blob/master/assignment/homework2_template.Rmd 에서 다운로드 또는 스크래이핑 가능 -->
-<!--    - 최종 파일명은 `학번-성명.Rmd`, `학번-성명.html` 로 저장 -->
 
+<!--    - 모든 문제에 대해 작성한 R 코드 및 결과가 `html` 문서에 포함되어야 함.  -->
+
+<!--    - 해당 과제에 대한 R Markdown 문서 템플릿은 https://github.com/zorba78/cnu-r-programming-lecture-note/blob/master/assignment/homework2_template.Rmd 에서 다운로드 또는 스크래이핑 가능 -->
+
+<!--    - 최종 파일명은 `학번-성명.Rmd`, `학번-성명.html` 로 저장 -->
 
 <!-- ``` -->
 
-
 <!-- ## Homework #3 -->
-
 
 <!-- 1. **2.5절 배열에서 다룬 확장 예제 "RGB값을 무작위로 샘플링 후 매개변수로 노이즈 가중치 조절해 보기" 명령 스크립트 중 다음 아래에 해당하는 구문의 반복 명령을 최소화한 스크립트 작성 후 해당 스크립트가 정상적으로 작동하는지 그림 출력을 통해 확인하시오(라인별 의미에 대한 주석 추가할 것). 단, 그림은 2.5절 예제와 동일한 그림을 사용(Hint: `*apply()` 계열 함수, 코드블록(`{}`), `return()`, `unlist()`, `array()` 함수 사용)** -->
 
 <!-- ```{r eval=FALSE} -->
+
 <!-- require(tidyverse) -->
+
 <!-- require(jpeg) -->
+
 <!-- require(cowplot) -->
 
 <!-- myurl <- paste0("https://img.livescore.co.kr/data/editor/1906/",  -->
+
 <!--                 "ba517de8162d92f4ea0e9de0ec98ba02.jpg") -->
+
 <!-- z <- tempfile() -->
+
 <!-- download.file(myurl,z,mode="wb") -->
 
 <!-- pic <- readJPEG(z) -->
+
 <!-- dim_pic <- dim(pic) -->
+
 <!-- t <- 0.2; nl <- length(300:460); pl <- length(440:520) -->
 
 <!-- # 다음 아래(문제 1에 해당) -->
+
 <!-- yr <- pic[300:460, 440:520, 1] -->
+
 <!-- yg <- pic[300:460, 440:520, 2] -->
+
 <!-- yb <- pic[300:460, 440:520, 3] -->
 
 <!-- t <- 0.2 -->
+
 <!-- wr <- t * yr + (1 - t)*matrix(runif(length(yr)), nrow = nl, ncol = pl) -->
+
 <!-- wg <- t * yg + (1 - t)*matrix(runif(length(yg)), nrow = nl, ncol = pl) -->
+
 <!-- wb <- t * yb + (1 - t)*matrix(runif(length(yb)), nrow = nl, ncol = pl) -->
 
-
 <!-- pic[300:460, 440:520, 1] <- wr -->
+
 <!-- pic[300:460, 440:520, 2] <- wg -->
+
 <!-- pic[300:460, 440:520, 3] <- wb -->
 
 <!-- ``` -->
-
 
 <!-- <br/> -->
 
 <!-- 2. **R에 기본으로 내장된 `mtcars` 데이터셋은 다음과 같이 11개의 변수로 구성되어 있다. ** -->
 
 <!-- ```{r desc-mtcars, echo=FALSE} -->
+
 <!-- `변수명` <- names(mtcars) -->
+
 <!-- `변수 설명` <- c("Miles/(US) gallon, 연비",  -->
+
 <!--                  "Number of cylinders, 엔진 기통수",  -->
+
 <!--                  "Displacement (cu.in.), 배기량(cc 단위)",  -->
+
 <!--                  "Gross horsepower, 마력",  -->
+
 <!--                  "Rear axle ratio, 뒤차축비",  -->
+
 <!--                  "Weight (1000 lbs), 무게",  -->
+
 <!--                  "1/4 mile time, 1/4 mile 도달시간",  -->
+
 <!--                  "Engine (0 = V-shaped, 1 = straight)",  -->
+
 <!--                  "Transmission (0 = automatic, 1 = manual), 변속기어",  -->
+
 <!--                  "Number of forward gears, 전진기어 갯수",  -->
+
 <!--                  "Number of carburetors, 기화기 갯수") -->
+
 <!-- dsc_mtcars <- data.frame(`변수명`, `변수 설명`,  -->
+
 <!--                          check.names = FALSE,  -->
+
 <!--                          stringsAsFactors = FALSE)  -->
+
 <!-- kable(dsc_mtcars) -->
 
 <!-- ``` -->
 
 <!-- a) `mtcars`의 데이터 구조를 파악하고 자료의 전반적인 형태에 대해 기술 하시오.  -->
 
-
 <!-- <br/> -->
 
 <!-- b) 위 코드북을 참고하여 엔진과 변속기어에 해당하는 변수를 factor로 변환 후 해당 데이터 프레임을 `df` 객체에 저장 하시오.  -->
 
-
 <!-- <br/> -->
-
 
 <!-- c) `df` 데이터셋에서 변속기어 (`am`)에 따른 `mpg`, `disp`, `hp`, `drat`, `wt`, `qsec`에 대한 평균과 표준편차를 구하시오 (Hint: `mean()`, `sd()` 함수 사용). 단 각 결과는 테이블 형태로 반환되어야 함(한 객체에 모든 변수의 평균 또는 표준편차가 저장, 테이블 객체가 반환을 의미하는 것은 아님).  -->
 
-
 <!-- <br/> -->
-
-
 
 <!-- d) `df` 데이터셋을 엔진형태(`vs`) 별로 나눈 후, 연비를 종속변수($y$)로 놓고 무게(`wt`)를 독립변수로 사용한 일변량 회귀식을 반환 하시오.  -->
 
-
 <!-- <br/> -->
-
 
 <!-- 3. **1912년 4월 14일 타이타닉호 침몰 사고의 생존자 정보를 담고 있는 `titanic` 데이터셋은 통계학적으로 범주형 데이터 분석의 예시로서 널리 사용되고 있으며, 기계학습 및 데이터 과학 커뮤니티인 [Kaggle](https://kaggle.com)에서도 기계학습 알고리즘 경연을 위한 힉습자료로 활용되고 있다. 해당 데이터는 http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic3.csv 에서 다운로드가 가능하다. 타이타닉 데이터의 주요 변수에 대한 설명은 아래와 같다.**  -->
 
-
 <!-- ```{r echo=FALSE} -->
+
 <!-- `변수명` <- c("pclass", "survived", "name", "sex", "age", "sibsp",  -->
+
 <!--               "parch", "ticket", "fare", "cabin", "embarked") -->
+
 <!-- `변수설명(영문)` <- c("Passenger Class (1=1st; 2=2nd; 3=3rd)", "Survival (0=No; 1=Yes)",  -->
+
 <!--                       "Passenger name", "Sex", "Age", "# of siblings/spouses abroad",  -->
+
 <!--                       "# of parents/children abroad", "Ticket number", "Passenger fare",  -->
+
 <!--                       "Cabin", "Port of embarkation (C=Cherbourg; Q=Queenstown; S=Southhampton") -->
+
 <!-- `변수설명(국문)` <- c("선실 등급", "생존여부", "탐승객 성명", "성별", "나이",  -->
+
 <!--                       "동승한 형제/배우자 수", "동승한 부모/자녀 수", "티켓번호", "티켓요금",  -->
+
 <!--                       "선실번호", "탑승 장소") -->
 
 <!-- desc_titanic <- data.frame(`변수명`, `변수설명(영문)`, `변수설명(국문)`,  -->
+
 <!--                            check.names = FALSE,  -->
+
 <!--                            stringsAsFactors = FALSE) -->
+
 <!-- kable(desc_titanic) -->
 
 <!-- ``` -->
 
-
 <!-- a) 위 코드북의 내용을  `codebook_tit` 이란 데이터 프레임 객체에 저장 후 출력하시오.  -->
 
-
 <!-- <br/> -->
-
 
 <!-- b) 위 URL 주소로부터 타이타닉 데이터 파일을 읽은 후 `titanic` 객체에 저장한 뒤 위 코드북에서 제시한 변수만 추출한 다음 `df_titanic`이란 객체에 저장한 결과에 대해 개괄적 형태 및 데이터 특성에 대해 기술하시오.  -->
 
-
 <!-- <br/> -->
-
-
 
 <!-- c) `age` 변수에 포함된 결측값을 `age`의 전체 평균값으로 대체 하시오. -->
 
-
 <!-- <br/> -->
-
 
 <!-- d) `df_titanic`에서 `age` 를 다음과 같이 그룹화 후 `age_group` 변수(factor)를 생성 하시오.  -->
 
 <!-- ```{r, eval=FALSE} -->
+
 <!-- # 0 살 이상 15살 미만: Children -->
+
 <!-- # 15살 이상: Adult -->
+
 <!-- ``` -->
 
-
 <!-- <br/> -->
-
 
 <!-- e) 선실 등급에 따른 남녀 별 그리고 연령 집단 별 생존 빈도 및 비율에 대해 각각 테이블로 나타내시오.  -->
 
-
 <!-- <br/> -->
-
 
 <!-- 4. **아래와 같은 데이터셋이 주어졌을 때 ** -->
 
-
 <!-- - Dataset #1 -->
 
-
 <!-- ```{r, echo=FALSE} -->
-<!-- authors <- data.frame(surname = c("Tukey", "Venables", "Tierney", "Ripley", "McNeil"),  -->
-<!--     nationality = c("US", "Australia", "US", "UK", "Australia"), stringsAsFactors = FALSE) -->
-<!-- kable(authors) -->
-<!-- ``` -->
 
+<!-- authors <- data.frame(surname = c("Tukey", "Venables", "Tierney", "Ripley", "McNeil"),  -->
+
+<!--     nationality = c("US", "Australia", "US", "UK", "Australia"), stringsAsFactors = FALSE) -->
+
+<!-- kable(authors) -->
+
+<!-- ``` -->
 
 <!-- - Dataset #2 -->
 
-
 <!-- ```{r, echo=FALSE} -->
-<!-- books <- data.frame(name = c("Tukey", "Venables", "Tierney", "Ripley", "Ripley",  -->
-<!--     "McNeil", "R Core"), title = c("Exploratory Data Analysis", "Modern Applied Statistics ...",  -->
-<!--     "LISP-STAT", "Spatial Statistics", "Stochastic Simulation", "Interactive Data Analysis",  -->
-<!--     "An Introduction to R"), stringsAsFactors = FALSE) -->
-<!-- kable(books) -->
-<!-- ``` -->
 
+<!-- books <- data.frame(name = c("Tukey", "Venables", "Tierney", "Ripley", "Ripley",  -->
+
+<!--     "McNeil", "R Core"), title = c("Exploratory Data Analysis", "Modern Applied Statistics ...",  -->
+
+<!--     "LISP-STAT", "Spatial Statistics", "Stochastic Simulation", "Interactive Data Analysis",  -->
+
+<!--     "An Introduction to R"), stringsAsFactors = FALSE) -->
+
+<!-- kable(books) -->
+
+<!-- ``` -->
 
 <!-- a) Dataset #1에 해당하는 데이터를 `authors`, dataset #2에 해당하는 데이터를 `books` 에 저장한 객체를 생성 하시오(단, 데이터 프레임을 구성하는 모든 변수는 문자열 변수로 저장).  -->
 
-
 <!-- <br/> -->
-
 
 <!-- b) 두 데이터 셋을 `authors` 기준으로 병합한 데이터셋을 생성하시오.  -->
 
-
 <!-- <br/> -->
 
-
-
 <!-- c) 두 데이터 셋의 모든 값들을 포함한 결함 데이터 셋을 생성 하시오.  -->
-
-
-
 
 <!-- ```{block2, type="rmdimportant"} -->
 
 <!-- **과제 제출 방식** -->
 
 <!--    - R Markdown 문서(`Rmd`) 파일과 해당 문서를 컴파일 후 생성된 `html` 파일 모두 제출할 것 -->
+
 <!--    - 모든 문제에 대해 작성한 R 코드 및 결과가 `html` 문서에 포함되어야 함.  -->
+
 <!--    - 모든 코드(스크립트)에는 라인 별 의미에 대한 주석을 달 것.  -->
+
 <!--    - 해당 과제에 대한 R Markdown 문서 템플릿은 https://github.com/zorba78/cnu-r-programming-lecture-note/blob/master/assignment/homework3_template.Rmd 에서 다운로드 또는 스크래이핑 가능 -->
+
 <!--    - 최종 파일명은 `학번-성명.Rmd`, `학번-성명.html` 로 저장 -->
+
 <!--    - 압축파일은 `*.zip` 형태로 생성할 것 -->
 
-
 <!-- ``` -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

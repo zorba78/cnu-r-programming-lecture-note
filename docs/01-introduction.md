@@ -24,7 +24,7 @@ editor_options:
    - 데이터 분석을 위한 자료 전처리, 통계 및 시각화를 지원하는 컴퓨터 언어 및 환경
    - 1980년 AT&T 벨 연구소의 John Chambers가 개발한 S 언어를 기반으로 1995년 뉴질랜드 Auckland 대학의 통계학과 교수 Robert Gentleman과 Ross Ihaka 가 개발
    - [GNU](https://en.wikipedia.org/wiki/GNU_Project) 기반의 오픈 소스
-   - 통계학, 전산학, 생물학, 의학 등 거의 모든 학문분야에서 분석도구로 활용되고 있고, 최근 data science 분야에서 널리 활용
+   - 통계학, 전산학, 생물학, 의학 등 거의 모든 학문 분야에서 분석 도구로 활용되고 있고, 최근 data science 분야에서 널리 활용
 
 
 **2. R 언어의 특징**
@@ -38,7 +38,7 @@ editor_options:
 
 \footnotesize
 
-\BeginKnitrBlock{rmdtip}<div class="rmdtip">**유용한 웹 사이트**: R과 관련한 거의 모든 문제는 Googling (구글을 이용한 검색)을 통해 해결 가능(검색주제 + "in R" or "in R software")하고 많은 해답들이 아래 열거한 웹 페이지에 게시되어 있음. 
+\BeginKnitrBlock{rmdtip}<div class="rmdtip">**유용한 웹 사이트**: R과 관련한 거의 모든 문제는 Googling (구글을 이용한 검색)을 통해 해결 가능(검색 주제 + "in R" or "in R software")하고 아래 열거한 웹 페이지에서 문재 해결을 위한 답을 얻을 수 있음. 
 
 - R 프로그래밍에 대한 Q&A: [Stack Overflow](https://stackoverflow.com)
 - R 관련 웹 문서 모음: [Rpubs](https://rpubs.com/)
@@ -258,43 +258,42 @@ LAPACK: /usr/lib/x86_64-linux-gnu/libopenblasp-r0.2.20.so
 
 locale:
  [1] LC_CTYPE=ko_KR.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=ko_KR.UTF-8        LC_COLLATE=ko_KR.UTF-8    
- [5] LC_MONETARY=ko_KR.UTF-8    LC_MESSAGES=ko_KR.UTF-8   
- [7] LC_PAPER=ko_KR.UTF-8       LC_NAME=C                 
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=ko_KR.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=ko_KR.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=ko_KR.UTF-8 LC_IDENTIFICATION=C       
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] kableExtra_1.3.4 gtsummary_1.4.2  gt_0.3.1         glue_1.4.2      
- [5] forcats_0.5.1    stringr_1.4.0    dplyr_1.0.7      purrr_0.3.4     
- [9] readr_2.0.2      tidyr_1.1.4      tibble_3.1.5     ggplot2_3.3.5   
-[13] tidyverse_1.3.1  rmarkdown_2.11   knitr_1.36      
+ [1] kableExtra_1.3.4 gtsummary_1.5.2  gt_0.4.0         glue_1.6.2      
+ [5] forcats_0.5.1    stringr_1.4.0    dplyr_1.0.8      purrr_0.3.4     
+ [9] readr_2.1.2      tidyr_1.2.0      tibble_3.1.6     ggplot2_3.3.5   
+[13] tidyverse_1.3.1  rmarkdown_2.11   knitr_1.37      
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7          svglite_2.0.0       lattice_0.20-45    
- [4] lubridate_1.7.10    assertthat_0.2.1    digest_0.6.28      
- [7] utf8_1.2.2          R6_2.5.1            cellranger_1.1.0   
-[10] backports_1.2.1     reprex_2.0.1        evaluate_0.14      
-[13] highr_0.9           httr_1.4.2          pillar_1.6.3       
-[16] rlang_0.4.12        readxl_1.3.1        rstudioapi_0.13    
-[19] jquerylib_0.1.4     Matrix_1.3-4        splines_4.1.2      
-[22] webshot_0.5.2       munsell_0.5.0       broom_0.7.9        
-[25] compiler_4.1.2      modelr_0.1.8        xfun_0.27          
-[28] systemfonts_1.0.2   pkgconfig_2.0.3     htmltools_0.5.2    
-[31] tidyselect_1.1.1    bookdown_0.24       viridisLite_0.4.0  
-[34] fansi_0.5.0         crayon_1.4.1        tzdb_0.1.2         
-[37] dbplyr_2.1.1        withr_2.4.2         grid_4.1.2         
-[40] jsonlite_1.7.2      gtable_0.3.0        lifecycle_1.0.1    
-[43] DBI_1.1.1           magrittr_2.0.1      scales_1.1.1       
-[46] cli_3.0.1           stringi_1.7.5       broom.helpers_1.4.0
-[49] fs_1.5.0            xml2_1.3.2          bslib_0.3.0        
-[52] ellipsis_0.3.2      generics_0.1.0      vctrs_0.3.8        
-[55] tools_4.1.2         hms_1.1.1           fastmap_1.1.0      
-[58] survival_3.2-13     yaml_2.2.1          colorspace_2.0-2   
-[61] rvest_1.0.1         haven_2.4.3         sass_0.4.0         
+ [1] Rcpp_1.0.8          svglite_2.1.0       lubridate_1.8.0    
+ [4] assertthat_0.2.1    digest_0.6.29       utf8_1.2.2         
+ [7] R6_2.5.1            cellranger_1.1.0    backports_1.4.1    
+[10] reprex_2.0.1        evaluate_0.15       highr_0.9          
+[13] httr_1.4.2          pillar_1.7.0        rlang_1.0.1        
+[16] readxl_1.3.1        rstudioapi_0.13     jquerylib_0.1.4    
+[19] webshot_0.5.2       munsell_0.5.0       broom_0.7.12       
+[22] compiler_4.1.2      modelr_0.1.8        xfun_0.29          
+[25] systemfonts_1.0.4   pkgconfig_2.0.3     htmltools_0.5.2    
+[28] tidyselect_1.1.2    bookdown_0.24       viridisLite_0.4.0  
+[31] fansi_1.0.2         crayon_1.5.0        tzdb_0.2.0         
+[34] dbplyr_2.1.1        withr_2.4.3         grid_4.1.2         
+[37] jsonlite_1.8.0      gtable_0.3.0        lifecycle_1.0.1    
+[40] DBI_1.1.2           magrittr_2.0.2      scales_1.1.1       
+[43] cli_3.2.0           stringi_1.7.6       broom.helpers_1.6.0
+[46] fs_1.5.2            xml2_1.3.3          bslib_0.3.1        
+[49] ellipsis_0.3.2      generics_0.1.2      vctrs_0.3.8        
+[52] tools_4.1.2         hms_1.1.1           fastmap_1.1.0      
+[55] yaml_2.3.5          colorspace_2.0-3    rvest_1.0.2        
+[58] haven_2.4.3         sass_0.4.0         
 ```
 
  \normalsize
@@ -867,7 +866,7 @@ dir()
 [50] "output"                              
 [51] "packages.bib"                        
 [52] "README.md"                           
-[53] "render19c66367dcec0.rds"             
+[53] "render1ed06580bbed6.rds"             
 [54] "test"                                
 [55] "video"                               
 ```
@@ -897,10 +896,10 @@ getwd(); dir()
 ```
  [1] "_workflowr.yml"               "analysis"                    
  [3] "code"                         "data"                        
- [5] "docs"                         "output"                      
- [7] "README.md"                    "render-slide.R"              
- [9] "slides"                       "test.svg"                    
-[11] "ust-medical-statistics.Rproj"
+ [5] "docs"                         "final-exam"                  
+ [7] "output"                       "README.md"                   
+ [9] "render-slide.R"               "slides"                      
+[11] "test.svg"                     "ust-medical-statistics.Rproj"
 ```
 
 ```r
@@ -966,7 +965,7 @@ getwd(); dir()
 [50] "output"                              
 [51] "packages.bib"                        
 [52] "README.md"                           
-[53] "render19c66367dcec0.rds"             
+[53] "render1ed06580bbed6.rds"             
 [54] "test"                                
 [55] "video"                               
 ```

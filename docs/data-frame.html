@@ -5,26 +5,26 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2.8 데이터 프레임(data frame) | 통계 프로그래밍 언어</title>
-  <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="description" content="2022년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2.8 데이터 프레임(data frame) | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta property="og:description" content="2022년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
   <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="2.8 데이터 프레임(data frame) | 통계 프로그래밍 언어" />
   
-  <meta name="twitter:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="twitter:description" content="2022년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
   
 
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2021-11-16" />
+<meta name="date" content="2022-03-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -549,8 +549,10 @@ div.csl-indent {
 <p></p>
 <ul>
 <li>데이터 프레임은 데이터 유형에 상관없이 2차원 형태의 데이터 구조</li>
-<li>행렬과 리스트를 혼합한 자료 형태 <span class="math inline">\(\rightarrow\)</span> 동일한 길이의 벡터로 이루어진 리스트를 구성요소로 갖는 리스트</li>
-<li>행렬과 유사한 구조를 갖고 있지만 각기 다른 유형의 자료형태로 자료행렬을 구성할 수 있다는 점에서 행렬과 차이를 갖음</li>
+<li>행렬과 리스트를 혼합한 자료 형태 <span class="math inline">\(\rightarrow\)</span> 동일한 길이의 벡터로
+이루어진 리스트를 구성요소로 갖는 리스트</li>
+<li>행렬과 유사한 구조를 갖고 있지만 각기 다른 유형의 자료형태로
+자료행렬을 구성할 수 있다는 점에서 행렬과 차이를 갖음</li>
 <li>행렬과 마찬가지로 변수(열)의 길이(행의 개수)는 모두 동일해야 함</li>
 <li>R에서 가장 빈번하게 활용되고 있는 데이터 클래스임</li>
 <li>데이터 프레임의 각 열(컬럼)은 벡터로 간주</li>
@@ -651,9 +653,12 @@ $row.names
 <ul>
 <li>이미 정의된 데이터 프레임에 데이터를 추가 가능
 <ul>
-<li>예를 들어 <code>dbp</code>라는 벡터에 이완기 혈압(diastolic blood pressure) 데이터가 입력되어 있고 <code>df</code>에 <code>dbp</code> 변수를 새롭게 추가 시 <code>df$dbp &lt;- x</code> 형태로 추가</li>
+<li>예를 들어 <code>dbp</code>라는 벡터에 이완기 혈압(diastolic blood pressure)
+데이터가 입력되어 있고 <code>df</code>에 <code>dbp</code> 변수를 새롭게 추가 시
+<code>df$dbp &lt;- x</code> 형태로 추가</li>
 <li>위 형태로 이미 존재하고 있는 변수(열)에 새로운 값 재할당 가능</li>
-<li>이러한 형태로 문자형 벡터 추가 시 문자형 벡터는 자동으로 factor로 형 변환 되지는 않음</li>
+<li>이러한 형태로 문자형 벡터 추가 시 문자형 벡터는 자동으로
+factor로 형 변환 되지는 않음</li>
 </ul></li>
 </ul>
 <div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb823-1"><a href="data-frame.html#cb823-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df)</span>
@@ -691,7 +696,8 @@ $row.names
  $ exercyn: chr  &quot;Y&quot; &quot;Y&quot; &quot;N&quot; &quot;Y&quot; ...</code></pre>
 <p></p>
 <ul>
-<li>행렬 및 벡터에서 언급 되었던 <code>rownames()</code>, <code>colnames()</code>, <code>names()</code>, <code>dim()</code>, <code>ncol()/NCOL()</code>,<code>nrow()/NROW()</code> 함수 적용 가능</li>
+<li>행렬 및 벡터에서 언급 되었던 <code>rownames()</code>, <code>colnames()</code>, <code>names()</code>,
+<code>dim()</code>, <code>ncol()/NCOL()</code>,<code>nrow()/NROW()</code> 함수 적용 가능</li>
 </ul>
 <div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb827-1"><a href="data-frame.html#cb827-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(df); <span class="fu">colnames</span>(df); <span class="fu">names</span>(df)</span></code></pre></div>
 <pre><code> [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot;</code></pre>
@@ -855,7 +861,8 @@ $class
 <div id="data-frame-filtering" class="section level4 unnumbered">
 <h4>필터링</h4>
 <ul>
-<li>벡터, 행렬과 마찬가지로 비교 연산자를 이용해 조건에 맞는 부분 데이터 추출 가능</li>
+<li>벡터, 행렬과 마찬가지로 비교 연산자를 이용해 조건에 맞는 부분 데이터
+추출 가능</li>
 </ul>
 <div class="sourceCode" id="cb863"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb863-1"><a href="data-frame.html#cb863-1" aria-hidden="true" tabindex="-1"></a><span class="co"># %in% 연산자를 이용해 데이터 프레임의 부분 변수 추출</span></span>
 <span id="cb863-2"><a href="data-frame.html#cb863-2" aria-hidden="true" tabindex="-1"></a><span class="co"># id, age 열을 제외한 나머지 데이터 프레임 추출</span></span>
@@ -910,7 +917,8 @@ $class
 </div>
 <p></p>
 <ul>
-<li>위 예제에서 sex 가 Female이고 나이가 40 이상인 데이터 추출한다고 했을 때 <code>with()</code> 함수 사용</li>
+<li>위 예제에서 sex 가 Female이고 나이가 40 이상인 데이터 추출한다고
+했을 때 <code>with()</code> 함수 사용</li>
 </ul>
 <div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb869-1"><a href="data-frame.html#cb869-1" aria-hidden="true" tabindex="-1"></a><span class="co"># with() 함수: 데이터 환경(객체 내)에서 주어진 표현식의 결과를 반환</span></span>
 <span id="cb869-2"><a href="data-frame.html#cb869-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(</span>
@@ -926,7 +934,8 @@ $class
 </div>
 <p></p>
 <ul>
-<li><code>within()</code> 함수는 <code>with()</code>와 유사하지만 코드블록(<code>{...}</code>)을 이용해 보다 자유롭게 데이터를 수정 및 추가할 수 있음</li>
+<li><code>within()</code> 함수는 <code>with()</code>와 유사하지만 코드블록(<code>{...}</code>)을 이용해
+보다 자유롭게 데이터를 수정 및 추가할 수 있음</li>
 </ul>
 <div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb871-1"><a href="data-frame.html#cb871-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">within</span>(df, {</span>
 <span id="cb871-2"><a href="data-frame.html#cb871-2" aria-hidden="true" tabindex="-1"></a>  hospital <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>, </span>
@@ -941,13 +950,17 @@ $class
 <div id="data-frame-utility" class="section level4 unnumbered">
 <h4>유틸리티 함수</h4>
 <ul>
-<li>보통 데이터 분석은 외부에서 데이터를 읽은 후 특정 객체에 읽어온 데이터를 할당하는데, 이 경우 데이터가 저장된 객체는 대부분은 데이터 프레임 형태임.</li>
-<li>읽어온 데이터는 보통 많은 행(표본)으로 구성되어 있기 때문에 데이터를 손쉽게 살펴보는 방법이 필요</li>
+<li>보통 데이터 분석은 외부에서 데이터를 읽은 후 특정 객체에 읽어온
+데이터를 할당하는데, 이 경우 데이터가 저장된 객체는 대부분은 데이터
+프레임 형태임.</li>
+<li>읽어온 데이터는 보통 많은 행(표본)으로 구성되어 있기 때문에 데이터를
+손쉽게 살펴보는 방법이 필요</li>
 </ul>
 <div id="head-tail" class="section level5 unnumbered">
 <h5><code>head()</code>/<code>tail()</code> 함수</h5>
 <ul>
-<li>객체(벡터, 행렬, 테이블, 데이터 프레임 등)의 처음 또는 끝에서 부터 몇 개의 데이터(<code>default = 6L</code>) 를 순차적으로 보여줌</li>
+<li>객체(벡터, 행렬, 테이블, 데이터 프레임 등)의 처음 또는 끝에서 부터
+몇 개의 데이터(<code>default = 6L</code>) 를 순차적으로 보여줌</li>
 </ul>
 <div class="sourceCode" id="cb872"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb872-1"><a href="data-frame.html#cb872-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 앞에서 불러온 전복 데이터셋 확인</span></span>
 <span id="cb872-2"><a href="data-frame.html#cb872-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(abalone)</span></code></pre></div>
@@ -1031,8 +1044,10 @@ $class
 <h5><code>merge()</code> 함수</h5>
 <ul>
 <li>두 데이터 프레임을 공통된 값을 기준으로 병합</li>
-<li>Excel의 <code>vlookup()</code> 함수 또는 데이터베이스 SQL 쿼리 중 <code>join</code>과 동일한 역할을 함</li>
-<li><code>cbind()</code>의 경우는 단순히 열을 합치는 것이지만 <code>merge()</code>는 공통되는 열을 기준으로 두 데이터셋을 병합</li>
+<li>Excel의 <code>vlookup()</code> 함수 또는 데이터베이스 SQL 쿼리 중 <code>join</code>과
+동일한 역할을 함</li>
+<li><code>cbind()</code>의 경우는 단순히 열을 합치는 것이지만 <code>merge()</code>는 공통되는
+열을 기준으로 두 데이터셋을 병합</li>
 <li>공통된 데이터가 있을 때만 데이터 병합 수행</li>
 </ul>
 <div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb884-1"><a href="data-frame.html#cb884-1" aria-hidden="true" tabindex="-1"></a><span class="co"># merge() 함수 인수 </span></span>
@@ -1177,14 +1192,17 @@ j 10 Male  42 109    162     60  64       Y</code></pre>
 <div id="apply-related-fun" class="section level3" number="2.8.4">
 <h3><span class="header-section-number">2.8.4</span> <code>*apply()</code> 계열 함수</h3>
 <ul>
-<li><code>apply()</code>, <code>lapply()</code>, <code>sapply()</code> 등 <code>apply</code> 계열 함수는 R에서 가장 일반적으로 사용되는 함수 중 하나</li>
-<li>반복문(<code>for-loop</code>)를 대신하기 위해 활용되며, R 객체를 입력 받아 원소 별 혹은 그루 별 함수를 적용</li>
+<li><code>apply()</code>, <code>lapply()</code>, <code>sapply()</code> 등 <code>apply</code> 계열 함수는 R에서 가장
+일반적으로 사용되는 함수 중 하나</li>
+<li>반복문(<code>for-loop</code>)를 대신하기 위해 활용되며, R 객체를 입력 받아 원소
+별 혹은 그루 별 함수를 적용</li>
 <li>데이터 전체에 함수를 한번에 적용하는 vectorizing 연산을 수행함</li>
 </ul>
 <div id="apply" class="section level4 unnumbered">
 <h4><code>apply()</code> 함수</h4>
 <ul>
-<li>배열 또는 행렬에 주어진 함수를 적용한 뒤 그 결과를 벡터 또는 리스트로 반환</li>
+<li>배열 또는 행렬에 주어진 함수를 적용한 뒤 그 결과를 벡터 또는
+리스트로 반환</li>
 <li>행 또는 열 차원 기준 함수 적용</li>
 <li>동일한 유형의 벡터로 구성된 데이터셋에 적용</li>
 </ul>
@@ -1242,7 +1260,8 @@ j 10 Male  42 109    162     60  64       Y</code></pre>
 <ul>
 <li>예시2: 데이터 프레임
 <ul>
-<li>위에서 사용한 <code>df</code>와 <a href="factor-table.html#factor">2.7.1</a> 요인(factor) 절에서 잠깐 예시로 사용된 전복(<code>abalone</code>) 데이터셋 사용</li>
+<li>위에서 사용한 <code>df</code>와 <a href="factor-table.html#factor">2.7.1</a> 요인(factor) 절에서 잠깐
+예시로 사용된 전복(<code>abalone</code>) 데이터셋 사용</li>
 </ul></li>
 </ul>
 
@@ -1403,7 +1422,8 @@ Abalone dataset 변수 설명(코드북)
 <div id="lapply" class="section level4 unnumbered">
 <h4><code>lapply()</code> 함수</h4>
 <ul>
-<li>특정 함수를 벡터, 리스트, 데이터 프레임 등에 적용하고 그 결과를 리스트로 반환</li>
+<li>특정 함수를 벡터, 리스트, 데이터 프레임 등에 적용하고 그 결과를
+리스트로 반환</li>
 </ul>
 <div class="sourceCode" id="cb932"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb932-1"><a href="data-frame.html#cb932-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(</span>
 <span id="cb932-2"><a href="data-frame.html#cb932-2" aria-hidden="true" tabindex="-1"></a> X, <span class="co">#벡터, 리스트, 표현식, 또는  데이터 프레임</span></span>
@@ -1438,7 +1458,7 @@ Abalone dataset 변수 설명(코드북)
   .. ..- attr(*, &quot;order&quot;)= int 1
   .. ..- attr(*, &quot;intercept&quot;)= int 1
   .. ..- attr(*, &quot;response&quot;)= int 1
-  .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x557bbc6aac18&gt; 
+  .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x5590180c0268&gt; 
   .. ..- attr(*, &quot;predvars&quot;)= language list(abalone$rings, x)
   .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
   .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;abalone$rings&quot; &quot;x&quot;
@@ -1527,7 +1547,8 @@ x           14.535675 0.27908233 52.08382  0.000000e+00</code></pre>
 <div id="sapply" class="section level4 unnumbered">
 <h4><code>sapply()</code> 힘수</h4>
 <ul>
-<li><code>lapply()</code> 함수와 유사하나(<code>lapply()</code>의 wrapper 함수), 결과를 벡터 또는 행렬로 반환하는 점에서 차이를 보임</li>
+<li><code>lapply()</code> 함수와 유사하나(<code>lapply()</code>의 wrapper 함수), 결과를 벡터
+또는 행렬로 반환하는 점에서 차이를 보임</li>
 <li>예시: 회귀분석</li>
 </ul>
 <div class="sourceCode" id="cb941"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb941-1"><a href="data-frame.html#cb941-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 각 변수별 회귀계수(절편항과 설명변수) 반환</span></span>
@@ -1559,7 +1580,8 @@ $dimnames[[2]]
 <h4><code>mapply()</code> 함수</h4>
 <ul>
 <li><code>sapply()</code>와 유사하지만 다수의 인수를 함수에 전달해 적용</li>
-<li>임의의 함수 <code>FUN()</code>이 있고, <code>FUN()</code>을 수행하기 위해 필요한 인수가 데이터로 저장되어 있을 때 이를 불러들여 함수를 적용</li>
+<li>임의의 함수 <code>FUN()</code>이 있고, <code>FUN()</code>을 수행하기 위해 필요한 인수가
+데이터로 저장되어 있을 때 이를 불러들여 함수를 적용</li>
 </ul>
 <div class="sourceCode" id="cb946"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb946-1"><a href="data-frame.html#cb946-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mapply</span>(</span>
 <span id="cb946-2"><a href="data-frame.html#cb946-2" aria-hidden="true" tabindex="-1"></a>  FUN, <span class="co"># 적용할 함수</span></span>
@@ -1568,7 +1590,8 @@ $dimnames[[2]]
 <p></p>
 <ul>
 <li>난수 생성 예시: <code>rnorm()</code> 함수 사용</li>
-<li><code>rnorm(n, mean, sd)</code>: 평균이 <code>mean</code>이고 표준편차가 <code>sd</code>인 정규분포에서 <code>n</code>개의 난수 생성</li>
+<li><code>rnorm(n, mean, sd)</code>: 평균이 <code>mean</code>이고 표준편차가 <code>sd</code>인
+정규분포에서 <code>n</code>개의 난수 생성</li>
 </ul>
 <div class="sourceCode" id="cb947"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb947-1"><a href="data-frame.html#cb947-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 평균이 각각 0, 1, 2, 4 이고</span></span>
 <span id="cb947-2"><a href="data-frame.html#cb947-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 표준편차가 1, 1, 1, 1 인 정규난수를 </span></span>

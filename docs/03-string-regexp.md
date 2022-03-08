@@ -707,20 +707,6 @@ R 객체를 직접 문자열과 결합 $\rightarrow$ `문자열 + {R 객체명}`
 
 ```r
 library(glue)
-```
-
-```
-
-다음의 패키지를 부착합니다: 'glue'
-```
-
-```
-The following object is masked from 'package:dplyr':
-
-    collapse
-```
-
-```r
 name <- "Boncho Ku"
 glue("My name is {name}.")
 ```

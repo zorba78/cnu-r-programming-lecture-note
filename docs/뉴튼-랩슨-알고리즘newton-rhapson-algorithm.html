@@ -5,26 +5,26 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8.5 뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm) | 통계 프로그래밍 언어</title>
-  <meta name="description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="description" content="2022년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8.5 뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm) | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta property="og:description" content="2022년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
   <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="8.5 뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm) | 통계 프로그래밍 언어" />
   
-  <meta name="twitter:description" content="2021년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="twitter:description" content="2022년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
   
 
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2021-11-16" />
+<meta name="date" content="2022-03-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -494,7 +494,7 @@ div.csl-indent {
 <li><p>step 4: <span class="math inline">\(f&#39;(x_{old})\)</span>의 접선이 <span class="math inline">\(x\)</span>축과 만나는 점을 새로운 값 <span class="math inline">\(x_{new}\)</span>로 업데이트</p></li>
 </ul>
 <p><span class="math display">\[
- x_{new} = x_{old} - \frac{f(x_{old})}{f&#39;(x_{old})}
+x_{new} = x_{old} - \frac{f(x_{old})}{f&#39;(x_{old})}
 \]</span></p>
 <ul>
 <li><p>step 5: 일정 조건을 만족할 때 까지 step 1 ~ step 4 반복</p></li>
@@ -507,11 +507,11 @@ f(x) = f&#39;(x_0)(x - x_0) + f(x_0)
 <li><span class="math inline">\(f(x) = 0\)</span> 일때 <span class="math inline">\(x\)</span>의 값은</li>
 </ul>
 <p><span class="math display">\[
- x = x_0 -\frac{f(x_0)}{f&#39;(x_0)}
+x = x_0 -\frac{f(x_0)}{f&#39;(x_0)}
 \]</span>
 - 따라서 다음 단계에서 해의 근사치 <span class="math inline">\(x_{1} = x_0 - f(x_0)/f&#39;(x_0)\)</span> 이고, 이를 조금 더 일반화 하면,</p>
 <p><span class="math display">\[
- x_{n+1} = x_n - \frac{f(x_n)}{f&#39;(x_n)}
+x_{n+1} = x_n - \frac{f(x_n)}{f&#39;(x_n)}
 \]</span></p>
 <ul>
 <li>위 식은 <strong>테일러 전개(Taylor expansion)</strong>를 통해 도출 가능(한 번 생각해 볼 것!!)</li>
@@ -560,43 +560,43 @@ f(x) = f&#39;(x_0)(x - x_0) + f(x_0)
 </ul>
 </div>
 <p></p>
-<div class="sourceCode" id="cb1629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1629-1"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-1" aria-hidden="true" tabindex="-1"></a>newton_raphson <span class="ot">&lt;-</span> <span class="cf">function</span>(FUN, <span class="co"># 함수</span></span>
-<span id="cb1629-2"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">x0 =</span> <span class="dv">1</span>, <span class="co"># 초기값</span></span>
-<span id="cb1629-3"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">max_iters =</span> <span class="dv">5000</span>, <span class="co"># 최대 반복 횟수</span></span>
-<span id="cb1629-4"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">tol =</span> <span class="fl">1.0e-9</span>, </span>
-<span id="cb1629-5"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">range =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="cn">Inf</span>), </span>
-<span id="cb1629-6"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-6" aria-hidden="true" tabindex="-1"></a>                           ...) </span>
-<span id="cb1629-7"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-7" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb1629-8"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-8" aria-hidden="true" tabindex="-1"></a> iters <span class="ot">&lt;-</span> <span class="dv">1</span>;</span>
-<span id="cb1629-9"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-9" aria-hidden="true" tabindex="-1"></a> grads <span class="ot">&lt;-</span> <span class="fu">deriv</span>(<span class="fu">as.expression</span>(<span class="fu">body</span>(FUN)), <span class="st">&quot;x&quot;</span>, <span class="at">function.arg =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1629-10"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-10" aria-hidden="true" tabindex="-1"></a> <span class="co"># grads 반환값 중 &quot;gradient&quot; 값 = f&#39;(x0)</span></span>
-<span id="cb1629-11"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-11" aria-hidden="true" tabindex="-1"></a> gap <span class="ot">&lt;-</span> x0 <span class="sc">-</span> <span class="fu">FUN</span>(x0)<span class="sc">/</span><span class="fu">attr</span>(<span class="fu">grads</span>(x0), <span class="st">&quot;gradient&quot;</span>) </span>
-<span id="cb1629-12"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-12" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb1629-13"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-13" aria-hidden="true" tabindex="-1"></a> <span class="cf">while</span>(iters <span class="sc">&lt;</span> max_iters <span class="sc">&amp;</span> <span class="fu">abs</span>(gap) <span class="sc">&gt;</span> tol) {</span>
-<span id="cb1629-14"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-14" aria-hidden="true" tabindex="-1"></a>   <span class="co"># x_new 계산 </span></span>
-<span id="cb1629-15"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-15" aria-hidden="true" tabindex="-1"></a>   x_new <span class="ot">&lt;-</span> x0 <span class="sc">-</span> <span class="fu">FUN</span>(x0)<span class="sc">/</span><span class="fu">attr</span>(<span class="fu">grads</span>(x0), <span class="st">&quot;gradient&quot;</span>)</span>
-<span id="cb1629-16"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-16" aria-hidden="true" tabindex="-1"></a>   gap <span class="ot">&lt;-</span> <span class="fu">FUN</span>(x_new) </span>
-<span id="cb1629-17"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-17" aria-hidden="true" tabindex="-1"></a>   <span class="co"># x_new 가 범위를 벗어난 경우 처리</span></span>
-<span id="cb1629-18"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-18" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> (x_new <span class="sc">&lt;=</span> range[<span class="dv">1</span>]) x_new <span class="ot">&lt;-</span> range[<span class="dv">1</span>] </span>
-<span id="cb1629-19"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-19" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> (x_new <span class="sc">&gt;=</span> range[<span class="dv">2</span>]) x_new <span class="ot">&lt;-</span> range[<span class="dv">2</span>]</span>
-<span id="cb1629-20"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-20" aria-hidden="true" tabindex="-1"></a>   iters <span class="ot">&lt;-</span> iters <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb1629-21"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-21" aria-hidden="true" tabindex="-1"></a>   x0 <span class="ot">&lt;-</span> x_new <span class="co"># 초기값 업데이트</span></span>
-<span id="cb1629-22"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-22" aria-hidden="true" tabindex="-1"></a> }</span>
-<span id="cb1629-23"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-23" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb1629-24"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-24" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> (x_new <span class="sc">==</span> range[<span class="dv">1</span>] <span class="sc">|</span> x_new <span class="sc">==</span> range[<span class="dv">2</span>]) </span>
-<span id="cb1629-25"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-25" aria-hidden="true" tabindex="-1"></a>   <span class="fu">warning</span>(<span class="st">&quot;마지막 점이 x 범위의 경계선 상에 있습니다.&quot;</span>)</span>
-<span id="cb1629-26"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-26" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> (iters <span class="sc">&gt;</span> max_iters) </span>
-<span id="cb1629-27"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-27" aria-hidden="true" tabindex="-1"></a>   <span class="fu">warning</span>(<span class="st">&quot;최대 반복 때 까지 해를 찾지 못했습니다.&quot;</span>)</span>
-<span id="cb1629-28"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-28" aria-hidden="true" tabindex="-1"></a> <span class="fu">cat</span>(<span class="st">&quot;x 가&quot;</span>, x_new, <span class="st">&quot;일 때 함수값:&quot;</span>, <span class="fu">FUN</span>(x_new), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb1629-29"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-29" aria-hidden="true" tabindex="-1"></a> <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">solution =</span> x_new, <span class="at">iteration =</span> iters))</span>
-<span id="cb1629-30"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-30" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb1629-31"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-31" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1629-32"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1629-33"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-33" aria-hidden="true" tabindex="-1"></a><span class="do">## test: 위 동영상과 동일한 해를 갖는지 확인</span></span>
-<span id="cb1629-34"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-34" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">5</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">7</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">40</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="dv">100</span> </span>
-<span id="cb1629-35"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-35" aria-hidden="true" tabindex="-1"></a><span class="fu">newton_raphson</span>(<span class="at">FUN =</span> f, </span>
-<span id="cb1629-36"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-36" aria-hidden="true" tabindex="-1"></a>               <span class="at">x0 =</span> <span class="dv">1</span>,</span>
-<span id="cb1629-37"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1629-37" aria-hidden="true" tabindex="-1"></a>               <span class="at">range =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>)) <span class="ot">-&gt;</span> sols</span></code></pre></div>
+<div class="sourceCode" id="cb1626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1626-1"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-1" aria-hidden="true" tabindex="-1"></a>newton_raphson <span class="ot">&lt;-</span> <span class="cf">function</span>(FUN, <span class="co"># 함수</span></span>
+<span id="cb1626-2"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">x0 =</span> <span class="dv">1</span>, <span class="co"># 초기값</span></span>
+<span id="cb1626-3"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">max_iters =</span> <span class="dv">5000</span>, <span class="co"># 최대 반복 횟수</span></span>
+<span id="cb1626-4"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">tol =</span> <span class="fl">1.0e-9</span>, </span>
+<span id="cb1626-5"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">range =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="cn">Inf</span>), </span>
+<span id="cb1626-6"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-6" aria-hidden="true" tabindex="-1"></a>                           ...) </span>
+<span id="cb1626-7"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-7" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1626-8"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-8" aria-hidden="true" tabindex="-1"></a> iters <span class="ot">&lt;-</span> <span class="dv">1</span>;</span>
+<span id="cb1626-9"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-9" aria-hidden="true" tabindex="-1"></a> grads <span class="ot">&lt;-</span> <span class="fu">deriv</span>(<span class="fu">as.expression</span>(<span class="fu">body</span>(FUN)), <span class="st">&quot;x&quot;</span>, <span class="at">function.arg =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1626-10"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-10" aria-hidden="true" tabindex="-1"></a> <span class="co"># grads 반환값 중 &quot;gradient&quot; 값 = f&#39;(x0)</span></span>
+<span id="cb1626-11"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-11" aria-hidden="true" tabindex="-1"></a> gap <span class="ot">&lt;-</span> x0 <span class="sc">-</span> <span class="fu">FUN</span>(x0)<span class="sc">/</span><span class="fu">attr</span>(<span class="fu">grads</span>(x0), <span class="st">&quot;gradient&quot;</span>) </span>
+<span id="cb1626-12"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-12" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1626-13"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-13" aria-hidden="true" tabindex="-1"></a> <span class="cf">while</span>(iters <span class="sc">&lt;</span> max_iters <span class="sc">&amp;</span> <span class="fu">abs</span>(gap) <span class="sc">&gt;</span> tol) {</span>
+<span id="cb1626-14"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-14" aria-hidden="true" tabindex="-1"></a>   <span class="co"># x_new 계산 </span></span>
+<span id="cb1626-15"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-15" aria-hidden="true" tabindex="-1"></a>   x_new <span class="ot">&lt;-</span> x0 <span class="sc">-</span> <span class="fu">FUN</span>(x0)<span class="sc">/</span><span class="fu">attr</span>(<span class="fu">grads</span>(x0), <span class="st">&quot;gradient&quot;</span>)</span>
+<span id="cb1626-16"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-16" aria-hidden="true" tabindex="-1"></a>   gap <span class="ot">&lt;-</span> <span class="fu">FUN</span>(x_new) </span>
+<span id="cb1626-17"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-17" aria-hidden="true" tabindex="-1"></a>   <span class="co"># x_new 가 범위를 벗어난 경우 처리</span></span>
+<span id="cb1626-18"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-18" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> (x_new <span class="sc">&lt;=</span> range[<span class="dv">1</span>]) x_new <span class="ot">&lt;-</span> range[<span class="dv">1</span>] </span>
+<span id="cb1626-19"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-19" aria-hidden="true" tabindex="-1"></a>   <span class="cf">if</span> (x_new <span class="sc">&gt;=</span> range[<span class="dv">2</span>]) x_new <span class="ot">&lt;-</span> range[<span class="dv">2</span>]</span>
+<span id="cb1626-20"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-20" aria-hidden="true" tabindex="-1"></a>   iters <span class="ot">&lt;-</span> iters <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb1626-21"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-21" aria-hidden="true" tabindex="-1"></a>   x0 <span class="ot">&lt;-</span> x_new <span class="co"># 초기값 업데이트</span></span>
+<span id="cb1626-22"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-22" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb1626-23"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-23" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1626-24"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-24" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> (x_new <span class="sc">==</span> range[<span class="dv">1</span>] <span class="sc">|</span> x_new <span class="sc">==</span> range[<span class="dv">2</span>]) </span>
+<span id="cb1626-25"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-25" aria-hidden="true" tabindex="-1"></a>   <span class="fu">warning</span>(<span class="st">&quot;마지막 점이 x 범위의 경계선 상에 있습니다.&quot;</span>)</span>
+<span id="cb1626-26"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-26" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> (iters <span class="sc">&gt;</span> max_iters) </span>
+<span id="cb1626-27"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-27" aria-hidden="true" tabindex="-1"></a>   <span class="fu">warning</span>(<span class="st">&quot;최대 반복 때 까지 해를 찾지 못했습니다.&quot;</span>)</span>
+<span id="cb1626-28"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-28" aria-hidden="true" tabindex="-1"></a> <span class="fu">cat</span>(<span class="st">&quot;x 가&quot;</span>, x_new, <span class="st">&quot;일 때 함수값:&quot;</span>, <span class="fu">FUN</span>(x_new), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1626-29"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-29" aria-hidden="true" tabindex="-1"></a> <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">solution =</span> x_new, <span class="at">iteration =</span> iters))</span>
+<span id="cb1626-30"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-30" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1626-31"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1626-32"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1626-33"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-33" aria-hidden="true" tabindex="-1"></a><span class="do">## test: 위 동영상과 동일한 해를 갖는지 확인</span></span>
+<span id="cb1626-34"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-34" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">5</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">7</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">40</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="dv">100</span> </span>
+<span id="cb1626-35"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-35" aria-hidden="true" tabindex="-1"></a><span class="fu">newton_raphson</span>(<span class="at">FUN =</span> f, </span>
+<span id="cb1626-36"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-36" aria-hidden="true" tabindex="-1"></a>               <span class="at">x0 =</span> <span class="dv">1</span>,</span>
+<span id="cb1626-37"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html#cb1626-37" aria-hidden="true" tabindex="-1"></a>               <span class="at">range =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>)) <span class="ot">-&gt;</span> sols</span></code></pre></div>
 <pre><code>x 가 -3.151719 일 때 함수값: -3.547029e-11 </code></pre>
 <p></p>
 

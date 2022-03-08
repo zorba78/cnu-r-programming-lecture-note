@@ -2,6 +2,8 @@
 output: html_document
 editor_options: 
   chunk_output_type: console
+  markdown: 
+    wrap: 72
 ---
 
 # R 객체(R object) {#data-type}
@@ -14,47 +16,49 @@ editor_options:
 
  \normalsize
 
-
-
 #### 학습 필요성 {#ch2-abstract .unnumbered}
 
-- R언어는 타 프로그래밍 언어와 유사한 데이터 타입(정수형, 실수형, 문자형 등)을 제공
-- R 언어가 다른 언어와 차이점 $\rightarrow$ **데이터 분석**에 특화된 벡터(vector), 행렬(matrix), 
-데이터프레임(data frame), 리스트(list)와 같은 객체 [^1] 제공
-- R 패키지에서 제공되는 함수 사용 방법은 R의 객체에 따라 달라질 수 있음  
-- R 언어를 원활히 다룰 수 있으려면 R에서 데이터 객체의 형태, 자료 할당 및 그 연산 방법에 대한 이해가 필수적으로 선행되어야 함
+-   R언어는 타 프로그래밍 언어와 유사한 데이터 타입(정수형, 실수형,
+    문자형 등)을 제공
+-   R 언어가 다른 언어와 차이점 $\rightarrow$ **데이터 분석**에 특화된
+    벡터(vector), 행렬(matrix), 데이터프레임(data frame), 리스트(list)와
+    같은 객체 [^data-type-1] 제공
+-   R 패키지에서 제공되는 함수 사용 방법은 R의 객체에 따라 달라질 수
+    있음\
+-   R 언어를 원활히 다룰 수 있으려면 R에서 데이터 객체의 형태, 자료 할당
+    및 그 연산 방법에 대한 이해가 필수적으로 선행되어야 함
 
-[^1]: R에서 사용자가 데이터 입력을 위해 생성 또는 읽어온 객체(object)는 종종 변수(variable)라는 말과 혼용. 
-본 문서에서는 최상위 데이터 저장장소를 객체라고 명명하며 데이터프레임과 같이 여러 종류의 데이터타입으로 이루어진 객체의 1차원 속성을 변수라고 칭함
+[^data-type-1]: R에서 사용자가 데이터 입력을 위해 생성 또는 읽어온
+    객체(object)는 종종 변수(variable)라는 말과 혼용. 본 문서에서는
+    최상위 데이터 저장장소를 객체라고 명명하며 데이터프레임과 같이 여러
+    종류의 데이터타입으로 이루어진 객체의 1차원 속성을 변수라고 칭함
 
 #### R의 데이터 타입 {#object-value .unnumbered}
 
-- **수치형(numeric)**: 숫자(정수, 소수)
+-   **수치형(numeric)**: 숫자(정수, 소수)
 
-- **문자열(string)**: `"충남대학교"`, `"R강의"`
+-   **문자열(string)**: `"충남대학교"`, `"R강의"`
 
-- **논리형(logical)**: `TRUE`/`FALSE`
+-   **논리형(logical)**: `TRUE`/`FALSE`
 
-- **결측값(`NA`)**: 자료에서 발생한 결측 표현
+-   **결측값(`NA`)**: 자료에서 발생한 결측 표현
 
-- **공백(`NULL`)**: 지정하지 않은 값
+-   **공백(`NULL`)**: 지정하지 않은 값
 
-- **요인(factor)**: 범주형 자료 표현(수치 + 문자 결합 형태로 이해하면 편함)
+-   **요인(factor)**: 범주형 자료 표현(수치 + 문자 결합 형태로 이해하면
+    편함)
 
-- **기타**: 숫자아님(`NaN`), 무한대(`Inf`) 등
-
+-   **기타**: 숫자아님(`NaN`), 무한대(`Inf`) 등
 
 #### R 객체의 종류 {#ch2-object-type .unnumbered}
 
-- 스칼라(상수형, scalar 또는 atomic)
-- 벡터(vector): **R의 기본연산 단위**
-- 리스트(list)
-- 행렬(matrix)
-- 배열(array)
-- 데이터프레임(data frame)
-<!-- - 함수(function) -->
-<!-- - 연산자(operator) -->
-<!-- - 표현식(expression) -->
+-   스칼라(상수형, scalar 또는 atomic)
+-   벡터(vector): **R의 기본연산 단위**
+-   리스트(list)
+-   행렬(matrix)
+-   배열(array)
+-   데이터프레임(data frame) <!-- - 함수(function) -->
+    <!-- - 연산자(operator) --> <!-- - 표현식(expression) -->
 
 <!-- R 객체 중 scalar, vector, matrix, data.frame $\rightarrow$ 데이터 객체(object) -->
 
@@ -69,13 +73,11 @@ editor_options:
 
  \normalsize
 
-
 ## 프로그래밍
 
 ### Prerequisites
 
-- 예약어(researved words): R에서 의미(sementic)를 미리 정해 놓은 단어
-
+-   예약어(researved words): R에서 의미(sementic)를 미리 정해 놓은 단어
 
 \footnotesize
 
@@ -125,24 +127,31 @@ editor_options:
 
  \normalsize
 
-
-- **변수(variable)**: 사용자가 프로그램 처리를 위해 지정한 단어
-   - 적당한 값을 저장하고 나중에 필요시 해당 값을 호출해 사용하기 위한 목적으로 사용되는 표식(label)
-   - 예약어를 변수명으로 사용할 수 없음
-   - [통계프로그래밍언어 강의노트: R 기초문법](https://zorba78.github.io/cnu-r-programming-lecture-note/r-basic.html) 참고
-   
-- **고수준 언어(high-level language)**: 사람이 읽고 쓰기 쉬운 형태의 명령어를 컴퓨터가 읽고 처리할 수 있도록 고안된 프로그래밍 언어
-   - 컴퓨터가 이해할 수 있는 언어 $\rightarrow$ 중앙처리장치(central processing unit, CPU)가 이해하는 언어 $\rightarrow$ 기계어(machine language)
-   - 기계어는 0과 1로 구성된 이진수(binary number)임(예: `0100101001001001001110110101101010110`)
-   - 고수준 언어의 종류: C, C++, JAVA, 베이직, Perl, Python, R, ...
-   
-- **번역기(translator)**: 사람이 이해할 수 있는 표현(언어)를 기계(컴퓨터)가 이해할 수 있는 언어(기계어)로 변환
-   - 인터프리터(interpreter)
-   - 컴파일러(compiler)
-
-- **인터프리터*: 코드(스크립트) 한 줄을 즉석에서 읽고, 파싱(프로그램을 검사하고 구문론적 구조를 분석)하고, 해석
-   - R, Python, MATLAB 등은 인터프리터를 번역기로 사용
-   - 인터엑티브 모드 $\rightarrow$ R 프롬프트(`>`) 뒤에 한 줄의 명령어를 작성하면 측석해서 처리 후 다음 입력에 대해 준비(prompt)함. 
+-   **변수(variable)**: 사용자가 프로그램 처리를 위해 지정한 단어
+    -   적당한 값을 저장하고 나중에 필요시 해당 값을 호출해 사용하기
+        위한 목적으로 사용되는 표식(label)
+    -   예약어를 변수명으로 사용할 수 없음
+    -   [통계프로그래밍언어 강의노트: R
+        기초문법](https://zorba78.github.io/cnu-r-programming-lecture-note/r-basic.html)
+        참고
+-   **고수준 언어(high-level language)**: 사람이 읽고 쓰기 쉬운 형태의
+    명령어를 컴퓨터가 읽고 처리할 수 있도록 고안된 프로그래밍 언어
+    -   컴퓨터가 이해할 수 있는 언어 $\rightarrow$ 중앙처리장치(central
+        processing unit, CPU)가 이해하는 언어 $\rightarrow$
+        기계어(machine language)
+    -   기계어는 0과 1로 구성된 이진수(binary number)임(예:
+        `0100101001001001001110110101101010110`)
+    -   고수준 언어의 종류: C, C++, JAVA, 베이직, Perl, Python, R, ...
+-   **번역기(translator)**: 사람이 이해할 수 있는 표현(언어)를
+    기계(컴퓨터)가 이해할 수 있는 언어(기계어)로 변환
+    -   인터프리터(interpreter)
+    -   컴파일러(compiler)
+-   **인터프리터**: 코드(스크립트) 한 줄을 즉석에서 읽고, 파싱(parsing,
+    프로그램을 검사하고 프로그램의 문법적 구조를 분석해 컴퓨터가 이해할
+    수 있도록 번역)하고 해석해 명령을 실행
+    -   R, Python, MATLAB 등은 인터프리터를 번역기로 사용
+    -   Interactive 모드 $\rightarrow$ R 프롬프트(`>`) 뒤에 한 줄의
+        명령어를 작성하면 즉시 처리 후 다음 입력을 받을 준비(prompt)를 함.
 
 \footnotesize
 
@@ -181,17 +190,18 @@ print("앞으로 잘 부탁해요!!")
 
  \normalsize
 
-
-
-- **컴파일러**: 완전한 프로그램을 하나의 파일에 담고 파일 안에 저장되어 있는 소스코드를 기계어로 번역 후 다음 실행할 수 있도록 변환한 기계어를 파일에 담음. 
-   - 보통은 `.exe`, `.dll` 파일 형태로 저장됨 
-      
-
+-   **컴파일러**: 완전한 프로그램을 하나의 파일에 담고 파일 안에
+    저장되어 있는 소스 코드를 기계어로 번역 후 다음 실행할 수 있도록
+    변환한 기계어를 파일에 담음.
+    -   보통은 `.exe`, `.dll` 파일 형태로 저장됨
 
 ### 프로그램 {#control-program}
 
-- **프로그램(program)**: 특정 작업(목적)을 수행할 수 있도록 작성한 일련의 R 문장(명령어)의 집합
-   - 일련의 문장(명령어)들은 텍스트 편집기를 통해 작성하며, **스크립트(script)**로 명칭되는 파일로 저장 $\rightarrow$ R 스크립트 `.R` 확장자를 가짐
+-   **프로그램(program)**: 특정 작업(목적)을 수행할 수 있도록 작성한
+    일련의 R 문장(명령어)의 집합
+    -   일련의 문장(명령어)들은 텍스트 편집기를 통해 작성하며,
+        **스크립트(script)**로 명칭 되는 파일로 저장 $\rightarrow$ R
+        스크립트 `.R` 확장자를 가짐
 
 \footnotesize
 
@@ -222,9 +232,9 @@ source("examples/hello.R", encoding = "UTF-8")
 
  \normalsize
 
-
-- 예시: 텍스트 파일에서 가장 자주 나오는 단어 찾기 프로그램
-   - https://statkclee.github.io/r4inf/r-intro.html#r-intro-what-is-a-program 참고
+-   예시: 텍스트 파일에서 가장 자주 나오는 단어 찾기 프로그램
+    -   <https://statkclee.github.io/r4inf/r-intro.html#r-intro-what-is-a-program>
+        참고
 
 \footnotesize
 
@@ -266,21 +276,31 @@ bind_cols("word" = unique_wd, "freq" = res_v) %>%
 
  \normalsize
 
-- 프로그램 작성을 위한 개념적 요소
-   - **입력(input)**: 외부로부터 가져온 데이터, 값 등 
-   - **출력(output)**: 입력에 대한 반응(결과 출력, 파일 저장, 음악 재생, ...)
-   - **순차실행(sequential execution)**: 스크립트 또는 코드 작성 순서에 따라 한줄씩 실행
-   - **조건실행(conditional execution)**: 특정 조건에 따라 문장(명령)을 실행하거나 건너뜀
-   - **번복실행(iterative execution)**: 특정 명령을 반복적으로 실행 
-   - **재사용(resuse)**: 스크립트의 집합(다수 줄로 구성된 코드 또는 스크립트)에 이름을 부여하고 저장 $\rightarrow$ 사용자 지정 함수(function)
-   
-- 프로그램 오류의 종류
-   - **구문오류(syntax error)**: R 언어가 이해할 수 없는 문장 또는 문법으로 실행했을 때 나타나는 오류 $\rightarrow$ 가장 고치기 쉽고 즉각적으로 알려줌
-   - **논리 또는 run-time 오류(logic or run-time error)**: 구문은 완벽하지만 실행 순서 또는 논리적으로 연관방식에 문제가 있어서 명령어를 수행할 수 없는 경우
-   - **의미론적 오류(sementic error)**: 프로그램은 구문적으로 오류가 없고 실행되지만 올바른 결과를 출력하지 않는 경우 $\rightarrow$ **제일 고치기 어려움**
-
-
-- 가장 간단한 프로그래밍은 순차적으로 명령을 실행하되 입력 시 흐름을 잠시 중단하고 대기하는 방법 $\rightarrow$ 프롬프트 상 명령어 한 줄씩 입력
+-   프로그램 작성을 위한 개념적 요소
+    -   **입력(input)**: 외부로부터 가져온 데이터, 값 등
+    -   **출력(output)**: 입력에 대한 반응(결과 출력, 파일 저장, 음악
+        재생, ...)
+    -   **순차실행(sequential execution)**: 스크립트 또는 코드 작성
+        순서에 따라 한줄씩 실행
+    -   **조건실행(conditional execution)**: 특정 조건에 따라
+        문장(명령)을 실행하거나 건너뜀
+    -   **번복실행(iterative execution)**: 특정 명령을 반복적으로 실행
+    -   **재사용(resuse)**: 스크립트의 집합(다수 줄로 구성된 코드 또는
+        스크립트)에 이름을 부여하고 저장 $\rightarrow$ 사용자 지정
+        함수(function)
+-   프로그램 오류의 종류
+    -   **구문오류(syntax error)**: R 언어가 이해할 수 없는 문장 또는
+        문법으로 실행했을 때 나타나는 오류 $\rightarrow$ 가장 고치기
+        쉽고 즉각적으로 알려줌
+    -   **논리 또는 run-time 오류(logic or run-time error)**: 구문은
+        완벽하지만 실행 순서 또는 논리적으로 연관방식에 문제가 있어서
+        명령어를 수행할 수 없는 경우
+    -   **의미론적 오류(sementic error)**: 프로그램은 구문적으로 오류가
+        없고 실행되지만 올바른 결과를 출력하지 않는 경우 $\rightarrow$
+        **제일 고치기 어려움**
+-   가장 간단한 프로그래밍은 순차적으로 명령을 실행하되 입력 시 흐름을
+    잠시 중단하고 대기하는 방법 $\rightarrow$ 프롬프트 상 명령어 한 줄씩
+    입력
 
 \footnotesize
 
@@ -293,8 +313,6 @@ cat("Hello, ", name, "!\n", sep = "")
 ```
 
  \normalsize
-
-
 
 \footnotesize
 
@@ -310,11 +328,11 @@ cat("월 급여는 ", x * y * z, " 원 입니다.\n", sep = "")
 
  \normalsize
 
-
 ## 스칼라(scalar) {#scalar}
 
-- 단일 차원의 값(하나의 값): $1 \times 1$ 백터로 표현 $\rightarrow$ R 데이터 객체의 기본은 벡터!!
-- 데이터 객체의 유형은 크게 숫자형, 문자열, 논리형이 있음
+-   단일 차원의 값(하나의 값): $1 \times 1$ 백터로 표현 $\rightarrow$ R
+    데이터 객체의 기본은 벡터!!
+-   데이터 객체의 유형은 크게 숫자형, 문자열, 논리형이 있음
 
 \footnotesize
 
@@ -324,7 +342,8 @@ cat("월 급여는 ", x * y * z, " 원 입니다.\n", sep = "")
 
 ### 선언 {#definition}
 
-- 일반적으로 컴파일이 필요한 언어(예: `C` 언어)의 경우 변수 또는 객체를 사용 전에 선언이 필요
+-   일반적으로 컴파일이 필요한 언어(예: `C` 언어)의 경우 변수 또는
+    객체를 사용 전에 선언이 필요
 
 \footnotesize
 
@@ -336,9 +355,12 @@ x = 1;
 
  \normalsize
 
-- 위 코드에서 `int x;` 없이 `x = 1`을 입력 후 컴파일 하면 에러가 나타나지만 `R` 언어에서는 **변수를 선언할 필요가 전혀 없음** 
+-   위 코드에서 `int x;` 없이 `x = 1`을 입력 후 컴파일 하면 에러가
+    나타나지만 `R` 언어에서는 **변수를 선언할 필요가 전혀 없음**
 
-- `z` 가 어떤 데이터 타입인지 언급할 필요가 전혀 없음 $\rightarrow$ `Python`, `Perl`, `Matlab` 등과 같은 스크립트 언어의 특징. 아래 코드 참조
+-   `z` 가 어떤 데이터 타입인지 언급할 필요가 전혀 없음 $\rightarrow$
+    `Python`, `Perl`, `Matlab` 등과 같은 스크립트 언어의 특징. 아래 코드
+    참조
 
 \footnotesize
 
@@ -354,11 +376,10 @@ z
 
  \normalsize
 
-
 ### 숫자형 {#numeric}
 
-- 정수형(integer)과 실수형(double)로 구분됨
-- 정수형 구분시 숫자 뒤 `L`을 표시
+-   정수형(integer)과 실수형(double)로 구분됨
+-   정수형 구분시 숫자 뒤 `L`을 표시
 
 \footnotesize
 
@@ -383,8 +404,9 @@ typeof(10)
 
  \normalsize
 
-- 수치연산(`+, -, *, ^, **, /, %%, %/%`) 가능: R은 함수형 언어이기 때문에 앞에 기술한 연산자도 하나의 함수로 인식함. 
-- 수치 연산자(operator) 및 기본 수학 함수
+-   수치연산(`+, -, *, ^, **, /, %%, %/%`) 가능: R은 함수형 언어이기
+    때문에 앞에 기술한 연산자도 하나의 함수로 인식함.
+-   수치 연산자(operator) 및 기본 수학 함수
 
 \footnotesize
 
@@ -525,11 +547,12 @@ nn
 
 ### 문자형 {#character}
 
-- 수치형이 아닌 문자 형식의 단일 원소
-- C와 같은 언어에서 볼수 있는 한개 문자에 대한 데이터 타입 존재하지 않음
-- 수치연산 불가능
-- 따옴표(`"` 또는 `'`)로 문자를 묶어서 문자열 표시
-- 문자열을 다루는 자세한 설명은 5주차에서 자세히 설명할 예정임
+-   수치형이 아닌 문자 형식의 단일 원소
+-   C와 같은 언어에서 볼수 있는 한개 문자에 대한 데이터 타입 존재하지
+    않음
+-   수치연산 불가능
+-   따옴표(`"` 또는 `'`)로 문자를 묶어서 문자열 표시
+-   문자열을 다루는 자세한 설명은 5주차에서 자세히 설명할 예정임
 
 \footnotesize
 
@@ -590,11 +613,12 @@ Error in h1 - h2: 이항연산자에 수치가 아닌 인수입니다
 
 ### 논리형 스칼라 {#logical}
 
-- 참(`TRUE`, `T`) 또는 거짓(`FALSE`, `F`)를 나타내는 값
-- `TRUE`/`FALSE`: 예약어(reserved word)
-- `T`/`F`: `TRUE`와 `FALSE`로 초기화된 전역 변수 
-   - `T`에 `FALSE` 또는 어떤 값도 할당 가능 $\rightarrow$ 가급적 `TRUE/FALSE`를 명시하는 것이 편함
-- 논리형 연산자(logical operator)
+-   참(`TRUE`, `T`) 또는 거짓(`FALSE`, `F`)를 나타내는 값
+-   `TRUE`/`FALSE`: 예약어(reserved word)
+-   `T`/`F`: `TRUE`와 `FALSE`로 초기화된 전역 변수
+    -   `T`에 `FALSE` 또는 어떤 값도 할당 가능 $\rightarrow$ 가급적
+        `TRUE/FALSE`를 명시하는 것이 편함
+-   논리형 연산자(logical operator)
 
 \footnotesize
 
@@ -632,8 +656,7 @@ Error in h1 - h2: 이항연산자에 수치가 아닌 인수입니다
 
  \normalsize
 
-
-- 비교 연산자를 적용할 경우 논리값을 반환
+-   비교 연산자를 적용할 경우 논리값을 반환
 
 \footnotesize
 
@@ -680,7 +703,6 @@ Error in h1 - h2: 이항연산자에 수치가 아닌 인수입니다
 
  \normalsize
 
-
 \footnotesize
 
 \BeginKnitrBlock{rmdnote}<div class="rmdnote">**참고**
@@ -693,8 +715,7 @@ Error in h1 - h2: 이항연산자에 수치가 아닌 인수입니다
 
  \normalsize
 
-
-- 논리형 스칼라의 논리 및 비교 연산 예시
+-   논리형 스칼라의 논리 및 비교 연산 예시
 
 \footnotesize
 
@@ -853,9 +874,12 @@ x != y
 
 ### 결측값(missing value) {#missing-value}
 
-- 결측치 지정 **상수**: `NA` $\rightarrow$ R과 다른 언어의 가장 큰 차이점 중 하나
-- 예를 들어 4명의 통계학과 학생 중 3명의 통계학 개론 중간고사 점수가 각각 80, 90, 75점이고 4번 째 학생의 점수가 없는 경우 `NA`로 결측값 표현
-- `is.na()` 함수를 이용해 해당 값이 결측을 포함하고 있는지 확인
+-   결측치 지정 **상수**: `NA` $\rightarrow$ R과 다른 언어의 가장 큰
+    차이점 중 하나
+-   예를 들어 4명의 통계학과 학생 중 3명의 통계학 개론 중간고사 점수가
+    각각 80, 90, 75점이고 4번 째 학생의 점수가 없는 경우 `NA`로 결측값
+    표현
+-   `is.na()` 함수를 이용해 해당 값이 결측을 포함하고 있는지 확인
 
 \footnotesize
 
@@ -920,8 +944,8 @@ NA <= 3
 
 ### NULL 값 {#null}
 
-- `NULL`: 초기화 되지 않은 변수 또는 **객체**를 지칭함
-- `is.null()` 함수를 통해 객체가 `NULL`인지 판단
+-   `NULL`: 초기화 되지 않은 변수 또는 **객체**를 지칭함
+-   `is.null()` 함수를 통해 객체가 `NULL`인지 판단
 
 \footnotesize
 
@@ -956,7 +980,6 @@ is.null(x)
 
  \normalsize
 
-
 \footnotesize
 
 
@@ -981,18 +1004,22 @@ logical(0)
  \normalsize
 
 <!-- # 데이터에서 NA와 NULL의 차이점 -->
+
 <!-- x <- c(80, 90, 75, NA) -->
+
 <!-- x -->
 
 <!-- x <- c(80, 90, 75, NULL) -->
+
 <!-- x -->
 
 ### 무한대/무한소/숫자아님 {#finite}
 
-- `Inf`: 무한대($+\infty$, $1/0$)
-- `-Inf`: 무한소($-\infty$, $-1/0$)
-- `NaN`: 숫자아님(Not a Number, $0/0$)
-- `is.finite()`, `is.infinite()`, `is.nan()` 함수를 통해 객체가 `Inf` 또는 `NaN`을 포함하는지 확인
+-   `Inf`: 무한대($+\infty$, $1/0$)
+-   `-Inf`: 무한소($-\infty$, $-1/0$)
+-   `NaN`: 숫자아님(Not a Number, $0/0$)
+-   `is.finite()`, `is.infinite()`, `is.nan()` 함수를 통해 객체가 `Inf`
+    또는 `NaN`을 포함하는지 확인
 
 \footnotesize
 
@@ -1040,21 +1067,23 @@ is.infinite(x)
 
  \normalsize
 
-
 ## 벡터(vector) {#vector}
 
 ### 벡터의 특징 {#vector-prop}
 
-- 타 프로그래밍 언어의 배열(array)의 개념으로 **동일한 유형**의 데이터 원소가 하나 이상($n \times 1$, $n \geq 1$) 으로 구성된 자료 형태
-- R 언어의 가장 기본적인 데이터 형태로 R에서 행해지는 모든 연산의 기본(vectorization) $\rightarrow$ 벡터 연산 시 반복구문(예: `for loop`)이 필요 없음. 
-- \@ref(scalar) 절에서 기술한 [스칼라(scalar)]는 사실 $1 \times 1$ 벡터임
-- 수학적으로 벡터는 아래와 같이 나타낼 수 있음
+-   타 프로그래밍 언어의 배열(array)의 개념으로 **동일한 유형**의 데이터
+    원소가 하나 이상($n \times 1$, $n \geq 1$) 으로 구성된 자료 형태
+-   R 언어의 가장 기본적인 데이터 형태로 R에서 행해지는 모든 연산의
+    기본(vectorization) $\rightarrow$ 벡터 연산 시 반복구문(예:
+    `for loop`)이 필요 없음.
+-   \@ref(scalar) 절에서 기술한 [스칼라(scalar)](#scalar)는 사실
+    $1 \times 1$ 벡터임
+-   수학적으로 벡터는 아래와 같이 나타낼 수 있음
 
 $$\mathrm{\mathbf x} = [x_1, x_2, x_3, \ldots, x_n]^T
 $$
 
-
-- 벡터는 앞의 예시에서 본 바와 같이 `c()` 함수를 사용해 생성
+-   벡터는 앞의 예시에서 본 바와 같이 `c()` 함수를 사용해 생성
 
 \footnotesize
 
@@ -1082,8 +1111,8 @@ y
 
  \normalsize
 
-- 두 개 이상의 벡터는 `c()` 함수를 통해 결합 가능
-   - 함수 내 `,` 구분자를 통해 결합
+-   두 개 이상의 벡터는 `c()` 함수를 통해 결합 가능
+    -   함수 내 `,` 구분자를 통해 결합
 
 \footnotesize
 
@@ -1129,11 +1158,11 @@ x2
 
  \normalsize
 
-
-- 서로 다른 자료형으로 벡터를 구성한 경우 표현력이 높은 자료형으로 변환한 값 반환
-    - 예: 문자열 + 숫자로 구성된 벡터 $\rightarrow$ 문자형 벡터
-    - 변환규칙: `NULL < raw < logical < integer < double < complex < character < list < expression`
-
+-   서로 다른 자료형으로 벡터를 구성한 경우 표현력이 높은 자료형으로
+    변환한 값 반환
+    -   예: 문자열 + 숫자로 구성된 벡터 $\rightarrow$ 문자형 벡터
+    -   변환규칙:
+        `NULL < raw < logical < integer < double < complex < character < list < expression`
 
 \footnotesize
 
@@ -1223,7 +1252,8 @@ is.logical(z)
 
  \normalsize
 
-- 두 벡터는 중첩이 불가능 $\rightarrow$ 동일한 벡터 2개를 결합 시 단일 차원 벡터 생성
+-   두 벡터는 중첩이 불가능 $\rightarrow$ 동일한 벡터 2개를 결합 시 단일
+    차원 벡터 생성
 
 \footnotesize
 
@@ -1255,12 +1285,13 @@ z
 ```
 
  \normalsize
-    
 
-- 벡터 각 원소에 이름 부여 가능
-    - `names()` 함수를 이용해 원소 이름 지정
-    - 사용 프로토타입: `names(x) <- 문자열 벡터`, 단 `x`와 이름에 입력할 문자열 벡터의 길이는 같아야 함. 
-    - `c()` 함수에서 직접 이름 지정 $\rightarrow$ `c(atom_name1 = value, atom_name2 = value, ...)`
+-   벡터 각 원소에 이름 부여 가능
+    -   `names()` 함수를 이용해 원소 이름 지정
+    -   사용 프로토타입: `names(x) <- 문자열 벡터`, 단 `x`와 이름에
+        입력할 문자열 벡터의 길이는 같아야 함.
+    -   `c()` 함수에서 직접 이름 지정 $\rightarrow$
+        `c(atom_name1 = value, atom_name2 = value, ...)`
 
 \footnotesize
 
@@ -1288,9 +1319,9 @@ names(y)
 ```
 
  \normalsize
-    
-- 벡터의 길이(차원) 확인
-   - `length()` 또는 `NROW()` 사용
+
+-   벡터의 길이(차원) 확인
+    -   `length()` 또는 `NROW()` 사용
 
 \footnotesize
 
@@ -1319,8 +1350,11 @@ NROW(x)
 
 ### 벡터의 연산 {#vector-operation}
 
-- 원소 단위 사칙연산 및 비교연산 수행 $\rightarrow$ 벡터화 연산(vectorized operation)
-   - 예를 들어 $\mathrm{\mathbf x} = [1, 2, 3]^T$ 이고, $\mathrm{\mathbf y} = [2, 3, 4]^T$ 라고 할 때 $\mathrm{\mathbf x} + \mathrm{\mathbf y}$의 연산은 아래와 같음
+-   원소 단위 사칙연산 및 비교연산 수행 $\rightarrow$ 벡터화
+    연산(vectorized operation)
+    -   예를 들어 $\mathrm{\mathbf x} = [1, 2, 3]^T$ 이고,
+        $\mathrm{\mathbf y} = [2, 3, 4]^T$ 라고 할 때
+        $\mathrm{\mathbf x} + \mathrm{\mathbf y}$의 연산은 아래와 같음
 
 $$\begin{bmatrix}
 1 \\ 2\\ 3
@@ -1333,8 +1367,7 @@ $$\begin{bmatrix}
 \end{bmatrix}
 $$
 
-
-- `*` 연산 시 행렬 대수학에서 벡터의 곱(product)과 다름을 주의
+-   `*` 연산 시 행렬 대수학에서 벡터의 곱(product)과 다름을 주의
 
 $$\begin{bmatrix}
 1 \\ 2\\ 3
@@ -1439,8 +1472,7 @@ y ^ x
 
  \normalsize
 
-
-- 차원이 서로 맞지 않는 경우 작은 차원(짧은 쪽)의 백터를 재사용함
+-   차원이 서로 맞지 않는 경우 작은 차원(짧은 쪽)의 백터를 재사용함
 
 $$\begin{bmatrix}
 1 \\ 2\\ 3
@@ -1455,7 +1487,6 @@ $$\begin{bmatrix}
 6 \\ 7 \\ 8
 \end{bmatrix}
 $$
-
 
 \footnotesize
 
@@ -1526,9 +1557,8 @@ Warning in x/y: 두 객체의 길이가 서로 배수관계에 있지 않습니�
 
  \normalsize
 
-
-- 연산 순서는 일반적인 사칙연산의 순서를 준용
-   - 단 1단위 수열을 생성하는 `:` 연산자가 사칙연산을 우선함
+-   연산 순서는 일반적인 사칙연산의 순서를 준용
+    -   단 1단위 수열을 생성하는 `:` 연산자가 사칙연산을 우선함
 
 \footnotesize
 
@@ -1552,9 +1582,8 @@ Warning in x/y: 두 객체의 길이가 서로 배수관계에 있지 않습니�
 
  \normalsize
 
-
-- 논리형 값으로 구성된 벡터의 기본 연산 시 수치형으로 변환된 연산 결과를 반환
-
+-   논리형 값으로 구성된 벡터의 기본 연산 시 수치형으로 변환된 연산
+    결과를 반환
 
 \footnotesize
 
@@ -1631,10 +1660,9 @@ b1/b2
 
  \normalsize
 
-
-- 두 벡터 간 비교 연산은 사칙연산과 마찬가지로 각 원소단위 연산을 수행하고 논리형 벡터 반환
-  - 재사용 규칙은 그대로 적용됨
-
+-   두 벡터 간 비교 연산은 사칙연산과 마찬가지로 각 원소단위 연산을
+    수행하고 논리형 벡터 반환
+    -   재사용 규칙은 그대로 적용됨
 
 \footnotesize
 
@@ -1768,9 +1796,7 @@ Warning in x <= y: 두 객체의 길이가 서로 배수관계에 있지 않습�
 
  \normalsize
 
-
-- 문자열 벡터의 연산은 `==` 또는 `!=` 만 가능(사칙연산 불가능)
-
+-   문자열 벡터의 연산은 `==` 또는 `!=` 만 가능(사칙연산 불가능)
 
 \footnotesize
 
@@ -1813,9 +1839,8 @@ c1 != c2
 
  \normalsize
 
-
-- `NA`를 포함한 두 벡터 연산 시 동일 위치에 `NA`가 존재하면 어떤 연산이든 `NA` 값을 반환
-
+-   `NA`를 포함한 두 벡터 연산 시 동일 위치에 `NA`가 존재하면 어떤
+    연산이든 `NA` 값을 반환
 
 \footnotesize
 
@@ -1887,8 +1912,7 @@ x > y
 
  \normalsize
 
-- `NULL`이 벡터에 포함되더라도 벡터의 길이에는 변동이 없음
-
+-   `NULL`이 벡터에 포함되더라도 벡터의 길이에는 변동이 없음
 
 \footnotesize
 
@@ -1913,15 +1937,13 @@ x
 
  \normalsize
 
-
 ### 벡터의 색인(indexing) {#vector-index}
 
-- 벡터의 특정 위치에 있는 원소를 추출   
-- 색인(indexing)을 통해 벡터의 원소에 접근 가능
-- 타 언어는 대체로 첫 번째 색인이 0에서 시작하지만, R은 1부터 시작
-- `x[i]`: 벡터 `x`의 `i`번 째 요소
-- `x[start:end]`: `x`의 `start`부터 `end`까지 값 반환
-
+-   벡터의 특정 위치에 있는 원소를 추출\
+-   색인(indexing)을 통해 벡터의 원소에 접근 가능
+-   타 언어는 대체로 첫 번째 색인이 0에서 시작하지만, R은 1부터 시작
+-   `x[i]`: 벡터 `x`의 `i`번 째 요소
+-   `x[start:end]`: `x`의 `start`부터 `end`까지 값 반환
 
 \footnotesize
 
@@ -1946,8 +1968,7 @@ x[2:3]
 
  \normalsize
 
-- `x[-i]`: 벡터 `x`에서 `i`번 째 요소를 제외한 나머지 값 반환
-
+-   `x[-i]`: 벡터 `x`에서 `i`번 째 요소를 제외한 나머지 값 반환
 
 \footnotesize
 
@@ -1981,7 +2002,10 @@ x[-length(x)]
 
  \normalsize
 
-- `x[idx_vec]`: `idx_vec`가 인덱싱 벡터라고 할 때 `idx_vec`에 지정된 요소를 얻어옴. 일반적으로 `idx_vec`는 백터의 행 순서 번호 또는 각 벡터 원소의 이름에 대응하는 문자열 벡터를 인덱싱 벡터로 사용할 수 있음. 
+-   `x[idx_vec]`: `idx_vec`가 인덱싱 벡터라고 할 때 `idx_vec`에 지정된
+    요소를 얻어옴. 일반적으로 `idx_vec`는 백터의 행 순서 번호 또는 각
+    벡터 원소의 이름에 대응하는 문자열 벡터를 인덱싱 벡터로 사용할 수
+    있음.
 
 \footnotesize
 
@@ -2037,8 +2061,9 @@ x[c("x2", "x4")]
 
  \normalsize
 
-- 필터링(filtering): 특정한 조건을 만족하는 원소 추출
-   - 비교 연산자를 이용한 조건 생성 $\rightarrow$ 논리값을 이용한 원소 추출
+-   필터링(filtering): 특정한 조건을 만족하는 원소 추출
+    -   비교 연산자를 이용한 조건 생성 $\rightarrow$ 논리값을 이용한
+        원소 추출
 
 \footnotesize
 
@@ -2056,9 +2081,10 @@ w
 
  \normalsize
 
-- 작동 원리 
-   - `z^2 > 8`은 벡터 `z`의 모든 원소 제곱값이 8 보다 큰 케이스를 논리형 값으로 반환
-   
+-   작동 원리
+    -   `z^2 > 8`은 벡터 `z`의 모든 원소 제곱값이 8 보다 큰 케이스를
+        논리형 값으로 반환
+
 \footnotesize
 
 
@@ -2089,7 +2115,7 @@ z[idx]
 
  \normalsize
 
-- 특정 조건을 만족하는 벡터의 위치에 임의의 값을 치환할 수 있음
+-   특정 조건을 만족하는 벡터의 위치에 임의의 값을 치환할 수 있음
 
 \footnotesize
 
@@ -2101,17 +2127,16 @@ z[idx] <- 0
 
  \normalsize
 
-
 ### 벡터 관련 함수 {#vector-function}
 
-- `c()` 함수 외에 R은 벡터 생성을 위해 몇 가지 유용한 함수를 제공함
-
+-   `c()` 함수 외에 R은 벡터 생성을 위해 몇 가지 유용한 함수를 제공함
 
 #### **`seq`** 계열 함수 {#fun-seq .unnumbered}
 
 > 보다 자세한 사용 설명은 `help(seq)` 참고
 
-**`seq()`**: 등차 수열 생성하는 함수로 `from`에서 `end` 까지 숫자 내에서 공차(간격)가 `by` 인 수열 생성 
+**`seq()`**: 등차 수열 생성하는 함수로 `from`에서 `end` 까지 숫자 내에서
+공차(간격)가 `by` 인 수열 생성
 
 \footnotesize
 
@@ -2133,8 +2158,7 @@ seq(
 
  \normalsize
 
-- **사용 예시**
-
+-   **사용 예시**
 
 \footnotesize
 
@@ -2200,12 +2224,12 @@ seq(x)
 
  \normalsize
 
-
 **`seq_along()`**: 주어진 객체의 길이 만큼 1부터 1 간격의 수열 생성
 
-- `seq()` 함수와 매우 유사하나, 무조건 1부터 시작해서 인수로 `seq()`의 `along.with` 값을 이용한 함수
-- `seq()` 함수보다 조금 빠름
-- **사용 예시**
+-   `seq()` 함수와 매우 유사하나, 무조건 1부터 시작해서 인수로 `seq()`의
+    `along.with` 값을 이용한 함수
+-   `seq()` 함수보다 조금 빠름
+-   **사용 예시**
 
 \footnotesize
 
@@ -2221,10 +2245,11 @@ seq_along(x)
 
  \normalsize
 
-**`seq_len()`**: 인수로 받은 값 만큼 1부터 해당 값 까지 1 간격의 수열 생성
+**`seq_len()`**: 인수로 받은 값 만큼 1부터 해당 값 까지 1 간격의 수열
+생성
 
-- `seq()` 함수의 인수 중 `length.out` 값을 이용한 함수
-- **사용 예시**
+-   `seq()` 함수의 인수 중 `length.out` 값을 이용한 함수
+-   **사용 예시**
 
 \footnotesize
 
@@ -2240,13 +2265,11 @@ seq_len(10)
 
  \normalsize
 
-
 #### **`rep`** 계열 함수 {#fun-rep .unnumbered}
 
 > `help(rep)`을 통해 상세 내용 참고
 
 **`rep()`**: 주어진 벡터의 원소를 반복
-
 
 \footnotesize
 
@@ -2262,8 +2285,7 @@ rep(
 
  \normalsize
 
-
-- **사용 예시**
+-   **사용 예시**
 
 \footnotesize
 
@@ -2323,10 +2345,10 @@ sexr
 
  \normalsize
 
+**`rep.int()` & `rep_len()`**: `rep()` 함수의 simple 버전으로
+속도(performance)가 요구되는 프로그래밍 시 사용
 
-**`rep.int()` & `rep_len()`**: `rep()` 함수의 simple 버전으로 속도(performance)가 요구되는 프로그래밍 시 사용
-
-- **사용 예시**
+-   **사용 예시**
 
 \footnotesize
 
@@ -2351,15 +2373,14 @@ rep_len(1:5, length.out = 7)
 
  \normalsize
 
-
 #### **Filtering 관련 함수** {#fun-filtering .unnumbered}
 
 > `help(subset)` 참고
 
-**`subset()`**: 기존 필터링 방식과 비교할 때 `NA`를 처리하는 방식에서 차이를 보임
+**`subset()`**: 기존 필터링 방식과 비교할 때 `NA`를 처리하는 방식에서
+차이를 보임
 
-- 벡터 뿐 아니라 앞으로 배울 행렬 및 데이터프레임 객체에도 적용 가능
-
+-   벡터 뿐 아니라 앞으로 배울 행렬 및 데이터프레임 객체에도 적용 가능
 
 \footnotesize
 
@@ -2407,8 +2428,7 @@ which(
 
  \normalsize
 
-
-- **사용 예시**
+-   **사용 예시**
 
 \footnotesize
 
@@ -2484,10 +2504,12 @@ any(x > 9)
 
 #### **집합 관련 함수** {#set-function .unnumbered}
 
-- 벡터는 숫자, 문자열의 묶음, 즉 원소들의 집합(set)으로 볼 수 있기 때문에 집합 연산이 가능
-- 두 집합을 $X$와 $Y$로 정의 했을 때 아래와 같은 집합 연산 가능
-- **`setequal(X, Y)`**: `X`와 `Y`가 동일한지 판단 ($X = Y$) $\rightarrow$ 논리값 `TRUE` 또는 `FALSE` 반환
- 
+-   벡터는 숫자, 문자열의 묶음, 즉 원소들의 집합(set)으로 볼 수 있기
+    때문에 집합 연산이 가능
+-   두 집합을 $X$와 $Y$로 정의 했을 때 아래와 같은 집합 연산 가능
+-   **`setequal(X, Y)`**: `X`와 `Y`가 동일한지 판단 ($X = Y$)
+    $\rightarrow$ 논리값 `TRUE` 또는 `FALSE` 반환
+
 \footnotesize
 
 
@@ -2502,7 +2524,7 @@ setequal(x, y)
 
  \normalsize
 
-- **`union(X, Y)`**: `X`와 `Y`의 합집합 ($X \cup Y$)
+-   **`union(X, Y)`**: `X`와 `Y`의 합집합 ($X \cup Y$)
 
 \footnotesize
 
@@ -2518,8 +2540,7 @@ union(x, y)
 
  \normalsize
 
-
-- **`intersect(X, Y)`**: `X`와 `Y`의 교집합 ($X \cap Y$)
+-   **`intersect(X, Y)`**: `X`와 `Y`의 교집합 ($X \cap Y$)
 
 \footnotesize
 
@@ -2534,7 +2555,7 @@ intersect(x, y)
 
  \normalsize
 
-- **`setdiff(X, Y)`**: `X`와 `Y`의 차집합 ($X - Y$)
+-   **`setdiff(X, Y)`**: `X`와 `Y`의 차집합 ($X - Y$)
 
 \footnotesize
 
@@ -2557,7 +2578,7 @@ setdiff(y, x)
 
  \normalsize
 
-- **`X %in% Y`**: `X`(기준)가 집합 `Y`의 원소인지 논리값 반환
+-   **`X %in% Y`**: `X`(기준)가 집합 `Y`의 원소인지 논리값 반환
 
 \footnotesize
 
@@ -2585,7 +2606,8 @@ y %in% x
 
 #### **두 벡터의 동일성 테스트** {#vec-identical .unnumbered}
 
-- 두 벡터가 동일한지 테스트 하기 위해 `x == y` 연산의 반환 값은 위의 예제에서 확인한 것 처럼 각 원소에 대한 논리값을 반환(아래 예제 확인)
+-   두 벡터가 동일한지 테스트 하기 위해 `x == y` 연산의 반환 값은 위의
+    예제에서 확인한 것 처럼 각 원소에 대한 논리값을 반환(아래 예제 확인)
 
 \footnotesize
 
@@ -2602,7 +2624,8 @@ x == y
 
  \normalsize
 
-- 단지 두 벡터가 동일한지 아닌지를 확인하기 위해서는 하나의 논리값만 필요한 경우 `all()` 사용
+-   단지 두 벡터가 동일한지 아닌지를 확인하기 위해서는 하나의 논리값만
+    필요한 경우 `all()` 사용
 
 \footnotesize
 
@@ -2617,7 +2640,7 @@ all(x == y)
 
  \normalsize
 
-- 보다 나은 방법으로 `identical()` 함수 적용
+-   보다 나은 방법으로 `identical()` 함수 적용
 
 \footnotesize
 
@@ -2633,7 +2656,7 @@ identical(x, y)
 
  \normalsize
 
-- `identical()` 함수는 벡터가 갖는 데이터 타입의 동일성 까지 체크함
+-   `identical()` 함수는 벡터가 갖는 데이터 타입의 동일성 까지 체크함
 
 \footnotesize
 
@@ -2694,9 +2717,10 @@ typeof(y)
 
 ## 리스트(list) {#list}
 
-- **리스트(list)**: `(key, value)` 형태로 데이터를 저장한 배열(벡터)
-- 서로 다른 데이터 타입을 가진 객체를 원소로 가질 수 있는 벡터
-   - 예: 한 리스트 안에는 상이한 데이터 타입(숫자형, 문자형, 논리형 등)을 갖는 원소(객체)들을 포함할 수 있음
+-   **리스트(list)**: `(key, value)` 형태로 데이터를 저장한 배열(벡터)
+-   서로 다른 데이터 타입을 가진 객체를 원소로 가질 수 있는 벡터
+    -   예: 한 리스트 안에는 상이한 데이터 타입(숫자형, 문자형, 논리형
+        등)을 갖는 원소(객체)들을 포함할 수 있음
 
 \footnotesize
 
@@ -2709,7 +2733,7 @@ typeof(y)
 
  \normalsize
 
-- 위 record를 벡터 생성함수 `c()`로 생성한 경우
+-   위 record를 벡터 생성함수 `c()`로 생성한 경우
 
 \footnotesize
 
@@ -2767,12 +2791,9 @@ typeof(vec)
 
  \normalsize
 
-
-
-
 ### 리스트 생성 {#make-list}
 
-- **`list()`** 함수를 사용해 list 객체 생성
+-   **`list()`** 함수를 사용해 list 객체 생성
 
 \footnotesize
 
@@ -2787,9 +2808,7 @@ list(name_1 = object_1, ..., name_m = object_m)
 
  \normalsize
 
-
-- 중간고사 성적 테이블 예시
-
+-   중간고사 성적 테이블 예시
 
 \footnotesize
 
@@ -2839,7 +2858,7 @@ $등급
 
  \normalsize
 
-- 리스트 원소에 이름이 부여된 경우 `names()`를 통해 확인 가능
+-   리스트 원소에 이름이 부여된 경우 `names()`를 통해 확인 가능
 
 \footnotesize
 
@@ -2854,9 +2873,8 @@ names(lst)
 
  \normalsize
 
-
-- 이름(`name_1, .., name_n`) 없이도 리스트 생성 가능하나, 가급적 이름을 부여 하는 것이 더 명확
-
+-   이름(`name_1, .., name_n`) 없이도 리스트 생성 가능하나, 가급적
+    이름을 부여 하는 것이 더 명확
 
 \footnotesize
 
@@ -2881,9 +2899,7 @@ list("김상자", "202015115", 95, "A-")
 
  \normalsize
 
-
-- 리스트는 벡터이므로 `vector()` 함수를 통해 생성 가능
-
+-   리스트는 벡터이므로 `vector()` 함수를 통해 생성 가능
 
 \footnotesize
 
@@ -2901,7 +2917,7 @@ NULL
 
  \normalsize
 
-- 리스트의 값이 어떤 객체든 관계 없음
+-   리스트의 값이 어떤 객체든 관계 없음
 
 \footnotesize
 
@@ -2927,9 +2943,10 @@ $union
 
 ### 리스트 색인 {#list-index}
 
-
-- 리스트에 포함된 객체에 접근는 기본적으로 벡터의 색인 방법과 동일하게 색인 번호 또는 키(이름)을 통해 접근 가능
-- 리스트에 포함된 모든 객체의 원소값을 쉽게 확인하는 함수는 `unlist()`임 
+-   리스트에 포함된 객체에 접근는 기본적으로 벡터의 색인 방법과 동일하게
+    색인 번호 또는 키(이름)을 통해 접근 가능
+-   리스트에 포함된 모든 객체의 원소값을 쉽게 확인하는 함수는
+    `unlist()`임
 
 \footnotesize
 
@@ -2944,7 +2961,6 @@ typeof(lval)
 ```
 
  \normalsize
-
 
 \footnotesize
 
@@ -2974,8 +2990,7 @@ typeof(lval)
 
  \normalsize
 
-
-- `x$name`을 통해 리스트 내 객체 접근
+-   `x$name`을 통해 리스트 내 객체 접근
 
 \footnotesize
 
@@ -2990,8 +3005,7 @@ lst$`학번`
 
  \normalsize
 
-- `x[[i]]` 또는 `x[[name]]` 을 통해 리스트 내 객체 접근
-
+-   `x[[i]]` 또는 `x[[name]]` 을 통해 리스트 내 객체 접근
 
 \footnotesize
 
@@ -3023,7 +3037,7 @@ typeof(z)
 
  \normalsize
 
-- `x[i]` 또는 `x[name]` 을 통해 리스트 내 부분 리스트 추출
+-   `x[i]` 또는 `x[name]` 을 통해 리스트 내 부분 리스트 추출
 
 \footnotesize
 
@@ -3057,8 +3071,7 @@ typeof(j)
 
  \normalsize
 
-
-- 리스트 또한 벡터로 볼 수 있기 때문에 여러 개의 부분 리스트 추출 가능
+-   리스트 또한 벡터로 볼 수 있기 때문에 여러 개의 부분 리스트 추출 가능
 
 \footnotesize
 
@@ -3081,7 +3094,7 @@ $점수
 
  \normalsize
 
-- 리스트를 구성하는 객체 내 색인 
+-   리스트를 구성하는 객체 내 색인
 
 \footnotesize
 
@@ -3139,7 +3152,7 @@ x[2][[1]][2:3]
 
  \normalsize
 
-- 리스트의 길이 반환: 벡터와 마찬가지로 `length()` 함수 적용 가능
+-   리스트의 길이 반환: 벡터와 마찬가지로 `length()` 함수 적용 가능
 
 \footnotesize
 
@@ -3158,11 +3171,12 @@ length(lst); length(x)
 
  \normalsize
 
-
 ### 리스트에 원소 추가/제거 {#list-add-delete}
 
-- 주어진 리스트 `x`에 새로운 원소를 `x$new_obj <- value` 명령어 형태로 추가
-- 이미 존재하고 있는 리스트 원소 제거는 `x$exist_obj <- NULL` 형태로 제거
+-   주어진 리스트 `x`에 새로운 원소를 `x$new_obj <- value` 명령어 형태로
+    추가
+-   이미 존재하고 있는 리스트 원소 제거는 `x$exist_obj <- NULL` 형태로
+    제거
 
 \footnotesize
 
@@ -3289,10 +3303,9 @@ $등급
 
  \normalsize
 
-
 ### 리스트의 결합 {#list-combine}
 
-- 두 개 이상의 리스트를 결합 시 `c()` 사용 
+-   두 개 이상의 리스트를 결합 시 `c()` 사용
 
 \footnotesize
 
@@ -3326,7 +3339,6 @@ $union
 ```
 
  \normalsize
-
 
 \footnotesize
 
@@ -3376,7 +3388,6 @@ $lee$grade
 
  \normalsize
 
-
 ## 행렬(matrix) {#matrix}
 
 \footnotesize
@@ -3387,9 +3398,10 @@ $lee$grade
 
 #### **행렬의 정의** {#def-matrix .unnumbered}
 
-- 동일한 데이터 타입의 원소로 구성된 2차원 데이터 구조
--  $n \times 1$ 차원 벡터 $p$개로 묶여진 데이터 덩어리 $\rightarrow$ $n \times p$ 행렬로 명칭함
-- 행렬의 형태
+-   동일한 데이터 타입의 원소로 구성된 2차원 데이터 구조
+-   $n \times 1$ 차원 벡터 $p$개로 묶여진 데이터 덩어리 $\rightarrow$
+    $n \times p$ 행렬로 명칭함
+-   행렬의 형태
 
 $$\begin{bmatrix}
 x_{11} & x_{12} & \cdots & x_{1p} \\
@@ -3399,9 +3411,12 @@ x_{n1} & x_{n2} & \cdots & x_{np}
 \end{bmatrix}
 $$
 
-- R에서 행렬은 동일한 유형의 데이터 타입으로 구성 가능 $\rightarrow$ 첫 번째 행은 숫자형, 두 번째 행은 문자열로 입력해도 행렬을 만들 수 있지만, 표현력이 더 높은 문자형 행렬 반환
-- 행렬의 내부 저장공간은 "열 우선 배열"
-- 행렬 생성을 위한 R 함수는 `matrix()` 함수이고 사용 형태는 아래와 같음
+-   R에서 행렬은 동일한 유형의 데이터 타입으로 구성 가능 $\rightarrow$
+    첫 번째 행은 숫자형, 두 번째 행은 문자열로 입력해도 행렬을 만들 수
+    있지만, 표현력이 더 높은 문자형 행렬 반환
+-   행렬의 내부 저장공간은 "열 우선 배열"
+-   행렬 생성을 위한 R 함수는 `matrix()` 함수이고 사용 형태는 아래와
+    같음
 
 \footnotesize
 
@@ -3421,7 +3436,7 @@ matrix(data, # 행렬을 생성할 데이터 벡터
 
  \normalsize
 
-- 행렬 생성 예시 
+-   행렬 생성 예시
 
 \footnotesize
 
@@ -3454,7 +3469,8 @@ x
 
  \normalsize
 
-- 행의 개수(`nrow`)나 열의 개수(`ncol`)로 나머지를 추정 가능하다면 둘 중 어떤 인수도 생략 가능
+-   행의 개수(`nrow`)나 열의 개수(`ncol`)로 나머지를 추정 가능하다면 둘
+    중 어떤 인수도 생략 가능
 
 \footnotesize
 
@@ -3485,7 +3501,8 @@ x
 
  \normalsize
 
-- `nrow` $\times$ `ncol` 이 입력한 데이터(벡터)의 길이보다 작거나 큰 경우
+-   `nrow` $\times$ `ncol` 이 입력한 데이터(벡터)의 길이보다 작거나 큰
+    경우
 
 \footnotesize
 
@@ -3538,7 +3555,8 @@ z
 
  \normalsize
 
-- 행렬 구성 시 길이에 대한 약수가 아닌 값을  `nrow` 또는 `ncol`의 인수로 받은 경우
+-   행렬 구성 시 길이에 대한 약수가 아닌 값을 `nrow` 또는 `ncol`의
+    인수로 받은 경우
 
 \footnotesize
 
@@ -3591,7 +3609,8 @@ h
 
 ### 행렬의 연산 {#matrix-operation}
 
-- 선형대수(linear algebra)에서 배우는 행렬-스칼라, 행렬-행렬 간 연산 가능
+-   선형대수(linear algebra)에서 배우는 행렬-스칼라, 행렬-행렬 간 연산
+    가능
 
 #### **행렬-스칼라 연산** {#mat-op-s .unnumbered}
 
@@ -3636,7 +3655,6 @@ x + 4
 
  \normalsize
 
-
 **곱 연산**
 
 $$\begin{bmatrix}
@@ -3669,11 +3687,11 @@ x*4
 
 #### **행렬-행렬 연산** {#mat-op-m .unnumbered}
 
-- 행렬 간 연산에서 스칼라 연산(일반 연산)과 다른 점은 차원이 개입
+-   행렬 간 연산에서 스칼라 연산(일반 연산)과 다른 점은 차원이 개입
 
 **행렬 간 합(차)**
 
-- 두 행렬의 동일 차원 간 합 연산 수행(`+` 또는 `-` 연산자 사용)
+-   두 행렬의 동일 차원 간 합 연산 수행(`+` 또는 `-` 연산자 사용)
 
 $$\begin{bmatrix}
 1 & 2 & 3 \\
@@ -3711,9 +3729,9 @@ x + y
 
  \normalsize
 
-**행렬 곱/나누기(elementwise product/division)** 
+**행렬 곱/나누기(elementwise product/division)**
 
-- 연산자 `*` 또는 `/`  사용
+-   연산자 `*` 또는 `/` 사용
 
 $$\begin{bmatrix}
 1 & 2 & 3 \\
@@ -3749,7 +3767,8 @@ x * y
 
  \normalsize
 
-- 행렬-행렬 합(차) 또는 곱(나누기) 연산 시 행렬의 열단위 원소가 재사용되지 않음
+-   행렬-행렬 합(차) 또는 곱(나누기) 연산 시 행렬의 열단위 원소가
+    재사용되지 않음
 
 > **동일 차원 간 연산만 가능!!**
 
@@ -3794,16 +3813,23 @@ Error in x/z: 배열의 크기가 올바르지 않습니다
 
  \normalsize
 
-**행렬 간 곱(matrix product)** 
+**행렬 간 곱(matrix product)**
 
-- 두 행렬 $\mathrm{\mathbf X}_{n\times m}$, $\mathrm{\mathbf Y}_{m\times k}$ 이 주어졌을 때 두 행렬의 곱(matrix product) $\mathrm{\mathbf Z} = \mathrm{\mathbf {X\cdot Y}}$는 $n \times k$ 행렬이고 $\mathrm{\mathbf Z}$  원소 $z_{ij}$ ($i={1,\ldots,n}$, $j={1,\ldots,k}$) 아래와 같이 정의됨
+-   두 행렬 $\mathrm{\mathbf X}_{n\times m}$,
+    $\mathrm{\mathbf Y}_{m\times k}$ 이 주어졌을 때 두 행렬의 곱(matrix
+    product) $\mathrm{\mathbf Z} = \mathrm{\mathbf {X\cdot Y}}$는
+    $n \times k$ 행렬이고 $\mathrm{\mathbf Z}$ 원소 $z_{ij}$
+    ($i={1,\ldots,n}$, $j={1,\ldots,k}$) 아래와 같이 정의됨
 
 $$
  z_{ij} = \sum_{r=1}^{m}x_{ir}y_{rj},~~~~\forall~\{i, j\}
-$$
-- R에서 위와 같은 연산은 `%*%`를 사용
+$$ - R에서 위와 같은 연산은 `%*%`를 사용
 
-- 예시: 행렬 $\mathrm{\mathbf X}_{2\times 4}$, $\mathrm{\mathbf Y}_{4\times 3}$ 이 아래와 같이 주어졌을 때 두 행렬의 곱 $\mathrm{\mathbf Z}_{2\times 3} = \mathrm{\mathbf{X}}_{2\times 4}\mathrm{\mathbf{Y}}_{4 \times 3}$는 아래와 같음
+-   예시: 행렬 $\mathrm{\mathbf X}_{2\times 4}$,
+    $\mathrm{\mathbf Y}_{4\times 3}$ 이 아래와 같이 주어졌을 때 두
+    행렬의 곱
+    $\mathrm{\mathbf Z}_{2\times 3} = \mathrm{\mathbf{X}}_{2\times 4}\mathrm{\mathbf{Y}}_{4 \times 3}$는
+    아래와 같음
 
 $$
 \mathrm{\mathbf X}=
@@ -3819,8 +3845,6 @@ $$
 1 &~~~2 &~~~2
 \end{bmatrix}
 $$
-
-
 
 $$
 \mathrm{\mathbf{Z}} = \mathrm{\mathbf{X}}\mathrm{\mathbf{Y}} = 
@@ -3861,7 +3885,9 @@ Z
 
 **행렬-벡터 연산**
 
-- 행렬 $\mathrm{\mathbf{X}}$의 행 길이와  벡터 $\mathrm{\mathbf y}$의 길이가 같은 경우 $\rightarrow$ $\mathrm{\mathbf y}$를 열 단위로 재사용
+-   행렬 $\mathrm{\mathbf{X}}$의 행 길이와 벡터 $\mathrm{\mathbf y}$의
+    길이가 같은 경우 $\rightarrow$ $\mathrm{\mathbf y}$를 열 단위로
+    재사용
 
 $$\mathrm{\mathbf{X}} = 
 \begin{bmatrix}
@@ -3871,7 +3897,6 @@ $$\mathrm{\mathbf{X}} =
 \end{bmatrix}, ~~~~~
 \mathrm{\mathbf y} = [20, 18, 23]^T
 $$
-
 
 $$\mathrm{\mathbf{X}} + \mathrm{\mathbf{y}} = 
 \begin{bmatrix}
@@ -3890,7 +3915,6 @@ $$\mathrm{\mathbf{X}} + \mathrm{\mathbf{y}} =
 24 & 25 & 24
 \end{bmatrix}
 $$
-
 
 \footnotesize
 
@@ -3914,7 +3938,9 @@ X + y
 
  \normalsize
 
-- 행렬 $\mathrm{\mathbf{X}}$의 길이와  벡터 $\mathrm{\mathbf y}$의 길이가 같은 경우 $\rightarrow$ 벡터 $\mathrm{\mathbf y}$를 자동으로 원소를 행렬(열단위)로 변환
+-   행렬 $\mathrm{\mathbf{X}}$의 길이와 벡터 $\mathrm{\mathbf y}$의
+    길이가 같은 경우 $\rightarrow$ 벡터 $\mathrm{\mathbf y}$를 자동으로
+    원소를 행렬(열단위)로 변환
 
 $$\mathrm{\mathbf{X}} = 
 \begin{bmatrix}
@@ -3924,8 +3950,6 @@ $$\mathrm{\mathbf{X}} =
 \end{bmatrix}, ~~~~~
 \mathrm{\mathbf y} = [1, 2, \ldots, 9]^T
 $$
-
-
 
 $$\mathrm{\mathbf{X}} + \mathrm{\mathbf{y}} = 
 \begin{bmatrix}
@@ -3944,8 +3968,6 @@ $$\mathrm{\mathbf{X}} + \mathrm{\mathbf{y}} =
 6 &  12 & 18
 \end{bmatrix}
 $$
-
-
 
 \footnotesize
 
@@ -4007,9 +4029,9 @@ Warning in X + y: 두 객체의 길이가 서로 배수관계에 있지 않습�
 
  \normalsize
 
-
-- 행렬-벡터 `%*%` 적용 시 벡터는 $n \times 1$ 행렬로 간주하고 행렬 곱 연산 수행(단 $\mathrm{\mathbf X}$와 벡터 $\mathrm{\mathbf y}$의 길이는 같아야 함).
-
+-   행렬-벡터 `%*%` 적용 시 벡터는 $n \times 1$ 행렬로 간주하고 행렬 곱
+    연산 수행(단 $\mathrm{\mathbf X}$와 벡터 $\mathrm{\mathbf y}$의
+    길이는 같아야 함).
 
 $$\mathrm{\mathbf{X}}_{4\times 3} = 
 \begin{bmatrix}
@@ -4020,7 +4042,6 @@ $$\mathrm{\mathbf{X}}_{4\times 3} =
 \end{bmatrix}, ~~~~~
 \mathrm{\mathbf y}_{3\times 1} = [7, 6, 8]^T
 $$
-
 
 $$\mathrm{\mathbf{X}}\mathrm{\mathbf{y}} = 
 \begin{bmatrix}
@@ -4040,8 +4061,7 @@ $$\mathrm{\mathbf{X}}\mathrm{\mathbf{y}} =
 49 \\
 63
 \end{bmatrix}
-$$ 
-
+$$
 
 \footnotesize
 
@@ -4063,12 +4083,13 @@ X %*% y
 
  \normalsize
 
-
 **행렬의 전치(transpose)**
 
-- 전치 행렬(transpose matrix)는 임의의 행렬의 행과 열을 서로 맞바꾼 행렬임 
-- 행렬 $\mathrm{\mathbf X}$의 전치 행렬은 $\mathrm{\mathbf X}^T$ 또는 $\mathrm{\mathbf X}'$ 으로 나타냄
-- 행렬 $\mathrm{\mathbf X}$가 다음과 같이 주어졌을 때 전치 행렬 결과
+-   전치 행렬(transpose matrix)는 임의의 행렬의 행과 열을 서로 맞바꾼
+    행렬임
+-   행렬 $\mathrm{\mathbf X}$의 전치 행렬은 $\mathrm{\mathbf X}^T$ 또는
+    $\mathrm{\mathbf X}'$ 으로 나타냄
+-   행렬 $\mathrm{\mathbf X}$가 다음과 같이 주어졌을 때 전치 행렬 결과
 
 $$\mathrm{\mathbf{X}} = \begin{bmatrix}
 1 & 2 & 3\\
@@ -4082,7 +4103,7 @@ $$\mathrm{\mathbf{X}} = \begin{bmatrix}
 \end{bmatrix} 
 $$
 
-- R에서 행렬을 전치시키는 함수는 `t()` 임
+-   R에서 행렬을 전치시키는 함수는 `t()` 임
 
 \footnotesize
 
@@ -4116,13 +4137,11 @@ t(X) %*% X
 
  \normalsize
 
-- 벡터-벡터 곱 연산(`%*%` 사용)
-
+-   벡터-벡터 곱 연산(`%*%` 사용)
 
 $$
 \mathrm{\mathbf x} = [1, 2, 3, 4]^T
 $$
-
 
 $$\mathrm{\mathbf x}\mathrm{\mathbf x}^T = 
 \begin{bmatrix}
@@ -4142,7 +4161,6 @@ $$\mathrm{\mathbf x}\mathrm{\mathbf x}^T =
 \end{bmatrix}
 $$
 
-
 $$\mathrm{\mathbf x}^T\mathrm{\mathbf x} = 
 \begin{bmatrix}
 1 & 2 & 3 & 4
@@ -4154,7 +4172,6 @@ $$\mathrm{\mathbf x}^T\mathrm{\mathbf x} =
 4
 \end{bmatrix} = 1 + 4 + 9 + 16 = 30
 $$
-
 
 \footnotesize
 
@@ -4183,8 +4200,6 @@ t(x) %*% x # 스칼라 반환 x %*% x와 동일 결과 출력
 
  \normalsize
 
-
-
 \footnotesize
 
 \BeginKnitrBlock{rmdtip}<div class="rmdtip">**참고**: 전치행렬의 성질(통계수학 II 강의내용 참고)
@@ -4200,15 +4215,20 @@ t(x) %*% x # 스칼라 반환 x %*% x와 동일 결과 출력
 
 **역행렬(inverse matrix)**
 
-- 행렬의 나눗셈 형태
-- 행렬 $\mathrm{\mathbf{X}}$ 가 $n \times n$ 정방행렬(square matrix)일 때, 아래를 만족하는 행렬 $\mathrm{\mathbf{Y}}_{n \times n}$가 존재하면 $\mathrm{\mathbf{Y}}$를 $\mathrm{\mathbf{X}}$의 역행렬(inverse matrix)라고 하고 $\mathrm{\mathbf{X}}^{-1}$로 나타냄.
+-   행렬의 나눗셈 형태
+-   행렬 $\mathrm{\mathbf{X}}$ 가 $n \times n$ 정방행렬(square matrix)일
+    때, 아래를 만족하는 행렬 $\mathrm{\mathbf{Y}}_{n \times n}$가
+    존재하면 $\mathrm{\mathbf{Y}}$를 $\mathrm{\mathbf{X}}$의
+    역행렬(inverse matrix)라고 하고 $\mathrm{\mathbf{X}}^{-1}$로 나타냄.
 
 $$
  \mathrm{\mathbf{X}\mathbf{X}^{-1}} = \mathrm{\mathbf{X}^{-1}\mathbf{X}} = \mathrm{\mathbf{I}}_{n\times n}
 $$
 
-- 여기서 $\mathrm{\mathbf{I}}_{n\times n}$은 대각 원소가 1이고 나머지 원소는 0인 항등 행렬임
-- $2 \times 2$ 행렬의 역행렬은 아래와 같이 구함($3\times 3$ 이상 역행렬 구하는 방법은 **통계수학 II** 강의 참고)
+-   여기서 $\mathrm{\mathbf{I}}_{n\times n}$은 대각 원소가 1이고 나머지
+    원소는 0인 항등 행렬임
+-   $2 \times 2$ 행렬의 역행렬은 아래와 같이 구함($3\times 3$ 이상
+    역행렬 구하는 방법은 **통계수학 II** 강의 참고)
 
 $$\mathrm{\mathbf{X}} = 
  \begin{bmatrix}
@@ -4223,7 +4243,7 @@ $$\mathrm{\mathbf{X}} =
  \end{bmatrix}
 $$
 
-- R에서 정방 행렬의 역행렬은 `solve()` 함수를 사용해 구함
+-   R에서 정방 행렬의 역행렬은 `solve()` 함수를 사용해 구함
 
 \footnotesize
 
@@ -4254,7 +4274,6 @@ X %*% solve(X)
 
  \normalsize
 
-
 \footnotesize
 
 \BeginKnitrBlock{rmdtip}<div class="rmdtip">**참고**: 역행렬의 성질(통계수학 II 강의내용 참고)
@@ -4268,28 +4287,35 @@ X %*% solve(X)
 
  \normalsize
 
-
-
 **행렬식(determinant)**
 
-- 행렬의 성질을 대표할 수 있는 하나의 값으로 $n \times n$ 정방행렬(square matrix)에서 정의
-- 역행렬을 구할 때 임의의 행렬이 0, 즉 위 $2\times 2$ 행렬에서 $ad - bc$의 값이 0이라면 역행렬이 존재할 수 없는데 여기서 $ad - bc$가 $2\times 2$ 행렬의 정방행렬임
-- 임의의 정방행렬 $\mathrm{\mathbf X}$의 행렬식은 $|\mathrm{\mathbf X}|$ 또는 $\det(\mathrm{\mathbf{X}})$로 표시함
-- $2\times 2$ 행렬의 행렬식은 넓이, $3\times 3$ 이상인 정방 행렬에서는 부피의 개념으로 이해할 수 있음
-- 정방행렬 $\mathrm{\mathbf X}_{n\times n}=\{x_{ij}\}$가 주어졌을 때, $i$ 번째 행과 $j$ 번째 열을 제외한 나머지 $(n-1)\times (n-1)$ 정방행렬의 행렬식을 $|\mathrm{\mathbf{X}}_{ij}|$ 라고 하면 이를 $x_{ij}$의 소행렬식(minor)이라 부르고 $x_{ij}$의 여인수(co-factor) $\mathrm{\mathbf{C}}_{ij}$ 는 아래와 같이 정의됨
+-   행렬의 성질을 대표할 수 있는 하나의 값으로 $n \times n$
+    정방행렬(square matrix)에서 정의
+-   역행렬을 구할 때 임의의 행렬이 0, 즉 위 $2\times 2$ 행렬에서
+    $ad - bc$의 값이 0이라면 역행렬이 존재할 수 없는데 여기서
+    $ad - bc$가 $2\times 2$ 행렬의 정방행렬임
+-   임의의 정방행렬 $\mathrm{\mathbf X}$의 행렬식은
+    $|\mathrm{\mathbf X}|$ 또는 $\det(\mathrm{\mathbf{X}})$로 표시함
+-   $2\times 2$ 행렬의 행렬식은 넓이, $3\times 3$ 이상인 정방 행렬에서는
+    부피의 개념으로 이해할 수 있음
+-   정방행렬 $\mathrm{\mathbf X}_{n\times n}=\{x_{ij}\}$가 주어졌을 때,
+    $i$ 번째 행과 $j$ 번째 열을 제외한 나머지 $(n-1)\times (n-1)$
+    정방행렬의 행렬식을 $|\mathrm{\mathbf{X}}_{ij}|$ 라고 하면 이를
+    $x_{ij}$의 소행렬식(minor)이라 부르고 $x_{ij}$의 여인수(co-factor)
+    $\mathrm{\mathbf{C}}_{ij}$ 는 아래와 같이 정의됨
 
 $$
  c_{ij} = (-1)^{i+j}|\mathrm{\mathbf{X}}_{ij}|
 $$
 
-- 이때 $\mathrm{\mathbf X}_{n\times n}$ 행렬식은 임의의 $i$ 또는 $j$에 대해 아래의 식을 통해 구할 수 있음
+-   이때 $\mathrm{\mathbf X}_{n\times n}$ 행렬식은 임의의 $i$ 또는 $j$에
+    대해 아래의 식을 통해 구할 수 있음
 
 $$
  \det(\mathrm{\mathbf{X}}) = \sum_{i=1}^{n}x_{ij}c_{ij} = \sum_{j=1}^n x_{ij}c_{ij}
 $$
 
-- 행렬식 계산 예시
-
+-   행렬식 계산 예시
 
 $$\mathrm{\mathbf{X}} = 
 \begin{bmatrix}
@@ -4298,8 +4324,6 @@ $$\mathrm{\mathbf{X}} =
 0 & -2  &~~~0
 \end{bmatrix}
 $$
-
-
 
 $$\begin{aligned}
 \det(\mathrm{\mathbf{X}}) &= x_{11}\det(\mathrm{\mathbf{X}}_{11}) - x_{12}\det(\mathrm{\mathbf{X}}_{12}) + x_{13}\det(\mathrm{\mathbf{X}}_{13}) \\
@@ -4320,9 +4344,7 @@ $$\begin{aligned}
 \end{aligned}
 $$
 
-
-- R에서 임의 행렬의 행렬식은 `det()` 함수를 이용해 구함
-
+-   R에서 임의 행렬의 행렬식은 `det()` 함수를 이용해 구함
 
 \footnotesize
 
@@ -4337,7 +4359,6 @@ det(X)
 ```
 
  \normalsize
-
 
 \footnotesize
 
@@ -4382,13 +4403,14 @@ $$
 
  \normalsize
 
-
 ### 행렬의 색인 {#mat-index}
 
-- R의 행렬 객체 내 데이터 접근은 벡터와 유사하게 행과 열에 대응하는 색인 또는 이름으로 접근 가능
-- 행렬의 행과 열은 꺽쇠 `[]' 안에서 ,(콤마)로 구분
-- `X[idx_row, idx_col]`: 행렬 `X`의 `idx_row` 행, `idx_col`행에 저장된 값 반환(색인번호는 1부터 시작)
-- `idx_row`, `idx_col`을 지정하지 않으면 전체 행 또는 열을 선택
+-   R의 행렬 객체 내 데이터 접근은 벡터와 유사하게 행과 열에 대응하는
+    색인 또는 이름으로 접근 가능
+-   행렬의 행과 열은 꺽쇠 \`[]' 안에서 ,(콤마)로 구분
+-   `X[idx_row, idx_col]`: 행렬 `X`의 `idx_row` 행, `idx_col`행에 저장된
+    값 반환(색인번호는 1부터 시작)
+-   `idx_row`, `idx_col`을 지정하지 않으면 전체 행 또는 열을 선택
 
 \footnotesize
 
@@ -4449,12 +4471,14 @@ X[1:2, 3:4]
 
  \normalsize
 
-- 행렬의 각 행과 열에 이름 부여 가능 $\rightarrow$ `matrix()` 함수 인수 중 `dimnames` 에 속성 부여와 동일
-- `dimnames()` 함수를 통해 각 행과 열의 이름 확인 및 부여 가능
-- `dimnames(object)[[i]], i = 1, 2` 를 통해 행(`i = 1`)과 열(`i = 2`) 이름 변경 및 부여 가능
-- 위와 유사한 기능을 하는 함수
-   - `rownames()`: 헹 이름 반환 및 부여
-   - `colnames()`: 열 이름 반환 및 부여
+-   행렬의 각 행과 열에 이름 부여 가능 $\rightarrow$ `matrix()` 함수
+    인수 중 `dimnames` 에 속성 부여와 동일
+-   `dimnames()` 함수를 통해 각 행과 열의 이름 확인 및 부여 가능
+-   `dimnames(object)[[i]], i = 1, 2` 를 통해 행(`i = 1`)과 열(`i = 2`)
+    이름 변경 및 부여 가능
+-   위와 유사한 기능을 하는 함수
+    -   `rownames()`: 헹 이름 반환 및 부여
+    -   `colnames()`: 열 이름 반환 및 부여
 
 \footnotesize
 
@@ -4566,7 +4590,8 @@ orange          3     6        9
 
  \normalsize
 
-- 행과 열에 대한 이름이 존재한다면 벡터와 마찬가지로 이름으로 색인 가능
+-   행과 열에 대한 이름이 존재한다면 벡터와 마찬가지로 이름으로 색인
+    가능
 
 \footnotesize
 
@@ -4594,8 +4619,7 @@ orange          3        9
 
  \normalsize
 
-
-- 색인한 행렬 원소에 다른 값 할당
+-   색인한 행렬 원소에 다른 값 할당
 
 \footnotesize
 
@@ -4646,7 +4670,7 @@ X
 
  \normalsize
 
-- 행렬 필터링 $\rightarrow$ 색인 대신 조건 사용(벡터와 동일)
+-   행렬 필터링 $\rightarrow$ 색인 대신 조건 사용(벡터와 동일)
 
 \footnotesize
 
@@ -4687,11 +4711,12 @@ X[idx, ]
 
  \normalsize
 
-
 ### 행과 열 추가 및 제거
 
-- 행렬 재할당(re-assignment)를 통해 열이나 행을 직접 추가하거나 삭제 가능
-- `cbind()` (열 붙이기, column bind), `rbind()` (행 붙이기, row bind) 함수 사용
+-   행렬 재할당(re-assignment)를 통해 열이나 행을 직접 추가하거나 삭제
+    가능
+-   `cbind()` (열 붙이기, column bind), `rbind()` (행 붙이기, row bind)
+    함수 사용
 
 \footnotesize
 
@@ -4745,7 +4770,7 @@ Z <- rbind(Z, 2)
 
  \normalsize
 
-- 행 또는 열의 제거는 벡터에서와 마찬가지로 색인 앞에 `-` 사용
+-   행 또는 열의 제거는 벡터에서와 마찬가지로 색인 앞에 `-` 사용
 
 \footnotesize
 
@@ -4777,23 +4802,22 @@ Z[-c(1, 5), -3]
 
  \normalsize
 
-
 \footnotesize
 
 \BeginKnitrBlock{rmdnote}<div class="rmdnote">`cbind()` 또는 `rbind()` 함수는 다음 주에 배울 데이터 프레임에도 적용 가능하다.</div>\EndKnitrBlock{rmdnote}
 
  \normalsize
 
-
 ### 행렬 관련 함수
 
-
-- `diag()`: 대각행렬 생성 또는 대각원소(diagonal elements) 추출
-- 대각행렬: 주 대각선을 제외한 모든 원소가 0인 $n\times n$ 정방행렬로 다음과 같이 정의
+-   `diag()`: 대각행렬 생성 또는 대각원소(diagonal elements) 추출
+-   대각행렬: 주 대각선을 제외한 모든 원소가 0인 $n\times n$ 정방행렬로
+    다음과 같이 정의
 
 $$
  \mathrm{\mathbf{D}} = \{d_{ij}\},~~~~i, j \in \{1, 2, \ldots, n\},~~~~\forall~ i \neq j \rightarrow d_{ij} = 0
 $$
+
 \footnotesize
 
 
@@ -4839,8 +4863,8 @@ R은 앞서 언급한 바와 같이 객체지향언어(object oriented program, 
 
  \normalsize
 
-
-- `dim(object_name)`: 행렬 또는 데이터 프레임의 행과 열의 개수(차원)를 반환
+-   `dim(object_name)`: 행렬 또는 데이터 프레임의 행과 열의 개수(차원)를
+    반환
 
 \footnotesize
 
@@ -4869,8 +4893,8 @@ dim(Z)
 
  \normalsize
 
-- `nrow()` 또는 `NROW()`: 행렬의 행 길이 반환
-- `ncol()` 또는 `NCOL()`: 행렬의 행 길이 반환
+-   `nrow()` 또는 `NROW()`: 행렬의 행 길이 반환
+-   `ncol()` 또는 `NCOL()`: 행렬의 행 길이 반환
 
 \footnotesize
 
@@ -4889,14 +4913,13 @@ nrow(Z); ncol(Z)
 
  \normalsize
 
-
 > `nrow()/ncol()`과 `NROW()/NCOL()`의 차이점
-> 
-> - `nrow()/ncol()`은 행렬 또는 데이터 프레임에 적용되며 벡터가 인수로 사용될 때 `NULL` 값을 반환하는데 비해 `NROW()/NCOL()`은 벡터의 길이도 반환 가능
+>
+> -   `nrow()/ncol()`은 행렬 또는 데이터 프레임에 적용되며 벡터가 인수로
+>     사용될 때 `NULL` 값을 반환하는데 비해 `NROW()/NCOL()`은 벡터의
+>     길이도 반환 가능
 
-
-
-- `attributes()`: 객체가 갖는 속성을 반환함
+-   `attributes()`: 객체가 갖는 속성을 반환함
 
 \footnotesize
 
@@ -4922,8 +4945,7 @@ $dim
 
  \normalsize
 
-
-- `class()`: 객체의 클래스 명칭 반환 및 클래스 부여
+-   `class()`: 객체의 클래스 명칭 반환 및 클래스 부여
 
 \footnotesize
 
@@ -4948,7 +4970,7 @@ class(x) <- "this is a vector"
 
  \normalsize
 
-- `str()`: 객체가 갖고 있는 데이터의 구조 확인
+-   `str()`: 객체가 갖고 있는 데이터의 구조 확인
 
 \footnotesize
 
@@ -5024,8 +5046,8 @@ str(x); str(X)
 
  \normalsize
 
-
-- `attr(object, "attribute_name")`: 객체가 갖고 있는 속성을 지정해서 확인
+-   `attr(object, "attribute_name")`: 객체가 갖고 있는 속성을 지정해서
+    확인
 
 \footnotesize
 
@@ -5053,10 +5075,10 @@ attr(X, "dimnames")
 
  \normalsize
 
-
 ### 벡터와 행렬의 차이점 {#vec-mat-diff}
 
-- 행렬은 개념적으로 $n \times 1$ 벡터가 2 개 이상 묶어져서 행과 열의 속성을 갖지만 기본적으로는 벡터
+-   행렬은 개념적으로 $n \times 1$ 벡터가 2 개 이상 묶어져서 행과 열의
+    속성을 갖지만 기본적으로는 벡터
 
 \footnotesize
 
@@ -5073,8 +5095,7 @@ length(z) # 입력 벡터 원소의 길이가 8
 
  \normalsize
 
-- R에서 `U`가 행렬임을 나타내기 위해 추가적인 속성(attribute)를 부여
-
+-   R에서 `U`가 행렬임을 나타내기 위해 추가적인 속성(attribute)를 부여
 
 \footnotesize
 
@@ -5114,10 +5135,9 @@ $dim
 
  \normalsize
 
-
 ### 의도치 않은 차원축소 피하기 {#mat-dim-reduc-sway}
 
-- 다음 행렬에서 한 행을 추출
+-   다음 행렬에서 한 행을 추출
 
 \footnotesize
 
@@ -5145,7 +5165,8 @@ NULL
 
  \normalsize
 
-- 차원축소를 방지하는 방법 $\rightarrow$ `r`을 벡터가 아닌 $1 \times 2$ 행렬로 인식
+-   차원축소를 방지하는 방법 $\rightarrow$ `r`을 벡터가 아닌
+    $1 \times 2$ 행렬로 인식
 
 \footnotesize
 
@@ -5162,7 +5183,7 @@ $dim
 
  \normalsize
 
-- `as.matrix()`를 이용한 직접 변환
+-   `as.matrix()`를 이용한 직접 변환
 
 \footnotesize
 
@@ -5188,21 +5209,22 @@ z # 행렬이 변환됨을 유의
 
  \normalsize
 
-
-
 ## 배열(array) {#array}
 
-
-- 통계학의 관점에서 R의 행렬의 행은 조사 대상이 되는 사람, 동물 등 관측 대상에 해당하고, 열은 대상의 특성을 표현하는 변수(예: 몸무게, 키, 혈압 등)에 해당 $\rightarrow$ 2차원 구조
-- 위와 같은 데이터를 년 단위로 수집한다면? $\rightarrow$ 한 대상자에 해당하는 변수들은 시간에 따라 변함 $\rightarrow$ 시간 차원이 하나 더 존재!
-- R에서 이러한 형태의 데이터 구조를 배열(array)이라고 지칭함
-
+-   통계학의 관점에서 R의 행렬의 행은 조사 대상이 되는 사람, 동물 등
+    관측 대상에 해당하고, 열은 대상의 특성을 표현하는 변수(예: 몸무게,
+    키, 혈압 등)에 해당 $\rightarrow$ 2차원 구조
+-   위와 같은 데이터를 년 단위로 수집한다면? $\rightarrow$ 한 대상자에
+    해당하는 변수들은 시간에 따라 변함 $\rightarrow$ 시간 차원이 하나 더
+    존재!
+-   R에서 이러한 형태의 데이터 구조를 배열(array)이라고 지칭함
 
 ### 배열의 생성 및 색인 {#make-array}
 
-- 동일한 유형의 데이터가 2차원 이상으로 구성된 데이터 구조
-- 동일한 차원($n\times p$)의 배열(행렬)이 $k$ 개 방에 저장된 데이터 구조
-- 배열 생성 함수
+-   동일한 유형의 데이터가 2차원 이상으로 구성된 데이터 구조
+-   동일한 차원($n\times p$)의 배열(행렬)이 $k$ 개 방에 저장된 데이터
+    구조
+-   배열 생성 함수
 
 \footnotesize
 
@@ -5217,7 +5239,8 @@ array(data, # 저장할 데이터 벡터 또는 행렬
 
  \normalsize
 
-- 통계학과 3명의 학생에 대한 중간고사 기준 한 번의 퀴즈와 중간고사 점수, 그리고 기말고사 기준 한 번의 퀴즈와 기말고사 점수 데이터 가정
+-   통계학과 3명의 학생에 대한 중간고사 기준 한 번의 퀴즈와 중간고사
+    점수, 그리고 기말고사 기준 한 번의 퀴즈와 기말고사 점수 데이터 가정
 
 \footnotesize
 
@@ -5303,7 +5326,7 @@ str(Z)
 
  \normalsize
 
-- 배열 내 데이터 접근은 색인을 통해 가능(벡터 행렬과 동일)
+-   배열 내 데이터 접근은 색인을 통해 가능(벡터 행렬과 동일)
 
 \footnotesize
 
@@ -5333,18 +5356,24 @@ Z[2:3, , 2]
 
  \normalsize
 
-
 ### 배열의 확장 예제 {#rray-extend-example}
 
-> [데이터 사이언스 스쿨](https://datascienceschool.net/view-notebook/9af8d8e93c084bc49f0ac2bb8a20e2a4/) 참고
+> [데이터 사이언스
+> 스쿨](https://datascienceschool.net/view-notebook/9af8d8e93c084bc49f0ac2bb8a20e2a4/)
+> 참고
 
-- 배열 구조를 갖는 가장 대표적인 데이터 중 하나가 이미지(사진)
-- 이미지 데이터는 픽셀(pixel) 이라는 세분화된 작은 이미지를 직사각형 형태로 모은 형태 
-- 전체 이미지는 세로픽셀수 $\times$ 가로픽셀수 로 표현됨 $\rightarrow$ **행렬**
-- 픽셀의 색을 숫자로 표현하는 방식을 색공간(color space)라고 명칭
-- 대표적 색공간은 흑백스케일(grey scale), RGB (Red-Green-Blue), HSV(Hue-Saturation-Value) 방식
-- RGB 색공간을 사용한 경우 각 색공간별로 동일한 크기의 행렬이 3개 층으로 저장된 상태 $\rightarrow$ **배열**
-- RGB는 0 ~ 255 까지 값을 갖고 빨강색 (255, 0, 0), 녹색 (0, 255, 0), 파란색은 (0, 0, 255)임
+-   배열 구조를 갖는 가장 대표적인 데이터 중 하나가 이미지(사진)
+-   이미지 데이터는 픽셀(pixel) 이라는 세분화된 작은 이미지를 직사각형
+    형태로 모은 형태
+-   전체 이미지는 세로픽셀수 $\times$ 가로픽셀수 로 표현됨 $\rightarrow$
+    **행렬**
+-   픽셀의 색을 숫자로 표현하는 방식을 색공간(color space)라고 명칭
+-   대표적 색공간은 흑백스케일(grey scale), RGB (Red-Green-Blue),
+    HSV(Hue-Saturation-Value) 방식
+-   RGB 색공간을 사용한 경우 각 색공간별로 동일한 크기의 행렬이 3개
+    층으로 저장된 상태 $\rightarrow$ **배열**
+-   RGB는 0 \~ 255 까지 값을 갖고 빨강색 (255, 0, 0), 녹색 (0, 255, 0),
+    파란색은 (0, 0, 255)임
 
 <br/>
 
@@ -5370,8 +5399,7 @@ Z[2:3, , 2]
 
  \normalsize
 
-
-1. 이미지 입출력 패키지 installation 
+1.  이미지 입출력 패키지 installation
 
 \footnotesize
 
@@ -5383,7 +5411,7 @@ install.packages("cowplot") # ggplot add-on package
 
  \normalsize
 
-2. 관련 패키지 불러오기
+2.  관련 패키지 불러오기
 
 \footnotesize
 
@@ -5396,7 +5424,7 @@ require(cowplot)
 
  \normalsize
 
-3. 이미지 불러오기
+3.  이미지 불러오기
 
 \footnotesize
 
@@ -5415,7 +5443,7 @@ pic <- readJPEG(img)
 
  \normalsize
 
-4. 이미지 그래프 출력창에서 확인
+4.  이미지 그래프 출력창에서 확인
 
 \footnotesize
 
@@ -5423,7 +5451,7 @@ pic <- readJPEG(img)
 
  \normalsize
 
-5. 이미지 임의 부분 편집하기
+5.  이미지 임의 부분 편집하기
 
 \footnotesize
 
@@ -5441,7 +5469,7 @@ ggdraw() +
 
  \normalsize
 
-6. RGB값을 무작위로 샘플링 후 매개변수로 노이즈 가중치 조절해 보기
+6.  RGB값을 무작위로 샘플링 후 매개변수로 노이즈 가중치 조절해 보기
 
 \footnotesize
 
@@ -5472,26 +5500,28 @@ ggdraw() +
 
  \normalsize
 
-
 ## 요인(factor)과 테이블(table) {#factor-table}
 
-- 요인(factor) 데이터 타입은 통계학에서 범주형 변수(categorical variable)을 표현하기 위한 R의 데이터 타입으로 범주형 자료는 크게 명목형(nominal)과 순서형(ordinal) 으로 구분
-- 테이블(table) 객체는 factor 객체에 대한 빈도를 나타내기 위해 사용
+-   요인(factor) 데이터 타입은 통계학에서 범주형 변수(categorical
+    variable)을 표현하기 위한 R의 데이터 타입으로 범주형 자료는 크게
+    명목형(nominal)과 순서형(ordinal) 으로 구분
+-   테이블(table) 객체는 factor 객체에 대한 빈도를 나타내기 위해 사용
 
 **범주형 자료**
 
-- 데이터가 사전에 정해진 특정 유형으로만 분류되는 경우: 성별, 인종, 혈액형 등
-- 범주형 자료는 명목형과 순서형으로 구분 가능
-- 순서형 자료 예: 성적, 교육수준, 선호도, 중증도 등 
-
+-   데이터가 사전에 정해진 특정 유형으로만 분류되는 경우: 성별, 인종,
+    혈액형 등
+-   범주형 자료는 명목형과 순서형으로 구분 가능
+-   순서형 자료 예: 성적, 교육수준, 선호도, 중증도 등
 
 ### 요인(factor) {#factor}
 
-- 범주형 자료를 표현하기 위한 R의 객체 클래스
-- Factor는 정수형 벡터를 기반으로 levels (수준) 이라는 속성이 추가된 객체임
-- 숫자 또는 문자로 표현 되었다 하더라도 범주형으로 이해
-- Factor는 level에 해당하는 값만 가질 수 있는 벡터로 간주
-- Factor 생성 함수
+-   범주형 자료를 표현하기 위한 R의 객체 클래스
+-   Factor는 정수형 벡터를 기반으로 levels (수준) 이라는 속성이 추가된
+    객체임
+-   숫자 또는 문자로 표현 되었다 하더라도 범주형으로 이해
+-   Factor는 level에 해당하는 값만 가질 수 있는 벡터로 간주
+-   Factor 생성 함수
 
 \footnotesize
 
@@ -5508,8 +5538,9 @@ factor(data, # factor로 표현하고자 하는 값. 주로 문자형
 
  \normalsize
 
-- 수치형을 factor로 만들어도 처음 입력 값은 문자형으로 변하고 level 값으로 치환
-- 대신 (1, 2, 3)이 중심값이 됨 $\rightarrow$ 정수형 벡터임
+-   수치형을 factor로 만들어도 처음 입력 값은 문자형으로 변하고 level
+    값으로 치환
+-   대신 (1, 2, 3)이 중심값이 됨 $\rightarrow$ 정수형 벡터임
 
 \footnotesize
 
@@ -5566,7 +5597,7 @@ nlevels(fscore)
 
  \normalsize
 
-- Factor를 벡터 결합 함수 `c()`로 결합
+-   Factor를 벡터 결합 함수 `c()`로 결합
 
 \footnotesize
 
@@ -5582,7 +5613,7 @@ Levels: 4 5 6
 
  \normalsize
 
-- Factor의 범주 수준(level) 및 범주명(label) 지정
+-   Factor의 범주 수준(level) 및 범주명(label) 지정
 
 \footnotesize
 
@@ -5644,7 +5675,7 @@ Levels: Mild Moderate Severe
 
  \normalsize
 
-- 순서형 factor 생성
+-   순서형 factor 생성
 
 \footnotesize
 
@@ -5676,8 +5707,9 @@ is.ordered(severity) # 순서형 범주 체크
 
 **`tapply()` 함수**
 
-- 특정 요인 수준의 고유한 조합으로 각 그룹에 속한 값에 특정 함수를 적용한 결과를 반환
-- 일반적인 함수 사용 형태는 아래와 같음
+-   특정 요인 수준의 고유한 조합으로 각 그룹에 속한 값에 특정 함수를
+    적용한 결과를 반환
+-   일반적인 함수 사용 형태는 아래와 같음
 
 \footnotesize
 
@@ -5693,7 +5725,7 @@ tapply(
 
  \normalsize
 
-- 예시: 2020년 4월 15일 총선의 연령별 지지율
+-   예시: 2020년 4월 15일 총선의 연령별 지지율
 
 \footnotesize
 
@@ -5730,7 +5762,8 @@ tapply(x, f, mean)
 
  \normalsize
 
-- Factor가 2개 이상인 경우 두 factor 객체의 수준의 조합(AND 조건)에 따른 그룹을 만든 후 그룹별 함수 적용
+-   Factor가 2개 이상인 경우 두 factor 객체의 수준의 조합(AND 조건)에
+    따른 그룹을 만든 후 그룹별 함수 적용
 
 \footnotesize
 
@@ -5763,8 +5796,6 @@ sex        1    2    3
 
  \normalsize
 
-
-
 \footnotesize
 
 \BeginKnitrBlock{rmdnote}<div class="rmdnote">R에서 가장 많이 활용되는 함수 계열 중 하나로 `*apply()`를 들 수 있다. 벡터, 행렬 등과 같은 R 객체에  `for loop` 대신 반복적으로 동일한 함수를 적용할 때 활용된다. `*apply()` 계열 함수에 대해서는 데이터 프레임 에서 더 상세하게 배울 것임
@@ -5772,11 +5803,11 @@ sex        1    2    3
 
  \normalsize
 
-
 ##### `split()` 함수 {#split .unnumbered}
 
-- `tapply()`는 주어진 요인의 수준에 따라 특정 함수를 적용하지만, `split()`은 데이터를 요인의 수준(그룹) 별로 데이터를 나누어 리스트 형태로 반환
-
+-   `tapply()`는 주어진 요인의 수준에 따라 특정 함수를 적용하지만,
+    `split()`은 데이터를 요인의 수준(그룹) 별로 데이터를 나누어 리스트
+    형태로 반환
 
 \footnotesize
 
@@ -5791,7 +5822,7 @@ split(
 
  \normalsize
 
-- `split()` 함수 사용 예시 
+-   `split()` 함수 사용 예시
 
 \footnotesize
 
@@ -5861,16 +5892,16 @@ $M
 
  \normalsize
 
-
 ### 테이블(table) {#table}
 
-- 범주형 변수의 빈도 또는 분할표(교차표)를 표현하기 위한 객체(클래스)
-- 범주 별 통계량(평균, 표준편차, 중위수, ...) 요약
-
+-   범주형 변수의 빈도 또는 분할표(교차표)를 표현하기 위한 객체(클래스)
+-   범주 별 통계량(평균, 표준편차, 중위수, ...) 요약
 
 **`tapply()`** 함수를 이용한 테이블 만들기
 
-- 길이가 12인 임의의 벡터 `u`를 수준의 개수가 각각 3, 2인 factor의 조합으로 부분벡터로 분리 후 `length()` 적용 $\rightarrow$ `tapply()` 함수 사용
+-   길이가 12인 임의의 벡터 `u`를 수준의 개수가 각각 3, 2인 factor의
+    조합으로 부분벡터로 분리 후 `length()` 적용 $\rightarrow$ `tapply()`
+    함수 사용
 
 \footnotesize
 
@@ -5893,11 +5924,14 @@ tapply(u, list(f1, f2), length)
 
  \normalsize
 
-- `u`의 값과 상관 없이 두 factor 형 변수 `f1`과 `f2`의 조합에 따른 개수 반환 $\rightarrow$ 분할표(contingency table)
-- 위 예시에서 `f1`이 "4" 이고 `f2`가 "b" 인 경우는 없기 때문에 0 값이 있어야 하나, `tapply()` 함수 적용 시 결측값 `NA`를 반환
-- `table()`: 하나 이상의 factor의 수준 또는 수준의 조합으로 분할표 생성
-- Factor가 3개 이상인 경우 배열로 다차원 분할표 표현
- 
+-   `u`의 값과 상관 없이 두 factor 형 변수 `f1`과 `f2`의 조합에 따른
+    개수 반환 $\rightarrow$ 분할표(contingency table)
+-   위 예시에서 `f1`이 "4" 이고 `f2`가 "b" 인 경우는 없기 때문에 0 값이
+    있어야 하나, `tapply()` 함수 적용 시 결측값 `NA`를 반환
+-   `table()`: 하나 이상의 factor의 수준 또는 수준의 조합으로 분할표
+    생성
+-   Factor가 3개 이상인 경우 배열로 다차원 분할표 표현
+
 \footnotesize
 
 
@@ -5998,12 +6032,12 @@ gender A B C
 
  \normalsize
 
-
 #### 테이블 관련 함수 {#tab-related-fun .unnumbered}
 
 ##### `tabulate()` 함수 {#tab-fun1 .unnumbered}
 
-- 정수로 이루어진 벡터에 각 정수 값이 발생한 횟수를 카운팅한 결과를 반환 $\rightarrow$ `table()` 함수의 핵심 함수
+-   정수로 이루어진 벡터에 각 정수 값이 발생한 횟수를 카운팅한 결과를
+    반환 $\rightarrow$ `table()` 함수의 핵심 함수
 
 \footnotesize
 
@@ -6018,7 +6052,7 @@ tabulate(
 
  \normalsize
 
-- `tabulate()` 함수 예시 
+-   `tabulate()` 함수 예시
 
 \footnotesize
 
@@ -6044,7 +6078,8 @@ tabulate(x, nbins = 3)
 
 ##### `addmargins()` 함수 {#tab-fun2 .unnumbered}
 
-- 테이블 객체(분할표)를 인수로 받아 각 요인의 수준 및 수준 조합 별 합계 값을 테이블과 동시 반환
+-   테이블 객체(분할표)를 인수로 받아 각 요인의 수준 및 수준 조합 별
+    합계 값을 테이블과 동시 반환
 
 \footnotesize
 
@@ -6058,7 +6093,7 @@ addmargins(
 
  \normalsize
 
-- `addmargins()` 예시
+-   `addmargins()` 예시
 
 \footnotesize
 
@@ -6139,12 +6174,10 @@ gender A B C Sum
 
  \normalsize
 
-
 ##### `ftable()` 함수 {#tab-fun3 .unnumbered}
 
-- "평평한(flat)" 교차표 생성
-- 다차원 교차표 작성 시 행변수와 열변수 교환을 통해 재사용 가능
-
+-   "평평한(flat)" 교차표 생성
+-   다차원 교차표 작성 시 행변수와 열변수 교환을 통해 재사용 가능
 
 \footnotesize
 
@@ -6159,7 +6192,7 @@ ftable(
 
  \normalsize
 
-- `ftable()` 함수 사용 예시
+-   `ftable()` 함수 사용 예시
 
 \footnotesize
 
@@ -6253,12 +6286,10 @@ C     1           0 1
 
  \normalsize
 
+##### `margin.table()` 함수 {#table-fun4 .unnumbered}
 
-##### `margin.table()` 함수 {#table-fun4 .unnumbered} 
-
-
-- 배열 형식으로 지정된 교차표(`table()` 반환 결과)에서 지정된 차원 색인에 대한 표 합계 계산 결과 반환
-
+-   배열 형식으로 지정된 교차표(`table()` 반환 결과)에서 지정된 차원
+    색인에 대한 표 합계 계산 결과 반환
 
 \footnotesize
 
@@ -6272,7 +6303,7 @@ margin.table(
 
  \normalsize
 
-- `margin.table()` 예시
+-   `margin.table()` 예시
 
 \footnotesize
 
@@ -6343,10 +6374,10 @@ year
 
  \normalsize
 
-##### `prop.table()` 함수 {#table-fun5 .unnumbered} 
+##### `prop.table()` 함수 {#table-fun5 .unnumbered}
 
-- `table` 객체 빈도에 대한 비율 계산
-- 전체, 차원 단위 비율 계산 가능
+-   `table` 객체 빈도에 대한 비율 계산
+-   전체, 차원 단위 비율 계산 가능
 
 \footnotesize
 
@@ -6360,11 +6391,12 @@ prop.table(
 
  \normalsize
 
-- `prop.table()` 예시
-   - `margin = NULL`: 각 셀을 전체 cell의 합으로 나눈 비율
-   - `margin = 1`: 각 행 별 셀에 대해 각 행에 해당하는 cell 합으로 나눈 비율 $(n_{ij}/n_{i.})$, $n_{i.} = \sum_{j=1}^{J} n_{ij}$
-   - `margin = 2`: 각 열 별 셀에 대해 각 열에 해당하는 cell 합으로 나눈 비율 $(n_{ij}/n_{.j})$, $n_{.j} = \sum_{i=1}^{I} n_{ij}$
-
+-   `prop.table()` 예시
+    -   `margin = NULL`: 각 셀을 전체 cell의 합으로 나눈 비율
+    -   `margin = 1`: 각 행 별 셀에 대해 각 행에 해당하는 cell 합으로
+        나눈 비율 $(n_{ij}/n_{i.})$, $n_{i.} = \sum_{j=1}^{J} n_{ij}$
+    -   `margin = 2`: 각 열 별 셀에 대해 각 열에 해당하는 cell 합으로
+        나눈 비율 $(n_{ij}/n_{.j})$, $n_{.j} = \sum_{i=1}^{I} n_{ij}$
 
 \footnotesize
 
@@ -6408,8 +6440,6 @@ f1          a         b
 
  \normalsize
 
-
-
 ## 데이터 프레임(data frame) {#data-frame}
 
 \footnotesize
@@ -6418,8 +6448,7 @@ f1          a         b
 
  \normalsize
 
-
-- Excel 스프레드시트와 같은 형태
+-   Excel 스프레드시트와 같은 형태
 
 \footnotesize
 
@@ -6458,18 +6487,18 @@ f1          a         b
 
  \normalsize
 
-
-- 데이터 프레임은 데이터 유형에 상관없이 2차원 형태의 데이터 구조
-- 행렬과 리스트를 혼합한 자료 형태 $\rightarrow$ 동일한 길이의 벡터로 이루어진 리스트를 구성요소로 갖는 리스트
-- 행렬과 유사한 구조를 갖고 있지만 각기 다른 유형의 자료형태로 자료행렬을 구성할 수 있다는 점에서 행렬과 차이를 갖음
-- 행렬과 마찬가지로 변수(열)의 길이(행의 개수)는 모두 동일해야 함
-- R에서 가장 빈번하게 활용되고 있는 데이터 클래스임
-- 데이터 프레임의 각 열(컬럼)은 벡터로 간주
-
+-   데이터 프레임은 데이터 유형에 상관없이 2차원 형태의 데이터 구조
+-   행렬과 리스트를 혼합한 자료 형태 $\rightarrow$ 동일한 길이의 벡터로
+    이루어진 리스트를 구성요소로 갖는 리스트
+-   행렬과 유사한 구조를 갖고 있지만 각기 다른 유형의 자료형태로
+    자료행렬을 구성할 수 있다는 점에서 행렬과 차이를 갖음
+-   행렬과 마찬가지로 변수(열)의 길이(행의 개수)는 모두 동일해야 함
+-   R에서 가장 빈번하게 활용되고 있는 데이터 클래스임
+-   데이터 프레임의 각 열(컬럼)은 벡터로 간주
 
 ### 데이터 프레임 생성 {#create-data-frame}
 
-- 데이터 프레임 생성 함수: `data.frame()`
+-   데이터 프레임 생성 함수: `data.frame()`
 
 \footnotesize
 
@@ -6488,7 +6517,7 @@ data.frame(
 
  \normalsize
 
-- 데이터 프레임 생성 예시: 모 병원에서 얻은 환자의 인구학적 정보
+-   데이터 프레임 생성 예시: 모 병원에서 얻은 환자의 인구학적 정보
 
 \footnotesize
 
@@ -6592,11 +6621,13 @@ summary(df)
 
  \normalsize
 
-- 이미 정의된 데이터 프레임에 데이터를 추가 가능
-   - 예를 들어 `dbp`라는 벡터에 이완기 혈압(diastolic blood pressure) 데이터가 입력되어 있고  `df`에  `dbp` 변수를 새롭게 추가 시 `df$dbp <- x` 형태로 추가
-   - 위 형태로 이미 존재하고 있는 변수(열)에 새로운 값 재할당 가능
-   - 이러한 형태로 문자형 벡터 추가 시 문자형 벡터는 자동으로 factor로 형 변환 되지는 않음
-
+-   이미 정의된 데이터 프레임에 데이터를 추가 가능
+    -   예를 들어 `dbp`라는 벡터에 이완기 혈압(diastolic blood pressure)
+        데이터가 입력되어 있고 `df`에 `dbp` 변수를 새롭게 추가 시
+        `df$dbp <- x` 형태로 추가
+    -   위 형태로 이미 존재하고 있는 변수(열)에 새로운 값 재할당 가능
+    -   이러한 형태로 문자형 벡터 추가 시 문자형 벡터는 자동으로
+        factor로 형 변환 되지는 않음
 
 \footnotesize
 
@@ -6650,7 +6681,8 @@ str(df)
 
  \normalsize
 
-- 행렬 및 벡터에서 언급 되었던 `rownames()`, `colnames()`, `names()`, `dim()`, `ncol()/NCOL()`,`nrow()/NROW()` 함수 적용 가능
+-   행렬 및 벡터에서 언급 되었던 `rownames()`, `colnames()`, `names()`,
+    `dim()`, `ncol()/NCOL()`,`nrow()/NROW()` 함수 적용 가능
 
 \footnotesize
 
@@ -6765,14 +6797,11 @@ output:
 
  \normalsize
 
-
 ### 데이터 프레임 접근 및 필터링 {#data-frame-get}
-
 
 #### 접근방법 {#data-frame-index .unnumbered}
 
-
-- 리스트 데이터 접근 방식
+-   리스트 데이터 접근 방식
 
 \footnotesize
 
@@ -6841,7 +6870,7 @@ $class
 
  \normalsize
 
-- 행렬 데이터 접근 방식
+-   행렬 데이터 접근 방식
 
 \footnotesize
 
@@ -6947,11 +6976,10 @@ df[-c(1, 5:7), -c(1, 8)]
 
  \normalsize
 
-
-
 #### 필터링 {#data-frame-filtering .unnumbered}
 
-- 벡터, 행렬과 마찬가지로 비교 연산자를 이용해 조건에 맞는 부분 데이터 추출 가능
+-   벡터, 행렬과 마찬가지로 비교 연산자를 이용해 조건에 맞는 부분 데이터
+    추출 가능
 
 \footnotesize
 
@@ -7028,7 +7056,6 @@ subset(df, select = -c(id))
 
  \normalsize
 
-
 \footnotesize
 
 \BeginKnitrBlock{rmdnote}<div class="rmdnote">데이터 프레임 또는 리스트 접근 시 `df$col_name` 를 사용한다면 매번 데이터 프레임 이름과 `$`을 반복하기 때문에 코드가 불필요하게 복잡해짐. R에서는 데이터 프레임 내부의 열 이름을 직접 접근할 수 있도록 도와주는 몇 가지 함수(예: `with()`, `attach()` 등)가 있는데, `with()`와 `within()` 활용법에 대해 간략히 알아봄. 
@@ -7036,8 +7063,8 @@ subset(df, select = -c(id))
 
  \normalsize
 
-- 위 예제에서 sex 가 Female이고 나이가 40 이상인 데이터 추출한다고 했을 때 `with()` 함수 사용
-
+-   위 예제에서 sex 가 Female이고 나이가 40 이상인 데이터 추출한다고
+    했을 때 `with()` 함수 사용
 
 \footnotesize
 
@@ -7051,7 +7078,6 @@ with(
 ```
 
  \normalsize
-
 
 \footnotesize
 
@@ -7068,8 +7094,8 @@ with(df, df[sex == "Female" & age >= 40, ])
 
  \normalsize
 
-- `within()` 함수는 `with()`와 유사하지만 코드블록(`{...}`)을 이용해 보다 자유롭게 데이터를 수정 및 추가할 수 있음
-
+-   `within()` 함수는 `with()`와 유사하지만 코드블록(`{...}`)을 이용해
+    보다 자유롭게 데이터를 수정 및 추가할 수 있음
 
 \footnotesize
 
@@ -7084,19 +7110,20 @@ df2 <- within(df, {
 
  \normalsize
 
-
-
 ### 데이터 프레임 관련 함수 {#data-frame-function}
 
 #### 유틸리티 함수 {#data-frame-utility .unnumbered}
 
-- 보통 데이터 분석은 외부에서 데이터를 읽은 후 특정 객체에 읽어온 데이터를 할당하는데, 이 경우 데이터가 저장된 객체는 대부분은 데이터 프레임 형태임. 
-- 읽어온 데이터는 보통 많은 행(표본)으로 구성되어 있기 때문에 데이터를 손쉽게 살펴보는 방법이 필요
+-   보통 데이터 분석은 외부에서 데이터를 읽은 후 특정 객체에 읽어온
+    데이터를 할당하는데, 이 경우 데이터가 저장된 객체는 대부분은 데이터
+    프레임 형태임.
+-   읽어온 데이터는 보통 많은 행(표본)으로 구성되어 있기 때문에 데이터를
+    손쉽게 살펴보는 방법이 필요
 
+##### `head()`/`tail()` 함수 {#head-tail .unnumbered}
 
-##### `head()`/`tail()` 함수 {#head-tail .unnumbered} 
-
-- 객체(벡터, 행렬, 테이블, 데이터 프레임 등)의 처음 또는 끝에서 부터 몇 개의 데이터(`default = 6L`) 를 순차적으로 보여줌
+-   객체(벡터, 행렬, 테이블, 데이터 프레임 등)의 처음 또는 끝에서 부터
+    몇 개의 데이터(`default = 6L`) 를 순차적으로 보여줌
 
 \footnotesize
 
@@ -7136,7 +7163,7 @@ tail(abalone)
 
 ##### `View()` 함수 {#view-fun .unnumbered}
 
-- 2차원 데이터의 readble 한 스프레드시트 제공
+-   2차원 데이터의 readble 한 스프레드시트 제공
 
 \footnotesize
 
@@ -7147,12 +7174,11 @@ View(abalone)
 
  \normalsize
 
-
 #### 데이터 프레임 결합 및 분리 함수 {#df-merge-split .unnumbered}
 
 ##### `rbind()`/`cbind()` 함수 {#rbind-cbind .unnumbered}
 
-- 행렬에서 사용한 `rbind()`/`cbind()`를 데이터 프레임에도 적용 가능
+-   행렬에서 사용한 `rbind()`/`cbind()`를 데이터 프레임에도 적용 가능
 
 \footnotesize
 
@@ -7225,13 +7251,14 @@ ace <- cbind(ac, e)
 
  \normalsize
 
-
 ##### `merge()` 함수 {#merge .unnumbered}
 
-- 두 데이터 프레임을 공통된 값을 기준으로 병합
-- Excel의 `vlookup()` 함수 또는 데이터베이스 SQL 쿼리 중 `join`과 동일한 역할을 함
-- `cbind()`의 경우는 단순히 열을 합치는 것이지만 `merge()`는 공통되는 열을 기준으로 두 데이터셋을 병합
-- 공통된 데이터가 있을 때만 데이터 병합 수행
+-   두 데이터 프레임을 공통된 값을 기준으로 병합
+-   Excel의 `vlookup()` 함수 또는 데이터베이스 SQL 쿼리 중 `join`과
+    동일한 역할을 함
+-   `cbind()`의 경우는 단순히 열을 합치는 것이지만 `merge()`는 공통되는
+    열을 기준으로 두 데이터셋을 병합
+-   공통된 데이터가 있을 때만 데이터 병합 수행
 
 \footnotesize
 
@@ -7256,7 +7283,7 @@ merge(
 
  \normalsize
 
-- `merge()` 함수 예시
+-   `merge()` 함수 예시
 
 \footnotesize
 
@@ -7329,11 +7356,10 @@ merge(d1, d2,
 
  \normalsize
 
-
 ##### `split()` 함수 {#split-df .unnumbered}
 
-- Factor 형에서 언급한 `split()` 함수를 통해 그룹 별로 데이터 분할
-- 분할된 데이터는 리스트에 저장
+-   Factor 형에서 언급한 `split()` 함수를 통해 그룹 별로 데이터 분할
+-   분할된 데이터는 리스트에 저장
 
 \footnotesize
 
@@ -7362,12 +7388,11 @@ j 10 Male  42 109    162     60  64       Y
 
  \normalsize
 
-
 #### 데이터 정렬 함수 {#sort-fun .unnumbered}
 
 ##### `sort()` 함수 {#sort .unnumbered}
 
-- 데이터(벡터)의 정렬(오름차순 또는 내림차순) 결과 반환
+-   데이터(벡터)의 정렬(오름차순 또는 내림차순) 결과 반환
 
 \footnotesize
 
@@ -7385,7 +7410,7 @@ sort(
 
  \normalsize
 
-- 예시
+-   예시
 
 \footnotesize
 
@@ -7410,11 +7435,10 @@ sort(df$height, decreasing = TRUE)
 
  \normalsize
 
-
 ##### `order()` 함수 {#order .unnumbered}
 
-- 데이터 정렬을 위해 순서에 대한 색인 생성 결과 반환
-- 데이터 프레임에서 특정 열 기준으로 데이터 정렬 시 주로 사용
+-   데이터 정렬을 위해 순서에 대한 색인 생성 결과 반환
+-   데이터 프레임에서 특정 열 기준으로 데이터 정렬 시 주로 사용
 
 \footnotesize
 
@@ -7443,18 +7467,20 @@ df[order(df$height, decreasing = T), ]
 
  \normalsize
 
-
 ### `*apply()` 계열 함수 {#apply-related-fun}
 
-- `apply()`, `lapply()`, `sapply()` 등 `apply` 계열 함수는 R에서 가장 일반적으로 사용되는 함수 중 하나
-- 반복문(`for-loop`)를 대신하기 위해 활용되며, R 객체를 입력 받아 원소 별 혹은 그루 별 함수를 적용
-- 데이터 전체에 함수를 한번에 적용하는 vectorizing 연산을 수행함
+-   `apply()`, `lapply()`, `sapply()` 등 `apply` 계열 함수는 R에서 가장
+    일반적으로 사용되는 함수 중 하나
+-   반복문(`for-loop`)를 대신하기 위해 활용되며, R 객체를 입력 받아 원소
+    별 혹은 그루 별 함수를 적용
+-   데이터 전체에 함수를 한번에 적용하는 vectorizing 연산을 수행함
 
 #### `apply()` 함수 {#apply .unnumbered}
 
-- 배열 또는 행렬에 주어진 함수를 적용한 뒤 그 결과를 벡터 또는 리스트로 반환
-- 행 또는 열 차원 기준 함수 적용
-- 동일한 유형의 벡터로 구성된 데이터셋에 적용
+-   배열 또는 행렬에 주어진 함수를 적용한 뒤 그 결과를 벡터 또는
+    리스트로 반환
+-   행 또는 열 차원 기준 함수 적용
+-   동일한 유형의 벡터로 구성된 데이터셋에 적용
 
 \footnotesize
 
@@ -7471,7 +7497,7 @@ apply(
 
  \normalsize
 
-- 예시1: 행렬 및 배열 `apply()` 적용
+-   예시1: 행렬 및 배열 `apply()` 적용
 
 \footnotesize
 
@@ -7553,8 +7579,9 @@ apply(Z, c(1, 3), mean)
 
  \normalsize
 
-- 예시2: 데이터 프레임
-   - 위에서 사용한 `df`와 \@ref(factor) 요인(factor) 절에서 잠깐 예시로 사용된 전복(`abalone`) 데이터셋 사용
+-   예시2: 데이터 프레임
+    -   위에서 사용한 `df`와 \@ref(factor) 요인(factor) 절에서 잠깐
+        예시로 사용된 전복(`abalone`) 데이터셋 사용
 
 \footnotesize
 
@@ -7573,7 +7600,6 @@ apply(Z, c(1, 3), mean)
 </div>
 
  \normalsize
-
 
 \footnotesize
 
@@ -7664,7 +7690,6 @@ apply(ab2[, -1], 2, mean, na.rm = TRUE)
 
  \normalsize
 
-
 \footnotesize
 
 \BeginKnitrBlock{rmdtip}<div class="rmdtip">**참고 1**: 
@@ -7680,7 +7705,6 @@ apply(ab2[, -1], 2, mean, na.rm = TRUE)
   </div>\EndKnitrBlock{rmdtip}
 
  \normalsize
-
 
 \footnotesize
 
@@ -7705,17 +7729,16 @@ colMeans(abalone[,-1]) # apply 결과와 비교
 
  \normalsize
 
-
 #### `tapply()` 함수 {#tapply-df .unnumbered}
 
-- \@ref(factor) 요인(factor) 절에서 설명
-- `tapply()`는 1개의 벡터를 대상으로만 함수를 호출 
-- 데이터 프레임에 적용하려면? $\rightarrow$ `aggregate()` 함수 사용
+-   \@ref(factor) 요인(factor) 절에서 설명
+-   `tapply()`는 1개의 벡터를 대상으로만 함수를 호출
+-   데이터 프레임에 적용하려면? $\rightarrow$ `aggregate()` 함수 사용
 
 ##### `aggregate()` {#aggregate .unnumbered}
 
-- 데이터를 특정 factor의 수준 별로 나눈 후, 각 그룹마다 함수 적용
-- `aggregate()`는 다음 두 가지 형태로 함수 적용 가능
+-   데이터를 특정 factor의 수준 별로 나눈 후, 각 그룹마다 함수 적용
+-   `aggregate()`는 다음 두 가지 형태로 함수 적용 가능
 
 \footnotesize
 
@@ -7740,7 +7763,7 @@ aggregate(
 
  \normalsize
 
-- 예시: 임상연구 자료(`df`)
+-   예시: 임상연구 자료(`df`)
 
 \footnotesize
 
@@ -7796,10 +7819,10 @@ aggregate(. ~ sex + exercyn,
 
  \normalsize
 
-
 #### `lapply()` 함수 {#lapply .unnumbered}
 
-- 특정 함수를 벡터, 리스트, 데이터 프레임 등에 적용하고 그 결과를 리스트로 반환
+-   특정 함수를 벡터, 리스트, 데이터 프레임 등에 적용하고 그 결과를
+    리스트로 반환
 
 \footnotesize
 
@@ -7812,7 +7835,6 @@ lapply(
 ```
 
  \normalsize
-
 
 -예시: abalone 데이터를 사용해 일변량 회귀분석 실시
 
@@ -7850,7 +7872,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x557bbc6aac18> 
+  .. ..- attr(*, ".Environment")=<environment: 0x5590180c0268> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"
@@ -7956,11 +7978,11 @@ x           14.535675 0.27908233 52.08382  0.000000e+00
 
  \normalsize
 
-
 #### `sapply()` 힘수 {#sapply .unnumbered}
 
-- `lapply()` 함수와 유사하나(`lapply()`의 wrapper 함수), 결과를 벡터 또는 행렬로 반환하는 점에서 차이를 보임
-- 예시: 회귀분석 
+-   `lapply()` 함수와 유사하나(`lapply()`의 wrapper 함수), 결과를 벡터
+    또는 행렬로 반환하는 점에서 차이를 보임
+-   예시: 회귀분석
 
 \footnotesize
 
@@ -8005,12 +8027,11 @@ $dimnames[[2]]
 
  \normalsize
 
-
 #### `mapply()` 함수 {#mapply .unnumbered}
 
-- `sapply()`와 유사하지만 다수의 인수를 함수에 전달해 적용
-- 임의의 함수 `FUN()`이 있고, `FUN()`을 수행하기 위해 필요한 인수가 데이터로 저장되어 있을 때 이를 불러들여 함수를 적용
-
+-   `sapply()`와 유사하지만 다수의 인수를 함수에 전달해 적용
+-   임의의 함수 `FUN()`이 있고, `FUN()`을 수행하기 위해 필요한 인수가
+    데이터로 저장되어 있을 때 이를 불러들여 함수를 적용
 
 \footnotesize
 
@@ -8024,8 +8045,9 @@ mapply(
 
  \normalsize
 
-- 난수 생성 예시: `rnorm()` 함수 사용
-- `rnorm(n, mean, sd)`: 평균이 `mean`이고 표준편차가 `sd`인 정규분포에서 `n`개의 난수 생성
+-   난수 생성 예시: `rnorm()` 함수 사용
+-   `rnorm(n, mean, sd)`: 평균이 `mean`이고 표준편차가 `sd`인
+    정규분포에서 `n`개의 난수 생성
 
 \footnotesize
 
@@ -8055,21 +8077,21 @@ sapply(rn_res, mean); sapply(rn_res, sd)
 
  \normalsize
 
-
 ## 객체의 유형 판별 및 변환 {#is-as-function}
 
-지금까지 R 객체를 알아보면서 `is.na()`, `is.null()` 등 스칼라의 데이터 타입을 확인하는 함수부터 
-`str()`, `attributes()`, `class()`와 같이 객체의 속성 및 구조에 대해 확인하는 함수들에 대해 간략히 소개함. 
+지금까지 R 객체를 알아보면서 `is.na()`, `is.null()` 등 스칼라의 데이터
+타입을 확인하는 함수부터 `str()`, `attributes()`, `class()`와 같이
+객체의 속성 및 구조에 대해 확인하는 함수들에 대해 간략히 소개함.
 
-R은 스크립트 언어이기 때문에 모든 명령 실행이 함수 기반으로 이루어짐. 
-특정 객체에만 적용할 수 있는 함수들이 있는 반면, 함수를 통해 새로운 속성을 갖는 객체가 생성되기도 함.
-그렇기 때문에 함수 적용 또는 반환 후 생성된 객체의 타입을 확인하거나 객체의 유형을 변환하는 작업은 
-R에서 데이터 분석을 진행하는 과정에서 빈번하게 발생함. 
+R은 스크립트 언어이기 때문에 모든 명령 실행이 함수 기반으로 이루어짐.
+특정 객체에만 적용할 수 있는 함수들이 있는 반면, 함수를 통해 새로운
+속성을 갖는 객체가 생성되기도 함. 그렇기 때문에 함수 적용 또는 반환 후
+생성된 객체의 타입을 확인하거나 객체의 유형을 변환하는 작업은 R에서
+데이터 분석을 진행하는 과정에서 빈번하게 발생함.
 
-
-객체 유형 판별을 위해 `is.type_name()`, 객체 타입 변환을 위해 `as.type_name()` 형태의 함수를 제공함. 
-지금까지 배운 R 객체에 대한 `is.` 과 `as.` 계열 함수는 아래와 같음. 
-
+객체 유형 판별을 위해 `is.type_name()`, 객체 타입 변환을 위해
+`as.type_name()` 형태의 함수를 제공함. 지금까지 배운 R 객체에 대한 `is.`
+과 `as.` 계열 함수는 아래와 같음.
 
 \footnotesize
 
@@ -8128,7 +8150,7 @@ R에서 데이터 분석을 진행하는 과정에서 빈번하게 발생함.
 
  \normalsize
 
-- `is/as`계열 함수 사용 예시
+-   `is/as`계열 함수 사용 예시
 
 \footnotesize
 
@@ -8191,7 +8213,7 @@ Levels: 1 2
 
  \normalsize
 
-- 2차원 데이터 객체 유형 판별 및 변환
+-   2차원 데이터 객체 유형 판별 및 변환
 
 \footnotesize
 
@@ -8292,11 +8314,7 @@ $meas
 
  \normalsize
 
-
-
-
 <!-- ### 외부 데이터 불러오기 및 저장하기 -->
-
 
 <!-- ## Homework #2 -->
 
@@ -8317,259 +8335,283 @@ $meas
 <!-- 8. 두 벡터 ` {1, 2, 3, 0, -1, -2, -1, 0, 7}`와 `{6, -3, 0, 0, 4, -5, 0, 0, 2}` 를 각각 `x`와 `y` 객체에 저장하고, 해당 객체를 이용해 다음 행렬을 생성하시오 -->
 
 <!-- $$\mathrm{\mathbf{X}} =  -->
+
 <!-- \begin{bmatrix} -->
+
 <!-- 1   &  2 & 3 \\ -->
+
 <!-- 0   & -1 & -2 \\ -->
+
 <!-- -1  &  0 &  7 -->
+
 <!-- \end{bmatrix}, ~~~~ -->
+
 <!-- \mathrm{\mathbf{Y}} =  -->
+
 <!-- \begin{bmatrix} -->
+
 <!-- 6  & 0 & 0 \\ -->
+
 <!-- -3 & 4 & 0 \\ -->
+
 <!-- 0  &-5 & 2 -->
+
 <!-- \end{bmatrix} -->
+
 <!-- $$ -->
 
 <!-- 9. 위 두 행렬의 연산 결과를 출력 하시오 -->
 
 <!--    - $\mathrm{\mathbf{X}}\mathrm{\mathbf{X}}^T$ -->
-<!--    - $\mathrm{\mathbf{X}}\mathrm{\mathbf{Y}}$ -->
-<!--    - $\mathrm{\mathbf{Y}}\mathrm{\mathbf{X}}$ -->
-<!--    - $\det(\mathrm{\mathbf{X}})$ -->
-<!--    - $\mathrm{\mathbf{Y}}^{-1}$ -->
 
+<!--    - $\mathrm{\mathbf{X}}\mathrm{\mathbf{Y}}$ -->
+
+<!--    - $\mathrm{\mathbf{Y}}\mathrm{\mathbf{X}}$ -->
+
+<!--    - $\det(\mathrm{\mathbf{X}})$ -->
+
+<!--    - $\mathrm{\mathbf{Y}}^{-1}$ -->
 
 <!-- 10. `runif()` 함수를 이용해 난수 200개를 생성하여 `x`라는 객체에 저장 하시오.  -->
 
 <!--    - 생성한 `x` 를 이용해 `x`가 0.5 보다 작으면 0, 0.5 보다 크거나 같으면 1 값을 재할당 하시오. -->
+
 <!--    - 수준이 0, 1이고 수준이름이 각각 "Male", "Female"인 요인형 객체 sex를 생성하시오.  -->
 
-
 <!-- ```{block2, type="rmdimportant"} -->
+
 <!-- **과제 제출 방식** -->
 
 <!--    - R Markdown 문서(`Rmd`) 파일과 해당 문서를 컴파일 후 생성된 `html` 파일 모두 제출할 것 -->
-<!--    - 모든 문제에 대해 작성한 R 코드 및 결과가 `html` 문서에 포함되어야 함.  -->
-<!--    - 해당 과제에 대한 R Markdown 문서 템플릿은 https://github.com/zorba78/cnu-r-programming-lecture-note/blob/master/assignment/homework2_template.Rmd 에서 다운로드 또는 스크래이핑 가능 -->
-<!--    - 최종 파일명은 `학번-성명.Rmd`, `학번-성명.html` 로 저장 -->
 
+<!--    - 모든 문제에 대해 작성한 R 코드 및 결과가 `html` 문서에 포함되어야 함.  -->
+
+<!--    - 해당 과제에 대한 R Markdown 문서 템플릿은 https://github.com/zorba78/cnu-r-programming-lecture-note/blob/master/assignment/homework2_template.Rmd 에서 다운로드 또는 스크래이핑 가능 -->
+
+<!--    - 최종 파일명은 `학번-성명.Rmd`, `학번-성명.html` 로 저장 -->
 
 <!-- ``` -->
 
-
 <!-- ## Homework #3 -->
-
 
 <!-- 1. **2.5절 배열에서 다룬 확장 예제 "RGB값을 무작위로 샘플링 후 매개변수로 노이즈 가중치 조절해 보기" 명령 스크립트 중 다음 아래에 해당하는 구문의 반복 명령을 최소화한 스크립트 작성 후 해당 스크립트가 정상적으로 작동하는지 그림 출력을 통해 확인하시오(라인별 의미에 대한 주석 추가할 것). 단, 그림은 2.5절 예제와 동일한 그림을 사용(Hint: `*apply()` 계열 함수, 코드블록(`{}`), `return()`, `unlist()`, `array()` 함수 사용)** -->
 
 <!-- ```{r eval=FALSE} -->
+
 <!-- require(tidyverse) -->
+
 <!-- require(jpeg) -->
+
 <!-- require(cowplot) -->
 
 <!-- myurl <- paste0("https://img.livescore.co.kr/data/editor/1906/",  -->
+
 <!--                 "ba517de8162d92f4ea0e9de0ec98ba02.jpg") -->
+
 <!-- z <- tempfile() -->
+
 <!-- download.file(myurl,z,mode="wb") -->
 
 <!-- pic <- readJPEG(z) -->
+
 <!-- dim_pic <- dim(pic) -->
+
 <!-- t <- 0.2; nl <- length(300:460); pl <- length(440:520) -->
 
 <!-- # 다음 아래(문제 1에 해당) -->
+
 <!-- yr <- pic[300:460, 440:520, 1] -->
+
 <!-- yg <- pic[300:460, 440:520, 2] -->
+
 <!-- yb <- pic[300:460, 440:520, 3] -->
 
 <!-- t <- 0.2 -->
+
 <!-- wr <- t * yr + (1 - t)*matrix(runif(length(yr)), nrow = nl, ncol = pl) -->
+
 <!-- wg <- t * yg + (1 - t)*matrix(runif(length(yg)), nrow = nl, ncol = pl) -->
+
 <!-- wb <- t * yb + (1 - t)*matrix(runif(length(yb)), nrow = nl, ncol = pl) -->
 
-
 <!-- pic[300:460, 440:520, 1] <- wr -->
+
 <!-- pic[300:460, 440:520, 2] <- wg -->
+
 <!-- pic[300:460, 440:520, 3] <- wb -->
 
 <!-- ``` -->
-
 
 <!-- <br/> -->
 
 <!-- 2. **R에 기본으로 내장된 `mtcars` 데이터셋은 다음과 같이 11개의 변수로 구성되어 있다. ** -->
 
 <!-- ```{r desc-mtcars, echo=FALSE} -->
+
 <!-- `변수명` <- names(mtcars) -->
+
 <!-- `변수 설명` <- c("Miles/(US) gallon, 연비",  -->
+
 <!--                  "Number of cylinders, 엔진 기통수",  -->
+
 <!--                  "Displacement (cu.in.), 배기량(cc 단위)",  -->
+
 <!--                  "Gross horsepower, 마력",  -->
+
 <!--                  "Rear axle ratio, 뒤차축비",  -->
+
 <!--                  "Weight (1000 lbs), 무게",  -->
+
 <!--                  "1/4 mile time, 1/4 mile 도달시간",  -->
+
 <!--                  "Engine (0 = V-shaped, 1 = straight)",  -->
+
 <!--                  "Transmission (0 = automatic, 1 = manual), 변속기어",  -->
+
 <!--                  "Number of forward gears, 전진기어 갯수",  -->
+
 <!--                  "Number of carburetors, 기화기 갯수") -->
+
 <!-- dsc_mtcars <- data.frame(`변수명`, `변수 설명`,  -->
+
 <!--                          check.names = FALSE,  -->
+
 <!--                          stringsAsFactors = FALSE)  -->
+
 <!-- kable(dsc_mtcars) -->
 
 <!-- ``` -->
 
 <!-- a) `mtcars`의 데이터 구조를 파악하고 자료의 전반적인 형태에 대해 기술 하시오.  -->
 
-
 <!-- <br/> -->
 
 <!-- b) 위 코드북을 참고하여 엔진과 변속기어에 해당하는 변수를 factor로 변환 후 해당 데이터 프레임을 `df` 객체에 저장 하시오.  -->
 
-
 <!-- <br/> -->
-
 
 <!-- c) `df` 데이터셋에서 변속기어 (`am`)에 따른 `mpg`, `disp`, `hp`, `drat`, `wt`, `qsec`에 대한 평균과 표준편차를 구하시오 (Hint: `mean()`, `sd()` 함수 사용). 단 각 결과는 테이블 형태로 반환되어야 함(한 객체에 모든 변수의 평균 또는 표준편차가 저장, 테이블 객체가 반환을 의미하는 것은 아님).  -->
 
-
 <!-- <br/> -->
-
-
 
 <!-- d) `df` 데이터셋을 엔진형태(`vs`) 별로 나눈 후, 연비를 종속변수($y$)로 놓고 무게(`wt`)를 독립변수로 사용한 일변량 회귀식을 반환 하시오.  -->
 
-
 <!-- <br/> -->
-
 
 <!-- 3. **1912년 4월 14일 타이타닉호 침몰 사고의 생존자 정보를 담고 있는 `titanic` 데이터셋은 통계학적으로 범주형 데이터 분석의 예시로서 널리 사용되고 있으며, 기계학습 및 데이터 과학 커뮤니티인 [Kaggle](https://kaggle.com)에서도 기계학습 알고리즘 경연을 위한 힉습자료로 활용되고 있다. 해당 데이터는 http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic3.csv 에서 다운로드가 가능하다. 타이타닉 데이터의 주요 변수에 대한 설명은 아래와 같다.**  -->
 
-
 <!-- ```{r echo=FALSE} -->
+
 <!-- `변수명` <- c("pclass", "survived", "name", "sex", "age", "sibsp",  -->
+
 <!--               "parch", "ticket", "fare", "cabin", "embarked") -->
+
 <!-- `변수설명(영문)` <- c("Passenger Class (1=1st; 2=2nd; 3=3rd)", "Survival (0=No; 1=Yes)",  -->
+
 <!--                       "Passenger name", "Sex", "Age", "# of siblings/spouses abroad",  -->
+
 <!--                       "# of parents/children abroad", "Ticket number", "Passenger fare",  -->
+
 <!--                       "Cabin", "Port of embarkation (C=Cherbourg; Q=Queenstown; S=Southhampton") -->
+
 <!-- `변수설명(국문)` <- c("선실 등급", "생존여부", "탐승객 성명", "성별", "나이",  -->
+
 <!--                       "동승한 형제/배우자 수", "동승한 부모/자녀 수", "티켓번호", "티켓요금",  -->
+
 <!--                       "선실번호", "탑승 장소") -->
 
 <!-- desc_titanic <- data.frame(`변수명`, `변수설명(영문)`, `변수설명(국문)`,  -->
+
 <!--                            check.names = FALSE,  -->
+
 <!--                            stringsAsFactors = FALSE) -->
+
 <!-- kable(desc_titanic) -->
 
 <!-- ``` -->
 
-
 <!-- a) 위 코드북의 내용을  `codebook_tit` 이란 데이터 프레임 객체에 저장 후 출력하시오.  -->
 
-
 <!-- <br/> -->
-
 
 <!-- b) 위 URL 주소로부터 타이타닉 데이터 파일을 읽은 후 `titanic` 객체에 저장한 뒤 위 코드북에서 제시한 변수만 추출한 다음 `df_titanic`이란 객체에 저장한 결과에 대해 개괄적 형태 및 데이터 특성에 대해 기술하시오.  -->
 
-
 <!-- <br/> -->
-
-
 
 <!-- c) `age` 변수에 포함된 결측값을 `age`의 전체 평균값으로 대체 하시오. -->
 
-
 <!-- <br/> -->
-
 
 <!-- d) `df_titanic`에서 `age` 를 다음과 같이 그룹화 후 `age_group` 변수(factor)를 생성 하시오.  -->
 
 <!-- ```{r, eval=FALSE} -->
+
 <!-- # 0 살 이상 15살 미만: Children -->
+
 <!-- # 15살 이상: Adult -->
+
 <!-- ``` -->
 
-
 <!-- <br/> -->
-
 
 <!-- e) 선실 등급에 따른 남녀 별 그리고 연령 집단 별 생존 빈도 및 비율에 대해 각각 테이블로 나타내시오.  -->
 
-
 <!-- <br/> -->
-
 
 <!-- 4. **아래와 같은 데이터셋이 주어졌을 때 ** -->
 
-
 <!-- - Dataset #1 -->
 
-
 <!-- ```{r, echo=FALSE} -->
-<!-- authors <- data.frame(surname = c("Tukey", "Venables", "Tierney", "Ripley", "McNeil"),  -->
-<!--     nationality = c("US", "Australia", "US", "UK", "Australia"), stringsAsFactors = FALSE) -->
-<!-- kable(authors) -->
-<!-- ``` -->
 
+<!-- authors <- data.frame(surname = c("Tukey", "Venables", "Tierney", "Ripley", "McNeil"),  -->
+
+<!--     nationality = c("US", "Australia", "US", "UK", "Australia"), stringsAsFactors = FALSE) -->
+
+<!-- kable(authors) -->
+
+<!-- ``` -->
 
 <!-- - Dataset #2 -->
 
-
 <!-- ```{r, echo=FALSE} -->
-<!-- books <- data.frame(name = c("Tukey", "Venables", "Tierney", "Ripley", "Ripley",  -->
-<!--     "McNeil", "R Core"), title = c("Exploratory Data Analysis", "Modern Applied Statistics ...",  -->
-<!--     "LISP-STAT", "Spatial Statistics", "Stochastic Simulation", "Interactive Data Analysis",  -->
-<!--     "An Introduction to R"), stringsAsFactors = FALSE) -->
-<!-- kable(books) -->
-<!-- ``` -->
 
+<!-- books <- data.frame(name = c("Tukey", "Venables", "Tierney", "Ripley", "Ripley",  -->
+
+<!--     "McNeil", "R Core"), title = c("Exploratory Data Analysis", "Modern Applied Statistics ...",  -->
+
+<!--     "LISP-STAT", "Spatial Statistics", "Stochastic Simulation", "Interactive Data Analysis",  -->
+
+<!--     "An Introduction to R"), stringsAsFactors = FALSE) -->
+
+<!-- kable(books) -->
+
+<!-- ``` -->
 
 <!-- a) Dataset #1에 해당하는 데이터를 `authors`, dataset #2에 해당하는 데이터를 `books` 에 저장한 객체를 생성 하시오(단, 데이터 프레임을 구성하는 모든 변수는 문자열 변수로 저장).  -->
 
-
 <!-- <br/> -->
-
 
 <!-- b) 두 데이터 셋을 `authors` 기준으로 병합한 데이터셋을 생성하시오.  -->
 
-
 <!-- <br/> -->
 
-
-
 <!-- c) 두 데이터 셋의 모든 값들을 포함한 결함 데이터 셋을 생성 하시오.  -->
-
-
-
 
 <!-- ```{block2, type="rmdimportant"} -->
 
 <!-- **과제 제출 방식** -->
 
 <!--    - R Markdown 문서(`Rmd`) 파일과 해당 문서를 컴파일 후 생성된 `html` 파일 모두 제출할 것 -->
+
 <!--    - 모든 문제에 대해 작성한 R 코드 및 결과가 `html` 문서에 포함되어야 함.  -->
+
 <!--    - 모든 코드(스크립트)에는 라인 별 의미에 대한 주석을 달 것.  -->
+
 <!--    - 해당 과제에 대한 R Markdown 문서 템플릿은 https://github.com/zorba78/cnu-r-programming-lecture-note/blob/master/assignment/homework3_template.Rmd 에서 다운로드 또는 스크래이핑 가능 -->
+
 <!--    - 최종 파일명은 `학번-성명.Rmd`, `학번-성명.html` 로 저장 -->
+
 <!--    - 압축파일은 `*.zip` 형태로 생성할 것 -->
 
-
 <!-- ``` -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

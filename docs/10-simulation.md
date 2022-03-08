@@ -1023,7 +1023,7 @@ Estimated pi:  3.141221
 
 ```
  사용자  시스템 elapsed 
-  0.170   0.016   0.185 
+  0.169   0.011   0.180 
 ```
 
  \normalsize
@@ -1460,16 +1460,10 @@ DBP <- read_delim("data/DBP.txt", delim = "\t")
 
 ```
 Rows: 40 Columns: 9
-```
-
-```
-─ Column specification ────────────────────────────
+── Column specification ────────────────────────────────────────────────────────
 Delimiter: "\t"
 chr (2): TRT, Sex
 dbl (7): Subject, DBP1, DBP2, DBP3, DBP4, DBP5, Age
-```
-
-```
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.

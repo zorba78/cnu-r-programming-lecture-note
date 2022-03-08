@@ -2455,7 +2455,8 @@ ToothGrowth %>%
 ```
 
 ```
-`summarise()` has grouped output by 'supp'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'supp'. You can override using the
+`.groups` argument.
 ```
 
 ```r
@@ -3309,7 +3310,8 @@ carat_summ <- diamonds %>%
 ```
 
 ```
-`summarise()` has grouped output by 'cut'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'cut'. You can override using the `.groups`
+argument.
 ```
 
 ```r
@@ -3387,7 +3389,8 @@ break_summ <- warpbreaks %>%
 ```
 
 ```
-`summarise()` has grouped output by 'wool'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'wool'. You can override using the
+`.groups` argument.
 ```
 
 ```r
@@ -4110,16 +4113,10 @@ gapm <- read_csv("dataset/gapminder/gapminder_filter.csv")
 
 ```
 Rows: 13159 Columns: 7
-```
-
-```
-─ Column specification ────────────────────────────
+── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (3): iso, country, region
 dbl (4): year, population, life_expectancy, gdp_cap
-```
-
-```
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
@@ -4648,7 +4645,8 @@ covid19_full %>%
 ```
 
 ```
-`summarise()` has grouped output by 'continent'. You can override using the `.groups` argument.
+`summarise()` has grouped output by 'continent'. You can override using the
+`.groups` argument.
 ```
 
 <img src="12-data-visualization_files/figure-html/unnamed-chunk-139-1.svg" width="1056" />
