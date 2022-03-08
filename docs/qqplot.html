@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>11.1 Q-Q plot | 통계 프로그래밍 언어</title>
+  <meta name="description" content="2022년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="11.1 Q-Q plot | 통계 프로그래밍 언어" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="2022년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="11.1 Q-Q plot | 통계 프로그래밍 언어" />
+  
+  <meta name="twitter:description" content="2022년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  
+
+<meta name="author" content="한국한의학연구원, 구본초" />
+
+
+<meta name="date" content="2022-03-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basic-stat-analysis.html"/>
+<link rel="next" href="group-comp.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">통계프로그래밍언어 & 통계패키지활용</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Overview: 통계프로그래밍언어</a></li>
+<li class="part"><span><b>I 통계프로그래밍언어</b></span></li>
+<li class="chapter" data-level="1" data-path="intro-chap.html"><a href="intro-chap.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1.1</b> R 설치하기</a></li>
+<li class="chapter" data-level="1.2" data-path="r-check.html"><a href="r-check.html"><i class="fa fa-check"></i><b>1.2</b> R 시작 및 작동 체크</a></li>
+<li class="chapter" data-level="1.3" data-path="rconsle-script.html"><a href="rconsle-script.html"><i class="fa fa-check"></i><b>1.3</b> R script 편집기 사용</a></li>
+<li class="chapter" data-level="1.4" data-path="r-studio.html"><a href="r-studio.html"><i class="fa fa-check"></i><b>1.4</b> RStudio</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="r-studio.html"><a href="r-studio.html#rstudio-install"><i class="fa fa-check"></i><b>1.4.1</b> RStudio 설치하기</a></li>
+<li class="chapter" data-level="1.4.2" data-path="r-studio.html"><a href="r-studio.html#rstudio-component"><i class="fa fa-check"></i><b>1.4.2</b> RStudio IDE 화면 구성</a></li>
+<li class="chapter" data-level="1.4.3" data-path="r-studio.html"><a href="r-studio.html#rstudio-glob-options"><i class="fa fa-check"></i><b>1.4.3</b> RStudio 환경 설정</a></li>
+<li class="chapter" data-level="1.4.4" data-path="r-studio.html"><a href="r-studio.html#rstudio-project"><i class="fa fa-check"></i><b>1.4.4</b> RStudio 프로젝트</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="r-package.html"><a href="r-package.html"><i class="fa fa-check"></i><b>1.5</b> R 패키지</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="r-package.html"><a href="r-package.html#r-package-path"><i class="fa fa-check"></i><b>1.5.1</b> R 패키지 경로 확인 및 변경</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-package.html"><a href="r-package.html#r-package-install"><i class="fa fa-check"></i><b>1.5.2</b> R 패키지 설치하기</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-package.html"><a href="r-package.html#r-package-load"><i class="fa fa-check"></i><b>1.5.3</b> R 패키지 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basic.html"><a href="r-basic.html"><i class="fa fa-check"></i><b>1.6</b> R 기초 문법</a></li>
+<li class="chapter" data-level="1.7" data-path="r-markdown-get-start.html"><a href="r-markdown-get-start.html"><i class="fa fa-check"></i><b>1.7</b> R Markdown (맛보기)</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-type.html"><a href="data-type.html"><i class="fa fa-check"></i><b>2</b> R 객체(R object)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="프로그래밍.html"><a href="프로그래밍.html"><i class="fa fa-check"></i><b>2.1</b> 프로그래밍</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="프로그래밍.html"><a href="프로그래밍.html#prerequisites"><i class="fa fa-check"></i><b>2.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2.1.2" data-path="프로그래밍.html"><a href="프로그래밍.html#control-program"><i class="fa fa-check"></i><b>2.1.2</b> 프로그램</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="scalar.html"><a href="scalar.html"><i class="fa fa-check"></i><b>2.2</b> 스칼라(scalar)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="scalar.html"><a href="scalar.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> 선언</a></li>
+<li class="chapter" data-level="2.2.2" data-path="scalar.html"><a href="scalar.html#numeric"><i class="fa fa-check"></i><b>2.2.2</b> 숫자형</a></li>
+<li class="chapter" data-level="2.2.3" data-path="scalar.html"><a href="scalar.html#character"><i class="fa fa-check"></i><b>2.2.3</b> 문자형</a></li>
+<li class="chapter" data-level="2.2.4" data-path="scalar.html"><a href="scalar.html#logical"><i class="fa fa-check"></i><b>2.2.4</b> 논리형 스칼라</a></li>
+<li class="chapter" data-level="2.2.5" data-path="scalar.html"><a href="scalar.html#missing-value"><i class="fa fa-check"></i><b>2.2.5</b> 결측값(missing value)</a></li>
+<li class="chapter" data-level="2.2.6" data-path="scalar.html"><a href="scalar.html#null"><i class="fa fa-check"></i><b>2.2.6</b> NULL 값</a></li>
+<li class="chapter" data-level="2.2.7" data-path="scalar.html"><a href="scalar.html#finite"><i class="fa fa-check"></i><b>2.2.7</b> 무한대/무한소/숫자아님</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>2.3</b> 벡터(vector)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="vector.html"><a href="vector.html#vector-prop"><i class="fa fa-check"></i><b>2.3.1</b> 벡터의 특징</a></li>
+<li class="chapter" data-level="2.3.2" data-path="vector.html"><a href="vector.html#vector-operation"><i class="fa fa-check"></i><b>2.3.2</b> 벡터의 연산</a></li>
+<li class="chapter" data-level="2.3.3" data-path="vector.html"><a href="vector.html#vector-index"><i class="fa fa-check"></i><b>2.3.3</b> 벡터의 색인(indexing)</a></li>
+<li class="chapter" data-level="2.3.4" data-path="vector.html"><a href="vector.html#vector-function"><i class="fa fa-check"></i><b>2.3.4</b> 벡터 관련 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="list.html"><a href="list.html"><i class="fa fa-check"></i><b>2.4</b> 리스트(list)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="list.html"><a href="list.html#make-list"><i class="fa fa-check"></i><b>2.4.1</b> 리스트 생성</a></li>
+<li class="chapter" data-level="2.4.2" data-path="list.html"><a href="list.html#list-index"><i class="fa fa-check"></i><b>2.4.2</b> 리스트 색인</a></li>
+<li class="chapter" data-level="2.4.3" data-path="list.html"><a href="list.html#list-add-delete"><i class="fa fa-check"></i><b>2.4.3</b> 리스트에 원소 추가/제거</a></li>
+<li class="chapter" data-level="2.4.4" data-path="list.html"><a href="list.html#list-combine"><i class="fa fa-check"></i><b>2.4.4</b> 리스트의 결합</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="matrix.html"><a href="matrix.html"><i class="fa fa-check"></i><b>2.5</b> 행렬(matrix)</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="matrix.html"><a href="matrix.html#matrix-operation"><i class="fa fa-check"></i><b>2.5.1</b> 행렬의 연산</a></li>
+<li class="chapter" data-level="2.5.2" data-path="matrix.html"><a href="matrix.html#mat-index"><i class="fa fa-check"></i><b>2.5.2</b> 행렬의 색인</a></li>
+<li class="chapter" data-level="2.5.3" data-path="matrix.html"><a href="matrix.html#행과-열-추가-및-제거"><i class="fa fa-check"></i><b>2.5.3</b> 행과 열 추가 및 제거</a></li>
+<li class="chapter" data-level="2.5.4" data-path="matrix.html"><a href="matrix.html#행렬-관련-함수"><i class="fa fa-check"></i><b>2.5.4</b> 행렬 관련 함수</a></li>
+<li class="chapter" data-level="2.5.5" data-path="matrix.html"><a href="matrix.html#vec-mat-diff"><i class="fa fa-check"></i><b>2.5.5</b> 벡터와 행렬의 차이점</a></li>
+<li class="chapter" data-level="2.5.6" data-path="matrix.html"><a href="matrix.html#mat-dim-reduc-sway"><i class="fa fa-check"></i><b>2.5.6</b> 의도치 않은 차원축소 피하기</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="array.html"><a href="array.html"><i class="fa fa-check"></i><b>2.6</b> 배열(array)</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="array.html"><a href="array.html#make-array"><i class="fa fa-check"></i><b>2.6.1</b> 배열의 생성 및 색인</a></li>
+<li class="chapter" data-level="2.6.2" data-path="array.html"><a href="array.html#rray-extend-example"><i class="fa fa-check"></i><b>2.6.2</b> 배열의 확장 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="factor-table.html"><a href="factor-table.html"><i class="fa fa-check"></i><b>2.7</b> 요인(factor)과 테이블(table)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="factor-table.html"><a href="factor-table.html#factor"><i class="fa fa-check"></i><b>2.7.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.7.2" data-path="factor-table.html"><a href="factor-table.html#table"><i class="fa fa-check"></i><b>2.7.2</b> 테이블(table)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>2.8</b> 데이터 프레임(data frame)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="data-frame.html"><a href="data-frame.html#create-data-frame"><i class="fa fa-check"></i><b>2.8.1</b> 데이터 프레임 생성</a></li>
+<li class="chapter" data-level="2.8.2" data-path="data-frame.html"><a href="data-frame.html#data-frame-get"><i class="fa fa-check"></i><b>2.8.2</b> 데이터 프레임 접근 및 필터링</a></li>
+<li class="chapter" data-level="2.8.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.8.3</b> 데이터 프레임 관련 함수</a></li>
+<li class="chapter" data-level="2.8.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.8.4</b> <code>*apply()</code> 계열 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="is-as-function.html"><a href="is-as-function.html"><i class="fa fa-check"></i><b>2.9</b> 객체의 유형 판별 및 변환</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="string-regexp.html"><a href="string-regexp.html"><i class="fa fa-check"></i><b>3</b> 문자열 처리와 정규표현식</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html"><i class="fa fa-check"></i><b>3.1</b> 유용한 문자열 관련 함수</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#nchar"><i class="fa fa-check"></i><b>3.1.1</b> <strong><code>nchar()</code></strong></a></li>
+<li class="chapter" data-level="3.1.2" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#paste"><i class="fa fa-check"></i><b>3.1.2</b> <strong><code>paste()</code></strong>, <strong><code>paste0()</code></strong></a></li>
+<li class="chapter" data-level="3.1.3" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#sprintf"><i class="fa fa-check"></i><b>3.1.3</b> <strong><code>sprintf()</code></strong></a></li>
+<li class="chapter" data-level="3.1.4" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#substr"><i class="fa fa-check"></i><b>3.1.4</b> <strong><code>substr()</code></strong></a></li>
+<li class="chapter" data-level="3.1.5" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#low-up-fun"><i class="fa fa-check"></i><b>3.1.5</b> <strong><code>tolower()</code>, <code>toupper()</code></strong></a></li>
+<li class="chapter" data-level="3.1.6" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#glue-패키지를-활용한-문자열-다루기"><i class="fa fa-check"></i><b>3.1.6</b> glue 패키지를 활용한 문자열 다루기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html"><i class="fa fa-check"></i><b>3.2</b> 정규표현식 기본 함수</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#grep-grepl"><i class="fa fa-check"></i><b>3.2.1</b> <strong><code>grep()</code>, <code>grepl()</code></strong></a></li>
+<li class="chapter" data-level="3.2.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexpr-gregexpr"><i class="fa fa-check"></i><b>3.2.2</b> <strong><code>regexpr()</code></strong>, <strong><code>gregexpr()</code></strong></a></li>
+<li class="chapter" data-level="3.2.3" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#sub-gsub-fun"><i class="fa fa-check"></i><b>3.2.3</b> <strong><code>sub()</code></strong>, <strong><code>gsub()</code></strong></a></li>
+<li class="chapter" data-level="3.2.4" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexec-fun"><i class="fa fa-check"></i><b>3.2.4</b> <strong><code>regexec()</code></strong></a></li>
+<li class="chapter" data-level="3.2.5" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#strsplit"><i class="fa fa-check"></i><b>3.2.5</b> <strong><code>strsplit()</code></strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="reg-exp.html"><a href="reg-exp.html"><i class="fa fa-check"></i><b>3.3</b> 정규 표현식(regular expression)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="reg-exp.html"><a href="reg-exp.html#basic-meta"><i class="fa fa-check"></i><b>3.3.1</b> 기본 메타 문자</a></li>
+<li class="chapter" data-level="3.3.2" data-path="reg-exp.html"><a href="reg-exp.html#character-set"><i class="fa fa-check"></i><b>3.3.2</b> 문자 집합</a></li>
+<li class="chapter" data-level="3.3.3" data-path="reg-exp.html"><a href="reg-exp.html#character-class"><i class="fa fa-check"></i><b>3.3.3</b> 문자 클래스</a></li>
+<li class="chapter" data-level="3.3.4" data-path="reg-exp.html"><a href="reg-exp.html#regexp-ex"><i class="fa fa-check"></i><b>3.3.4</b> 정규 표현식 예시</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="r-수학-함수-분포-함수-모형식-표현.html"><a href="r-수학-함수-분포-함수-모형식-표현.html"><i class="fa fa-check"></i><b>4</b> R 수학 함수, 분포 함수, 모형식 표현</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="수학함수.html"><a href="수학함수.html"><i class="fa fa-check"></i><b>4.1</b> 수학함수</a></li>
+<li class="chapter" data-level="4.2" data-path="통계-분포-함수.html"><a href="통계-분포-함수.html"><i class="fa fa-check"></i><b>4.2</b> 통계 분포 함수</a></li>
+<li class="chapter" data-level="4.3" data-path="모형식-표현.html"><a href="모형식-표현.html"><i class="fa fa-check"></i><b>4.3</b> 모형식 표현</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="control-structure.html"><a href="control-structure.html"><i class="fa fa-check"></i><b>5</b> 제어문(Control Structure)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="condition.html"><a href="condition.html"><i class="fa fa-check"></i><b>5.1</b> 조건문(Conditionals)</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="condition.html"><a href="condition.html#if-basic"><i class="fa fa-check"></i><b>5.1.1</b> <strong>기본 구문</strong></a></li>
+<li><a href="condition.html#if-else"><strong>대안 실행(alternative execution)</strong></a></li>
+<li class="chapter" data-level="5.1.2" data-path="condition.html"><a href="condition.html#chain-cond"><i class="fa fa-check"></i><b>5.1.2</b> <strong>연쇄 조건문(chained condition)</strong></a></li>
+<li class="chapter" data-level="5.1.3" data-path="condition.html"><a href="condition.html#nest-cond"><i class="fa fa-check"></i><b>5.1.3</b> <strong>중첩 조건문(nested contition)</strong></a></li>
+<li class="chapter" data-level="5.1.4" data-path="condition.html"><a href="condition.html#ifelse-fun"><i class="fa fa-check"></i><b>5.1.4</b> <strong><code>ifelse()</code> 함수</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="looping.html"><a href="looping.html"><i class="fa fa-check"></i><b>5.2</b> 반복문(Looping)</a>
+<ul>
+<li class="chapter" data-level="" data-path="looping.html"><a href="looping.html#loop-pre"><i class="fa fa-check"></i>Prerequisite</a></li>
+<li class="chapter" data-level="5.2.1" data-path="looping.html"><a href="looping.html#repeat"><i class="fa fa-check"></i><b>5.2.1</b> <strong><code>repeat</code> 구문</strong></a></li>
+<li class="chapter" data-level="5.2.2" data-path="looping.html"><a href="looping.html#while"><i class="fa fa-check"></i><b>5.2.2</b> <strong><code>while</code> 구문</strong></a></li>
+<li class="chapter" data-level="5.2.3" data-path="looping.html"><a href="looping.html#for-구문"><i class="fa fa-check"></i><b>5.2.3</b> <strong><code>for</code> 구문</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="function.html"><a href="function.html"><i class="fa fa-check"></i><b>5.3</b> 함수 (function)</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="function.html"><a href="function.html#함수의-정의"><i class="fa fa-check"></i><b>5.3.1</b> 함수의 정의</a></li>
+<li class="chapter" data-level="5.3.2" data-path="function.html"><a href="function.html#함수의-인수-전달-방법"><i class="fa fa-check"></i><b>5.3.2</b> 함수의 인수 전달 방법</a></li>
+<li class="chapter" data-level="5.3.3" data-path="function.html"><a href="function.html#함수의-기본-구성-요소"><i class="fa fa-check"></i><b>5.3.3</b> 함수의 기본 구성 요소</a></li>
+<li class="chapter" data-level="5.3.4" data-path="function.html"><a href="function.html#함수의-적용-범위scoping-rule"><i class="fa fa-check"></i><b>5.3.4</b> 함수의 적용 범위(scoping rule)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="알고리즘의-기초.html"><a href="알고리즘의-기초.html"><i class="fa fa-check"></i><b>6</b> 알고리즘의 기초</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="알고리즘algorithm.html"><a href="알고리즘algorithm.html"><i class="fa fa-check"></i><b>6.1</b> 알고리즘(Algorithm)</a></li>
+<li class="chapter" data-level="6.2" data-path="재귀함수recursive-function.html"><a href="재귀함수recursive-function.html"><i class="fa fa-check"></i><b>6.2</b> 재귀함수(Recursive function)</a></li>
+<li class="chapter" data-level="6.3" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html"><i class="fa fa-check"></i><b>6.3</b> 선형/이진 탐색(Linear/Binary search)</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#선형-탐색linear-search"><i class="fa fa-check"></i><b>6.3.1</b> 선형 탐색(Linear Search)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#이진-탐색binary-search"><i class="fa fa-check"></i><b>6.3.2</b> 이진 탐색(Binary Search)</a></li>
+<li class="chapter" data-level="6.3.3" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#선형탐색과-이진탐색-비교"><i class="fa fa-check"></i><b>6.3.3</b> 선형탐색과 이진탐색 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html"><i class="fa fa-check"></i><b>6.4</b> 정렬 알고리즘(Sorting Algorithms)</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html#버블-정렬bubble-sort"><i class="fa fa-check"></i><b>6.4.1</b> 버블 정렬(Bubble Sort)</a></li>
+<li class="chapter" data-level="6.4.2" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html#삽입-정렬insertion-sort"><i class="fa fa-check"></i><b>6.4.2</b> 삽입 정렬(Insertion Sort)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html#병합-정렬merge-sort"><i class="fa fa-check"></i><b>6.4.3</b> 병합 정렬(Merge Sort)</a></li>
+<li class="chapter" data-level="6.4.4" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html#퀵-정렬quick-sort"><i class="fa fa-check"></i><b>6.4.4</b> 퀵 정렬(Quick Sort)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html"><i class="fa fa-check"></i><b>6.5</b> 뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm)</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Simulation.html"><a href="Simulation.html"><i class="fa fa-check"></i><b>7</b> 시뮬레이션</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="prerequisites-1.html"><a href="prerequisites-1.html"><i class="fa fa-check"></i><b>7.1</b> Prerequisites</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="prerequisites-1.html"><a href="prerequisites-1.html#확률과-확률변수"><i class="fa fa-check"></i><b>7.1.1</b> 확률과 확률변수</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="시뮬레이션모의실험의-의미.html"><a href="시뮬레이션모의실험의-의미.html"><i class="fa fa-check"></i><b>7.2</b> 시뮬레이션(모의실험)의 의미</a></li>
+<li class="chapter" data-level="7.3" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html"><i class="fa fa-check"></i><b>7.3</b> 몬테칼로 시뮬레이션</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#동전-던지기"><i class="fa fa-check"></i><b>7.3.1</b> 동전 던지기</a></li>
+<li class="chapter" data-level="7.3.2" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#주사위-던지기"><i class="fa fa-check"></i><b>7.3.2</b> 주사위 던지기</a></li>
+<li class="chapter" data-level="7.3.3" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#카드-생성기"><i class="fa fa-check"></i><b>7.3.3</b> 카드 생성기</a></li>
+<li class="chapter" data-level="7.3.4" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#동전-던지기-게임"><i class="fa fa-check"></i><b>7.3.4</b> 동전 던지기 게임</a></li>
+<li class="chapter" data-level="7.3.5" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#주사위-던지기-게임"><i class="fa fa-check"></i><b>7.3.5</b> 주사위 던지기 게임</a></li>
+<li class="chapter" data-level="7.3.6" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#카드-게임"><i class="fa fa-check"></i><b>7.3.6</b> 카드 게임</a></li>
+<li class="chapter" data-level="7.3.7" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#몬테칼로-적분법sample-mean-monte-carlo-integration"><i class="fa fa-check"></i><b>7.3.7</b> 몬테칼로 적분법(sample-mean Monte-carlo integration)</a></li>
+<li class="chapter" data-level="7.3.8" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#buffon의-바늘-실험"><i class="fa fa-check"></i><b>7.3.8</b> Buffon의 바늘 실험</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="시뮬레이션과-통계학.html"><a href="시뮬레이션과-통계학.html"><i class="fa fa-check"></i><b>7.4</b> 시뮬레이션과 통계학</a></li>
+</ul></li>
+<li class="part"><span><b>II 통계 패키지 활용(2021년 2학기)</b></span></li>
+<li class="chapter" data-level="" data-path="overview02.html"><a href="overview02.html"><i class="fa fa-check"></i>Course Overview: 통계패키지활용</a></li>
+<li class="chapter" data-level="8" data-path="r-외부-데이터-입출력.html"><a href="r-외부-데이터-입출력.html"><i class="fa fa-check"></i><b>8</b> R 외부 데이터 입출력</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="text-import-export.html"><a href="text-import-export.html"><i class="fa fa-check"></i><b>8.1</b> <strong>텍스트 파일 입출력</strong></a></li>
+<li class="chapter" data-level="8.2" data-path="binary-import-export.html"><a href="binary-import-export.html"><i class="fa fa-check"></i><b>8.2</b> R 바이너리(binary) 파일 입출력</a></li>
+<li class="chapter" data-level="8.3" data-path="import-export-excel.html"><a href="import-export-excel.html"><i class="fa fa-check"></i><b>8.3</b> Excel 파일 입출력</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="data-handling.html"><a href="data-handling.html"><i class="fa fa-check"></i><b>9</b> 데이터 핸들링(Data handling)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>9.1</b> Tidyverse</a></li>
+<li class="chapter" data-level="9.2" data-path="readr.html"><a href="readr.html"><i class="fa fa-check"></i><b>9.2</b> <code>readr</code> 패키지</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="readr.html"><a href="readr.html#tibble"><i class="fa fa-check"></i><b>9.2.1</b> tibble 패키지</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="dplyr.html"><a href="dplyr.html"><i class="fa fa-check"></i><b>9.3</b> <code>dplyr</code> 패키지</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="dplyr.html"><a href="dplyr.html#pipe-op"><i class="fa fa-check"></i><b>9.3.1</b> 파이프 연산자: <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="9.3.2" data-path="dplyr.html"><a href="dplyr.html#dplyr-filter"><i class="fa fa-check"></i><b>9.3.2</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="9.3.3" data-path="dplyr.html"><a href="dplyr.html#arrange"><i class="fa fa-check"></i><b>9.3.3</b> <code id="dplyr-arrange">arrange()</code></a></li>
+<li class="chapter" data-level="9.3.4" data-path="dplyr.html"><a href="dplyr.html#dplyr-select"><i class="fa fa-check"></i><b>9.3.4</b> <code>select()</code></a></li>
+<li class="chapter" data-level="9.3.5" data-path="dplyr.html"><a href="dplyr.html#dplyr-mutate"><i class="fa fa-check"></i><b>9.3.5</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="9.3.6" data-path="dplyr.html"><a href="dplyr.html#dplyr-transmute"><i class="fa fa-check"></i><b>9.3.6</b> <code>transmute()</code></a></li>
+<li class="chapter" data-level="9.3.7" data-path="dplyr.html"><a href="dplyr.html#dplyr-summarise"><i class="fa fa-check"></i><b>9.3.7</b> <code>summarise()</code></a></li>
+<li class="chapter" data-level="9.3.8" data-path="dplyr.html"><a href="dplyr.html#dplyr-group_by"><i class="fa fa-check"></i><b>9.3.8</b> <code>group_by()</code></a></li>
+<li class="chapter" data-level="9.3.9" data-path="dplyr.html"><a href="dplyr.html#dplyr-application"><i class="fa fa-check"></i><b>9.3.9</b> dplyr 관련 유용한 함수</a></li>
+<li class="chapter" data-level="9.3.10" data-path="dplyr.html"><a href="dplyr.html#dplyr-verb-variant-adverb"><i class="fa fa-check"></i><b>9.3.10</b> 부가 기능</a></li>
+<li class="chapter" data-level="9.3.11" data-path="dplyr.html"><a href="dplyr.html#dplyr-join"><i class="fa fa-check"></i><b>9.3.11</b> 데이터 연결</a></li>
+<li class="chapter" data-level="9.3.12" data-path="dplyr.html"><a href="dplyr.html#ex-gapminder"><i class="fa fa-check"></i><b>9.3.12</b> 확장 예제: Gapminder</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>9.4</b> 데이터 변환</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="data-transformation.html"><a href="data-transformation.html#tidy-data"><i class="fa fa-check"></i><b>9.4.1</b> Tidy data</a></li>
+<li class="chapter" data-level="9.4.2" data-path="data-transformation.html"><a href="data-transformation.html#long-format"><i class="fa fa-check"></i><b>9.4.2</b> Long format</a></li>
+<li class="chapter" data-level="9.4.3" data-path="data-transformation.html"><a href="data-transformation.html#wider-format"><i class="fa fa-check"></i><b>9.4.3</b> Wide format</a></li>
+<li class="chapter" data-level="9.4.4" data-path="data-transformation.html"><a href="data-transformation.html#separate-unite"><i class="fa fa-check"></i><b>9.4.4</b> Separate and unite</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch-data-visualization.html"><a href="ch-data-visualization.html"><i class="fa fa-check"></i><b>10</b> 데이터 시각화</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="r-basic-graphics.html"><a href="r-basic-graphics.html"><i class="fa fa-check"></i><b>10.1</b> R 기본 그래프 함수</a></li>
+<li class="chapter" data-level="10.2" data-path="high-level-graph.html"><a href="high-level-graph.html"><i class="fa fa-check"></i><b>10.2</b> 고수준 그래프 함수</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="high-level-graph.html"><a href="high-level-graph.html#plot-fun"><i class="fa fa-check"></i><b>10.2.1</b> <strong><code>plot()</code> 함수</strong></a></li>
+<li class="chapter" data-level="10.2.2" data-path="high-level-graph.html"><a href="high-level-graph.html#main-high-level-graph"><i class="fa fa-check"></i><b>10.2.2</b> 주요 고수준 그래픽 함수</a></li>
+<li class="chapter" data-level="10.2.3" data-path="high-level-graph.html"><a href="high-level-graph.html#scatter-plot"><i class="fa fa-check"></i><b>10.2.3</b> 산점도</a></li>
+<li class="chapter" data-level="10.2.4" data-path="high-level-graph.html"><a href="high-level-graph.html#mat-plot"><i class="fa fa-check"></i><b>10.2.4</b> 행렬 그래프</a></li>
+<li class="chapter" data-level="10.2.5" data-path="high-level-graph.html"><a href="high-level-graph.html#histogram"><i class="fa fa-check"></i><b>10.2.5</b> 히스토그램</a></li>
+<li class="chapter" data-level="10.2.6" data-path="high-level-graph.html"><a href="high-level-graph.html#bar-plot"><i class="fa fa-check"></i><b>10.2.6</b> 막대 그래프</a></li>
+<li class="chapter" data-level="10.2.7" data-path="high-level-graph.html"><a href="high-level-graph.html#boxplot"><i class="fa fa-check"></i><b>10.2.7</b> 상자 그림</a></li>
+<li class="chapter" data-level="10.2.8" data-path="high-level-graph.html"><a href="high-level-graph.html#violin-plot"><i class="fa fa-check"></i><b>10.2.8</b> 바이올린 도표</a></li>
+<li class="chapter" data-level="10.2.9" data-path="high-level-graph.html"><a href="high-level-graph.html#mosaicplot"><i class="fa fa-check"></i><b>10.2.9</b> 모자이크 도표</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="low-level-graphic.html"><a href="low-level-graphic.html"><i class="fa fa-check"></i><b>10.3</b> 저수준 그래프 함수</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="low-level-graphic.html"><a href="low-level-graphic.html#par"><i class="fa fa-check"></i><b>10.3.1</b> par()</a></li>
+<li class="chapter" data-level="10.3.2" data-path="low-level-graphic.html"><a href="low-level-graphic.html#points"><i class="fa fa-check"></i><b>10.3.2</b> points()</a></li>
+<li class="chapter" data-level="10.3.3" data-path="low-level-graphic.html"><a href="low-level-graphic.html#lines"><i class="fa fa-check"></i><b>10.3.3</b> lines()</a></li>
+<li class="chapter" data-level="10.3.4" data-path="low-level-graphic.html"><a href="low-level-graphic.html#ablines"><i class="fa fa-check"></i><b>10.3.4</b> ablines()</a></li>
+<li class="chapter" data-level="10.3.5" data-path="low-level-graphic.html"><a href="low-level-graphic.html#arrows"><i class="fa fa-check"></i><b>10.3.5</b> arrows()</a></li>
+<li class="chapter" data-level="10.3.6" data-path="low-level-graphic.html"><a href="low-level-graphic.html#rect"><i class="fa fa-check"></i><b>10.3.6</b> rect()</a></li>
+<li class="chapter" data-level="10.3.7" data-path="low-level-graphic.html"><a href="low-level-graphic.html#polygon"><i class="fa fa-check"></i><b>10.3.7</b> polygon()</a></li>
+<li class="chapter" data-level="10.3.8" data-path="low-level-graphic.html"><a href="low-level-graphic.html#text"><i class="fa fa-check"></i><b>10.3.8</b> text(), mtext()</a></li>
+<li class="chapter" data-level="10.3.9" data-path="low-level-graphic.html"><a href="low-level-graphic.html#legend"><i class="fa fa-check"></i><b>10.3.9</b> legend()</a></li>
+<li class="chapter" data-level="10.3.10" data-path="low-level-graphic.html"><a href="low-level-graphic.html#math-expression"><i class="fa fa-check"></i><b>10.3.10</b> 수식 표현</a></li>
+<li class="chapter" data-level="10.3.11" data-path="low-level-graphic.html"><a href="low-level-graphic.html#r-기본-그래프-이미지-파일로-저장"><i class="fa fa-check"></i><b>10.3.11</b> R 기본 그래프 이미지 파일로 저장</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="ggplot2-package.html"><a href="ggplot2-package.html"><i class="fa fa-check"></i><b>10.4</b> ggplot2</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="ggplot2-package.html"><a href="ggplot2-package.html#basic-grammar"><i class="fa fa-check"></i><b>10.4.1</b> 기본 문법</a></li>
+<li class="chapter" data-level="10.4.2" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-lines"><i class="fa fa-check"></i><b>10.4.2</b> Geoms: 선 관련 geometric</a></li>
+<li class="chapter" data-level="10.4.3" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-points"><i class="fa fa-check"></i><b>10.4.3</b> Geoms: 점 geometrics</a></li>
+<li class="chapter" data-level="10.4.4" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-bars"><i class="fa fa-check"></i><b>10.4.4</b> Geoms: 막대 geometrics</a></li>
+<li class="chapter" data-level="10.4.5" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-intervals"><i class="fa fa-check"></i><b>10.4.5</b> Geom: 수직 범위선 관련 geometrics</a></li>
+<li class="chapter" data-level="10.4.6" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-texts"><i class="fa fa-check"></i><b>10.4.6</b> Geoms: 텍스트 관련 geometrics</a></li>
+<li class="chapter" data-level="10.4.7" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-areas"><i class="fa fa-check"></i><b>10.4.7</b> Geoms: 면적 관련 geometrics</a></li>
+<li class="chapter" data-level="10.4.8" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-statistics"><i class="fa fa-check"></i><b>10.4.8</b> Geoms: 통계 그래프 관련 geometrics</a></li>
+<li class="chapter" data-level="10.4.9" data-path="ggplot2-package.html"><a href="ggplot2-package.html#scale-x-y"><i class="fa fa-check"></i><b>10.4.9</b> Scales: x-y 축 관련 aesthetic 조정</a></li>
+<li class="chapter" data-level="10.4.10" data-path="ggplot2-package.html"><a href="ggplot2-package.html#scale-colors-fill"><i class="fa fa-check"></i><b>10.4.10</b> Scales: 색상 관련 aesthetic 조정</a></li>
+<li class="chapter" data-level="10.4.11" data-path="ggplot2-package.html"><a href="ggplot2-package.html#scale-size-line-shape"><i class="fa fa-check"></i><b>10.4.11</b> Scales: 크기, 선 종류, 점 모양 aesthetic 조정</a></li>
+<li class="chapter" data-level="10.4.12" data-path="ggplot2-package.html"><a href="ggplot2-package.html#coordinate-systems"><i class="fa fa-check"></i><b>10.4.12</b> Coordinate systems</a></li>
+<li class="chapter" data-level="10.4.13" data-path="ggplot2-package.html"><a href="ggplot2-package.html#guides-x-y-축-및-그래프-제목-관련"><i class="fa fa-check"></i><b>10.4.13</b> Guides: x-y 축 및 그래프 제목 관련</a></li>
+<li class="chapter" data-level="10.4.14" data-path="ggplot2-package.html"><a href="ggplot2-package.html#facets-국소-시각화-기법"><i class="fa fa-check"></i><b>10.4.14</b> Facets: 국소 시각화 기법</a></li>
+<li class="chapter" data-level="10.4.15" data-path="ggplot2-package.html"><a href="ggplot2-package.html#themes"><i class="fa fa-check"></i><b>10.4.15</b> Themes</a></li>
+<li class="chapter" data-level="10.4.16" data-path="ggplot2-package.html"><a href="ggplot2-package.html#ggplot-application"><i class="fa fa-check"></i><b>10.4.16</b> 확장 예제</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="basic-stat-analysis.html"><a href="basic-stat-analysis.html"><i class="fa fa-check"></i><b>11</b> R을 활용한 기초통계 분석</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="qqplot.html"><a href="qqplot.html"><i class="fa fa-check"></i><b>11.1</b> Q-Q plot</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="qqplot.html"><a href="qqplot.html#quantile-def"><i class="fa fa-check"></i><b>11.1.1</b> 분위수(Quantile)</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="group-comp.html"><a href="group-comp.html"><i class="fa fa-check"></i><b>11.2</b> 연속형 변수의 비교</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="group-comp.html"><a href="group-comp.html#paired-t-test"><i class="fa fa-check"></i><b>11.2.1</b> 대응 표본 t 검정(paired samples t test)</a></li>
+<li class="chapter" data-level="11.2.2" data-path="group-comp.html"><a href="group-comp.html#독립-이표본-t-검정independent-two-sample-t-test"><i class="fa fa-check"></i><b>11.2.2</b> 독립 이표본 t 검정(independent two-sample t-test)</a></li>
+<li class="chapter" data-level="11.2.3" data-path="group-comp.html"><a href="group-comp.html#일원배치-분산분석oneway-analysis-of-variance"><i class="fa fa-check"></i><b>11.2.3</b> 일원배치 분산분석(oneway analysis of variance)</a></li>
+<li class="chapter" data-level="11.2.4" data-path="group-comp.html"><a href="group-comp.html#tidyverse-모형-정리-및-테이블-생성"><i class="fa fa-check"></i><b>11.2.4</b> tidyverse 모형 정리 및 테이블 생성</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>12</b> R Markdown</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="r-markdown의-구성.html"><a href="r-markdown의-구성.html"><i class="fa fa-check"></i><b>12.1</b> R Markdown의 구성</a></li>
+<li class="chapter" data-level="12.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html"><i class="fa fa-check"></i><b>12.2</b> R Markdown 기본 문법(syntax)</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#텍스트-문법"><i class="fa fa-check"></i><b>12.2.1</b> 텍스트 문법</a></li>
+<li class="chapter" data-level="12.2.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#block-level-elements"><i class="fa fa-check"></i><b>12.2.2</b> Block-level elements</a></li>
+<li class="chapter" data-level="12.2.3" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#수식표현math-expression"><i class="fa fa-check"></i><b>12.2.3</b> 수식표현(math expression)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="r-code-chunks.html"><a href="r-code-chunks.html"><i class="fa fa-check"></i><b>12.3</b> R Code Chunks</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#code-chunk"><i class="fa fa-check"></i>자주 활용하는 chunk 옵션</a></li>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#typical-chunk"><i class="fa fa-check"></i>알아두면 좋은 청크 형태</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="inline-code.html"><a href="inline-code.html"><i class="fa fa-check"></i><b>12.4</b> 인라인(inline) R 코드</a></li>
+<li class="chapter" data-level="12.5" data-path="yaml.html"><a href="yaml.html"><i class="fa fa-check"></i><b>12.5</b> YAML</a>
+<ul>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#basic-syntax"><i class="fa fa-check"></i>기본 문법</a></li>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#rmarkdown-yaml-structure"><i class="fa fa-check"></i>R Markdown 기본 YAML 구조</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="rmarkdown-citation.html"><a href="rmarkdown-citation.html"><i class="fa fa-check"></i><b>12.6</b> 참고문헌 인용</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계 프로그래밍 언어</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="qqplot" class="section level2" number="11.1">
+<h2><span class="header-section-number">11.1</span> Q-Q plot</h2>
+<blockquote>
+<p>Q-Q plot = Quantile(분위수)-Quantile(분위수) plot</p>
+</blockquote>
+<div id="quantile-def" class="section level3" number="11.1.1">
+<h3><span class="header-section-number">11.1.1</span> 분위수(Quantile)</h3>
+<div id="quantile-definition" class="section level4 unnumbered">
+<h4>정의</h4>
+<ul>
+<li>확률분포를 동등한 확률 구간으로 나누기 위해 설정한 구분점(cutpoint)</li>
+<li>특정 확률분포의 누적분포함수의 역함수</li>
+<li>주어진 표본의 관찰값을 오름차순으로 나열했을 때 전체 표본(데이터)을 특정 개수의 그룹으로 나눌 때 기준이 되는 값</li>
+<li><span class="math inline">\(q\)</span> 분위수는 <span class="math inline">\(q-1\)</span> 개의 분위수 값을 갖음</li>
+<li>예시
+<ul>
+<li>2-quantile: 오름차순으로 정렬한 데이터를 50:50으로 나누기 위한 값 <span class="math inline">\(\rightarrow\)</span> 중앙값(median)</li>
+<li>3-quantiles (tertiles): 오름차순으로 정렬한 데이터를 3 등분 하기 위한 값 <span class="math inline">\(\rightarrow\)</span> 33.3 %, 66.6 %</li>
+<li>4-quantiles (quartiles): 오름차순 정렬 데이터를 4등분 하기 위한 값 <span class="math inline">\(\rightarrow\)</span> 25 % (Q1), 50 % (중앙값), 75 % (Q3)
+<ul>
+<li>사분위수 범위(interquartile range, IQR): Q3 - Q1</li>
+</ul></li>
+<li>10-quantiles (deciles): 오름차순 정렬 데이터를 10 등분 <span class="math inline">\(\rightarrow\)</span> 10 %, 20 %, 30 %, …, 90 %</li>
+<li>100-quantiles (percentiles): 오름차순 정렬 데이터를 10 등분 <span class="math inline">\(\rightarrow\)</span> 1 %, 2 %, …, 99 %</li>
+</ul></li>
+<li>일반적으로 <span class="math inline">\(k^{\mathrm{th}}\)</span> <span class="math inline">\(q\)</span> 분위수는 누적확률분포에서 <span class="math inline">\(k/q\)</span>의 값을 갖는 데이터를 의미</li>
+</ul>
+</div>
+<div id="표본분위수의-계산" class="section level4 unnumbered">
+<h4>(표본)분위수의 계산</h4>
+
+<div class="rmdnote">
+<p>R에서 표본 분위수는 <code>quantile()</code> 함수룰 통해 구할 수 있으먀, 크게 불연속 변수(discontinuous variable)와
+연속 변수(continuous variable)에 따라 방법이 조금씩 달라짐. 불연속변수인 경우 데이터 중에서
+분위수 값을 정의하는 반면 연속변수인 경우 보간(interpolation)을 사용해 분위수 값을 정함. R은 총 9 가지의 분위수 계산 방법을 제공하며, 방법 1 ~ 3은 불연속 변수,
+방법 4 ~ 9 는 연속 변수를 대상으로 함.</p>
+</div>
+<p></p>
+<p>표본 분위수는 순서통계량(order statistics)<a href="references.html#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>의 가중평균으로 정의하며 임의의 표본이 주어졌을 때
+<span class="math inline">\(p \times 100\)</span> % 분위수 계산 식<a href="references.html#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>은 아래와 같음(연속 변수에 대해)</p>
+<p><span class="math display">\[
+Q(p) = (1 - \gamma) x_{(k)} + \gamma x_{(k+1)}
+\]</span></p>
+<p>이고, 여기서 <span class="math inline">\((k - 0.5)/n \leq p &lt; (k - 0.5 +1)/n\)</span>, <span class="math inline">\(x_{(k)}\)</span>는 <span class="math inline">\(k\)</span> 번째 순서통계량, <span class="math inline">\(n\)</span>은 표본크기, <span class="math inline">\(\gamma = np + m - k\)</span>, <span class="math inline">\(k\)</span>는 <span class="math inline">\(np + m\)</span>을 넘지 않는
+최대 정수이고 <span class="math inline">\(m = 1/2\)</span> 임.</p>
+<ul>
+<li>예시</li>
+</ul>
+<div class="sourceCode" id="cb2150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2150-1"><a href="qqplot.html#cb2150-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 분위수 계산 함수 </span></span>
+<span id="cb2150-2"><a href="qqplot.html#cb2150-2" aria-hidden="true" tabindex="-1"></a>my_quantile <span class="ot">&lt;-</span> <span class="cf">function</span>(x, probs) {</span>
+<span id="cb2150-3"><a href="qqplot.html#cb2150-3" aria-hidden="true" tabindex="-1"></a>  idx <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb2150-4"><a href="qqplot.html#cb2150-4" aria-hidden="true" tabindex="-1"></a>  o <span class="ot">&lt;-</span> <span class="fu">order</span>(x); n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb2150-5"><a href="qqplot.html#cb2150-5" aria-hidden="true" tabindex="-1"></a>  xord <span class="ot">&lt;-</span> x[o]</span>
+<span id="cb2150-6"><a href="qqplot.html#cb2150-6" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
+<span id="cb2150-7"><a href="qqplot.html#cb2150-7" aria-hidden="true" tabindex="-1"></a>  gamma <span class="ot">&lt;-</span> n <span class="sc">*</span> probs <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">-</span> <span class="fu">floor</span>(n <span class="sc">*</span> probs <span class="sc">+</span> <span class="fl">0.5</span>)</span>
+<span id="cb2150-8"><a href="qqplot.html#cb2150-8" aria-hidden="true" tabindex="-1"></a>  pk <span class="ot">&lt;-</span> (k <span class="sc">-</span> <span class="fl">0.5</span>)<span class="sc">/</span>n</span>
+<span id="cb2150-9"><a href="qqplot.html#cb2150-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (pj <span class="cf">in</span> probs) {</span>
+<span id="cb2150-10"><a href="qqplot.html#cb2150-10" aria-hidden="true" tabindex="-1"></a>    idx <span class="ot">&lt;-</span> <span class="fu">c</span>(idx, <span class="fu">which.max</span>(pk[pk <span class="sc">&lt;=</span> pj]))</span>
+<span id="cb2150-11"><a href="qqplot.html#cb2150-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2150-12"><a href="qqplot.html#cb2150-12" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> gamma) <span class="sc">*</span> xord[idx] <span class="sc">+</span> gamma <span class="sc">*</span> xord[idx <span class="sc">+</span> <span class="dv">1</span>]</span>
+<span id="cb2150-13"><a href="qqplot.html#cb2150-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(res) <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.1f %%&quot;</span>, <span class="fu">round</span>(probs <span class="sc">*</span> <span class="dv">100</span>))</span>
+<span id="cb2150-14"><a href="qqplot.html#cb2150-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
+<span id="cb2150-15"><a href="qqplot.html#cb2150-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2150-16"><a href="qqplot.html#cb2150-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2150-17"><a href="qqplot.html#cb2150-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2150-18"><a href="qqplot.html#cb2150-18" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb2150-19"><a href="qqplot.html#cb2150-19" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">373</span>)</span>
+<span id="cb2150-20"><a href="qqplot.html#cb2150-20" aria-hidden="true" tabindex="-1"></a><span class="fu">my_quantile</span>(x, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>))</span></code></pre></div>
+<pre><code>    5.0 %    95.0 % 
+-1.601323  1.492466 </code></pre>
+<div class="sourceCode" id="cb2152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2152-1"><a href="qqplot.html#cb2152-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 확인</span></span>
+<span id="cb2152-2"><a href="qqplot.html#cb2152-2" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(x, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>), <span class="at">type =</span> <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>       5%       95% 
+-1.601323  1.492466 </code></pre>
+<p></p>
+</div>
+<div id="quantile-quantile-plot-q-q-plot" class="section level4 unnumbered">
+<h4>Quantile-Quantile plot (Q-Q plot)</h4>
+<ul>
+<li>두 변수 <span class="math inline">\(X\)</span>의 분위수와 <span class="math inline">\(Y\)</span>의 분위수를 산점도 형태로 그린 도표로 두 변수의 분포를 비교하기 위한 용도로 사용되는 도표</li>
+<li>예시
+<ul>
+<li><span class="math inline">\(X\)</span>: 충남대학교 정보통계학과 남학생의 키</li>
+<li><span class="math inline">\(Y\)</span>: 충남대학교 자연과학대학 남학생의 몸무게</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2154-1"><a href="qqplot.html#cb2154-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 개념</span></span>
+<span id="cb2154-2"><a href="qqplot.html#cb2154-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb2154-3"><a href="qqplot.html#cb2154-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">172</span>, <span class="dv">15</span>)</span>
+<span id="cb2154-4"><a href="qqplot.html#cb2154-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">500</span>, <span class="dv">65</span>, <span class="dv">20</span>)</span>
+<span id="cb2154-5"><a href="qqplot.html#cb2154-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2154-6"><a href="qqplot.html#cb2154-6" aria-hidden="true" tabindex="-1"></a>xq <span class="ot">&lt;-</span> <span class="fu">quantile</span>(x, <span class="at">probs =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.05</span>))</span>
+<span id="cb2154-7"><a href="qqplot.html#cb2154-7" aria-hidden="true" tabindex="-1"></a>yq <span class="ot">&lt;-</span> <span class="fu">quantile</span>(y, <span class="at">probs =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.05</span>))</span>
+<span id="cb2154-8"><a href="qqplot.html#cb2154-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xq, yq, </span>
+<span id="cb2154-9"><a href="qqplot.html#cb2154-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;height&quot;</span>, </span>
+<span id="cb2154-10"><a href="qqplot.html#cb2154-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;weight&quot;</span>)</span></code></pre></div>
+<p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-6-1.svg" width="672" /></p>
+<p></p>
+<ul>
+<li><p>일반적으로 측정 또는 표집한 연속형 변수가 이론적인 특정 분포와 얼마나 유사한지를 확인하기 위해 사용하며, 특히 데이터의 정규성 검정에 많이 활용됨.
+즉 표본으로 얻은 분포가 정규분포를 따르는지(유사한지)를 알아보기 위해 활용</p></li>
+<li><p>보통 x 축은 theoretical quantile (이론적 분위수)로 하고 y 축은 표본 분위수(empirical/sample quantile)로 설정</p></li>
+<li><p>R에서 Q-Q plot은 <code>qqnorm()</code>, <code>qqplot()</code> 등의 함수를 사용해 간단히 그릴 수 있으나 해당 함수를 사용하지 않고 직접 그리는 방법에 대해 알아봄.</p></li>
+</ul>
+<div class="sourceCode" id="cb2155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2155-1"><a href="qqplot.html#cb2155-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 위 예제에서 생성한 충남대학교 여학생 몸무게의 Q-Q plot</span></span>
+<span id="cb2155-2"><a href="qqplot.html#cb2155-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 정규분포와 비교</span></span>
+<span id="cb2155-3"><a href="qqplot.html#cb2155-3" aria-hidden="true" tabindex="-1"></a>yord <span class="ot">&lt;-</span> y[<span class="fu">order</span>(y)] <span class="co"># 데이터 정렬</span></span>
+<span id="cb2155-4"><a href="qqplot.html#cb2155-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(yord)</span>
+<span id="cb2155-5"><a href="qqplot.html#cb2155-5" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
+<span id="cb2155-6"><a href="qqplot.html#cb2155-6" aria-hidden="true" tabindex="-1"></a>pk <span class="ot">&lt;-</span> (k <span class="sc">-</span> <span class="fl">0.5</span>)<span class="sc">/</span>n</span>
+<span id="cb2155-7"><a href="qqplot.html#cb2155-7" aria-hidden="true" tabindex="-1"></a><span class="co"># theoretical quantile</span></span>
+<span id="cb2155-8"><a href="qqplot.html#cb2155-8" aria-hidden="true" tabindex="-1"></a>tq <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(pk, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># 표준정규분포의 분위수</span></span>
+<span id="cb2155-9"><a href="qqplot.html#cb2155-9" aria-hidden="true" tabindex="-1"></a><span class="co"># empirical quantile</span></span>
+<span id="cb2155-10"><a href="qqplot.html#cb2155-10" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="fu">drop</span>(<span class="fu">scale</span>(yord)) <span class="co"># z 변환</span></span>
+<span id="cb2155-11"><a href="qqplot.html#cb2155-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2155-12"><a href="qqplot.html#cb2155-12" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2155-13"><a href="qqplot.html#cb2155-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> tq, <span class="at">y =</span> eq, </span>
+<span id="cb2155-14"><a href="qqplot.html#cb2155-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, </span>
+<span id="cb2155-15"><a href="qqplot.html#cb2155-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>), </span>
+<span id="cb2155-16"><a href="qqplot.html#cb2155-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>), </span>
+<span id="cb2155-17"><a href="qqplot.html#cb2155-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Theoretical Quantile&quot;</span>, </span>
+<span id="cb2155-18"><a href="qqplot.html#cb2155-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Empirical Quantile&quot;</span>, </span>
+<span id="cb2155-19"><a href="qqplot.html#cb2155-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Normal Q-Q plot (manual)&quot;</span>)</span>
+<span id="cb2155-20"><a href="qqplot.html#cb2155-20" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(tq, eq, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;darkgray&quot;</span>)</span>
+<span id="cb2155-21"><a href="qqplot.html#cb2155-21" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(tq, eq, <span class="at">pch=</span><span class="dv">21</span>, <span class="at">cex =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span>)</span>
+<span id="cb2155-22"><a href="qqplot.html#cb2155-22" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span>
+<span id="cb2155-23"><a href="qqplot.html#cb2155-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2155-24"><a href="qqplot.html#cb2155-24" aria-hidden="true" tabindex="-1"></a><span class="co"># qqnorm() 함수 결과와 비교</span></span>
+<span id="cb2155-25"><a href="qqplot.html#cb2155-25" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(eq, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>))</span>
+<span id="cb2155-26"><a href="qqplot.html#cb2155-26" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(eq)</span></code></pre></div>
+<p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-7-1.svg" width="768" /></p>
+<p></p>
+
+<div class="rmdnote">
+<p>데이터의 정규성을 확인하기 위한 검정 방법으로 대표적으로 Kolmogrov-Smirnov test, Shapiro-Wilk test, Anderson-Darling test, Cramer-von Mises test 등이
+일반적으로 많이 사용되지만, 표본의 크기가 커질 경우 검정력이 높아지기 때문에 귀무가설인 “데이터가 정규분포를 따른다”를 기각할 확률이 높아짐. 그렇기 때문에
+정규성 검정과 동시에 Q-Q plot을 통한 데이터의 분포 확인이 필요함.</p>
+</div>
+<p></p>
+</div>
+<div id="q-q-plot의-형태" class="section level4 unnumbered">
+<h4>Q-Q plot의 형태</h4>
+<ul>
+<li>정규분포를 기준으로 Q-Q plot의 형태를 통해 표본자료의 데이터 분포 유추가 가능.</li>
+<li>예를 들어 표본 분위수를 <span class="math inline">\(Q_E\)</span>, 표준정규분포의 분위수를 <span class="math inline">\(Q_T\)</span>라고 할 때</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(Q_E &lt; Q_T\)</span>: 이론적 분위수보다 표본 분위수가 작다 <span class="math inline">\(\rightarrow\)</span> 직선을 기준으로 오른쪽에 점 위치</li>
+</ol>
+<p><img src="figures/qqplot-tail-ex.png" width="80%" style="display: block; margin: auto;" /></p>
+<p></p>
+<ol start="2" style="list-style-type: decimal">
+<li><span class="math inline">\(Q_E &gt; Q_T\)</span>: 이론적 분위수보다 표본 분위수가 크다 <span class="math inline">\(\rightarrow\)</span> 직선을 기준으로 왼쪽에 점 위치</li>
+</ol>
+<p><img src="figures/qqplot-tail-ex2.png" width="80%" style="display: block; margin: auto;" /></p>
+<p></p>
+<p><strong>대칭이지만 표본데이터의 분포 꼬리가 표준정규분포에 비해 얇은 경우</strong></p>
+<div class="sourceCode" id="cb2156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2156-1"><a href="qqplot.html#cb2156-1" aria-hidden="true" tabindex="-1"></a><span class="co"># X ~ U(-2, 2)</span></span>
+<span id="cb2156-2"><a href="qqplot.html#cb2156-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb2156-3"><a href="qqplot.html#cb2156-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10000</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb2156-4"><a href="qqplot.html#cb2156-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2156-5"><a href="qqplot.html#cb2156-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2156-6"><a href="qqplot.html#cb2156-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">scale</span>(x), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;darkgray&quot;</span>)</span>
+<span id="cb2156-7"><a href="qqplot.html#cb2156-7" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">scale</span>(x))</span>
+<span id="cb2156-8"><a href="qqplot.html#cb2156-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2156-9"><a href="qqplot.html#cb2156-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(<span class="fu">scale</span>(x)), </span>
+<span id="cb2156-10"><a href="qqplot.html#cb2156-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), </span>
+<span id="cb2156-11"><a href="qqplot.html#cb2156-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.4</span>), </span>
+<span id="cb2156-12"><a href="qqplot.html#cb2156-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb2156-13"><a href="qqplot.html#cb2156-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Light tailed distribution: X ~ U(-2, 2)&quot;</span>)</span>
+<span id="cb2156-14"><a href="qqplot.html#cb2156-14" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb2156-15"><a href="qqplot.html#cb2156-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(z, <span class="fu">dnorm</span>(z), <span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb2156-16"><a href="qqplot.html#cb2156-16" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Theoretical N(0, 1)&quot;</span>, <span class="st">&quot;Estimated density of the sample&quot;</span>), </span>
+<span id="cb2156-17"><a href="qqplot.html#cb2156-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>, </span>
+<span id="cb2156-18"><a href="qqplot.html#cb2156-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>))</span></code></pre></div>
+<p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-11-1.svg" width="960" /></p>
+<p></p>
+<p><strong>대칭이지만 표본데이터의 분포 꼬리가 표준정규분포에 비해 두꺼운 경우</strong></p>
+<div class="sourceCode" id="cb2157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2157-1"><a href="qqplot.html#cb2157-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 자유도가 8인 t 분포</span></span>
+<span id="cb2157-2"><a href="qqplot.html#cb2157-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb2157-3"><a href="qqplot.html#cb2157-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rt</span>(<span class="dv">10000</span>, <span class="at">df =</span> <span class="dv">8</span>)</span>
+<span id="cb2157-4"><a href="qqplot.html#cb2157-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2157-5"><a href="qqplot.html#cb2157-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2157-6"><a href="qqplot.html#cb2157-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">scale</span>(x), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;darkgray&quot;</span>)</span>
+<span id="cb2157-7"><a href="qqplot.html#cb2157-7" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">scale</span>(x))</span>
+<span id="cb2157-8"><a href="qqplot.html#cb2157-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2157-9"><a href="qqplot.html#cb2157-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(<span class="fu">scale</span>(x)), </span>
+<span id="cb2157-10"><a href="qqplot.html#cb2157-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>, <span class="dv">6</span>), </span>
+<span id="cb2157-11"><a href="qqplot.html#cb2157-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>), </span>
+<span id="cb2157-12"><a href="qqplot.html#cb2157-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb2157-13"><a href="qqplot.html#cb2157-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Heavy tailed distribution: X ~ t(df = 3)&quot;</span>)</span>
+<span id="cb2157-14"><a href="qqplot.html#cb2157-14" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">6</span>, <span class="dv">6</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb2157-15"><a href="qqplot.html#cb2157-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(z, <span class="fu">dnorm</span>(z), <span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb2157-16"><a href="qqplot.html#cb2157-16" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Theoretical N(0, 1)&quot;</span>, <span class="st">&quot;Estimated density of the sample&quot;</span>), </span>
+<span id="cb2157-17"><a href="qqplot.html#cb2157-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>, </span>
+<span id="cb2157-18"><a href="qqplot.html#cb2157-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>))</span></code></pre></div>
+<p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-12-1.svg" width="960" /></p>
+<p></p>
+<p><strong>표본데이터가 표준정규분포에 비해 오른쪽으로 치우쳐진 경우(skewed to the right)</strong></p>
+<div class="sourceCode" id="cb2158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2158-1"><a href="qqplot.html#cb2158-1" aria-hidden="true" tabindex="-1"></a><span class="co"># exp(lambda = 3)</span></span>
+<span id="cb2158-2"><a href="qqplot.html#cb2158-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb2158-3"><a href="qqplot.html#cb2158-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rexp</span>(<span class="dv">10000</span>, <span class="at">rate =</span> <span class="dv">3</span>)</span>
+<span id="cb2158-4"><a href="qqplot.html#cb2158-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2158-5"><a href="qqplot.html#cb2158-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2158-6"><a href="qqplot.html#cb2158-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">scale</span>(x), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;darkgray&quot;</span>)</span>
+<span id="cb2158-7"><a href="qqplot.html#cb2158-7" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">scale</span>(x))</span>
+<span id="cb2158-8"><a href="qqplot.html#cb2158-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2158-9"><a href="qqplot.html#cb2158-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(<span class="fu">scale</span>(x)), </span>
+<span id="cb2158-10"><a href="qqplot.html#cb2158-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">6</span>), </span>
+<span id="cb2158-11"><a href="qqplot.html#cb2158-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.8</span>), </span>
+<span id="cb2158-12"><a href="qqplot.html#cb2158-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb2158-13"><a href="qqplot.html#cb2158-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Skewed to the right: X ~ exp(lambda = 3)&quot;</span>)</span>
+<span id="cb2158-14"><a href="qqplot.html#cb2158-14" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">6</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb2158-15"><a href="qqplot.html#cb2158-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(z, <span class="fu">dnorm</span>(z), <span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb2158-16"><a href="qqplot.html#cb2158-16" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Theoretical N(0, 1)&quot;</span>, <span class="st">&quot;Estimated density of the sample&quot;</span>), </span>
+<span id="cb2158-17"><a href="qqplot.html#cb2158-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>, </span>
+<span id="cb2158-18"><a href="qqplot.html#cb2158-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>))</span></code></pre></div>
+<p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-13-1.svg" width="960" /></p>
+<p></p>
+<p><strong>표본데이터가 표준정규분포에 비해 왼쪽으로 치우쳐진 경우(skewed to the left)</strong></p>
+<div class="sourceCode" id="cb2159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2159-1"><a href="qqplot.html#cb2159-1" aria-hidden="true" tabindex="-1"></a><span class="co"># X ~ beta(4, 1)</span></span>
+<span id="cb2159-2"><a href="qqplot.html#cb2159-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb2159-3"><a href="qqplot.html#cb2159-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">10000</span>, <span class="at">shape1 =</span> <span class="dv">4</span>, <span class="at">shape2 =</span> <span class="dv">1</span>)</span>
+<span id="cb2159-4"><a href="qqplot.html#cb2159-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2159-5"><a href="qqplot.html#cb2159-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2159-6"><a href="qqplot.html#cb2159-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">scale</span>(x), <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;darkgray&quot;</span>)</span>
+<span id="cb2159-7"><a href="qqplot.html#cb2159-7" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">scale</span>(x))</span>
+<span id="cb2159-8"><a href="qqplot.html#cb2159-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2159-9"><a href="qqplot.html#cb2159-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(<span class="fu">scale</span>(x)), </span>
+<span id="cb2159-10"><a href="qqplot.html#cb2159-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">4</span>), </span>
+<span id="cb2159-11"><a href="qqplot.html#cb2159-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.6</span>), </span>
+<span id="cb2159-12"><a href="qqplot.html#cb2159-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb2159-13"><a href="qqplot.html#cb2159-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Skewed to the left: X ~ beta(4, 1)&quot;</span>)</span>
+<span id="cb2159-14"><a href="qqplot.html#cb2159-14" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb2159-15"><a href="qqplot.html#cb2159-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(z, <span class="fu">dnorm</span>(z), <span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb2159-16"><a href="qqplot.html#cb2159-16" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Theoretical N(0, 1)&quot;</span>, <span class="st">&quot;Estimated density of the sample&quot;</span>), </span>
+<span id="cb2159-17"><a href="qqplot.html#cb2159-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>, </span>
+<span id="cb2159-18"><a href="qqplot.html#cb2159-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>))</span></code></pre></div>
+<p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-14-1.svg" width="960" /></p>
+<p></p>
+<ul>
+<li><code>qqnorm()</code>은 이론적인 표준정규분포와 표본 데이터의 분포를 비교하기 위한 함수이고, 다른 분포(<span class="math inline">\(\chi^2\)</span> 분포, <span class="math inline">\(t\)</span> 분포 등)와 비교하기 위헤서는
+<code>qqplot(x = theoretical, y = empirical)</code>를 사용해 Q-Q plot 생성 가능</li>
+</ul>
+<div class="sourceCode" id="cb2160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2160-1"><a href="qqplot.html#cb2160-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 카이제곱분포의 Q-Q plot </span></span>
+<span id="cb2160-2"><a href="qqplot.html#cb2160-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb2160-3"><a href="qqplot.html#cb2160-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rchisq</span>(<span class="dv">500</span>, <span class="at">df =</span> <span class="dv">3</span>)</span>
+<span id="cb2160-4"><a href="qqplot.html#cb2160-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="fu">ppoints</span>(<span class="dv">500</span>), <span class="co"># 500 quantiles 생성</span></span>
+<span id="cb2160-5"><a href="qqplot.html#cb2160-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">df =</span> <span class="dv">3</span>)</span>
+<span id="cb2160-6"><a href="qqplot.html#cb2160-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qqplot</span>(x, y, </span>
+<span id="cb2160-7"><a href="qqplot.html#cb2160-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">expression</span>(<span class="st">&quot;Q-Q plot for&quot;</span> <span class="sc">~</span><span class="er">~</span> {chi<span class="sc">^</span><span class="dv">2</span>}[nu <span class="sc">==</span> <span class="dv">3</span>]))</span>
+<span id="cb2160-8"><a href="qqplot.html#cb2160-8" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(y, <span class="at">distribution =</span> <span class="cf">function</span>(p) <span class="fu">qchisq</span>(p, <span class="at">df =</span> <span class="dv">3</span>), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-15-1.svg" width="768" /></p>
+<p></p>
+</div>
+<div id="application" class="section level4 unnumbered">
+<h4>Application</h4>
+
+<div class="rmdnote">
+<ol style="list-style-type: decimal">
+<li>실제 데이터로부터 정규성 확인을 위헤 Q-Q plot 생성</li>
+<li><code>ggpubr</code> 패키지에서 제공하는 <code>ggqqplot()</code> 함수를 통해 Q-Q plot 생성</li>
+</ol>
+</div>
+<p></p>
+<blockquote>
+<p><code>ggpubr</code>: 논문이나 출판을 위해 high-quality 도표를 생성하기 위한 목적으로 “ggplot based Publication Ready plots”의 약어를 이름으로 갖는 패키지</p>
+</blockquote>
+<ul>
+<li>R에서 제공하는 <code>iris</code> 데이터셋 활용</li>
+<li><code>tidyverse</code> 세계에서 데이터 전처리 및 Q-Q plot 출력</li>
+</ul>
+<div class="sourceCode" id="cb2161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2161-1"><a href="qqplot.html#cb2161-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 각 붓꽃 종과 측정 변수에 따른 Q-Q plot 생성</span></span>
+<span id="cb2161-2"><a href="qqplot.html#cb2161-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;ggpubr&quot;)</span></span>
+<span id="cb2161-3"><a href="qqplot.html#cb2161-3" aria-hidden="true" tabindex="-1"></a><span class="co"># require(tidyverse)</span></span>
+<span id="cb2161-4"><a href="qqplot.html#cb2161-4" aria-hidden="true" tabindex="-1"></a><span class="co"># require(ggpubr)</span></span>
+<span id="cb2161-5"><a href="qqplot.html#cb2161-5" aria-hidden="true" tabindex="-1"></a>iris_tb <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(iris)</span>
+<span id="cb2161-6"><a href="qqplot.html#cb2161-6" aria-hidden="true" tabindex="-1"></a>iris_tb <span class="sc">%&gt;%</span> </span>
+<span id="cb2161-7"><a href="qqplot.html#cb2161-7" aria-hidden="true" tabindex="-1"></a>  rownames_to_column <span class="sc">%&gt;%</span> <span class="co"># 데이터프레임 행이름을 변수로 변환</span></span>
+<span id="cb2161-8"><a href="qqplot.html#cb2161-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">matches</span>(<span class="st">&quot;Sepal|Petal&quot;</span>), </span>
+<span id="cb2161-9"><a href="qqplot.html#cb2161-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;Measures&quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># long-format으로 변환</span></span>
+<span id="cb2161-10"><a href="qqplot.html#cb2161-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species, Measures) <span class="sc">%&gt;%</span> </span>
+<span id="cb2161-11"><a href="qqplot.html#cb2161-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">zvalue =</span> <span class="fu">drop</span>(<span class="fu">scale</span>(value))) <span class="sc">%&gt;%</span> <span class="co"># 정규성 확인을 위해 각 변수의 종별 표준화</span></span>
+<span id="cb2161-12"><a href="qqplot.html#cb2161-12" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span> </span>
+<span id="cb2161-13"><a href="qqplot.html#cb2161-13" aria-hidden="true" tabindex="-1"></a>  ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span>(<span class="at">x =</span> <span class="st">&quot;zvalue&quot;</span>, </span>
+<span id="cb2161-14"><a href="qqplot.html#cb2161-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">&quot;Species&quot;</span>, </span>
+<span id="cb2161-15"><a href="qqplot.html#cb2161-15" aria-hidden="true" tabindex="-1"></a>                   <span class="at">facet.by =</span> <span class="fu">c</span>(<span class="st">&quot;Species&quot;</span>, <span class="st">&quot;Measures&quot;</span>), </span>
+<span id="cb2161-16"><a href="qqplot.html#cb2161-16" aria-hidden="true" tabindex="-1"></a>                   <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;#00AFBB&quot;</span>, <span class="st">&quot;#E7B800&quot;</span>, <span class="st">&quot;#FC4E07&quot;</span>), </span>
+<span id="cb2161-17"><a href="qqplot.html#cb2161-17" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ggtheme =</span> ggpubr<span class="sc">::</span><span class="fu">theme_pubclean</span>(<span class="at">base_size =</span> <span class="dv">15</span>)) </span></code></pre></div>
+<p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-17-1.svg" width="960" /></p>
+<p></p>
+
+<div class="rmdtip">
+<p>그래프 생성 시 원하는 색에 대한 코드를 쉽게 추출하고 싶다면 <code>colourpicker</code> 패키지를 설치해 보자.</p>
+</div>
+<p></p>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basic-stat-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="group-comp.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/12-basic-stat-analysis.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["cnu-r-programming.pdf", "PDF"]],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

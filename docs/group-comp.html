@@ -1,0 +1,3088 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>11.2 연속형 변수의 비교 | 통계 프로그래밍 언어</title>
+  <meta name="description" content="2022년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="11.2 연속형 변수의 비교 | 통계 프로그래밍 언어" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="2022년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  <meta name="github-repo" content="zorba78/cnu-r-programming-lecture-note" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="11.2 연속형 변수의 비교 | 통계 프로그래밍 언어" />
+  
+  <meta name="twitter:description" content="2022년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
+  
+
+<meta name="author" content="한국한의학연구원, 구본초" />
+
+
+<meta name="date" content="2022-03-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="qqplot.html"/>
+<link rel="next" href="r-markdown.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">통계프로그래밍언어 & 통계패키지활용</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Course Overview: 통계프로그래밍언어</a></li>
+<li class="part"><span><b>I 통계프로그래밍언어</b></span></li>
+<li class="chapter" data-level="1" data-path="intro-chap.html"><a href="intro-chap.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1.1</b> R 설치하기</a></li>
+<li class="chapter" data-level="1.2" data-path="r-check.html"><a href="r-check.html"><i class="fa fa-check"></i><b>1.2</b> R 시작 및 작동 체크</a></li>
+<li class="chapter" data-level="1.3" data-path="rconsle-script.html"><a href="rconsle-script.html"><i class="fa fa-check"></i><b>1.3</b> R script 편집기 사용</a></li>
+<li class="chapter" data-level="1.4" data-path="r-studio.html"><a href="r-studio.html"><i class="fa fa-check"></i><b>1.4</b> RStudio</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="r-studio.html"><a href="r-studio.html#rstudio-install"><i class="fa fa-check"></i><b>1.4.1</b> RStudio 설치하기</a></li>
+<li class="chapter" data-level="1.4.2" data-path="r-studio.html"><a href="r-studio.html#rstudio-component"><i class="fa fa-check"></i><b>1.4.2</b> RStudio IDE 화면 구성</a></li>
+<li class="chapter" data-level="1.4.3" data-path="r-studio.html"><a href="r-studio.html#rstudio-glob-options"><i class="fa fa-check"></i><b>1.4.3</b> RStudio 환경 설정</a></li>
+<li class="chapter" data-level="1.4.4" data-path="r-studio.html"><a href="r-studio.html#rstudio-project"><i class="fa fa-check"></i><b>1.4.4</b> RStudio 프로젝트</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="r-package.html"><a href="r-package.html"><i class="fa fa-check"></i><b>1.5</b> R 패키지</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="r-package.html"><a href="r-package.html#r-package-path"><i class="fa fa-check"></i><b>1.5.1</b> R 패키지 경로 확인 및 변경</a></li>
+<li class="chapter" data-level="1.5.2" data-path="r-package.html"><a href="r-package.html#r-package-install"><i class="fa fa-check"></i><b>1.5.2</b> R 패키지 설치하기</a></li>
+<li class="chapter" data-level="1.5.3" data-path="r-package.html"><a href="r-package.html#r-package-load"><i class="fa fa-check"></i><b>1.5.3</b> R 패키지 불러오기</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="r-basic.html"><a href="r-basic.html"><i class="fa fa-check"></i><b>1.6</b> R 기초 문법</a></li>
+<li class="chapter" data-level="1.7" data-path="r-markdown-get-start.html"><a href="r-markdown-get-start.html"><i class="fa fa-check"></i><b>1.7</b> R Markdown (맛보기)</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-type.html"><a href="data-type.html"><i class="fa fa-check"></i><b>2</b> R 객체(R object)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="프로그래밍.html"><a href="프로그래밍.html"><i class="fa fa-check"></i><b>2.1</b> 프로그래밍</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="프로그래밍.html"><a href="프로그래밍.html#prerequisites"><i class="fa fa-check"></i><b>2.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2.1.2" data-path="프로그래밍.html"><a href="프로그래밍.html#control-program"><i class="fa fa-check"></i><b>2.1.2</b> 프로그램</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="scalar.html"><a href="scalar.html"><i class="fa fa-check"></i><b>2.2</b> 스칼라(scalar)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="scalar.html"><a href="scalar.html#definition"><i class="fa fa-check"></i><b>2.2.1</b> 선언</a></li>
+<li class="chapter" data-level="2.2.2" data-path="scalar.html"><a href="scalar.html#numeric"><i class="fa fa-check"></i><b>2.2.2</b> 숫자형</a></li>
+<li class="chapter" data-level="2.2.3" data-path="scalar.html"><a href="scalar.html#character"><i class="fa fa-check"></i><b>2.2.3</b> 문자형</a></li>
+<li class="chapter" data-level="2.2.4" data-path="scalar.html"><a href="scalar.html#logical"><i class="fa fa-check"></i><b>2.2.4</b> 논리형 스칼라</a></li>
+<li class="chapter" data-level="2.2.5" data-path="scalar.html"><a href="scalar.html#missing-value"><i class="fa fa-check"></i><b>2.2.5</b> 결측값(missing value)</a></li>
+<li class="chapter" data-level="2.2.6" data-path="scalar.html"><a href="scalar.html#null"><i class="fa fa-check"></i><b>2.2.6</b> NULL 값</a></li>
+<li class="chapter" data-level="2.2.7" data-path="scalar.html"><a href="scalar.html#finite"><i class="fa fa-check"></i><b>2.2.7</b> 무한대/무한소/숫자아님</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>2.3</b> 벡터(vector)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="vector.html"><a href="vector.html#vector-prop"><i class="fa fa-check"></i><b>2.3.1</b> 벡터의 특징</a></li>
+<li class="chapter" data-level="2.3.2" data-path="vector.html"><a href="vector.html#vector-operation"><i class="fa fa-check"></i><b>2.3.2</b> 벡터의 연산</a></li>
+<li class="chapter" data-level="2.3.3" data-path="vector.html"><a href="vector.html#vector-index"><i class="fa fa-check"></i><b>2.3.3</b> 벡터의 색인(indexing)</a></li>
+<li class="chapter" data-level="2.3.4" data-path="vector.html"><a href="vector.html#vector-function"><i class="fa fa-check"></i><b>2.3.4</b> 벡터 관련 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="list.html"><a href="list.html"><i class="fa fa-check"></i><b>2.4</b> 리스트(list)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="list.html"><a href="list.html#make-list"><i class="fa fa-check"></i><b>2.4.1</b> 리스트 생성</a></li>
+<li class="chapter" data-level="2.4.2" data-path="list.html"><a href="list.html#list-index"><i class="fa fa-check"></i><b>2.4.2</b> 리스트 색인</a></li>
+<li class="chapter" data-level="2.4.3" data-path="list.html"><a href="list.html#list-add-delete"><i class="fa fa-check"></i><b>2.4.3</b> 리스트에 원소 추가/제거</a></li>
+<li class="chapter" data-level="2.4.4" data-path="list.html"><a href="list.html#list-combine"><i class="fa fa-check"></i><b>2.4.4</b> 리스트의 결합</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="matrix.html"><a href="matrix.html"><i class="fa fa-check"></i><b>2.5</b> 행렬(matrix)</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="matrix.html"><a href="matrix.html#matrix-operation"><i class="fa fa-check"></i><b>2.5.1</b> 행렬의 연산</a></li>
+<li class="chapter" data-level="2.5.2" data-path="matrix.html"><a href="matrix.html#mat-index"><i class="fa fa-check"></i><b>2.5.2</b> 행렬의 색인</a></li>
+<li class="chapter" data-level="2.5.3" data-path="matrix.html"><a href="matrix.html#행과-열-추가-및-제거"><i class="fa fa-check"></i><b>2.5.3</b> 행과 열 추가 및 제거</a></li>
+<li class="chapter" data-level="2.5.4" data-path="matrix.html"><a href="matrix.html#행렬-관련-함수"><i class="fa fa-check"></i><b>2.5.4</b> 행렬 관련 함수</a></li>
+<li class="chapter" data-level="2.5.5" data-path="matrix.html"><a href="matrix.html#vec-mat-diff"><i class="fa fa-check"></i><b>2.5.5</b> 벡터와 행렬의 차이점</a></li>
+<li class="chapter" data-level="2.5.6" data-path="matrix.html"><a href="matrix.html#mat-dim-reduc-sway"><i class="fa fa-check"></i><b>2.5.6</b> 의도치 않은 차원축소 피하기</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="array.html"><a href="array.html"><i class="fa fa-check"></i><b>2.6</b> 배열(array)</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="array.html"><a href="array.html#make-array"><i class="fa fa-check"></i><b>2.6.1</b> 배열의 생성 및 색인</a></li>
+<li class="chapter" data-level="2.6.2" data-path="array.html"><a href="array.html#rray-extend-example"><i class="fa fa-check"></i><b>2.6.2</b> 배열의 확장 예제</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="factor-table.html"><a href="factor-table.html"><i class="fa fa-check"></i><b>2.7</b> 요인(factor)과 테이블(table)</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="factor-table.html"><a href="factor-table.html#factor"><i class="fa fa-check"></i><b>2.7.1</b> 요인(factor)</a></li>
+<li class="chapter" data-level="2.7.2" data-path="factor-table.html"><a href="factor-table.html#table"><i class="fa fa-check"></i><b>2.7.2</b> 테이블(table)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>2.8</b> 데이터 프레임(data frame)</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="data-frame.html"><a href="data-frame.html#create-data-frame"><i class="fa fa-check"></i><b>2.8.1</b> 데이터 프레임 생성</a></li>
+<li class="chapter" data-level="2.8.2" data-path="data-frame.html"><a href="data-frame.html#data-frame-get"><i class="fa fa-check"></i><b>2.8.2</b> 데이터 프레임 접근 및 필터링</a></li>
+<li class="chapter" data-level="2.8.3" data-path="data-frame.html"><a href="data-frame.html#data-frame-function"><i class="fa fa-check"></i><b>2.8.3</b> 데이터 프레임 관련 함수</a></li>
+<li class="chapter" data-level="2.8.4" data-path="data-frame.html"><a href="data-frame.html#apply-related-fun"><i class="fa fa-check"></i><b>2.8.4</b> <code>*apply()</code> 계열 함수</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="is-as-function.html"><a href="is-as-function.html"><i class="fa fa-check"></i><b>2.9</b> 객체의 유형 판별 및 변환</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="string-regexp.html"><a href="string-regexp.html"><i class="fa fa-check"></i><b>3</b> 문자열 처리와 정규표현식</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html"><i class="fa fa-check"></i><b>3.1</b> 유용한 문자열 관련 함수</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#nchar"><i class="fa fa-check"></i><b>3.1.1</b> <strong><code>nchar()</code></strong></a></li>
+<li class="chapter" data-level="3.1.2" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#paste"><i class="fa fa-check"></i><b>3.1.2</b> <strong><code>paste()</code></strong>, <strong><code>paste0()</code></strong></a></li>
+<li class="chapter" data-level="3.1.3" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#sprintf"><i class="fa fa-check"></i><b>3.1.3</b> <strong><code>sprintf()</code></strong></a></li>
+<li class="chapter" data-level="3.1.4" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#substr"><i class="fa fa-check"></i><b>3.1.4</b> <strong><code>substr()</code></strong></a></li>
+<li class="chapter" data-level="3.1.5" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#low-up-fun"><i class="fa fa-check"></i><b>3.1.5</b> <strong><code>tolower()</code>, <code>toupper()</code></strong></a></li>
+<li class="chapter" data-level="3.1.6" data-path="유용한-문자열-관련-함수.html"><a href="유용한-문자열-관련-함수.html#glue-패키지를-활용한-문자열-다루기"><i class="fa fa-check"></i><b>3.1.6</b> glue 패키지를 활용한 문자열 다루기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html"><i class="fa fa-check"></i><b>3.2</b> 정규표현식 기본 함수</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#grep-grepl"><i class="fa fa-check"></i><b>3.2.1</b> <strong><code>grep()</code>, <code>grepl()</code></strong></a></li>
+<li class="chapter" data-level="3.2.2" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexpr-gregexpr"><i class="fa fa-check"></i><b>3.2.2</b> <strong><code>regexpr()</code></strong>, <strong><code>gregexpr()</code></strong></a></li>
+<li class="chapter" data-level="3.2.3" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#sub-gsub-fun"><i class="fa fa-check"></i><b>3.2.3</b> <strong><code>sub()</code></strong>, <strong><code>gsub()</code></strong></a></li>
+<li class="chapter" data-level="3.2.4" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#regexec-fun"><i class="fa fa-check"></i><b>3.2.4</b> <strong><code>regexec()</code></strong></a></li>
+<li class="chapter" data-level="3.2.5" data-path="regexp-basic-fun.html"><a href="regexp-basic-fun.html#strsplit"><i class="fa fa-check"></i><b>3.2.5</b> <strong><code>strsplit()</code></strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="reg-exp.html"><a href="reg-exp.html"><i class="fa fa-check"></i><b>3.3</b> 정규 표현식(regular expression)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="reg-exp.html"><a href="reg-exp.html#basic-meta"><i class="fa fa-check"></i><b>3.3.1</b> 기본 메타 문자</a></li>
+<li class="chapter" data-level="3.3.2" data-path="reg-exp.html"><a href="reg-exp.html#character-set"><i class="fa fa-check"></i><b>3.3.2</b> 문자 집합</a></li>
+<li class="chapter" data-level="3.3.3" data-path="reg-exp.html"><a href="reg-exp.html#character-class"><i class="fa fa-check"></i><b>3.3.3</b> 문자 클래스</a></li>
+<li class="chapter" data-level="3.3.4" data-path="reg-exp.html"><a href="reg-exp.html#regexp-ex"><i class="fa fa-check"></i><b>3.3.4</b> 정규 표현식 예시</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="r-수학-함수-분포-함수-모형식-표현.html"><a href="r-수학-함수-분포-함수-모형식-표현.html"><i class="fa fa-check"></i><b>4</b> R 수학 함수, 분포 함수, 모형식 표현</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="수학함수.html"><a href="수학함수.html"><i class="fa fa-check"></i><b>4.1</b> 수학함수</a></li>
+<li class="chapter" data-level="4.2" data-path="통계-분포-함수.html"><a href="통계-분포-함수.html"><i class="fa fa-check"></i><b>4.2</b> 통계 분포 함수</a></li>
+<li class="chapter" data-level="4.3" data-path="모형식-표현.html"><a href="모형식-표현.html"><i class="fa fa-check"></i><b>4.3</b> 모형식 표현</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="control-structure.html"><a href="control-structure.html"><i class="fa fa-check"></i><b>5</b> 제어문(Control Structure)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="condition.html"><a href="condition.html"><i class="fa fa-check"></i><b>5.1</b> 조건문(Conditionals)</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="condition.html"><a href="condition.html#if-basic"><i class="fa fa-check"></i><b>5.1.1</b> <strong>기본 구문</strong></a></li>
+<li><a href="condition.html#if-else"><strong>대안 실행(alternative execution)</strong></a></li>
+<li class="chapter" data-level="5.1.2" data-path="condition.html"><a href="condition.html#chain-cond"><i class="fa fa-check"></i><b>5.1.2</b> <strong>연쇄 조건문(chained condition)</strong></a></li>
+<li class="chapter" data-level="5.1.3" data-path="condition.html"><a href="condition.html#nest-cond"><i class="fa fa-check"></i><b>5.1.3</b> <strong>중첩 조건문(nested contition)</strong></a></li>
+<li class="chapter" data-level="5.1.4" data-path="condition.html"><a href="condition.html#ifelse-fun"><i class="fa fa-check"></i><b>5.1.4</b> <strong><code>ifelse()</code> 함수</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="looping.html"><a href="looping.html"><i class="fa fa-check"></i><b>5.2</b> 반복문(Looping)</a>
+<ul>
+<li class="chapter" data-level="" data-path="looping.html"><a href="looping.html#loop-pre"><i class="fa fa-check"></i>Prerequisite</a></li>
+<li class="chapter" data-level="5.2.1" data-path="looping.html"><a href="looping.html#repeat"><i class="fa fa-check"></i><b>5.2.1</b> <strong><code>repeat</code> 구문</strong></a></li>
+<li class="chapter" data-level="5.2.2" data-path="looping.html"><a href="looping.html#while"><i class="fa fa-check"></i><b>5.2.2</b> <strong><code>while</code> 구문</strong></a></li>
+<li class="chapter" data-level="5.2.3" data-path="looping.html"><a href="looping.html#for-구문"><i class="fa fa-check"></i><b>5.2.3</b> <strong><code>for</code> 구문</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="function.html"><a href="function.html"><i class="fa fa-check"></i><b>5.3</b> 함수 (function)</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="function.html"><a href="function.html#함수의-정의"><i class="fa fa-check"></i><b>5.3.1</b> 함수의 정의</a></li>
+<li class="chapter" data-level="5.3.2" data-path="function.html"><a href="function.html#함수의-인수-전달-방법"><i class="fa fa-check"></i><b>5.3.2</b> 함수의 인수 전달 방법</a></li>
+<li class="chapter" data-level="5.3.3" data-path="function.html"><a href="function.html#함수의-기본-구성-요소"><i class="fa fa-check"></i><b>5.3.3</b> 함수의 기본 구성 요소</a></li>
+<li class="chapter" data-level="5.3.4" data-path="function.html"><a href="function.html#함수의-적용-범위scoping-rule"><i class="fa fa-check"></i><b>5.3.4</b> 함수의 적용 범위(scoping rule)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="알고리즘의-기초.html"><a href="알고리즘의-기초.html"><i class="fa fa-check"></i><b>6</b> 알고리즘의 기초</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="알고리즘algorithm.html"><a href="알고리즘algorithm.html"><i class="fa fa-check"></i><b>6.1</b> 알고리즘(Algorithm)</a></li>
+<li class="chapter" data-level="6.2" data-path="재귀함수recursive-function.html"><a href="재귀함수recursive-function.html"><i class="fa fa-check"></i><b>6.2</b> 재귀함수(Recursive function)</a></li>
+<li class="chapter" data-level="6.3" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html"><i class="fa fa-check"></i><b>6.3</b> 선형/이진 탐색(Linear/Binary search)</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#선형-탐색linear-search"><i class="fa fa-check"></i><b>6.3.1</b> 선형 탐색(Linear Search)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#이진-탐색binary-search"><i class="fa fa-check"></i><b>6.3.2</b> 이진 탐색(Binary Search)</a></li>
+<li class="chapter" data-level="6.3.3" data-path="선형이진-탐색linearbinary-search.html"><a href="선형이진-탐색linearbinary-search.html#선형탐색과-이진탐색-비교"><i class="fa fa-check"></i><b>6.3.3</b> 선형탐색과 이진탐색 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html"><i class="fa fa-check"></i><b>6.4</b> 정렬 알고리즘(Sorting Algorithms)</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html#버블-정렬bubble-sort"><i class="fa fa-check"></i><b>6.4.1</b> 버블 정렬(Bubble Sort)</a></li>
+<li class="chapter" data-level="6.4.2" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html#삽입-정렬insertion-sort"><i class="fa fa-check"></i><b>6.4.2</b> 삽입 정렬(Insertion Sort)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html#병합-정렬merge-sort"><i class="fa fa-check"></i><b>6.4.3</b> 병합 정렬(Merge Sort)</a></li>
+<li class="chapter" data-level="6.4.4" data-path="정렬-알고리즘sorting-algorithms.html"><a href="정렬-알고리즘sorting-algorithms.html#퀵-정렬quick-sort"><i class="fa fa-check"></i><b>6.4.4</b> 퀵 정렬(Quick Sort)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html"><a href="뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html"><i class="fa fa-check"></i><b>6.5</b> 뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm)</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="Simulation.html"><a href="Simulation.html"><i class="fa fa-check"></i><b>7</b> 시뮬레이션</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="prerequisites-1.html"><a href="prerequisites-1.html"><i class="fa fa-check"></i><b>7.1</b> Prerequisites</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="prerequisites-1.html"><a href="prerequisites-1.html#확률과-확률변수"><i class="fa fa-check"></i><b>7.1.1</b> 확률과 확률변수</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="시뮬레이션모의실험의-의미.html"><a href="시뮬레이션모의실험의-의미.html"><i class="fa fa-check"></i><b>7.2</b> 시뮬레이션(모의실험)의 의미</a></li>
+<li class="chapter" data-level="7.3" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html"><i class="fa fa-check"></i><b>7.3</b> 몬테칼로 시뮬레이션</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#동전-던지기"><i class="fa fa-check"></i><b>7.3.1</b> 동전 던지기</a></li>
+<li class="chapter" data-level="7.3.2" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#주사위-던지기"><i class="fa fa-check"></i><b>7.3.2</b> 주사위 던지기</a></li>
+<li class="chapter" data-level="7.3.3" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#카드-생성기"><i class="fa fa-check"></i><b>7.3.3</b> 카드 생성기</a></li>
+<li class="chapter" data-level="7.3.4" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#동전-던지기-게임"><i class="fa fa-check"></i><b>7.3.4</b> 동전 던지기 게임</a></li>
+<li class="chapter" data-level="7.3.5" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#주사위-던지기-게임"><i class="fa fa-check"></i><b>7.3.5</b> 주사위 던지기 게임</a></li>
+<li class="chapter" data-level="7.3.6" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#카드-게임"><i class="fa fa-check"></i><b>7.3.6</b> 카드 게임</a></li>
+<li class="chapter" data-level="7.3.7" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#몬테칼로-적분법sample-mean-monte-carlo-integration"><i class="fa fa-check"></i><b>7.3.7</b> 몬테칼로 적분법(sample-mean Monte-carlo integration)</a></li>
+<li class="chapter" data-level="7.3.8" data-path="몬테칼로-시뮬레이션.html"><a href="몬테칼로-시뮬레이션.html#buffon의-바늘-실험"><i class="fa fa-check"></i><b>7.3.8</b> Buffon의 바늘 실험</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="시뮬레이션과-통계학.html"><a href="시뮬레이션과-통계학.html"><i class="fa fa-check"></i><b>7.4</b> 시뮬레이션과 통계학</a></li>
+</ul></li>
+<li class="part"><span><b>II 통계 패키지 활용(2021년 2학기)</b></span></li>
+<li class="chapter" data-level="" data-path="overview02.html"><a href="overview02.html"><i class="fa fa-check"></i>Course Overview: 통계패키지활용</a></li>
+<li class="chapter" data-level="8" data-path="r-외부-데이터-입출력.html"><a href="r-외부-데이터-입출력.html"><i class="fa fa-check"></i><b>8</b> R 외부 데이터 입출력</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="text-import-export.html"><a href="text-import-export.html"><i class="fa fa-check"></i><b>8.1</b> <strong>텍스트 파일 입출력</strong></a></li>
+<li class="chapter" data-level="8.2" data-path="binary-import-export.html"><a href="binary-import-export.html"><i class="fa fa-check"></i><b>8.2</b> R 바이너리(binary) 파일 입출력</a></li>
+<li class="chapter" data-level="8.3" data-path="import-export-excel.html"><a href="import-export-excel.html"><i class="fa fa-check"></i><b>8.3</b> Excel 파일 입출력</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="data-handling.html"><a href="data-handling.html"><i class="fa fa-check"></i><b>9</b> 데이터 핸들링(Data handling)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>9.1</b> Tidyverse</a></li>
+<li class="chapter" data-level="9.2" data-path="readr.html"><a href="readr.html"><i class="fa fa-check"></i><b>9.2</b> <code>readr</code> 패키지</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="readr.html"><a href="readr.html#tibble"><i class="fa fa-check"></i><b>9.2.1</b> tibble 패키지</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="dplyr.html"><a href="dplyr.html"><i class="fa fa-check"></i><b>9.3</b> <code>dplyr</code> 패키지</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="dplyr.html"><a href="dplyr.html#pipe-op"><i class="fa fa-check"></i><b>9.3.1</b> 파이프 연산자: <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="9.3.2" data-path="dplyr.html"><a href="dplyr.html#dplyr-filter"><i class="fa fa-check"></i><b>9.3.2</b> <code>filter()</code></a></li>
+<li class="chapter" data-level="9.3.3" data-path="dplyr.html"><a href="dplyr.html#arrange"><i class="fa fa-check"></i><b>9.3.3</b> <code id="dplyr-arrange">arrange()</code></a></li>
+<li class="chapter" data-level="9.3.4" data-path="dplyr.html"><a href="dplyr.html#dplyr-select"><i class="fa fa-check"></i><b>9.3.4</b> <code>select()</code></a></li>
+<li class="chapter" data-level="9.3.5" data-path="dplyr.html"><a href="dplyr.html#dplyr-mutate"><i class="fa fa-check"></i><b>9.3.5</b> <code>mutate()</code></a></li>
+<li class="chapter" data-level="9.3.6" data-path="dplyr.html"><a href="dplyr.html#dplyr-transmute"><i class="fa fa-check"></i><b>9.3.6</b> <code>transmute()</code></a></li>
+<li class="chapter" data-level="9.3.7" data-path="dplyr.html"><a href="dplyr.html#dplyr-summarise"><i class="fa fa-check"></i><b>9.3.7</b> <code>summarise()</code></a></li>
+<li class="chapter" data-level="9.3.8" data-path="dplyr.html"><a href="dplyr.html#dplyr-group_by"><i class="fa fa-check"></i><b>9.3.8</b> <code>group_by()</code></a></li>
+<li class="chapter" data-level="9.3.9" data-path="dplyr.html"><a href="dplyr.html#dplyr-application"><i class="fa fa-check"></i><b>9.3.9</b> dplyr 관련 유용한 함수</a></li>
+<li class="chapter" data-level="9.3.10" data-path="dplyr.html"><a href="dplyr.html#dplyr-verb-variant-adverb"><i class="fa fa-check"></i><b>9.3.10</b> 부가 기능</a></li>
+<li class="chapter" data-level="9.3.11" data-path="dplyr.html"><a href="dplyr.html#dplyr-join"><i class="fa fa-check"></i><b>9.3.11</b> 데이터 연결</a></li>
+<li class="chapter" data-level="9.3.12" data-path="dplyr.html"><a href="dplyr.html#ex-gapminder"><i class="fa fa-check"></i><b>9.3.12</b> 확장 예제: Gapminder</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>9.4</b> 데이터 변환</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="data-transformation.html"><a href="data-transformation.html#tidy-data"><i class="fa fa-check"></i><b>9.4.1</b> Tidy data</a></li>
+<li class="chapter" data-level="9.4.2" data-path="data-transformation.html"><a href="data-transformation.html#long-format"><i class="fa fa-check"></i><b>9.4.2</b> Long format</a></li>
+<li class="chapter" data-level="9.4.3" data-path="data-transformation.html"><a href="data-transformation.html#wider-format"><i class="fa fa-check"></i><b>9.4.3</b> Wide format</a></li>
+<li class="chapter" data-level="9.4.4" data-path="data-transformation.html"><a href="data-transformation.html#separate-unite"><i class="fa fa-check"></i><b>9.4.4</b> Separate and unite</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch-data-visualization.html"><a href="ch-data-visualization.html"><i class="fa fa-check"></i><b>10</b> 데이터 시각화</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="r-basic-graphics.html"><a href="r-basic-graphics.html"><i class="fa fa-check"></i><b>10.1</b> R 기본 그래프 함수</a></li>
+<li class="chapter" data-level="10.2" data-path="high-level-graph.html"><a href="high-level-graph.html"><i class="fa fa-check"></i><b>10.2</b> 고수준 그래프 함수</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="high-level-graph.html"><a href="high-level-graph.html#plot-fun"><i class="fa fa-check"></i><b>10.2.1</b> <strong><code>plot()</code> 함수</strong></a></li>
+<li class="chapter" data-level="10.2.2" data-path="high-level-graph.html"><a href="high-level-graph.html#main-high-level-graph"><i class="fa fa-check"></i><b>10.2.2</b> 주요 고수준 그래픽 함수</a></li>
+<li class="chapter" data-level="10.2.3" data-path="high-level-graph.html"><a href="high-level-graph.html#scatter-plot"><i class="fa fa-check"></i><b>10.2.3</b> 산점도</a></li>
+<li class="chapter" data-level="10.2.4" data-path="high-level-graph.html"><a href="high-level-graph.html#mat-plot"><i class="fa fa-check"></i><b>10.2.4</b> 행렬 그래프</a></li>
+<li class="chapter" data-level="10.2.5" data-path="high-level-graph.html"><a href="high-level-graph.html#histogram"><i class="fa fa-check"></i><b>10.2.5</b> 히스토그램</a></li>
+<li class="chapter" data-level="10.2.6" data-path="high-level-graph.html"><a href="high-level-graph.html#bar-plot"><i class="fa fa-check"></i><b>10.2.6</b> 막대 그래프</a></li>
+<li class="chapter" data-level="10.2.7" data-path="high-level-graph.html"><a href="high-level-graph.html#boxplot"><i class="fa fa-check"></i><b>10.2.7</b> 상자 그림</a></li>
+<li class="chapter" data-level="10.2.8" data-path="high-level-graph.html"><a href="high-level-graph.html#violin-plot"><i class="fa fa-check"></i><b>10.2.8</b> 바이올린 도표</a></li>
+<li class="chapter" data-level="10.2.9" data-path="high-level-graph.html"><a href="high-level-graph.html#mosaicplot"><i class="fa fa-check"></i><b>10.2.9</b> 모자이크 도표</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="low-level-graphic.html"><a href="low-level-graphic.html"><i class="fa fa-check"></i><b>10.3</b> 저수준 그래프 함수</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="low-level-graphic.html"><a href="low-level-graphic.html#par"><i class="fa fa-check"></i><b>10.3.1</b> par()</a></li>
+<li class="chapter" data-level="10.3.2" data-path="low-level-graphic.html"><a href="low-level-graphic.html#points"><i class="fa fa-check"></i><b>10.3.2</b> points()</a></li>
+<li class="chapter" data-level="10.3.3" data-path="low-level-graphic.html"><a href="low-level-graphic.html#lines"><i class="fa fa-check"></i><b>10.3.3</b> lines()</a></li>
+<li class="chapter" data-level="10.3.4" data-path="low-level-graphic.html"><a href="low-level-graphic.html#ablines"><i class="fa fa-check"></i><b>10.3.4</b> ablines()</a></li>
+<li class="chapter" data-level="10.3.5" data-path="low-level-graphic.html"><a href="low-level-graphic.html#arrows"><i class="fa fa-check"></i><b>10.3.5</b> arrows()</a></li>
+<li class="chapter" data-level="10.3.6" data-path="low-level-graphic.html"><a href="low-level-graphic.html#rect"><i class="fa fa-check"></i><b>10.3.6</b> rect()</a></li>
+<li class="chapter" data-level="10.3.7" data-path="low-level-graphic.html"><a href="low-level-graphic.html#polygon"><i class="fa fa-check"></i><b>10.3.7</b> polygon()</a></li>
+<li class="chapter" data-level="10.3.8" data-path="low-level-graphic.html"><a href="low-level-graphic.html#text"><i class="fa fa-check"></i><b>10.3.8</b> text(), mtext()</a></li>
+<li class="chapter" data-level="10.3.9" data-path="low-level-graphic.html"><a href="low-level-graphic.html#legend"><i class="fa fa-check"></i><b>10.3.9</b> legend()</a></li>
+<li class="chapter" data-level="10.3.10" data-path="low-level-graphic.html"><a href="low-level-graphic.html#math-expression"><i class="fa fa-check"></i><b>10.3.10</b> 수식 표현</a></li>
+<li class="chapter" data-level="10.3.11" data-path="low-level-graphic.html"><a href="low-level-graphic.html#r-기본-그래프-이미지-파일로-저장"><i class="fa fa-check"></i><b>10.3.11</b> R 기본 그래프 이미지 파일로 저장</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="ggplot2-package.html"><a href="ggplot2-package.html"><i class="fa fa-check"></i><b>10.4</b> ggplot2</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="ggplot2-package.html"><a href="ggplot2-package.html#basic-grammar"><i class="fa fa-check"></i><b>10.4.1</b> 기본 문법</a></li>
+<li class="chapter" data-level="10.4.2" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-lines"><i class="fa fa-check"></i><b>10.4.2</b> Geoms: 선 관련 geometric</a></li>
+<li class="chapter" data-level="10.4.3" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-points"><i class="fa fa-check"></i><b>10.4.3</b> Geoms: 점 geometrics</a></li>
+<li class="chapter" data-level="10.4.4" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-bars"><i class="fa fa-check"></i><b>10.4.4</b> Geoms: 막대 geometrics</a></li>
+<li class="chapter" data-level="10.4.5" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-intervals"><i class="fa fa-check"></i><b>10.4.5</b> Geom: 수직 범위선 관련 geometrics</a></li>
+<li class="chapter" data-level="10.4.6" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-texts"><i class="fa fa-check"></i><b>10.4.6</b> Geoms: 텍스트 관련 geometrics</a></li>
+<li class="chapter" data-level="10.4.7" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-areas"><i class="fa fa-check"></i><b>10.4.7</b> Geoms: 면적 관련 geometrics</a></li>
+<li class="chapter" data-level="10.4.8" data-path="ggplot2-package.html"><a href="ggplot2-package.html#geom-statistics"><i class="fa fa-check"></i><b>10.4.8</b> Geoms: 통계 그래프 관련 geometrics</a></li>
+<li class="chapter" data-level="10.4.9" data-path="ggplot2-package.html"><a href="ggplot2-package.html#scale-x-y"><i class="fa fa-check"></i><b>10.4.9</b> Scales: x-y 축 관련 aesthetic 조정</a></li>
+<li class="chapter" data-level="10.4.10" data-path="ggplot2-package.html"><a href="ggplot2-package.html#scale-colors-fill"><i class="fa fa-check"></i><b>10.4.10</b> Scales: 색상 관련 aesthetic 조정</a></li>
+<li class="chapter" data-level="10.4.11" data-path="ggplot2-package.html"><a href="ggplot2-package.html#scale-size-line-shape"><i class="fa fa-check"></i><b>10.4.11</b> Scales: 크기, 선 종류, 점 모양 aesthetic 조정</a></li>
+<li class="chapter" data-level="10.4.12" data-path="ggplot2-package.html"><a href="ggplot2-package.html#coordinate-systems"><i class="fa fa-check"></i><b>10.4.12</b> Coordinate systems</a></li>
+<li class="chapter" data-level="10.4.13" data-path="ggplot2-package.html"><a href="ggplot2-package.html#guides-x-y-축-및-그래프-제목-관련"><i class="fa fa-check"></i><b>10.4.13</b> Guides: x-y 축 및 그래프 제목 관련</a></li>
+<li class="chapter" data-level="10.4.14" data-path="ggplot2-package.html"><a href="ggplot2-package.html#facets-국소-시각화-기법"><i class="fa fa-check"></i><b>10.4.14</b> Facets: 국소 시각화 기법</a></li>
+<li class="chapter" data-level="10.4.15" data-path="ggplot2-package.html"><a href="ggplot2-package.html#themes"><i class="fa fa-check"></i><b>10.4.15</b> Themes</a></li>
+<li class="chapter" data-level="10.4.16" data-path="ggplot2-package.html"><a href="ggplot2-package.html#ggplot-application"><i class="fa fa-check"></i><b>10.4.16</b> 확장 예제</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="basic-stat-analysis.html"><a href="basic-stat-analysis.html"><i class="fa fa-check"></i><b>11</b> R을 활용한 기초통계 분석</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="qqplot.html"><a href="qqplot.html"><i class="fa fa-check"></i><b>11.1</b> Q-Q plot</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="qqplot.html"><a href="qqplot.html#quantile-def"><i class="fa fa-check"></i><b>11.1.1</b> 분위수(Quantile)</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="group-comp.html"><a href="group-comp.html"><i class="fa fa-check"></i><b>11.2</b> 연속형 변수의 비교</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="group-comp.html"><a href="group-comp.html#paired-t-test"><i class="fa fa-check"></i><b>11.2.1</b> 대응 표본 t 검정(paired samples t test)</a></li>
+<li class="chapter" data-level="11.2.2" data-path="group-comp.html"><a href="group-comp.html#독립-이표본-t-검정independent-two-sample-t-test"><i class="fa fa-check"></i><b>11.2.2</b> 독립 이표본 t 검정(independent two-sample t-test)</a></li>
+<li class="chapter" data-level="11.2.3" data-path="group-comp.html"><a href="group-comp.html#일원배치-분산분석oneway-analysis-of-variance"><i class="fa fa-check"></i><b>11.2.3</b> 일원배치 분산분석(oneway analysis of variance)</a></li>
+<li class="chapter" data-level="11.2.4" data-path="group-comp.html"><a href="group-comp.html#tidyverse-모형-정리-및-테이블-생성"><i class="fa fa-check"></i><b>11.2.4</b> tidyverse 모형 정리 및 테이블 생성</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>12</b> R Markdown</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="r-markdown의-구성.html"><a href="r-markdown의-구성.html"><i class="fa fa-check"></i><b>12.1</b> R Markdown의 구성</a></li>
+<li class="chapter" data-level="12.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html"><i class="fa fa-check"></i><b>12.2</b> R Markdown 기본 문법(syntax)</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#텍스트-문법"><i class="fa fa-check"></i><b>12.2.1</b> 텍스트 문법</a></li>
+<li class="chapter" data-level="12.2.2" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#block-level-elements"><i class="fa fa-check"></i><b>12.2.2</b> Block-level elements</a></li>
+<li class="chapter" data-level="12.2.3" data-path="r-markdown-기본-문법syntax.html"><a href="r-markdown-기본-문법syntax.html#수식표현math-expression"><i class="fa fa-check"></i><b>12.2.3</b> 수식표현(math expression)</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="r-code-chunks.html"><a href="r-code-chunks.html"><i class="fa fa-check"></i><b>12.3</b> R Code Chunks</a>
+<ul>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#code-chunk"><i class="fa fa-check"></i>자주 활용하는 chunk 옵션</a></li>
+<li class="chapter" data-level="" data-path="r-code-chunks.html"><a href="r-code-chunks.html#typical-chunk"><i class="fa fa-check"></i>알아두면 좋은 청크 형태</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="inline-code.html"><a href="inline-code.html"><i class="fa fa-check"></i><b>12.4</b> 인라인(inline) R 코드</a></li>
+<li class="chapter" data-level="12.5" data-path="yaml.html"><a href="yaml.html"><i class="fa fa-check"></i><b>12.5</b> YAML</a>
+<ul>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#basic-syntax"><i class="fa fa-check"></i>기본 문법</a></li>
+<li class="chapter" data-level="" data-path="yaml.html"><a href="yaml.html#rmarkdown-yaml-structure"><i class="fa fa-check"></i>R Markdown 기본 YAML 구조</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="rmarkdown-citation.html"><a href="rmarkdown-citation.html"><i class="fa fa-check"></i><b>12.6</b> 참고문헌 인용</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">통계 프로그래밍 언어</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="group-comp" class="section level2" number="11.2">
+<h2><span class="header-section-number">11.2</span> 연속형 변수의 비교</h2>
+
+<div class="rmdnote">
+<p>기초 통계학 또는 타 과목에서 학습한 독립 이표본 <span class="math inline">\(t\)</span> 검정이나 일원배치분산분석은 모두 선형모형의 특별한 케이스임. 두 방법 모두 연속형 변수를 반응변수로 놓고
+범주형 변수를 예측변수로 설정한 회귀모형으로 간주할 수 있음.</p>
+<ul>
+<li>독립 이표본 <span class="math inline">\(t\)</span> 검정</li>
+</ul>
+<p><span class="math display">\[
+  y_i = \beta_0 + \beta_1 x_i + \epsilon_i, ~~ \epsilon_i \sim \mathcal{N}(0, \sigma^2), ~~ x_i = \{0, 1\}
+\]</span></p>
+<ul>
+<li>일원배치분산분석(수준 <span class="math inline">\(k = 3\)</span>, 각 수준 별 반복 <span class="math inline">\(n = 2\)</span>)</li>
+</ul>
+<p><span class="math display">\[
+  \mathbf{y}_{6 \times 1} = \mathbf{X}_{6\times 4}\boldsymbol{\mathbf{\beta}}_{4\times 1} + \boldsymbol{\mathbf{\epsilon}}_{6\times 1}
+\]</span></p>
+<p><span class="math display">\[\mathbf{y}_{6 \times 1}  =
+\begin{bmatrix}
+y_{11} \\
+y_{21} \\
+y_{31} \\
+y_{41} \\
+y_{51} \\
+y_{61}
+\end{bmatrix}, ~~ \mathbf{X}_{6\times 4} =
+\begin{bmatrix}
+1 &amp; 1 &amp; 0 &amp; 0 \\
+1 &amp; 1 &amp; 0 &amp; 0 \\
+1 &amp; 0 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 0 &amp; 1 \\
+1 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}, ~~ \boldsymbol{\mathbf{\beta}}_{4\times 1} =
+\begin{bmatrix}
+\beta_0 \\
+\beta_1 \\
+\beta_2 \\
+\beta_3 \\
+\end{bmatrix}, ~~ \boldsymbol{\mathbf{\epsilon}}_{6\times 1}
+\begin{bmatrix}
+\epsilon_{11} \\
+\epsilon_{21} \\
+\epsilon_{31} \\
+\epsilon_{41} \\
+\epsilon_{51} \\
+\epsilon_{61}
+\end{bmatrix}
+\]</span></p>
+</div>
+<p></p>
+<p>일반적으로 우리가 분석을 위한 데이터는 두 가지 방법을 통해 획득</p>
+<ul>
+<li>관찰(observation): 반응변수(<span class="math inline">\(Y\)</span>) 및 예측변수(<span class="math inline">\(X\)</span>) 모두 관찰을 통해 획득
+<ul>
+<li>예: 표본조사(sample survey), 코호트 연구(cohort study), 단면연구(cross-sectional study) 등</li>
+</ul></li>
+<li>실험(experiment): 예측변수를 실험자가 결정하고 실험을 통해 반응변수를 관찰
+<ul>
+<li>실험을 진행하는 사람이 제어하는 예측변수를 <strong>요인(factor)</strong></li>
+<li>요인의 가능한 값을 <strong>수준(level)</strong></li>
+<li>요인의 수준에 따라 관찰하고자 하는 대상을 <strong>무작위</strong>로 할당</li>
+<li>예: 무작위 임상시험, 실험설계</li>
+</ul></li>
+</ul>
+<div id="paired-t-test" class="section level3" number="11.2.1">
+<h3><span class="header-section-number">11.2.1</span> 대응 표본 t 검정(paired samples t test)</h3>
+<div id="대응-표본paired-sample" class="section level4 unnumbered">
+<h4>대응 표본(paired sample)</h4>
+<p>동일한 대상자에 대해 쌍으로 이루어진 데이터</p>
+<ul>
+<li>새 교습방법에 대한 적용 전·후 수학 점수</li>
+<li>실험용 쥐에 실험약 투여 전·후 대사량</li>
+<li>다이어트 약 복용 전·후 체중</li>
+</ul>
+<p>데이터 형태: <span class="math inline">\(X \sim \mathcal{N}(\mu_X, \sigma^2_X)\)</span>이고 <span class="math inline">\(Y \sim \mathcal{N}(\mu_Y, \sigma^2_Y)\)</span></p>
+<p><span class="math display">\[\begin{align}
+x_1, x_2, \ldots, x_n &amp; &amp; \mathrm{before~treatment} \\
+y_1, y_2, \ldots, y_n &amp; &amp; \mathrm{after~treatment} \\
+\end{align}
+\]</span></p>
+<p>여기서 <span class="math inline">\(x_i\)</span>와 <span class="math inline">\(y_i\)</span>는 서로 독립이 아님 <span class="math inline">\(\rightarrow\)</span> 전·후 차이를 계산한 새로운 변수 <span class="math inline">\(d_i = y_i - x_i\)</span>를 생성 후 <span class="math inline">\(D = \{d_1, \ldots, d_n\}\)</span>에 대한
+일표본 <span class="math inline">\(t\)</span> 검정을 실시(<span class="math inline">\(D \sim \mathcal{N}(\mu_D, \sigma_D^2)\)</span>)</p>
+<p><span class="math display">\[
+\mu_D = \mu_Y - \mu_X, ~~\sigma^2_D = \sigma^2_X + \sigma^2_Y - 2\rho_{XY}\sigma_X\sigma_Y
+\]</span></p>
+<p>여기서 <span class="math inline">\(\rho_{XY}\)</span>는 <span class="math inline">\(X\)</span>와 <span class="math inline">\(Y\)</span>의 (피어슨) 상관계수임. 검정을 위한 귀무가설과 대립가설은 아래와 같음</p>
+<p><span class="math display">\[
+H_0: \mu_D = 0~~~\mathrm{vs.}~~~H_1:\mu_D \neq 0
+\]</span></p>
+<p>검정통계량</p>
+<p><span class="math display">\[
+t_0 = \frac{\hat{\mu}_D - 0}{\hat{\sigma}/\sqrt{n}} \sim t_{(\nu = n-1)}
+\]</span></p>
+<p>혈압강하제 임상시험 데이터(<code>DBP.txt</code>)에서 시험약 복용 전(<code>DBP1</code>) 대비 복용 1개월 후(<code>DBP2</code>) 이완기 혈압(diastolic blood pressure)의 차이 검정</p>
+<div class="sourceCode" id="cb2162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2162-1"><a href="group-comp.html#cb2162-1" aria-hidden="true" tabindex="-1"></a>DBP <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&quot;data/DBP.txt&quot;</span>, <span class="at">delim =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>Rows: 40 Columns: 9
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: &quot;\t&quot;
+chr (2): TRT, Sex
+dbl (7): Subject, DBP1, DBP2, DBP3, DBP4, DBP5, Age
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb2164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2164-1"><a href="group-comp.html#cb2164-1" aria-hidden="true" tabindex="-1"></a>DBP <span class="ot">&lt;-</span> DBP <span class="sc">%&gt;%</span> </span>
+<span id="cb2164-2"><a href="group-comp.html#cb2164-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">D1 =</span> DBP2 <span class="sc">-</span> DBP1)</span>
+<span id="cb2164-3"><a href="group-comp.html#cb2164-3" aria-hidden="true" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> DBP <span class="sc">%&gt;%</span> </span>
+<span id="cb2164-4"><a href="group-comp.html#cb2164-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TRT <span class="sc">==</span> <span class="st">&quot;A&quot;</span>)</span>
+<span id="cb2164-5"><a href="group-comp.html#cb2164-5" aria-hidden="true" tabindex="-1"></a>D1 <span class="ot">&lt;-</span> treatment<span class="sc">$</span>D1</span>
+<span id="cb2164-6"><a href="group-comp.html#cb2164-6" aria-hidden="true" tabindex="-1"></a>mD1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(D1)</span>
+<span id="cb2164-7"><a href="group-comp.html#cb2164-7" aria-hidden="true" tabindex="-1"></a>sD1 <span class="ot">&lt;-</span> <span class="fu">sd</span>(D1)</span>
+<span id="cb2164-8"><a href="group-comp.html#cb2164-8" aria-hidden="true" tabindex="-1"></a><span class="do">### check </span></span>
+<span id="cb2164-9"><a href="group-comp.html#cb2164-9" aria-hidden="true" tabindex="-1"></a><span class="co"># mb &lt;- mean(treatment$DBP1); ma &lt;- mean(treatment$DBP2)</span></span>
+<span id="cb2164-10"><a href="group-comp.html#cb2164-10" aria-hidden="true" tabindex="-1"></a><span class="co"># sD1_check &lt;- with(treatment, </span></span>
+<span id="cb2164-11"><a href="group-comp.html#cb2164-11" aria-hidden="true" tabindex="-1"></a><span class="co">#                   sqrt(var(DBP1) + var(DBP2) - </span></span>
+<span id="cb2164-12"><a href="group-comp.html#cb2164-12" aria-hidden="true" tabindex="-1"></a><span class="co">#                          2*cor(DBP1, DBP2)*sd(DBP1)*sd(DBP2)))</span></span>
+<span id="cb2164-13"><a href="group-comp.html#cb2164-13" aria-hidden="true" tabindex="-1"></a><span class="co"># mD1; ma - mb</span></span>
+<span id="cb2164-14"><a href="group-comp.html#cb2164-14" aria-hidden="true" tabindex="-1"></a><span class="co"># sD1; sD1_check</span></span>
+<span id="cb2164-15"><a href="group-comp.html#cb2164-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2164-16"><a href="group-comp.html#cb2164-16" aria-hidden="true" tabindex="-1"></a>tstat <span class="ot">&lt;-</span> mD1<span class="sc">/</span>(sD1<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(D1)))</span>
+<span id="cb2164-17"><a href="group-comp.html#cb2164-17" aria-hidden="true" tabindex="-1"></a>p.val <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>(<span class="fu">pt</span>(tstat, <span class="at">df =</span> <span class="fu">length</span>(D1) <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb2164-18"><a href="group-comp.html#cb2164-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2164-19"><a href="group-comp.html#cb2164-19" aria-hidden="true" tabindex="-1"></a><span class="do">## t.test() check</span></span>
+<span id="cb2164-20"><a href="group-comp.html#cb2164-20" aria-hidden="true" tabindex="-1"></a>tstat; <span class="fu">t.test</span>(D1)<span class="sc">$</span>statistic</span></code></pre></div>
+<pre><code>[1] -7.493656</code></pre>
+<pre><code>        t 
+-7.493656 </code></pre>
+<div class="sourceCode" id="cb2167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2167-1"><a href="group-comp.html#cb2167-1" aria-hidden="true" tabindex="-1"></a>p.val; <span class="fu">t.test</span>(D1)<span class="sc">$</span>p.value</span></code></pre></div>
+<pre><code>[1] 4.364575e-07</code></pre>
+<pre><code>[1] 4.364575e-07</code></pre>
+<p></p>
+
+<div class="rmdnote">
+<p>R에서 대응표본(일표본) 및 독립 이표본 <span class="math inline">\(t\)</span> 검정을 하기 위한 함수는 <code>t.test()</code>이고 아래와 같은 인수를 가짐</p>
+<ul>
+<li><code>x</code>: 검정을 할 데이터</li>
+<li><code>y</code>: 독립 이표본 검정 수행 시 두 번째 데이터
+<ul>
+<li>독립 이표본 t 검정 시 수식 형태 <code>y ~ x</code>로 표현 가능하며, 이 때 입력 데이터는 데이터 프레임 형태임</li>
+</ul></li>
+<li><code>alternative</code>: 대립가설 형태(양측 또는 단측: “two.sided”, “greater”, “less”)</li>
+<li><code>var.equal</code>: 논리값을 가지며 독립 이표본 t 검정 시 두 집단의 분산에 대한 가정(FALSE = 이분산, TRUE=등분산)</li>
+<li><code>conf.level</code>: 신뢰수준(default 값은 0.95)</li>
+</ul>
+<p>R은 다양한 가설검정 관련 함수를 제공하는데 검정 결과는 <code>htest</code>라는 클래스 개체에 저장함. <code>htest</code> 객체는 다음과 같은 출력결과를 가짐(검정함수에 따라 달라질 수 있음)</p>
+<ul>
+<li><code>statistic</code>: 검정 통계량</li>
+<li><code>parametmer</code>: 검정통계량 계산에 사용된 자유도(degree of freedom)</li>
+<li><code>p.value</code>: P 값</li>
+<li><code>conf.int</code>: 신뢰구간</li>
+<li><code>estimate</code>: 추정 평균 또는 평균 차이 (t 검정인 경우)</li>
+</ul>
+</div>
+<p></p>
+</div>
+</div>
+<div id="독립-이표본-t-검정independent-two-sample-t-test" class="section level3" number="11.2.2">
+<h3><span class="header-section-number">11.2.2</span> 독립 이표본 t 검정(independent two-sample t-test)</h3>
+<p>서로 독립인 두 모집단의 평균을 비교하기 위한 가장 기본적인 통계적 가설검정 방법으로 반응 변수 <span class="math inline">\(y_{ij}\)</span>는</p>
+<p><span class="math display">\[
+y_{ij} \sim \mathcal{N}(\mu_i, \sigma^2_i = \sigma^2)
+\]</span></p>
+<p>이고, <span class="math inline">\(i = 1, 2\)</span>, <span class="math inline">\(j = 1, \ldots, n_i\)</span>, <span class="math inline">\(n_i\)</span>는 <span class="math inline">\(i\)</span> 번째 집단의 표본 크기임.</p>
+<p>위 모형은 다음과 같은 가정을 내포함.</p>
+<ul>
+<li>두 집단의 관찰값은 <strong>정규분포</strong>를 따르며, 각 집단 간 평균은 서로 다름.</li>
+<li>각 관찰값은 <strong>서로 독립</strong></li>
+<li>두 집단의 <strong>분산은 동일</strong>: <span class="math inline">\(\sigma^2_1 = \sigma^2_2 = \sigma^2\)</span></li>
+</ul>
+<p>두 집단 간 평균 차이 검정에 대한 귀무가설과 대립가설은 아래와 같이 설정</p>
+<p><span class="math display">\[
+H_0: \mu_1 = \mu_2~~~\mathrm{vs.}~~~H_1: \mu_1 \neq \mu_2
+\]</span></p>
+<p>위 가설검정을 위한 검정 통계량</p>
+<p><span class="math display">\[
+t_0 = \frac{\hat{\mu}_1 - \hat{\mu}_2 - 0}{s_p\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim t_{\nu = n_1 + n_2 -2}
+\]</span></p>
+<p>여기서 <span class="math inline">\(\hat{\mu}_{1} = \sum_{j=1}^{n_1} y_{1j}/n_1\)</span>, <span class="math inline">\(\hat{\mu}_{2} = \sum_{j=1}^{n_2} y_{2j}/n_2\)</span>, 집단 1과 집단 2의 표본합동분산(sample pooled-variance)는
+아래와 같음</p>
+<p><span class="math display">\[
+\sigma_p^2 = \frac{(n_1 - 1)\hat{\sigma_1}^2 + (n_2 -1)\hat{\sigma}_2^2}{n_1 + n_2 - 2}, ~~~ \hat{\sigma}_i^2 = \frac{\sum_{j=1}^{n_i} (y_{ij} - \hat{\mu}_i)^2}{n_i - 1}
+\]</span></p>
+<ul>
+<li>예시: 월경통 데이터</li>
+</ul>
+
+<div class="rmdnote">
+<p>20대 월경통 환자와 대조군 간 요골동맥(손목) 맥파의 차이를 탐색하기 위한 임상연구에서 수집한 데이터의 일부이고, 해당 데이터는
+통계패키지활용 <a href="https://github.com/zorba78/stat-package-lecture/blob/master/data/dysmenorrhea.rds">Github 저장소</a>에서 다운로드 가능</p>
+</div>
+<p></p>
+<div class="sourceCode" id="cb2170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2170-1"><a href="group-comp.html#cb2170-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 독립 이표본 t-검정 함수 만들어 보기</span></span>
+<span id="cb2170-2"><a href="group-comp.html#cb2170-2" aria-hidden="true" tabindex="-1"></a>indep_t_test <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">y =</span> y, <span class="at">group =</span> group, </span>
+<span id="cb2170-3"><a href="group-comp.html#cb2170-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">conf.level =</span> <span class="fl">0.95</span>, </span>
+<span id="cb2170-4"><a href="group-comp.html#cb2170-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">na.rm =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb2170-5"><a href="group-comp.html#cb2170-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(y)) <span class="fu">stop</span>(<span class="st">&quot;y는 수치형 벡터만 가능합니다&quot;</span>)</span>
+<span id="cb2170-6"><a href="group-comp.html#cb2170-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(<span class="fu">unique</span>(group)) <span class="sc">!=</span> <span class="dv">2</span>) <span class="fu">stop</span>(<span class="st">&quot;수준의 수가 2가 아닙니다&quot;</span>)</span>
+<span id="cb2170-7"><a href="group-comp.html#cb2170-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.factor</span>(group)) group <span class="ot">&lt;-</span> <span class="fu">factor</span>(group)</span>
+<span id="cb2170-8"><a href="group-comp.html#cb2170-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2170-9"><a href="group-comp.html#cb2170-9" aria-hidden="true" tabindex="-1"></a>  nvec <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, group, <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))) </span>
+<span id="cb2170-10"><a href="group-comp.html#cb2170-10" aria-hidden="true" tabindex="-1"></a>  mvec <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, group, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 집단별 평균</span></span>
+<span id="cb2170-11"><a href="group-comp.html#cb2170-11" aria-hidden="true" tabindex="-1"></a>  vvec <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, group, var, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 집단별 분산</span></span>
+<span id="cb2170-12"><a href="group-comp.html#cb2170-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2170-13"><a href="group-comp.html#cb2170-13" aria-hidden="true" tabindex="-1"></a>  degf <span class="ot">&lt;-</span> <span class="fu">sum</span>(nvec) <span class="sc">-</span> <span class="dv">2</span> <span class="co"># 자유도</span></span>
+<span id="cb2170-14"><a href="group-comp.html#cb2170-14" aria-hidden="true" tabindex="-1"></a>  mean_diff <span class="ot">&lt;-</span> mvec[<span class="dv">1</span>] <span class="sc">-</span> mvec[<span class="dv">2</span>] <span class="co"># 평균 차이</span></span>
+<span id="cb2170-15"><a href="group-comp.html#cb2170-15" aria-hidden="true" tabindex="-1"></a>  pool_var <span class="ot">&lt;-</span> <span class="fu">sum</span>((nvec <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> vvec)<span class="sc">/</span>(<span class="fu">sum</span>(nvec) <span class="sc">-</span> <span class="dv">2</span>) <span class="co"># 합동분산</span></span>
+<span id="cb2170-16"><a href="group-comp.html#cb2170-16" aria-hidden="true" tabindex="-1"></a>  std_err <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(pool_var <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span>nvec)))</span>
+<span id="cb2170-17"><a href="group-comp.html#cb2170-17" aria-hidden="true" tabindex="-1"></a>  t_stat <span class="ot">&lt;-</span> mean_diff<span class="sc">/</span>std_err</span>
+<span id="cb2170-18"><a href="group-comp.html#cb2170-18" aria-hidden="true" tabindex="-1"></a>  pvalue <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(t_stat), <span class="at">df =</span> <span class="fu">sum</span>(nvec) <span class="sc">-</span> <span class="dv">2</span>)) <span class="co"># 양측검정</span></span>
+<span id="cb2170-19"><a href="group-comp.html#cb2170-19" aria-hidden="true" tabindex="-1"></a>  ucl <span class="ot">&lt;-</span> mean_diff <span class="sc">+</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> conf.level)<span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> degf) <span class="sc">*</span> std_err</span>
+<span id="cb2170-20"><a href="group-comp.html#cb2170-20" aria-hidden="true" tabindex="-1"></a>  lcl <span class="ot">&lt;-</span> mean_diff <span class="sc">-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> conf.level)<span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> degf) <span class="sc">*</span> std_err</span>
+<span id="cb2170-21"><a href="group-comp.html#cb2170-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2170-22"><a href="group-comp.html#cb2170-22" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb2170-23"><a href="group-comp.html#cb2170-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> t_stat, </span>
+<span id="cb2170-24"><a href="group-comp.html#cb2170-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">parameter =</span> degf, </span>
+<span id="cb2170-25"><a href="group-comp.html#cb2170-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">p.value =</span> pvalue, </span>
+<span id="cb2170-26"><a href="group-comp.html#cb2170-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">conf.int =</span> <span class="fu">c</span>(ucl, lcl), </span>
+<span id="cb2170-27"><a href="group-comp.html#cb2170-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimate =</span> mean_diff, </span>
+<span id="cb2170-28"><a href="group-comp.html#cb2170-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">stderr =</span> std_err</span>
+<span id="cb2170-29"><a href="group-comp.html#cb2170-29" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2170-30"><a href="group-comp.html#cb2170-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(out)</span>
+<span id="cb2170-31"><a href="group-comp.html#cb2170-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2170-32"><a href="group-comp.html#cb2170-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2170-33"><a href="group-comp.html#cb2170-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2170-34"><a href="group-comp.html#cb2170-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 불러오기</span></span>
+<span id="cb2170-35"><a href="group-comp.html#cb2170-35" aria-hidden="true" tabindex="-1"></a>dysmenorrhea <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">&quot;data/dysmenorrhea.rds&quot;</span>)</span>
+<span id="cb2170-36"><a href="group-comp.html#cb2170-36" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dysmenorrhea) <span class="sc">%&gt;%</span> </span>
+<span id="cb2170-37"><a href="group-comp.html#cb2170-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2170-38"><a href="group-comp.html#cb2170-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2170-39"><a href="group-comp.html#cb2170-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>, <span class="at">height =</span> <span class="st">&quot;200px&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; ">
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+id
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+pidyn
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+age
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+height
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+weight
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+bmi
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+sysbp
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+diabp
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+pulse
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+temp
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+mmpscr
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+pdi
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+Dysmenorrhea
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+170.2
+</td>
+<td style="text-align:right;">
+55.3
+</td>
+<td style="text-align:right;">
+19.09000
+</td>
+<td style="text-align:right;">
+116
+</td>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+36.9
+</td>
+<td style="text-align:right;">
+7.000000
+</td>
+<td style="text-align:right;">
+6.633891
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+Control
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+156.0
+</td>
+<td style="text-align:right;">
+48.7
+</td>
+<td style="text-align:right;">
+20.01151
+</td>
+<td style="text-align:right;">
+83
+</td>
+<td style="text-align:right;">
+53
+</td>
+<td style="text-align:right;">
+53
+</td>
+<td style="text-align:right;">
+36.6
+</td>
+<td style="text-align:right;">
+2.185714
+</td>
+<td style="text-align:right;">
+8.602493
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+Dysmenorrhea
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+168.0
+</td>
+<td style="text-align:right;">
+53.2
+</td>
+<td style="text-align:right;">
+18.84921
+</td>
+<td style="text-align:right;">
+120
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+36.6
+</td>
+<td style="text-align:right;">
+5.000000
+</td>
+<td style="text-align:right;">
+8.643624
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+Dysmenorrhea
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+153.0
+</td>
+<td style="text-align:right;">
+44.5
+</td>
+<td style="text-align:right;">
+19.00978
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+79
+</td>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+36.8
+</td>
+<td style="text-align:right;">
+6.685714
+</td>
+<td style="text-align:right;">
+9.321545
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+Dysmenorrhea
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+168.3
+</td>
+<td style="text-align:right;">
+57.0
+</td>
+<td style="text-align:right;">
+20.12364
+</td>
+<td style="text-align:right;">
+105
+</td>
+<td style="text-align:right;">
+77
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+36.1
+</td>
+<td style="text-align:right;">
+5.885714
+</td>
+<td style="text-align:right;">
+10.290806
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+Dysmenorrhea
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+159.1
+</td>
+<td style="text-align:right;">
+53.4
+</td>
+<td style="text-align:right;">
+21.09604
+</td>
+<td style="text-align:right;">
+97
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+61
+</td>
+<td style="text-align:right;">
+36.6
+</td>
+<td style="text-align:right;">
+6.757143
+</td>
+<td style="text-align:right;">
+8.282563
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p></p>
+<ul>
+<li>PDI(맥의 깊이)의 두 집단(월경통 vs. 대조군) 간 평균 차이 검정 <span class="math inline">\(\rightarrow\)</span> 독립 이표본 t-검정</li>
+</ul>
+<div class="sourceCode" id="cb2171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2171-1"><a href="group-comp.html#cb2171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># indep_t_test(), t.test(..., var.equal=TRUE), lm() 함수 비교</span></span>
+<span id="cb2171-2"><a href="group-comp.html#cb2171-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> dysmenorrhea<span class="sc">$</span>pdi</span>
+<span id="cb2171-3"><a href="group-comp.html#cb2171-3" aria-hidden="true" tabindex="-1"></a>grp <span class="ot">&lt;-</span> dysmenorrhea<span class="sc">$</span>pidyn</span>
+<span id="cb2171-4"><a href="group-comp.html#cb2171-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2171-5"><a href="group-comp.html#cb2171-5" aria-hidden="true" tabindex="-1"></a><span class="fu">indep_t_test</span>(<span class="at">y =</span> y, <span class="at">group =</span> grp)</span></code></pre></div>
+<pre><code>$statistic
+Control 
+2.68792 
+
+$parameter
+[1] 45
+
+$p.value
+   Control 
+0.01004294 
+
+$conf.int
+  Control   Control 
+1.9523625 0.2797803 
+
+$estimate
+ Control 
+1.116071 
+
+$stderr
+[1] 0.4152176</code></pre>
+<div class="sourceCode" id="cb2173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2173-1"><a href="group-comp.html#cb2173-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t.test() 함수 사용: 수식표현</span></span>
+<span id="cb2173-2"><a href="group-comp.html#cb2173-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(pdi <span class="sc">~</span> pidyn, <span class="at">data =</span> dysmenorrhea, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>
+    Two Sample t-test
+
+data:  pdi by pidyn
+t = 2.6879, df = 45, p-value = 0.01004
+alternative hypothesis: true difference in means between group Control and group Dysmenorrhea is not equal to 0
+95 percent confidence interval:
+ 0.2797803 1.9523625
+sample estimates:
+     mean in group Control mean in group Dysmenorrhea 
+                 10.414276                   9.298205 </code></pre>
+<div class="sourceCode" id="cb2175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2175-1"><a href="group-comp.html#cb2175-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t.test(y[grp == &quot;Control&quot;], y[grp == &quot;Dysmenorrhea&quot;], var.equal = TRUE) </span></span>
+<span id="cb2175-2"><a href="group-comp.html#cb2175-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 위 결과와 동일</span></span>
+<span id="cb2175-3"><a href="group-comp.html#cb2175-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2175-4"><a href="group-comp.html#cb2175-4" aria-hidden="true" tabindex="-1"></a><span class="co"># lm() 함수 사용</span></span>
+<span id="cb2175-5"><a href="group-comp.html#cb2175-5" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> grp)</span>
+<span id="cb2175-6"><a href="group-comp.html#cb2175-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m1)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = y ~ grp)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.3332 -0.8051 -0.1235  1.0716  2.2801 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      10.4143     0.2905  35.854   &lt;2e-16 ***
+grpDysmenorrhea  -1.1161     0.4152  -2.688     0.01 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 1.423 on 45 degrees of freedom
+Multiple R-squared:  0.1383,    Adjusted R-squared:  0.1192 
+F-statistic: 7.225 on 1 and 45 DF,  p-value: 0.01004</code></pre>
+<div class="sourceCode" id="cb2177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2177-1"><a href="group-comp.html#cb2177-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(pdi <span class="sc">~</span> pidyn, <span class="at">data =</span> dysmenorrhea) <span class="co"># m1과 동일</span></span>
+<span id="cb2177-2"><a href="group-comp.html#cb2177-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(y <span class="sc">~</span> grp, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;darkgray&quot;</span>, <span class="st">&quot;orange&quot;</span>))</span></code></pre></div>
+<p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-24-1.svg" width="672" /></p>
+<p></p>
+</div>
+<div id="일원배치-분산분석oneway-analysis-of-variance" class="section level3" number="11.2.3">
+<h3><span class="header-section-number">11.2.3</span> 일원배치 분산분석(oneway analysis of variance)</h3>
+<ul>
+<li>두 모집단의 평균을 비교하는 경우 <span class="math inline">\(t\)</span> 검정 사용</li>
+<li>3 개 이상 집단의 평균비교: 3개 집단 중 두 집단씩 짝을 지어 <span class="math inline">\(t\)</span> 검정을 실시하는 방법 <span class="math inline">\(\rightarrow\)</span> 총 3번(<span class="math inline">\(_3\mathrm{C}_2 = 6\)</span>)의 <span class="math inline">\(t\)</span> 검정 실시</li>
+</ul>
+<p><strong>위 기술 방법의 문제점</strong></p>
+<ul>
+<li>모든 통계적 가설검정은 1종 오류(type I error)를 포함하고 있음.</li>
+<li>유의수준이 0.05인 경우(<span class="math inline">\(\alpha = 0.05\)</span>), 통계적 검정 시 귀무가설을 지지할 확률은 95 %임.</li>
+<li>만약 3 번의 <span class="math inline">\(t\)</span> 검정을 수행했을 때, 모든 검정 시 귀무가설을 지지할 확률 = <span class="math inline">\((1 - 0.05)^3 = 0.8574\)</span></li>
+<li>즉 귀무가설이 참일 때 3 번의 검정 중 하나라도 차이를 보일 확률(대립가설을 지지할 확률) = 1 - 0.8754 = 0.1426 <span class="math inline">\(\rightarrow\)</span> 처음 설정한 유의수준보다 커짐</li>
+</ul>
+<div id="일원배치-분산분석의-개념" class="section level4 unnumbered">
+<h4>일원배치 분산분석의 개념</h4>
+<p>다음과 같이 확률변수가 주어졌을 때,</p>
+<p><strong>가정</strong></p>
+<ol style="list-style-type: decimal">
+<li>각 집단의 관찰값은 정규분포를 따른다</li>
+<li>각 집단의 분산은 동일하다</li>
+<li>오차항은 서로 독립이며, 평균이 0이고 분산이 <span class="math inline">\(\sigma^2\)</span>인 정규분포를 따른다.</li>
+</ol>
+<p><span class="math display">\[
+\begin{cases}
+Y_{11}, \cdots, Y_{1n_1} &amp; \stackrel{iid}{\sim} &amp; \mathcal{N}(\mu_1, \sigma^2) \\
+Y_{21}, \cdots, Y_{2n_2} &amp; \stackrel{iid}{\sim} &amp; \mathcal{N}(\mu_2, \sigma^2) \\
+&amp; \vdots &amp; \leftarrow \mathrm{independent} \\
+Y_{i1}, \cdots, Y_{in_i} &amp; \stackrel{iid}{\sim} &amp; \mathcal{N}(\mu_i, \sigma^2) \\
+\end{cases}, ~~~ i \geq 2
+\]</span></p>
+<p>아래와 같은 선형모형을 고려해보자.</p>
+<p><span class="math display">\[
+y_{ij} = \mu + \alpha_i + \epsilon_{ij}, ~~~ \epsilon_{ij} \stackrel{iid}{\sim} \mathcal{N}(0, \sigma^2)
+\]</span></p>
+<p>여기서 <span class="math inline">\(i = 1, \ldots, g\)</span>로 집단의 개수(요인의 수준 수)를 나타내며 <span class="math inline">\(j = 1, \ldots, n_i\)</span>로 집단(수준) <span class="math inline">\(i\)</span>의 관측수(표본 크기)를 나타내고, <span class="math inline">\(\alpha_i\)</span>는
+요인의 효과를 나타내고 아래와 같은 제약조건을 가짐.</p>
+<p><span class="math display">\[
+\sum_{i=1}^{g}\alpha_i = \sum_{i=1}^{g}(\mu_i - \mu) = 0
+\]</span></p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-25"></span>
+<img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-25-1.svg" alt="효과 $\alpha$에 대한 이해" width="768" />
+<p class="caption">
+Figure 5.6: 효과 <span class="math inline">\(\alpha\)</span>에 대한 이해
+</p>
+</div>
+<p></p>
+<p>위 모형에 대한 통계적 가설</p>
+<p><span class="math display">\[
+H_0: \mu_1 = \mu_2 = \cdots =\mu_g~~~\mathrm{vs.}~~~H_1: \mathrm{not}~H_0~(\mathrm{not~all}~\mu_i~\mathrm{are ~ equal})
+\]</span></p>
+<p><span class="math inline">\(H_0\)</span>가 참일 때 <span class="math inline">\(\mu_1 = \mu_2 = \cdots =\mu_g = \mu\)</span> 이므로, 위 통계적 가설을 <span class="math inline">\(\alpha_i\)</span>에 대해 다시 표현하면</p>
+<p><span class="math display">\[
+H_0: \alpha_1 = \alpha_2 = \cdots =\alpha_g = 0~~~\mathrm{vs.}~~~H_1: \mathrm{not}~H_0~(\mathrm{not~all}~\alpha_i~\mathrm{are ~ equal~ to~ 0})
+\]</span></p>
+<p>이러한 검정을 일원배치 분산분석(oneway analysis of variance, oneway ANOVA)라고 함.</p>
+<ul>
+<li>ANOVA는 요인의 수준에 기인한 변동(집단 간 변동, between group)과 각 개인 간 변동(집단 내 변동, within group)을 비교</li>
+<li>즉, 각 집단의 평균이 전체평균(grand mean)으로부터 얼마나 멀리 떨어졌는지와 집단 내 변동을 비교해 각 집단의 평균이 동일한지를 검정</li>
+<li>평균의 동질성을 확인하기 위해 평균의 변동성을 사용했기 때문에 분산분석이라는 이름을 가짐</li>
+</ul>
+</div>
+<div id="분산분석의-변동분해-과정" class="section level4 unnumbered">
+<h4>분산분석의 변동분해 과정</h4>
+<p>분산분석을 위해 필요한 기본 통계량</p>
+<ul>
+<li>각 집단의 평균</li>
+</ul>
+<p><span class="math display">\[
+\hat{\mu}_i = \bar{y}_{i.} = \frac{1}{n_i} \sum_{j = 1}^{n_i} y_{ij}
+\]</span></p>
+<ul>
+<li>전체 평균</li>
+</ul>
+<p><span class="math display">\[
+\hat{\mu} = \bar{y}_{..} = \frac{1}{N}\sum_{i = 1}^{g} \sum_{j = 1}^{n_i} y_{ij}, ~~ N=\sum_{i=1}^{g} n_i
+\]</span></p>
+<ul>
+<li>각 집단의 표본 분산</li>
+</ul>
+<p><span class="math display">\[
+\hat{\sigma}^2_i = s_i^2 = \frac{1}{n_i - 1} \sum_{i = 1}^{n_i} (y_{ij} - \bar{y}_{i.})^2
+\]</span></p>
+<p>위 통계량을 이용해 처음 고려한 선형 모형을 표현해 보면,</p>
+<p><span class="math display">\[
+y_{ij} = \bar{y}_{..} + (\bar{y}_{i.} - \bar{y}_{..}) + (y_{ij} - \bar{y}_{i.})
+\]</span></p>
+<ul>
+<li>귀무가설이 사실인 경우(<span class="math inline">\(\alpha_i = 0\)</span>), <span class="math inline">\(y_{ij} = \mu + \epsilon_{ij}\)</span> 일 것이고 <span class="math inline">\(\hat{\alpha}_i = \bar{y}_{i.} - \bar{y}_{..}\)</span>의 값은 0에 가깝게 나타날 것임</li>
+<li>위의 식을 다시 표현하면</li>
+</ul>
+<p><span class="math display">\[
+y_{ij} - \bar{y}_{..} =  (\bar{y}_{i.} - \bar{y}_{..}) + (y_{ij} - \bar{y}_{i.})
+\]</span></p>
+<p>이고,</p>
+<ul>
+<li><span class="math inline">\(y_{ij} - \bar{y}_{..}\)</span>: 각 관찰값에서 전체 평균을 뺀 값 <span class="math inline">\(\rightarrow\)</span> 전체 평균으로부터의 편차 <span class="math inline">\(\rightarrow\)</span> <strong>전체 편차(total deviation)</strong></li>
+<li><span class="math inline">\(\bar{y}_{i.} - \bar{y}_{..}\)</span>: 각 집단 평균에서 전체 평균을 뺀 값 <span class="math inline">\(\rightarrow\)</span> <strong>집단(처리효과) 편차(between group deviation)</strong></li>
+<li><span class="math inline">\(y_{ij} - \bar{y}_{i.}\)</span>: 각 관찰값에서 해당 관찰값에 대응한 집단 평균을 뺀 값 <span class="math inline">\(\rightarrow\)</span> <strong>집단내 편차(within group deviation)</strong></li>
+</ul>
+<p>즉 <strong>총 변동(편차)은 집단 간 변동(편차)과 집단 내 변동(편차)으로 분해 가능</strong>하고 제곱합으로 표현</p>
+<ul>
+<li>SST: total sum of squares (전체 편차 제곱합)</li>
+</ul>
+<p><span class="math display">\[
+SST = \sum_{i=1}^{g} \sum_{j=1}^{n_i} (y_{ij} - \bar{y}_{..})^2
+\]</span></p>
+<ul>
+<li>SSB: between group sum of squares (집단 간 편차 제곱합)</li>
+</ul>
+<p><span class="math display">\[
+SSB = \sum_{i=1}^{g} \sum_{j=1}^{n_i} (\bar{y}_{i.} - \bar{y}_{..})^2 = \sum_{i=1}^{g} n_i (\bar{y}_{i.} - \bar{y}_{..})^2
+\]</span></p>
+<ul>
+<li>SSW: within group sum of squares (집단 내 편차 제곱합)</li>
+</ul>
+<p><span class="math display">\[
+SSW = \sum_{i=1}^{g} \sum_{j=1}^{n_i} (y_{ij} - \bar{y}_{i.})^2 = \sum_{i=1}^{g} n_i s_i^2
+\]</span></p>
+<p>최종적으로 아래와 같은 표현이 가능함</p>
+<p><span class="math display">\[
+\sum_{i=1}^{g} \sum_{j=1}^{n_i} (y_{ij} - \bar{y}_{..})^2 ~(=SST) = \sum_{i=1}^{g} n_i (\bar{y}_{i.} - \bar{y}_{..})^2~(=SSB) + \sum_{i=1}^{g} n_i s_i^2~(=SSW)\\
+\]</span></p>
+</div>
+<div id="분산분석의-검정-원리" class="section level4 unnumbered">
+<h4>분산분석의 검정 원리</h4>
+<ul>
+<li>요인의 효과가 크다 <span class="math inline">\(\rightarrow\)</span> 집단 간 변동이 커짐 <span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(SSB\)</span>가 커짐 <span class="math inline">\(\rightarrow\)</span> 집단 간 평균 차이가 존재</li>
+<li>요인의 효과가 없다 <span class="math inline">\(\rightarrow\)</span> 집단 간 변동이 작음 <span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(SSB\)</span>가 작음 <span class="math inline">\(\rightarrow\)</span> 집단 간 평균 차이가 없음</li>
+</ul>
+<blockquote>
+<ul>
+<li>총변동(<span class="math inline">\(SST\)</span>) 중 집단 간 변동(<span class="math inline">\(SSB\)</span>)이 커지게 되면 <span class="math inline">\(SSW\)</span>는 작아지고 귀무가설을 기각할 가능성이 높아짐</li>
+<li><span class="math inline">\(SSW\)</span>와 <span class="math inline">\(SSB\)</span>의 비율을 검정 통계량으로 사용 <span class="math inline">\(\rightarrow\)</span> 제곱합의 비율 <span class="math inline">\(\rightarrow\)</span> 분산의 비율 <span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(F\)</span> 검정</li>
+</ul>
+</blockquote>
+<ul>
+<li>실제 분산분석은 제곱합을 대응하는 자유도로 나눈 평균제곱합을 기반으로 검정 실시</li>
+<li>각 제곱합의 자유도
+<ul>
+<li><span class="math inline">\(SST\)</span>: 총관측수 - 전체평균 = <span class="math inline">\(\sum_{i=1}^{g} n_i - 1 = N - 1\)</span></li>
+<li><span class="math inline">\(SSB\)</span>: 전체 수준(집단)의 수 - 전체 평균 = <span class="math inline">\(g - 1\)</span></li>
+<li><span class="math inline">\(SSW\)</span>: 각 집단마다 제곱합 계신 기준이 다름. 즉 첫 번째 집단의 첫 번째 관찰값 <span class="math inline">\(y_{11}\)</span> 의 편차 계산 시 <span class="math inline">\(\bar{y}_{1.}\)</span> 만 사용
+<ul>
+<li><span class="math inline">\((n_1 - 1) + (n_2 - 1) + \cdots + (n_g -1) = \sum_{i = 1}^{g}n_i - g = N - g\)</span></li>
+</ul></li>
+</ul></li>
+<li>검정에 기초가 되는 평균제곱
+<ul>
+<li><span class="math inline">\(MSB = SSB/(g - 1)\)</span>: 집단(요인 수준) 평균들의 분산</li>
+<li><span class="math inline">\(MSW = SSE/(N - g)\)</span>: 평균제곱오차(mean square error: MSW) <span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(\sigma^2\)</span>의 불편 추정량</li>
+</ul></li>
+<li><span class="math inline">\(H_0\)</span> 하에서 <span class="math inline">\(SSB/\sigma^2 \sim \chi^2_{\nu = g - 1}\)</span>, <span class="math inline">\(SSW/\sigma^2 \sim \chi^2_{\nu = N-g}\)</span> 이므로, 두 평균 변동의 비율은</li>
+</ul>
+<p><span class="math display">\[
+F_0 = \frac{(SSB/\sigma^2)/(g - 1)}{(SSW/\sigma^2)/(N-g)} = \frac{MSB}{MSW} \sim F_{\nu_1 = g - 1, \nu_2 = N - g}
+\]</span></p>
+<ul>
+<li>분산분석 표(ANOVA table)</li>
+</ul>
+<table>
+<colgroup>
+<col width="12%" />
+<col width="22%" />
+<col width="28%" />
+<col width="18%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Sum of Squares</th>
+<th>Degrees of Freedom</th>
+<th>Mean Square</th>
+<th><span class="math inline">\(F\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Between</td>
+<td>SSB</td>
+<td><span class="math inline">\(g - 1\)</span></td>
+<td>SSB / DFB</td>
+<td>MSB / MSW</td>
+</tr>
+<tr class="even">
+<td>Within</td>
+<td>SSW</td>
+<td><span class="math inline">\(N - g\)</span></td>
+<td>SSW / DFW</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>SST</td>
+<td><span class="math inline">\(N - 1\)</span></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>예제1: 분산분석 원리를 시뮬레이션을 통해 확인 (집단의 수 <span class="math inline">\(g = 3\)</span>, 각 집단 내 표본크기 <span class="math inline">\(n_1=n_2=n_3=20\)</span>)</li>
+</ul>
+<div class="sourceCode" id="cb2178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2178-1"><a href="group-comp.html#cb2178-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 함수 생성</span></span>
+<span id="cb2178-2"><a href="group-comp.html#cb2178-2" aria-hidden="true" tabindex="-1"></a>plot_anova_sim <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="co">#각 집단의 관찰값 개수</span></span>
+<span id="cb2178-3"><a href="group-comp.html#cb2178-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">g =</span> <span class="dv">3</span>, </span>
+<span id="cb2178-4"><a href="group-comp.html#cb2178-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">mvec =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), </span>
+<span id="cb2178-5"><a href="group-comp.html#cb2178-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">sigma =</span> <span class="dv">1</span>, </span>
+<span id="cb2178-6"><a href="group-comp.html#cb2178-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;dodgerblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;black&quot;</span>)) </span>
+<span id="cb2178-7"><a href="group-comp.html#cb2178-7" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2178-8"><a href="group-comp.html#cb2178-8" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n <span class="sc">*</span> g, <span class="at">mean =</span> mvec, <span class="at">sd =</span> sigma) <span class="co"># 주어진 인수로부터 관찰값 생성</span></span>
+<span id="cb2178-9"><a href="group-comp.html#cb2178-9" aria-hidden="true" tabindex="-1"></a>  group <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span>g], n)) <span class="co"># 요인의 수준(집단) 생성</span></span>
+<span id="cb2178-10"><a href="group-comp.html#cb2178-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2178-11"><a href="group-comp.html#cb2178-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 이론적 분포 도표 생성</span></span>
+<span id="cb2178-12"><a href="group-comp.html#cb2178-12" aria-hidden="true" tabindex="-1"></a>  xmin <span class="ot">&lt;-</span> <span class="fu">min</span>(mvec) <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> sigma <span class="co"># 이론적 분포의 최솟값: 도표 생성 시 사용</span></span>
+<span id="cb2178-13"><a href="group-comp.html#cb2178-13" aria-hidden="true" tabindex="-1"></a>  xmax <span class="ot">&lt;-</span> <span class="fu">max</span>(mvec) <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> sigma <span class="co"># 이론적 분포의 최댓값: 도표 생성 시 사용</span></span>
+<span id="cb2178-14"><a href="group-comp.html#cb2178-14" aria-hidden="true" tabindex="-1"></a>  dx <span class="ot">&lt;-</span> <span class="fu">seq</span>(xmin, xmax, <span class="at">length =</span> <span class="dv">500</span>) <span class="co"># 정규분포 밀도함수 x축 범위</span></span>
+<span id="cb2178-15"><a href="group-comp.html#cb2178-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2178-16"><a href="group-comp.html#cb2178-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="dv">0</span>, <span class="at">main =</span> <span class="st">&quot;Truth&quot;</span>, </span>
+<span id="cb2178-17"><a href="group-comp.html#cb2178-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlim =</span> <span class="fu">c</span>(xmin, xmax), </span>
+<span id="cb2178-18"><a href="group-comp.html#cb2178-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.4</span>), <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, </span>
+<span id="cb2178-19"><a href="group-comp.html#cb2178-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;observation&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;density&quot;</span>)</span>
+<span id="cb2178-20"><a href="group-comp.html#cb2178-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>g) {</span>
+<span id="cb2178-21"><a href="group-comp.html#cb2178-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(dx, <span class="fu">dnorm</span>(dx, <span class="at">mean =</span> mvec[i], <span class="at">sd =</span> sigma), </span>
+<span id="cb2178-22"><a href="group-comp.html#cb2178-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">col =</span> cols[i], </span>
+<span id="cb2178-23"><a href="group-comp.html#cb2178-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">lty =</span> i, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb2178-24"><a href="group-comp.html#cb2178-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rug</span>(y[group <span class="sc">==</span> <span class="fu">levels</span>(group)[i]], </span>
+<span id="cb2178-25"><a href="group-comp.html#cb2178-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> cols[i], <span class="at">ticksize =</span> <span class="fl">0.1</span>, <span class="at">lty =</span> i, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb2178-26"><a href="group-comp.html#cb2178-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2178-27"><a href="group-comp.html#cb2178-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2178-28"><a href="group-comp.html#cb2178-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxplot</span>(y <span class="sc">~</span> group, <span class="at">xlab =</span> <span class="st">&quot;group&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Observed Data&quot;</span>, </span>
+<span id="cb2178-29"><a href="group-comp.html#cb2178-29" aria-hidden="true" tabindex="-1"></a>          <span class="at">medcol =</span> <span class="st">&quot;white&quot;</span>, <span class="at">varwidth =</span> <span class="cn">FALSE</span>) </span>
+<span id="cb2178-30"><a href="group-comp.html#cb2178-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stripchart</span>(y <span class="sc">~</span> group, <span class="at">vertical =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb2178-31"><a href="group-comp.html#cb2178-31" aria-hidden="true" tabindex="-1"></a>             <span class="at">method =</span> <span class="st">&quot;jitter&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb2178-32"><a href="group-comp.html#cb2178-32" aria-hidden="true" tabindex="-1"></a>             <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">col  =</span> cols)</span>
+<span id="cb2178-33"><a href="group-comp.html#cb2178-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;darkgray&quot;</span>)</span>
+<span id="cb2178-34"><a href="group-comp.html#cb2178-34" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>g) {</span>
+<span id="cb2178-35"><a href="group-comp.html#cb2178-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">segments</span>(<span class="at">x0 =</span> i <span class="sc">-</span> <span class="fu">round</span>(<span class="dv">1</span><span class="sc">/</span>g, <span class="dv">1</span>), </span>
+<span id="cb2178-36"><a href="group-comp.html#cb2178-36" aria-hidden="true" tabindex="-1"></a>             <span class="at">x1 =</span> i <span class="sc">+</span> <span class="fu">round</span>(<span class="dv">1</span><span class="sc">/</span>g, <span class="dv">1</span>), </span>
+<span id="cb2178-37"><a href="group-comp.html#cb2178-37" aria-hidden="true" tabindex="-1"></a>             <span class="at">y0 =</span> <span class="fu">mean</span>(y[group <span class="sc">==</span> <span class="fu">levels</span>(group)[i]]), </span>
+<span id="cb2178-38"><a href="group-comp.html#cb2178-38" aria-hidden="true" tabindex="-1"></a>             <span class="at">y1 =</span> <span class="fu">mean</span>(y[group <span class="sc">==</span> <span class="fu">levels</span>(group)[i]]), </span>
+<span id="cb2178-39"><a href="group-comp.html#cb2178-39" aria-hidden="true" tabindex="-1"></a>             <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> cols[i], <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb2178-40"><a href="group-comp.html#cb2178-40" aria-hidden="true" tabindex="-1"></a>  } <span class="co"># 집단 별 평균선 표시</span></span>
+<span id="cb2178-41"><a href="group-comp.html#cb2178-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2178-42"><a href="group-comp.html#cb2178-42" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 일원배치 분산분석</span></span>
+<span id="cb2178-43"><a href="group-comp.html#cb2178-43" aria-hidden="true" tabindex="-1"></a>  grand_mean_obs <span class="ot">&lt;-</span> <span class="fu">mean</span>(y) <span class="co"># 전체평균</span></span>
+<span id="cb2178-44"><a href="group-comp.html#cb2178-44" aria-hidden="true" tabindex="-1"></a>  group_mean_obs <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, group, mean) <span class="co"># 집단 평균</span></span>
+<span id="cb2178-45"><a href="group-comp.html#cb2178-45" aria-hidden="true" tabindex="-1"></a>  sst <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> grand_mean_obs)<span class="sc">^</span><span class="dv">2</span>) </span>
+<span id="cb2178-46"><a href="group-comp.html#cb2178-46" aria-hidden="true" tabindex="-1"></a>  ssw <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, g)</span>
+<span id="cb2178-47"><a href="group-comp.html#cb2178-47" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>g) {</span>
+<span id="cb2178-48"><a href="group-comp.html#cb2178-48" aria-hidden="true" tabindex="-1"></a>    ssw[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>((y[group <span class="sc">==</span> <span class="fu">levels</span>(group)[i]] <span class="sc">-</span> group_mean_obs[i])<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb2178-49"><a href="group-comp.html#cb2178-49" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2178-50"><a href="group-comp.html#cb2178-50" aria-hidden="true" tabindex="-1"></a>  ssw <span class="ot">&lt;-</span> <span class="fu">sum</span>(ssw)</span>
+<span id="cb2178-51"><a href="group-comp.html#cb2178-51" aria-hidden="true" tabindex="-1"></a>  ssb <span class="ot">&lt;-</span> sst <span class="sc">-</span> ssw</span>
+<span id="cb2178-52"><a href="group-comp.html#cb2178-52" aria-hidden="true" tabindex="-1"></a>  msb <span class="ot">&lt;-</span> ssb<span class="sc">/</span>(g <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb2178-53"><a href="group-comp.html#cb2178-53" aria-hidden="true" tabindex="-1"></a>  msw <span class="ot">&lt;-</span> ssw<span class="sc">/</span>(<span class="fu">length</span>(y) <span class="sc">-</span> g)</span>
+<span id="cb2178-54"><a href="group-comp.html#cb2178-54" aria-hidden="true" tabindex="-1"></a>  Fval <span class="ot">&lt;-</span> msb<span class="sc">/</span>msw</span>
+<span id="cb2178-55"><a href="group-comp.html#cb2178-55" aria-hidden="true" tabindex="-1"></a>  pval <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(Fval, g <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">length</span>(y) <span class="sc">-</span> g)</span>
+<span id="cb2178-56"><a href="group-comp.html#cb2178-56" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2178-57"><a href="group-comp.html#cb2178-57" aria-hidden="true" tabindex="-1"></a>  test_result <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2178-58"><a href="group-comp.html#cb2178-58" aria-hidden="true" tabindex="-1"></a>   <span class="at">Source =</span> <span class="fu">c</span>(<span class="st">&quot;Between&quot;</span>, <span class="st">&quot;Within&quot;</span>, <span class="st">&quot;Total&quot;</span>), </span>
+<span id="cb2178-59"><a href="group-comp.html#cb2178-59" aria-hidden="true" tabindex="-1"></a>   <span class="at">SS =</span> <span class="fu">c</span>(ssb, ssw, sst), </span>
+<span id="cb2178-60"><a href="group-comp.html#cb2178-60" aria-hidden="true" tabindex="-1"></a>   <span class="at">degf =</span> <span class="fu">c</span>(g <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">length</span>(y) <span class="sc">-</span> g, <span class="fu">length</span>(y) <span class="sc">-</span> <span class="dv">1</span>), </span>
+<span id="cb2178-61"><a href="group-comp.html#cb2178-61" aria-hidden="true" tabindex="-1"></a>   <span class="at">MS =</span> <span class="fu">c</span>(msb, msw, <span class="cn">NA</span>), </span>
+<span id="cb2178-62"><a href="group-comp.html#cb2178-62" aria-hidden="true" tabindex="-1"></a>   <span class="at">F.value =</span> <span class="fu">c</span>(Fval, <span class="cn">NA</span>, <span class="cn">NA</span>), </span>
+<span id="cb2178-63"><a href="group-comp.html#cb2178-63" aria-hidden="true" tabindex="-1"></a>   <span class="at">p.value =</span> <span class="fu">c</span>(pval, <span class="cn">NA</span>, <span class="cn">NA</span>)</span>
+<span id="cb2178-64"><a href="group-comp.html#cb2178-64" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2178-65"><a href="group-comp.html#cb2178-65" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">y =</span> y, <span class="at">group =</span> group, </span>
+<span id="cb2178-66"><a href="group-comp.html#cb2178-66" aria-hidden="true" tabindex="-1"></a>              <span class="at">result =</span> test_result)</span>
+<span id="cb2178-67"><a href="group-comp.html#cb2178-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(out)</span>
+<span id="cb2178-68"><a href="group-comp.html#cb2178-68" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p></p>
+<ul>
+<li>Case 1: 집단 간 평균 차이가 존재하지 않는 경우 (<span class="math inline">\(\mu_1 = \mu_2 = \mu_3 = 0, \sigma^2 = 1\)</span>)</li>
+</ul>
+<div class="sourceCode" id="cb2179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2179-1"><a href="group-comp.html#cb2179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2179-2"><a href="group-comp.html#cb2179-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2179-3"><a href="group-comp.html#cb2179-3" aria-hidden="true" tabindex="-1"></a>out1 <span class="ot">&lt;-</span> <span class="fu">plot_anova_sim</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">g =</span> <span class="dv">3</span>, <span class="at">mvec =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">sigma =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-27-1.svg" width="960" /></p>
+<div class="sourceCode" id="cb2180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2180-1"><a href="group-comp.html#cb2180-1" aria-hidden="true" tabindex="-1"></a>out1<span class="sc">$</span>result <span class="sc">%&gt;%</span> </span>
+<span id="cb2180-2"><a href="group-comp.html#cb2180-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;ANOVA table ($</span><span class="sc">\\</span><span class="st">mu_1 = </span><span class="sc">\\</span><span class="st">mu_2 = </span><span class="sc">\\</span><span class="st">mu_3 = 0, </span><span class="sc">\\</span><span class="st">sigma^2 = 1$)&quot;</span>, </span>
+<span id="cb2180-3"><a href="group-comp.html#cb2180-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="co"># kableExtra 패키지 사용방법 참고</span></span>
+<span id="cb2180-4"><a href="group-comp.html#cb2180-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-27">Table 11.1: </span>ANOVA table (<span class="math inline">\(\mu_1 = \mu_2 = \mu_3 = 0, \sigma^2 = 1\)</span>)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Source
+</th>
+<th style="text-align:right;">
+SS
+</th>
+<th style="text-align:right;">
+degf
+</th>
+<th style="text-align:right;">
+MS
+</th>
+<th style="text-align:right;">
+F.value
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Between
+</td>
+<td style="text-align:right;">
+0.3568695
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.1784348
+</td>
+<td style="text-align:right;">
+0.2095279
+</td>
+<td style="text-align:right;">
+0.8115888
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Within
+</td>
+<td style="text-align:right;">
+48.5414289
+</td>
+<td style="text-align:right;">
+57
+</td>
+<td style="text-align:right;">
+0.8516040
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+48.8982984
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb2181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2181-1"><a href="group-comp.html#cb2181-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check</span></span>
+<span id="cb2181-2"><a href="group-comp.html#cb2181-2" aria-hidden="true" tabindex="-1"></a><span class="co"># anova(with(out1, lm(y ~ group)))</span></span></code></pre></div>
+<p></p>
+<ul>
+<li>Case 2: 집단 간 평균 차이가 뚜렷한 경우 (<span class="math inline">\(\mu_1 = -5, \mu_2 = 0, \mu_3 = 5, \sigma^2 = 1\)</span>)</li>
+</ul>
+<div class="sourceCode" id="cb2182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2182-1"><a href="group-comp.html#cb2182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2182-2"><a href="group-comp.html#cb2182-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2182-3"><a href="group-comp.html#cb2182-3" aria-hidden="true" tabindex="-1"></a>out2 <span class="ot">&lt;-</span> <span class="fu">plot_anova_sim</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">g =</span> <span class="dv">3</span>, <span class="at">mvec =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">5</span>), <span class="at">sigma =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-28-1.svg" width="960" /></p>
+<div class="sourceCode" id="cb2183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2183-1"><a href="group-comp.html#cb2183-1" aria-hidden="true" tabindex="-1"></a>out2<span class="sc">$</span>result <span class="sc">%&gt;%</span> </span>
+<span id="cb2183-2"><a href="group-comp.html#cb2183-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;ANOVA table ($</span><span class="sc">\\</span><span class="st">mu_1 = -5, </span><span class="sc">\\</span><span class="st">mu_2 = 0, </span><span class="sc">\\</span><span class="st">mu_3 = 5, </span><span class="sc">\\</span><span class="st">sigma^2 = 1$)&quot;</span>, </span>
+<span id="cb2183-3"><a href="group-comp.html#cb2183-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="co"># kableExtra 패키지 사용방법 참고</span></span>
+<span id="cb2183-4"><a href="group-comp.html#cb2183-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-28">Table 11.2: </span>ANOVA table (<span class="math inline">\(\mu_1 = -5, \mu_2 = 0, \mu_3 = 5, \sigma^2 = 1\)</span>)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Source
+</th>
+<th style="text-align:right;">
+SS
+</th>
+<th style="text-align:right;">
+degf
+</th>
+<th style="text-align:right;">
+MS
+</th>
+<th style="text-align:right;">
+F.value
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Between
+</td>
+<td style="text-align:right;">
+1009.30665
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+504.653326
+</td>
+<td style="text-align:right;">
+592.5915
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Within
+</td>
+<td style="text-align:right;">
+48.54143
+</td>
+<td style="text-align:right;">
+57
+</td>
+<td style="text-align:right;">
+0.851604
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+1057.84808
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<ul>
+<li>Case 3-a: 집단 간 평균 차이가 존재 (<span class="math inline">\(\mu_1 = -1, \mu_2 = 0, \mu_3 = 1, \sigma^2 = 1\)</span>)</li>
+</ul>
+<div class="sourceCode" id="cb2184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2184-1"><a href="group-comp.html#cb2184-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2184-2"><a href="group-comp.html#cb2184-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2184-3"><a href="group-comp.html#cb2184-3" aria-hidden="true" tabindex="-1"></a>out3 <span class="ot">&lt;-</span> <span class="fu">plot_anova_sim</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">g =</span> <span class="dv">3</span>, <span class="at">mvec =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">sigma =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-29-1.svg" width="960" /></p>
+<div class="sourceCode" id="cb2185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2185-1"><a href="group-comp.html#cb2185-1" aria-hidden="true" tabindex="-1"></a>out3<span class="sc">$</span>result <span class="sc">%&gt;%</span> </span>
+<span id="cb2185-2"><a href="group-comp.html#cb2185-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;ANOVA table ($</span><span class="sc">\\</span><span class="st">mu_1 = -1, </span><span class="sc">\\</span><span class="st">mu_2 = 0, </span><span class="sc">\\</span><span class="st">mu_3 = 1, </span><span class="sc">\\</span><span class="st">sigma^2 = 1$)&quot;</span>, </span>
+<span id="cb2185-3"><a href="group-comp.html#cb2185-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="co"># kableExtra 패키지 사용방법 참고</span></span>
+<span id="cb2185-4"><a href="group-comp.html#cb2185-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-29">Table 11.3: </span>ANOVA table (<span class="math inline">\(\mu_1 = -1, \mu_2 = 0, \mu_3 = 1, \sigma^2 = 1\)</span>)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Source
+</th>
+<th style="text-align:right;">
+SS
+</th>
+<th style="text-align:right;">
+degf
+</th>
+<th style="text-align:right;">
+MS
+</th>
+<th style="text-align:right;">
+F.value
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Between
+</td>
+<td style="text-align:right;">
+42.14683
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+21.073413
+</td>
+<td style="text-align:right;">
+24.74555
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Within
+</td>
+<td style="text-align:right;">
+48.54143
+</td>
+<td style="text-align:right;">
+57
+</td>
+<td style="text-align:right;">
+0.851604
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+90.68825
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<ul>
+<li>Case 3-b: 집단 간 평균 차이가 존재 (<span class="math inline">\(\mu_1 = -1, \mu_2 = 0, \mu_3 = 1, \sigma^2 = 3\)</span>)</li>
+</ul>
+<div class="sourceCode" id="cb2186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2186-1"><a href="group-comp.html#cb2186-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2186-2"><a href="group-comp.html#cb2186-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2186-3"><a href="group-comp.html#cb2186-3" aria-hidden="true" tabindex="-1"></a>out4 <span class="ot">&lt;-</span> <span class="fu">plot_anova_sim</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">g =</span> <span class="dv">3</span>, <span class="at">mvec =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">sigma =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-30-1.svg" width="960" /></p>
+<div class="sourceCode" id="cb2187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2187-1"><a href="group-comp.html#cb2187-1" aria-hidden="true" tabindex="-1"></a>out4<span class="sc">$</span>result <span class="sc">%&gt;%</span> </span>
+<span id="cb2187-2"><a href="group-comp.html#cb2187-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;ANOVA table ($</span><span class="sc">\\</span><span class="st">mu_1 = -1, </span><span class="sc">\\</span><span class="st">mu_2 = 0, </span><span class="sc">\\</span><span class="st">mu_3 = 1, </span><span class="sc">\\</span><span class="st">sigma^2 = 3$)&quot;</span>, </span>
+<span id="cb2187-3"><a href="group-comp.html#cb2187-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="co"># kableExtra 패키지 사용방법 참고</span></span>
+<span id="cb2187-4"><a href="group-comp.html#cb2187-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-30">Table 11.4: </span>ANOVA table (<span class="math inline">\(\mu_1 = -1, \mu_2 = 0, \mu_3 = 1, \sigma^2 = 3\)</span>)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Source
+</th>
+<th style="text-align:right;">
+SS
+</th>
+<th style="text-align:right;">
+degf
+</th>
+<th style="text-align:right;">
+MS
+</th>
+<th style="text-align:right;">
+F.value
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Between
+</td>
+<td style="text-align:right;">
+48.5817
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+24.290848
+</td>
+<td style="text-align:right;">
+3.169294
+</td>
+<td style="text-align:right;">
+0.0495319
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Within
+</td>
+<td style="text-align:right;">
+436.8729
+</td>
+<td style="text-align:right;">
+57
+</td>
+<td style="text-align:right;">
+7.664436
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+485.4546
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<ul>
+<li>예제2: <code>faraway</code> 패키지 내 <code>coagulation</code> 데이터셋
+<ul>
+<li>24 마리 쥐를 무작위로 4 가지 종류의 먹이(A, B, C, D)를 주고 혈액 응고 시간 측정</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2188-1"><a href="group-comp.html#cb2188-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 테이블 생성</span></span>
+<span id="cb2188-2"><a href="group-comp.html#cb2188-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;faraway&quot;)</span></span>
+<span id="cb2188-3"><a href="group-comp.html#cb2188-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(faraway)</span>
+<span id="cb2188-4"><a href="group-comp.html#cb2188-4" aria-hidden="true" tabindex="-1"></a>coagulation <span class="sc">%&gt;%</span> </span>
+<span id="cb2188-5"><a href="group-comp.html#cb2188-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rowname =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2188-6"><a href="group-comp.html#cb2188-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb2188-7"><a href="group-comp.html#cb2188-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> <span class="st">&quot;diet&quot;</span>, </span>
+<span id="cb2188-8"><a href="group-comp.html#cb2188-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> coag</span>
+<span id="cb2188-9"><a href="group-comp.html#cb2188-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb2188-10"><a href="group-comp.html#cb2188-10" aria-hidden="true" tabindex="-1"></a>  kbl <span class="sc">%&gt;%</span> </span>
+<span id="cb2188-11"><a href="group-comp.html#cb2188-11" aria-hidden="true" tabindex="-1"></a>  kable_paper</span></code></pre></div>
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+rowname
+</th>
+<th style="text-align:right;">
+A
+</th>
+<th style="text-align:right;">
+B
+</th>
+<th style="text-align:right;">
+C
+</th>
+<th style="text-align:right;">
+D
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+62
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+56
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+62
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+60
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+61
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+63
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+64
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+63
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+59
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<ul>
+<li>데이터 탐색</li>
+</ul>
+<div class="sourceCode" id="cb2189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2189-1"><a href="group-comp.html#cb2189-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation)</span>
+<span id="cb2189-2"><a href="group-comp.html#cb2189-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation, </span>
+<span id="cb2189-3"><a href="group-comp.html#cb2189-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">vertical =</span> <span class="cn">TRUE</span>, <span class="at">method =</span> <span class="st">&quot;jitter&quot;</span>, </span>
+<span id="cb2189-4"><a href="group-comp.html#cb2189-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-32-1.svg" width="864" /></p>
+<p></p>
+<ul>
+<li>일원배치 분산분석</li>
+</ul>
+<div class="sourceCode" id="cb2190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2190-1"><a href="group-comp.html#cb2190-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;car&quot;)</span></span>
+<span id="cb2190-2"><a href="group-comp.html#cb2190-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(car)</span>
+<span id="cb2190-3"><a href="group-comp.html#cb2190-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(tidymodels)</span>
+<span id="cb2190-4"><a href="group-comp.html#cb2190-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 등분산 검정: Fligner-Kileen&#39;s test</span></span>
+<span id="cb2190-5"><a href="group-comp.html#cb2190-5" aria-hidden="true" tabindex="-1"></a><span class="fu">fligner.test</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation)</span></code></pre></div>
+<pre><code>
+    Fligner-Killeen test of homogeneity of variances
+
+data:  coag by diet
+Fligner-Killeen:med chi-squared = 1.5559, df = 3, p-value = 0.6694</code></pre>
+<div class="sourceCode" id="cb2192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2192-1"><a href="group-comp.html#cb2192-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 등분산 검정: Levene&#39;s test (SPSS)</span></span>
+<span id="cb2192-2"><a href="group-comp.html#cb2192-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">leveneTest</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Df"],"name":[1],"type":["int"],"align":["right"]},{"label":["F value"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Pr(>F)"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"3","2":"0.6491885","3":"0.5926459","_rn_":"group"},{"1":"20","2":"NA","3":"NA","_rn_":""}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb2193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2193-1"><a href="group-comp.html#cb2193-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 정규성 검정: shapiro-wilk&#39;s test</span></span>
+<span id="cb2193-2"><a href="group-comp.html#cb2193-2" aria-hidden="true" tabindex="-1"></a>coagulation <span class="sc">%&gt;%</span> </span>
+<span id="cb2193-3"><a href="group-comp.html#cb2193-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(diet) <span class="sc">%&gt;%</span> </span>
+<span id="cb2193-4"><a href="group-comp.html#cb2193-4" aria-hidden="true" tabindex="-1"></a>  nest <span class="sc">%&gt;%</span> </span>
+<span id="cb2193-5"><a href="group-comp.html#cb2193-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">normal_test =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">shapiro.test</span>(.x<span class="sc">$</span>coag))) <span class="sc">%&gt;%</span> </span>
+<span id="cb2193-6"><a href="group-comp.html#cb2193-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">result =</span> <span class="fu">map</span>(normal_test, <span class="sc">~</span> <span class="fu">tidy</span>(.x))) <span class="sc">%&gt;%</span> </span>
+<span id="cb2193-7"><a href="group-comp.html#cb2193-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> result) <span class="sc">%&gt;%</span> </span>
+<span id="cb2193-8"><a href="group-comp.html#cb2193-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(diet, statistic<span class="sc">:</span>method) <span class="sc">%&gt;%</span> </span>
+<span id="cb2193-9"><a href="group-comp.html#cb2193-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2193-10"><a href="group-comp.html#cb2193-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+diet
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+<th style="text-align:left;">
+method
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+0.9497060
+</td>
+<td style="text-align:right;">
+0.7142802
+</td>
+<td style="text-align:left;">
+Shapiro-Wilk normality test
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+0.9223854
+</td>
+<td style="text-align:right;">
+0.5227052
+</td>
+<td style="text-align:left;">
+Shapiro-Wilk normality test
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:right;">
+0.8727857
+</td>
+<td style="text-align:right;">
+0.2375366
+</td>
+<td style="text-align:left;">
+Shapiro-Wilk normality test
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+0.9317252
+</td>
+<td style="text-align:right;">
+0.5319098
+</td>
+<td style="text-align:left;">
+Shapiro-Wilk normality test
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb2194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2194-1"><a href="group-comp.html#cb2194-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 일원배치 분산분석</span></span>
+<span id="cb2194-2"><a href="group-comp.html#cb2194-2" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation)</span>
+<span id="cb2194-3"><a href="group-comp.html#cb2194-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Df"],"name":[1],"type":["int"],"align":["right"]},{"label":["Sum Sq"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Mean Sq"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["F value"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Pr(>F)"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"3","2":"228","3":"76.0","4":"13.57143","5":"4.658471e-05","_rn_":"diet"},{"1":"20","2":"112","3":"5.6","4":"NA","5":"NA","_rn_":"Residuals"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb2195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2195-1"><a href="group-comp.html#cb2195-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 사후검정(post-hoc test): Tukey&#39;s honestly significant difference (HSD)</span></span>
+<span id="cb2195-2"><a href="group-comp.html#cb2195-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(mod), <span class="at">conf.level =</span> <span class="fl">0.95</span>))</span></code></pre></div>
+<p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-33-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb2196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2196-1"><a href="group-comp.html#cb2196-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;emmeans&quot;)</span></span>
+<span id="cb2196-2"><a href="group-comp.html#cb2196-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(emmeans)</span>
+<span id="cb2196-3"><a href="group-comp.html#cb2196-3" aria-hidden="true" tabindex="-1"></a>em0 <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(mod, <span class="sc">~</span> diet)</span>
+<span id="cb2196-4"><a href="group-comp.html#cb2196-4" aria-hidden="true" tabindex="-1"></a>pair_cont <span class="ot">&lt;-</span> <span class="fu">contrast</span>(em0, <span class="at">method =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="at">adjust =</span> <span class="st">&quot;tukey&quot;</span>) <span class="co"># 대비검정</span></span>
+<span id="cb2196-5"><a href="group-comp.html#cb2196-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(pair_cont) <span class="sc">%&gt;%</span> </span>
+<span id="cb2196-6"><a href="group-comp.html#cb2196-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, format, <span class="at">digits =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2196-7"><a href="group-comp.html#cb2196-7" aria-hidden="true" tabindex="-1"></a>  kbl <span class="sc">%&gt;%</span> </span>
+<span id="cb2196-8"><a href="group-comp.html#cb2196-8" aria-hidden="true" tabindex="-1"></a>  kable_paper</span></code></pre></div>
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:left;">
+contrast
+</th>
+<th style="text-align:left;">
+null.value
+</th>
+<th style="text-align:left;">
+estimate
+</th>
+<th style="text-align:left;">
+std.error
+</th>
+<th style="text-align:left;">
+df
+</th>
+<th style="text-align:left;">
+statistic
+</th>
+<th style="text-align:left;">
+adj.p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+diet
+</td>
+<td style="text-align:left;">
+A - B
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+-5.00e+00
+</td>
+<td style="text-align:left;">
+1.53
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+-3.27e+00
+</td>
+<td style="text-align:left;">
+0.018328
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+diet
+</td>
+<td style="text-align:left;">
+A - C
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+-7.00e+00
+</td>
+<td style="text-align:left;">
+1.53
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+-4.58e+00
+</td>
+<td style="text-align:left;">
+0.000958
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+diet
+</td>
+<td style="text-align:left;">
+A - D
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1.58e-14
+</td>
+<td style="text-align:left;">
+1.45
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+1.09e-14
+</td>
+<td style="text-align:left;">
+1.000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+diet
+</td>
+<td style="text-align:left;">
+B - C
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+-2.00e+00
+</td>
+<td style="text-align:left;">
+1.37
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+-1.46e+00
+</td>
+<td style="text-align:left;">
+0.476601
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+diet
+</td>
+<td style="text-align:left;">
+B - D
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+5.00e+00
+</td>
+<td style="text-align:left;">
+1.28
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+3.91e+00
+</td>
+<td style="text-align:left;">
+0.004411
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+diet
+</td>
+<td style="text-align:left;">
+C - D
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+7.00e+00
+</td>
+<td style="text-align:left;">
+1.28
+</td>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+5.48e+00
+</td>
+<td style="text-align:left;">
+0.000127
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+
+<div class="rmdimportant">
+<p>분산분석 결과는 각 집단(처리) 중 어느 한 집단이라도 차이를 보이면 기각. 만약 분산분석 시 귀무가설(평균이 모두 같다)을 기각했을 경우
+어떤 집단에서 평균의 차이를 보였는지 알아볼 필요가 있음.</p>
+<p><strong>사후검정</strong></p>
+<ul>
+<li>F 검정 결과 집단 간 평균이 다르다는 결론을 얻은 경우 어떤 집단의 평균이 다른 집단과 차이가 있는지를 알아보기 위한 검정 방법</li>
+<li>가장 기본이 되는 원리는 type I error의 조절(t 검정 예 참조)
+<ul>
+<li>Sheffe: 절차 간단, 표본 크기가 달라도 적용 가능</li>
+<li>Bonferroni: 유의수준을 비교집단 수로 나눈 유의수준 사용</li>
+<li>Tukey(honestly significant difference): 매우 보수적</li>
+<li>Duncan: 다른 다중비교 방법에 비해 덜 보수적임</li>
+<li>Bonferroni &gt; Tukey &gt; Duncan &gt; Sheffe</li>
+</ul></li>
+</ul>
+</div>
+<p></p>
+<!-- ## Miscellaneous {#ch4-misc} -->
+<!-- ### Formula -->
+<!-- ```{block2, type="rmdtip"} -->
+<!-- **R에서 통계적 모형 표현 방법** -->
+<!-- - 지금까지 별다른 설명 없이 `~`가 들어간 수식표현을 특정함수(예: `lm()`, `t.test()`, 심지어 그래프 생성에 필요한 함수 등)의 인수로 사용함. -->
+<!-- - R은 (통계적) 모형을 표현하기 위해 **formula** 표현을 사용 $\rightarrow$ 일반적으로 `좌변 ~ 우변`형태로 표시 -->
+<!-- - 보통은 특정 함수 내에서 호출되며 데이터에 포함되어 있는 변수를 평가하지 않고 해당 함수에서 해석할 수 있도록 변수값을 불러올 수 있음. -->
+<!-- - **formula**는 "language" 객체의 일종이며 "formula" 클래스를 속성으로 갖는 평가되지 않은 표현식(unevaluated expression) -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- typeof(quote(x + 10)) # 객체의 형태가 "language" -->
+<!-- class(quote(x + 10)) # 객체의 클래스가 "call" -->
+<!-- ``` -->
+<!-- - R에서 **formula**을 특정하는 `~`의 의미는 "즉시 평가(evaluate)하지 않고 이 코드의 의미를 전달(캡쳐)" $\rightarrow$ 인용(quote) 연산자로 볼 수 있는 이유임 -->
+<!-- ```{r} -->
+<!-- # 수식 표현 -->
+<!-- a <- y ~ x -->
+<!-- b <- y ~ x + b -->
+<!-- c <- ~ x + y + z -->
+<!-- typeof(c); class(c); attributes(c) -->
+<!-- ``` -->
+<!-- - 가장 기본적인 **formula**의 형태는 아래와 같음 -->
+<!-- ``` -->
+<!-- 반응변수(response variable) ~ 독립변수(independent variables) -->
+<!-- ``` -->
+<!-- - `~` 는 "(좌변)은 (우변)의 함수로 나타낸 모형" 으로 해석됨.  -->
+<!-- - 우변과 좌변 모두 일반적으로 여러 개의 변수들이 있을 수 있으며, 해당 변수듸 추가는 `+`로 표시됨 -->
+<!-- - 좌변은 반응변수, 우변은 설명변수를 의미 -->
+<!-- ```{block2, type="rmdtip"} -->
+<!-- 일반적으로 좌편에 $y$로 표현되는 반응변수는 학문 분야에 따라 종속변수(dependent variable), 표적변수(target variable), 결과변수(outcome variable),  -->
+<!-- 레이블(label, $y$가 범주형일 경우) 등으로 명칭되며, 우변에 $y$를 설명하기 위해 사용하는 변수($x$)를 마찬가지로 분야와 성격에 따라 독립변수(independent variable),  -->
+<!-- 설명변수(exploratory variable), 예측변수(predictor variable), 위험 인자(risck factor), 공변량(covariate) 등으로 명칭된다.  -->
+<!-- ``` -->
+<!-- - **formula**를 구성하는 항으로 벡터 객체를 직접 사용할 수 있으나, 데이터 프레임의 변수명을 **formula**의 항으로 구성할 수 있음.  -->
+<!-- - **formula**의 항으로 지정된 벡터 또는 변수들의 값은 **formula**를 호출해 사용할 때 까지 연결되지 않은 "언어"로써만 존재 -->
+<!-- - **formula**는 양면수식(two-sided formula, 좌변과 우변 모두에 하나 이상의 항이 존재)과 단면수식(one-sided formula, 우변에만 하나 이상의 항 존재) -->
+<!-- ```{r} -->
+<!-- set.seed(1) -->
+<!-- x1 <- rnorm(100, 2, 4) -->
+<!-- x2 <- runif(100, 2, 4) -->
+<!-- x3 <- rpois(100, 3) -->
+<!-- y <- 2*x1 + 3*x2 + 0.5*x3 + 5 + rnorm(100, 0, 4) -->
+<!-- f1 <- y ~ x # y는 x의 함수 -->
+<!-- f2 <- y ~ x1 + x2 # y는 x1과 x2의 함수를 지칭하는 모형 -->
+<!-- typeof(f2); class(f2); attributes(f2) -->
+<!-- names(iris) -->
+<!-- f3 <- Species ~ Sepal.Length + Sepal.Width + Petal.Length -->
+<!-- # 붓꽃의 종은 꽃받침 길이와 너비, 꽃잎의 길이에 대한 함수 -->
+<!-- f4 <- ~ x1 + x2 -->
+<!-- f5 <- y ~ x1 + x2 + x3 -->
+<!-- length(f3); length(f4) -->
+<!-- f4[[1]]; f4[[2]] -->
+<!-- f5[[1]]; f5[[2]]; f5[[3]] -->
+<!-- ``` -->
+<!-- **수식 사용 이유** -->
+<!-- > - 변수 간의 관계를 알기 쉽게 표현 -->
+<!-- > - 복잡한 변수의 관계를 표현해 함수 내에서 손쉽게 해당 항에 대응하는 데이터 값에 접근 가능 -->
+<!-- **수식표현 방법** -->
+<!-- - 위에서 기술환대로 `좌변항 ~ 우변항`으로 표현 -->
+<!-- - `formula()` 또는 `as.formula()` 함수를 통해 텍스트를 **formula** 형태로 생성 가능 -->
+<!-- ```{r} -->
+<!-- f6 <- "y ~ x1 + x2 + x3" -->
+<!-- h <- as.formula(f6) -->
+<!-- h -->
+<!-- h <- formula(f6) -->
+<!-- h -->
+<!-- fs <- c(f1, f2, f6) # formula 객체를 concatenate 할 경우 list 객체 -->
+<!-- fl <- lapply(fs, as.formula) -->
+<!-- ``` -->
+<!-- **formula**로 표현한 모형의 항에 대응하는 값으로 데이터 행렬 및 데이터 프레임 생성 -->
+<!-- - `model.frame()`: formula 객체에 표현된 항에 대응하는 데이터 값으로 이루어진 데이터 프레임 반환 -->
+<!-- - `model.matrix()`: 디자인 행렬을 생성하는 함수로  -->
+<!-- ```{r} -->
+<!-- d1 <- model.frame(y ~ x1 + x2) # 벡터값을 데이터 프레임으로 반환 -->
+<!-- head(d1) -->
+<!-- # formula를 구성하고 있는 변수명에 대응하는 변수를 데이터 프레임에서 추출 -->
+<!-- f3 -->
+<!-- d2 <- model.frame(f3, iris)  -->
+<!-- head(d2) -->
+<!-- # model.matrix()에서는 디자인 행렬만 반환 -->
+<!-- # y 값은 포함하지 않고 우변에 해당하는 항에 대응하는 데이터 반환 -->
+<!-- X1 <- model.matrix(y ~ x1 + x2) -->
+<!-- head(X1) -->
+<!-- ``` -->
+<!-- **formula** 관련 함수 -->
+<!-- - `terms()`: formula 객체에 포함되어 있는 항의 구조 파악  -->
+<!-- - `all.vars()`:  formula에 포함되어 있는 변수명 추출 -->
+<!-- - `update()`: formula를 구성하는 항을 수정 -->
+<!-- ```{r} -->
+<!-- terms(f2) -->
+<!-- all.vars(f2) -->
+<!-- update(f2, ~ . + x3) -->
+<!-- ``` -->
+<!-- **formula**에 사용되는 연산자와 의미 -->
+<!-- | Symbol  | Example      | Meaning                             | -->
+<!-- |---------|--------------|-------------------------------------| -->
+<!-- | `+`     | `X + Z`      | 변수 항 포함                        | -->
+<!-- | `-`     | `X + Z - X`  | 변수 항 제거                        | -->
+<!-- | `:`     | `X:W`        | X와 W의 교호작용                    | -->
+<!-- | `%in%`  | `X:W`        | 지분(nesting)                       | -->
+<!-- | `*`     | `X*Z`        | X + Z + X:Z                         | -->
+<!-- | `^`     | `(X+W+Z)^3`  | 3차 교호작용항까지 모든 항을 포함   | -->
+<!-- | `I`     | `I(X^2)`     | as is: X^2을 포함                   | -->
+<!-- | `1`     | `X - 1`      | 절편 제거                           | -->
+<!-- | `.`     | `Y ~ .`      | 모든 변수 포함(X + W + Z)           | -->
+<!-- ```{block2, type="rmdtip"} -->
+<!-- 일반 연산 시 `A %in% B`의 의미는 `A`가 `B`의 원소를 포함하는지에 대한 논리값을 반환해 주지만, **formula**에서 `%in%`은 중첩 또는 지분(nesting)을 내포함.  -->
+<!-- R의 리스트 객체는 중첩 및 지분 구조의 대표적 형태임. 예를 들어 리스트에 포함된 한 원소에 대응하는 데이터의 형태 및 값은 동일 리스트의 다른 원소에 대응한  -->
+<!-- 데이터의 형태 및 값이 다름. 즉, 리스트 객체는 한 객체에 여러 형태의 데이터 구조를 가질 수 있고 이를 중접된 구조라고 함.  -->
+<!-- 또한 실험계획법(experimental design)에서 지분 설계(nested design) 방법이 있는데, 두 개 요인(factor) A와 B가 존재할 때 A의 수준에 따른 B의 수준이 모두 다른 경우,  -->
+<!-- 즉 교호작용이 존재하지 않는 형태의 실험설계법을 지칭함. 예를 들어 A사와 B사의 오랜지 주스 당도에 차이가 있는지를 알기 위해 각 회사에서 생산하고 있는 주스 3종을  -->
+<!-- 랜덤하게 선택했다고 가정해 보자. 여기서 주 관심사는 두 회사에서 생산한 주스의 당도의 동질성이지 오랜지 주스 간 당도 차이는 관삼사항이 아님. 이 경우,  -->
+<!-- 주 관심요인은 회사(C)이고, 요인 C는 회사 A, B라는 두 개의 수준(level)을 갖고 있음. 오랜지 주스(O)는 각 회사 별로 3개의 수준을 갖고 있는데,  -->
+<!-- 각 회사에서 생산하는 오랜지 주스는 생산 공정에 차이가 있기 떄문에 각 회사에 지분되어 있음. 즉, 회사 A에서 생산한 오랜지 주스 O~1~, O~2~, O~3~은  -->
+<!-- 회사 B에서 생산한 O~1~, O~2~, O~3~과 다름.  -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- set.seed(10) -->
+<!-- x <- runif(30) -->
+<!-- z <- runif(30, 2, 3) -->
+<!-- w <- sample(0:1, 30, replace = TRUE) -->
+<!-- y <- 3 + 2.5*x + x^2 + 1.5*z + 0.5 * w + 2*w*x + rnorm(30, 0, 2) -->
+<!-- head(model.matrix(~ x)) -->
+<!-- head(model.matrix(~ x + z)) # x + z -->
+<!-- head(model.matrix(~ x + z - x)) # x + z에서 z 항 제거 -->
+<!-- head(model.matrix(~ x:w)) # 교호작용항만 포함 -->
+<!-- head(model.matrix(~ x*w)) # x + w + x:w -->
+<!-- head(model.matrix(~ (x + z + w)^3)) # x + z + w + x:z + z:w + x:w + x:w:z -->
+<!-- head(model.matrix(~ x + I(x^2))) # x + x^2 -->
+<!-- # head(model.matrix(~ x + x^2)) -->
+<!-- head(model.matrix(~ x - 1)) -->
+<!-- dat <- data.frame(y, x, w, z) -->
+<!-- head(model.matrix(y ~ ., data = dat)) -->
+<!-- head(model.matrix(y ~ .^2, data = dat)) -->
+<!-- # nested 구조 -->
+<!-- dat2 <- expand.grid(C = c("A", "B"), O = paste0("O", 1:3),  -->
+<!--                     y = runif(3, 1, 2)) -->
+<!-- dat2 <- dat2[order(dat2$C, dat2$O), ] -->
+<!-- model.matrix(y ~ C + O %in% C, data = dat2) -->
+<!-- ``` -->
+</div>
+</div>
+<div id="tidyverse-모형-정리-및-테이블-생성" class="section level3" number="11.2.4">
+<h3><span class="header-section-number">11.2.4</span> tidyverse 모형 정리 및 테이블 생성</h3>
+<ul>
+<li>독립 이표본 t 검정 및 일원배치 분산분석은 간단히 실행할 수 있으나, 그 결과를 추출하는 일은 여러 단계를 거침</li>
+<li><code>lm()</code> 및 <code>httest</code> 계열 함수의 결과는 R 콘솔에서 그 결과 확인이 가능하지만, 결과에 대응하는 수치들이 저장되지는 않음</li>
+<li>임의 변수를 지정에 위에 해당하는 함수의 결과물을 저장할 수 있으나, 보통은 리스트 형태의 객체이고 정리하기가 번거로움</li>
+</ul>
+<div class="sourceCode" id="cb2197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2197-1"><a href="group-comp.html#cb2197-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sleep 데이터: 독립이표본 t 검정 결과</span></span>
+<span id="cb2197-2"><a href="group-comp.html#cb2197-2" aria-hidden="true" tabindex="-1"></a><span class="co"># require(tidyverse)</span></span>
+<span id="cb2197-3"><a href="group-comp.html#cb2197-3" aria-hidden="true" tabindex="-1"></a><span class="co"># require(tidymodels)</span></span>
+<span id="cb2197-4"><a href="group-comp.html#cb2197-4" aria-hidden="true" tabindex="-1"></a>t1 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(extra <span class="sc">~</span> group, <span class="at">data =</span> sleep, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2197-5"><a href="group-comp.html#cb2197-5" aria-hidden="true" tabindex="-1"></a>summ_t1 <span class="ot">&lt;-</span> <span class="fu">with</span>(t1, <span class="fu">data.frame</span>(<span class="at">mean_diff =</span> <span class="sc">-</span><span class="fu">diff</span>(estimate),</span>
+<span id="cb2197-6"><a href="group-comp.html#cb2197-6" aria-hidden="true" tabindex="-1"></a>                               <span class="at">lcl =</span> conf.int[<span class="dv">1</span>],</span>
+<span id="cb2197-7"><a href="group-comp.html#cb2197-7" aria-hidden="true" tabindex="-1"></a>                               <span class="at">ucl =</span> conf.int[<span class="dv">2</span>],</span>
+<span id="cb2197-8"><a href="group-comp.html#cb2197-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">statistic =</span> statistic,</span>
+<span id="cb2197-9"><a href="group-comp.html#cb2197-9" aria-hidden="true" tabindex="-1"></a>                               <span class="at">degf =</span> parameter,</span>
+<span id="cb2197-10"><a href="group-comp.html#cb2197-10" aria-hidden="true" tabindex="-1"></a>                               <span class="at">p.value =</span> p.value))</span>
+<span id="cb2197-11"><a href="group-comp.html#cb2197-11" aria-hidden="true" tabindex="-1"></a>summ_t1</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["mean_diff"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["lcl"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["ucl"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["degf"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"-1.58","2":"-3.363874","3":"0.203874","4":"-1.860813","5":"18","6":"0.07918671","_rn_":"mean in group 2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb2198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2198-1"><a href="group-comp.html#cb2198-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 일원배치 분산분석 결과</span></span>
+<span id="cb2198-2"><a href="group-comp.html#cb2198-2" aria-hidden="true" tabindex="-1"></a>mtcars2 <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb2198-3"><a href="group-comp.html#cb2198-3" aria-hidden="true" tabindex="-1"></a>  as_tibble <span class="sc">%&gt;%</span></span>
+<span id="cb2198-4"><a href="group-comp.html#cb2198-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cyl =</span> <span class="fu">factor</span>(cyl))</span>
+<span id="cb2198-5"><a href="group-comp.html#cb2198-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2198-6"><a href="group-comp.html#cb2198-6" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> cyl, <span class="at">data =</span> mtcars2)</span>
+<span id="cb2198-7"><a href="group-comp.html#cb2198-7" aria-hidden="true" tabindex="-1"></a>aov_m1 <span class="ot">&lt;-</span> <span class="fu">anova</span>(m1)</span>
+<span id="cb2198-8"><a href="group-comp.html#cb2198-8" aria-hidden="true" tabindex="-1"></a>mean_mpg <span class="ot">&lt;-</span> <span class="fu">with</span>(mtcars2, <span class="fu">tapply</span>(mpg, cyl, mean))</span>
+<span id="cb2198-9"><a href="group-comp.html#cb2198-9" aria-hidden="true" tabindex="-1"></a>summ_m1 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">t</span>(mean_mpg),</span>
+<span id="cb2198-10"><a href="group-comp.html#cb2198-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Fval =</span> aov_m1<span class="sc">$</span><span class="st">`</span><span class="at">F value</span><span class="st">`</span>[<span class="dv">1</span>],</span>
+<span id="cb2198-11"><a href="group-comp.html#cb2198-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">p.value =</span> aov_m1<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">1</span>])</span></code></pre></div>
+<p></p>
+<ul>
+<li><strong>broom</strong> 패키지에서 제공하는 <code>tidy()</code>, <code>glance()</code> 함수를 이용해 위의 예시보다 간편하게 tidyverse 문법 하에서 손쉽게 결과 정리 가능</li>
+<li><strong>broom</strong> 패키지는 <code>tidymodels</code> 라는 패키지 번들에 포함</li>
+<li><strong>broom</strong> 패키지 주요함수
+<ul>
+<li><code>tidy()</code>: 통계적 검정 결과 또는 모형 결과를 요약해 데이터 프레임으로 제공</li>
+<li><code>glance()</code>: 모형을 한줄로 간략히 요약</li>
+<li><code>augment()</code>: 원 데이터프레임에 잔차(<code>resid()</code>), 예측값(<code>predict()</code>) 등의 정보를 추가</li>
+</ul></li>
+<li>예시</li>
+</ul>
+<div class="sourceCode" id="cb2199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2199-1"><a href="group-comp.html#cb2199-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(t1)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["estimate"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["estimate1"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["estimate2"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["parameter"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["conf.low"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["conf.high"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["method"],"name":[9],"type":["chr"],"align":["left"]},{"label":["alternative"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"-1.58","2":"0.75","3":"2.33","4":"-1.860813","5":"0.07918671","6":"18","7":"-3.363874","8":"0.203874","9":"Two Sample t-test","10":"two.sided"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb2200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2200-1"><a href="group-comp.html#cb2200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m1); <span class="fu">glance</span>(m1); <span class="fu">tidy</span>(aov_m1)</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"26.663636","3":"0.9718008","4":"27.437347","5":"2.688358e-22"},{"1":"cyl6","2":"-6.920779","3":"1.5583482","4":"-4.441099","5":"1.194696e-04"},{"1":"cyl8","2":"-11.563636","3":"1.2986235","4":"-8.904534","5":"8.568209e-10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["r.squared"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["adj.r.squared"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sigma"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["logLik"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["BIC"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["deviance"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["df.residual"],"name":[11],"type":["int"],"align":["right"]},{"label":["nobs"],"name":[12],"type":["int"],"align":["right"]}],"data":[{"1":"0.7324601","2":"0.714009","3":"3.223099","4":"39.69752","5":"4.978919e-09","6":"2","7":"-81.28198","8":"170.564","9":"176.4269","10":"301.2626","11":"29","12":"32"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["df"],"name":[2],"type":["int"],"align":["right"]},{"label":["sumsq"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["meansq"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"cyl","2":"2","3":"824.7846","4":"412.39230","5":"39.69752","6":"4.978919e-09"},{"1":"Residuals","2":"29","3":"301.2626","4":"10.38837","5":"NA","6":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb2201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2201-1"><a href="group-comp.html#cb2201-1" aria-hidden="true" tabindex="-1"></a>augdat <span class="ot">&lt;-</span> <span class="fu">augment</span>(m1)</span>
+<span id="cb2201-2"><a href="group-comp.html#cb2201-2" aria-hidden="true" tabindex="-1"></a>augdat</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["mpg"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["cyl"],"name":[2],"type":["fct"],"align":["left"]},{"label":[".fitted"],"name":[3],"type":["dbl"],"align":["right"]},{"label":[".resid"],"name":[4],"type":["dbl"],"align":["right"]},{"label":[".hat"],"name":[5],"type":["dbl"],"align":["right"]},{"label":[".sigma"],"name":[6],"type":["dbl"],"align":["right"]},{"label":[".cooksd"],"name":[7],"type":["dbl"],"align":["right"]},{"label":[".std.resid"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"21.0","2":"6","3":"19.74286","4":"1.25714286","5":"0.14285714","6":"3.270096","7":"9.860441e-03","8":"0.42129317"},{"1":"21.0","2":"6","3":"19.74286","4":"1.25714286","5":"0.14285714","6":"3.270096","7":"9.860441e-03","8":"0.42129317"},{"1":"22.8","2":"4","3":"26.66364","4":"-3.86363636","5":"0.09090909","6":"3.189504","7":"5.268861e-02","8":"-1.25724228"},{"1":"21.4","2":"6","3":"19.74286","4":"1.65714286","5":"0.14285714","6":"3.262661","7":"1.713353e-02","8":"0.55534100"},{"1":"18.7","2":"8","3":"15.10000","4":"3.60000000","5":"0.07142857","6":"3.203267","7":"3.444910e-02","8":"1.15910087"},{"1":"18.1","2":"6","3":"19.74286","4":"-1.64285714","5":"0.14285714","6":"3.262962","7":"1.683940e-02","8":"-0.55055357"},{"1":"14.3","2":"8","3":"15.10000","4":"-0.80000000","5":"0.07142857","6":"3.276395","7":"1.701190e-03","8":"-0.25757797"},{"1":"24.4","2":"4","3":"26.66364","4":"-2.26363636","5":"0.09090909","6":"3.249319","7":"1.808579e-02","8":"-0.73659607"},{"1":"22.8","2":"4","3":"26.66364","4":"-3.86363636","5":"0.09090909","6":"3.189504","7":"5.268861e-02","8":"-1.25724228"},{"1":"19.2","2":"6","3":"19.74286","4":"-0.54285714","5":"0.14285714","6":"3.278277","7":"1.838646e-03","8":"-0.18192205"},{"1":"17.8","2":"6","3":"19.74286","4":"-1.94285714","5":"0.14285714","6":"3.256087","7":"2.355097e-02","8":"-0.65108944"},{"1":"16.4","2":"8","3":"15.10000","4":"1.30000000","5":"0.07142857","6":"3.270226","7":"4.492205e-03","8":"0.41856420"},{"1":"17.3","2":"8","3":"15.10000","4":"2.20000000","5":"0.07142857","6":"3.251650","7":"1.286525e-02","8":"0.70833942"},{"1":"15.2","2":"8","3":"15.10000","4":"0.10000000","5":"0.07142857","6":"3.280091","7":"2.658109e-05","8":"0.03219725"},{"1":"10.4","2":"8","3":"15.10000","4":"-4.70000000","5":"0.07142857","6":"3.147978","7":"5.871764e-02","8":"-1.51327059"},{"1":"10.4","2":"8","3":"15.10000","4":"-4.70000000","5":"0.07142857","6":"3.147978","7":"5.871764e-02","8":"-1.51327059"},{"1":"14.7","2":"8","3":"15.10000","4":"-0.40000000","5":"0.07142857","6":"3.279211","7":"4.252975e-04","8":"-0.12878899"},{"1":"32.4","2":"4","3":"26.66364","4":"5.73636364","5":"0.09090909","6":"3.076792","7":"1.161442e-01","8":"1.86663501"},{"1":"30.4","2":"4","3":"26.66364","4":"3.73636364","5":"0.09090909","6":"3.195455","7":"4.927453e-02","8":"1.21582724"},{"1":"33.9","2":"4","3":"26.66364","4":"7.23636364","5":"0.09090909","6":"2.949946","7":"1.848268e-01","8":"2.35474084"},{"1":"21.5","2":"4","3":"26.66364","4":"-5.16363636","5":"0.09090909","6":"3.116392","7":"9.410994e-02","8":"-1.68026733"},{"1":"15.5","2":"8","3":"15.10000","4":"0.40000000","5":"0.07142857","6":"3.279211","7":"4.252975e-04","8":"0.12878899"},{"1":"15.2","2":"8","3":"15.10000","4":"0.10000000","5":"0.07142857","6":"3.280091","7":"2.658109e-05","8":"0.03219725"},{"1":"13.3","2":"8","3":"15.10000","4":"-1.80000000","5":"0.07142857","6":"3.261098","7":"8.612275e-03","8":"-0.57955044"},{"1":"19.2","2":"8","3":"15.10000","4":"4.10000000","5":"0.07142857","6":"3.180069","7":"4.468282e-02","8":"1.32008711"},{"1":"27.3","2":"4","3":"26.66364","4":"0.63636364","5":"0.09090909","6":"3.277723","7":"1.429338e-03","8":"0.20707520"},{"1":"26.0","2":"4","3":"26.66364","4":"-0.66363636","5":"0.09090909","6":"3.277511","7":"1.554478e-03","8":"-0.21594985"},{"1":"30.4","2":"4","3":"26.66364","4":"3.73636364","5":"0.09090909","6":"3.195455","7":"4.927453e-02","8":"1.21582724"},{"1":"15.8","2":"8","3":"15.10000","4":"0.70000000","5":"0.07142857","6":"3.277275","7":"1.302474e-03","8":"0.22538073"},{"1":"19.7","2":"6","3":"19.74286","4":"-0.04285714","5":"0.14285714","6":"3.280137","7":"1.145971e-05","8":"-0.01436227"},{"1":"15.0","2":"8","3":"15.10000","4":"-0.10000000","5":"0.07142857","6":"3.280091","7":"2.658109e-05","8":"-0.03219725"},{"1":"21.4","2":"4","3":"26.66364","4":"-5.26363636","5":"0.09090909","6":"3.109812","7":"9.779034e-02","8":"-1.71280772"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb2202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2202-1"><a href="group-comp.html#cb2202-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 참고</span></span>
+<span id="cb2202-2"><a href="group-comp.html#cb2202-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2202-3"><a href="group-comp.html#cb2202-3" aria-hidden="true" tabindex="-1"></a><span class="co"># .fitted &lt;- predict(m1) # 예측값(predicted value): X %*% bhat</span></span>
+<span id="cb2202-4"><a href="group-comp.html#cb2202-4" aria-hidden="true" tabindex="-1"></a><span class="co"># .resid &lt;- residuals(m1) # 잔차 y - X %*% bhat</span></span>
+<span id="cb2202-5"><a href="group-comp.html#cb2202-5" aria-hidden="true" tabindex="-1"></a><span class="co"># .hat &lt;- hatvalues(m1) # hat matrix의 대각원소</span></span>
+<span id="cb2202-6"><a href="group-comp.html#cb2202-6" aria-hidden="true" tabindex="-1"></a><span class="co"># hat matrix</span></span>
+<span id="cb2202-7"><a href="group-comp.html#cb2202-7" aria-hidden="true" tabindex="-1"></a><span class="co"># H &lt;- X %*% solve(t(X) %*% X) %*% t(X)</span></span>
+<span id="cb2202-8"><a href="group-comp.html#cb2202-8" aria-hidden="true" tabindex="-1"></a><span class="co"># H2 &lt;- H %*% H # H = H^2</span></span>
+<span id="cb2202-9"><a href="group-comp.html#cb2202-9" aria-hidden="true" tabindex="-1"></a><span class="co"># .std.resid &lt;- rstandard(m1) # 표준화 잔차</span></span>
+<span id="cb2202-10"><a href="group-comp.html#cb2202-10" aria-hidden="true" tabindex="-1"></a><span class="co"># .resid/(sigma(m1) * sqrt(1 - .hat))</span></span>
+<span id="cb2202-11"><a href="group-comp.html#cb2202-11" aria-hidden="true" tabindex="-1"></a><span class="co"># sse &lt;- sigma(m1)^2 * (32 - 2 - 1)</span></span>
+<span id="cb2202-12"><a href="group-comp.html#cb2202-12" aria-hidden="true" tabindex="-1"></a><span class="co"># .sigma &lt;- sqrt((sse - .resid^2/(1 - .hat))/(df.residual(m1)))</span></span>
+<span id="cb2202-13"><a href="group-comp.html#cb2202-13" aria-hidden="true" tabindex="-1"></a><span class="co"># .cooksd &lt;- cooks.distance(m1)</span></span></code></pre></div>
+<p></p>
+<div id="다수-변수에-대한-독립-이표본-t-검정-결과-정리" class="section level4 unnumbered">
+<h4>다수 변수에 대한 독립 이표본 t 검정 결과 정리</h4>
+<div class="sourceCode" id="cb2203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2203-1"><a href="group-comp.html#cb2203-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(kableExtra)</span>
+<span id="cb2203-2"><a href="group-comp.html#cb2203-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">&quot;data/dysmenorrhea.rds&quot;</span>)</span>
+<span id="cb2203-3"><a href="group-comp.html#cb2203-3" aria-hidden="true" tabindex="-1"></a>dat_lab <span class="ot">&lt;-</span> Hmisc<span class="sc">::</span><span class="fu">label</span>(dat)</span>
+<span id="cb2203-4"><a href="group-comp.html#cb2203-4" aria-hidden="true" tabindex="-1"></a>remove_attribute <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {<span class="fu">attributes</span>(x) <span class="ot">&lt;-</span> <span class="cn">NULL</span>; x}</span>
+<span id="cb2203-5"><a href="group-comp.html#cb2203-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2203-6"><a href="group-comp.html#cb2203-6" aria-hidden="true" tabindex="-1"></a><span class="do">## two sample t-test: making table</span></span>
+<span id="cb2203-7"><a href="group-comp.html#cb2203-7" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
+<span id="cb2203-8"><a href="group-comp.html#cb2203-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(age<span class="sc">:</span>pdi),</span>
+<span id="cb2203-9"><a href="group-comp.html#cb2203-9" aria-hidden="true" tabindex="-1"></a>            <span class="sc">~</span> <span class="fu">remove_attribute</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb2203-10"><a href="group-comp.html#cb2203-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb2203-11"><a href="group-comp.html#cb2203-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> age<span class="sc">:</span>pdi,</span>
+<span id="cb2203-12"><a href="group-comp.html#cb2203-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>,</span>
+<span id="cb2203-13"><a href="group-comp.html#cb2203-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span></span>
+<span id="cb2203-14"><a href="group-comp.html#cb2203-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2203-15"><a href="group-comp.html#cb2203-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb2203-16"><a href="group-comp.html#cb2203-16" aria-hidden="true" tabindex="-1"></a>  nest <span class="sc">%&gt;%</span></span>
+<span id="cb2203-17"><a href="group-comp.html#cb2203-17" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
+<span id="cb2203-18"><a href="group-comp.html#cb2203-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ttest_result =</span> <span class="fu">map</span>(data, <span class="sc">~</span> <span class="fu">t.test</span>(value <span class="sc">~</span> pidyn, <span class="at">data =</span> .x)),</span>
+<span id="cb2203-19"><a href="group-comp.html#cb2203-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">name =</span> dat_lab[<span class="dv">3</span><span class="sc">:</span><span class="dv">12</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb2203-20"><a href="group-comp.html#cb2203-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ttest_result =</span> <span class="fu">map</span>(ttest_result, <span class="sc">~</span><span class="fu">tidy</span>(.x))) <span class="sc">%&gt;%</span></span>
+<span id="cb2203-21"><a href="group-comp.html#cb2203-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, name, ttest_result) <span class="sc">%&gt;%</span></span>
+<span id="cb2203-22"><a href="group-comp.html#cb2203-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> ttest_result) <span class="ot">-&gt;</span> ttest_summary</span>
+<span id="cb2203-23"><a href="group-comp.html#cb2203-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2203-24"><a href="group-comp.html#cb2203-24" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
+<span id="cb2203-25"><a href="group-comp.html#cb2203-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(age<span class="sc">:</span>pdi),</span>
+<span id="cb2203-26"><a href="group-comp.html#cb2203-26" aria-hidden="true" tabindex="-1"></a>            <span class="sc">~</span> <span class="fu">remove_attribute</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb2203-27"><a href="group-comp.html#cb2203-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb2203-28"><a href="group-comp.html#cb2203-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> age<span class="sc">:</span>pdi,</span>
+<span id="cb2203-29"><a href="group-comp.html#cb2203-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>,</span>
+<span id="cb2203-30"><a href="group-comp.html#cb2203-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span></span>
+<span id="cb2203-31"><a href="group-comp.html#cb2203-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2203-32"><a href="group-comp.html#cb2203-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable, pidyn) <span class="sc">%&gt;%</span></span>
+<span id="cb2203-33"><a href="group-comp.html#cb2203-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(value),</span>
+<span id="cb2203-34"><a href="group-comp.html#cb2203-34" aria-hidden="true" tabindex="-1"></a>            <span class="at">SD =</span> <span class="fu">sd</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb2203-35"><a href="group-comp.html#cb2203-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">res =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.1f ± %.1f&quot;</span>, Mean, SD)) <span class="sc">%&gt;%</span></span>
+<span id="cb2203-36"><a href="group-comp.html#cb2203-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Mean, <span class="sc">-</span>SD) <span class="sc">%&gt;%</span></span>
+<span id="cb2203-37"><a href="group-comp.html#cb2203-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> pidyn,</span>
+<span id="cb2203-38"><a href="group-comp.html#cb2203-38" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> res) <span class="ot">-&gt;</span> desc_summary</span></code></pre></div>
+<pre><code>`summarise()` has grouped output by &#39;variable&#39;. You can override using the
+`.groups` argument.</code></pre>
+<div class="sourceCode" id="cb2205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2205-1"><a href="group-comp.html#cb2205-1" aria-hidden="true" tabindex="-1"></a>desc_summary <span class="sc">%&gt;%</span></span>
+<span id="cb2205-2"><a href="group-comp.html#cb2205-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(ttest_summary <span class="sc">%&gt;%</span></span>
+<span id="cb2205-3"><a href="group-comp.html#cb2205-3" aria-hidden="true" tabindex="-1"></a>               <span class="fu">select</span>(variable<span class="sc">:</span>name, statistic, parameter, p.value),</span>
+<span id="cb2205-4"><a href="group-comp.html#cb2205-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2205-5"><a href="group-comp.html#cb2205-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stat =</span> <span class="fu">sprintf</span>(<span class="st">&quot;$t_{</span><span class="sc">\\</span><span class="st">nu=%.1f}$ = %.2f&quot;</span>, parameter, statistic)) <span class="sc">%&gt;%</span></span>
+<span id="cb2205-6"><a href="group-comp.html#cb2205-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, Control<span class="sc">:</span>Dysmenorrhea, stat, p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb2205-7"><a href="group-comp.html#cb2205-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, format, <span class="at">digits =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2205-8"><a href="group-comp.html#cb2205-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2205-9"><a href="group-comp.html#cb2205-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
+<pre><code>Adding missing grouping variables: `variable`
+`mutate_if()` ignored the following grouping variables:</code></pre>
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+Control
+</th>
+<th style="text-align:left;">
+Dysmenorrhea
+</th>
+<th style="text-align:left;">
+stat
+</th>
+<th style="text-align:left;">
+p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+age
+</td>
+<td style="text-align:left;">
+Age [yr]
+</td>
+<td style="text-align:left;">
+22.5 ± 1.7
+</td>
+<td style="text-align:left;">
+23.0 ± 2.5
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(t_{\nu=38.2}\)</span> = -0.80
+</td>
+<td style="text-align:left;">
+0.4279
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bmi
+</td>
+<td style="text-align:left;">
+BMI [kg/m<sup>2</sup>]
+</td>
+<td style="text-align:left;">
+20.5 ± 2.3
+</td>
+<td style="text-align:left;">
+20.8 ± 1.7
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(t_{\nu=42.6}\)</span> = -0.55
+</td>
+<td style="text-align:left;">
+0.5884
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+diabp
+</td>
+<td style="text-align:left;">
+Diastolic BP [mmHg]
+</td>
+<td style="text-align:left;">
+73.8 ± 7.8
+</td>
+<td style="text-align:left;">
+72.5 ± 7.1
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(t_{\nu=44.9}\)</span> = 0.59
+</td>
+<td style="text-align:left;">
+0.5609
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+height
+</td>
+<td style="text-align:left;">
+Height [cm]
+</td>
+<td style="text-align:left;">
+160.6 ± 4.4
+</td>
+<td style="text-align:left;">
+162.3 ± 4.0
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(t_{\nu=44.9}\)</span> = -1.43
+</td>
+<td style="text-align:left;">
+0.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mmpscr
+</td>
+<td style="text-align:left;">
+MMP score
+</td>
+<td style="text-align:left;">
+2.2 ± 1.2
+</td>
+<td style="text-align:left;">
+5.9 ± 1.0
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(t_{\nu=44.3}\)</span> = -11.16
+</td>
+<td style="text-align:left;">
+1.824e-14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pdi
+</td>
+<td style="text-align:left;">
+PDI [mm]
+</td>
+<td style="text-align:left;">
+10.4 ± 1.6
+</td>
+<td style="text-align:left;">
+9.3 ± 1.3
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(t_{\nu=44.0}\)</span> = 2.70
+</td>
+<td style="text-align:left;">
+0.009822
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pulse
+</td>
+<td style="text-align:left;">
+Pulse [bpm]
+</td>
+<td style="text-align:left;">
+74.2 ± 19.5
+</td>
+<td style="text-align:left;">
+72.3 ± 8.2
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(t_{\nu=31.2}\)</span> = 0.44
+</td>
+<td style="text-align:left;">
+0.6631
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sysbp
+</td>
+<td style="text-align:left;">
+Systolic BP [mmHg]
+</td>
+<td style="text-align:left;">
+111.2 ± 10.0
+</td>
+<td style="text-align:left;">
+106.5 ± 9.3
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(t_{\nu=45.0}\)</span> = 1.67
+</td>
+<td style="text-align:left;">
+0.1027
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+temp
+</td>
+<td style="text-align:left;">
+Body temperature [℃]
+</td>
+<td style="text-align:left;">
+37.0 ± 0.3
+</td>
+<td style="text-align:left;">
+36.9 ± 0.3
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(t_{\nu=44.7}\)</span> = 0.85
+</td>
+<td style="text-align:left;">
+0.3972
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+weight
+</td>
+<td style="text-align:left;">
+Weight [kg]
+</td>
+<td style="text-align:left;">
+52.9 ± 6.1
+</td>
+<td style="text-align:left;">
+54.9 ± 4.9
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(t_{\nu=43.7}\)</span> = -1.24
+</td>
+<td style="text-align:left;">
+0.2206
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+<div id="다수-변수에-대한-일원배치-분산분석-결과-정리" class="section level4 unnumbered">
+<h4>다수 변수에 대한 일원배치 분산분석 결과 정리</h4>
+<div class="sourceCode" id="cb2207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2207-1"><a href="group-comp.html#cb2207-1" aria-hidden="true" tabindex="-1"></a><span class="co"># require(emmeans)</span></span>
+<span id="cb2207-2"><a href="group-comp.html#cb2207-2" aria-hidden="true" tabindex="-1"></a>abalone <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data&quot;</span>,</span>
+<span id="cb2207-3"><a href="group-comp.html#cb2207-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2207-4"><a href="group-comp.html#cb2207-4" aria-hidden="true" tabindex="-1"></a><span class="co"># vname &lt;- c(&quot;sex&quot;, &quot;length [mm]&quot;, &quot;diameter [mm]&quot;, &quot;height [mm]&quot;,</span></span>
+<span id="cb2207-5"><a href="group-comp.html#cb2207-5" aria-hidden="true" tabindex="-1"></a><span class="co">#            &quot;whole weight [g]&quot;, &quot;shucked weight [g]&quot;, &quot;viscera weight [g]&quot;, &quot;Ring&quot;)</span></span>
+<span id="cb2207-6"><a href="group-comp.html#cb2207-6" aria-hidden="true" tabindex="-1"></a>abalone <span class="sc">%&gt;%</span></span>
+<span id="cb2207-7"><a href="group-comp.html#cb2207-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">V1 =</span> <span class="fu">factor</span>(V1, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;I&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb2207-8"><a href="group-comp.html#cb2207-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> V2<span class="sc">:</span>V9,</span>
+<span id="cb2207-9"><a href="group-comp.html#cb2207-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>,</span>
+<span id="cb2207-10"><a href="group-comp.html#cb2207-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="ot">-&gt;</span> abalone_long</span>
+<span id="cb2207-11"><a href="group-comp.html#cb2207-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2207-12"><a href="group-comp.html#cb2207-12" aria-hidden="true" tabindex="-1"></a>abalone_long <span class="sc">%&gt;%</span></span>
+<span id="cb2207-13"><a href="group-comp.html#cb2207-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable, V1) <span class="sc">%&gt;%</span></span>
+<span id="cb2207-14"><a href="group-comp.html#cb2207-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(value),</span>
+<span id="cb2207-15"><a href="group-comp.html#cb2207-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">SD =</span> <span class="fu">sd</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb2207-16"><a href="group-comp.html#cb2207-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">res =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.3f ± %.3f&quot;</span>, Mean, SD)) <span class="sc">%&gt;%</span></span>
+<span id="cb2207-17"><a href="group-comp.html#cb2207-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Mean, <span class="sc">-</span>SD) <span class="sc">%&gt;%</span></span>
+<span id="cb2207-18"><a href="group-comp.html#cb2207-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> V1, <span class="at">values_from =</span> res) <span class="sc">%&gt;%</span></span>
+<span id="cb2207-19"><a href="group-comp.html#cb2207-19" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="ot">-&gt;</span> desc_summ</span></code></pre></div>
+<pre><code>`summarise()` has grouped output by &#39;variable&#39;. You can override using the
+`.groups` argument.</code></pre>
+<div class="sourceCode" id="cb2209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2209-1"><a href="group-comp.html#cb2209-1" aria-hidden="true" tabindex="-1"></a>abalone_long <span class="sc">%&gt;%</span></span>
+<span id="cb2209-2"><a href="group-comp.html#cb2209-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb2209-3"><a href="group-comp.html#cb2209-3" aria-hidden="true" tabindex="-1"></a>  nest <span class="sc">%&gt;%</span></span>
+<span id="cb2209-4"><a href="group-comp.html#cb2209-4" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
+<span id="cb2209-5"><a href="group-comp.html#cb2209-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lm_res =</span> <span class="fu">map</span>(data, <span class="sc">~</span> <span class="fu">lm</span>(value <span class="sc">~</span> V1, <span class="at">data =</span> .x)),</span>
+<span id="cb2209-6"><a href="group-comp.html#cb2209-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">aov_res =</span> <span class="fu">map</span>(lm_res, <span class="sc">~</span> <span class="fu">glance</span>(.x))) <span class="ot">-&gt;</span> lm_summ</span>
+<span id="cb2209-7"><a href="group-comp.html#cb2209-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2209-8"><a href="group-comp.html#cb2209-8" aria-hidden="true" tabindex="-1"></a>lm_summ <span class="sc">%&gt;%</span></span>
+<span id="cb2209-9"><a href="group-comp.html#cb2209-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, aov_res) <span class="sc">%&gt;%</span></span>
+<span id="cb2209-10"><a href="group-comp.html#cb2209-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> aov_res) <span class="sc">%&gt;%</span></span>
+<span id="cb2209-11"><a href="group-comp.html#cb2209-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, statistic, p.value) <span class="ot">-&gt;</span> aov_summ</span>
+<span id="cb2209-12"><a href="group-comp.html#cb2209-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2209-13"><a href="group-comp.html#cb2209-13" aria-hidden="true" tabindex="-1"></a>desc_summ <span class="sc">%&gt;%</span></span>
+<span id="cb2209-14"><a href="group-comp.html#cb2209-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(aov_summ, <span class="at">by =</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2209-15"><a href="group-comp.html#cb2209-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">statistic =</span> <span class="fu">format</span>(statistic, <span class="at">digits =</span> <span class="dv">2</span>),</span>
+<span id="cb2209-16"><a href="group-comp.html#cb2209-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">p.value =</span> <span class="fu">format</span>(p.value, <span class="at">digits =</span> <span class="dv">4</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2209-17"><a href="group-comp.html#cb2209-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">F-value</span><span class="st">`</span> <span class="ot">=</span> statistic) <span class="sc">%&gt;%</span></span>
+<span id="cb2209-18"><a href="group-comp.html#cb2209-18" aria-hidden="true" tabindex="-1"></a>  kbl <span class="sc">%&gt;%</span></span>
+<span id="cb2209-19"><a href="group-comp.html#cb2209-19" aria-hidden="true" tabindex="-1"></a>  kable_paper</span></code></pre></div>
+<table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:left;">
+M
+</th>
+<th style="text-align:left;">
+F
+</th>
+<th style="text-align:left;">
+I
+</th>
+<th style="text-align:left;">
+F-value
+</th>
+<th style="text-align:left;">
+p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+V2
+</td>
+<td style="text-align:left;">
+0.561 ± 0.103
+</td>
+<td style="text-align:left;">
+0.579 ± 0.086
+</td>
+<td style="text-align:left;">
+0.428 ± 0.109
+</td>
+<td style="text-align:left;">
+928
+</td>
+<td style="text-align:left;">
+0.000e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V3
+</td>
+<td style="text-align:left;">
+0.439 ± 0.084
+</td>
+<td style="text-align:left;">
+0.455 ± 0.071
+</td>
+<td style="text-align:left;">
+0.326 ± 0.088
+</td>
+<td style="text-align:left;">
+994
+</td>
+<td style="text-align:left;">
+0.000e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V4
+</td>
+<td style="text-align:left;">
+0.151 ± 0.035
+</td>
+<td style="text-align:left;">
+0.158 ± 0.040
+</td>
+<td style="text-align:left;">
+0.108 ± 0.032
+</td>
+<td style="text-align:left;">
+784
+</td>
+<td style="text-align:left;">
+7.151e-290
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V5
+</td>
+<td style="text-align:left;">
+0.991 ± 0.471
+</td>
+<td style="text-align:left;">
+1.047 ± 0.430
+</td>
+<td style="text-align:left;">
+0.431 ± 0.286
+</td>
+<td style="text-align:left;">
+951
+</td>
+<td style="text-align:left;">
+0.000e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V6
+</td>
+<td style="text-align:left;">
+0.433 ± 0.223
+</td>
+<td style="text-align:left;">
+0.446 ± 0.199
+</td>
+<td style="text-align:left;">
+0.191 ± 0.128
+</td>
+<td style="text-align:left;">
+783
+</td>
+<td style="text-align:left;">
+1.326e-289
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V7
+</td>
+<td style="text-align:left;">
+0.216 ± 0.105
+</td>
+<td style="text-align:left;">
+0.231 ± 0.098
+</td>
+<td style="text-align:left;">
+0.092 ± 0.063
+</td>
+<td style="text-align:left;">
+948
+</td>
+<td style="text-align:left;">
+0.000e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V8
+</td>
+<td style="text-align:left;">
+0.282 ± 0.131
+</td>
+<td style="text-align:left;">
+0.302 ± 0.126
+</td>
+<td style="text-align:left;">
+0.128 ± 0.085
+</td>
+<td style="text-align:left;">
+906
+</td>
+<td style="text-align:left;">
+0.000e+00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+V9
+</td>
+<td style="text-align:left;">
+10.705 ± 3.026
+</td>
+<td style="text-align:left;">
+11.129 ± 3.104
+</td>
+<td style="text-align:left;">
+7.890 ± 2.512
+</td>
+<td style="text-align:left;">
+499
+</td>
+<td style="text-align:left;">
+3.725e-195
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<!-- ## 범주형 자료분석(categorical data analysis) -->
+<!-- ### 적합성 검정(goodness-of-fit test) -->
+<!-- ### 독립성 검정 -->
+<!-- ### Fisher 정확검정 -->
+<!-- ## 두 변수의 상관 -->
+
+</div>
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="qqplot.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-markdown.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/zorba78/cnu-r-programming-lecture-note/12-basic-stat-analysis.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["cnu-r-programming.pdf", "PDF"]],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
