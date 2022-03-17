@@ -879,7 +879,7 @@ dir()
 [63] "output"                              
 [64] "packages.bib"                        
 [65] "README.md"                           
-[66] "render2d2022ded324.rds"              
+[66] "render1a8af4ad6c380.rds"             
 [67] "test"                                
 [68] "video"                               
 ```
@@ -991,7 +991,7 @@ getwd(); dir()
 [63] "output"                              
 [64] "packages.bib"                        
 [65] "README.md"                           
-[66] "render2d2022ded324.rds"              
+[66] "render1a8af4ad6c380.rds"             
 [67] "test"                                
 [68] "video"                               
 ```
@@ -1663,7 +1663,7 @@ output: html_document
 
 **2. Markdown 텍스트**
 
-- Markdown 문법은 15주 차 강의에서 배울 예정임
+- Markdown의 자세한 문법은 2학기 통계패키지활용에서 다룰 예정임
 - [R Markdown 레퍼런스 가이드](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) 참조
 - 그림 삽입: `![](path/filename)`
 

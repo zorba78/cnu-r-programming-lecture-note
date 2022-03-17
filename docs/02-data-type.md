@@ -410,7 +410,7 @@ typeof(10)
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:operation)R언어의 기본 수치 연산자</caption>
  <thead>
   <tr>
@@ -622,7 +622,7 @@ Error in h1 - h2: 이항연산자에 수치가 아닌 인수입니다
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:logic-op-tab)R언어의 논리형 연산자</caption>
  <thead>
   <tr>
@@ -660,7 +660,7 @@ Error in h1 - h2: 이항연산자에 수치가 아닌 인수입니다
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption style="font-size: initial !important;">(\#tab:comp-op-tab)R언어의 비교 연산자</caption>
  <thead>
   <tr>
@@ -2964,7 +2964,7 @@ typeof(lval)
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:list-tab)리스트 데이터 접근 방법</caption>
  <thead>
   <tr>
@@ -7872,7 +7872,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x5573438ac8a8> 
+  .. ..- attr(*, ".Environment")=<environment: 0x55d251c25168> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"
