@@ -12,7 +12,7 @@ editor_options:
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">**학습목표(2 주차)**: R에서 사용 가능한 데이터 타입에 대해 알아보고, 고유 데이터 타입으로 구성한 객체(스칼라, 백터, 리스트)와 이와 연관된 함수들을 익힌다.</div>\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">**학습목표**: R에서 사용 가능한 데이터 타입에 대해 알아보고, 고유 데이터 타입으로 구성한 객체(스칼라, 백터, 리스트)와 이와 연관된 함수들을 익힌다.</div>\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -3392,7 +3392,7 @@ $lee$grade
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">**학습목표(3 주차)**: 행렬, 배열, 요인형과 테이블에 대해 살펴보고, 이들 객체에 대한 연산과 연관된 함수에 대해 익힌다.</div>\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">**학습목표**: 행렬, 배열, 요인형과 테이블에 대해 살펴보고, 이들 객체에 대한 연산과 연관된 함수에 대해 익힌다.</div>\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -6444,7 +6444,7 @@ f1          a         b
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">**학습목표(4 주차)**: 데이터 프레임 클래스에 대해 알아보고, 데이터 프레임을 생성, 병합(merge), 연산에 대한 함수들에 대해 알아본다.</div>\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">**학습목표**: 데이터 프레임 클래스에 대해 알아보고, 데이터 프레임을 생성, 병합(merge), 연산에 대한 함수들에 대해 알아본다.</div>\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -6457,30 +6457,35 @@ f1          a         b
  <thead>
   <tr>
    <th style="text-align:left;"> 이름 </th>
-   <th style="text-align:left;"> 직장 </th>
+   <th style="text-align:left;"> 국적 </th>
    <th style="text-align:right;"> 나이 </th>
+   <th style="text-align:right;"> 순위 </th>
   </tr>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 김어준 </td>
-   <td style="text-align:left;"> 딴지일보 </td>
-   <td style="text-align:right;"> 51 </td>
+   <td style="text-align:left;"> 라파엘 나달 </td>
+   <td style="text-align:left;"> 스페인 </td>
+   <td style="text-align:right;"> 35 </td>
+   <td style="text-align:right;"> 6 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 주진우 </td>
-   <td style="text-align:left;"> 시사인 </td>
-   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:left;"> 다닐 메드베데프 </td>
+   <td style="text-align:left;"> 러시아 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 2 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 김용민 </td>
-   <td style="text-align:left;"> 프리랜서 </td>
-   <td style="text-align:right;"> 45 </td>
+   <td style="text-align:left;"> 노박 조코비치 </td>
+   <td style="text-align:left;"> 세르비아 </td>
+   <td style="text-align:right;"> 34 </td>
+   <td style="text-align:right;"> 1 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 정봉주 </td>
-   <td style="text-align:left;"> 정당인 </td>
-   <td style="text-align:right;"> 59 </td>
+   <td style="text-align:left;"> 권순우 </td>
+   <td style="text-align:left;"> 대한민국 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 53 </td>
   </tr>
 </tbody>
 </table>
@@ -7872,7 +7877,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x55d251c25168> 
+  .. ..- attr(*, ".Environment")=<environment: 0x561d0715fac8> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"
