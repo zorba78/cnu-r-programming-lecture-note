@@ -4293,7 +4293,7 @@ X %*% solve(X)
     정방행렬(square matrix)에서 정의
 -   역행렬을 구할 때 임의의 행렬이 0, 즉 위 $2\times 2$ 행렬에서
     $ad - bc$의 값이 0이라면 역행렬이 존재할 수 없는데 여기서
-    $ad - bc$가 $2\times 2$ 행렬의 정방행렬임
+    $ad - bc$가 $2\times 2$ 행렬의 행렬식임
 -   임의의 정방행렬 $\mathrm{\mathbf X}$의 행렬식은
     $|\mathrm{\mathbf X}|$ 또는 $\det(\mathrm{\mathbf{X}})$로 표시함
 -   $2\times 2$ 행렬의 행렬식은 넓이, $3\times 3$ 이상인 정방 행렬에서는
@@ -5446,6 +5446,12 @@ pic <- readJPEG(img)
 4.  이미지 그래프 출력창에서 확인
 
 \footnotesize
+
+
+```r
+ggdraw() +
+  draw_image(pic)
+```
 
 <img src="02-data-type_files/figure-html/ex-step4-1.svg" width="90%" style="display: block; margin: auto;" />
 
@@ -7877,7 +7883,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x561d0715fac8> 
+  .. ..- attr(*, ".Environment")=<environment: 0x55cbfab2a440> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"
