@@ -12,8 +12,9 @@ editor_options:
 
 \BeginKnitrBlock{rmdimportant}<div class="rmdimportant">**학습 목표**
 
-- 텍스트 문자 처리에 있어 가장 기본인 정규 표현식(regular rexpression)에 대해 알아본다.
 - R에서 기본으로 제공하는 문자열 차리 함수에 대해 알아본다
+- 텍스트 문자 처리에 있어 유용한 정규 표현식(regular rexpression)에 대해 알아본다.
+
 </div>\EndKnitrBlock{rmdimportant}
 
  \normalsize
@@ -28,13 +29,13 @@ editor_options:
 - R에서 문자열을 이용한 반복 계산 가능
 
 
-- 대규모 텍스트 데이터(웹문서, 블로그, SNS, 뉴스, 논문, 상품평, ...)로부터 새로운 정보 및 지식을 도출하기 위한 텍스트 처리에 대한 기본적 이해
+- 대규모 텍스트 데이터(웹문서, 블로그, SNS, 뉴스, 논문, 상품평, ...) 로부터 새로운 정보 및 지식을 도출하기 위한 텍스트 처리에 대한 기본적 이해
 
 
-- 여러 문자열로 이루어진 방대한 텍스트 벡터에서 특정 패턴을 갖고 있는 구문을 선별해야 할 경우, 패턴을 도식화 할 수 있는 함축적 표현 필요 $\rightarrow$ **정규 표현식**
+- 여러 문자열로 이루어진 방대한 텍스트 벡터에서 특정 패턴을 갖고 있는 구문을 선별해야 할 경우, 패턴을 도식화 할 수 있는 논리적 표현 필요 $\rightarrow$ **정규 표현식**
 
 
-#### **정규 표현식의 기본함수** {#regex-prim-fun .unnumbered}
+#### **정규 표현식을 활용하는 주요 문자열 처리 함수** {#regex-prim-fun .unnumbered}
 
 
 >- **`grep()`, `grepl()`**: 문자형 벡터에서 정규 표현식 또는 문자 패턴의 일치를 검색. 
@@ -50,7 +51,7 @@ editor_options:
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">정규 표현식 및 문자열 처리를 위한 함수의 종류는 매우 다양하지만, 본 강의에서는 정규 표현식의 이해를 위해 일부만 소개할 것임</div>\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">문자열 처리를 위해 정규표현식을 활용하는 함수의 종류는 매우 다양하지만, 본 강의에서는  일부만 소개</div>\EndKnitrBlock{rmdnote}
 
  \normalsize
 
@@ -131,7 +132,7 @@ x
 \BeginKnitrBlock{rmdtip}<div class="rmdtip">**참고자료**
 
    - [Youtube 동영상](https://www.youtube.com/watch?v=q8SzNKib5-4&t=18s): 영어 강의가 옥의 티...
-   - [regexr.com](https://regexr.com): 정규 표현식의 패턴 확인 가능
+   - [regexr.com](https://regexr.com/5mhou): 정규 표현식의 패턴 확인 가능
    - [Wikibooks R programming: Text processing](https://en.wikibooks.org/wiki/R_Programming/Text_Processing)
 </div>\EndKnitrBlock{rmdtip}
 
@@ -142,8 +143,8 @@ x
 
 ### **`nchar()`** {#nchar}
 
-- 인간이 눈으로 읽을 수 있는 문자의 개수(길이)를 반환
-- 공백, 줄바꿈 표시자(예: `\n`)도 하나의 문자 개수로 인식
+- 인간이 눈으로 식별할 수 있는 문자의 개수(길이)를 반환
+- 공백, 줄 바꿈 표시자(예: `\n`)도 하나의 문자 개수로 인식
 - 한글의 한 글자는 2 바이트(byte)지만 한 글자로 인식 $\rightarrow$ byte 단위 반환 가능
 
 \footnotesize
@@ -609,7 +610,7 @@ substr(
 
 ```r
 cnu <- "충남대학교 자연과학대학 정보통계학과"
-substr(cnu, start = 14, stop = nchar(str))
+substr(cnu, start = 14, stop = nchar(cnu))
 ```
 
 ```
@@ -673,7 +674,7 @@ letters; toupper(letters)
 \BeginKnitrBlock{rmdtip}<div class="rmdtip">- glue 패키지에서 제공하는 `glue()` 함수를 통해 지금까지 학습한 `paste()`, `paste0()` 
 보다 손쉽게 문자열을 결합할 수 있음
 
-- 중괄호(`{}`, curly bracket)를 활용해 R 객체에 저장되어 있는 값과 지정한 문자열을 결합
+- 중괄호(`{}`, curly bracket) 안에 R 객체에 저장되어 있는 값을 입력해 읽어온 후 지정한 문자열을 결합
 
 </div>\EndKnitrBlock{rmdtip}
 
@@ -1533,7 +1534,7 @@ jude_w2
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<table class="table table-condensed table-striped" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:meta-char)정규표현식 메타 문자: 기본</caption>
  <thead>
   <tr>
@@ -2012,7 +2013,7 @@ str[g]
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<table class="table table-condensed table-striped" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:meta-char2)정규표현식 메타 문자: 문자집합</caption>
  <thead>
   <tr>
@@ -2153,7 +2154,7 @@ blank[g]
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<table class="table table-condensed table-striped" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:meta-char3)정규표현식 주요 문자 클래스</caption>
  <thead>
   <tr>
@@ -2200,7 +2201,7 @@ blank[g]
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<table class="table table-condensed table-striped" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:meta-char4)정규표현식: POSIX 문자 클래스</caption>
  <thead>
   <tr>

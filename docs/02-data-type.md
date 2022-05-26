@@ -822,6 +822,12 @@ l.01 && l.02  # l.01과 l.02의 첫 번째 원소에 대해 & 연산
 ```
 
 ```
+Warning in l.01 && l.02: 'length(x) = 4 > 1' in coercion to 'logical(1)'
+
+Warning in l.01 && l.02: 'length(x) = 4 > 1' in coercion to 'logical(1)'
+```
+
+```
 [1] FALSE
 ```
 
@@ -7883,7 +7889,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x55cbfab2a440> 
+  .. ..- attr(*, ".Environment")=<environment: 0x55f6f36da898> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"

@@ -135,16 +135,23 @@ z <- "Both TRUE!!"
 
 if (x[1] & y[1]) print(z) # x, y 첫 번째 원소만 사용
 if (x && y) print(z) # 강제로 첫 번째 원소만 사용
-if (x & y) print(z) # 경고 표시
 ```
 
 ```
-Warning in if (x & y) print(z): length > 1 이라는 조건이 있고, 첫번째 요소만이
-사용될 것입니다
+Warning in x && y: 'length(x) = 3 > 1' in coercion to 'logical(1)'
+
+Warning in x && y: 'length(x) = 3 > 1' in coercion to 'logical(1)'
+```
+
+```r
+if (x & y) print(z) # 경고 표시(R 4.2.0 이후 Error 표시)
 ```
 
 ```
-[1] "Both TRUE!!"
+Error in if (x & y) print(z): the condition has length > 1
+```
+
+```
 [1] "Both TRUE!!"
 [1] "Both TRUE!!"
 ```
@@ -1296,12 +1303,7 @@ stdev(TRUE, dat) # 오류 why??
 ```
 
 ```
-Warning in if (na.rm) "na.or.complete" else "everything": length > 1 이라는 조건
-이 있고, 첫번째 요소만이 사용될 것입니다
-```
-
-```
-Error in if (na.rm) "na.or.complete" else "everything": argument is not interpretable as logical
+Error in if (na.rm) "na.or.complete" else "everything": the condition has length > 1
 ```
 
 ```r
@@ -1624,7 +1626,7 @@ match.arg(arg = c("median", "maximuum"),
 ```
 
 ```
-Error in match.arg(arg = c("median", "maximuum"), choices = c("mean", : 'arg'은 반드시 "mean", "med", "iqr", "minimum", "max", "range" 중 하나이어야 합니다
+Error in match.arg(arg = c("median", "maximuum"), choices = c("mean", : 'arg' should be one of "mean", "med", "iqr", "minimum", "max", "range"
 ```
 
 ```r
@@ -1689,7 +1691,7 @@ center(x, "mean"); center(x, "me")
 ```
 
 ```
-Error in match.arg(type): 'arg'은 반드시 "mean", "trimmed", "median", "mode" 중 하나이어야 합니다
+Error in match.arg(type): 'arg' should be one of "mean", "trimmed", "median", "mode"
 ```
 
 ```
