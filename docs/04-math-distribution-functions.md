@@ -693,7 +693,7 @@ names(iris)
 
 ```r
 f3 <- Species ~ Sepal.Length + Sepal.Width + Petal.Length
-# 붓꽃의 종은 꽃받침 길이와 너비, 꽃잎의 길이에 대한 함수
+# 붓꽃의 종을 꽃받침 길이, 너비, 꽃잎의 길이에 대한 선형 함수로 표현
 
 
 f4 <- ~ x1 + x2
@@ -749,7 +749,7 @@ x1 + x2 + x3
 
 **수식표현 방법**
 
-- 위에서 기술환대로 `좌변항 ~ 우변항`으로 표현
+- 위에서 기술한 바와 같이 `좌변항 ~ 우변항`으로 표현
 - `formula()` 또는 `as.formula()` 함수를 통해 텍스트를 **formula** 형태로 생성 가능
 
 \footnotesize
