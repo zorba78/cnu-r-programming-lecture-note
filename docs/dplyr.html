@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>9.3 dplyr 패키지 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2022년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
   <meta property="og:title" content="9.3 dplyr 패키지 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2022-06-09" />
+<meta name="date" content="2022-10-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -98,7 +98,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -111,7 +111,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -1623,14 +1623,14 @@ Figure 7.2: group_by() 함수 다이어그램
 <span id="cb1805-2"><a href="dplyr.html#cb1805-2" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">3</span>)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"ford","2":"mustang","3":"3.8","4":"1999","5":"6","6":"manual(m5)","7":"r","8":"18","9":"26","10":"r","11":"subcompact"},{"1":"lincoln","2":"navigator 2wd","3":"5.4","4":"1999","5":"8","6":"auto(l4)","7":"r","8":"11","9":"17","10":"r","11":"suv"},{"1":"audi","2":"a4","3":"2.0","4":"2008","5":"4","6":"auto(av)","7":"f","8":"21","9":"30","10":"p","11":"compact"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"toyota","2":"4runner 4wd","3":"4.7","4":"2008","5":"8","6":"auto(l5)","7":"4","8":"14","9":"17","10":"r","11":"suv"},{"1":"dodge","2":"durango 4wd","3":"4.7","4":"2008","5":"8","6":"auto(l5)","7":"4","8":"13","9":"17","10":"r","11":"suv"},{"1":"volkswagen","2":"passat","3":"2.8","4":"1999","5":"6","6":"manual(m5)","7":"f","8":"18","9":"26","10":"p","11":"midsize"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <div class="sourceCode" id="cb1806"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1806-1"><a href="dplyr.html#cb1806-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 전체 234개 행의 5%에 해당하는 행을 랜덤하게 추출</span></span>
 <span id="cb1806-2"><a href="dplyr.html#cb1806-2" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span> <span class="fu">sample_frac</span>(<span class="fl">0.05</span>)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"volkswagen","2":"jetta","3":"2.0","4":"1999","5":"4","6":"auto(l4)","7":"f","8":"19","9":"26","10":"r","11":"compact"},{"1":"toyota","2":"camry solara","3":"2.4","4":"2008","5":"4","6":"manual(m5)","7":"f","8":"21","9":"31","10":"r","11":"compact"},{"1":"dodge","2":"caravan 2wd","3":"2.4","4":"1999","5":"4","6":"auto(l3)","7":"f","8":"18","9":"24","10":"r","11":"minivan"},{"1":"toyota","2":"camry solara","3":"3.3","4":"2008","5":"6","6":"auto(s5)","7":"f","8":"18","9":"27","10":"r","11":"compact"},{"1":"hyundai","2":"sonata","3":"3.3","4":"2008","5":"6","6":"auto(l5)","7":"f","8":"19","9":"28","10":"r","11":"midsize"},{"1":"subaru","2":"impreza awd","3":"2.2","4":"1999","5":"4","6":"auto(l4)","7":"4","8":"21","9":"26","10":"r","11":"subcompact"},{"1":"volkswagen","2":"gti","3":"2.0","4":"1999","5":"4","6":"manual(m5)","7":"f","8":"21","9":"29","10":"r","11":"compact"},{"1":"honda","2":"civic","3":"1.8","4":"2008","5":"4","6":"manual(m5)","7":"f","8":"26","9":"34","10":"r","11":"subcompact"},{"1":"dodge","2":"ram 1500 pickup 4wd","3":"5.2","4":"1999","5":"8","6":"manual(m5)","7":"4","8":"11","9":"16","10":"r","11":"pickup"},{"1":"chevrolet","2":"malibu","3":"3.5","4":"2008","5":"6","6":"auto(l4)","7":"f","8":"18","9":"29","10":"r","11":"midsize"},{"1":"audi","2":"a4","3":"2.8","4":"1999","5":"6","6":"auto(l5)","7":"f","8":"16","9":"26","10":"p","11":"compact"},{"1":"hyundai","2":"sonata","3":"2.4","4":"1999","5":"4","6":"manual(m5)","7":"f","8":"18","9":"27","10":"r","11":"midsize"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"mercury","2":"mountaineer 4wd","3":"4.6","4":"2008","5":"8","6":"auto(l6)","7":"4","8":"13","9":"19","10":"r","11":"suv"},{"1":"audi","2":"a4 quattro","3":"1.8","4":"1999","5":"4","6":"manual(m5)","7":"4","8":"18","9":"26","10":"p","11":"compact"},{"1":"jeep","2":"grand cherokee 4wd","3":"4.7","4":"1999","5":"8","6":"auto(l4)","7":"4","8":"14","9":"17","10":"r","11":"suv"},{"1":"lincoln","2":"navigator 2wd","3":"5.4","4":"1999","5":"8","6":"auto(l4)","7":"r","8":"11","9":"17","10":"r","11":"suv"},{"1":"pontiac","2":"grand prix","3":"3.8","4":"1999","5":"6","6":"auto(l4)","7":"f","8":"17","9":"27","10":"r","11":"midsize"},{"1":"hyundai","2":"tiburon","3":"2.7","4":"2008","5":"6","6":"manual(m5)","7":"f","8":"17","9":"24","10":"r","11":"subcompact"},{"1":"honda","2":"civic","3":"1.6","4":"1999","5":"4","6":"manual(m5)","7":"f","8":"28","9":"33","10":"r","11":"subcompact"},{"1":"jeep","2":"grand cherokee 4wd","3":"6.1","4":"2008","5":"8","6":"auto(l5)","7":"4","8":"11","9":"14","10":"p","11":"suv"},{"1":"subaru","2":"impreza awd","3":"2.2","4":"1999","5":"4","6":"manual(m5)","7":"4","8":"19","9":"26","10":"r","11":"subcompact"},{"1":"volkswagen","2":"gti","3":"2.0","4":"1999","5":"4","6":"auto(l4)","7":"f","8":"19","9":"26","10":"r","11":"compact"},{"1":"ford","2":"f150 pickup 4wd","3":"5.4","4":"2008","5":"8","6":"auto(l4)","7":"4","8":"13","9":"17","10":"r","11":"pickup"},{"1":"subaru","2":"forester awd","3":"2.5","4":"1999","5":"4","6":"auto(l4)","7":"4","8":"18","9":"24","10":"r","11":"suv"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p></p>
@@ -1669,19 +1669,19 @@ Figure 7.2: group_by() 함수 다이어그램
 <span id="cb1809-4"><a href="dplyr.html#cb1809-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">hw_mpg =</span> hwy) <span class="sc">%&gt;%</span> </span>
 <span id="cb1809-5"><a href="dplyr.html#cb1809-5" aria-hidden="true" tabindex="-1"></a>  print</span></code></pre></div>
 <pre><code># A tibble: 234 × 11
-   manufacturer model  displ  year   cyl trans drv   city_mpg hw_mpg fl    class
-   &lt;chr&gt;        &lt;chr&gt;  &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;    &lt;int&gt;  &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
- 1 audi         a4       1.8  1999     4 auto… f           18     29 p     comp…
- 2 audi         a4       1.8  1999     4 manu… f           21     29 p     comp…
- 3 audi         a4       2    2008     4 manu… f           20     31 p     comp…
- 4 audi         a4       2    2008     4 auto… f           21     30 p     comp…
- 5 audi         a4       2.8  1999     6 auto… f           16     26 p     comp…
- 6 audi         a4       2.8  1999     6 manu… f           18     26 p     comp…
- 7 audi         a4       3.1  2008     6 auto… f           18     27 p     comp…
- 8 audi         a4 qu…   1.8  1999     4 manu… 4           18     26 p     comp…
- 9 audi         a4 qu…   1.8  1999     4 auto… 4           16     25 p     comp…
-10 audi         a4 qu…   2    2008     4 manu… 4           20     28 p     comp…
-# … with 224 more rows</code></pre>
+   manufacturer model   displ  year   cyl trans drv   city_…¹ hw_mpg fl    class
+   &lt;chr&gt;        &lt;chr&gt;   &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;   &lt;int&gt;  &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+ 1 audi         a4        1.8  1999     4 auto… f          18     29 p     comp…
+ 2 audi         a4        1.8  1999     4 manu… f          21     29 p     comp…
+ 3 audi         a4        2    2008     4 manu… f          20     31 p     comp…
+ 4 audi         a4        2    2008     4 auto… f          21     30 p     comp…
+ 5 audi         a4        2.8  1999     6 auto… f          16     26 p     comp…
+ 6 audi         a4        2.8  1999     6 manu… f          18     26 p     comp…
+ 7 audi         a4        3.1  2008     6 auto… f          18     27 p     comp…
+ 8 audi         a4 qua…   1.8  1999     4 manu… 4          18     26 p     comp…
+ 9 audi         a4 qua…   1.8  1999     4 auto… 4          16     25 p     comp…
+10 audi         a4 qua…   2    2008     4 manu… 4          20     28 p     comp…
+# … with 224 more rows, and abbreviated variable name ¹​city_mpg</code></pre>
 <p></p>
 <p><br/></p>
 </div>
@@ -1790,27 +1790,27 @@ Figure 7.2: group_by() 함수 다이어그램
 <span id="cb1820-6"><a href="dplyr.html#cb1820-6" aria-hidden="true" tabindex="-1"></a>  print</span></code></pre></div>
 <pre><code># A tibble: 18 × 12
 # Groups:   manufacturer, year [9]
-   manufacturer model      displ  year   cyl trans drv     cty   hwy fl    class
-   &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
- 1 jeep         grand che…   4    1999     6 auto… 4        15    20 r     suv  
- 2 jeep         grand che…   4.7  1999     8 auto… 4        14    17 r     suv  
- 3 land rover   range rov…   4    1999     8 auto… 4        11    15 p     suv  
- 4 land rover   range rov…   4.2  2008     8 auto… 4        12    18 r     suv  
- 5 land rover   range rov…   4.4  2008     8 auto… 4        12    18 r     suv  
- 6 land rover   range rov…   4.6  1999     8 auto… 4        11    15 p     suv  
- 7 lincoln      navigator…   5.4  1999     8 auto… r        11    17 r     suv  
- 8 lincoln      navigator…   5.4  1999     8 auto… r        11    16 p     suv  
- 9 lincoln      navigator…   5.4  2008     8 auto… r        12    18 r     suv  
-10 mercury      mountaine…   4    1999     6 auto… 4        14    17 r     suv  
-11 mercury      mountaine…   4    2008     6 auto… 4        13    19 r     suv  
-12 mercury      mountaine…   4.6  2008     8 auto… 4        13    19 r     suv  
-13 mercury      mountaine…   5    1999     8 auto… 4        13    17 r     suv  
-14 pontiac      grand prix   3.1  1999     6 auto… f        18    26 r     mids…
-15 pontiac      grand prix   3.8  1999     6 auto… f        16    26 p     mids…
-16 pontiac      grand prix   3.8  1999     6 auto… f        17    27 r     mids…
-17 pontiac      grand prix   3.8  2008     6 auto… f        18    28 r     mids…
-18 pontiac      grand prix   5.3  2008     8 auto… f        16    25 p     mids…
-# … with 1 more variable: N &lt;int&gt;</code></pre>
+   manufactu…¹ model displ  year   cyl trans drv     cty   hwy fl    class     N
+   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;
+ 1 jeep        gran…   4    1999     6 auto… 4        15    20 r     suv       2
+ 2 jeep        gran…   4.7  1999     8 auto… 4        14    17 r     suv       2
+ 3 land rover  rang…   4    1999     8 auto… 4        11    15 p     suv       2
+ 4 land rover  rang…   4.2  2008     8 auto… 4        12    18 r     suv       2
+ 5 land rover  rang…   4.4  2008     8 auto… 4        12    18 r     suv       2
+ 6 land rover  rang…   4.6  1999     8 auto… 4        11    15 p     suv       2
+ 7 lincoln     navi…   5.4  1999     8 auto… r        11    17 r     suv       2
+ 8 lincoln     navi…   5.4  1999     8 auto… r        11    16 p     suv       2
+ 9 lincoln     navi…   5.4  2008     8 auto… r        12    18 r     suv       1
+10 mercury     moun…   4    1999     6 auto… 4        14    17 r     suv       2
+11 mercury     moun…   4    2008     6 auto… 4        13    19 r     suv       2
+12 mercury     moun…   4.6  2008     8 auto… 4        13    19 r     suv       2
+13 mercury     moun…   5    1999     8 auto… 4        13    17 r     suv       2
+14 pontiac     gran…   3.1  1999     6 auto… f        18    26 r     mids…     3
+15 pontiac     gran…   3.8  1999     6 auto… f        16    26 p     mids…     3
+16 pontiac     gran…   3.8  1999     6 auto… f        17    27 r     mids…     3
+17 pontiac     gran…   3.8  2008     6 auto… f        18    28 r     mids…     2
+18 pontiac     gran…   5.3  2008     8 auto… f        16    25 p     mids…     2
+# … with abbreviated variable name ¹​manufacturer</code></pre>
 <p></p>
 </div>
 </div>
@@ -2111,24 +2111,25 @@ $ class_max        &lt;chr&gt; &quot;suv&quot;</code></pre>
 <span id="cb1846-9"><a href="dplyr.html#cb1846-9" aria-hidden="true" tabindex="-1"></a>  print</span></code></pre></div>
 <pre><code># A tibble: 15 × 10
 # Groups:   manufacturer [15]
-   manufacturer     n displ_mean cyl_mean cty_mean hwy_mean displ_sd cyl_sd
-   &lt;chr&gt;        &lt;int&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
- 1 audi            18       2.54     5.22     17.6     26.4    0.673  1.22 
- 2 chevrolet       19       5.06     7.26     15       21.9    1.37   1.37 
- 3 dodge           37       4.38     7.08     13.1     17.9    0.868  1.12 
- 4 ford            25       4.54     7.2      14       19.4    0.541  1    
- 5 honda            9       1.71     4        24.4     32.6    0.145  0    
- 6 hyundai         14       2.43     4.86     18.6     26.9    0.365  1.03 
- 7 jeep             8       4.58     7.25     13.5     17.6    1.02   1.04 
- 8 land rover       4       4.3      8        11.5     16.5    0.258  0    
- 9 lincoln          3       5.4      8        11.3     17      0      0    
-10 mercury          4       4.4      7        13.2     18      0.490  1.15 
-11 nissan          13       3.27     5.54     18.1     24.6    0.864  1.20 
-12 pontiac          5       3.96     6.4      17       26.4    0.808  0.894
-13 subaru          14       2.46     4        19.3     25.6    0.109  0    
-14 toyota          34       2.95     5.12     18.5     24.9    0.931  1.32 
-15 volkswagen      27       2.26     4.59     20.9     29.2    0.443  0.844
-# … with 2 more variables: cty_sd &lt;dbl&gt;, hwy_sd &lt;dbl&gt;</code></pre>
+   manufact…¹     n displ…² cyl_m…³ cty_m…⁴ hwy_m…⁵ displ…⁶ cyl_sd cty_sd hwy_sd
+   &lt;chr&gt;      &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 audi          18    2.54    5.22    17.6    26.4   0.673  1.22   1.97    2.18
+ 2 chevrolet     19    5.06    7.26    15      21.9   1.37   1.37   2.92    5.11
+ 3 dodge         37    4.38    7.08    13.1    17.9   0.868  1.12   2.49    3.57
+ 4 ford          25    4.54    7.2     14      19.4   0.541  1      1.91    3.33
+ 5 honda          9    1.71    4       24.4    32.6   0.145  0      1.94    2.55
+ 6 hyundai       14    2.43    4.86    18.6    26.9   0.365  1.03   1.50    2.18
+ 7 jeep           8    4.58    7.25    13.5    17.6   1.02   1.04   2.51    3.25
+ 8 land rover     4    4.3     8       11.5    16.5   0.258  0      0.577   1.73
+ 9 lincoln        3    5.4     8       11.3    17     0      0      0.577   1   
+10 mercury        4    4.4     7       13.2    18     0.490  1.15   0.5     1.15
+11 nissan        13    3.27    5.54    18.1    24.6   0.864  1.20   3.43    5.09
+12 pontiac        5    3.96    6.4     17      26.4   0.808  0.894  1       1.14
+13 subaru        14    2.46    4       19.3    25.6   0.109  0      0.914   1.16
+14 toyota        34    2.95    5.12    18.5    24.9   0.931  1.32   4.05    6.17
+15 volkswagen    27    2.26    4.59    20.9    29.2   0.443  0.844  4.56    5.32
+# … with abbreviated variable names ¹​manufacturer, ²​displ_mean, ³​cyl_mean,
+#   ⁴​cty_mean, ⁵​hwy_mean, ⁶​displ_sd</code></pre>
 <div class="sourceCode" id="cb1848"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1848-1"><a href="dplyr.html#cb1848-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summary_if() 예시</span></span>
 <span id="cb1848-2"><a href="dplyr.html#cb1848-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1) 문자형 변수이거나 모든 값이 1999보다 크거나 같은 변수이거나 </span></span>
 <span id="cb1848-3"><a href="dplyr.html#cb1848-3" aria-hidden="true" tabindex="-1"></a><span class="do">##     8보다 작거나 같고 정수인 변수를 factor 변환</span></span>
@@ -2207,21 +2208,22 @@ $ class_max        &lt;chr&gt; &quot;suv&quot;</code></pre>
 <li><code>flights</code>: 336,776 건의 비행에 대한 기록과 19개의 변수로 구성되어 있는 데이터셋</li>
 </ul>
 <pre><code># A tibble: 336,776 × 19
-    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
- 1  2013     1     1      517            515         2      830            819
- 2  2013     1     1      533            529         4      850            830
- 3  2013     1     1      542            540         2      923            850
- 4  2013     1     1      544            545        -1     1004           1022
- 5  2013     1     1      554            600        -6      812            837
- 6  2013     1     1      554            558        -4      740            728
- 7  2013     1     1      555            600        -5      913            854
- 8  2013     1     1      557            600        -3      709            723
- 9  2013     1     1      557            600        -3      838            846
-10  2013     1     1      558            600        -2      753            745
-# … with 336,766 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,
-#   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
-#   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+    year month   day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;      &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+ 1  2013     1     1      517        515       2     830     819      11 UA     
+ 2  2013     1     1      533        529       4     850     830      20 UA     
+ 3  2013     1     1      542        540       2     923     850      33 AA     
+ 4  2013     1     1      544        545      -1    1004    1022     -18 B6     
+ 5  2013     1     1      554        600      -6     812     837     -25 DL     
+ 6  2013     1     1      554        558      -4     740     728      12 UA     
+ 7  2013     1     1      555        600      -5     913     854      19 B6     
+ 8  2013     1     1      557        600      -3     709     723     -14 EV     
+ 9  2013     1     1      557        600      -3     838     846      -8 B6     
+10  2013     1     1      558        600      -2     753     745       8 AA     
+# … with 336,766 more rows, 9 more variables: flight &lt;int&gt;, tailnum &lt;chr&gt;,
+#   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+#   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, and abbreviated variable names
+#   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay</code></pre>
 <p></p>
 <table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
@@ -2464,19 +2466,19 @@ IANA 타임존
 <li><code>planes</code>: 항공기 정보(제조사, 일련번호, 유형 등)에 대한 정보를 포함한 데이터셋</li>
 </ul>
 <pre><code># A tibble: 3,322 × 9
-   tailnum  year type              manufacturer model engines seats speed engine
-   &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;        &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; 
- 1 N10156   2004 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…
- 2 N102UW   1998 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
- 3 N103US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
- 4 N104UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
- 5 N10575   2002 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…
- 6 N105UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
- 7 N107US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
- 8 N108UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
- 9 N109UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
-10 N110UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
-# … with 3,312 more rows</code></pre>
+   tailnum  year type                   manuf…¹ model engines seats speed engine
+   &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; 
+ 1 N10156   2004 Fixed wing multi engi… EMBRAER EMB-…       2    55    NA Turbo…
+ 2 N102UW   1998 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+ 3 N103US   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+ 4 N104UW   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+ 5 N10575   2002 Fixed wing multi engi… EMBRAER EMB-…       2    55    NA Turbo…
+ 6 N105UW   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+ 7 N107US   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+ 8 N108UW   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+ 9 N109UW   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+10 N110UW   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
+# … with 3,312 more rows, and abbreviated variable name ¹​manufacturer</code></pre>
 <p></p>
 <table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
@@ -2572,20 +2574,20 @@ engine
 <li><code>weather</code>: 뉴욕시 각 공항 별 날씨 정보</li>
 </ul>
 <pre><code># A tibble: 26,115 × 15
-   origin  year month   day  hour  temp  dewp humid wind_dir wind_speed
-   &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
- 1 EWR     2013     1     1     1  39.0  26.1  59.4      270      10.4 
- 2 EWR     2013     1     1     2  39.0  27.0  61.6      250       8.06
- 3 EWR     2013     1     1     3  39.0  28.0  64.4      240      11.5 
- 4 EWR     2013     1     1     4  39.9  28.0  62.2      250      12.7 
- 5 EWR     2013     1     1     5  39.0  28.0  64.4      260      12.7 
- 6 EWR     2013     1     1     6  37.9  28.0  67.2      240      11.5 
- 7 EWR     2013     1     1     7  39.0  28.0  64.4      240      15.0 
- 8 EWR     2013     1     1     8  39.9  28.0  62.2      250      10.4 
- 9 EWR     2013     1     1     9  39.9  28.0  62.2      260      15.0 
-10 EWR     2013     1     1    10  41    28.0  59.6      260      13.8 
-# … with 26,105 more rows, and 5 more variables: wind_gust &lt;dbl&gt;, precip &lt;dbl&gt;,
-#   pressure &lt;dbl&gt;, visib &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+   origin  year month   day  hour  temp  dewp humid wind_dir wind_speed wind_g…¹
+   &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+ 1 EWR     2013     1     1     1  39.0  26.1  59.4      270      10.4        NA
+ 2 EWR     2013     1     1     2  39.0  27.0  61.6      250       8.06       NA
+ 3 EWR     2013     1     1     3  39.0  28.0  64.4      240      11.5        NA
+ 4 EWR     2013     1     1     4  39.9  28.0  62.2      250      12.7        NA
+ 5 EWR     2013     1     1     5  39.0  28.0  64.4      260      12.7        NA
+ 6 EWR     2013     1     1     6  37.9  28.0  67.2      240      11.5        NA
+ 7 EWR     2013     1     1     7  39.0  28.0  64.4      240      15.0        NA
+ 8 EWR     2013     1     1     8  39.9  28.0  62.2      250      10.4        NA
+ 9 EWR     2013     1     1     9  39.9  28.0  62.2      260      15.0        NA
+10 EWR     2013     1     1    10  41    28.0  59.6      260      13.8        NA
+# … with 26,105 more rows, 4 more variables: precip &lt;dbl&gt;, pressure &lt;dbl&gt;,
+#   visib &lt;dbl&gt;, time_hour &lt;dttm&gt;, and abbreviated variable name ¹​wind_gust</code></pre>
 <p></p>
 <table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
@@ -2830,19 +2832,19 @@ Figure 9.7: NYC flight 2013 데이터 관계도(<a href="https://r4ds.had.co.nz/
 <span id="cb1869-3"><a href="dplyr.html#cb1869-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(airports2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;origin&quot;</span> <span class="ot">=</span> <span class="st">&quot;faa&quot;</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb1869-4"><a href="dplyr.html#cb1869-4" aria-hidden="true" tabindex="-1"></a>  print</span></code></pre></div>
 <pre><code># A tibble: 336,776 × 10
-    year month   day  hour origin dest  tailnum carrier name        airport_name
-   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;       
- 1  2013     1     1     5 EWR    IAH   N14228  UA      United Air… Newark Libe…
- 2  2013     1     1     5 LGA    IAH   N24211  UA      United Air… La Guardia  
- 3  2013     1     1     5 JFK    MIA   N619AA  AA      American A… John F Kenn…
- 4  2013     1     1     5 JFK    BQN   N804JB  B6      JetBlue Ai… John F Kenn…
- 5  2013     1     1     6 LGA    ATL   N668DN  DL      Delta Air … La Guardia  
- 6  2013     1     1     5 EWR    ORD   N39463  UA      United Air… Newark Libe…
- 7  2013     1     1     6 EWR    FLL   N516JB  B6      JetBlue Ai… Newark Libe…
- 8  2013     1     1     6 LGA    IAD   N829AS  EV      ExpressJet… La Guardia  
- 9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue Ai… John F Kenn…
-10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American A… La Guardia  
-# … with 336,766 more rows</code></pre>
+    year month   day  hour origin dest  tailnum carrier name             airpo…¹
+   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;            &lt;chr&gt;  
+ 1  2013     1     1     5 EWR    IAH   N14228  UA      United Air Line… Newark…
+ 2  2013     1     1     5 LGA    IAH   N24211  UA      United Air Line… La Gua…
+ 3  2013     1     1     5 JFK    MIA   N619AA  AA      American Airlin… John F…
+ 4  2013     1     1     5 JFK    BQN   N804JB  B6      JetBlue Airways  John F…
+ 5  2013     1     1     6 LGA    ATL   N668DN  DL      Delta Air Lines… La Gua…
+ 6  2013     1     1     5 EWR    ORD   N39463  UA      United Air Line… Newark…
+ 7  2013     1     1     6 EWR    FLL   N516JB  B6      JetBlue Airways  Newark…
+ 8  2013     1     1     6 LGA    IAD   N829AS  EV      ExpressJet Airl… La Gua…
+ 9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue Airways  John F…
+10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American Airlin… La Gua…
+# … with 336,766 more rows, and abbreviated variable name ¹​airport_name</code></pre>
 <div class="sourceCode" id="cb1871"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1871-1"><a href="dplyr.html#cb1871-1" aria-hidden="true" tabindex="-1"></a><span class="co"># flights2와 airline, airports, planes 병합</span></span>
 <span id="cb1871-2"><a href="dplyr.html#cb1871-2" aria-hidden="true" tabindex="-1"></a>planes2 <span class="ot">&lt;-</span> planes <span class="sc">%&gt;%</span> </span>
 <span id="cb1871-3"><a href="dplyr.html#cb1871-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(tailnum, model)</span>
@@ -2853,19 +2855,19 @@ Figure 9.7: NYC flight 2013 데이터 관계도(<a href="https://r4ds.had.co.nz/
 <span id="cb1871-8"><a href="dplyr.html#cb1871-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(planes2, <span class="at">by =</span> <span class="st">&quot;tailnum&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb1871-9"><a href="dplyr.html#cb1871-9" aria-hidden="true" tabindex="-1"></a>  print</span></code></pre></div>
 <pre><code># A tibble: 336,776 × 11
-    year month   day  hour origin dest  tailnum carrier name  airport_name model
-   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;
- 1  2013     1     1     5 EWR    IAH   N14228  UA      Unit… Newark Libe… 737-…
- 2  2013     1     1     5 LGA    IAH   N24211  UA      Unit… La Guardia   737-…
- 3  2013     1     1     5 JFK    MIA   N619AA  AA      Amer… John F Kenn… 757-…
- 4  2013     1     1     5 JFK    BQN   N804JB  B6      JetB… John F Kenn… A320…
- 5  2013     1     1     6 LGA    ATL   N668DN  DL      Delt… La Guardia   757-…
- 6  2013     1     1     5 EWR    ORD   N39463  UA      Unit… Newark Libe… 737-…
- 7  2013     1     1     6 EWR    FLL   N516JB  B6      JetB… Newark Libe… A320…
- 8  2013     1     1     6 LGA    IAD   N829AS  EV      Expr… La Guardia   CL-6…
- 9  2013     1     1     6 JFK    MCO   N593JB  B6      JetB… John F Kenn… A320…
-10  2013     1     1     6 LGA    ORD   N3ALAA  AA      Amer… La Guardia   &lt;NA&gt; 
-# … with 336,766 more rows</code></pre>
+    year month   day  hour origin dest  tailnum carrier name       airpo…¹ model
+   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;
+ 1  2013     1     1     5 EWR    IAH   N14228  UA      United Ai… Newark… 737-…
+ 2  2013     1     1     5 LGA    IAH   N24211  UA      United Ai… La Gua… 737-…
+ 3  2013     1     1     5 JFK    MIA   N619AA  AA      American … John F… 757-…
+ 4  2013     1     1     5 JFK    BQN   N804JB  B6      JetBlue A… John F… A320…
+ 5  2013     1     1     6 LGA    ATL   N668DN  DL      Delta Air… La Gua… 757-…
+ 6  2013     1     1     5 EWR    ORD   N39463  UA      United Ai… Newark… 737-…
+ 7  2013     1     1     6 EWR    FLL   N516JB  B6      JetBlue A… Newark… A320…
+ 8  2013     1     1     6 LGA    IAD   N829AS  EV      ExpressJe… La Gua… CL-6…
+ 9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue A… John F… A320…
+10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American … La Gua… &lt;NA&gt; 
+# … with 336,766 more rows, and abbreviated variable name ¹​airport_name</code></pre>
 <div class="sourceCode" id="cb1873"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1873-1"><a href="dplyr.html#cb1873-1" aria-hidden="true" tabindex="-1"></a><span class="co"># flights2와 airline, airports2, planes2, weather2 병합</span></span>
 <span id="cb1873-2"><a href="dplyr.html#cb1873-2" aria-hidden="true" tabindex="-1"></a><span class="do">## weather 데이터 간소화</span></span>
 <span id="cb1873-3"><a href="dplyr.html#cb1873-3" aria-hidden="true" tabindex="-1"></a>weather2 <span class="ot">&lt;-</span> weather <span class="sc">%&gt;%</span> </span>
@@ -3359,7 +3361,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

@@ -248,7 +248,7 @@ sessionInfo()
 ```
 
 ```
-R version 4.2.0 (2022-04-22)
+R version 4.2.1 (2022-06-23)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 18.04.6 LTS
 
@@ -268,32 +268,33 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] kableExtra_1.3.4 gtsummary_1.6.0  gt_0.6.0.9000    glue_1.6.2      
- [5] forcats_0.5.1    stringr_1.4.0    dplyr_1.0.9      purrr_0.3.4     
- [9] readr_2.1.2      tidyr_1.2.0      tibble_3.1.7     ggplot2_3.3.6   
-[13] tidyverse_1.3.1  rmarkdown_2.14   knitr_1.39      
+ [1] kableExtra_1.3.4 gtsummary_1.6.2  gt_0.7.0         glue_1.6.2      
+ [5] forcats_0.5.2    stringr_1.4.1    dplyr_1.0.10     purrr_0.3.5     
+ [9] readr_2.1.3      tidyr_1.2.1      tibble_3.1.8     ggplot2_3.3.6   
+[13] tidyverse_1.3.2  rmarkdown_2.17   knitr_1.40      
 
 loaded via a namespace (and not attached):
  [1] svglite_2.1.0       lubridate_1.8.0     assertthat_0.2.1   
- [4] digest_0.6.29       utf8_1.2.2          R6_2.5.1           
- [7] cellranger_1.1.0    backports_1.4.1     reprex_2.0.1       
-[10] evaluate_0.15       highr_0.9           httr_1.4.3         
-[13] pillar_1.7.0        rlang_1.0.2         readxl_1.4.0       
-[16] rstudioapi_0.13     jquerylib_0.1.4     webshot_0.5.3      
-[19] munsell_0.5.0       broom_0.8.0         compiler_4.2.0     
-[22] modelr_0.1.8        xfun_0.31           systemfonts_1.0.4  
-[25] pkgconfig_2.0.3     htmltools_0.5.2     tidyselect_1.1.2   
-[28] bookdown_0.26       viridisLite_0.4.0   fansi_1.0.3        
-[31] crayon_1.5.1        tzdb_0.3.0          dbplyr_2.2.0       
-[34] withr_2.5.0         grid_4.2.0          jsonlite_1.8.0     
-[37] gtable_0.3.0        lifecycle_1.0.1     DBI_1.1.2          
-[40] magrittr_2.0.3      scales_1.2.0        cli_3.3.0          
-[43] stringi_1.7.6       broom.helpers_1.7.0 fs_1.5.2           
-[46] xml2_1.3.3          bslib_0.3.1         ellipsis_0.3.2     
-[49] generics_0.1.2      vctrs_0.4.1         tools_4.2.0        
-[52] hms_1.1.1           fastmap_1.1.0       yaml_2.3.5         
-[55] colorspace_2.0-3    rvest_1.0.2         haven_2.5.0        
-[58] sass_0.4.1         
+ [4] digest_0.6.30       utf8_1.2.2          R6_2.5.1           
+ [7] cellranger_1.1.0    backports_1.4.1     reprex_2.0.2       
+[10] evaluate_0.17       highr_0.9           httr_1.4.4         
+[13] pillar_1.8.1        rlang_1.0.6         googlesheets4_1.0.1
+[16] readxl_1.4.1        rstudioapi_0.14     jquerylib_0.1.4    
+[19] webshot_0.5.4       googledrive_2.0.0   munsell_0.5.0      
+[22] broom_1.0.1         compiler_4.2.1      modelr_0.1.9       
+[25] xfun_0.33           systemfonts_1.0.4   pkgconfig_2.0.3    
+[28] htmltools_0.5.3     tidyselect_1.2.0    bookdown_0.29      
+[31] viridisLite_0.4.1   fansi_1.0.3         crayon_1.5.2       
+[34] tzdb_0.3.0          dbplyr_2.2.1        withr_2.5.0        
+[37] grid_4.2.1          jsonlite_1.8.2      gtable_0.3.1       
+[40] lifecycle_1.0.3     DBI_1.1.3           magrittr_2.0.3     
+[43] scales_1.2.1        cli_3.4.1           stringi_1.7.8      
+[46] cachem_1.0.6        broom.helpers_1.9.0 fs_1.5.2           
+[49] xml2_1.3.3          bslib_0.4.0         ellipsis_0.3.2     
+[52] generics_0.1.3      vctrs_0.4.2         tools_4.2.1        
+[55] hms_1.1.2           fastmap_1.1.0       yaml_2.3.6         
+[58] colorspace_2.0-3    gargle_1.2.1        rvest_1.0.3        
+[61] haven_2.5.1         sass_0.4.2         
 ```
 
  \normalsize
@@ -879,7 +880,7 @@ dir()
 [63] "output"                              
 [64] "packages.bib"                        
 [65] "README.md"                           
-[66] "renderc452a3dfba6.rds"               
+[66] "render1a699bf88618.rds"              
 [67] "test"                                
 [68] "video"                               
 ```
@@ -912,8 +913,9 @@ getwd(); dir()
  [3] "code"                         "data"                        
  [5] "docs"                         "final-exam"                  
  [7] "output"                       "README.md"                   
- [9] "render-slide.R"               "slides"                      
-[11] "test.svg"                     "ust-medical-statistics.Rproj"
+ [9] "references"                   "render-slide.R"              
+[11] "slides"                       "test.svg"                    
+[13] "ust-medical-statistics.Rproj"
 ```
 
 ```r
@@ -992,7 +994,7 @@ getwd(); dir()
 [63] "output"                              
 [64] "packages.bib"                        
 [65] "README.md"                           
-[66] "renderc452a3dfba6.rds"               
+[66] "render1a699bf88618.rds"              
 [67] "test"                                
 [68] "video"                               
 ```
