@@ -516,7 +516,7 @@ sprintf("%d", pi)
 ```
 
 ```
-Error in sprintf("%d", pi): '%d'는 유효하지 않은 포맷입니다; 수치형 객체들에는 포맷 %f, %e, %g 또는 %a를 사용해 주세요
+Error in sprintf("%d", pi): invalid format '%d'; use format %f, %e, %g or %a for numeric objects
 ```
 
 ```r
@@ -1628,7 +1628,7 @@ regexpr("\.", str2)
 ```
 
 ```
-Error: ""\."로 시작하는 문자열 중에서 '\.'는 인식할 수 없는 이스케이프입니다
+Error: '\.' is an unrecognized escape in character string starting ""\."
 ```
 
  \normalsize

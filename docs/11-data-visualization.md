@@ -2568,6 +2568,11 @@ gmap +
             size = 1)
 ```
 
+```
+Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.
+```
+
 <div class="figure">
 <img src="11-data-visualization_files/figure-html/ggplot-line-intro-1.svg" alt="geom_line()을 이용한 선 그래프 생성" width="672" />
 <p class="caption">(\#fig:ggplot-line-intro)geom_line()을 이용한 선 그래프 생성</p>
@@ -3802,6 +3807,12 @@ p2 <- p0 +
 
 \footnotesize
 
+
+```
+Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.
+ℹ Please use `after_stat(density)` instead.
+```
+
 <img src="11-data-visualization_files/figure-html/unnamed-chunk-103-1.svg" width="960" />
 
  \normalsize
@@ -4143,8 +4154,8 @@ p2 <- p1 +
 ```
 
 ```
-Warning: `guides(<scale> = FALSE)` is deprecated. Please use `guides(<scale> =
-"none")` instead.
+Warning: The `<scale>` argument of `guides()` cannot be `FALSE`. Use "none" instead as
+of ggplot2 3.3.4.
 ```
 
  \normalsize
@@ -4649,6 +4660,11 @@ covid19_full %>%
 `.groups` argument.
 ```
 
+```
+Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.
+ℹ Please use the `linewidth` argument instead.
+```
+
 <img src="11-data-visualization_files/figure-html/unnamed-chunk-139-1.svg" width="1056" />
 
  \normalsize
@@ -4705,7 +4721,7 @@ covid19_full %>%
 ```
 
 ```
-Warning: Removed 2 rows containing missing values (position_stack).
+Warning: Removed 2 rows containing missing values (`position_stack()`).
 ```
 
 <img src="11-data-visualization_files/figure-html/unnamed-chunk-140-1.svg" width="1056" />
@@ -4724,7 +4740,7 @@ require(RColorBrewer)
 ```
 
 ```
-필요한 패키지를 로딩중입니다: RColorBrewer
+Loading required package: RColorBrewer
 ```
 
 ```r

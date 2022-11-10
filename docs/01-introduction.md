@@ -248,7 +248,7 @@ sessionInfo()
 ```
 
 ```
-R version 4.2.1 (2022-06-23)
+R version 4.2.2 (2022-10-31)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 18.04.6 LTS
 
@@ -257,12 +257,12 @@ BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3
 LAPACK: /usr/lib/x86_64-linux-gnu/libopenblasp-r0.2.20.so
 
 locale:
- [1] LC_CTYPE=ko_KR.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=ko_KR.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=ko_KR.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=ko_KR.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=ko_KR.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=ko_KR.UTF-8       LC_NAME=C                 
  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+[11] LC_MEASUREMENT=ko_KR.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
@@ -270,31 +270,31 @@ attached base packages:
 other attached packages:
  [1] kableExtra_1.3.4 gtsummary_1.6.2  gt_0.7.0         glue_1.6.2      
  [5] forcats_0.5.2    stringr_1.4.1    dplyr_1.0.10     purrr_0.3.5     
- [9] readr_2.1.3      tidyr_1.2.1      tibble_3.1.8     ggplot2_3.3.6   
+ [9] readr_2.1.3      tidyr_1.2.1      tibble_3.1.8     ggplot2_3.4.0   
 [13] tidyverse_1.3.2  rmarkdown_2.17   knitr_1.40      
 
 loaded via a namespace (and not attached):
- [1] svglite_2.1.0       lubridate_1.8.0     assertthat_0.2.1   
+ [1] svglite_2.1.0       lubridate_1.9.0     assertthat_0.2.1   
  [4] digest_0.6.30       utf8_1.2.2          R6_2.5.1           
  [7] cellranger_1.1.0    backports_1.4.1     reprex_2.0.2       
 [10] evaluate_0.17       highr_0.9           httr_1.4.4         
 [13] pillar_1.8.1        rlang_1.0.6         googlesheets4_1.0.1
 [16] readxl_1.4.1        rstudioapi_0.14     jquerylib_0.1.4    
 [19] webshot_0.5.4       googledrive_2.0.0   munsell_0.5.0      
-[22] broom_1.0.1         compiler_4.2.1      modelr_0.1.9       
-[25] xfun_0.33           systemfonts_1.0.4   pkgconfig_2.0.3    
+[22] broom_1.0.1         compiler_4.2.2      modelr_0.1.9       
+[25] xfun_0.34           systemfonts_1.0.4   pkgconfig_2.0.3    
 [28] htmltools_0.5.3     tidyselect_1.2.0    bookdown_0.29      
 [31] viridisLite_0.4.1   fansi_1.0.3         crayon_1.5.2       
 [34] tzdb_0.3.0          dbplyr_2.2.1        withr_2.5.0        
-[37] grid_4.2.1          jsonlite_1.8.2      gtable_0.3.1       
+[37] grid_4.2.2          jsonlite_1.8.3      gtable_0.3.1       
 [40] lifecycle_1.0.3     DBI_1.1.3           magrittr_2.0.3     
 [43] scales_1.2.1        cli_3.4.1           stringi_1.7.8      
 [46] cachem_1.0.6        broom.helpers_1.9.0 fs_1.5.2           
-[49] xml2_1.3.3          bslib_0.4.0         ellipsis_0.3.2     
-[52] generics_0.1.3      vctrs_0.4.2         tools_4.2.1        
+[49] xml2_1.3.3          bslib_0.4.1         ellipsis_0.3.2     
+[52] generics_0.1.3      vctrs_0.5.0         tools_4.2.2        
 [55] hms_1.1.2           fastmap_1.1.0       yaml_2.3.6         
-[58] colorspace_2.0-3    gargle_1.2.1        rvest_1.0.3        
-[61] haven_2.5.1         sass_0.4.2         
+[58] timechange_0.1.1    colorspace_2.0-3    gargle_1.2.1       
+[61] rvest_1.0.3         haven_2.5.1         sass_0.4.2         
 ```
 
  \normalsize
@@ -880,7 +880,7 @@ dir()
 [63] "output"                              
 [64] "packages.bib"                        
 [65] "README.md"                           
-[66] "render1a699bf88618.rds"              
+[66] "render72b928082b00.rds"              
 [67] "test"                                
 [68] "video"                               
 ```
@@ -994,7 +994,7 @@ getwd(); dir()
 [63] "output"                              
 [64] "packages.bib"                        
 [65] "README.md"                           
-[66] "render1a699bf88618.rds"              
+[66] "render72b928082b00.rds"              
 [67] "test"                                
 [68] "video"                               
 ```
@@ -1358,10 +1358,10 @@ ls() #현재 작업공간 내 객체명 출력
 ```
 
 ```
- [1] "도움말 보기 명령어" "사용법"             "설명"              
- [4] "a"                  "b"                  "cars"              
- [7] "def.chunk.hook"     "fig_cap"            "hook_output"       
-[10] "tab"                "x"                  "y"                 
+ [1] "a"                  "b"                  "cars"              
+ [4] "def.chunk.hook"     "fig_cap"            "hook_output"       
+ [7] "tab"                "x"                  "y"                 
+[10] "도움말 보기 명령어" "사용법"             "설명"              
 ```
 
  \normalsize
@@ -1375,10 +1375,10 @@ ls()
 ```
 
 ```
- [1] "도움말 보기 명령어" "사용법"             "설명"              
- [4] "a"                  "b"                  "cars"              
- [7] "def.chunk.hook"     "fig_cap"            "hook_output"       
-[10] "tab"                "y"                 
+ [1] "a"                  "b"                  "cars"              
+ [4] "def.chunk.hook"     "fig_cap"            "hook_output"       
+ [7] "tab"                "y"                  "도움말 보기 명령어"
+[10] "사용법"             "설명"              
 ```
 
 ```r
@@ -1387,9 +1387,9 @@ ls()
 ```
 
 ```
-[1] "도움말 보기 명령어" "사용법"             "설명"              
-[4] "cars"               "def.chunk.hook"     "fig_cap"           
-[7] "hook_output"        "tab"                "y"                 
+[1] "cars"               "def.chunk.hook"     "fig_cap"           
+[4] "hook_output"        "tab"                "y"                 
+[7] "도움말 보기 명령어" "사용법"             "설명"              
 ```
 
 ```r
@@ -1440,7 +1440,7 @@ x
 ```
 
 ```
-Error in eval(expr, envir, enclos): 객체 'x'를 찾을 수 없습니다
+Error in eval(expr, envir, enclos): object 'x' not found
 ```
 
  \normalsize
@@ -1516,7 +1516,7 @@ a1 <- seq(from = 1, to = 10, by = 2)
 ```
 
 ```
-Error: <text>:1:2: 예상하지 못한 기호(symbol)입니다.
+Error: <text>:1:2: unexpected symbol
 1: 3x
      ^
 ```
@@ -1531,7 +1531,7 @@ _x <- c("M", "M", "F")
 ```
 
 ```
-Error: <text>:1:2: 예상하지 못한 기호(symbol)입니다.
+Error: <text>:1:2: unexpected symbol
 1: _x
      ^
 ```
@@ -1546,7 +1546,7 @@ Error: <text>:1:2: 예상하지 못한 기호(symbol)입니다.
 ```
 
 ```
-Error in 0.3 <- 10: 대입에 유효하지 않은 (do_set) 좌변입니다
+Error in 0.3 <- 10: invalid (do_set) left-hand side to assignment
 ```
 
  \normalsize

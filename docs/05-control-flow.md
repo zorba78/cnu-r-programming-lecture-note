@@ -1057,7 +1057,7 @@ print_lyrics_let_it_be(beatles)
 ```
 
 ```
-Error in print_lyrics_let_it_be(beatles): 사용되지 않은 인자 (beatles)
+Error in print_lyrics_let_it_be(beatles): unused argument (beatles)
 ```
 
 ```r
@@ -1116,7 +1116,7 @@ manual_mean(x, na.rm = TRUE)
 ```
 
 ```
-Error in manual_mean(x, na.rm = TRUE): 사용되지 않은 인자 (na.rm = TRUE)
+Error in manual_mean(x, na.rm = TRUE): unused argument (na.rm = TRUE)
 ```
 
  \normalsize
@@ -1324,7 +1324,7 @@ stdev(dat = dat, na.rm = TRUE) # 오류 why???
 ```
 
 ```
-Error in stdev(dat = dat, na.rm = TRUE): 사용되지 않은 인자 (dat = dat)
+Error in stdev(dat = dat, na.rm = TRUE): unused argument (dat = dat)
 ```
 
  \normalsize
@@ -1636,7 +1636,7 @@ match.arg(arg = c("med", "max"),
 ```
 
 ```
-Error in match.arg(arg = c("med", "max"), choices = c("mean", "median", : 'arg'는 반드시 길이가 1이어야 합니다
+Error in match.arg(arg = c("med", "max"), choices = c("mean", "median", : 'arg' must be of length 1
 ```
 
  \normalsize
@@ -1947,7 +1947,7 @@ scope2(x = 5)
 ```
 
 ```
-Error in print(z): 객체 'z'를 찾을 수 없습니다
+Error in print(z): object 'z' not found
 ```
 
 ```r

@@ -405,8 +405,8 @@ system.time(pulse <- read.csv("dataset/pulse.csv", header = T))
 ```
 
 ```
- 사용자  시스템 elapsed 
-  4.759   0.048   4.812 
+   user  system elapsed 
+  4.580   0.051   4.634 
 ```
 
 ```r
@@ -426,8 +426,8 @@ system.time(pulse <- readRDS("output/pulse.rds"))
 ```
 
 ```
- 사용자  시스템 elapsed 
-  0.081   0.000   0.082 
+   user  system elapsed 
+  0.079   0.000   0.079 
 ```
 
  \normalsize
@@ -479,7 +479,7 @@ require(readxl)
 ```
 
 ```
-필요한 패키지를 로딩중입니다: readxl
+Loading required package: readxl
 ```
 
 ```r

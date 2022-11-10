@@ -164,7 +164,7 @@ editor_options:
 ```
 
 ```
-Error: <text>:1:6: 예기치 않은 '!'입니다
+Error: <text>:1:6: unexpected '!'
 1: 안녕하세요!
          ^
 ```
@@ -606,7 +606,7 @@ h1 - h2
 ```
 
 ```
-Error in h1 - h2: 이항연산자에 수치가 아닌 인수입니다
+Error in h1 - h2: non-numeric argument to binary operator
 ```
 
  \normalsize
@@ -795,7 +795,7 @@ TRUE <- 1
 ```
 
 ```
-Error in TRUE <- 1: 대입에 유효하지 않은 (do_set) 좌변입니다
+Error in TRUE <- 1: invalid (do_set) left-hand side to assignment
 ```
 
 ```r
@@ -803,7 +803,7 @@ TRUE <- FALSE
 ```
 
 ```
-Error in TRUE <- FALSE: 대입에 유효하지 않은 (do_set) 좌변입니다
+Error in TRUE <- FALSE: invalid (do_set) left-hand side to assignment
 ```
 
 ```r
@@ -1542,7 +1542,8 @@ x + y
 ```
 
 ```
-Warning in x + y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+Warning in x + y: longer object length is not a multiple of shorter object
+length
 ```
 
 ```
@@ -1554,7 +1555,7 @@ x / y
 ```
 
 ```
-Warning in x/y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+Warning in x/y: longer object length is not a multiple of shorter object length
 ```
 
 ```
@@ -1733,7 +1734,8 @@ x == y
 ```
 
 ```
-Warning in x == y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+Warning in x == y: longer object length is not a multiple of shorter object
+length
 ```
 
 ```
@@ -1745,7 +1747,8 @@ x != y
 ```
 
 ```
-Warning in x != y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+Warning in x != y: longer object length is not a multiple of shorter object
+length
 ```
 
 ```
@@ -1757,7 +1760,8 @@ x > y
 ```
 
 ```
-Warning in x > y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+Warning in x > y: longer object length is not a multiple of shorter object
+length
 ```
 
 ```
@@ -1769,7 +1773,8 @@ x < y
 ```
 
 ```
-Warning in x < y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+Warning in x < y: longer object length is not a multiple of shorter object
+length
 ```
 
 ```
@@ -1781,7 +1786,8 @@ x >= y
 ```
 
 ```
-Warning in x >= y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+Warning in x >= y: longer object length is not a multiple of shorter object
+length
 ```
 
 ```
@@ -1793,7 +1799,8 @@ x <= y
 ```
 
 ```
-Warning in x <= y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+Warning in x <= y: longer object length is not a multiple of shorter object
+length
 ```
 
 ```
@@ -3522,8 +3529,8 @@ y <- matrix(x, nrow = 3, ncol = 4)
 ```
 
 ```
-Warning in matrix(x, nrow = 3, ncol = 4): 데이터의 길이[9]가 열의 개수[4]의 배수
-가 되지 않습니다
+Warning in matrix(x, nrow = 3, ncol = 4): data length [9] is not a sub-multiple
+or multiple of the number of columns [4]
 ```
 
 ```r
@@ -3545,8 +3552,8 @@ z <- matrix(x, nrow = 2, ncol = 3)
 ```
 
 ```
-Warning in matrix(x, nrow = 2, ncol = 3): 데이터의 길이[9]가 행의 개수[2]의 배수
-가 되지 않습니다
+Warning in matrix(x, nrow = 2, ncol = 3): data length [9] is not a sub-multiple
+or multiple of the number of rows [2]
 ```
 
 ```r
@@ -3574,8 +3581,8 @@ h <- matrix(x, nrow = 4)
 ```
 
 ```
-Warning in matrix(x, nrow = 4): 데이터의 길이[9]가 행의 개수[4]의 배수가 되지 않
-습니다
+Warning in matrix(x, nrow = 4): data length [9] is not a sub-multiple or
+multiple of the number of rows [4]
 ```
 
 ```r
@@ -3597,8 +3604,8 @@ h <- matrix(x, nrow = 2)
 ```
 
 ```
-Warning in matrix(x, nrow = 2): 데이터의 길이[9]가 행의 개수[2]의 배수가 되지 않
-습니다
+Warning in matrix(x, nrow = 2): data length [9] is not a sub-multiple or
+multiple of the number of rows [2]
 ```
 
 ```r
@@ -3798,7 +3805,7 @@ x + z
 ```
 
 ```
-Error in x + z: 배열의 크기가 올바르지 않습니다
+Error in x + z: non-conformable arrays
 ```
 
 ```r
@@ -3806,7 +3813,7 @@ x * z
 ```
 
 ```
-Error in x * z: 배열의 크기가 올바르지 않습니다
+Error in x * z: non-conformable arrays
 ```
 
 ```r
@@ -3814,7 +3821,7 @@ x / z
 ```
 
 ```
-Error in x/z: 배열의 크기가 올바르지 않습니다
+Error in x/z: non-conformable arrays
 ```
 
  \normalsize
@@ -4008,11 +4015,12 @@ X + y
 ```
 
 ```
-Warning in X + y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+Warning in X + y: longer object length is not a multiple of shorter object
+length
 ```
 
 ```
-Error in eval(expr, envir, enclos): dims [product 9]가 객체 [10]의 길이와 일치하지 않습니다
+Error in eval(expr, envir, enclos): dims [product 9] do not match the length of object [10]
 ```
 
 ```r
@@ -4023,7 +4031,8 @@ X + y
 ```
 
 ```
-Warning in X + y: 두 객체의 길이가 서로 배수관계에 있지 않습니다
+Warning in X + y: longer object length is not a multiple of shorter object
+length
 ```
 
 ```
@@ -5672,8 +5681,8 @@ severity[1] <- "Good"
 ```
 
 ```
-Warning in `[<-.factor`(`*tmp*`, 1, value = "Good"): 요인의 수준(factor level)이
-올바르지 않아 NA가 생성되었습니다.
+Warning in `[<-.factor`(`*tmp*`, 1, value = "Good"): invalid factor level, NA
+generated
 ```
 
 ```r
@@ -7223,7 +7232,7 @@ rbind(a, c) #변수명이 다르기때문에 행으로 묶을 수 없다.
 ```
 
 ```
-Error in match.names(clabs, names(xi)): 이전에 사용된 이름들과 일치하지 않습니다.
+Error in match.names(clabs, names(xi)): names do not match previous names
 ```
 
 ```r
@@ -7889,7 +7898,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x5557f53f16a8> 
+  .. ..- attr(*, ".Environment")=<environment: 0x5577a3a2efb0> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"

@@ -964,8 +964,8 @@ Estimated pi:  3.141221
 ```
 
 ```
- 사용자  시스템 elapsed 
-  0.184   0.000   0.184 
+   user  system elapsed 
+  0.167   0.019   0.186 
 ```
 
  \normalsize
@@ -1688,7 +1688,7 @@ mean in group A mean in group B
    - 통계량은 **확률변수(random variable)**
 
 
-- **표본푼포(sampling distribution)**: 통계량의 분포. 즉, 여러 평행우주(표본)으로부터 도출한 각기 다른 값을 갖는 통계량이 이루는 분포
+- **표본분포(sampling distribution)**: 통계량의 분포. 즉, 여러 평행우주(표본)으로부터 도출한 각기 다른 값을 갖는 통계량이 이루는 분포
 
 - 실제 관찰한 데이터 외에 "평행우주"로 지칭되는 나머지 표본은 관측되지 않은 값 $\rightarrow$ **시뮬레이션**을 통해 가상의 평행우주를 생성 가능함 
 
