@@ -1,0 +1,126 @@
+---
+title: "통계패키지활용"
+subtitle: 통계 시뮬레이션 과제
+# author: "Boncho Ku"
+# date: "2022-11-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+3. (40 점) 다음과 같은 단순선형회귀모형을 고려해보자. 
+
+
+$$
+y_i = \beta_0 + \beta_1 x_i + \epsilon_i, \quad x_i \stackrel{i.i.d}{\sim} U(1, 4), \quad \epsilon_i \stackrel{i.i.d}{\sim} N(0, 2), \quad i = 1,\ldots, n
+$$
+위 모형에 대한 회귀계수의 최소제곱추정량은 다음과 같이 정의되고, 
+
+
+$$
+\hat{\beta}_1 = S_{xy}/S_{xx}, \quad \hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x}, \quad S_{xx} = \sum_{i=1}^{n} (x_i - \bar{x})^2, \quad 
+S_{xy} = \sum_{i=1}^{n} (x_{i} - \bar{x})(y_i - \bar{y})
+$$
+
+$\beta_1$에 대한 $(1-\alpha) \times 100$ % 신뢰구간은 아래 식으로 구할 수 있으며, 
+
+
+$$
+\hat{\beta}_1 \pm t_{1-\alpha/2, n-2} \frac{s}{\sqrt {S_{xx}}}, \quad s^2 = \frac{SSE}{n - 2}
+$$
+
+
+회귀직선의 설명력을 나타내는 결정계수는 다음과 같다. 
+
+
+
+$$
+R^2 = \frac{SSR}{SST}, \quad SST = \sum_{i = 1}^{n}(y - \bar{y})^2, \quad SSE = \sum_{i=1}^{n} (y_i - \hat{y})^2, \quad SSR = SST- SSE
+$$
+
+
+a. (15) 문제에서 기술한 단순선형회귀모형에 대한 모의실험을 실시하기 위해 $x_i$와 $y_i$를 생성해 가상 데이터에 대한 추정 회귀계수, $\beta_1$에 대한 
+$(1-\alpha)\times 100$ % 신뢰구간, 결정계수를 반환하는 `sim_reg()` 함수를 만드시오. 해당 함수는 다음과 같은 인수를 갖는다. 
+   - `size`: 생성할 표본 크기. 디폴트 값은 10
+   - `alpha`: 신뢰수준. 디폴트 값은 0.05
+   - `btrue`: 실제 회귀계수 $(\beta_0, \beta_1)$. 디폴트 값은 `c(1, 1)`
+   - `sim_reg()` 함수의 실행 결과는 다음과 같다.  
+
+
+```{r, echo=FALSE}
+sim_reg <- function(size = 10, alpha = 0.05, 
+                    btrue = c(1, 1)) 
+{
+  # browser()
+  x <- runif(size, 1, 4)
+  e <- rnorm(size, 0, sqrt(2))
+  y <- btrue[1] + btrue[2]*x + e
+
+  sxx <- sum((x - mean(x))^2)
+  sxy <- sum((x - mean(x))*(y - mean(y)))
+  bhat1 <- sxy/sxx; bhat0 <- mean(y) - bhat1*mean(x)
+  sst <- sum((y - mean(y))^2)
+  sse <- sum((y - (bhat0 + bhat1 * x))^2)
+  sigma <- (sse/(size - 2))/sxx
+  lcl <- bhat1 - qt(1 - alpha/2, size - 2) * sqrt(sigma)
+  ucl <- bhat1 + qt(1 - alpha/2, size - 2) * sqrt(sigma)
+  ssr <- sst - sse
+  R2 <- ssr/sst
+  result <- cbind(bhat0, bhat1, lcl, ucl, R2)
+  result
+}
+
+
+```
+
+
+```{r, echo=TRUE}
+sim_reg(size = 10, alpha = 0.05, btrue = c(1, 1))
+```
+
+
+b. (10) 표본의 크기를 30으로 고정하고 `sim_reg()` 함수를 사용해 설명변수와 반응변수를 생성하고 회귀계수 추정과 $\beta_1$에 대한 95 % 신뢰구간, 결정계수를 구하는 작업을 1000 번 반복하는 작업을 가급적 반복구문을 사용하지 않고 수행해 보시오. 이 때 $\beta_0 = 2.5$, $\beta_1 = 3.0$, 시드 번호는 `20211023`로 설정. 
+
+```{r, echo=FALSE}
+set.seed(20211023)
+simdat <- replicate(10000, sim_reg(size = 30, alpha = 0.05, btrue = c(2.5, 3.0)), simplify = TRUE)
+```
+
+
+c. (10) b 에서 생성한 데이터를 이용해 $\hat{\beta}_1$의 평균과 $\beta_1$에 근사하는지를 확인하고, 히스토그램을 생성하시오. 아울러 $\beta_1$의 신뢰구간을 도표로 나타내고, 추정한 신뢰구간이 모 회귀계수 $\beta_1$을 벗어나는 비율을 계산하시오. 
+
+
+```{r, fig.width = 14, fig.height = 7, out.width="14cm", out.height="7cm", fig.align="center", eval=FALSE, echo=FALSE}
+par(mfrow = c(1, 2))
+hist(simdat[2, ], xlab = expression(beta[1]), 
+     main = expression(paste("Histogram of", ~beta[1])), 
+     cex.main = 2)
+legend("topleft", legend = bquote(E(hat(beta)[1]) 
+                                  == .(sprintf("%.3f", mean(simdat[2, ])))), 
+       bty = "n", cex = 1.5)
+
+b_contain <- 0
+lcl <- simdat[3, ]; ucl <- simdat[4, ]
+plot(c(1, 10000), c(1, 5), 
+     type = "n", 
+     xlab = "Replicates", 
+     ylab = expression(paste("95 % CI for", ~ beta[1])), 
+     bty = "n")
+
+for (i in 1:10000) {
+  contain_b <- lcl <= 3 & 3 <= ucl
+  if (contain_b[i]) b_contain <- b_contain + 1
+  segments(i, lcl[i], i, ucl[i], col = as.numeric(!contain_b[i]) + 1)
+}
+
+legend("topleft", legend = bquote(paste("# of not containing ") ~ beta[1] 
+                                  == .(sprintf("%.3f", 1 - sum(b_contain)/10000))), 
+       bty = "n", cex = 1.5)
+
+abline(h = 3, col = "yellow", lty = 2)
+
+
+```
