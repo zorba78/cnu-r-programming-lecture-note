@@ -203,7 +203,7 @@ nchar(str)
 ```
 
 ```
- [1] 42 43 38 40 36 37 43 43 35 40
+ [1] 42 43 38 40 36 37 43 43 35 42
 ```
 
 ```r
@@ -325,7 +325,7 @@ The juice of lemons makes fine punch.
 The box was thrown beside the parked truck.
 The hogs were fed chopped corn and garbage.
 Four hours of steady work faced us.
-Large size in stockings is hard to sell.
+A large size in stockings is hard to sell.
 ```
 
 ```r
@@ -624,7 +624,7 @@ substr(str, 5, 15)
 
 ```
  [1] "birch canoe" " the sheet " " easy to te" "e days a ch" " is often s"
- [6] "juice of le" "box was thr" "hogs were f" " hours of s" "e size in s"
+ [6] "juice of le" "box was thr" "hogs were f" " hours of s" "rge size in"
 ```
 
  \normalsize
@@ -1993,7 +1993,7 @@ str[g]
 [1] "These days a chicken leg is a rare dish."   
 [2] "Rice is often served in round bowls."       
 [3] "The box was thrown beside the parked truck."
-[4] "Large size in stockings is hard to sell."   
+[4] "A large size in stockings is hard to sell." 
 ```
 
 ```r

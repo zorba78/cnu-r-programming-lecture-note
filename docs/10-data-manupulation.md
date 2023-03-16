@@ -221,7 +221,7 @@ system.time(pulse <- read.csv("dataset/pulse.csv", header = T))
 
 ```
    user  system elapsed 
-  5.487   0.037   5.526 
+  4.669   0.025   4.697 
 ```
 
 ```r
@@ -231,7 +231,7 @@ system.time(pulse <- readRDS("output/pulse.rds"))
 
 ```
    user  system elapsed 
-  0.081   0.000   0.080 
+  0.074   0.004   0.078 
 ```
 
 ```r
@@ -250,7 +250,7 @@ dbl (20000): V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V1...
 
 ```
    user  system elapsed 
- 12.169  41.458  31.411 
+ 12.494  44.434  33.697 
 ```
 
 ```r
@@ -259,7 +259,7 @@ system.time(pulse <- read_feather("dataset/pulse.feather"))
 
 ```
    user  system elapsed 
-  0.247   0.000   0.247 
+   0.25    0.00    0.25 
 ```
 
  \normalsize
@@ -315,7 +315,7 @@ tibble(x = letters, y = rnorm(26), z = y^2)
 
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["x"],"name":[1],"type":["chr"],"align":["left"]},{"label":["y"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["z"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"a","2":"0.56976084","3":"0.3246274202"},{"1":"b","2":"-1.06763567","3":"1.1398459332"},{"1":"c","2":"-0.03599333","3":"0.0012955199"},{"1":"d","2":"0.72091337","3":"0.5197160802"},{"1":"e","2":"0.40961233","3":"0.1677822626"},{"1":"f","2":"-0.12535990","3":"0.0157151035"},{"1":"g","2":"1.73382023","3":"3.0061325828"},{"1":"h","2":"1.83169102","3":"3.3550920096"},{"1":"i","2":"-0.96119369","3":"0.9238933107"},{"1":"j","2":"-0.77215423","3":"0.5962221513"},{"1":"k","2":"0.35525582","3":"0.1262066956"},{"1":"l","2":"-1.39123925","3":"1.9355466398"},{"1":"m","2":"1.13160676","3":"1.2805338620"},{"1":"n","2":"-0.24138811","3":"0.0582682211"},{"1":"o","2":"-1.55013902","3":"2.4029309711"},{"1":"p","2":"1.68435471","3":"2.8370508059"},{"1":"q","2":"-0.41959608","3":"0.1760608697"},{"1":"r","2":"-0.36162670","3":"0.1307738712"},{"1":"s","2":"0.37081578","3":"0.1375043412"},{"1":"t","2":"1.11339289","3":"1.2396437288"},{"1":"u","2":"0.09786825","3":"0.0095781945"},{"1":"v","2":"0.03342467","3":"0.0011172082"},{"1":"w","2":"-0.80752002","3":"0.6520885857"},{"1":"x","2":"0.65965559","3":"0.4351454917"},{"1":"y","2":"-0.88837702","3":"0.7892137355"},{"1":"z","2":"0.02647790","3":"0.0007010791"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["x"],"name":[1],"type":["chr"],"align":["left"]},{"label":["y"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["z"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"a","2":"-0.02659039","3":"0.0007070489"},{"1":"b","2":"0.50014052","3":"0.2501405411"},{"1":"c","2":"-0.26377120","3":"0.0695752457"},{"1":"d","2":"0.64239906","3":"0.4126765583"},{"1":"e","2":"-0.14926445","3":"0.0222798771"},{"1":"f","2":"-0.30017564","3":"0.0901054173"},{"1":"g","2":"-0.20701895","3":"0.0428568451"},{"1":"h","2":"-0.82936019","3":"0.6878383198"},{"1":"i","2":"-1.41708323","3":"2.0081248853"},{"1":"j","2":"0.71346533","3":"0.5090327837"},{"1":"k","2":"1.84886381","3":"3.4182973949"},{"1":"l","2":"-0.30129677","3":"0.0907797441"},{"1":"m","2":"-1.95585324","3":"3.8253619134"},{"1":"n","2":"1.37344983","3":"1.8863644247"},{"1":"o","2":"1.02249161","3":"1.0454890933"},{"1":"p","2":"0.16952313","3":"0.0287380924"},{"1":"q","2":"0.12514205","3":"0.0156605325"},{"1":"r","2":"-0.14409101","3":"0.0207622194"},{"1":"s","2":"-1.74383164","3":"3.0409487889"},{"1":"t","2":"0.47283921","3":"0.2235769207"},{"1":"u","2":"0.96902446","3":"0.9390083992"},{"1":"v","2":"0.38802178","3":"0.1505609024"},{"1":"w","2":"1.97195576","3":"3.8886095329"},{"1":"x","2":"-0.99278225","3":"0.9856166055"},{"1":"y","2":"0.30577388","3":"0.0934976645"},{"1":"z","2":"-0.74769779","3":"0.5590519888"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -1805,7 +1805,7 @@ mpg %>% sample_n(3)
 
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"ford","2":"f150 pickup 4wd","3":"4.6","4":"2008","5":"8","6":"auto(l4)","7":"4","8":"13","9":"17","10":"r","11":"pickup"},{"1":"pontiac","2":"grand prix","3":"3.1","4":"1999","5":"6","6":"auto(l4)","7":"f","8":"18","9":"26","10":"r","11":"midsize"},{"1":"dodge","2":"caravan 2wd","3":"3.3","4":"2008","5":"6","6":"auto(l4)","7":"f","8":"17","9":"24","10":"r","11":"minivan"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"ford","2":"explorer 4wd","3":"4.0","4":"1999","5":"6","6":"auto(l5)","7":"4","8":"14","9":"17","10":"r","11":"suv"},{"1":"toyota","2":"camry","3":"3.5","4":"2008","5":"6","6":"auto(s6)","7":"f","8":"19","9":"28","10":"r","11":"midsize"},{"1":"chevrolet","2":"c1500 suburban 2wd","3":"6.0","4":"2008","5":"8","6":"auto(l4)","7":"r","8":"12","9":"17","10":"r","11":"suv"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -1816,7 +1816,7 @@ mpg %>% sample_frac(0.05)
 
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"land rover","2":"range rover","3":"4.6","4":"1999","5":"8","6":"auto(l4)","7":"4","8":"11","9":"15","10":"p","11":"suv"},{"1":"chevrolet","2":"c1500 suburban 2wd","3":"5.3","4":"2008","5":"8","6":"auto(l4)","7":"r","8":"11","9":"15","10":"e","11":"suv"},{"1":"dodge","2":"ram 1500 pickup 4wd","3":"4.7","4":"2008","5":"8","6":"auto(l5)","7":"4","8":"13","9":"17","10":"r","11":"pickup"},{"1":"dodge","2":"caravan 2wd","3":"2.4","4":"1999","5":"4","6":"auto(l3)","7":"f","8":"18","9":"24","10":"r","11":"minivan"},{"1":"dodge","2":"dakota pickup 4wd","3":"5.2","4":"1999","5":"8","6":"manual(m5)","7":"4","8":"11","9":"17","10":"r","11":"pickup"},{"1":"hyundai","2":"tiburon","3":"2.0","4":"1999","5":"4","6":"manual(m5)","7":"f","8":"19","9":"29","10":"r","11":"subcompact"},{"1":"dodge","2":"caravan 2wd","3":"3.3","4":"1999","5":"6","6":"auto(l4)","7":"f","8":"16","9":"22","10":"r","11":"minivan"},{"1":"ford","2":"mustang","3":"4.6","4":"1999","5":"8","6":"manual(m5)","7":"r","8":"15","9":"22","10":"r","11":"subcompact"},{"1":"ford","2":"expedition 2wd","3":"5.4","4":"1999","5":"8","6":"auto(l4)","7":"r","8":"11","9":"17","10":"r","11":"suv"},{"1":"hyundai","2":"sonata","3":"2.4","4":"1999","5":"4","6":"manual(m5)","7":"f","8":"18","9":"27","10":"r","11":"midsize"},{"1":"toyota","2":"land cruiser wagon 4wd","3":"5.7","4":"2008","5":"8","6":"auto(s6)","7":"4","8":"13","9":"18","10":"r","11":"suv"},{"1":"ford","2":"explorer 4wd","3":"5.0","4":"1999","5":"8","6":"auto(l4)","7":"4","8":"13","9":"17","10":"r","11":"suv"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"subaru","2":"impreza awd","3":"2.2","4":"1999","5":"4","6":"manual(m5)","7":"4","8":"19","9":"26","10":"r","11":"subcompact"},{"1":"ford","2":"mustang","3":"4.6","4":"1999","5":"8","6":"manual(m5)","7":"r","8":"15","9":"22","10":"r","11":"subcompact"},{"1":"land rover","2":"range rover","3":"4.6","4":"1999","5":"8","6":"auto(l4)","7":"4","8":"11","9":"15","10":"p","11":"suv"},{"1":"honda","2":"civic","3":"1.6","4":"1999","5":"4","6":"auto(l4)","7":"f","8":"24","9":"32","10":"r","11":"subcompact"},{"1":"chevrolet","2":"malibu","3":"3.6","4":"2008","5":"6","6":"auto(s6)","7":"f","8":"17","9":"26","10":"r","11":"midsize"},{"1":"chevrolet","2":"c1500 suburban 2wd","3":"6.0","4":"2008","5":"8","6":"auto(l4)","7":"r","8":"12","9":"17","10":"r","11":"suv"},{"1":"volkswagen","2":"gti","3":"2.0","4":"1999","5":"4","6":"manual(m5)","7":"f","8":"21","9":"29","10":"r","11":"compact"},{"1":"volkswagen","2":"new beetle","3":"2.5","4":"2008","5":"5","6":"manual(m5)","7":"f","8":"20","9":"28","10":"r","11":"subcompact"},{"1":"toyota","2":"camry","3":"3.0","4":"1999","5":"6","6":"manual(m5)","7":"f","8":"18","9":"26","10":"r","11":"midsize"},{"1":"dodge","2":"caravan 2wd","3":"4.0","4":"2008","5":"6","6":"auto(l6)","7":"f","8":"16","9":"23","10":"r","11":"minivan"},{"1":"toyota","2":"land cruiser wagon 4wd","3":"5.7","4":"2008","5":"8","6":"auto(s6)","7":"4","8":"13","9":"18","10":"r","11":"suv"},{"1":"toyota","2":"4runner 4wd","3":"3.4","4":"1999","5":"6","6":"auto(l4)","7":"4","8":"15","9":"19","10":"r","11":"suv"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -4281,7 +4281,7 @@ billb_tidy %>% print
 ```
 # A tibble: 7,240 × 60
    country     iso2  iso3   year new_s…¹ new_s…² new_s…³ new_s…⁴ new_s…⁵ new_s…⁶
-   <chr>       <chr> <chr> <int>   <int>   <int>   <int>   <int>   <int>   <int>
+   <chr>       <chr> <chr> <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
  1 Afghanistan AF    AFG    1980      NA      NA      NA      NA      NA      NA
  2 Afghanistan AF    AFG    1981      NA      NA      NA      NA      NA      NA
  3 Afghanistan AF    AFG    1982      NA      NA      NA      NA      NA      NA
@@ -4292,13 +4292,13 @@ billb_tidy %>% print
  8 Afghanistan AF    AFG    1987      NA      NA      NA      NA      NA      NA
  9 Afghanistan AF    AFG    1988      NA      NA      NA      NA      NA      NA
 10 Afghanistan AF    AFG    1989      NA      NA      NA      NA      NA      NA
-# … with 7,230 more rows, 50 more variables: new_sp_m65 <int>,
-#   new_sp_f014 <int>, new_sp_f1524 <int>, new_sp_f2534 <int>,
-#   new_sp_f3544 <int>, new_sp_f4554 <int>, new_sp_f5564 <int>,
-#   new_sp_f65 <int>, new_sn_m014 <int>, new_sn_m1524 <int>,
-#   new_sn_m2534 <int>, new_sn_m3544 <int>, new_sn_m4554 <int>,
-#   new_sn_m5564 <int>, new_sn_m65 <int>, new_sn_f014 <int>,
-#   new_sn_f1524 <int>, new_sn_f2534 <int>, new_sn_f3544 <int>, …
+# … with 7,230 more rows, 50 more variables: new_sp_m65 <dbl>,
+#   new_sp_f014 <dbl>, new_sp_f1524 <dbl>, new_sp_f2534 <dbl>,
+#   new_sp_f3544 <dbl>, new_sp_f4554 <dbl>, new_sp_f5564 <dbl>,
+#   new_sp_f65 <dbl>, new_sn_m014 <dbl>, new_sn_m1524 <dbl>,
+#   new_sn_m2534 <dbl>, new_sn_m3544 <dbl>, new_sn_m4554 <dbl>,
+#   new_sn_m5564 <dbl>, new_sn_m65 <dbl>, new_sn_f014 <dbl>,
+#   new_sn_f1524 <dbl>, new_sn_f2534 <dbl>, new_sn_f3544 <dbl>, …
 ```
 
 <table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
@@ -4383,7 +4383,7 @@ who_tidy %>% print
 ```
 # A tibble: 76,046 × 8
    country     iso2  iso3   year diagnosis sex   age_group count
-   <chr>       <chr> <chr> <int> <fct>     <fct> <ord>     <int>
+   <chr>       <chr> <chr> <dbl> <fct>     <fct> <ord>     <dbl>
  1 Afghanistan AF    AFG    1997 sp        m     014           0
  2 Afghanistan AF    AFG    1997 sp        m     1524         10
  3 Afghanistan AF    AFG    1997 sp        m     2534          6
@@ -4518,7 +4518,7 @@ table2 %>% print
 ```
 # A tibble: 12 × 4
    country      year type            count
-   <chr>       <int> <chr>           <int>
+   <chr>       <dbl> <chr>           <dbl>
  1 Afghanistan  1999 cases             745
  2 Afghanistan  1999 population   19987071
  3 Afghanistan  2000 cases            2666
@@ -4549,7 +4549,7 @@ table2_tidy %>% print
 ```
 # A tibble: 6 × 4
   country      year  cases population
-  <chr>       <int>  <int>      <int>
+  <chr>       <dbl>  <dbl>      <dbl>
 1 Afghanistan  1999    745   19987071
 2 Afghanistan  2000   2666   20595360
 3 Brazil       1999  37737  172006362
@@ -4683,7 +4683,7 @@ table3 %>% print
 ```
 # A tibble: 6 × 3
   country      year rate             
-* <chr>       <int> <chr>            
+  <chr>       <dbl> <chr>            
 1 Afghanistan  1999 745/19987071     
 2 Afghanistan  2000 2666/20595360    
 3 Brazil       1999 37737/172006362  
@@ -4704,7 +4704,7 @@ table3 %>%
 ```
 # A tibble: 6 × 4
   country      year case   population
-  <chr>       <int> <chr>  <chr>     
+  <chr>       <dbl> <chr>  <chr>     
 1 Afghanistan  1999 745    19987071  
 2 Afghanistan  2000 2666   20595360  
 3 Brazil       1999 37737  172006362 
@@ -4777,7 +4777,7 @@ table5 %>% print
 ```
 # A tibble: 6 × 4
   country     century year  rate             
-* <chr>       <chr>   <chr> <chr>            
+  <chr>       <chr>   <chr> <chr>            
 1 Afghanistan 19      99    745/19987071     
 2 Afghanistan 20      00    2666/20595360    
 3 Brazil      19      99    37737/172006362  
@@ -4966,6 +4966,9 @@ tidy_ex_01 %>%
 ```
 Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
 ```
 
 ```r

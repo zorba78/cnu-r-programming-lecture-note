@@ -248,7 +248,7 @@ sessionInfo()
 ```
 
 ```
-R version 4.2.2 (2022-10-31)
+R version 4.2.2 Patched (2022-11-10 r83330)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 18.04.6 LTS
 
@@ -268,33 +268,28 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] kableExtra_1.3.4 gtsummary_1.6.2  gt_0.7.0         glue_1.6.2      
- [5] forcats_0.5.2    stringr_1.4.1    dplyr_1.0.10     purrr_0.3.5     
- [9] readr_2.1.3      tidyr_1.2.1      tibble_3.1.8     ggplot2_3.4.0   
-[13] tidyverse_1.3.2  rmarkdown_2.17   knitr_1.40      
+ [1] kableExtra_1.3.4 gtsummary_1.7.0  gt_0.8.0         glue_1.6.2      
+ [5] lubridate_1.9.2  forcats_1.0.0    stringr_1.5.0    dplyr_1.1.0     
+ [9] purrr_1.0.1      readr_2.1.4      tidyr_1.3.0      tibble_3.2.0    
+[13] ggplot2_3.4.1    tidyverse_2.0.0  rmarkdown_2.20   knitr_1.42      
 
 loaded via a namespace (and not attached):
- [1] svglite_2.1.0       lubridate_1.9.0     assertthat_0.2.1   
- [4] digest_0.6.30       utf8_1.2.2          R6_2.5.1           
- [7] cellranger_1.1.0    backports_1.4.1     reprex_2.0.2       
-[10] evaluate_0.17       highr_0.9           httr_1.4.4         
-[13] pillar_1.8.1        rlang_1.0.6         googlesheets4_1.0.1
-[16] readxl_1.4.1        rstudioapi_0.14     jquerylib_0.1.4    
-[19] webshot_0.5.4       googledrive_2.0.0   munsell_0.5.0      
-[22] broom_1.0.1         compiler_4.2.2      modelr_0.1.9       
-[25] xfun_0.34           systemfonts_1.0.4   pkgconfig_2.0.3    
-[28] htmltools_0.5.3     tidyselect_1.2.0    bookdown_0.29      
-[31] viridisLite_0.4.1   fansi_1.0.3         crayon_1.5.2       
-[34] tzdb_0.3.0          dbplyr_2.2.1        withr_2.5.0        
-[37] grid_4.2.2          jsonlite_1.8.3      gtable_0.3.1       
-[40] lifecycle_1.0.3     DBI_1.1.3           magrittr_2.0.3     
-[43] scales_1.2.1        cli_3.4.1           stringi_1.7.8      
-[46] cachem_1.0.6        broom.helpers_1.9.0 fs_1.5.2           
-[49] xml2_1.3.3          bslib_0.4.1         ellipsis_0.3.2     
-[52] generics_0.1.3      vctrs_0.5.0         tools_4.2.2        
-[55] hms_1.1.2           fastmap_1.1.0       yaml_2.3.6         
-[58] timechange_0.1.1    colorspace_2.0-3    gargle_1.2.1       
-[61] rvest_1.0.3         haven_2.5.1         sass_0.4.2         
+ [1] tidyselect_1.2.0     xfun_0.37            bslib_0.4.2         
+ [4] colorspace_2.1-0     vctrs_0.6.0          generics_0.1.3      
+ [7] viridisLite_0.4.1    htmltools_0.5.4      yaml_2.3.7          
+[10] utf8_1.2.3           rlang_1.1.0          jquerylib_0.1.4     
+[13] pillar_1.8.1         withr_2.5.0          lifecycle_1.0.3     
+[16] munsell_0.5.0        gtable_0.3.1         rvest_1.0.3         
+[19] evaluate_0.20        tzdb_0.3.0           fastmap_1.1.1       
+[22] fansi_1.0.4          highr_0.10           scales_1.2.1        
+[25] cachem_1.0.7         webshot_0.5.4        jsonlite_1.8.4      
+[28] systemfonts_1.0.4    hms_1.1.2            digest_0.6.31       
+[31] stringi_1.7.12       bookdown_0.33        grid_4.2.2          
+[34] cli_3.6.0            tools_4.2.2          magrittr_2.0.3      
+[37] sass_0.4.5           pkgconfig_2.0.3      ellipsis_0.3.2      
+[40] broom.helpers_1.12.0 xml2_1.3.3           timechange_0.2.0    
+[43] svglite_2.1.1        httr_1.4.5           rstudioapi_0.14     
+[46] R6_2.5.1             compiler_4.2.2      
 ```
 
  \normalsize
@@ -880,7 +875,7 @@ dir()
 [63] "output"                              
 [64] "packages.bib"                        
 [65] "README.md"                           
-[66] "render72b928082b00.rds"              
+[66] "renderf669317a2cf8.rds"              
 [67] "test"                                
 [68] "video"                               
 ```
@@ -994,7 +989,7 @@ getwd(); dir()
 [63] "output"                              
 [64] "packages.bib"                        
 [65] "README.md"                           
-[66] "render72b928082b00.rds"              
+[66] "renderf669317a2cf8.rds"              
 [67] "test"                                
 [68] "video"                               
 ```

@@ -1,8 +1,8 @@
 ---
 title: "통계 프로그래밍 언어"
-subtitle: "2022년도 1학기 충남대학교 정보통계학과 강의노트"
+subtitle: "2023년도 충남대학교 정보통계학과 R 프로그래밍 강의노트"
 author: "한국한의학연구원, 구본초"
-date: "2022-11-10"
+date: "2023-03-16"
 knit: "bookdown::render_book"
 documentclass: krantz
 bibliography: [book.bib, packages.bib]
@@ -13,7 +13,7 @@ graphics: yes
 lot: yes
 lof: yes
 fontsize: 11pt
-description: "2022년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/"
+description: "2023년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/"
 site: bookdown::bookdown_site
 github-repo: zorba78/cnu-r-programming-lecture-note
 editor_options: 

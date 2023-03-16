@@ -622,7 +622,7 @@ Error in h1 - h2: non-numeric argument to binary operator
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="font-size: 13px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:logic-op-tab)R언어의 논리형 연산자</caption>
  <thead>
   <tr>
@@ -632,24 +632,24 @@ Error in h1 - h2: non-numeric argument to binary operator
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;width: 3cm; font-family: monospace;"> &amp; </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> AND (vectorized) </td>
+   <td style="text-align:left;width: 3cm; "> &amp; </td>
+   <td style="text-align:left;width: 7cm; "> AND (vectorized) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; font-family: monospace;"> &amp;&amp; </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> AND (atomic) </td>
+   <td style="text-align:left;width: 3cm; "> &amp;&amp; </td>
+   <td style="text-align:left;width: 7cm; "> AND (atomic) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; font-family: monospace;"> | </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> OR (vectorized) </td>
+   <td style="text-align:left;width: 3cm; "> \| </td>
+   <td style="text-align:left;width: 7cm; "> OR (vectorized) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; font-family: monospace;"> || </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> OR (atomic) </td>
+   <td style="text-align:left;width: 3cm; "> \|\| </td>
+   <td style="text-align:left;width: 7cm; "> OR (atomic) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; font-family: monospace;"> ! </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> NOT </td>
+   <td style="text-align:left;width: 3cm; "> \! </td>
+   <td style="text-align:left;width: 7cm; "> NOT </td>
   </tr>
 </tbody>
 </table>
@@ -660,7 +660,7 @@ Error in h1 - h2: non-numeric argument to binary operator
 
 \footnotesize
 
-<table class="table table-condensed table-striped" style="font-size: 12px; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<table class="table table-condensed table-striped" style="font-size: 13px; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption style="font-size: initial !important;">(\#tab:comp-op-tab)R언어의 비교 연산자</caption>
  <thead>
   <tr>
@@ -670,34 +670,34 @@ Error in h1 - h2: non-numeric argument to binary operator
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;width: 3cm; font-family: monospace;"> &gt; </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> 크다(greater-than) </td>
+   <td style="text-align:left;width: 3cm; "> &gt; </td>
+   <td style="text-align:left;width: 7cm; "> 크다(greater-than) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; font-family: monospace;"> &lt; </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> 작다(less-than) </td>
+   <td style="text-align:left;width: 3cm; "> &lt; </td>
+   <td style="text-align:left;width: 7cm; "> 작다(less-than) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; font-family: monospace;"> == </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> 같다(equal) </td>
+   <td style="text-align:left;width: 3cm; "> == </td>
+   <td style="text-align:left;width: 7cm; "> 같다(equal) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; font-family: monospace;"> &gt;= </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> 크거나 같다(greater than equal) </td>
+   <td style="text-align:left;width: 3cm; "> &gt;= </td>
+   <td style="text-align:left;width: 7cm; "> 크거나 같다(greater than equal) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; font-family: monospace;"> &lt;= </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> 작거나 같다(less than equal) </td>
+   <td style="text-align:left;width: 3cm; "> &lt;= </td>
+   <td style="text-align:left;width: 7cm; "> 작거나 같다(less than equal) </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 3cm; font-family: monospace;"> != </td>
-   <td style="text-align:left;width: 7cm; font-family: monospace;"> 같지 않다(not equal) </td>
+   <td style="text-align:left;width: 3cm; "> != </td>
+   <td style="text-align:left;width: 7cm; "> 같지 않다(not equal) </td>
   </tr>
 </tbody>
 <tfoot>
 <tr><td style="padding: 0; " colspan="100%"><span style="font-style: italic;">Note: </span></td></tr>
 <tr><td style="padding: 0; " colspan="100%">
-<sup></sup> 기술한 비교 연산자는 수치형 및 논리형 데이터 타입 모두에 적용 가능 하지만, 문자형은 비교 연산은 ==, != 만 가능함</td></tr>
+<sup></sup> 기술한 비교 연산자는 수치형 및 논리형 데이터 타입 모두에 적용 가능 하지만, 문자형 비교 연산은 ==, != 만 가능함</td></tr>
 </tfoot>
 </table>
 
@@ -7898,7 +7898,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x5577a3a2efb0> 
+  .. ..- attr(*, ".Environment")=<environment: 0x55ef65bea490> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"

@@ -2571,6 +2571,9 @@ gmap +
 ```
 Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
 ```
 
 <div class="figure">
@@ -3811,6 +3814,9 @@ p2 <- p0 +
 ```
 Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.
 ℹ Please use `after_stat(density)` instead.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
 ```
 
 <img src="11-data-visualization_files/figure-html/unnamed-chunk-103-1.svg" width="960" />
@@ -4156,6 +4162,9 @@ p2 <- p1 +
 ```
 Warning: The `<scale>` argument of `guides()` cannot be `FALSE`. Use "none" instead as
 of ggplot2 3.3.4.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
 ```
 
  \normalsize
@@ -4663,6 +4672,9 @@ covid19_full %>%
 ```
 Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.
 ℹ Please use the `linewidth` argument instead.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
 ```
 
 <img src="11-data-visualization_files/figure-html/unnamed-chunk-139-1.svg" width="1056" />
