@@ -1068,7 +1068,7 @@ is.infinite(x)
 
 \footnotesize
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">지금까지 요인형(factor)을 제외하고 R 언어에서 객체가 가질 수 있는 데이터 유형에 대해 알아봄. 요인형은 4주 차에 예정된 "R 자료형: 팩터, 테이블, 데이터 프레임"에서 상세하게 배울 예정임. 
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">지금까지 요인형(factor)을 제외하고 R 언어에서 객체가 가질 수 있는 데이터 유형에 대해 알아봄. 요인형은 "2.7절 R 자료형: 요인과 테이블"에서 상세하게 배울 예정임. 
 </div>\EndKnitrBlock{rmdnote}
 
  \normalsize
@@ -1080,11 +1080,11 @@ is.infinite(x)
 -   타 프로그래밍 언어의 배열(array)의 개념으로 **동일한 유형**의 데이터
     원소가 하나 이상($n \times 1$, $n \geq 1$) 으로 구성된 자료 형태
 -   R 언어의 가장 기본적인 데이터 형태로 R에서 행해지는 모든 연산의
-    기본(vectorization) $\rightarrow$ 벡터 연산 시 반복구문(예:
-    `for loop`)이 필요 없음.
+    기본 단위임
+-   벡터 연산 시 반복구문(예:`for loop`)이 필요 없음. 이러한 형태의 연산을 벡터화 연산(vectorization)이라고 함. 
 -   \@ref(scalar) 절에서 기술한 [스칼라(scalar)](#scalar)는 사실
     $1 \times 1$ 벡터임
--   수학적으로 벡터는 아래와 같이 나타낼 수 있음
+-   수학적으로 벡터는 아래와 같이 정의할 수 있음. 
 
 $$\mathrm{\mathbf x} = [x_1, x_2, x_3, \ldots, x_n]^T
 $$
@@ -1168,7 +1168,7 @@ x2
     변환한 값 반환
     -   예: 문자열 + 숫자로 구성된 벡터 $\rightarrow$ 문자형 벡터
     -   변환규칙:
-        `NULL < raw < logical < integer < double < complex < character < list < expression`
+        **`NULL < raw < logical < integer < double < complex < character < list < expression`**
 
 \footnotesize
 
@@ -7898,7 +7898,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x55ef65bea490> 
+  .. ..- attr(*, ".Environment")=<environment: 0x562e7254f178> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"
