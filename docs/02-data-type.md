@@ -5468,6 +5468,10 @@ ggdraw() +
   draw_image(pic)
 ```
 
+```
+Warning: Package `magick` is required to draw images. Image not drawn.
+```
+
 <img src="02-data-type_files/figure-html/ex-step4-1.svg" width="90%" style="display: block; margin: auto;" />
 
  \normalsize
@@ -5484,6 +5488,10 @@ pic[300:460, 440:520, 3] <- 0.5
 
 ggdraw() +
   draw_image(pic)
+```
+
+```
+Warning: Package `magick` is required to draw images. Image not drawn.
 ```
 
 <img src="02-data-type_files/figure-html/unnamed-chunk-51-1.svg" width="672" />
@@ -5515,6 +5523,10 @@ pic[300:460, 440:520, 3] <- wb
 
 ggdraw() +
   draw_image(pic)
+```
+
+```
+Warning: Package `magick` is required to draw images. Image not drawn.
 ```
 
 <img src="02-data-type_files/figure-html/unnamed-chunk-52-1.svg" width="672" />
@@ -7898,7 +7910,7 @@ List of 11
   .. ..- attr(*, "order")= int 1
   .. ..- attr(*, "intercept")= int 1
   .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x562e7254f178> 
+  .. ..- attr(*, ".Environment")=<environment: 0x562f50c2ffd0> 
   .. ..- attr(*, "predvars")= language list(abalone$rings, x)
   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
   .. .. ..- attr(*, "names")= chr [1:2] "abalone$rings" "x"

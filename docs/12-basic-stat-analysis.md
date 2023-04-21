@@ -1777,10 +1777,10 @@ tidy(pair_cont) %>%
    <td style="text-align:left;"> diet </td>
    <td style="text-align:left;"> A - D </td>
    <td style="text-align:left;"> 0 </td>
-   <td style="text-align:left;"> 1.58e-14 </td>
+   <td style="text-align:left;"> -1.29e-15 </td>
    <td style="text-align:left;"> 1.45 </td>
    <td style="text-align:left;"> 20 </td>
-   <td style="text-align:left;"> 1.09e-14 </td>
+   <td style="text-align:left;"> -8.89e-16 </td>
    <td style="text-align:left;"> 1.000000 </td>
   </tr>
   <tr>

@@ -221,7 +221,7 @@ system.time(pulse <- read.csv("dataset/pulse.csv", header = T))
 
 ```
    user  system elapsed 
-  4.747   0.055   4.805 
+  4.617   0.021   4.640 
 ```
 
 ```r
@@ -231,7 +231,7 @@ system.time(pulse <- readRDS("output/pulse.rds"))
 
 ```
    user  system elapsed 
-  0.080   0.000   0.081 
+  0.079   0.000   0.079 
 ```
 
 ```r
@@ -250,7 +250,7 @@ dbl (20000): V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V1...
 
 ```
    user  system elapsed 
- 11.541  41.868  31.556 
+ 15.841  64.781  56.441 
 ```
 
 ```r
@@ -259,7 +259,7 @@ system.time(pulse <- read_feather("dataset/pulse.feather"))
 
 ```
    user  system elapsed 
-  0.241   0.000   0.241 
+  0.232   0.009   0.241 
 ```
 
  \normalsize
@@ -315,7 +315,7 @@ tibble(x = letters, y = rnorm(26), z = y^2)
 
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["x"],"name":[1],"type":["chr"],"align":["left"]},{"label":["y"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["z"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"a","2":"-0.946960438","3":"8.967341e-01"},{"1":"b","2":"0.971500638","3":"9.438135e-01"},{"1":"c","2":"-1.935333124","3":"3.745514e+00"},{"1":"d","2":"-0.004510526","3":"2.034484e-05"},{"1":"e","2":"-1.204232601","3":"1.450176e+00"},{"1":"f","2":"-1.366022725","3":"1.866018e+00"},{"1":"g","2":"0.818303732","3":"6.696210e-01"},{"1":"h","2":"0.112163209","3":"1.258059e-02"},{"1":"i","2":"0.886335731","3":"7.855910e-01"},{"1":"j","2":"-0.673396244","3":"4.534625e-01"},{"1":"k","2":"-0.404992673","3":"1.640191e-01"},{"1":"l","2":"0.213026603","3":"4.538033e-02"},{"1":"m","2":"0.452941491","3":"2.051560e-01"},{"1":"n","2":"0.346023428","3":"1.197322e-01"},{"1":"o","2":"-0.495861038","3":"2.458782e-01"},{"1":"p","2":"0.641065436","3":"4.109649e-01"},{"1":"q","2":"-0.562868621","3":"3.168211e-01"},{"1":"r","2":"-0.119251910","3":"1.422102e-02"},{"1":"s","2":"0.835300778","3":"6.977274e-01"},{"1":"t","2":"1.709768588","3":"2.923309e+00"},{"1":"u","2":"0.027756219","3":"7.704077e-04"},{"1":"v","2":"-0.450793074","3":"2.032144e-01"},{"1":"w","2":"0.524515461","3":"2.751165e-01"},{"1":"x","2":"2.756834594","3":"7.600137e+00"},{"1":"y","2":"1.114116196","3":"1.241255e+00"},{"1":"z","2":"0.619138265","3":"3.833322e-01"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["x"],"name":[1],"type":["chr"],"align":["left"]},{"label":["y"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["z"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"a","2":"-2.37884846","3":"5.6589200105"},{"1":"b","2":"-0.58616654","3":"0.3435912147"},{"1":"c","2":"1.31089964","3":"1.7184578724"},{"1":"d","2":"-0.89498014","3":"0.8009894510"},{"1":"e","2":"0.08351534","3":"0.0069748114"},{"1":"f","2":"0.84350897","3":"0.7115073849"},{"1":"g","2":"-0.38231366","3":"0.1461637346"},{"1":"h","2":"1.47123107","3":"2.1645208486"},{"1":"i","2":"0.77517433","3":"0.6008952382"},{"1":"j","2":"-0.72394066","3":"0.5240900746"},{"1":"k","2":"0.68295248","3":"0.4664240933"},{"1":"l","2":"0.13649108","3":"0.0186298159"},{"1":"m","2":"-0.53154402","3":"0.2825390483"},{"1":"n","2":"-0.77116805","3":"0.5947001662"},{"1":"o","2":"1.86448720","3":"3.4763125157"},{"1":"p","2":"-0.01066731","3":"0.0001137916"},{"1":"q","2":"-1.02912356","3":"1.0590952959"},{"1":"r","2":"-0.03874207","3":"0.0015009479"},{"1":"s","2":"-1.40187607","3":"1.9652565032"},{"1":"t","2":"0.76904022","3":"0.5914228619"},{"1":"u","2":"-0.42540062","3":"0.1809656884"},{"1":"v","2":"0.14571785","3":"0.0212336909"},{"1":"w","2":"0.25894205","3":"0.0670509872"},{"1":"x","2":"0.83220921","3":"0.6925721620"},{"1":"y","2":"-0.32152834","3":"0.1033804712"},{"1":"z","2":"0.51617391","3":"0.2664355066"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -932,7 +932,7 @@ mpg_asc %>% print
  8 chevrolet    k1500 tah…   5.7  1999     8 auto… 4        11    15 r     suv  
  9 dodge        caravan 2…   3.3  2008     6 auto… f        11    17 e     mini…
 10 dodge        dakota pi…   5.2  1999     8 manu… 4        11    17 r     pick…
-# … with 224 more rows
+# ℹ 224 more rows
 ```
 
 ```r
@@ -960,7 +960,7 @@ mpg_sortt %>% print
  8 chevrolet    k1500 tah…   5.7  1999     8 auto… 4        11    15 r     suv  
  9 dodge        durango 4…   5.2  1999     8 auto… 4        11    16 r     suv  
 10 dodge        durango 4…   5.9  1999     8 auto… 4        11    15 r     suv  
-# … with 224 more rows
+# ℹ 224 more rows
 ```
 
 ```r
@@ -1449,7 +1449,7 @@ $ hwy_raw      <dbl> 29, 29, 31, 30, 26, 26, 27, 26, 25, 28, 27, 25, 25, 25, 2�
  8    7.65    11.0      18      26
  9    6.80    10.6      16      25
 10    8.50    11.9      20      28
-# … with 224 more rows
+# ℹ 224 more rows
 ```
 
  \normalsize
@@ -1567,7 +1567,7 @@ by_mpg %>%
  8 a6 quattro   2008     16.5     24  
  9 altima       1999     20       28  
 10 altima       2008     21       29  
-# … with 66 more rows
+# ℹ 66 more rows
 ```
 
  \normalsize
@@ -1693,7 +1693,7 @@ slice_mpg_grp %>% print
  8 toyota       camry sol…   2.2  1999     4 auto… f        21    27 r     comp…
  9 dodge        caravan 2…   2.4  1999     4 auto… f        18    24 r     mini…
 10 honda        civic        1.6  1999     4 manu… f        28    33 r     subc…
-# … with 28 more rows
+# ℹ 28 more rows
 ```
 
  \normalsize
@@ -1752,7 +1752,7 @@ mpg_uniq %>% print
  8 audi         a4 quattro   1.8  1999     4 manu… 4        18    26 p     comp…
  9 audi         a4 quattro   1.8  1999     4 auto… 4        16    25 p     comp…
 10 audi         a4 quattro   2    2008     4 manu… 4        20    28 p     comp…
-# … with 215 more rows
+# ℹ 215 more rows
 ```
 
 ```r
@@ -1805,7 +1805,7 @@ mpg %>% sample_n(3)
 
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"lincoln","2":"navigator 2wd","3":"5.4","4":"1999","5":"8","6":"auto(l4)","7":"r","8":"11","9":"17","10":"r","11":"suv"},{"1":"volkswagen","2":"jetta","3":"2.5","4":"2008","5":"5","6":"auto(s6)","7":"f","8":"21","9":"29","10":"r","11":"compact"},{"1":"audi","2":"a4 quattro","3":"1.8","4":"1999","5":"4","6":"manual(m5)","7":"4","8":"18","9":"26","10":"p","11":"compact"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"chevrolet","2":"c1500 suburban 2wd","3":"5.7","4":"1999","5":"8","6":"auto(l4)","7":"r","8":"13","9":"17","10":"r","11":"suv"},{"1":"chevrolet","2":"malibu","3":"3.1","4":"1999","5":"6","6":"auto(l4)","7":"f","8":"18","9":"26","10":"r","11":"midsize"},{"1":"subaru","2":"forester awd","3":"2.5","4":"1999","5":"4","6":"manual(m5)","7":"4","8":"18","9":"25","10":"r","11":"suv"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -1816,7 +1816,7 @@ mpg %>% sample_frac(0.05)
 
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"toyota","2":"land cruiser wagon 4wd","3":"5.7","4":"2008","5":"8","6":"auto(s6)","7":"4","8":"13","9":"18","10":"r","11":"suv"},{"1":"subaru","2":"forester awd","3":"2.5","4":"2008","5":"4","6":"manual(m5)","7":"4","8":"19","9":"25","10":"p","11":"suv"},{"1":"dodge","2":"ram 1500 pickup 4wd","3":"4.7","4":"2008","5":"8","6":"manual(m6)","7":"4","8":"12","9":"16","10":"r","11":"pickup"},{"1":"chevrolet","2":"c1500 suburban 2wd","3":"5.3","4":"2008","5":"8","6":"auto(l4)","7":"r","8":"11","9":"15","10":"e","11":"suv"},{"1":"dodge","2":"dakota pickup 4wd","3":"3.9","4":"1999","5":"6","6":"auto(l4)","7":"4","8":"13","9":"17","10":"r","11":"pickup"},{"1":"hyundai","2":"tiburon","3":"2.0","4":"1999","5":"4","6":"manual(m5)","7":"f","8":"19","9":"29","10":"r","11":"subcompact"},{"1":"toyota","2":"corolla","3":"1.8","4":"2008","5":"4","6":"manual(m5)","7":"f","8":"28","9":"37","10":"r","11":"compact"},{"1":"hyundai","2":"sonata","3":"2.4","4":"2008","5":"4","6":"manual(m5)","7":"f","8":"21","9":"31","10":"r","11":"midsize"},{"1":"chevrolet","2":"malibu","3":"3.5","4":"2008","5":"6","6":"auto(l4)","7":"f","8":"18","9":"29","10":"r","11":"midsize"},{"1":"volkswagen","2":"jetta","3":"2.5","4":"2008","5":"5","6":"auto(s6)","7":"f","8":"21","9":"29","10":"r","11":"compact"},{"1":"subaru","2":"impreza awd","3":"2.2","4":"1999","5":"4","6":"manual(m5)","7":"4","8":"19","9":"26","10":"r","11":"subcompact"},{"1":"toyota","2":"land cruiser wagon 4wd","3":"4.7","4":"1999","5":"8","6":"auto(l4)","7":"4","8":"11","9":"15","10":"r","11":"suv"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"ford","2":"mustang","3":"4.6","4":"1999","5":"8","6":"manual(m5)","7":"r","8":"15","9":"22","10":"r","11":"subcompact"},{"1":"dodge","2":"ram 1500 pickup 4wd","3":"5.7","4":"2008","5":"8","6":"auto(l5)","7":"4","8":"13","9":"17","10":"r","11":"pickup"},{"1":"volkswagen","2":"gti","3":"2.0","4":"1999","5":"4","6":"auto(l4)","7":"f","8":"19","9":"26","10":"r","11":"compact"},{"1":"audi","2":"a4 quattro","3":"3.1","4":"2008","5":"6","6":"auto(s6)","7":"4","8":"17","9":"25","10":"p","11":"compact"},{"1":"toyota","2":"corolla","3":"1.8","4":"1999","5":"4","6":"auto(l4)","7":"f","8":"24","9":"33","10":"r","11":"compact"},{"1":"volkswagen","2":"gti","3":"2.0","4":"2008","5":"4","6":"auto(s6)","7":"f","8":"22","9":"29","10":"p","11":"compact"},{"1":"nissan","2":"pathfinder 4wd","3":"4.0","4":"2008","5":"6","6":"auto(l5)","7":"4","8":"14","9":"20","10":"p","11":"suv"},{"1":"chevrolet","2":"c1500 suburban 2wd","3":"6.0","4":"2008","5":"8","6":"auto(l4)","7":"r","8":"12","9":"17","10":"r","11":"suv"},{"1":"volkswagen","2":"passat","3":"2.8","4":"1999","5":"6","6":"manual(m5)","7":"f","8":"18","9":"26","10":"p","11":"midsize"},{"1":"mercury","2":"mountaineer 4wd","3":"4.0","4":"1999","5":"6","6":"auto(l5)","7":"4","8":"14","9":"17","10":"r","11":"suv"},{"1":"nissan","2":"maxima","3":"3.5","4":"2008","5":"6","6":"auto(av)","7":"f","8":"19","9":"25","10":"p","11":"midsize"},{"1":"audi","2":"a4 quattro","3":"1.8","4":"1999","5":"4","6":"manual(m5)","7":"4","8":"18","9":"26","10":"p","11":"compact"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -1868,19 +1868,19 @@ mpg %>%
 
 ```
 # A tibble: 234 × 11
-   manufacturer model   displ  year   cyl trans drv   city_…¹ hw_mpg fl    class
-   <chr>        <chr>   <dbl> <int> <int> <chr> <chr>   <int>  <int> <chr> <chr>
- 1 audi         a4        1.8  1999     4 auto… f          18     29 p     comp…
- 2 audi         a4        1.8  1999     4 manu… f          21     29 p     comp…
- 3 audi         a4        2    2008     4 manu… f          20     31 p     comp…
- 4 audi         a4        2    2008     4 auto… f          21     30 p     comp…
- 5 audi         a4        2.8  1999     6 auto… f          16     26 p     comp…
- 6 audi         a4        2.8  1999     6 manu… f          18     26 p     comp…
- 7 audi         a4        3.1  2008     6 auto… f          18     27 p     comp…
- 8 audi         a4 qua…   1.8  1999     4 manu… 4          18     26 p     comp…
- 9 audi         a4 qua…   1.8  1999     4 auto… 4          16     25 p     comp…
-10 audi         a4 qua…   2    2008     4 manu… 4          20     28 p     comp…
-# … with 224 more rows, and abbreviated variable name ¹​city_mpg
+   manufacturer model  displ  year   cyl trans drv   city_mpg hw_mpg fl    class
+   <chr>        <chr>  <dbl> <int> <int> <chr> <chr>    <int>  <int> <chr> <chr>
+ 1 audi         a4       1.8  1999     4 auto… f           18     29 p     comp…
+ 2 audi         a4       1.8  1999     4 manu… f           21     29 p     comp…
+ 3 audi         a4       2    2008     4 manu… f           20     31 p     comp…
+ 4 audi         a4       2    2008     4 auto… f           21     30 p     comp…
+ 5 audi         a4       2.8  1999     6 auto… f           16     26 p     comp…
+ 6 audi         a4       2.8  1999     6 manu… f           18     26 p     comp…
+ 7 audi         a4       3.1  2008     6 auto… f           18     27 p     comp…
+ 8 audi         a4 qu…   1.8  1999     4 manu… 4           18     26 p     comp…
+ 9 audi         a4 qu…   1.8  1999     4 auto… 4           16     25 p     comp…
+10 audi         a4 qu…   2    2008     4 manu… 4           20     28 p     comp…
+# ℹ 224 more rows
 ```
 
  \normalsize
@@ -1937,7 +1937,7 @@ mpg %>%
  8 ford          2008    10
  9 honda         1999     5
 10 honda         2008     4
-# … with 20 more rows
+# ℹ 20 more rows
 ```
 
  \normalsize
@@ -1970,7 +1970,7 @@ mpg %>%
  8 ford          2008    10
  9 honda         1999     5
 10 honda         2008     4
-# … with 20 more rows
+# ℹ 20 more rows
 ```
 
  \normalsize
@@ -2013,7 +2013,7 @@ mpg %>%
  8 ford          2008    10       4.66     14.1
  9 honda         1999     5       1.6      24.8
 10 honda         2008     4       1.85     24  
-# … with 20 more rows
+# ℹ 20 more rows
 ```
 
 ```r
@@ -2028,27 +2028,27 @@ mpg %>%
 ```
 # A tibble: 18 × 12
 # Groups:   manufacturer, year [9]
-   manufactu…¹ model displ  year   cyl trans drv     cty   hwy fl    class     N
-   <chr>       <chr> <dbl> <int> <int> <chr> <chr> <int> <int> <chr> <chr> <int>
- 1 jeep        gran…   4    1999     6 auto… 4        15    20 r     suv       2
- 2 jeep        gran…   4.7  1999     8 auto… 4        14    17 r     suv       2
- 3 land rover  rang…   4    1999     8 auto… 4        11    15 p     suv       2
- 4 land rover  rang…   4.2  2008     8 auto… 4        12    18 r     suv       2
- 5 land rover  rang…   4.4  2008     8 auto… 4        12    18 r     suv       2
- 6 land rover  rang…   4.6  1999     8 auto… 4        11    15 p     suv       2
- 7 lincoln     navi…   5.4  1999     8 auto… r        11    17 r     suv       2
- 8 lincoln     navi…   5.4  1999     8 auto… r        11    16 p     suv       2
- 9 lincoln     navi…   5.4  2008     8 auto… r        12    18 r     suv       1
-10 mercury     moun…   4    1999     6 auto… 4        14    17 r     suv       2
-11 mercury     moun…   4    2008     6 auto… 4        13    19 r     suv       2
-12 mercury     moun…   4.6  2008     8 auto… 4        13    19 r     suv       2
-13 mercury     moun…   5    1999     8 auto… 4        13    17 r     suv       2
-14 pontiac     gran…   3.1  1999     6 auto… f        18    26 r     mids…     3
-15 pontiac     gran…   3.8  1999     6 auto… f        16    26 p     mids…     3
-16 pontiac     gran…   3.8  1999     6 auto… f        17    27 r     mids…     3
-17 pontiac     gran…   3.8  2008     6 auto… f        18    28 r     mids…     2
-18 pontiac     gran…   5.3  2008     8 auto… f        16    25 p     mids…     2
-# … with abbreviated variable name ¹​manufacturer
+   manufacturer model      displ  year   cyl trans drv     cty   hwy fl    class
+   <chr>        <chr>      <dbl> <int> <int> <chr> <chr> <int> <int> <chr> <chr>
+ 1 jeep         grand che…   4    1999     6 auto… 4        15    20 r     suv  
+ 2 jeep         grand che…   4.7  1999     8 auto… 4        14    17 r     suv  
+ 3 land rover   range rov…   4    1999     8 auto… 4        11    15 p     suv  
+ 4 land rover   range rov…   4.2  2008     8 auto… 4        12    18 r     suv  
+ 5 land rover   range rov…   4.4  2008     8 auto… 4        12    18 r     suv  
+ 6 land rover   range rov…   4.6  1999     8 auto… 4        11    15 p     suv  
+ 7 lincoln      navigator…   5.4  1999     8 auto… r        11    17 r     suv  
+ 8 lincoln      navigator…   5.4  1999     8 auto… r        11    16 p     suv  
+ 9 lincoln      navigator…   5.4  2008     8 auto… r        12    18 r     suv  
+10 mercury      mountaine…   4    1999     6 auto… 4        14    17 r     suv  
+11 mercury      mountaine…   4    2008     6 auto… 4        13    19 r     suv  
+12 mercury      mountaine…   4.6  2008     8 auto… 4        13    19 r     suv  
+13 mercury      mountaine…   5    1999     8 auto… 4        13    17 r     suv  
+14 pontiac      grand prix   3.1  1999     6 auto… f        18    26 r     mids…
+15 pontiac      grand prix   3.8  1999     6 auto… f        16    26 p     mids…
+16 pontiac      grand prix   3.8  1999     6 auto… f        17    27 r     mids…
+17 pontiac      grand prix   3.8  2008     6 auto… f        18    28 r     mids…
+18 pontiac      grand prix   5.3  2008     8 auto… f        16    25 p     mids…
+# ℹ 1 more variable: N <int>
 ```
 
  \normalsize
@@ -2189,7 +2189,7 @@ mpg %>%
  8 audi         a4 quattro   1.8  1999     4 manu… 4        18    26 p     comp…
  9 audi         a4 quattro   1.8  1999     4 auto… 4        16    25 p     comp…
 10 audi         a4 quattro   2    2008     4 manu… 4        20    28 p     comp…
-# … with 224 more rows
+# ℹ 224 more rows
 ```
 
 ```r
@@ -2214,7 +2214,7 @@ mpg %>%
  8 audi         a4 quattro manual(m5) 4     p     compact
  9 audi         a4 quattro auto(l5)   4     p     compact
 10 audi         a4 quattro manual(m6) 4     p     compact
-# … with 224 more rows
+# ℹ 224 more rows
 ```
 
 ```r
@@ -2239,7 +2239,7 @@ mpg %>%
  8 a4 quattro   1.8  1999     4 manual(m5) 4        18
  9 a4 quattro   1.8  1999     4 auto(l5)   4        16
 10 a4 quattro   2    2008     4 manual(m6) 4        20
-# … with 224 more rows
+# ℹ 224 more rows
 ```
 
  \normalsize
@@ -2433,25 +2433,24 @@ mpg %>%
 ```
 # A tibble: 15 × 10
 # Groups:   manufacturer [15]
-   manufact…¹     n displ…² cyl_m…³ cty_m…⁴ hwy_m…⁵ displ…⁶ cyl_sd cty_sd hwy_sd
-   <chr>      <int>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>  <dbl>  <dbl>  <dbl>
- 1 audi          18    2.54    5.22    17.6    26.4   0.673  1.22   1.97    2.18
- 2 chevrolet     19    5.06    7.26    15      21.9   1.37   1.37   2.92    5.11
- 3 dodge         37    4.38    7.08    13.1    17.9   0.868  1.12   2.49    3.57
- 4 ford          25    4.54    7.2     14      19.4   0.541  1      1.91    3.33
- 5 honda          9    1.71    4       24.4    32.6   0.145  0      1.94    2.55
- 6 hyundai       14    2.43    4.86    18.6    26.9   0.365  1.03   1.50    2.18
- 7 jeep           8    4.58    7.25    13.5    17.6   1.02   1.04   2.51    3.25
- 8 land rover     4    4.3     8       11.5    16.5   0.258  0      0.577   1.73
- 9 lincoln        3    5.4     8       11.3    17     0      0      0.577   1   
-10 mercury        4    4.4     7       13.2    18     0.490  1.15   0.5     1.15
-11 nissan        13    3.27    5.54    18.1    24.6   0.864  1.20   3.43    5.09
-12 pontiac        5    3.96    6.4     17      26.4   0.808  0.894  1       1.14
-13 subaru        14    2.46    4       19.3    25.6   0.109  0      0.914   1.16
-14 toyota        34    2.95    5.12    18.5    24.9   0.931  1.32   4.05    6.17
-15 volkswagen    27    2.26    4.59    20.9    29.2   0.443  0.844  4.56    5.32
-# … with abbreviated variable names ¹​manufacturer, ²​displ_mean, ³​cyl_mean,
-#   ⁴​cty_mean, ⁵​hwy_mean, ⁶​displ_sd
+   manufacturer     n displ_mean cyl_mean cty_mean hwy_mean displ_sd cyl_sd
+   <chr>        <int>      <dbl>    <dbl>    <dbl>    <dbl>    <dbl>  <dbl>
+ 1 audi            18       2.54     5.22     17.6     26.4    0.673  1.22 
+ 2 chevrolet       19       5.06     7.26     15       21.9    1.37   1.37 
+ 3 dodge           37       4.38     7.08     13.1     17.9    0.868  1.12 
+ 4 ford            25       4.54     7.2      14       19.4    0.541  1    
+ 5 honda            9       1.71     4        24.4     32.6    0.145  0    
+ 6 hyundai         14       2.43     4.86     18.6     26.9    0.365  1.03 
+ 7 jeep             8       4.58     7.25     13.5     17.6    1.02   1.04 
+ 8 land rover       4       4.3      8        11.5     16.5    0.258  0    
+ 9 lincoln          3       5.4      8        11.3     17      0      0    
+10 mercury          4       4.4      7        13.2     18      0.490  1.15 
+11 nissan          13       3.27     5.54     18.1     24.6    0.864  1.20 
+12 pontiac          5       3.96     6.4      17       26.4    0.808  0.894
+13 subaru          14       2.46     4        19.3     25.6    0.109  0    
+14 toyota          34       2.95     5.12     18.5     24.9    0.931  1.32 
+15 volkswagen      27       2.26     4.59     20.9     29.2    0.443  0.844
+# ℹ 2 more variables: cty_sd <dbl>, hwy_sd <dbl>
 ```
 
 ```r
@@ -2548,22 +2547,22 @@ Loading required package: nycflights13
 
 ```
 # A tibble: 336,776 × 19
-    year month   day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
-   <int> <int> <int>    <int>      <int>   <dbl>   <int>   <int>   <dbl> <chr>  
- 1  2013     1     1      517        515       2     830     819      11 UA     
- 2  2013     1     1      533        529       4     850     830      20 UA     
- 3  2013     1     1      542        540       2     923     850      33 AA     
- 4  2013     1     1      544        545      -1    1004    1022     -18 B6     
- 5  2013     1     1      554        600      -6     812     837     -25 DL     
- 6  2013     1     1      554        558      -4     740     728      12 UA     
- 7  2013     1     1      555        600      -5     913     854      19 B6     
- 8  2013     1     1      557        600      -3     709     723     -14 EV     
- 9  2013     1     1      557        600      -3     838     846      -8 B6     
-10  2013     1     1      558        600      -2     753     745       8 AA     
-# … with 336,766 more rows, 9 more variables: flight <int>, tailnum <chr>,
-#   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
-#   minute <dbl>, time_hour <dttm>, and abbreviated variable names
-#   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
+    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
+ 1  2013     1     1      517            515         2      830            819
+ 2  2013     1     1      533            529         4      850            830
+ 3  2013     1     1      542            540         2      923            850
+ 4  2013     1     1      544            545        -1     1004           1022
+ 5  2013     1     1      554            600        -6      812            837
+ 6  2013     1     1      554            558        -4      740            728
+ 7  2013     1     1      555            600        -5      913            854
+ 8  2013     1     1      557            600        -3      709            723
+ 9  2013     1     1      557            600        -3      838            846
+10  2013     1     1      558            600        -2      753            745
+# ℹ 336,766 more rows
+# ℹ 11 more variables: arr_delay <dbl>, carrier <chr>, flight <int>,
+#   tailnum <chr>, origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>,
+#   hour <dbl>, minute <dbl>, time_hour <dttm>
 ```
 
  \normalsize
@@ -2681,7 +2680,7 @@ Loading required package: nycflights13
  8 0G7   Finger Lakes Regional Airport   42.9  -76.8   492    -5 A     America/…
  9 0P2   Shoestring Aviation Airfield    39.8  -76.6  1000    -5 U     America/…
 10 0S9   Jefferson County Intl           48.1 -123.    108    -8 A     America/…
-# … with 1,448 more rows
+# ℹ 1,448 more rows
 ```
 
  \normalsize
@@ -2743,19 +2742,19 @@ Loading required package: nycflights13
 
 ```
 # A tibble: 3,322 × 9
-   tailnum  year type                   manuf…¹ model engines seats speed engine
-   <chr>   <int> <chr>                  <chr>   <chr>   <int> <int> <int> <chr> 
- 1 N10156   2004 Fixed wing multi engi… EMBRAER EMB-…       2    55    NA Turbo…
- 2 N102UW   1998 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
- 3 N103US   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
- 4 N104UW   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
- 5 N10575   2002 Fixed wing multi engi… EMBRAER EMB-…       2    55    NA Turbo…
- 6 N105UW   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
- 7 N107US   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
- 8 N108UW   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
- 9 N109UW   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
-10 N110UW   1999 Fixed wing multi engi… AIRBUS… A320…       2   182    NA Turbo…
-# … with 3,312 more rows, and abbreviated variable name ¹​manufacturer
+   tailnum  year type              manufacturer model engines seats speed engine
+   <chr>   <int> <chr>             <chr>        <chr>   <int> <int> <int> <chr> 
+ 1 N10156   2004 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…
+ 2 N102UW   1998 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+ 3 N103US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+ 4 N104UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+ 5 N10575   2002 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…
+ 6 N105UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+ 7 N107US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+ 8 N108UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+ 9 N109UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+10 N110UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+# ℹ 3,312 more rows
 ```
 
  \normalsize
@@ -2819,20 +2818,21 @@ Loading required package: nycflights13
 
 ```
 # A tibble: 26,115 × 15
-   origin  year month   day  hour  temp  dewp humid wind_dir wind_speed wind_g…¹
-   <chr>  <int> <int> <int> <int> <dbl> <dbl> <dbl>    <dbl>      <dbl>    <dbl>
- 1 EWR     2013     1     1     1  39.0  26.1  59.4      270      10.4        NA
- 2 EWR     2013     1     1     2  39.0  27.0  61.6      250       8.06       NA
- 3 EWR     2013     1     1     3  39.0  28.0  64.4      240      11.5        NA
- 4 EWR     2013     1     1     4  39.9  28.0  62.2      250      12.7        NA
- 5 EWR     2013     1     1     5  39.0  28.0  64.4      260      12.7        NA
- 6 EWR     2013     1     1     6  37.9  28.0  67.2      240      11.5        NA
- 7 EWR     2013     1     1     7  39.0  28.0  64.4      240      15.0        NA
- 8 EWR     2013     1     1     8  39.9  28.0  62.2      250      10.4        NA
- 9 EWR     2013     1     1     9  39.9  28.0  62.2      260      15.0        NA
-10 EWR     2013     1     1    10  41    28.0  59.6      260      13.8        NA
-# … with 26,105 more rows, 4 more variables: precip <dbl>, pressure <dbl>,
-#   visib <dbl>, time_hour <dttm>, and abbreviated variable name ¹​wind_gust
+   origin  year month   day  hour  temp  dewp humid wind_dir wind_speed
+   <chr>  <int> <int> <int> <int> <dbl> <dbl> <dbl>    <dbl>      <dbl>
+ 1 EWR     2013     1     1     1  39.0  26.1  59.4      270      10.4 
+ 2 EWR     2013     1     1     2  39.0  27.0  61.6      250       8.06
+ 3 EWR     2013     1     1     3  39.0  28.0  64.4      240      11.5 
+ 4 EWR     2013     1     1     4  39.9  28.0  62.2      250      12.7 
+ 5 EWR     2013     1     1     5  39.0  28.0  64.4      260      12.7 
+ 6 EWR     2013     1     1     6  37.9  28.0  67.2      240      11.5 
+ 7 EWR     2013     1     1     7  39.0  28.0  64.4      240      15.0 
+ 8 EWR     2013     1     1     8  39.9  28.0  62.2      250      10.4 
+ 9 EWR     2013     1     1     9  39.9  28.0  62.2      260      15.0 
+10 EWR     2013     1     1    10  41    28.0  59.6      260      13.8 
+# ℹ 26,105 more rows
+# ℹ 5 more variables: wind_gust <dbl>, precip <dbl>, pressure <dbl>,
+#   visib <dbl>, time_hour <dttm>
 ```
 
  \normalsize
@@ -3070,7 +3070,7 @@ flights2 %>%
  8  2013     1     1     6 LGA    IAD   N829AS  EV      ExpressJet Airlines Inc.
  9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue Airways         
 10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American Airlines Inc.  
-# … with 336,766 more rows
+# ℹ 336,766 more rows
 ```
 
 ```r
@@ -3095,7 +3095,7 @@ airports2 <- airports %>%
  8 0G7   Finger Lakes Regional Airport 
  9 0P2   Shoestring Aviation Airfield  
 10 0S9   Jefferson County Intl         
-# … with 1,448 more rows
+# ℹ 1,448 more rows
 ```
 
 ```r
@@ -3107,19 +3107,19 @@ flights2 %>%
 
 ```
 # A tibble: 336,776 × 10
-    year month   day  hour origin dest  tailnum carrier name             airpo…¹
-   <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>   <chr>            <chr>  
- 1  2013     1     1     5 EWR    IAH   N14228  UA      United Air Line… Newark…
- 2  2013     1     1     5 LGA    IAH   N24211  UA      United Air Line… La Gua…
- 3  2013     1     1     5 JFK    MIA   N619AA  AA      American Airlin… John F…
- 4  2013     1     1     5 JFK    BQN   N804JB  B6      JetBlue Airways  John F…
- 5  2013     1     1     6 LGA    ATL   N668DN  DL      Delta Air Lines… La Gua…
- 6  2013     1     1     5 EWR    ORD   N39463  UA      United Air Line… Newark…
- 7  2013     1     1     6 EWR    FLL   N516JB  B6      JetBlue Airways  Newark…
- 8  2013     1     1     6 LGA    IAD   N829AS  EV      ExpressJet Airl… La Gua…
- 9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue Airways  John F…
-10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American Airlin… La Gua…
-# … with 336,766 more rows, and abbreviated variable name ¹​airport_name
+    year month   day  hour origin dest  tailnum carrier name        airport_name
+   <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>   <chr>       <chr>       
+ 1  2013     1     1     5 EWR    IAH   N14228  UA      United Air… Newark Libe…
+ 2  2013     1     1     5 LGA    IAH   N24211  UA      United Air… La Guardia  
+ 3  2013     1     1     5 JFK    MIA   N619AA  AA      American A… John F Kenn…
+ 4  2013     1     1     5 JFK    BQN   N804JB  B6      JetBlue Ai… John F Kenn…
+ 5  2013     1     1     6 LGA    ATL   N668DN  DL      Delta Air … La Guardia  
+ 6  2013     1     1     5 EWR    ORD   N39463  UA      United Air… Newark Libe…
+ 7  2013     1     1     6 EWR    FLL   N516JB  B6      JetBlue Ai… Newark Libe…
+ 8  2013     1     1     6 LGA    IAD   N829AS  EV      ExpressJet… La Guardia  
+ 9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue Ai… John F Kenn…
+10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American A… La Guardia  
+# ℹ 336,766 more rows
 ```
 
 ```r
@@ -3136,19 +3136,19 @@ flights2 %>%
 
 ```
 # A tibble: 336,776 × 11
-    year month   day  hour origin dest  tailnum carrier name       airpo…¹ model
-   <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>   <chr>      <chr>   <chr>
- 1  2013     1     1     5 EWR    IAH   N14228  UA      United Ai… Newark… 737-…
- 2  2013     1     1     5 LGA    IAH   N24211  UA      United Ai… La Gua… 737-…
- 3  2013     1     1     5 JFK    MIA   N619AA  AA      American … John F… 757-…
- 4  2013     1     1     5 JFK    BQN   N804JB  B6      JetBlue A… John F… A320…
- 5  2013     1     1     6 LGA    ATL   N668DN  DL      Delta Air… La Gua… 757-…
- 6  2013     1     1     5 EWR    ORD   N39463  UA      United Ai… Newark… 737-…
- 7  2013     1     1     6 EWR    FLL   N516JB  B6      JetBlue A… Newark… A320…
- 8  2013     1     1     6 LGA    IAD   N829AS  EV      ExpressJe… La Gua… CL-6…
- 9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue A… John F… A320…
-10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American … La Gua… <NA> 
-# … with 336,766 more rows, and abbreviated variable name ¹​airport_name
+    year month   day  hour origin dest  tailnum carrier name  airport_name model
+   <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>   <chr> <chr>        <chr>
+ 1  2013     1     1     5 EWR    IAH   N14228  UA      Unit… Newark Libe… 737-…
+ 2  2013     1     1     5 LGA    IAH   N24211  UA      Unit… La Guardia   737-…
+ 3  2013     1     1     5 JFK    MIA   N619AA  AA      Amer… John F Kenn… 757-…
+ 4  2013     1     1     5 JFK    BQN   N804JB  B6      JetB… John F Kenn… A320…
+ 5  2013     1     1     6 LGA    ATL   N668DN  DL      Delt… La Guardia   757-…
+ 6  2013     1     1     5 EWR    ORD   N39463  UA      Unit… Newark Libe… 737-…
+ 7  2013     1     1     6 EWR    FLL   N516JB  B6      JetB… Newark Libe… A320…
+ 8  2013     1     1     6 LGA    IAD   N829AS  EV      Expr… La Guardia   CL-6…
+ 9  2013     1     1     6 JFK    MCO   N593JB  B6      JetB… John F Kenn… A320…
+10  2013     1     1     6 LGA    ORD   N3ALAA  AA      Amer… La Guardia   <NA> 
+# ℹ 336,766 more rows
 ```
 
 ```r
@@ -3370,7 +3370,7 @@ region %>% print
  8 ATG   Antigua and Barbuda Caribbean America
  9 ARG   Argentina           South America    
 10 ARM   Armenia             Western Asia     
-# … with 224 more rows
+# ℹ 224 more rows
 ```
 
 ```r
@@ -3391,7 +3391,7 @@ country_pop %>% print
  8 afg   Afghanistan  1807    3280000
  9 afg   Afghanistan  1808    3280000
 10 afg   Afghanistan  1809    3280000
-# … with 59,287 more rows
+# ℹ 59,287 more rows
 ```
 
 ```r
@@ -3412,7 +3412,7 @@ gdpcap %>% print
  8 afg      Afghanistan  1807 1977840000
  9 afg      Afghanistan  1808 1977840000
 10 afg      Afghanistan  1809 1977840000
-# … with 46,985 more rows
+# ℹ 46,985 more rows
 ```
 
 ```r
@@ -3433,7 +3433,7 @@ lifeexp %>% print
  8 Afghanistan afg       1807            28.1
  9 Afghanistan afg       1808            28.1
 10 Afghanistan afg       1809            28.1
-# … with 56,120 more rows
+# ℹ 56,120 more rows
 ```
 
  \normalsize
@@ -3468,7 +3468,7 @@ gap_unfilter %>% print
  8 afg   Afghanistan  1807    3280000 1977840000            28.1
  9 afg   Afghanistan  1808    3280000 1977840000            28.1
 10 afg   Afghanistan  1809    3280000 1977840000            28.1
-# … with 59,287 more rows
+# ℹ 59,287 more rows
 ```
 
  \normalsize
@@ -3499,7 +3499,7 @@ gap_filter %>% print
  8 afg   Afghanistan  1957    8535157 22131662101            37.1
  9 afg   Afghanistan  1958    8680097 23297380348            37.9
 10 afg   Afghanistan  1959    8833947 23895826635            38.6
-# … with 13,149 more rows
+# ℹ 13,149 more rows
 ```
 
  \normalsize
@@ -3531,7 +3531,7 @@ gap_filter %>% print
  8 AFG   Afghanistan  1957    8535157            37.1    2593
  9 AFG   Afghanistan  1958    8680097            37.9    2684
 10 AFG   Afghanistan  1959    8833947            38.6    2705
-# … with 13,149 more rows
+# ℹ 13,149 more rows
 ```
 
  \normalsize
@@ -3562,7 +3562,7 @@ gap_filter %>% print
  8 AFG   Afghanistan  1957    8535157            37.1    2593 Southern Asia
  9 AFG   Afghanistan  1958    8680097            37.9    2684 Southern Asia
 10 AFG   Afghanistan  1959    8833947            38.6    2705 Southern Asia
-# … with 13,149 more rows
+# ℹ 13,149 more rows
 ```
 
  \normalsize
@@ -3913,7 +3913,7 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
  8 AMC Javelin vs         0   
  9 AMC Javelin am         0   
 10 AMC Javelin gear       3   
-# … with 342 more rows
+# ℹ 342 more rows
 ```
 
  \normalsize
@@ -4069,7 +4069,7 @@ tidy_ex_01 %>% print
  8 Germany 2008   40989.
  9 Germany 2009   38784.
 10 Germany 2010   40429.
-# … with 50 more rows
+# ℹ 50 more rows
 ```
 
 ```r
@@ -4093,7 +4093,7 @@ tidy_ex_01 %>% print
  8 South Korea   2003   23549.
  9 United States 2003   46941.
 10 Germany       2004   37418.
-# … with 50 more rows
+# ℹ 50 more rows
 ```
 
  \normalsize
@@ -4109,25 +4109,25 @@ billboard %>% print
 
 ```
 # A tibble: 317 × 79
-   artist track date.ent…¹   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8   wk9
-   <chr>  <chr> <date>     <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
- 1 2 Pac  Baby… 2000-02-26    87    82    72    77    87    94    99    NA    NA
- 2 2Ge+h… The … 2000-09-02    91    87    92    NA    NA    NA    NA    NA    NA
- 3 3 Doo… Kryp… 2000-04-08    81    70    68    67    66    57    54    53    51
- 4 3 Doo… Loser 2000-10-21    76    76    72    69    67    65    55    59    62
- 5 504 B… Wobb… 2000-04-15    57    34    25    17    17    31    36    49    53
- 6 98^0   Give… 2000-08-19    51    39    34    26    26    19     2     2     3
- 7 A*Tee… Danc… 2000-07-08    97    97    96    95   100    NA    NA    NA    NA
- 8 Aaliy… I Do… 2000-01-29    84    62    51    41    38    35    35    38    38
- 9 Aaliy… Try … 2000-03-18    59    53    38    28    21    18    16    14    12
-10 Adams… Open… 2000-08-26    76    76    74    69    68    67    61    58    57
-# … with 307 more rows, 67 more variables: wk10 <dbl>, wk11 <dbl>, wk12 <dbl>,
+   artist     track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8
+   <chr>      <chr> <date>       <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+ 1 2 Pac      Baby… 2000-02-26      87    82    72    77    87    94    99    NA
+ 2 2Ge+her    The … 2000-09-02      91    87    92    NA    NA    NA    NA    NA
+ 3 3 Doors D… Kryp… 2000-04-08      81    70    68    67    66    57    54    53
+ 4 3 Doors D… Loser 2000-10-21      76    76    72    69    67    65    55    59
+ 5 504 Boyz   Wobb… 2000-04-15      57    34    25    17    17    31    36    49
+ 6 98^0       Give… 2000-08-19      51    39    34    26    26    19     2     2
+ 7 A*Teens    Danc… 2000-07-08      97    97    96    95   100    NA    NA    NA
+ 8 Aaliyah    I Do… 2000-01-29      84    62    51    41    38    35    35    38
+ 9 Aaliyah    Try … 2000-03-18      59    53    38    28    21    18    16    14
+10 Adams, Yo… Open… 2000-08-26      76    76    74    69    68    67    61    58
+# ℹ 307 more rows
+# ℹ 68 more variables: wk9 <dbl>, wk10 <dbl>, wk11 <dbl>, wk12 <dbl>,
 #   wk13 <dbl>, wk14 <dbl>, wk15 <dbl>, wk16 <dbl>, wk17 <dbl>, wk18 <dbl>,
 #   wk19 <dbl>, wk20 <dbl>, wk21 <dbl>, wk22 <dbl>, wk23 <dbl>, wk24 <dbl>,
 #   wk25 <dbl>, wk26 <dbl>, wk27 <dbl>, wk28 <dbl>, wk29 <dbl>, wk30 <dbl>,
 #   wk31 <dbl>, wk32 <dbl>, wk33 <dbl>, wk34 <dbl>, wk35 <dbl>, wk36 <dbl>,
-#   wk37 <dbl>, wk38 <dbl>, wk39 <dbl>, wk40 <dbl>, wk41 <dbl>, wk42 <dbl>,
-#   wk43 <dbl>, wk44 <dbl>, wk45 <dbl>, wk46 <dbl>, wk47 <dbl>, wk48 <dbl>, …
+#   wk37 <dbl>, wk38 <dbl>, wk39 <dbl>, wk40 <dbl>, wk41 <dbl>, wk42 <dbl>, …
 ```
 
 ```r
@@ -4176,7 +4176,7 @@ billb_tidy %>% print
  8 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk8      NA
  9 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk9      NA
 10 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk10     NA
-# … with 24,082 more rows
+# ℹ 24,082 more rows
 ```
 
 ```r
@@ -4204,7 +4204,7 @@ billb_tidy %>% print
  8 2Ge+her The Hardest Part Of ... 2000-09-02   wk1      91
  9 2Ge+her The Hardest Part Of ... 2000-09-02   wk2      87
 10 2Ge+her The Hardest Part Of ... 2000-09-02   wk3      92
-# … with 5,297 more rows
+# ℹ 5,297 more rows
 ```
 
 ```r
@@ -4233,7 +4233,7 @@ billb_tidy %>% print
  8 2Ge+her The Hardest Part Of ... 2000-09-02   1        91
  9 2Ge+her The Hardest Part Of ... 2000-09-02   2        87
 10 2Ge+her The Hardest Part Of ... 2000-09-02   3        92
-# … with 5,297 more rows
+# ℹ 5,297 more rows
 ```
 
 ```r
@@ -4263,7 +4263,7 @@ billb_tidy %>% print
  8 2Ge+her The Hardest Part Of ... 2000-09-02       1    91
  9 2Ge+her The Hardest Part Of ... 2000-09-02       2    87
 10 2Ge+her The Hardest Part Of ... 2000-09-02       3    92
-# … with 5,297 more rows
+# ℹ 5,297 more rows
 ```
 
 ```r
@@ -4280,25 +4280,25 @@ billb_tidy %>% print
 
 ```
 # A tibble: 7,240 × 60
-   country     iso2  iso3   year new_s…¹ new_s…² new_s…³ new_s…⁴ new_s…⁵ new_s…⁶
-   <chr>       <chr> <chr> <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
- 1 Afghanistan AF    AFG    1980      NA      NA      NA      NA      NA      NA
- 2 Afghanistan AF    AFG    1981      NA      NA      NA      NA      NA      NA
- 3 Afghanistan AF    AFG    1982      NA      NA      NA      NA      NA      NA
- 4 Afghanistan AF    AFG    1983      NA      NA      NA      NA      NA      NA
- 5 Afghanistan AF    AFG    1984      NA      NA      NA      NA      NA      NA
- 6 Afghanistan AF    AFG    1985      NA      NA      NA      NA      NA      NA
- 7 Afghanistan AF    AFG    1986      NA      NA      NA      NA      NA      NA
- 8 Afghanistan AF    AFG    1987      NA      NA      NA      NA      NA      NA
- 9 Afghanistan AF    AFG    1988      NA      NA      NA      NA      NA      NA
-10 Afghanistan AF    AFG    1989      NA      NA      NA      NA      NA      NA
-# … with 7,230 more rows, 50 more variables: new_sp_m65 <dbl>,
-#   new_sp_f014 <dbl>, new_sp_f1524 <dbl>, new_sp_f2534 <dbl>,
-#   new_sp_f3544 <dbl>, new_sp_f4554 <dbl>, new_sp_f5564 <dbl>,
-#   new_sp_f65 <dbl>, new_sn_m014 <dbl>, new_sn_m1524 <dbl>,
-#   new_sn_m2534 <dbl>, new_sn_m3544 <dbl>, new_sn_m4554 <dbl>,
-#   new_sn_m5564 <dbl>, new_sn_m65 <dbl>, new_sn_f014 <dbl>,
-#   new_sn_f1524 <dbl>, new_sn_f2534 <dbl>, new_sn_f3544 <dbl>, …
+   country  iso2  iso3   year new_sp_m014 new_sp_m1524 new_sp_m2534 new_sp_m3544
+   <chr>    <chr> <chr> <dbl>       <dbl>        <dbl>        <dbl>        <dbl>
+ 1 Afghani… AF    AFG    1980          NA           NA           NA           NA
+ 2 Afghani… AF    AFG    1981          NA           NA           NA           NA
+ 3 Afghani… AF    AFG    1982          NA           NA           NA           NA
+ 4 Afghani… AF    AFG    1983          NA           NA           NA           NA
+ 5 Afghani… AF    AFG    1984          NA           NA           NA           NA
+ 6 Afghani… AF    AFG    1985          NA           NA           NA           NA
+ 7 Afghani… AF    AFG    1986          NA           NA           NA           NA
+ 8 Afghani… AF    AFG    1987          NA           NA           NA           NA
+ 9 Afghani… AF    AFG    1988          NA           NA           NA           NA
+10 Afghani… AF    AFG    1989          NA           NA           NA           NA
+# ℹ 7,230 more rows
+# ℹ 52 more variables: new_sp_m4554 <dbl>, new_sp_m5564 <dbl>,
+#   new_sp_m65 <dbl>, new_sp_f014 <dbl>, new_sp_f1524 <dbl>,
+#   new_sp_f2534 <dbl>, new_sp_f3544 <dbl>, new_sp_f4554 <dbl>,
+#   new_sp_f5564 <dbl>, new_sp_f65 <dbl>, new_sn_m014 <dbl>,
+#   new_sn_m1524 <dbl>, new_sn_m2534 <dbl>, new_sn_m3544 <dbl>,
+#   new_sn_m4554 <dbl>, new_sn_m5564 <dbl>, new_sn_m65 <dbl>, …
 ```
 
 <table class="table table-striped" style="font-size: 11px; margin-left: auto; margin-right: auto;">
@@ -4394,7 +4394,7 @@ who_tidy %>% print
  8 Afghanistan AF    AFG    1997 sp        f     014           5
  9 Afghanistan AF    AFG    1997 sp        f     1524         38
 10 Afghanistan AF    AFG    1997 sp        f     2534         36
-# … with 76,036 more rows
+# ℹ 76,036 more rows
 ```
 
  \normalsize
@@ -4467,9 +4467,9 @@ wide_ex_01 %>% print
 1 Germany  37325. 37262. 36977. 37418. 37704. 39143. 40474. 40989. 38784. 40429.
 2 South K… 21530. 22997. 23549. 24606. 25517. 26697. 28014. 28588. 28643. 30352.
 3 United … 45663. 46029. 46941. 48275. 49513. 50438. 50898. 50350. 48644. 49479.
-# … with 10 more variables: `2011` <dbl>, `2012` <dbl>, `2013` <dbl>,
-#   `2014` <dbl>, `2015` <dbl>, `2016` <dbl>, `2017` <dbl>, `2018` <dbl>,
-#   `2019` <dbl>, `2020` <dbl>
+# ℹ 10 more variables: `2011` <dbl>, `2012` <dbl>, `2013` <dbl>, `2014` <dbl>,
+#   `2015` <dbl>, `2016` <dbl>, `2017` <dbl>, `2018` <dbl>, `2019` <dbl>,
+#   `2020` <dbl>
 ```
 
 ```r
@@ -4869,13 +4869,12 @@ mtcar_summ1 %>% print
 
 ```
 # A tibble: 2 × 15
-  am       mpg_m…¹ cyl_m…² disp_…³ hp_mean drat_…⁴ wt_mean qsec_…⁵ mpg_sd cyl_sd
-  <fct>      <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>  <dbl>  <dbl>
-1 automat…    17.1    6.95    290.    160.    3.29    3.77    18.2   3.83   1.54
-2 manual      24.4    5.08    144.    127.    4.05    2.41    17.4   6.17   1.55
-# … with 5 more variables: disp_sd <dbl>, hp_sd <dbl>, drat_sd <dbl>,
-#   wt_sd <dbl>, qsec_sd <dbl>, and abbreviated variable names ¹​mpg_mean,
-#   ²​cyl_mean, ³​disp_mean, ⁴​drat_mean, ⁵​qsec_mean
+  am      mpg_mean cyl_mean disp_mean hp_mean drat_mean wt_mean qsec_mean mpg_sd
+  <fct>      <dbl>    <dbl>     <dbl>   <dbl>     <dbl>   <dbl>     <dbl>  <dbl>
+1 automa…     17.1     6.95      290.    160.      3.29    3.77      18.2   3.83
+2 manual      24.4     5.08      144.    127.      4.05    2.41      17.4   6.17
+# ℹ 6 more variables: cyl_sd <dbl>, disp_sd <dbl>, hp_sd <dbl>, drat_sd <dbl>,
+#   wt_sd <dbl>, qsec_sd <dbl>
 ```
 
 ```r
@@ -4903,7 +4902,7 @@ mtcar_summ2 %>% print
  8 automatic mpg_sd      3.83
  9 automatic cyl_sd      1.54
 10 automatic disp_sd   110.  
-# … with 18 more rows
+# ℹ 18 more rows
 ```
 
 ```r
