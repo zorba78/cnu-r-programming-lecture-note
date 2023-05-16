@@ -138,9 +138,7 @@ if (x && y) print(z) # 강제로 첫 번째 원소만 사용
 ```
 
 ```
-Warning in x && y: 'length(x) = 3 > 1' in coercion to 'logical(1)'
-
-Warning in x && y: 'length(x) = 3 > 1' in coercion to 'logical(1)'
+Error in x && y: 'length = 3' in coercion to 'logical(1)'
 ```
 
 ```r
@@ -152,7 +150,6 @@ Error in if (x & y) print(z): the condition has length > 1
 ```
 
 ```
-[1] "Both TRUE!!"
 [1] "Both TRUE!!"
 ```
 
@@ -1057,7 +1054,7 @@ print_lyrics_let_it_be(beatles)
 ```
 
 ```
-Error in print_lyrics_let_it_be(beatles): unused argument (beatles)
+Error in print_lyrics_let_it_be(beatles): 사용되지 않은 인자 (beatles)
 ```
 
 ```r
@@ -1116,7 +1113,7 @@ manual_mean(x, na.rm = TRUE)
 ```
 
 ```
-Error in manual_mean(x, na.rm = TRUE): unused argument (na.rm = TRUE)
+Error in manual_mean(x, na.rm = TRUE): 사용되지 않은 인자 (na.rm = TRUE)
 ```
 
  \normalsize
@@ -1324,7 +1321,7 @@ stdev(dat = dat, na.rm = TRUE) # 오류 why???
 ```
 
 ```
-Error in stdev(dat = dat, na.rm = TRUE): unused argument (dat = dat)
+Error in stdev(dat = dat, na.rm = TRUE): 사용되지 않은 인자 (dat = dat)
 ```
 
  \normalsize
@@ -1636,7 +1633,7 @@ match.arg(arg = c("med", "max"),
 ```
 
 ```
-Error in match.arg(arg = c("med", "max"), choices = c("mean", "median", : 'arg' must be of length 1
+Error in match.arg(arg = c("med", "max"), choices = c("mean", "median", : 'arg'는 반드시 길이가 1이어야 합니다
 ```
 
  \normalsize
@@ -1719,9 +1716,7 @@ center(x, "mode")
 ```
 
 ```
-[1] 1.7
-attr(,"freq")
-[1] 6
+Error in loadNamespace(x): 'DescTools'이라고 불리는 패키지가 없습니다
 ```
 
 ```r
@@ -1947,7 +1942,7 @@ scope2(x = 5)
 ```
 
 ```
-Error in print(z): object 'z' not found
+Error in scope2(x = 5): 객체 'z'를 찾을 수 없습니다
 ```
 
 ```r

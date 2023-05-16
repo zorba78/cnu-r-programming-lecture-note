@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.1 수학함수 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2023년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.1 수학함수 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2023-04-21" />
+<meta name="date" content="2023-05-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -125,6 +125,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -510,10 +514,10 @@ div.csl-indent {
 <li><span class="math inline">\(P_i\)</span>: <span class="math inline">\(n\)</span> 개의 독립적인 사건이 있고 <span class="math inline">\(i\)</span> 번째 사건이 발생할 확률</li>
 <li><span class="math inline">\(n = 3\)</span> 일 때, 각 사건의 이름을 각각 A, B, C 라고 할 때 이 중 사건 하나가 발생할 확률</li>
 </ul>
-<div class="sourceCode" id="cb1221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1221-1"><a href="수학함수.html#cb1221-1" aria-hidden="true" tabindex="-1"></a><span class="fu">P</span>(사건 하나가 발생할 확률) <span class="ot">=</span> </span>
-<span id="cb1221-2"><a href="수학함수.html#cb1221-2" aria-hidden="true" tabindex="-1"></a><span class="fu">P</span>(A가 일어나고 B와 C가 일어나지 않을 확률) <span class="sc">+</span> </span>
-<span id="cb1221-3"><a href="수학함수.html#cb1221-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">P</span>(A가 일어나지 않고 B가 일어나고 C가 일어나지 않을 확률) <span class="sc">+</span> </span>
-<span id="cb1221-4"><a href="수학함수.html#cb1221-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">P</span>(A, B가 일어나지 않고 C만 일어날 확률)</span></code></pre></div>
+<div class="sourceCode" id="cb1223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1223-1"><a href="수학함수.html#cb1223-1" aria-hidden="true" tabindex="-1"></a><span class="fu">P</span>(사건 하나가 발생할 확률) <span class="ot">=</span> </span>
+<span id="cb1223-2"><a href="수학함수.html#cb1223-2" aria-hidden="true" tabindex="-1"></a><span class="fu">P</span>(A가 일어나고 B와 C가 일어나지 않을 확률) <span class="sc">+</span> </span>
+<span id="cb1223-3"><a href="수학함수.html#cb1223-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">P</span>(A가 일어나지 않고 B가 일어나고 C가 일어나지 않을 확률) <span class="sc">+</span> </span>
+<span id="cb1223-4"><a href="수학함수.html#cb1223-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">P</span>(A, B가 일어나지 않고 C만 일어날 확률)</span></code></pre></div>
 <p></p>
 <ul>
 <li>여기서 P(A가 일어나고 B와 C가 일어나지 않을 확률) = <span class="math inline">\(P_A(1-P_B)(1-P_C)\)</span> <span class="math inline">\(\rightarrow\)</span> 나머지도 마찬가지임</li>
@@ -525,48 +529,48 @@ div.csl-indent {
 <ul>
 <li>수학함수로 구현: <code>prod()</code> 함수 활용</li>
 </ul>
-<div class="sourceCode" id="cb1222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1222-1"><a href="수학함수.html#cb1222-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 벡터 p에서 p_i 계산 함수</span></span>
-<span id="cb1222-2"><a href="수학함수.html#cb1222-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.3</span>)</span>
-<span id="cb1222-3"><a href="수학함수.html#cb1222-3" aria-hidden="true" tabindex="-1"></a>notp <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> p</span>
-<span id="cb1222-4"><a href="수학함수.html#cb1222-4" aria-hidden="true" tabindex="-1"></a>p[<span class="dv">1</span>] <span class="sc">*</span> <span class="fu">prod</span>(notp[<span class="sc">-</span><span class="dv">1</span>]) <span class="sc">+</span></span>
-<span id="cb1222-5"><a href="수학함수.html#cb1222-5" aria-hidden="true" tabindex="-1"></a>p[<span class="dv">2</span>] <span class="sc">*</span> <span class="fu">prod</span>(notp[<span class="sc">-</span><span class="dv">2</span>]) <span class="sc">+</span></span>
-<span id="cb1222-6"><a href="수학함수.html#cb1222-6" aria-hidden="true" tabindex="-1"></a>p[<span class="dv">3</span>] <span class="sc">*</span> <span class="fu">prod</span>(notp[<span class="sc">-</span><span class="dv">3</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb1224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1224-1"><a href="수학함수.html#cb1224-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 벡터 p에서 p_i 계산 함수</span></span>
+<span id="cb1224-2"><a href="수학함수.html#cb1224-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.3</span>)</span>
+<span id="cb1224-3"><a href="수학함수.html#cb1224-3" aria-hidden="true" tabindex="-1"></a>notp <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> p</span>
+<span id="cb1224-4"><a href="수학함수.html#cb1224-4" aria-hidden="true" tabindex="-1"></a>p[<span class="dv">1</span>] <span class="sc">*</span> <span class="fu">prod</span>(notp[<span class="sc">-</span><span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb1224-5"><a href="수학함수.html#cb1224-5" aria-hidden="true" tabindex="-1"></a>p[<span class="dv">2</span>] <span class="sc">*</span> <span class="fu">prod</span>(notp[<span class="sc">-</span><span class="dv">2</span>]) <span class="sc">+</span></span>
+<span id="cb1224-6"><a href="수학함수.html#cb1224-6" aria-hidden="true" tabindex="-1"></a>p[<span class="dv">3</span>] <span class="sc">*</span> <span class="fu">prod</span>(notp[<span class="sc">-</span><span class="dv">3</span>])</span></code></pre></div>
 <pre><code>[1] 0.452</code></pre>
-<div class="sourceCode" id="cb1224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1224-1"><a href="수학함수.html#cb1224-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb1224-2"><a href="수학함수.html#cb1224-2" aria-hidden="true" tabindex="-1"></a>notp <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> p</span>
-<span id="cb1224-3"><a href="수학함수.html#cb1224-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 일반화 하려면 어떻게 해야 할까? -&gt; 반복문 활용</span></span>
-<span id="cb1224-4"><a href="수학함수.html#cb1224-4" aria-hidden="true" tabindex="-1"></a>tot <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb1224-5"><a href="수학함수.html#cb1224-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(p)) {</span>
-<span id="cb1224-6"><a href="수학함수.html#cb1224-6" aria-hidden="true" tabindex="-1"></a>  tot <span class="ot">&lt;-</span> tot <span class="sc">+</span> p[i] <span class="sc">*</span> <span class="fu">prod</span>(notp[<span class="sc">-</span>i])</span>
-<span id="cb1224-7"><a href="수학함수.html#cb1224-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb1226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1226-1"><a href="수학함수.html#cb1226-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb1226-2"><a href="수학함수.html#cb1226-2" aria-hidden="true" tabindex="-1"></a>notp <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> p</span>
+<span id="cb1226-3"><a href="수학함수.html#cb1226-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 일반화 하려면 어떻게 해야 할까? -&gt; 반복문 활용</span></span>
+<span id="cb1226-4"><a href="수학함수.html#cb1226-4" aria-hidden="true" tabindex="-1"></a>tot <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb1226-5"><a href="수학함수.html#cb1226-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(p)) {</span>
+<span id="cb1226-6"><a href="수학함수.html#cb1226-6" aria-hidden="true" tabindex="-1"></a>  tot <span class="ot">&lt;-</span> tot <span class="sc">+</span> p[i] <span class="sc">*</span> <span class="fu">prod</span>(notp[<span class="sc">-</span>i])</span>
+<span id="cb1226-7"><a href="수학함수.html#cb1226-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p></p>
 <p><strong>확장예제2: 누적합, 누적곱</strong></p>
-<div class="sourceCode" id="cb1225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1225-1"><a href="수학함수.html#cb1225-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cumsum, cumprod 함수 사용 예시</span></span>
-<span id="cb1225-2"><a href="수학함수.html#cb1225-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">8</span>)</span>
-<span id="cb1225-3"><a href="수학함수.html#cb1225-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cumsum</span>(x); <span class="fu">cumprod</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb1227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1227-1"><a href="수학함수.html#cb1227-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cumsum, cumprod 함수 사용 예시</span></span>
+<span id="cb1227-2"><a href="수학함수.html#cb1227-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">8</span>)</span>
+<span id="cb1227-3"><a href="수학함수.html#cb1227-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cumsum</span>(x); <span class="fu">cumprod</span>(x)</span></code></pre></div>
 <pre><code>[1]  2  6  7 10 17 25</code></pre>
 <pre><code>[1]    2    8    8   24  168 1344</code></pre>
 <p></p>
 <p><strong>확장예제3: 최솟값, 최댓값</strong></p>
-<div class="sourceCode" id="cb1228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1228-1"><a href="수학함수.html#cb1228-1" aria-hidden="true" tabindex="-1"></a><span class="co"># which.min, which.max 사용 예시</span></span>
-<span id="cb1228-2"><a href="수학함수.html#cb1228-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
-<span id="cb1228-3"><a href="수학함수.html#cb1228-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">100</span>)</span>
-<span id="cb1228-4"><a href="수학함수.html#cb1228-4" aria-hidden="true" tabindex="-1"></a>idx_min <span class="ot">&lt;-</span> <span class="fu">which.min</span>(x)</span>
-<span id="cb1228-5"><a href="수학함수.html#cb1228-5" aria-hidden="true" tabindex="-1"></a>x[idx_min]</span></code></pre></div>
+<div class="sourceCode" id="cb1230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1230-1"><a href="수학함수.html#cb1230-1" aria-hidden="true" tabindex="-1"></a><span class="co"># which.min, which.max 사용 예시</span></span>
+<span id="cb1230-2"><a href="수학함수.html#cb1230-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb1230-3"><a href="수학함수.html#cb1230-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">100</span>)</span>
+<span id="cb1230-4"><a href="수학함수.html#cb1230-4" aria-hidden="true" tabindex="-1"></a>idx_min <span class="ot">&lt;-</span> <span class="fu">which.min</span>(x)</span>
+<span id="cb1230-5"><a href="수학함수.html#cb1230-5" aria-hidden="true" tabindex="-1"></a>x[idx_min]</span></code></pre></div>
 <pre><code>[1] 1</code></pre>
-<div class="sourceCode" id="cb1230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1230-1"><a href="수학함수.html#cb1230-1" aria-hidden="true" tabindex="-1"></a>idx_max <span class="ot">&lt;-</span> <span class="fu">which.max</span>(x)</span>
-<span id="cb1230-2"><a href="수학함수.html#cb1230-2" aria-hidden="true" tabindex="-1"></a>x[idx_max]</span></code></pre></div>
+<div class="sourceCode" id="cb1232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1232-1"><a href="수학함수.html#cb1232-1" aria-hidden="true" tabindex="-1"></a>idx_max <span class="ot">&lt;-</span> <span class="fu">which.max</span>(x)</span>
+<span id="cb1232-2"><a href="수학함수.html#cb1232-2" aria-hidden="true" tabindex="-1"></a>x[idx_max]</span></code></pre></div>
 <pre><code>[1] 100</code></pre>
-<div class="sourceCode" id="cb1232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1232-1"><a href="수학함수.html#cb1232-1" aria-hidden="true" tabindex="-1"></a><span class="co"># min(), max(), pmin(), pmax() 비교</span></span>
-<span id="cb1232-2"><a href="수학함수.html#cb1232-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">5</span>)</span>
-<span id="cb1232-3"><a href="수학함수.html#cb1232-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
-<span id="cb1232-4"><a href="수학함수.html#cb1232-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
-<span id="cb1232-5"><a href="수학함수.html#cb1232-5" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">cbind</span>(x, y)</span>
-<span id="cb1232-6"><a href="수학함수.html#cb1232-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1232-7"><a href="수학함수.html#cb1232-7" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(z); <span class="fu">max</span>(z) <span class="co"># z의 전체 값 중 최솟값과 최댓값 반환</span></span></code></pre></div>
+<div class="sourceCode" id="cb1234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1234-1"><a href="수학함수.html#cb1234-1" aria-hidden="true" tabindex="-1"></a><span class="co"># min(), max(), pmin(), pmax() 비교</span></span>
+<span id="cb1234-2"><a href="수학함수.html#cb1234-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">5</span>)</span>
+<span id="cb1234-3"><a href="수학함수.html#cb1234-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb1234-4"><a href="수학함수.html#cb1234-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb1234-5"><a href="수학함수.html#cb1234-5" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">cbind</span>(x, y)</span>
+<span id="cb1234-6"><a href="수학함수.html#cb1234-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1234-7"><a href="수학함수.html#cb1234-7" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(z); <span class="fu">max</span>(z) <span class="co"># z의 전체 값 중 최솟값과 최댓값 반환</span></span></code></pre></div>
 <pre><code>[1] 2.2093</code></pre>
 <pre><code>[1] 3.913</code></pre>
-<div class="sourceCode" id="cb1235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1235-1"><a href="수학함수.html#cb1235-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pmin</span>(z); <span class="fu">pmax</span>(z) <span class="co"># 아무 값을 반환하지 않음</span></span></code></pre></div>
+<div class="sourceCode" id="cb1237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1237-1"><a href="수학함수.html#cb1237-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pmin</span>(z); <span class="fu">pmax</span>(z) <span class="co"># 아무 값을 반환하지 않음</span></span></code></pre></div>
 <pre><code>            x        y
 [1,] 2.400429 3.402115
 [2,] 3.370437 3.055920
@@ -579,23 +583,23 @@ div.csl-indent {
 [3,] 3.833752 3.615870
 [4,] 2.568799 3.913000
 [5,] 2.209300 2.220906</code></pre>
-<div class="sourceCode" id="cb1238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1238-1"><a href="수학함수.html#cb1238-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 두 열을 비교해 각 행에서 최솟값, 최댓값을 반환</span></span>
-<span id="cb1238-2"><a href="수학함수.html#cb1238-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pmin</span>(z[, <span class="dv">1</span>], z[, <span class="dv">2</span>]) </span></code></pre></div>
+<div class="sourceCode" id="cb1240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1240-1"><a href="수학함수.html#cb1240-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 두 열을 비교해 각 행에서 최솟값, 최댓값을 반환</span></span>
+<span id="cb1240-2"><a href="수학함수.html#cb1240-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pmin</span>(z[, <span class="dv">1</span>], z[, <span class="dv">2</span>]) </span></code></pre></div>
 <pre><code>[1] 2.400429 3.055920 3.615870 2.568799 2.209300</code></pre>
-<div class="sourceCode" id="cb1240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1240-1"><a href="수학함수.html#cb1240-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pmax</span>(z[, <span class="dv">1</span>], z[, <span class="dv">2</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb1242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1242-1"><a href="수학함수.html#cb1242-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pmax</span>(z[, <span class="dv">1</span>], z[, <span class="dv">2</span>])</span></code></pre></div>
 <pre><code>[1] 3.402115 3.370437 3.833752 3.913000 2.220906</code></pre>
 <p></p>
 <p><strong>확장예제5: <code>sweep()</code> 함수 활용</strong></p>
-<div class="sourceCode" id="cb1242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1242-1"><a href="수학함수.html#cb1242-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb1242-2"><a href="수학함수.html#cb1242-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">apply</span>(X, <span class="dv">2</span>, mean)</span>
-<span id="cb1242-3"><a href="수학함수.html#cb1242-3" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(m, <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1242-4"><a href="수학함수.html#cb1242-4" aria-hidden="true" tabindex="-1"></a>X <span class="sc">-</span> M</span></code></pre></div>
+<div class="sourceCode" id="cb1244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1244-1"><a href="수학함수.html#cb1244-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb1244-2"><a href="수학함수.html#cb1244-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">apply</span>(X, <span class="dv">2</span>, mean)</span>
+<span id="cb1244-3"><a href="수학함수.html#cb1244-3" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(m, <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1244-4"><a href="수학함수.html#cb1244-4" aria-hidden="true" tabindex="-1"></a>X <span class="sc">-</span> M</span></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]   -1   -1   -1   -1
 [2,]    0    0    0    0
 [3,]    1    1    1    1</code></pre>
-<div class="sourceCode" id="cb1244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1244-1"><a href="수학함수.html#cb1244-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sweep 함수 활용</span></span>
-<span id="cb1244-2"><a href="수학함수.html#cb1244-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sweep</span>(X, <span class="dv">2</span>, <span class="fu">colMeans</span>(X))</span></code></pre></div>
+<div class="sourceCode" id="cb1246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1246-1"><a href="수학함수.html#cb1246-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sweep 함수 활용</span></span>
+<span id="cb1246-2"><a href="수학함수.html#cb1246-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sweep</span>(X, <span class="dv">2</span>, <span class="fu">colMeans</span>(X))</span></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]   -1   -1   -1   -1
 [2,]    0    0    0    0
@@ -605,28 +609,28 @@ div.csl-indent {
 <ul>
 <li>문자의 미분 및 수치 적분 가능</li>
 </ul>
-<div class="sourceCode" id="cb1246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1246-1"><a href="수학함수.html#cb1246-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 도함수 구하기</span></span>
-<span id="cb1246-2"><a href="수학함수.html#cb1246-2" aria-hidden="true" tabindex="-1"></a><span class="do">## D() 함수 사용</span></span>
-<span id="cb1246-3"><a href="수학함수.html#cb1246-3" aria-hidden="true" tabindex="-1"></a>dx <span class="ot">&lt;-</span> <span class="fu">D</span>(<span class="fu">expression</span>(<span class="fu">exp</span>(x<span class="sc">^</span><span class="dv">2</span>)), <span class="st">&quot;x&quot;</span>) <span class="co"># exp(x^2)을 x에 대해서 1차 미분한 도함수</span></span>
-<span id="cb1246-4"><a href="수학함수.html#cb1246-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
-<span id="cb1246-5"><a href="수학함수.html#cb1246-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb1246-6"><a href="수학함수.html#cb1246-6" aria-hidden="true" tabindex="-1"></a><span class="fu">eval</span>(dx) <span class="co"># 위 입력한 x에 대한 도함수 값 출력</span></span></code></pre></div>
+<div class="sourceCode" id="cb1248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1248-1"><a href="수학함수.html#cb1248-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 도함수 구하기</span></span>
+<span id="cb1248-2"><a href="수학함수.html#cb1248-2" aria-hidden="true" tabindex="-1"></a><span class="do">## D() 함수 사용</span></span>
+<span id="cb1248-3"><a href="수학함수.html#cb1248-3" aria-hidden="true" tabindex="-1"></a>dx <span class="ot">&lt;-</span> <span class="fu">D</span>(<span class="fu">expression</span>(<span class="fu">exp</span>(x<span class="sc">^</span><span class="dv">2</span>)), <span class="st">&quot;x&quot;</span>) <span class="co"># exp(x^2)을 x에 대해서 1차 미분한 도함수</span></span>
+<span id="cb1248-4"><a href="수학함수.html#cb1248-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb1248-5"><a href="수학함수.html#cb1248-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb1248-6"><a href="수학함수.html#cb1248-6" aria-hidden="true" tabindex="-1"></a><span class="fu">eval</span>(dx) <span class="co"># 위 입력한 x에 대한 도함수 값 출력</span></span></code></pre></div>
 <pre><code>[1]  9.141245 94.842390 18.856751</code></pre>
-<div class="sourceCode" id="cb1248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1248-1"><a href="수학함수.html#cb1248-1" aria-hidden="true" tabindex="-1"></a><span class="do">## deriv() 함수 사용</span></span>
-<span id="cb1248-2"><a href="수학함수.html#cb1248-2" aria-hidden="true" tabindex="-1"></a>grad <span class="ot">&lt;-</span> <span class="fu">D</span>(<span class="fu">expression</span>(x<span class="sc">*</span><span class="fu">sin</span>(x)), <span class="st">&quot;x&quot;</span>)</span>
-<span id="cb1248-3"><a href="수학함수.html#cb1248-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 도함수를 R의 function으로 바로 반환 가능</span></span>
-<span id="cb1248-4"><a href="수학함수.html#cb1248-4" aria-hidden="true" tabindex="-1"></a>dx2 <span class="ot">&lt;-</span> <span class="fu">deriv</span>(<span class="fu">expression</span>(x<span class="sc">*</span><span class="fu">sin</span>(x)), <span class="st">&quot;x&quot;</span>, <span class="at">function.arg =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb1248-5"><a href="수학함수.html#cb1248-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dx2</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb1250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1250-1"><a href="수학함수.html#cb1250-1" aria-hidden="true" tabindex="-1"></a><span class="do">## deriv() 함수 사용</span></span>
+<span id="cb1250-2"><a href="수학함수.html#cb1250-2" aria-hidden="true" tabindex="-1"></a>grad <span class="ot">&lt;-</span> <span class="fu">D</span>(<span class="fu">expression</span>(x<span class="sc">*</span><span class="fu">sin</span>(x)), <span class="st">&quot;x&quot;</span>)</span>
+<span id="cb1250-3"><a href="수학함수.html#cb1250-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 도함수를 R의 function으로 바로 반환 가능</span></span>
+<span id="cb1250-4"><a href="수학함수.html#cb1250-4" aria-hidden="true" tabindex="-1"></a>dx2 <span class="ot">&lt;-</span> <span class="fu">deriv</span>(<span class="fu">expression</span>(x<span class="sc">*</span><span class="fu">sin</span>(x)), <span class="st">&quot;x&quot;</span>, <span class="at">function.arg =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb1250-5"><a href="수학함수.html#cb1250-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dx2</span>(x)</span></code></pre></div>
 <pre><code>[1] 1.074580 1.757109 1.361092
 attr(,&quot;gradient&quot;)
              x
 [1,] 1.3778035
 [2,] 0.5482219
 [3,] 1.2386966</code></pre>
-<div class="sourceCode" id="cb1250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1250-1"><a href="수학함수.html#cb1250-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 수치 적분</span></span>
-<span id="cb1250-2"><a href="수학함수.html#cb1250-2" aria-hidden="true" tabindex="-1"></a><span class="do">## integrate() 함수 사용</span></span>
-<span id="cb1250-3"><a href="수학함수.html#cb1250-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 주어진 함수의 적분식을 구한 후, 입력 구간에 대한 적분값 계산</span></span>
-<span id="cb1250-4"><a href="수학함수.html#cb1250-4" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(<span class="at">f =</span> <span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">2</span>, <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1252-1"><a href="수학함수.html#cb1252-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 수치 적분</span></span>
+<span id="cb1252-2"><a href="수학함수.html#cb1252-2" aria-hidden="true" tabindex="-1"></a><span class="do">## integrate() 함수 사용</span></span>
+<span id="cb1252-3"><a href="수학함수.html#cb1252-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 주어진 함수의 적분식을 구한 후, 입력 구간에 대한 적분값 계산</span></span>
+<span id="cb1252-4"><a href="수학함수.html#cb1252-4" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(<span class="at">f =</span> <span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">2</span>, <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>0.3333333 with absolute error &lt; 3.7e-15</code></pre>
 <p></p>
 </div>

@@ -516,7 +516,7 @@ sprintf("%d", pi)
 ```
 
 ```
-Error in sprintf("%d", pi): invalid format '%d'; use format %f, %e, %g or %a for numeric objects
+Error in sprintf("%d", pi): '%d'는 유효하지 않은 포맷입니다; 수치형 객체들에는 포맷 %f, %e, %g 또는 %a를 사용해 주세요
 ```
 
 ```r
@@ -1628,7 +1628,7 @@ regexpr("\.", str2)
 ```
 
 ```
-Error: '\.' is an unrecognized escape in character string starting ""\."
+Error: '\.' is an unrecognized escape in character string (<text>:2:11)
 ```
 
  \normalsize
@@ -1962,7 +1962,7 @@ zz[g]
 ```
 
 ```r
-# "The"로 시작하고  "punch"가 포함된 문자열 ㅂ반환
+# "The"로 시작하고  "punch"가 포함된 문자열 반환
 g <- grepl("^(The)+.*(punch)", str)
 str[g]
 ```
@@ -1978,7 +1978,7 @@ str[g]
 
 
 - `|`를 기준으로 좌우 문자 패턴 중 하나를 의미하며 `OR` 조건과 동일한 의미를 가짐
-- `[]` 의 경우 메타문자나 문자 한글자에 대해서만 적용되는 반면 `|`는 문자를 묶어 문자열로 지정 가능
+- `[]` 의 경우 메타문자나 문자 한글자에 대해서만 적용되는 반면 `|`는 문자를 묶어 문자열 패턴 지정이 가능
 
 
 \footnotesize
@@ -2145,7 +2145,7 @@ blank[g]
 
 ### 문자 클래스 {#character-class}
 
-- 문자 집합을 더 세분화하여 특정 목적에 맞는 정규 표현형 
+- 다양한 문자 집합을 특정 목적에 맞게 표현할 수 있는 정규 표현식
 
 - 대괄호(`[]`) 안에 특정 패턴에 해당하는 문자로 규칙 표현하고 하이픈(`-`)을 사용해 특정 문자의 범위 지정 가능
 

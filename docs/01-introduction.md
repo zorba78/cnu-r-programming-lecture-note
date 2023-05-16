@@ -248,48 +248,51 @@ sessionInfo()
 ```
 
 ```
-R version 4.2.3 (2023-03-15)
+R version 4.3.0 (2023-04-21)
 Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 20.04.6 LTS
+Running under: Ubuntu 22.04.2 LTS
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=ko_KR.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=ko_KR.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [1] LC_CTYPE=ko_KR.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=ko_KR.UTF-8        LC_COLLATE=ko_KR.UTF-8    
+ [5] LC_MONETARY=ko_KR.UTF-8    LC_MESSAGES=ko_KR.UTF-8   
  [7] LC_PAPER=ko_KR.UTF-8       LC_NAME=C                 
  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 [11] LC_MEASUREMENT=ko_KR.UTF-8 LC_IDENTIFICATION=C       
+
+time zone: Asia/Seoul
+tzcode source: system (glibc)
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] kableExtra_1.3.4 gtsummary_1.7.0  gt_0.9.0         glue_1.6.2      
- [5] lubridate_1.9.2  forcats_1.0.0    stringr_1.5.0    dplyr_1.1.1     
+ [1] kableExtra_1.3.4 gtsummary_1.7.1  gt_0.9.0         glue_1.6.2      
+ [5] lubridate_1.9.2  forcats_1.0.0    stringr_1.5.0    dplyr_1.1.2     
  [9] purrr_1.0.1      readr_2.1.4      tidyr_1.3.0      tibble_3.2.1    
 [13] ggplot2_3.4.2    tidyverse_2.0.0  rmarkdown_2.21   knitr_1.42      
 
 loaded via a namespace (and not attached):
- [1] tidyselect_1.2.0     xfun_0.38            bslib_0.4.2         
- [4] colorspace_2.1-0     vctrs_0.6.1          generics_0.1.3      
- [7] viridisLite_0.4.1    htmltools_0.5.5      yaml_2.3.7          
-[10] utf8_1.2.3           rlang_1.1.0          jquerylib_0.1.4     
-[13] pillar_1.9.0         withr_2.5.0          lifecycle_1.0.3     
-[16] munsell_0.5.0        gtable_0.3.3         rvest_1.0.3         
-[19] evaluate_0.20        tzdb_0.3.0           fastmap_1.1.1       
-[22] fansi_1.0.4          highr_0.10           scales_1.2.1        
-[25] cachem_1.0.7         webshot_0.5.4        jsonlite_1.8.4      
-[28] systemfonts_1.0.4    hms_1.1.3            digest_0.6.31       
-[31] stringi_1.7.12       bookdown_0.33        grid_4.2.3          
-[34] cli_3.6.1            tools_4.2.3          magrittr_2.0.3      
-[37] sass_0.4.5           pkgconfig_2.0.3      broom.helpers_1.13.0
-[40] xml2_1.3.3           timechange_0.2.0     svglite_2.1.1       
-[43] httr_1.4.5           rstudioapi_0.14      R6_2.5.1            
-[46] compiler_4.2.3      
+ [1] sass_0.4.6           utf8_1.2.3           generics_0.1.3      
+ [4] xml2_1.3.4           stringi_1.7.12       hms_1.1.3           
+ [7] digest_0.6.31        magrittr_2.0.3       evaluate_0.21       
+[10] grid_4.3.0           timechange_0.2.0     bookdown_0.34       
+[13] fastmap_1.1.1        broom.helpers_1.13.0 jsonlite_1.8.4      
+[16] httr_1.4.6           rvest_1.0.3          fansi_1.0.4         
+[19] viridisLite_0.4.2    scales_1.2.1         jquerylib_0.1.4     
+[22] cli_3.6.1            rlang_1.1.1          munsell_0.5.0       
+[25] withr_2.5.0          cachem_1.0.8         yaml_2.3.7          
+[28] tools_4.3.0          tzdb_0.3.0           colorspace_2.1-0    
+[31] webshot_0.5.4        vctrs_0.6.2          R6_2.5.1            
+[34] lifecycle_1.0.3      pkgconfig_2.0.3      pillar_1.9.0        
+[37] bslib_0.4.2          gtable_0.3.3         systemfonts_1.0.4   
+[40] highr_0.10           xfun_0.39            tidyselect_1.2.0    
+[43] rstudioapi_0.14      htmltools_0.5.5      svglite_2.1.1       
+[46] compiler_4.3.0      
 ```
 
  \normalsize
@@ -766,7 +769,7 @@ getwd() # 작업폴더 확인 (현재 R 작업폴더)
 ```
 
 ```
-[1] "/home/user/R-project/Lecture-note/cnu-r-programming-lecture-note"
+[1] "/home/user/Projects/Lecture-note/cnu-r-programming-lecture-note"
 ```
 
  \normalsize
@@ -782,7 +785,7 @@ getwd()
 ```
 
 ```
-[1] "/home/user/R-project/Lecture-note"
+[1] "/home/user/Projects/Lecture-note"
 ```
 
 ```r
@@ -797,11 +800,18 @@ getwd()
 
 ```r
 setwd("/home/user/R-project/Lecture-note/cnu-r-programming-lecture-note/") # 절대 폴더 명 입력
+```
+
+```
+Error in setwd("/home/user/R-project/Lecture-note/cnu-r-programming-lecture-note/"): 작업디렉토리를 변경할 수 없습니다
+```
+
+```r
 getwd()
 ```
 
 ```
-[1] "/home/user/R-project/Lecture-note/cnu-r-programming-lecture-note"
+[1] "/home/user"
 ```
 
 ```r
@@ -810,74 +820,11 @@ dir()
 ```
 
 ```
- [1] "_bookdown_files"                     
- [2] "_bookdown.yml"                       
- [3] "_output.yml"                         
- [4] "_render.R"                           
- [5] "01-introduction_files"               
- [6] "01-introduction.Rmd"                 
- [7] "02-data-type_files"                  
- [8] "02-data-type.Rmd"                    
- [9] "03-string-regexp.Rmd"                
-[10] "04-math-distribution-functions_files"
-[11] "04-math-distribution-functions.Rmd"  
-[12] "05-control-flow.Rmd"                 
-[13] "05-rmarkdown-more_files"             
-[14] "06-algorithms_files"                 
-[15] "06-algorithms.Rmd"                   
-[16] "07-algorithms_files"                 
-[17] "07-simulation_cache"                 
-[18] "07-simulation_files"                 
-[19] "07-simulation.Rmd"                   
-[20] "08-algorithms_files"                 
-[21] "08-introduction-2nd.Rmd"             
-[22] "08-simulation_cache"                 
-[23] "08-simulation_files"                 
-[24] "09-file-import-export.Rmd"           
-[25] "10-data-manupulation_files"          
-[26] "10-data-manupulation.Rmd"            
-[27] "10-simulation_cache"                 
-[28] "10-simulation_files"                 
-[29] "11-data-manupulation_files"          
-[30] "11-data-visualization_cache"         
-[31] "11-data-visualization_files"         
-[32] "11-data-visualization.Rmd"           
-[33] "12-basic-stat-analysis_files"        
-[34] "12-basic-stat-analysis.Rmd"          
-[35] "12-data-visualization_cache"         
-[36] "12-data-visualization_files"         
-[37] "13-rmarkdown-more_files"             
-[38] "13-rmarkdown-more.Rmd"               
-[39] "15-references.Rmd"                   
-[40] "2020"                                
-[41] "assignment"                          
-[42] "book.bib"                            
-[43] "cnu-r-programming-lecture-note.Rproj"
-[44] "cnu-r-programming.log"               
-[45] "cnu-r-programming.rds"               
-[46] "cnu-r-programming.tex"               
-[47] "code"                                
-[48] "css"                                 
-[49] "data"                                
-[50] "dataset"                             
-[51] "dataset.zip"                         
-[52] "demo"                                
-[53] "docs"                                
-[54] "examples"                            
-[55] "figures"                             
-[56] "images"                              
-[57] "index.md"                            
-[58] "index.Rmd"                           
-[59] "init-funs"                           
-[60] "krantz.cls"                          
-[61] "latex"                               
-[62] "misc"                                
-[63] "output"                              
-[64] "packages.bib"                        
-[65] "README.md"                           
-[66] "render8e5d111627c.rds"               
-[67] "test"                                
-[68] "video"                               
+ [1] "Desktop"           "Documents"         "Downloads"        
+ [4] "miniconda3"        "Music"             "nvidia-check.sh"  
+ [7] "Pictures"          "Projects"          "Public"           
+[10] "R"                 "snap"              "Templates"        
+[13] "testdisk.log"      "thinclient_drives" "Videos"           
 ```
 
 ```r
@@ -886,112 +833,57 @@ dir("..")
 ```
 
 ```
-[1] "cnu-r-programming-lecture-note" "quiz-repository"               
-[3] "r-lecture-exams"                "r-programming-2020-01"         
-[5] "stat-package-lecture"           "talk-gallery"                  
-[7] "test"                           "test-learnr"                   
-[9] "ust-medical-statistics"        
+[1] "test" "user"
 ```
 
 ```r
 # 상대경로
 setwd("../ust-medical-statistics//") # Lecture-note 하위폴더인 stat 으로 이동
+```
+
+```
+Error in setwd("../ust-medical-statistics//"): 작업디렉토리를 변경할 수 없습니다
+```
+
+```r
 getwd(); dir()
 ```
 
 ```
-[1] "/home/user/R-project/Lecture-note/ust-medical-statistics"
+[1] "/home/user"
 ```
 
 ```
- [1] "_workflowr.yml"               "analysis"                    
- [3] "code"                         "data"                        
- [5] "docs"                         "final-exam"                  
- [7] "output"                       "README.md"                   
- [9] "references"                   "render-slide.R"              
-[11] "slides"                       "test.svg"                    
-[13] "ust-medical-statistics.Rproj"
+ [1] "Desktop"           "Documents"         "Downloads"        
+ [4] "miniconda3"        "Music"             "nvidia-check.sh"  
+ [7] "Pictures"          "Projects"          "Public"           
+[10] "R"                 "snap"              "Templates"        
+[13] "testdisk.log"      "thinclient_drives" "Videos"           
 ```
 
 ```r
 # 절대경로
 setwd("/home/user/R-project/Lecture-note/cnu-r-programming-lecture-note/")
+```
+
+```
+Error in setwd("/home/user/R-project/Lecture-note/cnu-r-programming-lecture-note/"): 작업디렉토리를 변경할 수 없습니다
+```
+
+```r
 getwd(); dir()
 ```
 
 ```
-[1] "/home/user/R-project/Lecture-note/cnu-r-programming-lecture-note"
+[1] "/home/user"
 ```
 
 ```
- [1] "_bookdown_files"                     
- [2] "_bookdown.yml"                       
- [3] "_output.yml"                         
- [4] "_render.R"                           
- [5] "01-introduction_files"               
- [6] "01-introduction.Rmd"                 
- [7] "02-data-type_files"                  
- [8] "02-data-type.Rmd"                    
- [9] "03-string-regexp.Rmd"                
-[10] "04-math-distribution-functions_files"
-[11] "04-math-distribution-functions.Rmd"  
-[12] "05-control-flow.Rmd"                 
-[13] "05-rmarkdown-more_files"             
-[14] "06-algorithms_files"                 
-[15] "06-algorithms.Rmd"                   
-[16] "07-algorithms_files"                 
-[17] "07-simulation_cache"                 
-[18] "07-simulation_files"                 
-[19] "07-simulation.Rmd"                   
-[20] "08-algorithms_files"                 
-[21] "08-introduction-2nd.Rmd"             
-[22] "08-simulation_cache"                 
-[23] "08-simulation_files"                 
-[24] "09-file-import-export.Rmd"           
-[25] "10-data-manupulation_files"          
-[26] "10-data-manupulation.Rmd"            
-[27] "10-simulation_cache"                 
-[28] "10-simulation_files"                 
-[29] "11-data-manupulation_files"          
-[30] "11-data-visualization_cache"         
-[31] "11-data-visualization_files"         
-[32] "11-data-visualization.Rmd"           
-[33] "12-basic-stat-analysis_files"        
-[34] "12-basic-stat-analysis.Rmd"          
-[35] "12-data-visualization_cache"         
-[36] "12-data-visualization_files"         
-[37] "13-rmarkdown-more_files"             
-[38] "13-rmarkdown-more.Rmd"               
-[39] "15-references.Rmd"                   
-[40] "2020"                                
-[41] "assignment"                          
-[42] "book.bib"                            
-[43] "cnu-r-programming-lecture-note.Rproj"
-[44] "cnu-r-programming.log"               
-[45] "cnu-r-programming.rds"               
-[46] "cnu-r-programming.tex"               
-[47] "code"                                
-[48] "css"                                 
-[49] "data"                                
-[50] "dataset"                             
-[51] "dataset.zip"                         
-[52] "demo"                                
-[53] "docs"                                
-[54] "examples"                            
-[55] "figures"                             
-[56] "images"                              
-[57] "index.md"                            
-[58] "index.Rmd"                           
-[59] "init-funs"                           
-[60] "krantz.cls"                          
-[61] "latex"                               
-[62] "misc"                                
-[63] "output"                              
-[64] "packages.bib"                        
-[65] "README.md"                           
-[66] "render8e5d111627c.rds"               
-[67] "test"                                
-[68] "video"                               
+ [1] "Desktop"           "Documents"         "Downloads"        
+ [4] "miniconda3"        "Music"             "nvidia-check.sh"  
+ [7] "Pictures"          "Projects"          "Public"           
+[10] "R"                 "snap"              "Templates"        
+[13] "testdisk.log"      "thinclient_drives" "Videos"           
 ```
 
  \normalsize
@@ -1190,10 +1082,8 @@ getwd(); dir()
 ```
 
 ```
-[1] "/home/user/R/x86_64-pc-linux-gnu-library/4.2"
-[2] "/usr/local/lib/R/site-library"               
-[3] "/usr/lib/R/site-library"                     
-[4] "/usr/lib/R/library"                          
+[1] "/home/user/R/x86_64-pc-linux-gnu-library/4.3"
+[2] "/opt/R/4.3.0/lib/R/library"                  
 ```
 
  \normalsize
@@ -1353,10 +1243,10 @@ ls() #현재 작업공간 내 객체명 출력
 ```
 
 ```
- [1] "a"                  "b"                  "cars"              
- [4] "def.chunk.hook"     "fig_cap"            "hook_output"       
- [7] "tab"                "x"                  "y"                 
-[10] "도움말 보기 명령어" "사용법"             "설명"              
+ [1] "도움말 보기 명령어" "사용법"             "설명"              
+ [4] "a"                  "b"                  "cars"              
+ [7] "def.chunk.hook"     "fig_cap"            "hook_output"       
+[10] "tab"                "x"                  "y"                 
 ```
 
  \normalsize
@@ -1370,10 +1260,10 @@ ls()
 ```
 
 ```
- [1] "a"                  "b"                  "cars"              
- [4] "def.chunk.hook"     "fig_cap"            "hook_output"       
- [7] "tab"                "y"                  "도움말 보기 명령어"
-[10] "사용법"             "설명"              
+ [1] "도움말 보기 명령어" "사용법"             "설명"              
+ [4] "a"                  "b"                  "cars"              
+ [7] "def.chunk.hook"     "fig_cap"            "hook_output"       
+[10] "tab"                "y"                 
 ```
 
 ```r
@@ -1382,9 +1272,9 @@ ls()
 ```
 
 ```
-[1] "cars"               "def.chunk.hook"     "fig_cap"           
-[4] "hook_output"        "tab"                "y"                 
-[7] "도움말 보기 명령어" "사용법"             "설명"              
+[1] "도움말 보기 명령어" "사용법"             "설명"              
+[4] "cars"               "def.chunk.hook"     "fig_cap"           
+[7] "hook_output"        "tab"                "y"                 
 ```
 
 ```r
@@ -1435,7 +1325,7 @@ x
 ```
 
 ```
-Error in eval(expr, envir, enclos): object 'x' not found
+Error in eval(expr, envir, enclos): 객체 'x'를 찾을 수 없습니다
 ```
 
  \normalsize
@@ -1511,7 +1401,7 @@ a1 <- seq(from = 1, to = 10, by = 2)
 ```
 
 ```
-Error: <text>:1:2: unexpected symbol
+Error: <text>:1:2: 예상하지 못한 기호(symbol)입니다.
 1: 3x
      ^
 ```
@@ -1526,7 +1416,7 @@ _x <- c("M", "M", "F")
 ```
 
 ```
-Error: <text>:1:2: unexpected symbol
+Error: <text>:1:2: 예상하지 못한 기호(symbol)입니다.
 1: _x
      ^
 ```
@@ -1541,7 +1431,7 @@ Error: <text>:1:2: unexpected symbol
 ```
 
 ```
-Error in 0.3 <- 10: invalid (do_set) left-hand side to assignment
+Error in 0.3 <- 10: 대입에 유효하지 않은 (do_set) 좌변입니다
 ```
 
  \normalsize

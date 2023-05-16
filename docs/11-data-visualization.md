@@ -135,17 +135,17 @@ methods(plot)
 
 ```
  [1] plot,ANY-method     plot,color-method   plot.acf*          
- [4] plot.data.frame*    plot.decomposed.ts* plot.default       
- [7] plot.dendrogram*    plot.density*       plot.ecdf          
-[10] plot.factor*        plot.formula*       plot.function      
+ [4] plot.data.frame*    plot.decomposed.ts* plot.default*      
+ [7] plot.dendrogram*    plot.density*       plot.ecdf*         
+[10] plot.factor*        plot.formula*       plot.function*     
 [13] plot.ggplot*        plot.gtable*        plot.hcl_palettes* 
 [16] plot.hclust*        plot.histogram*     plot.HoltWinters*  
 [19] plot.isoreg*        plot.lm*            plot.medpolish*    
 [22] plot.mlm*           plot.ppr*           plot.prcomp*       
 [25] plot.princomp*      plot.profile.nls*   plot.R6*           
-[28] plot.raster*        plot.spec*          plot.stepfun       
+[28] plot.raster*        plot.spec*          plot.stepfun*      
 [31] plot.stl*           plot.table*         plot.trans*        
-[34] plot.ts             plot.tskernel*      plot.TukeyHSD*     
+[34] plot.ts*            plot.tskernel*      plot.TukeyHSD*     
 see '?methods' for accessing help and source code
 ```
 
@@ -4752,7 +4752,7 @@ require(RColorBrewer)
 ```
 
 ```
-Loading required package: RColorBrewer
+필요한 패키지를 로딩중입니다: RColorBrewer
 ```
 
 ```r

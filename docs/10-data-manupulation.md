@@ -212,7 +212,7 @@ require(feather)
 ```
 
 ```
-Loading required package: feather
+필요한 패키지를 로딩중입니다: feather
 ```
 
 ```r
@@ -220,8 +220,8 @@ system.time(pulse <- read.csv("dataset/pulse.csv", header = T))
 ```
 
 ```
-   user  system elapsed 
-  4.617   0.021   4.640 
+ 사용자  시스템 elapsed 
+  4.790   0.055   4.847 
 ```
 
 ```r
@@ -230,8 +230,8 @@ system.time(pulse <- readRDS("output/pulse.rds"))
 ```
 
 ```
-   user  system elapsed 
-  0.079   0.000   0.079 
+ 사용자  시스템 elapsed 
+  0.088   0.000   0.088 
 ```
 
 ```r
@@ -249,8 +249,8 @@ dbl (20000): V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V1...
 ```
 
 ```
-   user  system elapsed 
- 15.841  64.781  56.441 
+ 사용자  시스템 elapsed 
+ 15.478  81.200  70.006 
 ```
 
 ```r
@@ -258,8 +258,8 @@ system.time(pulse <- read_feather("dataset/pulse.feather"))
 ```
 
 ```
-   user  system elapsed 
-  0.232   0.009   0.241 
+ 사용자  시스템 elapsed 
+  0.292   0.000   0.293 
 ```
 
  \normalsize
@@ -315,7 +315,7 @@ tibble(x = letters, y = rnorm(26), z = y^2)
 
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["x"],"name":[1],"type":["chr"],"align":["left"]},{"label":["y"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["z"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"a","2":"-2.37884846","3":"5.6589200105"},{"1":"b","2":"-0.58616654","3":"0.3435912147"},{"1":"c","2":"1.31089964","3":"1.7184578724"},{"1":"d","2":"-0.89498014","3":"0.8009894510"},{"1":"e","2":"0.08351534","3":"0.0069748114"},{"1":"f","2":"0.84350897","3":"0.7115073849"},{"1":"g","2":"-0.38231366","3":"0.1461637346"},{"1":"h","2":"1.47123107","3":"2.1645208486"},{"1":"i","2":"0.77517433","3":"0.6008952382"},{"1":"j","2":"-0.72394066","3":"0.5240900746"},{"1":"k","2":"0.68295248","3":"0.4664240933"},{"1":"l","2":"0.13649108","3":"0.0186298159"},{"1":"m","2":"-0.53154402","3":"0.2825390483"},{"1":"n","2":"-0.77116805","3":"0.5947001662"},{"1":"o","2":"1.86448720","3":"3.4763125157"},{"1":"p","2":"-0.01066731","3":"0.0001137916"},{"1":"q","2":"-1.02912356","3":"1.0590952959"},{"1":"r","2":"-0.03874207","3":"0.0015009479"},{"1":"s","2":"-1.40187607","3":"1.9652565032"},{"1":"t","2":"0.76904022","3":"0.5914228619"},{"1":"u","2":"-0.42540062","3":"0.1809656884"},{"1":"v","2":"0.14571785","3":"0.0212336909"},{"1":"w","2":"0.25894205","3":"0.0670509872"},{"1":"x","2":"0.83220921","3":"0.6925721620"},{"1":"y","2":"-0.32152834","3":"0.1033804712"},{"1":"z","2":"0.51617391","3":"0.2664355066"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["x"],"name":[1],"type":["chr"],"align":["left"]},{"label":["y"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["z"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"a","2":"0.251069569","3":"6.303593e-02"},{"1":"b","2":"-0.786897133","3":"6.192071e-01"},{"1":"c","2":"-1.035083429","3":"1.071398e+00"},{"1":"d","2":"-1.190238565","3":"1.416668e+00"},{"1":"e","2":"1.049274454","3":"1.100977e+00"},{"1":"f","2":"-1.340542896","3":"1.797055e+00"},{"1":"g","2":"1.270135791","3":"1.613245e+00"},{"1":"h","2":"0.241538155","3":"5.834068e-02"},{"1":"i","2":"-0.865529033","3":"7.491405e-01"},{"1":"j","2":"-0.235554846","3":"5.548609e-02"},{"1":"k","2":"1.742619400","3":"3.036722e+00"},{"1":"l","2":"0.055175225","3":"3.044305e-03"},{"1":"m","2":"1.062430565","3":"1.128759e+00"},{"1":"n","2":"0.315332009","3":"9.943428e-02"},{"1":"o","2":"0.402034975","3":"1.616321e-01"},{"1":"p","2":"-0.800051970","3":"6.400832e-01"},{"1":"q","2":"-1.034743504","3":"1.070694e+00"},{"1":"r","2":"-0.182845330","3":"3.343241e-02"},{"1":"s","2":"-0.991848201","3":"9.837629e-01"},{"1":"t","2":"0.485424650","3":"2.356371e-01"},{"1":"u","2":"0.006792164","3":"4.613349e-05"},{"1":"v","2":"-0.970281018","3":"9.414453e-01"},{"1":"w","2":"0.892754431","3":"7.970105e-01"},{"1":"x","2":"-0.906872384","3":"8.224175e-01"},{"1":"y","2":"0.578682662","3":"3.348736e-01"},{"1":"z","2":"1.088216376","3":"1.184215e+00"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -325,7 +325,7 @@ data.frame(x = letters, y = rnorm(26), z = y^2)
 ```
 
 ```
-Error in data.frame(x = letters, y = rnorm(26), z = y^2): object 'y' not found
+Error in eval(expr, envir, enclos): 객체 'y'를 찾을 수 없습니다
 ```
 
 ```r
@@ -1384,7 +1384,7 @@ glimpse(transform(mpg,
 ```
 
 ```
-Error in eval(substitute(list(...)), `_data`, parent.frame()): object 'cty_kpl' not found
+Error in eval(substitute(list(...)), `_data`, parent.frame()): 객체 'cty_kpl'를 찾을 수 없습니다
 ```
 
 ```r
@@ -1805,7 +1805,7 @@ mpg %>% sample_n(3)
 
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"chevrolet","2":"c1500 suburban 2wd","3":"5.7","4":"1999","5":"8","6":"auto(l4)","7":"r","8":"13","9":"17","10":"r","11":"suv"},{"1":"chevrolet","2":"malibu","3":"3.1","4":"1999","5":"6","6":"auto(l4)","7":"f","8":"18","9":"26","10":"r","11":"midsize"},{"1":"subaru","2":"forester awd","3":"2.5","4":"1999","5":"4","6":"manual(m5)","7":"4","8":"18","9":"25","10":"r","11":"suv"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"chevrolet","2":"c1500 suburban 2wd","3":"6.0","4":"2008","5":"8","6":"auto(l4)","7":"r","8":"12","9":"17","10":"r","11":"suv"},{"1":"ford","2":"explorer 4wd","3":"4.0","4":"1999","5":"6","6":"manual(m5)","7":"4","8":"15","9":"19","10":"r","11":"suv"},{"1":"honda","2":"civic","3":"1.6","4":"1999","5":"4","6":"auto(l4)","7":"f","8":"24","9":"32","10":"r","11":"subcompact"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -1816,7 +1816,7 @@ mpg %>% sample_frac(0.05)
 
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"ford","2":"mustang","3":"4.6","4":"1999","5":"8","6":"manual(m5)","7":"r","8":"15","9":"22","10":"r","11":"subcompact"},{"1":"dodge","2":"ram 1500 pickup 4wd","3":"5.7","4":"2008","5":"8","6":"auto(l5)","7":"4","8":"13","9":"17","10":"r","11":"pickup"},{"1":"volkswagen","2":"gti","3":"2.0","4":"1999","5":"4","6":"auto(l4)","7":"f","8":"19","9":"26","10":"r","11":"compact"},{"1":"audi","2":"a4 quattro","3":"3.1","4":"2008","5":"6","6":"auto(s6)","7":"4","8":"17","9":"25","10":"p","11":"compact"},{"1":"toyota","2":"corolla","3":"1.8","4":"1999","5":"4","6":"auto(l4)","7":"f","8":"24","9":"33","10":"r","11":"compact"},{"1":"volkswagen","2":"gti","3":"2.0","4":"2008","5":"4","6":"auto(s6)","7":"f","8":"22","9":"29","10":"p","11":"compact"},{"1":"nissan","2":"pathfinder 4wd","3":"4.0","4":"2008","5":"6","6":"auto(l5)","7":"4","8":"14","9":"20","10":"p","11":"suv"},{"1":"chevrolet","2":"c1500 suburban 2wd","3":"6.0","4":"2008","5":"8","6":"auto(l4)","7":"r","8":"12","9":"17","10":"r","11":"suv"},{"1":"volkswagen","2":"passat","3":"2.8","4":"1999","5":"6","6":"manual(m5)","7":"f","8":"18","9":"26","10":"p","11":"midsize"},{"1":"mercury","2":"mountaineer 4wd","3":"4.0","4":"1999","5":"6","6":"auto(l5)","7":"4","8":"14","9":"17","10":"r","11":"suv"},{"1":"nissan","2":"maxima","3":"3.5","4":"2008","5":"6","6":"auto(av)","7":"f","8":"19","9":"25","10":"p","11":"midsize"},{"1":"audi","2":"a4 quattro","3":"1.8","4":"1999","5":"4","6":"manual(m5)","7":"4","8":"18","9":"26","10":"p","11":"compact"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["manufacturer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model"],"name":[2],"type":["chr"],"align":["left"]},{"label":["displ"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["year"],"name":[4],"type":["int"],"align":["right"]},{"label":["cyl"],"name":[5],"type":["int"],"align":["right"]},{"label":["trans"],"name":[6],"type":["chr"],"align":["left"]},{"label":["drv"],"name":[7],"type":["chr"],"align":["left"]},{"label":["cty"],"name":[8],"type":["int"],"align":["right"]},{"label":["hwy"],"name":[9],"type":["int"],"align":["right"]},{"label":["fl"],"name":[10],"type":["chr"],"align":["left"]},{"label":["class"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"chevrolet","2":"malibu","3":"2.4","4":"1999","5":"4","6":"auto(l4)","7":"f","8":"19","9":"27","10":"r","11":"midsize"},{"1":"subaru","2":"impreza awd","3":"2.5","4":"2008","5":"4","6":"manual(m5)","7":"4","8":"20","9":"27","10":"r","11":"compact"},{"1":"ford","2":"mustang","3":"4.0","4":"2008","5":"6","6":"auto(l5)","7":"r","8":"16","9":"24","10":"r","11":"subcompact"},{"1":"subaru","2":"forester awd","3":"2.5","4":"2008","5":"4","6":"manual(m5)","7":"4","8":"19","9":"25","10":"p","11":"suv"},{"1":"audi","2":"a4 quattro","3":"2.8","4":"1999","5":"6","6":"manual(m5)","7":"4","8":"17","9":"25","10":"p","11":"compact"},{"1":"subaru","2":"impreza awd","3":"2.5","4":"2008","5":"4","6":"manual(m5)","7":"4","8":"19","9":"25","10":"p","11":"compact"},{"1":"pontiac","2":"grand prix","3":"3.8","4":"2008","5":"6","6":"auto(l4)","7":"f","8":"18","9":"28","10":"r","11":"midsize"},{"1":"jeep","2":"grand cherokee 4wd","3":"4.7","4":"2008","5":"8","6":"auto(l5)","7":"4","8":"14","9":"19","10":"r","11":"suv"},{"1":"dodge","2":"ram 1500 pickup 4wd","3":"5.7","4":"2008","5":"8","6":"auto(l5)","7":"4","8":"13","9":"17","10":"r","11":"pickup"},{"1":"toyota","2":"camry","3":"2.4","4":"2008","5":"4","6":"manual(m5)","7":"f","8":"21","9":"31","10":"r","11":"midsize"},{"1":"chevrolet","2":"corvette","3":"5.7","4":"1999","5":"8","6":"manual(m6)","7":"r","8":"16","9":"26","10":"p","11":"2seater"},{"1":"volkswagen","2":"passat","3":"2.8","4":"1999","5":"6","6":"auto(l5)","7":"f","8":"16","9":"26","10":"p","11":"midsize"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -2089,7 +2089,7 @@ mtcars %>%
 
 ```
  [1] mpg  cyl  disp hp   drat wt   qsec vs   am   gear carb
-<0 rows> (or 0-length row.names)
+<0 행> <또는 row.names의 길이가 0입니다>
 ```
 
 ```r
@@ -2535,7 +2535,7 @@ require(nycflights13)
 ```
 
 ```
-Loading required package: nycflights13
+필요한 패키지를 로딩중입니다: nycflights13
 ```
 
  \normalsize
@@ -3298,7 +3298,7 @@ require(readxl)
 ```
 
 ```
-Loading required package: readxl
+필요한 패키지를 로딩중입니다: readxl
 ```
 
 ```r
@@ -3306,7 +3306,12 @@ require(gapminder)
 ```
 
 ```
-Loading required package: gapminder
+필요한 패키지를 로딩중입니다: gapminder
+```
+
+```
+Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
+logical.return = TRUE, : 'gapminder'이라고 불리는 패키지가 없습니다
 ```
 
 ```r
@@ -3332,24 +3337,24 @@ ls()
 ```
 
 ```
- [1] "airports2"          "audi"               "base::merge()"     
- [4] "by_mpg"             "command"            "country_pop"       
- [7] "dd"                 "def.chunk.hook"     "dplyr::*_join()"   
-[10] "flights2"           "gallon"             "gapmL"             
-[13] "gdpcap"             "hook_output"        "i"                 
-[16] "kpl"                "lifeexp"            "mile"              
-[19] "mpg"                "mpg_asc"            "mpg_sortb"         
-[22] "mpg_sortt"          "mpg_uniq"           "mpg_uniq2"         
-[25] "path"               "planes2"            "pulse"             
-[28] "R base 패키지 함수" "region"             "slice_mpg"         
-[31] "slice_mpg_grp"      "tab4_01"            "tab4_03"           
-[34] "tab4_04"            "tab4_05"            "tab4_06"           
-[37] "tab4_07"            "tab4_08"            "titanic"           
-[40] "titanic2"           "titanic3"           "varn_mpg"          
-[43] "weather2"           "x"                  "y"                 
-[46] "내용"               "동사(함수)"         "변수"              
-[49] "변수명"             "변수설명(국문)"     "변수설명(영문)"    
-[52] "설명"               "시트 이름"          "연비"              
+ [1] "내용"               "동사(함수)"         "변수"              
+ [4] "변수명"             "변수설명(국문)"     "변수설명(영문)"    
+ [7] "설명"               "시트 이름"          "연비"              
+[10] "airports2"          "audi"               "base::merge()"     
+[13] "by_mpg"             "command"            "country_pop"       
+[16] "dd"                 "def.chunk.hook"     "dplyr::*_join()"   
+[19] "flights2"           "gallon"             "gapmL"             
+[22] "gdpcap"             "hook_output"        "i"                 
+[25] "kpl"                "lifeexp"            "mile"              
+[28] "mpg"                "mpg_asc"            "mpg_sortb"         
+[31] "mpg_sortt"          "mpg_uniq"           "mpg_uniq2"         
+[34] "path"               "planes2"            "pulse"             
+[37] "R base 패키지 함수" "region"             "slice_mpg"         
+[40] "slice_mpg_grp"      "tab4_01"            "tab4_03"           
+[43] "tab4_04"            "tab4_05"            "tab4_06"           
+[46] "tab4_07"            "tab4_08"            "titanic"           
+[49] "titanic2"           "titanic3"           "varn_mpg"          
+[52] "weather2"           "x"                  "y"                 
 ```
 
 ```r
@@ -4482,7 +4487,7 @@ all.equal(wide_01, wide_ex_01)
 [2] "Attributes: < Length mismatch: comparison on first 2 components >"                     
 [3] "Attributes: < Component \"class\": Lengths (4, 3) differ (string compare on first 3) >"
 [4] "Attributes: < Component \"class\": 3 string mismatches >"                              
-[5] "Attributes: < Component 2: target is externalptr, current is numeric >"                
+[5] "Attributes: < Component 2: 타겟은 externalptr이지만, 현재는 numeric 입니다 >"          
 ```
 
 ```r
@@ -4498,7 +4503,7 @@ all.equal(wide_01, wide_ex_01)
 [2] "Attributes: < Length mismatch: comparison on first 2 components >"                     
 [3] "Attributes: < Component \"class\": Lengths (4, 3) differ (string compare on first 3) >"
 [4] "Attributes: < Component \"class\": 3 string mismatches >"                              
-[5] "Attributes: < Component 2: target is externalptr, current is numeric >"                
+[5] "Attributes: < Component 2: 타겟은 externalptr이지만, 현재는 numeric 입니다 >"          
 ```
 
  \normalsize

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>11.2 연속형 변수의 비교 | 통계 프로그래밍 언어</title>
   <meta name="description" content="2023년도 1학기 정보통계학과 통계 프로그래밍 언어 강의 노트로 해당 노트: https://zorba78.github.io/cnu-r-programming-lecture-note/" />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="11.2 연속형 변수의 비교 | 통계 프로그래밍 언어" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="한국한의학연구원, 구본초" />
 
 
-<meta name="date" content="2023-04-21" />
+<meta name="date" content="2023-05-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -125,6 +125,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -580,7 +584,7 @@ H_0: \mu_D = 0~~~\mathrm{vs.}~~~H_1:\mu_D \neq 0
 t_0 = \frac{\hat{\mu}_D - 0}{\hat{\sigma}/\sqrt{n}} \sim t_{(\nu = n-1)}
 \]</span></p>
 <p>혈압강하제 임상시험 데이터(<code>DBP.txt</code>)에서 시험약 복용 전(<code>DBP1</code>) 대비 복용 1개월 후(<code>DBP2</code>) 이완기 혈압(diastolic blood pressure)의 차이 검정</p>
-<div class="sourceCode" id="cb2173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2173-1"><a href="group-comp.html#cb2173-1" aria-hidden="true" tabindex="-1"></a>DBP <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&quot;data/DBP.txt&quot;</span>, <span class="at">delim =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2176-1"><a href="group-comp.html#cb2176-1" aria-hidden="true" tabindex="-1"></a>DBP <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&quot;data/DBP.txt&quot;</span>, <span class="at">delim =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>Rows: 40 Columns: 9
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -589,30 +593,30 @@ dbl (7): Subject, DBP1, DBP2, DBP3, DBP4, DBP5, Age
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb2175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2175-1"><a href="group-comp.html#cb2175-1" aria-hidden="true" tabindex="-1"></a>DBP <span class="ot">&lt;-</span> DBP <span class="sc">%&gt;%</span> </span>
-<span id="cb2175-2"><a href="group-comp.html#cb2175-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">D1 =</span> DBP2 <span class="sc">-</span> DBP1)</span>
-<span id="cb2175-3"><a href="group-comp.html#cb2175-3" aria-hidden="true" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> DBP <span class="sc">%&gt;%</span> </span>
-<span id="cb2175-4"><a href="group-comp.html#cb2175-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TRT <span class="sc">==</span> <span class="st">&quot;A&quot;</span>)</span>
-<span id="cb2175-5"><a href="group-comp.html#cb2175-5" aria-hidden="true" tabindex="-1"></a>D1 <span class="ot">&lt;-</span> treatment<span class="sc">$</span>D1</span>
-<span id="cb2175-6"><a href="group-comp.html#cb2175-6" aria-hidden="true" tabindex="-1"></a>mD1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(D1)</span>
-<span id="cb2175-7"><a href="group-comp.html#cb2175-7" aria-hidden="true" tabindex="-1"></a>sD1 <span class="ot">&lt;-</span> <span class="fu">sd</span>(D1)</span>
-<span id="cb2175-8"><a href="group-comp.html#cb2175-8" aria-hidden="true" tabindex="-1"></a><span class="do">### check </span></span>
-<span id="cb2175-9"><a href="group-comp.html#cb2175-9" aria-hidden="true" tabindex="-1"></a><span class="co"># mb &lt;- mean(treatment$DBP1); ma &lt;- mean(treatment$DBP2)</span></span>
-<span id="cb2175-10"><a href="group-comp.html#cb2175-10" aria-hidden="true" tabindex="-1"></a><span class="co"># sD1_check &lt;- with(treatment, </span></span>
-<span id="cb2175-11"><a href="group-comp.html#cb2175-11" aria-hidden="true" tabindex="-1"></a><span class="co">#                   sqrt(var(DBP1) + var(DBP2) - </span></span>
-<span id="cb2175-12"><a href="group-comp.html#cb2175-12" aria-hidden="true" tabindex="-1"></a><span class="co">#                          2*cor(DBP1, DBP2)*sd(DBP1)*sd(DBP2)))</span></span>
-<span id="cb2175-13"><a href="group-comp.html#cb2175-13" aria-hidden="true" tabindex="-1"></a><span class="co"># mD1; ma - mb</span></span>
-<span id="cb2175-14"><a href="group-comp.html#cb2175-14" aria-hidden="true" tabindex="-1"></a><span class="co"># sD1; sD1_check</span></span>
-<span id="cb2175-15"><a href="group-comp.html#cb2175-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2175-16"><a href="group-comp.html#cb2175-16" aria-hidden="true" tabindex="-1"></a>tstat <span class="ot">&lt;-</span> mD1<span class="sc">/</span>(sD1<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(D1)))</span>
-<span id="cb2175-17"><a href="group-comp.html#cb2175-17" aria-hidden="true" tabindex="-1"></a>p.val <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>(<span class="fu">pt</span>(tstat, <span class="at">df =</span> <span class="fu">length</span>(D1) <span class="sc">-</span> <span class="dv">1</span>))</span>
-<span id="cb2175-18"><a href="group-comp.html#cb2175-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2175-19"><a href="group-comp.html#cb2175-19" aria-hidden="true" tabindex="-1"></a><span class="do">## t.test() check</span></span>
-<span id="cb2175-20"><a href="group-comp.html#cb2175-20" aria-hidden="true" tabindex="-1"></a>tstat; <span class="fu">t.test</span>(D1)<span class="sc">$</span>statistic</span></code></pre></div>
+<div class="sourceCode" id="cb2178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2178-1"><a href="group-comp.html#cb2178-1" aria-hidden="true" tabindex="-1"></a>DBP <span class="ot">&lt;-</span> DBP <span class="sc">%&gt;%</span> </span>
+<span id="cb2178-2"><a href="group-comp.html#cb2178-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">D1 =</span> DBP2 <span class="sc">-</span> DBP1)</span>
+<span id="cb2178-3"><a href="group-comp.html#cb2178-3" aria-hidden="true" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> DBP <span class="sc">%&gt;%</span> </span>
+<span id="cb2178-4"><a href="group-comp.html#cb2178-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TRT <span class="sc">==</span> <span class="st">&quot;A&quot;</span>)</span>
+<span id="cb2178-5"><a href="group-comp.html#cb2178-5" aria-hidden="true" tabindex="-1"></a>D1 <span class="ot">&lt;-</span> treatment<span class="sc">$</span>D1</span>
+<span id="cb2178-6"><a href="group-comp.html#cb2178-6" aria-hidden="true" tabindex="-1"></a>mD1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(D1)</span>
+<span id="cb2178-7"><a href="group-comp.html#cb2178-7" aria-hidden="true" tabindex="-1"></a>sD1 <span class="ot">&lt;-</span> <span class="fu">sd</span>(D1)</span>
+<span id="cb2178-8"><a href="group-comp.html#cb2178-8" aria-hidden="true" tabindex="-1"></a><span class="do">### check </span></span>
+<span id="cb2178-9"><a href="group-comp.html#cb2178-9" aria-hidden="true" tabindex="-1"></a><span class="co"># mb &lt;- mean(treatment$DBP1); ma &lt;- mean(treatment$DBP2)</span></span>
+<span id="cb2178-10"><a href="group-comp.html#cb2178-10" aria-hidden="true" tabindex="-1"></a><span class="co"># sD1_check &lt;- with(treatment, </span></span>
+<span id="cb2178-11"><a href="group-comp.html#cb2178-11" aria-hidden="true" tabindex="-1"></a><span class="co">#                   sqrt(var(DBP1) + var(DBP2) - </span></span>
+<span id="cb2178-12"><a href="group-comp.html#cb2178-12" aria-hidden="true" tabindex="-1"></a><span class="co">#                          2*cor(DBP1, DBP2)*sd(DBP1)*sd(DBP2)))</span></span>
+<span id="cb2178-13"><a href="group-comp.html#cb2178-13" aria-hidden="true" tabindex="-1"></a><span class="co"># mD1; ma - mb</span></span>
+<span id="cb2178-14"><a href="group-comp.html#cb2178-14" aria-hidden="true" tabindex="-1"></a><span class="co"># sD1; sD1_check</span></span>
+<span id="cb2178-15"><a href="group-comp.html#cb2178-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2178-16"><a href="group-comp.html#cb2178-16" aria-hidden="true" tabindex="-1"></a>tstat <span class="ot">&lt;-</span> mD1<span class="sc">/</span>(sD1<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(D1)))</span>
+<span id="cb2178-17"><a href="group-comp.html#cb2178-17" aria-hidden="true" tabindex="-1"></a>p.val <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>(<span class="fu">pt</span>(tstat, <span class="at">df =</span> <span class="fu">length</span>(D1) <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb2178-18"><a href="group-comp.html#cb2178-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2178-19"><a href="group-comp.html#cb2178-19" aria-hidden="true" tabindex="-1"></a><span class="do">## t.test() check</span></span>
+<span id="cb2178-20"><a href="group-comp.html#cb2178-20" aria-hidden="true" tabindex="-1"></a>tstat; <span class="fu">t.test</span>(D1)<span class="sc">$</span>statistic</span></code></pre></div>
 <pre><code>[1] -7.493656</code></pre>
 <pre><code>        t 
 -7.493656 </code></pre>
-<div class="sourceCode" id="cb2178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2178-1"><a href="group-comp.html#cb2178-1" aria-hidden="true" tabindex="-1"></a>p.val; <span class="fu">t.test</span>(D1)<span class="sc">$</span>p.value</span></code></pre></div>
+<div class="sourceCode" id="cb2181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2181-1"><a href="group-comp.html#cb2181-1" aria-hidden="true" tabindex="-1"></a>p.val; <span class="fu">t.test</span>(D1)<span class="sc">$</span>p.value</span></code></pre></div>
 <pre><code>[1] 4.364575e-07</code></pre>
 <pre><code>[1] 4.364575e-07</code></pre>
 <p></p>
@@ -676,45 +680,45 @@ t_0 = \frac{\hat{\mu}_1 - \hat{\mu}_2 - 0}{s_p\sqrt{\frac{1}{n_1} + \frac{1}{n_2
 통계패키지활용 <a href="https://github.com/zorba78/stat-package-lecture/blob/master/data/dysmenorrhea.rds">Github 저장소</a>에서 다운로드 가능</p>
 </div>
 <p></p>
-<div class="sourceCode" id="cb2181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2181-1"><a href="group-comp.html#cb2181-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 독립 이표본 t-검정 함수 만들어 보기</span></span>
-<span id="cb2181-2"><a href="group-comp.html#cb2181-2" aria-hidden="true" tabindex="-1"></a>indep_t_test <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">y =</span> y, <span class="at">group =</span> group, </span>
-<span id="cb2181-3"><a href="group-comp.html#cb2181-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">conf.level =</span> <span class="fl">0.95</span>, </span>
-<span id="cb2181-4"><a href="group-comp.html#cb2181-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">na.rm =</span> <span class="cn">TRUE</span>) {</span>
-<span id="cb2181-5"><a href="group-comp.html#cb2181-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(y)) <span class="fu">stop</span>(<span class="st">&quot;y는 수치형 벡터만 가능합니다&quot;</span>)</span>
-<span id="cb2181-6"><a href="group-comp.html#cb2181-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(<span class="fu">unique</span>(group)) <span class="sc">!=</span> <span class="dv">2</span>) <span class="fu">stop</span>(<span class="st">&quot;수준의 수가 2가 아닙니다&quot;</span>)</span>
-<span id="cb2181-7"><a href="group-comp.html#cb2181-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.factor</span>(group)) group <span class="ot">&lt;-</span> <span class="fu">factor</span>(group)</span>
-<span id="cb2181-8"><a href="group-comp.html#cb2181-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2181-9"><a href="group-comp.html#cb2181-9" aria-hidden="true" tabindex="-1"></a>  nvec <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, group, <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))) </span>
-<span id="cb2181-10"><a href="group-comp.html#cb2181-10" aria-hidden="true" tabindex="-1"></a>  mvec <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, group, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 집단별 평균</span></span>
-<span id="cb2181-11"><a href="group-comp.html#cb2181-11" aria-hidden="true" tabindex="-1"></a>  vvec <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, group, var, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 집단별 분산</span></span>
-<span id="cb2181-12"><a href="group-comp.html#cb2181-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2181-13"><a href="group-comp.html#cb2181-13" aria-hidden="true" tabindex="-1"></a>  degf <span class="ot">&lt;-</span> <span class="fu">sum</span>(nvec) <span class="sc">-</span> <span class="dv">2</span> <span class="co"># 자유도</span></span>
-<span id="cb2181-14"><a href="group-comp.html#cb2181-14" aria-hidden="true" tabindex="-1"></a>  mean_diff <span class="ot">&lt;-</span> mvec[<span class="dv">1</span>] <span class="sc">-</span> mvec[<span class="dv">2</span>] <span class="co"># 평균 차이</span></span>
-<span id="cb2181-15"><a href="group-comp.html#cb2181-15" aria-hidden="true" tabindex="-1"></a>  pool_var <span class="ot">&lt;-</span> <span class="fu">sum</span>((nvec <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> vvec)<span class="sc">/</span>(<span class="fu">sum</span>(nvec) <span class="sc">-</span> <span class="dv">2</span>) <span class="co"># 합동분산</span></span>
-<span id="cb2181-16"><a href="group-comp.html#cb2181-16" aria-hidden="true" tabindex="-1"></a>  std_err <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(pool_var <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span>nvec)))</span>
-<span id="cb2181-17"><a href="group-comp.html#cb2181-17" aria-hidden="true" tabindex="-1"></a>  t_stat <span class="ot">&lt;-</span> mean_diff<span class="sc">/</span>std_err</span>
-<span id="cb2181-18"><a href="group-comp.html#cb2181-18" aria-hidden="true" tabindex="-1"></a>  pvalue <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(t_stat), <span class="at">df =</span> <span class="fu">sum</span>(nvec) <span class="sc">-</span> <span class="dv">2</span>)) <span class="co"># 양측검정</span></span>
-<span id="cb2181-19"><a href="group-comp.html#cb2181-19" aria-hidden="true" tabindex="-1"></a>  ucl <span class="ot">&lt;-</span> mean_diff <span class="sc">+</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> conf.level)<span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> degf) <span class="sc">*</span> std_err</span>
-<span id="cb2181-20"><a href="group-comp.html#cb2181-20" aria-hidden="true" tabindex="-1"></a>  lcl <span class="ot">&lt;-</span> mean_diff <span class="sc">-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> conf.level)<span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> degf) <span class="sc">*</span> std_err</span>
-<span id="cb2181-21"><a href="group-comp.html#cb2181-21" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2181-22"><a href="group-comp.html#cb2181-22" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb2181-23"><a href="group-comp.html#cb2181-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> t_stat, </span>
-<span id="cb2181-24"><a href="group-comp.html#cb2181-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">parameter =</span> degf, </span>
-<span id="cb2181-25"><a href="group-comp.html#cb2181-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">p.value =</span> pvalue, </span>
-<span id="cb2181-26"><a href="group-comp.html#cb2181-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">conf.int =</span> <span class="fu">c</span>(ucl, lcl), </span>
-<span id="cb2181-27"><a href="group-comp.html#cb2181-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimate =</span> mean_diff, </span>
-<span id="cb2181-28"><a href="group-comp.html#cb2181-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">stderr =</span> std_err</span>
-<span id="cb2181-29"><a href="group-comp.html#cb2181-29" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2181-30"><a href="group-comp.html#cb2181-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(out)</span>
-<span id="cb2181-31"><a href="group-comp.html#cb2181-31" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2181-32"><a href="group-comp.html#cb2181-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2181-33"><a href="group-comp.html#cb2181-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2181-34"><a href="group-comp.html#cb2181-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 불러오기</span></span>
-<span id="cb2181-35"><a href="group-comp.html#cb2181-35" aria-hidden="true" tabindex="-1"></a>dysmenorrhea <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">&quot;data/dysmenorrhea.rds&quot;</span>)</span>
-<span id="cb2181-36"><a href="group-comp.html#cb2181-36" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dysmenorrhea) <span class="sc">%&gt;%</span> </span>
-<span id="cb2181-37"><a href="group-comp.html#cb2181-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb2181-38"><a href="group-comp.html#cb2181-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb2181-39"><a href="group-comp.html#cb2181-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>, <span class="at">height =</span> <span class="st">&quot;200px&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2184-1"><a href="group-comp.html#cb2184-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 독립 이표본 t-검정 함수 만들어 보기</span></span>
+<span id="cb2184-2"><a href="group-comp.html#cb2184-2" aria-hidden="true" tabindex="-1"></a>indep_t_test <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">y =</span> y, <span class="at">group =</span> group, </span>
+<span id="cb2184-3"><a href="group-comp.html#cb2184-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">conf.level =</span> <span class="fl">0.95</span>, </span>
+<span id="cb2184-4"><a href="group-comp.html#cb2184-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">na.rm =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb2184-5"><a href="group-comp.html#cb2184-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(y)) <span class="fu">stop</span>(<span class="st">&quot;y는 수치형 벡터만 가능합니다&quot;</span>)</span>
+<span id="cb2184-6"><a href="group-comp.html#cb2184-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(<span class="fu">unique</span>(group)) <span class="sc">!=</span> <span class="dv">2</span>) <span class="fu">stop</span>(<span class="st">&quot;수준의 수가 2가 아닙니다&quot;</span>)</span>
+<span id="cb2184-7"><a href="group-comp.html#cb2184-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.factor</span>(group)) group <span class="ot">&lt;-</span> <span class="fu">factor</span>(group)</span>
+<span id="cb2184-8"><a href="group-comp.html#cb2184-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2184-9"><a href="group-comp.html#cb2184-9" aria-hidden="true" tabindex="-1"></a>  nvec <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, group, <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))) </span>
+<span id="cb2184-10"><a href="group-comp.html#cb2184-10" aria-hidden="true" tabindex="-1"></a>  mvec <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, group, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 집단별 평균</span></span>
+<span id="cb2184-11"><a href="group-comp.html#cb2184-11" aria-hidden="true" tabindex="-1"></a>  vvec <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, group, var, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 집단별 분산</span></span>
+<span id="cb2184-12"><a href="group-comp.html#cb2184-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2184-13"><a href="group-comp.html#cb2184-13" aria-hidden="true" tabindex="-1"></a>  degf <span class="ot">&lt;-</span> <span class="fu">sum</span>(nvec) <span class="sc">-</span> <span class="dv">2</span> <span class="co"># 자유도</span></span>
+<span id="cb2184-14"><a href="group-comp.html#cb2184-14" aria-hidden="true" tabindex="-1"></a>  mean_diff <span class="ot">&lt;-</span> mvec[<span class="dv">1</span>] <span class="sc">-</span> mvec[<span class="dv">2</span>] <span class="co"># 평균 차이</span></span>
+<span id="cb2184-15"><a href="group-comp.html#cb2184-15" aria-hidden="true" tabindex="-1"></a>  pool_var <span class="ot">&lt;-</span> <span class="fu">sum</span>((nvec <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> vvec)<span class="sc">/</span>(<span class="fu">sum</span>(nvec) <span class="sc">-</span> <span class="dv">2</span>) <span class="co"># 합동분산</span></span>
+<span id="cb2184-16"><a href="group-comp.html#cb2184-16" aria-hidden="true" tabindex="-1"></a>  std_err <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(pool_var <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span>nvec)))</span>
+<span id="cb2184-17"><a href="group-comp.html#cb2184-17" aria-hidden="true" tabindex="-1"></a>  t_stat <span class="ot">&lt;-</span> mean_diff<span class="sc">/</span>std_err</span>
+<span id="cb2184-18"><a href="group-comp.html#cb2184-18" aria-hidden="true" tabindex="-1"></a>  pvalue <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(t_stat), <span class="at">df =</span> <span class="fu">sum</span>(nvec) <span class="sc">-</span> <span class="dv">2</span>)) <span class="co"># 양측검정</span></span>
+<span id="cb2184-19"><a href="group-comp.html#cb2184-19" aria-hidden="true" tabindex="-1"></a>  ucl <span class="ot">&lt;-</span> mean_diff <span class="sc">+</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> conf.level)<span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> degf) <span class="sc">*</span> std_err</span>
+<span id="cb2184-20"><a href="group-comp.html#cb2184-20" aria-hidden="true" tabindex="-1"></a>  lcl <span class="ot">&lt;-</span> mean_diff <span class="sc">-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> conf.level)<span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> degf) <span class="sc">*</span> std_err</span>
+<span id="cb2184-21"><a href="group-comp.html#cb2184-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2184-22"><a href="group-comp.html#cb2184-22" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb2184-23"><a href="group-comp.html#cb2184-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> t_stat, </span>
+<span id="cb2184-24"><a href="group-comp.html#cb2184-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">parameter =</span> degf, </span>
+<span id="cb2184-25"><a href="group-comp.html#cb2184-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">p.value =</span> pvalue, </span>
+<span id="cb2184-26"><a href="group-comp.html#cb2184-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">conf.int =</span> <span class="fu">c</span>(ucl, lcl), </span>
+<span id="cb2184-27"><a href="group-comp.html#cb2184-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimate =</span> mean_diff, </span>
+<span id="cb2184-28"><a href="group-comp.html#cb2184-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">stderr =</span> std_err</span>
+<span id="cb2184-29"><a href="group-comp.html#cb2184-29" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2184-30"><a href="group-comp.html#cb2184-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(out)</span>
+<span id="cb2184-31"><a href="group-comp.html#cb2184-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2184-32"><a href="group-comp.html#cb2184-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2184-33"><a href="group-comp.html#cb2184-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2184-34"><a href="group-comp.html#cb2184-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 불러오기</span></span>
+<span id="cb2184-35"><a href="group-comp.html#cb2184-35" aria-hidden="true" tabindex="-1"></a>dysmenorrhea <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">&quot;data/dysmenorrhea.rds&quot;</span>)</span>
+<span id="cb2184-36"><a href="group-comp.html#cb2184-36" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dysmenorrhea) <span class="sc">%&gt;%</span> </span>
+<span id="cb2184-37"><a href="group-comp.html#cb2184-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2184-38"><a href="group-comp.html#cb2184-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2184-39"><a href="group-comp.html#cb2184-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>, <span class="at">height =</span> <span class="st">&quot;200px&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; overflow-x: scroll; width:100%; ">
 <table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
 <thead>
@@ -993,11 +997,11 @@ Dysmenorrhea
 <ul>
 <li>PDI(맥의 깊이)의 두 집단(월경통 vs. 대조군) 간 평균 차이 검정 <span class="math inline">\(\rightarrow\)</span> 독립 이표본 t-검정</li>
 </ul>
-<div class="sourceCode" id="cb2182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2182-1"><a href="group-comp.html#cb2182-1" aria-hidden="true" tabindex="-1"></a><span class="co"># indep_t_test(), t.test(..., var.equal=TRUE), lm() 함수 비교</span></span>
-<span id="cb2182-2"><a href="group-comp.html#cb2182-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> dysmenorrhea<span class="sc">$</span>pdi</span>
-<span id="cb2182-3"><a href="group-comp.html#cb2182-3" aria-hidden="true" tabindex="-1"></a>grp <span class="ot">&lt;-</span> dysmenorrhea<span class="sc">$</span>pidyn</span>
-<span id="cb2182-4"><a href="group-comp.html#cb2182-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2182-5"><a href="group-comp.html#cb2182-5" aria-hidden="true" tabindex="-1"></a><span class="fu">indep_t_test</span>(<span class="at">y =</span> y, <span class="at">group =</span> grp)</span></code></pre></div>
+<div class="sourceCode" id="cb2185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2185-1"><a href="group-comp.html#cb2185-1" aria-hidden="true" tabindex="-1"></a><span class="co"># indep_t_test(), t.test(..., var.equal=TRUE), lm() 함수 비교</span></span>
+<span id="cb2185-2"><a href="group-comp.html#cb2185-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> dysmenorrhea<span class="sc">$</span>pdi</span>
+<span id="cb2185-3"><a href="group-comp.html#cb2185-3" aria-hidden="true" tabindex="-1"></a>grp <span class="ot">&lt;-</span> dysmenorrhea<span class="sc">$</span>pidyn</span>
+<span id="cb2185-4"><a href="group-comp.html#cb2185-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2185-5"><a href="group-comp.html#cb2185-5" aria-hidden="true" tabindex="-1"></a><span class="fu">indep_t_test</span>(<span class="at">y =</span> y, <span class="at">group =</span> grp)</span></code></pre></div>
 <pre><code>$statistic
 Control 
 2.68792 
@@ -1019,8 +1023,8 @@ $estimate
 
 $stderr
 [1] 0.4152176</code></pre>
-<div class="sourceCode" id="cb2184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2184-1"><a href="group-comp.html#cb2184-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t.test() 함수 사용: 수식표현</span></span>
-<span id="cb2184-2"><a href="group-comp.html#cb2184-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(pdi <span class="sc">~</span> pidyn, <span class="at">data =</span> dysmenorrhea, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2187-1"><a href="group-comp.html#cb2187-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t.test() 함수 사용: 수식표현</span></span>
+<span id="cb2187-2"><a href="group-comp.html#cb2187-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(pdi <span class="sc">~</span> pidyn, <span class="at">data =</span> dysmenorrhea, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>
     Two Sample t-test
 
@@ -1032,12 +1036,12 @@ alternative hypothesis: true difference in means between group Control and group
 sample estimates:
      mean in group Control mean in group Dysmenorrhea 
                  10.414276                   9.298205 </code></pre>
-<div class="sourceCode" id="cb2186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2186-1"><a href="group-comp.html#cb2186-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t.test(y[grp == &quot;Control&quot;], y[grp == &quot;Dysmenorrhea&quot;], var.equal = TRUE) </span></span>
-<span id="cb2186-2"><a href="group-comp.html#cb2186-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 위 결과와 동일</span></span>
-<span id="cb2186-3"><a href="group-comp.html#cb2186-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2186-4"><a href="group-comp.html#cb2186-4" aria-hidden="true" tabindex="-1"></a><span class="co"># lm() 함수 사용</span></span>
-<span id="cb2186-5"><a href="group-comp.html#cb2186-5" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> grp)</span>
-<span id="cb2186-6"><a href="group-comp.html#cb2186-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m1)</span></code></pre></div>
+<div class="sourceCode" id="cb2189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2189-1"><a href="group-comp.html#cb2189-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t.test(y[grp == &quot;Control&quot;], y[grp == &quot;Dysmenorrhea&quot;], var.equal = TRUE) </span></span>
+<span id="cb2189-2"><a href="group-comp.html#cb2189-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 위 결과와 동일</span></span>
+<span id="cb2189-3"><a href="group-comp.html#cb2189-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2189-4"><a href="group-comp.html#cb2189-4" aria-hidden="true" tabindex="-1"></a><span class="co"># lm() 함수 사용</span></span>
+<span id="cb2189-5"><a href="group-comp.html#cb2189-5" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> grp)</span>
+<span id="cb2189-6"><a href="group-comp.html#cb2189-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m1)</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = y ~ grp)
@@ -1056,8 +1060,8 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 Residual standard error: 1.423 on 45 degrees of freedom
 Multiple R-squared:  0.1383,    Adjusted R-squared:  0.1192 
 F-statistic: 7.225 on 1 and 45 DF,  p-value: 0.01004</code></pre>
-<div class="sourceCode" id="cb2188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2188-1"><a href="group-comp.html#cb2188-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(pdi <span class="sc">~</span> pidyn, <span class="at">data =</span> dysmenorrhea) <span class="co"># m1과 동일</span></span>
-<span id="cb2188-2"><a href="group-comp.html#cb2188-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(y <span class="sc">~</span> grp, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;darkgray&quot;</span>, <span class="st">&quot;orange&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb2191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2191-1"><a href="group-comp.html#cb2191-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(pdi <span class="sc">~</span> pidyn, <span class="at">data =</span> dysmenorrhea) <span class="co"># m1과 동일</span></span>
+<span id="cb2191-2"><a href="group-comp.html#cb2191-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(y <span class="sc">~</span> grp, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;darkgray&quot;</span>, <span class="st">&quot;orange&quot;</span>))</span></code></pre></div>
 <p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-24-1.svg" width="672" /></p>
 <p></p>
 </div>
@@ -1264,86 +1268,86 @@ F_0 = \frac{(SSB/\sigma^2)/(g - 1)}{(SSW/\sigma^2)/(N-g)} = \frac{MSB}{MSW} \sim
 <ul>
 <li>예제1: 분산분석 원리를 시뮬레이션을 통해 확인 (집단의 수 <span class="math inline">\(g = 3\)</span>, 각 집단 내 표본크기 <span class="math inline">\(n_1=n_2=n_3=20\)</span>)</li>
 </ul>
-<div class="sourceCode" id="cb2189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2189-1"><a href="group-comp.html#cb2189-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 함수 생성</span></span>
-<span id="cb2189-2"><a href="group-comp.html#cb2189-2" aria-hidden="true" tabindex="-1"></a>plot_anova_sim <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="co">#각 집단의 관찰값 개수</span></span>
-<span id="cb2189-3"><a href="group-comp.html#cb2189-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">g =</span> <span class="dv">3</span>, </span>
-<span id="cb2189-4"><a href="group-comp.html#cb2189-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">mvec =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), </span>
-<span id="cb2189-5"><a href="group-comp.html#cb2189-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">sigma =</span> <span class="dv">1</span>, </span>
-<span id="cb2189-6"><a href="group-comp.html#cb2189-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;dodgerblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;black&quot;</span>)) </span>
-<span id="cb2189-7"><a href="group-comp.html#cb2189-7" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb2189-8"><a href="group-comp.html#cb2189-8" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n <span class="sc">*</span> g, <span class="at">mean =</span> mvec, <span class="at">sd =</span> sigma) <span class="co"># 주어진 인수로부터 관찰값 생성</span></span>
-<span id="cb2189-9"><a href="group-comp.html#cb2189-9" aria-hidden="true" tabindex="-1"></a>  group <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span>g], n)) <span class="co"># 요인의 수준(집단) 생성</span></span>
-<span id="cb2189-10"><a href="group-comp.html#cb2189-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2189-11"><a href="group-comp.html#cb2189-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 이론적 분포 도표 생성</span></span>
-<span id="cb2189-12"><a href="group-comp.html#cb2189-12" aria-hidden="true" tabindex="-1"></a>  xmin <span class="ot">&lt;-</span> <span class="fu">min</span>(mvec) <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> sigma <span class="co"># 이론적 분포의 최솟값: 도표 생성 시 사용</span></span>
-<span id="cb2189-13"><a href="group-comp.html#cb2189-13" aria-hidden="true" tabindex="-1"></a>  xmax <span class="ot">&lt;-</span> <span class="fu">max</span>(mvec) <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> sigma <span class="co"># 이론적 분포의 최댓값: 도표 생성 시 사용</span></span>
-<span id="cb2189-14"><a href="group-comp.html#cb2189-14" aria-hidden="true" tabindex="-1"></a>  dx <span class="ot">&lt;-</span> <span class="fu">seq</span>(xmin, xmax, <span class="at">length =</span> <span class="dv">500</span>) <span class="co"># 정규분포 밀도함수 x축 범위</span></span>
-<span id="cb2189-15"><a href="group-comp.html#cb2189-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2189-16"><a href="group-comp.html#cb2189-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="dv">0</span>, <span class="at">main =</span> <span class="st">&quot;Truth&quot;</span>, </span>
-<span id="cb2189-17"><a href="group-comp.html#cb2189-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlim =</span> <span class="fu">c</span>(xmin, xmax), </span>
-<span id="cb2189-18"><a href="group-comp.html#cb2189-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.4</span>), <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, </span>
-<span id="cb2189-19"><a href="group-comp.html#cb2189-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;observation&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;density&quot;</span>)</span>
-<span id="cb2189-20"><a href="group-comp.html#cb2189-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>g) {</span>
-<span id="cb2189-21"><a href="group-comp.html#cb2189-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(dx, <span class="fu">dnorm</span>(dx, <span class="at">mean =</span> mvec[i], <span class="at">sd =</span> sigma), </span>
-<span id="cb2189-22"><a href="group-comp.html#cb2189-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">col =</span> cols[i], </span>
-<span id="cb2189-23"><a href="group-comp.html#cb2189-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">lty =</span> i, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb2189-24"><a href="group-comp.html#cb2189-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rug</span>(y[group <span class="sc">==</span> <span class="fu">levels</span>(group)[i]], </span>
-<span id="cb2189-25"><a href="group-comp.html#cb2189-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> cols[i], <span class="at">ticksize =</span> <span class="fl">0.1</span>, <span class="at">lty =</span> i, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
-<span id="cb2189-26"><a href="group-comp.html#cb2189-26" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2189-27"><a href="group-comp.html#cb2189-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2189-28"><a href="group-comp.html#cb2189-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxplot</span>(y <span class="sc">~</span> group, <span class="at">xlab =</span> <span class="st">&quot;group&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Observed Data&quot;</span>, </span>
-<span id="cb2189-29"><a href="group-comp.html#cb2189-29" aria-hidden="true" tabindex="-1"></a>          <span class="at">medcol =</span> <span class="st">&quot;white&quot;</span>, <span class="at">varwidth =</span> <span class="cn">FALSE</span>) </span>
-<span id="cb2189-30"><a href="group-comp.html#cb2189-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stripchart</span>(y <span class="sc">~</span> group, <span class="at">vertical =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb2189-31"><a href="group-comp.html#cb2189-31" aria-hidden="true" tabindex="-1"></a>             <span class="at">method =</span> <span class="st">&quot;jitter&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb2189-32"><a href="group-comp.html#cb2189-32" aria-hidden="true" tabindex="-1"></a>             <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">col  =</span> cols)</span>
-<span id="cb2189-33"><a href="group-comp.html#cb2189-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;darkgray&quot;</span>)</span>
-<span id="cb2189-34"><a href="group-comp.html#cb2189-34" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>g) {</span>
-<span id="cb2189-35"><a href="group-comp.html#cb2189-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">segments</span>(<span class="at">x0 =</span> i <span class="sc">-</span> <span class="fu">round</span>(<span class="dv">1</span><span class="sc">/</span>g, <span class="dv">1</span>), </span>
-<span id="cb2189-36"><a href="group-comp.html#cb2189-36" aria-hidden="true" tabindex="-1"></a>             <span class="at">x1 =</span> i <span class="sc">+</span> <span class="fu">round</span>(<span class="dv">1</span><span class="sc">/</span>g, <span class="dv">1</span>), </span>
-<span id="cb2189-37"><a href="group-comp.html#cb2189-37" aria-hidden="true" tabindex="-1"></a>             <span class="at">y0 =</span> <span class="fu">mean</span>(y[group <span class="sc">==</span> <span class="fu">levels</span>(group)[i]]), </span>
-<span id="cb2189-38"><a href="group-comp.html#cb2189-38" aria-hidden="true" tabindex="-1"></a>             <span class="at">y1 =</span> <span class="fu">mean</span>(y[group <span class="sc">==</span> <span class="fu">levels</span>(group)[i]]), </span>
-<span id="cb2189-39"><a href="group-comp.html#cb2189-39" aria-hidden="true" tabindex="-1"></a>             <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> cols[i], <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb2189-40"><a href="group-comp.html#cb2189-40" aria-hidden="true" tabindex="-1"></a>  } <span class="co"># 집단 별 평균선 표시</span></span>
-<span id="cb2189-41"><a href="group-comp.html#cb2189-41" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2189-42"><a href="group-comp.html#cb2189-42" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 일원배치 분산분석</span></span>
-<span id="cb2189-43"><a href="group-comp.html#cb2189-43" aria-hidden="true" tabindex="-1"></a>  grand_mean_obs <span class="ot">&lt;-</span> <span class="fu">mean</span>(y) <span class="co"># 전체평균</span></span>
-<span id="cb2189-44"><a href="group-comp.html#cb2189-44" aria-hidden="true" tabindex="-1"></a>  group_mean_obs <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, group, mean) <span class="co"># 집단 평균</span></span>
-<span id="cb2189-45"><a href="group-comp.html#cb2189-45" aria-hidden="true" tabindex="-1"></a>  sst <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> grand_mean_obs)<span class="sc">^</span><span class="dv">2</span>) </span>
-<span id="cb2189-46"><a href="group-comp.html#cb2189-46" aria-hidden="true" tabindex="-1"></a>  ssw <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, g)</span>
-<span id="cb2189-47"><a href="group-comp.html#cb2189-47" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>g) {</span>
-<span id="cb2189-48"><a href="group-comp.html#cb2189-48" aria-hidden="true" tabindex="-1"></a>    ssw[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>((y[group <span class="sc">==</span> <span class="fu">levels</span>(group)[i]] <span class="sc">-</span> group_mean_obs[i])<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb2189-49"><a href="group-comp.html#cb2189-49" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2189-50"><a href="group-comp.html#cb2189-50" aria-hidden="true" tabindex="-1"></a>  ssw <span class="ot">&lt;-</span> <span class="fu">sum</span>(ssw)</span>
-<span id="cb2189-51"><a href="group-comp.html#cb2189-51" aria-hidden="true" tabindex="-1"></a>  ssb <span class="ot">&lt;-</span> sst <span class="sc">-</span> ssw</span>
-<span id="cb2189-52"><a href="group-comp.html#cb2189-52" aria-hidden="true" tabindex="-1"></a>  msb <span class="ot">&lt;-</span> ssb<span class="sc">/</span>(g <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb2189-53"><a href="group-comp.html#cb2189-53" aria-hidden="true" tabindex="-1"></a>  msw <span class="ot">&lt;-</span> ssw<span class="sc">/</span>(<span class="fu">length</span>(y) <span class="sc">-</span> g)</span>
-<span id="cb2189-54"><a href="group-comp.html#cb2189-54" aria-hidden="true" tabindex="-1"></a>  Fval <span class="ot">&lt;-</span> msb<span class="sc">/</span>msw</span>
-<span id="cb2189-55"><a href="group-comp.html#cb2189-55" aria-hidden="true" tabindex="-1"></a>  pval <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(Fval, g <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">length</span>(y) <span class="sc">-</span> g)</span>
-<span id="cb2189-56"><a href="group-comp.html#cb2189-56" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb2189-57"><a href="group-comp.html#cb2189-57" aria-hidden="true" tabindex="-1"></a>  test_result <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb2189-58"><a href="group-comp.html#cb2189-58" aria-hidden="true" tabindex="-1"></a>   <span class="at">Source =</span> <span class="fu">c</span>(<span class="st">&quot;Between&quot;</span>, <span class="st">&quot;Within&quot;</span>, <span class="st">&quot;Total&quot;</span>), </span>
-<span id="cb2189-59"><a href="group-comp.html#cb2189-59" aria-hidden="true" tabindex="-1"></a>   <span class="at">SS =</span> <span class="fu">c</span>(ssb, ssw, sst), </span>
-<span id="cb2189-60"><a href="group-comp.html#cb2189-60" aria-hidden="true" tabindex="-1"></a>   <span class="at">degf =</span> <span class="fu">c</span>(g <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">length</span>(y) <span class="sc">-</span> g, <span class="fu">length</span>(y) <span class="sc">-</span> <span class="dv">1</span>), </span>
-<span id="cb2189-61"><a href="group-comp.html#cb2189-61" aria-hidden="true" tabindex="-1"></a>   <span class="at">MS =</span> <span class="fu">c</span>(msb, msw, <span class="cn">NA</span>), </span>
-<span id="cb2189-62"><a href="group-comp.html#cb2189-62" aria-hidden="true" tabindex="-1"></a>   <span class="at">F.value =</span> <span class="fu">c</span>(Fval, <span class="cn">NA</span>, <span class="cn">NA</span>), </span>
-<span id="cb2189-63"><a href="group-comp.html#cb2189-63" aria-hidden="true" tabindex="-1"></a>   <span class="at">p.value =</span> <span class="fu">c</span>(pval, <span class="cn">NA</span>, <span class="cn">NA</span>)</span>
-<span id="cb2189-64"><a href="group-comp.html#cb2189-64" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2189-65"><a href="group-comp.html#cb2189-65" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">y =</span> y, <span class="at">group =</span> group, </span>
-<span id="cb2189-66"><a href="group-comp.html#cb2189-66" aria-hidden="true" tabindex="-1"></a>              <span class="at">result =</span> test_result)</span>
-<span id="cb2189-67"><a href="group-comp.html#cb2189-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(out)</span>
-<span id="cb2189-68"><a href="group-comp.html#cb2189-68" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2192-1"><a href="group-comp.html#cb2192-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 함수 생성</span></span>
+<span id="cb2192-2"><a href="group-comp.html#cb2192-2" aria-hidden="true" tabindex="-1"></a>plot_anova_sim <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="co">#각 집단의 관찰값 개수</span></span>
+<span id="cb2192-3"><a href="group-comp.html#cb2192-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">g =</span> <span class="dv">3</span>, </span>
+<span id="cb2192-4"><a href="group-comp.html#cb2192-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">mvec =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), </span>
+<span id="cb2192-5"><a href="group-comp.html#cb2192-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">sigma =</span> <span class="dv">1</span>, </span>
+<span id="cb2192-6"><a href="group-comp.html#cb2192-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;dodgerblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;black&quot;</span>)) </span>
+<span id="cb2192-7"><a href="group-comp.html#cb2192-7" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2192-8"><a href="group-comp.html#cb2192-8" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n <span class="sc">*</span> g, <span class="at">mean =</span> mvec, <span class="at">sd =</span> sigma) <span class="co"># 주어진 인수로부터 관찰값 생성</span></span>
+<span id="cb2192-9"><a href="group-comp.html#cb2192-9" aria-hidden="true" tabindex="-1"></a>  group <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span>g], n)) <span class="co"># 요인의 수준(집단) 생성</span></span>
+<span id="cb2192-10"><a href="group-comp.html#cb2192-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2192-11"><a href="group-comp.html#cb2192-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 이론적 분포 도표 생성</span></span>
+<span id="cb2192-12"><a href="group-comp.html#cb2192-12" aria-hidden="true" tabindex="-1"></a>  xmin <span class="ot">&lt;-</span> <span class="fu">min</span>(mvec) <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> sigma <span class="co"># 이론적 분포의 최솟값: 도표 생성 시 사용</span></span>
+<span id="cb2192-13"><a href="group-comp.html#cb2192-13" aria-hidden="true" tabindex="-1"></a>  xmax <span class="ot">&lt;-</span> <span class="fu">max</span>(mvec) <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> sigma <span class="co"># 이론적 분포의 최댓값: 도표 생성 시 사용</span></span>
+<span id="cb2192-14"><a href="group-comp.html#cb2192-14" aria-hidden="true" tabindex="-1"></a>  dx <span class="ot">&lt;-</span> <span class="fu">seq</span>(xmin, xmax, <span class="at">length =</span> <span class="dv">500</span>) <span class="co"># 정규분포 밀도함수 x축 범위</span></span>
+<span id="cb2192-15"><a href="group-comp.html#cb2192-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2192-16"><a href="group-comp.html#cb2192-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="dv">0</span>, <span class="at">main =</span> <span class="st">&quot;Truth&quot;</span>, </span>
+<span id="cb2192-17"><a href="group-comp.html#cb2192-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlim =</span> <span class="fu">c</span>(xmin, xmax), </span>
+<span id="cb2192-18"><a href="group-comp.html#cb2192-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.4</span>), <span class="at">type =</span> <span class="st">&quot;n&quot;</span>, </span>
+<span id="cb2192-19"><a href="group-comp.html#cb2192-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;observation&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;density&quot;</span>)</span>
+<span id="cb2192-20"><a href="group-comp.html#cb2192-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>g) {</span>
+<span id="cb2192-21"><a href="group-comp.html#cb2192-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(dx, <span class="fu">dnorm</span>(dx, <span class="at">mean =</span> mvec[i], <span class="at">sd =</span> sigma), </span>
+<span id="cb2192-22"><a href="group-comp.html#cb2192-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">col =</span> cols[i], </span>
+<span id="cb2192-23"><a href="group-comp.html#cb2192-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">lty =</span> i, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb2192-24"><a href="group-comp.html#cb2192-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rug</span>(y[group <span class="sc">==</span> <span class="fu">levels</span>(group)[i]], </span>
+<span id="cb2192-25"><a href="group-comp.html#cb2192-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> cols[i], <span class="at">ticksize =</span> <span class="fl">0.1</span>, <span class="at">lty =</span> i, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb2192-26"><a href="group-comp.html#cb2192-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2192-27"><a href="group-comp.html#cb2192-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2192-28"><a href="group-comp.html#cb2192-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxplot</span>(y <span class="sc">~</span> group, <span class="at">xlab =</span> <span class="st">&quot;group&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Observed Data&quot;</span>, </span>
+<span id="cb2192-29"><a href="group-comp.html#cb2192-29" aria-hidden="true" tabindex="-1"></a>          <span class="at">medcol =</span> <span class="st">&quot;white&quot;</span>, <span class="at">varwidth =</span> <span class="cn">FALSE</span>) </span>
+<span id="cb2192-30"><a href="group-comp.html#cb2192-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stripchart</span>(y <span class="sc">~</span> group, <span class="at">vertical =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb2192-31"><a href="group-comp.html#cb2192-31" aria-hidden="true" tabindex="-1"></a>             <span class="at">method =</span> <span class="st">&quot;jitter&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb2192-32"><a href="group-comp.html#cb2192-32" aria-hidden="true" tabindex="-1"></a>             <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">col  =</span> cols)</span>
+<span id="cb2192-33"><a href="group-comp.html#cb2192-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;darkgray&quot;</span>)</span>
+<span id="cb2192-34"><a href="group-comp.html#cb2192-34" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>g) {</span>
+<span id="cb2192-35"><a href="group-comp.html#cb2192-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">segments</span>(<span class="at">x0 =</span> i <span class="sc">-</span> <span class="fu">round</span>(<span class="dv">1</span><span class="sc">/</span>g, <span class="dv">1</span>), </span>
+<span id="cb2192-36"><a href="group-comp.html#cb2192-36" aria-hidden="true" tabindex="-1"></a>             <span class="at">x1 =</span> i <span class="sc">+</span> <span class="fu">round</span>(<span class="dv">1</span><span class="sc">/</span>g, <span class="dv">1</span>), </span>
+<span id="cb2192-37"><a href="group-comp.html#cb2192-37" aria-hidden="true" tabindex="-1"></a>             <span class="at">y0 =</span> <span class="fu">mean</span>(y[group <span class="sc">==</span> <span class="fu">levels</span>(group)[i]]), </span>
+<span id="cb2192-38"><a href="group-comp.html#cb2192-38" aria-hidden="true" tabindex="-1"></a>             <span class="at">y1 =</span> <span class="fu">mean</span>(y[group <span class="sc">==</span> <span class="fu">levels</span>(group)[i]]), </span>
+<span id="cb2192-39"><a href="group-comp.html#cb2192-39" aria-hidden="true" tabindex="-1"></a>             <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> cols[i], <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb2192-40"><a href="group-comp.html#cb2192-40" aria-hidden="true" tabindex="-1"></a>  } <span class="co"># 집단 별 평균선 표시</span></span>
+<span id="cb2192-41"><a href="group-comp.html#cb2192-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2192-42"><a href="group-comp.html#cb2192-42" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 일원배치 분산분석</span></span>
+<span id="cb2192-43"><a href="group-comp.html#cb2192-43" aria-hidden="true" tabindex="-1"></a>  grand_mean_obs <span class="ot">&lt;-</span> <span class="fu">mean</span>(y) <span class="co"># 전체평균</span></span>
+<span id="cb2192-44"><a href="group-comp.html#cb2192-44" aria-hidden="true" tabindex="-1"></a>  group_mean_obs <span class="ot">&lt;-</span> <span class="fu">tapply</span>(y, group, mean) <span class="co"># 집단 평균</span></span>
+<span id="cb2192-45"><a href="group-comp.html#cb2192-45" aria-hidden="true" tabindex="-1"></a>  sst <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> grand_mean_obs)<span class="sc">^</span><span class="dv">2</span>) </span>
+<span id="cb2192-46"><a href="group-comp.html#cb2192-46" aria-hidden="true" tabindex="-1"></a>  ssw <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, g)</span>
+<span id="cb2192-47"><a href="group-comp.html#cb2192-47" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>g) {</span>
+<span id="cb2192-48"><a href="group-comp.html#cb2192-48" aria-hidden="true" tabindex="-1"></a>    ssw[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>((y[group <span class="sc">==</span> <span class="fu">levels</span>(group)[i]] <span class="sc">-</span> group_mean_obs[i])<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb2192-49"><a href="group-comp.html#cb2192-49" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2192-50"><a href="group-comp.html#cb2192-50" aria-hidden="true" tabindex="-1"></a>  ssw <span class="ot">&lt;-</span> <span class="fu">sum</span>(ssw)</span>
+<span id="cb2192-51"><a href="group-comp.html#cb2192-51" aria-hidden="true" tabindex="-1"></a>  ssb <span class="ot">&lt;-</span> sst <span class="sc">-</span> ssw</span>
+<span id="cb2192-52"><a href="group-comp.html#cb2192-52" aria-hidden="true" tabindex="-1"></a>  msb <span class="ot">&lt;-</span> ssb<span class="sc">/</span>(g <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb2192-53"><a href="group-comp.html#cb2192-53" aria-hidden="true" tabindex="-1"></a>  msw <span class="ot">&lt;-</span> ssw<span class="sc">/</span>(<span class="fu">length</span>(y) <span class="sc">-</span> g)</span>
+<span id="cb2192-54"><a href="group-comp.html#cb2192-54" aria-hidden="true" tabindex="-1"></a>  Fval <span class="ot">&lt;-</span> msb<span class="sc">/</span>msw</span>
+<span id="cb2192-55"><a href="group-comp.html#cb2192-55" aria-hidden="true" tabindex="-1"></a>  pval <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(Fval, g <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">length</span>(y) <span class="sc">-</span> g)</span>
+<span id="cb2192-56"><a href="group-comp.html#cb2192-56" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2192-57"><a href="group-comp.html#cb2192-57" aria-hidden="true" tabindex="-1"></a>  test_result <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2192-58"><a href="group-comp.html#cb2192-58" aria-hidden="true" tabindex="-1"></a>   <span class="at">Source =</span> <span class="fu">c</span>(<span class="st">&quot;Between&quot;</span>, <span class="st">&quot;Within&quot;</span>, <span class="st">&quot;Total&quot;</span>), </span>
+<span id="cb2192-59"><a href="group-comp.html#cb2192-59" aria-hidden="true" tabindex="-1"></a>   <span class="at">SS =</span> <span class="fu">c</span>(ssb, ssw, sst), </span>
+<span id="cb2192-60"><a href="group-comp.html#cb2192-60" aria-hidden="true" tabindex="-1"></a>   <span class="at">degf =</span> <span class="fu">c</span>(g <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">length</span>(y) <span class="sc">-</span> g, <span class="fu">length</span>(y) <span class="sc">-</span> <span class="dv">1</span>), </span>
+<span id="cb2192-61"><a href="group-comp.html#cb2192-61" aria-hidden="true" tabindex="-1"></a>   <span class="at">MS =</span> <span class="fu">c</span>(msb, msw, <span class="cn">NA</span>), </span>
+<span id="cb2192-62"><a href="group-comp.html#cb2192-62" aria-hidden="true" tabindex="-1"></a>   <span class="at">F.value =</span> <span class="fu">c</span>(Fval, <span class="cn">NA</span>, <span class="cn">NA</span>), </span>
+<span id="cb2192-63"><a href="group-comp.html#cb2192-63" aria-hidden="true" tabindex="-1"></a>   <span class="at">p.value =</span> <span class="fu">c</span>(pval, <span class="cn">NA</span>, <span class="cn">NA</span>)</span>
+<span id="cb2192-64"><a href="group-comp.html#cb2192-64" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2192-65"><a href="group-comp.html#cb2192-65" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">y =</span> y, <span class="at">group =</span> group, </span>
+<span id="cb2192-66"><a href="group-comp.html#cb2192-66" aria-hidden="true" tabindex="-1"></a>              <span class="at">result =</span> test_result)</span>
+<span id="cb2192-67"><a href="group-comp.html#cb2192-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(out)</span>
+<span id="cb2192-68"><a href="group-comp.html#cb2192-68" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p></p>
 <ul>
 <li>Case 1: 집단 간 평균 차이가 존재하지 않는 경우 (<span class="math inline">\(\mu_1 = \mu_2 = \mu_3 = 0, \sigma^2 = 1\)</span>)</li>
 </ul>
-<div class="sourceCode" id="cb2190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2190-1"><a href="group-comp.html#cb2190-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb2190-2"><a href="group-comp.html#cb2190-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb2190-3"><a href="group-comp.html#cb2190-3" aria-hidden="true" tabindex="-1"></a>out1 <span class="ot">&lt;-</span> <span class="fu">plot_anova_sim</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">g =</span> <span class="dv">3</span>, <span class="at">mvec =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">sigma =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2193-1"><a href="group-comp.html#cb2193-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2193-2"><a href="group-comp.html#cb2193-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2193-3"><a href="group-comp.html#cb2193-3" aria-hidden="true" tabindex="-1"></a>out1 <span class="ot">&lt;-</span> <span class="fu">plot_anova_sim</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">g =</span> <span class="dv">3</span>, <span class="at">mvec =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">sigma =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-27-1.svg" width="960" /></p>
-<div class="sourceCode" id="cb2191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2191-1"><a href="group-comp.html#cb2191-1" aria-hidden="true" tabindex="-1"></a>out1<span class="sc">$</span>result <span class="sc">%&gt;%</span> </span>
-<span id="cb2191-2"><a href="group-comp.html#cb2191-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;ANOVA table ($</span><span class="sc">\\</span><span class="st">mu_1 = </span><span class="sc">\\</span><span class="st">mu_2 = </span><span class="sc">\\</span><span class="st">mu_3 = 0, </span><span class="sc">\\</span><span class="st">sigma^2 = 1$)&quot;</span>, </span>
-<span id="cb2191-3"><a href="group-comp.html#cb2191-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="co"># kableExtra 패키지 사용방법 참고</span></span>
-<span id="cb2191-4"><a href="group-comp.html#cb2191-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2194-1"><a href="group-comp.html#cb2194-1" aria-hidden="true" tabindex="-1"></a>out1<span class="sc">$</span>result <span class="sc">%&gt;%</span> </span>
+<span id="cb2194-2"><a href="group-comp.html#cb2194-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;ANOVA table ($</span><span class="sc">\\</span><span class="st">mu_1 = </span><span class="sc">\\</span><span class="st">mu_2 = </span><span class="sc">\\</span><span class="st">mu_3 = 0, </span><span class="sc">\\</span><span class="st">sigma^2 = 1$)&quot;</span>, </span>
+<span id="cb2194-3"><a href="group-comp.html#cb2194-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="co"># kableExtra 패키지 사용방법 참고</span></span>
+<span id="cb2194-4"><a href="group-comp.html#cb2194-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
 <table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:unnamed-chunk-27">Table 11.1: </span>ANOVA table (<span class="math inline">\(\mu_1 = \mu_2 = \mu_3 = 0, \sigma^2 = 1\)</span>)
@@ -1433,20 +1437,20 @@ NA
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb2192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2192-1"><a href="group-comp.html#cb2192-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check</span></span>
-<span id="cb2192-2"><a href="group-comp.html#cb2192-2" aria-hidden="true" tabindex="-1"></a><span class="co"># anova(with(out1, lm(y ~ group)))</span></span></code></pre></div>
+<div class="sourceCode" id="cb2195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2195-1"><a href="group-comp.html#cb2195-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check</span></span>
+<span id="cb2195-2"><a href="group-comp.html#cb2195-2" aria-hidden="true" tabindex="-1"></a><span class="co"># anova(with(out1, lm(y ~ group)))</span></span></code></pre></div>
 <p></p>
 <ul>
 <li>Case 2: 집단 간 평균 차이가 뚜렷한 경우 (<span class="math inline">\(\mu_1 = -5, \mu_2 = 0, \mu_3 = 5, \sigma^2 = 1\)</span>)</li>
 </ul>
-<div class="sourceCode" id="cb2193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2193-1"><a href="group-comp.html#cb2193-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb2193-2"><a href="group-comp.html#cb2193-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb2193-3"><a href="group-comp.html#cb2193-3" aria-hidden="true" tabindex="-1"></a>out2 <span class="ot">&lt;-</span> <span class="fu">plot_anova_sim</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">g =</span> <span class="dv">3</span>, <span class="at">mvec =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">5</span>), <span class="at">sigma =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2196-1"><a href="group-comp.html#cb2196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2196-2"><a href="group-comp.html#cb2196-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2196-3"><a href="group-comp.html#cb2196-3" aria-hidden="true" tabindex="-1"></a>out2 <span class="ot">&lt;-</span> <span class="fu">plot_anova_sim</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">g =</span> <span class="dv">3</span>, <span class="at">mvec =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">5</span>), <span class="at">sigma =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-28-1.svg" width="960" /></p>
-<div class="sourceCode" id="cb2194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2194-1"><a href="group-comp.html#cb2194-1" aria-hidden="true" tabindex="-1"></a>out2<span class="sc">$</span>result <span class="sc">%&gt;%</span> </span>
-<span id="cb2194-2"><a href="group-comp.html#cb2194-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;ANOVA table ($</span><span class="sc">\\</span><span class="st">mu_1 = -5, </span><span class="sc">\\</span><span class="st">mu_2 = 0, </span><span class="sc">\\</span><span class="st">mu_3 = 5, </span><span class="sc">\\</span><span class="st">sigma^2 = 1$)&quot;</span>, </span>
-<span id="cb2194-3"><a href="group-comp.html#cb2194-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="co"># kableExtra 패키지 사용방법 참고</span></span>
-<span id="cb2194-4"><a href="group-comp.html#cb2194-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2197-1"><a href="group-comp.html#cb2197-1" aria-hidden="true" tabindex="-1"></a>out2<span class="sc">$</span>result <span class="sc">%&gt;%</span> </span>
+<span id="cb2197-2"><a href="group-comp.html#cb2197-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;ANOVA table ($</span><span class="sc">\\</span><span class="st">mu_1 = -5, </span><span class="sc">\\</span><span class="st">mu_2 = 0, </span><span class="sc">\\</span><span class="st">mu_3 = 5, </span><span class="sc">\\</span><span class="st">sigma^2 = 1$)&quot;</span>, </span>
+<span id="cb2197-3"><a href="group-comp.html#cb2197-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="co"># kableExtra 패키지 사용방법 참고</span></span>
+<span id="cb2197-4"><a href="group-comp.html#cb2197-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
 <table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:unnamed-chunk-28">Table 11.2: </span>ANOVA table (<span class="math inline">\(\mu_1 = -5, \mu_2 = 0, \mu_3 = 5, \sigma^2 = 1\)</span>)
@@ -1540,14 +1544,14 @@ NA
 <ul>
 <li>Case 3-a: 집단 간 평균 차이가 존재 (<span class="math inline">\(\mu_1 = -1, \mu_2 = 0, \mu_3 = 1, \sigma^2 = 1\)</span>)</li>
 </ul>
-<div class="sourceCode" id="cb2195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2195-1"><a href="group-comp.html#cb2195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb2195-2"><a href="group-comp.html#cb2195-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb2195-3"><a href="group-comp.html#cb2195-3" aria-hidden="true" tabindex="-1"></a>out3 <span class="ot">&lt;-</span> <span class="fu">plot_anova_sim</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">g =</span> <span class="dv">3</span>, <span class="at">mvec =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">sigma =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2198-1"><a href="group-comp.html#cb2198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2198-2"><a href="group-comp.html#cb2198-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2198-3"><a href="group-comp.html#cb2198-3" aria-hidden="true" tabindex="-1"></a>out3 <span class="ot">&lt;-</span> <span class="fu">plot_anova_sim</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">g =</span> <span class="dv">3</span>, <span class="at">mvec =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">sigma =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-29-1.svg" width="960" /></p>
-<div class="sourceCode" id="cb2196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2196-1"><a href="group-comp.html#cb2196-1" aria-hidden="true" tabindex="-1"></a>out3<span class="sc">$</span>result <span class="sc">%&gt;%</span> </span>
-<span id="cb2196-2"><a href="group-comp.html#cb2196-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;ANOVA table ($</span><span class="sc">\\</span><span class="st">mu_1 = -1, </span><span class="sc">\\</span><span class="st">mu_2 = 0, </span><span class="sc">\\</span><span class="st">mu_3 = 1, </span><span class="sc">\\</span><span class="st">sigma^2 = 1$)&quot;</span>, </span>
-<span id="cb2196-3"><a href="group-comp.html#cb2196-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="co"># kableExtra 패키지 사용방법 참고</span></span>
-<span id="cb2196-4"><a href="group-comp.html#cb2196-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2199-1"><a href="group-comp.html#cb2199-1" aria-hidden="true" tabindex="-1"></a>out3<span class="sc">$</span>result <span class="sc">%&gt;%</span> </span>
+<span id="cb2199-2"><a href="group-comp.html#cb2199-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;ANOVA table ($</span><span class="sc">\\</span><span class="st">mu_1 = -1, </span><span class="sc">\\</span><span class="st">mu_2 = 0, </span><span class="sc">\\</span><span class="st">mu_3 = 1, </span><span class="sc">\\</span><span class="st">sigma^2 = 1$)&quot;</span>, </span>
+<span id="cb2199-3"><a href="group-comp.html#cb2199-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="co"># kableExtra 패키지 사용방법 참고</span></span>
+<span id="cb2199-4"><a href="group-comp.html#cb2199-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
 <table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:unnamed-chunk-29">Table 11.3: </span>ANOVA table (<span class="math inline">\(\mu_1 = -1, \mu_2 = 0, \mu_3 = 1, \sigma^2 = 1\)</span>)
@@ -1641,14 +1645,14 @@ NA
 <ul>
 <li>Case 3-b: 집단 간 평균 차이가 존재 (<span class="math inline">\(\mu_1 = -1, \mu_2 = 0, \mu_3 = 1, \sigma^2 = 3\)</span>)</li>
 </ul>
-<div class="sourceCode" id="cb2197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2197-1"><a href="group-comp.html#cb2197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb2197-2"><a href="group-comp.html#cb2197-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb2197-3"><a href="group-comp.html#cb2197-3" aria-hidden="true" tabindex="-1"></a>out4 <span class="ot">&lt;-</span> <span class="fu">plot_anova_sim</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">g =</span> <span class="dv">3</span>, <span class="at">mvec =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">sigma =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2200-1"><a href="group-comp.html#cb2200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2200-2"><a href="group-comp.html#cb2200-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2200-3"><a href="group-comp.html#cb2200-3" aria-hidden="true" tabindex="-1"></a>out4 <span class="ot">&lt;-</span> <span class="fu">plot_anova_sim</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">g =</span> <span class="dv">3</span>, <span class="at">mvec =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">sigma =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-30-1.svg" width="960" /></p>
-<div class="sourceCode" id="cb2198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2198-1"><a href="group-comp.html#cb2198-1" aria-hidden="true" tabindex="-1"></a>out4<span class="sc">$</span>result <span class="sc">%&gt;%</span> </span>
-<span id="cb2198-2"><a href="group-comp.html#cb2198-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;ANOVA table ($</span><span class="sc">\\</span><span class="st">mu_1 = -1, </span><span class="sc">\\</span><span class="st">mu_2 = 0, </span><span class="sc">\\</span><span class="st">mu_3 = 1, </span><span class="sc">\\</span><span class="st">sigma^2 = 3$)&quot;</span>, </span>
-<span id="cb2198-3"><a href="group-comp.html#cb2198-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="co"># kableExtra 패키지 사용방법 참고</span></span>
-<span id="cb2198-4"><a href="group-comp.html#cb2198-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2201-1"><a href="group-comp.html#cb2201-1" aria-hidden="true" tabindex="-1"></a>out4<span class="sc">$</span>result <span class="sc">%&gt;%</span> </span>
+<span id="cb2201-2"><a href="group-comp.html#cb2201-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">&quot;ANOVA table ($</span><span class="sc">\\</span><span class="st">mu_1 = -1, </span><span class="sc">\\</span><span class="st">mu_2 = 0, </span><span class="sc">\\</span><span class="st">mu_3 = 1, </span><span class="sc">\\</span><span class="st">sigma^2 = 3$)&quot;</span>, </span>
+<span id="cb2201-3"><a href="group-comp.html#cb2201-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> <span class="co"># kableExtra 패키지 사용방법 참고</span></span>
+<span id="cb2201-4"><a href="group-comp.html#cb2201-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
 <table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:unnamed-chunk-30">Table 11.4: </span>ANOVA table (<span class="math inline">\(\mu_1 = -1, \mu_2 = 0, \mu_3 = 1, \sigma^2 = 3\)</span>)
@@ -1745,17 +1749,17 @@ NA
 <li>24 마리 쥐를 무작위로 4 가지 종류의 먹이(A, B, C, D)를 주고 혈액 응고 시간 측정</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb2199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2199-1"><a href="group-comp.html#cb2199-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 테이블 생성</span></span>
-<span id="cb2199-2"><a href="group-comp.html#cb2199-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;faraway&quot;)</span></span>
-<span id="cb2199-3"><a href="group-comp.html#cb2199-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(faraway)</span>
-<span id="cb2199-4"><a href="group-comp.html#cb2199-4" aria-hidden="true" tabindex="-1"></a>coagulation <span class="sc">%&gt;%</span> </span>
-<span id="cb2199-5"><a href="group-comp.html#cb2199-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rowname =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb2199-6"><a href="group-comp.html#cb2199-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb2199-7"><a href="group-comp.html#cb2199-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> <span class="st">&quot;diet&quot;</span>, </span>
-<span id="cb2199-8"><a href="group-comp.html#cb2199-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> coag</span>
-<span id="cb2199-9"><a href="group-comp.html#cb2199-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb2199-10"><a href="group-comp.html#cb2199-10" aria-hidden="true" tabindex="-1"></a>  kbl <span class="sc">%&gt;%</span> </span>
-<span id="cb2199-11"><a href="group-comp.html#cb2199-11" aria-hidden="true" tabindex="-1"></a>  kable_paper</span></code></pre></div>
+<div class="sourceCode" id="cb2202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2202-1"><a href="group-comp.html#cb2202-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 테이블 생성</span></span>
+<span id="cb2202-2"><a href="group-comp.html#cb2202-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;faraway&quot;)</span></span>
+<span id="cb2202-3"><a href="group-comp.html#cb2202-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(faraway)</span>
+<span id="cb2202-4"><a href="group-comp.html#cb2202-4" aria-hidden="true" tabindex="-1"></a>coagulation <span class="sc">%&gt;%</span> </span>
+<span id="cb2202-5"><a href="group-comp.html#cb2202-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rowname =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2202-6"><a href="group-comp.html#cb2202-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb2202-7"><a href="group-comp.html#cb2202-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> <span class="st">&quot;diet&quot;</span>, </span>
+<span id="cb2202-8"><a href="group-comp.html#cb2202-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> coag</span>
+<span id="cb2202-9"><a href="group-comp.html#cb2202-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb2202-10"><a href="group-comp.html#cb2202-10" aria-hidden="true" tabindex="-1"></a>  kbl <span class="sc">%&gt;%</span> </span>
+<span id="cb2202-11"><a href="group-comp.html#cb2202-11" aria-hidden="true" tabindex="-1"></a>  kable_paper</span></code></pre></div>
 <table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1919,42 +1923,42 @@ NA
 <ul>
 <li>데이터 탐색</li>
 </ul>
-<div class="sourceCode" id="cb2200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2200-1"><a href="group-comp.html#cb2200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation)</span>
-<span id="cb2200-2"><a href="group-comp.html#cb2200-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation, </span>
-<span id="cb2200-3"><a href="group-comp.html#cb2200-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">vertical =</span> <span class="cn">TRUE</span>, <span class="at">method =</span> <span class="st">&quot;jitter&quot;</span>, </span>
-<span id="cb2200-4"><a href="group-comp.html#cb2200-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2203-1"><a href="group-comp.html#cb2203-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation)</span>
+<span id="cb2203-2"><a href="group-comp.html#cb2203-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation, </span>
+<span id="cb2203-3"><a href="group-comp.html#cb2203-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">vertical =</span> <span class="cn">TRUE</span>, <span class="at">method =</span> <span class="st">&quot;jitter&quot;</span>, </span>
+<span id="cb2203-4"><a href="group-comp.html#cb2203-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-32-1.svg" width="864" /></p>
 <p></p>
 <ul>
 <li>일원배치 분산분석</li>
 </ul>
-<div class="sourceCode" id="cb2201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2201-1"><a href="group-comp.html#cb2201-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;car&quot;)</span></span>
-<span id="cb2201-2"><a href="group-comp.html#cb2201-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(car)</span>
-<span id="cb2201-3"><a href="group-comp.html#cb2201-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(tidymodels)</span>
-<span id="cb2201-4"><a href="group-comp.html#cb2201-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 등분산 검정: Fligner-Kileen&#39;s test</span></span>
-<span id="cb2201-5"><a href="group-comp.html#cb2201-5" aria-hidden="true" tabindex="-1"></a><span class="fu">fligner.test</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation)</span></code></pre></div>
+<div class="sourceCode" id="cb2204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2204-1"><a href="group-comp.html#cb2204-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;car&quot;)</span></span>
+<span id="cb2204-2"><a href="group-comp.html#cb2204-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(car)</span>
+<span id="cb2204-3"><a href="group-comp.html#cb2204-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(tidymodels)</span>
+<span id="cb2204-4"><a href="group-comp.html#cb2204-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 등분산 검정: Fligner-Kileen&#39;s test</span></span>
+<span id="cb2204-5"><a href="group-comp.html#cb2204-5" aria-hidden="true" tabindex="-1"></a><span class="fu">fligner.test</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation)</span></code></pre></div>
 <pre><code>
     Fligner-Killeen test of homogeneity of variances
 
 data:  coag by diet
 Fligner-Killeen:med chi-squared = 1.5559, df = 3, p-value = 0.6694</code></pre>
-<div class="sourceCode" id="cb2203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2203-1"><a href="group-comp.html#cb2203-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 등분산 검정: Levene&#39;s test (SPSS)</span></span>
-<span id="cb2203-2"><a href="group-comp.html#cb2203-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">leveneTest</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation)</span></code></pre></div>
+<div class="sourceCode" id="cb2206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2206-1"><a href="group-comp.html#cb2206-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 등분산 검정: Levene&#39;s test (SPSS)</span></span>
+<span id="cb2206-2"><a href="group-comp.html#cb2206-2" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">leveneTest</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Df"],"name":[1],"type":["int"],"align":["right"]},{"label":["F value"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Pr(>F)"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"3","2":"0.6491885","3":"0.5926459","_rn_":"group"},{"1":"20","2":"NA","3":"NA","_rn_":""}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb2204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2204-1"><a href="group-comp.html#cb2204-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 정규성 검정: shapiro-wilk&#39;s test</span></span>
-<span id="cb2204-2"><a href="group-comp.html#cb2204-2" aria-hidden="true" tabindex="-1"></a>coagulation <span class="sc">%&gt;%</span> </span>
-<span id="cb2204-3"><a href="group-comp.html#cb2204-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(diet) <span class="sc">%&gt;%</span> </span>
-<span id="cb2204-4"><a href="group-comp.html#cb2204-4" aria-hidden="true" tabindex="-1"></a>  nest <span class="sc">%&gt;%</span> </span>
-<span id="cb2204-5"><a href="group-comp.html#cb2204-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">normal_test =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">shapiro.test</span>(.x<span class="sc">$</span>coag))) <span class="sc">%&gt;%</span> </span>
-<span id="cb2204-6"><a href="group-comp.html#cb2204-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">result =</span> <span class="fu">map</span>(normal_test, <span class="sc">~</span> <span class="fu">tidy</span>(.x))) <span class="sc">%&gt;%</span> </span>
-<span id="cb2204-7"><a href="group-comp.html#cb2204-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> result) <span class="sc">%&gt;%</span> </span>
-<span id="cb2204-8"><a href="group-comp.html#cb2204-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(diet, statistic<span class="sc">:</span>method) <span class="sc">%&gt;%</span> </span>
-<span id="cb2204-9"><a href="group-comp.html#cb2204-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb2204-10"><a href="group-comp.html#cb2204-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2207-1"><a href="group-comp.html#cb2207-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 정규성 검정: shapiro-wilk&#39;s test</span></span>
+<span id="cb2207-2"><a href="group-comp.html#cb2207-2" aria-hidden="true" tabindex="-1"></a>coagulation <span class="sc">%&gt;%</span> </span>
+<span id="cb2207-3"><a href="group-comp.html#cb2207-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(diet) <span class="sc">%&gt;%</span> </span>
+<span id="cb2207-4"><a href="group-comp.html#cb2207-4" aria-hidden="true" tabindex="-1"></a>  nest <span class="sc">%&gt;%</span> </span>
+<span id="cb2207-5"><a href="group-comp.html#cb2207-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">normal_test =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">shapiro.test</span>(.x<span class="sc">$</span>coag))) <span class="sc">%&gt;%</span> </span>
+<span id="cb2207-6"><a href="group-comp.html#cb2207-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">result =</span> <span class="fu">map</span>(normal_test, <span class="sc">~</span> <span class="fu">tidy</span>(.x))) <span class="sc">%&gt;%</span> </span>
+<span id="cb2207-7"><a href="group-comp.html#cb2207-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> result) <span class="sc">%&gt;%</span> </span>
+<span id="cb2207-8"><a href="group-comp.html#cb2207-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(diet, statistic<span class="sc">:</span>method) <span class="sc">%&gt;%</span> </span>
+<span id="cb2207-9"><a href="group-comp.html#cb2207-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2207-10"><a href="group-comp.html#cb2207-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
 <table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -2031,25 +2035,25 @@ Shapiro-Wilk normality test
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb2205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2205-1"><a href="group-comp.html#cb2205-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 일원배치 분산분석</span></span>
-<span id="cb2205-2"><a href="group-comp.html#cb2205-2" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation)</span>
-<span id="cb2205-3"><a href="group-comp.html#cb2205-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb2208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2208-1"><a href="group-comp.html#cb2208-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 일원배치 분산분석</span></span>
+<span id="cb2208-2"><a href="group-comp.html#cb2208-2" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(coag <span class="sc">~</span> diet, <span class="at">data =</span> coagulation)</span>
+<span id="cb2208-3"><a href="group-comp.html#cb2208-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Df"],"name":[1],"type":["int"],"align":["right"]},{"label":["Sum Sq"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Mean Sq"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["F value"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Pr(>F)"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"3","2":"228","3":"76.0","4":"13.57143","5":"4.658471e-05","_rn_":"diet"},{"1":"20","2":"112","3":"5.6","4":"NA","5":"NA","_rn_":"Residuals"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb2206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2206-1"><a href="group-comp.html#cb2206-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 사후검정(post-hoc test): Tukey&#39;s honestly significant difference (HSD)</span></span>
-<span id="cb2206-2"><a href="group-comp.html#cb2206-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(mod), <span class="at">conf.level =</span> <span class="fl">0.95</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb2209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2209-1"><a href="group-comp.html#cb2209-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 사후검정(post-hoc test): Tukey&#39;s honestly significant difference (HSD)</span></span>
+<span id="cb2209-2"><a href="group-comp.html#cb2209-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(mod), <span class="at">conf.level =</span> <span class="fl">0.95</span>))</span></code></pre></div>
 <p><img src="12-basic-stat-analysis_files/figure-html/unnamed-chunk-33-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb2207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2207-1"><a href="group-comp.html#cb2207-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;emmeans&quot;)</span></span>
-<span id="cb2207-2"><a href="group-comp.html#cb2207-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(emmeans)</span>
-<span id="cb2207-3"><a href="group-comp.html#cb2207-3" aria-hidden="true" tabindex="-1"></a>em0 <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(mod, <span class="sc">~</span> diet)</span>
-<span id="cb2207-4"><a href="group-comp.html#cb2207-4" aria-hidden="true" tabindex="-1"></a>pair_cont <span class="ot">&lt;-</span> <span class="fu">contrast</span>(em0, <span class="at">method =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="at">adjust =</span> <span class="st">&quot;tukey&quot;</span>) <span class="co"># 대비검정</span></span>
-<span id="cb2207-5"><a href="group-comp.html#cb2207-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(pair_cont) <span class="sc">%&gt;%</span> </span>
-<span id="cb2207-6"><a href="group-comp.html#cb2207-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, format, <span class="at">digits =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb2207-7"><a href="group-comp.html#cb2207-7" aria-hidden="true" tabindex="-1"></a>  kbl <span class="sc">%&gt;%</span> </span>
-<span id="cb2207-8"><a href="group-comp.html#cb2207-8" aria-hidden="true" tabindex="-1"></a>  kable_paper</span></code></pre></div>
+<div class="sourceCode" id="cb2210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2210-1"><a href="group-comp.html#cb2210-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;emmeans&quot;)</span></span>
+<span id="cb2210-2"><a href="group-comp.html#cb2210-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(emmeans)</span>
+<span id="cb2210-3"><a href="group-comp.html#cb2210-3" aria-hidden="true" tabindex="-1"></a>em0 <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(mod, <span class="sc">~</span> diet)</span>
+<span id="cb2210-4"><a href="group-comp.html#cb2210-4" aria-hidden="true" tabindex="-1"></a>pair_cont <span class="ot">&lt;-</span> <span class="fu">contrast</span>(em0, <span class="at">method =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="at">adjust =</span> <span class="st">&quot;tukey&quot;</span>) <span class="co"># 대비검정</span></span>
+<span id="cb2210-5"><a href="group-comp.html#cb2210-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(pair_cont) <span class="sc">%&gt;%</span> </span>
+<span id="cb2210-6"><a href="group-comp.html#cb2210-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, format, <span class="at">digits =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2210-7"><a href="group-comp.html#cb2210-7" aria-hidden="true" tabindex="-1"></a>  kbl <span class="sc">%&gt;%</span> </span>
+<span id="cb2210-8"><a href="group-comp.html#cb2210-8" aria-hidden="true" tabindex="-1"></a>  kable_paper</span></code></pre></div>
 <table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -2406,33 +2410,33 @@ C - D
 <li><code>lm()</code> 및 <code>httest</code> 계열 함수의 결과는 R 콘솔에서 그 결과 확인이 가능하지만, 결과에 대응하는 수치들이 저장되지는 않음</li>
 <li>임의 변수를 지정에 위에 해당하는 함수의 결과물을 저장할 수 있으나, 보통은 리스트 형태의 객체이고 정리하기가 번거로움</li>
 </ul>
-<div class="sourceCode" id="cb2208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2208-1"><a href="group-comp.html#cb2208-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sleep 데이터: 독립이표본 t 검정 결과</span></span>
-<span id="cb2208-2"><a href="group-comp.html#cb2208-2" aria-hidden="true" tabindex="-1"></a><span class="co"># require(tidyverse)</span></span>
-<span id="cb2208-3"><a href="group-comp.html#cb2208-3" aria-hidden="true" tabindex="-1"></a><span class="co"># require(tidymodels)</span></span>
-<span id="cb2208-4"><a href="group-comp.html#cb2208-4" aria-hidden="true" tabindex="-1"></a>t1 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(extra <span class="sc">~</span> group, <span class="at">data =</span> sleep, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2208-5"><a href="group-comp.html#cb2208-5" aria-hidden="true" tabindex="-1"></a>summ_t1 <span class="ot">&lt;-</span> <span class="fu">with</span>(t1, <span class="fu">data.frame</span>(<span class="at">mean_diff =</span> <span class="sc">-</span><span class="fu">diff</span>(estimate),</span>
-<span id="cb2208-6"><a href="group-comp.html#cb2208-6" aria-hidden="true" tabindex="-1"></a>                               <span class="at">lcl =</span> conf.int[<span class="dv">1</span>],</span>
-<span id="cb2208-7"><a href="group-comp.html#cb2208-7" aria-hidden="true" tabindex="-1"></a>                               <span class="at">ucl =</span> conf.int[<span class="dv">2</span>],</span>
-<span id="cb2208-8"><a href="group-comp.html#cb2208-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">statistic =</span> statistic,</span>
-<span id="cb2208-9"><a href="group-comp.html#cb2208-9" aria-hidden="true" tabindex="-1"></a>                               <span class="at">degf =</span> parameter,</span>
-<span id="cb2208-10"><a href="group-comp.html#cb2208-10" aria-hidden="true" tabindex="-1"></a>                               <span class="at">p.value =</span> p.value))</span>
-<span id="cb2208-11"><a href="group-comp.html#cb2208-11" aria-hidden="true" tabindex="-1"></a>summ_t1</span></code></pre></div>
+<div class="sourceCode" id="cb2211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2211-1"><a href="group-comp.html#cb2211-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sleep 데이터: 독립이표본 t 검정 결과</span></span>
+<span id="cb2211-2"><a href="group-comp.html#cb2211-2" aria-hidden="true" tabindex="-1"></a><span class="co"># require(tidyverse)</span></span>
+<span id="cb2211-3"><a href="group-comp.html#cb2211-3" aria-hidden="true" tabindex="-1"></a><span class="co"># require(tidymodels)</span></span>
+<span id="cb2211-4"><a href="group-comp.html#cb2211-4" aria-hidden="true" tabindex="-1"></a>t1 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(extra <span class="sc">~</span> group, <span class="at">data =</span> sleep, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2211-5"><a href="group-comp.html#cb2211-5" aria-hidden="true" tabindex="-1"></a>summ_t1 <span class="ot">&lt;-</span> <span class="fu">with</span>(t1, <span class="fu">data.frame</span>(<span class="at">mean_diff =</span> <span class="sc">-</span><span class="fu">diff</span>(estimate),</span>
+<span id="cb2211-6"><a href="group-comp.html#cb2211-6" aria-hidden="true" tabindex="-1"></a>                               <span class="at">lcl =</span> conf.int[<span class="dv">1</span>],</span>
+<span id="cb2211-7"><a href="group-comp.html#cb2211-7" aria-hidden="true" tabindex="-1"></a>                               <span class="at">ucl =</span> conf.int[<span class="dv">2</span>],</span>
+<span id="cb2211-8"><a href="group-comp.html#cb2211-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">statistic =</span> statistic,</span>
+<span id="cb2211-9"><a href="group-comp.html#cb2211-9" aria-hidden="true" tabindex="-1"></a>                               <span class="at">degf =</span> parameter,</span>
+<span id="cb2211-10"><a href="group-comp.html#cb2211-10" aria-hidden="true" tabindex="-1"></a>                               <span class="at">p.value =</span> p.value))</span>
+<span id="cb2211-11"><a href="group-comp.html#cb2211-11" aria-hidden="true" tabindex="-1"></a>summ_t1</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["mean_diff"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["lcl"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["ucl"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["degf"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"-1.58","2":"-3.363874","3":"0.203874","4":"-1.860813","5":"18","6":"0.07918671","_rn_":"mean in group 2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb2209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2209-1"><a href="group-comp.html#cb2209-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 일원배치 분산분석 결과</span></span>
-<span id="cb2209-2"><a href="group-comp.html#cb2209-2" aria-hidden="true" tabindex="-1"></a>mtcars2 <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb2209-3"><a href="group-comp.html#cb2209-3" aria-hidden="true" tabindex="-1"></a>  as_tibble <span class="sc">%&gt;%</span></span>
-<span id="cb2209-4"><a href="group-comp.html#cb2209-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cyl =</span> <span class="fu">factor</span>(cyl))</span>
-<span id="cb2209-5"><a href="group-comp.html#cb2209-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2209-6"><a href="group-comp.html#cb2209-6" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> cyl, <span class="at">data =</span> mtcars2)</span>
-<span id="cb2209-7"><a href="group-comp.html#cb2209-7" aria-hidden="true" tabindex="-1"></a>aov_m1 <span class="ot">&lt;-</span> <span class="fu">anova</span>(m1)</span>
-<span id="cb2209-8"><a href="group-comp.html#cb2209-8" aria-hidden="true" tabindex="-1"></a>mean_mpg <span class="ot">&lt;-</span> <span class="fu">with</span>(mtcars2, <span class="fu">tapply</span>(mpg, cyl, mean))</span>
-<span id="cb2209-9"><a href="group-comp.html#cb2209-9" aria-hidden="true" tabindex="-1"></a>summ_m1 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">t</span>(mean_mpg),</span>
-<span id="cb2209-10"><a href="group-comp.html#cb2209-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Fval =</span> aov_m1<span class="sc">$</span><span class="st">`</span><span class="at">F value</span><span class="st">`</span>[<span class="dv">1</span>],</span>
-<span id="cb2209-11"><a href="group-comp.html#cb2209-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">p.value =</span> aov_m1<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb2212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2212-1"><a href="group-comp.html#cb2212-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 일원배치 분산분석 결과</span></span>
+<span id="cb2212-2"><a href="group-comp.html#cb2212-2" aria-hidden="true" tabindex="-1"></a>mtcars2 <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb2212-3"><a href="group-comp.html#cb2212-3" aria-hidden="true" tabindex="-1"></a>  as_tibble <span class="sc">%&gt;%</span></span>
+<span id="cb2212-4"><a href="group-comp.html#cb2212-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cyl =</span> <span class="fu">factor</span>(cyl))</span>
+<span id="cb2212-5"><a href="group-comp.html#cb2212-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2212-6"><a href="group-comp.html#cb2212-6" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> cyl, <span class="at">data =</span> mtcars2)</span>
+<span id="cb2212-7"><a href="group-comp.html#cb2212-7" aria-hidden="true" tabindex="-1"></a>aov_m1 <span class="ot">&lt;-</span> <span class="fu">anova</span>(m1)</span>
+<span id="cb2212-8"><a href="group-comp.html#cb2212-8" aria-hidden="true" tabindex="-1"></a>mean_mpg <span class="ot">&lt;-</span> <span class="fu">with</span>(mtcars2, <span class="fu">tapply</span>(mpg, cyl, mean))</span>
+<span id="cb2212-9"><a href="group-comp.html#cb2212-9" aria-hidden="true" tabindex="-1"></a>summ_m1 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">t</span>(mean_mpg),</span>
+<span id="cb2212-10"><a href="group-comp.html#cb2212-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Fval =</span> aov_m1<span class="sc">$</span><span class="st">`</span><span class="at">F value</span><span class="st">`</span>[<span class="dv">1</span>],</span>
+<span id="cb2212-11"><a href="group-comp.html#cb2212-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">p.value =</span> aov_m1<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">1</span>])</span></code></pre></div>
 <p></p>
 <ul>
 <li><strong>broom</strong> 패키지에서 제공하는 <code>tidy()</code>, <code>glance()</code> 함수를 이용해 위의 예시보다 간편하게 tidyverse 문법 하에서 손쉽게 결과 정리 가능</li>
@@ -2445,13 +2449,13 @@ C - D
 </ul></li>
 <li>예시</li>
 </ul>
-<div class="sourceCode" id="cb2210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2210-1"><a href="group-comp.html#cb2210-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(t1)</span></code></pre></div>
+<div class="sourceCode" id="cb2213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2213-1"><a href="group-comp.html#cb2213-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(t1)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["estimate"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["estimate1"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["estimate2"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["parameter"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["conf.low"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["conf.high"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["method"],"name":[9],"type":["chr"],"align":["left"]},{"label":["alternative"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"-1.58","2":"0.75","3":"2.33","4":"-1.860813","5":"0.07918671","6":"18","7":"-3.363874","8":"0.203874","9":"Two Sample t-test","10":"two.sided"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb2211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2211-1"><a href="group-comp.html#cb2211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m1); <span class="fu">glance</span>(m1); <span class="fu">tidy</span>(aov_m1)</span></code></pre></div>
+<div class="sourceCode" id="cb2214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2214-1"><a href="group-comp.html#cb2214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m1); <span class="fu">glance</span>(m1); <span class="fu">tidy</span>(aov_m1)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"(Intercept)","2":"26.663636","3":"0.9718008","4":"27.437347","5":"2.688358e-22"},{"1":"cyl6","2":"-6.920779","3":"1.5583482","4":"-4.441099","5":"1.194696e-04"},{"1":"cyl8","2":"-11.563636","3":"1.2986235","4":"-8.904534","5":"8.568209e-10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
@@ -2467,78 +2471,78 @@ C - D
 {"columns":[{"label":["term"],"name":[1],"type":["chr"],"align":["left"]},{"label":["df"],"name":[2],"type":["int"],"align":["right"]},{"label":["sumsq"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["meansq"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"cyl","2":"2","3":"824.7846","4":"412.39230","5":"39.69752","6":"4.978919e-09"},{"1":"Residuals","2":"29","3":"301.2626","4":"10.38837","5":"NA","6":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb2212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2212-1"><a href="group-comp.html#cb2212-1" aria-hidden="true" tabindex="-1"></a>augdat <span class="ot">&lt;-</span> <span class="fu">augment</span>(m1)</span>
-<span id="cb2212-2"><a href="group-comp.html#cb2212-2" aria-hidden="true" tabindex="-1"></a>augdat</span></code></pre></div>
+<div class="sourceCode" id="cb2215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2215-1"><a href="group-comp.html#cb2215-1" aria-hidden="true" tabindex="-1"></a>augdat <span class="ot">&lt;-</span> <span class="fu">augment</span>(m1)</span>
+<span id="cb2215-2"><a href="group-comp.html#cb2215-2" aria-hidden="true" tabindex="-1"></a>augdat</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["mpg"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["cyl"],"name":[2],"type":["fct"],"align":["left"]},{"label":[".fitted"],"name":[3],"type":["dbl"],"align":["right"]},{"label":[".resid"],"name":[4],"type":["dbl"],"align":["right"]},{"label":[".hat"],"name":[5],"type":["dbl"],"align":["right"]},{"label":[".sigma"],"name":[6],"type":["dbl"],"align":["right"]},{"label":[".cooksd"],"name":[7],"type":["dbl"],"align":["right"]},{"label":[".std.resid"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"21.0","2":"6","3":"19.74286","4":"1.25714286","5":"0.14285714","6":"3.270096","7":"9.860441e-03","8":"0.42129317"},{"1":"21.0","2":"6","3":"19.74286","4":"1.25714286","5":"0.14285714","6":"3.270096","7":"9.860441e-03","8":"0.42129317"},{"1":"22.8","2":"4","3":"26.66364","4":"-3.86363636","5":"0.09090909","6":"3.189504","7":"5.268861e-02","8":"-1.25724228"},{"1":"21.4","2":"6","3":"19.74286","4":"1.65714286","5":"0.14285714","6":"3.262661","7":"1.713353e-02","8":"0.55534100"},{"1":"18.7","2":"8","3":"15.10000","4":"3.60000000","5":"0.07142857","6":"3.203267","7":"3.444910e-02","8":"1.15910087"},{"1":"18.1","2":"6","3":"19.74286","4":"-1.64285714","5":"0.14285714","6":"3.262962","7":"1.683940e-02","8":"-0.55055357"},{"1":"14.3","2":"8","3":"15.10000","4":"-0.80000000","5":"0.07142857","6":"3.276395","7":"1.701190e-03","8":"-0.25757797"},{"1":"24.4","2":"4","3":"26.66364","4":"-2.26363636","5":"0.09090909","6":"3.249319","7":"1.808579e-02","8":"-0.73659607"},{"1":"22.8","2":"4","3":"26.66364","4":"-3.86363636","5":"0.09090909","6":"3.189504","7":"5.268861e-02","8":"-1.25724228"},{"1":"19.2","2":"6","3":"19.74286","4":"-0.54285714","5":"0.14285714","6":"3.278277","7":"1.838646e-03","8":"-0.18192205"},{"1":"17.8","2":"6","3":"19.74286","4":"-1.94285714","5":"0.14285714","6":"3.256087","7":"2.355097e-02","8":"-0.65108944"},{"1":"16.4","2":"8","3":"15.10000","4":"1.30000000","5":"0.07142857","6":"3.270226","7":"4.492205e-03","8":"0.41856420"},{"1":"17.3","2":"8","3":"15.10000","4":"2.20000000","5":"0.07142857","6":"3.251650","7":"1.286525e-02","8":"0.70833942"},{"1":"15.2","2":"8","3":"15.10000","4":"0.10000000","5":"0.07142857","6":"3.280091","7":"2.658109e-05","8":"0.03219725"},{"1":"10.4","2":"8","3":"15.10000","4":"-4.70000000","5":"0.07142857","6":"3.147978","7":"5.871764e-02","8":"-1.51327059"},{"1":"10.4","2":"8","3":"15.10000","4":"-4.70000000","5":"0.07142857","6":"3.147978","7":"5.871764e-02","8":"-1.51327059"},{"1":"14.7","2":"8","3":"15.10000","4":"-0.40000000","5":"0.07142857","6":"3.279211","7":"4.252975e-04","8":"-0.12878899"},{"1":"32.4","2":"4","3":"26.66364","4":"5.73636364","5":"0.09090909","6":"3.076792","7":"1.161442e-01","8":"1.86663501"},{"1":"30.4","2":"4","3":"26.66364","4":"3.73636364","5":"0.09090909","6":"3.195455","7":"4.927453e-02","8":"1.21582724"},{"1":"33.9","2":"4","3":"26.66364","4":"7.23636364","5":"0.09090909","6":"2.949946","7":"1.848268e-01","8":"2.35474084"},{"1":"21.5","2":"4","3":"26.66364","4":"-5.16363636","5":"0.09090909","6":"3.116392","7":"9.410994e-02","8":"-1.68026733"},{"1":"15.5","2":"8","3":"15.10000","4":"0.40000000","5":"0.07142857","6":"3.279211","7":"4.252975e-04","8":"0.12878899"},{"1":"15.2","2":"8","3":"15.10000","4":"0.10000000","5":"0.07142857","6":"3.280091","7":"2.658109e-05","8":"0.03219725"},{"1":"13.3","2":"8","3":"15.10000","4":"-1.80000000","5":"0.07142857","6":"3.261098","7":"8.612275e-03","8":"-0.57955044"},{"1":"19.2","2":"8","3":"15.10000","4":"4.10000000","5":"0.07142857","6":"3.180069","7":"4.468282e-02","8":"1.32008711"},{"1":"27.3","2":"4","3":"26.66364","4":"0.63636364","5":"0.09090909","6":"3.277723","7":"1.429338e-03","8":"0.20707520"},{"1":"26.0","2":"4","3":"26.66364","4":"-0.66363636","5":"0.09090909","6":"3.277511","7":"1.554478e-03","8":"-0.21594985"},{"1":"30.4","2":"4","3":"26.66364","4":"3.73636364","5":"0.09090909","6":"3.195455","7":"4.927453e-02","8":"1.21582724"},{"1":"15.8","2":"8","3":"15.10000","4":"0.70000000","5":"0.07142857","6":"3.277275","7":"1.302474e-03","8":"0.22538073"},{"1":"19.7","2":"6","3":"19.74286","4":"-0.04285714","5":"0.14285714","6":"3.280137","7":"1.145971e-05","8":"-0.01436227"},{"1":"15.0","2":"8","3":"15.10000","4":"-0.10000000","5":"0.07142857","6":"3.280091","7":"2.658109e-05","8":"-0.03219725"},{"1":"21.4","2":"4","3":"26.66364","4":"-5.26363636","5":"0.09090909","6":"3.109812","7":"9.779034e-02","8":"-1.71280772"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<div class="sourceCode" id="cb2213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2213-1"><a href="group-comp.html#cb2213-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 참고</span></span>
-<span id="cb2213-2"><a href="group-comp.html#cb2213-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2213-3"><a href="group-comp.html#cb2213-3" aria-hidden="true" tabindex="-1"></a><span class="co"># .fitted &lt;- predict(m1) # 예측값(predicted value): X %*% bhat</span></span>
-<span id="cb2213-4"><a href="group-comp.html#cb2213-4" aria-hidden="true" tabindex="-1"></a><span class="co"># .resid &lt;- residuals(m1) # 잔차 y - X %*% bhat</span></span>
-<span id="cb2213-5"><a href="group-comp.html#cb2213-5" aria-hidden="true" tabindex="-1"></a><span class="co"># .hat &lt;- hatvalues(m1) # hat matrix의 대각원소</span></span>
-<span id="cb2213-6"><a href="group-comp.html#cb2213-6" aria-hidden="true" tabindex="-1"></a><span class="co"># hat matrix</span></span>
-<span id="cb2213-7"><a href="group-comp.html#cb2213-7" aria-hidden="true" tabindex="-1"></a><span class="co"># H &lt;- X %*% solve(t(X) %*% X) %*% t(X)</span></span>
-<span id="cb2213-8"><a href="group-comp.html#cb2213-8" aria-hidden="true" tabindex="-1"></a><span class="co"># H2 &lt;- H %*% H # H = H^2</span></span>
-<span id="cb2213-9"><a href="group-comp.html#cb2213-9" aria-hidden="true" tabindex="-1"></a><span class="co"># .std.resid &lt;- rstandard(m1) # 표준화 잔차</span></span>
-<span id="cb2213-10"><a href="group-comp.html#cb2213-10" aria-hidden="true" tabindex="-1"></a><span class="co"># .resid/(sigma(m1) * sqrt(1 - .hat))</span></span>
-<span id="cb2213-11"><a href="group-comp.html#cb2213-11" aria-hidden="true" tabindex="-1"></a><span class="co"># sse &lt;- sigma(m1)^2 * (32 - 2 - 1)</span></span>
-<span id="cb2213-12"><a href="group-comp.html#cb2213-12" aria-hidden="true" tabindex="-1"></a><span class="co"># .sigma &lt;- sqrt((sse - .resid^2/(1 - .hat))/(df.residual(m1)))</span></span>
-<span id="cb2213-13"><a href="group-comp.html#cb2213-13" aria-hidden="true" tabindex="-1"></a><span class="co"># .cooksd &lt;- cooks.distance(m1)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2216-1"><a href="group-comp.html#cb2216-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 참고</span></span>
+<span id="cb2216-2"><a href="group-comp.html#cb2216-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2216-3"><a href="group-comp.html#cb2216-3" aria-hidden="true" tabindex="-1"></a><span class="co"># .fitted &lt;- predict(m1) # 예측값(predicted value): X %*% bhat</span></span>
+<span id="cb2216-4"><a href="group-comp.html#cb2216-4" aria-hidden="true" tabindex="-1"></a><span class="co"># .resid &lt;- residuals(m1) # 잔차 y - X %*% bhat</span></span>
+<span id="cb2216-5"><a href="group-comp.html#cb2216-5" aria-hidden="true" tabindex="-1"></a><span class="co"># .hat &lt;- hatvalues(m1) # hat matrix의 대각원소</span></span>
+<span id="cb2216-6"><a href="group-comp.html#cb2216-6" aria-hidden="true" tabindex="-1"></a><span class="co"># hat matrix</span></span>
+<span id="cb2216-7"><a href="group-comp.html#cb2216-7" aria-hidden="true" tabindex="-1"></a><span class="co"># H &lt;- X %*% solve(t(X) %*% X) %*% t(X)</span></span>
+<span id="cb2216-8"><a href="group-comp.html#cb2216-8" aria-hidden="true" tabindex="-1"></a><span class="co"># H2 &lt;- H %*% H # H = H^2</span></span>
+<span id="cb2216-9"><a href="group-comp.html#cb2216-9" aria-hidden="true" tabindex="-1"></a><span class="co"># .std.resid &lt;- rstandard(m1) # 표준화 잔차</span></span>
+<span id="cb2216-10"><a href="group-comp.html#cb2216-10" aria-hidden="true" tabindex="-1"></a><span class="co"># .resid/(sigma(m1) * sqrt(1 - .hat))</span></span>
+<span id="cb2216-11"><a href="group-comp.html#cb2216-11" aria-hidden="true" tabindex="-1"></a><span class="co"># sse &lt;- sigma(m1)^2 * (32 - 2 - 1)</span></span>
+<span id="cb2216-12"><a href="group-comp.html#cb2216-12" aria-hidden="true" tabindex="-1"></a><span class="co"># .sigma &lt;- sqrt((sse - .resid^2/(1 - .hat))/(df.residual(m1)))</span></span>
+<span id="cb2216-13"><a href="group-comp.html#cb2216-13" aria-hidden="true" tabindex="-1"></a><span class="co"># .cooksd &lt;- cooks.distance(m1)</span></span></code></pre></div>
 <p></p>
 <div id="다수-변수에-대한-독립-이표본-t-검정-결과-정리" class="section level4 unnumbered hasAnchor">
 <h4>다수 변수에 대한 독립 이표본 t 검정 결과 정리<a href="group-comp.html#다수-변수에-대한-독립-이표본-t-검정-결과-정리" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb2214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2214-1"><a href="group-comp.html#cb2214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(kableExtra)</span>
-<span id="cb2214-2"><a href="group-comp.html#cb2214-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">&quot;data/dysmenorrhea.rds&quot;</span>)</span>
-<span id="cb2214-3"><a href="group-comp.html#cb2214-3" aria-hidden="true" tabindex="-1"></a>dat_lab <span class="ot">&lt;-</span> Hmisc<span class="sc">::</span><span class="fu">label</span>(dat)</span>
-<span id="cb2214-4"><a href="group-comp.html#cb2214-4" aria-hidden="true" tabindex="-1"></a>remove_attribute <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {<span class="fu">attributes</span>(x) <span class="ot">&lt;-</span> <span class="cn">NULL</span>; x}</span>
-<span id="cb2214-5"><a href="group-comp.html#cb2214-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2214-6"><a href="group-comp.html#cb2214-6" aria-hidden="true" tabindex="-1"></a><span class="do">## two sample t-test: making table</span></span>
-<span id="cb2214-7"><a href="group-comp.html#cb2214-7" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
-<span id="cb2214-8"><a href="group-comp.html#cb2214-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(age<span class="sc">:</span>pdi),</span>
-<span id="cb2214-9"><a href="group-comp.html#cb2214-9" aria-hidden="true" tabindex="-1"></a>            <span class="sc">~</span> <span class="fu">remove_attribute</span>(.)) <span class="sc">%&gt;%</span></span>
-<span id="cb2214-10"><a href="group-comp.html#cb2214-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb2214-11"><a href="group-comp.html#cb2214-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> age<span class="sc">:</span>pdi,</span>
-<span id="cb2214-12"><a href="group-comp.html#cb2214-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>,</span>
-<span id="cb2214-13"><a href="group-comp.html#cb2214-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span></span>
-<span id="cb2214-14"><a href="group-comp.html#cb2214-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb2214-15"><a href="group-comp.html#cb2214-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
-<span id="cb2214-16"><a href="group-comp.html#cb2214-16" aria-hidden="true" tabindex="-1"></a>  nest <span class="sc">%&gt;%</span></span>
-<span id="cb2214-17"><a href="group-comp.html#cb2214-17" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
-<span id="cb2214-18"><a href="group-comp.html#cb2214-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ttest_result =</span> <span class="fu">map</span>(data, <span class="sc">~</span> <span class="fu">t.test</span>(value <span class="sc">~</span> pidyn, <span class="at">data =</span> .x)),</span>
-<span id="cb2214-19"><a href="group-comp.html#cb2214-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">name =</span> dat_lab[<span class="dv">3</span><span class="sc">:</span><span class="dv">12</span>]) <span class="sc">%&gt;%</span></span>
-<span id="cb2214-20"><a href="group-comp.html#cb2214-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ttest_result =</span> <span class="fu">map</span>(ttest_result, <span class="sc">~</span><span class="fu">tidy</span>(.x))) <span class="sc">%&gt;%</span></span>
-<span id="cb2214-21"><a href="group-comp.html#cb2214-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, name, ttest_result) <span class="sc">%&gt;%</span></span>
-<span id="cb2214-22"><a href="group-comp.html#cb2214-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> ttest_result) <span class="ot">-&gt;</span> ttest_summary</span>
-<span id="cb2214-23"><a href="group-comp.html#cb2214-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2214-24"><a href="group-comp.html#cb2214-24" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
-<span id="cb2214-25"><a href="group-comp.html#cb2214-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(age<span class="sc">:</span>pdi),</span>
-<span id="cb2214-26"><a href="group-comp.html#cb2214-26" aria-hidden="true" tabindex="-1"></a>            <span class="sc">~</span> <span class="fu">remove_attribute</span>(.)) <span class="sc">%&gt;%</span></span>
-<span id="cb2214-27"><a href="group-comp.html#cb2214-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb2214-28"><a href="group-comp.html#cb2214-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> age<span class="sc">:</span>pdi,</span>
-<span id="cb2214-29"><a href="group-comp.html#cb2214-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>,</span>
-<span id="cb2214-30"><a href="group-comp.html#cb2214-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span></span>
-<span id="cb2214-31"><a href="group-comp.html#cb2214-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb2214-32"><a href="group-comp.html#cb2214-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable, pidyn) <span class="sc">%&gt;%</span></span>
-<span id="cb2214-33"><a href="group-comp.html#cb2214-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(value),</span>
-<span id="cb2214-34"><a href="group-comp.html#cb2214-34" aria-hidden="true" tabindex="-1"></a>            <span class="at">SD =</span> <span class="fu">sd</span>(value)) <span class="sc">%&gt;%</span></span>
-<span id="cb2214-35"><a href="group-comp.html#cb2214-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">res =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.1f ± %.1f&quot;</span>, Mean, SD)) <span class="sc">%&gt;%</span></span>
-<span id="cb2214-36"><a href="group-comp.html#cb2214-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Mean, <span class="sc">-</span>SD) <span class="sc">%&gt;%</span></span>
-<span id="cb2214-37"><a href="group-comp.html#cb2214-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> pidyn,</span>
-<span id="cb2214-38"><a href="group-comp.html#cb2214-38" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> res) <span class="ot">-&gt;</span> desc_summary</span></code></pre></div>
+<div class="sourceCode" id="cb2217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2217-1"><a href="group-comp.html#cb2217-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(kableExtra)</span>
+<span id="cb2217-2"><a href="group-comp.html#cb2217-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">&quot;data/dysmenorrhea.rds&quot;</span>)</span>
+<span id="cb2217-3"><a href="group-comp.html#cb2217-3" aria-hidden="true" tabindex="-1"></a>dat_lab <span class="ot">&lt;-</span> Hmisc<span class="sc">::</span><span class="fu">label</span>(dat)</span>
+<span id="cb2217-4"><a href="group-comp.html#cb2217-4" aria-hidden="true" tabindex="-1"></a>remove_attribute <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {<span class="fu">attributes</span>(x) <span class="ot">&lt;-</span> <span class="cn">NULL</span>; x}</span>
+<span id="cb2217-5"><a href="group-comp.html#cb2217-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2217-6"><a href="group-comp.html#cb2217-6" aria-hidden="true" tabindex="-1"></a><span class="do">## two sample t-test: making table</span></span>
+<span id="cb2217-7"><a href="group-comp.html#cb2217-7" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
+<span id="cb2217-8"><a href="group-comp.html#cb2217-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(age<span class="sc">:</span>pdi),</span>
+<span id="cb2217-9"><a href="group-comp.html#cb2217-9" aria-hidden="true" tabindex="-1"></a>            <span class="sc">~</span> <span class="fu">remove_attribute</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb2217-10"><a href="group-comp.html#cb2217-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb2217-11"><a href="group-comp.html#cb2217-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> age<span class="sc">:</span>pdi,</span>
+<span id="cb2217-12"><a href="group-comp.html#cb2217-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>,</span>
+<span id="cb2217-13"><a href="group-comp.html#cb2217-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span></span>
+<span id="cb2217-14"><a href="group-comp.html#cb2217-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2217-15"><a href="group-comp.html#cb2217-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb2217-16"><a href="group-comp.html#cb2217-16" aria-hidden="true" tabindex="-1"></a>  nest <span class="sc">%&gt;%</span></span>
+<span id="cb2217-17"><a href="group-comp.html#cb2217-17" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
+<span id="cb2217-18"><a href="group-comp.html#cb2217-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ttest_result =</span> <span class="fu">map</span>(data, <span class="sc">~</span> <span class="fu">t.test</span>(value <span class="sc">~</span> pidyn, <span class="at">data =</span> .x)),</span>
+<span id="cb2217-19"><a href="group-comp.html#cb2217-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">name =</span> dat_lab[<span class="dv">3</span><span class="sc">:</span><span class="dv">12</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb2217-20"><a href="group-comp.html#cb2217-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ttest_result =</span> <span class="fu">map</span>(ttest_result, <span class="sc">~</span><span class="fu">tidy</span>(.x))) <span class="sc">%&gt;%</span></span>
+<span id="cb2217-21"><a href="group-comp.html#cb2217-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, name, ttest_result) <span class="sc">%&gt;%</span></span>
+<span id="cb2217-22"><a href="group-comp.html#cb2217-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> ttest_result) <span class="ot">-&gt;</span> ttest_summary</span>
+<span id="cb2217-23"><a href="group-comp.html#cb2217-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2217-24"><a href="group-comp.html#cb2217-24" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
+<span id="cb2217-25"><a href="group-comp.html#cb2217-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(age<span class="sc">:</span>pdi),</span>
+<span id="cb2217-26"><a href="group-comp.html#cb2217-26" aria-hidden="true" tabindex="-1"></a>            <span class="sc">~</span> <span class="fu">remove_attribute</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb2217-27"><a href="group-comp.html#cb2217-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb2217-28"><a href="group-comp.html#cb2217-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> age<span class="sc">:</span>pdi,</span>
+<span id="cb2217-29"><a href="group-comp.html#cb2217-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>,</span>
+<span id="cb2217-30"><a href="group-comp.html#cb2217-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span></span>
+<span id="cb2217-31"><a href="group-comp.html#cb2217-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2217-32"><a href="group-comp.html#cb2217-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable, pidyn) <span class="sc">%&gt;%</span></span>
+<span id="cb2217-33"><a href="group-comp.html#cb2217-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(value),</span>
+<span id="cb2217-34"><a href="group-comp.html#cb2217-34" aria-hidden="true" tabindex="-1"></a>            <span class="at">SD =</span> <span class="fu">sd</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb2217-35"><a href="group-comp.html#cb2217-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">res =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.1f ± %.1f&quot;</span>, Mean, SD)) <span class="sc">%&gt;%</span></span>
+<span id="cb2217-36"><a href="group-comp.html#cb2217-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Mean, <span class="sc">-</span>SD) <span class="sc">%&gt;%</span></span>
+<span id="cb2217-37"><a href="group-comp.html#cb2217-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> pidyn,</span>
+<span id="cb2217-38"><a href="group-comp.html#cb2217-38" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> res) <span class="ot">-&gt;</span> desc_summary</span></code></pre></div>
 <pre><code>`summarise()` has grouped output by &#39;variable&#39;. You can override using the
 `.groups` argument.</code></pre>
-<div class="sourceCode" id="cb2216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2216-1"><a href="group-comp.html#cb2216-1" aria-hidden="true" tabindex="-1"></a>desc_summary <span class="sc">%&gt;%</span></span>
-<span id="cb2216-2"><a href="group-comp.html#cb2216-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(ttest_summary <span class="sc">%&gt;%</span></span>
-<span id="cb2216-3"><a href="group-comp.html#cb2216-3" aria-hidden="true" tabindex="-1"></a>               <span class="fu">select</span>(variable<span class="sc">:</span>name, statistic, parameter, p.value),</span>
-<span id="cb2216-4"><a href="group-comp.html#cb2216-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2216-5"><a href="group-comp.html#cb2216-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stat =</span> <span class="fu">sprintf</span>(<span class="st">&quot;$t_{</span><span class="sc">\\</span><span class="st">nu=%.1f}$ = %.2f&quot;</span>, parameter, statistic)) <span class="sc">%&gt;%</span></span>
-<span id="cb2216-6"><a href="group-comp.html#cb2216-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, Control<span class="sc">:</span>Dysmenorrhea, stat, p.value) <span class="sc">%&gt;%</span></span>
-<span id="cb2216-7"><a href="group-comp.html#cb2216-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, format, <span class="at">digits =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2216-8"><a href="group-comp.html#cb2216-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2216-9"><a href="group-comp.html#cb2216-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2219-1"><a href="group-comp.html#cb2219-1" aria-hidden="true" tabindex="-1"></a>desc_summary <span class="sc">%&gt;%</span></span>
+<span id="cb2219-2"><a href="group-comp.html#cb2219-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(ttest_summary <span class="sc">%&gt;%</span></span>
+<span id="cb2219-3"><a href="group-comp.html#cb2219-3" aria-hidden="true" tabindex="-1"></a>               <span class="fu">select</span>(variable<span class="sc">:</span>name, statistic, parameter, p.value),</span>
+<span id="cb2219-4"><a href="group-comp.html#cb2219-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2219-5"><a href="group-comp.html#cb2219-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stat =</span> <span class="fu">sprintf</span>(<span class="st">&quot;$t_{</span><span class="sc">\\</span><span class="st">nu=%.1f}$ = %.2f&quot;</span>, parameter, statistic)) <span class="sc">%&gt;%</span></span>
+<span id="cb2219-6"><a href="group-comp.html#cb2219-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, Control<span class="sc">:</span>Dysmenorrhea, stat, p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb2219-7"><a href="group-comp.html#cb2219-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, format, <span class="at">digits =</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2219-8"><a href="group-comp.html#cb2219-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">escape =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2219-9"><a href="group-comp.html#cb2219-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div>
 <pre><code>Adding missing grouping variables: `variable`
 `mutate_if()` ignored the following grouping variables:</code></pre>
 <table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
@@ -2771,46 +2775,46 @@ Weight [kg]
 </div>
 <div id="다수-변수에-대한-일원배치-분산분석-결과-정리" class="section level4 unnumbered hasAnchor">
 <h4>다수 변수에 대한 일원배치 분산분석 결과 정리<a href="group-comp.html#다수-변수에-대한-일원배치-분산분석-결과-정리" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb2218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2218-1"><a href="group-comp.html#cb2218-1" aria-hidden="true" tabindex="-1"></a><span class="co"># require(emmeans)</span></span>
-<span id="cb2218-2"><a href="group-comp.html#cb2218-2" aria-hidden="true" tabindex="-1"></a>abalone <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data&quot;</span>,</span>
-<span id="cb2218-3"><a href="group-comp.html#cb2218-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2218-4"><a href="group-comp.html#cb2218-4" aria-hidden="true" tabindex="-1"></a><span class="co"># vname &lt;- c(&quot;sex&quot;, &quot;length [mm]&quot;, &quot;diameter [mm]&quot;, &quot;height [mm]&quot;,</span></span>
-<span id="cb2218-5"><a href="group-comp.html#cb2218-5" aria-hidden="true" tabindex="-1"></a><span class="co">#            &quot;whole weight [g]&quot;, &quot;shucked weight [g]&quot;, &quot;viscera weight [g]&quot;, &quot;Ring&quot;)</span></span>
-<span id="cb2218-6"><a href="group-comp.html#cb2218-6" aria-hidden="true" tabindex="-1"></a>abalone <span class="sc">%&gt;%</span></span>
-<span id="cb2218-7"><a href="group-comp.html#cb2218-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">V1 =</span> <span class="fu">factor</span>(V1, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;I&quot;</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb2218-8"><a href="group-comp.html#cb2218-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> V2<span class="sc">:</span>V9,</span>
-<span id="cb2218-9"><a href="group-comp.html#cb2218-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>,</span>
-<span id="cb2218-10"><a href="group-comp.html#cb2218-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="ot">-&gt;</span> abalone_long</span>
-<span id="cb2218-11"><a href="group-comp.html#cb2218-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2218-12"><a href="group-comp.html#cb2218-12" aria-hidden="true" tabindex="-1"></a>abalone_long <span class="sc">%&gt;%</span></span>
-<span id="cb2218-13"><a href="group-comp.html#cb2218-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable, V1) <span class="sc">%&gt;%</span></span>
-<span id="cb2218-14"><a href="group-comp.html#cb2218-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(value),</span>
-<span id="cb2218-15"><a href="group-comp.html#cb2218-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">SD =</span> <span class="fu">sd</span>(value)) <span class="sc">%&gt;%</span></span>
-<span id="cb2218-16"><a href="group-comp.html#cb2218-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">res =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.3f ± %.3f&quot;</span>, Mean, SD)) <span class="sc">%&gt;%</span></span>
-<span id="cb2218-17"><a href="group-comp.html#cb2218-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Mean, <span class="sc">-</span>SD) <span class="sc">%&gt;%</span></span>
-<span id="cb2218-18"><a href="group-comp.html#cb2218-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> V1, <span class="at">values_from =</span> res) <span class="sc">%&gt;%</span></span>
-<span id="cb2218-19"><a href="group-comp.html#cb2218-19" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="ot">-&gt;</span> desc_summ</span></code></pre></div>
+<div class="sourceCode" id="cb2221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2221-1"><a href="group-comp.html#cb2221-1" aria-hidden="true" tabindex="-1"></a><span class="co"># require(emmeans)</span></span>
+<span id="cb2221-2"><a href="group-comp.html#cb2221-2" aria-hidden="true" tabindex="-1"></a>abalone <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data&quot;</span>,</span>
+<span id="cb2221-3"><a href="group-comp.html#cb2221-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2221-4"><a href="group-comp.html#cb2221-4" aria-hidden="true" tabindex="-1"></a><span class="co"># vname &lt;- c(&quot;sex&quot;, &quot;length [mm]&quot;, &quot;diameter [mm]&quot;, &quot;height [mm]&quot;,</span></span>
+<span id="cb2221-5"><a href="group-comp.html#cb2221-5" aria-hidden="true" tabindex="-1"></a><span class="co">#            &quot;whole weight [g]&quot;, &quot;shucked weight [g]&quot;, &quot;viscera weight [g]&quot;, &quot;Ring&quot;)</span></span>
+<span id="cb2221-6"><a href="group-comp.html#cb2221-6" aria-hidden="true" tabindex="-1"></a>abalone <span class="sc">%&gt;%</span></span>
+<span id="cb2221-7"><a href="group-comp.html#cb2221-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">V1 =</span> <span class="fu">factor</span>(V1, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;I&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb2221-8"><a href="group-comp.html#cb2221-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> V2<span class="sc">:</span>V9,</span>
+<span id="cb2221-9"><a href="group-comp.html#cb2221-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>,</span>
+<span id="cb2221-10"><a href="group-comp.html#cb2221-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="ot">-&gt;</span> abalone_long</span>
+<span id="cb2221-11"><a href="group-comp.html#cb2221-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2221-12"><a href="group-comp.html#cb2221-12" aria-hidden="true" tabindex="-1"></a>abalone_long <span class="sc">%&gt;%</span></span>
+<span id="cb2221-13"><a href="group-comp.html#cb2221-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable, V1) <span class="sc">%&gt;%</span></span>
+<span id="cb2221-14"><a href="group-comp.html#cb2221-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(value),</span>
+<span id="cb2221-15"><a href="group-comp.html#cb2221-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">SD =</span> <span class="fu">sd</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb2221-16"><a href="group-comp.html#cb2221-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">res =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.3f ± %.3f&quot;</span>, Mean, SD)) <span class="sc">%&gt;%</span></span>
+<span id="cb2221-17"><a href="group-comp.html#cb2221-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Mean, <span class="sc">-</span>SD) <span class="sc">%&gt;%</span></span>
+<span id="cb2221-18"><a href="group-comp.html#cb2221-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> V1, <span class="at">values_from =</span> res) <span class="sc">%&gt;%</span></span>
+<span id="cb2221-19"><a href="group-comp.html#cb2221-19" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="ot">-&gt;</span> desc_summ</span></code></pre></div>
 <pre><code>`summarise()` has grouped output by &#39;variable&#39;. You can override using the
 `.groups` argument.</code></pre>
-<div class="sourceCode" id="cb2220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2220-1"><a href="group-comp.html#cb2220-1" aria-hidden="true" tabindex="-1"></a>abalone_long <span class="sc">%&gt;%</span></span>
-<span id="cb2220-2"><a href="group-comp.html#cb2220-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
-<span id="cb2220-3"><a href="group-comp.html#cb2220-3" aria-hidden="true" tabindex="-1"></a>  nest <span class="sc">%&gt;%</span></span>
-<span id="cb2220-4"><a href="group-comp.html#cb2220-4" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
-<span id="cb2220-5"><a href="group-comp.html#cb2220-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lm_res =</span> <span class="fu">map</span>(data, <span class="sc">~</span> <span class="fu">lm</span>(value <span class="sc">~</span> V1, <span class="at">data =</span> .x)),</span>
-<span id="cb2220-6"><a href="group-comp.html#cb2220-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">aov_res =</span> <span class="fu">map</span>(lm_res, <span class="sc">~</span> <span class="fu">glance</span>(.x))) <span class="ot">-&gt;</span> lm_summ</span>
-<span id="cb2220-7"><a href="group-comp.html#cb2220-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2220-8"><a href="group-comp.html#cb2220-8" aria-hidden="true" tabindex="-1"></a>lm_summ <span class="sc">%&gt;%</span></span>
-<span id="cb2220-9"><a href="group-comp.html#cb2220-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, aov_res) <span class="sc">%&gt;%</span></span>
-<span id="cb2220-10"><a href="group-comp.html#cb2220-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> aov_res) <span class="sc">%&gt;%</span></span>
-<span id="cb2220-11"><a href="group-comp.html#cb2220-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, statistic, p.value) <span class="ot">-&gt;</span> aov_summ</span>
-<span id="cb2220-12"><a href="group-comp.html#cb2220-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2220-13"><a href="group-comp.html#cb2220-13" aria-hidden="true" tabindex="-1"></a>desc_summ <span class="sc">%&gt;%</span></span>
-<span id="cb2220-14"><a href="group-comp.html#cb2220-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(aov_summ, <span class="at">by =</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2220-15"><a href="group-comp.html#cb2220-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">statistic =</span> <span class="fu">format</span>(statistic, <span class="at">digits =</span> <span class="dv">2</span>),</span>
-<span id="cb2220-16"><a href="group-comp.html#cb2220-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">p.value =</span> <span class="fu">format</span>(p.value, <span class="at">digits =</span> <span class="dv">4</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb2220-17"><a href="group-comp.html#cb2220-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">F-value</span><span class="st">`</span> <span class="ot">=</span> statistic) <span class="sc">%&gt;%</span></span>
-<span id="cb2220-18"><a href="group-comp.html#cb2220-18" aria-hidden="true" tabindex="-1"></a>  kbl <span class="sc">%&gt;%</span></span>
-<span id="cb2220-19"><a href="group-comp.html#cb2220-19" aria-hidden="true" tabindex="-1"></a>  kable_paper</span></code></pre></div>
+<div class="sourceCode" id="cb2223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2223-1"><a href="group-comp.html#cb2223-1" aria-hidden="true" tabindex="-1"></a>abalone_long <span class="sc">%&gt;%</span></span>
+<span id="cb2223-2"><a href="group-comp.html#cb2223-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb2223-3"><a href="group-comp.html#cb2223-3" aria-hidden="true" tabindex="-1"></a>  nest <span class="sc">%&gt;%</span></span>
+<span id="cb2223-4"><a href="group-comp.html#cb2223-4" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
+<span id="cb2223-5"><a href="group-comp.html#cb2223-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lm_res =</span> <span class="fu">map</span>(data, <span class="sc">~</span> <span class="fu">lm</span>(value <span class="sc">~</span> V1, <span class="at">data =</span> .x)),</span>
+<span id="cb2223-6"><a href="group-comp.html#cb2223-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">aov_res =</span> <span class="fu">map</span>(lm_res, <span class="sc">~</span> <span class="fu">glance</span>(.x))) <span class="ot">-&gt;</span> lm_summ</span>
+<span id="cb2223-7"><a href="group-comp.html#cb2223-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2223-8"><a href="group-comp.html#cb2223-8" aria-hidden="true" tabindex="-1"></a>lm_summ <span class="sc">%&gt;%</span></span>
+<span id="cb2223-9"><a href="group-comp.html#cb2223-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, aov_res) <span class="sc">%&gt;%</span></span>
+<span id="cb2223-10"><a href="group-comp.html#cb2223-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> aov_res) <span class="sc">%&gt;%</span></span>
+<span id="cb2223-11"><a href="group-comp.html#cb2223-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, statistic, p.value) <span class="ot">-&gt;</span> aov_summ</span>
+<span id="cb2223-12"><a href="group-comp.html#cb2223-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2223-13"><a href="group-comp.html#cb2223-13" aria-hidden="true" tabindex="-1"></a>desc_summ <span class="sc">%&gt;%</span></span>
+<span id="cb2223-14"><a href="group-comp.html#cb2223-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(aov_summ, <span class="at">by =</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2223-15"><a href="group-comp.html#cb2223-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">statistic =</span> <span class="fu">format</span>(statistic, <span class="at">digits =</span> <span class="dv">2</span>),</span>
+<span id="cb2223-16"><a href="group-comp.html#cb2223-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">p.value =</span> <span class="fu">format</span>(p.value, <span class="at">digits =</span> <span class="dv">4</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2223-17"><a href="group-comp.html#cb2223-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">F-value</span><span class="st">`</span> <span class="ot">=</span> statistic) <span class="sc">%&gt;%</span></span>
+<span id="cb2223-18"><a href="group-comp.html#cb2223-18" aria-hidden="true" tabindex="-1"></a>  kbl <span class="sc">%&gt;%</span></span>
+<span id="cb2223-19"><a href="group-comp.html#cb2223-19" aria-hidden="true" tabindex="-1"></a>  kable_paper</span></code></pre></div>
 <table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>

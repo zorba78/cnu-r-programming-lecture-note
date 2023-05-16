@@ -964,8 +964,8 @@ Estimated pi:  3.141221
 ```
 
 ```
-   user  system elapsed 
-  0.198   0.009   0.207 
+ 사용자  시스템 elapsed 
+  0.171   0.035   0.206 
 ```
 
  \normalsize
