@@ -101,7 +101,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="08-algorithms-slides_files/libs/revealjs/dist/theme/quarto-6b123904e45af3e051da17feb240dcf6.css">
+  <link rel="stylesheet" href="08-algorithms-slides_files/libs/revealjs/dist/theme/quarto-24f60c1f7604f35612aadfaece930a8c.css">
   <link href="08-algorithms-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="08-algorithms-slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="08-algorithms-slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -200,7 +200,7 @@
 
 <section id="title-slide" class="quarto-title-block">
   <h1 class="title">알고리즘</h1>
-  <p class="subtitle">어떤 코드가 왜 더 많은 비용을 요구하는지 판단한다</p>
+  <p class="subtitle">코드가 요구하는 수행 시간과 메모리를 판단하기</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -215,30 +215,48 @@
 
   <p class="date">2026-09-11</p>
 </section>
+<section class="slide level2">
+
+<aside class="notes">
+<p>오늘은 8장 알고리즘입니다. 시작하기 전에 한 가지 정해 두고 갑시다.</p>
+<p>이 시간의 목표는 정렬 알고리즘 네 가지를 외우는 것이 아닙니다. 여러분이 앞으로 쓰게 될 코드는 대부분 여러분이 처음부터 짜는 코드가 아닐 겁니다. 검색해서 찾거나, AI에게 받거나, 남이 쓴 걸 가져다 쓰겠지요. 그때 필요한 건 “이 코드가 맞나” 와 “이 코드가 감당할 수 있나” 두 가지를 판단하는 능력입니다. 오늘 그 두 가지를 다룹니다.</p>
+<p>한 시간 반 기준으로, 앞의 40분이 비용 이야기, 뒤의 50분이 검증 이야기입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="이-수업에서-다루는-것" class="slide level2 smaller">
 <h2>이 수업에서 다루는 것</h2>
 <div class="keypoint">
-<p>알고리즘을 <strong>암기</strong>하는 것이 아니라, 구현이 <strong>맞는지</strong> 그리고 <strong>얼마나 비싼지</strong> 판단하는 능력을 기른다.</p>
+<p>알고리즘 <strong>암기</strong>가 아니라, 구현의 <strong>정확성</strong>과 <strong>수행 시간·메모리 요구량</strong>을 판단하는 능력</p>
 </div>
 <p><br></p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 6%">
-<col style="width: 30%">
-<col style="width: 64%">
+<col style="width: 32%">
+<col style="width: 62%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
 <th style="text-align: left;">절</th>
-<th style="text-align: left;">다루는 내용</th>
+<th style="text-align: left;">내용</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">1</td>
-<td style="text-align: left;">알고리즘과 비용</td>
-<td style="text-align: left;">시간·공간 복잡도, 빅오 표기법</td>
+<td style="text-align: left;">알고리즘과 계산 비용</td>
+<td style="text-align: left;">수행 시간·메모리, 빅오 표기법</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">2</td>
@@ -267,11 +285,40 @@
 </tr>
 </tbody>
 </table>
+<aside class="notes">
+<p>전체 지도를 먼저 보겠습니다.</p>
+<p>1절과 2절은 도구를 만드는 시간입니다. 비용을 재는 언어, 그러니까 빅오 표기법을 배우고, 재귀라는 사고 방식을 익힙니다.</p>
+<p>3절부터 5절까지가 그 도구를 쓰는 시간입니다. 탐색, 정렬, 수치 계산 세 가지 영역에서 같은 질문을 반복합니다. “이 구현이 맞는가”, “이 구현이 얼마나 드는가.”</p>
+<p>6절은 그 질문을 AI가 만들어 준 코드에 던지는 시간입니다. 사실 3절에서 하는 일과 6절에서 하는 일이 똑같습니다. 사람이 쓴 코드냐 기계가 쓴 코드냐만 다릅니다.</p>
+<p>표에서 3절과 6절을 짚으면서: 오늘 가장 중요한 두 절이 여기입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section>
-<section id="알고리즘과-비용" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
-<h1>1 · 알고리즘과 비용</h1>
-
+<section id="알고리즘과-계산-비용" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
+<h1>1 · 알고리즘과 계산 비용</h1>
+<aside class="notes">
+<p>첫 번째 절입니다. 비용이라는 말을 정확하게 정의하는 것부터 시작하겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="알고리즘이라-부르려면" class="slide level2 smaller">
 <h2>알고리즘이라 부르려면</h2>
@@ -284,25 +331,86 @@
 <p><strong>노트</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>알고리즘(algorithm)</strong>: 주어진 문제를 해결하기 위해 정해진 일련의 절차를 단계적으로 표현한 것.</p>
+<p><strong>알고리즘(algorithm)</strong> — 주어진 문제를 해결하기 위해 정해진 일련의 절차를 단계적으로 표현한 것</p>
 </div>
 </div>
 </div>
 <div class="columns">
 <div class="column" style="width:52%;">
 <ul>
-<li><strong>명확성</strong> — 각 단계가 모호하지 않다</li>
-<li><strong>유일성</strong> — 다음 단계가 하나로 결정된다</li>
-<li><strong>입력과 출력</strong> — 정의된 입력을 받아 결과를 낸다</li>
-<li><strong>유한성</strong> — 유한한 단계를 거쳐 반드시 종료한다</li>
-<li><strong>일반성</strong> — 정의된 입력 전체에 대해 동작한다</li>
+<li><strong>명확성</strong> — 각 단계가 모호하지 않음</li>
+<li><strong>유일성</strong> — 다음 단계가 하나로 결정됨</li>
+<li><strong>입력과 출력</strong> — 정의된 입력을 받아 결과 산출</li>
+<li><strong>유한성</strong> — 유한한 단계 뒤 반드시 종료</li>
+<li><strong>일반성</strong> — 정의된 입력 <strong>전체</strong>에 대해 동작</li>
 </ul>
 </div><div class="column" style="width:48%;">
 <div class="keypoint">
-<p>실제 구현에서 가장 자주 위반되는 조건은 <strong>유한성</strong>과 <strong>일반성</strong>이다.</p>
-<p>“특정 예제에서 올바르게 동작한다”와 “정의된 입력 전체에서 올바르게 동작한다”는 전혀 다른 진술이다.</p>
+<p>실제 구현에서 가장 자주 깨지는 조건 — <strong>유한성</strong>, <strong>일반성</strong></p>
+<p>“내 예제에서 동작” ≠ “정의된 입력 전체에서 동작”</p>
 </div>
 </div></div>
+<aside class="notes">
+<p>알고리즘의 조건 다섯 가지입니다. 교과서마다 표현은 조금씩 다릅니다만, 대체로 이렇습니다.</p>
+<p>앞의 세 개는 사실 당연한 이야기입니다. 애매하지 않아야 하고, 다음에 뭘 할지 정해져야 하고, 입력을 받아 출력을 내야 한다. 여기까지는 별로 어길 일이 없습니다.</p>
+<p>문제는 뒤의 두 개입니다. 오른쪽 상자를 보세요.</p>
+<p>유한성. 반드시 멈춰야 한다. 오늘 재귀를 배울 텐데, 종료 조건 하나 잘못 쓰면 안 멈춥니다. 직접 보여 드리겠습니다.</p>
+<p>일반성. 정의된 입력 <strong>전체</strong>에 대해 동작해야 한다. 여기서 ’전체’에 강조를 두세요. 여러분이 코드를 짜고 나서 뭘 합니까? 예제 한두 개 돌려 보고 “됐다” 하지요. 그건 그 예제 한두 개에서 됐다는 뜻이지, 전체에서 된다는 뜻이 아닙니다.</p>
+<p>오늘 이 문장을 세 번쯤 반복할 겁니다. 지금은 그냥 넘어가고, 3절에서 실제로 보여 드리겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="비용이란-무엇인가" class="slide level2 smaller">
+<h2>비용이란 무엇인가</h2>
+<div class="keypoint">
+<p>이 수업에서 <strong>비용</strong> — 알고리즘이 요구하는 <strong>수행 시간</strong>과 <strong>메모리</strong></p>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">수행 시간</span></p>
+<ul>
+<li>재는 단위 — <strong>연산 횟수</strong></li>
+<li>사칙연산 · 비교연산 · 반복 · 함수 호출</li>
+<li>시계로 잰 초는 하드웨어·부하에 따라 변동</li>
+<li>연산 횟수는 입력이 같으면 <strong>항상 같은 값</strong></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-slide">메모리</span></p>
+<ul>
+<li>재는 단위 — <strong>동시에 확보해야 하는 공간의 크기</strong></li>
+<li>변수 · 자료 구조 · 호출 스택 프레임</li>
+<li>재귀 깊이가 여기에 직접 들어감</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p>“이 코드가 비싸다” = “<strong>연산 횟수가 많다</strong>” 또는 “<strong>메모리를 많이 잡는다</strong>”<br> 둘 중 어느 쪽인지 항상 구분해서 말할 것</p>
+</div>
+<aside class="notes">
+<p>용어를 하나 정하고 가겠습니다. 오늘 ’비용’이라는 말을 계속 쓸 텐데, 이게 뭘 뜻하는지 명확히 해 두지 않으면 나중에 헷갈립니다.</p>
+<p>비용은 두 가지입니다. 수행 시간과 메모리.</p>
+<p>수행 시간을 뭘로 잽니까? 초시계로 재면 될 것 같지요. 그런데 그게 문제입니다. 같은 코드도 여러분 노트북에서 재는 것과 제 노트북에서 재는 것이 다르고, 백그라운드에 뭐가 돌고 있느냐에 따라 또 다릅니다. 그래서 우리는 <strong>연산 횟수</strong>를 셉니다. 연산 횟수는 입력이 같으면 언제 어디서 재도 같은 값이 나옵니다.</p>
+<p>메모리는 동시에 얼마나 잡고 있어야 하느냐입니다. 재귀를 배울 때 이게 왜 중요한지 바로 나옵니다. 재귀는 호출할 때마다 메모리를 쌓거든요.</p>
+<p>맨 아래 상자. 앞으로 “이 코드가 비싸다”고 하면, 여러분은 저한테 되물으셔야 합니다. “시간이 비싼 건가요, 메모리가 비싼 건가요?” 둘은 다른 문제고, 해결책도 다릅니다. 실제로 오늘 시간을 아끼려고 메모리를 더 쓰는 알고리즘이 나옵니다. 병합 정렬입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="결과가-같은-두-프로그램" class="slide level2">
 <h2>결과가 같은 두 프로그램</h2>
@@ -336,10 +444,27 @@
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
+<aside class="notes">
+<p>두 프로그램을 보겠습니다. 둘 다 1부터 n까지 숫자를 담은 벡터를 만듭니다.</p>
+<p>왼쪽은 <code>numeric(n)</code> 으로 자리를 먼저 다 잡아 놓고 하나씩 채웁니다. 오른쪽은 빈 걸로 시작해서 <code>c(x, i)</code> 로 하나씩 붙입니다.</p>
+<p>여러분이 R을 처음 배우면 오른쪽처럼 씁니다. 자연스럽거든요. 저도 그랬습니다.</p>
+<p>맨 아래 <code>identical</code> 이 TRUE 나왔지요. 결과는 똑같습니다. 한 글자도 안 다릅니다.</p>
+<p>그러면 두 코드는 같은 코드입니까? 다음 슬라이드에서 물어보겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="예측해-보자" class="slide level2 predict" data-background-color="#1F6F7A">
 <h2>예측해 보자</h2>
-<p><code>n</code> 이 5만일 때 두 프로그램의 실행 시간은 얼마나 차이 나겠는가?</p>
+<p><code>n</code> 이 5만일 때 두 프로그램의 실행 시간 차이는?</p>
 <div class="options">
 <div>
 <p><strong>A</strong> 비슷한 수준</p>
@@ -348,12 +473,29 @@
 <p><strong>B</strong> 두 배 정도</p>
 </div>
 <div>
-<p><strong>C</strong> 그보다 크다</p>
+<p><strong>C</strong> 그보다 큼</p>
 </div>
 </div>
 <div class="why">
-<p>틀린 예측이 학습의 출발점이다. 답을 적어 두어야 실행 결과와 대조할 것이 생긴다.</p>
+<p>실행 전에 답을 적을 것 — 틀린 예측이 학습의 출발점</p>
 </div>
+<aside class="notes">
+<p>자, 예측하는 시간입니다. 오늘 이 파란 화면이 여러 번 나옵니다. 이 화면이 나오면 <strong>손을 멈추고 답을 적으세요.</strong> 머릿속으로 생각만 하지 말고 적으세요.</p>
+<p>왜 적으라고 하냐면, 적어야 틀렸다는 걸 알 수 있기 때문입니다. 머릿속으로만 생각하면 결과를 보고 나서 “아 나도 그렇게 생각했어” 하게 됩니다. 사람 기억이 그렇게 생겼습니다.</p>
+<p>n이 5만입니다. A, B, C 중에 골라서 적으세요. 30초 드리겠습니다.</p>
+<p>(30초 후) 손 들어 볼까요. A라고 생각하신 분? B? C?</p>
+<p>좋습니다. 넘어가겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="실행과-대조" class="slide level2 smaller">
 <h2>실행과 대조</h2>
@@ -369,14 +511,34 @@
 <div class="cell-output cell-output-stdout">
 <pre><code>         방식   초
 1   사전 할당 0.00
-2 이어 붙이기 1.93</code></pre>
+2 이어 붙이기 1.92</code></pre>
 </div>
 </div>
 <div class="fragment">
 <div class="keypoint">
-<p><code>x &lt;- c(x, i)</code> 는 반복마다 <strong>길이가 1 만큼 늘어난 새 벡터를 할당하고 기존 원소를 전부 복사</strong>한다. 전체 복사량은 <span class="math inline">\(1 + 2 + \cdots + n = n(n-1)/2\)</span> 에 비례한다.</p>
-<p>사전 할당 방식은 이미 확보된 메모리에 값을 대입하므로 반복당 비용이 일정하다.</p>
+<p><code>x &lt;- c(x, i)</code> — 반복마다 <strong>길이가 1 늘어난 새 벡터를 할당하고 기존 원소 전부 복사</strong></p>
+<p><span class="math inline">\(i\)</span> 번째 반복에서 <span class="math inline">\(i\)</span> 개 복사 → 전체 복사량 <span class="math inline">\(1 + 2 + \cdots + n = n(n-1)/2\)</span> 에 비례</p>
+<p>사전 할당 — 이미 확보된 메모리에 값 대입, 반복당 비용 일정</p>
 </div>
+<aside class="notes">
+<p>(클릭) 결과입니다.</p>
+<p>몇 배 차이입니까? 사전 할당은 0에 가깝고, 이어 붙이기는 2초 가까이 나옵니다. B를 고르신 분들은 크게 빗나가셨습니다. 저도 처음에 이걸 재 보고 놀랐습니다.</p>
+<p>(클릭) 왜 그런지 보겠습니다.</p>
+<p>R에서 <code>c(x, i)</code> 는 x에 i를 덧붙이는 게 아닙니다. <strong>길이가 하나 더 긴 새 벡터를 만들어서, 기존 원소를 전부 복사해 넣고, 마지막에 i를 넣는</strong> 겁니다. 매번요.</p>
+<p>그러면 백 번째 반복에서는 99개를 복사하고, 천 번째 반복에서는 999개를 복사합니다. 다 더하면 n의 제곱에 비례하는 양이 됩니다. 오만 개면 12억 5천만 번쯤 복사한 셈입니다.</p>
+<p>반면 왼쪽은 자리를 미리 잡아 놨으니까 그냥 그 자리에 값을 씁니다. 반복마다 한 번씩.</p>
+<p>여기서 오늘의 첫 번째 교훈. 결과가 같다고 코드가 같은 게 아닙니다. 그리고 이 차이는 n이 작을 때는 안 보입니다. n이 천이면 둘 다 눈 깜짝할 사이입니다. 실제 데이터 크기에서 갑자기 튀어나옵니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
 <section id="시간-복잡도와-공간-복잡도" class="slide level2 smaller">
@@ -392,8 +554,9 @@
 <p><strong>노트</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>시간 복잡도</strong></p>
-<p>알고리즘이 종료할 때까지 수행하는 <strong>연산의 횟수</strong>. 사칙연산·비교연산·반복·함수 호출이 계수의 대상이다.</p>
+<p><strong>시간 복잡도(time complexity)</strong></p>
+<p>종료할 때까지 수행하는 <strong>연산 횟수</strong></p>
+<p>계수 대상 — 사칙연산, 비교연산, 반복, 함수 호출</p>
 </div>
 </div>
 </div>
@@ -407,18 +570,65 @@
 <p><strong>노트</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>공간 복잡도</strong></p>
-<p>알고리즘이 종료할 때까지 필요한 <strong>메모리의 크기</strong>. 변수의 개수·자료 구조·스택 프레임이 대상이다.</p>
+<p><strong>공간 복잡도(space complexity)</strong></p>
+<p>종료할 때까지 필요한 <strong>메모리 크기</strong></p>
+<p>대상 — 변수 개수, 자료 구조, 스택 프레임</p>
 </div>
 </div>
 </div>
 </div></div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">수행 시간</th>
+<th style="text-align: left;">메모리</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">프로그램 1 · 사전 할당</td>
+<td style="text-align: left;"><span class="math inline">\(n\)</span> 에 비례</td>
+<td style="text-align: left;">증가 없음</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">프로그램 2 · 이어 붙이기</td>
+<td style="text-align: left;"><span class="math inline">\(n^2\)</span> 에 비례</td>
+<td style="text-align: left;"><span class="math inline">\(n\)</span> 까지 증가</td>
+</tr>
+</tbody>
+</table>
 <div class="keypoint">
-<p>성능은 <strong>최악의 경우</strong>를 기준으로 평가한다. 최선은 특정 입력에서만 성립하고, 평균은 입력 분포를 가정해야 계산할 수 있는 반면, 최악은 임의의 입력에 대해 항상 성립하는 <strong>상한</strong>을 제공하기 때문이다.</p>
+<p>평가 기준은 <strong>최악의 경우(worst case)</strong> — 최선은 특정 입력에서만 성립, 평균은 입력 분포 가정 필요, 최악은 임의의 입력에 항상 성립하는 <strong>상한</strong></p>
 </div>
+<aside class="notes">
+<p>방금 본 걸 용어로 정리하겠습니다.</p>
+<p>시간 복잡도, 공간 복잡도. 이름은 거창한데 방금 우리가 한 게 그겁니다. 연산을 몇 번 하느냐, 메모리를 얼마나 잡느냐.</p>
+<p>가운데 표를 보세요. 프로그램 1은 시간이 n에 비례하고 메모리는 안 늘어납니다. 프로그램 2는 시간이 n 제곱에 비례하고 메모리도 n까지 늘어납니다. <strong>둘 다에서 진 겁니다.</strong> 시간도 지고 메모리도 지고.</p>
+<p>맨 아래 상자. 왜 최악의 경우로 재느냐. 학생들이 자주 묻는 질문입니다.</p>
+<p>최선의 경우로 재면 어떻게 됩니까? “운 좋으면 한 번에 찾습니다” 이건 약속이 아니지요. 평균으로 재면? 평균을 내려면 입력이 어떻게 분포하는지 알아야 하는데, 보통 모릅니다. 최악의 경우는 다릅니다. 어떤 입력이 들어와도 이것보다 나빠지지는 않는다. 이건 보장입니다.</p>
+<p>공학에서는 보장할 수 있는 걸 씁니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="빅오-표기법" class="slide level2 smaller">
 <h2>빅오 표기법</h2>
+<div class="columns">
+<div class="column" style="width:54%;">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -428,25 +638,80 @@
 <p><strong>노트</strong></p>
 </div>
 <div class="callout-content">
-<p><span class="math inline">\(x \geq k\)</span> 인 모든 <span class="math inline">\(x\)</span> 에 대해 <span class="math inline">\(|f(x)| \leq C|g(x)|\)</span> 를 만족하는 상수 <span class="math inline">\(k\)</span> 와 <span class="math inline">\(C\)</span> 가 존재하면 <span class="math inline">\(f(x) = \mathcal{O}(g(x))\)</span> 라 한다. 즉 <span class="math inline">\(g\)</span> 는 <span class="math inline">\(f\)</span> 의 <strong>점근적 상한</strong>이다.</p>
+<p><span class="math inline">\(x \geq k\)</span> 인 모든 <span class="math inline">\(x\)</span> 에 대해 <span class="math inline">\(|f(x)| \leq C|g(x)|\)</span> 를 만족하는 상수 <span class="math inline">\(k\)</span>, <span class="math inline">\(C\)</span> 가 존재 <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(f(x) = \mathcal{O}(g(x))\)</span></p>
 </div>
 </div>
 </div>
-<p>코드를 분석할 때 실제로 사용하는 것은 정의 자체보다 다음 세 규칙이다.</p>
+<ul>
+<li><span class="math inline">\(n\)</span> 이 충분히 커지면 <strong>저차항은 영향력 상실</strong></li>
+<li>증가율이 가장 큰 항만 남음</li>
+<li><span class="math inline">\(g\)</span> 는 <span class="math inline">\(f\)</span> 의 <strong>점근적 상한</strong></li>
+</ul>
+</div><div class="column" style="width:46%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../figures/big-o-explain.png" style="width:100.0%"></p>
+<figcaption>어떤 지점 <span class="math inline">\(k\)</span> 를 넘어서면 <span class="math inline">\(Cg(x)\)</span> 가 <span class="math inline">\(f(x)\)</span> 를 계속 위에서 덮음</figcaption>
+</figure>
+</div>
+</div></div>
+<aside class="notes">
+<p>빅오 표기법입니다. 정의부터 보시죠.</p>
+<p>수식이 좀 무섭게 생겼는데, 오른쪽 그림을 보면 한 줄로 정리됩니다.</p>
+<p>파란 선이 f(x), 우리가 재려는 알고리즘의 실제 연산 횟수입니다. 빨간 선이 Cg(x), 우리가 고른 기준 함수에 상수를 곱한 겁니다.</p>
+<p>x축의 k 지점을 보세요. 그 지점을 넘어가면 빨간 선이 파란 선보다 계속 위에 있습니다. 한 번도 안 내려옵니다. 이럴 때 “f는 g의 빅오다” 라고 합니다.</p>
+<p>즉 g는 천장입니다. 아무리 나빠도 이 천장은 안 뚫는다.</p>
+<p>여기서 중요한 게 “x가 k보다 클 때” 라는 조건입니다. 작을 때는 상관없어요. n이 10일 때 뭐가 빠른지는 아무도 신경 안 씁니다. n이 백만일 때가 문제지요. 그래서 빅오는 <strong>충분히 커졌을 때의 증가 양상</strong>만 봅니다. 저차항을 버리는 이유가 이겁니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="실제로-쓰는-것은-세-규칙" class="slide level2 smaller">
+<h2>실제로 쓰는 것은 세 규칙</h2>
 <div class="columns">
 <div class="column" style="width:33%;">
 <p><span class="label label-note">규칙 1 · 계수 법칙</span></p>
-<p>계수는 소거된다.</p>
+<p>계수 소거</p>
 <p><span class="math inline">\(\mathcal{O}(5n) = \mathcal{O}(n)\)</span></p>
+<p>반복이 <span class="math inline">\(5n\)</span> 번이든 <span class="math inline">\(100n\)</span> 번이든 모두 <span class="math inline">\(\mathcal{O}(n)\)</span></p>
 </div><div class="column" style="width:33%;">
 <p><span class="label label-note">규칙 2 · 합의 법칙</span></p>
-<p>증가율이 큰 쪽만 남는다.</p>
+<p>순차 실행 시 증가율이 큰 쪽만 잔존</p>
 <p><span class="math inline">\(\mathcal{O}(n) + \mathcal{O}(n^2) = \mathcal{O}(n^2)\)</span></p>
+<p>단, 입력 변수가 다르면 <span class="math inline">\(\mathcal{O}(n + m)\)</span></p>
 </div><div class="column" style="width:33%;">
 <p><span class="label label-note">규칙 3 · 곱의 법칙</span></p>
-<p>중첩되면 곱한다.</p>
+<p>반복문 중첩 시 반복 횟수 곱</p>
 <p><span class="math inline">\(\mathcal{O}(n) \times \mathcal{O}(n) = \mathcal{O}(n^2)\)</span></p>
 </div></div>
+<div class="keypoint">
+<p>코드 읽을 때 실제로 쓰는 것은 정의가 아니라 이 <strong>세 규칙</strong> — 반복이 몇 번 도는지만 세면 됨</p>
+</div>
+<aside class="notes">
+<p>정의는 시험 문제 풀 때 쓰고, 실제로 코드 볼 때 쓰는 건 이 세 개입니다.</p>
+<p>규칙 1. 계수는 버립니다. 반복을 5n번 돌든 100n번 돌든 O(n)입니다. 왜냐, n이 무한대로 가면 상수 100은 의미가 없거든요. 100 곱하기 무한대도 무한대입니다.</p>
+<p>규칙 2. 두 부분이 이어서 실행되면 큰 쪽만 남습니다. for문 하나 돌고 그다음에 이중 for문 돌면, 앞의 for문은 없는 셈 칩니다. 큰 쪽에 묻히니까요. 단서가 하나 있습니다. 입력 변수가 다르면 못 합칩니다. n짜리 반복 다음에 m짜리 반복이면 O(n + m)이고, 이건 더 못 줄입니다. n과 m 중 뭐가 큰지 모르니까요.</p>
+<p>규칙 3. 중첩되면 곱합니다. 이게 이중 for문이 왜 위험한지 설명해 줍니다.</p>
+<p>세 개 다 외우실 필요 없습니다. 코드 보고 “반복이 몇 번 도나” 세는 습관만 들이면 됩니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="차수가-다르면-무엇이-달라지는가" class="slide level2 smaller">
 <h2>차수가 다르면 무엇이 달라지는가</h2>
@@ -499,45 +764,155 @@
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="keypoint teal">
-<p><span class="math inline">\(n = 1{,}000\)</span> 에서 <span class="math inline">\(\mathcal{O}(n)\)</span> 과 <span class="math inline">\(\mathcal{O}(n^2)\)</span> 의 연산 횟수는 <strong>천 배</strong> 차이가 난다.</p>
+<p><span class="math inline">\(n = 1{,}000\)</span> — <span class="math inline">\(\mathcal{O}(n)\)</span> 과 <span class="math inline">\(\mathcal{O}(n^2)\)</span> 의 연산 횟수 <strong>천 배</strong> 차이</p>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="keypoint">
-<p><strong>차수가 다르면 하드웨어 성능 향상으로 해결할 수 있는 문제가 아니다.</strong></p>
+<p><strong>차수가 다르면 하드웨어 성능 향상으로 해결되지 않음</strong></p>
 </div>
 </div></div>
+<aside class="notes">
+<p>표를 보겠습니다. 가로가 복잡도 차수, 세로가 입력 크기입니다.</p>
+<p>n이 천일 때 줄을 따라가 보세요. O(n)은 천 번, O(n²)은 백만 번입니다. 천 배 차이입니다.</p>
+<p>맨 오른쪽 O(2ⁿ) 보이시죠. n이 백일 때 1.3 곱하기 10의 30승입니다. 이게 얼마나 큰 수냐면, 관측 가능한 우주에 있는 원자 수가 10의 80승 정도 됩니다. n이 천이면 10의 301승. 우주 원자 수를 아득히 넘어갑니다.</p>
+<p>오른쪽 아래 상자가 오늘 이 절의 결론입니다.</p>
+<p>차수가 다르면 컴퓨터를 바꿔서 해결할 수 있는 문제가 아닙니다. 컴퓨터가 백 배 빨라져도 O(n²)은 여전히 O(n²)입니다. 상수가 백분의 일로 줄 뿐이고, 규칙 1에 따라 상수는 버린다고 했지요. n을 조금만 키우면 도로아미타불입니다.</p>
+<p><strong>알고리즘을 바꿔야 합니다.</strong> 이게 이 과목이 존재하는 이유입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="차수의-증가-양상" class="slide level2 smaller">
+<h2>차수의 증가 양상</h2>
+
+<img data-src="08-algorithms-slides_files/figure-revealjs/complexity-plot-1.png" width="1056" class="r-stretch"><div class="keypoint teal">
+<p><span class="math inline">\(n\)</span> 이 <strong>40</strong>밖에 안 되는 구간 — 이미 <span class="math inline">\(\mathcal{O}(n^2)\)</span> 만 화면 밖으로 나감</p>
+</div>
+<aside class="notes">
+<p>같은 이야기를 그림으로 보겠습니다. 가로가 입력 크기, 세로가 연산 횟수입니다.</p>
+<p>회색 O(1)은 바닥에 붙어 있습니다. 입력이 아무리 커져도 일정합니다. 청록색 O(log n)은 거의 안 올라갑니다. 40에서도 5, 6 정도입니다. 초록색 O(n)은 직선으로 올라갑니다. 노란색 O(n log n)은 직선보다 조금 가파릅니다. 그리고 빨간색 O(n²). 저건 이미 화면 밖으로 나갔습니다.</p>
+<p>가로축을 보세요. <strong>n이 40입니다.</strong> 겨우 40에서 이렇습니다. 실제 데이터는 만 개, 십만 개, 백만 개짜리를 다룹니다.</p>
+<p>여러분이 앞으로 통계 분석하면서 만나는 데이터가 40개짜리는 없겠지요. 그러니까 이 그림의 오른쪽 끝을 백만까지 늘렸다고 상상해 보세요. 빨간 선은 그냥 세로선처럼 보일 겁니다.</p>
+<p>여기까지가 1절입니다. 잠깐 쉬었다가 재귀로 넘어가겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section id="재귀" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
 <h1>2 · 재귀</h1>
-
+<aside class="notes">
+<p>2절 재귀입니다. 여기서는 도구가 하나 더 늘어납니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="함수-호출과-재귀-호출" class="slide level2 smaller">
+<h2>함수 호출과 재귀 호출</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">일반 함수 호출</span></p>
+<p><img data-src="../figures/function-call.png" style="width:100.0%"></p>
+<p>호출 지점으로 <strong>복귀</strong></p>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-slide">재귀 호출</span></p>
+<p><img data-src="../figures/recursive-function-call.png" style="width:100.0%"></p>
+<p>복귀 지점이 <strong>자기 자신</strong></p>
+</div></div>
+<div class="keypoint">
+<p>호출마다 <strong>호출 스택(call stack)</strong> 에 새 프레임 누적 → 중단 조건 없으면 종료되지 않음</p>
+</div>
+<aside class="notes">
+<p>두 그림을 나란히 놓았습니다. 출처는 10bun.tv 입니다.</p>
+<p>왼쪽이 여러분이 아는 함수 호출입니다. main이 A를 부르고, A가 B를 부르고, B가 C를 부르고. C가 끝나면 B로 돌아오고, B가 끝나면 A로 돌아오고, A가 끝나면 main으로 돌아옵니다. 불렀던 자리로 되돌아오지요.</p>
+<p>오른쪽이 재귀입니다. 구조는 똑같습니다. 되돌아옵니다. 다른 건 하나뿐입니다. <strong>되돌아올 자리가 자기 자신</strong>이라는 것.</p>
+<p>아래 상자가 중요합니다. 함수를 부를 때마다 컴퓨터는 “어디로 돌아가야 하는지”, “지역 변수가 뭐였는지” 를 어딘가에 적어 둬야 합니다. 그 자리가 호출 스택입니다.</p>
+<p>재귀는 이걸 계속 쌓습니다. 열 번 부르면 열 층, 천 번 부르면 천 층. 그래서 두 가지 문제가 생깁니다. 하나는 안 멈추면 무한히 쌓인다는 것, 또 하나는 멈추더라도 메모리를 그만큼 쓴다는 것. 둘 다 오늘 직접 보겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="재귀-함수의-구성" class="slide level2 smaller">
 <h2>재귀 함수의 구성</h2>
-<p><strong>재귀 함수(recursive function)</strong> 는 자기 자신을 호출하는 함수다. 호출할 때마다 호출 스택(call stack)에 새로운 프레임이 누적되므로, 이를 중단시키는 조건이 없으면 함수는 종료되지 않는다.</p>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:46%;">
 <ol type="1">
-<li><strong>종료 조건(base case)</strong><br> 분할하지 않고 결과를 직접 반환</li>
-<li><strong>재귀 단계(recursive step)</strong><br> 문제의 크기를 줄여 자기 자신을 호출</li>
+<li><strong>종료 조건(base case)</strong><br> 분할하지 않고 결과 직접 반환</li>
+<li><strong>재귀 단계(recursive step)</strong><br> 문제 크기를 줄여 자기 자신 호출</li>
 </ol>
-</div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
 <span id="cb7-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(n)     <span class="co"># 종료 조건</span></span>
 <span id="cb7-3"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">+</span> <span class="fu">recursive_sum</span>(n <span class="sc">-</span> <span class="dv">1</span>)  <span class="co"># 재귀 단계</span></span>
 <span id="cb7-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-5"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">recursive_sum</span>(<span class="dv">3</span>)</span></code></pre></div>
+<span id="cb7-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">recursive_sum</span>(<span class="dv">3</span>)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
 </div>
+</div><div class="column" style="width:54%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../figures/recursive-sum-flows.png" style="width:100.0%"></p>
+<figcaption><code>recursive_sum(3)</code> 의 호출과 반환</figcaption>
+</figure>
+</div>
 </div></div>
+<aside class="notes">
+<p>재귀 함수는 무조건 두 부분입니다. 이것만 기억하시면 됩니다.</p>
+<p>종료 조건, 그리고 재귀 단계.</p>
+<p>코드를 보세요. <code>if (n == 1) return(n)</code> 이 종료 조건입니다. 더 안 쪼개고 답을 바로 줍니다. 그 아래 <code>n + recursive_sum(n - 1)</code> 이 재귀 단계입니다. n을 하나 줄여서 자기를 부릅니다.</p>
+<p>오른쪽 그림으로 따라가 보겠습니다.</p>
+<p><code>recursive_sum(3)</code> 을 부릅니다. n이 1이 아니니까 <code>recursive_sum(2)</code> 를 부릅니다. 2도 1이 아니니까 <code>recursive_sum(1)</code> 을 부릅니다. 1은 종료 조건에 걸립니다. 1을 반환합니다.</p>
+<p>이제 거슬러 올라옵니다. 2 더하기 1은 3. 3 더하기 3은 6. 최종적으로 6이 나옵니다. 1 더하기 2 더하기 3이 6 맞지요.</p>
+<p>여기서 화살표 방향을 잘 보세요. 내려갈 때는 쪼개기만 하고, 실제 계산은 <strong>올라올 때</strong> 일어납니다. 재귀가 헷갈리는 이유가 이겁니다. 내려가는 흐름과 올라오는 흐름 두 개가 동시에 있어서요.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="예측해-보자-1" class="slide level2 predict" data-background-color="#1F6F7A">
 <h2>예측해 보자</h2>
-<p><code>recursive_sum(0)</code> 은 무엇을 반환하겠는가?</p>
+<p><code>recursive_sum(0)</code> 의 반환값은?</p>
 <div class="options">
 <div>
 <p><strong>A</strong> <code>0</code></p>
@@ -550,8 +925,25 @@
 </div>
 </div>
 <div class="why">
-<p>위 함수는 정상적으로 동작한다. 그렇다면 “정의된 입력 전체”에 대해서도 그러한가?</p>
+<p>방금 확인 — 이 함수는 정상 동작<br> 그런데 “정의된 입력 <strong>전체</strong>”에 대해서도 그러한가?</p>
 </div>
+<aside class="notes">
+<p>다시 예측 시간입니다. 적으세요.</p>
+<p>방금 <code>recursive_sum(3)</code> 이 6을 잘 내놨습니다. 잘 동작하는 함수처럼 보입니다.</p>
+<p>그런데 0을 넣으면요?</p>
+<p>힌트를 하나 드리겠습니다. 아까 알고리즘의 조건 다섯 개 중에 뭐가 자주 깨진다고 했지요? 유한성하고 일반성. 그 말을 지금 하는 이유가 있겠지요.</p>
+<p>30초 드리겠습니다. A, B, C.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="종료-조건의-한계" class="slide level2 smaller">
 <h2>종료 조건의 한계</h2>
@@ -565,12 +957,13 @@
 </div>
 </div>
 <div class="fragment">
-<p><code>n</code> 이 0이면 <code>n == 1</code> 은 결코 참이 되지 않는다. 인수가 계속 감소하다가 R 의 중첩 한계에 도달해서야 중단된다. <strong>종료 조건은 “<code>n</code> 이 1 이하일 때”로 규정했어야 한다.</strong></p>
+<ul>
+<li><code>n</code> 이 0이면 <code>n == 1</code> 은 <strong>결코 참이 되지 않음</strong></li>
+<li>인수가 <code>0, -1, -2, ...</code> 로 계속 감소 → R 의 중첩 한계에 도달해서야 중단</li>
+<li>올바른 종료 조건 — “<code>n</code> 이 <strong>1 이하</strong>일 때”</li>
+</ul>
 </div>
 <div class="fragment">
-<div class="keypoint">
-<p>결함은 입력이 커질 때만 드러나는 것이 아니라, <strong>정의역의 경계 바로 바깥에서도</strong> 드러난다.</p>
-</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum2 <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
 <span id="cb11-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;=</span> <span class="dv">1</span>) <span class="fu">return</span>(n)          <span class="co"># 경계 조건을 포함한다</span></span>
@@ -581,11 +974,34 @@
 <pre><code>[1]    0    1 5050</code></pre>
 </div>
 </div>
+<div class="keypoint">
+<p>결함은 입력이 <strong>커질 때</strong>만 드러나지 않음 — <strong>정의역의 경계 바로 바깥</strong>에서도 드러남</p>
+</div>
+<aside class="notes">
+<p>(클릭) 답은 C, 오류입니다.</p>
+<p>메시지를 읽어 보세요. “evaluation nested too deeply”, 너무 깊이 중첩됐다. 무한 재귀에 빠졌다는 뜻입니다.</p>
+<p>(클릭) 왜 그럴까요.</p>
+<p>n이 0입니다. 종료 조건이 <code>n == 1</code> 이지요. 0은 1이 아닙니다. 그래서 <code>recursive_sum(-1)</code>을 부릅니다. -1도 1이 아니지요. <code>recursive_sum(-2)</code>. -2도 아니지요…</p>
+<p><strong>영원히 1을 못 만납니다.</strong> 1을 지나쳐서 내려가 버렸으니까요. 그러다 R이 “더는 못 쌓겠다” 하고 뻗는 겁니다.</p>
+<p>고치는 건 간단합니다. <code>n == 1</code> 을 <code>n &lt;= 1</code> 로 바꾸면 됩니다. 등호 하나 추가. (클릭) 이렇게요. 0, 1, 100 다 잘 나옵니다.</p>
+<p>맨 아래 상자. 이게 오늘 두 번째 교훈입니다.</p>
+<p>우리는 보통 “입력이 커지면 문제가 생긴다” 고 생각합니다. 그것도 맞습니다. 그런데 지금 본 건 반대입니다. <strong>입력이 경계 바로 바깥으로 나갔을 때</strong> 터졌습니다. 0은 큰 수가 아니지요. 오히려 작습니다.</p>
+<p>여러분이 함수를 짜면 항상 물어보세요. “정의역의 끝에서 어떻게 되나?” 빈 벡터, 길이 1, 0, 음수. 이 네 가지는 습관적으로 넣어 보세요.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
 <section id="재귀의-비용" class="slide level2 smaller">
 <h2>재귀의 비용</h2>
-<p>재귀 호출은 호출마다 스택 프레임을 누적하므로 <strong>공간 복잡도가 <span class="math inline">\(\mathcal{O}(n)\)</span></strong> 이다. R 은 중첩 깊이를 <code>options(expressions)</code> 로 제한하며 기본값은 5000이다.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">recursive_sum2</span>(<span class="dv">1000</span>)                     <span class="co"># 정상적으로 동작한다</span></span></code></pre></div>
 </div>
@@ -600,24 +1016,99 @@
 </div>
 </div>
 <div class="fragment">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">재귀</span></p>
+<ul>
+<li>공간 복잡도 <span class="math inline">\(\mathcal{O}(n)\)</span> — 호출마다 스택 프레임 누적</li>
+<li>R 의 중첩 깊이 제한 — <code>options(expressions)</code>, 기본 5000</li>
+<li>읽기 쉬움</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-slide">반복문</span></p>
+<ul>
+<li>공간 복잡도 <span class="math inline">\(\mathcal{O}(1)\)</span></li>
+<li>깊이 제한 없음</li>
+<li>상대적으로 읽기 어려움</li>
+</ul>
+</div></div>
 <div class="keypoint">
-<p>재귀는 <strong>가독성을 얻는 대신 메모리를 소비한다.</strong> 재귀 구조로 문제를 먼저 이해한 뒤, 필요하면 반복문으로 변환하는 순서가 안전하다. 반복문 구현은 공간 복잡도가 <span class="math inline">\(\mathcal{O}(1)\)</span> 이고 깊이 제한도 없다.</p>
+<p>재귀 — <strong>가독성을 얻는 대신 메모리 소비</strong><br> 재귀로 먼저 이해하고, 필요하면 반복문으로 변환하는 순서가 안전</p>
 </div>
+<aside class="notes">
+<p>아까 메모리 이야기 했지요. 그걸 확인하겠습니다.</p>
+<p>(클릭) 천까지는 잘 됩니다. 500500 나왔네요. 그런데 오천에서 터집니다. 같은 오류입니다. 너무 깊이 중첩됐다.</p>
+<p>이번엔 무한 재귀가 아닙니다. 종료 조건 제대로 고쳤잖아요. 그냥 <strong>깊이가 오천이라 메모리가 모자란</strong> 겁니다.</p>
+<p>R은 중첩 깊이를 기본 5000으로 제한합니다. <code>options(expressions)</code> 로 늘릴 수는 있는데, 늘려도 결국 한계는 있습니다.</p>
+<p>(클릭) 정리하면 이렇습니다.</p>
+<p>재귀는 공간 복잡도가 O(n)입니다. n번 부르면 n층 쌓이니까요. 같은 계산을 for문으로 쓰면 O(1)입니다. 변수 하나만 있으면 되거든요. 깊이 제한도 없고요.</p>
+<p>그러면 재귀를 왜 씁니까? <strong>읽기 쉬워서</strong>입니다. 그게 다입니다. 하노이 탑을 잠시 후에 볼 텐데, 그건 for문으로 짜라고 하면 정말 어렵습니다.</p>
+<p>그래서 제 권고는 이렇습니다. 재귀로 먼저 이해하세요. 문제 구조가 보입니다. 그다음에 실전 코드가 필요하면 반복문으로 옮기세요. 순서가 중요합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
 <section id="하노이-탑" class="slide level2 smaller">
 <h2>하노이 탑</h2>
-<p>기둥 세 개와 크기가 다른 원판 <span class="math inline">\(n\)</span> 개. 한 번에 하나씩만 옮기고, 큰 원판을 작은 원판 위에 올릴 수 없다. 해법의 핵심은 문제를 <strong>한 단계 작은 동일 문제로 환원</strong>하는 것이다.</p>
 <div class="columns">
-<div class="column" style="width:54%;">
+<div class="column" style="width:50%;">
+<p><img data-src="../figures/hanoi-problem.gif" style="width:100.0%"></p>
+<p><strong>규칙</strong></p>
+<ul>
+<li>한 번에 원판 하나만 이동</li>
+<li>큰 원판을 작은 원판 위에 올릴 수 없음</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>해법 — 한 단계 작은 동일 문제로 환원</strong></p>
+<ol type="1">
+<li>위쪽 <span class="math inline">\(n-1\)</span> 개를 A <span class="math inline">\(\rightarrow\)</span> B<br> <span class="tiny">(크기만 하나 작은 동일 문제)</span></li>
+<li>가장 큰 원판을 A <span class="math inline">\(\rightarrow\)</span> C</li>
+<li>B 의 <span class="math inline">\(n-1\)</span> 개를 B <span class="math inline">\(\rightarrow\)</span> C<br> <span class="tiny">(역시 동일 문제)</span></li>
+</ol>
+<p><img data-src="../figures/hanoi-solution.gif" style="width:100.0%"></p>
+</div></div>
+<aside class="notes">
+<p>하노이 탑입니다. 재귀 없이는 설명하기 어려운 대표적인 문제예요.</p>
+<p>왼쪽 애니메이션을 보세요. 기둥이 세 개 있고, 원판이 크기 순으로 쌓여 있습니다. 이걸 전부 오른쪽 기둥으로 옮기는 게 목표입니다.</p>
+<p>규칙은 두 개. 한 번에 하나씩만 옮긴다. 큰 걸 작은 것 위에 올리면 안 된다.</p>
+<p>자, 이걸 어떻게 풉니까? 원판이 세 개면 손으로 해 볼 만합니다. 근데 열 개면요? 순서를 어떻게 정합니까?</p>
+<p>여기서 재귀적으로 생각하는 게 뭔지 보여 드리겠습니다.</p>
+<p><strong>전부 다 옮기는 방법을 생각하지 마세요.</strong> 대신 이렇게 물어보세요. “맨 아래 제일 큰 원판을 C로 옮기려면 그 직전에 뭐가 되어 있어야 하지?”</p>
+<p>답이 나옵니다. 위에 있는 n-1개가 전부 B에 가 있어야 합니다. 그래야 큰 걸 옮기지요.</p>
+<p>그러면 세 단계입니다. n-1개를 B로. 큰 거 하나를 C로. B의 n-1개를 C로.</p>
+<p>그런데 1번과 3번이 뭡니까? <strong>똑같은 문제</strong>입니다. 크기만 하나 작아요. 이게 재귀입니다. 문제를 한 겹 벗겨서 같은 모양의 작은 문제로 만드는 것.</p>
+<p>오른쪽 아래 애니메이션이 원판 세 개짜리 정답입니다. 일곱 번 움직이지요.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="하노이-탑-구현" class="slide level2 smaller">
+<h2>하노이 탑 구현</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-hidden="true" tabindex="-1"></a>move_hanoi <span class="ot">&lt;-</span> <span class="cf">function</span>(k, from, to, via) {</span>
 <span id="cb17-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (k <span class="sc">==</span> <span class="dv">1</span>) {</span>
 <span id="cb17-3"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"원판 1: %s -&gt; %s</span><span class="sc">\n</span><span class="st">"</span>, from, to))</span>
 <span id="cb17-4"><a href="" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb17-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, from, via, to)</span>
-<span id="cb17-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"원판 %d: %s -&gt; %s</span><span class="sc">\n</span><span class="st">"</span>, k, from, to))</span>
-<span id="cb17-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, via, to, from)</span>
+<span id="cb17-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, from, via, to)                    <span class="co"># 1. 위쪽 n-1 개</span></span>
+<span id="cb17-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"원판 %d: %s -&gt; %s</span><span class="sc">\n</span><span class="st">"</span>, k, from, to))     <span class="co"># 2. 가장 큰 원판</span></span>
+<span id="cb17-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, via, to, from)                    <span class="co"># 3. 나머지 n-1 개</span></span>
 <span id="cb17-8"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb17-9"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb17-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">move_hanoi</span>(<span class="dv">3</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"B"</span>)</span></code></pre></div>
@@ -631,17 +1122,45 @@
 원판 1: A -&gt; C</code></pre>
 </div>
 </div>
-</div><div class="column" style="width:46%;">
 <div class="keypoint">
-<p>이동 횟수는 <span class="math inline">\(2^n - 1\)</span> 이다. 호출이 매 단계에서 두 개로 분기하기 때문이다. 즉 <span class="math inline">\(\mathcal{O}(2^n)\)</span> 이다.</p>
-<p>전설의 원판 64개는 1초에 한 번씩 옮겨도 <strong>5천억 년</strong>이 넘게 걸린다.</p>
+<p>이동 횟수 <span class="math inline">\(2^n - 1\)</span> — 호출이 매 단계 두 개로 분기 → <span class="math inline">\(\mathcal{O}(2^n)\)</span><br> 원판 64개 = 1초에 하나씩 옮겨도 <strong>5천억 년</strong> 초과</p>
 </div>
-</div></div>
+<aside class="notes">
+<p>코드가 몇 줄입니까? 실질적으로 다섯 줄입니다.</p>
+<p>주석을 보세요. 방금 말한 세 단계가 그대로 세 줄입니다. 1번 줄이 위쪽 n-1개, 2번 줄이 가장 큰 원판, 3번 줄이 나머지 n-1개.</p>
+<p>인자를 잘 보세요. 1번에서는 <code>from, via, to</code> 순서고 3번에서는 <code>via, to, from</code> 입니다. 목적지와 경유지가 바뀝니다. 이게 헷갈리는 부분인데, 그림을 다시 떠올리시면 됩니다. 처음엔 B가 목적지고, 나중엔 B가 출발지지요.</p>
+<p>출력을 보세요. 일곱 줄 나왔습니다. 아까 애니메이션과 같습니다.</p>
+<p>아래 상자. 원판이 n개면 2의 n승 빼기 1번입니다. 왜냐, 함수가 자기를 <strong>두 번</strong> 부르잖아요. 한 번 내려갈 때마다 두 배로 불어납니다.</p>
+<p>전설에서는 원판이 64개라고 합니다. 2의 64승. 1초에 하나씩 옮겨도 5천억 년이 넘습니다. 우주 나이가 138억 년이니까, 우주 나이의 서른 배쯤 걸립니다.</p>
+<p>여기서 재미있는 점. 이 알고리즘은 <strong>최선</strong>입니다. 더 빨리 옮기는 방법이 없어요. 알고리즘이 나빠서 오래 걸리는 게 아니라, 문제 자체가 그런 겁니다. 이런 걸 지수 시간 문제라고 합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section id="탐색-알고리즘" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
 <h1>3 · 탐색 알고리즘</h1>
-
+<aside class="notes">
+<p>3절입니다. 오늘 가장 중요한 절이라고 처음에 말씀드렸지요. 여기서 검증 이야기가 시작됩니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="선형-탐색과-이진-탐색" class="slide level2 smaller">
 <h2>선형 탐색과 이진 탐색</h2>
@@ -656,7 +1175,11 @@
 <span id="cb19-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA_integer_</span></span>
 <span id="cb19-6"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
-<p>첫 원소부터 순차적으로 비교한다. 정렬되어 있지 않아도 적용할 수 있다.</p>
+<ul>
+<li>첫 원소부터 <strong>순차 비교</strong></li>
+<li>정렬 불필요</li>
+<li>최악의 경우 <span class="math inline">\(n\)</span> 회 비교</li>
+</ul>
 </div><div class="column" style="width:50%;">
 <p><span class="label label-slide">이진 탐색 · <span class="math inline">\(\mathcal{O}(\log n)\)</span></span></p>
 <div class="cell">
@@ -671,12 +1194,34 @@
 <span id="cb20-9"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA_integer_</span></span>
 <span id="cb20-10"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
-<p>비교를 한 번 할 때마다 후보가 절반으로 줄어든다. 단, <strong>정렬되어 있어야</strong> 한다.</p>
+<ul>
+<li>중앙값과 비교 후 <strong>절반 제외</strong></li>
+<li><strong>정렬 필수</strong></li>
+</ul>
 </div></div>
+
+<img data-src="https://blog.penjee.com/wp-content/uploads/2015/04/binary-and-linear-search-animations.gif" style="width:52.0%" class="r-stretch quarto-figure-center"><p class="caption">위 = 이진 탐색, 아래 = 선형 탐색</p><aside class="notes">
+<p>탐색 알고리즘 두 개입니다.</p>
+<p>왼쪽 선형 탐색. 앞에서부터 하나씩 봅니다. 단순하지요. 정렬 안 되어 있어도 씁니다. 최악의 경우가 언제입니까? 찾는 게 맨 뒤에 있거나, 아예 없을 때. n번 다 봐야 합니다.</p>
+<p>오른쪽 이진 탐색. 가운데를 먼저 봅니다. 찾는 값이 그보다 작으면 오른쪽 절반은 아예 안 봅니다. 크면 왼쪽 절반을 버립니다. 한 번 비교할 때마다 후보가 반으로 줄어요.</p>
+<p>대신 조건이 있습니다. <strong>정렬되어 있어야 합니다.</strong> 안 그러면 “가운데보다 작으니 왼쪽” 이라는 판단 자체가 성립을 안 하지요.</p>
+<p>아래 애니메이션을 보세요. 위가 이진 탐색, 아래가 선형 탐색입니다. 같은 배열에서 같은 값을 찾는데 속도가 확연히 다르지요.</p>
+<p>이진 탐색이 왜 log n이냐. n개에서 시작해서 n/2, n/4, n/8… 이렇게 줄어듭니다. 몇 번 나누면 1이 됩니까? 그게 log₂n 입니다. 백만 개면 스무 번이면 됩니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="예측해-보자-2" class="slide level2 predict" data-background-color="#1F6F7A">
 <h2>예측해 보자</h2>
-<p>아래 재귀 구현에 벡터의 모든 원소를 입력하면 몇 개나 정확히 찾아내겠는가?</p>
+<p>아래 재귀 구현에 벡터의 <strong>모든 원소</strong>를 입력하면 몇 개나 정확히 찾아내는가?</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="" aria-hidden="true" tabindex="-1"></a>rbinary_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec, minL, maxL) {</span>
 <span id="cb21-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (maxL <span class="sc">&lt;=</span> minL) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)</span>
 <span id="cb21-3"><a href="" aria-hidden="true" tabindex="-1"></a>  midL <span class="ot">&lt;-</span> <span class="fu">floor</span>((minL <span class="sc">+</span> maxL) <span class="sc">/</span> <span class="dv">2</span>)</span>
@@ -690,13 +1235,32 @@
 <p><strong>B</strong> 절반쯤</p>
 </div>
 <div>
-<p><strong>C</strong> 하나도 못 찾는다</p>
+<p><strong>C</strong> 하나도 못 찾음</p>
 </div>
 </div>
+<aside class="notes">
+<p>이번 예측이 오늘의 핵심입니다.</p>
+<p>방금 본 이진 탐색을 재귀로 쓴 겁니다. 실제로 우리 강의노트에 몇 년째 실려 있던 코드예요.</p>
+<p>첫 줄을 보세요. <code>if (maxL &lt;= minL) return(NA_integer_)</code>. 탐색 범위가 다 떨어졌으면 못 찾았다고 반환하는, 종료 조건입니다.</p>
+<p>이 함수에 벡터의 <strong>모든 원소</strong>를 하나씩 넣어 보면 몇 개나 제대로 찾을까요?</p>
+<p>A 전부, B 절반쯤, C 하나도 못 찾음.</p>
+<p>여기서 조금만 생각해 보세요. 제가 굳이 이 질문을 하는 이유가 있겠지요?</p>
+<p>적으셨으면 넘어가겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="구현의-정확성-검증" class="slide level2 smaller">
 <h2>구현의 정확성 검증</h2>
-<p><strong>전수 검사</strong> — 벡터의 모든 원소를 차례로 목표값으로 입력한다.</p>
+<p><strong>전수 검사</strong> — 벡터의 모든 원소를 차례로 목표값으로 입력</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="" aria-hidden="true" tabindex="-1"></a>found <span class="ot">&lt;-</span> <span class="fu">vapply</span>(<span class="fu">seq_along</span>(x), <span class="cf">function</span>(i) {</span>
 <span id="cb22-2"><a href="" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">&lt;-</span> <span class="fu">rbinary_search</span>(x[i], x, <span class="dv">1</span>, <span class="fu">length</span>(x))</span>
@@ -713,8 +1277,29 @@
 </div>
 <div class="fragment">
 <div class="keypoint">
-<p>원인은 첫 줄의 <code>if (maxL &lt;= minL) return(NA_integer_)</code> 이다. 탐색 범위가 원소 하나로 좁혀지면 <code>minL == maxL</code> 이 되는데, 이 조건은 <strong>남은 원소를 검사하지 않은 채 탐색을 종료한다.</strong> 탐색 범위가 실제로 비는 조건은 <code>minL &gt; maxL</code> 이다.</p>
+<p>원인 — 첫 줄의 <code>if (maxL &lt;= minL) return(NA_integer_)</code></p>
+<p>탐색 범위가 원소 하나로 좁혀지면 <code>minL == maxL</code> → <strong>남은 원소를 검사하지 않고 종료</strong></p>
+<p>범위가 실제로 비는 조건은 <code>minL &gt; maxL</code></p>
 </div>
+<aside class="notes">
+<p>답은 B입니다. (클릭)</p>
+<p>스무 개 중에 여덟 개를 못 찾습니다. 40퍼센트요.</p>
+<p>이게 왜 무서운 결과냐면, 이 코드가 <strong>몇 년 동안 강의노트에 실려 있었습니다.</strong> 그동안 아무도 몰랐어요. 저도 몰랐습니다.</p>
+<p>왜 몰랐을까요? 노트에 있던 예제가 이랬거든요. <code>set.seed(2)</code> 로 값 하나 뽑아서 넣어 봤습니다. 그리고 그게 <strong>우연히 잘 찾아지는 값</strong>이었습니다. 예제 하나 통과하니까 다들 넘어간 거지요.</p>
+<p>(클릭) 원인을 보겠습니다.</p>
+<p>첫 줄. <code>maxL &lt;= minL</code> 이면 포기한다. 그런데 생각해 보세요. 탐색 범위가 좁아져서 원소가 딱 하나 남으면 어떻게 됩니까? minL하고 maxL이 같아집니다. 그러면 이 조건에 걸리지요. <strong>그 하나를 확인해 보지도 않고</strong> 없다고 답합니다.</p>
+<p>범위가 진짜로 비는 건 언제입니까? minL이 maxL보다 <strong>커졌을</strong> 때입니다. 등호 하나 차이입니다. 그런데 결과는 40퍼센트 실패예요.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
 <section id="오류-메시지-없이-틀린-코드" class="slide level2 smaller">
@@ -735,13 +1320,33 @@
 </div>
 </div>
 <div class="keypoint">
-<p><code>rbinary_search()</code> 는 문법 오류가 없고, 실행 시 오류 메시지도 출력하지 않으며, 저자가 선택한 예제에서는 정답을 반환한다. <strong>그럼에도 잘못된 구현이다.</strong></p>
-<p>이러한 결함은 오류 메시지가 아니라 <strong>검증 절차를 통해서만</strong> 발견된다.</p>
+<p><code>rbinary_search()</code> — 문법 오류 없음, 오류 메시지 없음, 저자가 고른 예제에서는 정답 반환. <strong>그럼에도 잘못된 구현</strong></p>
+<p>이런 결함은 오류 메시지가 아니라 <strong>검증 절차로만</strong> 발견됨<br> → 전수 검사 · 경계 사례 검토 · 정답이 알려진 기준과의 대조</p>
 </div>
+<aside class="notes">
+<p>고친 코드입니다. <code>maxL &lt;= minL</code> 을 <code>lo &gt; hi</code> 로 바꿨습니다. 그게 전부예요. 전수 검사 결과 TRUE. 스무 개 다 찾습니다.</p>
+<p>이제 아래 상자를 같이 읽겠습니다. 오늘 제일 중요한 슬라이드입니다.</p>
+<p>원래 코드는 문법 오류가 없습니다. R이 아무 불평도 안 합니다. 실행하면 오류 메시지도 안 납니다. 그냥 NA를 반환할 뿐이에요. 그리고 저자가 고른 예제에서는 정답을 냅니다.</p>
+<p>그런데 틀렸습니다.</p>
+<p>이런 종류의 버그를 어떻게 찾습니까? <strong>오류 메시지로는 못 찾습니다.</strong> 안 나니까요. 실행해 보는 것만으로도 못 찾습니다. 실행은 잘 되니까요.</p>
+<p>찾는 방법은 하나뿐입니다. <strong>검증 절차를 돌리는 것.</strong></p>
+<p>세 가지를 기억하세요. 전수 검사. 가능한 입력을 다 넣어 본다. 경계 사례. 빈 벡터, 길이 1, 없는 값을 넣어 본다. 대조. 이미 답을 아는 것과 맞춰 본다. <code>which()</code> 라든가 내장 <code>sort()</code> 라든가.</p>
+<p>이 세 가지가 오늘 6절에서 AI 코드에 그대로 다시 쓰입니다. 사람이 쓴 코드에 쓰는 절차와 기계가 쓴 코드에 쓰는 절차가 똑같습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="두-탐색의-비용-비교" class="slide level2 smaller">
 <h2>두 탐색의 비용 비교</h2>
-<p>실행 시간 대신 <strong>연산 횟수를 계수하면</strong> 하드웨어 성능과 무관한 값을 얻는다.</p>
+<p>실행 시간 대신 <strong>연산 횟수를 계수</strong> → 하드웨어 성능과 무관한 값</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top">
@@ -773,8 +1378,25 @@
 </div>
 </div>
 <div class="keypoint teal">
-<p><span class="math inline">\(n\)</span> 이 100배 증가할 때 선형 탐색은 약 100배 증가하지만, 이진 탐색은 두 배를 조금 넘는 수준에 그친다. <span class="math inline">\(n = 10^6\)</span> 이면 선형 탐색은 평균 <strong>50만 회</strong>, 이진 탐색은 약 <strong>20회</strong>를 수행한다.</p>
+<p><span class="math inline">\(n\)</span> 100배 증가 → 선형 약 <strong>100배</strong>, 이진 <strong>두 배 남짓</strong><br> <span class="math inline">\(n = 10^6\)</span> 이면 선형 평균 <strong>50만 회</strong>, 이진 약 <strong>20회</strong></p>
 </div>
+<aside class="notes">
+<p>이제 비용을 재 보겠습니다. 시간이 아니라 <strong>비교 횟수</strong>를 셉니다. 아까 왜 그렇게 한다고 했지요? 하드웨어와 무관한 값을 얻기 위해서입니다.</p>
+<p>표를 보세요. n이 백일 때 선형은 평균 50.5번, 이진은 5.8번입니다. n이 만일 때 선형은 5,251번, 이진은 12.4번.</p>
+<p>n을 백 배 키웠더니 선형은 딱 백 배 늘었습니다. 50에서 5,250으로. 이진은요? 5.8에서 12.4. 두 배가 조금 넘습니다.</p>
+<p>이게 O(n)과 O(log n)의 차이입니다. 표에 그대로 나오지요.</p>
+<p>백만 개면 어떻게 됩니까? 선형은 평균 50만 번. 이진은 스무 번입니다. 스무 번이면 여러분이 손으로 해도 됩니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="이진-탐색이-항상-유리한-것은-아니다" class="slide level2">
 <h2>이진 탐색이 항상 유리한 것은 아니다</h2>
@@ -787,22 +1409,56 @@
 <p><strong>주의</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>정렬되어 있어야</strong> 적용할 수 있고, 정렬 자체의 비용이 <span class="math inline">\(\mathcal{O}(n \log n)\)</span> 이다.</p>
-<p>탐색을 한 번만 수행한다면 정렬 후 이진 탐색을 적용하는 것보다 선형 탐색이 오히려 저렴하다. 탐색을 여러 번 반복할 때 비로소 정렬 비용이 상쇄된다.</p>
+<p><strong>전제 조건</strong> — 자료가 정렬되어 있어야 적용 가능</p>
+<p><strong>정렬 자체의 비용</strong> — <span class="math inline">\(\mathcal{O}(n \log n)\)</span></p>
+<ul>
+<li>탐색 <strong>1회</strong> — 정렬 후 이진 탐색보다 그냥 선형 탐색이 저렴</li>
+<li>탐색 <strong>반복</strong> — 이때 비로소 정렬 비용이 상쇄됨</li>
+</ul>
 </div>
 </div>
 </div>
+<aside class="notes">
+<p>그런데 여기서 한 가지 짚고 갈 게 있습니다.</p>
+<p>“이진 탐색이 빠르니까 무조건 이진 탐색 쓰면 되겠네” 하면 안 됩니다.</p>
+<p>이진 탐색을 쓰려면 정렬이 되어 있어야 하지요. 정렬이 공짜입니까? 아닙니다. 정렬 자체가 O(n log n) 입니다. 선형 탐색 한 번보다 비쌉니다.</p>
+<p>그러니까 이렇게 생각하세요.</p>
+<p>데이터를 받아서 값 하나만 찾고 버릴 거면? 그냥 처음부터 훑는 게 낫습니다. 정렬하는 시간에 이미 다 찾았을 겁니다.</p>
+<p>같은 데이터에서 계속 찾아야 하면? 그때는 한 번 정렬해 두는 게 이득입니다. 정렬 비용을 여러 번의 탐색으로 나눠 갚는 셈이지요.</p>
+<p>이게 실무에서 자료 구조를 고르는 방식입니다. “뭐가 빠른가” 가 아니라 “내가 이걸 몇 번 할 건가” 를 먼저 묻습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section id="정렬-알고리즘" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
 <h1>4 · 정렬 알고리즘</h1>
-
+<aside class="notes">
+<p>4절 정렬입니다. 정렬 알고리즘은 수십 가지가 있는데, 오늘은 두 개만 봅니다. 차수가 서로 다른 두 개요. 같은 차수를 여러 개 아는 것보다 다른 차수 둘을 제대로 비교하는 게 낫습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="버블-정렬과-병합-정렬" class="slide level2 smaller">
-<h2>버블 정렬과 병합 정렬</h2>
+<section id="버블-정렬" class="slide level2 smaller">
+<h2>버블 정렬</h2>
 <div class="columns">
-<div class="column" style="width:50%;">
-<p><span class="label label-note">버블 정렬 · <span class="math inline">\(\mathcal{O}(n^2)\)</span></span></p>
+<div class="column" style="width:52%;">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="" aria-hidden="true" tabindex="-1"></a>bubble_sort <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb26-2"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
@@ -819,8 +1475,38 @@
 <span id="cb26-13"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
 <span id="cb26-14"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
-</div><div class="column" style="width:50%;">
-<p><span class="label label-slide">병합 정렬 · <span class="math inline">\(\mathcal{O}(n \log n)\)</span></span></p>
+</div><div class="column" style="width:48%;">
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/0/06/Bubble-sort.gif" style="width:72.0%"></p>
+<ul>
+<li>인접한 두 원소 비교 후 교환</li>
+<li>한 번 순회 → 가장 큰 값이 마지막으로 이동</li>
+<li>비교 횟수 <span class="math inline">\((n-1) + \cdots + 1 = n(n-1)/2\)</span></li>
+<li>시간 <span class="math inline">\(\mathcal{O}(n^2)\)</span> · 공간 <span class="math inline">\(\mathcal{O}(1)\)</span></li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>버블 정렬입니다. 이름이 왜 버블이냐면, 큰 값이 거품처럼 뒤로 떠오르는 모양이라 그렇습니다.</p>
+<p>애니메이션 보세요. 옆에 있는 두 개를 비교합니다. 순서가 뒤바뀌어 있으면 바꿉니다. 그러면 한 바퀴 돌고 나면 제일 큰 값이 맨 뒤에 가 있습니다.</p>
+<p>그다음 바퀴는 맨 뒤는 빼고 돕니다. 이미 제자리니까요. 그래서 안쪽 for문이 <code>seq_len(n - i)</code> 입니다. 바퀴가 늘수록 범위가 줄어요.</p>
+<p>비교 횟수를 세 보면 n-1 더하기 n-2 더하기… 1까지입니다. 등차수열 합이지요. n(n-1)/2 입니다. 즉 O(n²).</p>
+<p>장점이 하나 있긴 합니다. 벡터 안에서 자리만 바꾸니까 추가 메모리가 안 듭니다. O(1)이에요. 그런데 시간이 O(n²)이라 실무에서는 안 씁니다.</p>
+<p>교육용으로만 봅니다. 왜 배우냐면, 다음에 볼 병합 정렬과 비교하기 위해서입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="병합-정렬" class="slide level2 smaller">
+<h2>병합 정렬</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="" aria-hidden="true" tabindex="-1"></a>smerge <span class="ot">&lt;-</span> <span class="cf">function</span>(left, right) {</span>
 <span id="cb27-2"><a href="" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(left) <span class="sc">+</span> <span class="fu">length</span>(right))</span>
@@ -837,16 +1523,45 @@
 <span id="cb27-13"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb27-14"><a href="" aria-hidden="true" tabindex="-1"></a>merge_sort <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb27-15"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb27-16"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;=</span> <span class="dv">1</span>) <span class="fu">return</span>(x)</span>
+<span id="cb27-16"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;=</span> <span class="dv">1</span>) <span class="fu">return</span>(x)                 <span class="co"># 종료 조건</span></span>
 <span id="cb27-17"><a href="" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> n <span class="sc">%/%</span> <span class="dv">2</span>L</span>
 <span id="cb27-18"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">smerge</span>(<span class="fu">merge_sort</span>(x[<span class="dv">1</span><span class="sc">:</span>mid]), <span class="fu">merge_sort</span>(x[(mid <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>n]))</span>
 <span id="cb27-19"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
+</div><div class="column" style="width:45%;">
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif" style="width:62.0%"></p>
+<p><strong>분할 정복(divide and conquer)</strong></p>
+<ul>
+<li>절반으로 <strong>분할</strong> → 재귀 정렬 → <strong>병합</strong></li>
+<li>정렬이 실제로 일어나는 곳은 <strong>병합 단계</strong></li>
+<li>재귀 깊이 <span class="math inline">\(\log_2 n\)</span> × 각 깊이에서 <span class="math inline">\(n\)</span> 회</li>
+<li>시간 <span class="math inline">\(\mathcal{O}(n \log n)\)</span> · 공간 <span class="math inline">\(\mathcal{O}(n)\)</span></li>
+</ul>
 </div></div>
+<aside class="notes">
+<p>병합 정렬입니다. 방금 배운 재귀가 여기서 쓰입니다.</p>
+<p>애니메이션을 보세요. 위에서 아래로 쪼갭니다. 반으로, 또 반으로. 하나가 될 때까지. 그러고 나서 아래에서 위로 합칩니다.</p>
+<p>여기서 중요한 관찰. <strong>정렬은 쪼갤 때 일어나지 않습니다. 합칠 때 일어납니다.</strong> 쪼개는 건 그냥 반으로 자르는 것뿐이에요. 아무 판단도 안 합니다.</p>
+<p>코드를 보겠습니다. 아래쪽 <code>merge_sort</code> 가 쪼개는 부분입니다. 세 줄이에요. 길이가 1 이하면 그대로 반환. 아니면 반으로 잘라서 각각 재귀 호출하고, 그 둘을 합친다.</p>
+<p>위쪽 <code>smerge</code> 가 합치는 부분입니다. 정렬된 두 벡터를 받아서 앞에서부터 작은 걸 하나씩 꺼냅니다. 왼쪽 첫 번째와 오른쪽 첫 번째를 비교해서 작은 쪽을 가져오고, 그쪽 포인터를 하나 옮기고. 이걸 반복하면 결과도 정렬된 상태로 채워집니다.</p>
+<p><code>left[l] &lt;= right[r]</code> 에서 등호를 보세요. 값이 같으면 <strong>왼쪽 것을 먼저</strong> 꺼냅니다. 이게 안정 정렬을 만듭니다. 같은 값끼리는 원래 순서가 유지된다는 뜻이에요. 데이터 프레임을 여러 열 기준으로 정렬할 때 이 성질이 중요해집니다.</p>
+<p>비용을 봅시다. 반씩 쪼개니까 깊이가 log₂n. 각 깊이에서 원소 전체를 한 번씩 훑으니까 n. 곱하면 n log n 입니다.</p>
+<p>대신 임시 벡터가 필요합니다. <code>temp &lt;- numeric(...)</code> 보이시죠. 공간이 O(n)입니다. <strong>시간을 벌려고 메모리를 내준</strong> 겁니다. 아까 비용이 두 가지라고 한 이유가 여기 있습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="예측해-보자-3" class="slide level2 predict" data-background-color="#1F6F7A">
 <h2>예측해 보자</h2>
-<p>원소 수를 두 배로 늘리면 각 정렬의 <strong>비교 횟수</strong>는 몇 배가 되겠는가?</p>
+<p>원소 수를 <strong>두 배</strong>로 늘리면 각 정렬의 <strong>비교 횟수</strong>는 몇 배?</p>
 <div class="options">
 <div>
 <p><strong>A</strong> 둘 다 두 배</p>
@@ -859,8 +1574,25 @@
 </div>
 </div>
 <div class="why">
-<p>실행 시간은 하드웨어와 부하에 따라 변동하고, 빠른 쪽은 0초로 측정되어 증가율을 계산할 수 없다. 비교 횟수는 입력이 동일하면 항상 같은 값을 갖는다.</p>
+<p>실행 시간이 아니라 <strong>비교 횟수</strong>로 재는 이유 — 시간은 하드웨어·부하에 따라 변동, 빠른 쪽은 0초로 측정되어 증가율 계산 불가</p>
 </div>
+<aside class="notes">
+<p>예측입니다. 이번엔 힌트가 이미 앞 슬라이드에 다 있습니다.</p>
+<p>버블이 O(n²)이고 병합이 O(n log n)이라고 했지요. n을 두 배로 하면 n²은 몇 배가 됩니까? (2n)² = 4n². 네 배지요. n log n 은요? 2n log(2n) = 2n(log n + 1). 두 배보다 조금 큽니다.</p>
+<p>그러니까 답은 이미 나와 있습니다. 확인만 하는 거예요.</p>
+<p>그런데 왜 비교 횟수로 재냐. 아래 상자에 이유가 있습니다. 실제로 제가 처음에 실행 시간으로 재 봤는데, 병합 정렬이 0.00초로 찍혀서 배율 계산이 안 되더군요. 0으로 나눌 수는 없으니까요.</p>
+<p>비교 횟수는 그런 문제가 없습니다. 같은 입력이면 항상 같은 값입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="비교-횟수는-이론값과-일치한다" class="slide level2 smaller">
 <h2>비교 횟수는 이론값과 일치한다</h2>
@@ -903,53 +1635,102 @@
 </div>
 </div>
 <div class="keypoint">
-<p><span class="math inline">\(n\)</span> 이 두 배가 될 때 버블 정렬은 <strong>정확히 네 배</strong>, 병합 정렬은 <strong>두 배를 조금 넘는</strong> 수준으로 증가한다. 버블 정렬의 비교 횟수는 <span class="math inline">\(n(n-1)/2\)</span> 와 정확히 일치하고, 병합 정렬은 <span class="math inline">\(n\log_2 n\)</span> 에 근접한다.</p>
-<p><strong>이론적으로 분석한 복잡도가 실제 연산 횟수와 일치하는지 확인하는 것 역시 검증이다.</strong></p>
+<p><span class="math inline">\(n\)</span> 두 배 → 버블 <strong>정확히 네 배</strong>, 병합 <strong>두 배 남짓</strong></p>
+<p>버블의 비교 횟수 = <span class="math inline">\(n(n-1)/2\)</span> 와 <strong>정확히 일치</strong> · 병합 = <span class="math inline">\(n\log_2 n\)</span> 에 근접</p>
+<p><strong>이론적으로 분석한 복잡도가 실제 연산 횟수와 일치하는지 확인하는 것도 검증</strong></p>
 </div>
+<aside class="notes">
+<p>답은 B였습니다. 표를 보시죠.</p>
+<p>버블 열을 따라가 보세요. 124,750 → 499,500 → 1,999,000. 나눠 보면 정확히 네 배씩입니다. 오차가 없어요.</p>
+<p>옆에 n(n-1)/2 열을 붙여 놨습니다. 값이 <strong>똑같습니다.</strong> 손으로 계산한 공식과 실제로 센 횟수가 한 자리도 안 틀립니다.</p>
+<p>병합 열을 보세요. 4,488 → 9,976 → 21,952. 배율이 2.22, 2.20입니다. 두 배 남짓이지요. 옆의 n log₂n 과 비교하면 4,483 대 4,488. 거의 일치합니다.</p>
+<p>맨 아래 상자가 이 슬라이드의 요점입니다.</p>
+<p>우리가 아까 손으로 “버블은 n(n-1)/2번 비교한다” 고 분석했지요. 그 분석이 맞는지 <strong>실제로 세서 확인</strong>했습니다.</p>
+<p>이것도 검증입니다. 코드가 맞는지 확인하는 것만 검증이 아니라, 내가 한 분석이 맞는지 확인하는 것도 검증이에요.</p>
+<p>여러분이 리포트에 “이 알고리즘은 O(n²)입니다” 라고 쓸 때, 그냥 그렇게 배웠으니까 쓰는 것과, 세서 확인하고 쓰는 것은 다릅니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section id="뉴턴-랩슨-알고리즘" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
 <h1>5 · 뉴턴-랩슨 알고리즘</h1>
-
+<aside class="notes">
+<p>5절입니다. 앞의 절들이 자료를 다루는 알고리즘이었다면, 이번엔 수치 계산 알고리즘입니다. 통계 전공자에게는 사실 이게 제일 자주 쓰게 될 알고리즘입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="원리와-점화식" class="slide level2 smaller">
 <h2>원리와 점화식</h2>
-<p><span class="math inline">\(f(x) = 0\)</span> 을 만족하는 <span class="math inline">\(x\)</span> 를 반복 계산으로 구한다. 통계학에서 최대가능도추정량을 구할 때 사용하는 방법이 바로 이것이다.</p>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:46%;">
+<p><span class="math inline">\(f(x) = 0\)</span> 을 만족하는 <span class="math inline">\(x\)</span> 를 <strong>반복 계산</strong>으로 근사</p>
 <ol type="1">
-<li>초기값 <span class="math inline">\(x_0\)</span> 을 설정한다</li>
-<li><span class="math inline">\(x_n\)</span> 에서 접선을 구한다</li>
-<li>접선이 <span class="math inline">\(x\)</span> 축과 만나는 점을 <span class="math inline">\(x_{n+1}\)</span> 로 정한다</li>
-<li>종료 조건까지 2~3을 반복한다</li>
+<li>초기값 <span class="math inline">\(x_0\)</span> 설정</li>
+<li><span class="math inline">\(x_n\)</span> 에서 접선 계산 — 기울기 <span class="math inline">\(f'(x_n)\)</span></li>
+<li>접선과 <span class="math inline">\(x\)</span> 축의 교점을 <span class="math inline">\(x_{n+1}\)</span> 로 채택</li>
+<li>종료 조건까지 2~3 반복</li>
 </ol>
 <p><span class="math display">\[x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}\]</span></p>
-</div><div class="column" style="width:50%;">
 <div class="keypoint">
-<p><strong>종료 조건</strong> — 다음 세 가지를 함께 사용한다.</p>
-<ul>
-<li>최대 반복 횟수를 초과한 경우</li>
-<li><span class="math inline">\(x\)</span> 의 갱신 폭이 충분히 작아진 경우</li>
-<li><span class="math inline">\(|f(x)|\)</span> 가 허용 오차 이내로 0에 근접한 경우</li>
-</ul>
+<p><strong>종료 조건</strong> — 최대 반복 횟수 초과 / <span class="math inline">\(x\)</span> 갱신 폭이 충분히 작음 / <span class="math inline">\(|f(x)|\)</span> 가 허용 오차 이내</p>
 </div>
+</div><div class="column" style="width:54%;">
+<video src="../video/newton-raphson-ex.mp4" controls="" loop="" muted="" style="width:100%;">
+</video>
 </div></div>
+<aside class="notes">
+<p>뉴턴-랩슨입니다. 방정식의 해를 수치적으로 찾는 방법이에요.</p>
+<p>통계에서 왜 중요하냐면, 최대가능도추정량을 구할 때 이걸 씁니다. 로그가능도를 미분해서 0이 되는 지점을 찾아야 하는데, 그게 손으로 안 풀리는 경우가 훨씬 많습니다. 그때 컴퓨터한테 시키는 방법이 이겁니다.</p>
+<p>오른쪽 동영상을 재생해 보겠습니다. (재생)</p>
+<p>원리는 간단합니다. 아무 데나 점을 하나 찍습니다. 그 점에서 접선을 긋습니다. 그 접선이 x축과 만나는 지점으로 옮겨갑니다. 거기서 또 접선을 긋습니다. 또 옮깁니다.</p>
+<p>보시면 점점 해에 가까워지지요. 몇 번 만에 딱 붙습니다.</p>
+<p>수식은 그 과정을 그대로 적은 겁니다. 현재 위치에서 함수값을 기울기로 나눈 만큼 빼라.</p>
+<p>직관적으로 보면 이렇습니다. 함수값이 0에서 멀면 많이 움직이고, 가까우면 조금 움직입니다. 기울기가 가파르면 조금만 움직여도 되고, 완만하면 많이 움직여야 하고요.</p>
+<p>종료 조건은 세 개를 같이 씁니다. 상자에 있는 대로예요. 너무 오래 돌면 멈추고, 더 안 움직이면 멈추고, 충분히 0에 가까우면 멈춘다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="구현과-검증" class="slide level2 smaller">
 <h2>구현과 검증</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">5</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">7</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">40</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="dv">100</span></span>
-<span id="cb28-2"><a href="" aria-hidden="true" tabindex="-1"></a>sol <span class="ot">&lt;-</span> <span class="fu">newton_raphson</span>(f, <span class="at">x0 =</span> <span class="dv">1</span>, <span class="at">range =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>))</span>
-<span id="cb28-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(sol)</span></code></pre></div>
+<span id="cb28-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(<span class="fu">newton_raphson</span>(f, <span class="at">x0 =</span> <span class="dv">1</span>, <span class="at">range =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>)))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     solution     iteration         value 
 -3.151719e+00  1.300000e+01 -3.544187e-11 </code></pre>
 </div>
 </div>
-<p><strong>검증</strong> — 3차 다항식이므로 <code>polyroot()</code> 로 모든 근을 구해 대조할 수 있다.</p>
+<p><strong>검증</strong> — 3차 다항식이므로 <code>polyroot()</code> 로 모든 근을 구해 대조 가능</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="" aria-hidden="true" tabindex="-1"></a>roots <span class="ot">&lt;-</span> <span class="fu">polyroot</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="sc">-</span><span class="dv">40</span>, <span class="sc">-</span><span class="dv">7</span>, <span class="dv">5</span>))</span>
-<span id="cb30-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">Re</span>(roots)[<span class="fu">abs</span>(<span class="fu">Im</span>(roots)) <span class="sc">&lt;</span> <span class="fl">1e-8</span>]        <span class="co"># 허수부가 0인 것만 실근이다</span></span></code></pre></div>
+<span id="cb30-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">Re</span>(roots)[<span class="fu">abs</span>(<span class="fu">Im</span>(roots)) <span class="sc">&lt;</span> <span class="fl">1e-8</span>]        <span class="co"># 허수부가 0인 것만 실근</span></span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -957,7 +1738,29 @@
 </div>
 </div>
 <div class="fragment">
-<p>이 함수의 <strong>실근은 하나뿐</strong>이며, 알고리즘이 구한 값과 일치한다.</p>
+<ul>
+<li>이 함수의 <strong>실근은 하나뿐</strong> — 알고리즘이 구한 값과 일치</li>
+<li>나머지 두 근은 켤레 복소수 → 실수 축에 나타나지 않음</li>
+</ul>
+<aside class="notes">
+<p>구현입니다. 코드는 화면에 다 넣기엔 길어서 핵심만 실행 결과로 보겠습니다.</p>
+<p><code>f(x) = 5x³ - 7x² - 40x + 100</code> 의 해를 찾았습니다. 해가 -3.151719, 반복 13번, 함수값이 -3.5 곱하기 10의 -11승. 거의 0이지요.</p>
+<p>자, 그런데 여기서 멈추면 안 됩니다. 이 값이 진짜 해입니까?</p>
+<p>함수값이 0에 가깝다는 건 확인했습니다. 그런데 3차 방정식이면 해가 최대 세 개잖아요. 나머지는 어디 갔습니까?</p>
+<p>(클릭) <code>polyroot()</code> 로 확인해 봅시다. 이건 다항식의 모든 근을 구해 주는 내장 함수입니다. 허수부가 0인 것만 골라 냈더니 -3.151719 하나만 나옵니다.</p>
+<p><strong>실근이 하나뿐</strong>이었던 겁니다. 나머지 두 개는 켤레 복소수예요. 실수 축에서는 안 만납니다. 동영상에서 곡선이 x축을 한 번만 가로지른 이유가 이겁니다.</p>
+<p>이게 검증입니다. 답을 얻었으면 “이 답이 맞나” 뿐 아니라 “내가 찾던 답이 이거 맞나” 까지 확인해야 합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
 <section id="초기값-의존성" class="slide level2 smaller">
@@ -1011,16 +1814,53 @@
 <p><strong>주의</strong></p>
 </div>
 <div class="callout-content">
-<p>뉴턴-랩슨 알고리즘은 수렴 속도가 빠르지만 <strong>초기값에 민감하다.</strong> 기울기가 0에 가까운 지점에서 출발하면 다음 근사값이 크게 벗어나고, <span class="math inline">\(f'(x) = 0\)</span> 이면 점화식을 계산할 수 없다.</p>
-<p>결과를 얻은 뒤에는 <strong>그 값이 실제로 해인지</strong>, 그리고 <strong>의도한 해가 맞는지</strong>를 반드시 확인해야 한다.</p>
+<p><strong>수렴은 빠르지만 초기값에 민감</strong></p>
+<ul>
+<li>기울기가 0에 가까운 지점에서 출발 → 다음 근사값이 크게 이탈</li>
+<li><span class="math inline">\(f'(x) = 0\)</span> → 점화식 계산 불가</li>
+<li>해가 여러 개인 함수 → <strong>어느 해로 수렴하는지를 초기값이 결정</strong></li>
+</ul>
+<p>결과를 얻은 뒤 반드시 확인 — 그 값이 <strong>실제로 해인지</strong>, 그리고 <strong>의도한 해가 맞는지</strong></p>
 </div>
 </div>
 </div>
+<aside class="notes">
+<p>초기값을 바꿔 가며 돌려 봤습니다.</p>
+<p>해는 전부 같습니다. -3.151719. 실근이 하나뿐이니 당연하지요.</p>
+<p>그런데 반복 횟수를 보세요. -5에서 출발하면 6번, 1에서 출발하면 13번, 0에서 출발하면 19번, -1에서 출발하면 34번, 5에서 출발하면 50번입니다.</p>
+<p>같은 답에 도달하는데 걸린 시간이 여덟 배 차이입니다.</p>
+<p>여기서는 답이 하나라 다행이지만, 해가 여러 개인 함수라면 어떻게 됩니까? <strong>어느 해로 갈지를 초기값이 결정합니다.</strong> 초기값을 잘못 잡으면 엉뚱한 해로 갑니다.</p>
+<p>통계에서 이게 실제로 문제가 됩니다. 최대가능도추정에서 로그가능도가 봉우리가 여러 개면, 초기값에 따라 지역 최대점에 갇힐 수 있어요. 전역 최대점을 못 찾는 겁니다.</p>
+<p>그래서 실무에서는 초기값을 여러 개 잡아서 다 돌려 보고 비교합니다.</p>
+<p>경고 상자 맨 아래 문장. 오늘 계속 반복하는 이야기입니다. 답이 나왔다고 끝이 아닙니다. 그 답이 맞는지, 그리고 내가 찾던 답인지 확인해야 합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section id="ai와-함께-생성-코드의-검증" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
 <h1>6 · AI와 함께: 생성 코드의 검증</h1>
-
+<aside class="notes">
+<p>마지막 6절입니다. 오늘 배운 검증 절차를 AI가 만들어 준 코드에 적용해 보겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="프롬프트는-곧-요구사항이다" class="slide level2 smaller">
 <h2>프롬프트는 곧 요구사항이다</h2>
@@ -1050,7 +1890,30 @@
 <span id="cb32-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">binary_search_rec</span>(vec, target, mid <span class="sc">+</span> <span class="dv">1</span>, hi)</span>
 <span id="cb32-8"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
-<p>앞 절에서 수정한 구현과 동일한 구조다. 그럼에도 검증 절차를 수행한다.</p>
+<ul>
+<li>앞 절에서 수정한 구현과 <strong>동일한 구조</strong></li>
+<li>종료 조건도 <code>lo &gt; hi</code> 로 올바름</li>
+<li><strong>그럼에도 검증 절차 수행</strong></li>
+</ul>
+<aside class="notes">
+<p>먼저 용어를 하나 짚겠습니다. <strong>프롬프트는 곧 요구사항입니다.</strong></p>
+<p>여러분이 AI에게 뭘 시킬 때 쓰는 문장, 그게 소프트웨어 공학에서 말하는 요구사항이에요. 요구사항이 부실하면 결과물도 부실합니다. 이건 사람한테 일 시킬 때와 똑같습니다.</p>
+<p>위 상자가 제가 실제로 준 요구사항입니다. 읽어 보세요. 정렬된 벡터와 값을 받아서, 있으면 위치를, 없으면 NA를 반환하는 재귀 이진 탐색.</p>
+<p>평범하게 썼습니다. 여러분이 쓸 법한 수준으로요.</p>
+<p>아래가 받은 코드입니다. <strong>한 글자도 안 고쳤습니다.</strong> 주석에 모델명과 날짜를 적어 뒀어요. 이게 우리 강의노트 규칙입니다. AI 응답을 실을 때는 언제 어느 모델에서 받았는지 기록합니다.</p>
+<p>코드를 보세요. 어떻습니까? 아까 우리가 고친 코드하고 똑같이 생겼지요. <code>lo &gt; hi</code> 로 제대로 되어 있습니다. 잘 만든 것 같습니다.</p>
+<p>그런데 “잘 만든 것 같다” 로 넘어가면 안 되지요. 오늘 뭘 배웠습니까? 검증하겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="세-가지-검증" class="slide level2 smaller">
 <h2>세 가지 검증</h2>
@@ -1082,7 +1945,27 @@
 </div>
 </div>
 <div class="fragment">
-<p>세 가지 검증을 모두 통과했다. <strong>요구사항의 범위 안에서는</strong> 이 코드가 옳다.</p>
+<div class="keypoint teal">
+<p>세 가지 검증 모두 통과 → <strong>요구사항의 범위 안에서는</strong> 이 코드가 옳음</p>
+</div>
+<aside class="notes">
+<p>3절에서 배운 세 가지를 그대로 씁니다.</p>
+<p>첫째, 전수 검사. 벡터의 모든 원소를 하나씩 넣어 봅니다. 둘째, 경계 사례. 빈 벡터, 길이 1인 벡터, 없는 값. 셋째, 무작위 대조. <code>which()</code> 는 정답을 알고 있는 함수지요. 500번 맞춰 봅니다.</p>
+<p>(클릭) 전부 TRUE입니다.</p>
+<p>여기서 잠깐. 이 코드는 통과했습니다. 그러면 이 코드는 맞는 코드입니까?</p>
+<p>아래 상자를 정확히 읽어 주세요. “<strong>요구사항의 범위 안에서는</strong>” 이 코드가 옳습니다.</p>
+<p>이 단서가 붙는 이유가 있습니다. 다음 슬라이드에서 보겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
 <section id="요구사항이-규정하지-않은-부분" class="slide level2 smaller">
@@ -1104,10 +1987,37 @@
 </div>
 </div>
 <div class="fragment">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">미규정 1 · 중복값</span></p>
+<p>어느 위치를 반환할지 <strong>요구사항에 없음</strong><br> → 구현이 임의로 결정 (<code>match()</code> 는 가장 앞, 이 구현은 중간)</p>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-note">미규정 2 · 정렬되지 않은 입력</span></p>
+<p>전제가 깨졌을 때의 동작 <strong>규정 없음</strong><br> → 오류도 경고도 없이 “없다”고 반환</p>
+</div></div>
 <div class="keypoint">
-<p>정렬되지 않은 입력에 대해 <strong>오류나 경고 없이 값이 존재하지 않는다고 반환한다.</strong></p>
-<p>오류 없이 잘못된 결과를 반환하는 편이 명시적으로 실패하는 편보다 훨씬 위험하다.</p>
+<p><strong>오류 없이 잘못된 결과를 반환하는 편이 명시적으로 실패하는 편보다 훨씬 위험</strong></p>
 </div>
+<aside class="notes">
+<p>(클릭) 두 가지를 넣어 봤습니다.</p>
+<p>첫째, 중복값. <code>c(1, 3, 3, 3, 5, 7)</code> 에서 3을 찾으면요? 이 구현은 3번 자리를 줍니다. R의 <code>match()</code> 는 2번 자리를 줍니다. 3이 2, 3, 4번에 다 있으니까 둘 다 틀린 건 아닙니다.</p>
+<p>그런데 여러분이 이 함수를 쓰면서 “당연히 첫 번째 위치를 주겠지” 하고 있었으면요? 틀린 겁니다. 요구사항에 안 적었으니 구현이 마음대로 정한 거예요.</p>
+<p>둘째, 정렬 안 된 입력. <code>c(19, 7, 2, 15, 10)</code> 에서 19를 찾습니다. 19는 1번 자리에 <strong>분명히 있습니다.</strong> 그런데 NA가 나옵니다.</p>
+<p>오류 메시지가 났습니까? 안 났습니다. 경고도 없습니다. 그냥 조용히 “없다” 고 답합니다.</p>
+<p>맨 아래 문장이 오늘 마지막 교훈입니다.</p>
+<p><strong>오류 없이 잘못된 결과를 반환하는 게, 대놓고 실패하는 것보다 훨씬 위험합니다.</strong></p>
+<p>실패하면 알아챕니다. 고칠 기회가 있어요. 조용히 틀리면 못 알아챕니다. 그 값을 가지고 논문을 쓰게 됩니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
 <section id="ai-생성-코드에서-자주-나타나는-오류" class="slide level2 smaller">
@@ -1122,49 +2032,88 @@
 </div>
 <div class="callout-content">
 <ul>
-<li><strong>경계 조건</strong> — <code>&lt;</code> 와 <code>&lt;=</code>, <code>mid</code> 와 <code>mid - 1</code> 을 혼동한다. 이 수업의 <code>rbinary_search()</code> 가 정확히 이 유형이며, 사람이 작성한 코드에서도 동일하게 나타난다.</li>
-<li><strong>전제 미검사</strong> — “정렬되어 있다”, “<code>NA</code> 가 없다”와 같은 전제를 확인하지 않는다.</li>
-<li><strong>빈 입력</strong> — 길이가 0인 벡터에서 인덱스 1을 참조한다.</li>
-<li><strong>요구사항의 공백</strong> — 중복값이나 동점 처리처럼 규정되지 않은 부분을 임의로 결정하고, 그 선택을 명시하지 않는다.</li>
+<li><strong>경계 조건</strong> — <code>&lt;</code> 와 <code>&lt;=</code>, <code>mid</code> 와 <code>mid - 1</code> 혼동<br> <span class="tiny">이 수업의 <code>rbinary_search()</code> 가 정확히 이 유형. 사람이 쓴 코드에서도 동일하게 발생</span></li>
+<li><strong>전제 미검사</strong> — “정렬되어 있다”, “<code>NA</code> 가 없다” 등의 전제 미확인</li>
+<li><strong>빈 입력</strong> — 길이 0인 벡터에서 인덱스 1 참조</li>
+<li><strong>요구사항의 공백</strong> — 중복값·동점 처리 등 미규정 부분을 임의 결정 후 미고지</li>
 </ul>
 </div>
 </div>
 </div>
 <div class="keypoint">
-<p>공통점은 <strong>오류 메시지가 출력되지 않는다</strong>는 점이다. 따라서 실행해 보는 것만으로는 부족하며 별도의 검증 절차가 필요하다.</p>
+<p>공통점 — <strong>오류 메시지가 출력되지 않음</strong><br> → 실행해 보는 것만으로는 부족, <strong>별도의 검증 절차 필요</strong></p>
 </div>
+<aside class="notes">
+<p>AI 코드에서 자주 나오는 오류 유형을 정리했습니다.</p>
+<p>첫째, 경계 조건. 부등호를 헷갈립니다. <code>&lt;</code> 인지 <code>&lt;=</code> 인지, <code>mid</code> 인지 <code>mid - 1</code> 인지. 그런데 이거, 오늘 우리가 본 <code>rbinary_search()</code> 가 정확히 이 유형이었지요. 그건 사람이 쓴 코드였습니다. 그러니까 이건 AI만의 문제가 아닙니다.</p>
+<p>둘째, 전제 미검사. 정렬되어 있다고 가정해 놓고 확인은 안 합니다.</p>
+<p>셋째, 빈 입력 처리 누락.</p>
+<p>넷째, 요구사항의 공백을 임의로 메우고 알려 주지 않는 것.</p>
+<p>공통점이 뭡니까? 아래 상자입니다. <strong>오류 메시지가 안 납니다.</strong></p>
+<p>그래서 “돌려 봤는데 잘 되던데요” 는 검증이 아닙니다. 잘 돌아가는 것과 맞는 것은 다른 이야기입니다.</p>
+<p>여러분이 AI를 쓰지 말라는 게 아닙니다. 저도 씁니다. 오늘 이 코드도 AI가 만든 거예요. 쓰되, <strong>받은 다음에 뭘 해야 하는지</strong>를 아는 사람이 되시라는 겁니다. 그게 이 수업이 여러분에게 줄 수 있는 것입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="정리" class="slide level2 smaller">
 <h2>정리</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><span class="label label-note">비용</span></p>
+<p><span class="label label-note">비용 = 수행 시간 + 메모리</span></p>
 <ul>
-<li>같은 결과를 내는 코드도 <strong>비용의 증가율</strong>이 다르다</li>
-<li>성능은 <strong>최악의 경우</strong>를 기준으로 평가한다</li>
-<li>차수가 다르면 하드웨어로 해결되지 않는다</li>
+<li>같은 결과를 내는 코드도 <strong>증가율</strong>이 다름</li>
+<li>평가 기준은 <strong>최악의 경우</strong></li>
+<li>차수가 다르면 하드웨어로 해결 불가</li>
 </ul>
 <p><span class="label label-note">재귀</span></p>
 <ul>
-<li>종료 조건과 재귀 단계, 두 부분으로 이루어진다</li>
-<li>가독성을 얻는 대신 <strong>스택 프레임</strong>을 소비한다</li>
+<li><strong>종료 조건</strong> + <strong>재귀 단계</strong></li>
+<li>가독성을 얻는 대신 <strong>스택 프레임</strong> 소비</li>
 </ul>
 </div><div class="column" style="width:50%;">
 <p><span class="label label-slide">검증</span></p>
 <ul>
-<li>예제 몇 개를 통과하는 것은 <strong>정확성의 근거가 아니다</strong></li>
+<li>예제 몇 개 통과 ≠ <strong>정확성의 근거</strong></li>
 <li>전수 검사 · 경계 사례 · 정답이 알려진 기준과의 대조</li>
-<li>오류 메시지가 없는 결함은 <strong>절차로만</strong> 발견된다</li>
+<li>오류 메시지 없는 결함은 <strong>절차로만</strong> 발견</li>
 </ul>
 <p><span class="label label-slide">AI와 함께</span></p>
 <ul>
-<li>프롬프트는 곧 <strong>요구사항</strong>이다</li>
-<li>요구사항이 규정하지 않은 곳에서 구현이 갈라진다</li>
+<li>프롬프트 = <strong>요구사항</strong></li>
+<li>요구사항이 규정하지 않은 곳에서 구현이 갈라짐</li>
 </ul>
 </div></div>
 <div class="keypoint teal">
-<p>다음 시간에는 이 검증 절차를 <strong>시뮬레이션</strong>으로 확장한다.</p>
+<p>다음 시간 — 이 검증 절차를 <strong>시뮬레이션</strong>으로 확장</p>
 </div>
+<aside class="notes">
+<p>정리하겠습니다.</p>
+<p>왼쪽 위. 비용은 수행 시간과 메모리 두 가지입니다. 앞으로 “비싸다” 고 할 때 어느 쪽인지 구분해서 말하세요. 그리고 중요한 건 절대값이 아니라 <strong>증가율</strong>입니다.</p>
+<p>왼쪽 아래. 재귀는 종료 조건과 재귀 단계 두 부분입니다. 종료 조건을 쓸 때는 경계 바로 바깥을 항상 확인하세요. <code>n == 1</code> 이 아니라 <code>n &lt;= 1</code> 이었던 것 기억하시죠.</p>
+<p>오른쪽 위가 오늘의 핵심입니다. 예제 몇 개 통과한 건 정확성의 근거가 아닙니다. 전수 검사, 경계 사례, 대조. 이 세 가지를 습관으로 만드세요.</p>
+<p>오른쪽 아래. 프롬프트는 요구사항입니다. 그리고 요구사항이 비어 있는 곳에서 구현이 제멋대로 갈라집니다. AI에게 시킬 때 이걸 기억하세요.</p>
+<p>다음 시간에는 시뮬레이션을 합니다. 오늘 배운 검증을, 답을 모르는 문제로 확장합니다. 답을 아는 것과 대조하는 게 오늘 방법이었다면, 다음 시간에는 답을 <strong>만들어서</strong> 대조합니다.</p>
+<p>질문 받겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 
 </section></section>
     </div>
