@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap">
+  <style>
+    body { margin:0; background:#FAF7F2; color:#241F1A;
+      font-family:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+      -webkit-font-smoothing:antialiased; text-wrap:pretty; }
+    a { color:#A64B32; text-decoration:none; }
+    a:hover { color:#7E3624; }
+    .mono { font-family:'IBM Plex Mono','SFMono-Regular',ui-monospace,'Malgun Gothic',monospace; }
+    .disp { font-family:'Hahmlet','Nanum Myeongjo','Apple SD Gothic Neo',serif; }
+    pre { margin:0; font-family:'IBM Plex Mono','SFMono-Regular',ui-monospace,monospace;
+      font-size:19px; line-height:1.65; color:#241F1A; }
+    .kw { color:#A64B32; font-weight:500; }
+    .fn { color:#1B5F69; font-weight:500; }
+    .num { color:#8A6D1F; }
+    .op { color:#6E665C; }
+    .cm { color:#8C8479; }
+  </style>
+</helmet>
+
+<div style="width:1280px; height:720px; background:#FAF7F2; display:flex; flex-direction:column; padding:52px 80px 40px;">
+
+  <div style="display:flex; justify-content:space-between; align-items:baseline; padding-bottom:13px; border-bottom:2px solid #241F1A;">
+    <div style="display:flex; align-items:baseline; gap:18px;">
+      <span class="mono" style="font-size:14px; letter-spacing:0.18em; color:#A64B32;">1.1</span>
+      <span class="disp" style="font-size:34px; font-weight:700;">구현에 따른 비용 차이</span>
+    </div>
+    <span class="mono" style="font-size:14px; letter-spacing:0.12em; color:#8C8479;">08 알고리즘</span>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:26px; padding-top:26px; flex-grow:1;">
+
+    <div style="display:flex; flex-direction:column; gap:12px; min-width:0;">
+      <div style="display:flex; align-items:center; gap:11px;">
+        <span style="width:10px; height:10px; background:#1F6F7A; flex-shrink:0;"></span>
+        <span class="mono" style="font-size:14.5px; letter-spacing:0.1em; color:#1F6F7A;">프로그램 1 · 사전 할당</span>
+      </div>
+      <div style="background:#FFFFFF; border:1px solid #E4DCD0; border-left:5px solid #1F6F7A; padding:22px 26px; flex-grow:1;">
+        <pre><span class="fn">prealloc_vec</span> <span class="op">&lt;-</span> <span class="kw">function</span>(n) {
+  x <span class="op">&lt;-</span> <span class="fn">numeric</span>(n)
+  <span class="kw">for</span> (i <span class="kw">in</span> <span class="fn">seq_len</span>(n)) {
+    x[i] <span class="op">&lt;-</span> i
+  }
+  x
+}</pre>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:12px; min-width:0;">
+      <div style="display:flex; align-items:center; gap:11px;">
+        <span style="width:10px; height:10px; background:#A64B32; flex-shrink:0;"></span>
+        <span class="mono" style="font-size:14.5px; letter-spacing:0.1em; color:#A64B32;">프로그램 2 · 이어 붙이기</span>
+      </div>
+      <div style="background:#FFFFFF; border:1px solid #E4DCD0; border-left:5px solid #A64B32; padding:22px 26px; flex-grow:1;">
+        <pre><span class="fn">grow_vec</span> <span class="op">&lt;-</span> <span class="kw">function</span>(n) {
+  x <span class="op">&lt;-</span> <span class="kw">NULL</span>
+  <span class="kw">for</span> (i <span class="kw">in</span> <span class="fn">seq_len</span>(n)) {
+    x <span class="op">&lt;-</span> <span class="fn">c</span>(x, i)
+  }
+  x
+}</pre>
+      </div>
+    </div>
+
+    <div style="grid-column:1 / -1; display:grid; grid-template-columns:1fr auto; gap:32px; align-items:center; background:#F3EEE5; border:1px solid #E4DCD0; padding:22px 30px;">
+      <div style="display:flex; flex-direction:column; gap:9px;">
+        <span class="mono" style="font-size:13px; letter-spacing:0.16em; color:#6E665C;">출력 · n = 50,000</span>
+        <div style="display:flex; align-items:baseline; gap:40px;">
+          <div style="display:flex; align-items:baseline; gap:12px;">
+            <span class="mono" style="font-size:16px; color:#1F6F7A;">사전 할당</span>
+            <span class="mono disp" style="font-size:38px; font-weight:700; color:#1F6F7A;">0.00</span>
+            <span class="mono" style="font-size:16px; color:#8C8479;">초</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:12px;">
+            <span class="mono" style="font-size:16px; color:#A64B32;">이어 붙이기</span>
+            <span class="mono disp" style="font-size:38px; font-weight:700; color:#A64B32;">1.95</span>
+            <span class="mono" style="font-size:16px; color:#8C8479;">초</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:4px; text-align:right; border-left:1px solid #D5CABB; padding-left:32px;">
+        <span class="mono" style="font-size:13px; color:#8C8479;">복사량</span>
+        <span class="disp" style="font-size:26px; font-weight:700; color:#241F1A;">n(n−1)/2</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="display:flex; justify-content:space-between; align-items:center; padding-top:14px; border-top:1px solid #E4DCD0;">
+    <span class="mono" style="font-size:13px; color:#B5A996;">통계 프로그래밍 언어 · 08 알고리즘</span>
+    <span class="mono" style="font-size:13px; color:#8C8479;">7</span>
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":1280,"height":720}}'>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>

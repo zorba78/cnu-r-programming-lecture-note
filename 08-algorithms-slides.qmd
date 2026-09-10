@@ -1,0 +1,921 @@
+---
+title: "알고리즘"
+subtitle: "어떤 코드가 왜 더 많은 비용을 요구하는지 판단한다"
+author: "구본초"
+institute: "충남대학교 정보통계학과"
+date: today
+lang: ko
+format:
+  revealjs:
+    theme: [default, upgrade/slides-theme.scss]
+    width: 1280
+    height: 720
+    slide-level: 2
+    slide-number: c/t
+    footer: "통계 프로그래밍 언어 · 08 알고리즘"
+    progress: true
+    history: false
+    highlight-style: github
+    code-line-numbers: false
+    code-copy: false
+    center-title-slide: false
+    fig-align: center
+knitr:
+  opts_chunk:
+    # YAML 에 comment: NA 라고 쓰면 R 의 NA 가 아니라 문자열 "NA" 가 되어
+    # 모든 출력에 'NA' 접두어가 붙는다. 접두어를 없애려면 빈 문자열을 준다.
+    comment: ""
+    collapse: false
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+
+# 슬라이드는 폭이 좁다. 출력 폭을 46자로 접는다.
+options(linewidth = 46, width = 46)
+hook_output <- knitr::knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  if (!is.null(n <- options$linewidth)) {
+    x <- knitr:::split_lines(x)
+    if (any(nchar(x) > n)) x <- strwrap(x, width = n)
+    x <- paste(x, collapse = "\n")
+  }
+  hook_output(x, options)
+})
+```
+
+
+## 이 수업에서 다루는 것 {.smaller}
+
+::: {.keypoint}
+알고리즘을 **암기**하는 것이 아니라, 구현이 **맞는지** 그리고 **얼마나 비싼지**
+판단하는 능력을 기른다.
+:::
+
+<br>
+
+| | 절 | 다루는 내용 |
+|:--|:--|:--|
+| 1 | 알고리즘과 비용 | 시간·공간 복잡도, 빅오 표기법 |
+| 2 | 재귀 | 종료 조건, 계승, 하노이 탑 |
+| 3 | 탐색 알고리즘 | 선형·이진 탐색, 구현의 정확성 검증 |
+| 4 | 정렬 알고리즘 | 버블 정렬, 병합 정렬 |
+| 5 | 뉴턴-랩슨 알고리즘 | 점화식, 초기값 의존성 |
+| 6 | AI와 함께 | 생성 코드의 검증 |
+
+: {tbl-colwidths="[6,30,64]"}
+
+
+# 1 · 알고리즘과 비용 {.section-title background-color="#F3EEE5"}
+
+## 알고리즘이라 부르려면 {.smaller}
+
+::: {.callout-note}
+**알고리즘(algorithm)**: 주어진 문제를 해결하기 위해 정해진 일련의 절차를
+단계적으로 표현한 것.
+:::
+
+::: {.columns}
+::: {.column width="52%"}
+- **명확성** — 각 단계가 모호하지 않다
+- **유일성** — 다음 단계가 하나로 결정된다
+- **입력과 출력** — 정의된 입력을 받아 결과를 낸다
+- **유한성** — 유한한 단계를 거쳐 반드시 종료한다
+- **일반성** — 정의된 입력 전체에 대해 동작한다
+:::
+::: {.column width="48%"}
+::: {.keypoint}
+실제 구현에서 가장 자주 위반되는 조건은 **유한성**과 **일반성**이다.
+
+"특정 예제에서 올바르게 동작한다"와 "정의된 입력 전체에서 올바르게 동작한다"는
+전혀 다른 진술이다.
+:::
+:::
+:::
+
+
+## 결과가 같은 두 프로그램
+
+::: {.columns}
+::: {.column width="50%"}
+[프로그램 1 · 사전 할당]{.label .label-slide}
+
+```{r prealloc, eval=FALSE}
+prealloc_vec <- function(n) {
+  x <- numeric(n)
+  for (i in seq_len(n)) {
+    x[i] <- i
+  }
+  x
+}
+```
+:::
+::: {.column width="50%"}
+[프로그램 2 · 이어 붙이기]{.label .label-note}
+
+```{r grow, eval=FALSE}
+grow_vec <- function(n) {
+  x <- NULL
+  for (i in seq_len(n)) {
+    x <- c(x, i)
+  }
+  x
+}
+```
+:::
+:::
+
+```{r both-defs, echo=FALSE}
+prealloc_vec <- function(n) {
+  x <- numeric(n)
+  for (i in seq_len(n)) x[i] <- i
+  x
+}
+grow_vec <- function(n) {
+  x <- NULL
+  for (i in seq_len(n)) x <- c(x, i)
+  x
+}
+```
+
+```{r same-result}
+identical(prealloc_vec(1000), as.numeric(grow_vec(1000)))
+```
+
+
+## 예측해 보자 {.predict background-color="#1F6F7A"}
+
+`n` 이 5만일 때 두 프로그램의 실행 시간은 얼마나 차이 나겠는가?
+
+::: {.options}
+::: {}
+**A** 비슷한 수준
+:::
+::: {}
+**B** 두 배 정도
+:::
+::: {}
+**C** 그보다 크다
+:::
+:::
+
+::: {.why}
+틀린 예측이 학습의 출발점이다. 답을 적어 두어야 실행 결과와 대조할 것이 생긴다.
+:::
+
+
+## 실행과 대조 {.smaller}
+
+```{r cost-time}
+#| output-location: fragment
+n <- 50000
+data.frame(
+  방식 = c("사전 할당", "이어 붙이기"),
+  초 = c(system.time(prealloc_vec(n))[["elapsed"]],
+         system.time(grow_vec(n))[["elapsed"]])
+)
+```
+
+. . .
+
+::: {.keypoint}
+`x <- c(x, i)` 는 반복마다 **길이가 1 만큼 늘어난 새 벡터를 할당하고 기존 원소를
+전부 복사**한다. 전체 복사량은 $1 + 2 + \cdots + n = n(n-1)/2$ 에 비례한다.
+
+사전 할당 방식은 이미 확보된 메모리에 값을 대입하므로 반복당 비용이 일정하다.
+:::
+
+
+## 시간 복잡도와 공간 복잡도 {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {.callout-note}
+**시간 복잡도**
+
+알고리즘이 종료할 때까지 수행하는 **연산의 횟수**.
+사칙연산·비교연산·반복·함수 호출이 계수의 대상이다.
+:::
+:::
+::: {.column width="50%"}
+::: {.callout-note}
+**공간 복잡도**
+
+알고리즘이 종료할 때까지 필요한 **메모리의 크기**.
+변수의 개수·자료 구조·스택 프레임이 대상이다.
+:::
+:::
+:::
+
+::: {.keypoint}
+성능은 **최악의 경우**를 기준으로 평가한다. 최선은 특정 입력에서만 성립하고,
+평균은 입력 분포를 가정해야 계산할 수 있는 반면, 최악은 임의의 입력에 대해
+항상 성립하는 **상한**을 제공하기 때문이다.
+:::
+
+
+## 빅오 표기법 {.smaller}
+
+::: {.callout-note}
+$x \geq k$ 인 모든 $x$ 에 대해 $|f(x)| \leq C|g(x)|$ 를 만족하는 상수 $k$ 와 $C$ 가
+존재하면 $f(x) = \mathcal{O}(g(x))$ 라 한다. 즉 $g$ 는 $f$ 의 **점근적 상한**이다.
+:::
+
+코드를 분석할 때 실제로 사용하는 것은 정의 자체보다 다음 세 규칙이다.
+
+::: {.columns}
+::: {.column width="33%"}
+[규칙 1 · 계수 법칙]{.label .label-note}
+
+계수는 소거된다.
+
+$\mathcal{O}(5n) = \mathcal{O}(n)$
+:::
+::: {.column width="33%"}
+[규칙 2 · 합의 법칙]{.label .label-note}
+
+증가율이 큰 쪽만 남는다.
+
+$\mathcal{O}(n) + \mathcal{O}(n^2) = \mathcal{O}(n^2)$
+:::
+::: {.column width="33%"}
+[규칙 3 · 곱의 법칙]{.label .label-note}
+
+중첩되면 곱한다.
+
+$\mathcal{O}(n) \times \mathcal{O}(n) = \mathcal{O}(n^2)$
+:::
+:::
+
+
+## 차수가 다르면 무엇이 달라지는가 {.smaller}
+
+```{r big-o-table, echo=FALSE}
+n <- c(10, 100, 1000)
+fmt <- function(x) format(x, big.mark = ",", scientific = FALSE)
+tab <- data.frame(
+  n = fmt(n),
+  o1 = c("1", "1", "1"),
+  ologn = c("3", "7", "10"),
+  on = fmt(n),
+  onlogn = fmt(round(n * log2(n))),
+  on2 = fmt(n^2),
+  o2n = c("1,024", "1.3e+30", "1.1e+301")
+)
+names(tab) <- c("n", "O(1)", "O(log n)", "O(n)", "O(n log n)", "O(n^2)", "O(2^n)")
+kable(tab, align = rep("r", 7))
+```
+
+::: {.columns}
+::: {.column width="50%"}
+::: {.keypoint .teal}
+$n = 1{,}000$ 에서 $\mathcal{O}(n)$ 과 $\mathcal{O}(n^2)$ 의 연산 횟수는
+**천 배** 차이가 난다.
+:::
+:::
+::: {.column width="50%"}
+::: {.keypoint}
+**차수가 다르면 하드웨어 성능 향상으로 해결할 수 있는 문제가 아니다.**
+:::
+:::
+:::
+
+
+# 2 · 재귀 {.section-title background-color="#F3EEE5"}
+
+## 재귀 함수의 구성 {.smaller}
+
+**재귀 함수(recursive function)** 는 자기 자신을 호출하는 함수다. 호출할 때마다
+호출 스택(call stack)에 새로운 프레임이 누적되므로, 이를 중단시키는 조건이 없으면
+함수는 종료되지 않는다.
+
+::: {.columns}
+::: {.column width="50%"}
+1. **종료 조건(base case)**<br>
+   분할하지 않고 결과를 직접 반환
+2. **재귀 단계(recursive step)**<br>
+   문제의 크기를 줄여 자기 자신을 호출
+:::
+::: {.column width="50%"}
+```{r recursive-sum}
+recursive_sum <- function(n) {
+  if (n == 1) return(n)     # 종료 조건
+  n + recursive_sum(n - 1)  # 재귀 단계
+}
+
+recursive_sum(3)
+```
+:::
+:::
+
+
+## 예측해 보자 {.predict background-color="#1F6F7A"}
+
+`recursive_sum(0)` 은 무엇을 반환하겠는가?
+
+::: {.options}
+::: {}
+**A** `0`
+:::
+::: {}
+**B** `1`
+:::
+::: {}
+**C** 오류
+:::
+:::
+
+::: {.why}
+위 함수는 정상적으로 동작한다. 그렇다면 "정의된 입력 전체"에 대해서도 그러한가?
+:::
+
+
+## 종료 조건의 한계 {.smaller}
+
+```{r rec-zero}
+#| output-location: fragment
+tryCatch(recursive_sum(0),
+         error = function(e) cat("오류:", conditionMessage(e), "\n"))
+```
+
+. . .
+
+`n` 이 0이면 `n == 1` 은 결코 참이 되지 않는다. 인수가 계속 감소하다가 R 의 중첩
+한계에 도달해서야 중단된다. **종료 조건은 "`n` 이 1 이하일 때"로 규정했어야 한다.**
+
+. . .
+
+::: {.keypoint}
+결함은 입력이 커질 때만 드러나는 것이 아니라, **정의역의 경계 바로 바깥에서도**
+드러난다.
+:::
+
+```{r rec-fixed}
+recursive_sum2 <- function(n) {
+  if (n <= 1) return(n)          # 경계 조건을 포함한다
+  n + recursive_sum2(n - 1)
+}
+c(recursive_sum2(0), recursive_sum2(1), recursive_sum2(100))
+```
+
+
+## 재귀의 비용 {.smaller}
+
+재귀 호출은 호출마다 스택 프레임을 누적하므로 **공간 복잡도가 $\mathcal{O}(n)$** 이다.
+R 은 중첩 깊이를 `options(expressions)` 로 제한하며 기본값은 5000이다.
+
+```{r rec-depth}
+#| output-location: fragment
+recursive_sum2(1000)                     # 정상적으로 동작한다
+
+tryCatch(recursive_sum2(5000),           # 중첩 한계
+         error = function(e) cat("오류:", conditionMessage(e), "\n"))
+```
+
+. . .
+
+::: {.keypoint}
+재귀는 **가독성을 얻는 대신 메모리를 소비한다.** 재귀 구조로 문제를 먼저 이해한 뒤,
+필요하면 반복문으로 변환하는 순서가 안전하다. 반복문 구현은 공간 복잡도가
+$\mathcal{O}(1)$ 이고 깊이 제한도 없다.
+:::
+
+
+## 하노이 탑 {.smaller}
+
+기둥 세 개와 크기가 다른 원판 $n$ 개. 한 번에 하나씩만 옮기고, 큰 원판을 작은 원판
+위에 올릴 수 없다. 해법의 핵심은 문제를 **한 단계 작은 동일 문제로 환원**하는 것이다.
+
+::: {.columns}
+::: {.column width="54%"}
+```{r hanoi}
+move_hanoi <- function(k, from, to, via) {
+  if (k == 1) {
+    cat(sprintf("원판 1: %s -> %s\n", from, to))
+  } else {
+    move_hanoi(k - 1, from, via, to)
+    cat(sprintf("원판 %d: %s -> %s\n", k, from, to))
+    move_hanoi(k - 1, via, to, from)
+  }
+}
+move_hanoi(3, "A", "C", "B")
+```
+:::
+::: {.column width="46%"}
+::: {.keypoint}
+이동 횟수는 $2^n - 1$ 이다. 호출이 매 단계에서 두 개로 분기하기 때문이다.
+즉 $\mathcal{O}(2^n)$ 이다.
+
+전설의 원판 64개는 1초에 한 번씩 옮겨도 **5천억 년**이 넘게 걸린다.
+:::
+:::
+:::
+
+
+# 3 · 탐색 알고리즘 {.section-title background-color="#F3EEE5"}
+
+## 선형 탐색과 이진 탐색 {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+[선형 탐색 · $\mathcal{O}(n)$]{.label .label-note}
+
+```{r linear-search}
+linear_search <- function(target, vec) {
+  for (i in seq_along(vec)) {
+    if (vec[i] == target) return(i)
+  }
+  NA_integer_
+}
+```
+
+첫 원소부터 순차적으로 비교한다. 정렬되어 있지 않아도 적용할 수 있다.
+:::
+::: {.column width="50%"}
+[이진 탐색 · $\mathcal{O}(\log n)$]{.label .label-slide}
+
+```{r binary-search}
+binary_search <- function(target, ovec) {
+  lo <- 1L; hi <- length(ovec)
+  while (lo <= hi) {
+    mid <- (lo + hi) %/% 2L
+    if (ovec[mid] == target) return(mid)
+    if (ovec[mid] > target) hi <- mid - 1L
+    else lo <- mid + 1L
+  }
+  NA_integer_
+}
+```
+
+비교를 한 번 할 때마다 후보가 절반으로 줄어든다. 단, **정렬되어 있어야** 한다.
+:::
+:::
+
+
+## 예측해 보자 {.predict background-color="#1F6F7A"}
+
+아래 재귀 구현에 벡터의 모든 원소를 입력하면 몇 개나 정확히 찾아내겠는가?
+
+```r
+rbinary_search <- function(target, ovec, minL, maxL) {
+  if (maxL <= minL) return(NA_integer_)
+  midL <- floor((minL + maxL) / 2)
+  ...
+}
+```
+
+::: {.options}
+::: {}
+**A** 전부
+:::
+::: {}
+**B** 절반쯤
+:::
+::: {}
+**C** 하나도 못 찾는다
+:::
+:::
+
+
+## 구현의 정확성 검증 {.smaller}
+
+```{r rbin-def, echo=FALSE}
+rbinary_search <- function(target, ovec, minL, maxL) {
+  if (maxL <= minL) return(NA_integer_)
+  midL <- floor((minL + maxL) / 2)
+  if (ovec[midL] > target) {
+    rbinary_search(target, ovec, minL, midL - 1)
+  } else if (ovec[midL] < target) {
+    rbinary_search(target, ovec, midL + 1, maxL)
+  } else {
+    return(midL)
+  }
+}
+set.seed(1)
+x <- sort(sample(1:100, 20))
+```
+
+**전수 검사** — 벡터의 모든 원소를 차례로 목표값으로 입력한다.
+
+```{r rbin-exhaustive}
+#| output-location: fragment
+found <- vapply(seq_along(x), function(i) {
+  r <- rbinary_search(x[i], x, 1, length(x))
+  if (is.na(r)) NA_integer_ else as.integer(r)
+}, integer(1))
+
+c(전체 = length(x), 찾지_못함 = sum(is.na(found)))
+```
+
+. . .
+
+::: {.keypoint}
+원인은 첫 줄의 `if (maxL <= minL) return(NA_integer_)` 이다. 탐색 범위가 원소 하나로
+좁혀지면 `minL == maxL` 이 되는데, 이 조건은 **남은 원소를 검사하지 않은 채 탐색을
+종료한다.** 탐색 범위가 실제로 비는 조건은 `minL > maxL` 이다.
+:::
+
+
+## 오류 메시지 없이 틀린 코드 {.smaller}
+
+```{r rbin-fixed}
+rbinary_search2 <- function(target, ovec, lo = 1L, hi = length(ovec)) {
+  if (lo > hi) return(NA_integer_)          # 탐색 범위가 비었을 때만 종료
+  mid <- (lo + hi) %/% 2L
+  if (ovec[mid] == target) mid
+  else if (ovec[mid] > target) rbinary_search2(target, ovec, lo, mid - 1L)
+  else rbinary_search2(target, ovec, mid + 1L, hi)
+}
+
+all(vapply(seq_along(x), function(i) as.integer(rbinary_search2(x[i], x)),
+           integer(1)) == seq_along(x))
+```
+
+::: {.keypoint}
+`rbinary_search()` 는 문법 오류가 없고, 실행 시 오류 메시지도 출력하지 않으며,
+저자가 선택한 예제에서는 정답을 반환한다. **그럼에도 잘못된 구현이다.**
+
+이러한 결함은 오류 메시지가 아니라 **검증 절차를 통해서만** 발견된다.
+:::
+
+
+## 두 탐색의 비용 비교 {.smaller}
+
+실행 시간 대신 **연산 횟수를 계수하면** 하드웨어 성능과 무관한 값을 얻는다.
+
+```{r search-cost, echo=FALSE}
+count_linear <- function(target, vec) {
+  n <- 0L
+  for (i in seq_along(vec)) { n <- n + 1L; if (vec[i] == target) return(n) }
+  n
+}
+count_binary <- function(target, ovec) {
+  lo <- 1L; hi <- length(ovec); n <- 0L
+  while (lo <= hi) {
+    n <- n + 1L
+    mid <- (lo + hi) %/% 2L
+    if (ovec[mid] == target) return(n)
+    if (ovec[mid] > target) hi <- mid - 1L else lo <- mid + 1L
+  }
+  n
+}
+set.seed(1)
+sizes <- c(100, 1000, 10000)
+cmp <- t(sapply(sizes, function(n) {
+  v <- seq_len(n); ks <- sample(v, 100)
+  c(선형 = mean(sapply(ks, count_linear, vec = v)),
+    이진 = mean(sapply(ks, count_binary, ovec = v)))
+}))
+kable(data.frame(n = format(sizes, big.mark = ","), round(cmp, 1)), align = "r")
+```
+
+::: {.keypoint .teal}
+$n$ 이 100배 증가할 때 선형 탐색은 약 100배 증가하지만, 이진 탐색은 두 배를 조금
+넘는 수준에 그친다. $n = 10^6$ 이면 선형 탐색은 평균 **50만 회**, 이진 탐색은 약
+**20회**를 수행한다.
+:::
+
+
+## 이진 탐색이 항상 유리한 것은 아니다
+
+::: {.callout-caution}
+**정렬되어 있어야** 적용할 수 있고, 정렬 자체의 비용이 $\mathcal{O}(n \log n)$ 이다.
+
+탐색을 한 번만 수행한다면 정렬 후 이진 탐색을 적용하는 것보다 선형 탐색이 오히려
+저렴하다. 탐색을 여러 번 반복할 때 비로소 정렬 비용이 상쇄된다.
+:::
+
+
+# 4 · 정렬 알고리즘 {.section-title background-color="#F3EEE5"}
+
+## 버블 정렬과 병합 정렬 {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+[버블 정렬 · $\mathcal{O}(n^2)$]{.label .label-note}
+
+```{r bubble}
+bubble_sort <- function(x) {
+  n <- length(x)
+  if (n < 2) return(x)
+  for (i in seq_len(n - 1)) {
+    for (j in seq_len(n - i)) {
+      if (x[j] > x[j + 1]) {
+        temp <- x[j]
+        x[j] <- x[j + 1]
+        x[j + 1] <- temp
+      }
+    }
+  }
+  x
+}
+```
+:::
+::: {.column width="50%"}
+[병합 정렬 · $\mathcal{O}(n \log n)$]{.label .label-slide}
+
+```{r merge}
+smerge <- function(left, right) {
+  temp <- numeric(length(left) + length(right))
+  l <- r <- 1L
+  for (i in seq_along(temp)) {
+    if (r > length(right) ||
+        (l <= length(left) && left[l] <= right[r])) {
+      temp[i] <- left[l]; l <- l + 1L
+    } else {
+      temp[i] <- right[r]; r <- r + 1L
+    }
+  }
+  temp
+}
+merge_sort <- function(x) {
+  n <- length(x)
+  if (n <= 1) return(x)
+  mid <- n %/% 2L
+  smerge(merge_sort(x[1:mid]), merge_sort(x[(mid + 1):n]))
+}
+```
+:::
+:::
+
+
+## 예측해 보자 {.predict background-color="#1F6F7A"}
+
+원소 수를 두 배로 늘리면 각 정렬의 **비교 횟수**는 몇 배가 되겠는가?
+
+::: {.options}
+::: {}
+**A** 둘 다 두 배
+:::
+::: {}
+**B** 버블 네 배 · 병합 두 배 남짓
+:::
+::: {}
+**C** 둘 다 네 배
+:::
+:::
+
+::: {.why}
+실행 시간은 하드웨어와 부하에 따라 변동하고, 빠른 쪽은 0초로 측정되어 증가율을
+계산할 수 없다. 비교 횟수는 입력이 동일하면 항상 같은 값을 갖는다.
+:::
+
+
+## 비교 횟수는 이론값과 일치한다 {.smaller}
+
+```{r sort-count, echo=FALSE}
+bubble_count <- function(x) {
+  n <- length(x); cnt <- 0
+  for (i in seq_len(n - 1)) for (j in seq_len(n - i)) {
+    cnt <- cnt + 1
+    if (x[j] > x[j + 1]) { temp <- x[j]; x[j] <- x[j + 1]; x[j + 1] <- temp }
+  }
+  cnt
+}
+merge_count <- function(x) {
+  n <- length(x)
+  if (n <= 1) return(0)
+  mid <- n %/% 2L
+  merge_count(x[1:mid]) + merge_count(x[(mid + 1):n]) + n
+}
+set.seed(1234)
+sizes <- c(500, 1000, 2000)
+cnt <- t(sapply(sizes, function(n) {
+  v <- sample(n)
+  c(버블 = bubble_count(v), 병합 = merge_count(v))
+}))
+kable(data.frame(
+  n = format(sizes, big.mark = ",", scientific = FALSE),
+  버블 = format(cnt[, 1], big.mark = ",", scientific = FALSE),
+  `n(n-1)/2` = format(sizes * (sizes - 1) / 2, big.mark = ",", scientific = FALSE),
+  병합 = format(cnt[, 2], big.mark = ",", scientific = FALSE),
+  `n log2(n)` = format(round(sizes * log2(sizes)), big.mark = ",", scientific = FALSE),
+  check.names = FALSE), align = "r")
+```
+
+::: {.keypoint}
+$n$ 이 두 배가 될 때 버블 정렬은 **정확히 네 배**, 병합 정렬은 **두 배를 조금 넘는**
+수준으로 증가한다. 버블 정렬의 비교 횟수는 $n(n-1)/2$ 와 정확히 일치하고, 병합
+정렬은 $n\log_2 n$ 에 근접한다.
+
+**이론적으로 분석한 복잡도가 실제 연산 횟수와 일치하는지 확인하는 것 역시 검증이다.**
+:::
+
+
+# 5 · 뉴턴-랩슨 알고리즘 {.section-title background-color="#F3EEE5"}
+
+## 원리와 점화식 {.smaller}
+
+$f(x) = 0$ 을 만족하는 $x$ 를 반복 계산으로 구한다. 통계학에서 최대가능도추정량을
+구할 때 사용하는 방법이 바로 이것이다.
+
+::: {.columns}
+::: {.column width="50%"}
+1. 초기값 $x_0$ 을 설정한다
+2. $x_n$ 에서 접선을 구한다
+3. 접선이 $x$ 축과 만나는 점을 $x_{n+1}$ 로 정한다
+4. 종료 조건까지 2\~3을 반복한다
+
+$$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$
+:::
+::: {.column width="50%"}
+::: {.keypoint}
+**종료 조건** — 다음 세 가지를 함께 사용한다.
+
+- 최대 반복 횟수를 초과한 경우
+- $x$ 의 갱신 폭이 충분히 작아진 경우
+- $|f(x)|$ 가 허용 오차 이내로 0에 근접한 경우
+:::
+:::
+:::
+
+
+## 구현과 검증 {.smaller}
+
+```{r newton, echo=FALSE}
+newton_raphson <- function(FUN, x0 = 1, max_iters = 5000,
+                           tol = 1e-9, range = c(-Inf, Inf)) {
+  grads <- deriv(as.expression(body(FUN)), "x", function.arg = TRUE)
+  iters <- 1L; gap <- Inf
+  while (iters < max_iters && abs(gap) > tol) {
+    slope <- attr(grads(x0), "gradient")
+    if (slope == 0) stop("미분계수가 0이므로 다음 근사값을 계산할 수 없다.")
+    x_new <- x0 - FUN(x0) / slope
+    if (x_new <= range[1]) x_new <- range[1]
+    if (x_new >= range[2]) x_new <- range[2]
+    gap <- FUN(x_new); iters <- iters + 1L; x0 <- x_new
+  }
+  list(solution = x_new, iteration = iters, value = FUN(x_new))
+}
+f <- function(x) 5 * x^3 - 7 * x^2 - 40 * x + 100
+```
+
+```{r newton-run}
+f <- function(x) 5 * x^3 - 7 * x^2 - 40 * x + 100
+sol <- newton_raphson(f, x0 = 1, range = c(-10, 10))
+unlist(sol)
+```
+
+**검증** — 3차 다항식이므로 `polyroot()` 로 모든 근을 구해 대조할 수 있다.
+
+```{r newton-check}
+#| output-location: fragment
+roots <- polyroot(c(100, -40, -7, 5))
+Re(roots)[abs(Im(roots)) < 1e-8]        # 허수부가 0인 것만 실근이다
+```
+
+. . .
+
+이 함수의 **실근은 하나뿐**이며, 알고리즘이 구한 값과 일치한다.
+
+
+## 초기값 의존성 {.smaller}
+
+```{r newton-inits, echo=FALSE}
+inits <- c(-5, -1, 0, 1, 5)
+res <- t(sapply(inits, function(x0) {
+  r <- newton_raphson(f, x0 = x0, range = c(-10, 10))
+  c(초기값 = x0, 해 = round(r$solution, 6), 반복 = r$iteration)
+}))
+kable(res, align = "r")
+```
+
+::: {.callout-caution}
+뉴턴-랩슨 알고리즘은 수렴 속도가 빠르지만 **초기값에 민감하다.** 기울기가 0에 가까운
+지점에서 출발하면 다음 근사값이 크게 벗어나고, $f'(x) = 0$ 이면 점화식을 계산할 수 없다.
+
+결과를 얻은 뒤에는 **그 값이 실제로 해인지**, 그리고 **의도한 해가 맞는지**를 반드시
+확인해야 한다.
+:::
+
+
+# 6 · AI와 함께: 생성 코드의 검증 {.section-title background-color="#F3EEE5"}
+
+## 프롬프트는 곧 요구사항이다 {.smaller}
+
+::: {.callout-important}
+**작업 요구사항**
+
+> 오름차순으로 정렬된 수치형 벡터 `vec` 과 값 `target` 을 받아, `target` 이 있으면
+> 그 위치를, 없으면 `NA` 를 반환하는 재귀 이진 탐색 함수를 R 로 작성하라.
+:::
+
+```{r ai-gen}
+# 생성: Claude Opus 5, 2026-09-11. 수정 없이 그대로 수록.
+binary_search_rec <- function(vec, target, lo = 1, hi = length(vec)) {
+  if (lo > hi) return(NA_integer_)
+  mid <- (lo + hi) %/% 2
+  if (vec[mid] == target) return(mid)
+  else if (vec[mid] > target) binary_search_rec(vec, target, lo, mid - 1)
+  else binary_search_rec(vec, target, mid + 1, hi)
+}
+```
+
+앞 절에서 수정한 구현과 동일한 구조다. 그럼에도 검증 절차를 수행한다.
+
+
+## 세 가지 검증 {.smaller}
+
+```{r ai-verify}
+#| output-location: fragment
+v <- seq(1, 40, by = 3)
+
+# 1. 전수 검사
+c1 <- all(vapply(seq_along(v), function(i) as.integer(binary_search_rec(v, v[i])),
+                 integer(1)) == seq_along(v))
+
+# 2. 경계 사례 — 빈 벡터, 길이 1인 벡터, 존재하지 않는 값
+c2 <- all(is.na(c(binary_search_rec(numeric(0), 5), binary_search_rec(7, 9))))
+
+# 3. 무작위 대조 — 정답이 알려진 which() 와 500회 대조
+set.seed(20260911)
+c3 <- all(replicate(500, {
+  w <- sort(sample(1:200, sample(1:60, 1)))
+  k <- sample(1:200, 1)
+  got <- binary_search_rec(w, k); want <- which(w == k)
+  if (length(want) == 0) is.na(got) else (!is.na(got) && got %in% want)
+}))
+
+c(전수검사 = c1, 경계사례 = c2, 무작위대조 = c3)
+```
+
+. . .
+
+세 가지 검증을 모두 통과했다. **요구사항의 범위 안에서는** 이 코드가 옳다.
+
+
+## 요구사항이 규정하지 않은 부분 {.smaller}
+
+```{r ai-gaps}
+#| output-location: fragment
+d <- c(1, 3, 3, 3, 5, 7)
+c(이_구현 = binary_search_rec(d, 3), R의_match = match(3, d))   # 중복값
+
+u <- c(19, 7, 2, 15, 10)                                        # 정렬 안 된 입력
+c(반환 = binary_search_rec(u, 19), 실제_위치 = which(u == 19))
+```
+
+. . .
+
+::: {.keypoint}
+정렬되지 않은 입력에 대해 **오류나 경고 없이 값이 존재하지 않는다고 반환한다.**
+
+오류 없이 잘못된 결과를 반환하는 편이 명시적으로 실패하는 편보다 훨씬 위험하다.
+:::
+
+
+## AI 생성 코드에서 자주 나타나는 오류 {.smaller}
+
+::: {.callout-caution}
+- **경계 조건** — `<` 와 `<=`, `mid` 와 `mid - 1` 을 혼동한다.
+  이 수업의 `rbinary_search()` 가 정확히 이 유형이며, 사람이 작성한 코드에서도
+  동일하게 나타난다.
+- **전제 미검사** — "정렬되어 있다", "`NA` 가 없다"와 같은 전제를 확인하지 않는다.
+- **빈 입력** — 길이가 0인 벡터에서 인덱스 1을 참조한다.
+- **요구사항의 공백** — 중복값이나 동점 처리처럼 규정되지 않은 부분을 임의로
+  결정하고, 그 선택을 명시하지 않는다.
+:::
+
+::: {.keypoint}
+공통점은 **오류 메시지가 출력되지 않는다**는 점이다. 따라서 실행해 보는 것만으로는
+부족하며 별도의 검증 절차가 필요하다.
+:::
+
+
+## 정리 {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+[비용]{.label .label-note}
+
+- 같은 결과를 내는 코드도 **비용의 증가율**이 다르다
+- 성능은 **최악의 경우**를 기준으로 평가한다
+- 차수가 다르면 하드웨어로 해결되지 않는다
+
+[재귀]{.label .label-note}
+
+- 종료 조건과 재귀 단계, 두 부분으로 이루어진다
+- 가독성을 얻는 대신 **스택 프레임**을 소비한다
+:::
+::: {.column width="50%"}
+[검증]{.label .label-slide}
+
+- 예제 몇 개를 통과하는 것은 **정확성의 근거가 아니다**
+- 전수 검사 · 경계 사례 · 정답이 알려진 기준과의 대조
+- 오류 메시지가 없는 결함은 **절차로만** 발견된다
+
+[AI와 함께]{.label .label-slide}
+
+- 프롬프트는 곧 **요구사항**이다
+- 요구사항이 규정하지 않은 곳에서 구현이 갈라진다
+:::
+:::
+
+::: {.keypoint .teal}
+다음 시간에는 이 검증 절차를 **시뮬레이션**으로 확장한다.
+:::

@@ -1,0 +1,298 @@
+/*-- scss:defaults --*/
+
+// 강의 슬라이드 테마 — 허브 A안(주제 목록형)의 색·서체를 화면 투영용으로 옮긴 것.
+//   강의노트 계열 = 벽돌색 #A64B32,  슬라이드 계열 = 청록 #1F6F7A
+// 코드 블록은 흰 바탕에 왼쪽 색 띠로 둔다. 어두운 바탕은 투영 환경에 따라 코드가
+// 뭉개져 읽기 어렵다(강사 지적, 2026-09-11).
+
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap');
+
+$ink:        #241F1A;
+$prose:      #5C554C;
+$muted:      #6E665C;
+$faint:      #8C8479;
+$line:       #E4DCD0;
+$line-2:     #D5CABB;
+$panel:      #F3EEE5;
+$note:       #A64B32;
+$note-dark:  #7E3624;
+$slide:      #1F6F7A;
+$slide-dark: #155059;
+$off:        #B5A996;
+
+$font-family-sans-serif: 'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif !default;
+$font-family-monospace:  'IBM Plex Mono', 'SFMono-Regular', ui-monospace, 'Malgun Gothic', monospace !default;
+
+$presentation-font-size-root: 30px;
+$presentation-line-height: 1.5;
+$presentation-heading-font: 'Hahmlet', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;
+$presentation-heading-color: $ink;
+$presentation-heading-font-weight: 700;
+$presentation-h1-font-size: 2.4em;
+$presentation-h2-font-size: 1.28em;
+$presentation-h3-font-size: 1.0em;
+
+$body-bg: #FAF7F2;
+$body-color: $ink;
+$link-color: $note;
+$link-color-hover: $note-dark;
+$selection-bg: #EAE0D1;
+$selection-color: $ink;
+
+$code-block-bg: #FFFFFF;
+$code-block-border-color: $line;
+$code-block-font-size: 0.62em;
+$code-color: $ink;
+$border-color: $line;
+
+
+/*-- scss:rules --*/
+
+.reveal { text-wrap: pretty; }
+
+// ── 제목 ─────────────────────────────────────────────────────
+.reveal h1, .reveal h2, .reveal h3 {
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+.reveal h2 {
+  padding-bottom: 0.32em;
+  border-bottom: 2px solid $ink;
+  margin-bottom: 0.75em;
+}
+// 절 표지(레벨 1)는 밑줄 없이 크게
+.reveal .title-slide h1,
+.reveal section.center h1,
+.reveal h1 { border-bottom: none; }
+
+// ── 2단 배치 ─────────────────────────────────────────────────
+// Quarto 의 revealjs 기본값은 div.column{display:inline-block; width:50%} 라
+// 두 칸 사이의 공백 문자 때문에 100% 를 넘겨 아래로 흘러내린다. flex 로 바꾼다.
+.reveal div.columns {
+  display: flex;
+  gap: 1.3em;
+  align-items: flex-start;
+}
+.reveal div.columns > div.column {
+  display: block;
+  min-width: 0;
+}
+
+// ── 표지 ─────────────────────────────────────────────────────
+#title-slide {
+  text-align: left;
+
+  // 저자 블록이 기본값에서 가운데로 흩어진다. 왼쪽 정렬로 모은다.
+  .quarto-title-authors,
+  .quarto-title-author,
+  .quarto-title-author-name,
+  .quarto-title-affiliation {
+    display: block;
+    text-align: left;
+    justify-content: flex-start;
+    padding: 0;
+    margin: 0;
+  }
+  .quarto-title-authors { margin-top: 2.2em; }
+  .quarto-title-author-name { font-size: 0.62em; font-weight: 600; color: $ink; }
+  .quarto-title-affiliation { font-size: 0.54em; color: $muted; margin-top: 0.25em; }
+  .date { margin-top: 0.5em; }
+
+  .title {
+    font-family: $presentation-heading-font;
+    font-size: 2.6em;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    color: $ink;
+  }
+  .subtitle {
+    font-size: 0.86em;
+    line-height: 1.6;
+    color: $prose;
+    margin-top: 0.7em;
+    padding-top: 0.7em;
+    border-top: 5px solid $slide;
+    display: inline-block;
+  }
+  .author, .date, .institute {
+    font-size: 0.6em;
+    color: $muted;
+    margin-top: 0.3em;
+  }
+  .author { font-weight: 600; color: $ink; }
+  .date { font-family: $font-family-monospace; color: $faint; }
+}
+
+// ── 절 표지 ──────────────────────────────────────────────────
+.reveal section.section-title {
+  h1 {
+    font-size: 2.1em;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+// ── 코드 ─────────────────────────────────────────────────────
+.reveal div.sourceCode {
+  background: #FFFFFF;
+  border: 1px solid $line;
+  border-left: 5px solid $slide;
+  border-radius: 0;
+  margin: 0.5em 0;
+}
+.reveal pre.sourceCode code {
+  padding: 0.75em 1em;
+  max-height: 500px;
+}
+.reveal pre code { background: transparent; }
+
+// 구문 색은 흰 바탕에서 충분한 대비를 갖도록 다시 잡는다
+.reveal code span.kw, .reveal code span.cf { color: $note; font-weight: 500; }   // function, if, for
+.reveal code span.fu { color: $slide-dark; font-weight: 500; }                    // 함수 호출
+.reveal code span.dv, .reveal code span.fl { color: #8A6D1F; }                    // 숫자
+.reveal code span.st { color: #6B7B2E; }                                          // 문자열
+.reveal code span.co { color: $faint; font-style: normal; }                        // 주석
+.reveal code span.ot, .reveal code span.sc { color: $muted; }                      // 연산자
+.reveal code span.cn { color: $note; }                                             // TRUE/NULL/NA
+
+// 출력 블록
+.reveal pre:not(.sourceCode) {
+  background: $panel;
+  border: 1px solid $line;
+  border-left: 5px solid $off;
+  box-shadow: none;
+  border-radius: 0;
+  font-size: 0.6em;
+  padding: 0.7em 1em;
+}
+.reveal .cell-output pre {
+  background: $panel;
+  border-left: 5px solid $off;
+}
+
+// 인라인 코드
+.reveal p code, .reveal li code, .reveal td code {
+  color: $note-dark;
+  background: $panel;
+  padding: 0.05em 0.3em;
+  font-size: 0.85em;
+}
+
+// ── 표 ───────────────────────────────────────────────────────
+.reveal table {
+  font-size: 0.72em;
+  border-collapse: collapse;
+}
+.reveal table th {
+  font-family: $presentation-heading-font;
+  font-weight: 700;
+  border-bottom: 2px solid $ink;
+  color: $ink;
+  padding: 0.45em 0.5em;
+}
+.reveal table td {
+  font-family: $font-family-monospace;
+  border-bottom: 1px solid $line;
+  color: $prose;
+  padding: 0.4em 0.5em;
+}
+.reveal table tr:nth-child(even) { background: $panel; }
+
+// ── 콜아웃 ───────────────────────────────────────────────────
+.reveal .callout {
+  border-radius: 0;
+  border-left-width: 5px;
+  font-size: 0.82em;
+}
+.reveal .callout.callout-style-default .callout-body { font-size: 1em; }
+.reveal .callout-note   { border-left-color: $slide; }
+.reveal .callout-tip    { border-left-color: $slide; }
+.reveal .callout-important { border-left-color: $note; }
+.reveal .callout-caution{ border-left-color: $note; }
+
+// ── 예측 슬라이드 (청록 반전) ────────────────────────────────
+.reveal section.predict {
+  h2 {
+    color: #FAF7F2;
+    border-bottom: 2px solid rgba(250, 247, 242, 0.5);
+  }
+  p, li, strong { color: #F4FAFA; }
+  code { color: #FAF7F2; background: rgba(250, 247, 242, 0.16); }
+  .options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6em;
+    margin-top: 1em;
+  }
+  .options > div {
+    background: rgba(250, 247, 242, 0.1);
+    border: 1px solid rgba(250, 247, 242, 0.3);
+    padding: 0.6em 0.8em;
+    font-size: 0.8em;
+  }
+  .why {
+    margin-top: 1.2em;
+    padding: 0.6em 0.9em;
+    background: rgba(36, 31, 26, 0.22);
+    border-left: 4px solid #FAF7F2;
+    font-size: 0.72em;
+  }
+}
+
+// ── 강조 상자 ────────────────────────────────────────────────
+.reveal .keypoint {
+  background: #FFFFFF;
+  border: 1px solid $line;
+  border-left: 5px solid $note;
+  padding: 0.7em 1em;
+  font-size: 0.82em;
+}
+.reveal .keypoint.teal { border-left-color: $slide; }
+
+// 두 값을 나란히 보여주는 수치 배지
+.reveal .figures {
+  display: flex;
+  gap: 2em;
+  align-items: baseline;
+  font-family: $font-family-monospace;
+}
+.reveal .figures .big {
+  font-family: $presentation-heading-font;
+  font-size: 1.5em;
+  font-weight: 700;
+}
+.reveal .fig-note  .big { color: $slide; }
+.reveal .fig-alert .big { color: $note; }
+
+// ── 머리말·꼬리말 ────────────────────────────────────────────
+.reveal .footer {
+  font-family: $font-family-monospace;
+  font-size: 0.42em;
+  color: $off;
+  letter-spacing: 0.04em;
+}
+.reveal .slide-number {
+  font-family: $font-family-monospace;
+  font-size: 0.42em;
+  background: transparent;
+  color: $faint;
+}
+.reveal .progress { color: $slide; height: 4px; }
+
+// 목록 여백
+.reveal ul, .reveal ol { margin-bottom: 0.4em; }
+.reveal li { margin-bottom: 0.32em; }
+
+// 작은 글씨 유틸
+.reveal .tiny { font-size: 0.62em; }
+.reveal .mono { font-family: $font-family-monospace; }
+.reveal .label {
+  font-family: $font-family-monospace;
+  font-size: 0.52em;
+  letter-spacing: 0.14em;
+  color: $muted;
+  text-transform: none;
+}
+.reveal .label-note  { color: $note; }
+.reveal .label-slide { color: $slide; }

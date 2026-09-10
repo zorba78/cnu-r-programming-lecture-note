@@ -102,7 +102,7 @@ bash upgrade/render-preview.sh 08-algorithms.qmd
 
 | 장 | 상태 | 비고 |
 |---|---|---|
-| 새 8장 알고리즘 | **원고 초안 (Quarto)** | `08-algorithms.qmd`. 청크 52개 실행 검증 통과. 렌더본 `docs/preview/08-algorithms.html` |
+| 새 8장 알고리즘 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `08-algorithms.qmd`, 슬라이드 `08-algorithms-slides.qmd`. 렌더본은 `docs/preview/` 아래 두 개 |
 | 나머지 전체 | 감사 전 | `/audit-chapter` 로 장별 감사 보고서 생성 후 갱신 |
 
 (장을 감사·개정할 때마다 이 표를 갱신한다: `감사 전 → 감사 완료 → 개정 중 → 개정 완료 → 검증 완료`)
@@ -112,6 +112,13 @@ bash upgrade/render-preview.sh 08-algorithms.qmd
 책 전체 전환은 아직 하지 않았다. **8장만 시범 전환**해 절차를 검증했다.
 
 - `08-algorithms.qmd` 가 새 8장의 **원본**이다 (`.Rmd` 초안은 폐기). 현행 `06-algorithms.Rmd` 는 그대로 두었다.
+- **발표 슬라이드**: `08-algorithms-slides.qmd` (Quarto revealjs, 1280×720). 테마는 `upgrade/slides-theme.scss`.
+  허브 A안의 색·서체를 투영용으로 옮긴 것으로, 디자인 시안은 https://claude.ai/code/artifact/eae110f1-c163-48b5-938a-c5249f81c49e
+  - **코드 블록은 흰 바탕에 왼쪽 색 띠**로 둔다. 어두운 바탕은 투영 환경에 따라 코드가 뭉개져 읽기 어렵다(강사 지적).
+  - `.predict` 클래스 + `background-color="#1F6F7A"` 로 예측(PRIMM) 슬라이드만 청록 반전.
+  - 슬라이드에서 걸린 것 두 가지:
+    (1) Quarto revealjs 의 `div.column` 은 `inline-block; width:50%` 이라 칸 사이 공백 때문에 2단이 아래로 흘러내린다. 테마에서 flex 로 덮었다.
+    (2) `output-location` 은 **Quarto 셀 옵션**이다. `{r name, output-location: fragment}` 처럼 knitr 헤더에 쓰면 조용히 무시된다. 청크 안에 `#| output-location: fragment` 로 쓴다.
 - 단일 장 렌더·배치: `bash upgrade/render-preview.sh 08-algorithms.qmd` → `docs/preview/`. 살아 있는 bookdown 사이트(`docs/` 루트)는 건드리지 않는다.
 - `_quarto.yml` 은 아직 만들지 않았다. 만드는 순간 `output-dir: docs` 가 현행 사이트를 덮으므로, **`migrate-to-quarto` 스킬 0단계(legacy 보존)를 먼저** 해야 한다.
 - **`bookdown-archive-2026-09-10` 태그가 이 저장소에 없다** (`git tag -l` 비어 있음). 전환 착수 전에 전환 직전 커밋에 다시 걸어야 한다.
@@ -138,7 +145,8 @@ bash upgrade/render-preview.sh 08-algorithms.qmd
   - 새 원고가 아직 없으므로 `강의노트` 열은 그 장의 **출처가 되는 현행 bookdown 노트**로 연결된다. 행을 펼치면 재구성안의 처리 방침과 출처 절 목록이 나온다. 확장은 `<details>` 라 JS 가 없다.
   - 제목 옆 태그는 재구성안의 `처리` 열(신설 / 재작성 / 재구성 / 강화 / 유지 / 슬림화 / 이동·압축 / 현행화 / 전환).
   - `02 전반`(새 2장) / `02 후반`(새 3장) 의 절 분배는 재구성안의 처리 설명을 근거로 **2.2·2.9 → 2장, 2.3~2.8 → 3장** 으로 읽었다. 강사 확인이 필요하다.
-  - 슬라이드 상태는 `예정`(기본) / `준비 중` / `초안 · N장` / `공개` 네 가지. 지금은 새 8장 알고리즘만 `준비 중`.
+  - 슬라이드 상태는 `예정`(기본) / `준비 중` / `초안 · N장` / `공개` 네 가지. 지금은 새 8장 알고리즘만 `공개`.
+  - 허브 문구에서 **'발표 슬라이드'가 아니라 '슬라이드'** 로 적는다 (강사 지시, 2026-09-11).
   - 재구성안이 바뀌면 허브도 함께 고친다. 링크 검증은 `docs/hub/index.html` 의 상대 경로가 `docs/` 안 파일로 해석되는지 확인하면 된다.
 - **페이지 분할은 장 단위로 한다 (2026-09-11, 강사).** Quarto book 의 기본 동작이며,
 현행 bookdown 의 `split_by: section`(절마다 별도 페이지, 85개)을 재현하지 않는다.
