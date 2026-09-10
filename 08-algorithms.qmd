@@ -1,0 +1,1386 @@
+---
+title: "알고리즘"
+subtitle: "통계 프로그래밍 언어 — 개편 8장 초안"
+author: "구본초"
+date: today
+lang: ko
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    toc-title: "목차"
+    number-sections: true
+    code-tools: true
+    code-copy: true
+    df-print: paged
+    fig-align: center
+knitr:
+  opts_chunk:
+    # bookdown 판은 R 코드로 opts_chunk$set(comment = NA) 를 줬다. YAML 에 comment: NA 라고
+    # 쓰면 R 의 NA 가 아니라 문자열 "NA" 로 들어가 출력마다 'NA' 접두어가 붙는다.
+    # 접두어를 없애려면 빈 문자열을 준다.
+    comment: ""
+    collapse: false
+execute:
+  warning: false
+  message: false
+  # 의도한 오류를 보여주는 청크(error=TRUE)가 4개 있다. Quarto 는 기본이 error: false 라
+  # 첫 오류에서 렌더를 중단하므로 문서 수준에서 허용해 둔다. 청크별 표시 여부는
+  # 각 청크의 error 옵션이 결정한다.
+  error: true
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+library(kableExtra)
+
+# 출력 폭을 60자로 접는다 (bookdown 판에서 쓰던 linewidth 훅).
+# PDF 전용이던 size(ootnotesize) 훅은 HTML 렌더에서 필요 없어 뺐다.
+options(linewidth = 60)
+hook_output <- knitr::knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  if (!is.null(n <- options$linewidth)) {
+    x <- knitr:::split_lines(x)
+    if (any(nchar(x) > n)) x <- strwrap(x, width = n)
+    x <- paste(x, collapse = "
+")
+  }
+  hook_output(x, options)
+})
+
+```
+
+
+# 알고리즘 {#sec-algorithms}
+
+
+::: {.callout-important}
+**학습 목표**
+
+- 같은 답을 내는 두 코드의 **비용 차이**를 설명하고, 어느 쪽이 왜 빠른지 근거를 댈 수 있다.
+- 반복문의 시간 복잡도를 빅오 표기법($\mathcal{O}$)으로 읽고, 코드를 보고 어느 등급인지 판별할 수 있다.
+- 재귀 함수의 **종료 조건**을 명세하고, 종료 조건이 깨지는 입력을 스스로 만들어 확인할 수 있다.
+- 탐색·정렬 알고리즘을 구현하고, 구현이 맞는지 **전수 검사와 경계 사례**로 검증할 수 있다.
+- 사람이 쓴 코드든 AI 가 생성한 코드든, 그럴듯해 보이는 구현에서 **틀린 경계**를 찾아낼 수 있다.
+
+:::
+
+
+이 장은 "빠른 코드를 외우는 장"이 아니다. **어떤 코드가 왜 더 비싼지 따지는 장**이다.
+알고리즘을 직접 짜는 일은 점점 줄어들지만, 눈앞의 코드가 입력이 커졌을 때
+버틸지 판단하는 일은 오히려 늘어난다. 그 판단에 필요한 최소한의 도구가 이 장에 있다.
+
+
+```{r algo-intro-fig, fig.align='center', echo=FALSE, fig.show='hold', out.width='100%'}
+options(knitr.graphics.auto_pdf = TRUE)
+knitr::include_graphics('figures/program_scroll_mv2.gif', dpi = NA)
+
+```
+
+
+## 알고리즘과 비용 {#sec-algo-cost}
+
+
+::: {.callout-note}
+**알고리즘(algorithm)**: 주어진 문제를 해결하기 위해 정해진 일련의 절차를
+단계적으로 표현한 것. 즉 문제 해결에 필요한 계산 절차 또는 처리 과정의 순서.
+
+:::
+
+
+알고리즘이라 부르려면 다음을 만족해야 한다.
+
+- **정밀성**: 각 단계가 모호하지 않다.
+- **유일성**: 각 단계 다음에 무엇을 할지가 하나로 정해진다.
+- **입력과 출력**: 정의된 입력을 받고 답을 내보낸다.
+- **유한성**: 유한한 수의 단계 뒤에 반드시 멈춘다.
+- **일반성**: 정의된 입력 전체에 대해 동작한다.
+
+이 다섯 가지 중 학생이 실제로 가장 자주 어기는 것은 **유한성**과 **일반성**이다.
+"내 예제에서는 잘 돌아간다"와 "정의된 입력 전체에서 잘 돌아간다"는 다르다.
+이 장은 그 차이를 계속 파고든다.
+
+
+### 같은 답, 다른 비용 {#sec-same-answer-different-cost}
+
+아래 두 프로그램은 1부터 `n` 까지의 값을 담은 벡터를 만든다. **결과는 완전히 같다.**
+
+
+::: {.callout-tip}
+**예측해 보자**: `n` 이 5만일 때 두 프로그램의 실행 시간은 얼마나 차이 날까?
+비슷할까, 두 배쯤일까, 그보다 클까? 실행하기 전에 적어 보자.
+
+:::
+
+
+```{r cost-two-programs}
+# 프로그램 1: 벡터를 미리 만들어 두고 자리를 채운다
+prealloc_vec <- function(n) {
+  x <- numeric(n)
+  for (i in seq_len(n)) {
+    x[i] <- i
+  }
+  x
+}
+
+# 프로그램 2: 반복할 때마다 벡터를 이어 붙여 늘린다
+grow_vec <- function(n) {
+  x <- NULL
+  for (i in seq_len(n)) {
+    x <- c(x, i)
+  }
+  x
+}
+
+# 두 결과가 같은지 먼저 확인
+identical(prealloc_vec(1000), as.numeric(grow_vec(1000)))
+
+```
+
+
+결과가 같다는 것을 확인했으니 이제 비용을 재 본다.
+
+
+```{r cost-two-programs-time}
+n <- 50000
+t1 <- system.time(prealloc_vec(n))[["elapsed"]]
+t2 <- system.time(grow_vec(n))[["elapsed"]]
+
+data.frame(
+  방식 = c("사전 할당", "이어 붙이기"),
+  초 = c(t1, t2)
+)
+
+```
+
+
+예측과 맞았는가? 두 배 정도를 예상했다면 크게 빗나갔을 것이다.
+`n` 을 10배로 늘리면 이 격차는 다시 크게 벌어진다.
+`x <- c(x, i)` 는 매 반복마다 **길이가 하나 더 긴 새 벡터를 새로 만들어 통째로 복사**한다.
+반복 $i$ 번째에 $i$ 개를 복사하므로 전체 복사량은
+$1 + 2 + \cdots + n = n(n-1)/2$ 에 비례한다.
+반면 사전 할당은 이미 확보한 자리에 값 하나를 쓰므로 반복마다 비용이 일정하다.
+
+
+::: {.callout-caution}
+**흔한 실수**: 결과가 같으면 코드도 같다고 생각하는 것.
+두 프로그램의 출력은 한 글자도 다르지 않지만 비용의 **증가 방식**이 다르다.
+입력이 작을 때는 이 차이가 보이지 않다가, 실제 데이터 크기에서 갑자기 드러난다.
+
+:::
+
+
+### 시간 복잡도와 공간 복잡도 {#sec-complexity}
+
+
+::: {.callout-note}
+**시간 복잡도(time complexity)**: 알고리즘이 끝날 때까지 수행하는 연산의 횟수.
+사칙연산, 비교연산, 반복, 함수 호출이 셈의 대상이다.
+
+**공간 복잡도(space complexity)**: 알고리즘이 끝날 때까지 필요한 메모리의 크기.
+변수 개수, 자료 구조의 크기, 함수 호출로 쌓이는 작업 공간이 대상이다.
+
+:::
+
+앞 절의 두 프로그램을 이 용어로 다시 말하면 이렇다.
+
+- 프로그램 1: 반복이 $n$ 번이므로 시간은 $n$ 에 비례한다. 벡터를 미리 잡아 두고
+쓰기만 하므로 추가 공간은 늘지 않는다.
+- 프로그램 2: 반복마다 복사가 일어나 시간은 $n^2$ 에 비례한다. 반복마다 새 벡터를
+만들므로 공간도 $n$ 까지 커진다.
+
+성능은 보통 **최악의 경우(worst case)** 를 기준으로 말한다. 최선의 경우는 운에
+기대는 약속이고, 평균은 입력 분포를 알아야 계산할 수 있지만, 최악은 어떤 입력이
+와도 지켜지는 보장이기 때문이다.
+
+
+### 빅오 표기법 {#sec-big-o}
+
+입력 크기를 $n$ 이라 하고 연산 횟수를 $f(n)$ 이라 하자. $n$ 이 충분히 커지면
+$f(n)$ 의 세부 항은 의미가 없어지고 **가장 빠르게 자라는 항**만 남는다.
+이 "충분히 커졌을 때의 증가 양상"을 나타내는 표기가 빅오다.
+
+
+::: {.callout-note}
+**정의**: $x \geq k$ 인 모든 $x$ 에 대해 $|f(x)| \leq C|g(x)|$ 를 만족하는
+상수 $k$ 와 $C$ 가 존재하면 $f(x) = \mathcal{O}(g(x))$ 라 하고
+"$f$ 는 $g$ 의 빅오"라고 읽는다.
+
+즉 $g$ 는 $f$ 의 **상한**이다. 어떤 입력이 와도 $f$ 가 $Cg$ 보다 나빠지지는 않는다.
+
+:::
+
+
+```{r fig-big-o-def-fig, fig.align='center', echo=FALSE, fig.show='hold', out.width='90%', fig.cap="빅오의 정의: 어떤 지점 k 를 넘어서면 Cg(x) 가 f(x) 를 계속 위에서 덮는다 (https://johngrib.github.io/wiki/big-O-notation/ 에서 발췌)"}
+options(knitr.graphics.auto_pdf = TRUE)
+knitr::include_graphics('figures/big-o-explain.png', dpi = NA)
+
+```
+
+
+실제로 코드를 볼 때 필요한 것은 정의 자체보다 아래 세 규칙이다.
+
+
+::: {.callout-tip}
+**규칙 1 (계수 무시)**: $C > 0$ 이면 $C f(n) = \mathcal{O}(g(n))$.
+$\rightarrow$ 반복이 $5n$ 번이든 $100n$ 번이든 모두 $\mathcal{O}(n)$.
+
+**규칙 2 (합은 큰 쪽)**: 두 부분이 이어서 실행되면 더 크게 자라는 쪽만 남는다.
+$\rightarrow$ $\mathcal{O}(n) + \mathcal{O}(n^2) = \mathcal{O}(n^2)$.
+단 입력이 서로 다르면 합쳐지지 않는다. $\rightarrow$ $\mathcal{O}(n + m)$.
+
+**규칙 3 (곱은 중첩)**: 반복 안에 반복이 있으면 곱한다.
+$\rightarrow$ $\mathcal{O}(n) \times \mathcal{O}(n) = \mathcal{O}(n^2)$.
+
+:::
+
+
+이 세 규칙을 코드에 적용해 보자.
+
+
+::: {.callout-tip}
+**예측해 보자**: 아래 네 함수의 시간 복잡도를 각각 적어 보자.
+코드를 실행할 필요는 없다. 반복이 몇 번 도는지만 세면 된다.
+
+:::
+
+
+```{r big-o-cases, eval=FALSE}
+case1 <- function(n) {           # (가)
+  s <- 0
+  for (i in seq_len(n)) s <- s + i
+  s
+}
+
+case2 <- function(n) {           # (나)
+  s <- 0
+  for (i in seq_len(5 * n)) s <- s + i
+  s
+}
+
+case3 <- function(n, m) {        # (다)
+  s <- 0
+  for (i in seq_len(n)) s <- s + i
+  for (j in seq_len(m)) s <- s + j
+  s
+}
+
+case4 <- function(n) {           # (라)
+  s <- 0
+  for (i in seq_len(n)) {
+    for (j in seq_len(n)) s <- s + j
+  }
+  s
+}
+
+```
+
+
+답은 차례로 (가) $\mathcal{O}(n)$, (나) $\mathcal{O}(5n) = \mathcal{O}(n)$,
+(다) $\mathcal{O}(n + m)$, (라) $\mathcal{O}(n^2)$ 이다.
+(나)에서 계수 5가 사라지는 것이 규칙 1, (다)에서 두 반복이 합쳐지지 않는 것이
+규칙 2의 단서 조항, (라)가 규칙 3이다.
+
+등급이 하나 올라갈 때 실제 연산 횟수가 얼마나 벌어지는지 보자.
+
+
+```{r big-o-table, echo=FALSE}
+n <- c(10, 100, 1000)
+tab <- data.frame(
+  n       = format(n, big.mark = ","),
+  o1      = c("1", "1", "1"),
+  ologn   = c("3", "7", "10"),
+  on      = format(n, big.mark = ","),
+  onlogn  = format(round(n * log2(n)), big.mark = ","),
+  on2     = format(n^2, big.mark = ","),
+  o2n     = c("1,024", "1.3e+30", "1.1e+301")
+)
+names(tab) <- c("$n$", "$\\mathcal{O}(1)$", "$\\mathcal{O}(\\log n)$",
+                "$\\mathcal{O}(n)$", "$\\mathcal{O}(n\\log n)$",
+                "$\\mathcal{O}(n^2)$", "$\\mathcal{O}(2^n)$")
+
+kable(tab, align = rep("r", 7), escape = FALSE, booktabs = TRUE,
+      caption = "입력 크기에 따른 연산 횟수 비교") |>
+  kable_styling(bootstrap_options = c("condensed", "striped"),
+                position = "center", font_size = 12,
+                latex_options = c("striped", "HOLD_position"))
+
+```
+
+
+$n = 1000$ 에서 $\mathcal{O}(n)$ 과 $\mathcal{O}(n^2)$ 은 천 배 차이다.
+$\mathcal{O}(2^n)$ 은 $n = 100$ 에서 이미 우주의 원자 수를 넘는다.
+**등급이 다르면 컴퓨터를 바꿔서 해결할 수 있는 문제가 아니다.**
+
+
+```{r fig-complexity-pattern, fig.width=10, fig.height=6.5, echo=FALSE, fig.cap="입력이 커질 때 각 등급이 자라는 모습"}
+op <- par(mar = c(4.5, 4.5, 1, 1))
+n <- seq(1, 40, by = 0.5)
+plot(range(n), c(0, 200), type = "n", xlab = "n (입력 크기)",
+     ylab = "연산 횟수", bty = "l", cex.lab = 1.2)
+lines(n, rep(1, length(n)), lwd = 2, col = "grey40")
+lines(n, log2(n), lwd = 2, col = "#1F6F7A")
+lines(n, n, lwd = 2, col = "#2E7D32")
+lines(n, n * log2(n), lwd = 2, col = "#B58900")
+lines(n, n^2, lwd = 2, col = "#A64B32")
+text(40, 1, expression(O(1)), pos = 2, offset = 0.3, col = "grey40", cex = 1.1)
+text(40, log2(40), expression(O(log~n)), pos = 3, col = "#1F6F7A", cex = 1.1)
+text(40, 40, expression(O(n)), pos = 4, offset = -1.6, col = "#2E7D32", cex = 1.1)
+text(33, 33 * log2(33), expression(O(n~log~n)), pos = 2, col = "#B58900", cex = 1.1)
+text(14, 190, expression(O(n^2)), pos = 4, col = "#A64B32", cex = 1.1)
+par(op)
+
+```
+
+
+## 재귀 {#sec-recursion}
+
+**재귀 함수(recursive function)** 는 자기 자신을 호출하는 함수다.
+분할 정복처럼 "문제를 같은 모양의 더 작은 문제로 줄일 수 있는" 상황에서
+반복문보다 훨씬 간결하게 읽힌다.
+
+일반적인 함수 호출은 호출한 자리로 되돌아오는 구조다.
+
+
+```{r fig-fn-call-fig, echo=FALSE, out.width='85%', fig.align='center', fig.cap="일반적인 함수의 호출과 반환 (http://10bun.tv/beginner/episode-4/ 에서 발췌)"}
+knitr::include_graphics('figures/function-call.png')
+
+```
+
+
+재귀 호출도 똑같이 되돌아오지만, 되돌아올 자리가 **자기 자신**이다.
+호출할 때마다 새 작업 공간이 쌓이므로, 쌓기를 멈추는 조건이 없으면 끝나지 않는다.
+
+
+```{r fig-rec-call-fig, echo=FALSE, out.width='85%', fig.align='center', fig.cap="재귀 함수의 호출과 반환 (http://10bun.tv/beginner/episode-4/ 에서 발췌)"}
+knitr::include_graphics('figures/recursive-function-call.png')
+
+```
+
+
+### 재귀 함수의 두 부분 {#sec-recursion-parts}
+
+모든 재귀 함수는 두 부분으로 이루어진다.
+
+1. **종료 조건(base case)**: 더 이상 쪼개지 않고 답을 바로 반환하는 경우.
+2. **재귀 단계(recursive step)**: 문제를 더 작게 만들어 자기 자신을 호출하는 경우.
+
+1부터 `n` 까지 더하는 함수로 확인해 보자.
+
+
+```{r recursive-sum}
+recursive_sum <- function(n) {
+  if (n == 1) return(n)            # 종료 조건
+  n + recursive_sum(n - 1)         # 재귀 단계
+}
+
+recursive_sum(3)
+
+```
+
+
+```{r fig-rec-sum-fig, echo=FALSE, out.width='85%', fig.align='center', fig.cap="recursive_sum(3) 의 호출과 반환 (http://10bun.tv/beginner/episode-4/ 에서 발췌)"}
+knitr::include_graphics('figures/recursive-sum-flows.png')
+
+```
+
+
+- `recursive_sum(3)` 은 `n` 이 1이 아니므로 `recursive_sum(2)` 를 부른다.
+- `recursive_sum(2)` 는 `recursive_sum(1)` 을 부른다.
+- `recursive_sum(1)` 은 종료 조건을 만족해 1을 반환한다.
+- 되돌아오면서 `2 + 1 = 3`, `3 + 3 = 6` 이 되어 6이 반환된다.
+
+
+### 종료 조건이 지키지 못하는 것 {#sec-recursion-limits}
+
+위 함수는 잘 동작한다. 그런데 "정의된 입력 전체"에서도 그럴까?
+
+
+::: {.callout-tip}
+**예측해 보자**: `recursive_sum(0)` 은 무엇을 반환할까?
+0? 1? 오류? 실행하기 전에 답을 정하고 넘어가자.
+
+:::
+
+
+```{r recursive-sum-zero}
+# 이 호출은 멈추지 않는다. 오류 메시지를 그대로 받아 본다.
+tryCatch(recursive_sum(0),
+         error = function(e) cat("오류:", conditionMessage(e), "\n"))
+
+```
+
+
+0에서는 `n == 1` 이 영원히 참이 되지 않는다. `0, -1, -2, \ldots` 로 끝없이 내려가다
+R 이 중첩 한계에 걸려서야 멈춘다. **종료 조건이 "n 이 1일 때"가 아니라
+"n 이 1 이하일 때"여야 했다.** 입력이 커질 때만 문제가 생기는 것이 아니다.
+경계 바로 바깥에서도 무너진다.
+
+크기 쪽 한계도 확인해 두자.
+
+
+```{r recursive-sum-deep}
+recursive_sum(1000)          # 잘 동작한다
+
+tryCatch(recursive_sum(5000),   # 중첩 한계
+         error = function(e) cat("오류:", conditionMessage(e), "\n"))
+
+```
+
+
+재귀 호출은 호출마다 작업 공간을 쌓으므로 **공간 복잡도가 $\mathcal{O}(n)$** 이다.
+R 은 중첩 깊이를 `options(expressions)` 로 제한하며 기본값은 5000이다.
+같은 계산을 반복문으로 쓰면 공간은 $\mathcal{O}(1)$ 이고 깊이 제한도 없다.
+
+두 문제를 함께 고친 판은 다음과 같다.
+
+
+```{r recursive-sum-fixed}
+recursive_sum2 <- function(n) {
+  if (n <= 1) return(n)            # 경계를 닫는다
+  n + recursive_sum2(n - 1)
+}
+
+c(recursive_sum2(0), recursive_sum2(1), recursive_sum2(100))
+
+# 반복문 판: 공간 O(1), 깊이 제한 없음
+iterative_sum <- function(n) {
+  s <- 0
+  for (i in seq_len(n)) s <- s + i
+  s
+}
+
+c(iterative_sum(0), iterative_sum(100), iterative_sum(100000))
+
+```
+
+
+::: {.callout-caution}
+재귀는 **읽기 쉬운 대신 공간을 쓴다.** 깊이가 입력 크기에 비례해 커지는 재귀는
+R 에서 실전 코드로 쓰기 어렵다. 재귀로 먼저 이해하고, 필요하면 반복문으로 옮기는
+순서가 안전하다.
+
+:::
+
+
+### 계승과 하노이 탑 {#sec-recursion-examples}
+
+계승(factorial)은 재귀 정의가 그대로 코드가 되는 예다.
+
+$$
+ n! = \begin{cases}
+ n \times (n-1)!, & n \geq 1 \\
+ 1, & n = 0
+ \end{cases}
+$$
+
+
+```{r factorial-manual}
+factorial_manual <- function(n) {
+  if (n == 0) return(1)
+  n * factorial_manual(n - 1)
+}
+
+factorial_manual(10)
+
+factorial(10)        # R 내장 함수로 대조
+
+```
+
+
+직접 만든 함수를 내장 함수와 대조하는 이 한 줄이 검증이다.
+**만들었으면 반드시 이미 답을 아는 것과 맞춰 본다.**
+
+하노이 탑은 재귀가 아니면 설명하기 어려운 문제다.
+기둥 세 개(A, B, C)와 크기가 다른 원판 $n$ 개가 있고, 원판은 A 에 크기순으로 쌓여 있다.
+모든 원판을 C 로 옮기되 (1) 한 번에 하나씩만 옮기고 (2) 큰 원판을 작은 원판 위에
+올릴 수 없다.
+
+
+```{r fig-hanoi-problem, out.width='100%', fig.show='hold', fig.cap="하노이 탑 문제", echo=FALSE}
+knitr::include_graphics("figures/hanoi-problem.gif")
+
+```
+
+
+핵심은 문제를 한 겹 벗기는 것이다.
+$n$ 개를 A 에서 C 로 옮기는 일은 다음 세 단계로 나뉜다.
+
+1. 위쪽 $n-1$ 개를 A 에서 B 로 옮긴다 (같은 문제, 크기만 하나 작다).
+2. 가장 큰 원판을 A 에서 C 로 옮긴다.
+3. B 에 있던 $n-1$ 개를 B 에서 C 로 옮긴다 (역시 같은 문제).
+
+
+```{r fig-hanoi-solution, out.width='100%', fig.show='hold', fig.cap="원판 3개를 옮기는 과정", echo=FALSE}
+knitr::include_graphics("figures/hanoi-solution.gif")
+
+```
+
+
+```{r hanoi-code}
+move_hanoi <- function(k, from, to, via) {
+  if (k == 1) {
+    cat(sprintf("원판 1: %s -> %s\n", from, to))
+  } else {
+    move_hanoi(k - 1, from = from, to = via, via = to)
+    cat(sprintf("원판 %d: %s -> %s\n", k, from, to))
+    move_hanoi(k - 1, from = via, to = to, via = from)
+  }
+}
+
+move_hanoi(3, "A", "C", "B")
+
+```
+
+
+원판이 $n$ 개일 때 이동 횟수는 $2^n - 1$ 이다.
+호출이 매번 둘로 갈라지기 때문이다. 즉 이 알고리즘은 $\mathcal{O}(2^n)$ 이고,
+앞의 표에서 보았듯 $n$ 이 조금만 커져도 감당할 수 없다.
+전설 속 원판 64개는 $2^{64} - 1$ 번, 1초에 한 번씩 옮겨도 5천억 년이 넘는다.
+
+
+```{r hanoi-count}
+count_moves <- function(k) if (k == 1) 1 else 2 * count_moves(k - 1) + 1
+
+data.frame(원판 = 3:6,
+           실제_이동 = sapply(3:6, count_moves),
+           공식 = 2^(3:6) - 1)
+
+```
+
+
+## 탐색과 비용 대비 {#sec-search}
+
+정렬된 자료에서 값을 찾는 두 가지 방법을 비교한다.
+이 절의 목적은 두 알고리즘을 외우는 것이 아니라
+**"비용 등급이 다르다"가 실제로 무엇을 의미하는지 숫자로 보는 것**이다.
+
+
+### 선형 탐색 {#sec-linear-search}
+
+앞에서부터 하나씩 비교한다. 가장 단순하고, 정렬되어 있지 않아도 쓸 수 있다.
+
+
+```{r linear-search}
+linear_search <- function(target, vec) {
+  for (i in seq_along(vec)) {
+    if (vec[i] == target) return(i)
+  }
+  NA_integer_
+}
+
+set.seed(1)
+x <- sort(sample(1:100, 20))
+x
+
+linear_search(target = x[13], vec = x)
+linear_search(target = 101, vec = x)
+
+```
+
+
+찾는 값이 마지막에 있거나 아예 없으면 $n$ 번 모두 비교한다.
+따라서 최악의 경우 $\mathcal{O}(n)$ 이다.
+
+
+### 이진 탐색 {#sec-binary-search}
+
+**정렬된** 벡터라면 훨씬 적게 비교할 수 있다.
+가운데 값을 보고 목표값이 그보다 작으면 오른쪽 절반을 통째로 버리고,
+크면 왼쪽 절반을 통째로 버린다. 한 번 비교할 때마다 후보가 절반으로 준다.
+
+
+```{r fig-binary-search-anim, echo=FALSE, out.width='100%', fig.cap="선형 탐색과 이진 탐색 (https://blog.penjee.com/binary-vs-linear-search-animated-gifs/ 에서 발췌)"}
+knitr::include_graphics("https://blog.penjee.com/wp-content/uploads/2015/04/binary-and-linear-search-animations.gif")
+
+```
+
+
+```{r binary-search}
+binary_search <- function(target, ovec) {
+  lo <- 1L
+  hi <- length(ovec)
+  while (lo <= hi) {
+    mid <- (lo + hi) %/% 2L
+    if (ovec[mid] == target) {
+      return(mid)
+    } else if (ovec[mid] > target) {
+      hi <- mid - 1L          # 오른쪽 절반을 버린다
+    } else {
+      lo <- mid + 1L          # 왼쪽 절반을 버린다
+    }
+  }
+  NA_integer_
+}
+
+binary_search(target = x[13], ovec = x)
+binary_search(target = 101, ovec = x)
+
+```
+
+
+비교할 때마다 후보 개수가 $n, n/2, n/2^2, \ldots$ 로 줄어든다.
+$k$ 번째에 후보가 1개가 되므로 $n/2^k = 1$, 양변에 밑이 2인 로그를 취하면
+$k = \log_2 n$ 이다. 따라서 이진 탐색은 $\mathcal{O}(\log n)$ 이다.
+
+
+### 구현이 맞는지 확인하기 {#sec-search-verification}
+
+여기서 잠깐 멈추자. 위 `binary_search()` 가 정말 맞는가?
+예제 두 개가 통과했다는 것은 예제 두 개가 통과했다는 뜻일 뿐이다.
+
+검증의 기본 동작은 **전수 검사**다.
+벡터의 모든 원소를 차례로 목표값으로 넣어 보고, 반환된 위치가 실제 위치와 같은지 본다.
+
+
+```{r binary-search-exhaustive}
+checks <- vapply(seq_along(x), function(i) {
+  binary_search(target = x[i], ovec = x) == i
+}, logical(1))
+
+all(checks)
+sum(!checks)
+
+```
+
+
+전부 통과했다. 이번에는 같은 알고리즘을 재귀로 쓴 판을 보자.
+아래 구현은 **틀렸다.** 어디가 틀렸는지 찾아보자.
+
+
+::: {.callout-tip}
+**예측해 보자**: 아래 `rbinary_search()` 에 벡터의 모든 원소를 넣으면
+몇 개나 제대로 찾을까? 전부? 절반? 하나도 못 찾을까?
+
+:::
+
+
+```{r rbinary-search-buggy}
+rbinary_search <- function(target, ovec, minL, maxL) {
+  if (maxL <= minL) return(NA_integer_)
+  midL <- floor((minL + maxL) / 2)
+  if (ovec[midL] > target) {
+    rbinary_search(target, ovec, minL = minL, maxL = midL - 1)
+  } else if (ovec[midL] < target) {
+    rbinary_search(target, ovec, minL = midL + 1, maxL = maxL)
+  } else {
+    return(midL)
+  }
+}
+
+# 본문 예제 하나만 돌려보면 멀쩡해 보인다
+set.seed(2)
+k <- sample(x, 1)
+c(목표값 = k, 반환 = rbinary_search(k, x, 1, length(x)), 정답 = which(x == k))
+
+```
+
+
+예제 하나는 통과한다. 전수 검사를 해 보자.
+
+
+```{r rbinary-search-exhaustive}
+found <- vapply(seq_along(x), function(i) {
+  r <- rbinary_search(x[i], x, 1, length(x))
+  if (is.na(r)) NA_integer_ else as.integer(r)
+}, integer(1))
+
+data.frame(index = seq_along(x), target = x, returned = found)
+
+sum(is.na(found))     # 찾지 못한 개수
+
+```
+
+
+절반 가까이가 `NA` 다. 원인은 첫 줄 `if (maxL <= minL) return(NA_integer_)` 이다.
+탐색 범위가 원소 하나로 좁혀지면 `minL == maxL` 이 되는데,
+이 조건은 **그 하나를 확인해 보지도 않고 포기한다.**
+범위가 진짜로 빈 것은 `minL > maxL` 일 때다.
+
+
+```{r rbinary-search-fixed}
+rbinary_search2 <- function(target, ovec, lo = 1L, hi = length(ovec)) {
+  if (lo > hi) return(NA_integer_)          # 범위가 비었을 때만 포기
+  mid <- (lo + hi) %/% 2L
+  if (ovec[mid] == target) {
+    mid
+  } else if (ovec[mid] > target) {
+    rbinary_search2(target, ovec, lo, mid - 1L)
+  } else {
+    rbinary_search2(target, ovec, mid + 1L, hi)
+  }
+}
+
+found2 <- vapply(seq_along(x), function(i) {
+  as.integer(rbinary_search2(x[i], x))
+}, integer(1))
+
+all(found2 == seq_along(x))
+rbinary_search2(101, x)      # 없는 값은 NA
+
+```
+
+
+::: {.callout-important}
+**이 절의 핵심**: `rbinary_search()` 는 문법 오류도 없고, 실행하면 오류 메시지도
+내지 않으며, 저자가 고른 예제에서는 정답을 낸다. 그런데 틀렸다.
+
+이런 오류는 **오류 메시지가 아니라 검증 절차로만** 발견된다.
+전수 검사, 경계 사례, 이미 답을 아는 것과의 대조가 그 절차다.
+이 습관은 다음 학기 "AI와 함께 프로그래밍하기" 장에서 다시 쓰인다.
+
+:::
+
+
+### 비용 대비: 얼마나 이득인가 {#sec-search-cost}
+
+이제 두 탐색의 비교 횟수를 직접 세어 본다.
+시간을 재는 대신 **연산 횟수를 세면** 컴퓨터 성능과 무관한 값을 얻는다.
+
+
+```{r search-cost-count}
+count_linear <- function(target, vec) {
+  n <- 0L
+  for (i in seq_along(vec)) {
+    n <- n + 1L
+    if (vec[i] == target) return(n)
+  }
+  n
+}
+
+count_binary <- function(target, ovec) {
+  lo <- 1L; hi <- length(ovec); n <- 0L
+  while (lo <= hi) {
+    n <- n + 1L
+    mid <- (lo + hi) %/% 2L
+    if (ovec[mid] == target) return(n)
+    if (ovec[mid] > target) hi <- mid - 1L else lo <- mid + 1L
+  }
+  n
+}
+
+set.seed(1)
+sizes <- c(100, 1000, 10000)
+cmp <- t(sapply(sizes, function(n) {
+  v <- seq_len(n)
+  ks <- sample(v, 100)
+  c(선형 = mean(sapply(ks, count_linear, vec = v)),
+    이진 = mean(sapply(ks, count_binary, ovec = v)),
+    log2n = log2(n))
+}))
+
+data.frame(n = sizes, round(cmp, 1))
+
+```
+
+
+선형 탐색의 평균 비교 횟수는 $n/2$ 근처, 이진 탐색은 $\log_2 n$ 근처다.
+$n$ 이 100에서 10,000으로 100배 커질 때 선형은 100배 늘지만 이진은 두 배가 조금 넘게 는다.
+$n = 10^6$ 이면 선형은 평균 50만 번, 이진은 20번이다.
+
+
+::: {.callout-caution}
+이진 탐색이 언제나 이기는 것은 아니다. **정렬되어 있어야** 쓸 수 있고,
+정렬 자체가 $\mathcal{O}(n \log n)$ 이다. 한 번만 찾을 거라면
+정렬해서 이진 탐색하는 것보다 그냥 선형 탐색이 싸다.
+여러 번 반복해 찾을 때 정렬 비용이 회수된다.
+
+:::
+
+
+## 정렬 {#sec-sorting}
+
+정렬 알고리즘은 매우 많지만, 이 장에서는 **비용 등급이 다른 두 가지**만 본다.
+등급이 같은 알고리즘을 여러 개 아는 것보다 등급이 다른 둘을 제대로 비교하는 편이
+얻는 것이 많다.
+
+
+::: {.callout-note}
+**안정 정렬(stable sort)**: 값이 같은 원소들의 원래 순서가 정렬 후에도 유지되는 정렬.
+데이터 프레임을 여러 열 기준으로 차례로 정렬할 때 이 성질이 중요해진다.
+
+아래 두 알고리즘은 모두 **오름차순** 기준으로 설명한다.
+
+:::
+
+
+### 버블 정렬 {#sec-bubble-sort}
+
+인접한 두 값을 비교해 순서가 뒤바뀌어 있으면 교환한다.
+한 번 훑으면 가장 큰 값이 맨 뒤로 밀려간다. 이를 $n-1$ 번 반복한다.
+
+
+```{r fig-bubble-anim, echo=FALSE, out.width='55%', fig.align='center', fig.cap="버블 정렬 (위키미디어 공용)"}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/0/06/Bubble-sort.gif")
+
+```
+
+
+```{r bubble-sort}
+bubble_sort <- function(x) {
+  n <- length(x)
+  if (n < 2) return(x)
+  for (i in seq_len(n - 1)) {
+    for (j in seq_len(n - i)) {
+      if (x[j] > x[j + 1]) {
+        temp <- x[j]
+        x[j] <- x[j + 1]
+        x[j + 1] <- temp
+      }
+    }
+  }
+  x
+}
+
+set.seed(1234)
+v <- sample(1:100, 15)
+v
+
+bubble_sort(v)
+
+identical(bubble_sort(v), sort(v))     # 내장 함수와 대조
+
+```
+
+
+비교 횟수는 $(n-1) + (n-2) + \cdots + 1 = n(n-1)/2$ 이므로 $\mathcal{O}(n^2)$ 이다.
+이미 정렬된 입력이라도 이 구현은 비교를 모두 수행한다.
+구현이 쉽고 벡터 안에서 교환하므로 추가 공간이 $\mathcal{O}(1)$ 인 것이 장점이지만,
+시간 등급이 치명적이다.
+
+
+### 병합 정렬 {#sec-merge-sort}
+
+**분할 정복(divide and conquer)** 을 쓴다.
+벡터를 절반으로 나누고, 각 절반을 재귀로 정렬한 뒤, 정렬된 두 조각을 합친다.
+정렬이 실제로 일어나는 곳은 나누는 단계가 아니라 **합치는 단계**다.
+
+
+```{r fig-merge-anim, echo=FALSE, out.width='45%', fig.align='center', fig.cap="병합 정렬 (위키미디어 공용)"}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif")
+
+```
+
+
+합치는 함수부터 만든다. 정렬된 두 벡터의 앞에서부터 작은 쪽을 하나씩 꺼내면
+결과도 정렬된 상태로 쌓인다.
+
+
+```{r smerge}
+smerge <- function(left, right) {
+  temp <- numeric(length(left) + length(right))
+  l <- r <- 1L
+  for (i in seq_along(temp)) {
+    # 오른쪽이 소진됐거나, 왼쪽이 남아 있고 그 값이 더 작거나 같으면 왼쪽을 꺼낸다
+    if (r > length(right) ||
+        (l <= length(left) && left[l] <= right[r])) {
+      temp[i] <- left[l]
+      l <- l + 1L
+    } else {
+      temp[i] <- right[r]
+      r <- r + 1L
+    }
+  }
+  temp
+}
+
+smerge(c(1, 4, 9), c(2, 3, 10))
+
+```
+
+
+`left[l] <= right[r]` 에서 **`<=`** 를 쓴 것이 안정 정렬을 만든다.
+값이 같으면 왼쪽(원래 앞쪽) 것을 먼저 꺼내기 때문이다.
+
+나누는 쪽은 재귀다.
+
+
+```{r merge-sort}
+merge_sort <- function(x) {
+  n <- length(x)
+  if (n <= 1) return(x)            # 종료 조건: 길이 1 이하는 이미 정렬됨
+  mid <- n %/% 2L
+  smerge(merge_sort(x[1:mid]), merge_sort(x[(mid + 1):n]))
+}
+
+merge_sort(v)
+
+identical(merge_sort(v), as.numeric(sort(v)))
+
+```
+
+
+재귀 깊이는 절반씩 줄이므로 $\log_2 n$ 이고, 각 깊이마다 원소 전체를 한 번씩
+훑으므로 $n$ 이다. 따라서 $\mathcal{O}(n \log n)$ 이다.
+대신 합치는 자리로 쓸 임시 벡터가 필요해 공간은 $\mathcal{O}(n)$ 이다.
+**시간을 공간으로 산 셈이다.**
+
+
+### 두 정렬의 실제 비용 {#sec-sorting-cost}
+
+
+::: {.callout-tip}
+**예측해 보자**: 원소 수를 두 배로 늘리면 버블 정렬의 비교 횟수는 몇 배가 될까?
+병합 정렬은 몇 배가 될까? 표를 보기 전에 적어 보자.
+
+:::
+
+
+시간을 재는 대신 **비교 횟수를 센다.** 실행 시간은 컴퓨터 성능과 그때의 부하에 따라
+흔들리고, 빠른 쪽은 아예 0초로 찍혀 배율을 계산할 수 없다.
+반면 비교 횟수는 같은 입력이면 언제나 같은 값이 나온다.
+
+
+```{r sorting-count}
+# 버블 정렬이 수행하는 비교 횟수
+bubble_count <- function(x) {
+  n <- length(x)
+  cnt <- 0
+  for (i in seq_len(n - 1)) {
+    for (j in seq_len(n - i)) {
+      cnt <- cnt + 1
+      if (x[j] > x[j + 1]) {
+        temp <- x[j]; x[j] <- x[j + 1]; x[j + 1] <- temp
+      }
+    }
+  }
+  cnt
+}
+
+# 병합 정렬은 각 병합 단계에서 원소를 한 번씩 훑는다
+merge_count <- function(x) {
+  n <- length(x)
+  if (n <= 1) return(0)
+  mid <- n %/% 2L
+  merge_count(x[1:mid]) + merge_count(x[(mid + 1):n]) + n
+}
+
+set.seed(1234)
+sizes <- c(500, 1000, 2000, 4000)
+cnt <- t(sapply(sizes, function(n) {
+  v <- sample(n)
+  c(bubble = bubble_count(v), merge = merge_count(v))
+}))
+
+data.frame(n = sizes, cnt,
+           bubble_ratio = c(NA, round(cnt[-1, 1] / cnt[-4, 1], 2)),
+           merge_ratio  = c(NA, round(cnt[-1, 2] / cnt[-4, 2], 2)))
+
+```
+
+
+$n$ 이 두 배가 될 때 버블 정렬의 비교 횟수는 **정확히 네 배**가 되고,
+병합 정렬은 **두 배를 조금 넘는** 수준으로 는다.
+$n^2$ 과 $n\log n$ 의 정의가 표에 그대로 나타난 것이다.
+분석한 복잡도가 실제 실행 횟수와 맞는지 대조해 보자.
+
+
+```{r sorting-count-theory}
+data.frame(n = sizes,
+           bubble = cnt[, 1],
+           `n(n-1)/2` = sizes * (sizes - 1) / 2,
+           merge = cnt[, 2],
+           `n log2(n)` = round(sizes * log2(sizes)),
+           check.names = FALSE)
+
+```
+
+
+버블 정렬의 비교 횟수는 $n(n-1)/2$ 와 **정확히** 일치하고,
+병합 정렬은 $n\log_2 n$ 과 거의 일치한다.
+**손으로 분석한 복잡도가 실제 실행 횟수와 맞는지 확인하는 것도 검증이다.**
+
+실행 시간도 재 둔다. 값은 환경에 따라 흔들리지만 등급 차이는 그대로 드러난다.
+
+
+```{r sorting-benchmark}
+set.seed(1234)
+timing <- t(sapply(sizes, function(n) {
+  v <- sample(n)
+  c(bubble = system.time(bubble_sort(v))[["elapsed"]],
+    merge = system.time(merge_sort(v))[["elapsed"]])
+}))
+
+data.frame(n = sizes, timing)
+
+```
+
+
+정확성도 함께 확인한다. 속도만 재고 답이 맞는지 확인하지 않는 벤치마크는 의미가 없다.
+
+
+```{r sorting-correctness}
+set.seed(99)
+checks <- replicate(200, {
+  n <- sample(1:50, 1)
+  v <- sample(1:20, n, replace = TRUE)     # 중복값을 일부러 넣는다
+  all(bubble_sort(v) == sort(v)) && all(merge_sort(v) == sort(v))
+})
+
+all(checks)
+
+```
+
+
+::: {.callout-note}
+**다른 정렬 알고리즘**: 삽입 정렬(insertion sort)은 버블 정렬과 같은
+$\mathcal{O}(n^2)$ 등급이지만 거의 정렬된 입력에서 빠르다.
+퀵 정렬(quick sort)은 평균 $\mathcal{O}(n \log n)$ 으로 실무에서 가장 널리 쓰이지만
+최악의 경우 $\mathcal{O}(n^2)$ 이다. R 의 `sort()` 는 내부적으로 자료형에 따라
+기수 정렬(radix sort) 등을 골라 쓴다. 실무에서는 직접 구현하지 말고 `sort()` 를 쓴다.
+
+:::
+
+
+## 뉴턴-랩슨 알고리즘 {#sec-newton-raphson}
+
+지금까지는 자료를 다루는 알고리즘이었다. 이번에는 **수치 계산** 알고리즘이다.
+$f(x) = 0$ 을 만족하는 $x$ 를 반복 계산으로 찾는다.
+통계학에서 최대가능도추정량을 구할 때 쓰는 방법이 바로 이것이다.
+
+적용 조건은 두 가지다. 찾는 구간에 해가 존재해야 하고, $f$ 가 미분 가능해야 한다.
+
+
+::: {#fig-nr-video}
+<video src="video/newton-raphson-ex.mp4" controls loop muted
+       style="width:100%; max-width:720px;"></video>
+
+뉴턴-랩슨 알고리즘의 진행
+:::
+
+
+**알고리즘**
+
+1. 초기값 $x_0$ 을 정한다.
+2. $x_n$ 에서 접선을 긋는다. 접선의 기울기는 $f'(x_n)$ 이다.
+3. 접선이 $x$ 축과 만나는 점을 다음 값 $x_{n+1}$ 로 삼는다.
+4. 종료 조건을 만족할 때까지 2\~3을 반복한다.
+
+$(x_n, f(x_n))$ 을 지나는 접선의 식은 $y = f'(x_n)(x - x_n) + f(x_n)$ 이고,
+$y = 0$ 인 $x$ 를 풀면 다음 점화식을 얻는다.
+
+$$
+ x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+$$
+
+이 식은 함수값이 0에서 멀수록 크게 움직이고, 기울기가 가파를수록 조금만 움직인다.
+종료 조건은 보통 세 가지를 함께 쓴다.
+
+- 최대 반복 횟수를 넘었을 때
+- $x$ 가 더 이상 움직이지 않을 때
+- $|f(x)|$ 가 충분히 0에 가까울 때(`tol`)
+
+
+```{r newton-raphson}
+newton_raphson <- function(FUN, x0 = 1, max_iters = 5000,
+                           tol = 1e-9, range = c(-Inf, Inf)) {
+  grads <- deriv(as.expression(body(FUN)), "x", function.arg = TRUE)
+  iters <- 1L
+  gap <- Inf
+
+  while (iters < max_iters && abs(gap) > tol) {
+    slope <- attr(grads(x0), "gradient")
+    if (slope == 0) stop("미분계수가 0이라 다음 점을 계산할 수 없다.")
+    x_new <- x0 - FUN(x0) / slope
+    if (x_new <= range[1]) x_new <- range[1]
+    if (x_new >= range[2]) x_new <- range[2]
+    gap <- FUN(x_new)
+    iters <- iters + 1L
+    x0 <- x_new
+  }
+
+  list(solution = x_new, iteration = iters, value = FUN(x_new))
+}
+
+f <- function(x) 5 * x^3 - 7 * x^2 - 40 * x + 100
+
+sol <- newton_raphson(f, x0 = 1, range = c(-10, 10))
+sol
+
+```
+
+
+검증한다. 3차 다항식이므로 `polyroot()` 로 모든 근을 구해 대조할 수 있다.
+
+
+```{r newton-raphson-check}
+roots <- polyroot(c(100, -40, -7, 5))     # 상수항부터 오름차순 계수
+roots
+
+# 허수부가 0인 것만 실근이다
+Re(roots)[abs(Im(roots)) < 1e-8]
+
+```
+
+
+이 함수의 **실근은 하나뿐**이고, 뉴턴-랩슨이 찾은 값과 일치한다.
+나머지 두 근은 켤레 복소수라서 실수 축에서는 만날 수 없다.
+그림에서 곡선이 $x$ 축을 한 번만 가로지르는 이유가 이것이다.
+
+초기값을 바꾸면 답은 같지만 도달하는 데 걸리는 반복 횟수가 달라진다.
+
+
+```{r newton-raphson-x0}
+inits <- c(-5, -1, 0, 1, 5)
+t(sapply(inits, function(x0) {
+  r <- newton_raphson(f, x0 = x0, range = c(-10, 10))
+  c(x0 = x0, 해 = r$solution, 반복 = r$iteration)
+}))
+
+```
+
+
+::: {.callout-caution}
+뉴턴-랩슨은 수렴이 빠르지만 **초기값에 민감하다.** 기울기가 0에 가까운 지점에서
+출발하면 다음 점이 멀리 날아가고, $f'(x) = 0$ 이면 아예 계산할 수 없다.
+해가 여러 개인 함수에서는 어느 해로 수렴할지 초기값이 결정한다.
+따라서 결과를 얻은 뒤에는 **그 값이 정말 해인지($f(x) \approx 0$)**,
+그리고 **찾고자 한 그 해가 맞는지** 항상 확인해야 한다.
+
+:::
+
+
+## AI와 함께: 알고리즘 구현 검증하기 {#sec-ai-algorithms}
+
+
+::: {.callout-important}
+**이 절의 목표**: LLM 에게 재귀 이진 탐색 함수를 생성시키고, 그 코드를
+전수 검사와 경계 사례로 검증한다. 이 장 @sec-search-verification 에서
+사람이 쓴 코드에 적용한 절차를 그대로 AI 코드에 적용한다.
+
+:::
+
+
+### 과제 명세 {#sec-ai-algorithms-spec}
+
+프롬프트는 곧 명세다. 명세가 비면 구현이 그 빈자리를 마음대로 채운다.
+아래는 일부러 **평범한 수준으로만** 적은 명세다.
+
+> 오름차순으로 정렬된 수치형 벡터 `vec` 과 값 `target` 을 받아,
+> `target` 이 있으면 그 위치(인덱스)를, 없으면 `NA` 를 반환하는
+> 재귀 이진 탐색 함수를 R 로 작성하라.
+
+
+### AI 가 생성한 코드 {#sec-ai-algorithms-gen}
+
+아래는 위 명세로 실제로 받은 응답이며 **한 글자도 고치지 않았다.**
+
+
+```{r ai-generated}
+# 생성: Claude Opus 5, 2026-09-11. 수정 없이 그대로 실음.
+binary_search_rec <- function(vec, target, lo = 1, hi = length(vec)) {
+  if (lo > hi) return(NA_integer_)
+  mid <- (lo + hi) %/% 2
+  if (vec[mid] == target) {
+    return(mid)
+  } else if (vec[mid] > target) {
+    binary_search_rec(vec, target, lo, mid - 1)
+  } else {
+    binary_search_rec(vec, target, mid + 1, hi)
+  }
+}
+
+```
+
+
+읽어 보면 앞 절에서 우리가 고친 판과 같은 구조다.
+종료 조건도 `lo > hi` 로 제대로 되어 있다. 그래도 검증한다.
+
+
+### 검증 {#sec-ai-algorithms-verify}
+
+**검증 1. 전수 검사** — 벡터의 모든 원소를 목표값으로 넣는다.
+
+
+```{r ai-verify-exhaustive}
+x <- seq(1, 40, by = 3)
+found <- vapply(seq_along(x), function(i) {
+  as.integer(binary_search_rec(x, x[i]))
+}, integer(1))
+
+all(found == seq_along(x))
+
+```
+
+
+**검증 2. 경계 사례** — 빈 벡터, 길이 1, 없는 값.
+
+
+```{r ai-verify-edge}
+c(빈벡터 = binary_search_rec(numeric(0), 5),
+  길이1적중 = binary_search_rec(7, 7),
+  길이1불발 = binary_search_rec(7, 9),
+  없는값 = binary_search_rec(x, 2))
+
+```
+
+
+**검증 3. 무작위 대조** — 이미 답을 아는 `which()` 와 500번 맞춰 본다.
+
+
+```{r ai-verify-random}
+set.seed(20260911)
+n_fail <- 0
+for (i in 1:500) {
+  n <- sample(1:60, 1)
+  v <- sort(sample(1:200, n))
+  k <- if (runif(1) < 0.7) sample(v, 1) else sample(1:200, 1)
+  got <- binary_search_rec(v, k)
+  want <- which(v == k)
+  ok <- if (length(want) == 0) is.na(got) else (!is.na(got) && got %in% want)
+  if (!ok) n_fail <- n_fail + 1
+}
+n_fail
+
+```
+
+
+세 검증을 모두 통과했다. **명세를 지키는 한** 이 코드는 맞다.
+문제는 명세가 말하지 않은 곳에서 시작된다.
+
+
+### 명세가 비어 있는 자리 {#sec-ai-algorithms-gaps}
+
+**빈자리 1. 중복값이 있으면 어느 위치를 반환하는가?**
+명세에 없다. 그래서 구현이 임의로 정한다.
+
+
+```{r ai-gap-duplicates}
+d <- c(1, 3, 3, 3, 5, 7)
+
+binary_search_rec(d, 3)    # 이 구현이 고른 위치
+which(d == 3)              # 3이 있는 모든 위치
+match(3, d)                # R 의 관례: 가장 앞
+
+```
+
+
+R 의 `match()` 는 가장 앞 위치를 준다. 이 구현은 가운데를 준다.
+둘 다 "틀린" 것은 아니지만, **호출하는 쪽이 앞을 기대했다면 틀린 것이다.**
+
+**빈자리 2. 정렬되지 않은 입력을 주면?**
+명세는 "정렬된 벡터"를 전제했다. 전제가 깨졌을 때의 동작은 정하지 않았다.
+
+
+```{r ai-gap-unsorted}
+u <- c(19, 7, 2, 15, 10)      # 정렬되어 있지 않다
+
+binary_search_rec(u, 19)      # 19는 1번 자리에 분명히 있다
+which(u == 19)
+
+```
+
+
+오류도, 경고도 없이 "없다"고 답한다.
+**조용히 틀리는 것이 시끄럽게 실패하는 것보다 훨씬 위험하다.**
+
+**빈자리 3. `NA` 가 섞여 있으면?**
+
+
+```{r ai-gap-na, error=TRUE}
+binary_search_rec(c(1, 3, NA, 7), 7)
+
+```
+
+
+여기서는 오류로 멈춘다. 앞의 두 경우보다 오히려 낫다. 최소한 알아챌 수 있다.
+
+명세를 지키도록 방어 코드를 넣으면 이렇게 된다.
+
+
+```{r ai-gap-fixed}
+binary_search_safe <- function(vec, target) {
+  stopifnot(is.numeric(vec), length(target) == 1L)
+  if (anyNA(vec)) stop("vec 에 NA 가 있다.")
+  if (is.unsorted(vec)) stop("vec 이 오름차순으로 정렬되어 있지 않다.")
+  binary_search_rec(vec, target)
+}
+
+binary_search_safe(x, x[5])
+
+```
+
+
+```{r ai-gap-fixed-error, error=TRUE}
+binary_search_safe(u, 19)
+
+```
+
+
+::: {.callout-caution}
+**AI 코드에서 자주 나오는 오류 유형**
+
+- **경계 조건**: `<` 와 `<=`, `mid` 와 `mid - 1` 을 바꿔 쓴다. 이 장의
+`rbinary_search()` 가 정확히 이 유형이고, 사람도 똑같이 틀린다.
+- **전제 미검사**: "정렬되어 있다", "`NA` 가 없다" 같은 전제를 확인하지 않는다.
+- **빈 입력**: 길이 0인 벡터에서 인덱스 1을 읽는다.
+- **명세의 빈자리**: 중복값·동점 처리처럼 명세가 침묵한 부분을 임의로 정하고
+그 선택을 알려주지 않는다.
+
+공통점은 **오류 메시지가 나지 않는다**는 것이다. 그래서 실행해 보는 것만으로는
+부족하고 검증 절차가 필요하다.
+
+:::
+
+
+### 연습 {#sec-ai-algorithms-practice}
+
+1. 위 명세에 "중복값이 있으면 **가장 앞** 위치를 반환한다"를 추가해 다시 요청하고,
+받은 코드가 그 조건을 지키는지 `match()` 와 대조해 확인하시오.
+2. 짝과 코드를 바꾼다. 상대의 `binary_search_rec()` 에 버그를 하나 심어 돌려주고,
+서로 전수 검사로 찾아내시오. 몇 번째 검증에서 발견됐는지 기록하시오.
+
+
+## 연습문제 {#sec-ex-algorithms .unnumbered}
+
+**읽기 문항** (실행하지 말고 답을 먼저 적은 뒤 확인할 것)
+
+1. 다음 각 코드의 시간 복잡도를 빅오로 나타내시오.
+
+   a) 길이 $n$ 벡터를 한 번 훑어 최댓값을 찾는 코드
+   b) 길이 $n$ 벡터의 모든 두 원소 쌍을 비교하는 이중 반복문
+   c) 길이 $n$ 벡터를 절반씩 줄여가며 훑는 코드
+   d) 길이 $n$ 벡터에 대해 반복문 안에서 `x <- c(x, i)` 로 결과를 모으는 코드
+
+2. 아래 함수는 `n` 번째 피보나치 수를 구한다. 실행하기 전에 답하시오.
+
+    ```r
+    fib <- function(n) {
+      if (n <= 2) return(1)
+      fib(n - 1) + fib(n - 2)
+    }
+    ```
+
+   a) `fib(6)` 의 값은 얼마인가?
+   b) `fib(0)` 은 무엇을 반환하는가? 그것이 옳은 답인가?
+   c) `fib(30)` 은 왜 느린가? 호출 횟수의 증가 방식을 근거로 설명하시오.
+
+3. @sec-search-verification 의 `rbinary_search()` 는 `maxL <= minL` 에서 포기한다.
+길이 4인 벡터 `c(2, 4, 6, 8)` 에서 `target = 4` 를 찾을 때
+`minL` 과 `maxL` 이 어떻게 변하는지 손으로 따라가고, 어느 단계에서
+답을 놓치는지 적으시오.
+
+4. 다음 주장은 참인가 거짓인가. 근거를 대시오.
+"이진 탐색은 선형 탐색보다 항상 빠르므로 값을 찾을 일이 있으면 먼저 정렬해야 한다."
+
+**쓰기 문항**
+
+5. `bubble_sort()` 를 고쳐, 한 번 훑는 동안 교환이 한 번도 없으면 즉시 멈추도록
+하시오. 이미 정렬된 입력에서 시간 복잡도가 어떻게 바뀌는지 설명하고,
+`system.time()` 으로 확인하시오.
+
+6. `merge_sort()` 를 내림차순으로 정렬하도록 고치시오.
+`smerge()` 의 어느 부분만 바꾸면 되는지 설명하고, 중복값이 있는 벡터에서
+안정성이 유지되는지 확인하시오.
+
+7. `newton_raphson()` 에 수렴 실패를 알리는 기능을 추가하시오.
+최대 반복 횟수에 도달했는데 $|f(x)| > $ `tol` 이면 경고를 내고
+`converged = FALSE` 를 함께 반환하도록 한다.
+$f(x) = x^2 + 1$ (실근 없음)로 동작을 확인하시오.
+
+8. 길이 $n$ 인 정렬된 벡터에서 `target` **이상인 첫 번째 위치**를 반환하는
+함수를 이진 탐색으로 작성하시오(없으면 `length(vec) + 1`).
+전수 검사와 경계 사례(빈 벡터, 모든 값이 `target` 보다 작은 경우)로 검증하고,
+검증 코드도 함께 제출하시오.

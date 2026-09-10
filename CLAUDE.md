@@ -26,6 +26,7 @@
 | `12-basic-stat-analysis.Rmd` | Q-Q plot, t-검정, ANOVA, tidymodels 정리 | 1586 |
 | `13-rmarkdown-more.Rmd` | R Markdown 문법, 청크, YAML, 인용 | 957 |
 | `15-references.Rmd` | 참고문헌 | 2 |
+| `08-algorithms.qmd` | **개편 새 8장 (Quarto 시범 전환).** 현행 `06-algorithms.Rmd` 를 슬림화·재구성 | 1377 |
 
 지원 폴더:
 
@@ -36,12 +37,14 @@
 - `init-funs/`, `code/`, `demo/`, `examples/`, `test/`, `misc/` : 보조 스크립트·실험용. 책에 포함되지 않음.
 - `2020/` : 초기 버전 아카이브 (gitignore). **수정 금지.**
 - `docs/`, `_bookdown_files/` : **생성물. 직접 편집 금지.**
+- `docs/preview/` : 개편 원고를 단독 렌더해 올려 두는 자리. `bash upgrade/render-preview.sh <장.qmd>` 가 만든다. bookdown 이 건드리지 않으므로 현행 사이트와 공존한다.
 - `upgrade/` : 업그레이드 작업 산출물. **`upgrade/curriculum-plan.md` (교과 재구성안)**, 감사 보고서 `upgrade/audit/`, 렌더 로그 `upgrade/logs/`.
 - `hub/` : 발표 슬라이드 허브 페이지의 **원본**(손으로 편집하는 곳). `bash hub/sync.sh` 로 `docs/hub/` 에 복사해 배포한다. `docs/` 는 렌더 산출물 폴더라 Quarto 전환 때 비워질 수 있으므로 원본을 밖에 둔다 (`docs/legacy/` 와 같은 이유).
 
 ## 툴체인
 
-- R 4.6.1, bookdown 0.47, rmarkdown 2.31, knitr 1.51, quarto CLI 1.9.38 (`/usr/lib/rstudio-server/bin/quarto/bin/quarto`)
+- R 4.6.1, bookdown 0.47, rmarkdown 2.31, knitr 1.51.
+- Quarto CLI: 리눅스 RStudio Server 는 1.9.38 (`/usr/lib/rstudio-server/bin/quarto/bin/quarto`), **Windows 작업 머신은 Positron 번들 1.10.18** (`C:/Program Files/Positron/resources/app/quarto/bin/quarto.cmd`, PATH 에 있음).
 - tidyverse 2.0.0, ggplot2(4.x), kableExtra 1.4.1, gt 1.3.0, DT, svglite, plotly, shiny, tidymodels 1.5.0
 - LLM/AI: ellmer 0.4.2 (설치됨). 편집기는 Positron (`.vscode/settings.json`에 native pipe 설정).
 - 검증 도구: styler, lintr, spelling, testthat 설치됨.
@@ -57,6 +60,9 @@ bash .claude/skills/build-book/scripts/render.sh 02-data-type.Rmd
 
 # 전체 책 렌더 (수 분 소요, 로그는 upgrade/logs/)
 bash .claude/skills/build-book/scripts/render.sh
+
+# 개편 원고(.qmd) 한 장을 렌더해 docs/preview/ 에 올린다 (현행 사이트는 안 건드림)
+bash upgrade/render-preview.sh 08-algorithms.qmd
 ```
 
 - `_bookdown.yml` 의 `new_session: true` → 각 장은 **독립 R 세션**에서 렌더된다. 장마다 setup 청크에서 필요한 패키지를 직접 로드해야 한다.
@@ -96,9 +102,28 @@ bash .claude/skills/build-book/scripts/render.sh
 
 | 장 | 상태 | 비고 |
 |---|---|---|
-| 전체 | 감사 전 | `/audit-chapter` 로 장별 감사 보고서 생성 후 갱신 |
+| 새 8장 알고리즘 | **원고 초안 (Quarto)** | `08-algorithms.qmd`. 청크 52개 실행 검증 통과. 렌더본 `docs/preview/08-algorithms.html` |
+| 나머지 전체 | 감사 전 | `/audit-chapter` 로 장별 감사 보고서 생성 후 갱신 |
 
 (장을 감사·개정할 때마다 이 표를 갱신한다: `감사 전 → 감사 완료 → 개정 중 → 개정 완료 → 검증 완료`)
+
+### Quarto 전환 진행 상황 (2026-09-11)
+
+책 전체 전환은 아직 하지 않았다. **8장만 시범 전환**해 절차를 검증했다.
+
+- `08-algorithms.qmd` 가 새 8장의 **원본**이다 (`.Rmd` 초안은 폐기). 현행 `06-algorithms.Rmd` 는 그대로 두었다.
+- 단일 장 렌더·배치: `bash upgrade/render-preview.sh 08-algorithms.qmd` → `docs/preview/`. 살아 있는 bookdown 사이트(`docs/` 루트)는 건드리지 않는다.
+- `_quarto.yml` 은 아직 만들지 않았다. 만드는 순간 `output-dir: docs` 가 현행 사이트를 덮으므로, **`migrate-to-quarto` 스킬 0단계(legacy 보존)를 먼저** 해야 한다.
+- **`bookdown-archive-2026-09-10` 태그가 이 저장소에 없다** (`git tag -l` 비어 있음). 전환 착수 전에 전환 직전 커밋에 다시 걸어야 한다.
+
+**시범 전환에서 걸린 것 (다른 장 전환 시 반복될 항목)**
+
+1. `comment: NA` 를 YAML 에 그대로 옮기면 R 의 `NA` 가 아니라 **문자열 "NA"** 가 되어 모든 출력에 `NA` 접두어가 붙는다. `comment: ""` 로 쓴다.
+2. Quarto 는 `execute: error` 기본값이 `false` 라 청크의 `error=TRUE` 보다 우선해 **첫 오류에서 렌더가 멈춘다.** 문서 YAML 에 `error: true` 를 준다.
+3. 재귀 한계 오류(`evaluation nested too deeply`)는 표현식 스택이 고갈된 상태라 `error=TRUE` 로도 잡히지 않는다. `tryCatch()` 로 감싸 메시지를 출력한다.
+4. 목록 항목 안에 **들여쓴 실행 청크**를 두면 `::: {.cell}` 래퍼가 본문에 그대로 새어 나온다. 실행이 필요 없으면 일반 ```` ```r ```` 블록으로 쓴다.
+5. `.mp4` 는 `knitr::include_graphics()` 로 넣을 수 없다. `<video>` 태그를 쓴 `::: {#fig-...}` 블록으로 바꾼다.
+6. PDF 전용 `size` 청크 훅은 HTML 전환 시 뺀다. 출력을 LaTeX 글꼴 크기 명령으로 감싸던 훅이라 HTML 에서는 의미가 없다. `linewidth` 훅은 그대로 쓴다.
 
 ### 결정된 사항 (2026-09-10, 강사)
 
