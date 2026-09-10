@@ -123,6 +123,10 @@ bash upgrade/render-preview.sh 08-algorithms.qmd
   - **강의노트의 그림·도식을 슬라이드에도 싣는다.** 8장 기준: `figures/big-o-explain.png`,
     `function-call.png`, `recursive-function-call.png`, `recursive-sum-flows.png`,
     `hanoi-problem.gif`, `hanoi-solution.gif`, `video/newton-raphson-ex.mp4`, 복잡도 증가 그래프(R 청크).
+  - **슬라이드 채움 목표는 720px 대비 70~85%.** 60% 아래면 내용을 더하거나 옆 슬라이드와 합친다.
+    측정은 각 슬라이드의 자식 요소 상·하단 좌표 차를 reveal 배율로 나눠 구한다.
+    절 표지는 제목만 두지 않는다 — 번호·제목·의도·소절 목록·"이 절이 답하는 질문" 띠를 넣는다.
+    예측(PRIMM) 슬라이드에는 **묻는 대상 코드나 수식을 함께** 실어 슬라이드 하나로 완결시킨다.
   - **투영 대비**: 본문·꼬리말·쪽번호 모두 배경 대비 4.5 이상을 지킨다. `$faint`(#8C8479)는
     이 배경에서 3.45 라 부족하므로 `$muted`(#6E665C) 이상을 쓴다. reveal 기본값이 인용문 글자색을
     테두리색으로 잡아 읽히지 않았던 사례가 있으므로 테마에서 명시적으로 덮는다.
