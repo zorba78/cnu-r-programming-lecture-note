@@ -108,6 +108,7 @@ bash .claude/skills/build-book/scripts/render.sh
 - **신규 장**: 프로그래밍과 계산, 정확성·디버깅·검증, AI와 함께 프로그래밍하기. 세부는 `upgrade/curriculum-plan.md`.
 - 발표 슬라이드 허브 페이지는 **A안(주제 목록형)** 으로 확정. 시안 https://claude.ai/code/artifact/3fadbdb9-8241-473c-8cad-13ca6285e9d8
 - **구 강의노트(bookdown) 는 삭제하지 않고 `docs/legacy/` 에서 계속 서빙한다.** Quarto 전환 직전에 `bookdown-archive-2026-09-10` 태그에서 렌더된 `docs/`를 꺼내 보존하고, Quarto 렌더 후 `docs/legacy/`로 합쳐 넣는다. 절차는 `migrate-to-quarto` 스킬 0·4단계. 허브 페이지와 새 책 서문 모두에 "이전 버전 강의노트" 링크를 건다.
+- **정확성·디버깅·검증을 독립 장(6장)으로 둔다.** 근거(강사, 2026-09-10): "LLM을 통해 디버깅 작업을 예전에 비해 매우 효율적으로 수행할 수 있으나 결국 중요한 부분은 인간이 다시 한 번 확인하는 절차가 중요해짐." 즉 이 장의 핵심은 디버깅 기법 자체가 아니라 **AI가 내놓은 결과를 사람이 재확인하는 절차**다. 함수 장(5장)에 부속시키면 이 비중이 죽는다. 장 설계는 `ai-curriculum` 스킬 4b, 대응표는 `upgrade/curriculum-plan.md` 5절.
 
 ### 백업
 
@@ -120,8 +121,8 @@ bash .claude/skills/build-book/scripts/render.sh
 
 - 학기별 주차 배정과 장 개수 (제안: 1학기 9장 / 2학기 7장).
 - 장 번호 변경에 따른 파일명 변경 여부. 공개 URL 이 바뀌므로 Quarto 전환과 함께 처리하는 편이 낫다.
-- 정확성·디버깅·검증을 독립 장으로 둘지, 함수 장 뒤에 붙일지.
 - 강의 연도·학기 표기 갱신 (index.Rmd 의 subtitle/description 이 2022/2023 혼재).
+- **Quarto 전환 착수 시점.** 절차·보존 방법은 확정됐으나 실행 여부는 아직 지시받지 않음.
 
 ## 알려진 문제 (감사 시 우선 확인)
 
