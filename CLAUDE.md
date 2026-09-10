@@ -107,6 +107,14 @@ bash .claude/skills/build-book/scripts/render.sh
 - **Quarto·git·renv 워크플로 장은 만들지 않는다.** 강의 범위 밖. 단 Quarto 문서 작성 자체(현 13장)는 유지·전환한다.
 - **신규 장**: 프로그래밍과 계산, 정확성·디버깅·검증, AI와 함께 프로그래밍하기. 세부는 `upgrade/curriculum-plan.md`.
 - 발표 슬라이드 허브 페이지는 **A안(주제 목록형)** 으로 확정. 시안 https://claude.ai/code/artifact/3fadbdb9-8241-473c-8cad-13ca6285e9d8
+- **구 강의노트(bookdown) 는 삭제하지 않고 `docs/legacy/` 에서 계속 서빙한다.** Quarto 전환 직전에 `bookdown-archive-2026-09-10` 태그에서 렌더된 `docs/`를 꺼내 보존하고, Quarto 렌더 후 `docs/legacy/`로 합쳐 넣는다. 절차는 `migrate-to-quarto` 스킬 0·4단계. 허브 페이지와 새 책 서문 모두에 "이전 버전 강의노트" 링크를 건다.
+
+### 백업
+
+- **`bookdown-archive-2026-09-10`** 태그: 이번 업그레이드(오류 수정 4건 + CLAUDE.md·스킬 + 재구성안 커밋 직후, Quarto 전환·장 구성 변경 착수 직전)의 스냅샷. 로컬 전용, `origin` 에는 푸시하지 않음.
+  - 파일 하나 복원: `git show bookdown-archive-2026-09-10:02-data-type.Rmd`
+  - `docs/` 전체 복원(렌더된 옛 사이트): `git checkout bookdown-archive-2026-09-10 -- docs`
+  - 저장소 전체를 그 시점으로 되돌리려면: `git checkout bookdown-archive-2026-09-10`
 
 ### 열린 결정 (아직 미정)
 

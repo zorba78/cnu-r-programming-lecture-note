@@ -23,6 +23,18 @@ git switch -c quarto-migration
 quarto --version   # 1.9.38
 ```
 
+**구 강의노트(bookdown) 보존 — Quarto 렌더 전에 반드시 먼저 한다.**
+GitHub Pages는 `docs/`를 그대로 서빙하고, 아래 `_quarto.yml` 초안도 `output-dir: docs`로 잡혀 있다. 손대지 않으면 Quarto 렌더가 지금 살아있는 bookdown 사이트를 그대로 덮어써 옛 페이지가 전부 사라진다. `bookdown-archive-2026-09-10` 태그(Quarto 전환 착수 직전의 마지막 bookdown 커밋)에서 렌더된 `docs/`를 꺼내 `docs/legacy/`로 옮겨 두면, 전환 후에도 그 경로는 살아남아 옛 강의노트를 그대로 서빙한다.
+
+```bash
+git checkout bookdown-archive-2026-09-10 -- docs
+mkdir -p docs-legacy-staging
+cp -r docs/. docs-legacy-staging/legacy/
+git checkout HEAD -- docs   # 작업 트리를 다시 현재 커밋의 docs/로 되돌림 (Quarto가 새로 채울 자리)
+```
+
+`docs-legacy-staging/legacy/`는 4단계(Quarto `render` 완료 후) 맨 마지막에 `docs/legacy/`로 합쳐 넣는다. 옛 사이트 안의 상대 링크(`css/style.css`, `images/` 등)는 `docs/legacy/` 밑에서도 그대로 닫힌 경로이므로 손댈 필요 없다. 허브 페이지에는 `.../legacy/`(또는 `.../legacy/index.html`) 링크 하나만 "이전 버전 강의노트 (~2026, bookdown)"로 걸어 둔다.
+
 ### 1. 프로젝트 파일
 `_quarto.yml` 초안 (bookdown 설정을 옮김):
 
@@ -96,7 +108,7 @@ quarto render 02-data-type.qmd
 - `kableExtra` 표는 대부분 동작. `DT`, `plotly` 는 `html` 에서 정상.
 - `{-}` / `.unnumbered` → `{.unnumbered}`.
 - 수식 `$$` 는 그대로. `\mathrm{\mathbf{X}}` 도 그대로.
-- 외부 헤딩 ID 변경으로 기존 URL 이 깨짐 → `docs/` 에 옛 경로 리다이렉트 필요 여부 결정.
+- 외부 헤딩 ID 변경으로 기존 URL 이 깨짐 → 개별 리다이렉트는 만들지 않는다. 대신 0단계에서 보존한 `docs/legacy/`가 옛 사이트 전체를 그대로 서빙하므로, 새 책 쪽에는 "이전 버전은 여기" 링크 하나만 눈에 띄게 둔다(허브 페이지, `index.qmd` 서문 모두).
 
 ### 3. 검증
 - 장별 `quarto render <장>.qmd` 후 경고(`WARNING: Unable to resolve crossref`) 없는지.
@@ -104,6 +116,14 @@ quarto render 02-data-type.qmd
 - 전체: `quarto render` → `docs/` 갱신. 옛 `docs/*.html` 은 지워지므로 커밋 전 diff 크기를 사용자에게 보고.
 
 ### 4. 마무리
-- `_bookdown.yml`, `_output.yml`, `_render.R`, `krantz.cls`, `latex/` 는 `legacy/` 로 이동 (삭제는 사용자 결정).
+- **`docs-legacy-staging/legacy/`를 `docs/legacy/`로 합쳐 넣는다** (`quarto render` 직후, 이 순서를 지켜야 Quarto가 만든 `docs/`를 옛 사본이 덮어쓰지 않는다):
+  ```bash
+  mkdir -p docs/legacy
+  cp -r docs-legacy-staging/legacy/. docs/legacy/
+  rm -rf docs-legacy-staging
+  git add docs/legacy
+  ```
+  렌더 후 `docs/legacy/index.html`이 열리는지, `docs/legacy/css/style.css` 등 상대경로 자원이 함께 살아있는지 확인한다.
+- `_bookdown.yml`, `_output.yml`, `_render.R`, `krantz.cls`, `latex/` (bookdown 소스 설정)는 삭제하지 않고 `bookdown-legacy/`로 이동한다 (렌더된 `docs/legacy/`와는 다른 폴더 — 하나는 소스, 하나는 산출물).
 - `CLAUDE.md` 툴체인·빌드 명령 절을 Quarto 기준으로 갱신. `build-book` 스킬의 명령도 갱신.
-- README 갱신.
+- README 갱신. "이전 버전 강의노트(~2026, bookdown): `docs/legacy/`" 한 줄 추가.
