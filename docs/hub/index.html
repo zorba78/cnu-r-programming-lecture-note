@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>강의 허브 — 통계 프로그래밍 언어 · 통계 패키지 활용</title>
-<meta name="description" content="충남대학교 정보통계학과 R 프로그래밍 강의노트와 발표 슬라이드를 주제별로 모은 허브 페이지.">
+<meta name="description" content="충남대학교 정보통계학과 R 프로그래밍 강의노트 개편 교과 구성과 발표 슬라이드를 주제별로 모은 허브 페이지.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&amp;display=swap">
@@ -27,7 +27,7 @@
   a { color:var(--note); text-decoration:none; }
   a:hover { color:var(--note-hover); }
   /* IBM Plex Mono 에는 한글 글리프가 없다. 라틴·숫자는 Plex Mono 로,
-     한글은 Malgun Gothic 으로 떨어지게 해 기본 monospace 폴백(궁서/굴림체)을 피한다. */
+     한글은 Malgun Gothic 으로 떨어지게 해 기본 monospace 폴백을 피한다. */
   .mono { font-family:'IBM Plex Mono','SFMono-Regular',ui-monospace,'Malgun Gothic','Apple SD Gothic Neo',monospace; }
   .disp { font-family:'Hahmlet','Nanum Myeongjo','Apple SD Gothic Neo',serif; }
   .wrap { max-width:1440px; margin:0 auto; }
@@ -56,7 +56,11 @@
   .hero-l { display:flex; flex-direction:column; gap:22px; }
   .hero h1 { margin:0; font-size:60px; line-height:1.1; font-weight:700; letter-spacing:-0.02em; }
   .hero h1 span { color:var(--faint); font-weight:400; }
-  .hero p { margin:0; max-width:520px; font-size:16px; line-height:1.8; color:var(--prose); }
+  .hero p { margin:0; max-width:560px; font-size:16px; line-height:1.8; color:var(--prose); }
+  .hero-caution {
+    max-width:560px; font-size:13px; line-height:1.7; color:var(--muted);
+    border-left:2px solid var(--note); padding:2px 0 2px 14px;
+  }
   .legend {
     display:flex; flex-direction:column; gap:18px; padding:24px;
     background:var(--panel); border:1px solid var(--line);
@@ -76,7 +80,7 @@
   .dot-slide { background:var(--slide); }
 
   /* 본문 */
-  main { display:flex; flex-direction:column; padding:0 48px 72px; }
+  main { display:flex; flex-direction:column; padding:0 48px 32px; }
   .part {
     display:flex; align-items:baseline; justify-content:space-between; gap:16px;
     padding:0 24px 14px; border-bottom:2px solid var(--ink); flex-wrap:wrap;
@@ -92,7 +96,7 @@
   .topic { border-top:1px solid var(--line); }
   .topic[open] { background:var(--panel); border-top-color:var(--line-2); }
   .row {
-    display:grid; grid-template-columns:76px 1fr 176px 176px 24px; gap:28px;
+    display:grid; grid-template-columns:76px 1fr 190px 176px 24px; gap:28px;
     align-items:start; padding:22px 24px; cursor:pointer; list-style:none;
   }
   .row::-webkit-details-marker { display:none; }
@@ -100,12 +104,24 @@
   .row-num { font-size:24px; color:var(--off); padding-top:3px; }
   .topic[open] .row-num { color:var(--note); }
   .row-main { display:flex; flex-direction:column; gap:9px; min-width:0; }
-  .row-title { font-size:19px; font-weight:600; letter-spacing:-0.01em; }
+  .row-title {
+    font-size:19px; font-weight:600; letter-spacing:-0.01em;
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  }
   .row-sub { font-size:13px; line-height:1.65; color:var(--muted); }
+  .tag {
+    font-size:10.5px; font-weight:500; letter-spacing:0.06em; padding:2px 7px;
+    border:1px solid var(--line-2); color:var(--faint); white-space:nowrap;
+  }
+  .tag-new { border-color:var(--note); color:var(--note); background:rgba(166,75,50,0.06); }
+  .tag-rework { border-color:var(--panel-line); color:var(--prose); }
+  .tag-trim { border-color:var(--panel-line); color:var(--prose); }
+  .tag-port { border-color:var(--panel-line); color:var(--prose); }
+  .tag-keep { border-color:var(--line-2); color:var(--faint); }
   .res { display:flex; flex-direction:column; gap:10px; }
   .res-label { display:flex; align-items:center; gap:8px; }
   .res-label .dot { width:8px; height:8px; }
-  .res-label .mono { font-size:11px; letter-spacing:0.1em; }
+  .res-label .mono { font-size:11px; letter-spacing:0.06em; }
   .res-note .res-label .mono { color:var(--note); }
   .res-slide .res-label .mono { color:var(--slide); }
   .res-act {
@@ -114,6 +130,7 @@
   }
   .res-act.is-muted { cursor:default; }
   a.res-act:hover { color:var(--ink); }
+  .src-none { font-size:12.5px; color:var(--faint); }
   .arrow { font-size:15px; }
   .arrow-note { color:var(--note); }
   .arrow-slide { color:var(--slide); }
@@ -128,25 +145,45 @@
 
   /* 확장 패널 */
   .panel { padding:6px 24px 30px 128px; border-bottom:1px solid var(--line); }
+  .panel-plan {
+    margin:0 0 18px; max-width:760px; font-size:14px; line-height:1.8; color:var(--prose);
+  }
   .panel-head {
     display:flex; align-items:baseline; justify-content:space-between; gap:16px;
     padding-bottom:10px; border-bottom:1px solid var(--panel-line); margin-bottom:4px;
   }
   .panel-head .mono { font-size:11px; letter-spacing:0.16em; color:var(--prose); }
-  .panel-all { font-size:13px; color:var(--slide); }
-  .panel-all:hover { color:var(--slide-hover); }
+  .panel-note { color:var(--faint) !important; letter-spacing:0.06em !important; }
   .map {
     display:grid; grid-template-columns:1fr 60px 1.15fr; gap:16px;
     align-items:center; padding:11px 0; border-top:1px solid #E2D9CB;
   }
   .map:first-of-type { border-top:none; }
+  .map-empty { display:block; padding:14px 0; font-size:13.5px; }
   .map-note { display:flex; gap:12px; align-items:baseline; color:var(--ink); min-width:0; }
   .map-note:hover { color:var(--note); }
   .map-note span:last-child { font-size:14.5px; }
   .map-num { font-size:12px; color:var(--note); flex-shrink:0; }
   .map-arrow { text-align:center; color:#BFB3A2; font-size:14px; }
   .map-slide { display:flex; gap:12px; align-items:baseline; justify-content:space-between; }
-  .map-unassigned { font-size:12px; color:var(--faint); }
+  .map-target { font-size:12px; color:var(--faint); }
+
+  /* 부록 */
+  .apx-wrap { padding:0 48px 72px; }
+  .apx-head {
+    display:flex; align-items:baseline; justify-content:space-between; gap:16px;
+    padding:0 24px 14px; border-bottom:2px solid var(--ink); flex-wrap:wrap; margin-top:56px;
+  }
+  .apx-title-l { display:flex; align-items:baseline; gap:18px; flex-wrap:wrap; }
+  .apx {
+    display:grid; grid-template-columns:76px 1fr 1fr 190px; gap:28px;
+    align-items:baseline; padding:18px 24px; border-top:1px solid var(--line);
+  }
+  .apx:first-of-type { border-top:none; }
+  .apx-letter { font-size:20px; color:var(--off); }
+  .apx-title { font-size:16px; font-weight:600; }
+  .apx-gist { font-size:13px; color:var(--muted); }
+  .apx-from { font-size:11.5px; color:var(--faint); text-align:right; }
 
   /* 푸터 */
   footer {
@@ -162,27 +199,29 @@
   /* 반응형 */
   @media (max-width:1100px) {
     .topbar, header.hero, footer { padding-left:40px; padding-right:40px; }
-    main { padding-left:24px; padding-right:24px; }
+    main, .apx-wrap { padding-left:24px; padding-right:24px; }
     header.hero { grid-template-columns:1fr; gap:32px; }
     .legend { max-width:420px; }
     .hero h1 { font-size:46px; }
-    .row { grid-template-columns:56px 1fr 150px 150px 20px; gap:18px; }
+    .row { grid-template-columns:56px 1fr 160px 150px 20px; gap:18px; }
     .panel { padding-left:74px; }
+    .apx { grid-template-columns:56px 1fr 160px; gap:18px; }
+    .apx-gist { grid-column:2 / -1; }
     footer { grid-template-columns:1fr 1fr; }
     .foot-col:last-child { grid-column:1 / -1; text-align:left; }
   }
   @media (max-width:760px) {
     .topbar, header.hero, footer { padding-left:16px; padding-right:16px; }
-    main { padding-left:16px; padding-right:16px; }
+    main, .apx-wrap { padding-left:16px; padding-right:16px; }
     .topbar { padding-top:14px; padding-bottom:14px; }
     .topbar-link { border-left:none; padding-left:0; }
     header.hero { padding-top:32px; padding-bottom:28px; }
     .hero h1 { font-size:34px; }
     .hero p { font-size:15px; line-height:1.75; }
-    .part { padding-left:0; padding-right:0; }
+    .part, .apx-head { padding-left:0; padding-right:0; }
     .part-name { font-size:21px; }
-    /* 제목 줄(번호·제목·caret) + 자료 줄(강의노트·슬라이드) 두 단으로 쌓는다.
-       명시적 선 배치를 쓴다 — .res 는 span 이라 nth-of-type 이 형제 span 을 전부 세어 어긋난다. */
+    /* 제목 줄 + 자료 줄 두 단으로 쌓는다. .res 는 span 이라
+       nth-of-type 이 형제 span 을 전부 세므로 명시적 선 배치를 쓴다. */
     .row {
       grid-template-columns:40px 1fr 1fr 20px;
       gap:14px; padding:18px 0 20px;
@@ -194,9 +233,13 @@
     .res-slide { grid-area:2 / 3 / 3 / 5; }
     .res { gap:7px; }
     .res-act { min-height:32px; }
+    .row-title { font-size:17px; }
     .panel { padding:2px 0 22px; }
+    .panel-plan { font-size:13.5px; }
     .map { grid-template-columns:1fr auto; gap:8px 12px; min-height:44px; }
     .map-arrow { display:none; }
+    .apx { grid-template-columns:36px 1fr; gap:6px 12px; padding:16px 0; }
+    .apx-gist, .apx-from { grid-column:2; text-align:left; }
     footer { grid-template-columns:1fr; gap:22px; padding-bottom:40px; }
   }
   @media print {
@@ -211,15 +254,16 @@
   <div class="topbar">
     <div class="mono topbar-l">충남대학교 정보통계학과</div>
     <div class="topbar-r">
-      <div class="mono topbar-tag">강의노트 &#8596; 발표 슬라이드</div>
-      <a class="topbar-link" href="../index.html">강의노트 전체 보기 <span class="mono">bookdown</span></a>
+      <div class="mono topbar-tag">2026 개편 교과 구성</div>
+      <a class="topbar-link" href="../index.html">현행 강의노트 <span class="mono">~2026 · bookdown</span></a>
     </div>
   </div>
 
   <header class="hero">
     <div class="hero-l">
       <h1 class="disp">통계 프로그래밍 언어<br><span>통계 패키지 활용</span></h1>
-      <p>강의노트의 주제별 상세 내용과 수업용 발표 슬라이드를 한 화면에 모았습니다. 주제를 펼치면 노트의 각 절이 어느 슬라이드에 대응하는지 바로 확인할 수 있습니다.</p>
+      <p>2026 개편 교과 구성입니다. 장 번호와 제목은 교과 재구성안을 따르며, 각 주제를 펼치면 개편 방침과 그 장이 어느 현행 노트에서 오는지 확인할 수 있습니다.</p>
+      <div class="hero-caution">새 원고는 아직 없습니다. <b>강의노트</b> 열은 그 장의 출처가 되는 <b>현행 bookdown 노트</b>로 연결됩니다. 학기별 주차 배정과 파일명 변경은 미확정입니다.</div>
     </div>
     <aside class="legend">
       <div class="mono legend-h">자료 구분</div>
@@ -228,7 +272,7 @@
           <i class="dot dot-note"></i>
           <div>
             <div class="legend-name" style="color:var(--note)">강의노트</div>
-            <div class="legend-desc">bookdown · 상세 설명과 실행 결과</div>
+            <div class="legend-desc">출처가 되는 현행 노트 · 개편 전</div>
           </div>
         </div>
         <div class="legend-item">
@@ -240,7 +284,7 @@
         </div>
       </div>
       <div class="legend-foot">
-        <span class="mono" style="color:var(--muted)">12개 주제</span>
+        <span class="mono" style="color:var(--muted)">16개 장 · 신설 3</span>
         <span class="mono" style="color:var(--slide)">슬라이드 0개 공개</span>
       </div>
     </aside>
@@ -251,21 +295,21 @@
     <div class="part">
       <div class="part-l">
         <span class="mono part-tag">PART 1</span>
-        <span class="disp part-name">통계 프로그래밍 언어</span>
+        <span class="disp part-name">프로그래밍 입문</span>
       </div>
-      <span class="mono part-count">1학기 · 7개 주제</span>
+      <span class="mono part-count">1학기 · 9개 장 (배정 미확정)</span>
     </div>
 
         <details class="topic" id="ch1">
           <summary class="row">
             <span class="mono row-num">01</span>
             <span class="row-main">
-              <span class="row-title">Introduction</span>
-              <span class="row-sub">R 설치하기 · R 시작 및 작동 체크 · R script 편집기 사용 · RStudio · R 패키지 · R 기초 문법 · R Markdown (맛보기)</span>
+              <span class="row-title">프로그래밍과 계산<span class="tag tag-new mono">신설·흡수</span></span>
+              <span class="row-sub">계산이란 무엇인가 · 값·이름·할당의 모형 · 평가 순서 · 오류의 세 종류(문법·실행·논리) · 도구 셋업 · 첫 예측-실행-대조</span>
             </span>
             <span class="res res-note">
-              <span class="res-label"><i class="dot dot-note"></i><span class="mono">강의노트</span></span>
-              <a class="res-act" href="../intro-chap.html">열기<span class="arrow arrow-note">&#8594;</span></a>
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">현행 01 + 02.1</span></span>
+              <a class="res-act" href="../intro-chap.html">현행 노트<span class="arrow arrow-note">&#8594;</span></a>
             </span>
             <span class="res res-slide">
               <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
@@ -274,29 +318,25 @@
             <span class="row-caret" aria-hidden="true">&#9662;</span>
           </summary>
           <div class="panel">
+            <p class="panel-plan">현행 1장을 흡수하고 2.1 프로그래밍을 끌어와 새로 쓴다. AI가 코드를 쓰는 시대에 왜 프로그래밍을 배우는가를 정면으로 다루고, 이 장에서 예측-실행-대조 습관을 만든다.</p>
             <div class="panel-head">
-              <span class="mono">노트 절 &#8596; 슬라이드 대응</span>
-              <a class="panel-all" href="../intro-chap.html">노트 전체 열기 &#8594;</a>
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
             </div>
-            <div class="map"><a class="map-note" href="../installation.html"><span class="mono map-num">1.1</span><span>R 설치하기</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../r-check.html"><span class="mono map-num">1.2</span><span>R 시작 및 작동 체크</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../rconsle-script.html"><span class="mono map-num">1.3</span><span>R script 편집기 사용</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../r-studio.html"><span class="mono map-num">1.4</span><span>RStudio</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../r-package.html"><span class="mono map-num">1.5</span><span>R 패키지</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../r-basic.html"><span class="mono map-num">1.6</span><span>R 기초 문법</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../r-markdown-get-start.html"><span class="mono map-num">1.7</span><span>R Markdown (맛보기)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
+            <div class="map"><a class="map-note" href="../intro-chap.html"><span class="mono map-num">1장</span><span>Introduction</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 1장</span></span></div>
+            <div class="map"><a class="map-note" href="../프로그래밍.html"><span class="mono map-num">2.1</span><span>프로그래밍</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 1장</span></span></div>
           </div>
         </details>
         <details class="topic" id="ch2">
           <summary class="row">
             <span class="mono row-num">02</span>
             <span class="row-main">
-              <span class="row-title">R 객체(R object)</span>
-              <span class="row-sub">프로그래밍 · 스칼라(scalar) · 벡터(vector) · 리스트(list) · 행렬(matrix) · 배열(array) · 요인(factor)과 테이블(table) · 데이터 프레임(data frame) · 객체의 유형 판별 및 변환</span>
+              <span class="row-title">값과 자료형<span class="tag tag-rework mono">재작성</span></span>
+              <span class="row-sub">부동소수점이 왜 0.1+0.2 != 0.3 인지 · NA 의 의미론과 전파 · NULL 과의 차이 · 형 변환이 조용히 일어나는 지점</span>
             </span>
             <span class="res res-note">
-              <span class="res-label"><i class="dot dot-note"></i><span class="mono">강의노트</span></span>
-              <a class="res-act" href="../data-type.html">열기<span class="arrow arrow-note">&#8594;</span></a>
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">현행 02 전반</span></span>
+              <a class="res-act" href="../data-type.html">현행 노트<span class="arrow arrow-note">&#8594;</span></a>
             </span>
             <span class="res res-slide">
               <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
@@ -305,31 +345,25 @@
             <span class="row-caret" aria-hidden="true">&#9662;</span>
           </summary>
           <div class="panel">
+            <p class="panel-plan">현행 2장 전반을 재작성한다. 자료형 나열이 아니라 값의 의미론이 중심이다.</p>
             <div class="panel-head">
-              <span class="mono">노트 절 &#8596; 슬라이드 대응</span>
-              <a class="panel-all" href="../data-type.html">노트 전체 열기 &#8594;</a>
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
             </div>
-            <div class="map"><a class="map-note" href="../프로그래밍.html"><span class="mono map-num">2.1</span><span>프로그래밍</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../scalar.html"><span class="mono map-num">2.2</span><span>스칼라(scalar)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../vector.html"><span class="mono map-num">2.3</span><span>벡터(vector)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../list.html"><span class="mono map-num">2.4</span><span>리스트(list)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../matrix.html"><span class="mono map-num">2.5</span><span>행렬(matrix)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../array.html"><span class="mono map-num">2.6</span><span>배열(array)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../factor-table.html"><span class="mono map-num">2.7</span><span>요인(factor)과 테이블(table)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../data-frame.html"><span class="mono map-num">2.8</span><span>데이터 프레임(data frame)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../is-as-function.html"><span class="mono map-num">2.9</span><span>객체의 유형 판별 및 변환</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
+            <div class="map"><a class="map-note" href="../scalar.html"><span class="mono map-num">2.2</span><span>스칼라(scalar)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 2장</span></span></div>
+            <div class="map"><a class="map-note" href="../is-as-function.html"><span class="mono map-num">2.9</span><span>객체의 유형 판별 및 변환</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 2장</span></span></div>
           </div>
         </details>
         <details class="topic" id="ch3">
           <summary class="row">
             <span class="mono row-num">03</span>
             <span class="row-main">
-              <span class="row-title">문자열 처리와 정규표현식</span>
-              <span class="row-sub">유용한 문자열 관련 함수 · 정규표현식 기본 함수 · 정규 표현식(regular expression)</span>
+              <span class="row-title">자료구조와 색인<span class="tag tag-rework mono">재구성</span></span>
+              <span class="row-sub">벡터(동질)·리스트(이질)·데이터프레임(열의 리스트) 셋을 대비로 설명 · 색인을 하나의 개념으로 통합 · 행렬·배열은 축소</span>
             </span>
             <span class="res res-note">
-              <span class="res-label"><i class="dot dot-note"></i><span class="mono">강의노트</span></span>
-              <a class="res-act" href="../string-regexp.html">열기<span class="arrow arrow-note">&#8594;</span></a>
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">현행 02 후반</span></span>
+              <a class="res-act" href="../data-type.html">현행 노트<span class="arrow arrow-note">&#8594;</span></a>
             </span>
             <span class="res res-slide">
               <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
@@ -338,25 +372,29 @@
             <span class="row-caret" aria-hidden="true">&#9662;</span>
           </summary>
           <div class="panel">
+            <p class="panel-plan">현행 2장 후반을 재구성한다. 색인을 구조마다 반복하지 않고 한 번에 다룬다.</p>
             <div class="panel-head">
-              <span class="mono">노트 절 &#8596; 슬라이드 대응</span>
-              <a class="panel-all" href="../string-regexp.html">노트 전체 열기 &#8594;</a>
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
             </div>
-            <div class="map"><a class="map-note" href="../유용한-문자열-관련-함수.html"><span class="mono map-num">3.1</span><span>유용한 문자열 관련 함수</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../regexp-basic-fun.html"><span class="mono map-num">3.2</span><span>정규표현식 기본 함수</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../reg-exp.html"><span class="mono map-num">3.3</span><span>정규 표현식(regular expression)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
+            <div class="map"><a class="map-note" href="../vector.html"><span class="mono map-num">2.3</span><span>벡터(vector)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 3장</span></span></div>
+            <div class="map"><a class="map-note" href="../list.html"><span class="mono map-num">2.4</span><span>리스트(list)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 3장</span></span></div>
+            <div class="map"><a class="map-note" href="../matrix.html"><span class="mono map-num">2.5</span><span>행렬(matrix)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 3장</span></span></div>
+            <div class="map"><a class="map-note" href="../array.html"><span class="mono map-num">2.6</span><span>배열(array)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 3장</span></span></div>
+            <div class="map"><a class="map-note" href="../factor-table.html"><span class="mono map-num">2.7</span><span>요인(factor)과 테이블(table)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 3장</span></span></div>
+            <div class="map"><a class="map-note" href="../data-frame.html"><span class="mono map-num">2.8</span><span>데이터 프레임(data frame)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 3장</span></span></div>
           </div>
         </details>
         <details class="topic" id="ch4">
           <summary class="row">
             <span class="mono row-num">04</span>
             <span class="row-main">
-              <span class="row-title">R 수학 함수, 분포 함수, 모형식 표현</span>
-              <span class="row-sub">수학함수 · 통계 분포 함수 · 모형식 표현</span>
+              <span class="row-title">제어 흐름과 벡터화<span class="tag tag-rework mono">강화</span></span>
+              <span class="row-sub">조건·반복에 더해 &quot;반복을 쓰지 않는 법&quot;을 나란히 · 같은 문제를 for / 벡터 연산 / map() 세 가지로</span>
             </span>
             <span class="res res-note">
-              <span class="res-label"><i class="dot dot-note"></i><span class="mono">강의노트</span></span>
-              <a class="res-act" href="../r-수학-함수-분포-함수-모형식-표현.html">열기<span class="arrow arrow-note">&#8594;</span></a>
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">현행 05 전반</span></span>
+              <a class="res-act" href="../control-structure.html">현행 노트<span class="arrow arrow-note">&#8594;</span></a>
             </span>
             <span class="res res-slide">
               <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
@@ -365,25 +403,25 @@
             <span class="row-caret" aria-hidden="true">&#9662;</span>
           </summary>
           <div class="panel">
+            <p class="panel-plan">현행 5장 전반을 강화한다.</p>
             <div class="panel-head">
-              <span class="mono">노트 절 &#8596; 슬라이드 대응</span>
-              <a class="panel-all" href="../r-수학-함수-분포-함수-모형식-표현.html">노트 전체 열기 &#8594;</a>
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
             </div>
-            <div class="map"><a class="map-note" href="../수학함수.html"><span class="mono map-num">4.1</span><span>수학함수</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../통계-분포-함수.html"><span class="mono map-num">4.2</span><span>통계 분포 함수</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../모형식-표현.html"><span class="mono map-num">4.3</span><span>모형식 표현</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
+            <div class="map"><a class="map-note" href="../condition.html"><span class="mono map-num">5.1</span><span>조건문(Conditionals)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 4장</span></span></div>
+            <div class="map"><a class="map-note" href="../looping.html"><span class="mono map-num">5.2</span><span>반복문(Looping)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 4장</span></span></div>
           </div>
         </details>
         <details class="topic" id="ch5">
           <summary class="row">
             <span class="mono row-num">05</span>
             <span class="row-main">
-              <span class="row-title">제어문(Control Structure)</span>
-              <span class="row-sub">조건문(Conditionals) · 반복문(Looping) · 함수 (function)</span>
+              <span class="row-title">함수와 추상화<span class="tag tag-rework mono">대폭 강화</span></span>
+              <span class="row-sub">인수·반환·스코프·부수효과 · 왜 함수를 만드는가 · 함수 설계</span>
             </span>
             <span class="res res-note">
-              <span class="res-label"><i class="dot dot-note"></i><span class="mono">강의노트</span></span>
-              <a class="res-act" href="../control-structure.html">열기<span class="arrow arrow-note">&#8594;</span></a>
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">현행 05 후반</span></span>
+              <a class="res-act" href="../control-structure.html">현행 노트<span class="arrow arrow-note">&#8594;</span></a>
             </span>
             <span class="res res-slide">
               <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
@@ -392,25 +430,76 @@
             <span class="row-caret" aria-hidden="true">&#9662;</span>
           </summary>
           <div class="panel">
+            <p class="panel-plan">현행 5장 후반을 대폭 강화한다. 지금 5장 분량의 절반 이하에서 다뤄지던 내용이다.</p>
             <div class="panel-head">
-              <span class="mono">노트 절 &#8596; 슬라이드 대응</span>
-              <a class="panel-all" href="../control-structure.html">노트 전체 열기 &#8594;</a>
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
             </div>
-            <div class="map"><a class="map-note" href="../condition.html"><span class="mono map-num">5.1</span><span>조건문(Conditionals)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../looping.html"><span class="mono map-num">5.2</span><span>반복문(Looping)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../function.html"><span class="mono map-num">5.3</span><span>함수 (function)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
+            <div class="map"><a class="map-note" href="../function.html"><span class="mono map-num">5.3</span><span>함수 (function)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 5장</span></span></div>
           </div>
         </details>
         <details class="topic" id="ch6">
           <summary class="row">
             <span class="mono row-num">06</span>
             <span class="row-main">
-              <span class="row-title">알고리즘의 기초</span>
-              <span class="row-sub">알고리즘(Algorithm) · 재귀함수(Recursive function) · 선형/이진 탐색(Linear/Binary search) · 정렬 알고리즘(Sorting Algorithms) · 뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm)</span>
+              <span class="row-title">정확성·디버깅·검증<span class="tag tag-new mono">신설</span></span>
+              <span class="row-sub">예측-대조 습관 · 경계 사례 · 오류 메시지 읽는 법 · 최소 재현 예제 · traceback() · testthat 맛보기</span>
             </span>
             <span class="res res-note">
-              <span class="res-label"><i class="dot dot-note"></i><span class="mono">강의노트</span></span>
-              <a class="res-act" href="../알고리즘의-기초.html">열기<span class="arrow arrow-note">&#8594;</span></a>
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">신설 — 대응 원고 없음</span></span>
+              <span class="res-act is-muted"><span class="mono src-none">원고 없음</span><span class="arrow arrow-off">&#8594;</span></span>
+            </span>
+            <span class="res res-slide">
+              <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
+              <span class="res-act is-muted"><span class="badge badge-planned mono">예정</span><span class="arrow arrow-off">&#8594;</span></span>
+            </span>
+            <span class="row-caret" aria-hidden="true">&#9662;</span>
+          </summary>
+          <div class="panel">
+            <p class="panel-plan">신설. 이 강의의 새 중심축이다. 무게중심은 디버깅 기법 나열이 아니라 AI가 빨라진 디버깅의 결과를 사람이 재확인하는 절차다. 독립 장으로 두기로 확정했다(2026-09-10).</p>
+            <div class="panel-head">
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
+            </div>
+            <div class="map map-empty"><span class="src-none">이 장에 대응하는 현행 원고가 없다. 처음부터 쓴다.</span></div>
+          </div>
+        </details>
+        <details class="topic" id="ch7">
+          <summary class="row">
+            <span class="mono row-num">07</span>
+            <span class="row-main">
+              <span class="row-title">수학 함수와 확률분포<span class="tag tag-keep mono">유지</span></span>
+              <span class="row-sub">수학함수 · 통계 분포 함수 · 모형식 표현</span>
+            </span>
+            <span class="res res-note">
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">현행 04</span></span>
+              <a class="res-act" href="../r-수학-함수-분포-함수-모형식-표현.html">현행 노트<span class="arrow arrow-note">&#8594;</span></a>
+            </span>
+            <span class="res res-slide">
+              <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
+              <span class="res-act is-muted"><span class="badge badge-planned mono">예정</span><span class="arrow arrow-off">&#8594;</span></span>
+            </span>
+            <span class="row-caret" aria-hidden="true">&#9662;</span>
+          </summary>
+          <div class="panel">
+            <p class="panel-plan">현행 4장을 유지한다. 8장 알고리즘의 선행 장이다.</p>
+            <div class="panel-head">
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
+            </div>
+            <div class="map"><a class="map-note" href="../r-수학-함수-분포-함수-모형식-표현.html"><span class="mono map-num">4장</span><span>R 수학 함수, 분포 함수, 모형식 표현</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 7장</span></span></div>
+          </div>
+        </details>
+        <details class="topic" id="ch8">
+          <summary class="row">
+            <span class="mono row-num">08</span>
+            <span class="row-main">
+              <span class="row-title">알고리즘<span class="tag tag-trim mono">슬림화</span></span>
+              <span class="row-sub">재귀 · 탐색(선형/이진)과 비용 대비는 유지 · 정렬은 4종에서 2종으로 · 뉴턴-랩슨 유지</span>
+            </span>
+            <span class="res res-note">
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">현행 06</span></span>
+              <a class="res-act" href="../알고리즘의-기초.html">현행 노트<span class="arrow arrow-note">&#8594;</span></a>
             </span>
             <span class="res res-slide">
               <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
@@ -419,91 +508,24 @@
             <span class="row-caret" aria-hidden="true">&#9662;</span>
           </summary>
           <div class="panel">
+            <p class="panel-plan">현행 6장을 슬림화한다. <b>이번 회차 작업 대상</b> — 노트와 발표 슬라이드를 이 장부터 만든다.</p>
             <div class="panel-head">
-              <span class="mono">노트 절 &#8596; 슬라이드 대응</span>
-              <a class="panel-all" href="../알고리즘의-기초.html">노트 전체 열기 &#8594;</a>
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
             </div>
-            <div class="map"><a class="map-note" href="../알고리즘algorithm.html"><span class="mono map-num">6.1</span><span>알고리즘(Algorithm)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../재귀함수recursive-function.html"><span class="mono map-num">6.2</span><span>재귀함수(Recursive function)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../선형이진-탐색linearbinary-search.html"><span class="mono map-num">6.3</span><span>선형/이진 탐색(Linear/Binary search)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../정렬-알고리즘sorting-algorithms.html"><span class="mono map-num">6.4</span><span>정렬 알고리즘(Sorting Algorithms)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../뉴튼-랩슨-알고리즘newton-rhapson-algorithm.html"><span class="mono map-num">6.5</span><span>뉴튼-랩슨 알고리즘(Newton-Rhapson Algorithm)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-          </div>
-        </details>
-        <details class="topic" id="ch7">
-          <summary class="row">
-            <span class="mono row-num">07</span>
-            <span class="row-main">
-              <span class="row-title">시뮬레이션</span>
-              <span class="row-sub">Prerequisites · 시뮬레이션(모의실험)의 의미 · 몬테칼로 시뮬레이션 · 시뮬레이션과 통계학</span>
-            </span>
-            <span class="res res-note">
-              <span class="res-label"><i class="dot dot-note"></i><span class="mono">강의노트</span></span>
-              <a class="res-act" href="../Simulation.html">열기<span class="arrow arrow-note">&#8594;</span></a>
-            </span>
-            <span class="res res-slide">
-              <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
-              <span class="res-act is-muted"><span class="badge badge-planned mono">예정</span><span class="arrow arrow-off">&#8594;</span></span>
-            </span>
-            <span class="row-caret" aria-hidden="true">&#9662;</span>
-          </summary>
-          <div class="panel">
-            <div class="panel-head">
-              <span class="mono">노트 절 &#8596; 슬라이드 대응</span>
-              <a class="panel-all" href="../Simulation.html">노트 전체 열기 &#8594;</a>
-            </div>
-            <div class="map"><a class="map-note" href="../prerequisites-1.html"><span class="mono map-num">7.1</span><span>Prerequisites</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../시뮬레이션모의실험의-의미.html"><span class="mono map-num">7.2</span><span>시뮬레이션(모의실험)의 의미</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../몬테칼로-시뮬레이션.html"><span class="mono map-num">7.3</span><span>몬테칼로 시뮬레이션</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../시뮬레이션과-통계학.html"><span class="mono map-num">7.4</span><span>시뮬레이션과 통계학</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-          </div>
-        </details>
-
-    <div class="part part-2">
-      <div class="part-l">
-        <span class="mono part-tag">PART 2</span>
-        <span class="disp part-name">통계 패키지 활용</span>
-      </div>
-      <span class="mono part-count">2학기 · 5개 주제</span>
-    </div>
-
-        <details class="topic" id="ch8">
-          <summary class="row">
-            <span class="mono row-num">08</span>
-            <span class="row-main">
-              <span class="row-title">R 외부 데이터 입출력</span>
-              <span class="row-sub">텍스트 파일 입출력 · R 바이너리(binary) 파일 입출력 · Excel 파일 입출력</span>
-            </span>
-            <span class="res res-note">
-              <span class="res-label"><i class="dot dot-note"></i><span class="mono">강의노트</span></span>
-              <a class="res-act" href="../r-외부-데이터-입출력.html">열기<span class="arrow arrow-note">&#8594;</span></a>
-            </span>
-            <span class="res res-slide">
-              <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
-              <span class="res-act is-muted"><span class="badge badge-planned mono">예정</span><span class="arrow arrow-off">&#8594;</span></span>
-            </span>
-            <span class="row-caret" aria-hidden="true">&#9662;</span>
-          </summary>
-          <div class="panel">
-            <div class="panel-head">
-              <span class="mono">노트 절 &#8596; 슬라이드 대응</span>
-              <a class="panel-all" href="../r-외부-데이터-입출력.html">노트 전체 열기 &#8594;</a>
-            </div>
-            <div class="map"><a class="map-note" href="../text-import-export.html"><span class="mono map-num">8.1</span><span>텍스트 파일 입출력</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../binary-import-export.html"><span class="mono map-num">8.2</span><span>R 바이너리(binary) 파일 입출력</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../import-export-excel.html"><span class="mono map-num">8.3</span><span>Excel 파일 입출력</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
+            <div class="map"><a class="map-note" href="../알고리즘의-기초.html"><span class="mono map-num">6장</span><span>알고리즘의 기초</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 8장</span></span></div>
           </div>
         </details>
         <details class="topic" id="ch9">
           <summary class="row">
             <span class="mono row-num">09</span>
             <span class="row-main">
-              <span class="row-title">데이터 핸들링(Data handling)</span>
-              <span class="row-sub">Tidyverse · readr 패키지 · dplyr 패키지 · 데이터 변환</span>
+              <span class="row-title">시뮬레이션<span class="tag tag-keep mono">유지·강화</span></span>
+              <span class="row-sub">시뮬레이션의 의미 · 몬테칼로 시뮬레이션 · 시뮬레이션과 통계학</span>
             </span>
             <span class="res res-note">
-              <span class="res-label"><i class="dot dot-note"></i><span class="mono">강의노트</span></span>
-              <a class="res-act" href="../data-handling.html">열기<span class="arrow arrow-note">&#8594;</span></a>
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">현행 07</span></span>
+              <a class="res-act" href="../Simulation.html">현행 노트<span class="arrow arrow-note">&#8594;</span></a>
             </span>
             <span class="res res-slide">
               <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
@@ -512,26 +534,33 @@
             <span class="row-caret" aria-hidden="true">&#9662;</span>
           </summary>
           <div class="panel">
+            <p class="panel-plan">현행 7장을 유지하되 검증의 도구로 재배치한다. 6장과 상호참조한다.</p>
             <div class="panel-head">
-              <span class="mono">노트 절 &#8596; 슬라이드 대응</span>
-              <a class="panel-all" href="../data-handling.html">노트 전체 열기 &#8594;</a>
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
             </div>
-            <div class="map"><a class="map-note" href="../tidyverse.html"><span class="mono map-num">9.1</span><span>Tidyverse</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../readr.html"><span class="mono map-num">9.2</span><span>readr 패키지</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../dplyr.html"><span class="mono map-num">9.3</span><span>dplyr 패키지</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../data-transformation.html"><span class="mono map-num">9.4</span><span>데이터 변환</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
+            <div class="map"><a class="map-note" href="../Simulation.html"><span class="mono map-num">7장</span><span>시뮬레이션</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 9장</span></span></div>
           </div>
         </details>
+
+    <div class="part part-2">
+      <div class="part-l">
+        <span class="mono part-tag">PART 2</span>
+        <span class="disp part-name">데이터 다루기</span>
+      </div>
+      <span class="mono part-count">2학기 · 7개 장 (배정 미확정)</span>
+    </div>
+
         <details class="topic" id="ch10">
           <summary class="row">
             <span class="mono row-num">10</span>
             <span class="row-main">
-              <span class="row-title">데이터 시각화</span>
-              <span class="row-sub">R 기본 그래프 함수 · 고수준 그래프 함수 · 저수준 그래프 함수 · ggplot2</span>
+              <span class="row-title">문자열과 정규표현식<span class="tag tag-port mono">이동·압축</span></span>
+              <span class="row-sub">문자열 함수 · 정규표현식 기본 함수 · 정규 표현식</span>
             </span>
             <span class="res res-note">
-              <span class="res-label"><i class="dot dot-note"></i><span class="mono">강의노트</span></span>
-              <a class="res-act" href="../ch-data-visualization.html">열기<span class="arrow arrow-note">&#8594;</span></a>
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">현행 03</span></span>
+              <a class="res-act" href="../string-regexp.html">현행 노트<span class="arrow arrow-note">&#8594;</span></a>
             </span>
             <span class="res res-slide">
               <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
@@ -540,26 +569,24 @@
             <span class="row-caret" aria-hidden="true">&#9662;</span>
           </summary>
           <div class="panel">
+            <p class="panel-plan">현행 3장을 Part 1에서 Part 2로 옮기고 압축한다. 데이터 정제 맥락에서 배우는 것이 자연스럽고, 입문 단계에서 정규표현식은 개념 부담이 크다. 함수 사전은 부록 A로 내린다.</p>
             <div class="panel-head">
-              <span class="mono">노트 절 &#8596; 슬라이드 대응</span>
-              <a class="panel-all" href="../ch-data-visualization.html">노트 전체 열기 &#8594;</a>
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
             </div>
-            <div class="map"><a class="map-note" href="../r-basic-graphics.html"><span class="mono map-num">10.1</span><span>R 기본 그래프 함수</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../high-level-graph.html"><span class="mono map-num">10.2</span><span>고수준 그래프 함수</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../low-level-graphic.html"><span class="mono map-num">10.3</span><span>저수준 그래프 함수</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../ggplot2-package.html"><span class="mono map-num">10.4</span><span>ggplot2</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
+            <div class="map"><a class="map-note" href="../string-regexp.html"><span class="mono map-num">3장</span><span>문자열 처리와 정규표현식</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 10장</span></span></div>
           </div>
         </details>
         <details class="topic" id="ch11">
           <summary class="row">
             <span class="mono row-num">11</span>
             <span class="row-main">
-              <span class="row-title">R을 활용한 기초통계 분석</span>
-              <span class="row-sub">Q-Q plot · 연속형 변수의 비교</span>
+              <span class="row-title">데이터 입출력<span class="tag tag-keep mono">유지</span></span>
+              <span class="row-sub">텍스트 파일 입출력 · R 바이너리 파일 입출력 · Excel 파일 입출력 · arrow/parquet 추가</span>
             </span>
             <span class="res res-note">
-              <span class="res-label"><i class="dot dot-note"></i><span class="mono">강의노트</span></span>
-              <a class="res-act" href="../basic-stat-analysis.html">열기<span class="arrow arrow-note">&#8594;</span></a>
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">현행 09</span></span>
+              <a class="res-act" href="../r-외부-데이터-입출력.html">현행 노트<span class="arrow arrow-note">&#8594;</span></a>
             </span>
             <span class="res res-slide">
               <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
@@ -568,24 +595,24 @@
             <span class="row-caret" aria-hidden="true">&#9662;</span>
           </summary>
           <div class="panel">
+            <p class="panel-plan">현행 8장(파일 09)을 유지하고 arrow/parquet 을 추가한다.</p>
             <div class="panel-head">
-              <span class="mono">노트 절 &#8596; 슬라이드 대응</span>
-              <a class="panel-all" href="../basic-stat-analysis.html">노트 전체 열기 &#8594;</a>
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
             </div>
-            <div class="map"><a class="map-note" href="../qqplot.html"><span class="mono map-num">11.1</span><span>Q-Q plot</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../group-comp.html"><span class="mono map-num">11.2</span><span>연속형 변수의 비교</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
+            <div class="map"><a class="map-note" href="../r-외부-데이터-입출력.html"><span class="mono map-num">8장</span><span>R 외부 데이터 입출력</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 11장</span></span></div>
           </div>
         </details>
         <details class="topic" id="ch12">
           <summary class="row">
             <span class="mono row-num">12</span>
             <span class="row-main">
-              <span class="row-title">R Markdown</span>
-              <span class="row-sub">R Markdown의 구성 · R Markdown 기본 문법(syntax) · R Code Chunks · 인라인(inline) R 코드 · YAML · 참고문헌 인용</span>
+              <span class="row-title">데이터 핸들링<span class="tag tag-rework mono">현행화</span></span>
+              <span class="row-sub">Tidyverse · readr · dplyr · 데이터 변환 · across() · pivot_*() · .by</span>
             </span>
             <span class="res res-note">
-              <span class="res-label"><i class="dot dot-note"></i><span class="mono">강의노트</span></span>
-              <a class="res-act" href="../r-markdown.html">열기<span class="arrow arrow-note">&#8594;</span></a>
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">현행 10</span></span>
+              <a class="res-act" href="../data-handling.html">현행 노트<span class="arrow arrow-note">&#8594;</span></a>
             </span>
             <span class="res res-slide">
               <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
@@ -594,24 +621,138 @@
             <span class="row-caret" aria-hidden="true">&#9662;</span>
           </summary>
           <div class="panel">
+            <p class="panel-plan">현행 9장(파일 10)을 현행 API 로 갱신한다. 동사 사전은 부록 D로 내린다.</p>
             <div class="panel-head">
-              <span class="mono">노트 절 &#8596; 슬라이드 대응</span>
-              <a class="panel-all" href="../r-markdown.html">노트 전체 열기 &#8594;</a>
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
             </div>
-            <div class="map"><a class="map-note" href="../r-markdown의-구성.html"><span class="mono map-num">12.1</span><span>R Markdown의 구성</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../r-markdown-기본-문법syntax.html"><span class="mono map-num">12.2</span><span>R Markdown 기본 문법(syntax)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../r-code-chunks.html"><span class="mono map-num">12.3</span><span>R Code Chunks</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../inline-code.html"><span class="mono map-num">12.4</span><span>인라인(inline) R 코드</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../yaml.html"><span class="mono map-num">12.5</span><span>YAML</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
-            <div class="map"><a class="map-note" href="../rmarkdown-citation.html"><span class="mono map-num">12.6</span><span>참고문헌 인용</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-unassigned">미배정</span></span></div>
+            <div class="map"><a class="map-note" href="../data-handling.html"><span class="mono map-num">9장</span><span>데이터 핸들링(Data handling)</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 12장</span></span></div>
+          </div>
+        </details>
+        <details class="topic" id="ch13">
+          <summary class="row">
+            <span class="mono row-num">13</span>
+            <span class="row-main">
+              <span class="row-title">데이터 시각화<span class="tag tag-trim mono">현행화·압축</span></span>
+              <span class="row-sub">R 기본 그래프 함수 · 고수준/저수준 그래프 함수 · ggplot2 4.x</span>
+            </span>
+            <span class="res res-note">
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">현행 11</span></span>
+              <a class="res-act" href="../ch-data-visualization.html">현행 노트<span class="arrow arrow-note">&#8594;</span></a>
+            </span>
+            <span class="res res-slide">
+              <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
+              <span class="res-act is-muted"><span class="badge badge-planned mono">예정</span><span class="arrow arrow-off">&#8594;</span></span>
+            </span>
+            <span class="row-caret" aria-hidden="true">&#9662;</span>
+          </summary>
+          <div class="panel">
+            <p class="panel-plan">현행 10장(파일 11)을 ggplot2 4.x 기준으로 갱신하고 압축한다. par() 전수 나열은 부록 B로 내린다.</p>
+            <div class="panel-head">
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
+            </div>
+            <div class="map"><a class="map-note" href="../ch-data-visualization.html"><span class="mono map-num">10장</span><span>데이터 시각화</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 13장</span></span></div>
+          </div>
+        </details>
+        <details class="topic" id="ch14">
+          <summary class="row">
+            <span class="mono row-num">14</span>
+            <span class="row-main">
+              <span class="row-title">기초통계 분석<span class="tag tag-keep mono">유지</span></span>
+              <span class="row-sub">Q-Q plot · 연속형 변수의 비교</span>
+            </span>
+            <span class="res res-note">
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">현행 12</span></span>
+              <a class="res-act" href="../basic-stat-analysis.html">현행 노트<span class="arrow arrow-note">&#8594;</span></a>
+            </span>
+            <span class="res res-slide">
+              <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
+              <span class="res-act is-muted"><span class="badge badge-planned mono">예정</span><span class="arrow arrow-off">&#8594;</span></span>
+            </span>
+            <span class="row-caret" aria-hidden="true">&#9662;</span>
+          </summary>
+          <div class="panel">
+            <p class="panel-plan">현행 11장(파일 12)을 유지한다.</p>
+            <div class="panel-head">
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
+            </div>
+            <div class="map"><a class="map-note" href="../basic-stat-analysis.html"><span class="mono map-num">11장</span><span>R을 활용한 기초통계 분석</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 14장</span></span></div>
+          </div>
+        </details>
+        <details class="topic" id="ch15">
+          <summary class="row">
+            <span class="mono row-num">15</span>
+            <span class="row-main">
+              <span class="row-title">재현 가능한 문서: Quarto<span class="tag tag-port mono">전환</span></span>
+              <span class="row-sub">문서 구성 · 기본 문법 · 코드 청크 · 인라인 코드 · YAML · 참고문헌 인용</span>
+            </span>
+            <span class="res res-note">
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">현행 13</span></span>
+              <a class="res-act" href="../r-markdown.html">현행 노트<span class="arrow arrow-note">&#8594;</span></a>
+            </span>
+            <span class="res res-slide">
+              <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
+              <span class="res-act is-muted"><span class="badge badge-planned mono">예정</span><span class="arrow arrow-off">&#8594;</span></span>
+            </span>
+            <span class="row-caret" aria-hidden="true">&#9662;</span>
+          </summary>
+          <div class="panel">
+            <p class="panel-plan">현행 12장(파일 13)을 R Markdown 에서 Quarto 로 전환한다. git·renv 워크플로는 강의 범위 밖(강사 결정).</p>
+            <div class="panel-head">
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
+            </div>
+            <div class="map"><a class="map-note" href="../r-markdown.html"><span class="mono map-num">12장</span><span>R Markdown</span></a><span class="map-arrow" aria-hidden="true">&#8594;</span><span class="map-slide"><span class="mono map-target">새 15장</span></span></div>
+          </div>
+        </details>
+        <details class="topic" id="ch16">
+          <summary class="row">
+            <span class="mono row-num">16</span>
+            <span class="row-main">
+              <span class="row-title">AI와 함께 프로그래밍하기<span class="tag tag-new mono">신설</span></span>
+              <span class="row-sub">명세 쓰기 · 프롬프트 · 생성 코드 검증 · ellmer · 구조화 출력 · &quot;AI 코드 버그 찾기&quot; 실습</span>
+            </span>
+            <span class="res res-note">
+              <span class="res-label"><i class="dot dot-note"></i><span class="mono">신설 — 대응 원고 없음</span></span>
+              <span class="res-act is-muted"><span class="mono src-none">원고 없음</span><span class="arrow arrow-off">&#8594;</span></span>
+            </span>
+            <span class="res res-slide">
+              <span class="res-label"><i class="dot dot-slide"></i><span class="mono">발표 슬라이드</span></span>
+              <span class="res-act is-muted"><span class="badge badge-planned mono">예정</span><span class="arrow arrow-off">&#8594;</span></span>
+            </span>
+            <span class="row-caret" aria-hidden="true">&#9662;</span>
+          </summary>
+          <div class="panel">
+            <p class="panel-plan">신설. 6장에서 익힌 검증 절차를 LLM 프롬프트·응답 맥락에 적용한다. 모든 API 예시는 eval=FALSE 와 저장된 응답으로 싣는다.</p>
+            <div class="panel-head">
+              <span class="mono">현행 노트 출처 &#8594; 새 장</span>
+              <span class="mono panel-note">새 원고는 아직 없음</span>
+            </div>
+            <div class="map map-empty"><span class="src-none">이 장에 대응하는 현행 원고가 없다. 처음부터 쓴다.</span></div>
           </div>
         </details>
 
   </main>
 
+  <div class="apx-wrap">
+    <div class="apx-head">
+      <div class="apx-title-l">
+        <span class="mono part-tag">부록</span>
+        <span class="disp part-name">참조표</span>
+      </div>
+      <span class="mono part-count">본문에서 내림 · 삭제가 아니라 이동</span>
+    </div>
+      <div class="apx"><span class="mono apx-letter">A</span><span class="apx-title">문자열 함수 참조표</span><span class="apx-gist">nchar · paste · sprintf · substr …</span><span class="mono apx-from">10장 본문에서 내림</span></div>
+      <div class="apx"><span class="mono apx-letter">B</span><span class="apx-title">그래픽 파라미터 참조표</span><span class="apx-gist">par() 전체</span><span class="mono apx-from">13장 본문에서 내림</span></div>
+      <div class="apx"><span class="mono apx-letter">C</span><span class="apx-title">Quarto 청크 옵션 참조표</span><span class="apx-gist">청크 옵션 전수</span><span class="mono apx-from">15장 본문에서 내림</span></div>
+      <div class="apx"><span class="mono apx-letter">D</span><span class="apx-title">dplyr·tidyr 동사 참조표</span><span class="apx-gist">동사 사전</span><span class="mono apx-from">12장 본문에서 내림</span></div>
+  </div>
+
   <footer>
     <div class="foot-col">
-      <span class="mono foot-h">강의노트</span>
+      <span class="mono foot-h">현행 강의노트</span>
       <a href="../index.html">zorba78.github.io/cnu-r-programming-lecture-note</a>
     </div>
     <div class="foot-col">
