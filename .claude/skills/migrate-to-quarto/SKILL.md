@@ -36,6 +36,13 @@ git checkout HEAD -- docs   # 작업 트리를 다시 현재 커밋의 docs/로 
 `docs-legacy-staging/legacy/`는 4단계(Quarto `render` 완료 후) 맨 마지막에 `docs/legacy/`로 합쳐 넣는다. 옛 사이트 안의 상대 링크(`css/style.css`, `images/` 등)는 `docs/legacy/` 밑에서도 그대로 닫힌 경로이므로 손댈 필요 없다. 허브 페이지에는 `.../legacy/`(또는 `.../legacy/index.html`) 링크 하나만 "이전 버전 강의노트 (~2026, bookdown)"로 걸어 둔다.
 
 ### 1. 프로젝트 파일
+
+**페이지 분할: 장 단위 (강사 결정 2026-09-11).** Quarto book 은 `.qmd` 파일 하나가
+페이지 하나다. 현행 bookdown 의 `split_by: section`(절마다 별도 페이지)에 해당하는
+옵션은 없으며, **재현하지 않기로 했다.** 따라서 절을 별도 `.qmd` 로 쪼개지 않는다.
+대신 각 장 YAML 에 `toc-expand: true` 를 주고, **모든 절을 소절로 나눠** 오른쪽 목차만으로
+장 안을 이동할 수 있게 한다. 소절 없이 100줄 넘게 흐르는 절을 만들지 않는다.
+
 `_quarto.yml` 초안 (bookdown 설정을 옮김):
 
 ```yaml
