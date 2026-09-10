@@ -91,7 +91,8 @@ read.table(
   header = FALSE, # 첫 번째 행을 헤더(변수명)으로 처리할 지 여부
   sep = "", # 구분자 ",", "\t" 등의 형태로 입력
   comment.char = "#", # 주석문자 지정
-  stringsAsFactors = TRUE, # 문자형 변수를 factor으로 변환할 지 여부
+  stringsAsFactors = FALSE, # 문자형 변수를 factor로 변환할 지 여부
+                            # R 4.0.0부터 기본값이 FALSE로 변경됨
   encoding = "unknown" # 텍스트의 encoding 보통 CP949 또는 UTF-8
                        # 한글이 입력된 데이터가 있을 때 사용
 )
@@ -104,16 +105,21 @@ read.table(
 ```
 
 
-```{r read-table-ex1, error=TRUE}
+```{block2, type="rmdcaution"}
+R 4.0.0 이전에는 `read.table()`이 문자형 값을 자동으로 요인(factor)으로 변환했고, 이를 막으려면 `stringsAsFactors = FALSE`를 명시해야 했다. R 4.0.0부터 기본값이 `FALSE`로 바뀌어, 이제는 반대로 **요인으로 변환하고 싶을 때** `stringsAsFactors = TRUE`를 지정한다. 오래된 교재나 인터넷 예제에서 `stringsAsFactors = FALSE`가 반복적으로 등장하는 이유가 여기에 있다.
+```
+
+
+```{r read-table-ex1}
 # tab 구분자 데이터 불러오기
 # dataset 폴더에 저장되어 있는 DBP.txt 파일 읽어오기
 dbp <- read.table("dataset/DBP.txt", sep = "\t", header = TRUE)
 str(dbp)
 
-# 문자형 값들을 factor로 변환하지 않는 경우
+# 문자형 값들을 요인(factor)으로 변환하는 경우
 dbp2 <- read.table("dataset/DBP.txt", sep = "\t", 
                    header = TRUE, 
-                   stringsAsFactors = FALSE)
+                   stringsAsFactors = TRUE)
 str(dbp2)
 
 # 데이터 형태 파악
