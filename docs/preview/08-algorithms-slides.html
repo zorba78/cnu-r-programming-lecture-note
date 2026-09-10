@@ -306,6 +306,23 @@
 <section>
 <section id="알고리즘과-계산-비용" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
 <h1>1 · 알고리즘과 계산 비용</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p><strong>비용을 재는 언어</strong>를 만드는 절</p>
+<p>같은 결과를 내는 코드가 왜 다른 값을 요구하는지, 그 차이를 무엇으로 재는지 정한다</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>알고리즘의 다섯 조건</li>
+<li>비용 = 수행 시간 + 메모리</li>
+<li>시간 복잡도 · 공간 복잡도</li>
+<li>빅오 표기법과 세 규칙</li>
+<li>차수별 연산 횟수 비교</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong> — 같은 결과를 내는 두 코드 중 <strong>어느 쪽을 골라야 하는가</strong>?</p>
+</div>
 <aside class="notes">
 <p>첫 번째 절입니다. 비용이라는 말을 정확하게 정의하는 것부터 시작하겠습니다.</p>
 <style type="text/css">
@@ -349,6 +366,22 @@
 <p>실제 구현에서 가장 자주 깨지는 조건 — <strong>유한성</strong>, <strong>일반성</strong></p>
 <p>“내 예제에서 동작” ≠ “정의된 입력 전체에서 동작”</p>
 </div>
+</div></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">유한성 위반 · 오늘 2절</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb1-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(n)     <span class="co"># n = 0 이면?</span></span>
+<span id="cb1-3"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">+</span> <span class="fu">recursive_sum</span>(n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb1-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>종료 조건을 <strong>지나쳐 내려가</strong> 멈추지 않음</p>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-note">일반성 위반 · 오늘 3절</span></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a>rbinary_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec, minL, maxL) {</span>
+<span id="cb2-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (maxL <span class="sc">&lt;=</span> minL) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)   <span class="co"># 원소 1개면?</span></span>
+<span id="cb2-3"><a href="" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb2-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>남은 원소를 <strong>보지 않고</strong> 탐색 종료 → 40% 실패</p>
 </div></div>
 <aside class="notes">
 <p>알고리즘의 조건 다섯 가지입니다. 교과서마다 표현은 조금씩 다릅니다만, 대체로 이렇습니다.</p>
@@ -418,28 +451,28 @@
 <div class="column" style="width:50%;">
 <p><span class="label label-slide">프로그램 1 · 사전 할당</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a>prealloc_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb1-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
-<span id="cb1-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) {</span>
-<span id="cb1-4"><a href="" aria-hidden="true" tabindex="-1"></a>    x[i] <span class="ot">&lt;-</span> i</span>
-<span id="cb1-5"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-6"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
-<span id="cb1-7"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a>prealloc_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb3-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
+<span id="cb3-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) {</span>
+<span id="cb3-4"><a href="" aria-hidden="true" tabindex="-1"></a>    x[i] <span class="ot">&lt;-</span> i</span>
+<span id="cb3-5"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-6"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
+<span id="cb3-7"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <p><span class="label label-note">프로그램 2 · 이어 붙이기</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a>grow_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb2-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb2-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) {</span>
-<span id="cb2-4"><a href="" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, i)</span>
-<span id="cb2-5"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-6"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
-<span id="cb2-7"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a>grow_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb4-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb4-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) {</span>
+<span id="cb4-4"><a href="" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, i)</span>
+<span id="cb4-5"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-6"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
+<span id="cb4-7"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div></div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(<span class="fu">prealloc_vec</span>(<span class="dv">1000</span>), <span class="fu">as.numeric</span>(<span class="fu">grow_vec</span>(<span class="dv">1000</span>)))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(<span class="fu">prealloc_vec</span>(<span class="dv">1000</span>), <span class="fu">as.numeric</span>(<span class="fu">grow_vec</span>(<span class="dv">1000</span>)))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
@@ -465,6 +498,20 @@
 <section id="예측해-보자" class="slide level2 predict" data-background-color="#1F6F7A">
 <h2>예측해 보자</h2>
 <p><code>n</code> 이 5만일 때 두 프로그램의 실행 시간 차이는?</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a>prealloc_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb7-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)               <span class="co"># 자리를 먼저 확보</span></span>
+<span id="cb7-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) x[i] <span class="ot">&lt;-</span> i</span>
+<span id="cb7-4"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
+<span id="cb7-5"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div><div class="column" style="width:50%;">
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="" aria-hidden="true" tabindex="-1"></a>grow_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb8-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb8-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, i)   <span class="co"># 이어 붙이기</span></span>
+<span id="cb8-4"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
+<span id="cb8-5"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div></div>
 <div class="options">
 <div>
 <p><strong>A</strong> 비슷한 수준</p>
@@ -500,18 +547,18 @@
 <section id="실행과-대조" class="slide level2 smaller">
 <h2>실행과 대조</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50000</span></span>
-<span id="cb5-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb5-3"><a href="" aria-hidden="true" tabindex="-1"></a>  방식 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"사전 할당"</span>, <span class="st">"이어 붙이기"</span>),</span>
-<span id="cb5-4"><a href="" aria-hidden="true" tabindex="-1"></a>  초 <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">system.time</span>(<span class="fu">prealloc_vec</span>(n))[[<span class="st">"elapsed"</span>]],</span>
-<span id="cb5-5"><a href="" aria-hidden="true" tabindex="-1"></a>         <span class="fu">system.time</span>(<span class="fu">grow_vec</span>(n))[[<span class="st">"elapsed"</span>]])</span>
-<span id="cb5-6"><a href="" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50000</span></span>
+<span id="cb9-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb9-3"><a href="" aria-hidden="true" tabindex="-1"></a>  방식 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"사전 할당"</span>, <span class="st">"이어 붙이기"</span>),</span>
+<span id="cb9-4"><a href="" aria-hidden="true" tabindex="-1"></a>  초 <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">system.time</span>(<span class="fu">prealloc_vec</span>(n))[[<span class="st">"elapsed"</span>]],</span>
+<span id="cb9-5"><a href="" aria-hidden="true" tabindex="-1"></a>         <span class="fu">system.time</span>(<span class="fu">grow_vec</span>(n))[[<span class="st">"elapsed"</span>]])</span>
+<span id="cb9-6"><a href="" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
-<pre><code>         방식   초
-1   사전 할당 0.00
-2 이어 붙이기 1.92</code></pre>
+<pre><code>         방식  초
+1   사전 할당 0.0
+2 이어 붙이기 2.4</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -692,9 +739,34 @@
 <p>반복문 중첩 시 반복 횟수 곱</p>
 <p><span class="math inline">\(\mathcal{O}(n) \times \mathcal{O}(n) = \mathcal{O}(n^2)\)</span></p>
 </div></div>
+<div class="columns">
+<div class="column" style="width:62%;">
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-hidden="true" tabindex="-1"></a>case1 <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {              <span class="co"># (가)</span></span>
+<span id="cb11-2"><a href="" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="dv">0</span>; <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) s <span class="ot">&lt;-</span> s <span class="sc">+</span> i; s</span>
+<span id="cb11-3"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-4"><a href="" aria-hidden="true" tabindex="-1"></a>case2 <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {              <span class="co"># (나)</span></span>
+<span id="cb11-5"><a href="" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="dv">0</span>; <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="dv">5</span> <span class="sc">*</span> n)) s <span class="ot">&lt;-</span> s <span class="sc">+</span> i; s</span>
+<span id="cb11-6"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-7"><a href="" aria-hidden="true" tabindex="-1"></a>case3 <span class="ot">&lt;-</span> <span class="cf">function</span>(n, m) {           <span class="co"># (다)</span></span>
+<span id="cb11-8"><a href="" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb11-9"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) s <span class="ot">&lt;-</span> s <span class="sc">+</span> i</span>
+<span id="cb11-10"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_len</span>(m)) s <span class="ot">&lt;-</span> s <span class="sc">+</span> j</span>
+<span id="cb11-11"><a href="" aria-hidden="true" tabindex="-1"></a>  s</span>
+<span id="cb11-12"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-13"><a href="" aria-hidden="true" tabindex="-1"></a>case4 <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {              <span class="co"># (라)</span></span>
+<span id="cb11-14"><a href="" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb11-15"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) <span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_len</span>(n)) s <span class="ot">&lt;-</span> s <span class="sc">+</span> j</span>
+<span id="cb11-16"><a href="" aria-hidden="true" tabindex="-1"></a>  s</span>
+<span id="cb11-17"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div><div class="column" style="width:38%;">
 <div class="keypoint">
-<p>코드 읽을 때 실제로 쓰는 것은 정의가 아니라 이 <strong>세 규칙</strong> — 반복이 몇 번 도는지만 세면 됨</p>
+<p><strong>(가)</strong> <span class="math inline">\(\mathcal{O}(n)\)</span></p>
+<p><strong>(나)</strong> <span class="math inline">\(\mathcal{O}(5n) = \mathcal{O}(n)\)</span> — 규칙 1</p>
+<p><strong>(다)</strong> <span class="math inline">\(\mathcal{O}(n + m)\)</span> — 규칙 2의 단서</p>
+<p><strong>(라)</strong> <span class="math inline">\(\mathcal{O}(n^2)\)</span> — 규칙 3</p>
 </div>
+<p>코드 읽을 때 쓰는 것은 정의가 아니라 이 세 규칙 — <strong>반복이 몇 번 도는지만</strong> 세면 됨</p>
+</div></div>
 <aside class="notes">
 <p>정의는 시험 문제 풀 때 쓰고, 실제로 코드 볼 때 쓰는 건 이 세 개입니다.</p>
 <p>규칙 1. 계수는 버립니다. 반복을 5n번 돌든 100n번 돌든 O(n)입니다. 왜냐, n이 무한대로 가면 상수 100은 의미가 없거든요. 100 곱하기 무한대도 무한대입니다.</p>
@@ -757,16 +829,67 @@
 <td style="text-align: right;">1,000,000</td>
 <td style="text-align: right;">1.1e+301</td>
 </tr>
+<tr class="even">
+<td style="text-align: right;">1,000,000</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1,000,000</td>
+<td style="text-align: right;">19,931,569</td>
+<td style="text-align: right;">1e+12</td>
+<td style="text-align: right;">—</td>
+</tr>
 </tbody>
 </table>
 </div>
 </div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 78%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">차수</th>
+<th style="text-align: left;">오늘 만나는 알고리즘</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\mathcal{O}(1)\)</span></td>
+<td style="text-align: left;">벡터 인덱싱 <code>x[i]</code>, 사전 할당한 자리에 대입</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\mathcal{O}(\log n)\)</span></td>
+<td style="text-align: left;"><strong>이진 탐색</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\mathcal{O}(n)\)</span></td>
+<td style="text-align: left;"><strong>선형 탐색</strong>, 벡터 한 번 순회</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\mathcal{O}(n\log n)\)</span></td>
+<td style="text-align: left;"><strong>병합 정렬</strong>, R 의 <code>sort()</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\mathcal{O}(n^2)\)</span></td>
+<td style="text-align: left;"><strong>버블 정렬</strong>, <code>c(x, i)</code> 로 벡터 이어 붙이기</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\mathcal{O}(2^n)\)</span></td>
+<td style="text-align: left;"><strong>하노이 탑</strong></td>
+</tr>
+</tbody>
+</table>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:34%;">
 <div class="keypoint teal">
-<p><span class="math inline">\(n = 1{,}000\)</span> — <span class="math inline">\(\mathcal{O}(n)\)</span> 과 <span class="math inline">\(\mathcal{O}(n^2)\)</span> 의 연산 횟수 <strong>천 배</strong> 차이</p>
+<p><span class="math inline">\(n = 1{,}000\)</span> — <span class="math inline">\(\mathcal{O}(n)\)</span> 대 <span class="math inline">\(\mathcal{O}(n^2)\)</span> <strong>천 배</strong></p>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:34%;">
+<div class="keypoint teal">
+<p><span class="math inline">\(n = 10^6\)</span> · 초당 10억 연산 가정<br> <span class="math inline">\(\mathcal{O}(n\log n)\)</span> <strong>0.02초</strong> 대 <span class="math inline">\(\mathcal{O}(n^2)\)</span> <strong>약 17분</strong></p>
+</div>
+</div><div class="column" style="width:32%;">
 <div class="keypoint">
 <p><strong>차수가 다르면 하드웨어 성능 향상으로 해결되지 않음</strong></p>
 </div>
@@ -817,6 +940,23 @@
 <section>
 <section id="재귀" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
 <h1>2 · 재귀</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>문제를 <strong>같은 모양의 작은 문제</strong>로 환원하는 사고 방식</p>
+<p>종료 조건 하나가 전체를 좌우한다</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>함수 호출과 재귀 호출</li>
+<li>종료 조건 + 재귀 단계</li>
+<li>종료 조건의 한계 — 경계 바깥</li>
+<li>재귀의 메모리 비용</li>
+<li>하노이 탑</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong> — 이 재귀는 <strong>반드시 멈추는가</strong>?</p>
+</div>
 <aside class="notes">
 <p>2절 재귀입니다. 여기서는 도구가 하나 더 늘어납니다.</p>
 <style type="text/css">
@@ -873,11 +1013,11 @@
 <li><strong>재귀 단계(recursive step)</strong><br> 문제 크기를 줄여 자기 자신 호출</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb7-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(n)     <span class="co"># 종료 조건</span></span>
-<span id="cb7-3"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">+</span> <span class="fu">recursive_sum</span>(n <span class="sc">-</span> <span class="dv">1</span>)  <span class="co"># 재귀 단계</span></span>
-<span id="cb7-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">recursive_sum</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb12-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(n)     <span class="co"># 종료 조건</span></span>
+<span id="cb12-3"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">+</span> <span class="fu">recursive_sum</span>(n <span class="sc">-</span> <span class="dv">1</span>)  <span class="co"># 재귀 단계</span></span>
+<span id="cb12-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">recursive_sum</span>(<span class="dv">3</span>)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
@@ -913,6 +1053,15 @@
 <section id="예측해-보자-1" class="slide level2 predict" data-background-color="#1F6F7A">
 <h2>예측해 보자</h2>
 <p><code>recursive_sum(0)</code> 의 반환값은?</p>
+<div class="columns">
+<div class="column" style="width:52%;">
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb14-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(n)     <span class="co"># 종료 조건</span></span>
+<span id="cb14-3"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">+</span> <span class="fu">recursive_sum</span>(n <span class="sc">-</span> <span class="dv">1</span>)  <span class="co"># 재귀 단계</span></span>
+<span id="cb14-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-5"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">recursive_sum</span>(<span class="dv">3</span>)   <span class="co"># 6  — 정상 동작</span></span></code></pre></div>
+</div><div class="column" style="width:48%;">
 <div class="options">
 <div>
 <p><strong>A</strong> <code>0</code></p>
@@ -924,8 +1073,9 @@
 <p><strong>C</strong> 오류</p>
 </div>
 </div>
+</div></div>
 <div class="why">
-<p>방금 확인 — 이 함수는 정상 동작<br> 그런데 “정의된 입력 <strong>전체</strong>”에 대해서도 그러한가?</p>
+<p>방금 확인 — 이 함수는 정상 동작<br> 그런데 “정의된 입력 <strong>전체</strong>”에 대해서도 그러한가?<br> 힌트 — 알고리즘의 다섯 조건 중 <strong>유한성</strong></p>
 </div>
 <aside class="notes">
 <p>다시 예측 시간입니다. 적으세요.</p>
@@ -948,8 +1098,8 @@
 <section id="종료-조건의-한계" class="slide level2 smaller">
 <h2>종료 조건의 한계</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">tryCatch</span>(<span class="fu">recursive_sum</span>(<span class="dv">0</span>),</span>
-<span id="cb9-2"><a href="" aria-hidden="true" tabindex="-1"></a>         <span class="at">error =</span> <span class="cf">function</span>(e) <span class="fu">cat</span>(<span class="st">"오류:"</span>, <span class="fu">conditionMessage</span>(e), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">tryCatch</span>(<span class="fu">recursive_sum</span>(<span class="dv">0</span>),</span>
+<span id="cb15-2"><a href="" aria-hidden="true" tabindex="-1"></a>         <span class="at">error =</span> <span class="cf">function</span>(e) <span class="fu">cat</span>(<span class="st">"오류:"</span>, <span class="fu">conditionMessage</span>(e), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -965,11 +1115,11 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum2 <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb11-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;=</span> <span class="dv">1</span>) <span class="fu">return</span>(n)          <span class="co"># 경계 조건을 포함한다</span></span>
-<span id="cb11-3"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">+</span> <span class="fu">recursive_sum2</span>(n <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb11-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">recursive_sum2</span>(<span class="dv">0</span>), <span class="fu">recursive_sum2</span>(<span class="dv">1</span>), <span class="fu">recursive_sum2</span>(<span class="dv">100</span>))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum2 <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb17-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;=</span> <span class="dv">1</span>) <span class="fu">return</span>(n)          <span class="co"># 경계 조건을 포함한다</span></span>
+<span id="cb17-3"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">+</span> <span class="fu">recursive_sum2</span>(n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb17-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">recursive_sum2</span>(<span class="dv">0</span>), <span class="fu">recursive_sum2</span>(<span class="dv">1</span>), <span class="fu">recursive_sum2</span>(<span class="dv">100</span>))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]    0    1 5050</code></pre>
 </div>
@@ -1003,14 +1153,14 @@
 <section id="재귀의-비용" class="slide level2 smaller">
 <h2>재귀의 비용</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">recursive_sum2</span>(<span class="dv">1000</span>)                     <span class="co"># 정상적으로 동작한다</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">recursive_sum2</span>(<span class="dv">1000</span>)                     <span class="co"># 정상적으로 동작한다</span></span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 500500</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">tryCatch</span>(<span class="fu">recursive_sum2</span>(<span class="dv">5000</span>),           <span class="co"># 중첩 한계</span></span>
-<span id="cb15-2"><a href="" aria-hidden="true" tabindex="-1"></a>         <span class="at">error =</span> <span class="cf">function</span>(e) <span class="fu">cat</span>(<span class="st">"오류:"</span>, <span class="fu">conditionMessage</span>(e), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">tryCatch</span>(<span class="fu">recursive_sum2</span>(<span class="dv">5000</span>),           <span class="co"># 중첩 한계</span></span>
+<span id="cb21-2"><a href="" aria-hidden="true" tabindex="-1"></a>         <span class="at">error =</span> <span class="cf">function</span>(e) <span class="fu">cat</span>(<span class="st">"오류:"</span>, <span class="fu">conditionMessage</span>(e), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>오류: evaluation nested too deeply: infinite recursion / options(expressions=)? </code></pre>
 </div>
@@ -1102,16 +1252,16 @@
 <section id="하노이-탑-구현" class="slide level2 smaller">
 <h2>하노이 탑 구현</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-hidden="true" tabindex="-1"></a>move_hanoi <span class="ot">&lt;-</span> <span class="cf">function</span>(k, from, to, via) {</span>
-<span id="cb17-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (k <span class="sc">==</span> <span class="dv">1</span>) {</span>
-<span id="cb17-3"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"원판 1: %s -&gt; %s</span><span class="sc">\n</span><span class="st">"</span>, from, to))</span>
-<span id="cb17-4"><a href="" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb17-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, from, via, to)                    <span class="co"># 1. 위쪽 n-1 개</span></span>
-<span id="cb17-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"원판 %d: %s -&gt; %s</span><span class="sc">\n</span><span class="st">"</span>, k, from, to))     <span class="co"># 2. 가장 큰 원판</span></span>
-<span id="cb17-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, via, to, from)                    <span class="co"># 3. 나머지 n-1 개</span></span>
-<span id="cb17-8"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb17-9"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb17-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">move_hanoi</span>(<span class="dv">3</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"B"</span>)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="" aria-hidden="true" tabindex="-1"></a>move_hanoi <span class="ot">&lt;-</span> <span class="cf">function</span>(k, from, to, via) {</span>
+<span id="cb23-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (k <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb23-3"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"원판 1: %s -&gt; %s</span><span class="sc">\n</span><span class="st">"</span>, from, to))</span>
+<span id="cb23-4"><a href="" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb23-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, from, via, to)                    <span class="co"># 1. 위쪽 n-1 개</span></span>
+<span id="cb23-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"원판 %d: %s -&gt; %s</span><span class="sc">\n</span><span class="st">"</span>, k, from, to))     <span class="co"># 2. 가장 큰 원판</span></span>
+<span id="cb23-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, via, to, from)                    <span class="co"># 3. 나머지 n-1 개</span></span>
+<span id="cb23-8"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb23-9"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">move_hanoi</span>(<span class="dv">3</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"B"</span>)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>원판 1: A -&gt; C
 원판 2: A -&gt; B
@@ -1148,6 +1298,22 @@
 <section>
 <section id="탐색-알고리즘" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
 <h1>3 · 탐색 알고리즘</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p><strong>오늘 가장 중요한 절</strong></p>
+<p>차수의 차이가 만드는 실제 격차를 수치로 보고, “맞는 코드”를 어떻게 확인하는지 배운다</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>선형 탐색 · 이진 탐색</li>
+<li><strong>구현의 정확성 검증</strong></li>
+<li>오류 메시지 없이 틀린 코드</li>
+<li>두 탐색의 비용 비교</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong> — 이 구현이 맞다는 것을 <strong>무엇으로 아는가</strong>?</p>
+</div>
 <aside class="notes">
 <p>3절입니다. 오늘 가장 중요한 절이라고 처음에 말씀드렸지요. 여기서 검증 이야기가 시작됩니다.</p>
 <style type="text/css">
@@ -1168,12 +1334,12 @@
 <div class="column" style="width:50%;">
 <p><span class="label label-note">선형 탐색 · <span class="math inline">\(\mathcal{O}(n)\)</span></span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="" aria-hidden="true" tabindex="-1"></a>linear_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, vec) {</span>
-<span id="cb19-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(vec)) {</span>
-<span id="cb19-3"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> target) <span class="fu">return</span>(i)</span>
-<span id="cb19-4"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb19-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA_integer_</span></span>
-<span id="cb19-6"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="" aria-hidden="true" tabindex="-1"></a>linear_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, vec) {</span>
+<span id="cb25-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(vec)) {</span>
+<span id="cb25-3"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> target) <span class="fu">return</span>(i)</span>
+<span id="cb25-4"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb25-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA_integer_</span></span>
+<span id="cb25-6"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <ul>
 <li>첫 원소부터 <strong>순차 비교</strong></li>
@@ -1183,16 +1349,16 @@
 </div><div class="column" style="width:50%;">
 <p><span class="label label-slide">이진 탐색 · <span class="math inline">\(\mathcal{O}(\log n)\)</span></span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="" aria-hidden="true" tabindex="-1"></a>binary_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec) {</span>
-<span id="cb20-2"><a href="" aria-hidden="true" tabindex="-1"></a>  lo <span class="ot">&lt;-</span> <span class="dv">1</span>L; hi <span class="ot">&lt;-</span> <span class="fu">length</span>(ovec)</span>
-<span id="cb20-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (lo <span class="sc">&lt;=</span> hi) {</span>
-<span id="cb20-4"><a href="" aria-hidden="true" tabindex="-1"></a>    mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span>L</span>
-<span id="cb20-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (ovec[mid] <span class="sc">==</span> target) <span class="fu">return</span>(mid)</span>
-<span id="cb20-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (ovec[mid] <span class="sc">&gt;</span> target) hi <span class="ot">&lt;-</span> mid <span class="sc">-</span> <span class="dv">1</span>L</span>
-<span id="cb20-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> lo <span class="ot">&lt;-</span> mid <span class="sc">+</span> <span class="dv">1</span>L</span>
-<span id="cb20-8"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb20-9"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA_integer_</span></span>
-<span id="cb20-10"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="" aria-hidden="true" tabindex="-1"></a>binary_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec) {</span>
+<span id="cb26-2"><a href="" aria-hidden="true" tabindex="-1"></a>  lo <span class="ot">&lt;-</span> <span class="dv">1</span>L; hi <span class="ot">&lt;-</span> <span class="fu">length</span>(ovec)</span>
+<span id="cb26-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (lo <span class="sc">&lt;=</span> hi) {</span>
+<span id="cb26-4"><a href="" aria-hidden="true" tabindex="-1"></a>    mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span>L</span>
+<span id="cb26-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (ovec[mid] <span class="sc">==</span> target) <span class="fu">return</span>(mid)</span>
+<span id="cb26-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (ovec[mid] <span class="sc">&gt;</span> target) hi <span class="ot">&lt;-</span> mid <span class="sc">-</span> <span class="dv">1</span>L</span>
+<span id="cb26-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> lo <span class="ot">&lt;-</span> mid <span class="sc">+</span> <span class="dv">1</span>L</span>
+<span id="cb26-8"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb26-9"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA_integer_</span></span>
+<span id="cb26-10"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <ul>
 <li>중앙값과 비교 후 <strong>절반 제외</strong></li>
@@ -1222,11 +1388,22 @@
 <section id="예측해-보자-2" class="slide level2 predict" data-background-color="#1F6F7A">
 <h2>예측해 보자</h2>
 <p>아래 재귀 구현에 벡터의 <strong>모든 원소</strong>를 입력하면 몇 개나 정확히 찾아내는가?</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="" aria-hidden="true" tabindex="-1"></a>rbinary_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec, minL, maxL) {</span>
-<span id="cb21-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (maxL <span class="sc">&lt;=</span> minL) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)</span>
-<span id="cb21-3"><a href="" aria-hidden="true" tabindex="-1"></a>  midL <span class="ot">&lt;-</span> <span class="fu">floor</span>((minL <span class="sc">+</span> maxL) <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb21-4"><a href="" aria-hidden="true" tabindex="-1"></a>  ...</span>
-<span id="cb21-5"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="" aria-hidden="true" tabindex="-1"></a>rbinary_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec, minL, maxL) {</span>
+<span id="cb27-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (maxL <span class="sc">&lt;=</span> minL) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)</span>
+<span id="cb27-3"><a href="" aria-hidden="true" tabindex="-1"></a>  midL <span class="ot">&lt;-</span> <span class="fu">floor</span>((minL <span class="sc">+</span> maxL) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb27-4"><a href="" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb27-5"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="columns">
+<div class="column" style="width:46%;">
+<p><span class="label">검사 대상</span></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb28-2"><a href="" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">20</span>))</span>
+<span id="cb28-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 정렬된 서로 다른 20개</span></span>
+<span id="cb28-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(x))</span>
+<span id="cb28-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbinary_search</span>(x[i], x, <span class="dv">1</span>, <span class="fu">length</span>(x))</span></code></pre></div>
+<p>모든 원소가 <strong>분명히 들어 있는</strong> 벡터</p>
+</div><div class="column" style="width:54%;">
 <div class="options">
 <div>
 <p><strong>A</strong> 전부</p>
@@ -1238,6 +1415,10 @@
 <p><strong>C</strong> 하나도 못 찾음</p>
 </div>
 </div>
+<div class="why">
+<p>힌트 — 탐색 범위가 <strong>원소 하나로</strong> 좁혀지면 <code>minL</code> 과 <code>maxL</code> 은 어떻게 되는가?</p>
+</div>
+</div></div>
 <aside class="notes">
 <p>이번 예측이 오늘의 핵심입니다.</p>
 <p>방금 본 이진 탐색을 재귀로 쓴 겁니다. 실제로 우리 강의노트에 몇 년째 실려 있던 코드예요.</p>
@@ -1262,12 +1443,12 @@
 <h2>구현의 정확성 검증</h2>
 <p><strong>전수 검사</strong> — 벡터의 모든 원소를 차례로 목표값으로 입력</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="" aria-hidden="true" tabindex="-1"></a>found <span class="ot">&lt;-</span> <span class="fu">vapply</span>(<span class="fu">seq_along</span>(x), <span class="cf">function</span>(i) {</span>
-<span id="cb22-2"><a href="" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">&lt;-</span> <span class="fu">rbinary_search</span>(x[i], x, <span class="dv">1</span>, <span class="fu">length</span>(x))</span>
-<span id="cb22-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(r)) <span class="cn">NA_integer_</span> <span class="cf">else</span> <span class="fu">as.integer</span>(r)</span>
-<span id="cb22-4"><a href="" aria-hidden="true" tabindex="-1"></a>}, <span class="fu">integer</span>(<span class="dv">1</span>))</span>
-<span id="cb22-5"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(전체 <span class="ot">=</span> <span class="fu">length</span>(x), 찾지_못함 <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(found)))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="" aria-hidden="true" tabindex="-1"></a>found <span class="ot">&lt;-</span> <span class="fu">vapply</span>(<span class="fu">seq_along</span>(x), <span class="cf">function</span>(i) {</span>
+<span id="cb29-2"><a href="" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">&lt;-</span> <span class="fu">rbinary_search</span>(x[i], x, <span class="dv">1</span>, <span class="fu">length</span>(x))</span>
+<span id="cb29-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(r)) <span class="cn">NA_integer_</span> <span class="cf">else</span> <span class="fu">as.integer</span>(r)</span>
+<span id="cb29-4"><a href="" aria-hidden="true" tabindex="-1"></a>}, <span class="fu">integer</span>(<span class="dv">1</span>))</span>
+<span id="cb29-5"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(전체 <span class="ot">=</span> <span class="fu">length</span>(x), 찾지_못함 <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(found)))</span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -1305,16 +1486,16 @@
 <section id="오류-메시지-없이-틀린-코드" class="slide level2 smaller">
 <h2>오류 메시지 없이 틀린 코드</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="" aria-hidden="true" tabindex="-1"></a>rbinary_search2 <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec, <span class="at">lo =</span> <span class="dv">1</span>L, <span class="at">hi =</span> <span class="fu">length</span>(ovec)) {</span>
-<span id="cb24-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (lo <span class="sc">&gt;</span> hi) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)          <span class="co"># 탐색 범위가 비었을 때만 종료</span></span>
-<span id="cb24-3"><a href="" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span>L</span>
-<span id="cb24-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (ovec[mid] <span class="sc">==</span> target) mid</span>
-<span id="cb24-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (ovec[mid] <span class="sc">&gt;</span> target) <span class="fu">rbinary_search2</span>(target, ovec, lo, mid <span class="sc">-</span> <span class="dv">1</span>L)</span>
-<span id="cb24-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">rbinary_search2</span>(target, ovec, mid <span class="sc">+</span> <span class="dv">1</span>L, hi)</span>
-<span id="cb24-7"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb24-8"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">vapply</span>(<span class="fu">seq_along</span>(x), <span class="cf">function</span>(i) <span class="fu">as.integer</span>(<span class="fu">rbinary_search2</span>(x[i], x)),</span>
-<span id="cb24-10"><a href="" aria-hidden="true" tabindex="-1"></a>           <span class="fu">integer</span>(<span class="dv">1</span>)) <span class="sc">==</span> <span class="fu">seq_along</span>(x))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="" aria-hidden="true" tabindex="-1"></a>rbinary_search2 <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec, <span class="at">lo =</span> <span class="dv">1</span>L, <span class="at">hi =</span> <span class="fu">length</span>(ovec)) {</span>
+<span id="cb31-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (lo <span class="sc">&gt;</span> hi) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)          <span class="co"># 탐색 범위가 비었을 때만 종료</span></span>
+<span id="cb31-3"><a href="" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span>L</span>
+<span id="cb31-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (ovec[mid] <span class="sc">==</span> target) mid</span>
+<span id="cb31-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (ovec[mid] <span class="sc">&gt;</span> target) <span class="fu">rbinary_search2</span>(target, ovec, lo, mid <span class="sc">-</span> <span class="dv">1</span>L)</span>
+<span id="cb31-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">rbinary_search2</span>(target, ovec, mid <span class="sc">+</span> <span class="dv">1</span>L, hi)</span>
+<span id="cb31-7"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-8"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">vapply</span>(<span class="fu">seq_along</span>(x), <span class="cf">function</span>(i) <span class="fu">as.integer</span>(<span class="fu">rbinary_search2</span>(x[i], x)),</span>
+<span id="cb31-10"><a href="" aria-hidden="true" tabindex="-1"></a>           <span class="fu">integer</span>(<span class="dv">1</span>)) <span class="sc">==</span> <span class="fu">seq_along</span>(x))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
@@ -1377,54 +1558,31 @@
 </table>
 </div>
 </div>
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="keypoint teal">
-<p><span class="math inline">\(n\)</span> 100배 증가 → 선형 약 <strong>100배</strong>, 이진 <strong>두 배 남짓</strong><br> <span class="math inline">\(n = 10^6\)</span> 이면 선형 평균 <strong>50만 회</strong>, 이진 약 <strong>20회</strong></p>
+<p><span class="math inline">\(n\)</span> 100배 증가 → 선형 약 <strong>100배</strong>, 이진 <strong>두 배 남짓</strong></p>
+<p><span class="math inline">\(n = 10^6\)</span> — 선형 평균 <strong>50만 회</strong>, 이진 약 <strong>20회</strong></p>
 </div>
+</div><div class="column" style="width:50%;">
+<div class="keypoint">
+<p><strong>그럼에도 이진 탐색이 항상 유리하지는 않음</strong></p>
+<ul>
+<li>전제 — 자료가 <strong>정렬</strong>되어 있어야 적용 가능</li>
+<li>정렬 자체의 비용 <span class="math inline">\(\mathcal{O}(n \log n)\)</span></li>
+<li>탐색 <strong>1회</strong> — 선형 탐색이 오히려 저렴</li>
+<li>탐색 <strong>반복</strong> — 이때 비로소 정렬 비용 상쇄</li>
+</ul>
+</div>
+</div></div>
 <aside class="notes">
 <p>이제 비용을 재 보겠습니다. 시간이 아니라 <strong>비교 횟수</strong>를 셉니다. 아까 왜 그렇게 한다고 했지요? 하드웨어와 무관한 값을 얻기 위해서입니다.</p>
 <p>표를 보세요. n이 백일 때 선형은 평균 50.5번, 이진은 5.8번입니다. n이 만일 때 선형은 5,251번, 이진은 12.4번.</p>
 <p>n을 백 배 키웠더니 선형은 딱 백 배 늘었습니다. 50에서 5,250으로. 이진은요? 5.8에서 12.4. 두 배가 조금 넘습니다.</p>
-<p>이게 O(n)과 O(log n)의 차이입니다. 표에 그대로 나오지요.</p>
-<p>백만 개면 어떻게 됩니까? 선형은 평균 50만 번. 이진은 스무 번입니다. 스무 번이면 여러분이 손으로 해도 됩니다.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="이진-탐색이-항상-유리한-것은-아니다" class="slide level2">
-<h2>이진 탐색이 항상 유리한 것은 아니다</h2>
-<div class="callout callout-caution callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>주의</strong></p>
-</div>
-<div class="callout-content">
-<p><strong>전제 조건</strong> — 자료가 정렬되어 있어야 적용 가능</p>
-<p><strong>정렬 자체의 비용</strong> — <span class="math inline">\(\mathcal{O}(n \log n)\)</span></p>
-<ul>
-<li>탐색 <strong>1회</strong> — 정렬 후 이진 탐색보다 그냥 선형 탐색이 저렴</li>
-<li>탐색 <strong>반복</strong> — 이때 비로소 정렬 비용이 상쇄됨</li>
-</ul>
-</div>
-</div>
-</div>
-<aside class="notes">
-<p>그런데 여기서 한 가지 짚고 갈 게 있습니다.</p>
-<p>“이진 탐색이 빠르니까 무조건 이진 탐색 쓰면 되겠네” 하면 안 됩니다.</p>
-<p>이진 탐색을 쓰려면 정렬이 되어 있어야 하지요. 정렬이 공짜입니까? 아닙니다. 정렬 자체가 O(n log n) 입니다. 선형 탐색 한 번보다 비쌉니다.</p>
-<p>그러니까 이렇게 생각하세요.</p>
-<p>데이터를 받아서 값 하나만 찾고 버릴 거면? 그냥 처음부터 훑는 게 낫습니다. 정렬하는 시간에 이미 다 찾았을 겁니다.</p>
-<p>같은 데이터에서 계속 찾아야 하면? 그때는 한 번 정렬해 두는 게 이득입니다. 정렬 비용을 여러 번의 탐색으로 나눠 갚는 셈이지요.</p>
+<p>이게 O(n)과 O(log n)의 차이입니다. 표에 그대로 나오지요. 백만 개면 선형은 평균 50만 번, 이진은 스무 번입니다.</p>
+<p>그런데 오른쪽 상자를 보세요. 한 가지 짚고 갈 게 있습니다.</p>
+<p>“이진 탐색이 빠르니까 무조건 이진 탐색 쓰면 되겠네” 하면 안 됩니다. 이진 탐색을 쓰려면 정렬이 되어 있어야 하지요. 정렬이 공짜입니까? 아닙니다. 정렬 자체가 O(n log n) 입니다. 선형 탐색 한 번보다 비쌉니다.</p>
+<p>데이터를 받아서 값 하나만 찾고 버릴 거면 그냥 처음부터 훑는 게 낫습니다. 정렬하는 시간에 이미 다 찾았을 겁니다. 같은 데이터에서 계속 찾아야 하면 그때는 한 번 정렬해 두는 게 이득입니다. 정렬 비용을 여러 번의 탐색으로 나눠 갚는 셈이지요.</p>
 <p>이게 실무에서 자료 구조를 고르는 방식입니다. “뭐가 빠른가” 가 아니라 “내가 이걸 몇 번 할 건가” 를 먼저 묻습니다.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1441,6 +1599,21 @@
 <section>
 <section id="정렬-알고리즘" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
 <h1>4 · 정렬 알고리즘</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>차수가 <strong>서로 다른 두 가지</strong>만 비교</p>
+<p>같은 차수를 여럿 아는 것보다 다른 차수 둘을 정확히 비교하는 편이 낫다</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>버블 정렬 — <span class="math inline">\(\mathcal{O}(n^2)\)</span></li>
+<li>병합 정렬 — <span class="math inline">\(\mathcal{O}(n \log n)\)</span></li>
+<li>비교 횟수와 이론값의 일치</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong> — 차수의 차이가 <strong>실제로 얼마나 벌어지는가</strong>?</p>
+</div>
 <aside class="notes">
 <p>4절 정렬입니다. 정렬 알고리즘은 수십 가지가 있는데, 오늘은 두 개만 봅니다. 차수가 서로 다른 두 개요. 같은 차수를 여러 개 아는 것보다 다른 차수 둘을 제대로 비교하는 게 낫습니다.</p>
 <style type="text/css">
@@ -1460,20 +1633,20 @@
 <div class="columns">
 <div class="column" style="width:52%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="" aria-hidden="true" tabindex="-1"></a>bubble_sort <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb26-2"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb26-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;</span> <span class="dv">2</span>) <span class="fu">return</span>(x)</span>
-<span id="cb26-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n <span class="sc">-</span> <span class="dv">1</span>)) {</span>
-<span id="cb26-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_len</span>(n <span class="sc">-</span> i)) {</span>
-<span id="cb26-6"><a href="" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (x[j] <span class="sc">&gt;</span> x[j <span class="sc">+</span> <span class="dv">1</span>]) {</span>
-<span id="cb26-7"><a href="" aria-hidden="true" tabindex="-1"></a>        temp <span class="ot">&lt;-</span> x[j]</span>
-<span id="cb26-8"><a href="" aria-hidden="true" tabindex="-1"></a>        x[j] <span class="ot">&lt;-</span> x[j <span class="sc">+</span> <span class="dv">1</span>]</span>
-<span id="cb26-9"><a href="" aria-hidden="true" tabindex="-1"></a>        x[j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> temp</span>
-<span id="cb26-10"><a href="" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb26-11"><a href="" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb26-12"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb26-13"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
-<span id="cb26-14"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="" aria-hidden="true" tabindex="-1"></a>bubble_sort <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb33-2"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb33-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;</span> <span class="dv">2</span>) <span class="fu">return</span>(x)</span>
+<span id="cb33-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n <span class="sc">-</span> <span class="dv">1</span>)) {</span>
+<span id="cb33-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_len</span>(n <span class="sc">-</span> i)) {</span>
+<span id="cb33-6"><a href="" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (x[j] <span class="sc">&gt;</span> x[j <span class="sc">+</span> <span class="dv">1</span>]) {</span>
+<span id="cb33-7"><a href="" aria-hidden="true" tabindex="-1"></a>        temp <span class="ot">&lt;-</span> x[j]</span>
+<span id="cb33-8"><a href="" aria-hidden="true" tabindex="-1"></a>        x[j] <span class="ot">&lt;-</span> x[j <span class="sc">+</span> <span class="dv">1</span>]</span>
+<span id="cb33-9"><a href="" aria-hidden="true" tabindex="-1"></a>        x[j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> temp</span>
+<span id="cb33-10"><a href="" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb33-11"><a href="" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb33-12"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-13"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
+<span id="cb33-14"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div><div class="column" style="width:48%;">
 <p><img data-src="https://upload.wikimedia.org/wikipedia/commons/0/06/Bubble-sort.gif" style="width:72.0%"></p>
@@ -1508,25 +1681,25 @@
 <div class="columns">
 <div class="column" style="width:55%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="" aria-hidden="true" tabindex="-1"></a>smerge <span class="ot">&lt;-</span> <span class="cf">function</span>(left, right) {</span>
-<span id="cb27-2"><a href="" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(left) <span class="sc">+</span> <span class="fu">length</span>(right))</span>
-<span id="cb27-3"><a href="" aria-hidden="true" tabindex="-1"></a>  l <span class="ot">&lt;-</span> r <span class="ot">&lt;-</span> <span class="dv">1</span>L</span>
-<span id="cb27-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(temp)) {</span>
-<span id="cb27-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (r <span class="sc">&gt;</span> <span class="fu">length</span>(right) <span class="sc">||</span></span>
-<span id="cb27-6"><a href="" aria-hidden="true" tabindex="-1"></a>        (l <span class="sc">&lt;=</span> <span class="fu">length</span>(left) <span class="sc">&amp;&amp;</span> left[l] <span class="sc">&lt;=</span> right[r])) {</span>
-<span id="cb27-7"><a href="" aria-hidden="true" tabindex="-1"></a>      temp[i] <span class="ot">&lt;-</span> left[l]; l <span class="ot">&lt;-</span> l <span class="sc">+</span> <span class="dv">1</span>L</span>
-<span id="cb27-8"><a href="" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb27-9"><a href="" aria-hidden="true" tabindex="-1"></a>      temp[i] <span class="ot">&lt;-</span> right[r]; r <span class="ot">&lt;-</span> r <span class="sc">+</span> <span class="dv">1</span>L</span>
-<span id="cb27-10"><a href="" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb27-11"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb27-12"><a href="" aria-hidden="true" tabindex="-1"></a>  temp</span>
-<span id="cb27-13"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb27-14"><a href="" aria-hidden="true" tabindex="-1"></a>merge_sort <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb27-15"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb27-16"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;=</span> <span class="dv">1</span>) <span class="fu">return</span>(x)                 <span class="co"># 종료 조건</span></span>
-<span id="cb27-17"><a href="" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> n <span class="sc">%/%</span> <span class="dv">2</span>L</span>
-<span id="cb27-18"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">smerge</span>(<span class="fu">merge_sort</span>(x[<span class="dv">1</span><span class="sc">:</span>mid]), <span class="fu">merge_sort</span>(x[(mid <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>n]))</span>
-<span id="cb27-19"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="" aria-hidden="true" tabindex="-1"></a>smerge <span class="ot">&lt;-</span> <span class="cf">function</span>(left, right) {</span>
+<span id="cb34-2"><a href="" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(left) <span class="sc">+</span> <span class="fu">length</span>(right))</span>
+<span id="cb34-3"><a href="" aria-hidden="true" tabindex="-1"></a>  l <span class="ot">&lt;-</span> r <span class="ot">&lt;-</span> <span class="dv">1</span>L</span>
+<span id="cb34-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(temp)) {</span>
+<span id="cb34-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (r <span class="sc">&gt;</span> <span class="fu">length</span>(right) <span class="sc">||</span></span>
+<span id="cb34-6"><a href="" aria-hidden="true" tabindex="-1"></a>        (l <span class="sc">&lt;=</span> <span class="fu">length</span>(left) <span class="sc">&amp;&amp;</span> left[l] <span class="sc">&lt;=</span> right[r])) {</span>
+<span id="cb34-7"><a href="" aria-hidden="true" tabindex="-1"></a>      temp[i] <span class="ot">&lt;-</span> left[l]; l <span class="ot">&lt;-</span> l <span class="sc">+</span> <span class="dv">1</span>L</span>
+<span id="cb34-8"><a href="" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb34-9"><a href="" aria-hidden="true" tabindex="-1"></a>      temp[i] <span class="ot">&lt;-</span> right[r]; r <span class="ot">&lt;-</span> r <span class="sc">+</span> <span class="dv">1</span>L</span>
+<span id="cb34-10"><a href="" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb34-11"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb34-12"><a href="" aria-hidden="true" tabindex="-1"></a>  temp</span>
+<span id="cb34-13"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-14"><a href="" aria-hidden="true" tabindex="-1"></a>merge_sort <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb34-15"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb34-16"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;=</span> <span class="dv">1</span>) <span class="fu">return</span>(x)                 <span class="co"># 종료 조건</span></span>
+<span id="cb34-17"><a href="" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> n <span class="sc">%/%</span> <span class="dv">2</span>L</span>
+<span id="cb34-18"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">smerge</span>(<span class="fu">merge_sort</span>(x[<span class="dv">1</span><span class="sc">:</span>mid]), <span class="fu">merge_sort</span>(x[(mid <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>n]))</span>
+<span id="cb34-19"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div><div class="column" style="width:45%;">
 <p><img data-src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif" style="width:62.0%"></p>
@@ -1562,6 +1735,14 @@
 <section id="예측해-보자-3" class="slide level2 predict" data-background-color="#1F6F7A">
 <h2>예측해 보자</h2>
 <p>원소 수를 <strong>두 배</strong>로 늘리면 각 정렬의 <strong>비교 횟수</strong>는 몇 배?</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label">버블 정렬</span></p>
+<p><span class="math display">\[\frac{n(n-1)}{2} \;\longrightarrow\; \frac{2n(2n-1)}{2}\]</span></p>
+</div><div class="column" style="width:50%;">
+<p><span class="label">병합 정렬</span></p>
+<p><span class="math display">\[n\log_2 n \;\longrightarrow\; 2n\log_2(2n)\]</span></p>
+</div></div>
 <div class="options">
 <div>
 <p><strong>A</strong> 둘 다 두 배</p>
@@ -1634,11 +1815,47 @@
 </table>
 </div>
 </div>
+<div class="columns">
+<div class="column" style="width:44%;">
+<p><span class="label label-slide">실행 시간도 같은 방향</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">버블</th>
+<th style="text-align: right;">병합</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1,000</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.02</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2,000</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><span class="tiny">측정값은 환경에 따라 변동 — 그래서 배율은 비교 횟수로 판단</span></p>
+</div><div class="column" style="width:56%;">
 <div class="keypoint">
 <p><span class="math inline">\(n\)</span> 두 배 → 버블 <strong>정확히 네 배</strong>, 병합 <strong>두 배 남짓</strong></p>
-<p>버블의 비교 횟수 = <span class="math inline">\(n(n-1)/2\)</span> 와 <strong>정확히 일치</strong> · 병합 = <span class="math inline">\(n\log_2 n\)</span> 에 근접</p>
+<p>버블의 비교 횟수 = <span class="math inline">\(n(n-1)/2\)</span> 와 <strong>정확히 일치</strong><br> 병합 = <span class="math inline">\(n\log_2 n\)</span> 에 근접</p>
 <p><strong>이론적으로 분석한 복잡도가 실제 연산 횟수와 일치하는지 확인하는 것도 검증</strong></p>
 </div>
+</div></div>
 <aside class="notes">
 <p>답은 B였습니다. 표를 보시죠.</p>
 <p>버블 열을 따라가 보세요. 124,750 → 499,500 → 1,999,000. 나눠 보면 정확히 네 배씩입니다. 오차가 없어요.</p>
@@ -1663,6 +1880,23 @@
 <section>
 <section id="뉴턴-랩슨-알고리즘" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
 <h1>5 · 뉴턴-랩슨 알고리즘</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>자료가 아니라 <strong>수치를 다루는</strong> 알고리즘</p>
+<p><span class="math inline">\(f(x) = 0\)</span> 의 해를 반복 계산으로 근사한다</p>
+<p>통계에서 최대가능도추정량을 구할 때 실제로 쓰는 방법 — 로그가능도를 미분해 0이 되는 지점을 손으로 못 푸는 경우가 대부분</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>원리와 점화식</li>
+<li>구현과 검증 — <code>polyroot()</code> 와 대조</li>
+<li>초기값 의존성</li>
+<li>수렴 실패를 알아채는 방법</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong> — 이 값이 정말 <strong>내가 찾던 해인가</strong>?</p>
+</div>
 <aside class="notes">
 <p>5절입니다. 앞의 절들이 자료를 다루는 알고리즘이었다면, 이번엔 수치 계산 알고리즘입니다. 통계 전공자에게는 사실 이게 제일 자주 쓰게 될 알고리즘입니다.</p>
 <style type="text/css">
@@ -1720,8 +1954,8 @@
 <section id="구현과-검증" class="slide level2 smaller">
 <h2>구현과 검증</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">5</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">7</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">40</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="dv">100</span></span>
-<span id="cb28-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(<span class="fu">newton_raphson</span>(f, <span class="at">x0 =</span> <span class="dv">1</span>, <span class="at">range =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>)))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">5</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">7</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">40</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="dv">100</span></span>
+<span id="cb35-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(<span class="fu">newton_raphson</span>(f, <span class="at">x0 =</span> <span class="dv">1</span>, <span class="at">range =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>)))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     solution     iteration         value 
 -3.151719e+00  1.300000e+01 -3.544187e-11 </code></pre>
@@ -1729,8 +1963,8 @@
 </div>
 <p><strong>검증</strong> — 3차 다항식이므로 <code>polyroot()</code> 로 모든 근을 구해 대조 가능</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="" aria-hidden="true" tabindex="-1"></a>roots <span class="ot">&lt;-</span> <span class="fu">polyroot</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="sc">-</span><span class="dv">40</span>, <span class="sc">-</span><span class="dv">7</span>, <span class="dv">5</span>))</span>
-<span id="cb30-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">Re</span>(roots)[<span class="fu">abs</span>(<span class="fu">Im</span>(roots)) <span class="sc">&lt;</span> <span class="fl">1e-8</span>]        <span class="co"># 허수부가 0인 것만 실근</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="" aria-hidden="true" tabindex="-1"></a>roots <span class="ot">&lt;-</span> <span class="fu">polyroot</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="sc">-</span><span class="dv">40</span>, <span class="sc">-</span><span class="dv">7</span>, <span class="dv">5</span>))</span>
+<span id="cb37-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">Re</span>(roots)[<span class="fu">abs</span>(<span class="fu">Im</span>(roots)) <span class="sc">&lt;</span> <span class="fl">1e-8</span>]        <span class="co"># 허수부가 0인 것만 실근</span></span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -1848,6 +2082,22 @@
 <section>
 <section id="ai와-함께-생성-코드의-검증" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
 <h1>6 · AI와 함께: 생성 코드의 검증</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>3절의 검증 절차를 <strong>AI 생성 코드</strong>에 그대로 적용</p>
+<p>사람이 쓴 코드에 쓰는 절차와 기계가 쓴 코드에 쓰는 절차는 같다</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>프롬프트 = 요구사항</li>
+<li>세 가지 검증</li>
+<li>요구사항이 규정하지 않은 부분</li>
+<li>자주 나타나는 오류 유형</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong> — 생성된 코드를 <strong>어디까지 믿을 수 있는가</strong>?</p>
+</div>
 <aside class="notes">
 <p>마지막 6절입니다. 오늘 배운 검증 절차를 AI가 만들어 준 코드에 적용해 보겠습니다.</p>
 <style type="text/css">
@@ -1881,14 +2131,14 @@
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 생성: Claude Opus 5, 2026-09-11. 수정 없이 그대로 수록.</span></span>
-<span id="cb32-2"><a href="" aria-hidden="true" tabindex="-1"></a>binary_search_rec <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, target, <span class="at">lo =</span> <span class="dv">1</span>, <span class="at">hi =</span> <span class="fu">length</span>(vec)) {</span>
-<span id="cb32-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (lo <span class="sc">&gt;</span> hi) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)</span>
-<span id="cb32-4"><a href="" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span></span>
-<span id="cb32-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (vec[mid] <span class="sc">==</span> target) <span class="fu">return</span>(mid)</span>
-<span id="cb32-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (vec[mid] <span class="sc">&gt;</span> target) <span class="fu">binary_search_rec</span>(vec, target, lo, mid <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb32-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">binary_search_rec</span>(vec, target, mid <span class="sc">+</span> <span class="dv">1</span>, hi)</span>
-<span id="cb32-8"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 생성: Claude Opus 5, 2026-09-11. 수정 없이 그대로 수록.</span></span>
+<span id="cb39-2"><a href="" aria-hidden="true" tabindex="-1"></a>binary_search_rec <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, target, <span class="at">lo =</span> <span class="dv">1</span>, <span class="at">hi =</span> <span class="fu">length</span>(vec)) {</span>
+<span id="cb39-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (lo <span class="sc">&gt;</span> hi) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)</span>
+<span id="cb39-4"><a href="" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span></span>
+<span id="cb39-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (vec[mid] <span class="sc">==</span> target) <span class="fu">return</span>(mid)</span>
+<span id="cb39-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (vec[mid] <span class="sc">&gt;</span> target) <span class="fu">binary_search_rec</span>(vec, target, lo, mid <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb39-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">binary_search_rec</span>(vec, target, mid <span class="sc">+</span> <span class="dv">1</span>, hi)</span>
+<span id="cb39-8"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <ul>
 <li>앞 절에서 수정한 구현과 <strong>동일한 구조</strong></li>
@@ -1918,25 +2168,25 @@
 <section id="세-가지-검증" class="slide level2 smaller">
 <h2>세 가지 검증</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">40</span>, <span class="at">by =</span> <span class="dv">3</span>)</span>
-<span id="cb33-2"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 전수 검사</span></span>
-<span id="cb33-4"><a href="" aria-hidden="true" tabindex="-1"></a>c1 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">vapply</span>(<span class="fu">seq_along</span>(v), <span class="cf">function</span>(i) <span class="fu">as.integer</span>(<span class="fu">binary_search_rec</span>(v, v[i])),</span>
-<span id="cb33-5"><a href="" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">integer</span>(<span class="dv">1</span>)) <span class="sc">==</span> <span class="fu">seq_along</span>(v))</span>
-<span id="cb33-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 경계 사례 — 빈 벡터, 길이 1인 벡터, 존재하지 않는 값</span></span>
-<span id="cb33-8"><a href="" aria-hidden="true" tabindex="-1"></a>c2 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(<span class="fu">binary_search_rec</span>(<span class="fu">numeric</span>(<span class="dv">0</span>), <span class="dv">5</span>), <span class="fu">binary_search_rec</span>(<span class="dv">7</span>, <span class="dv">9</span>))))</span>
-<span id="cb33-9"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 무작위 대조 — 정답이 알려진 which() 와 500회 대조</span></span>
-<span id="cb33-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260911</span>)</span>
-<span id="cb33-12"><a href="" aria-hidden="true" tabindex="-1"></a>c3 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">replicate</span>(<span class="dv">500</span>, {</span>
-<span id="cb33-13"><a href="" aria-hidden="true" tabindex="-1"></a>  w <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>, <span class="dv">1</span>)))</span>
-<span id="cb33-14"><a href="" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="dv">1</span>)</span>
-<span id="cb33-15"><a href="" aria-hidden="true" tabindex="-1"></a>  got <span class="ot">&lt;-</span> <span class="fu">binary_search_rec</span>(w, k); want <span class="ot">&lt;-</span> <span class="fu">which</span>(w <span class="sc">==</span> k)</span>
-<span id="cb33-16"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(want) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">is.na</span>(got) <span class="cf">else</span> (<span class="sc">!</span><span class="fu">is.na</span>(got) <span class="sc">&amp;&amp;</span> got <span class="sc">%in%</span> want)</span>
-<span id="cb33-17"><a href="" aria-hidden="true" tabindex="-1"></a>}))</span>
-<span id="cb33-18"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-19"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(전수검사 <span class="ot">=</span> c1, 경계사례 <span class="ot">=</span> c2, 무작위대조 <span class="ot">=</span> c3)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">40</span>, <span class="at">by =</span> <span class="dv">3</span>)</span>
+<span id="cb40-2"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 전수 검사</span></span>
+<span id="cb40-4"><a href="" aria-hidden="true" tabindex="-1"></a>c1 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">vapply</span>(<span class="fu">seq_along</span>(v), <span class="cf">function</span>(i) <span class="fu">as.integer</span>(<span class="fu">binary_search_rec</span>(v, v[i])),</span>
+<span id="cb40-5"><a href="" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">integer</span>(<span class="dv">1</span>)) <span class="sc">==</span> <span class="fu">seq_along</span>(v))</span>
+<span id="cb40-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 경계 사례 — 빈 벡터, 길이 1인 벡터, 존재하지 않는 값</span></span>
+<span id="cb40-8"><a href="" aria-hidden="true" tabindex="-1"></a>c2 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(<span class="fu">binary_search_rec</span>(<span class="fu">numeric</span>(<span class="dv">0</span>), <span class="dv">5</span>), <span class="fu">binary_search_rec</span>(<span class="dv">7</span>, <span class="dv">9</span>))))</span>
+<span id="cb40-9"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 무작위 대조 — 정답이 알려진 which() 와 500회 대조</span></span>
+<span id="cb40-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260911</span>)</span>
+<span id="cb40-12"><a href="" aria-hidden="true" tabindex="-1"></a>c3 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">replicate</span>(<span class="dv">500</span>, {</span>
+<span id="cb40-13"><a href="" aria-hidden="true" tabindex="-1"></a>  w <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>, <span class="dv">1</span>)))</span>
+<span id="cb40-14"><a href="" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="dv">1</span>)</span>
+<span id="cb40-15"><a href="" aria-hidden="true" tabindex="-1"></a>  got <span class="ot">&lt;-</span> <span class="fu">binary_search_rec</span>(w, k); want <span class="ot">&lt;-</span> <span class="fu">which</span>(w <span class="sc">==</span> k)</span>
+<span id="cb40-16"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(want) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">is.na</span>(got) <span class="cf">else</span> (<span class="sc">!</span><span class="fu">is.na</span>(got) <span class="sc">&amp;&amp;</span> got <span class="sc">%in%</span> want)</span>
+<span id="cb40-17"><a href="" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb40-18"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-19"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(전수검사 <span class="ot">=</span> c1, 경계사례 <span class="ot">=</span> c2, 무작위대조 <span class="ot">=</span> c3)</span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -1971,16 +2221,16 @@
 <section id="요구사항이-규정하지-않은-부분" class="slide level2 smaller">
 <h2>요구사항이 규정하지 않은 부분</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
-<span id="cb35-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(이_구현 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(d, <span class="dv">3</span>), R의<span class="at">_match =</span> <span class="fu">match</span>(<span class="dv">3</span>, d))   <span class="co"># 중복값</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
+<span id="cb42-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(이_구현 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(d, <span class="dv">3</span>), R의<span class="at">_match =</span> <span class="fu">match</span>(<span class="dv">3</span>, d))   <span class="co"># 중복값</span></span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code>  이_구현 R의_match 
         3         2 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">15</span>, <span class="dv">10</span>)                                        <span class="co"># 정렬 안 된 입력</span></span>
-<span id="cb37-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(반환 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(u, <span class="dv">19</span>), 실제_위치 <span class="ot">=</span> <span class="fu">which</span>(u <span class="sc">==</span> <span class="dv">19</span>))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">15</span>, <span class="dv">10</span>)                                        <span class="co"># 정렬 안 된 입력</span></span>
+<span id="cb44-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(반환 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(u, <span class="dv">19</span>), 실제_위치 <span class="ot">=</span> <span class="fu">which</span>(u <span class="sc">==</span> <span class="dv">19</span>))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     반환 실제_위치 
        NA         1 </code></pre>
@@ -2022,6 +2272,8 @@
 </section>
 <section id="ai-생성-코드에서-자주-나타나는-오류" class="slide level2 smaller">
 <h2>AI 생성 코드에서 자주 나타나는 오류</h2>
+<div class="columns">
+<div class="column" style="width:52%;">
 <div class="callout callout-caution callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -2032,17 +2284,62 @@
 </div>
 <div class="callout-content">
 <ul>
-<li><strong>경계 조건</strong> — <code>&lt;</code> 와 <code>&lt;=</code>, <code>mid</code> 와 <code>mid - 1</code> 혼동<br> <span class="tiny">이 수업의 <code>rbinary_search()</code> 가 정확히 이 유형. 사람이 쓴 코드에서도 동일하게 발생</span></li>
-<li><strong>전제 미검사</strong> — “정렬되어 있다”, “<code>NA</code> 가 없다” 등의 전제 미확인</li>
+<li><strong>경계 조건</strong> — <code>&lt;</code> 와 <code>&lt;=</code>, <code>mid</code> 와 <code>mid - 1</code> 혼동</li>
+<li><strong>전제 미검사</strong> — “정렬되어 있다”, “<code>NA</code> 가 없다” 등 미확인</li>
 <li><strong>빈 입력</strong> — 길이 0인 벡터에서 인덱스 1 참조</li>
-<li><strong>요구사항의 공백</strong> — 중복값·동점 처리 등 미규정 부분을 임의 결정 후 미고지</li>
+<li><strong>요구사항의 공백</strong> — 미규정 부분을 임의 결정 후 미고지</li>
 </ul>
 </div>
 </div>
 </div>
 <div class="keypoint">
-<p>공통점 — <strong>오류 메시지가 출력되지 않음</strong><br> → 실행해 보는 것만으로는 부족, <strong>별도의 검증 절차 필요</strong></p>
+<p>공통점 — <strong>오류 메시지가 출력되지 않음</strong><br> → 실행만으로는 부족, <strong>별도의 검증 절차 필요</strong></p>
 </div>
+</div><div class="column" style="width:48%;">
+<p><span class="label label-note">각 유형이 실제로 나타나는 모양</span></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (maxL <span class="sc">&lt;=</span> minL) <span class="fu">return</span>(<span class="cn">NA</span>)   <span class="co"># 경계 조건</span></span>
+<span id="cb46-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">#     ^^ minL &gt; maxL 이어야 함</span></span>
+<span id="cb46-3"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(u, <span class="dv">19</span>)       <span class="co"># 전제 미검사</span></span>
+<span id="cb46-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># u 가 정렬 안 됨 → 조용히 NA</span></span>
+<span id="cb46-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-7"><a href="" aria-hidden="true" tabindex="-1"></a>vec[<span class="dv">1</span>]                         <span class="co"># 빈 입력</span></span>
+<span id="cb46-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># length(vec) == 0 이면 NA</span></span>
+<span id="cb46-9"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(d, <span class="dv">3</span>)  <span class="co"># 3    # 요구사항 공백</span></span>
+<span id="cb46-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">match</span>(<span class="dv">3</span>, d)              <span class="co"># 2    # 어느 쪽이 맞는가?</span></span></code></pre></div>
+<p><span class="tiny">첫 줄은 <strong>사람이 쓴</strong> 이 수업의 코드. AI만의 문제가 아님</span></p>
+</div></div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 74%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">오류 유형</th>
+<th style="text-align: left;">이 검증에서 잡힘</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">경계 조건</td>
+<td style="text-align: left;"><strong>전수 검사</strong> — 모든 원소를 넣어 보면 절반이 실패</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">전제 미검사</td>
+<td style="text-align: left;"><strong>경계 사례</strong> — 정렬 안 된 입력을 일부러 넣어 봄</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">빈 입력</td>
+<td style="text-align: left;"><strong>경계 사례</strong> — 길이 0, 길이 1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">요구사항의 공백</td>
+<td style="text-align: left;"><strong>정답이 알려진 기준과 대조</strong> — <code>which()</code> · <code>match()</code> 와 비교</td>
+</tr>
+</tbody>
+</table>
 <aside class="notes">
 <p>AI 코드에서 자주 나오는 오류 유형을 정리했습니다.</p>
 <p>첫째, 경계 조건. 부등호를 헷갈립니다. <code>&lt;</code> 인지 <code>&lt;=</code> 인지, <code>mid</code> 인지 <code>mid - 1</code> 인지. 그런데 이거, 오늘 우리가 본 <code>rbinary_search()</code> 가 정확히 이 유형이었지요. 그건 사람이 쓴 코드였습니다. 그러니까 이건 AI만의 문제가 아닙니다.</p>
