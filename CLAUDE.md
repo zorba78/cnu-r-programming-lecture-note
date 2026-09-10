@@ -102,7 +102,8 @@ bash upgrade/render-preview.sh 08-algorithms.qmd
 
 | 장 | 상태 | 비고 |
 |---|---|---|
-| 새 8장 알고리즘 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `08-algorithms.qmd`, 슬라이드 `08-algorithms-slides.qmd`. 렌더본은 `docs/preview/` 아래 두 개 |
+| 새 8장 알고리즘 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `08-algorithms.qmd`, 슬라이드 `08-algorithms-slides.qmd`. 렌더본은 `docs/preview/` 아래 두 개. 감사 `upgrade/audit/06-algorithms.md` (발견 100건, 치명 20) |
+| 현 6장 (구 알고리즘) | **치명 버그 3건 배포 중** | 새 8장으로 대체되기 전까지 공개 사이트에 그대로 남아 있음. `1:5*n` 연산자 우선순위, `rbinary_search` 탈출 조건, `newton_raphson` 미정의 객체. 감사 보고서 A-1~A-3 |
 | 나머지 전체 | 감사 전 | `/audit-chapter` 로 장별 감사 보고서 생성 후 갱신 |
 
 (장을 감사·개정할 때마다 이 표를 갱신한다: `감사 전 → 감사 완료 → 개정 중 → 개정 완료 → 검증 완료`)
