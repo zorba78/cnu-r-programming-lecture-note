@@ -96,7 +96,8 @@ $border-color: $line;
   .quarto-title-authors { margin-top: 2.2em; }
   .quarto-title-author-name { font-size: 0.62em; font-weight: 600; color: $ink; }
   .quarto-title-affiliation { font-size: 0.54em; color: $muted; margin-top: 0.25em; }
-  .date { margin-top: 0.5em; }
+  // 기본값(#8C8479)은 이 배경에서 대비가 3.45 로 투영 시 흐리다. 한 단계 진하게.
+  .date { margin-top: 0.5em; color: $muted; }
 
   .title {
     font-family: $presentation-heading-font;
@@ -121,7 +122,8 @@ $border-color: $line;
     margin-top: 0.3em;
   }
   .author { font-weight: 600; color: $ink; }
-  .date { font-family: $font-family-monospace; color: $faint; }
+  // $faint(#8C8479) 는 이 배경에서 대비 3.45 로 투영 시 흐리다.
+  .date { font-family: $font-family-monospace; color: $muted; }
 }
 
 // ── 절 표지 ──────────────────────────────────────────────────
@@ -178,6 +180,24 @@ $border-color: $line;
   padding: 0.05em 0.3em;
   font-size: 0.85em;
 }
+
+// ── 인용문 ───────────────────────────────────────────────────
+// reveal 기본값이 인용문 글자색을 테두리색(#E4DCD0)으로 잡아 흰 배경에서 읽히지 않았다.
+// 요구사항 원문을 인용문으로 싣는 슬라이드가 있으므로 명시적으로 다시 잡는다.
+.reveal blockquote {
+  color: $ink;
+  background: $panel;
+  border-left: 5px solid $line-2;
+  padding: 0.55em 1em;
+  margin: 0.5em 0;
+  width: auto;
+  font-style: normal;
+  box-shadow: none;
+}
+.reveal blockquote p,
+.reveal blockquote li,
+.reveal blockquote strong { color: $ink; }
+.reveal blockquote code { background: #FFFFFF; }
 
 // ── 표 ───────────────────────────────────────────────────────
 .reveal table {
@@ -266,18 +286,21 @@ $border-color: $line;
 .reveal .fig-alert .big { color: $note; }
 
 // ── 머리말·꼬리말 ────────────────────────────────────────────
+// 꼬리말·쪽번호는 조용해야 하지만, 투영하면 밝은 회색이 날아간다.
+// 한 단계씩 진하게 잡아 강의실 뒤에서도 읽히게 한다.
 .reveal .footer {
   font-family: $font-family-monospace;
-  font-size: 0.42em;
-  color: $off;
+  font-size: 0.44em;
+  color: $muted;
   letter-spacing: 0.04em;
 }
 .reveal .slide-number {
   font-family: $font-family-monospace;
   font-size: 0.42em;
   background: transparent;
-  color: $faint;
+  color: $muted;
 }
+.reveal .tiny { color: $prose; }
 .reveal .progress { color: $slide; height: 4px; }
 
 // 목록 여백
