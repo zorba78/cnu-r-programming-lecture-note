@@ -37,6 +37,7 @@
 - `2020/` : 초기 버전 아카이브 (gitignore). **수정 금지.**
 - `docs/`, `_bookdown_files/` : **생성물. 직접 편집 금지.**
 - `upgrade/` : 업그레이드 작업 산출물. **`upgrade/curriculum-plan.md` (교과 재구성안)**, 감사 보고서 `upgrade/audit/`, 렌더 로그 `upgrade/logs/`.
+- `hub/` : 발표 슬라이드 허브 페이지의 **원본**(손으로 편집하는 곳). `bash hub/sync.sh` 로 `docs/hub/` 에 복사해 배포한다. `docs/` 는 렌더 산출물 폴더라 Quarto 전환 때 비워질 수 있으므로 원본을 밖에 둔다 (`docs/legacy/` 와 같은 이유).
 
 ## 툴체인
 
@@ -107,6 +108,10 @@ bash .claude/skills/build-book/scripts/render.sh
 - **Quarto·git·renv 워크플로 장은 만들지 않는다.** 강의 범위 밖. 단 Quarto 문서 작성 자체(현 13장)는 유지·전환한다.
 - **신규 장**: 프로그래밍과 계산, 정확성·디버깅·검증, AI와 함께 프로그래밍하기. 세부는 `upgrade/curriculum-plan.md`.
 - 발표 슬라이드 허브 페이지는 **A안(주제 목록형)** 으로 확정. 시안 https://claude.ai/code/artifact/3fadbdb9-8241-473c-8cad-13ca6285e9d8
+  - **구현 완료 (2026-09-10)**: `hub/index.html` → `docs/hub/` 배포 → https://zorba78.github.io/cnu-r-programming-lecture-note/hub/
+  - 12개 주제는 **현행 bookdown 장 번호**(1~12)를 따른다. 각 주제 행을 펼치면 노트의 절 목록이 나오고, 절마다 대응 슬라이드 자리가 `미배정` 으로 비어 있다. 확장은 `<details>` 라 JS 가 없다.
+  - 슬라이드 상태는 `예정`(기본) / `준비 중` / `초안 · N장` / `공개` 네 가지. 지금은 알고리즘만 `준비 중` 이고 나머지는 `예정`. 슬라이드가 나오면 해당 주제 행의 상태 뱃지와 절별 `미배정` 을 채운다.
+  - Quarto 전환 후 장 번호가 바뀌면 허브의 번호·링크를 함께 고쳐야 한다. 링크 검증은 `docs/hub/index.html` 의 상대 경로가 `docs/` 안 파일로 해석되는지 확인하면 된다.
 - **구 강의노트(bookdown) 는 삭제하지 않고 `docs/legacy/` 에서 계속 서빙한다.** Quarto 전환 직전에 `bookdown-archive-2026-09-10` 태그에서 렌더된 `docs/`를 꺼내 보존하고, Quarto 렌더 후 `docs/legacy/`로 합쳐 넣는다. 절차는 `migrate-to-quarto` 스킬 0·4단계. 허브 페이지와 새 책 서문 모두에 "이전 버전 강의노트" 링크를 건다.
 - **정확성·디버깅·검증을 독립 장(6장)으로 둔다.** 근거(강사, 2026-09-10): "LLM을 통해 디버깅 작업을 예전에 비해 매우 효율적으로 수행할 수 있으나 결국 중요한 부분은 인간이 다시 한 번 확인하는 절차가 중요해짐." 즉 이 장의 핵심은 디버깅 기법 자체가 아니라 **AI가 내놓은 결과를 사람이 재확인하는 절차**다. 함수 장(5장)에 부속시키면 이 비중이 죽는다. 장 설계는 `ai-curriculum` 스킬 4b, 대응표는 `upgrade/curriculum-plan.md` 5절.
 
