@@ -1,0 +1,752 @@
+---
+output: html_document
+editor_options:
+  chunk_output_type: console
+  markdown:
+    wrap: 72
+---
+
+# 알고리즘(Algorithms) {#algorithms}
+
+```{r chunk-setup, echo=FALSE, message=FALSE, warning=FALSE}
+require(knitr)
+opts_chunk$set(size="footnotesize",
+               comment = NA,
+               highlight = TRUE)
+def.chunk.hook <- knitr::knit_hooks$get("chunk")
+knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  ifelse(options$size != "normalsize",
+         paste0("\\", options$size, "\n\n", x,
+                "\n\n \\normalsize"),
+         x)
+})
+
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+  if (!is.null(n <- options$linewidth)) {
+    x <- knitr:::split_lines(x)
+    if (any(nchar(x) > n)) x <- strwrap(x, width = n)
+    x <- paste(x, collapse = "\n")
+  }
+  hook_output(x, options)
+})
+opts_chunk$set(tidy.opts = list(blank = FALSE, width.cutoff = 80))
+options(linewidth = 60)
+
+require(tidyverse)
+require(rmarkdown)
+require(knitr)
+require(kableExtra)
+```
+
+```{block2, type="rmdimportant"}
+**학습 목표**
+
+- 문제의 입력, 출력, 제약 조건을 구분하여 알고리즘의 명세를 작성할 수 있다.
+- 입력 크기에 따른 연산 횟수의 증가를 Big-O 표기법으로 설명할 수 있다.
+- 재귀 알고리즘에서 종료 조건과 재귀 단계를 구분할 수 있다.
+- 선형 탐색과 이진 탐색, 삽입 정렬과 병합 정렬의 작동 방식과 비용을 비교할 수 있다.
+- 수치 알고리즘의 결과를 알려진 답, 잔차, 대안 구현으로 검증할 수 있다.
+```
+
+알고리즘(algorithm)은 주어진 문제를 해결하는 유한하고 명확한 절차이다.
+프로그램은 알고리즘을 특정 프로그래밍 언어로 표현한 구현이다. 따라서 같은
+알고리즘도 R, Python 또는 자연어 의사코드(pseudocode)로 나타낼 수 있다.
+
+AI가 코드를 빠르게 생성하더라도 해결할 문제가 무엇인지, 어떤 입력에서 멈춰야
+하는지, 결과가 맞는지를 판단하려면 알고리즘을 이해해야 한다. 이 장에서는
+함수 이름을 외우기보다 문제를 절차로 바꾸고 그 절차의 정확성과 비용을
+확인하는 데 초점을 둔다.
+
+## 문제에서 알고리즘으로 {#algorithm-specification}
+
+알고리즘을 구현하기 전에 다음 세 가지를 먼저 적는다.
+
+1. **입력(input)**: 알고리즘이 받는 값은 무엇인가?
+2. **출력(output)**: 어떤 값을 어떤 형태로 반환해야 하는가?
+3. **제약 조건(constraint)**: 입력에 대해 미리 보장된 조건과 예외는 무엇인가?
+
+예를 들어 "벡터에서 값 7을 찾는다"는 설명만으로는 부족하다. 다음처럼
+명세를 구체화할 수 있다.
+
+```{block2, type="rmdnote"}
+**탐색 문제의 명세**
+
+- 입력: 수치형 벡터 `x`와 길이 1인 목표값 `target`
+- 출력: `target`이 처음 나타나는 위치. 없으면 `NA_integer_`
+- 제약 조건: `x`에는 결측값이 있을 수 있으며 결측값은 일치하지 않는 것으로 처리
+```
+
+명세가 있으면 구현의 정답 여부를 검사할 수 있다. 반대로 명세가 없으면
+"값이 없을 때 무엇을 반환하는가?", "중복값 중 어느 위치를 반환하는가?"와
+같은 질문에 답할 수 없다.
+
+좋은 알고리즘은 각 단계가 명확하고, 허용된 입력에 대해 유한한 단계 안에
+멈추며, 명세에 맞는 출력을 만든다. 빠른 알고리즘이라도 틀린 답을 내면 좋은
+알고리즘이 아니다. 따라서 알고리즘을 볼 때는 다음 순서를 지킨다.
+
+$$
+\text{명세} \rightarrow \text{정확성} \rightarrow \text{비용}
+$$
+
+## 알고리즘의 비용 {#algorithm-complexity}
+
+같은 결과를 만드는 알고리즘도 필요한 시간과 메모리는 다를 수 있다. 실행
+시간은 컴퓨터, R 버전, 동시에 실행 중인 프로그램에 따라 달라진다. 먼저 실제
+초를 재기보다 입력 크기 $n$이 커질 때 핵심 연산 횟수가 어떻게 증가하는지
+살펴보는 편이 알고리즘 자체를 비교하기에 좋다.
+
+### 증가율과 Big-O 표기법 {#big-o-growth}
+
+Big-O 표기법은 입력이 매우 커질 때 연산 횟수의 증가 양상을 나타낸다. 정확한
+실행 시간이나 모든 상수를 기록하는 표기법은 아니다.
+
+| 증가율 | 이름 | 입력이 두 배가 될 때의 직관 |
+|:---|:---|:---|
+| $\mathcal{O}(1)$ | 상수 | 거의 변하지 않음 |
+| $\mathcal{O}(\log n)$ | 로그 | 조금 증가함 |
+| $\mathcal{O}(n)$ | 선형 | 약 두 배가 됨 |
+| $\mathcal{O}(n\log n)$ | 선형 로그 | 두 배보다 조금 더 증가함 |
+| $\mathcal{O}(n^2)$ | 이차 | 약 네 배가 됨 |
+| $\mathcal{O}(2^n)$ | 지수 | 매우 빠르게 증가함 |
+
+예를 들어 반복문 하나가 입력의 모든 원소를 한 번 확인하면 보통
+$\mathcal{O}(n)$이다. 길이 $n$인 입력에 대해 중첩 반복문이 각각 $n$번
+실행되면 핵심 연산은 약 $n^2$번이므로 $\mathcal{O}(n^2)$이다. $3n+10$과
+$100n$은 계수와 낮은 차수의 항을 제외하면 모두 $\mathcal{O}(n)$이다.
+
+```{block2, type="rmdcaution"}
+Big-O는 실행 시간의 단위가 아니며, $\mathcal{O}(n)$인 코드가 모든 작은
+입력에서 $\mathcal{O}(n^2)$인 코드보다 빠르다는 뜻도 아니다. 입력이 커질 때
+비용이 증가하는 양상을 비교하는 도구이다.
+```
+
+### 연산 횟수로 비교하기 {#count-operations}
+
+다음 두 함수는 실제 탐색 결과 대신 비교 횟수를 반환한다. 선형 탐색은 원소를
+앞에서부터 하나씩 보고, 이진 탐색은 남은 범위를 매번 절반으로 줄인다.
+
+```{block2, type="rmdtip"}
+**예측해 보자**: 길이가 16, 32, 64로 두 배씩 증가할 때 두 탐색의 최악 비교
+횟수는 각각 어떻게 변할까?
+```
+
+```{r complexity-count-predict, eval=FALSE}
+data.frame(
+  n = c(16, 32, 64),
+  linear = c(16, 32, 64),
+  binary = c(5, 6, 7)
+)
+```
+
+```{r complexity-count-run, echo=FALSE}
+linear_search_count <- function(x, target) {
+  comparisons <- 0L
+  for (i in seq_along(x)) {
+    comparisons <- comparisons + 1L
+    if (x[i] == target) break
+  }
+  comparisons
+}
+
+binary_search_count <- function(x, target) {
+  low <- 1L
+  high <- length(x)
+  comparisons <- 0L
+
+  while (low <= high) {
+    comparisons <- comparisons + 1L
+    mid <- as.integer(floor((low + high) / 2))
+    if (x[mid] == target) break
+    if (x[mid] < target) {
+      low <- mid + 1L
+    } else {
+      high <- mid - 1L
+    }
+  }
+  comparisons
+}
+
+sizes <- c(16L, 32L, 64L)
+data.frame(
+  n = sizes,
+  linear = vapply(
+    sizes,
+    function(n) linear_search_count(seq_len(n), n + 1L),
+    integer(1)
+  ),
+  binary = vapply(
+    sizes,
+    function(n) binary_search_count(seq_len(n), n + 1L),
+    integer(1)
+  )
+)
+```
+
+선형 탐색의 비교 횟수는 입력 크기와 함께 두 배가 된다. 이진 탐색은 입력이
+두 배가 되어도 비교가 한 번 정도만 늘어난다. 따라서 최악의 경우 선형 탐색은
+$\mathcal{O}(n)$, 이진 탐색은 $\mathcal{O}(\log n)$이다.
+
+다만 이진 탐색에는 입력이 정렬되어 있어야 한다는 비용이 숨어 있다. 한 번만
+탐색하려고 정렬부터 한다면 정렬 비용이 탐색에서 절약한 비용보다 클 수 있다.
+이미 정렬된 자료를 여러 번 탐색할 때 이진 탐색의 장점이 커진다.
+
+## 재귀: 같은 문제를 더 작은 문제로 {#recursion}
+
+재귀(recursion)는 함수가 더 작은 입력으로 자기 자신을 호출하는 방식이다.
+재귀 함수에는 반드시 두 부분이 있어야 한다.
+
+- **종료 조건(base case)**: 답을 바로 반환하여 호출을 멈추는 경우
+- **재귀 단계(recursive step)**: 문제를 더 작은 같은 문제로 바꾸는 경우
+
+예를 들어 $1+2+\cdots+n$을 계산할 때 $n$까지의 합은 $n-1$까지의 합에
+$n$을 더한 값이다.
+
+$$
+S(n) =
+\begin{cases}
+0, & n=0, \\
+n + S(n-1), & n>0.
+\end{cases}
+$$
+
+```{block2, type="rmdtip"}
+**예측해 보자**: `recursive_sum(4)`를 실행하면 함수는 어떤 순서로 호출되고
+무엇을 반환할까? 종이에 `recursive_sum(4)`부터 한 줄씩 펼쳐 보자.
+```
+
+```{r recursive-sum-predict, eval=FALSE}
+recursive_sum <- function(n) {
+  if (length(n) != 1L || is.na(n) || n < 0 || n != floor(n)) {
+    stop("n은 0 이상의 정수 하나여야 합니다.")
+  }
+  if (n == 0) return(0)
+  n + recursive_sum(n - 1)
+}
+
+recursive_sum(4)
+```
+
+```{r recursive-sum-run, echo=FALSE}
+recursive_sum <- function(n) {
+  if (length(n) != 1L || is.na(n) || n < 0 || n != floor(n)) {
+    stop("n은 0 이상의 정수 하나여야 합니다.")
+  }
+  if (n == 0) return(0)
+  n + recursive_sum(n - 1)
+}
+
+recursive_sum(4)
+```
+
+호출은 $S(4) \rightarrow S(3) \rightarrow \cdots \rightarrow S(0)$으로
+진행하고, 반환은 반대 방향으로 이루어진다. 종료 조건을 `n == 0`으로 두었기
+때문에 `recursive_sum(0)`도 올바르게 처리한다.
+
+```{block2, type="rmdcaution"}
+종료 조건이 없거나 재귀 호출의 입력이 종료 조건에 가까워지지 않으면 함수가
+멈추지 않는다. 또한 `recursive_sum(-1)`처럼 명세 밖의 입력을 허용하면 같은
+문제가 생긴다. 재귀 코드를 읽을 때는 종료 조건보다 먼저 입력 검사를 확인한다.
+```
+
+같은 합은 반복문이나 공식 $n(n+1)/2$로도 구할 수 있다. 재귀가 항상 가장
+빠른 구현은 아니다. 재귀는 문제의 구조를 명확하게 드러낼 때 사용하며, 뒤에서
+다룰 병합 정렬처럼 문제 자체가 반복적으로 나뉘는 경우에 특히 자연스럽다.
+
+## 탐색 알고리즘 {#search-algorithms}
+
+탐색(search)은 자료에서 목표값의 위치를 찾는 작업이다. 여기서는 값이 없으면
+`NA_integer_`를 반환하고, 중복값이 있으면 선형 탐색은 첫 위치를 반환한다고
+정한다.
+
+### 선형 탐색 {#linear-search}
+
+선형 탐색(linear search)은 첫 원소부터 차례로 비교한다. 정렬되지 않은
+자료에도 사용할 수 있고 구현이 단순하지만, 목표값이 마지막에 있거나 없으면
+모든 원소를 확인해야 한다.
+
+```{r linear-search}
+linear_search <- function(x, target) {
+  if (length(target) != 1L || is.na(target)) {
+    stop("target은 결측이 아닌 값 하나여야 합니다.")
+  }
+
+  for (i in seq_along(x)) {
+    if (!is.na(x[i]) && x[i] == target) return(i)
+  }
+  NA_integer_
+}
+
+x <- c(4, NA, 7, 2, 7)
+linear_search(x, 7)
+linear_search(x, 3)
+```
+
+`seq_along(x)`를 사용하면 빈 벡터에서도 반복문이 안전하게 0번 실행된다.
+`1:length(x)`는 빈 벡터에서 `c(1, 0)`이 되어 의도하지 않은 색인을 만들 수
+있다.
+
+### 이진 탐색 {#binary-search}
+
+이진 탐색(binary search)은 **정렬된 자료**의 가운데 값과 목표값을 비교한 뒤,
+목표값이 있을 수 없는 절반을 버린다. 다음 의사코드에서 반복할 때마다 `low`와
+`high` 사이의 범위가 줄어드는지 확인해 보자.
+
+```text
+low를 첫 위치, high를 마지막 위치로 둔다.
+low가 high보다 크지 않은 동안 반복한다.
+  mid를 low와 high의 가운데 위치로 둔다.
+  가운데 값이 목표값이면 mid를 반환한다.
+  가운데 값보다 목표값이 크면 low를 mid + 1로 바꾼다.
+  그렇지 않으면 high를 mid - 1로 바꾼다.
+찾지 못했으면 NA를 반환한다.
+```
+
+```{block2, type="rmdtip"}
+**예측해 보자**: `x <- c(2, 5, 8, 12, 16, 23, 38)`에서 16을 찾을 때
+확인하는 가운데 값의 순서를 적어 보자.
+```
+
+```{r binary-search}
+binary_search <- function(x, target) {
+  if (length(target) != 1L || is.na(target)) {
+    stop("target은 결측이 아닌 값 하나여야 합니다.")
+  }
+  if (anyNA(x) || is.unsorted(x)) {
+    stop("x는 결측값이 없는 오름차순 벡터여야 합니다.")
+  }
+
+  low <- 1L
+  high <- length(x)
+
+  while (low <= high) {
+    mid <- as.integer(floor((low + high) / 2))
+    if (x[mid] == target) return(mid)
+    if (x[mid] < target) {
+      low <- mid + 1L
+    } else {
+      high <- mid - 1L
+    }
+  }
+  NA_integer_
+}
+
+x <- c(2, 5, 8, 12, 16, 23, 38)
+binary_search(x, 16)
+binary_search(x, 10)
+```
+
+이 구현은 중복값 가운데 어느 한 위치를 반환한다. "첫 번째 위치"가 필요하면
+값을 찾은 뒤에도 왼쪽 구간을 계속 탐색하도록 명세와 구현을 바꿔야 한다.
+
+```{block2, type="rmdcaution"}
+이진 탐색에서 가장 흔한 오류는 `low <- mid` 또는 `high <- mid`처럼 범위를
+갱신하여 같은 `mid`가 다시 선택되게 하는 것이다. `mid + 1`과 `mid - 1`은
+이미 비교한 위치를 다음 범위에서 제외하여 반복이 끝나게 한다.
+```
+
+## 정렬 알고리즘 {#sorting-algorithms}
+
+정렬(sorting)은 원소를 정해진 순서로 다시 배치하는 작업이다. 실제 분석에서는
+직접 만든 정렬 함수보다 검증되고 최적화된 `sort()`를 사용한다. 여기서 정렬을
+구현하는 목적은 반복, 불변식, 분할 정복, 시간 복잡도를 구체적인 문제 안에서
+관찰하는 데 있다.
+
+정렬 알고리즘은 같은 값을 가진 원소의 원래 순서를 유지하면 안정 정렬(stable
+sort)이라고 한다. 숫자만 정렬하면 차이가 보이지 않지만, 같은 점수를 받은
+학생들의 입력 순서를 유지해야 하는 상황에서는 중요한 성질이다.
+
+### 삽입 정렬 {#insertion-sort}
+
+삽입 정렬(insertion sort)은 왼쪽 부분이 이미 정렬되어 있다고 보고, 다음 값을
+알맞은 위치에 끼워 넣는다. 손에 든 카드를 한 장씩 정리하는 과정과 비슷하다.
+
+```{block2, type="rmdtip"}
+**예측해 보자**: `c(5, 2, 4, 6, 1, 3)`에서 처음 두 번의 삽입이 끝난 뒤
+벡터가 어떻게 변하는지 적어 보자. 각 단계에서 왼쪽 부분은 정렬되어 있는가?
+```
+
+```{r insertion-sort}
+insertion_sort <- function(x) {
+  n <- length(x)
+  if (n < 2L) return(x)
+
+  for (i in 2:n) {
+    key <- x[i]
+    j <- i - 1L
+
+    while (j >= 1L && x[j] > key) {
+      x[j + 1L] <- x[j]
+      j <- j - 1L
+    }
+    x[j + 1L] <- key
+  }
+  x
+}
+
+x <- c(5, 2, 4, 6, 1, 3)
+insertion_sort(x)
+identical(insertion_sort(x), sort(x))
+```
+
+바깥 반복이 한 번 끝날 때마다 `x[1:i]`가 정렬되어 있다는 성질을
+**불변식(invariant)**이라고 한다. 이 불변식은 알고리즘이 왜 올바른지 설명하는
+근거가 된다.
+
+이미 거의 정렬된 자료에서는 옮길 값이 적어 삽입 정렬이 효율적이다. 역순으로
+정렬된 자료에서는 각 원소를 앞쪽 끝까지 옮겨야 하므로 비교와 이동이 약
+$n(n-1)/2$번 발생한다. 최악 시간 복잡도는 $\mathcal{O}(n^2)$이다.
+
+### 병합 정렬 {#merge-sort}
+
+병합 정렬(merge sort)은 분할 정복(divide and conquer)을 사용한다.
+
+1. 입력을 비슷한 크기의 두 부분으로 나눈다.
+2. 각 부분을 같은 방법으로 정렬한다.
+3. 정렬된 두 부분을 하나로 병합한다.
+
+길이가 0 또는 1인 벡터는 이미 정렬되어 있으므로 재귀의 종료 조건이 된다.
+
+```{r merge-sort}
+merge_two <- function(left, right) {
+  # 두 입력을 결합해 원래 자료형을 유지한 작업 공간을 만든다.
+  result <- c(left, right)
+  i <- 1L
+  j <- 1L
+  k <- 1L
+
+  while (i <= length(left) && j <= length(right)) {
+    if (left[i] <= right[j]) {
+      result[k] <- left[i]
+      i <- i + 1L
+    } else {
+      result[k] <- right[j]
+      j <- j + 1L
+    }
+    k <- k + 1L
+  }
+
+  if (i <= length(left)) {
+    result[k:length(result)] <- left[i:length(left)]
+  }
+  if (j <= length(right)) {
+    result[k:length(result)] <- right[j:length(right)]
+  }
+  result
+}
+
+merge_sort <- function(x) {
+  n <- length(x)
+  if (n < 2L) return(x)
+
+  mid <- as.integer(floor(n / 2))
+  left <- merge_sort(x[seq_len(mid)])
+  right <- merge_sort(x[(mid + 1L):n])
+  merge_two(left, right)
+}
+
+x <- c(5, 2, 4, 6, 1, 3)
+merge_sort(x)
+identical(merge_sort(x), sort(x))
+```
+
+입력을 절반으로 나누는 깊이는 약 $\log_2 n$이고, 각 깊이에서 전체 $n$개
+원소를 병합한다. 따라서 시간 복잡도는 $\mathcal{O}(n\log n)$이다. 병합할
+결과를 저장할 추가 공간이 필요하므로 공간 복잡도는 $\mathcal{O}(n)$이다.
+
+| 기준 | 삽입 정렬 | 병합 정렬 |
+|:---|:---|:---|
+| 핵심 아이디어 | 정렬된 부분에 하나씩 삽입 | 절반으로 나눈 뒤 병합 |
+| 최악 시간 | $\mathcal{O}(n^2)$ | $\mathcal{O}(n\log n)$ |
+| 알고리즘의 추가 공간 | $\mathcal{O}(1)$ | $\mathcal{O}(n)$ |
+| 잘 맞는 상황 | 작거나 거의 정렬된 입력 | 큰 입력, 예측 가능한 성능 |
+
+```{block2, type="rmdtip"}
+복잡도를 비교할 때 시간만 보지 않는다. 입력 크기, 이미 정렬된 정도, 추가
+메모리, 안정성, 구현의 단순성까지 함께 고려해야 한다.
+
+위 공간 복잡도는 정렬 알고리즘의 작업 공간을 센 것이다. R은 객체를 수정할 때
+벡터를 복사할 수 있으므로 실제 메모리 사용량은 객체의 공유 상태와 R의 메모리
+관리에 따라서도 달라진다.
+```
+
+## 뉴턴-랩슨 알고리즘 {#newton-raphson}
+
+뉴턴-랩슨(Newton-Raphson) 알고리즘은 미분 가능한 함수 $f(x)$에 대해
+$f(x)=0$을 만족하는 해를 반복적으로 근사한다. 현재 추정값 $x_n$에서 그은
+접선이 $x$축과 만나는 점을 다음 추정값으로 사용한다.
+
+$$
+x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}.
+$$
+
+알고리즘에는 함수와 도함수뿐 아니라 초기값, 허용 오차, 최대 반복 횟수가
+필요하다. 도함수가 0에 너무 가까우면 다음 값을 계산할 수 없고, 초기값에 따라
+다른 해로 수렴하거나 수렴하지 않을 수 있다.
+
+```{r newton-raphson-function}
+newton_raphson <- function(f, df, x0, tol = 1e-8,
+                           max_iter = 100L) {
+  if (tol <= 0 || max_iter < 1L) {
+    stop("tol은 양수이고 max_iter는 1 이상이어야 합니다.")
+  }
+
+  x <- x0
+  for (iteration in seq_len(max_iter)) {
+    fx <- f(x)
+    dfx <- df(x)
+
+    if (!is.finite(fx) || !is.finite(dfx)) {
+      return(list(root = x, residual = fx, iteration = iteration,
+                  converged = FALSE, reason = "유한하지 않은 값"))
+    }
+    if (abs(fx) <= tol) {
+      return(list(root = x, residual = fx, iteration = iteration,
+                  converged = TRUE, reason = "잔차 기준 충족"))
+    }
+    if (abs(dfx) <= sqrt(.Machine$double.eps)) {
+      return(list(root = x, residual = fx, iteration = iteration,
+                  converged = FALSE, reason = "도함수가 0에 가까움"))
+    }
+
+    x <- x - fx / dfx
+  }
+
+  final_residual <- f(x)
+  final_converged <- is.finite(final_residual) &&
+    abs(final_residual) <= tol
+  list(
+    root = x,
+    residual = final_residual,
+    iteration = max_iter,
+    converged = final_converged,
+    reason = if (final_converged) {
+      "잔차 기준 충족"
+    } else {
+      "최대 반복 횟수 도달"
+    }
+  )
+}
+```
+
+### 예측하고 실행하기 {#newton-predict-run}
+
+$f(x)=x^2-2$의 양의 해는 $\sqrt{2}$이다. $x_0=1$에서 시작하면 첫 번째
+갱신값은 다음과 같다.
+
+$$
+x_1 = 1 - \frac{1^2-2}{2\times 1} = 1.5.
+$$
+
+```{block2, type="rmdtip"}
+**예측해 보자**: 두 번째 갱신값은 1.5보다 큰가, 작은가? 계산한 뒤 코드를
+실행해 보자.
+```
+
+```{r newton-raphson-run}
+f <- function(x) x^2 - 2
+df <- function(x) 2 * x
+
+nr_result <- newton_raphson(f, df, x0 = 1)
+nr_result
+```
+
+### 결과 검증하기 {#newton-verify}
+
+`converged = TRUE`만 보고 결과를 받아들이지 않는다. 다음 세 가지를 확인한다.
+
+1. 알려진 값 $\sqrt{2}$와 비교한다.
+2. 추정한 해를 원래 함수에 넣어 잔차 $|f(x)|$가 작은지 본다.
+3. 다른 알고리즘인 `uniroot()`의 결과와 비교한다.
+
+```{r newton-raphson-verify}
+root <- nr_result$root
+c(
+  error_from_known = abs(root - sqrt(2)),
+  residual = abs(f(root)),
+  difference_from_uniroot = abs(
+    root - uniroot(f, interval = c(0, 2))$root
+  )
+)
+```
+
+초기값도 바꿔 보자. 같은 함수라도 음수에서 시작하면 음의 해로 수렴하고,
+0에서 시작하면 도함수가 0이어서 진행할 수 없다.
+
+```{r newton-starting-values}
+starts <- c(-2, -1, 0, 0.5, 2)
+results <- lapply(starts, function(start) {
+  out <- newton_raphson(f, df, x0 = start)
+  data.frame(
+    start = start,
+    root = out$root,
+    converged = out$converged,
+    reason = out$reason
+  )
+})
+do.call(rbind, results)
+```
+
+이 예는 "알고리즘이 실행되었다"와 "의도한 해를 찾았다"가 같은 말이 아님을
+보여 준다. 초기값과 종료 조건도 알고리즘 명세의 일부이다.
+
+## AI와 함께: 탐색 코드 생성하고 검증하기 {#ai-algorithms}
+
+```{block2, type="rmdimportant"}
+**이 절의 목표**: AI에게 이진 탐색 함수를 작성하게 하고, 작은 예제·경계
+사례·대안 구현으로 생성 코드가 명세와 일치하는지 확인한다.
+```
+
+### 과제 명세 {#ai-algorithms-spec}
+
+오름차순으로 정렬된 정수 벡터에서 목표값이 처음 나타나는 위치를 찾는다.
+목표값이 없거나 입력이 비어 있으면 `NA_integer_`를 반환한다. 중복값이 있으면
+반드시 첫 번째 위치를 반환해야 하며, 내장 탐색 함수는 구현에 사용하지 않는다.
+
+### 프롬프트 {#ai-algorithms-prompt}
+
+```{block2, type="rmdnote"}
+R로 `binary_search_first(x, target)` 함수를 작성해 줘. `x`는 결측값이 없는
+오름차순 정수 벡터이고 `target`은 정수 하나야. 목표값이 여러 번 나오면 첫
+번째 위치를, 없거나 `x`가 비어 있으면 `NA_integer_`를 반환해야 해. `match()`,
+`which()`, `findInterval()`은 사용하지 말고 반복문으로 이진 탐색을 구현해 줘.
+```
+
+### AI가 생성한 코드 {#ai-algorithms-generated}
+
+```{r ai-algorithms-gen, eval=FALSE}
+# 생성: OpenAI Codex (GPT-5), 2026-09-10. 수정 없이 그대로 실은 코드.
+binary_search_first <- function(x, target) {
+  low <- 1L
+  high <- length(x)
+  result <- NA_integer_
+
+  while (low <= high) {
+    mid <- as.integer(floor((low + high) / 2))
+
+    if (x[mid] < target) {
+      low <- mid + 1L
+    } else {
+      if (x[mid] == target) result <- mid
+      high <- mid - 1L
+    }
+  }
+
+  result
+}
+```
+
+코드는 목표값을 찾은 뒤 바로 반환하지 않고 왼쪽 구간을 계속 탐색한다. 이
+동작이 중복값의 첫 위치를 찾는다는 설명은 그럴듯하지만, 설명만으로 정확성을
+확정할 수는 없다.
+
+### 검증 {#ai-algorithms-verify}
+
+먼저 손으로 답을 알 수 있는 작은 예제와 경계 사례를 확인한다. 검증 청크에서는
+위 생성 코드를 그대로 실행한 뒤 결과를 `match()`와 비교한다.
+
+```{r ai-algorithms-verify, echo=FALSE}
+# 검증을 위해 생성 코드를 그대로 실행
+binary_search_first <- function(x, target) {
+  low <- 1L
+  high <- length(x)
+  result <- NA_integer_
+
+  while (low <= high) {
+    mid <- as.integer(floor((low + high) / 2))
+
+    if (x[mid] < target) {
+      low <- mid + 1L
+    } else {
+      if (x[mid] == target) result <- mid
+      high <- mid - 1L
+    }
+  }
+
+  result
+}
+
+edge_cases <- list(
+  empty = list(x = integer(0), target = 3L),
+  one_found = list(x = 3L, target = 3L),
+  one_absent = list(x = 3L, target = 4L),
+  duplicates = list(x = c(1L, 3L, 3L, 3L, 8L), target = 3L),
+  first = list(x = c(1L, 3L, 8L), target = 1L),
+  last = list(x = c(1L, 3L, 8L), target = 8L)
+)
+
+vapply(edge_cases, function(case) {
+  identical(
+    binary_search_first(case$x, case$target),
+    match(case$target, case$x)
+  )
+}, logical(1))
+```
+
+작은 예제만 우연히 통과할 수 있으므로 중복을 포함한 무작위 입력도 반복해서
+비교한다.
+
+```{r ai-algorithms-random-verify}
+set.seed(20260910)
+checks <- replicate(200, {
+  n <- sample(0:40, 1)
+  x <- sort(sample(-20:20, size = n, replace = TRUE))
+  target <- sample(-22:22, 1)
+  identical(binary_search_first(x, target), match(target, x))
+})
+
+all(checks)
+```
+
+이 검증은 명세 안에서 준비한 200개 사례에 대해 생성 코드와 R의 대안 구현이
+같은 결과를 냈음을 보여 준다. 가능한 모든 입력에 대한 수학적 증명은 아니지만,
+중복·빈 입력·값의 부재처럼 자주 빠뜨리는 사례를 검사했다는 근거를 남긴다.
+
+```{block2, type="rmdcaution"}
+**이 작업에서 생성 코드에 자주 생기는 오류**
+
+- 값을 찾자마자 반환하여 중복값의 첫 위치 조건을 놓침
+- 빈 벡터에서 `1:length(x)`를 사용하여 잘못된 위치를 검사함
+- `low`와 `high`가 줄지 않아 특정 입력에서 무한 반복함
+- 정렬되지 않은 입력에도 이진 탐색이 작동한다고 가정함
+```
+
+```{block2, type="rmdwarning"}
+AI 서비스에 과제용 데이터나 코드를 입력할 때 개인정보, 인증 정보, 미공개 연구
+자료를 포함하지 않는다. 수업에서 허용한 자료만 사용하고 모델명, 날짜, 프롬프트,
+생성 결과를 함께 기록한다.
+```
+
+## 연습문제 {#ex-algorithms .unnumbered}
+
+1. 다음 각 코드의 시간 복잡도를 Big-O로 나타내고 이유를 설명하시오.
+
+    a) 벡터의 첫 번째 원소만 반환하는 함수
+
+    b) 벡터의 모든 원소를 한 번 더하는 반복문
+
+    c) 길이 $n$인 벡터의 모든 원소 쌍을 비교하는 중첩 반복문
+
+2. `recursive_sum()`에서 종료 조건을 `n == 1`로 바꾸면 어떤 입력에서 문제가
+   생기는지 예측하고 확인하시오.
+
+3. `linear_search()`가 결측값을 건너뛰지 않도록 `!is.na(x[i])`를 제거하면 어떤
+   오류가 발생하는지 작은 반례로 설명하시오.
+
+4. 정렬되지 않은 벡터 `c(8, 1, 4, 9, 2)`에서 `binary_search()`를 바로
+   사용하면 안 되는 이유를 알고리즘의 전제 조건과 연결하여 설명하시오.
+
+5. `insertion_sort()`의 바깥 반복이 한 번 끝날 때마다 정렬된 구간을 기록하는
+   함수를 작성하시오. 입력 `c(5, 2, 4, 6, 1, 3)`에 적용하여 불변식을
+   확인하시오.
+
+6. 빈 벡터, 길이 1인 벡터, 중복값이 있는 벡터, 음수가 있는 벡터에 대해
+   `merge_sort(x)`와 `sort(x)`의 결과를 `identical()`로 비교하시오.
+
+7. $f(x)=x^3-2x+2$에 뉴턴-랩슨 알고리즘을 적용하시오. 서로 다른 초기값을
+   사용하여 수렴 여부를 비교하고, 수렴한 경우 잔차를 확인하시오.
+
+8. AI에게 내림차순 벡터용 이진 탐색 함수를 요청하시오. 입력, 출력, 중복값,
+   빈 입력에 대한 조건을 프롬프트에 명시하고, 최소 다섯 개의 경계 사례와
+   대안 구현으로 결과를 검증하시오.
