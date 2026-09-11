@@ -39,7 +39,7 @@
 - `docs/`, `_bookdown_files/` : **생성물. 직접 편집 금지.**
 - `docs/preview/` : 개편 원고를 단독 렌더해 올려 두는 자리. `bash upgrade/render-preview.sh <장.qmd>` 가 만든다. bookdown 이 건드리지 않으므로 현행 사이트와 공존한다.
 - `upgrade/` : 업그레이드 작업 산출물. **`upgrade/curriculum-plan.md` (교과 재구성안)**, 감사 보고서 `upgrade/audit/`, 렌더 로그 `upgrade/logs/`.
-- `hub/` : 발표 슬라이드 허브 페이지의 **원본**(손으로 편집하는 곳). `bash hub/sync.sh` 로 `docs/hub/` 에 복사해 배포한다. `docs/` 는 렌더 산출물 폴더라 Quarto 전환 때 비워질 수 있으므로 원본을 밖에 둔다 (`docs/legacy/` 와 같은 이유).
+- `hub/` : 슬라이드 허브 페이지의 **원본**. `index.html` 은 손으로 편집하고, 주제 상세 `<장>.html` 은 `hub/topic-page.R` 이 생성한다. `bash hub/sync.sh` 로 `docs/hub/` 에 복사해 배포한다. `docs/` 는 렌더 산출물 폴더라 Quarto 전환 때 비워질 수 있으므로 원본을 밖에 둔다 (`docs/legacy/` 와 같은 이유).
 
 ## 툴체인
 
@@ -63,6 +63,9 @@ bash .claude/skills/build-book/scripts/render.sh
 
 # 개편 원고(.qmd) 한 장을 렌더해 docs/preview/ 에 올린다 (현행 사이트는 안 건드림)
 bash upgrade/render-preview.sh 08-algorithms.qmd
+
+# 허브의 주제 상세 화면을 다시 만들어 배포 위치로 복사 (render-preview.sh 가 자동으로 부른다)
+Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
 ```
 
 - `_bookdown.yml` 의 `new_session: true` → 각 장은 **독립 R 세션**에서 렌더된다. 장마다 setup 청크에서 필요한 패키지를 직접 로드해야 한다.
@@ -116,7 +119,24 @@ bash upgrade/render-preview.sh 08-algorithms.qmd
 - **발표 슬라이드**: `08-algorithms-slides.qmd` (Quarto revealjs, 1280×720). 테마는 `upgrade/slides-theme.scss`.
   허브 A안의 색·서체를 투영용으로 옮긴 것으로, 디자인 시안은 https://claude.ai/code/artifact/eae110f1-c163-48b5-938a-c5249f81c49e
   - **코드 블록은 흰 바탕에 왼쪽 색 띠**로 둔다. 어두운 바탕은 투영 환경에 따라 코드가 뭉개져 읽기 어렵다(강사 지적).
-  - `.predict` 클래스 + `background-color="#1F6F7A"` 로 예측(PRIMM) 슬라이드만 청록 반전.
+  - **바탕은 흰색**이다 (강사 결정, 2026-09-11). 허브의 미색 바탕은 쓰지 않고, 색은 강조에만 쓴다.
+  - **원안의 틀을 따른다** (작업 파일 `upgrade/slides-design/*.dc.html`): 표지(CHAPTER 표시 · 청록 막대 · 큰 제목),
+    절 표지(큰 절 번호 + SECTION, 오른쪽 "이 절에서" 목록), 본문 머리(절 번호 · 제목 · 오른쪽 장 표시),
+    슬라이드 안 꼬리말(선 + 과목·장 + 쪽번호).
+    - 본문 제목: `## [1.2]{.secno} 제목` — 번호는 **강의노트(`08-algorithms.qmd`)의 절 번호**다. 허브의 노트 절 ↔ 슬라이드 대응과 맞춘다.
+    - 절 표지: `# [1]{.secno} 제목 {.section-title}` — 배경색 속성을 붙이지 않는다.
+    - 꼬리말·쪽번호는 테마가 그린다. YAML `include-in-header` 의 `--deck-kicker / course / chapter / footer / watermark`
+      변수와 `include-after-body: upgrade/slides-number.html` 로 준다. `footer:` 는 쓰지 않고 `slide-number: false`.
+  - **예측(PRIMM) 슬라이드는 `## 예측해 보자 {.predict}`** — 배경을 칠하지 않는다. 원안의 청록 전면 반전은 투영 시 너무 튀고
+    일부 글자가 배경에 묻혔다(강사 지적, 2026-09-11). 테마가 제목 줄만 청록 띠("PREDICT · 예측해 보자")로 칠하고,
+    제목 바로 다음 문단을 큰 질문으로 키운다. 선택지는 `::: {.options}`, 이유 문장은 `::: {.why}`.
+  - **글자 크기는 테마가 px 로 고정**한다: 본문 22 · 콜아웃·강조 상자 20 · 코드 17 · 출력 16 · 라벨 15 · 꼬리말 14.
+    **`{.smaller}` 를 쓰지 않는다** — Quarto 가 `.smaller` 0.7배와 콜아웃 0.7배를 겹쳐 콜아웃 본문이 15px, 라벨이 11px 까지 줄었다.
+    코드가 길어 넘치면 제목에 `{.dense}`(코드 15px). 15px 가 하한이며, 그래도 넘치면 코드를 줄이거나 슬라이드를 나눈다.
+  - 콜아웃은 원안의 카드(흰 바탕 + 왼쪽 색 띠)로 그리고 Quarto 기본 머리("ⓘ 노트", "주의")는 숨긴다. 첫 굵은 글씨가 카드 제목 역할을 한다.
+  - **표지의 발표자 노트는 `title-slide-attributes: data-notes: |`** 로 단다. 첫 `##` 앞에 `::: {.notes}` 를 두면
+    표지가 아니라 **빈 슬라이드**가 하나 생긴다(8장 2번 슬라이드가 그렇게 비어 있었다).
+  - 코드와 출력을 나란히 두려면 청크에 `#| output-location: column` (테마가 64 : 36 으로 나눈다).
   - **슬라이드 본문은 개조식**(명사형 종결)으로 쓴다. `~한다 / ~이다` 로 끝내지 않는다 (강사 지시, 2026-09-11).
     본문의 평서체와 다른 규칙이므로 노트 문장을 슬라이드로 그대로 옮기지 않는다.
   - **강의 대본은 `::: {.notes}` 블록**에 슬라이드마다 넣는다. 발표 화면에서 `S` 키로 열린다.
@@ -125,18 +145,23 @@ bash upgrade/render-preview.sh 08-algorithms.qmd
     `function-call.png`, `recursive-function-call.png`, `recursive-sum-flows.png`,
     `hanoi-problem.gif`, `hanoi-solution.gif`, `video/newton-raphson-ex.mp4`, 복잡도 증가 그래프(R 청크).
   - **슬라이드 채움 목표는 720px 대비 70~85%.** 60% 아래면 내용을 더하거나 옆 슬라이드와 합친다.
-    측정은 각 슬라이드의 자식 요소 상·하단 좌표 차를 reveal 배율로 나눠 구한다.
+    측정은 `Rscript upgrade/slides-check.R docs/preview/<덱>.html <출력폴더>` 로 한다. 슬라이드마다 화면 PNG 와
+    `metrics.tsv`(내용 하단 · 오른쪽 끝 · 가로 스크롤 · 최소 글자)를 남긴다. 본문 슬라이드는 **하단 680px 이내**(꼬리말 선이 약 695px).
     절 표지는 제목만 두지 않는다 — 번호·제목·의도·소절 목록·"이 절이 답하는 질문" 띠를 넣는다.
     예측(PRIMM) 슬라이드에는 **묻는 대상 코드나 수식을 함께** 실어 슬라이드 하나로 완결시킨다.
-  - **투영 대비**: 본문·꼬리말·쪽번호 모두 배경 대비 4.5 이상을 지킨다. `$faint`(#8C8479)는
-    이 배경에서 3.45 라 부족하므로 `$muted`(#6E665C) 이상을 쓴다. reveal 기본값이 인용문 글자색을
+  - **투영 대비**: 본문·꼬리말·쪽번호·코드 주석 모두 배경 대비 4.5 이상을 지킨다. `$faint`(#8C8479)는
+    흰 바탕에서도 3.6 이라 부족하므로 글자에는 `$muted`(#6E665C, 5.6) 이상을 쓴다. reveal 기본값이 인용문 글자색을
     테두리색으로 잡아 읽히지 않았던 사례가 있으므로 테마에서 명시적으로 덮는다.
-  - 슬라이드에서 걸린 것 두 가지:
+  - 슬라이드에서 걸린 것:
     (1) Quarto revealjs 의 `div.column` 은 `inline-block; width:50%` 이라 칸 사이 공백 때문에 2단이 아래로 흘러내린다. 테마에서 flex 로 덮었다.
     (2) `output-location` 은 **Quarto 셀 옵션**이다. `{r name, output-location: fragment}` 처럼 knitr 헤더에 쓰면 조용히 무시된다. 청크 안에 `#| output-location: fragment` 로 쓴다.
+    (3) 출력 블록처럼 테마가 여백·테두리를 주는 요소에 `box-sizing: border-box` 가 없으면 칸 오른쪽으로 넘친다.
+    (4) `upgrade/render-preview.sh` 가 `python` 을 부르면 `python3` 만 있는 기기에서 그림·동영상 경로 보정이 빠진 채 끝난다(오류 한 줄만 남음). `${PYTHON:-python3}` 로 고쳤다.
+    (5) 디자인 시안(`upgrade/slides-design/*.dc.html`)의 아트보드 루트 `<div>` 에 `box-sizing:border-box` 가 없으면 `width:1280px; height:720px` 에 안쪽 여백이 더해져 1440×812 로 그려지고, 캔버스의 1280×720 틀이 오른쪽 160px 와 아래를 잘라 낸다. 오른쪽 칸 내용이 통째로 안 보였다(강사 지적, 2026-09-11). 새 아트보드도 루트에 이 속성을 넣는다.
 - 단일 장 렌더·배치: `bash upgrade/render-preview.sh 08-algorithms.qmd` → `docs/preview/`. 살아 있는 bookdown 사이트(`docs/` 루트)는 건드리지 않는다.
 - `_quarto.yml` 은 아직 만들지 않았다. 만드는 순간 `output-dir: docs` 가 현행 사이트를 덮으므로, **`migrate-to-quarto` 스킬 0단계(legacy 보존)를 먼저** 해야 한다.
-- **`bookdown-archive-2026-09-10` 태그가 이 저장소에 없다** (`git tag -l` 비어 있음). 전환 착수 전에 전환 직전 커밋에 다시 걸어야 한다.
+- **`bookdown-archive-2026-09-10` 태그는 처음 만든 기기에만 있다** (커밋 `a27a058`, 원격에 푸시하지 않음). 다른 기기의 `git tag -l` 에는 보이지 않는다.
+  전환 착수 전에 `git push origin bookdown-archive-2026-09-10` 로 올리거나 전환 직전 커밋에 다시 건다.
 
 **시범 전환에서 걸린 것 (다른 장 전환 시 반복될 항목)**
 
@@ -156,6 +181,17 @@ bash upgrade/render-preview.sh 08-algorithms.qmd
 - **신규 장**: 프로그래밍과 계산, 정확성·디버깅·검증, AI와 함께 프로그래밍하기. 세부는 `upgrade/curriculum-plan.md`.
 - 발표 슬라이드 허브 페이지는 **A안(주제 목록형)** 으로 확정. 시안 https://claude.ai/code/artifact/3fadbdb9-8241-473c-8cad-13ca6285e9d8
   - **구현 완료 (2026-09-10)**: `hub/index.html` → `docs/hub/` 배포 → https://zorba78.github.io/cnu-r-programming-lecture-note/hub/
+  - 허브 시안의 작업 파일은 `upgrade/hub-design/` (`*.dc.html` + `canvas.json`, 2026-09-11 게시본에서 추출). 고친 뒤 캔버스에 다시 게시한다. 슬라이드 시안의 `upgrade/slides-design/` 와 같은 역할.
+  - **주제 상세 화면** (시안 `Topic.dc.html`, 2026-09-11 구현, 강사 요청): 슬라이드와 새 노트가 모두 있는 장만 둔다. 지금은 8장 `hub/08-algorithms.html` 하나이고,
+    허브 8장 행을 펼치면 들어가는 링크가 있다. 제목 줄(슬라이드 열기 · PDF로 저장 · 강의노트에서 보기), 왼쪽 슬라이드 미리보기와 절별 슬라이드 카드,
+    오른쪽 대응하는 강의노트 발췌 · 소절 목록 · 이 절의 슬라이드(절 표지의 의도와 질문) · 이 덱의 절 목록.
+    - `Rscript hub/topic-page.R 08-algorithms` 가 `docs/preview/` 의 덱·노트 **렌더본**에서 절별 슬라이드 번호 구간과 발췌를 뽑아 만든다.
+      슬라이드를 넣고 빼면 번호 구간이 밀리므로 **결과 HTML 을 손으로 고치지 않는다.** `upgrade/render-preview.sh` 가 렌더 뒤 자동으로 다시 만들고
+      `hub/sync.sh` 까지 돌린다. 새 장을 추가할 때는 스크립트의 `chapters` 목록에 한 줄 넣는다.
+    - PDF 는 파일을 올리지 않고 덱의 `?print-pdf` 인쇄 화면으로 연결한다 (8장 기준 47쪽 · 16:9 확인).
+    - 미리보기 iframe 은 1280×720 으로 그려 칸 폭에 맞춰 축소한다. 좁은 iframe 에 그대로 넣으면 reveal.js 가 폭 435px 아래에서
+      스크롤 보기로 바뀌어 카드를 눌러도 슬라이드가 넘어가지 않았다(모바일에서 확인).
+    - 미리보기 안에서 넘긴 슬라이드를 카드·절 목록이 따라가는 기능은 같은 출처(GitHub Pages, 로컬 http 서버)에서만 동작한다. `file://` 로 열면 빠진다.
   - **장 구성은 `upgrade/curriculum-plan.md` 5절 대응표를 따른다** — Part 1 9장 / Part 2 7장 + 부록 A~D. 현행 bookdown 12장 구성이 아니다. 알고리즘은 **새 8장**(현행 6장).
   - 새 원고가 아직 없으므로 `강의노트` 열은 그 장의 **출처가 되는 현행 bookdown 노트**로 연결된다. 행을 펼치면 재구성안의 처리 방침과 출처 절 목록이 나온다. 확장은 `<details>` 라 JS 가 없다.
   - 제목 옆 태그는 재구성안의 `처리` 열(신설 / 재작성 / 재구성 / 강화 / 유지 / 슬림화 / 이동·압축 / 현행화 / 전환).
@@ -180,6 +216,10 @@ bash upgrade/render-preview.sh 08-algorithms.qmd
   둘 다 두면 제목이 두 번 나오고, 목차 최상위가 그 H1 하나로 묶여 절이 접혀 들어간다.
 - **구 강의노트(bookdown) 는 삭제하지 않고 `docs/legacy/` 에서 계속 서빙한다.** Quarto 전환 직전에 `bookdown-archive-2026-09-10` 태그에서 렌더된 `docs/`를 꺼내 보존하고, Quarto 렌더 후 `docs/legacy/`로 합쳐 넣는다. 절차는 `migrate-to-quarto` 스킬 0·4단계. 허브 페이지와 새 책 서문 모두에 "이전 버전 강의노트" 링크를 건다.
 - **정확성·디버깅·검증을 독립 장(6장)으로 둔다.** 근거(강사, 2026-09-10): "LLM을 통해 디버깅 작업을 예전에 비해 매우 효율적으로 수행할 수 있으나 결국 중요한 부분은 인간이 다시 한 번 확인하는 절차가 중요해짐." 즉 이 장의 핵심은 디버깅 기법 자체가 아니라 **AI가 내놓은 결과를 사람이 재확인하는 절차**다. 함수 장(5장)에 부속시키면 이 비중이 죽는다. 장 설계는 `ai-curriculum` 스킬 4b, 대응표는 `upgrade/curriculum-plan.md` 5절.
+
+- **어려운 핵심 용어는 일상의 예로 먼저 들이고, 정의는 그 뒤에 둔다** (강사, 2026-09-11). 학생 대부분이 프로그래밍 입문자라
+  "알고리즘" 같은 용어 자체를 어렵게 받아들인다. 8장은 전화번호부에서 이름 찾기(선형·이진 탐색의 예고)와 청소 로봇의 절차
+  (다섯 조건의 대응 표)로 시작한다(노트 1.1 `#sec-everyday-algorithm`, 슬라이드 4~9번). 다른 장을 개편할 때도 같은 순서를 따른다.
 
 ### 백업
 

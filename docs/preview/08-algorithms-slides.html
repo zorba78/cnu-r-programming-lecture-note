@@ -5,8 +5,8 @@
 <script src="08-algorithms-slides_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="08-algorithms-slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="08-algorithms-slides_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="08-algorithms-slides_files/libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.10.18">
+<link href="08-algorithms-slides_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="구본초">
   <meta name="dcterms.date" content="2026-09-11">
@@ -20,13 +20,10 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
+    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: 1.5em;}
-    div.column{flex: auto;}
-    @media screen {
-    div.columns{gap: min(4vw, 1.5em);}
-    div.column{overflow-x: auto;}
-    }
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -101,7 +98,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="08-algorithms-slides_files/libs/revealjs/dist/theme/quarto-24f60c1f7604f35612aadfaece930a8c.css">
+  <link rel="stylesheet" href="08-algorithms-slides_files/libs/revealjs/dist/theme/quarto-8e6de3070b1d36fe2fca4b4b0c67c3d2.css">
   <link href="08-algorithms-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="08-algorithms-slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="08-algorithms-slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -193,19 +190,30 @@
       margin-right: 0; 
     }
   </style>
+  <style>
+  :root {
+    --deck-kicker: "CHAPTER 08";
+    --deck-course: "통계 프로그래밍 언어";
+    --deck-chapter: "08 알고리즘";
+    --deck-footer: "통계 프로그래밍 언어 · 08 알고리즘";
+    --deck-watermark: "O(n log n)";
+  }
+  </style>
 </head>
 <body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block">
+<section id="title-slide" data-notes="<p>오늘은 8장 알고리즘입니다. 시작하기 전에 한 가지 정해 두고 갑시다.</p>
+<p>이 시간의 목표는 정렬 알고리즘 네 가지를 외우는 것이 아닙니다. 여러분이 앞으로 쓰게 될 코드는 대부분 여러분이 처음부터 짜는 코드가 아닐 겁니다. 검색해서 찾거나, AI에게 받거나, 남이 쓴 걸 가져다 쓰겠지요. 그때 필요한 건 “이 코드가 맞나” 와 “이 코드가 감당할 수 있나” 두 가지를 판단하는 능력입니다. 오늘 그 두 가지를 다룹니다.</p>
+<p>한 시간 반 기준으로, 앞의 40분이 비용 이야기, 뒤의 50분이 검증 이야기입니다.</p>" class="quarto-title-block">
   <h1 class="title">알고리즘</h1>
   <p class="subtitle">코드가 요구하는 수행 시간과 메모리를 판단하기</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-구본초
+구본초 
 </div>
         <p class="quarto-title-affiliation">
             충남대학교 정보통계학과
@@ -215,25 +223,7 @@
 
   <p class="date">2026-09-11</p>
 </section>
-<section class="slide level2">
-
-<aside class="notes">
-<p>오늘은 8장 알고리즘입니다. 시작하기 전에 한 가지 정해 두고 갑시다.</p>
-<p>이 시간의 목표는 정렬 알고리즘 네 가지를 외우는 것이 아닙니다. 여러분이 앞으로 쓰게 될 코드는 대부분 여러분이 처음부터 짜는 코드가 아닐 겁니다. 검색해서 찾거나, AI에게 받거나, 남이 쓴 걸 가져다 쓰겠지요. 그때 필요한 건 “이 코드가 맞나” 와 “이 코드가 감당할 수 있나” 두 가지를 판단하는 능력입니다. 오늘 그 두 가지를 다룹니다.</p>
-<p>한 시간 반 기준으로, 앞의 40분이 비용 이야기, 뒤의 50분이 검증 이야기입니다.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="이-수업에서-다루는-것" class="slide level2 smaller">
+<section id="이-수업에서-다루는-것" class="slide level2">
 <h2>이 수업에서 다루는 것</h2>
 <div class="keypoint">
 <p>알고리즘 <strong>암기</strong>가 아니라, 구현의 <strong>정확성</strong>과 <strong>수행 시간·메모리 요구량</strong>을 판단하는 능력</p>
@@ -256,7 +246,7 @@
 <tr class="odd">
 <td style="text-align: left;">1</td>
 <td style="text-align: left;">알고리즘과 계산 비용</td>
-<td style="text-align: left;">수행 시간·메모리, 빅오 표기법</td>
+<td style="text-align: left;">일상 속 알고리즘, 수행 시간·메모리, 빅오 표기법</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">2</td>
@@ -287,7 +277,7 @@
 </table>
 <aside class="notes">
 <p>전체 지도를 먼저 보겠습니다.</p>
-<p>1절과 2절은 도구를 만드는 시간입니다. 비용을 재는 언어, 그러니까 빅오 표기법을 배우고, 재귀라는 사고 방식을 익힙니다.</p>
+<p>1절은 전화번호부와 청소 로봇 이야기로 알고리즘이 무엇인지부터 잡고 시작합니다. 1절과 2절은 도구를 만드는 시간입니다. 알고리즘의 비용을 비교하는 기준인 빅오 표기법을 배우고, 재귀라는 사고 방식을 익힙니다.</p>
 <p>3절부터 5절까지가 그 도구를 쓰는 시간입니다. 탐색, 정렬, 수치 계산 세 가지 영역에서 같은 질문을 반복합니다. “이 구현이 맞는가”, “이 구현이 얼마나 드는가.”</p>
 <p>6절은 그 질문을 AI가 만들어 준 코드에 던지는 시간입니다. 사실 3절에서 하는 일과 6절에서 하는 일이 똑같습니다. 사람이 쓴 코드냐 기계가 쓴 코드냐만 다릅니다.</p>
 <p>표에서 3절과 6절을 짚으면서: 오늘 가장 중요한 두 절이 여기입니다.</p>
@@ -304,15 +294,16 @@
       }</style></aside>
 </section>
 <section>
-<section id="알고리즘과-계산-비용" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
-<h1>1 · 알고리즘과 계산 비용</h1>
+<section id="알고리즘과-계산-비용" class="title-slide slide level1 section-title">
+<h1><span class="secno">1</span> 알고리즘과 계산 비용</h1>
 <div class="columns">
 <div class="column" style="width:54%;">
-<p><strong>비용을 재는 언어</strong>를 만드는 절</p>
-<p>같은 결과를 내는 코드가 왜 다른 값을 요구하는지, 그 차이를 무엇으로 재는지 정한다</p>
+<p><strong>알고리즘 = 약속된 절차</strong> — 일상의 예에서 출발해 <strong>비용을 비교하는 기준</strong>을 세우는 절</p>
+<p>결과가 같은 두 코드가 서로 다른 수행 시간·메모리를 요구하는 이유와 그 차이를 비교하는 방법</p>
 </div><div class="column" style="width:46%;">
 <p><span class="label">이 절에서</span></p>
 <ul>
+<li>일상 속 알고리즘 — 전화번호부, 청소 로봇</li>
 <li>알고리즘의 다섯 조건</li>
 <li>비용 = 수행 시간 + 메모리</li>
 <li>시간 복잡도 · 공간 복잡도</li>
@@ -324,7 +315,7 @@
 <p><strong>이 절이 답하는 질문</strong> — 같은 결과를 내는 두 코드 중 <strong>어느 쪽을 골라야 하는가</strong>?</p>
 </div>
 <aside class="notes">
-<p>첫 번째 절입니다. 비용이라는 말을 정확하게 정의하는 것부터 시작하겠습니다.</p>
+<p>첫 번째 절입니다. 알고리즘이라는 말부터 일상의 예로 풀고, 그다음에 비용이라는 말을 정확하게 정의하겠습니다.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -337,8 +328,215 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="알고리즘이라-부르려면" class="slide level2 smaller">
-<h2>알고리즘이라 부르려면</h2>
+<section id="전화번호부에서-이아무개-찾기" class="slide level2">
+<h2><span class="secno">1.1</span> 전화번호부에서 ‘이아무개’ 찾기</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">방법 A · 한 쪽씩 넘기기</span></p>
+<ol type="1">
+<li>첫 쪽 펼치기</li>
+<li>찾는 이름이 있으면 멈춤</li>
+<li>없으면 다음 쪽으로 넘기고 2로</li>
+</ol>
+<p>1,000쪽이면 최악 <strong>1,000번</strong> 확인</p>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-slide">방법 B · 가운데 펼치기</span></p>
+<ol type="1">
+<li>남은 부분의 가운데 펼치기</li>
+<li>찾는 이름이 있으면 멈춤</li>
+<li>’이’보다 앞 이름이면 뒤쪽 절반만, 뒤 이름이면 앞쪽 절반만 남기고 1로</li>
+</ol>
+<p>1,000쪽이면 최대 <strong>10번</strong> 펼침</p>
+</div></div>
+<div class="keypoint teal">
+<p>두 방법 모두 <strong>같은 결과</strong>, 드는 <strong>수고는 다름</strong><br> 방법 B 는 이름이 <strong>가나다순으로 정렬</strong>되어 있다는 약속이 있어야 가능 → 3절 이진 탐색</p>
+</div>
+<aside class="notes">
+<p>본론에 들어가기 전에 알고리즘이라는 말부터 풀어 보겠습니다. 어렵게 들리지만, 여러분은 매일 알고리즘을 실행하고 있습니다.</p>
+<p>전화번호부 본 적 있으세요? 스마트폰 이전에는 집집마다 이렇게 두꺼운 책이 있었습니다. 이름이 가나다순으로 인쇄돼 있고요. 여기서 ’이아무개’를 찾는다고 해 봅시다.</p>
+<p>방법 A는 첫 쪽부터 한 쪽씩 넘기는 겁니다. 언젠가는 찾습니다. 다만 1,000쪽짜리라면 운이 나쁘면 1,000쪽을 다 봐야 합니다.</p>
+<p>방법 B는 가운데를 펼치는 겁니다. 펼친 쪽에 ’박’씨가 나오면, ’이’는 그보다 뒤에 있으니까 앞쪽 절반은 볼 필요가 없지요. 남은 뒤쪽 절반의 가운데를 또 펼칩니다. 이렇게 하면 1,000쪽이라도 열 번 안쪽에서 끝납니다.</p>
+<p>두 가지를 기억하세요. 첫째, 두 방법 모두 결과는 같습니다. 다른 건 드는 수고입니다. 오늘 1절 전체가 이 수고를 재는 이야기입니다.</p>
+<p>둘째, 방법 B는 아무 책에서나 되는 게 아닙니다. 이름이 가나다순으로 정렬돼 있다는 약속이 있어야 합니다. 동아리 가입 순서대로 적은 명단이라면 방법 B는 못 씁니다. 3절 이진 탐색에서 똑같은 조건이 다시 나옵니다.</p>
+<p>덧붙이면, 여러분은 실제로는 정확히 가운데가 아니라 ’ㅇ’이 있을 만한 뒤쪽을 짐작해서 펴실 겁니다. 그것도 알고리즘입니다. 보간 탐색이라는 이름도 있습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>전화번호부가 <strong>10,000쪽</strong>이면 방법 B 는 최대 몇 번 펼쳐야 하는가?</p>
+<div class="options">
+<div>
+<p><strong>A</strong> 약 5,000번</p>
+</div>
+<div>
+<p><strong>B</strong> 약 100번</p>
+</div>
+<div>
+<p><strong>C</strong> 약 14번</p>
+</div>
+</div>
+<div class="why">
+<p>힌트 — 한 번 펼칠 때마다 남은 쪽수가 <strong>절반</strong>으로 줄어듦</p>
+</div>
+<aside class="notes">
+<p>1,000쪽일 때 방법 B는 열 번이었습니다. 그럼 쪽수가 열 배, 10,000쪽이면 몇 번일까요?</p>
+<p>A, B, C 중에 골라서 적으세요. 30초 드리겠습니다.</p>
+<p>(30초 후) 손 들어 볼까요. A? B? C? 확인해 보겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="절반씩-줄이면-몇-번-만에-끝나는가" class="slide level2">
+<h2><span class="secno">1.1</span> 절반씩 줄이면 몇 번 만에 끝나는가</h2>
+<div class="columns">
+<div class="column" style="width:56%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a>half_count <span class="ot">&lt;-</span> <span class="cf">function</span>(pages) {</span>
+<span id="cb1-2"><a href="" aria-hidden="true" tabindex="-1"></a>  count <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb1-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (pages <span class="sc">&gt;</span> <span class="dv">1</span>) {</span>
+<span id="cb1-4"><a href="" aria-hidden="true" tabindex="-1"></a>    pages <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(pages <span class="sc">/</span> <span class="dv">2</span>)   <span class="co"># 없는 쪽 절반을 버림</span></span>
+<span id="cb1-5"><a href="" aria-hidden="true" tabindex="-1"></a>    count <span class="ot">&lt;-</span> count <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb1-6"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-7"><a href="" aria-hidden="true" tabindex="-1"></a>  count</span>
+<span id="cb1-8"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(<span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">10000</span>, <span class="fl">1e6</span>), half_count)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10 14 20</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:44%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 36%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">쪽수</th>
+<th style="text-align: right;">방법 A</th>
+<th style="text-align: right;">방법 B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1,000</td>
+<td style="text-align: right;">1,000</td>
+<td style="text-align: right;"><strong>10</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10,000</td>
+<td style="text-align: right;">10,000</td>
+<td style="text-align: right;"><strong>14</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1,000,000</td>
+<td style="text-align: right;">1,000,000</td>
+<td style="text-align: right;"><strong>20</strong></td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<div class="keypoint teal">
+<p>쪽수가 <strong>10배</strong>가 되어도 방법 B 는 <strong>4번</strong>만 증가, 방법 A 는 쪽수에 <strong>정비례</strong> → 3절 이진 탐색, <span class="math inline">\(\mathcal{O}(\log n)\)</span></p>
+</div>
+<aside class="notes">
+<p>방법 B를 그대로 코드로 옮겼습니다. 한 번 펼칠 때마다 남은 쪽을 절반으로 줄이고, 한 쪽이 남으면 멈춥니다. while 문으로 쓰면 이렇게 됩니다.</p>
+<p>결과를 보세요. 1,000쪽이면 10번, 10,000쪽이면 14번, 100만 쪽이어도 20번입니다. 쪽수가 열 배가 되어도 네 번만 늘어납니다.</p>
+<p>방법 A는 어떨까요? 쪽수만큼, 그러니까 1,000번, 10,000번, 100만 번입니다. 이 차이를 오늘 뒤에서 빅오 표기법으로 정확하게 표현합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="청소-로봇에게-청소를-시키려면" class="slide level2">
+<h2><span class="secno">1.1</span> 청소 로봇에게 청소를 시키려면</h2>
+<div class="columns">
+<div class="column" style="width:44%;">
+<p><span class="label label-note">사람에게 하는 말</span></p>
+<p>“방을 깨끗이 청소해” — 로봇에게는 빈칸투성이</p>
+<ul>
+<li><strong>어디서</strong> 시작?</li>
+<li><strong>깨끗이</strong>의 기준?</li>
+<li><strong>언제</strong> 멈춤?</li>
+</ul>
+<p><span class="label label-slide">로봇에게 주는 약속된 절차</span></p>
+<ol type="1">
+<li>방을 칸으로 나누고 왼쪽 위에서 시작</li>
+<li>한 줄 끝까지 이동하며 청소</li>
+<li>줄 끝에서 아래로 한 칸, 방향 반대로</li>
+<li>마지막 칸을 청소하면 멈춤</li>
+</ol>
+</div><div class="column" style="width:56%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a>clean_room <span class="ot">&lt;-</span> <span class="cf">function</span>(n_row, n_col) {</span>
+<span id="cb3-2"><a href="" aria-hidden="true" tabindex="-1"></a>  visit <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>L, n_row, n_col)  <span class="co"># 청소 순서</span></span>
+<span id="cb3-3"><a href="" aria-hidden="true" tabindex="-1"></a>  step <span class="ot">&lt;-</span> <span class="dv">0</span>L</span>
+<span id="cb3-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n_row)) {          <span class="co"># 1. 한 줄씩</span></span>
+<span id="cb3-5"><a href="" aria-hidden="true" tabindex="-1"></a>    cols <span class="ot">&lt;-</span> <span class="fu">seq_len</span>(n_col)</span>
+<span id="cb3-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (i <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) cols <span class="ot">&lt;-</span> <span class="fu">rev</span>(cols) <span class="co"># 3. 방향 반대로</span></span>
+<span id="cb3-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> cols) {                  <span class="co"># 2. 줄 끝까지</span></span>
+<span id="cb3-8"><a href="" aria-hidden="true" tabindex="-1"></a>      step <span class="ot">&lt;-</span> step <span class="sc">+</span> <span class="dv">1</span>L</span>
+<span id="cb3-9"><a href="" aria-hidden="true" tabindex="-1"></a>      visit[i, j] <span class="ot">&lt;-</span> step</span>
+<span id="cb3-10"><a href="" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-11"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-12"><a href="" aria-hidden="true" tabindex="-1"></a>  visit                                <span class="co"># 4. 멈춤</span></span>
+<span id="cb3-13"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-14"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_room</span>(<span class="dv">4</span>, <span class="dv">6</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4] [,5] [,6]
+[1,]    1    2    3    4    5    6
+[2,]   12   11   10    9    8    7
+[3,]   13   14   15   16   17   18
+[4,]   24   23   22   21   20   19</code></pre>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<p>두 번째 예입니다. 청소 로봇을 샀다고 해 봅시다. 사람한테는 “방 좀 깨끗이 치워”면 충분하지요. 그런데 로봇한테 이 말은 절차가 아닙니다.</p>
+<p>어디서 시작하나요? 깨끗이는 어느 정도인가요? 언제 멈추나요? 사람은 이 빈칸을 상식으로 채웁니다. 로봇은 못 채웁니다. 그래서 빈칸 없이 약속된 절차가 필요합니다.</p>
+<p>왼쪽 아래 네 단계가 그 절차입니다. 방을 칸으로 나누고, 한 줄씩 지그재그로 갑니다. 잔디 깎는 기계가 움직이는 방식이에요.</p>
+<p>오른쪽은 그 네 단계를 R로 옮긴 겁니다. 주석의 번호가 왼쪽 단계 번호와 같습니다. 반복문 두 개와 if 하나면 됩니다. 결과 행렬의 숫자가 각 칸을 몇 번째로 청소했는지입니다. 둘째 줄은 오른쪽 끝에서 7번으로 시작해서 왼쪽으로 갑니다.</p>
+<p>한 가지 물어볼게요. 이 방 한가운데에 소파가 있으면 어떻게 될까요? 잠깐 생각해 보세요. 답은 다음 슬라이드에서 이야기합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="알고리즘이라-부르려면" class="slide level2">
+<h2><span class="secno">1.1</span> 알고리즘이라 부르려면</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -348,47 +546,97 @@
 <p><strong>노트</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>알고리즘(algorithm)</strong> — 주어진 문제를 해결하기 위해 정해진 일련의 절차를 단계적으로 표현한 것</p>
+<p><strong>알고리즘(algorithm)</strong> — 문제를 해결하기 위해 <strong>약속된 일련의 절차</strong> · 누가 실행해도 같은 결과</p>
 </div>
 </div>
 </div>
-<div class="columns">
-<div class="column" style="width:52%;">
-<ul>
-<li><strong>명확성</strong> — 각 단계가 모호하지 않음</li>
-<li><strong>유일성</strong> — 다음 단계가 하나로 결정됨</li>
-<li><strong>입력과 출력</strong> — 정의된 입력을 받아 결과 산출</li>
-<li><strong>유한성</strong> — 유한한 단계 뒤 반드시 종료</li>
-<li><strong>일반성</strong> — 정의된 입력 <strong>전체</strong>에 대해 동작</li>
-</ul>
-</div><div class="column" style="width:48%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 35%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">조건</th>
+<th style="text-align: left;">뜻</th>
+<th style="text-align: left;">청소 로봇에서</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>명확성</strong></td>
+<td style="text-align: left;">각 단계가 모호하지 않음</td>
+<td style="text-align: left;">“깨끗이” 대신 “모든 칸을 한 번씩”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>유일성</strong></td>
+<td style="text-align: left;">다음 단계가 하나로 결정됨</td>
+<td style="text-align: left;">줄 끝에서는 “아래로 한 칸, 방향 반대로”뿐</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>입력과 출력</strong></td>
+<td style="text-align: left;">정의된 입력을 받아 결과 산출</td>
+<td style="text-align: left;">가로·세로 칸 수 → 칸별 청소 순서</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>유한성</strong></td>
+<td style="text-align: left;">유한한 단계 뒤 반드시 종료</td>
+<td style="text-align: left;">가로 × 세로 번 이동 후 종료</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>일반성</strong></td>
+<td style="text-align: left;">정의된 입력 <strong>전체</strong>에 대해 동작</td>
+<td style="text-align: left;">크기가 다른 방은 가능, <strong>가구 놓인 방</strong>은?</td>
+</tr>
+</tbody>
+</table>
 <div class="keypoint">
-<p>실제 구현에서 가장 자주 깨지는 조건 — <strong>유한성</strong>, <strong>일반성</strong></p>
-<p>“내 예제에서 동작” ≠ “정의된 입력 전체에서 동작”</p>
+<p>실제 구현에서 가장 자주 깨지는 조건 — <strong>유한성</strong>, <strong>일반성</strong><br> “내 예제에서 동작” ≠ “정의된 입력 전체에서 동작”</p>
 </div>
-</div></div>
+<aside class="notes">
+<p>방금 청소 로봇으로 해 본 것을 정식 용어로 정리하겠습니다.</p>
+<p>알고리즘은 약속된 절차입니다. ’약속’이 핵심입니다. 누가 실행해도, 사람이든 로봇이든 컴퓨터든, 같은 결과가 나오도록 단계를 미리 정해 두는 겁니다.</p>
+<p>표의 오른쪽 칸이 방금 만든 청소 로봇입니다. 앞의 세 조건은 사실 당연한 이야기입니다. 애매하지 않아야 하고, 다음에 뭘 할지 정해져야 하고, 입력을 받아 출력을 내야 한다. 여기까지는 별로 어길 일이 없습니다.</p>
+<p>문제는 뒤의 두 개입니다. 유한성은 반드시 멈춰야 한다는 겁니다. “깨끗해질 때까지 청소해”라고 하면, 먼지 센서가 끝내 0이 안 나오는 한 로봇은 안 멈춥니다.</p>
+<p>일반성은 정의된 입력 <strong>전체</strong>에서 동작해야 한다는 겁니다. 우리 로봇은 크기가 다른 방에서는 잘 돕니다. 그런데 소파가 놓인 방은요? 우리 절차에는 가구라는 입력이 없습니다. 만든 사람이 떠올리지 못한 입력이지요. 코드에서도 똑같은 일이 일어납니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="코드에서-자주-깨지는-두-조건" class="slide level2">
+<h2><span class="secno">1.1</span> 코드에서 자주 깨지는 두 조건</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><span class="label label-note">유한성 위반 · 오늘 2절</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb1-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(n)     <span class="co"># n = 0 이면?</span></span>
-<span id="cb1-3"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">+</span> <span class="fu">recursive_sum</span>(n <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb1-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb5-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(n)     <span class="co"># n = 0 이면?</span></span>
+<span id="cb5-3"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">+</span> <span class="fu">recursive_sum</span>(n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb5-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>종료 조건을 <strong>지나쳐 내려가</strong> 멈추지 않음</p>
 </div><div class="column" style="width:50%;">
 <p><span class="label label-note">일반성 위반 · 오늘 3절</span></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a>rbinary_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec, minL, maxL) {</span>
-<span id="cb2-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (maxL <span class="sc">&lt;=</span> minL) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)   <span class="co"># 원소 1개면?</span></span>
-<span id="cb2-3"><a href="" aria-hidden="true" tabindex="-1"></a>  ...</span>
-<span id="cb2-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="" aria-hidden="true" tabindex="-1"></a>rbinary_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec, minL, maxL) {</span>
+<span id="cb6-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (maxL <span class="sc">&lt;=</span> minL) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)   <span class="co"># 원소 1개면?</span></span>
+<span id="cb6-3"><a href="" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb6-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>남은 원소를 <strong>보지 않고</strong> 탐색 종료 → 40% 실패</p>
 </div></div>
+<div class="keypoint teal">
+<p>청소 로봇의 “가구 놓인 방”과 같은 문제 — 코드를 만든 사람이 <strong>떠올리지 못한 입력</strong></p>
+</div>
 <aside class="notes">
-<p>알고리즘의 조건 다섯 가지입니다. 교과서마다 표현은 조금씩 다릅니다만, 대체로 이렇습니다.</p>
-<p>앞의 세 개는 사실 당연한 이야기입니다. 애매하지 않아야 하고, 다음에 뭘 할지 정해져야 하고, 입력을 받아 출력을 내야 한다. 여기까지는 별로 어길 일이 없습니다.</p>
-<p>문제는 뒤의 두 개입니다. 오른쪽 상자를 보세요.</p>
-<p>유한성. 반드시 멈춰야 한다. 오늘 재귀를 배울 텐데, 종료 조건 하나 잘못 쓰면 안 멈춥니다. 직접 보여 드리겠습니다.</p>
-<p>일반성. 정의된 입력 <strong>전체</strong>에 대해 동작해야 한다. 여기서 ’전체’에 강조를 두세요. 여러분이 코드를 짜고 나서 뭘 합니까? 예제 한두 개 돌려 보고 “됐다” 하지요. 그건 그 예제 한두 개에서 됐다는 뜻이지, 전체에서 된다는 뜻이 아닙니다.</p>
+<p>코드에서도 똑같습니다.</p>
+<p>왼쪽은 유한성 위반입니다. 1부터 n까지 더하는 재귀 함수인데, n이 0이면 종료 조건을 지나쳐 내려가서 멈추지 않습니다. 오늘 2절에서 직접 보여 드리겠습니다.</p>
+<p>오른쪽은 일반성 위반입니다. 여러분이 코드를 짜고 나서 뭘 합니까? 예제 한두 개 돌려 보고 “됐다” 하지요. 그건 그 예제 한두 개에서 됐다는 뜻이지, 전체에서 된다는 뜻이 아닙니다. 청소 로봇에게 소파 놓인 방이 그랬듯, 이 코드도 만든 사람이 떠올리지 못한 입력에서 틀립니다.</p>
 <p>오늘 이 문장을 세 번쯤 반복할 겁니다. 지금은 그냥 넘어가고, 3절에서 실제로 보여 드리겠습니다.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -402,8 +650,8 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="비용이란-무엇인가" class="slide level2 smaller">
-<h2>비용이란 무엇인가</h2>
+<section id="비용이란-무엇인가" class="slide level2">
+<h2><span class="secno">1.2</span> 비용이란 무엇인가</h2>
 <div class="keypoint">
 <p>이 수업에서 <strong>비용</strong> — 알고리즘이 요구하는 <strong>수행 시간</strong>과 <strong>메모리</strong></p>
 </div>
@@ -446,33 +694,33 @@
       }</style></aside>
 </section>
 <section id="결과가-같은-두-프로그램" class="slide level2">
-<h2>결과가 같은 두 프로그램</h2>
+<h2><span class="secno">1.2</span> 결과가 같은 두 프로그램</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><span class="label label-slide">프로그램 1 · 사전 할당</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a>prealloc_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb3-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
-<span id="cb3-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) {</span>
-<span id="cb3-4"><a href="" aria-hidden="true" tabindex="-1"></a>    x[i] <span class="ot">&lt;-</span> i</span>
-<span id="cb3-5"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb3-6"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
-<span id="cb3-7"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a>prealloc_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb7-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
+<span id="cb7-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) {</span>
+<span id="cb7-4"><a href="" aria-hidden="true" tabindex="-1"></a>    x[i] <span class="ot">&lt;-</span> i</span>
+<span id="cb7-5"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-6"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
+<span id="cb7-7"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <p><span class="label label-note">프로그램 2 · 이어 붙이기</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a>grow_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb4-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb4-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) {</span>
-<span id="cb4-4"><a href="" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, i)</span>
-<span id="cb4-5"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-6"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
-<span id="cb4-7"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="" aria-hidden="true" tabindex="-1"></a>grow_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb8-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb8-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) {</span>
+<span id="cb8-4"><a href="" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, i)</span>
+<span id="cb8-5"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-6"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
+<span id="cb8-7"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div></div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(<span class="fu">prealloc_vec</span>(<span class="dv">1000</span>), <span class="fu">as.numeric</span>(<span class="fu">grow_vec</span>(<span class="dv">1000</span>)))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(<span class="fu">prealloc_vec</span>(<span class="dv">1000</span>), <span class="fu">as.numeric</span>(<span class="fu">grow_vec</span>(<span class="dv">1000</span>)))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
@@ -495,22 +743,22 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="예측해-보자" class="slide level2 predict" data-background-color="#1F6F7A">
+<section id="예측해-보자-1" class="slide level2 predict">
 <h2>예측해 보자</h2>
 <p><code>n</code> 이 5만일 때 두 프로그램의 실행 시간 차이는?</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a>prealloc_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb7-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)               <span class="co"># 자리를 먼저 확보</span></span>
-<span id="cb7-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) x[i] <span class="ot">&lt;-</span> i</span>
-<span id="cb7-4"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
-<span id="cb7-5"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-hidden="true" tabindex="-1"></a>prealloc_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb11-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)               <span class="co"># 자리를 먼저 확보</span></span>
+<span id="cb11-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) x[i] <span class="ot">&lt;-</span> i</span>
+<span id="cb11-4"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
+<span id="cb11-5"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div><div class="column" style="width:50%;">
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="" aria-hidden="true" tabindex="-1"></a>grow_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb8-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb8-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, i)   <span class="co"># 이어 붙이기</span></span>
-<span id="cb8-4"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
-<span id="cb8-5"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="" aria-hidden="true" tabindex="-1"></a>grow_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb12-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb12-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) x <span class="ot">&lt;-</span> <span class="fu">c</span>(x, i)   <span class="co"># 이어 붙이기</span></span>
+<span id="cb12-4"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
+<span id="cb12-5"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div></div>
 <div class="options">
 <div>
@@ -544,21 +792,21 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="실행과-대조" class="slide level2 smaller">
-<h2>실행과 대조</h2>
+<section id="실행과-대조" class="slide level2">
+<h2><span class="secno">1.2</span> 실행과 대조</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50000</span></span>
-<span id="cb9-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb9-3"><a href="" aria-hidden="true" tabindex="-1"></a>  방식 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"사전 할당"</span>, <span class="st">"이어 붙이기"</span>),</span>
-<span id="cb9-4"><a href="" aria-hidden="true" tabindex="-1"></a>  초 <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">system.time</span>(<span class="fu">prealloc_vec</span>(n))[[<span class="st">"elapsed"</span>]],</span>
-<span id="cb9-5"><a href="" aria-hidden="true" tabindex="-1"></a>         <span class="fu">system.time</span>(<span class="fu">grow_vec</span>(n))[[<span class="st">"elapsed"</span>]])</span>
-<span id="cb9-6"><a href="" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50000</span></span>
+<span id="cb13-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb13-3"><a href="" aria-hidden="true" tabindex="-1"></a>  방식 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"사전 할당"</span>, <span class="st">"이어 붙이기"</span>),</span>
+<span id="cb13-4"><a href="" aria-hidden="true" tabindex="-1"></a>  초 <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">system.time</span>(<span class="fu">prealloc_vec</span>(n))[[<span class="st">"elapsed"</span>]],</span>
+<span id="cb13-5"><a href="" aria-hidden="true" tabindex="-1"></a>         <span class="fu">system.time</span>(<span class="fu">grow_vec</span>(n))[[<span class="st">"elapsed"</span>]])</span>
+<span id="cb13-6"><a href="" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
-<pre><code>         방식  초
-1   사전 할당 0.0
-2 이어 붙이기 2.4</code></pre>
+<pre><code>         방식    초
+1   사전 할당 0.003
+2 이어 붙이기 3.168</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -588,8 +836,8 @@
       }</style></aside>
 </div>
 </section>
-<section id="시간-복잡도와-공간-복잡도" class="slide level2 smaller">
-<h2>시간 복잡도와 공간 복잡도</h2>
+<section id="시간-복잡도와-공간-복잡도" class="slide level2">
+<h2><span class="secno">1.3</span> 시간 복잡도와 공간 복잡도</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="callout callout-note callout-titled callout-style-default">
@@ -672,8 +920,8 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="빅오-표기법" class="slide level2 smaller">
-<h2>빅오 표기법</h2>
+<section id="빅오-표기법" class="slide level2">
+<h2><span class="secno">1.4</span> 빅오 표기법</h2>
 <div class="columns">
 <div class="column" style="width:54%;">
 <div class="callout callout-note callout-titled callout-style-default">
@@ -721,8 +969,8 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="실제로-쓰는-것은-세-규칙" class="slide level2 smaller">
-<h2>실제로 쓰는 것은 세 규칙</h2>
+<section id="실제로-쓰는-것은-세-규칙" class="slide level2 dense">
+<h2><span class="secno">1.4</span> 실제로 쓰는 것은 세 규칙</h2>
 <div class="columns">
 <div class="column" style="width:33%;">
 <p><span class="label label-note">규칙 1 · 계수 법칙</span></p>
@@ -741,23 +989,21 @@
 </div></div>
 <div class="columns">
 <div class="column" style="width:62%;">
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-hidden="true" tabindex="-1"></a>case1 <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {              <span class="co"># (가)</span></span>
-<span id="cb11-2"><a href="" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="dv">0</span>; <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) s <span class="ot">&lt;-</span> s <span class="sc">+</span> i; s</span>
-<span id="cb11-3"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-4"><a href="" aria-hidden="true" tabindex="-1"></a>case2 <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {              <span class="co"># (나)</span></span>
-<span id="cb11-5"><a href="" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="dv">0</span>; <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="dv">5</span> <span class="sc">*</span> n)) s <span class="ot">&lt;-</span> s <span class="sc">+</span> i; s</span>
-<span id="cb11-6"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-7"><a href="" aria-hidden="true" tabindex="-1"></a>case3 <span class="ot">&lt;-</span> <span class="cf">function</span>(n, m) {           <span class="co"># (다)</span></span>
-<span id="cb11-8"><a href="" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb11-9"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) s <span class="ot">&lt;-</span> s <span class="sc">+</span> i</span>
-<span id="cb11-10"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_len</span>(m)) s <span class="ot">&lt;-</span> s <span class="sc">+</span> j</span>
-<span id="cb11-11"><a href="" aria-hidden="true" tabindex="-1"></a>  s</span>
-<span id="cb11-12"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-13"><a href="" aria-hidden="true" tabindex="-1"></a>case4 <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {              <span class="co"># (라)</span></span>
-<span id="cb11-14"><a href="" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb11-15"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) <span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_len</span>(n)) s <span class="ot">&lt;-</span> s <span class="sc">+</span> j</span>
-<span id="cb11-16"><a href="" aria-hidden="true" tabindex="-1"></a>  s</span>
-<span id="cb11-17"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="" aria-hidden="true" tabindex="-1"></a>case1 <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {              <span class="co"># (가)</span></span>
+<span id="cb15-2"><a href="" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="dv">0</span>; <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) s <span class="ot">&lt;-</span> s <span class="sc">+</span> i; s</span>
+<span id="cb15-3"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-4"><a href="" aria-hidden="true" tabindex="-1"></a>case2 <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {              <span class="co"># (나)</span></span>
+<span id="cb15-5"><a href="" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="dv">0</span>; <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="dv">5</span> <span class="sc">*</span> n)) s <span class="ot">&lt;-</span> s <span class="sc">+</span> i; s</span>
+<span id="cb15-6"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-7"><a href="" aria-hidden="true" tabindex="-1"></a>case3 <span class="ot">&lt;-</span> <span class="cf">function</span>(n, m) {           <span class="co"># (다)</span></span>
+<span id="cb15-8"><a href="" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb15-9"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) s <span class="ot">&lt;-</span> s <span class="sc">+</span> i</span>
+<span id="cb15-10"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_len</span>(m)) s <span class="ot">&lt;-</span> s <span class="sc">+</span> j</span>
+<span id="cb15-11"><a href="" aria-hidden="true" tabindex="-1"></a>  s</span>
+<span id="cb15-12"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-13"><a href="" aria-hidden="true" tabindex="-1"></a>case4 <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {              <span class="co"># (라)</span></span>
+<span id="cb15-14"><a href="" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="dv">0</span>; <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) <span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_len</span>(n)) s <span class="ot">&lt;-</span> s <span class="sc">+</span> j; s</span>
+<span id="cb15-15"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div><div class="column" style="width:38%;">
 <div class="keypoint">
 <p><strong>(가)</strong> <span class="math inline">\(\mathcal{O}(n)\)</span></p>
@@ -785,8 +1031,8 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="차수가-다르면-무엇이-달라지는가" class="slide level2 smaller">
-<h2>차수가 다르면 무엇이 달라지는가</h2>
+<section id="차수가-다르면-무엇이-달라지는가" class="slide level2">
+<h2><span class="secno">1.4</span> 차수가 다르면 무엇이 달라지는가</h2>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top">
@@ -842,10 +1088,12 @@
 </table>
 </div>
 </div>
+<div class="columns">
+<div class="column" style="width:58%;">
 <table class="caption-top">
 <colgroup>
-<col style="width: 22%">
-<col style="width: 78%">
+<col style="width: 24%">
+<col style="width: 76%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -880,16 +1128,13 @@
 </tr>
 </tbody>
 </table>
-<div class="columns">
-<div class="column" style="width:34%;">
+</div><div class="column" style="width:42%;">
 <div class="keypoint teal">
 <p><span class="math inline">\(n = 1{,}000\)</span> — <span class="math inline">\(\mathcal{O}(n)\)</span> 대 <span class="math inline">\(\mathcal{O}(n^2)\)</span> <strong>천 배</strong></p>
 </div>
-</div><div class="column" style="width:34%;">
 <div class="keypoint teal">
 <p><span class="math inline">\(n = 10^6\)</span> · 초당 10억 연산 가정<br> <span class="math inline">\(\mathcal{O}(n\log n)\)</span> <strong>0.02초</strong> 대 <span class="math inline">\(\mathcal{O}(n^2)\)</span> <strong>약 17분</strong></p>
 </div>
-</div><div class="column" style="width:32%;">
 <div class="keypoint">
 <p><strong>차수가 다르면 하드웨어 성능 향상으로 해결되지 않음</strong></p>
 </div>
@@ -913,10 +1158,20 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="차수의-증가-양상" class="slide level2 smaller">
-<h2>차수의 증가 양상</h2>
-
-<img data-src="08-algorithms-slides_files/figure-revealjs/complexity-plot-1.png" width="1056" class="r-stretch"><div class="keypoint teal">
+<section id="차수의-증가-양상" class="slide level2">
+<h2><span class="secno">1.4</span> 차수의 증가 양상</h2>
+<div class="complexity-fig">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="08-algorithms-slides_files/figure-revealjs/complexity-plot-1.png" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="keypoint teal">
 <p><span class="math inline">\(n\)</span> 이 <strong>40</strong>밖에 안 되는 구간 — 이미 <span class="math inline">\(\mathcal{O}(n^2)\)</span> 만 화면 밖으로 나감</p>
 </div>
 <aside class="notes">
@@ -938,8 +1193,8 @@
       }</style></aside>
 </section></section>
 <section>
-<section id="재귀" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
-<h1>2 · 재귀</h1>
+<section id="재귀" class="title-slide slide level1 section-title">
+<h1><span class="secno">2</span> 재귀</h1>
 <div class="columns">
 <div class="column" style="width:54%;">
 <p>문제를 <strong>같은 모양의 작은 문제</strong>로 환원하는 사고 방식</p>
@@ -971,8 +1226,8 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="함수-호출과-재귀-호출" class="slide level2 smaller">
-<h2>함수 호출과 재귀 호출</h2>
+<section id="함수-호출과-재귀-호출" class="slide level2">
+<h2><span class="secno">2</span> 함수 호출과 재귀 호출</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><span class="label label-note">일반 함수 호출</span></p>
@@ -1004,8 +1259,8 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="재귀-함수의-구성" class="slide level2 smaller">
-<h2>재귀 함수의 구성</h2>
+<section id="재귀-함수의-구성" class="slide level2">
+<h2><span class="secno">2.1</span> 재귀 함수의 구성</h2>
 <div class="columns">
 <div class="column" style="width:46%;">
 <ol type="1">
@@ -1013,11 +1268,11 @@
 <li><strong>재귀 단계(recursive step)</strong><br> 문제 크기를 줄여 자기 자신 호출</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb12-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(n)     <span class="co"># 종료 조건</span></span>
-<span id="cb12-3"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">+</span> <span class="fu">recursive_sum</span>(n <span class="sc">-</span> <span class="dv">1</span>)  <span class="co"># 재귀 단계</span></span>
-<span id="cb12-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb12-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">recursive_sum</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb16-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(n)     <span class="co"># 종료 조건</span></span>
+<span id="cb16-3"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">+</span> <span class="fu">recursive_sum</span>(n <span class="sc">-</span> <span class="dv">1</span>)  <span class="co"># 재귀 단계</span></span>
+<span id="cb16-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">recursive_sum</span>(<span class="dv">3</span>)</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
@@ -1050,17 +1305,17 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="예측해-보자-1" class="slide level2 predict" data-background-color="#1F6F7A">
+<section id="예측해-보자-2" class="slide level2 predict">
 <h2>예측해 보자</h2>
 <p><code>recursive_sum(0)</code> 의 반환값은?</p>
 <div class="columns">
 <div class="column" style="width:52%;">
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb14-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(n)     <span class="co"># 종료 조건</span></span>
-<span id="cb14-3"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">+</span> <span class="fu">recursive_sum</span>(n <span class="sc">-</span> <span class="dv">1</span>)  <span class="co"># 재귀 단계</span></span>
-<span id="cb14-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-5"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">recursive_sum</span>(<span class="dv">3</span>)   <span class="co"># 6  — 정상 동작</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb18-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(n)     <span class="co"># 종료 조건</span></span>
+<span id="cb18-3"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">+</span> <span class="fu">recursive_sum</span>(n <span class="sc">-</span> <span class="dv">1</span>)  <span class="co"># 재귀 단계</span></span>
+<span id="cb18-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-5"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">recursive_sum</span>(<span class="dv">3</span>)   <span class="co"># 6  — 정상 동작</span></span></code></pre></div>
 </div><div class="column" style="width:48%;">
 <div class="options">
 <div>
@@ -1095,11 +1350,11 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="종료-조건의-한계" class="slide level2 smaller">
-<h2>종료 조건의 한계</h2>
+<section id="종료-조건의-한계" class="slide level2">
+<h2><span class="secno">2.2</span> 종료 조건의 한계</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">tryCatch</span>(<span class="fu">recursive_sum</span>(<span class="dv">0</span>),</span>
-<span id="cb15-2"><a href="" aria-hidden="true" tabindex="-1"></a>         <span class="at">error =</span> <span class="cf">function</span>(e) <span class="fu">cat</span>(<span class="st">"오류:"</span>, <span class="fu">conditionMessage</span>(e), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">tryCatch</span>(<span class="fu">recursive_sum</span>(<span class="dv">0</span>),</span>
+<span id="cb19-2"><a href="" aria-hidden="true" tabindex="-1"></a>         <span class="at">error =</span> <span class="cf">function</span>(e) <span class="fu">cat</span>(<span class="st">"오류:"</span>, <span class="fu">conditionMessage</span>(e), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -1115,11 +1370,11 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum2 <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb17-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;=</span> <span class="dv">1</span>) <span class="fu">return</span>(n)          <span class="co"># 경계 조건을 포함한다</span></span>
-<span id="cb17-3"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">+</span> <span class="fu">recursive_sum2</span>(n <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb17-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb17-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">recursive_sum2</span>(<span class="dv">0</span>), <span class="fu">recursive_sum2</span>(<span class="dv">1</span>), <span class="fu">recursive_sum2</span>(<span class="dv">100</span>))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="" aria-hidden="true" tabindex="-1"></a>recursive_sum2 <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb21-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;=</span> <span class="dv">1</span>) <span class="fu">return</span>(n)          <span class="co"># 경계 조건을 포함한다</span></span>
+<span id="cb21-3"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">+</span> <span class="fu">recursive_sum2</span>(n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb21-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">recursive_sum2</span>(<span class="dv">0</span>), <span class="fu">recursive_sum2</span>(<span class="dv">1</span>), <span class="fu">recursive_sum2</span>(<span class="dv">100</span>))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]    0    1 5050</code></pre>
 </div>
@@ -1150,17 +1405,17 @@
       }</style></aside>
 </div>
 </section>
-<section id="재귀의-비용" class="slide level2 smaller">
-<h2>재귀의 비용</h2>
+<section id="재귀의-비용" class="slide level2">
+<h2><span class="secno">2.2</span> 재귀의 비용</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">recursive_sum2</span>(<span class="dv">1000</span>)                     <span class="co"># 정상적으로 동작한다</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">recursive_sum2</span>(<span class="dv">1000</span>)                     <span class="co"># 정상적으로 동작한다</span></span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 500500</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">tryCatch</span>(<span class="fu">recursive_sum2</span>(<span class="dv">5000</span>),           <span class="co"># 중첩 한계</span></span>
-<span id="cb21-2"><a href="" aria-hidden="true" tabindex="-1"></a>         <span class="at">error =</span> <span class="cf">function</span>(e) <span class="fu">cat</span>(<span class="st">"오류:"</span>, <span class="fu">conditionMessage</span>(e), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">tryCatch</span>(<span class="fu">recursive_sum2</span>(<span class="dv">5000</span>),           <span class="co"># 중첩 한계</span></span>
+<span id="cb25-2"><a href="" aria-hidden="true" tabindex="-1"></a>         <span class="at">error =</span> <span class="cf">function</span>(e) <span class="fu">cat</span>(<span class="st">"오류:"</span>, <span class="fu">conditionMessage</span>(e), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>오류: evaluation nested too deeply: infinite recursion / options(expressions=)? </code></pre>
 </div>
@@ -1207,8 +1462,8 @@
       }</style></aside>
 </div>
 </section>
-<section id="하노이-탑" class="slide level2 smaller">
-<h2>하노이 탑</h2>
+<section id="하노이-탑" class="slide level2">
+<h2><span class="secno">2.4</span> 하노이 탑</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><img data-src="../figures/hanoi-problem.gif" style="width:100.0%"></p>
@@ -1249,19 +1504,21 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="하노이-탑-구현" class="slide level2 smaller">
-<h2>하노이 탑 구현</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="" aria-hidden="true" tabindex="-1"></a>move_hanoi <span class="ot">&lt;-</span> <span class="cf">function</span>(k, from, to, via) {</span>
-<span id="cb23-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (k <span class="sc">==</span> <span class="dv">1</span>) {</span>
-<span id="cb23-3"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"원판 1: %s -&gt; %s</span><span class="sc">\n</span><span class="st">"</span>, from, to))</span>
-<span id="cb23-4"><a href="" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb23-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, from, via, to)                    <span class="co"># 1. 위쪽 n-1 개</span></span>
-<span id="cb23-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"원판 %d: %s -&gt; %s</span><span class="sc">\n</span><span class="st">"</span>, k, from, to))     <span class="co"># 2. 가장 큰 원판</span></span>
-<span id="cb23-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, via, to, from)                    <span class="co"># 3. 나머지 n-1 개</span></span>
-<span id="cb23-8"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb23-9"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb23-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">move_hanoi</span>(<span class="dv">3</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"B"</span>)</span></code></pre></div>
+<section id="하노이-탑-구현" class="slide level2">
+<h2><span class="secno">2.4</span> 하노이 탑 구현</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="" aria-hidden="true" tabindex="-1"></a>move_hanoi <span class="ot">&lt;-</span> <span class="cf">function</span>(k, from, to, via) {</span>
+<span id="cb27-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (k <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb27-3"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"원판 1: %s -&gt; %s</span><span class="sc">\n</span><span class="st">"</span>, from, to))</span>
+<span id="cb27-4"><a href="" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb27-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, from, via, to)                    <span class="co"># 1. 위쪽 n-1 개</span></span>
+<span id="cb27-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"원판 %d: %s -&gt; %s</span><span class="sc">\n</span><span class="st">"</span>, k, from, to))     <span class="co"># 2. 가장 큰 원판</span></span>
+<span id="cb27-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">move_hanoi</span>(k <span class="sc">-</span> <span class="dv">1</span>, via, to, from)                    <span class="co"># 3. 나머지 n-1 개</span></span>
+<span id="cb27-8"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb27-9"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb27-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">move_hanoi</span>(<span class="dv">3</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"B"</span>)</span></code></pre></div>
+</div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code>원판 1: A -&gt; C
 원판 2: A -&gt; B
@@ -1271,7 +1528,7 @@
 원판 2: B -&gt; C
 원판 1: A -&gt; C</code></pre>
 </div>
-</div>
+</div></div>
 <div class="keypoint">
 <p>이동 횟수 <span class="math inline">\(2^n - 1\)</span> — 호출이 매 단계 두 개로 분기 → <span class="math inline">\(\mathcal{O}(2^n)\)</span><br> 원판 64개 = 1초에 하나씩 옮겨도 <strong>5천억 년</strong> 초과</p>
 </div>
@@ -1296,8 +1553,8 @@
       }</style></aside>
 </section></section>
 <section>
-<section id="탐색-알고리즘" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
-<h1>3 · 탐색 알고리즘</h1>
+<section id="탐색-알고리즘" class="title-slide slide level1 section-title">
+<h1><span class="secno">3</span> 탐색 알고리즘</h1>
 <div class="columns">
 <div class="column" style="width:54%;">
 <p><strong>오늘 가장 중요한 절</strong></p>
@@ -1328,45 +1585,54 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="선형-탐색과-이진-탐색" class="slide level2 smaller">
-<h2>선형 탐색과 이진 탐색</h2>
+<section id="선형-탐색과-이진-탐색" class="slide level2">
+<h2><span class="secno">3.1–3.2</span> 선형 탐색과 이진 탐색</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><span class="label label-note">선형 탐색 · <span class="math inline">\(\mathcal{O}(n)\)</span></span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="" aria-hidden="true" tabindex="-1"></a>linear_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, vec) {</span>
-<span id="cb25-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(vec)) {</span>
-<span id="cb25-3"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> target) <span class="fu">return</span>(i)</span>
-<span id="cb25-4"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb25-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA_integer_</span></span>
-<span id="cb25-6"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="" aria-hidden="true" tabindex="-1"></a>linear_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, vec) {</span>
+<span id="cb29-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(vec)) {</span>
+<span id="cb29-3"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (vec[i] <span class="sc">==</span> target) <span class="fu">return</span>(i)</span>
+<span id="cb29-4"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA_integer_</span></span>
+<span id="cb29-6"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
+<div class="columns">
+<div class="column" style="width:42%;">
 <ul>
 <li>첫 원소부터 <strong>순차 비교</strong></li>
 <li>정렬 불필요</li>
 <li>최악의 경우 <span class="math inline">\(n\)</span> 회 비교</li>
 </ul>
+</div><div class="column" style="width:58%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://blog.penjee.com/wp-content/uploads/2015/04/binary-and-linear-search-animations.gif" style="width:100.0%"></p>
+<figcaption>위 = 이진 탐색, 아래 = 선형 탐색</figcaption>
+</figure>
+</div>
+</div></div>
 </div><div class="column" style="width:50%;">
 <p><span class="label label-slide">이진 탐색 · <span class="math inline">\(\mathcal{O}(\log n)\)</span></span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="" aria-hidden="true" tabindex="-1"></a>binary_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec) {</span>
-<span id="cb26-2"><a href="" aria-hidden="true" tabindex="-1"></a>  lo <span class="ot">&lt;-</span> <span class="dv">1</span>L; hi <span class="ot">&lt;-</span> <span class="fu">length</span>(ovec)</span>
-<span id="cb26-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (lo <span class="sc">&lt;=</span> hi) {</span>
-<span id="cb26-4"><a href="" aria-hidden="true" tabindex="-1"></a>    mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span>L</span>
-<span id="cb26-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (ovec[mid] <span class="sc">==</span> target) <span class="fu">return</span>(mid)</span>
-<span id="cb26-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (ovec[mid] <span class="sc">&gt;</span> target) hi <span class="ot">&lt;-</span> mid <span class="sc">-</span> <span class="dv">1</span>L</span>
-<span id="cb26-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> lo <span class="ot">&lt;-</span> mid <span class="sc">+</span> <span class="dv">1</span>L</span>
-<span id="cb26-8"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb26-9"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA_integer_</span></span>
-<span id="cb26-10"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="" aria-hidden="true" tabindex="-1"></a>binary_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec) {</span>
+<span id="cb30-2"><a href="" aria-hidden="true" tabindex="-1"></a>  lo <span class="ot">&lt;-</span> <span class="dv">1</span>L; hi <span class="ot">&lt;-</span> <span class="fu">length</span>(ovec)</span>
+<span id="cb30-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (lo <span class="sc">&lt;=</span> hi) {</span>
+<span id="cb30-4"><a href="" aria-hidden="true" tabindex="-1"></a>    mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span>L</span>
+<span id="cb30-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (ovec[mid] <span class="sc">==</span> target) <span class="fu">return</span>(mid)</span>
+<span id="cb30-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (ovec[mid] <span class="sc">&gt;</span> target) hi <span class="ot">&lt;-</span> mid <span class="sc">-</span> <span class="dv">1</span>L</span>
+<span id="cb30-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> lo <span class="ot">&lt;-</span> mid <span class="sc">+</span> <span class="dv">1</span>L</span>
+<span id="cb30-8"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb30-9"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA_integer_</span></span>
+<span id="cb30-10"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <ul>
 <li>중앙값과 비교 후 <strong>절반 제외</strong></li>
 <li><strong>정렬 필수</strong></li>
 </ul>
 </div></div>
-
-<img data-src="https://blog.penjee.com/wp-content/uploads/2015/04/binary-and-linear-search-animations.gif" style="width:52.0%" class="r-stretch quarto-figure-center"><p class="caption">위 = 이진 탐색, 아래 = 선형 탐색</p><aside class="notes">
+<aside class="notes">
 <p>탐색 알고리즘 두 개입니다.</p>
 <p>왼쪽 선형 탐색. 앞에서부터 하나씩 봅니다. 단순하지요. 정렬 안 되어 있어도 씁니다. 최악의 경우가 언제입니까? 찾는 게 맨 뒤에 있거나, 아예 없을 때. n번 다 봐야 합니다.</p>
 <p>오른쪽 이진 탐색. 가운데를 먼저 봅니다. 찾는 값이 그보다 작으면 오른쪽 절반은 아예 안 봅니다. 크면 왼쪽 절반을 버립니다. 한 번 비교할 때마다 후보가 반으로 줄어요.</p>
@@ -1385,23 +1651,23 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="예측해-보자-2" class="slide level2 predict" data-background-color="#1F6F7A">
+<section id="예측해-보자-3" class="slide level2 predict">
 <h2>예측해 보자</h2>
 <p>아래 재귀 구현에 벡터의 <strong>모든 원소</strong>를 입력하면 몇 개나 정확히 찾아내는가?</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="" aria-hidden="true" tabindex="-1"></a>rbinary_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec, minL, maxL) {</span>
-<span id="cb27-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (maxL <span class="sc">&lt;=</span> minL) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)</span>
-<span id="cb27-3"><a href="" aria-hidden="true" tabindex="-1"></a>  midL <span class="ot">&lt;-</span> <span class="fu">floor</span>((minL <span class="sc">+</span> maxL) <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb27-4"><a href="" aria-hidden="true" tabindex="-1"></a>  ...</span>
-<span id="cb27-5"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="" aria-hidden="true" tabindex="-1"></a>rbinary_search <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec, minL, maxL) {</span>
+<span id="cb31-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (maxL <span class="sc">&lt;=</span> minL) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)</span>
+<span id="cb31-3"><a href="" aria-hidden="true" tabindex="-1"></a>  midL <span class="ot">&lt;-</span> <span class="fu">floor</span>((minL <span class="sc">+</span> maxL) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb31-4"><a href="" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb31-5"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div class="columns">
 <div class="column" style="width:46%;">
 <p><span class="label">검사 대상</span></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb28-2"><a href="" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">20</span>))</span>
-<span id="cb28-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 정렬된 서로 다른 20개</span></span>
-<span id="cb28-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(x))</span>
-<span id="cb28-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbinary_search</span>(x[i], x, <span class="dv">1</span>, <span class="fu">length</span>(x))</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb32-2"><a href="" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">20</span>))</span>
+<span id="cb32-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 정렬된 서로 다른 20개</span></span>
+<span id="cb32-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(x))</span>
+<span id="cb32-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbinary_search</span>(x[i], x, <span class="dv">1</span>, <span class="fu">length</span>(x))</span></code></pre></div>
 <p>모든 원소가 <strong>분명히 들어 있는</strong> 벡터</p>
 </div><div class="column" style="width:54%;">
 <div class="options">
@@ -1439,16 +1705,16 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="구현의-정확성-검증" class="slide level2 smaller">
-<h2>구현의 정확성 검증</h2>
+<section id="구현의-정확성-검증" class="slide level2">
+<h2><span class="secno">3.3</span> 구현의 정확성 검증</h2>
 <p><strong>전수 검사</strong> — 벡터의 모든 원소를 차례로 목표값으로 입력</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="" aria-hidden="true" tabindex="-1"></a>found <span class="ot">&lt;-</span> <span class="fu">vapply</span>(<span class="fu">seq_along</span>(x), <span class="cf">function</span>(i) {</span>
-<span id="cb29-2"><a href="" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">&lt;-</span> <span class="fu">rbinary_search</span>(x[i], x, <span class="dv">1</span>, <span class="fu">length</span>(x))</span>
-<span id="cb29-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(r)) <span class="cn">NA_integer_</span> <span class="cf">else</span> <span class="fu">as.integer</span>(r)</span>
-<span id="cb29-4"><a href="" aria-hidden="true" tabindex="-1"></a>}, <span class="fu">integer</span>(<span class="dv">1</span>))</span>
-<span id="cb29-5"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(전체 <span class="ot">=</span> <span class="fu">length</span>(x), 찾지_못함 <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(found)))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="" aria-hidden="true" tabindex="-1"></a>found <span class="ot">&lt;-</span> <span class="fu">vapply</span>(<span class="fu">seq_along</span>(x), <span class="cf">function</span>(i) {</span>
+<span id="cb33-2"><a href="" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">&lt;-</span> <span class="fu">rbinary_search</span>(x[i], x, <span class="dv">1</span>, <span class="fu">length</span>(x))</span>
+<span id="cb33-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(r)) <span class="cn">NA_integer_</span> <span class="cf">else</span> <span class="fu">as.integer</span>(r)</span>
+<span id="cb33-4"><a href="" aria-hidden="true" tabindex="-1"></a>}, <span class="fu">integer</span>(<span class="dv">1</span>))</span>
+<span id="cb33-5"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(전체 <span class="ot">=</span> <span class="fu">length</span>(x), 찾지_못함 <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(found)))</span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -1483,19 +1749,19 @@
       }</style></aside>
 </div>
 </section>
-<section id="오류-메시지-없이-틀린-코드" class="slide level2 smaller">
-<h2>오류 메시지 없이 틀린 코드</h2>
+<section id="오류-메시지-없이-틀린-코드" class="slide level2">
+<h2><span class="secno">3.3</span> 오류 메시지 없이 틀린 코드</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="" aria-hidden="true" tabindex="-1"></a>rbinary_search2 <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec, <span class="at">lo =</span> <span class="dv">1</span>L, <span class="at">hi =</span> <span class="fu">length</span>(ovec)) {</span>
-<span id="cb31-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (lo <span class="sc">&gt;</span> hi) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)          <span class="co"># 탐색 범위가 비었을 때만 종료</span></span>
-<span id="cb31-3"><a href="" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span>L</span>
-<span id="cb31-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (ovec[mid] <span class="sc">==</span> target) mid</span>
-<span id="cb31-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (ovec[mid] <span class="sc">&gt;</span> target) <span class="fu">rbinary_search2</span>(target, ovec, lo, mid <span class="sc">-</span> <span class="dv">1</span>L)</span>
-<span id="cb31-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">rbinary_search2</span>(target, ovec, mid <span class="sc">+</span> <span class="dv">1</span>L, hi)</span>
-<span id="cb31-7"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb31-8"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">vapply</span>(<span class="fu">seq_along</span>(x), <span class="cf">function</span>(i) <span class="fu">as.integer</span>(<span class="fu">rbinary_search2</span>(x[i], x)),</span>
-<span id="cb31-10"><a href="" aria-hidden="true" tabindex="-1"></a>           <span class="fu">integer</span>(<span class="dv">1</span>)) <span class="sc">==</span> <span class="fu">seq_along</span>(x))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="" aria-hidden="true" tabindex="-1"></a>rbinary_search2 <span class="ot">&lt;-</span> <span class="cf">function</span>(target, ovec, <span class="at">lo =</span> <span class="dv">1</span>L, <span class="at">hi =</span> <span class="fu">length</span>(ovec)) {</span>
+<span id="cb35-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (lo <span class="sc">&gt;</span> hi) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)          <span class="co"># 탐색 범위가 비었을 때만 종료</span></span>
+<span id="cb35-3"><a href="" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span>L</span>
+<span id="cb35-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (ovec[mid] <span class="sc">==</span> target) mid</span>
+<span id="cb35-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (ovec[mid] <span class="sc">&gt;</span> target) <span class="fu">rbinary_search2</span>(target, ovec, lo, mid <span class="sc">-</span> <span class="dv">1</span>L)</span>
+<span id="cb35-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">rbinary_search2</span>(target, ovec, mid <span class="sc">+</span> <span class="dv">1</span>L, hi)</span>
+<span id="cb35-7"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-8"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">vapply</span>(<span class="fu">seq_along</span>(x), <span class="cf">function</span>(i) <span class="fu">as.integer</span>(<span class="fu">rbinary_search2</span>(x[i], x)),</span>
+<span id="cb35-10"><a href="" aria-hidden="true" tabindex="-1"></a>           <span class="fu">integer</span>(<span class="dv">1</span>)) <span class="sc">==</span> <span class="fu">seq_along</span>(x))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
@@ -1525,8 +1791,8 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="두-탐색의-비용-비교" class="slide level2 smaller">
-<h2>두 탐색의 비용 비교</h2>
+<section id="두-탐색의-비용-비교" class="slide level2">
+<h2><span class="secno">3.4</span> 두 탐색의 비용 비교</h2>
 <p>실행 시간 대신 <strong>연산 횟수를 계수</strong> → 하드웨어 성능과 무관한 값</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -1597,8 +1863,8 @@
       }</style></aside>
 </section></section>
 <section>
-<section id="정렬-알고리즘" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
-<h1>4 · 정렬 알고리즘</h1>
+<section id="정렬-알고리즘" class="title-slide slide level1 section-title">
+<h1><span class="secno">4</span> 정렬 알고리즘</h1>
 <div class="columns">
 <div class="column" style="width:54%;">
 <p>차수가 <strong>서로 다른 두 가지</strong>만 비교</p>
@@ -1628,25 +1894,25 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="버블-정렬" class="slide level2 smaller">
-<h2>버블 정렬</h2>
+<section id="버블-정렬" class="slide level2">
+<h2><span class="secno">4.1</span> 버블 정렬</h2>
 <div class="columns">
 <div class="column" style="width:52%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="" aria-hidden="true" tabindex="-1"></a>bubble_sort <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb33-2"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb33-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;</span> <span class="dv">2</span>) <span class="fu">return</span>(x)</span>
-<span id="cb33-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n <span class="sc">-</span> <span class="dv">1</span>)) {</span>
-<span id="cb33-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_len</span>(n <span class="sc">-</span> i)) {</span>
-<span id="cb33-6"><a href="" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (x[j] <span class="sc">&gt;</span> x[j <span class="sc">+</span> <span class="dv">1</span>]) {</span>
-<span id="cb33-7"><a href="" aria-hidden="true" tabindex="-1"></a>        temp <span class="ot">&lt;-</span> x[j]</span>
-<span id="cb33-8"><a href="" aria-hidden="true" tabindex="-1"></a>        x[j] <span class="ot">&lt;-</span> x[j <span class="sc">+</span> <span class="dv">1</span>]</span>
-<span id="cb33-9"><a href="" aria-hidden="true" tabindex="-1"></a>        x[j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> temp</span>
-<span id="cb33-10"><a href="" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb33-11"><a href="" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb33-12"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb33-13"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
-<span id="cb33-14"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="" aria-hidden="true" tabindex="-1"></a>bubble_sort <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb37-2"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb37-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;</span> <span class="dv">2</span>) <span class="fu">return</span>(x)</span>
+<span id="cb37-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n <span class="sc">-</span> <span class="dv">1</span>)) {</span>
+<span id="cb37-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_len</span>(n <span class="sc">-</span> i)) {</span>
+<span id="cb37-6"><a href="" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (x[j] <span class="sc">&gt;</span> x[j <span class="sc">+</span> <span class="dv">1</span>]) {</span>
+<span id="cb37-7"><a href="" aria-hidden="true" tabindex="-1"></a>        temp <span class="ot">&lt;-</span> x[j]</span>
+<span id="cb37-8"><a href="" aria-hidden="true" tabindex="-1"></a>        x[j] <span class="ot">&lt;-</span> x[j <span class="sc">+</span> <span class="dv">1</span>]</span>
+<span id="cb37-9"><a href="" aria-hidden="true" tabindex="-1"></a>        x[j <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> temp</span>
+<span id="cb37-10"><a href="" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb37-11"><a href="" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb37-12"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb37-13"><a href="" aria-hidden="true" tabindex="-1"></a>  x</span>
+<span id="cb37-14"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div><div class="column" style="width:48%;">
 <p><img data-src="https://upload.wikimedia.org/wikipedia/commons/0/06/Bubble-sort.gif" style="width:72.0%"></p>
@@ -1676,30 +1942,30 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="병합-정렬" class="slide level2 smaller">
-<h2>병합 정렬</h2>
+<section id="병합-정렬" class="slide level2">
+<h2><span class="secno">4.2</span> 병합 정렬</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="" aria-hidden="true" tabindex="-1"></a>smerge <span class="ot">&lt;-</span> <span class="cf">function</span>(left, right) {</span>
-<span id="cb34-2"><a href="" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(left) <span class="sc">+</span> <span class="fu">length</span>(right))</span>
-<span id="cb34-3"><a href="" aria-hidden="true" tabindex="-1"></a>  l <span class="ot">&lt;-</span> r <span class="ot">&lt;-</span> <span class="dv">1</span>L</span>
-<span id="cb34-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(temp)) {</span>
-<span id="cb34-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (r <span class="sc">&gt;</span> <span class="fu">length</span>(right) <span class="sc">||</span></span>
-<span id="cb34-6"><a href="" aria-hidden="true" tabindex="-1"></a>        (l <span class="sc">&lt;=</span> <span class="fu">length</span>(left) <span class="sc">&amp;&amp;</span> left[l] <span class="sc">&lt;=</span> right[r])) {</span>
-<span id="cb34-7"><a href="" aria-hidden="true" tabindex="-1"></a>      temp[i] <span class="ot">&lt;-</span> left[l]; l <span class="ot">&lt;-</span> l <span class="sc">+</span> <span class="dv">1</span>L</span>
-<span id="cb34-8"><a href="" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb34-9"><a href="" aria-hidden="true" tabindex="-1"></a>      temp[i] <span class="ot">&lt;-</span> right[r]; r <span class="ot">&lt;-</span> r <span class="sc">+</span> <span class="dv">1</span>L</span>
-<span id="cb34-10"><a href="" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb34-11"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb34-12"><a href="" aria-hidden="true" tabindex="-1"></a>  temp</span>
-<span id="cb34-13"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb34-14"><a href="" aria-hidden="true" tabindex="-1"></a>merge_sort <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb34-15"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb34-16"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;=</span> <span class="dv">1</span>) <span class="fu">return</span>(x)                 <span class="co"># 종료 조건</span></span>
-<span id="cb34-17"><a href="" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> n <span class="sc">%/%</span> <span class="dv">2</span>L</span>
-<span id="cb34-18"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">smerge</span>(<span class="fu">merge_sort</span>(x[<span class="dv">1</span><span class="sc">:</span>mid]), <span class="fu">merge_sort</span>(x[(mid <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>n]))</span>
-<span id="cb34-19"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="" aria-hidden="true" tabindex="-1"></a>smerge <span class="ot">&lt;-</span> <span class="cf">function</span>(left, right) {</span>
+<span id="cb38-2"><a href="" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(left) <span class="sc">+</span> <span class="fu">length</span>(right))</span>
+<span id="cb38-3"><a href="" aria-hidden="true" tabindex="-1"></a>  l <span class="ot">&lt;-</span> r <span class="ot">&lt;-</span> <span class="dv">1</span>L</span>
+<span id="cb38-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(temp)) {</span>
+<span id="cb38-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (r <span class="sc">&gt;</span> <span class="fu">length</span>(right) <span class="sc">||</span></span>
+<span id="cb38-6"><a href="" aria-hidden="true" tabindex="-1"></a>        (l <span class="sc">&lt;=</span> <span class="fu">length</span>(left) <span class="sc">&amp;&amp;</span> left[l] <span class="sc">&lt;=</span> right[r])) {</span>
+<span id="cb38-7"><a href="" aria-hidden="true" tabindex="-1"></a>      temp[i] <span class="ot">&lt;-</span> left[l]; l <span class="ot">&lt;-</span> l <span class="sc">+</span> <span class="dv">1</span>L</span>
+<span id="cb38-8"><a href="" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb38-9"><a href="" aria-hidden="true" tabindex="-1"></a>      temp[i] <span class="ot">&lt;-</span> right[r]; r <span class="ot">&lt;-</span> r <span class="sc">+</span> <span class="dv">1</span>L</span>
+<span id="cb38-10"><a href="" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb38-11"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb38-12"><a href="" aria-hidden="true" tabindex="-1"></a>  temp</span>
+<span id="cb38-13"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-14"><a href="" aria-hidden="true" tabindex="-1"></a>merge_sort <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb38-15"><a href="" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb38-16"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">&lt;=</span> <span class="dv">1</span>) <span class="fu">return</span>(x)                 <span class="co"># 종료 조건</span></span>
+<span id="cb38-17"><a href="" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> n <span class="sc">%/%</span> <span class="dv">2</span>L</span>
+<span id="cb38-18"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">smerge</span>(<span class="fu">merge_sort</span>(x[<span class="dv">1</span><span class="sc">:</span>mid]), <span class="fu">merge_sort</span>(x[(mid <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>n]))</span>
+<span id="cb38-19"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div><div class="column" style="width:45%;">
 <p><img data-src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif" style="width:62.0%"></p>
@@ -1732,7 +1998,7 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="예측해-보자-3" class="slide level2 predict" data-background-color="#1F6F7A">
+<section id="예측해-보자-4" class="slide level2 predict">
 <h2>예측해 보자</h2>
 <p>원소 수를 <strong>두 배</strong>로 늘리면 각 정렬의 <strong>비교 횟수</strong>는 몇 배?</p>
 <div class="columns">
@@ -1775,8 +2041,8 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="비교-횟수는-이론값과-일치한다" class="slide level2 smaller">
-<h2>비교 횟수는 이론값과 일치한다</h2>
+<section id="비교-횟수는-이론값과-일치한다" class="slide level2">
+<h2><span class="secno">4.3</span> 비교 횟수는 이론값과 일치한다</h2>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top">
@@ -1831,18 +2097,18 @@
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">500</td>
-<td style="text-align: right;">0.02</td>
-<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.029</td>
+<td style="text-align: right;">0.016</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1,000</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.065</td>
+<td style="text-align: right;">0.008</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2,000</td>
-<td style="text-align: right;">0.17</td>
-<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.258</td>
+<td style="text-align: right;">0.016</td>
 </tr>
 </tbody>
 </table>
@@ -1878,8 +2144,8 @@
       }</style></aside>
 </section></section>
 <section>
-<section id="뉴턴-랩슨-알고리즘" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
-<h1>5 · 뉴턴-랩슨 알고리즘</h1>
+<section id="뉴턴-랩슨-알고리즘" class="title-slide slide level1 section-title">
+<h1><span class="secno">5</span> 뉴턴-랩슨 알고리즘</h1>
 <div class="columns">
 <div class="column" style="width:54%;">
 <p>자료가 아니라 <strong>수치를 다루는</strong> 알고리즘</p>
@@ -1911,8 +2177,8 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="원리와-점화식" class="slide level2 smaller">
-<h2>원리와 점화식</h2>
+<section id="원리와-점화식" class="slide level2">
+<h2><span class="secno">5.1</span> 원리와 점화식</h2>
 <div class="columns">
 <div class="column" style="width:46%;">
 <p><span class="math inline">\(f(x) = 0\)</span> 을 만족하는 <span class="math inline">\(x\)</span> 를 <strong>반복 계산</strong>으로 근사</p>
@@ -1927,7 +2193,7 @@
 <p><strong>종료 조건</strong> — 최대 반복 횟수 초과 / <span class="math inline">\(x\)</span> 갱신 폭이 충분히 작음 / <span class="math inline">\(|f(x)|\)</span> 가 허용 오차 이내</p>
 </div>
 </div><div class="column" style="width:54%;">
-<video src="../video/newton-raphson-ex.mp4" controls="" loop="" muted="" style="width:100%;">
+<video src="../video/newton-raphson-ex.mp4" controls="" loop="" muted="" style="display:block; width:100%; max-height:470px; object-fit:contain;">
 </video>
 </div></div>
 <aside class="notes">
@@ -1951,11 +2217,11 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="구현과-검증" class="slide level2 smaller">
-<h2>구현과 검증</h2>
+<section id="구현과-검증" class="slide level2">
+<h2><span class="secno">5.2</span> 구현과 검증</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">5</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">7</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">40</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="dv">100</span></span>
-<span id="cb35-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(<span class="fu">newton_raphson</span>(f, <span class="at">x0 =</span> <span class="dv">1</span>, <span class="at">range =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>)))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">5</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">7</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">40</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="dv">100</span></span>
+<span id="cb39-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(<span class="fu">newton_raphson</span>(f, <span class="at">x0 =</span> <span class="dv">1</span>, <span class="at">range =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>)))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     solution     iteration         value 
 -3.151719e+00  1.300000e+01 -3.544187e-11 </code></pre>
@@ -1963,8 +2229,8 @@
 </div>
 <p><strong>검증</strong> — 3차 다항식이므로 <code>polyroot()</code> 로 모든 근을 구해 대조 가능</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="" aria-hidden="true" tabindex="-1"></a>roots <span class="ot">&lt;-</span> <span class="fu">polyroot</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="sc">-</span><span class="dv">40</span>, <span class="sc">-</span><span class="dv">7</span>, <span class="dv">5</span>))</span>
-<span id="cb37-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">Re</span>(roots)[<span class="fu">abs</span>(<span class="fu">Im</span>(roots)) <span class="sc">&lt;</span> <span class="fl">1e-8</span>]        <span class="co"># 허수부가 0인 것만 실근</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="" aria-hidden="true" tabindex="-1"></a>roots <span class="ot">&lt;-</span> <span class="fu">polyroot</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="sc">-</span><span class="dv">40</span>, <span class="sc">-</span><span class="dv">7</span>, <span class="dv">5</span>))</span>
+<span id="cb41-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">Re</span>(roots)[<span class="fu">abs</span>(<span class="fu">Im</span>(roots)) <span class="sc">&lt;</span> <span class="fl">1e-8</span>]        <span class="co"># 허수부가 0인 것만 실근</span></span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -1997,8 +2263,8 @@
       }</style></aside>
 </div>
 </section>
-<section id="초기값-의존성" class="slide level2 smaller">
-<h2>초기값 의존성</h2>
+<section id="초기값-의존성" class="slide level2">
+<h2><span class="secno">5.3</span> 초기값 의존성</h2>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top">
@@ -2080,8 +2346,8 @@
       }</style></aside>
 </section></section>
 <section>
-<section id="ai와-함께-생성-코드의-검증" class="title-slide slide level1 section-title" data-background-color="#F3EEE5">
-<h1>6 · AI와 함께: 생성 코드의 검증</h1>
+<section id="ai와-함께-생성-코드의-검증" class="title-slide slide level1 section-title">
+<h1><span class="secno">6</span> AI와 함께: 생성 코드의 검증</h1>
 <div class="columns">
 <div class="column" style="width:54%;">
 <p>3절의 검증 절차를 <strong>AI 생성 코드</strong>에 그대로 적용</p>
@@ -2112,8 +2378,8 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="프롬프트는-곧-요구사항이다" class="slide level2 smaller">
-<h2>프롬프트는 곧 요구사항이다</h2>
+<section id="프롬프트는-곧-요구사항이다" class="slide level2">
+<h2><span class="secno">6.1–6.2</span> 프롬프트는 곧 요구사항이다</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -2131,14 +2397,14 @@
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 생성: Claude Opus 5, 2026-09-11. 수정 없이 그대로 수록.</span></span>
-<span id="cb39-2"><a href="" aria-hidden="true" tabindex="-1"></a>binary_search_rec <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, target, <span class="at">lo =</span> <span class="dv">1</span>, <span class="at">hi =</span> <span class="fu">length</span>(vec)) {</span>
-<span id="cb39-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (lo <span class="sc">&gt;</span> hi) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)</span>
-<span id="cb39-4"><a href="" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span></span>
-<span id="cb39-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (vec[mid] <span class="sc">==</span> target) <span class="fu">return</span>(mid)</span>
-<span id="cb39-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (vec[mid] <span class="sc">&gt;</span> target) <span class="fu">binary_search_rec</span>(vec, target, lo, mid <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb39-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">binary_search_rec</span>(vec, target, mid <span class="sc">+</span> <span class="dv">1</span>, hi)</span>
-<span id="cb39-8"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 생성: Claude Opus 5, 2026-09-11. 수정 없이 그대로 수록.</span></span>
+<span id="cb43-2"><a href="" aria-hidden="true" tabindex="-1"></a>binary_search_rec <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, target, <span class="at">lo =</span> <span class="dv">1</span>, <span class="at">hi =</span> <span class="fu">length</span>(vec)) {</span>
+<span id="cb43-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (lo <span class="sc">&gt;</span> hi) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)</span>
+<span id="cb43-4"><a href="" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span></span>
+<span id="cb43-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (vec[mid] <span class="sc">==</span> target) <span class="fu">return</span>(mid)</span>
+<span id="cb43-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (vec[mid] <span class="sc">&gt;</span> target) <span class="fu">binary_search_rec</span>(vec, target, lo, mid <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb43-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">binary_search_rec</span>(vec, target, mid <span class="sc">+</span> <span class="dv">1</span>, hi)</span>
+<span id="cb43-8"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <ul>
 <li>앞 절에서 수정한 구현과 <strong>동일한 구조</strong></li>
@@ -2165,28 +2431,25 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="세-가지-검증" class="slide level2 smaller">
-<h2>세 가지 검증</h2>
+<section id="세-가지-검증" class="slide level2 dense">
+<h2><span class="secno">6.3</span> 세 가지 검증</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">40</span>, <span class="at">by =</span> <span class="dv">3</span>)</span>
-<span id="cb40-2"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 전수 검사</span></span>
-<span id="cb40-4"><a href="" aria-hidden="true" tabindex="-1"></a>c1 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">vapply</span>(<span class="fu">seq_along</span>(v), <span class="cf">function</span>(i) <span class="fu">as.integer</span>(<span class="fu">binary_search_rec</span>(v, v[i])),</span>
-<span id="cb40-5"><a href="" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">integer</span>(<span class="dv">1</span>)) <span class="sc">==</span> <span class="fu">seq_along</span>(v))</span>
-<span id="cb40-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 경계 사례 — 빈 벡터, 길이 1인 벡터, 존재하지 않는 값</span></span>
-<span id="cb40-8"><a href="" aria-hidden="true" tabindex="-1"></a>c2 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(<span class="fu">binary_search_rec</span>(<span class="fu">numeric</span>(<span class="dv">0</span>), <span class="dv">5</span>), <span class="fu">binary_search_rec</span>(<span class="dv">7</span>, <span class="dv">9</span>))))</span>
-<span id="cb40-9"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 무작위 대조 — 정답이 알려진 which() 와 500회 대조</span></span>
-<span id="cb40-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260911</span>)</span>
-<span id="cb40-12"><a href="" aria-hidden="true" tabindex="-1"></a>c3 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">replicate</span>(<span class="dv">500</span>, {</span>
-<span id="cb40-13"><a href="" aria-hidden="true" tabindex="-1"></a>  w <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>, <span class="dv">1</span>)))</span>
-<span id="cb40-14"><a href="" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="dv">1</span>)</span>
-<span id="cb40-15"><a href="" aria-hidden="true" tabindex="-1"></a>  got <span class="ot">&lt;-</span> <span class="fu">binary_search_rec</span>(w, k); want <span class="ot">&lt;-</span> <span class="fu">which</span>(w <span class="sc">==</span> k)</span>
-<span id="cb40-16"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(want) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">is.na</span>(got) <span class="cf">else</span> (<span class="sc">!</span><span class="fu">is.na</span>(got) <span class="sc">&amp;&amp;</span> got <span class="sc">%in%</span> want)</span>
-<span id="cb40-17"><a href="" aria-hidden="true" tabindex="-1"></a>}))</span>
-<span id="cb40-18"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-19"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(전수검사 <span class="ot">=</span> c1, 경계사례 <span class="ot">=</span> c2, 무작위대조 <span class="ot">=</span> c3)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">40</span>, <span class="at">by =</span> <span class="dv">3</span>)</span>
+<span id="cb44-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 전수 검사</span></span>
+<span id="cb44-3"><a href="" aria-hidden="true" tabindex="-1"></a>c1 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">vapply</span>(<span class="fu">seq_along</span>(v), <span class="cf">function</span>(i) <span class="fu">as.integer</span>(<span class="fu">binary_search_rec</span>(v, v[i])),</span>
+<span id="cb44-4"><a href="" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">integer</span>(<span class="dv">1</span>)) <span class="sc">==</span> <span class="fu">seq_along</span>(v))</span>
+<span id="cb44-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 경계 사례 — 빈 벡터, 길이 1인 벡터, 존재하지 않는 값</span></span>
+<span id="cb44-6"><a href="" aria-hidden="true" tabindex="-1"></a>c2 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(<span class="fu">binary_search_rec</span>(<span class="fu">numeric</span>(<span class="dv">0</span>), <span class="dv">5</span>), <span class="fu">binary_search_rec</span>(<span class="dv">7</span>, <span class="dv">9</span>))))</span>
+<span id="cb44-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 무작위 대조 — 정답이 알려진 which() 와 500회 대조</span></span>
+<span id="cb44-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260911</span>)</span>
+<span id="cb44-9"><a href="" aria-hidden="true" tabindex="-1"></a>c3 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">replicate</span>(<span class="dv">500</span>, {</span>
+<span id="cb44-10"><a href="" aria-hidden="true" tabindex="-1"></a>  w <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>, <span class="dv">1</span>)))</span>
+<span id="cb44-11"><a href="" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="dv">1</span>)</span>
+<span id="cb44-12"><a href="" aria-hidden="true" tabindex="-1"></a>  got <span class="ot">&lt;-</span> <span class="fu">binary_search_rec</span>(w, k); want <span class="ot">&lt;-</span> <span class="fu">which</span>(w <span class="sc">==</span> k)</span>
+<span id="cb44-13"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(want) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">is.na</span>(got) <span class="cf">else</span> (<span class="sc">!</span><span class="fu">is.na</span>(got) <span class="sc">&amp;&amp;</span> got <span class="sc">%in%</span> want)</span>
+<span id="cb44-14"><a href="" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb44-15"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-16"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(전수검사 <span class="ot">=</span> c1, 경계사례 <span class="ot">=</span> c2, 무작위대조 <span class="ot">=</span> c3)</span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -2218,19 +2481,19 @@
       }</style></aside>
 </div>
 </section>
-<section id="요구사항이-규정하지-않은-부분" class="slide level2 smaller">
-<h2>요구사항이 규정하지 않은 부분</h2>
+<section id="요구사항이-규정하지-않은-부분" class="slide level2">
+<h2><span class="secno">6.4</span> 요구사항이 규정하지 않은 부분</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
-<span id="cb42-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(이_구현 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(d, <span class="dv">3</span>), R의<span class="at">_match =</span> <span class="fu">match</span>(<span class="dv">3</span>, d))   <span class="co"># 중복값</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
+<span id="cb46-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(이_구현 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(d, <span class="dv">3</span>), R의<span class="at">_match =</span> <span class="fu">match</span>(<span class="dv">3</span>, d))   <span class="co"># 중복값</span></span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code>  이_구현 R의_match 
         3         2 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">15</span>, <span class="dv">10</span>)                                        <span class="co"># 정렬 안 된 입력</span></span>
-<span id="cb44-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(반환 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(u, <span class="dv">19</span>), 실제_위치 <span class="ot">=</span> <span class="fu">which</span>(u <span class="sc">==</span> <span class="dv">19</span>))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">15</span>, <span class="dv">10</span>)                                        <span class="co"># 정렬 안 된 입력</span></span>
+<span id="cb48-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(반환 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(u, <span class="dv">19</span>), 실제_위치 <span class="ot">=</span> <span class="fu">which</span>(u <span class="sc">==</span> <span class="dv">19</span>))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     반환 실제_위치 
        NA         1 </code></pre>
@@ -2270,8 +2533,8 @@
       }</style></aside>
 </div>
 </section>
-<section id="ai-생성-코드에서-자주-나타나는-오류" class="slide level2 smaller">
-<h2>AI 생성 코드에서 자주 나타나는 오류</h2>
+<section id="ai-생성-코드에서-자주-나타나는-오류" class="slide level2 dense">
+<h2><span class="secno">6.4</span> AI 생성 코드에서 자주 나타나는 오류</h2>
 <div class="columns">
 <div class="column" style="width:52%;">
 <div class="callout callout-caution callout-titled callout-style-default">
@@ -2297,17 +2560,17 @@
 </div>
 </div><div class="column" style="width:48%;">
 <p><span class="label label-note">각 유형이 실제로 나타나는 모양</span></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (maxL <span class="sc">&lt;=</span> minL) <span class="fu">return</span>(<span class="cn">NA</span>)   <span class="co"># 경계 조건</span></span>
-<span id="cb46-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">#     ^^ minL &gt; maxL 이어야 함</span></span>
-<span id="cb46-3"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(u, <span class="dv">19</span>)       <span class="co"># 전제 미검사</span></span>
-<span id="cb46-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># u 가 정렬 안 됨 → 조용히 NA</span></span>
-<span id="cb46-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-7"><a href="" aria-hidden="true" tabindex="-1"></a>vec[<span class="dv">1</span>]                         <span class="co"># 빈 입력</span></span>
-<span id="cb46-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># length(vec) == 0 이면 NA</span></span>
-<span id="cb46-9"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(d, <span class="dv">3</span>)  <span class="co"># 3    # 요구사항 공백</span></span>
-<span id="cb46-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">match</span>(<span class="dv">3</span>, d)              <span class="co"># 2    # 어느 쪽이 맞는가?</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (maxL <span class="sc">&lt;=</span> minL) <span class="fu">return</span>(<span class="cn">NA</span>)   <span class="co"># 경계 조건</span></span>
+<span id="cb50-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">#     ^^ minL &gt; maxL 이어야 함</span></span>
+<span id="cb50-3"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(u, <span class="dv">19</span>)       <span class="co"># 전제 미검사</span></span>
+<span id="cb50-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># u 가 정렬 안 됨 → 조용히 NA</span></span>
+<span id="cb50-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="" aria-hidden="true" tabindex="-1"></a>vec[<span class="dv">1</span>]                         <span class="co"># 빈 입력</span></span>
+<span id="cb50-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># length(vec) == 0 이면 NA</span></span>
+<span id="cb50-9"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(d, <span class="dv">3</span>)  <span class="co"># 3    # 요구사항 공백</span></span>
+<span id="cb50-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">match</span>(<span class="dv">3</span>, d)              <span class="co"># 2    # 어느 쪽이 맞는가?</span></span></code></pre></div>
 <p><span class="tiny">첫 줄은 <strong>사람이 쓴</strong> 이 수업의 코드. AI만의 문제가 아님</span></p>
 </div></div>
 <table class="caption-top">
@@ -2361,7 +2624,7 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="정리" class="slide level2 smaller">
+<section id="정리" class="slide level2">
 <h2>정리</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -2416,7 +2679,7 @@
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
-<p>통계 프로그래밍 언어 · 08 알고리즘</p>
+
 </div>
 </div></div>
 
@@ -2469,7 +2732,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -2628,81 +2891,55 @@
         ]
       });
     </script>
-    
-
     <script>
-
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-
-      // slide changes (different for each slide format).
-
-      (function () {
-
-        // dispatch for htmlwidgets
-
-        function fireSlideEnter() {
-
-          const event = window.document.createEvent("Event");
-
-          event.initEvent("slideenter", true, true);
-
-          window.document.dispatchEvent(event);
-
-        }
-
+    // 쪽번호를 슬라이드 안(꼬리말 오른쪽)에 그리기 위해 각 슬라이드에 data-no 를 붙인다.
+    // revealjs 기본 쪽번호(.slide-number)는 화면 좌표에 떠 있어서, 슬라이드 비율과 창 비율이
+    // 다르면 원안의 꼬리말 선과 어긋난다. 그래서 slide-number: false 로 두고 여기서 매긴다.
+    window.addEventListener('load', function () {
+      function stamp() {
+        var s = Reveal.getSlides(), t = s.length;
+        s.forEach(function (el, i) { el.setAttribute('data-no', (i + 1) + ' / ' + t); });
+      }
+      if (Reveal.isReady()) stamp(); else Reveal.on('ready', stamp);
+    });
+    </script>
     
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
 
         function fireSlideChanged(previousSlide, currentSlide) {
-
           fireSlideEnter();
 
-    
-
           // dispatch for shiny
-
           if (window.jQuery) {
-
             if (previousSlide) {
-
               window.jQuery(previousSlide).trigger("hidden");
-
             }
-
             if (currentSlide) {
-
               window.jQuery(currentSlide).trigger("shown");
-
             }
-
           }
-
         }
-
-    
 
         // hookup for slidy
-
         if (window.w3c_slidy) {
-
           window.w3c_slidy.add_observer(function (slide_num) {
-
             // slide_num starts at position 1
-
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-
           });
-
         }
 
-    
-
       })();
-
     </script>
-
-    
 
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {

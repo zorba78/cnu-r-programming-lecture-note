@@ -27,7 +27,7 @@ mv "${base}.html" "docs/preview/${base}.html"
 [ -d "${base}_files" ] && mv "${base}_files" "docs/preview/${base}_files"
 
 # docs/preview/ 에서 한 단계 올라가야 docs/figures, docs/video 를 만난다
-python - "$root/docs/preview/${base}.html" <<'PY'
+"${PYTHON:-python3}" - "$root/docs/preview/${base}.html" <<'PY'
 import io, sys
 p = sys.argv[1]
 s = io.open(p, encoding='utf-8').read()
@@ -37,6 +37,15 @@ for a in ('figures/', 'video/', 'images/'):
 io.open(p, 'w', encoding='utf-8', newline='\n').write(s)
 print(f"   상대경로 수정: {'변경 있음' if s != before else '변경 없음'}")
 PY
+
+# 허브에 이 장의 주제 상세 화면이 있으면 새 렌더본으로 다시 만든다.
+# 슬라이드를 넣고 빼면 번호 구간(S03–S18 등)이 밀리기 때문이다.
+key="${base%-slides}"
+if [ -f "hub/${key}.html" ]; then
+  echo "== 허브 주제 상세 갱신: hub/${key}.html"
+  Rscript hub/topic-page.R "$key"
+  bash hub/sync.sh
+fi
 
 echo "== 완료: docs/preview/${base}.html"
 echo "   로컬 확인:  python -m http.server 8899 --directory docs  ->  http://127.0.0.1:8899/preview/${base}.html"

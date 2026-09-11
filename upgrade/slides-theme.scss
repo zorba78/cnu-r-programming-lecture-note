@@ -1,47 +1,68 @@
 /*-- scss:defaults --*/
 
-// 강의 슬라이드 테마 — 허브 A안(주제 목록형)의 색·서체를 화면 투영용으로 옮긴 것.
-//   강의노트 계열 = 벽돌색 #A64B32,  슬라이드 계열 = 청록 #1F6F7A
-// 코드 블록은 흰 바탕에 왼쪽 색 띠로 둔다. 어두운 바탕은 투영 환경에 따라 코드가
-// 뭉개져 읽기 어렵다(강사 지적, 2026-09-11).
+// 강의 슬라이드 테마 — 발표 슬라이드 시안(upgrade/slides-design/, "원안")을 revealjs 로 옮긴 것.
+//
+//   · 바탕은 흰색이다 (강사 결정, 2026-09-11). 허브의 따뜻한 미색(#FAF7F2)은 쓰지 않는다.
+//   · 강의노트 계열 = 벽돌색 #A64B32, 슬라이드 계열 = 청록 #1F6F7A. 허브의 구분을 그대로 유지한다.
+//   · 코드 블록은 흰 바탕에 왼쪽 색 띠. 어두운 바탕은 투영 환경에 따라 코드가 뭉개진다(강사 지적).
+//
+// 글자 크기 규칙
+//   · 모든 크기를 px 로 지정한다. 기준 좌표는 슬라이드 1280×720 이다.
+//   · em 을 겹쳐 쓰지 않는다. Quarto 는 .smaller 슬라이드에 0.7배, 콜아웃에 다시 0.7배를
+//     곱하기 때문에, 이전 테마에서는 콜아웃 본문이 15px, 라벨이 11px 까지 작아졌다.
+//     슬라이드에 {.smaller} 를 붙이지 않는다.
+//   · 최소 크기: 본문 22px, 콜아웃·강조 상자 20px, 코드 17px, 출력 16px, 라벨·꼬리말 14~15px.
+//
+// 덱마다 달라지는 문구는 CSS 변수로 받는다 (각 .qmd 의 include-in-header 에서 지정).
+//   --deck-kicker    표지 왼쪽 위    예: "CHAPTER 08"
+//   --deck-course    표지 오른쪽 위  예: "통계 프로그래밍 언어"
+//   --deck-chapter   본문 제목 오른쪽 예: "08 알고리즘"
+//   --deck-footer    꼬리말          예: "통계 프로그래밍 언어 · 08 알고리즘"
+//   --deck-watermark 표지 배경 글자  예: "O(n log n)"
+// 쪽번호는 upgrade/slides-number.html 이 각 슬라이드에 data-no 로 붙인다.
 
 @import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap');
 
 $ink:        #241F1A;
 $prose:      #5C554C;
-$muted:      #6E665C;
+$muted:      #6E665C;   // 흰 바탕 대비 5.6:1 — 작은 글자(라벨·꼬리말)의 하한
 $faint:      #8C8479;
 $line:       #E4DCD0;
 $line-2:     #D5CABB;
 $panel:      #F3EEE5;
+$zebra:      #F7F4EF;
 $note:       #A64B32;
 $note-dark:  #7E3624;
-$slide:      #1F6F7A;
+$slide:      #1F6F7A;   // 흰 글자와의 대비 5.8:1
 $slide-dark: #155059;
+$teal-tint:  #EEF5F6;
+$teal-line:  #BFD7DA;
 $off:        #B5A996;
+$white:      #FFFFFF;
 
 $font-family-sans-serif: 'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif !default;
 $font-family-monospace:  'IBM Plex Mono', 'SFMono-Regular', ui-monospace, 'Malgun Gothic', monospace !default;
+$heading-font: 'Hahmlet', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;
 
-$presentation-font-size-root: 30px;
-$presentation-line-height: 1.5;
-$presentation-heading-font: 'Hahmlet', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;
+$presentation-font-size-root: 22px;
+$presentation-line-height: 1.55;
+$presentation-heading-font: $heading-font;
 $presentation-heading-color: $ink;
 $presentation-heading-font-weight: 700;
-$presentation-h1-font-size: 2.4em;
-$presentation-h2-font-size: 1.28em;
-$presentation-h3-font-size: 1.0em;
+$presentation-h1-font-size: 58px;
+$presentation-h2-font-size: 34px;
+$presentation-h3-font-size: 26px;
 
-$body-bg: #FAF7F2;
+$body-bg: $white;
 $body-color: $ink;
 $link-color: $note;
 $link-color-hover: $note-dark;
 $selection-bg: #EAE0D1;
 $selection-color: $ink;
 
-$code-block-bg: #FFFFFF;
+$code-block-bg: $white;
 $code-block-border-color: $line;
-$code-block-font-size: 0.62em;
+$code-block-font-size: 17px;
 $code-color: $ink;
 $border-color: $line;
 
@@ -49,28 +70,179 @@ $border-color: $line;
 /*-- scss:rules --*/
 
 .reveal { text-wrap: pretty; }
+.reveal .slides section { line-height: 1.55; }
 
-// ── 제목 ─────────────────────────────────────────────────────
+// 원안의 3가지 틀(표지·절 표지·본문)은 슬라이드 높이 전체(720px)를 쓴다.
+// revealjs 는 현재 슬라이드에 display:block 을 인라인으로 준다. 표지와 절 표지는 세로
+// 가운데 정렬이 필요하므로 현재 슬라이드(.present)에만 flex 를 강제한다.
+#title-slide,
+.reveal .slides section.section-title,
+.reveal .slides section.slide.level2 {
+  height: 100%;
+  box-sizing: border-box;
+}
+.reveal .slides #title-slide.present,
+.reveal .slides section.section-title.present,
+html.print-pdf .reveal .slides #title-slide,
+html.print-pdf .reveal .slides section.section-title {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+// ── 표지 (원안: 1 · 제목) ────────────────────────────────────
+#title-slide {
+  text-align: left;
+  overflow: hidden;
+
+  // 배경 글자
+  &::before {
+    content: var(--deck-watermark, "");
+    position: absolute; right: -40px; bottom: -70px;
+    font-family: $heading-font; font-size: 230px; font-weight: 700; line-height: 1;
+    letter-spacing: -0.03em; white-space: nowrap;
+    color: $ink; opacity: 0.045; pointer-events: none;
+  }
+  // 왼쪽 위: CHAPTER 08
+  &::after {
+    content: var(--deck-kicker, "");
+    position: absolute; top: 0; left: 0;
+    font-family: $font-family-monospace; font-size: 15px; letter-spacing: 0.2em; color: $slide;
+  }
+
+  .title {
+    font-family: $heading-font;
+    font-size: 112px; font-weight: 700; line-height: 1.02; letter-spacing: -0.035em;
+    color: $ink; margin: 0;
+    &::before {             // 제목 위 청록 막대
+      content: ""; display: block;
+      width: 96px; height: 5px; background: $slide; margin-bottom: 30px;
+    }
+  }
+  .subtitle {
+    font-family: $font-family-sans-serif; font-weight: 400;
+    font-size: 27px; line-height: 1.62; color: $prose;
+    max-width: 760px; margin: 30px 0 0; padding: 0; border: none;
+    // 오른쪽 위: 과목명 (위치 기준은 #title-slide)
+    &::after {
+      content: var(--deck-course, "");
+      position: absolute; top: 0; right: 0;
+      font-family: $font-family-monospace; font-size: 15px; letter-spacing: 0.14em; color: $muted;
+    }
+  }
+  // 왼쪽 아래: 저자·소속
+  .quarto-title-authors {
+    position: absolute; left: 0; bottom: 0;
+    display: block; margin: 0; padding: 0; text-align: left;
+  }
+  .quarto-title-author, .quarto-title-author-name, .quarto-title-affiliation {
+    display: block; margin: 0; padding: 0; text-align: left; justify-content: flex-start;
+  }
+  .quarto-title-author-name { font-size: 19px; font-weight: 600; color: $ink; }
+  .quarto-title-affiliation {
+    font-family: $font-family-monospace; font-size: 15px; color: $muted; margin-top: 7px;
+  }
+  // 오른쪽 아래: 날짜
+  .date {
+    position: absolute; right: 0; bottom: 0; margin: 0;
+    font-family: $font-family-monospace; font-size: 15px; color: $muted;
+  }
+}
+
+
+// ── 절 표지 (원안: 3 · 절 전환) ──────────────────────────────
+// 왼쪽: 큰 절 번호 + SECTION, 절 제목, 설명 / 오른쪽: "이 절에서" 목록 (세로 구분선)
+.reveal .slides section.section-title {
+  padding-right: 43%;           // 오른쪽 목록 자리
+
+  > h1 {
+    font-size: 58px; line-height: 1.16; letter-spacing: -0.02em;
+    text-align: left; margin: 0 0 22px; padding: 0; border: none;
+  }
+  > h1 .secno {
+    display: flex; align-items: baseline; gap: 20px;
+    font-size: 96px; line-height: 1; color: $note; margin-bottom: 24px;
+    &::after {
+      content: "SECTION";
+      font-family: $font-family-monospace; font-size: 15px; font-weight: 400;
+      letter-spacing: 0.2em; color: $muted;
+    }
+  }
+  > .columns { display: block; }
+  > .columns > .column:first-child {
+    width: auto !important;
+    font-size: 22px; line-height: 1.7; color: $prose;
+    p { margin: 0 0 8px; }
+    strong { color: $ink; }
+  }
+  > .columns > .column:last-child {
+    position: absolute; top: 50%; right: 0; transform: translateY(-50%);
+    width: 38% !important; box-sizing: border-box;
+    padding-left: 44px; border-left: 1px solid $line-2;
+    p { margin: 0 0 6px; }
+    ul { list-style: none; margin: 0; padding: 0; }
+    li {
+      position: relative; margin: 0; padding: 10px 0 10px 24px;
+      font-size: 22px; line-height: 1.45; color: $ink;
+      &::before {
+        content: ""; position: absolute; left: 0; top: 50%;
+        width: 10px; height: 2px; background: $note;
+      }
+    }
+  }
+  > .keypoint { margin-top: 26px; }
+}
+
+
+// ── 본문 슬라이드 머리 (원안: 4 · 개념 설명) ─────────────────
+// 절 번호(벽돌색) · 제목 · 오른쪽 장 표시, 아래 2px 선
 .reveal h1, .reveal h2, .reveal h3 {
   letter-spacing: -0.02em;
   text-transform: none;
 }
-.reveal h2 {
-  padding-bottom: 0.32em;
-  border-bottom: 2px solid $ink;
-  margin-bottom: 0.75em;
+.reveal .slides section.slide.level2 > h2 {
+  display: flex; align-items: baseline; gap: 18px;
+  font-size: 34px; line-height: 1.25;
+  padding-bottom: 13px; border-bottom: 2px solid $ink;
+  margin: 0 0 24px;
+
+  &::after {
+    content: var(--deck-chapter, "");
+    margin-left: auto; flex-shrink: 0;
+    font-family: $font-family-monospace; font-size: 14px; font-weight: 400;
+    letter-spacing: 0.12em; color: $muted;
+  }
+  .secno {
+    flex-shrink: 0;
+    font-family: $font-family-monospace; font-size: 15px; font-weight: 500;
+    letter-spacing: 0.14em; color: $note;
+  }
 }
-// 절 표지(레벨 1)는 밑줄 없이 크게
-.reveal .title-slide h1,
-.reveal section.center h1,
-.reveal h1 { border-bottom: none; }
+
+// ── 꼬리말 (원안: 1px 선 위에 왼쪽 과목·장, 오른쪽 쪽번호) ────
+// 본문 슬라이드 안에 그린다. 내용은 아래쪽 44px 을 비워 두어야 한다.
+.reveal .slides section.slide.level2::after {
+  content: var(--deck-footer, "");
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding-top: 11px; border-top: 1px solid $line;
+  font-family: $font-family-monospace; font-size: 14px; line-height: 1;
+  letter-spacing: 0.04em; color: $muted; text-align: left;
+}
+.reveal .slides section.slide.level2::before {
+  content: attr(data-no);
+  position: absolute; right: 0; bottom: 0; z-index: 1;
+  padding-top: 12px;
+  font-family: $font-family-monospace; font-size: 14px; line-height: 1; color: $muted;
+}
+
 
 // ── 2단 배치 ─────────────────────────────────────────────────
-// Quarto 의 revealjs 기본값은 div.column{display:inline-block; width:50%} 라
-// 두 칸 사이의 공백 문자 때문에 100% 를 넘겨 아래로 흘러내린다. flex 로 바꾼다.
+// Quarto 기본값은 div.column{display:inline-block; width:50%} 라 두 칸 사이의 공백 문자
+// 때문에 100% 를 넘겨 아래로 흘러내린다. flex 로 바꾼다.
 .reveal div.columns {
   display: flex;
-  gap: 1.3em;
+  gap: 28px;
   align-items: flex-start;
 }
 .reveal div.columns > div.column {
@@ -78,244 +250,244 @@ $border-color: $line;
   min-width: 0;
 }
 
-// ── 표지 ─────────────────────────────────────────────────────
-#title-slide {
-  text-align: left;
 
-  // 저자 블록이 기본값에서 가운데로 흩어진다. 왼쪽 정렬로 모은다.
-  .quarto-title-authors,
-  .quarto-title-author,
-  .quarto-title-author-name,
-  .quarto-title-affiliation {
-    display: block;
-    text-align: left;
-    justify-content: flex-start;
-    padding: 0;
-    margin: 0;
-  }
-  .quarto-title-authors { margin-top: 2.2em; }
-  .quarto-title-author-name { font-size: 0.62em; font-weight: 600; color: $ink; }
-  .quarto-title-affiliation { font-size: 0.54em; color: $muted; margin-top: 0.25em; }
-  // 기본값(#8C8479)은 이 배경에서 대비가 3.45 로 투영 시 흐리다. 한 단계 진하게.
-  .date { margin-top: 0.5em; color: $muted; }
+// ── 본문 요소 ────────────────────────────────────────────────
+.reveal p { margin: 0 0 12px; }
+.reveal ul, .reveal ol { margin: 0 0 12px; }
+.reveal li { margin-bottom: 6px; }
 
-  .title {
-    font-family: $presentation-heading-font;
-    font-size: 2.6em;
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -0.035em;
-    color: $ink;
-  }
-  .subtitle {
-    font-size: 0.86em;
-    line-height: 1.6;
-    color: $prose;
-    margin-top: 0.7em;
-    padding-top: 0.7em;
-    border-top: 5px solid $slide;
-    display: inline-block;
-  }
-  .author, .date, .institute {
-    font-size: 0.6em;
-    color: $muted;
-    margin-top: 0.3em;
-  }
-  .author { font-weight: 600; color: $ink; }
-  // $faint(#8C8479) 는 이 배경에서 대비 3.45 로 투영 시 흐리다.
-  .date { font-family: $font-family-monospace; color: $muted; }
-}
-
-// ── 절 표지 ──────────────────────────────────────────────────
-.reveal section.section-title {
-  h1 {
-    font-size: 2.1em;
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-}
-
-// ── 코드 ─────────────────────────────────────────────────────
+// 코드 (원안: 6 · 코드와 출력)
 .reveal div.sourceCode {
-  background: #FFFFFF;
+  background: $white;
   border: 1px solid $line;
   border-left: 5px solid $slide;
   border-radius: 0;
-  margin: 0.5em 0;
+  margin: 10px 0;
 }
-.reveal pre.sourceCode code {
-  padding: 0.75em 1em;
-  max-height: 500px;
-}
+.reveal pre, .reveal pre code { font-size: 17px; line-height: 1.55; }
+.reveal pre.sourceCode code { padding: 14px 18px; max-height: 520px; }
 .reveal pre code { background: transparent; }
 
-// 구문 색은 흰 바탕에서 충분한 대비를 갖도록 다시 잡는다
+// 구문 색 — 흰 바탕에서 충분한 대비
 .reveal code span.kw, .reveal code span.cf { color: $note; font-weight: 500; }   // function, if, for
 .reveal code span.fu { color: $slide-dark; font-weight: 500; }                    // 함수 호출
 .reveal code span.dv, .reveal code span.fl { color: #8A6D1F; }                    // 숫자
 .reveal code span.st { color: #6B7B2E; }                                          // 문자열
-.reveal code span.co { color: $faint; font-style: normal; }                        // 주석
+.reveal code span.co { color: $muted; font-style: normal; }                          // 주석
 .reveal code span.ot, .reveal code span.sc { color: $muted; }                      // 연산자
 .reveal code span.cn { color: $note; }                                             // TRUE/NULL/NA
 
 // 출력 블록
-.reveal pre:not(.sourceCode) {
+.reveal pre:not(.sourceCode),
+.reveal .cell-output pre {
   background: $panel;
   border: 1px solid $line;
   border-left: 5px solid $off;
   box-shadow: none;
   border-radius: 0;
-  font-size: 0.6em;
-  padding: 0.7em 1em;
+  font-size: 16px;
+  padding: 12px 18px;
+  box-sizing: border-box;   // 여백·테두리를 폭 안에 넣어 칸 오른쪽으로 넘치지 않게
+  width: 100%;
 }
-.reveal .cell-output pre {
-  background: $panel;
-  border-left: 5px solid $off;
-}
+.reveal .cell-output pre code { font-size: 16px; }
 
 // 인라인 코드
 .reveal p code, .reveal li code, .reveal td code {
   color: $note-dark;
   background: $panel;
   padding: 0.05em 0.3em;
-  font-size: 0.85em;
+  font-size: 0.86em;
 }
 
-// ── 인용문 ───────────────────────────────────────────────────
-// reveal 기본값이 인용문 글자색을 테두리색(#E4DCD0)으로 잡아 흰 배경에서 읽히지 않았다.
-// 요구사항 원문을 인용문으로 싣는 슬라이드가 있으므로 명시적으로 다시 잡는다.
+// 인용문 — reveal 기본값은 글자색이 테두리색이라 흰 바탕에서 읽히지 않는다
 .reveal blockquote {
-  color: $ink;
-  background: $panel;
+  color: $ink; background: $panel;
   border-left: 5px solid $line-2;
-  padding: 0.55em 1em;
-  margin: 0.5em 0;
-  width: auto;
-  font-style: normal;
-  box-shadow: none;
+  padding: 12px 20px; margin: 10px 0; width: auto;
+  font-size: 20px; font-style: normal; box-shadow: none;
 }
-.reveal blockquote p,
-.reveal blockquote li,
-.reveal blockquote strong { color: $ink; }
-.reveal blockquote code { background: #FFFFFF; }
+.reveal blockquote p, .reveal blockquote li, .reveal blockquote strong { color: $ink; }
+.reveal blockquote code { background: $white; }
 
-// ── 표 ───────────────────────────────────────────────────────
+// 표 (원안: 7 · 비교표)
 .reveal table {
-  font-size: 0.72em;
+  font-size: 18px;
   border-collapse: collapse;
 }
 .reveal table th {
-  font-family: $presentation-heading-font;
-  font-weight: 700;
-  border-bottom: 2px solid $ink;
-  color: $ink;
-  padding: 0.45em 0.5em;
+  font-family: $heading-font; font-weight: 700;
+  border-bottom: 2px solid $ink; color: $ink;
+  padding: 8px 12px;
 }
 .reveal table td {
-  font-family: $font-family-monospace;
-  border-bottom: 1px solid $line;
-  color: $prose;
-  padding: 0.4em 0.5em;
+  font-variant-numeric: tabular-nums;
+  border-bottom: 1px solid $line; color: $ink;
+  padding: 7px 12px;
 }
-.reveal table tr:nth-child(even) { background: $panel; }
+.reveal table tr:nth-child(even) { background: $zebra; }
 
-// ── 콜아웃 ───────────────────────────────────────────────────
-.reveal .callout {
+
+// ── 콜아웃 (원안의 카드: 흰 바탕, 1px 테두리, 왼쪽 5px 색 띠) ─
+// Quarto 기본 머리띠(연파랑 배경 + 아이콘 + "노트"·"주의")는 쓰지 않는다. 원안에도 없고,
+// 종류는 왼쪽 띠의 색(청록 = 노트·팁, 벽돌 = 주의·중요·경고)으로 구분한다.
+.reveal .slides section div.callout {
+  font-size: 20px;
+  background: $white;
+  border: 1px solid $line;
+  border-left: 5px solid $slide;
   border-radius: 0;
-  border-left-width: 5px;
-  font-size: 0.82em;
+  box-shadow: none;
+  margin: 12px 0;
+  padding: 0;
 }
-.reveal .callout.callout-style-default .callout-body { font-size: 1em; }
-.reveal .callout-note   { border-left-color: $slide; }
-.reveal .callout-tip    { border-left-color: $slide; }
-.reveal .callout-important { border-left-color: $note; }
-.reveal .callout-caution{ border-left-color: $note; }
-
-// ── 예측 슬라이드 (청록 반전) ────────────────────────────────
-.reveal section.predict {
-  h2 {
-    color: #FAF7F2;
-    border-bottom: 2px solid rgba(250, 247, 242, 0.5);
-  }
-  p, li, strong { color: #F4FAFA; }
-  code { color: #FAF7F2; background: rgba(250, 247, 242, 0.16); }
-  .options {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.6em;
-    margin-top: 1em;
-  }
-  .options > div {
-    background: rgba(250, 247, 242, 0.1);
-    border: 1px solid rgba(250, 247, 242, 0.3);
-    padding: 0.6em 0.8em;
-    font-size: 0.8em;
-  }
-  .why {
-    margin-top: 1.2em;
-    padding: 0.6em 0.9em;
-    background: rgba(36, 31, 26, 0.22);
-    border-left: 4px solid #FAF7F2;
-    font-size: 0.72em;
-  }
+.reveal .slides section div.callout .callout-body { font-size: 20px; }
+.reveal .slides section div.callout .callout-icon-container { display: none; }
+.reveal .slides section div.callout .callout-title {
+  background: transparent !important;
+  border: none;
+  padding: 14px 20px 0;
+  font-family: $font-family-monospace; font-size: 14px; letter-spacing: 0.12em;
+  color: $note;
+  p { margin: 0; }
+  strong { font-weight: 500; }
 }
+.reveal .slides section div.callout .callout-title { display: none; }
+.reveal .slides section div.callout .callout-content {
+  padding: 14px 20px;
+  p { margin: 0 0 6px; }
+  p:last-child, ul:last-child { margin-bottom: 0; }
+}
+.reveal .slides section div.callout.callout-caution,
+.reveal .slides section div.callout.callout-important,
+.reveal .slides section div.callout.callout-warning { border-left-color: $note; }
+.reveal .slides section div.callout.callout-note .callout-content > p:first-child > strong:first-child,
+.reveal .slides section div.callout.callout-tip .callout-content > p:first-child > strong:first-child { color: $slide; }
+.reveal .slides section div.callout.callout-caution .callout-content > p:first-child > strong:first-child,
+.reveal .slides section div.callout.callout-important .callout-content > p:first-child > strong:first-child { color: $note; }
 
-// ── 강조 상자 ────────────────────────────────────────────────
+// 강조 상자
 .reveal .keypoint {
-  background: #FFFFFF;
+  background: $white;
   border: 1px solid $line;
   border-left: 5px solid $note;
-  padding: 0.7em 1em;
-  font-size: 0.82em;
+  padding: 14px 20px;
+  margin: 12px 0;
+  font-size: 20px;
+  p { margin: 0 0 6px; }
+  p:last-child { margin-bottom: 0; }
 }
 .reveal .keypoint.teal { border-left-color: $slide; }
 
-// 두 값을 나란히 보여주는 수치 배지
-.reveal .figures {
-  display: flex;
-  gap: 2em;
-  align-items: baseline;
-  font-family: $font-family-monospace;
-}
-.reveal .figures .big {
-  font-family: $presentation-heading-font;
-  font-size: 1.5em;
-  font-weight: 700;
-}
-.reveal .fig-note  .big { color: $slide; }
-.reveal .fig-alert .big { color: $note; }
-
-// ── 머리말·꼬리말 ────────────────────────────────────────────
-// 꼬리말·쪽번호는 조용해야 하지만, 투영하면 밝은 회색이 날아간다.
-// 한 단계씩 진하게 잡아 강의실 뒤에서도 읽히게 한다.
-.reveal .footer {
-  font-family: $font-family-monospace;
-  font-size: 0.44em;
-  color: $muted;
-  letter-spacing: 0.04em;
-}
-.reveal .slide-number {
-  font-family: $font-family-monospace;
-  font-size: 0.42em;
-  background: transparent;
-  color: $muted;
-}
-.reveal .tiny { color: $prose; }
-.reveal .progress { color: $slide; height: 4px; }
-
-// 목록 여백
-.reveal ul, .reveal ol { margin-bottom: 0.4em; }
-.reveal li { margin-bottom: 0.32em; }
-
-// 작은 글씨 유틸
-.reveal .tiny { font-size: 0.62em; }
-.reveal .mono { font-family: $font-family-monospace; }
+// 라벨 (원안: "■ 프로그램 1 · 사전 할당")
 .reveal .label {
-  font-family: $font-family-monospace;
-  font-size: 0.52em;
-  letter-spacing: 0.14em;
-  color: $muted;
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: $font-family-monospace; font-size: 15px; font-weight: 500;
+  letter-spacing: 0.08em; color: $muted;
   text-transform: none;
 }
 .reveal .label-note  { color: $note; }
 .reveal .label-slide { color: $slide; }
+.reveal .label-note::before,
+.reveal .label-slide::before {
+  content: ""; width: 10px; height: 10px; flex-shrink: 0; background: currentColor;
+}
+
+// 두 값을 나란히 보여주는 수치 배지
+.reveal .figures {
+  display: flex; gap: 40px; align-items: baseline;
+  font-family: $font-family-monospace;
+}
+.reveal .figures .big {
+  font-family: $heading-font; font-size: 38px; font-weight: 700;
+}
+.reveal .fig-note  .big { color: $slide; }
+.reveal .fig-alert .big { color: $note; }
+
+.reveal .tiny { font-size: 17px; color: $prose; }
+.reveal .mono { font-family: $font-family-monospace; }
+
+
+// 코드가 긴 슬라이드는 제목에 {.dense} 를 붙여 코드·출력만 한 단계 줄인다 (17px → 15px).
+// 15px 이 하한이다. 그래도 넘치면 코드를 줄이거나 슬라이드를 나눈다.
+.reveal .slides section.dense pre,
+.reveal .slides section.dense pre code,
+.reveal .slides section.dense .cell-output pre,
+.reveal .slides section.dense .cell-output pre code { font-size: 15px; line-height: 1.5; }
+
+// 코드 옆에 출력을 두는 청크 (#| output-location: column) — 코드 쪽을 넓게
+.reveal .columns.column-output-location { gap: 20px; }
+.reveal .columns.column-output-location > .column:first-child { width: calc(64% - 10px) !important; }
+.reveal .columns.column-output-location > .column:last-child  { width: calc(36% - 10px) !important; }
+
+// R 플롯 청크를 감싼 슬라이드는 Quarto/reveal.js 가 이미지에 r-stretch 를 자동으로 붙여
+// 슬라이드 가로 전체(패딩 밖)까지 늘린다(다른 md 이미지는 width 속성이 있어 해당 없음).
+// stretch.js 는 자바스크립트로 매 순간 width/height 를 다시 계산해 인라인으로 덮어쓰므로
+// 일반 규칙으로는 못 이긴다 — !important 로 인라인 스타일보다 우선시켜 고정 크기로 막는다.
+.reveal .slides section .complexity-fig img {
+  width: 74% !important;
+  max-width: 74% !important;
+  height: auto !important;
+  max-height: 400px !important;
+  display: block; margin: 0 auto;
+}
+
+
+// ── 예측 슬라이드 (원안: 5 · 예측) ───────────────────────────
+// 원안은 배경 전체를 청록으로 반전했으나, 투영 시 너무 튀고 일부 글자가 배경에 묻혔다
+// (강사 지적, 2026-09-11). 바탕은 흰색으로 두고 머리만 청록 띠로 칠해 "답을 적는 시간"
+// 신호를 유지한다. 본문 글자는 모두 흰 바탕 위 짙은 색이다.
+.reveal .slides section.slide.level2.predict {
+  > h2 {
+    align-items: center; gap: 0;
+    margin: 0 0 26px; padding: 13px 22px;
+    background: $slide; color: $white; border-bottom: none;
+    font-family: $font-family-monospace; font-size: 17px; font-weight: 500;
+    line-height: 1.2; letter-spacing: 0.16em;
+    &::before { content: "PREDICT · "; white-space: pre; }
+    &::after {
+      content: "실행 전에 답을 적는다";
+      margin-left: auto; font-size: 14px; letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.85);
+    }
+  }
+  // 질문 문장
+  > h2 + p {
+    font-family: $heading-font; font-size: 30px; font-weight: 700;
+    line-height: 1.4; letter-spacing: -0.01em; color: $ink;
+    margin: 0 0 20px;
+    code { font-size: 0.8em; }
+  }
+  .options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .options > div {
+    display: flex; align-items: center;
+    background: $white; border: 1px solid $teal-line;
+    padding: 12px 18px;
+    font-size: 21px; color: $ink;
+    p { margin: 0; }
+  }
+  // 선택지 머리글자 A/B/C — 원안의 청록 정사각형
+  .options > div p > strong:first-child {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; margin-right: 14px;
+    background: $slide; color: $white;
+    font-family: $font-family-monospace; font-size: 18px; font-weight: 500;
+    vertical-align: middle;
+  }
+  .why {
+    margin-top: 20px; padding: 13px 22px;
+    background: $teal-tint; border-left: 4px solid $slide;
+    font-size: 20px; color: $ink;
+    p { margin: 0; }
+  }
+}
+
+
+// ── 화면 부속 ────────────────────────────────────────────────
+.reveal .progress { color: $slide; height: 4px; }
+.reveal .slide-menu-button { opacity: 0.55; }

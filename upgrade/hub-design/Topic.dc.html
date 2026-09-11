@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap">
+  <style>
+    body { margin:0; background:#FAF7F2; color:#241F1A;
+      font-family:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+      -webkit-font-smoothing:antialiased; text-wrap:pretty; }
+    a { color:#A64B32; text-decoration:none; }
+    a:hover { color:#7E3624; }
+    .mono { font-family:'IBM Plex Mono','SFMono-Regular',ui-monospace,monospace; }
+    .disp { font-family:'Hahmlet','Nanum Myeongjo','Apple SD Gothic Neo',serif; }
+    .deckrow { display:grid; grid-template-columns:74px 1fr 46px; gap:12px;
+      align-items:baseline; padding:9px 0; border-top:1px solid #E4DCD0; }
+  </style>
+</helmet>
+
+<div style="width:1440px; min-height:1140px; background:#FAF7F2; display:flex; flex-direction:column;">
+
+  <div style="display:flex; justify-content:space-between; align-items:center; padding:18px 72px; border-bottom:1px solid #E4DCD0;">
+    <div class="mono" style="font-size:12px; letter-spacing:0.1em; color:#6E665C;">강의 허브 <span style="color:#C0B5A5;">/</span> PART 1 통계 프로그래밍 언어 <span style="color:#C0B5A5;">/</span> <span style="color:#241F1A;">02 R 객체</span></div>
+    <div class="mono" style="font-size:12px; letter-spacing:0.1em; color:#6E665C;">충남대학교 정보통계학과</div>
+  </div>
+
+  <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:48px; padding:34px 72px 26px;">
+    <div style="display:flex; align-items:baseline; gap:20px;">
+      <span class="mono" style="font-size:34px; color:#A64B32;">02</span>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <h1 class="disp" style="margin:0; font-size:38px; font-weight:700; letter-spacing:-0.02em;">R 객체(R object)</h1>
+        <div style="font-size:13.5px; color:#6E665C;">발표 슬라이드 64장 · 초안</div>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="display:inline-flex; align-items:center; gap:9px; padding:12px 20px; background:#1F6F7A; color:#FAF7F2; font-size:14px; font-weight:500;">슬라이드 열기 <span style="font-size:15px;">→</span></span>
+      <span style="display:inline-flex; align-items:center; padding:12px 18px; border:1px solid #1F6F7A; color:#1F6F7A; font-size:14px; font-weight:500;">PDF 내려받기</span>
+      <span style="display:inline-flex; align-items:center; gap:8px; padding:12px 4px; color:#A64B32; font-size:14px; font-weight:500;">강의노트에서 보기 <span style="font-size:15px;">→</span></span>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 460px; gap:48px; padding:6px 72px 40px; align-items:start;">
+
+    <div style="display:flex; flex-direction:column; gap:20px;">
+
+      <div style="background:#FFFFFF; border:1px solid #DCD3C6; box-shadow:0 1px 0 #EDE6DA, 0 12px 28px -18px rgba(36,31,26,0.35);">
+        <div style="height:5px; background:#1F6F7A;"></div>
+        <div style="display:flex; flex-direction:column; gap:22px; padding:34px 42px 30px;">
+          <div style="display:flex; justify-content:space-between; align-items:baseline;">
+            <span class="mono" style="font-size:11.5px; letter-spacing:0.14em; color:#8C8479;">02 · R 객체</span>
+            <span class="mono" style="font-size:11.5px; color:#8C8479;">14 / 64</span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <h2 class="disp" style="margin:0; font-size:34px; font-weight:700; letter-spacing:-0.01em;">벡터(vector)</h2>
+            <div style="width:52px; height:3px; background:#1F6F7A;"></div>
+          </div>
+          <ul style="margin:0; padding-left:20px; display:flex; flex-direction:column; gap:10px; font-size:16px; line-height:1.7; color:#3A342C;">
+            <li>동일한 유형의 데이터 원소가 하나 이상으로 구성된 자료 형태</li>
+            <li>R에서 행해지는 모든 연산의 기본 단위</li>
+            <li>반복구문 없이 계산 <span style="color:#8C8479;">→</span> 벡터화 연산(vectorization)</li>
+          </ul>
+          <pre class="mono" style="margin:0; padding:16px 18px; background:#F3EEE5; border-left:3px solid #1F6F7A; font-size:14px; line-height:1.65; color:#241F1A; overflow-x:auto;">x &lt;- c(1, 3, 5, 7)
+x * 2
+<span style="color:#6E665C;">#&gt; [1]  2  6 10 14</span></pre>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:11px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline;">
+          <span class="mono" style="font-size:11px; letter-spacing:0.16em; color:#6E665C;">2.3 벡터 구간 · S13–S24 · 12장 중 6장</span>
+          <span class="mono" style="font-size:11px; color:#8C8479;">◀ 이전 절 · 다음 절 ▶</span>
+        </div>
+        <div style="display:flex; gap:12px;">
+          <div style="flex:1; aspect-ratio:16/9; background:#FFFFFF; border:1px solid #DCD3C6; display:flex; flex-direction:column; gap:5px; padding:9px;"><div style="height:3px; width:26px; background:#C0B5A5;"></div><div style="height:5px; width:70%; background:#E4DCD0;"></div><div style="height:4px; width:88%; background:#EDE6DA;"></div><div style="height:4px; width:60%; background:#EDE6DA;"></div></div>
+          <div style="flex:1; aspect-ratio:16/9; background:#FFFFFF; border:2px solid #1F6F7A; display:flex; flex-direction:column; gap:5px; padding:8px;"><div style="height:3px; width:26px; background:#1F6F7A;"></div><div style="height:5px; width:64%; background:#C7D9DB;"></div><div style="height:4px; width:88%; background:#E4DCD0;"></div><div style="height:4px; width:74%; background:#E4DCD0;"></div></div>
+          <div style="flex:1; aspect-ratio:16/9; background:#FFFFFF; border:1px solid #DCD3C6; display:flex; flex-direction:column; gap:5px; padding:9px;"><div style="height:3px; width:26px; background:#C0B5A5;"></div><div style="height:5px; width:52%; background:#E4DCD0;"></div><div style="height:14px; width:80%; background:#F3EEE5;"></div></div>
+          <div style="flex:1; aspect-ratio:16/9; background:#FFFFFF; border:1px solid #DCD3C6; display:flex; flex-direction:column; gap:5px; padding:9px;"><div style="height:3px; width:26px; background:#C0B5A5;"></div><div style="height:5px; width:76%; background:#E4DCD0;"></div><div style="height:4px; width:66%; background:#EDE6DA;"></div><div style="height:4px; width:84%; background:#EDE6DA;"></div></div>
+          <div style="flex:1; aspect-ratio:16/9; background:#FFFFFF; border:1px solid #DCD3C6; display:flex; flex-direction:column; gap:5px; padding:9px;"><div style="height:3px; width:26px; background:#C0B5A5;"></div><div style="height:5px; width:58%; background:#E4DCD0;"></div><div style="height:14px; width:90%; background:#F3EEE5;"></div></div>
+          <div style="flex:1; aspect-ratio:16/9; background:#FFFFFF; border:1px solid #DCD3C6; display:flex; flex-direction:column; gap:5px; padding:9px;"><div style="height:3px; width:26px; background:#C0B5A5;"></div><div style="height:5px; width:70%; background:#E4DCD0;"></div><div style="height:4px; width:80%; background:#EDE6DA;"></div><div style="height:4px; width:48%; background:#EDE6DA;"></div></div>
+          <div style="flex:1; aspect-ratio:16/9; background:#F3EEE5; border:1px dashed #C0B5A5; display:flex; align-items:center; justify-content:center;"><span class="mono" style="font-size:13px; color:#6E665C;">＋6</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <aside style="display:flex; flex-direction:column; gap:22px; padding:26px; background:#F3EEE5; border:1px solid #E4DCD0;">
+
+      <div style="display:flex; align-items:center; gap:9px;">
+        <span style="display:block; width:9px; height:9px; background:#A64B32;"></span>
+        <span class="mono" style="font-size:11px; letter-spacing:0.16em; color:#A64B32;">대응하는 강의노트</span>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:13px;">
+        <div style="display:flex; flex-direction:column; gap:5px;">
+          <div class="disp" style="font-size:21px; font-weight:700;">2.3 벡터(vector)</div>
+          <div class="mono" style="font-size:11.5px; color:#8C8479;">§ 벡터의 특징 · #vector-prop</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:11px; padding-left:14px; border-left:2px solid #D9BFB4; font-size:14px; line-height:1.8; color:#3A342C;">
+          <p style="margin:0;">타 프로그래밍 언어의 배열(array)의 개념으로 <strong>동일한 유형</strong>의 데이터 원소가 하나 이상으로 구성된 자료 형태</p>
+          <p style="margin:0;">R 언어의 가장 기본적인 데이터 형태로 R에서 행해지는 모든 연산의 기본 단위임</p>
+          <p style="margin:0;">벡터 연산 시 반복구문(예: <span class="mono" style="font-size:13px; background:#EAE0D1; padding:1px 5px;">for loop</span>)이 필요 없음. 이러한 형태의 연산을 벡터화 연산(vectorization)이라고 함.</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:13.5px; color:#A64B32; font-weight:500;">강의노트에서 이어 읽기 <span style="font-size:15px;">→</span></div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:2px; border-top:1px solid #D5CABB; padding-top:18px;">
+        <div class="mono" style="font-size:11px; letter-spacing:0.16em; color:#6E665C; padding-bottom:6px;">이 덱의 다른 절</div>
+        <div class="deckrow" style="border-top:none;"><span class="mono" style="font-size:12px; color:#1F6F7A;">S02–S04</span><span style="font-size:13.5px; color:#5C554C;">2.1 프로그래밍</span><span class="mono" style="font-size:11.5px; color:#8C8479; text-align:right;">3장</span></div>
+        <div class="deckrow"><span class="mono" style="font-size:12px; color:#1F6F7A;">S05–S12</span><span style="font-size:13.5px; color:#5C554C;">2.2 스칼라</span><span class="mono" style="font-size:11.5px; color:#8C8479; text-align:right;">8장</span></div>
+        <div class="deckrow" style="background:#EAE0D1; margin:0 -10px; padding:9px 10px;"><span class="mono" style="font-size:12px; color:#1F6F7A; font-weight:500;">S13–S24</span><span style="font-size:13.5px; font-weight:600;">2.3 벡터</span><span class="mono" style="font-size:11.5px; color:#5C554C; text-align:right;">12장</span></div>
+        <div class="deckrow"><span class="mono" style="font-size:12px; color:#1F6F7A;">S25–S31</span><span style="font-size:13.5px; color:#5C554C;">2.4 리스트</span><span class="mono" style="font-size:11.5px; color:#8C8479; text-align:right;">7장</span></div>
+        <div class="deckrow"><span class="mono" style="font-size:12px; color:#1F6F7A;">S32–S40</span><span style="font-size:13.5px; color:#5C554C;">2.5 행렬</span><span class="mono" style="font-size:11.5px; color:#8C8479; text-align:right;">9장</span></div>
+        <div class="deckrow"><span class="mono" style="font-size:12px; color:#1F6F7A;">S41–S44</span><span style="font-size:13.5px; color:#5C554C;">2.6 배열</span><span class="mono" style="font-size:11.5px; color:#8C8479; text-align:right;">4장</span></div>
+        <div class="deckrow"><span class="mono" style="font-size:12px; color:#1F6F7A;">S45–S52</span><span style="font-size:13.5px; color:#5C554C;">2.7 요인과 테이블</span><span class="mono" style="font-size:11.5px; color:#8C8479; text-align:right;">8장</span></div>
+        <div class="deckrow"><span class="mono" style="font-size:12px; color:#1F6F7A;">S53–S64</span><span style="font-size:13.5px; color:#5C554C;">2.8 데이터 프레임</span><span class="mono" style="font-size:11.5px; color:#8C8479; text-align:right;">12장</span></div>
+        <div class="deckrow"><span class="mono" style="font-size:12px; color:#BFB3A2;">—</span><span style="font-size:13.5px; color:#8C8479;">2.9 유형 판별과 변환</span><span class="mono" style="font-size:11.5px; color:#1F6F7A; text-align:right;">＋</span></div>
+      </div>
+
+    </aside>
+
+  </div>
+</div>
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":1140}}'>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>
