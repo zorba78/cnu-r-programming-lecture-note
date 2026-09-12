@@ -1,0 +1,2933 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<script src="09-simulation-slides_files/libs/quarto-html/tabby.min.js"></script>
+<script src="09-simulation-slides_files/libs/quarto-html/popper.min.js"></script>
+<script src="09-simulation-slides_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="09-simulation-slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="09-simulation-slides_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="09-simulation-slides_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="구본초">
+  <meta name="dcterms.date" content="2026-09-12">
+  <title>시뮬레이션</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="09-simulation-slides_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="09-simulation-slides_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="09-simulation-slides_files/libs/revealjs/dist/theme/quarto-26fb89d41885d20334c2c070c8517008.css">
+  <link href="09-simulation-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="09-simulation-slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="09-simulation-slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="09-simulation-slides_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <style>
+  :root {
+    --deck-kicker: "CHAPTER 09";
+    --deck-course: "통계 프로그래밍 언어";
+    --deck-chapter: "09 시뮬레이션";
+    --deck-footer: "통계 프로그래밍 언어, 09 시뮬레이션";
+    --deck-watermark: "1/√B";
+  }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-notes="<p>오늘은 9장 시뮬레이션입니다.</p>
+<p>지난 시간에 코드를 검증할 때 정답이 알려진 기준과 대조했습니다. sort() 와 비교하고, polyroot() 와 비교하고, lm() 과 비교했지요. 그런데 비교할 정답이 없으면 어떻게 할까요? 새로 만든 방법이 맞는지, 자료가 가정에서 조금 벗어나도 검정을 믿어도 되는지는 정답표가 없습니다.</p>
+<p>오늘은 그럴 때 쓰는 방법을 배웁니다. 정답을 우리가 직접 정해 둔 가상의 세계를 만들고, 그 안에서 방법을 여러 번 시험하는 겁니다. 그게 시뮬레이션입니다. 오늘 마지막에는 AI 가 만들어 준 시뮬레이션 코드를 같은 방법으로 검증해 봅니다.</p>" class="quarto-title-block">
+  <h1 class="title">시뮬레이션</h1>
+  <p class="subtitle">정답을 아는 세계에서 방법을 시험하기</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+구본초 
+</div>
+        <p class="quarto-title-affiliation">
+            충남대학교 정보통계학과
+          </p>
+    </div>
+</div>
+
+  <p class="date">2026-09-12</p>
+</section>
+<section id="이-수업에서-다루는-것" class="slide level2">
+<h2>이 수업에서 다루는 것</h2>
+<div class="keypoint">
+<p>정답을 알려 주는 기준이 없을 때, <strong>정답을 아는 세계를 만들어</strong> 방법을 시험: 시뮬레이션은 <strong>검증의 도구</strong></p>
+</div>
+<p><br></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 42%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">절</th>
+<th style="text-align: left;">내용</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">시뮬레이션과 몬테카를로 방법</td>
+<td style="text-align: left;">생일 문제, 반복 횟수와 오차, 난수와 재현성</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">확률과 기댓값의 추정</td>
+<td style="text-align: left;">주사위 게임, 카드 짝 맞추기</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">몬테카를로 적분</td>
+<td style="text-align: left;">원주율, 표본평균 방법, 뷔퐁의 바늘</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">표본분포와 중심극한정리</td>
+<td style="text-align: left;">평행우주의 통계량, 30개면 충분한가</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">통계적 추론을 시뮬레이션으로 확인하기</td>
+<td style="text-align: left;">신뢰구간, 1종 오류, 검정력, 가정이 깨지면</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">시뮬레이션으로 코드 검증하기</td>
+<td style="text-align: left;">한 번의 예제로는 보이지 않는 결함, 흔한 실수</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">AI와 함께</td>
+<td style="text-align: left;">시뮬레이션 코드의 검증</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>전체 지도를 먼저 보겠습니다.</p>
+<p>1절부터 3절까지는 시뮬레이션이라는 도구 자체를 익히는 시간입니다. 생일 문제로 시작해서, 몇 번 반복해야 믿을 만한지, 결과를 어떻게 재현하는지를 봅니다. 그다음 게임과 적분 문제에 써 봅니다.</p>
+<p>4절과 5절은 통계학개론에서 배운 이론을 눈으로 확인하는 시간입니다. 중심극한정리, 신뢰구간, p-값, 검정력. 식으로만 보던 것들을 실제로 반복해서 셉니다.</p>
+<p>6절과 7절이 오늘의 핵심입니다. 시뮬레이션으로 코드를 검증하는 방법, 그리고 그 방법을 AI 가 만든 코드에 적용하는 것입니다. 8장에서 한 검증이 ’정답과 대조하기’였다면, 오늘은 ’정답을 만들어서 대조하기’입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section>
+<section id="시뮬레이션과-몬테카를로-방법" class="title-slide slide level1 section-title">
+<h1><span class="secno">1</span> 시뮬레이션과 몬테카를로 방법</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p><strong>시뮬레이션</strong>: 확률 모형에서 가상의 자료를 만들어 <strong>같은 실험을 많이 반복</strong>하는 방법</p>
+<p>반복한 결과의 비율과 평균으로 확률과 기댓값을 근사: <strong>몬테카를로 방법</strong></p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>생일이 같은 사람이 있을까</li>
+<li>반복할수록 정답에 가까워지는 이유</li>
+<li>몇 번 반복해야 충분한가</li>
+<li>난수와 재현성</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong>: 컴퓨터로 <strong>몇 번 반복하면</strong> 확률을 믿을 만하게 알 수 있는가?</p>
+</div>
+<aside class="notes">
+<p>1절입니다. 시뮬레이션은 비행 시뮬레이터처럼, 현실에서 해 보기 어려운 일을 모형 안에서 대신 해 보는 방법입니다.</p>
+<p>통계에서 말하는 시뮬레이션은 조금 더 좁습니다. 확률 모형에서 난수로 가상의 자료를 만들고, 같은 실험을 아주 많이 반복해서 그 결과로 확률이나 기댓값을 근사합니다. 이걸 몬테카를로 방법이라고 부릅니다. 2차 세계대전 중 원자폭탄 개발 계획에서 이 계산을 하던 연구자들이 도박 도시 몬테카를로의 이름을 암호명으로 붙인 데서 왔습니다.</p>
+<p>이 절의 질문은 하나입니다. 몇 번 반복하면 믿을 만한가.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="생일이-같은-사람이-있을까" class="slide level2">
+<h2><span class="secno">1.1</span> 생일이 같은 사람이 있을까</h2>
+<div class="columns">
+<div class="column" style="width:46%;">
+<p>40명이 듣는 이 강의실에 <strong>생일이 같은 두 사람</strong>이 있을 확률은?</p>
+<p><span class="label label-note">모형의 가정</span></p>
+<ul>
+<li>생일은 365일 가운데 하루, <strong>모두 같은 확률</strong></li>
+<li>사람끼리 <strong>독립</strong>, 2월 29일은 없음</li>
+</ul>
+<p><span class="label label-slide">한 번의 실험</span></p>
+<ul>
+<li>40명의 생일을 무작위로 뽑음</li>
+<li>겹치는 생일이 있는지 확인</li>
+</ul>
+</div><div class="column" style="width:54%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a>has_shared_birthday <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb1-2"><a href="" aria-hidden="true" tabindex="-1"></a>  birthdays <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">365</span>, n,</span>
+<span id="cb1-3"><a href="" aria-hidden="true" tabindex="-1"></a>                      <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">any</span>(<span class="fu">duplicated</span>(birthdays))  <span class="co"># 겹침이 있는가</span></span>
+<span id="cb1-5"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb1-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">has_shared_birthday</span>(<span class="dv">40</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">has_shared_birthday</span>(<span class="dv">40</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<div class="keypoint">
+<p>한 번의 결과는 <code>TRUE</code> 또는 <code>FALSE</code> 일 뿐, <strong>확률이 아님</strong></p>
+</div>
+</div></div>
+<aside class="notes">
+<p>일상의 질문으로 시작하겠습니다. 이 강의실에 40명이 있다고 합시다. 생일이 같은 두 사람이 있을 확률은 얼마일까요? 1년이 365일이니까 40명이면 별로 안 겹칠 것 같지요.</p>
+<p>40명을 여러 번 모아 볼 수는 없지만 컴퓨터 안에서는 됩니다. 먼저 모형의 가정을 정합니다. 생일은 365일 가운데 하루를 같은 확률로 갖고, 사람끼리는 독립이고, 2월 29일은 없다고 칩니다. 이 가정이 중요합니다. 뒤에서 다시 나옵니다.</p>
+<p>오른쪽 코드가 ‘한 반을 만드는’ 절차입니다. 365일에서 40개를 복원 추출로 뽑습니다. 같은 날이 또 나올 수 있으니까 복원 추출이지요. 그리고 duplicated() 로 겹치는 게 있는지 봅니다.</p>
+<p>두 번 돌렸더니 둘 다 TRUE 가 나왔습니다. 그런데 이건 확률이 아닙니다. 한 번 해 봤더니 겹쳤다는 것뿐입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>40명 가운데 생일이 같은 사람이 <strong>적어도 한 쌍</strong> 있을 확률은?</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">has_shared_birthday</span>(<span class="dv">40</span>)))</span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 10% 안팎</p>
+</div>
+<div>
+<p><strong>B</strong> 50% 안팎</p>
+</div>
+<div>
+<p><strong>C</strong> 90% 안팎</p>
+</div>
+</div>
+<div class="why">
+<p><code>replicate(B, 식)</code>: 식을 B 번 실행해 결과를 모음. 논리값의 평균은 TRUE 의 비율</p>
+</div>
+<aside class="notes">
+<p>예측입니다. 같은 실험을 만 번 반복해서 TRUE 의 비율을 구하면 얼마가 나올까요?</p>
+<p>replicate() 는 식을 여러 번 실행해서 결과를 모아 주는 함수입니다. TRUE 는 1, FALSE 는 0 으로 계산되니까 평균을 내면 TRUE 의 비율이 됩니다.</p>
+<p>10% 안팎, 50% 안팎, 90% 안팎. 손을 들어 봅시다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="시뮬레이션과-이론값의-대조" class="slide level2">
+<h2><span class="secno">1.1</span> 시뮬레이션과 이론값의 대조</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb6-2"><a href="" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>,</span>
+<span id="cb6-3"><a href="" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">has_shared_birthday</span>(<span class="dv">40</span>))</span>
+<span id="cb6-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(result)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8923</code></pre>
+</div>
+</div>
+<p><span class="label label-note">이론값: 모두 다를 확률의 여사건</span></p>
+<p><span class="math display">\[1 - \frac{365}{365}\times\frac{364}{365}\times\cdots\times\frac{326}{365}\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="" aria-hidden="true" tabindex="-1"></a>exact_birthday <span class="ot">&lt;-</span> <span class="cf">function</span>(n)</span>
+<span id="cb8-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span> <span class="sc">-</span> <span class="fu">prod</span>((<span class="dv">365</span> <span class="sc">-</span> <span class="dv">0</span><span class="sc">:</span>(n <span class="sc">-</span> <span class="dv">1</span>)) <span class="sc">/</span> <span class="dv">365</span>)</span>
+<span id="cb8-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">exact_birthday</span>(<span class="dv">40</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8912318</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">사람 수</th>
+<th style="text-align: right;">시뮬레이션</th>
+<th style="text-align: right;">이론값</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.1170</td>
+<td style="text-align: right;">0.1169</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">0.5078</td>
+<td style="text-align: right;">0.5073</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0.7032</td>
+<td style="text-align: right;">0.7063</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.8880</td>
+<td style="text-align: right;">0.8912</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">0.9712</td>
+<td style="text-align: right;">0.9704</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="keypoint">
+<p><strong>23명</strong>이면 이미 절반 초과: 두 사람씩 짝짓는 방법이 40명이면 780가지</p>
+<p>반복은 <strong>우연의 오차</strong>만 줄임: 모형의 가정이 틀리면 그 차이는 남음</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 C 였습니다. 약 89% 입니다.</p>
+<p>이 문제는 손으로도 풀 수 있어서 시뮬레이션을 이론값과 대조할 수 있습니다. 모두 다를 확률을 먼저 구하면 쉽습니다. 첫 사람은 아무 날이나, 둘째는 첫 사람과 다른 364일 가운데 하나, 셋째는 363일 가운데 하나. 이렇게 곱해서 1 에서 빼면 됩니다. 0.891. 시뮬레이션과 소수 둘째 자리까지 맞습니다.</p>
+<p>오른쪽 표를 보세요. 23명만 되어도 절반을 넘습니다. 직관과 많이 다르지요. 40명이면 두 사람씩 짝을 짓는 방법이 780가지나 되니까, 겹칠 기회가 생각보다 훨씬 많은 겁니다.</p>
+<p>아래 상자 두 번째 줄이 중요합니다. 실제 생일은 고르게 퍼져 있지 않습니다. 계절도 있고 쌍둥이도 있지요. 모형이 그걸 반영하지 않으면 만 번이 아니라 백만 번을 돌려도 그 차이는 안 줄어듭니다. 반복은 우연의 오차만 줄여 줍니다. 시뮬레이션의 답은 모형의 답입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="반복할수록-이론값으로" class="slide level2">
+<h2><span class="secno">1.2</span> 반복할수록 이론값으로</h2>
+
+<img data-src="09-simulation-slides_files/figure-revealjs/running-plot-1.png" style="width:100.0%" class="r-stretch"><div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><strong>대수의 법칙</strong>: 독립인 반복에서 비율은 확률로, 평균은 기댓값으로 수렴</li>
+<li>처음 몇십 번은 크게 흔들림</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="keypoint">
+<p>확률과 기댓값은 ’무한히 반복했을 때’의 값: 컴퓨터로 <strong>충분히 많이</strong> 반복해 근사</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>시뮬레이션이 왜 통하는지 보겠습니다. 반복할 때마다 그때까지의 비율을 기록해서 그린 겁니다. 점선이 이론값입니다.</p>
+<p>처음 몇십 번은 위아래로 크게 흔들립니다. 그러다 반복이 쌓일수록 점선 근처로 모입니다.</p>
+<p>이게 통계학개론에서 배운 대수의 법칙입니다. 독립인 실험을 반복하면 사건이 일어난 비율은 그 사건의 확률로, 평균은 기댓값으로 다가갑니다. 확률과 기댓값은 원래 ’무한히 반복했을 때’로 정의되지요. 무한히는 못 하지만 충분히 많이는 할 수 있습니다. 컴퓨터가 그걸 해 줍니다.</p>
+<p>그러면 ’충분히’가 몇 번이냐. 다음 슬라이드입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-1" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>반복 횟수 <span class="math inline">\(B\)</span> 를 <strong>100배</strong>로 늘리면 추정값의 오차와 실행 시간은?</p>
+<p><span class="math display">\[\text{표준오차} = \sqrt{\frac{p(1-p)}{B}}\]</span></p>
+<div class="options">
+<div>
+<p><strong>A</strong> 오차 1/100, 시간 100배</p>
+</div>
+<div>
+<p><strong>B</strong> 오차 1/10, 시간 100배</p>
+</div>
+<div>
+<p><strong>C</strong> 오차 1/10, 시간 10배</p>
+</div>
+</div>
+<div class="why">
+<p>반복 결과의 비율: 성공 확률이 <span class="math inline">\(p\)</span> 인 시행을 <span class="math inline">\(B\)</span> 번 한 <strong>표본비율</strong>, 그 표준오차가 <strong>몬테카를로 오차</strong></p>
+</div>
+<aside class="notes">
+<p>예측입니다. 반복 결과의 비율은 결국 표본비율입니다. 성공 확률이 p 인 시행을 B 번 해서 성공한 비율이지요. 그러니 표준오차는 통계학개론에서 배운 대로 루트 p(1-p)/B 입니다. 이걸 몬테카를로 오차라고 부릅니다.</p>
+<p>B 를 100배로 늘리면 오차는 몇 분의 1 이 될까요? 시간은요?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="몇-번-반복해야-충분한가" class="slide level2">
+<h2><span class="secno">1.2</span> 몇 번 반복해야 충분한가</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">B</th>
+<th style="text-align: right;">추정값</th>
+<th style="text-align: right;">실제오차</th>
+<th style="text-align: right;">표준오차</th>
+<th style="text-align: right;">시간(초)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">0.8600</td>
+<td style="text-align: right;">0.0312</td>
+<td style="text-align: right;">0.0347</td>
+<td style="text-align: right;">0.001</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1,000</td>
+<td style="text-align: right;">0.8900</td>
+<td style="text-align: right;">0.0012</td>
+<td style="text-align: right;">0.0099</td>
+<td style="text-align: right;">0.014</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10,000</td>
+<td style="text-align: right;">0.8930</td>
+<td style="text-align: right;">0.0018</td>
+<td style="text-align: right;">0.0031</td>
+<td style="text-align: right;">0.148</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">100,000</td>
+<td style="text-align: right;">0.8899</td>
+<td style="text-align: right;">0.0013</td>
+<td style="text-align: right;">0.0010</td>
+<td style="text-align: right;">1.432</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="keypoint teal">
+<p>반복 100배 → 표준오차 <strong>1/10</strong>, 시간은 반복 횟수에 거의 <strong>비례</strong></p>
+<p>정확도 한 자리를 더 얻는 비용: 반복 100배 (8장의 비용)</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="keypoint">
+<p><strong>추정값은 오차와 함께 읽기</strong>: <span class="math inline">\(B\)</span> = 10,000, <span class="math inline">\(p\)</span> 약 0.89 → 표준오차 약 0.003 → 참값은 대략 추정값 ± 0.006</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 B 입니다. 표를 보시죠.</p>
+<p>표준오차 열을 보세요. 반복을 열 배씩 늘릴 때마다 0.035, 0.010, 0.003, 0.001. 100배 늘리면 정확히 1/10 이 됩니다. 루트 B 에 반비례하니까요.</p>
+<p>시간 열도 보세요. 만 번에서 십만 번으로 열 배 늘렸더니 시간도 거의 열 배입니다. 반복 횟수에 비례합니다.</p>
+<p>그러니까 정확도를 한 자리 더 얻으려면 반복을 100배, 시간도 100배 써야 합니다. 8장에서 말한 비용 이야기가 시뮬레이션에도 그대로 있습니다.</p>
+<p>실제오차 열은 들쭉날쭉합니다. 천 번일 때가 만 번일 때보다 오히려 작지요. 이것도 우연입니다. 그래서 오른쪽 상자입니다. 몬테카를로 추정값은 반드시 오차와 함께 읽으세요. 0.893 이라는 숫자 하나로는 이론값과 다른지 알 수 없습니다. 표준오차의 두 배쯤을 붙여서 읽습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="난수와-재현성" class="slide level2">
+<h2><span class="secno">1.3</span> 난수와 재현성</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>); <span class="fu">runif</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6986735 0.5565305 0.1401400</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>); <span class="fu">runif</span>(<span class="dv">3</span>)  <span class="co"># 같은 수열</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6986735 0.5565305 0.1401400</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">3</span>)                  <span class="co"># 이어서 다음 수</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.28572331 0.55536901 0.02513115</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>유사난수</strong>: 씨앗(seed)에서 정해진 규칙으로 계산한 수열</li>
+<li><code>set.seed()</code>: 결과를 <strong>재현</strong>하기 위한 장치</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="cf">function</span>(s) {</span>
+<span id="cb16-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(s)</span>
+<span id="cb16-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>,</span>
+<span id="cb16-4"><a href="" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">has_shared_birthday</span>(<span class="dv">40</span>)))</span>
+<span id="cb16-5"><a href="" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8936 0.8922 0.8848 0.8911 0.8874</code></pre>
+</div>
+</div>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>주의</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>시드는 결과를 고정할 뿐, 옳게 만들지 않음</strong></p>
+<ul>
+<li>8장 옛 노트: 예제의 시드가 우연히 버그를 가림</li>
+<li>시드를 바꾸어도 <strong>몬테카를로 오차 안에서만</strong> 흔들리는지 확인</li>
+</ul>
+</div>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<p>컴퓨터는 정해진 규칙대로 계산하는 기계라서 진짜 난수를 못 만듭니다. R 의 난수는 씨앗이라고 부르는 출발값에서 시작해 규칙대로 계산한 수열입니다. 그래서 유사난수라고 합니다.</p>
+<p>왼쪽 코드를 보세요. 같은 씨앗으로 시작하면 같은 수가 나옵니다. 이게 set.seed() 의 역할입니다. 보고서에 실은 결과를 다른 사람이, 또는 한 달 뒤의 내가 똑같이 다시 얻을 수 있게 해 줍니다.</p>
+<p>그런데 오른쪽 경고 상자가 중요합니다. 시드는 결과를 고정할 뿐 옳게 만들지 않습니다. 8장을 만들 때 옛 노트를 감사했더니, 예제의 시드가 우연히 버그를 가려서 렌더된 노트에서는 멀쩡해 보이던 코드가 있었습니다.</p>
+<p>그래서 시드 하나로 얻은 결과가 그럴듯하면 시드를 바꿔 봅니다. 위의 다섯 값이 시드만 바꾼 결과입니다. 0.885 에서 0.894 사이. 이론값 0.891 에서 표준오차의 두 배 남짓 안에서만 흔들립니다. 이러면 믿을 만합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="확률과-기댓값의-추정" class="title-slide slide level1 section-title">
+<h1><span class="secno">2</span> 확률과 기댓값의 추정</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>확률과 기댓값의 정의: <strong>무한히 반복했을 때</strong>의 값</p>
+<p>무한히는 못 해도 <strong>충분히 많이</strong>는 가능</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>주사위 게임: <strong>복원 추출</strong>과 기댓값</li>
+<li>복원 추출을 빼면</li>
+<li>카드 짝 맞추기: <strong>비복원 추출</strong></li>
+<li>이론값과의 대조</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong>: 이 게임, <strong>해도 되는가</strong>?</p>
+</div>
+<aside class="notes">
+<p>2절입니다. 게임 두 개로 확률과 기댓값을 추정하고 이론값과 대조합니다.</p>
+<p>두 게임은 뽑는 방식이 다릅니다. 주사위는 같은 눈이 또 나올 수 있는 복원 추출, 카드는 한 번 뽑은 카드가 다시 안 나오는 비복원 추출입니다. 이 차이를 코드에서 잘못 쓰면 어떻게 되는지도 봅니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-2" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>주사위 두 개, <strong>같은 눈이면 +10,000원</strong>, 다르면 -5,000원. 한 판의 평균 상금은?</p>
+<div class="options">
+<div>
+<p><strong>A</strong> 약 +2,500원 (이득)</p>
+</div>
+<div>
+<p><strong>B</strong> 약 0원</p>
+</div>
+<div>
+<p><strong>C</strong> 약 -2,500원 (손해)</p>
+</div>
+</div>
+<div class="why">
+<p>이기면 받는 돈이 지면 내는 돈의 <strong>두 배</strong>, 그런데 두 눈이 같을 확률은?</p>
+</div>
+<aside class="notes">
+<p>주사위 두 개를 던져서 두 눈이 같으면 만 원을 받고, 다르면 오천 원을 내는 게임입니다. 이기면 두 배를 받으니까 해 볼 만해 보이지요.</p>
+<p>이 게임을 여러 번 하면 한 판에 평균 얼마를 따거나 잃을까요? 참가하시겠습니까?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="주사위-게임의-기댓값" class="slide level2">
+<h2><span class="secno">2.1</span> 주사위 게임의 기댓값</h2>
+<div class="columns">
+<div class="column" style="width:46%;">
+<p><span class="label label-note">이론값</span></p>
+<p><span class="math display">\[E(X) = 10{,}000 \times \frac{1}{6} - 5{,}000 \times \frac{5}{6} = -2{,}500\]</span></p>
+<ul>
+<li>두 눈이 같을 확률 <span class="math inline">\(6/36 = 1/6\)</span></li>
+<li>금액만 보면 유리해 보여도 <strong>확률까지 곱하면 손해</strong></li>
+<li>기댓값 = 금액과 확률을 <strong>함께</strong> 따진 값</li>
+</ul>
+</div><div class="column" style="width:54%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb18-2"><a href="" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb18-3"><a href="" aria-hidden="true" tabindex="-1"></a>die1 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, B, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-4"><a href="" aria-hidden="true" tabindex="-1"></a>die2 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, B, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-5"><a href="" aria-hidden="true" tabindex="-1"></a>prize <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(die1 <span class="sc">==</span> die2, <span class="dv">10000</span>, <span class="sc">-</span><span class="dv">5000</span>)</span>
+<span id="cb18-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(die1 <span class="sc">==</span> die2)   <span class="co"># 이론값 1/6</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.16661</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(prize)          <span class="co"># 이론값 -2500</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2500.85</code></pre>
+</div>
+</div>
+<div class="keypoint">
+<p>10만 번을 <strong>한꺼번에</strong> 던짐: 반복문보다 벡터 연산이 빠름 (8장)</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 C 입니다.</p>
+<p>이론값부터 보겠습니다. 두 눈이 같을 확률은 36가지 가운데 6가지, 1/6 입니다. 그러니까 1/6 확률로 만 원, 5/6 확률로 오천 원을 잃습니다. 곱해서 더하면 마이너스 2,500원. 한 판에 평균 2,500원을 잃는 게임입니다.</p>
+<p>오른쪽 시뮬레이션으로 대조합니다. 주사위를 한 번씩 던지는 반복문 대신 10만 번을 한꺼번에 던졌습니다. 이긴 비율 0.1666, 평균 상금 마이너스 2,500원. 이론값과 맞습니다.</p>
+<p>금액만 보면 유리해 보였지요. 그런데 확률까지 곱하면 손해입니다. 기댓값은 금액과 확률을 함께 따진 값입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="복원-추출을-빼면" class="slide level2">
+<h2><span class="secno">2.1</span> 복원 추출을 빼면</h2>
+<div class="columns">
+<div class="column" style="width:52%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">10</span>)   <span class="co"># 6개에서 10개를 비복원으로?</span></span></code></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in `sample.int()`:
+! cannot take a sample larger than the population when 'replace = FALSE'</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb24-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">6</span>)    <span class="co"># 오류는 없음</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5 2 4 3 6 1</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:48%;">
+<p><span class="label label-note">첫째 줄: 오류로 멈춤</span></p>
+<ul>
+<li>곧바로 알아챔</li>
+</ul>
+<p><span class="label label-slide">둘째 줄: 조용히 틀림</span></p>
+<ul>
+<li>여섯 눈이 <strong>정확히 한 번씩</strong>만 나옴</li>
+<li>실제로 그럴 확률은 <span class="math inline">\(6!/6^6 \approx 0.015\)</span></li>
+<li>이 코드는 <strong>매번</strong> 그런 결과: <strong>오류 없이 틀린 모형</strong></li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p>위험한 쪽은 멈추는 코드가 아니라 <strong>그럴듯한 값을 내며 끝나는 코드</strong></p>
+</div>
+<aside class="notes">
+<p>주사위를 던질 때 replace = TRUE 가 중요합니다. 빼면 어떻게 되는지 보겠습니다.</p>
+<p>첫째 줄은 6개에서 10개를 비복원으로 뽑으라는 겁니다. 불가능하니까 오류로 멈춥니다. 이건 곧바로 알아챕니다.</p>
+<p>위험한 쪽은 둘째 줄입니다. 6개에서 6개를 비복원으로 뽑으면 오류가 안 납니다. 그런데 결과를 보세요. 1부터 6까지가 딱 한 번씩 나왔습니다. 주사위를 여섯 번 던져서 모든 눈이 한 번씩 나올 확률은 1.5% 입니다. 이 코드는 매번 그 결과를 냅니다.</p>
+<p>오류 없이 틀린 모형입니다. 8장부터 계속 말하는 이야기지요. 멈추는 코드보다 그럴듯한 값을 내며 끝나는 코드가 더 위험합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-3" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>카드 13장을 섞어 한 장씩 뒤집기, <strong>i 번째 카드의 번호가 i</strong> 인 적이 한 번이라도 있으면 패배. 질 확률은?</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="" aria-hidden="true" tabindex="-1"></a>matching_game <span class="ot">&lt;-</span> <span class="cf">function</span>(n_cards) {</span>
+<span id="cb26-2"><a href="" aria-hidden="true" tabindex="-1"></a>  deck <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n_cards)     <span class="co"># 비복원 추출: 카드 섞기</span></span>
+<span id="cb26-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">any</span>(deck <span class="sc">==</span> <span class="dv">1</span><span class="sc">:</span>n_cards)        <span class="co"># 짝이 하나라도 맞으면 TRUE</span></span>
+<span id="cb26-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 약 10%, 52장이면 더 작음</p>
+</div>
+<div>
+<p><strong>B</strong> 약 60%, 52장이어도 거의 같음</p>
+</div>
+<div>
+<p><strong>C</strong> 약 90%, 52장이면 더 큼</p>
+</div>
+</div>
+<div class="why">
+<p>카드가 많아지면 한 장의 짝이 맞을 확률 1/n 은 줄지만, 짝이 맞을 <strong>기회</strong>는 늘어남</p>
+</div>
+<aside class="notes">
+<p>카드 게임입니다. 1부터 13까지 적힌 카드를 잘 섞어서 한 장씩 뒤집습니다. 세 번째로 뒤집은 카드가 3 이면 짝이 맞은 겁니다. 짝이 한 번이라도 맞으면 집니다.</p>
+<p>코드를 보세요. sample(1:n_cards) 는 1부터 n 까지를 한 번씩, 무작위 순서로 늘어놓습니다. 비복원 추출이지요. 카드 섞기가 바로 이겁니다.</p>
+<p>질 확률은 얼마일까요? 그리고 카드가 52장으로 늘면 어떻게 될까요?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="카드-짝-맞추기" class="slide level2">
+<h2><span class="secno">2.2</span> 카드 짝 맞추기</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2027</span>)</span>
+<span id="cb27-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">matching_game</span>(<span class="dv">13</span>)))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6327</code></pre>
+</div>
+</div>
+<p><span class="label label-note">이론값: 포함배제의 원리</span></p>
+<p><span class="math display">\[1 - \sum_{k=0}^{n}\frac{(-1)^k}{k!} \;\longrightarrow\; 1 - \frac{1}{e} \approx 0.632\]</span></p>
+</div><div class="column" style="width:52%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">카드 수</th>
+<th style="text-align: right;">시뮬레이션</th>
+<th style="text-align: right;">이론값</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.50195</td>
+<td style="text-align: right;">0.5000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.66355</td>
+<td style="text-align: right;">0.6667</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.63205</td>
+<td style="text-align: right;">0.6333</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0.63305</td>
+<td style="text-align: right;">0.6321</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">0.63325</td>
+<td style="text-align: right;">0.6321</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="keypoint">
+<p>13장이든 52장이든 <strong>약 0.632</strong>: 짝이 맞을 확률 1/n 과 기회 n 번이 상쇄</p>
+<p>시뮬레이션은 답을 <strong>확인</strong>하는 도구이자 답을 <strong>짐작</strong>하게 해 주는 도구</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 B 입니다. 약 63% 로 집니다. 그리고 52장이어도 거의 같습니다.</p>
+<p>이론값은 포함배제의 원리로 구합니다. 식이 조금 복잡한데, 카드가 많아질수록 1 - 1/e, 0.632 에 다가갑니다. 오른쪽 표에서 시뮬레이션과 이론값이 맞는 걸 확인하세요.</p>
+<p>왜 카드 수와 상관이 없을까요? 카드가 많아지면 한 장의 짝이 맞을 확률 1/n 은 줄어듭니다. 그런데 짝이 맞을 기회도 n 번으로 늘어납니다. 둘이 상쇄되는 거지요.</p>
+<p>이런 성질은 식을 세우기 전에 시뮬레이션으로 먼저 알아채는 경우가 많습니다. 시뮬레이션은 답을 확인하는 도구이면서, 답을 짐작하게 해 주는 도구이기도 합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="몬테카를로-적분" class="title-slide slide level1 section-title">
+<h1><span class="secno">3</span> 몬테카를로 적분</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>넓이(적분)도 <strong>확률이나 평균</strong>으로 바꾸면 시뮬레이션으로 계산 가능</p>
+<p>식으로 적분하기 어렵거나 <strong>변수가 많은</strong> 적분에서 쓸모</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>점을 뿌려 원주율 구하기</li>
+<li>점의 수와 오차, 반복문과 벡터 연산</li>
+<li>표본평균 방법과 integrate() 대조</li>
+<li>뷔퐁의 바늘</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong>: 같은 비용이면 <strong>어떤 방법이 더 정확한가</strong>?</p>
+</div>
+<aside class="notes">
+<p>3절은 몬테카를로 적분입니다. 적분은 넓이지요. 넓이를 ’무작위로 뿌린 점이 영역 안에 떨어질 확률’로 바꾸거나 ’함수값의 평균’으로 바꾸면 시뮬레이션으로 구할 수 있습니다.</p>
+<p>지금은 식으로 풀 수 있는 적분으로 연습하지만, 이 방법이 진짜 쓸모 있는 건 변수가 수십 개인 적분처럼 식으로는 손도 못 대는 경우입니다.</p>
+<p>이 절의 질문은 비용입니다. 같은 비용이면 어떤 방법이 더 정확한가.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="점을-뿌려-원주율-구하기" class="slide level2">
+<h2><span class="secno">3.1</span> 점을 뿌려 원주율 구하기</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="09-simulation-slides_files/figure-revealjs/pi-points-1.png" style="width:86.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:58%;">
+<ul>
+<li>비유: 정사각형 과녁에 <strong>눈을 감고</strong> 다트 던지기</li>
+<li>사분원 안에 꽂힐 확률 = 넓이의 비 <span class="math inline">\(\pi/4\)</span></li>
+<li>꽂힌 비율의 4배 → 원주율: <strong>적중법</strong>(hit-or-miss)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="" aria-hidden="true" tabindex="-1"></a>estimate_pi <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb29-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n)              <span class="co"># 가로 좌표</span></span>
+<span id="cb29-3"><a href="" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">runif</span>(n)              <span class="co"># 세로 좌표</span></span>
+<span id="cb29-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="dv">4</span> <span class="sc">*</span> <span class="fu">mean</span>(x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> y<span class="sc">^</span><span class="dv">2</span> <span class="sc">&lt;=</span> <span class="dv">1</span>)   <span class="co"># 안에 든 비율의 4배</span></span>
+<span id="cb29-5"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb29-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_pi</span>(<span class="dv">1000</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.212</code></pre>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<p>한 변이 1 인 정사각형 과녁에 눈을 감고 다트를 던진다고 해 봅시다. 과녁 안에 반지름 1 인 사분원을 그려 두면, 다트가 사분원 안에 꽂힐 확률은 넓이의 비, π/4 입니다.</p>
+<p>그러니까 다트를 많이 던져서 안에 꽂힌 비율을 네 배 하면 원주율이 나옵니다. 왼쪽 그림이 점 2,000개를 뿌린 겁니다. 청록색이 안에 든 점입니다.</p>
+<p>코드는 세 줄입니다. 가로 좌표, 세로 좌표를 균일분포에서 뽑고, x² + y² 이 1 이하인 비율에 4를 곱합니다. 점 천 개로 3.212. 아직 많이 부정확하지요. 점을 늘리면 어떻게 될까요?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="점의-수와-오차-수행-시간" class="slide level2">
+<h2><span class="secno">3.1</span> 점의 수와 오차, 수행 시간</h2>
+<div class="columns">
+<div class="column" style="width:58%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">점의 수</th>
+<th style="text-align: right;">추정값</th>
+<th style="text-align: right;">실제 오차</th>
+<th style="text-align: right;">이론 표준오차</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">3.16000</td>
+<td style="text-align: right;">0.01841</td>
+<td style="text-align: right;">0.16422</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1,000</td>
+<td style="text-align: right;">3.22000</td>
+<td style="text-align: right;">0.07841</td>
+<td style="text-align: right;">0.05193</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10,000</td>
+<td style="text-align: right;">3.11600</td>
+<td style="text-align: right;">0.02559</td>
+<td style="text-align: right;">0.01642</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">100,000</td>
+<td style="text-align: right;">3.13724</td>
+<td style="text-align: right;">0.00435</td>
+<td style="text-align: right;">0.00519</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1,000,000</td>
+<td style="text-align: right;">3.14119</td>
+<td style="text-align: right;">0.00040</td>
+<td style="text-align: right;">0.00164</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10,000,000</td>
+<td style="text-align: right;">3.14216</td>
+<td style="text-align: right;">0.00056</td>
+<td style="text-align: right;">0.00052</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column" style="width:42%;">
+<p><span class="label label-slide">점 100만 개를 뿌리는 시간(초)</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">방식</th>
+<th style="text-align: right;">초</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">하나씩 (for 문)</td>
+<td style="text-align: right;">1.101</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">한꺼번에 (벡터)</td>
+<td style="text-align: right;">0.046</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="keypoint">
+<p>표준오차: 점 100배마다 <strong>1/10</strong>, 실제 오차는 우연히 들쭉날쭉</p>
+<p>결과는 같고 벡터 연산이 <strong>수십 배</strong> 빠름</p>
+</div>
+</div></div>
+<div class="keypoint teal">
+<p>원주율을 구하는 방법으로는 비효율적, 그러나 <strong>어떤 모양의 넓이든</strong> 같은 방법으로 구할 수 있음: 이 방법의 가치</p>
+</div>
+<aside class="notes">
+<p>점의 수를 100개부터 천만 개까지 늘려 봤습니다.</p>
+<p>이론 표준오차 열을 보세요. 점이 100배 늘 때마다 정확히 1/10 이 됩니다. 1절에서 본 루트 B 법칙 그대로입니다. 실제 오차 열은 그 근처에서 우연히 크거나 작게 나옵니다.</p>
+<p>천만 개를 뿌려도 소수점 아래 서너 자리가 한계입니다. 원주율을 구하는 방법으로는 비효율적이지요. 그런데 이 방법의 가치는 다른 데 있습니다. 어떤 모양의 넓이든 똑같은 방법으로 구할 수 있다는 것입니다.</p>
+<p>오른쪽은 수행 시간입니다. 점을 하나씩 뿌리는 for 문과 한꺼번에 뿌리는 벡터 연산을 비교했습니다. 결과는 같은데 벡터 연산이 수십 배 빠릅니다. 시뮬레이션은 같은 계산을 수만 번 되풀이하니까 이 차이가 곧 기다리는 시간의 차이입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="표본평균-방법" class="slide level2">
+<h2><span class="secno">3.2</span> 표본평균 방법</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<p><span class="math display">\[\int_a^b f(x)\,dx = (b - a)\,E[f(U)], \quad U \sim \text{Uniform}(a, b)\]</span></p>
+<ul>
+<li>구간에서 점을 <strong>고르게</strong> 뽑아 함수값의 <strong>평균</strong> × 구간의 길이</li>
+<li>옛 노트의 함수, 구간 <span class="math inline">\([1, 3]\)</span></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="09-simulation-slides_files/figure-revealjs/mc-area-1.png" style="width:96.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:52%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">2</span> <span class="sc">+</span> <span class="fu">cos</span>(x <span class="sc">+</span> <span class="fu">sin</span>(<span class="fu">atan</span>(x)) <span class="sc">+</span> <span class="dv">3</span>)</span>
+<span id="cb31-2"><a href="" aria-hidden="true" tabindex="-1"></a>mc_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(n, <span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="dv">3</span>)</span>
+<span id="cb31-3"><a href="" aria-hidden="true" tabindex="-1"></a>  (b <span class="sc">-</span> a) <span class="sc">*</span> <span class="fu">mean</span>(<span class="fu">f</span>(<span class="fu">runif</span>(n, a, b)))</span>
+<span id="cb31-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb31-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">mc_mean</span>(<span class="dv">10000</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.483908</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(f, <span class="dv">1</span>, <span class="dv">3</span>)    <span class="co"># 수치적분으로 대조</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5.484804 with absolute error &lt; 6.1e-14</code></pre>
+</div>
+</div>
+<div class="keypoint">
+<p><code>integrate()</code>: 구간을 잘게 나누어 계산하는 <strong>수치적분</strong> 함수, 대조 기준</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>적중법은 점이 안에 들었는지, 0 아니면 1 만 씁니다. 정보를 버리는 셈이지요. 더 나은 방법이 있습니다.</p>
+<p>적분을 기댓값으로 바꾸는 겁니다. U 가 구간 a 에서 b 의 균일분포를 따르면, 적분값은 구간의 길이 곱하기 f(U) 의 기댓값입니다. 그러니까 구간에서 점을 고르게 뽑아서 함수값의 평균을 내고, 구간의 길이를 곱하면 됩니다. 이걸 표본평균 방법이라고 합니다.</p>
+<p>옛 노트에서 쓰던 함수로 해 보겠습니다. 왼쪽 그림에서 색칠한 부분의 넓이입니다. 점 만 개로 5.484. 대조 기준은 integrate() 입니다. R 의 수치적분 함수로, 구간을 잘게 나눠서 계산합니다. 5.485. 소수 둘째 자리까지 맞습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-4" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>같은 점 <strong>1,000개</strong>로 넓이를 1,000번 추정하면 어느 방법의 추정값이 더 흩어질까?</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">적중법</span></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">1</span>, <span class="dv">3</span>); y <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">4</span>)</span>
+<span id="cb35-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="sc">*</span> <span class="fu">mean</span>(y <span class="sc">&lt;=</span> <span class="fu">f</span>(x))     <span class="co"># 사각형 넓이 x 비율</span></span></code></pre></div>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-slide">표본평균 방법</span></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">mean</span>(<span class="fu">f</span>(<span class="fu">runif</span>(n, <span class="dv">1</span>, <span class="dv">3</span>)))  <span class="co"># 길이 x 평균 높이</span></span></code></pre></div>
+</div></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 거의 같음</p>
+</div>
+<div>
+<p><strong>B</strong> 적중법이 두 배쯤</p>
+</div>
+<div>
+<p><strong>C</strong> 적중법이 여섯 배쯤</p>
+</div>
+</div>
+<div class="why">
+<p>적중법은 점마다 <strong>안에 들었는가(0 또는 1)</strong> 만 씀, 표본평균 방법은 <strong>함수값 자체</strong>를 씀</p>
+</div>
+<aside class="notes">
+<p>예측입니다. 같은 비용, 점 천 개를 쓰는 두 방법을 각각 천 번씩 반복해서, 추정값이 얼마나 흩어지는지 비교합니다.</p>
+<p>왼쪽 적중법은 높이 4 인 사각형에 점을 뿌리고 곡선 아래에 든 비율을 봅니다. 오른쪽 표본평균 방법은 곡선의 높이를 평균합니다.</p>
+<p>어느 쪽이 더 흩어질까요? 얼마나?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="같은-비용-다른-정확도" class="slide level2">
+<h2><span class="secno">3.2</span> 같은 비용, 다른 정확도</h2>
+<div class="columns">
+<div class="column" style="width:54%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="09-simulation-slides_files/figure-revealjs/mc-compare-plot-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:46%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">방법</th>
+<th style="text-align: right;">평균</th>
+<th style="text-align: right;">표준편차</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">적중법</td>
+<td style="text-align: right;">5.4847</td>
+<td style="text-align: right;">0.1192</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">표본평균</td>
+<td style="text-align: right;">5.4853</td>
+<td style="text-align: right;">0.0182</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="keypoint teal">
+<p>표준편차가 약 <strong>1/7</strong> → 적중법으로 같은 정확도를 얻으려면 점이 약 <strong>43배</strong></p>
+<p>같은 비용으로 더 정확한 방법 고르기도 <strong>알고리즘의 비용</strong> 문제</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 C 입니다.</p>
+<p>왼쪽 상자그림을 보세요. 점선이 참값입니다. 두 방법 모두 참값을 중심으로 흩어지는데, 적중법은 넓게, 표본평균 방법은 좁게 흩어집니다.</p>
+<p>표를 보면 표준편차가 약 0.12 대 0.018, 일곱 배 가까이 차이 납니다. 몬테카를로 오차는 점의 수의 제곱근에 반비례하니까, 적중법으로 같은 정확도를 얻으려면 점이 약 40배 필요합니다.</p>
+<p>8장에서 알고리즘의 비용을 이야기했지요. 같은 비용으로 더 정확한 방법, 같은 정확도를 더 싸게 얻는 방법을 고르는 것도 같은 문제입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="뷔퐁의-바늘" class="slide level2">
+<h2><span class="secno">3.3</span> 뷔퐁의 바늘</h2>
+<div class="columns">
+<div class="column" style="width:52%;">
+<ul>
+<li>1777년 뷔퐁의 문제: 간격 <span class="math inline">\(d\)</span> 인 평행선에 길이 <span class="math inline">\(l\)</span> 인 바늘을 떨어뜨리면 선에 걸칠 확률은 <span class="math inline">\(2l / (\pi d)\)</span></li>
+<li>걸친 비율 <span class="math inline">\(\hat P\)</span> 에서 <span class="math inline">\(\hat\pi = 2l / (d\hat P)\)</span></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="" aria-hidden="true" tabindex="-1"></a>buffon_pi <span class="ot">&lt;-</span> <span class="cf">function</span>(n, <span class="at">l =</span> <span class="dv">1</span>, <span class="at">d =</span> <span class="dv">2</span>) {</span>
+<span id="cb37-2"><a href="" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, d <span class="sc">/</span> <span class="dv">2</span>)   <span class="co"># 중심에서 선까지</span></span>
+<span id="cb37-3"><a href="" aria-hidden="true" tabindex="-1"></a>  theta <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, pi)  <span class="co"># 바늘의 각</span></span>
+<span id="cb37-4"><a href="" aria-hidden="true" tabindex="-1"></a>  p_hat <span class="ot">&lt;-</span> <span class="fu">mean</span>(a <span class="sc">&lt;=</span> (l <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">sin</span>(theta))</span>
+<span id="cb37-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span> <span class="sc">*</span> l <span class="sc">/</span> (d <span class="sc">*</span> p_hat)</span>
+<span id="cb37-6"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb37-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb37-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">buffon_pi</span>(<span class="fl">1e6</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.139678</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:48%;">
+<video src="../video/buffon-pi-estimate.mp4" controls="" loop="" muted="" style="display:block; width:100%; max-height:270px; object-fit:contain;">
+</video>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>주의</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>이 코드의 허점</strong></p>
+<ul>
+<li>원주율을 구하려고 <code>runif(n, 0, pi)</code> 에서 이미 원주율을 사용</li>
+<li>실제 바늘 던지기는 원주율을 몰라도 가능</li>
+<li>코드가 <strong>무엇을 전제하는지</strong> 읽어 내는 것도 검증</li>
+</ul>
+</div>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<p>역사적인 예를 하나 보겠습니다. 1777년 프랑스의 박물학자 뷔퐁이 낸 문제입니다. 평행선이 그어진 마룻바닥에 바늘을 떨어뜨리면 선에 걸칠 확률은 얼마인가. 답은 2l 나누기 π d 입니다. 식에 π 가 들어 있으니까, 바늘을 많이 던져서 걸친 비율을 구하면 원주율을 거꾸로 구할 수 있습니다.</p>
+<p>코드는 바늘 중심에서 가까운 선까지의 거리 a 와 바늘의 각 θ 를 균일분포에서 뽑고, a 가 l/2 sin θ 이하이면 걸친 것으로 셉니다. 백만 번 던져서 3.1397. 오른쪽 동영상은 옛 노트에 있던 것으로, 500번 던지는 동안 추정값이 참값으로 다가가는 모습입니다. (재생)</p>
+<p>그런데 오른쪽 경고 상자를 보세요. 이 코드에는 허점이 있습니다. 원주율을 구하겠다면서 각도를 뽑을 때 runif(n, 0, pi), 이미 pi 를 썼습니다. 실제로 바늘을 던지는 실험은 원주율을 몰라도 할 수 있지만, 이 코드는 원주율을 알아야 돌아갑니다.</p>
+<p>결과가 맞는 것과 별개로, 코드가 무엇을 전제하고 있는지 읽어 내는 것. 이것도 검증입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="표본분포와-중심극한정리" class="title-slide slide level1 section-title">
+<h1><span class="secno">4</span> 표본분포와 중심극한정리</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>통계량은 <strong>표본마다 달라지는 확률변수</strong>: 그 분포가 <strong>표본분포</strong></p>
+<p>현실에서는 표본 하나, 시뮬레이션에서는 <strong>평행우주의 표본</strong>을 원하는 만큼</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>평행우주의 통계량</li>
+<li>표준오차 공식의 확인</li>
+<li>중심극한정리</li>
+<li>30개면 충분한가</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong>: 치우친 모집단에서도 <strong>표본평균은 정규분포</strong>를 따르는가?</p>
+</div>
+<aside class="notes">
+<p>4절입니다. 통계학개론에서 가장 중요한 개념 하나를 시뮬레이션으로 봅니다. 표본분포입니다.</p>
+<p>우리가 가진 자료는 뽑을 수 있었던 수많은 표본 가운데 하나일 뿐입니다. 같은 조사를 다른 사람들로 다시 하면 평균은 조금 다르게 나오겠지요. 통계량은 표본마다 달라지는 확률변수이고, 그 분포가 표본분포입니다.</p>
+<p>현실에서는 표본을 하나밖에 못 봅니다. 그런데 시뮬레이션에서는 평행우주의 표본을 원하는 만큼 만들 수 있습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="평행우주의-통계량" class="slide level2">
+<h2><span class="secno">4.1</span> 평행우주의 통계량</h2>
+<div class="columns">
+<div class="column" style="width:46%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="../figures/scheme-stat.jpg" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>편의점 대기 시간: 평균 1분인 <strong>지수분포</strong> (대부분 짧고 가끔 매우 긺)</li>
+<li>손님 5명의 평균을 <strong>10,000번</strong> 다시 조사</li>
+</ul>
+</div><div class="column" style="width:54%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb39-2"><a href="" aria-hidden="true" tabindex="-1"></a>xbar5 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>,</span>
+<span id="cb39-3"><a href="" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">mean</span>(<span class="fu">rexp</span>(<span class="dv">5</span>, <span class="at">rate =</span> <span class="dv">1</span>)))</span>
+<span id="cb39-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(평균 <span class="ot">=</span> <span class="fu">mean</span>(xbar5),</span>
+<span id="cb39-5"><a href="" aria-hidden="true" tabindex="-1"></a>  표준편차 <span class="ot">=</span> <span class="fu">sd</span>(xbar5),</span>
+<span id="cb39-6"><a href="" aria-hidden="true" tabindex="-1"></a>  이론값 <span class="ot">=</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">5</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     평균  표준편차    이론값 
+1.0009272 0.4500166 0.4472136 </code></pre>
+</div>
+</div>
+<div class="keypoint">
+<p>표본평균의 평균 = 모평균 1</p>
+<p>표본평균의 표준편차 = <span class="math inline">\(\sigma/\sqrt{n}\)</span>: <strong>표준오차</strong> 공식이 평행우주에서 그대로 확인됨</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>왼쪽 그림이 옛 노트에 있던 개념도입니다. 모집단에서 표본을 여러 번 뽑으면 표본마다 통계량이 나오고, 그 통계량들이 이루는 분포가 표본분포입니다.</p>
+<p>예를 들어 편의점 계산대 대기 시간이 평균 1분인 지수분포를 따른다고 합시다. 대부분은 금방 끝나지만 가끔 아주 오래 기다리는, 한쪽으로 치우친 분포입니다.</p>
+<p>손님 5명의 대기 시간을 재서 평균을 내는 조사를 만 번 한 평행우주를 만들었습니다. 표본평균들의 평균은 1.00, 모평균과 같습니다. 표준편차는 0.450 이고, 이론값 σ/√n 은 0.447 입니다. 통계학개론에서 배운 표준오차 공식이 평행우주에서 그대로 확인됩니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-5" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>한쪽으로 크게 치우친 대기 시간에서 <strong>표본 30개의 평균</strong>을 10,000번 구해 히스토그램을 그리면?</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="" aria-hidden="true" tabindex="-1"></a>xbar30 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">mean</span>(<span class="fu">rexp</span>(<span class="dv">30</span>, <span class="at">rate =</span> <span class="dv">1</span>)))</span>
+<span id="cb41-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(xbar30)</span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 모집단처럼 오른쪽으로 긴 꼬리</p>
+</div>
+<div>
+<p><strong>B</strong> 좌우 대칭인 종 모양에 가까움</p>
+</div>
+<div>
+<p><strong>C</strong> 고르게 퍼진 모양</p>
+</div>
+</div>
+<div class="why">
+<p>모집단의 분포는 0 근처에 몰리고 오른쪽으로 긴 꼬리</p>
+</div>
+<aside class="notes">
+<p>예측입니다. 모집단이 이렇게 치우쳐 있으면 표본평균의 분포도 치우쳐 있을까요?</p>
+<p>표본 30개의 평균을 만 번 구해서 히스토그램을 그리면 어떤 모양일까요?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="중심극한정리" class="slide level2">
+<h2><span class="secno">4.2</span> 중심극한정리</h2>
+
+<img data-src="09-simulation-slides_files/figure-revealjs/clt-plot-1.png" style="width:100.0%" class="r-stretch"><div class="columns">
+<div class="column" style="width:58%;">
+<div class="keypoint teal">
+<p>모평균 <span class="math inline">\(\mu\)</span>, 모분산 <span class="math inline">\(\sigma^2\)</span> 인 모집단의 표본평균은 <strong>모집단의 분포와 관계없이</strong> <span class="math inline">\(n\)</span> 이 커질수록 <span class="math inline">\(N(\mu, \sigma^2/n)\)</span> 에 가까워짐</p>
+</div>
+</div><div class="column" style="width:42%;">
+<ul>
+<li>곡선: 이론 분포 <span class="math inline">\(N(1, 1/n)\)</span></li>
+<li>t-검정과 신뢰구간을 정규분포가 아닌 자료에도 쓰는 <strong>근거</strong></li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>답은 B 입니다.</p>
+<p>왼쪽 n = 1 은 모집단 그 자체의 모양입니다. 0 근처에 몰리고 오른쪽으로 꼬리가 길지요. 가운데 n = 5 는 치우침이 좀 줄었고, 오른쪽 n = 30 은 거의 종 모양입니다. 곡선이 이론 분포입니다.</p>
+<p>이게 중심극한정리입니다. 모집단의 분포와 관계없이, 표본평균은 n 이 커질수록 정규분포에 가까워집니다. 여러분이 정규분포가 아닌 자료에도 t-검정과 신뢰구간을 쓰는 근거가 이것입니다.</p>
+<p>그런데 ’n 이 커질수록’이라고 했지요. 얼마나 커야 할까요?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="개면-충분한가" class="slide level2">
+<h2><span class="secno">4.2</span> 30개면 충분한가</h2>
+
+<img data-src="09-simulation-slides_files/figure-revealjs/clt-skew-plot-1.png" style="width:100.0%" class="r-stretch"><div class="columns">
+<div class="column" style="width:44%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">지수분포</th>
+<th style="text-align: right;">로그정규분포</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">10.26</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0.36</td>
+<td style="text-align: right;">5.76</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">0.20</td>
+<td style="text-align: right;">1.75</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column" style="width:56%;">
+<ul>
+<li>경험 법칙: “30개 이상이면 정규분포”</li>
+<li>표의 값은 표본평균의 <strong>왜도</strong>(0 이면 좌우 대칭): 로그정규분포는 <span class="math inline">\(n\)</span> = 100 에서도 <strong>크게 치우침</strong></li>
+</ul>
+<div class="keypoint">
+<p>경험 법칙도 시뮬레이션으로 <strong>확인할 수 있고, 확인해야 함</strong>: 신뢰구간에 미치는 영향은 5.4에서</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>흔히 ’표본이 30개 이상이면 정규분포로 본다’고 합니다. 이 경험 법칙도 시뮬레이션으로 확인할 수 있습니다.</p>
+<p>위 그림은 표본 30개의 평균을 만 번 구한 분포입니다. 왼쪽 지수분포는 정규 곡선과 거의 겹칩니다. 그런데 오른쪽 로그정규분포는 30개인데도 여전히 오른쪽으로 꼬리가 깁니다.</p>
+<p>분포가 얼마나 치우쳤는지는 왜도로 잽니다. 좌우 대칭이면 0 입니다. 지수분포와, 그보다 훨씬 심하게 치우친 로그정규분포를 비교했습니다.</p>
+<p>지수분포는 n = 30 이면 왜도가 0.36 까지 줄어듭니다. 그런데 로그정규분포는 n = 30 에서 5.8, n = 100 에서도 1.8 입니다. 여전히 크게 치우쳐 있습니다.</p>
+<p>그러니까 ’30개’는 모집단에 따라 충분하기도 하고 턱없이 부족하기도 합니다. 경험 법칙도 확인할 수 있고, 확인해야 합니다. 이게 신뢰구간에 어떤 결과를 낳는지는 5.4에서 봅니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="통계적-추론을-시뮬레이션으로-확인하기" class="title-slide slide level1 section-title">
+<h1><span class="secno">5</span> 통계적 추론을 시뮬레이션으로 확인하기</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>신뢰구간과 검정의 약속: <strong>95% 포함</strong>, <strong>5% 오류</strong></p>
+<p>참값을 우리가 정했으므로 <strong>약속을 지키는지 직접 셀 수 있음</strong></p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>신뢰구간 100개 그려 보기</li>
+<li>귀무가설이 참일 때 p-값의 분포</li>
+<li>검정력과 power.t.test() 대조</li>
+<li>가정이 깨지면</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong>: 이 방법은 <strong>이름표의 약속</strong>을 지키는가?</p>
+</div>
+<aside class="notes">
+<p>5절입니다. 신뢰구간과 가설검정은 ’같은 연구를 무수히 반복하면’이라는 전제 위에 서 있습니다. 95% 신뢰구간은 반복의 95% 에서 모수를 포함한다고 약속하고, 유의수준 5% 검정은 귀무가설이 참인 연구의 5% 에서만 잘못 기각한다고 약속합니다.</p>
+<p>시뮬레이션은 그 반복을 실제로 해 봅니다. 참값을 우리가 정해 두었으니까, 방법이 약속을 지키는지 직접 셀 수 있습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="신뢰구간-만들기" class="slide level2">
+<h2><span class="secno">5.1</span> 신뢰구간 만들기</h2>
+<div class="columns">
+<div class="column" style="width:56%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">50</span>; sigma <span class="ot">&lt;-</span> <span class="dv">10</span>; n <span class="ot">&lt;-</span> <span class="dv">20</span>   <span class="co"># 참값</span></span>
+<span id="cb42-2"><a href="" aria-hidden="true" tabindex="-1"></a>ci_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">level =</span> <span class="fl">0.95</span>) {</span>
+<span id="cb42-3"><a href="" aria-hidden="true" tabindex="-1"></a>  half <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> level) <span class="sc">/</span> <span class="dv">2</span>,</span>
+<span id="cb42-4"><a href="" aria-hidden="true" tabindex="-1"></a>             <span class="at">df =</span> <span class="fu">length</span>(x) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span></span>
+<span id="cb42-5"><a href="" aria-hidden="true" tabindex="-1"></a>          <span class="fu">sd</span>(x) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(x))</span>
+<span id="cb42-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">lower =</span> <span class="fu">mean</span>(x) <span class="sc">-</span> half,</span>
+<span id="cb42-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">upper =</span> <span class="fu">mean</span>(x) <span class="sc">+</span> half)</span>
+<span id="cb42-8"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb42-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb42-10"><a href="" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> mu, <span class="at">sd =</span> sigma)</span>
+<span id="cb42-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">ci_mean</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   lower    upper 
+41.55921 50.57116 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x)<span class="sc">$</span>conf.int[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]   <span class="co"># 내장 함수와 대조</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 41.55921 50.57116</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:44%;">
+<p><span class="math display">\[\bar{x} \pm t_{0.975,\,n-1}\,\frac{s}{\sqrt{n}}\]</span></p>
+<ul>
+<li>참값을 정해 둠: <span class="math inline">\(\mu = 50\)</span>, <span class="math inline">\(\sigma = 10\)</span>, <span class="math inline">\(n = 20\)</span></li>
+<li>직접 만든 함수는 <strong>먼저 내장 함수와 대조</strong></li>
+<li>두 결과가 같음: 이제 이 함수로 반복</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>모평균에 대한 95% 신뢰구간 공식입니다. 통계학개론에서 배운 그대로입니다.</p>
+<p>참값을 먼저 정해 둡니다. 모평균 50, 모표준편차 10, 표본 크기 20.</p>
+<p>신뢰구간을 구하는 함수를 직접 만들었습니다. 직접 만든 함수는 먼저 내장 함수와 대조합니다. t.test() 가 내주는 신뢰구간과 같은지 봤더니 같습니다. 이제 이 함수로 반복하겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-6" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>같은 방법으로 95% 신뢰구간을 <strong>100개</strong> 만들면, 참값 50 을 <strong>놓치는</strong> 구간은 몇 개쯤?</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="" aria-hidden="true" tabindex="-1"></a>cis <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">replicate</span>(<span class="dv">100</span>, <span class="fu">ci_mean</span>(<span class="fu">rnorm</span>(n, <span class="at">mean =</span> mu, <span class="at">sd =</span> sigma))))</span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 0개</p>
+</div>
+<div>
+<p><strong>B</strong> 5개 안팎</p>
+</div>
+<div>
+<p><strong>C</strong> 50개 안팎</p>
+</div>
+</div>
+<div class="why">
+<p>표본을 새로 뽑을 때마다 달라지는 것은 참값이 아니라 <strong>구간</strong></p>
+</div>
+<aside class="notes">
+<p>예측입니다. 같은 모집단에서 표본을 새로 뽑아 신뢰구간을 100개 만들면, 참값 50 을 놓치는 구간은 몇 개쯤일까요?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="신뢰구간-100개" class="slide level2">
+<h2><span class="secno">5.1</span> 신뢰구간 100개</h2>
+
+<img data-src="09-simulation-slides_files/figure-revealjs/ci-plot-1.png" style="width:100.0%" class="r-stretch"><div class="columns">
+<div class="column" style="width:46%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb47-2"><a href="" aria-hidden="true" tabindex="-1"></a>covered <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, {</span>
+<span id="cb47-3"><a href="" aria-hidden="true" tabindex="-1"></a>  ci <span class="ot">&lt;-</span> <span class="fu">ci_mean</span>(<span class="fu">rnorm</span>(n, mu, sigma))</span>
+<span id="cb47-4"><a href="" aria-hidden="true" tabindex="-1"></a>  ci[<span class="st">"lower"</span>] <span class="sc">&lt;=</span> mu <span class="sc">&amp;&amp;</span> mu <span class="sc">&lt;=</span> ci[<span class="st">"upper"</span>]</span>
+<span id="cb47-5"><a href="" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb47-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(covered)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9481</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:54%;">
+<ul>
+<li>100개 중 <strong>4개</strong>가 참값을 놓침 (진한 색)</li>
+</ul>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>주의</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>흔한 오해</strong>: “모평균이 이 구간에 있을 확률 95%”</p>
+<ul>
+<li>모평균은 <strong>정해진 값</strong>, 달라지는 것은 <strong>구간</strong></li>
+<li>95% = 구간을 <strong>만드는 방법</strong>이 반복의 95% 에서 참값을 포함</li>
+</ul>
+</div>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 B 입니다. 그림에서 진한 색이 참값을 놓친 구간입니다. 100개 중 4개입니다.</p>
+<p>만 번으로 늘려 비율을 봤더니 0.948 입니다. 0.95 에서 몬테카를로 오차 범위 안입니다. 이 방법은 약속을 지킵니다.</p>
+<p>오른쪽 경고 상자가 중요합니다. 구간 하나를 구해 놓고 ’모평균이 이 구간에 있을 확률이 95% 다’라고 읽는 게 흔한 오해입니다. 그림을 보세요. 점선, 참값은 가만히 있습니다. 흔들리는 건 구간들입니다. 95% 는 구간을 만드는 방법에 대한 약속입니다. 이 방법으로 구간을 만들면 100번 중 95번쯤은 참값을 포함한다는 뜻입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-7" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>두 집단의 모평균이 <strong>정말 같을 때</strong>, t-검정의 p-값 10,000개는 어디에 몰릴까?</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="" aria-hidden="true" tabindex="-1"></a>p_null <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, {</span>
+<span id="cb49-2"><a href="" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">20</span>)</span>
+<span id="cb49-3"><a href="" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">20</span>)    <span class="co"># 귀무가설이 참</span></span>
+<span id="cb49-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t.test</span>(a, b)<span class="sc">$</span>p.value</span>
+<span id="cb49-5"><a href="" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 1 근처</p>
+</div>
+<div>
+<p><strong>B</strong> 0.5 근처</p>
+</div>
+<div>
+<p><strong>C</strong> 0 과 1 사이에 고르게</p>
+</div>
+</div>
+<div class="why">
+<p>귀무가설이 참인데 기각하면 <strong>1종 오류</strong>, 유의수준 0.05 는 그 확률의 상한</p>
+</div>
+<aside class="notes">
+<p>다음은 가설검정입니다. 귀무가설이 참인데 기각하는 잘못을 1종 오류라고 하지요. 유의수준 0.05 로 검정하면 귀무가설이 참인 연구 100개 가운데 5개쯤에서 ’유의한 차이’가 나와야 합니다.</p>
+<p>두 집단의 모평균을 정말 같게 만들어 놓고 t-검정을 만 번 했습니다. p-값은 어디에 몰릴까요? 차이가 없으니까 1 근처에 몰릴 것 같지요?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="종-오류와-p-값의-분포" class="slide level2">
+<h2><span class="secno">5.2</span> 1종 오류와 p-값의 분포</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="09-simulation-slides_files/figure-revealjs/pnull-plot-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>p &lt; 0.05 인 비율: <strong>0.0496</strong></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>귀무가설이 참이면 p-값은 <strong>균일분포</strong></li>
+<li>0.05 보다 작은 p-값이 약 5%: 그것이 <strong>1종 오류율</strong></li>
+<li>귀무가설이 참인 연구 <strong>20개 중 하나</strong>는 p &lt; 0.05</li>
+</ul>
+<div class="keypoint">
+<p><strong>p-값</strong>: 귀무가설이 참일 때 관측한 것 이상으로 극단적인 통계량이 나올 확률, 귀무가설이 참일 확률도 1종 오류 확률도 <strong>아님</strong></p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 C 입니다. 1 근처에 몰리지 않습니다. 0 과 1 사이에 고르게 퍼집니다. 균일분포입니다.</p>
+<p>그래서 0.05 보다 작은 p-값이 약 5% 나오고, 이게 곧 1종 오류율입니다. 0.0496. 약속대로입니다.</p>
+<p>이게 무슨 뜻이냐면, 한 번의 연구에서 p = 0.03 을 얻었다고 해서 그게 우연이 아니라는 보장은 없다는 겁니다. 차이가 전혀 없는 연구 20개 가운데 하나는 그런 p-값을 냅니다.</p>
+<p>오른쪽 상자의 정의를 정확히 기억하세요. p-값은 귀무가설이 참이라고 할 때 관측한 것만큼 극단적인 결과가 나올 확률입니다. 귀무가설이 참일 확률이 아닙니다. 1종 오류를 범할 확률도 아닙니다. 1종 오류율은 검정 전에 정해 두는 α 입니다. 옛 노트에 이 부분이 잘못 적혀 있어서 이번에 바로잡았습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="검정력-차이가-있을-때-알아채는-확률" class="slide level2">
+<h2><span class="secno">5.3</span> 검정력: 차이가 있을 때 알아채는 확률</h2>
+<div class="columns">
+<div class="column" style="width:56%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">효과크기 d</th>
+<th style="text-align: right;">집단당 n</th>
+<th style="text-align: right;">시뮬레이션</th>
+<th style="text-align: right;">power.t.test()</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0.115</td>
+<td style="text-align: right;">0.115</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">0.294</td>
+<td style="text-align: right;">0.290</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0.469</td>
+<td style="text-align: right;">0.478</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">0.941</td>
+<td style="text-align: right;">0.940</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0.868</td>
+<td style="text-align: right;">0.861</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">1.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column" style="width:44%;">
+<ul>
+<li>효과크기 <span class="math inline">\(d\)</span>: 평균 차이가 표준편차의 몇 배인가</li>
+<li><span class="math inline">\(d\)</span> = 0.2, <span class="math inline">\(n\)</span> = 30: 검정력 약 <strong>11%</strong>, 차이가 있어도 열에 아홉은 놓침</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="09-simulation-slides_files/figure-revealjs/power-curve-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="keypoint teal">
+<p><strong>식이 있는 문제</strong>: 식과 대조해 시뮬레이션 코드를 <strong>검증</strong></p>
+<p><strong>식이 없는 문제</strong>: 검증된 시뮬레이션 코드로 <strong>답을 구함</strong></p>
+</div>
+</div></div>
+<aside class="notes">
+<p>이번에는 실제로 차이가 있을 때입니다. 차이가 있을 때 그걸 알아채는 확률, 귀무가설을 기각하는 확률이 검정력입니다. 차이가 표준편차의 몇 배인지를 효과크기 d 라고 합니다.</p>
+<p>표를 보세요. 효과크기 0.2 를 집단당 30명으로 검정하면 검정력이 11% 입니다. 실제로 차이가 있어도 열 번 중 아홉 번은 놓친다는 뜻입니다. 100명으로 늘려도 29% 입니다.</p>
+<p>오른쪽 열은 power.t.test() 로 계산한 값입니다. R 에 검정력을 공식으로 계산해 주는 함수가 있습니다. 시뮬레이션과 몬테카를로 오차 안에서 맞습니다. 오른쪽 그림에서 선이 power.t.test() 로 그린 검정력 곡선이고, 점이 시뮬레이션 결과입니다. 점이 모두 선 위에 올라가 있지요.</p>
+<p>오른쪽 상자가 시뮬레이션을 믿을 수 있게 만드는 순서입니다. 식이 있는 문제에서는 식과 대조해서 시뮬레이션 코드를 검증합니다. 그렇게 검증된 코드로, 식이 없는 문제의 답을 구합니다. 다음 슬라이드가 식이 없는 문제입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-8" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>작은 집단(10명)의 표준편차 <strong>3</strong>, 큰 집단(40명)의 표준편차 <strong>1</strong>, 모평균은 같음. <strong>등분산 t-검정</strong>의 1종 오류율은?</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(a, b, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)    <span class="co"># 두 집단의 분산이 같다고 가정</span></span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 약 1%</p>
+</div>
+<div>
+<p><strong>B</strong> 약 5%</p>
+</div>
+<div>
+<p><strong>C</strong> 약 25%</p>
+</div>
+</div>
+<div class="why">
+<p>등분산 t-검정(Student)은 두 집단의 분산이 <strong>같다는 가정</strong> 위에서 5% 를 약속</p>
+</div>
+<aside class="notes">
+<p>t-검정은 가정 위에서 약속을 지킵니다. 등분산 t-검정, 스튜던트 t-검정은 두 집단의 분산이 같다는 가정을 합니다.</p>
+<p>그 가정이 깨지면 어떻게 될까요? 작은 집단 10명의 표준편차가 3, 큰 집단 40명의 표준편차가 1 입니다. 모평균은 같습니다. 그러니 귀무가설이 참이고, 1종 오류율이 5% 여야 합니다.</p>
+<p>A, B, C 골라 봅시다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="가정이-깨지면" class="slide level2">
+<h2><span class="secno">5.4</span> 가정이 깨지면</h2>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p><span class="label label-note">1종 오류율 (반복 5,000번, 약속은 0.05)</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">표본 크기</th>
+<th style="text-align: center;">표준편차</th>
+<th style="text-align: right;">Student</th>
+<th style="text-align: right;">Welch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">10, 40</td>
+<td style="text-align: center;">3, 1</td>
+<td style="text-align: right;">0.264</td>
+<td style="text-align: right;">0.050</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10, 40</td>
+<td style="text-align: center;">1, 3</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">0.054</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">25, 25</td>
+<td style="text-align: center;">3, 1</td>
+<td style="text-align: right;">0.051</td>
+<td style="text-align: right;">0.051</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><code>t.test()</code> 의 기본값은 <strong>Welch</strong> (<code>var.equal = FALSE</code>)</li>
+</ul>
+</div><div class="column" style="width:46%;">
+<p><span class="label label-slide">치우친 자료의 95% 신뢰구간</span></p>
+<ul>
+<li>로그정규분포, <span class="math inline">\(n\)</span> = 20</li>
+<li>실제 포함 확률 <strong>0.754</strong></li>
+</ul>
+<div class="keypoint teal">
+<p>이름표의 약속은 <strong>가정이 맞을 때</strong>의 약속</p>
+<p>내 자료와 비슷한 조건으로 시뮬레이션해 보면 <strong>믿어도 되는지</strong> 알 수 있음</p>
+</div>
+</div></div>
+
+<img data-src="09-simulation-slides_files/figure-revealjs/skew-ci-plot-1.png" style="width:100.0%" class="r-stretch"><aside class="notes">
+<p>답은 C 입니다. 표 첫 줄을 보세요. 등분산 t-검정의 1종 오류율이 5% 가 아니라 26% 입니다. 다섯 배가 넘습니다. 차이가 없는데 네 번에 한 번꼴로 ’유의한 차이가 있다’고 결론 내리는 겁니다.</p>
+<p>둘째 줄은 반대로 큰 집단의 분산이 클 때입니다. 0.1% 로, 너무 보수적이 되어 차이를 잘 못 찾습니다. 셋째 줄처럼 두 집단의 크기가 같으면 분산이 달라도 5% 근처를 지킵니다.</p>
+<p>오른쪽 열 Welch 검정은 세 경우 모두 5% 를 지킵니다. R 의 t.test() 가 Welch 검정을 기본값으로 삼는 이유가 여기 있습니다.</p>
+<p>오른쪽은 정규성 가정입니다. 4.2에서 본 로그정규분포에서 표본 20개로 95% 신뢰구간을 만들었더니, 실제로는 75% 만 참값을 포함합니다. 이름은 95% 인데요.</p>
+<p>아래 그림이 로그정규 자료로 만든 구간 60개입니다. 진한 색이 참값을 놓친 구간인데, 대부분 점선 아래쪽에 짧게 몰려 있습니다. 큰 값이 우연히 안 뽑힌 표본은 평균도 작고 구간도 좁게 나오기 때문입니다.</p>
+<p>이름표의 약속은 가정이 맞을 때의 약속입니다. 내 자료가 가정에서 얼마나 벗어나면 결과를 믿을 수 없는지는, 내 자료와 비슷한 조건으로 시뮬레이션해 보면 알 수 있습니다. 식으로는 답하기 어려운 질문에 시뮬레이션이 답합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="시뮬레이션으로-코드-검증하기" class="title-slide slide level1 section-title">
+<h1><span class="secno">6</span> 시뮬레이션으로 코드 검증하기</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>이론을 확인하던 방법을 <strong>코드</strong>에 적용</p>
+<p>참값을 정해 자료를 만들고, 함수가 <strong>그 참값을 되찾는지</strong> 확인</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>검증의 네 단계</li>
+<li>한 번의 예제로는 보이지 않는 결함</li>
+<li>표준편차의 숨은 편향</li>
+<li>시뮬레이션 코드의 흔한 실수</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong>: 비교할 내장 함수가 <strong>없을 때</strong> 코드를 어떻게 검증하는가?</p>
+</div>
+<aside class="notes">
+<p>6절입니다. 지금까지는 통계 이론을 시뮬레이션으로 확인했습니다. 같은 방법을 코드에도 쓸 수 있습니다.</p>
+<p>참값을 정해서 자료를 만들고, 함수가 그 참값을 되찾는지 보는 겁니다. 8장에서는 비교할 내장 함수가 있었습니다. sort(), polyroot(). 그런 기준이 없을 때 쓰는 가장 일반적인 검증 방법이 이것입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="검증의-네-단계" class="slide level2">
+<h2><span class="secno">6.1</span> 검증의 네 단계</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="keypoint teal">
+<p><strong>①</strong> <strong>참값</strong>(모수) 정하기<br> <strong>②</strong> 그 참값을 가진 모형에서 <strong>자료</strong> 만들기<br> <strong>③</strong> 검증할 함수를 적용, ②와 ③을 <strong>반복</strong><br> <strong>④</strong> 참값과 대조, <strong>몬테카를로 오차</strong>와 함께</p>
+</div>
+<ul>
+<li>5.1의 신뢰구간, 5.3의 검정력이 모두 이 순서</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-note">누군가 작성한 분산 함수</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="" aria-hidden="true" tabindex="-1"></a>my_var <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">mean</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb51-2"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">my_var</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.666667</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<ul>
+<li>두 값이 다름: <strong>어느 쪽이 맞는가</strong>?</li>
+<li>기준 함수가 없는 <strong>새 추정량</strong>이라면?</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>검증의 네 단계입니다. 참값을 정하고, 그 참값을 가진 모형에서 자료를 만들고, 검증할 함수를 적용하고, 이걸 반복한 다음 참값과 대조합니다. 몬테카를로 오차를 함께 보면서요. 사실 5절에서 신뢰구간과 검정력을 확인할 때 이미 이 순서로 했습니다.</p>
+<p>오른쪽을 보세요. 누군가 분산을 구하는 함수를 이렇게 만들었습니다. 편차 제곱의 평균. 분산의 뜻을 그대로 옮긴 것처럼 보이지요.</p>
+<p>그런데 var() 와 결과가 다릅니다. 2.67 과 4. 어느 쪽이 맞을까요? var() 가 틀렸을 리 없다고 넘어갈 수도 있지만, 만약 기준으로 삼을 내장 함수가 없는 새 추정량이라면 이런 대조조차 못 합니다. 네 단계로 물어봅시다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-9" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>모분산이 <strong>4</strong> 인 정규분포에서 표본 5개로 분산을 추정하기를 10,000번. <code>my_var()</code> 의 평균은?</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, {</span>
+<span id="cb55-2"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>)      <span class="co"># 참값: 모분산 4</span></span>
+<span id="cb55-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">my_var =</span> <span class="fu">my_var</span>(x), <span class="at">var =</span> <span class="fu">var</span>(x), <span class="at">sd =</span> <span class="fu">sd</span>(x))</span>
+<span id="cb55-4"><a href="" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb55-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">rowMeans</span>(est)</span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 4 보다 큼</p>
+</div>
+<div>
+<p><strong>B</strong> 약 4</p>
+</div>
+<div>
+<p><strong>C</strong> 4 보다 작음</p>
+</div>
+</div>
+<div class="why">
+<p>편차를 <strong>모평균</strong>이 아니라 <strong>표본평균</strong>을 기준으로 계산</p>
+</div>
+<aside class="notes">
+<p>예측입니다. 참값을 모분산 4 로 정하고, 표본 5개로 분산을 추정하는 일을 만 번 반복합니다. my_var() 가 낸 값들의 평균은 4 보다 클까요, 작을까요, 같을까요? var() 와 sd() 도 함께 계산해 둡니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="한-번의-예제로는-보이지-않는-결함" class="slide level2">
+<h2><span class="secno">6.1</span> 한 번의 예제로는 보이지 않는 결함</h2>
+<div class="columns">
+<div class="column" style="width:46%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb56-2"><a href="" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, {</span>
+<span id="cb56-3"><a href="" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
+<span id="cb56-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">my_var =</span> <span class="fu">my_var</span>(x),</span>
+<span id="cb56-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">var =</span> <span class="fu">var</span>(x), <span class="at">sd =</span> <span class="fu">sd</span>(x))</span>
+<span id="cb56-6"><a href="" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb56-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">rowMeans</span>(est)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  my_var      var       sd 
+3.202077 4.002596 1.880346 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="09-simulation-slides_files/figure-revealjs/bias-running-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:54%;">
+<ul>
+<li><code>my_var()</code>: 평균 약 <strong>3.2</strong>, 모분산 4 를 <strong>체계적으로 작게</strong> 추정</li>
+<li>이론값 <span class="math inline">\(4 \times (n-1)/n = 3.2\)</span> 와 일치: <span class="math inline">\(n - 1\)</span> 로 나누는 <strong>표본분산</strong>이 이를 보정</li>
+<li><code>sd()</code>: 평균 약 <strong>1.88</strong>, 모표준편차 2 보다 작음: 제곱근을 씌우면 <strong>편향</strong>이 생김</li>
+</ul>
+<div class="keypoint">
+<p>문법 오류도 실행 오류도 없음, <strong>한 번의 예제로는 드러나지 않음</strong>: 반복해서 평균을 내야 비로소 보임</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 C 입니다. my_var() 는 평균 3.2, 모분산 4 를 체계적으로 작게 추정합니다.</p>
+<p>왜 그럴까요? 편차를 모평균이 아니라 표본평균을 기준으로 구하면, 표본평균이 자료 한가운데 있으니까 편차가 실제보다 작아집니다. 그래서 n 대신 n - 1 로 나눠서 보정한 게 표본분산, var() 입니다. 이론값 4 곱하기 4/5, 3.2 와 정확히 맞습니다.</p>
+<p>왼쪽 아래 그림은 반복할수록 추정값의 평균이 어디로 가는지 그린 겁니다. var() 는 점선 4 로, my_var() 는 3.2 로 갑니다. 1.2절의 그림과 같은 모양이지요.</p>
+<p>이런 결함은 문법 오류도 실행 오류도 안 냅니다. 한 번 실행해서는 절대 안 보입니다. 여러 번 반복해서 평균을 내야 보입니다.</p>
+<p>그리고 맨 오른쪽 sd() 를 보세요. 표본분산은 평균적으로 모분산을 정확히 맞히는데, 그 제곱근인 표본표준편차는 평균 1.88 로 2 보다 작습니다. 제곱근을 씌우면 편향이 생기는 겁니다. 교과서에 잘 안 나오는 이런 사실도 시뮬레이션은 곧바로 보여 줍니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="시뮬레이션-코드의-흔한-실수" class="slide level2 dense">
+<h2><span class="secno">6.2</span> 시뮬레이션 코드의 흔한 실수</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">실수 1: 반복하는 함수 안의 시드</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="" aria-hidden="true" tabindex="-1"></a>one_test <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb58-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)          <span class="co"># 매번 같은 씨앗</span></span>
+<span id="cb58-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t.test</span>(<span class="fu">rnorm</span>(<span class="dv">30</span>), <span class="fu">rnorm</span>(<span class="dv">30</span>))<span class="sc">$</span>p.value</span>
+<span id="cb58-4"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb58-5"><a href="" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">one_test</span>())</span>
+<span id="cb58-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(p))      <span class="co"># 서로 다른 p-값</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p><span class="label label-note">실수 2: rnorm() 에 분산을 넣음</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb62-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(<span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">4</span>))   <span class="co"># 분산 4 를 의도</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16.04671</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-note">실수 3: 원소 하나를 sample() 에 넣음</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
+<span id="cb64-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">9</span>))    <span class="co"># 7 과 9 를 섞음</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9 7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">7</span>))       <span class="co"># 1:7 을 섞음</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 7 4 6 2 1 5</code></pre>
+</div>
+</div>
+<ul>
+<li>원소를 섞으려면 <strong>위치를 섞기</strong>: <code>x[sample(length(x))]</code></li>
+</ul>
+<div class="keypoint">
+<p>세 실수 모두 <strong>오류 메시지 없음</strong>: 먼저 답을 아는 경우로 시험하고, 만든 자료의 평균과 분산을 확인</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>시뮬레이션 코드도 코드라서 틀릴 수 있습니다. 오류 없이 그럴듯한 숫자를 내는 실수 세 가지입니다.</p>
+<p>첫째, 반복하는 함수 안에서 set.seed() 를 부르는 것. 부를 때마다 같은 씨앗으로 돌아가니까 천 번 반복해도 같은 실험 한 번을 천 번 복사한 겁니다. 서로 다른 p-값이 1개뿐이지요. 1종 오류율이 0 이 나왔습니다. 이론값 0.05 와 대조했으면 바로 알았을 겁니다. 시드는 맨 앞에서 한 번만.</p>
+<p>둘째, rnorm() 의 세 번째 인수는 분산이 아니라 표준편차입니다. 분산 4 를 원해서 4 를 넣었더니 분산이 16 인 자료가 나왔습니다. 만든 자료의 분산을 한 번만 확인했어도 알았을 겁니다.</p>
+<p>셋째가 가장 알기 어렵습니다. sample() 에 원소가 두 개인 벡터를 넣으면 섞어 줍니다. 그런데 원소가 하나, 7 하나만 넣으면 7 을 섞는 게 아니라 1부터 7까지를 섞습니다. 도움말에 적혀 있는 동작입니다. 후보를 조건으로 좁히다가 하나만 남는 경계 사례에서 결과가 조용히 망가집니다. 원소를 섞으려면 위치를 섞으세요.</p>
+<p>셋 다 오류 메시지가 없습니다. 그래서 먼저 답을 아는 경우로 시험하고, 만든 자료가 의도한 분포인지 평균과 분산을 확인한 다음에 씁니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="ai와-함께-시뮬레이션-코드의-검증" class="title-slide slide level1 section-title">
+<h1><span class="secno">7</span> AI와 함께: 시뮬레이션 코드의 검증</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>AI 가 만든 시뮬레이션 함수를 <strong>이 장의 절차</strong>로 검증</p>
+<p>답을 아는 경우와 대조, 재현성, 독립 구현과 대조</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>프롬프트와 생성 코드</li>
+<li>세 가지 검증</li>
+<li>요구사항이 규정하지 않은 부분</li>
+<li>시뮬레이션 코드의 흔한 오류</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong>: 검증을 통과한 코드는 <strong>내가 원한 질문</strong>에 답하는가?</p>
+</div>
+<aside class="notes">
+<p>7절입니다. AI 에게 시뮬레이션 코드를 받아서 오늘 배운 절차로 검증합니다.</p>
+<p>8장에서는 AI 가 만든 이진 탐색을 전수 검사와 경계 사례로 검증했지요. 오늘은 답을 아는 경우와 대조하기, 재현성, 독립적으로 짠 코드와 대조하기, 세 가지로 검증합니다. 그리고 그다음 질문을 던집니다. 검증을 다 통과한 코드가, 과연 내가 원한 질문에 답하고 있는가.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="프롬프트와-생성-코드" class="slide level2 dense">
+<h2><span class="secno">7.1–7.2</span> 프롬프트와 생성 코드</h2>
+<blockquote>
+<p>R로 독립 이표본 t-검정의 1종 오류율을 시뮬레이션으로 추정하는 함수를 만들어 줘. 두 집단의 표본 크기와 표준편차, 반복 횟수를 인수로 받고, 유의수준 0.05에서 귀무가설을 기각한 비율을 반환하면 돼.</p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-overflow-wrap"><code class="sourceCode r"><span id="cb68-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 생성: Claude Sonnet 5, 2026-09-12. 수정 없이 그대로 수록.</span></span>
+<span id="cb68-2"><a href="" aria-hidden="true" tabindex="-1"></a>sim_type1_error <span class="ot">&lt;-</span> <span class="cf">function</span>(n1, n2, sd1, sd2, <span class="at">nsim =</span> <span class="dv">10000</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>, <span class="at">seed =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb68-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(seed)) <span class="fu">set.seed</span>(seed)</span>
+<span id="cb68-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-5"><a href="" aria-hidden="true" tabindex="-1"></a>  reject_count <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb68-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(nsim)) {</span>
+<span id="cb68-8"><a href="" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n1, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sd1)</span>
+<span id="cb68-9"><a href="" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n2, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sd2)   <span class="co"># 귀무가설(H0: mu1 = mu2)이 참이 되도록 두 집단의 평균을 0으로 같게 둔다</span></span>
+<span id="cb68-10"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-11"><a href="" aria-hidden="true" tabindex="-1"></a>    p_value <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y)<span class="sc">$</span>p.value</span>
+<span id="cb68-12"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (p_value <span class="sc">&lt;</span> alpha) reject_count <span class="ot">&lt;-</span> reject_count <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb68-13"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb68-14"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-15"><a href="" aria-hidden="true" tabindex="-1"></a>  reject_count <span class="sc">/</span> nsim</span>
+<span id="cb68-16"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<aside class="notes">
+<p>프롬프트입니다. 수업에서 흔히 쓸 법한 수준으로만 요청했습니다. 독립 이표본 t-검정의 1종 오류율을 시뮬레이션으로 추정하는 함수, 표본 크기와 표준편차와 반복 횟수를 받아서 기각 비율을 돌려 달라.</p>
+<p>아래가 실제로 받은 응답의 코드입니다. 수정 없이 그대로 실었습니다. 응답 전문은 저장소의 ai-transcripts 폴더에 있습니다.</p>
+<p>코드를 읽어 봅시다. 두 집단의 평균을 모두 0 으로 뽑습니다. 귀무가설이 참이 되게 한 거지요. 주석에도 그렇게 적혀 있습니다. t.test() 로 p-값을 구해서 alpha 보다 작으면 셉니다. seed 인수도 선택으로 두었습니다.</p>
+<p>응답에는 설명도 붙어 있었습니다. 평균을 같게 둬야 1종 오류율이 된다는 것, t.test() 의 기본값이 Welch 검정이라는 것, seed 를 선택으로 둔 이유. 설명도 코드도 그럴듯합니다. 그래도 검증합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="세-가지-검증" class="slide level2 dense">
+<h2><span class="secno">7.3</span> 세 가지 검증</h2>
+<div class="columns">
+<div class="column" style="width:56%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 답을 아는 경우: 같은 두 집단이면 0.05</span></span>
+<span id="cb69-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">sim_type1_error</span>(<span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="at">nsim =</span> <span class="dv">10000</span>, <span class="at">seed =</span> <span class="dv">1</span>)</span></code></pre></div>
+</div>
+<div class="cell fragment">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.05</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 재현성: 같은 seed 는 같은 값</span></span>
+<span id="cb71-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">sim_type1_error</span>(<span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2000</span>, <span class="at">seed =</span> <span class="dv">7</span>),</span>
+<span id="cb71-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sim_type1_error</span>(<span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2000</span>, <span class="at">seed =</span> <span class="dv">7</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0535 0.0535</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 독립 구현(5.4의 type1_rate, Welch)과 대조</span></span>
+<span id="cb73-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb73-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">AI =</span> <span class="fu">sim_type1_error</span>(<span class="dv">10</span>, <span class="dv">40</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="at">nsim =</span> <span class="dv">5000</span>),</span>
+<span id="cb73-4"><a href="" aria-hidden="true" tabindex="-1"></a>  이_장 <span class="ot">=</span> <span class="fu">type1_rate</span>(<span class="dv">10</span>, <span class="dv">40</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="cn">FALSE</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    AI  이_장 
+0.0542 0.0512 </code></pre>
+</div>
+</div>
+</div><div class="column" style="width:44%;">
+<ul>
+<li><strong>검증 1</strong>: 0.05 ± 2 × 표준오차, 곧 [0.0456, 0.0544] 안</li>
+<li><strong>검증 2</strong>: 같은 seed, 같은 결과</li>
+<li><strong>검증 3</strong>: 따로 짠 코드와 오차 안에서 일치</li>
+</ul>
+<div class="keypoint teal">
+<p>세 가지 검증 통과: <strong>요구사항의 범위 안에서는</strong> 옳은 코드</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>세 가지 검증입니다.</p>
+<p>첫째, 답을 아는 경우와 대조합니다. 두 집단의 크기와 표준편차가 같고 정규분포면, 어떤 t-검정이든 1종 오류율은 0.05 여야 합니다. (클릭) 0.0500 이 나왔고, 몬테카를로 오차 범위 0.046 에서 0.054 안입니다.</p>
+<p>둘째, 재현성입니다. 같은 seed 를 주면 같은 값이 나와야 합니다. 둘 다 0.0535 입니다.</p>
+<p>셋째, 5.4에서 우리가 따로 짠 type1_rate() 와 대조합니다. 두 집단이 불균형한 조건에서 Welch 검정으로 비교했더니 0.054 와 0.051, 오차 안에서 맞습니다.</p>
+<p>세 가지를 다 통과했습니다. 요구사항의 범위 안에서는 옳은 코드입니다. 그런데 요구사항의 범위 밖은 어떨까요?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="요구사항이-규정하지-않은-부분" class="slide level2">
+<h2><span class="secno">7.4</span> 요구사항이 규정하지 않은 부분</h2>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p><span class="label label-note">미규정 1: 어떤 t-검정인가?</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb75-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">AI_Welch =</span> <span class="fu">sim_type1_error</span>(<span class="dv">10</span>, <span class="dv">40</span>, <span class="dv">3</span>, <span class="dv">1</span>,</span>
+<span id="cb75-3"><a href="" aria-hidden="true" tabindex="-1"></a>                             <span class="at">nsim =</span> <span class="dv">5000</span>),</span>
+<span id="cb75-4"><a href="" aria-hidden="true" tabindex="-1"></a>  등분산 <span class="ot">=</span> <span class="fu">type1_rate</span>(<span class="dv">10</span>, <span class="dv">40</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>AI_Welch   등분산 
+  0.0542   0.2664 </code></pre>
+</div>
+</div>
+<ul>
+<li>요청: ’독립 이표본 t-검정’만 명시</li>
+<li>AI: 기본값인 <strong>Welch</strong> 를 고르고 응답에 밝혀 둠</li>
+<li>수업의 <strong>등분산 t-검정</strong>을 원했다면: <strong>다른 질문에 정확히 답한 것</strong></li>
+</ul>
+</div><div class="column" style="width:46%;">
+<p><span class="label label-slide">미규정 2, 3, 4</span></p>
+<ul>
+<li><strong>분포</strong>: 정규분포로 고정, 바꿀 수단 없음</li>
+<li><strong>오차</strong>: 비율 하나만 반환, 표준오차 없음</li>
+<li><strong>n = 1</strong>: t.test() 가 오류로 멈춤, 조용히 틀리는 것보다는 나음</li>
+</ul>
+<div class="keypoint">
+<p>결과 숫자만 옮기면 알아채기 어려움: <strong>응답의 설명까지</strong> 읽어야 드러나는 차이</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>요구사항이 정하지 않은 부분을 보겠습니다.</p>
+<p>첫째가 가장 중요합니다. 요청에는 ’독립 이표본 t-검정’이라고만 썼습니다. 통계학개론에서는 보통 등분산 t-검정을 먼저 배우지요. 그런데 이 AI 는 t.test() 의 기본값인 Welch 검정을 골랐습니다. 그리고 그 선택을 응답의 설명에 밝혀 두었습니다. 좋은 응답입니다.</p>
+<p>그런데 5.4 의 조건에서 두 검정은 0.054 대 0.266 으로 크게 다릅니다. 만약 학생이 알고 싶었던 게 수업에서 배운 등분산 t-검정의 오류율이었다면, 이 함수는 다른 질문에 정확하게 답한 겁니다. 숫자만 받아서 보고서에 옮겼다면 알아채기 어렵습니다. 응답의 설명까지 읽어야 드러납니다.</p>
+<p>오른쪽은 나머지 미규정입니다. 분포를 정규분포로 고정했고 바꿀 수단이 없습니다. 추정값의 오차 없이 비율 하나만 돌려줍니다. 1절에서 추정값은 오차와 함께 읽으라고 했지요. 표본 크기가 1 이면 t.test() 가 오류로 멈춥니다. 이건 조용히 틀린 값을 내는 것보다는 낫습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="시뮬레이션-코드에서-자주-나타나는-오류" class="slide level2">
+<h2><span class="secno">7.4</span> 시뮬레이션 코드에서 자주 나타나는 오류</h2>
+<div class="columns">
+<div class="column" style="width:52%;">
+<ul>
+<li><strong>귀무가설을 참으로 만들지 않음</strong>: 1종 오류율이라면서 두 평균을 다르게 뽑음 → 사실은 검정력을 잼</li>
+<li><strong>방법을 명시하지 않음</strong>: <code>var.equal</code> 처럼 결과를 크게 바꾸는 선택을 기본값에 맡김</li>
+<li><strong>반복 안의 시드</strong>: 모든 반복이 같은 자료를 씀</li>
+<li><strong>오차 없는 결론</strong>: 0.053 이 0.05 와 다른지 판단하지 않음</li>
+</ul>
+</div><div class="column" style="width:48%;">
+<p><span class="label label-note">사람이 쓴 코드도 마찬가지</span></p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 옛 노트: '귀무가설이 참일 때'라는 설명 아래</span></span>
+<span id="cb77-2"><a href="" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n1, <span class="fl">0.75</span>, <span class="fl">1.79</span>)</span>
+<span id="cb77-3"><a href="" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n2, <span class="fl">2.33</span>, <span class="fl">2.0</span>)    <span class="co"># 두 모평균이 다름</span></span></code></pre></div>
+<ul>
+<li>구간 100개 중 <strong>44개</strong>가 0 을 배제: 1종 오류율이 아니라 <strong>검정력</strong>(약 0.42)을 잰 셈</li>
+</ul>
+<div class="keypoint teal">
+<p>공통점: <strong>오류 메시지가 나오지 않음</strong></p>
+<p>답을 아는 경우와 대조하는 <strong>절차</strong>로만 발견</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>시뮬레이션 코드에서 자주 나타나는 오류를 정리하겠습니다.</p>
+<p>첫째, 귀무가설을 참으로 만들지 않는 것. 1종 오류율을 구한다면서 두 집단의 평균을 다르게 뽑으면, 사실은 검정력을 재는 겁니다. 이번 AI 응답은 이 점을 스스로 짚었지요.</p>
+<p>둘째, var.equal 처럼 결과를 크게 바꾸는 선택을 명시하지 않고 기본값에 맡기는 것. 셋째, 반복 안의 시드. 넷째, 몬테카를로 오차 없이 결론을 내는 것.</p>
+<p>오른쪽을 보세요. 사람이 쓴 코드도 마찬가지입니다. 이 강의의 옛 노트에 ’귀무가설이 참일 때’라고 설명해 놓고 두 집단의 평균을 0.75 와 2.33 으로 다르게 뽑은 시뮬레이션이 실려 있었습니다. 제가 쓴 코드입니다. 이번 개편 때 감사하면서 찾았습니다. 그대로 돌려 보면 구간 100개 중 44개가 0 을 배제합니다. 1종 오류율이라면 5개 안팎이어야 하지요. 사실은 검정력을 잰 겁니다.</p>
+<p>공통점은 오류 메시지가 안 난다는 겁니다. 그래서 답을 아는 경우와 대조하는 절차로만 찾을 수 있습니다. AI 가 썼든 사람이 썼든 같습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="정리" class="slide level2">
+<h2>정리</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">몬테카를로 방법</span></p>
+<ul>
+<li>같은 실험을 많이 반복해 확률과 기댓값을 근사</li>
+<li>오차는 <span class="math inline">\(1/\sqrt{B}\)</span>: 정확도 한 자리 = 반복 100배</li>
+<li>반복은 <strong>우연의 오차</strong>만 줄임, 모형의 가정은 그대로</li>
+</ul>
+<p><span class="label label-note">재현성</span></p>
+<ul>
+<li><code>set.seed()</code> 는 맨 앞에서 한 번</li>
+<li>시드는 결과를 고정할 뿐, 옳게 만들지 않음</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-slide">이론의 확인</span></p>
+<ul>
+<li>95% 포함, 5% 오류: <strong>가정이 맞을 때</strong>의 약속</li>
+<li>가정이 깨지면 1종 오류 26%, 포함 확률 75% 까지</li>
+</ul>
+<p><span class="label label-slide">검증의 도구</span></p>
+<ul>
+<li>참값을 정하고, 자료를 만들고, 반복하고, 대조</li>
+<li>AI 의 코드도 같은 절차, <strong>응답의 설명</strong>까지 읽기</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p>Part 1 마무리: 2학기 Part 2 에서는 실제 자료를 다룸, 오늘의 검증 절차는 계속 사용</p>
+</div>
+<aside class="notes">
+<p>정리하겠습니다.</p>
+<p>왼쪽 위. 몬테카를로 방법은 같은 실험을 많이 반복해서 확률과 기댓값을 근사합니다. 오차는 루트 B 에 반비례합니다. 정확도 한 자리를 더 얻으려면 반복을 100배 해야 합니다. 그리고 반복은 우연의 오차만 줄여 줍니다. 모형의 가정이 틀리면 그 차이는 남습니다.</p>
+<p>왼쪽 아래. set.seed() 는 시뮬레이션 맨 앞에서 한 번만. 시드는 결과를 고정할 뿐 옳게 만들지 않습니다.</p>
+<p>오른쪽 위. 신뢰구간의 95%, 검정의 5% 는 가정이 맞을 때의 약속입니다. 가정이 깨지면 1종 오류율이 26% 까지, 포함 확률이 75% 까지 떨어지는 걸 봤습니다.</p>
+<p>오른쪽 아래가 오늘의 핵심입니다. 참값을 정하고, 자료를 만들고, 반복하고, 대조한다. 정답표가 없는 코드도 이렇게 검증합니다. AI 가 만든 코드도 같은 절차로, 그리고 응답의 설명까지 읽으면서 검증합니다.</p>
+<p>이것으로 1학기 Part 1 이 끝납니다. 2학기에는 실제 자료를 읽고 다루는 방법을 배우는데, 오늘 만든 검증 절차는 거기서도 계속 씁니다. 질문 받겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="09-simulation-slides_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="09-simulation-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="09-simulation-slides_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="09-simulation-slides_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="09-simulation-slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="09-simulation-slides_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="09-simulation-slides_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="09-simulation-slides_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="09-simulation-slides_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="09-simulation-slides_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // 쪽번호를 슬라이드 안(꼬리말 오른쪽)에 그리기 위해 각 슬라이드에 data-no 를 붙인다.
+    // revealjs 기본 쪽번호(.slide-number)는 화면 좌표에 떠 있어서, 슬라이드 비율과 창 비율이
+    // 다르면 원안의 꼬리말 선과 어긋난다. 그래서 slide-number: false 로 두고 여기서 매긴다.
+    window.addEventListener('load', function () {
+      function stamp() {
+        var s = Reveal.getSlides(), t = s.length;
+        s.forEach(function (el, i) { el.setAttribute('data-no', (i + 1) + ' / ' + t); });
+      }
+      if (Reveal.isReady()) stamp(); else Reveal.on('ready', stamp);
+    });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
