@@ -13,7 +13,8 @@ suppressMessages(library(xml2))
 
 # 주제 상세를 두는 장. anchor 는 hub/index.html 의 주제 행 id 다.
 chapters <- list(
-  "08-algorithms" = list(num = "08", part = "PART 1 · 프로그래밍 입문", anchor = "ch8", status = "개편 초안")
+  "08-algorithms" = list(num = "08", part = "PART 1 · 프로그래밍 입문", anchor = "ch8", status = "개편 초안"),
+  "09-simulation" = list(num = "09", part = "PART 1 · 프로그래밍 입문", anchor = "ch9", status = "개편 초안")
 )
 
 key <- commandArgs(TRUE)[1]

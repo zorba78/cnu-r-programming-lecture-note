@@ -68,6 +68,8 @@ knit_hooks$set(output = function(x, options) {
 - 반복문의 시간 복잡도를 빅오 표기법($\mathcal{O}$)으로 표현하고, 코드로부터 복잡도의 차수를 판별할 수 있다.
 - 재귀 함수의 **종료 조건**을 정확히 규정하고, 그 조건이 성립하지 않는 입력을 스스로 구성해 확인할 수 있다.
 - 탐색·정렬 알고리즘을 구현하고, 구현의 정확성을 **전수 검사와 경계 사례**로 검증할 수 있다.
+- 정렬 알고리즘 네 가지(버블·삽입·병합·퀵)의 비교 횟수를 직접 세어, 같은 알고리즘이라도 **입력의 상태에 따라 비용이 달라짐**을 설명할 수 있다.
+- 회귀계수 추정을 **최적화 문제**로 보고 뉴턴-랩슨 알고리즘으로 계수를 구한 뒤 `lm()`·`glm()` 과 대조할 수 있으며, 경사하강법과의 차이를 비용의 관점에서 설명할 수 있다.
 - 사람이 작성한 코드와 AI 가 생성한 코드 모두에서, 타당해 보이는 구현의 **잘못된 경계 처리**를 찾아낼 수 있다.
 
 :::
@@ -945,21 +947,35 @@ $n$ 이 100에서 10,000으로 100배 증가할 때 선형 탐색은 약 100배 
 
 ## 정렬 알고리즘 {#sec-sorting}
 
-정렬 알고리즘은 매우 다양하지만, 이 장에서는 **복잡도의 차수가 서로 다른 두 가지**만
-다룬다. 동일한 차수의 알고리즘을 여러 개 아는 것보다, 차수가 다른 두 알고리즘을 정확히
-비교하는 편이 학습 효과가 크다.
+정렬 알고리즘은 매우 다양하다. 이 장에서는 네 가지를 **두 쌍**으로 묶어 다룬다.
+
+| 쌍 | 시간 복잡도 | 방식 |
+|:--|:--|:--|
+| 버블 정렬 · 삽입 정렬 | $\mathcal{O}(n^2)$ | 원소를 하나씩 비교하며 자리를 옮긴다 |
+| 병합 정렬 · 퀵 정렬 | 평균 $\mathcal{O}(n \log n)$ | 문제를 나누어 재귀로 푸는 분할 정복 |
+
+: {tbl-colwidths="[30,24,46]"}
+
+쌍과 쌍을 비교하면 **차수의 차이**가 드러난다. 쌍 안의 두 알고리즘을 비교하면 같은 차수라도
+**입력의 상태에 따라** 비용이 달라진다는 사실이 드러난다. 이 절의 마지막 소절에서 네 알고리즘의
+비교 횟수를 직접 세어 두 가지를 모두 확인한다.
 
 
 ::: {.callout-note}
 **안정 정렬(stable sort)**: 값이 동일한 원소들의 상대적 순서가 정렬 후에도 유지되는
 정렬. 데이터 프레임을 여러 열 기준으로 순차 정렬할 때 이 성질이 중요하다.
 
-아래 두 알고리즘은 모두 **오름차순** 기준으로 설명한다.
+아래 네 알고리즘은 모두 **오름차순** 기준으로 설명하며, 입력은 **`NA` 가 없는 수치형 벡터**라고
+전제한다. 참고로 `sort()` 는 기본값(`na.last = NA`)에서 `NA` 를 제거한 뒤 정렬한다.
 
 :::
 
 
 ### 버블 정렬 {#sec-bubble-sort}
+
+키 순서로 한 줄을 세우는데, 학생들은 **바로 옆 사람과만** 키를 비교할 수 있다고 하자.
+앞사람이 더 크면 둘이 자리를 바꾼다. 줄의 처음부터 끝까지 한 번 훑으면 키가 가장 큰 학생이
+맨 뒤로 밀려난다. 버블 정렬(bubble sort)은 이 방법 그대로다.
 
 인접한 두 원소를 비교하여 순서가 어긋나 있으면 교환한다. 전체를 한 번 순회하면
 가장 큰 값이 마지막 위치로 이동한다. 이 과정을 $n-1$ 회 반복한다.
@@ -1004,7 +1020,96 @@ $\mathcal{O}(n^2)$ 이다. 이미 정렬된 입력에 대해서도 이 구현은
 있으나, 시간 복잡도가 치명적인 단점이다.
 
 
+### 삽입 정렬 {#sec-insertion-sort}
+
+카드 게임에서 카드를 한 장씩 받아 손에 쥔다고 하자. 새 카드를 받을 때마다 이미 쥐고 있는
+카드 사이에서 **제자리를 찾아 끼워 넣는다.** 손에 쥔 카드는 언제나 정렬된 상태이고,
+마지막 카드를 끼워 넣으면 정렬이 끝난다. 삽입 정렬(insertion sort)은 이 방법 그대로다.
+
+
+```{r fig-insertion-anim, echo=FALSE, out.width='45%', fig.align='center', fig.cap="삽입 정렬 (위키미디어 공용)"}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/0/0f/Insertion-sort-example-300px.gif")
+
+```
+
+
+벡터의 앞부분 `x[1:(i-1)]` 이 '손에 쥔 카드'다. `i` 번째 값을 `key` 로 꺼내 두고,
+앞부분에서 `key` 보다 큰 값을 한 칸씩 뒤로 밀어 빈자리를 만든 뒤 그 자리에 `key` 를 넣는다.
+
+
+```{r insertion-sort}
+insertion_sort <- function(x) {
+  n <- length(x)
+  if (n < 2) return(x)
+  for (i in 2:n) {
+    key <- x[i]                        # 이번에 끼워 넣을 값
+    j <- i - 1
+    while (j >= 1 && x[j] > key) {     # key 보다 큰 값을 한 칸씩 뒤로 민다
+      x[j + 1] <- x[j]
+      j <- j - 1
+    }
+    x[j + 1] <- key                    # 비워 둔 자리에 넣는다
+  }
+  x
+}
+
+insertion_sort(v)
+
+identical(insertion_sort(v), sort(v))
+
+```
+
+
+`while` 의 조건 `j >= 1 && x[j] > key` 에서 앞쪽 검사가 경계를 지킨다. `key` 가 앞부분의
+모든 값보다 작으면 `j` 가 0 까지 내려가는데, 이때 `&&` 는 왼쪽이 `FALSE` 이므로 오른쪽
+`x[0] > key` 를 계산하지 않는다. 이를 **단락 평가(short-circuit evaluation)** 라 한다.
+앞쪽 검사를 빼면 어떻게 되는지 확인해 보자.
+
+
+```{r insertion-sort-nocheck, error=TRUE}
+# j >= 1 검사를 뺀 구현
+insertion_nocheck <- function(x) {
+  for (i in 2:length(x)) {
+    key <- x[i]
+    j <- i - 1
+    while (x[j] > key) {
+      x[j + 1] <- x[j]
+      j <- j - 1
+    }
+    x[j + 1] <- key
+  }
+  x
+}
+
+insertion_nocheck(c(3, 1, 2))
+
+cards <- c(3, 1, 2)
+cards[0]         # 0번 위치는 오류가 아니라 길이 0 인 벡터를 돌려준다
+cards[0] > 1     # 비교 결과도 길이 0 이므로 while 이 참·거짓을 판단하지 못한다
+
+```
+
+
+R 에서 `x[0]` 은 오류가 아니다. 이 때문에 경계를 벗어난 비교가 곧바로 드러나지 않고,
+`while` 에 이르러서야 알아보기 어려운 메시지와 함께 멈춘다.
+
+비교 횟수는 입력의 상태에 따라 크게 달라진다. 이미 정렬된 입력에서는 `key` 마다 바로 앞의
+값과 한 번만 비교하고 멈추므로 모두 $n-1$ 회로 끝난다. 역순으로 정렬된 입력에서는 `key` 가
+매번 맨 앞까지 이동해야 하므로 $1 + 2 + \cdots + (n-1) = n(n-1)/2$ 회를 비교한다.
+최선의 경우 $\mathcal{O}(n)$, 최악의 경우 $\mathcal{O}(n^2)$ 이다. 버블 정렬처럼 벡터 안에서
+자리만 옮기므로 추가 공간은 $\mathcal{O}(1)$ 이다.
+
+같은 $\mathcal{O}(n^2)$ 이지만 **거의 정렬된 자료**에서는 삽입 정렬이 버블 정렬보다 훨씬 적게
+비교한다. 그래서 실무에서 쓰는 정렬 함수 가운데에는 짧은 구간을 정렬할 때 삽입 정렬로 바꿔
+쓰는 것이 많다. 파이썬의 기본 정렬 알고리즘인 팀정렬(Timsort)이 그 예다.
+
+
 ### 병합 정렬 {#sec-merge-sort}
+
+두 반의 시험 답안지를 번호순으로 한 묶음으로 합친다고 하자. 두 묶음이 각각 번호순으로
+정리되어 있다면 일은 간단하다. 두 묶음의 맨 위 장끼리 비교해 번호가 빠른 쪽을 한 장씩
+내려놓으면 된다. 정리되지 않은 큰 묶음은 절반으로 나누어 각각 정리한 뒤 이렇게 합치면 되고,
+절반도 크면 다시 절반으로 나눈다. 병합 정렬(merge sort)은 이 방법 그대로다.
 
 **분할 정복(divide and conquer)** 기법을 사용한다. 벡터를 절반으로 분할하고, 각 부분을
 재귀적으로 정렬한 뒤, 정렬된 두 부분을 병합한다.
@@ -1071,12 +1176,118 @@ identical(merge_sort(v), as.numeric(sort(v)))
 **시간과 공간을 맞바꾼 구조다.**
 
 
-### 두 정렬의 비용 비교 {#sec-sorting-cost}
+### 퀵 정렬 {#sec-quick-sort}
+
+체육 시간에 학생들을 키 순서로 세운다고 하자. 선생님이 먼저 한 학생을 **기준**으로 세우고,
+그보다 작은 학생은 왼쪽, 큰 학생은 오른쪽으로 보낸다. 기준 학생은 이것으로 제자리에 선 셈이다.
+이제 왼쪽 무리와 오른쪽 무리 안에서 각각 같은 일을 반복하고, 무리가 한 명 이하가 되면 멈춘다.
+퀵 정렬(quick sort)은 이 방법 그대로다.
+
+병합 정렬과 같은 분할 정복이지만 일이 일어나는 단계가 반대다. 병합 정렬은 나누는 일이 단순하고
+**합치는 단계**에서 정렬이 일어난다. 퀵 정렬은 **나누는 단계**에서 정렬이 일어나고, 합치는 일은
+작은 무리, 기준, 큰 무리를 차례로 이어 붙이는 것뿐이다. 기준이 되는 값을 **기준값(pivot)** 이라
+한다. 여기서는 벡터의 첫 원소를 기준값으로 삼는다.
+
+
+```{r quick-sort}
+quick_sort <- function(x) {
+  if (length(x) <= 1) return(x)      # 종료 조건: 원소가 하나 이하이면 이미 정렬된 상태다
+  pivot <- x[1]                      # 첫 원소를 기준값으로 삼는다
+  c(quick_sort(x[x < pivot]),        # 기준값보다 작은 무리를 정렬해 왼쪽에
+    x[x == pivot],                   # 기준값(과 같은 값)을 가운데에
+    quick_sort(x[x > pivot]))        # 기준값보다 큰 무리를 정렬해 오른쪽에
+}
+
+quick_sort(v)
+
+identical(quick_sort(v), sort(v))
+
+```
+
+
+나누는 과정을 출력해 보자. 아래 `quick_trace()` 는 `quick_sort()` 와 같은 일을 하면서
+호출마다 `[작은 무리] 기준값 [큰 무리]` 를 한 줄씩 출력한다. 들여쓰기가 재귀의 깊이다.
+
+
+```{r quick-trace}
+quick_trace <- function(x, depth = 0) {
+  if (length(x) <= 1) return(x)
+  pivot <- x[1]
+  small <- x[x < pivot]
+  big <- x[x > pivot]
+  cat(strrep("  ", depth), "[", paste(small, collapse = " "), "] ", pivot,
+      " [", paste(big, collapse = " "), "]\n", sep = "")
+  c(quick_trace(small, depth + 1), x[x == pivot], quick_trace(big, depth + 1))
+}
+
+res <- quick_trace(c(5, 3, 8, 1, 9, 2, 7))
+
+```
+
+
+한 번 나눌 때마다 무리가 대략 절반씩 작아져 세 단계 만에 끝났다. 무작위 순서의 입력이라면
+재귀 깊이는 대략 $\log_2 n$ 에 비례하고, 각 깊이에서 모든 원소가 기준값과 한 번씩 비교되므로
+평균 시간 복잡도는 병합 정렬과 같은 $\mathcal{O}(n \log n)$ 이다.
 
 
 ::: {.callout-tip}
-**예측해 보자**: 원소 수를 두 배로 늘리면 버블 정렬의 비교 횟수는 몇 배가 되겠는가?
-병합 정렬은 몇 배가 되겠는가? 표를 보기 전에 적어 보자.
+**예측해 보자**: 이미 정렬된 벡터 `1:6` 을 `quick_trace()` 에 넣으면 출력은 몇 줄이고,
+들여쓰기는 어떤 모양이 되겠는가? 실행하기 전에 그려 보자.
+
+:::
+
+
+```{r quick-trace-sorted}
+res <- quick_trace(1:6)
+
+```
+
+
+첫 원소를 기준값으로 삼으면 정렬된 입력에서는 기준값이 늘 **가장 작은 값**이 된다. 작은 무리는
+늘 비고, 큰 무리는 원소가 하나씩만 줄어든다. 재귀 깊이는 $n - 1$ 이 되고, 비교 횟수는
+$(n-1) + (n-2) + \cdots + 1 = n(n-1)/2$ 로 버블 정렬과 같아진다. **평균은 $\mathcal{O}(n \log n)$
+이지만 최악은 $\mathcal{O}(n^2)$ 이며, 그 최악이 하필 이미 정렬된 입력이다.**
+
+재귀 깊이가 $n$ 에 비례하면 @sec-base-case-limits 에서 본 중첩 한계에도 걸린다.
+
+
+```{r quick-sort-depth}
+set.seed(1)
+identical(quick_sort(sample(5000)), 1:5000)   # 무작위 순서 5,000개: 정상
+
+tryCatch(quick_sort(1:5000),                  # 정렬된 5,000개: 재귀 깊이 약 5,000
+         error = function(e) cat("오류:", conditionMessage(e), "\n"))
+
+```
+
+
+같은 5,000개의 값인데 **순서만 다른** 두 입력 가운데 하나는 정상적으로 끝나고 다른 하나는 멈춘다.
+이미 정렬된 자료를 다시 정렬하는 일은 드물지 않으므로 이 차이는 실무에서도 문제가 된다.
+
+메모리도 따져 보자. 이 구현은 나눌 때마다 `x[x < pivot]` 과 `x[x > pivot]` 으로 **새 벡터를
+만들고**, 호출이 끝날 때까지 각 깊이의 벡터가 동시에 메모리에 남는다. 무작위 입력에서는 깊이마다
+벡터가 대략 절반씩 작아지므로 추가 공간이 $\mathcal{O}(n)$ 이지만, 정렬된 입력에서는
+$n + (n-1) + \cdots$ 가 쌓여 $\mathcal{O}(n^2)$ 까지 늘어난다. 읽기 쉬운 대신 메모리를 쓰는
+구현이다. 교과서의 퀵 정렬은 대개 벡터 안에서 자리만 바꾸는 **제자리(in-place)** 방식으로 구현해
+추가 공간을 재귀 호출에 필요한 만큼으로 줄인다. 대신 코드가 길고 경계 처리가 까다롭다.
+
+
+::: {.callout-note}
+**기준값을 고르는 규칙이 최악의 입력을 정한다.** 가운데 원소를 기준값으로 삼으면 정렬된
+입력은 최선의 경우가 되지만, 그 규칙에 불리한 다른 입력이 여전히 존재한다. 기준값을 무작위로
+고르면 특정 입력이 늘 최악이 되는 일은 없어지는 대신, 같은 입력이라도 실행할 때마다 비교
+횟수가 달라진다.
+
+:::
+
+
+### 네 정렬의 비용 비교 {#sec-sorting-cost}
+
+
+::: {.callout-tip}
+**예측해 보자**: 원소 수를 두 배로 늘리면 네 정렬의 비교 횟수는 각각 몇 배가 되겠는가?
+또 **이미 정렬된** 입력에서는 네 정렬 가운데 어느 것이 가장 적게, 어느 것이 가장 많이
+비교하겠는가? 표를 보기 전에 적어 보자.
 
 :::
 
@@ -1085,9 +1296,13 @@ identical(merge_sort(v), as.numeric(sort(v)))
 따라 변동하며, 빠른 쪽은 0초로 측정되어 증가율을 계산할 수 없다.
 반면 비교 횟수는 입력이 동일하면 항상 같은 값을 갖는다.
 
+아래 네 함수는 각 정렬 함수에서 두 값을 비교하는 곳마다 1을 더하도록 고친 것이다. 퀵 정렬은
+한 번 나눌 때 기준값과 나머지 원소를 한 번씩 비교한다고 보고 (원소 수 $-\,1$) 회로 센다.
+
 
 ```{r sorting-count}
-# 버블 정렬이 수행하는 비교 횟수
+#| code-fold: true
+#| code-summary: "비교 횟수를 세는 함수 네 개 (펼쳐 보기)"
 bubble_count <- function(x) {
   n <- length(x)
   cnt <- 0
@@ -1102,48 +1317,127 @@ bubble_count <- function(x) {
   cnt
 }
 
-# 병합 정렬은 각 병합 단계에서 원소를 한 번씩 순회한다
-merge_count <- function(x) {
+insertion_count <- function(x) {
   n <- length(x)
-  if (n <= 1) return(0)
-  mid <- n %/% 2L
-  merge_count(x[1:mid]) + merge_count(x[(mid + 1):n]) + n
+  cnt <- 0
+  if (n < 2) return(cnt)
+  for (i in 2:n) {
+    key <- x[i]
+    j <- i - 1
+    while (j >= 1) {
+      cnt <- cnt + 1                   # x[j] 와 key 를 비교한다
+      if (x[j] <= key) break
+      x[j + 1] <- x[j]
+      j <- j - 1
+    }
+    x[j + 1] <- key
+  }
+  cnt
 }
 
-set.seed(1234)
-sizes <- c(500, 1000, 2000, 4000)
-cnt <- t(sapply(sizes, function(n) {
-  v <- sample(n)
-  c(bubble = bubble_count(v), merge = merge_count(v))
-}))
+# 병합 단계의 비교 횟수는 두 부분을 정렬한 결과에 달려 있으므로
+# 정렬 결과와 비교 횟수를 함께 돌려주는 내부 함수를 둔다
+merge_count <- function(x) {
+  sort_count <- function(x) {
+    n <- length(x)
+    if (n <= 1) return(list(x = x, cnt = 0))
+    mid <- n %/% 2L
+    a <- sort_count(x[1:mid])
+    b <- sort_count(x[(mid + 1):n])
+    left <- a$x
+    right <- b$x
+    out <- numeric(n)
+    l <- r <- 1L
+    cnt <- a$cnt + b$cnt
+    for (i in seq_len(n)) {
+      both <- l <= length(left) && r <= length(right)
+      if (both) cnt <- cnt + 1         # 양쪽이 모두 남아 있을 때만 비교한다
+      if ((both && left[l] <= right[r]) || r > length(right)) {
+        out[i] <- left[l]; l <- l + 1L
+      } else {
+        out[i] <- right[r]; r <- r + 1L
+      }
+    }
+    list(x = out, cnt = cnt)
+  }
+  sort_count(x)$cnt
+}
 
-data.frame(n = sizes, cnt,
-           bubble_ratio = c(NA, round(cnt[-1, 1] / cnt[-4, 1], 2)),
-           merge_ratio  = c(NA, round(cnt[-1, 2] / cnt[-4, 2], 2)))
+quick_count <- function(x) {
+  if (length(x) <= 1) return(0)
+  pivot <- x[1]
+  (length(x) - 1) + quick_count(x[x < pivot]) + quick_count(x[x > pivot])
+}
 
 ```
 
 
-$n$ 이 두 배가 될 때 버블 정렬의 비교 횟수는 **정확히 네 배**로 증가하고,
-병합 정렬은 **두 배를 조금 넘는** 수준으로 증가한다.
+먼저 무작위 순서의 입력에서 원소 수를 두 배씩 늘려 가며 센다.
+
+
+```{r sorting-count-random}
+set.seed(1234)
+sizes <- c(500, 1000, 2000)
+cnt <- t(sapply(sizes, function(n) {
+  v <- sample(n)                     # 1 부터 n 까지를 무작위 순서로
+  c(버블 = bubble_count(v), 삽입 = insertion_count(v),
+    병합 = merge_count(v), 퀵 = quick_count(v))
+}))
+
+data.frame(n = sizes, cnt)
+
+# n 이 두 배가 될 때 비교 횟수가 늘어난 배율
+ratio <- round(cnt[-1, ] / cnt[-nrow(cnt), ], 2)
+rownames(ratio) <- c("1000/500", "2000/1000")
+ratio
+
+```
+
+
+$n$ 이 두 배가 될 때 버블 정렬의 비교 횟수는 **정확히 네 배**, 삽입 정렬은 **네 배 가까이**
+증가하고, 병합 정렬과 퀵 정렬은 **두 배를 조금 넘는** 수준(2.2\~2.4배)으로 증가한다.
 $n^2$ 과 $n\log n$ 의 증가 양상이 표에 그대로 나타난 것이다.
 분석으로 얻은 복잡도가 실제 연산 횟수와 일치하는지 대조해 보자.
 
 
 ```{r sorting-count-theory}
 data.frame(n = sizes,
-           bubble = cnt[, 1],
-           `n(n-1)/2` = sizes * (sizes - 1) / 2,
-           merge = cnt[, 2],
+           버블 = cnt[, "버블"], `n(n-1)/2` = sizes * (sizes - 1) / 2,
+           삽입 = cnt[, "삽입"], `n^2/4` = sizes^2 / 4,
+           병합 = cnt[, "병합"], 퀵 = cnt[, "퀵"],
            `n log2(n)` = round(sizes * log2(sizes)),
            check.names = FALSE)
 
 ```
 
 
-버블 정렬의 비교 횟수는 $n(n-1)/2$ 와 **정확히** 일치하고, 병합 정렬은
-$n\log_2 n$ 에 근접한다.
+버블 정렬의 비교 횟수는 $n(n-1)/2$ 와 **정확히** 일치한다. 삽입 정렬은 무작위 입력에서 그 절반인
+$n^2/4$ 근처를 비교한다. 원소 하나를 끼워 넣을 때 평균적으로 앞부분의 절반쯤을 지나가기
+때문이다. 병합 정렬과 퀵 정렬은 $n\log_2 n$ 과 같은 규모이며 앞에 붙는 계수만 조금 다르다.
+빅오 표기법이 계수를 무시하는 이유가 여기에 있다(@sec-big-o 의 규칙 1).
 **이론적으로 분석한 복잡도가 실제 연산 횟수와 일치하는지 확인하는 것 역시 검증이다.**
+
+다음은 입력의 상태를 바꾸어 센다. 원소 수는 1,000개로 고정하고 무작위 순서, 정렬된 순서,
+역순 세 가지를 넣는다.
+
+
+```{r sorting-count-input}
+set.seed(1234)
+n <- 1000
+inputs <- list(무작위 = sample(n), 정렬됨 = 1:n, 역순 = n:1)
+
+t(sapply(inputs, function(v) {
+  c(버블 = bubble_count(v), 삽입 = insertion_count(v),
+    병합 = merge_count(v), 퀵 = quick_count(v))
+}))
+
+```
+
+
+정렬된 입력에서 삽입 정렬은 999회로 네 정렬 가운데 가장 적게 비교하고, 퀵 정렬은 499,500회로
+버블 정렬과 같아진다. 역순 입력에서는 삽입 정렬도 최악이 된다. 병합 정렬만 입력의 상태와
+관계없이 $n \log_2 n$ 이하를 유지한다. **같은 알고리즘이라도 입력에 따라 비용이 달라지므로,
+비용을 말할 때는 어떤 입력에서의 비용인지(최선·평균·최악)를 함께 밝혀야 한다.**
 
 실행 시간도 함께 측정한다. 측정값은 환경에 따라 변동하지만 차수의 차이는 그대로 드러난다.
 
@@ -1152,8 +1446,10 @@ $n\log_2 n$ 에 근접한다.
 set.seed(1234)
 timing <- t(sapply(sizes, function(n) {
   v <- sample(n)
-  c(bubble = system.time(bubble_sort(v))[["elapsed"]],
-    merge = system.time(merge_sort(v))[["elapsed"]])
+  c(버블 = system.time(bubble_sort(v))[["elapsed"]],
+    삽입 = system.time(insertion_sort(v))[["elapsed"]],
+    병합 = system.time(merge_sort(v))[["elapsed"]],
+    퀵 = system.time(quick_sort(v))[["elapsed"]])
 }))
 
 data.frame(n = sizes, timing)
@@ -1161,15 +1457,23 @@ data.frame(n = sizes, timing)
 ```
 
 
+퀵 정렬이 병합 정렬보다 비교를 더 많이 하는데도 더 빠르게 측정되는 것은, `x[x < pivot]` 과 같은
+R 의 벡터 연산이 내부에서 C 로 실행되어 R 의 `for` 반복문보다 훨씬 빠르기 때문이다. 차수가 같을 때는
+이런 구현의 차이, 곧 빅오가 무시한 계수가 실제 시간을 좌우한다.
+
 정확성도 함께 확인한다. 속도만 측정하고 결과의 정확성을 확인하지 않는 벤치마크는 의미가 없다.
 
 
 ```{r sorting-correctness}
 set.seed(99)
+same <- function(a, b) length(a) == length(b) && all(a == b)
+
 checks <- replicate(200, {
-  n <- sample(1:50, 1)
+  n <- sample(0:50, 1)                     # 길이 0 인 벡터도 포함한다
   v <- sample(1:20, n, replace = TRUE)     # 중복값을 포함시킨다
-  all(bubble_sort(v) == sort(v)) && all(merge_sort(v) == sort(v))
+  s <- sort(v)
+  same(bubble_sort(v), s) && same(insertion_sort(v), s) &&
+    same(merge_sort(v), s) && same(quick_sort(v), s)
 })
 
 all(checks)
@@ -1177,12 +1481,27 @@ all(checks)
 ```
 
 
+네 정렬의 성질을 정리하면 다음과 같다. 최선·최악의 경우는 이 장의 구현 기준이다.
+
+| 정렬 | 방식 | 최선 | 평균 | 최악 | 추가 메모리 |
+|:--|:--|:--|:--|:--|:--|
+| 버블 | 인접한 두 원소를 교환 | $\mathcal{O}(n^2)$ | $\mathcal{O}(n^2)$ | $\mathcal{O}(n^2)$ | $\mathcal{O}(1)$ |
+| 삽입 | 앞부분의 제자리에 끼워 넣기 | $\mathcal{O}(n)$ 정렬된 입력 | $\mathcal{O}(n^2)$ | $\mathcal{O}(n^2)$ 역순 입력 | $\mathcal{O}(1)$ |
+| 병합 | 절반으로 나누어 정렬한 뒤 병합 | $\mathcal{O}(n \log n)$ | $\mathcal{O}(n \log n)$ | $\mathcal{O}(n \log n)$ | $\mathcal{O}(n)$ |
+| 퀵 | 기준값으로 나눈 뒤 이어 붙이기 | $\mathcal{O}(n \log n)$ | $\mathcal{O}(n \log n)$ | $\mathcal{O}(n^2)$ 정렬된 입력 | $\mathcal{O}(n)$, 최악 $\mathcal{O}(n^2)$ |
+
+: {tbl-colwidths="[8,28,15,13,20,16]"}
+
+
 ::: {.callout-note}
-**다른 정렬 알고리즘**: 삽입 정렬(insertion sort)은 버블 정렬과 같은
-$\mathcal{O}(n^2)$ 차수이지만 거의 정렬된 입력에서는 빠르게 동작한다.
-퀵 정렬(quick sort)은 평균 $\mathcal{O}(n \log n)$ 으로 실무에서 가장 널리 사용되지만
-최악의 경우 $\mathcal{O}(n^2)$ 이다. R 의 `sort()` 는 자료형에 따라 기수 정렬(radix sort)
-등을 내부적으로 선택한다. 실무에서는 직접 구현하지 않고 `sort()` 를 사용한다.
+**R 의 `sort()` 는 무엇을 쓰는가**: 기본값 `method = "auto"` 는 길이가 $2^{31}$ 보다 짧은
+수치·정수·논리 벡터와 요인에는 **기수 정렬(radix sort)** 을, 그 밖의 경우(문자 벡터 등)에는
+셸 정렬(Shellsort)을 쓴다(`?sort`). 기수 정렬은 원소끼리 비교하는 대신 값을 자릿수(바이트)
+단위로 나누어 배치하는 방식이며, 도움말에 따르면 $\mathcal{O}(n)$ 으로 동작한다.
+`sort(x, method = "quick")` 로 퀵 정렬을 지정할 수도 있다.
+
+실무에서는 정렬을 직접 구현하지 않고 `sort()`, `order()` 를 쓴다. 이 절에서 네 정렬을 직접
+구현한 목적은 비용이 어디서 생기는지 이해하고, 주어진 구현을 검증하는 능력을 기르는 데 있다.
 
 :::
 
@@ -1190,8 +1509,15 @@ $\mathcal{O}(n^2)$ 차수이지만 거의 정렬된 입력에서는 빠르게 �
 ## 뉴턴-랩슨 알고리즘 {#sec-newton-raphson}
 
 앞의 절들이 자료를 처리하는 알고리즘을 다루었다면, 이 절에서는 **수치 계산** 알고리즘을
-다룬다. $f(x) = 0$ 을 만족하는 $x$ 를 반복 계산으로 구하는 방법이며, 통계학에서
-최대가능도추정량을 구할 때 사용하는 방법이 바로 이것이다.
+다룬다. $f(x) = 0$ 을 만족하는 $x$ 를 반복 계산으로 구하는 방법이다.
+
+통계학에서 이 알고리즘이 중요한 이유는 **추정이 곧 최적화(optimization) 문제**이기 때문이다.
+회귀계수의 최소제곱추정은 잔차제곱합을 **최소**로 만드는 값을, 최대가능도추정은 가능도를
+**최대**로 만드는 값을 찾는다. 함수가 최소나 최대가 되는 지점에서는 도함수가 0 이므로, 결국
+"도함수 $= 0$" 이라는 방정식을 푸는 문제가 된다. 이 절의 앞부분(@sec-nr-principle 부터
+@sec-nr-verification 까지)에서 방정식의 해를 구하는 원리를 익히고, 뒷부분(@sec-nr-optimization
+부터 @sec-nr-logistic 까지)에서 회귀모형과 로지스틱 회귀모형의 계수를 이 방법으로 구한다.
+마지막으로 같은 문제를 푸는 또 다른 방법인 경사하강법을 간단히 소개한다(@sec-gradient-descent).
 
 적용 조건은 두 가지다. 탐색 구간에 해가 존재해야 하고, $f$ 가 미분 가능해야 한다.
 
@@ -1301,6 +1627,341 @@ t(sapply(inits, function(x0) {
 해가 여러 개인 함수에서는 어느 해로 수렴하는지를 초기값이 결정한다.
 따라서 결과를 얻은 뒤에는 **그 값이 실제로 해인지($f(x) \approx 0$)**, 그리고
 **의도한 해가 맞는지**를 반드시 확인해야 한다.
+
+:::
+
+
+### 최적화: 극값은 도함수의 근이다 {#sec-nr-optimization}
+
+미분 가능한 함수 $f$ 가 어떤 점에서 극값을 가지면 그 점의 접선은 수평이다. 즉 도함수가 0 이다.
+따라서 극값을 찾는 문제는 **도함수 $f'$ 의 근을 찾는 문제**가 되고, 앞의 점화식에서 $f$ 자리에
+$f'$ 을, $f'$ 자리에 $f''$ 을 넣으면 된다.
+
+$$
+ x_{n+1} = x_n - \frac{f'(x_n)}{f''(x_n)}
+$$
+
+앞에서 쓴 $f(x) = 5x^3 - 7x^2 - 40x + 100$ 의 극값을 구해 보자. 도함수는
+$f'(x) = 15x^2 - 14x - 40$ 이다. 손으로 구한 도함수는 R 의 기호 미분 함수 `D()` 로 대조한다.
+
+
+```{r nr-opt-deriv}
+fp <- function(x) 15 * x^2 - 14 * x - 40     # 손으로 구한 f'(x)
+
+D(body(f), "x")                               # R 이 기호 미분한 결과
+
+```
+
+
+출력된 식을 정리하면 손으로 구한 식과 같다. 이제 `newton_raphson()` 에 `f` 대신 `fp` 를 넣는다.
+함수를 새로 만들 필요는 없다. `newton_raphson()` 이 안에서 `fp` 를 한 번 더 미분해 $f''$ 을 얻는다.
+
+
+::: {.callout-tip}
+**예측해 보자**: 초기값 $-5, -1, 0, 1, 5$ 에서 출발하면 모두 같은 점에 도착하겠는가?
+도착한 점은 모두 $f$ 를 가장 작게 만드는 점이겠는가?
+
+:::
+
+
+```{r nr-opt-run}
+inits <- c(-5, -1, 0, 1, 5)
+opt <- t(sapply(inits, function(x0) {
+  r <- newton_raphson(fp, x0 = x0)
+  c(x0 = x0, 해 = r$solution, 반복 = r$iteration)
+}))
+
+# 2계 도함수 f''(x) = 30x - 14 의 부호로 극소와 극대를 가린다
+d2 <- 30 * opt[, "해"] - 14
+data.frame(opt, `f''(해)` = d2, 판정 = ifelse(d2 > 0, "극소", "극대"),
+           check.names = FALSE)
+
+```
+
+
+초기값에 따라 두 점으로 갈라진다. $x \approx 2.165$ 에서는 $f'' > 0$ 이므로 **극소**,
+$x \approx -1.232$ 에서는 $f'' < 0$ 이므로 **극대**다. 알고리즘은 $f'(x) = 0$ 인 점을 찾을 뿐,
+그 점이 극소인지 극대인지는 가리지 않는다. R 의 1차원 최적화 함수 `optimize()` 와도 대조해 둔다.
+
+
+```{r nr-opt-check}
+optimize(f, interval = c(0, 5))                    # 구간 [0, 5] 에서 최솟값
+optimize(f, interval = c(-5, 0), maximum = TRUE)   # 구간 [-5, 0] 에서 최댓값
+
+```
+
+
+::: {.callout-caution}
+$f'(x) = 0$ 은 극값의 **후보**일 뿐이다. 결과를 얻은 뒤에는 (1) 2계 도함수의 부호로 극소인지
+극대인지 확인하고, (2) 그 극소가 관심 있는 범위 전체에서의 최소인지 확인해야 한다. 이 $f$ 는
+$x$ 가 작아질수록 한없이 작아지므로 $x \approx 2.165$ 는 극소이지만 전체의 최소는 아니다.
+로그가능도처럼 봉우리가 여러 개인 함수에서는 초기값에 따라 서로 다른 봉우리에 도착한다.
+
+:::
+
+
+모수가 두 개 이상이면 점화식의 각 자리가 벡터와 행렬로 바뀐다. 이어지는 두 소절에서 이 형태를 쓴다.
+
+
+::: {.callout-note}
+**모수가 여러 개일 때의 뉴턴-랩슨**
+
+$$
+ \boldsymbol{\theta}_{n+1} = \boldsymbol{\theta}_n - \mathbf{H}^{-1} \nabla f(\boldsymbol{\theta}_n)
+$$
+
+- $\nabla f$ : **기울기 벡터(gradient)**. 각 모수로 편미분한 값을 모은 벡터이며, $f'$ 의 자리다.
+- $\mathbf{H}$ : **헤세 행렬(Hessian matrix)**. 2계 편미분을 모은 행렬이며, $f''$ 의 자리다.
+- 나눗셈은 역행렬을 곱하는 것으로 바뀐다. R 에서는 역행렬을 직접 구하지 않고 `solve(H, g)` 로
+  연립방정식 $\mathbf{H}\mathbf{d} = \nabla f$ 를 풀어 갱신량 $\mathbf{d}$ 를 얻는다.
+
+:::
+
+
+### 회귀모형: 정규방정식은 뉴턴-랩슨의 한 걸음이다 {#sec-nr-regression}
+
+`mtcars` 의 연비(`mpg`)를 무게(`wt`)로 설명하는 단순선형회귀모형
+$y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$ 를 생각하자. 최소제곱추정은 잔차제곱합
+
+$$
+ S(\boldsymbol\beta) = \sum_{i=1}^{n} (y_i - \beta_0 - \beta_1 x_i)^2
+ = (\mathbf{y} - \mathbf{X}\boldsymbol\beta)^\top (\mathbf{y} - \mathbf{X}\boldsymbol\beta)
+$$
+
+을 최소로 만드는 $\boldsymbol\beta = (\beta_0, \beta_1)^\top$ 를 찾는다. $\mathbf{X}$ 는 첫 열이
+모두 1(절편)이고 둘째 열이 $x_i$ 인 $n \times 2$ 행렬이다. 기울기 벡터와 헤세 행렬은 다음과 같다.
+
+$$
+ \nabla S = -2\mathbf{X}^\top(\mathbf{y} - \mathbf{X}\boldsymbol\beta), \qquad
+ \mathbf{H} = 2\mathbf{X}^\top\mathbf{X}
+$$
+
+
+::: {.callout-tip}
+**예측해 보자**: 초기값 $(0, 0)$ 에서 출발하면 뉴턴-랩슨 알고리즘은 몇 번 반복해야 수렴하겠는가?
+초기값을 $(100, -50)$ 으로 바꾸면 어떻게 되겠는가?
+
+:::
+
+
+```{r nr-ls}
+X <- cbind(1, mtcars$wt)      # 첫 열은 절편에 곱해지는 1
+y <- mtcars$mpg
+
+# 뉴턴-랩슨 한 걸음: beta - H^{-1} g
+nr_step_ls <- function(beta, X, y) {
+  g <- -2 * t(X) %*% (y - X %*% beta)    # 기울기 벡터
+  H <- 2 * t(X) %*% X                    # 헤세 행렬: beta 가 들어 있지 않다
+  as.vector(beta - solve(H, g))
+}
+
+b1 <- nr_step_ls(c(0, 0), X, y)
+b1
+
+nr_step_ls(b1, X, y)                     # 한 걸음 더 가도 제자리다
+nr_step_ls(c(100, -50), X, y)            # 출발점을 바꾸어도 한 걸음에 같은 점
+
+```
+
+
+**한 걸음 만에** 도착하고, 한 걸음 더 가도 움직이지 않는다. 출발점도 결과를 바꾸지 못한다.
+점화식에 기울기 벡터와 헤세 행렬을 대입해 보면 이유가 드러난다.
+
+$$
+ \boldsymbol\beta_1
+ = \boldsymbol\beta_0 + (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top(\mathbf{y} - \mathbf{X}\boldsymbol\beta_0)
+ = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}
+$$
+
+초기값 $\boldsymbol\beta_0$ 가 소거된다. 뉴턴-랩슨은 매 걸음 목적함수를 2차 함수로 근사한 뒤 그
+2차 함수의 최소점으로 이동하는데, 잔차제곱합은 원래 $\boldsymbol\beta$ 의 2차 함수이므로 근사가
+곧 정확한 식이 된다. 결과는 **정규방정식(normal equations)**
+$\mathbf{X}^\top\mathbf{X}\boldsymbol\beta = \mathbf{X}^\top\mathbf{y}$ 의 해이며, 회귀분석에서
+배우는 최소제곱추정량 공식 그 자체다. `lm()` 과 대조한다.
+
+
+```{r nr-ls-check}
+coef(lm(mpg ~ wt, data = mtcars))
+
+all.equal(b1, unname(coef(lm(mpg ~ wt, data = mtcars))))
+
+```
+
+
+두 결과를 `==` 가 아니라 `all.equal()` 로 비교했다. 같은 식이라도 계산 순서가 다르면 소수점
+아래 열다섯째 자리 부근에서 차이가 날 수 있으므로, 실수는 허용 오차 안에서 같은지를 확인한다.
+
+
+::: {.callout-note}
+`lm()` 은 정규방정식을 그대로 풀지 않고 $\mathbf{X}$ 의 **QR 분해**를 이용한다. 설명변수끼리
+상관이 매우 높으면 $\mathbf{X}^\top\mathbf{X}$ 로 계산하는 과정이 수치적으로 불안정해지기
+때문이다. 수식으로는 같은 답이라도 **계산하는 방법에 따라 정확도가 달라진다.**
+
+:::
+
+
+### 로지스틱 회귀모형: 반복이 필요한 경우 {#sec-nr-logistic}
+
+반응변수가 0 또는 1 인 자료가 있다. 합격·불합격, 발병·비발병처럼 결과가 두 가지인 경우다.
+`mtcars` 의 `am` 은 변속기가 자동이면 0, 수동이면 1 이다. 무게가 변속기 종류와 관련이 있는지
+보려면, 수동일 확률 $p_i$ 를 무게 $x_i$ 로 설명하는 **로지스틱 회귀모형(logistic regression
+model)** 을 쓴다.
+
+$$
+ p_i = P(y_i = 1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_i)}}
+$$
+
+계수는 로그가능도
+
+$$
+ \ell(\boldsymbol\beta) = \sum_{i=1}^{n} \bigl\{ y_i \log p_i + (1 - y_i) \log (1 - p_i) \bigr\}
+$$
+
+를 **최대**로 만드는 값으로 추정한다. 기울기 벡터와 헤세 행렬은 다음과 같다.
+
+$$
+ \nabla \ell = \mathbf{X}^\top(\mathbf{y} - \mathbf{p}), \qquad
+ \mathbf{H} = -\mathbf{X}^\top\mathbf{W}\mathbf{X}, \quad
+ \mathbf{W} = \mathrm{diag}\{p_i(1 - p_i)\}
+$$
+
+회귀모형과 달리 $\mathbf{H}$ 안에 $p_i$, 곧 $\boldsymbol\beta$ 가 들어 있다. 걸음마다 헤세 행렬이
+달라지므로 한 걸음에 끝나지 않고, $\nabla \ell = \mathbf{0}$ 의 해를 손으로 구할 수도 없다.
+반복 계산이 필요한 전형적인 경우다.
+
+
+```{r nr-logistic}
+# 로그가능도: 반복마다 값이 커지는지 확인하는 데 쓴다
+loglik <- function(beta, X, y) {
+  p <- as.vector(1 / (1 + exp(-X %*% beta)))
+  sum(y * log(p) + (1 - y) * log(1 - p))
+}
+
+logistic_nr <- function(X, y, beta = rep(0, ncol(X)),
+                        tol = 1e-8, max_iters = 50) {
+  history <- NULL
+  for (iter in seq_len(max_iters)) {
+    p <- as.vector(1 / (1 + exp(-X %*% beta)))   # 현재 계수에서 구한 확률
+    g <- t(X) %*% (y - p)                         # 기울기 벡터
+    H <- -t(X) %*% (X * (p * (1 - p)))            # 헤세 행렬: X 의 각 행에 p(1-p) 를 곱함
+    step <- as.vector(solve(H, g))
+    beta <- beta - step
+    b <- setNames(beta, paste0("b", seq_along(beta) - 1))
+    history <- rbind(history, c(반복 = iter, b, 로그가능도 = loglik(beta, X, y),
+                                갱신폭 = max(abs(step))))
+    if (max(abs(step)) < tol) break               # 계수가 더 움직이지 않으면 멈춘다
+  }
+  list(beta = beta, history = history)
+}
+
+fit_nr <- logistic_nr(X, mtcars$am)
+fit_nr$history
+
+```
+
+
+로그가능도는 반복마다 커지다가 더 커지지 않는 값에서 멈춘다. 갱신폭은 해에 가까워질수록
+급격히 줄어든다. 해 근처에서 뉴턴-랩슨은 오차가 대략 제곱으로 줄어드는 **2차 수렴(quadratic
+convergence)** 을 보이며, 표에서 갱신폭의 0 이 아닌 첫 자리가 반복마다 두 배쯤씩 뒤로 밀려나는
+것이 그 모습이다. `glm()` 과 대조한다.
+
+
+```{r nr-logistic-glm}
+fit_glm <- glm(am ~ wt, family = binomial, data = mtcars)
+coef(fit_glm)
+
+all.equal(fit_nr$beta, unname(coef(fit_glm)))
+
+```
+
+
+`glm()` 의 결과와 일치한다. 무게의 계수가 음수이므로 무거운 차일수록 수동 변속기일 확률이 낮다.
+
+
+::: {.callout-note}
+`glm()` 은 이 계산을 **반복 재가중 최소제곱(IRLS, iteratively reweighted least squares)** 이라는
+형태로 수행한다. 매 반복에서 가중값 $p_i(1-p_i)$ 를 쓰는 가중 최소제곱 문제를 푸는 방식이며,
+로지스틱 회귀모형에서는 뉴턴-랩슨과 같은 계산이다. `summary(fit_glm)` 의 마지막 줄
+"Number of Fisher Scoring iterations" 가 그 반복 횟수다(이 자료에서 `r fit_glm$iter` 회).
+위 구현과 횟수가 다른 것은 종료 조건이 다르기 때문이다. `glm()` 은 계수의 갱신폭이 아니라
+이탈도(deviance)의 상대 변화가 $10^{-8}$ 보다 작아지면 멈춘다(`?glm.control`).
+
+:::
+
+
+### 경사하강법 맛보기 {#sec-gradient-descent}
+
+짙은 안개가 낀 산에서 골짜기로 내려가야 한다고 하자. 멀리는 보이지 않고 발밑의 경사만 느낄 수
+있다. 가장 가파르게 내려가는 방향으로 한 걸음 옮기고, 그 자리에서 다시 경사를 느끼고 한 걸음
+옮기는 일을 반복하면 언젠가 골짜기에 닿는다. 이것이 **경사하강법(gradient descent)** 이다.
+
+$$
+ \boldsymbol\theta_{n+1} = \boldsymbol\theta_n - \eta \, \nabla f(\boldsymbol\theta_n)
+$$
+
+기울기의 반대 방향으로 기울기의 $\eta$ 배만큼 이동한다. $\eta$ 를 **학습률(learning rate)** 이라
+한다. 뉴턴-랩슨과 비교하면 헤세 행렬의 역행렬 $\mathbf{H}^{-1}$ 자리에 상수 $\eta$ 가 들어간
+형태다. 곡률을 이용해 보폭을 정하는 대신 **보폭을 사람이 정한다.**
+
+@sec-nr-regression 의 회귀계수를 경사하강법으로 구해 보자. 목적함수는 잔차제곱합을 $n$ 으로 나눈
+평균제곱오차로 둔다. 최소점은 같고 기울기의 크기만 작아진다.
+
+
+::: {.callout-tip}
+**예측해 보자**: 뉴턴-랩슨은 이 문제를 한 걸음에 풀었다. 경사하강법은 몇 걸음이 필요하겠는가?
+10걸음 안쪽, 100걸음 안쪽, 1,000걸음 이상 가운데 골라 보자.
+
+:::
+
+
+```{r gd-ls}
+gd_ls <- function(X, y, eta, beta = c(0, 0), tol = 1e-6, max_iters = 1e5) {
+  n <- nrow(X)
+  for (iter in seq_len(max_iters)) {
+    g <- as.vector(-2 / n * t(X) %*% (y - X %*% beta))   # 평균제곱오차의 기울기
+    if (sqrt(sum(g^2)) < tol) break        # 기울기가 거의 0 이면 도착
+    beta <- beta - eta * g                 # 기울기 반대 방향으로 eta 배만큼
+    if (max(abs(beta)) > 1e6) {            # 값이 끝없이 커지면 발산
+      return(c(학습률 = eta, 반복 = iter, b0 = NA, b1 = NA))
+    }
+  }
+  c(학습률 = eta, 반복 = iter, b0 = beta[1], b1 = beta[2])
+}
+
+t(sapply(c(0.01, 0.05, 0.08, 0.09), function(eta) gd_ls(X, y, eta)))
+
+```
+
+
+학습률이 알맞으면 `lm()` 과 같은 값에 도착하지만 **1,000걸음이 넘게** 걸린다. 학습률을 줄이면
+걸음이 더 늘고, 조금만 키워도(0.09) 골짜기를 넘나들며 점점 멀어져 발산한다. 알맞은 학습률의
+범위는 문제마다 다르므로 대개 여러 값을 시험해 정한다.
+
+걸음이 이렇게 많은데도 경사하강법을 쓰는 이유는 **한 걸음의 비용**에 있다.
+
+| | 뉴턴-랩슨 | 경사하강법 |
+|:--|:--|:--|
+| 쓰는 도함수 | 1계와 2계 (기울기 벡터, 헤세 행렬) | 1계 (기울기 벡터)만 |
+| 한 걸음의 비용 | 모수가 $p$ 개이면 $p \times p$ 행렬을 저장하고 연립방정식을 푼다 | 길이 $p$ 인 벡터 하나를 계산한다 |
+| 걸음 수 | 적다 (회귀 1회, 로지스틱 8회) | 많다 (위 회귀에서 1,000회 이상) |
+| 정해야 할 값 | 초기값 | 초기값, 학습률 |
+| 주로 쓰는 곳 | 모수가 적은 통계모형 (`glm()` 등) | 모수가 매우 많은 기계학습·딥러닝 |
+
+: {tbl-colwidths="[18,41,41]"}
+
+모수가 1,000만 개라면 헤세 행렬의 원소는 $10^{14}$ 개로, 저장하는 것조차 불가능하다. 대규모 언어
+모형(LLM)을 비롯한 딥러닝 모형은 수십억 개가 넘는 모수를 가지며, 경사하강법을 변형한 방법(확률적
+경사하강법, Adam 등)으로 학습한다. **걸음 수가 적은 알고리즘과 한 걸음이 싼 알고리즘 가운데 어느
+쪽이 나은지는 문제의 크기가 정한다.** 이 장 첫 절에서 말한 비용, 곧 수행 시간과 메모리를 함께
+따지는 판단이다.
+
+
+::: {.callout-note}
+이 소절은 경사하강법이라는 방법이 **있다는 것**과 뉴턴-랩슨과의 차이를 소개하는 데 그친다.
+학습률을 자동으로 조정하는 방법, 자료의 일부만으로 기울기를 계산하는 확률적 경사하강법 등은
+기계학습을 다루는 과목에서 배운다. R 에서 일반적인 최적화 문제는 `optim()` 으로 풀 수 있으며,
+`method` 인수로 헤세 행렬을 근사해 쓰는 준뉴턴법(`"BFGS"`)이나 기울기만 쓰는 켤레기울기법(`"CG"`)
+등을 고를 수 있다.
 
 :::
 
@@ -1534,25 +2195,41 @@ binary_search_safe(u, 19)
    b) 방 가운데에 가구가 놓인 경우를 이 함수로 표현할 수 있는가? 알고리즘의 다섯 조건 가운데
       어느 조건과 관련되는지 설명하시오.
 
+6. 오름차순으로 정렬된 1,000개의 값에서 마지막 두 원소만 자리가 바뀌어 있다. @sec-sorting 의
+네 정렬 함수 가운데 비교 횟수가 가장 적은 것과 가장 많은 것을 고르고, 각 알고리즘의 동작으로
+그 이유를 설명하시오.
+
+7. @sec-nr-regression 에서는 뉴턴-랩슨 알고리즘이 한 걸음에 수렴했지만 @sec-nr-logistic 에서는
+여러 번 반복했다. 두 경우의 헤세 행렬을 비교하여 그 차이를 설명하시오.
+
 **쓰기 문항**
 
-6. `bubble_sort()` 를 수정하여, 한 번 순회하는 동안 교환이 한 번도 발생하지 않으면
+8. `bubble_sort()` 를 수정하여, 한 번 순회하는 동안 교환이 한 번도 발생하지 않으면
 즉시 종료하도록 하시오. 이미 정렬된 입력에 대해 시간 복잡도가 어떻게 달라지는지
 설명하고, `system.time()` 으로 확인하시오.
 
-7. `merge_sort()` 가 내림차순으로 정렬하도록 수정하시오. `smerge()` 의 어느 부분을
+9. `merge_sort()` 가 내림차순으로 정렬하도록 수정하시오. `smerge()` 의 어느 부분을
 변경해야 하는지 설명하고, 중복값이 있는 벡터에서 안정성이 유지되는지 확인하시오.
 
-8. `newton_raphson()` 에 수렴 실패를 알리는 기능을 추가하시오. 최대 반복 횟수에
+10. `quick_sort()` 가 첫 원소 대신 가운데 원소 `x[(length(x) + 1) %/% 2]` 를 기준값으로 삼도록
+수정하시오. `quick_count()` 도 같은 방식으로 고친 뒤, 정렬된 입력 `1:1000` 과 무작위 입력
+`sample(1000)` 에서 원래 구현과 비교 횟수를 비교하시오. 기준값 규칙을 바꾸어도 비교 횟수가
+$n(n-1)/2$ 가 되는 입력이 여전히 존재하는 이유를 설명하시오.
+
+11. `newton_raphson()` 에 수렴 실패를 알리는 기능을 추가하시오. 최대 반복 횟수에
 도달했음에도 $|f(x)| > $ `tol` 인 경우 경고를 출력하고 `converged = FALSE` 를 함께
 반환하도록 한다. 실근이 존재하지 않는 $f(x) = x^2 + 1$ 로 동작을 확인하시오.
 
-9. 길이가 $n$ 인 정렬된 벡터에서 `target` **이상인 첫 번째 위치**를 반환하는 함수를
+12. `logistic_nr()` 로 설명변수가 두 개인 모형 `am ~ wt + hp` 의 계수를 구하고 `glm()` 의 결과와
+`all.equal()` 로 대조하시오. `X` 를 어떻게 만들었는지, `logistic_nr()` 에서 고쳐야 할 곳이
+있었는지 함께 설명하시오.
+
+13. 길이가 $n$ 인 정렬된 벡터에서 `target` **이상인 첫 번째 위치**를 반환하는 함수를
 이진 탐색으로 작성하시오(해당 위치가 없으면 `length(vec) + 1` 을 반환한다).
 전수 검사와 경계 사례(빈 벡터, 모든 값이 `target` 보다 작은 경우)로 검증하고,
 검증 코드도 함께 제출하시오.
 
-10. 일상의 절차 하나(라면 끓이기, 도서관에서 책 찾기, 처음 가는 강의실 찾아가기 등)를 골라
+14. 일상의 절차 하나(라면 끓이기, 도서관에서 책 찾기, 처음 가는 강의실 찾아가기 등)를 골라
 다섯 조건을 모두 만족하도록 단계별로 기술하시오. 처음 쓴 절차에서 "적당히", "다 익으면"처럼
 모호한 표현을 찾아 어떻게 고쳤는지도 함께 적으시오. 이 작업은 @sec-ai-algorithms 에서 AI 에게
 요구사항을 적는 일과 같다.

@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>09 시뮬레이션 — 강의 허브</title>
+<meta name="description" content="09 시뮬레이션 — 슬라이드와 대응하는 강의노트 절을 나란히 보는 주제 상세 화면.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&amp;display=swap">
+<!-- 이 파일은 hub/topic-page.R 이 만든다. 손으로 고치지 말고 다시 생성한다. -->
+<script>document.documentElement.classList.add("js");</script>
+<style>
+  :root {
+    color-scheme: light;
+    --bg:#FAF7F2; --ink:#241F1A; --prose:#5C554C; --muted:#6E665C;
+    --faint:#8C8479; --line:#E4DCD0; --line-2:#D5CABB;
+    --panel:#F3EEE5; --panel-line:#C9BCA9; --card-line:#DCD3C6; --sel:#EAE0D1;
+    --note:#A64B32; --note-hover:#7E3624; --slide:#1F6F7A; --slide-hover:#155059;
+  }
+  * { box-sizing:border-box; }
+  [hidden] { display:none !important; }
+  html { -webkit-text-size-adjust:100%; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    -webkit-font-smoothing:antialiased; text-wrap:pretty;
+  }
+  a { color:var(--note); text-decoration:none; }
+  a:hover { color:var(--note-hover); }
+  .mono { font-family:'IBM Plex Mono','SFMono-Regular',ui-monospace,'Malgun Gothic','Apple SD Gothic Neo',monospace; }
+  .disp { font-family:'Hahmlet','Nanum Myeongjo','Apple SD Gothic Neo',serif; }
+  .wrap { max-width:1440px; margin:0 auto; }
+  :focus-visible { outline:2px solid var(--note); outline-offset:2px; }
+
+  /* 경로 */
+  .crumbs {
+    display:flex; justify-content:space-between; align-items:center; gap:8px 16px; flex-wrap:wrap;
+    padding:18px 72px; border-bottom:1px solid var(--line);
+    font-size:12px; letter-spacing:0.1em; color:var(--muted);
+  }
+  .crumbs a { color:var(--muted); }
+  .crumbs a:hover { color:var(--ink); }
+  .crumbs .sep { color:#C0B5A5; margin:0 6px; }
+  .crumbs .here { color:var(--ink); }
+
+  /* 제목 줄 */
+  .t-head {
+    display:flex; justify-content:space-between; align-items:flex-end; gap:24px 48px; flex-wrap:wrap;
+    padding:34px 72px 26px;
+  }
+  .t-name { display:flex; align-items:baseline; gap:20px; }
+  .t-num { font-size:34px; color:var(--note); }
+  .t-name h1 { margin:0; font-size:38px; font-weight:700; letter-spacing:-0.02em; }
+  .t-meta { margin-top:8px; font-size:13.5px; color:var(--muted); }
+  .t-act { display:flex; flex-direction:column; align-items:flex-end; gap:9px; }
+  .t-btns { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .btn { display:inline-flex; align-items:center; gap:9px; padding:12px 20px; font-size:14px; font-weight:500; }
+  .btn-slide { background:var(--slide); color:var(--bg); }
+  .btn-slide:hover { background:var(--slide-hover); color:var(--bg); }
+  .btn-line { border:1px solid var(--slide); color:var(--slide); padding:11px 18px; }
+  .btn-line:hover { background:rgba(31,111,122,0.07); color:var(--slide-hover); }
+  .btn-text { padding:12px 4px; color:var(--note); }
+  .t-hint { font-size:12px; color:var(--muted); }
+
+  /* 본문 두 칸 */
+  .t-grid {
+    display:grid; grid-template-columns:minmax(0,1fr) 460px; gap:48px;
+    padding:6px 72px 48px; align-items:start;
+  }
+  .t-left { display:flex; flex-direction:column; gap:20px; min-width:0; }
+  .stage {
+    background:#FFFFFF; border:1px solid var(--card-line);
+    box-shadow:0 1px 0 #EDE6DA, 0 12px 28px -18px rgba(36,31,26,0.35);
+  }
+  .stage-bar { height:5px; background:var(--slide); }
+  .stage-view { position:relative; aspect-ratio:16 / 9; overflow:hidden; background:#FFFFFF; }
+  .stage-view iframe { display:block; width:100%; height:100%; border:0; background:#FFFFFF; }
+  /* 덱을 원래 크기(1280×720)로 그리고 칸 폭에 맞춰 줄인다. 좁은 iframe 에 그대로 넣으면
+     reveal.js 가 폭 435px 아래에서 스크롤 보기로 바뀌어 카드를 눌러도 슬라이드가 넘어가지 않는다. */
+  .js .stage-view iframe {
+    position:absolute; top:0; left:0; width:1280px; height:720px;
+    transform-origin:0 0; transform:scale(var(--deck-scale, 0.6));
+  }
+  .stage-foot {
+    display:flex; justify-content:space-between; gap:6px 16px; flex-wrap:wrap;
+    padding:10px 14px; border-top:1px solid var(--line); font-size:12px; color:var(--muted);
+  }
+  .strip { display:flex; flex-direction:column; gap:11px; }
+  .strip-head {
+    display:flex; justify-content:space-between; align-items:baseline; gap:6px 12px; flex-wrap:wrap;
+    font-size:11px; letter-spacing:0.12em; color:var(--muted);
+  }
+  .strip-nav a { color:var(--muted); }
+  .strip-nav a:hover { color:var(--ink); }
+  .strip-nav .off { color:#C9BFB0; }
+  .cards { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:10px; }
+  .card {
+    display:flex; flex-direction:column; gap:5px; min-height:76px; padding:9px 11px;
+    background:#FFFFFF; border:1px solid var(--card-line); color:var(--prose);
+  }
+  .card:hover { border-color:var(--slide); color:var(--ink); }
+  .card-n { display:flex; justify-content:space-between; gap:6px; font-size:11px; color:var(--faint); }
+  .card-tag { color:var(--slide); letter-spacing:0.06em; }
+  .card-t {
+    font-size:13px; line-height:1.45; overflow:hidden;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+  }
+  .card.is-sec { background:var(--panel); }
+  .card.is-predict { border-left:3px solid var(--slide); padding-left:9px; }
+  .card.is-current { border:2px solid var(--slide); padding:8px 10px; color:var(--ink); }
+
+  /* 오른쪽 칸 */
+  aside.t-side {
+    display:flex; flex-direction:column; gap:22px; padding:26px;
+    background:var(--panel); border:1px solid var(--line);
+  }
+  .note { display:flex; flex-direction:column; gap:16px; }
+  .kicker { display:flex; align-items:center; gap:9px; font-size:11px; letter-spacing:0.16em; }
+  .sq { display:block; width:9px; height:9px; flex-shrink:0; }
+  .sq-note { background:var(--note); }
+  .sq-slide { background:var(--slide); }
+  .note > .kicker { color:var(--note); }
+  .n-head { display:flex; flex-direction:column; gap:5px; }
+  .n-title { font-size:21px; font-weight:700; }
+  .n-anchor { font-size:11.5px; color:var(--faint); }
+  .excerpt {
+    display:flex; flex-direction:column; gap:11px; padding-left:14px; border-left:2px solid #D9BFB4;
+    font-size:14px; line-height:1.8; color:#3A342C;
+  }
+  .excerpt p, .s-intro p { margin:0; }
+  .excerpt code, .s-intro code {
+    font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:13px; background:var(--sel); padding:1px 5px;
+  }
+  .subs { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+  .subs a { display:flex; gap:10px; align-items:baseline; padding:5px 0; font-size:13.5px; color:var(--prose); }
+  .subs a:hover { color:var(--note); }
+  .subs .mono { font-size:12px; color:var(--note); min-width:30px; }
+  .more { display:inline-flex; align-items:center; gap:8px; font-size:13.5px; font-weight:500; }
+  .none { margin:0; font-size:13.5px; color:var(--faint); }
+  .s-intro {
+    display:flex; flex-direction:column; gap:10px; border-top:1px solid var(--line-2); padding-top:18px;
+    font-size:14px; line-height:1.75; color:#3A342C;
+  }
+  .s-intro .kicker { color:var(--slide); }
+  .question {
+    display:flex; flex-direction:column; gap:4px; padding:10px 12px;
+    background:rgba(31,111,122,0.07); border-left:3px solid var(--slide);
+    font-size:14px; line-height:1.6; color:var(--ink);
+  }
+  .question .mono { font-size:10.5px; letter-spacing:0.14em; color:var(--slide); }
+  .decklist { display:flex; flex-direction:column; border-top:1px solid var(--line-2); padding-top:18px; }
+  .decklist-h { font-size:11px; letter-spacing:0.16em; color:var(--muted); padding-bottom:6px; }
+  .deckrow {
+    display:grid; grid-template-columns:86px 1fr 40px; gap:12px; align-items:baseline;
+    padding:9px 0; border-top:1px solid var(--line); color:var(--prose);
+  }
+  .decklist-h + .deckrow { border-top:none; }
+  .deckrow:hover { color:var(--ink); }
+  .dr-range { font-size:12px; color:var(--slide); }
+  .dr-title { font-size:13.5px; }
+  .dr-count { font-size:11.5px; color:var(--faint); text-align:right; }
+  .deckrow.is-current { background:var(--sel); margin:0 -10px; padding:9px 10px; border-top-color:transparent; color:var(--ink); }
+  .deckrow.is-current .dr-title { font-weight:600; }
+  .deckrow.is-current + .deckrow { border-top-color:transparent; }
+  .decklist-foot { padding-top:10px; font-size:11.5px; line-height:1.7; color:var(--faint); }
+
+  /* 푸터 */
+  footer {
+    display:grid; grid-template-columns:1fr 1fr 240px; gap:48px;
+    padding:32px 72px 52px; border-top:1px solid var(--ink);
+  }
+  .foot-col { display:flex; flex-direction:column; gap:7px; min-width:0; }
+  .foot-col:last-child { text-align:right; }
+  .foot-h { font-size:11px; letter-spacing:0.14em; color:var(--faint); }
+  .foot-col a, .foot-col .v { font-size:14px; overflow-wrap:anywhere; }
+  .foot-col .v { color:var(--prose); }
+
+  /* 반응형 */
+  @media (max-width:1100px) {
+    .crumbs, .t-head, .t-grid, footer { padding-left:40px; padding-right:40px; }
+    .t-grid { grid-template-columns:minmax(0,1fr); gap:32px; }
+    .t-act { align-items:flex-start; }
+    footer { grid-template-columns:1fr 1fr; }
+    .foot-col:last-child { grid-column:1 / -1; text-align:left; }
+  }
+  @media (max-width:760px) {
+    .crumbs, .t-head, .t-grid, footer { padding-left:16px; padding-right:16px; }
+    .crumbs { padding-top:14px; padding-bottom:14px; }
+    .t-head { padding-top:24px; }
+    .t-name { gap:14px; }
+    .t-num { font-size:26px; }
+    .t-name h1 { font-size:30px; }
+    .btn { padding:11px 14px; }
+    .btn-line { padding:10px 13px; }
+    .cards { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    aside.t-side { padding:20px 16px; }
+    .deckrow { grid-template-columns:78px 1fr 34px; }
+    footer { grid-template-columns:1fr; gap:22px; padding-bottom:40px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="crumbs">
+    <div class="mono"><a href="index.html">강의 허브</a><span class="sep">/</span><a href="index.html#ch9">PART 1 · 프로그래밍 입문</a><span class="sep">/</span><span class="here">09 시뮬레이션</span></div>
+    <div class="mono">충남대학교 정보통계학과</div>
+  </div>
+
+  <header class="t-head">
+    <div class="t-name">
+      <span class="mono t-num">09</span>
+      <div>
+        <h1 class="disp">시뮬레이션</h1>
+        <div class="t-meta">슬라이드 48장 · 강의노트 7개 절 · 개편 초안</div>
+      </div>
+    </div>
+    <div class="t-act">
+      <div class="t-btns">
+        <a class="btn btn-slide" href="../preview/09-simulation-slides.html">슬라이드 열기 <span aria-hidden="true">&#8594;</span></a>
+        <a class="btn btn-line" href="../preview/09-simulation-slides.html?print-pdf" target="_blank" rel="noopener">PDF로 저장</a>
+        <a class="btn btn-text" href="../preview/09-simulation.html">강의노트에서 보기 <span aria-hidden="true">&#8594;</span></a>
+      </div>
+      <div class="t-hint">PDF로 저장: 인쇄용 화면이 열리면 Ctrl+P (맥은 ⌘P) → 대상을 ‘PDF로 저장’으로</div>
+    </div>
+  </header>
+
+  <div class="t-grid">
+    <div class="t-left">
+      <div class="stage">
+        <div class="stage-bar"></div>
+        <div class="stage-view"><iframe id="deck" name="deck" src="../preview/09-simulation-slides.html#/%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98%EA%B3%BC-%EB%AA%AC%ED%85%8C%EC%B9%B4%EB%A5%BC%EB%A1%9C-%EB%B0%A9%EB%B2%95" title="슬라이드 미리보기" allow="fullscreen"></iframe></div>
+        <div class="stage-foot"><span>미리보기 — 화면을 한 번 누른 뒤 ← → 키로 넘긴다</span><span>아래 카드를 누르면 그 슬라이드로 간다</span></div>
+      </div>
+<div class="strip" data-panel="1">
+  <div class="strip-head"><span class="mono">1 시뮬레이션과 몬테카를로 방법 · S03–S10 · 8장</span><span class="mono strip-nav"><span class="off">&#9664; 이전 절</span> · <a href="#s2">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/09-simulation-slides.html#/%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98%EA%B3%BC-%EB%AA%AC%ED%85%8C%EC%B9%B4%EB%A5%BC%EB%A1%9C-%EB%B0%A9%EB%B2%95" target="deck" data-id="시뮬레이션과-몬테카를로-방법"><span class="card-n mono"><span>S03</span><span class="card-tag">절 표지</span></span><span class="card-t">1 시뮬레이션과 몬테카를로 방법</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EC%83%9D%EC%9D%BC%EC%9D%B4-%EA%B0%99%EC%9D%80-%EC%82%AC%EB%9E%8C%EC%9D%B4-%EC%9E%88%EC%9D%84%EA%B9%8C" target="deck" data-id="생일이-같은-사람이-있을까"><span class="card-n mono"><span>S04</span><span class="card-tag"></span></span><span class="card-t">1.1 생일이 같은 사람이 있을까</span></a>
+    <a class="card is-predict" href="../preview/09-simulation-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90" target="deck" data-id="예측해-보자"><span class="card-n mono"><span>S05</span><span class="card-tag">예측</span></span><span class="card-t">40명 가운데 생일이 같은 사람이 적어도 한 쌍 있을 확률은?</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98%EA%B3%BC-%EC%9D%B4%EB%A1%A0%EA%B0%92%EC%9D%98-%EB%8C%80%EC%A1%B0" target="deck" data-id="시뮬레이션과-이론값의-대조"><span class="card-n mono"><span>S06</span><span class="card-tag"></span></span><span class="card-t">1.1 시뮬레이션과 이론값의 대조</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EB%B0%98%EB%B3%B5%ED%95%A0%EC%88%98%EB%A1%9D-%EC%9D%B4%EB%A1%A0%EA%B0%92%EC%9C%BC%EB%A1%9C" target="deck" data-id="반복할수록-이론값으로"><span class="card-n mono"><span>S07</span><span class="card-tag"></span></span><span class="card-t">1.2 반복할수록 이론값으로</span></a>
+    <a class="card is-predict" href="../preview/09-simulation-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-1" target="deck" data-id="예측해-보자-1"><span class="card-n mono"><span>S08</span><span class="card-tag">예측</span></span><span class="card-t">반복 횟수 \(B\) 를 100배로 늘리면 추정값의 오차와 실행 시간은?</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EB%AA%87-%EB%B2%88-%EB%B0%98%EB%B3%B5%ED%95%B4%EC%95%BC-%EC%B6%A9%EB%B6%84%ED%95%9C%EA%B0%80" target="deck" data-id="몇-번-반복해야-충분한가"><span class="card-n mono"><span>S09</span><span class="card-tag"></span></span><span class="card-t">1.2 몇 번 반복해야 충분한가</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EB%82%9C%EC%88%98%EC%99%80-%EC%9E%AC%ED%98%84%EC%84%B1" target="deck" data-id="난수와-재현성"><span class="card-n mono"><span>S10</span><span class="card-tag"></span></span><span class="card-t">1.3 난수와 재현성</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="2" hidden>
+  <div class="strip-head"><span class="mono">2 확률과 기댓값의 추정 · S11–S16 · 6장</span><span class="mono strip-nav"><a href="#s1">&#9664; 이전 절</a> · <a href="#s3">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/09-simulation-slides.html#/%ED%99%95%EB%A5%A0%EA%B3%BC-%EA%B8%B0%EB%8C%93%EA%B0%92%EC%9D%98-%EC%B6%94%EC%A0%95" target="deck" data-id="확률과-기댓값의-추정"><span class="card-n mono"><span>S11</span><span class="card-tag">절 표지</span></span><span class="card-t">2 확률과 기댓값의 추정</span></a>
+    <a class="card is-predict" href="../preview/09-simulation-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-2" target="deck" data-id="예측해-보자-2"><span class="card-n mono"><span>S12</span><span class="card-tag">예측</span></span><span class="card-t">주사위 두 개, 같은 눈이면 +10,000원, 다르면 -5,000원. 한 판의 평균 상금은?</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EC%A3%BC%EC%82%AC%EC%9C%84-%EA%B2%8C%EC%9E%84%EC%9D%98-%EA%B8%B0%EB%8C%93%EA%B0%92" target="deck" data-id="주사위-게임의-기댓값"><span class="card-n mono"><span>S13</span><span class="card-tag"></span></span><span class="card-t">2.1 주사위 게임의 기댓값</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EB%B3%B5%EC%9B%90-%EC%B6%94%EC%B6%9C%EC%9D%84-%EB%B9%BC%EB%A9%B4" target="deck" data-id="복원-추출을-빼면"><span class="card-n mono"><span>S14</span><span class="card-tag"></span></span><span class="card-t">2.1 복원 추출을 빼면</span></a>
+    <a class="card is-predict" href="../preview/09-simulation-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-3" target="deck" data-id="예측해-보자-3"><span class="card-n mono"><span>S15</span><span class="card-tag">예측</span></span><span class="card-t">카드 13장을 섞어 한 장씩 뒤집기, i 번째 카드의 번호가 i 인 적이 한 번이라도 있으면 패배. 질 확…</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EC%B9%B4%EB%93%9C-%EC%A7%9D-%EB%A7%9E%EC%B6%94%EA%B8%B0" target="deck" data-id="카드-짝-맞추기"><span class="card-n mono"><span>S16</span><span class="card-tag"></span></span><span class="card-t">2.2 카드 짝 맞추기</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="3" hidden>
+  <div class="strip-head"><span class="mono">3 몬테카를로 적분 · S17–S23 · 7장</span><span class="mono strip-nav"><a href="#s2">&#9664; 이전 절</a> · <a href="#s4">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/09-simulation-slides.html#/%EB%AA%AC%ED%85%8C%EC%B9%B4%EB%A5%BC%EB%A1%9C-%EC%A0%81%EB%B6%84" target="deck" data-id="몬테카를로-적분"><span class="card-n mono"><span>S17</span><span class="card-tag">절 표지</span></span><span class="card-t">3 몬테카를로 적분</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EC%A0%90%EC%9D%84-%EB%BF%8C%EB%A0%A4-%EC%9B%90%EC%A3%BC%EC%9C%A8-%EA%B5%AC%ED%95%98%EA%B8%B0" target="deck" data-id="점을-뿌려-원주율-구하기"><span class="card-n mono"><span>S18</span><span class="card-tag"></span></span><span class="card-t">3.1 점을 뿌려 원주율 구하기</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EC%A0%90%EC%9D%98-%EC%88%98%EC%99%80-%EC%98%A4%EC%B0%A8-%EC%88%98%ED%96%89-%EC%8B%9C%EA%B0%84" target="deck" data-id="점의-수와-오차-수행-시간"><span class="card-n mono"><span>S19</span><span class="card-tag"></span></span><span class="card-t">3.1 점의 수와 오차, 수행 시간</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%ED%91%9C%EB%B3%B8%ED%8F%89%EA%B7%A0-%EB%B0%A9%EB%B2%95" target="deck" data-id="표본평균-방법"><span class="card-n mono"><span>S20</span><span class="card-tag"></span></span><span class="card-t">3.2 표본평균 방법</span></a>
+    <a class="card is-predict" href="../preview/09-simulation-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-4" target="deck" data-id="예측해-보자-4"><span class="card-n mono"><span>S21</span><span class="card-tag">예측</span></span><span class="card-t">같은 점 1,000개로 넓이를 1,000번 추정하면 어느 방법의 추정값이 더 흩어질까?</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EA%B0%99%EC%9D%80-%EB%B9%84%EC%9A%A9-%EB%8B%A4%EB%A5%B8-%EC%A0%95%ED%99%95%EB%8F%84" target="deck" data-id="같은-비용-다른-정확도"><span class="card-n mono"><span>S22</span><span class="card-tag"></span></span><span class="card-t">3.2 같은 비용, 다른 정확도</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EB%B7%94%ED%90%81%EC%9D%98-%EB%B0%94%EB%8A%98" target="deck" data-id="뷔퐁의-바늘"><span class="card-n mono"><span>S23</span><span class="card-tag"></span></span><span class="card-t">3.3 뷔퐁의 바늘</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="4" hidden>
+  <div class="strip-head"><span class="mono">4 표본분포와 중심극한정리 · S24–S28 · 5장</span><span class="mono strip-nav"><a href="#s3">&#9664; 이전 절</a> · <a href="#s5">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/09-simulation-slides.html#/%ED%91%9C%EB%B3%B8%EB%B6%84%ED%8F%AC%EC%99%80-%EC%A4%91%EC%8B%AC%EA%B7%B9%ED%95%9C%EC%A0%95%EB%A6%AC" target="deck" data-id="표본분포와-중심극한정리"><span class="card-n mono"><span>S24</span><span class="card-tag">절 표지</span></span><span class="card-t">4 표본분포와 중심극한정리</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%ED%8F%89%ED%96%89%EC%9A%B0%EC%A3%BC%EC%9D%98-%ED%86%B5%EA%B3%84%EB%9F%89" target="deck" data-id="평행우주의-통계량"><span class="card-n mono"><span>S25</span><span class="card-tag"></span></span><span class="card-t">4.1 평행우주의 통계량</span></a>
+    <a class="card is-predict" href="../preview/09-simulation-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-5" target="deck" data-id="예측해-보자-5"><span class="card-n mono"><span>S26</span><span class="card-tag">예측</span></span><span class="card-t">한쪽으로 크게 치우친 대기 시간에서 표본 30개의 평균을 10,000번 구해 히스토그램을 그리면?</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EC%A4%91%EC%8B%AC%EA%B7%B9%ED%95%9C%EC%A0%95%EB%A6%AC" target="deck" data-id="중심극한정리"><span class="card-n mono"><span>S27</span><span class="card-tag"></span></span><span class="card-t">4.2 중심극한정리</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EA%B0%9C%EB%A9%B4-%EC%B6%A9%EB%B6%84%ED%95%9C%EA%B0%80" target="deck" data-id="개면-충분한가"><span class="card-n mono"><span>S28</span><span class="card-tag"></span></span><span class="card-t">4.2 30개면 충분한가</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="5" hidden>
+  <div class="strip-head"><span class="mono">5 통계적 추론을 시뮬레이션으로 확인하기 · S29–S37 · 9장</span><span class="mono strip-nav"><a href="#s4">&#9664; 이전 절</a> · <a href="#s6">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/09-simulation-slides.html#/%ED%86%B5%EA%B3%84%EC%A0%81-%EC%B6%94%EB%A1%A0%EC%9D%84-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98%EC%9C%BC%EB%A1%9C-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0" target="deck" data-id="통계적-추론을-시뮬레이션으로-확인하기"><span class="card-n mono"><span>S29</span><span class="card-tag">절 표지</span></span><span class="card-t">5 통계적 추론을 시뮬레이션으로 확인하기</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EC%8B%A0%EB%A2%B0%EA%B5%AC%EA%B0%84-%EB%A7%8C%EB%93%A4%EA%B8%B0" target="deck" data-id="신뢰구간-만들기"><span class="card-n mono"><span>S30</span><span class="card-tag"></span></span><span class="card-t">5.1 신뢰구간 만들기</span></a>
+    <a class="card is-predict" href="../preview/09-simulation-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-6" target="deck" data-id="예측해-보자-6"><span class="card-n mono"><span>S31</span><span class="card-tag">예측</span></span><span class="card-t">같은 방법으로 95% 신뢰구간을 100개 만들면, 참값 50 을 놓치는 구간은 몇 개쯤?</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EC%8B%A0%EB%A2%B0%EA%B5%AC%EA%B0%84-100%EA%B0%9C" target="deck" data-id="신뢰구간-100개"><span class="card-n mono"><span>S32</span><span class="card-tag"></span></span><span class="card-t">5.1 신뢰구간 100개</span></a>
+    <a class="card is-predict" href="../preview/09-simulation-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-7" target="deck" data-id="예측해-보자-7"><span class="card-n mono"><span>S33</span><span class="card-tag">예측</span></span><span class="card-t">두 집단의 모평균이 정말 같을 때, t-검정의 p-값 10,000개는 어디에 몰릴까?</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EC%A2%85-%EC%98%A4%EB%A5%98%EC%99%80-p-%EA%B0%92%EC%9D%98-%EB%B6%84%ED%8F%AC" target="deck" data-id="종-오류와-p-값의-분포"><span class="card-n mono"><span>S34</span><span class="card-tag"></span></span><span class="card-t">5.2 1종 오류와 p-값의 분포</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EA%B2%80%EC%A0%95%EB%A0%A5-%EC%B0%A8%EC%9D%B4%EA%B0%80-%EC%9E%88%EC%9D%84-%EB%95%8C-%EC%95%8C%EC%95%84%EC%B1%84%EB%8A%94-%ED%99%95%EB%A5%A0" target="deck" data-id="검정력-차이가-있을-때-알아채는-확률"><span class="card-n mono"><span>S35</span><span class="card-tag"></span></span><span class="card-t">5.3 검정력: 차이가 있을 때 알아채는 확률</span></a>
+    <a class="card is-predict" href="../preview/09-simulation-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-8" target="deck" data-id="예측해-보자-8"><span class="card-n mono"><span>S36</span><span class="card-tag">예측</span></span><span class="card-t">작은 집단(10명)의 표준편차 3, 큰 집단(40명)의 표준편차 1, 모평균은 같음. 등분산 t-검정의 1…</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EA%B0%80%EC%A0%95%EC%9D%B4-%EA%B9%A8%EC%A7%80%EB%A9%B4" target="deck" data-id="가정이-깨지면"><span class="card-n mono"><span>S37</span><span class="card-tag"></span></span><span class="card-t">5.4 가정이 깨지면</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="6" hidden>
+  <div class="strip-head"><span class="mono">6 시뮬레이션으로 코드 검증하기 · S38–S42 · 5장</span><span class="mono strip-nav"><a href="#s5">&#9664; 이전 절</a> · <a href="#s7">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/09-simulation-slides.html#/%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98%EC%9C%BC%EB%A1%9C-%EC%BD%94%EB%93%9C-%EA%B2%80%EC%A6%9D%ED%95%98%EA%B8%B0" target="deck" data-id="시뮬레이션으로-코드-검증하기"><span class="card-n mono"><span>S38</span><span class="card-tag">절 표지</span></span><span class="card-t">6 시뮬레이션으로 코드 검증하기</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EA%B2%80%EC%A6%9D%EC%9D%98-%EB%84%A4-%EB%8B%A8%EA%B3%84" target="deck" data-id="검증의-네-단계"><span class="card-n mono"><span>S39</span><span class="card-tag"></span></span><span class="card-t">6.1 검증의 네 단계</span></a>
+    <a class="card is-predict" href="../preview/09-simulation-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-9" target="deck" data-id="예측해-보자-9"><span class="card-n mono"><span>S40</span><span class="card-tag">예측</span></span><span class="card-t">모분산이 4 인 정규분포에서 표본 5개로 분산을 추정하기를 10,000번. my_var() 의 평균은?</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%ED%95%9C-%EB%B2%88%EC%9D%98-%EC%98%88%EC%A0%9C%EB%A1%9C%EB%8A%94-%EB%B3%B4%EC%9D%B4%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%B0%ED%95%A8" target="deck" data-id="한-번의-예제로는-보이지-않는-결함"><span class="card-n mono"><span>S41</span><span class="card-tag"></span></span><span class="card-t">6.1 한 번의 예제로는 보이지 않는 결함</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98-%EC%BD%94%EB%93%9C%EC%9D%98-%ED%9D%94%ED%95%9C-%EC%8B%A4%EC%88%98" target="deck" data-id="시뮬레이션-코드의-흔한-실수"><span class="card-n mono"><span>S42</span><span class="card-tag"></span></span><span class="card-t">6.2 시뮬레이션 코드의 흔한 실수</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="7" hidden>
+  <div class="strip-head"><span class="mono">7 AI와 함께: 시뮬레이션 코드의 검증 · S43–S47 · 5장</span><span class="mono strip-nav"><a href="#s6">&#9664; 이전 절</a> · <span class="off">다음 절 &#9654;</span></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/09-simulation-slides.html#/ai%EC%99%80-%ED%95%A8%EA%BB%98-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98-%EC%BD%94%EB%93%9C%EC%9D%98-%EA%B2%80%EC%A6%9D" target="deck" data-id="ai와-함께-시뮬레이션-코드의-검증"><span class="card-n mono"><span>S43</span><span class="card-tag">절 표지</span></span><span class="card-t">7 AI와 함께: 시뮬레이션 코드의 검증</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%EC%99%80-%EC%83%9D%EC%84%B1-%EC%BD%94%EB%93%9C" target="deck" data-id="프롬프트와-생성-코드"><span class="card-n mono"><span>S44</span><span class="card-tag"></span></span><span class="card-t">7.1–7.2 프롬프트와 생성 코드</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EC%84%B8-%EA%B0%80%EC%A7%80-%EA%B2%80%EC%A6%9D" target="deck" data-id="세-가지-검증"><span class="card-n mono"><span>S45</span><span class="card-tag"></span></span><span class="card-t">7.3 세 가지 검증</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%EC%9D%B4-%EA%B7%9C%EC%A0%95%ED%95%98%EC%A7%80-%EC%95%8A%EC%9D%80-%EB%B6%80%EB%B6%84" target="deck" data-id="요구사항이-규정하지-않은-부분"><span class="card-n mono"><span>S46</span><span class="card-tag"></span></span><span class="card-t">7.4 요구사항이 규정하지 않은 부분</span></a>
+    <a class="card" href="../preview/09-simulation-slides.html#/%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%EC%85%98-%EC%BD%94%EB%93%9C%EC%97%90%EC%84%9C-%EC%9E%90%EC%A3%BC-%EB%82%98%ED%83%80%EB%82%98%EB%8A%94-%EC%98%A4%EB%A5%98" target="deck" data-id="시뮬레이션-코드에서-자주-나타나는-오류"><span class="card-n mono"><span>S47</span><span class="card-tag"></span></span><span class="card-t">7.4 시뮬레이션 코드에서 자주 나타나는 오류</span></a>
+  </div>
+</div>
+    </div>
+
+    <aside class="t-side">
+<div class="note" data-panel="1">
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">1 시뮬레이션과 몬테카를로 방법</div><div class="mono n-anchor">§ #sec-sim-basics</div></div>
+<div class="excerpt"><p>시뮬레이션(simulation)은 현실에서 해 보기 어려운 일을 모형 안에서 대신 해 보는 방법이다. 비행 조종사는 시뮬레이터에서 엔진 고장에 대처하는 연습을 하고, 기상청은 대기의 모형을 여러 번 돌려 내일의 강수 확률을 낸다. 통계학에서 말하는 시뮬레이션은 <strong>확률 모형에서 난수로 가상의 자료를 만들고, 같은 실험을 많이 반복해 그 결과로 확률이나 기댓값을 근사하는 방법</strong>이다. 이런 방법을 몬테카를로 방법(Monte Carlo method)이라 한다. 2차 세계대전 중 원자폭탄 개발 계획에서 중성자의 움직임을 계산하던 연구자들이 도박 도시 몬테카를로의 이름을 암호명으로 붙인 데서 유래했다.</p></div>
+<ul class="subs"><li><a href="../preview/09-simulation.html#sec-birthday"><span class="mono">1.1</span><span>일상의 질문: 생일이 같은 사람이 있을까</span></a></li><li><a href="../preview/09-simulation.html#sec-monte-carlo"><span class="mono">1.2</span><span>몬테카를로 방법의 원리와 오차</span></a></li><li><a href="../preview/09-simulation.html#sec-random-seed"><span class="mono">1.3</span><span>난수와 재현성</span></a></li></ul>
+<a class="more" href="../preview/09-simulation.html#sec-sim-basics">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p><strong>시뮬레이션</strong>: 확률 모형에서 가상의 자료를 만들어 <strong>같은 실험을 많이 반복</strong>하는 방법</p><p>반복한 결과의 비율과 평균으로 확률과 기댓값을 근사: <strong>몬테카를로 방법</strong></p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 컴퓨터로 몇 번 반복하면 확률을 믿을 만하게 알 수 있는가?</div>
+</div>
+</div>
+<div class="note" data-panel="2" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">2 확률과 기댓값의 추정</div><div class="mono n-anchor">§ #sec-sim-probability</div></div>
+<div class="excerpt"><p>확률과 기댓값은 ’무한히 반복했을 때’의 값으로 정의된다. 무한히 반복할 수는 없지만 충분히 많이 반복할 수는 있다. 이 절에서는 게임 두 가지로 확률과 기댓값을 추정하고 이론값과 대조한다. 두 게임은 뽑는 방식이 다르다. 주사위는 같은 눈이 다시 나올 수 있는 <strong>복원 추출</strong>, 카드는 한 번 뽑은 카드가 다시 나오지 않는 <strong>비복원 추출</strong>이다.</p></div>
+<ul class="subs"><li><a href="../preview/09-simulation.html#sec-dice-game"><span class="mono">2.1</span><span>주사위 게임의 기댓값</span></a></li><li><a href="../preview/09-simulation.html#sec-matching-game"><span class="mono">2.2</span><span>카드 짝 맞추기 게임</span></a></li></ul>
+<a class="more" href="../preview/09-simulation.html#sec-sim-probability">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>확률과 기댓값의 정의: <strong>무한히 반복했을 때</strong>의 값</p><p>무한히는 못 해도 <strong>충분히 많이</strong>는 가능</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 이 게임, 해도 되는가?</div>
+</div>
+</div>
+<div class="note" data-panel="3" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">3 몬테카를로 적분</div><div class="mono n-anchor">§ #sec-mc-integration</div></div>
+<div class="excerpt"><p>넓이, 곧 적분도 시뮬레이션으로 구할 수 있다. 넓이를 ’무작위로 뿌린 점이 영역 안에 떨어질 확률’로 바꾸거나 ’함수값의 평균’으로 바꾸면 된다. 식으로 적분하기 어렵거나 변수가 많은 적분에서 이 방법이 특히 쓸모 있다.</p></div>
+<ul class="subs"><li><a href="../preview/09-simulation.html#sec-hit-or-miss"><span class="mono">3.1</span><span>점을 뿌려 원주율 구하기</span></a></li><li><a href="../preview/09-simulation.html#sec-sample-mean-mc"><span class="mono">3.2</span><span>표본평균 방법</span></a></li><li><a href="../preview/09-simulation.html#sec-buffon"><span class="mono">3.3</span><span>뷔퐁의 바늘</span></a></li></ul>
+<a class="more" href="../preview/09-simulation.html#sec-mc-integration">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>넓이(적분)도 <strong>확률이나 평균</strong>으로 바꾸면 시뮬레이션으로 계산 가능</p><p>식으로 적분하기 어렵거나 <strong>변수가 많은</strong> 적분에서 쓸모</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 같은 비용이면 어떤 방법이 더 정확한가?</div>
+</div>
+</div>
+<div class="note" data-panel="4" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">4 표본분포와 중심극한정리</div><div class="mono n-anchor">§ #sec-sampling-distribution</div></div>
+<div class="excerpt"><p>우리가 가진 자료는 모집단에서 뽑을 수 있었던 수많은 표본 가운데 하나다. 같은 임상시험을 다른 환자 40명으로 다시 하면 평균은 조금 다르게 나올 것이다. 이처럼 표본에서 계산한 값인 통계량(statistic)은 표본마다 달라지는 확률변수이며, 그 분포를 표본분포(sampling distribution)라 한다. 현실에서는 표본을 하나밖에 볼 수 없지만, 시뮬레이션에서는 <strong>평행우주의 표본</strong>을 원하는 만큼 만들 수 있다.</p></div>
+<ul class="subs"><li><a href="../preview/09-simulation.html#sec-parallel-universe"><span class="mono">4.1</span><span>표본분포: 평행우주의 통계량</span></a></li><li><a href="../preview/09-simulation.html#sec-clt"><span class="mono">4.2</span><span>중심극한정리</span></a></li></ul>
+<a class="more" href="../preview/09-simulation.html#sec-sampling-distribution">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>통계량은 <strong>표본마다 달라지는 확률변수</strong>: 그 분포가 <strong>표본분포</strong></p><p>현실에서는 표본 하나, 시뮬레이션에서는 <strong>평행우주의 표본</strong>을 원하는 만큼</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 치우친 모집단에서도 표본평균은 정규분포를 따르는가?</div>
+</div>
+</div>
+<div class="note" data-panel="5" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">5 통계적 추론을 시뮬레이션으로 확인하기</div><div class="mono n-anchor">§ #sec-sim-inference</div></div>
+<div class="excerpt"><p>신뢰구간과 가설검정은 ’같은 연구를 무수히 반복하면’이라는 전제 위에 서 있다. 95% 신뢰구간은 반복의 95% 에서 모수를 포함하고, 유의수준 5% 의 검정은 귀무가설이 참인 연구의 5% 에서만 잘못 기각한다고 약속한다. 시뮬레이션은 그 반복을 실제로 해 본다. 참값을 우리가 정해 두었으므로 <strong>방법이 약속을 지키는지 직접 셀 수 있다.</strong></p></div>
+<ul class="subs"><li><a href="../preview/09-simulation.html#sec-ci-meaning"><span class="mono">5.1</span><span>신뢰구간의 의미</span></a></li><li><a href="../preview/09-simulation.html#sec-type1-error"><span class="mono">5.2</span><span>1종 오류와 p-값의 분포</span></a></li><li><a href="../preview/09-simulation.html#sec-power"><span class="mono">5.3</span><span>검정력</span></a></li><li><a href="../preview/09-simulation.html#sec-assumption"><span class="mono">5.4</span><span>가정이 깨지면</span></a></li></ul>
+<a class="more" href="../preview/09-simulation.html#sec-sim-inference">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>신뢰구간과 검정의 약속: <strong>95% 포함</strong>, <strong>5% 오류</strong></p><p>참값을 우리가 정했으므로 <strong>약속을 지키는지 직접 셀 수 있음</strong></p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 이 방법은 이름표의 약속을 지키는가?</div>
+</div>
+</div>
+<div class="note" data-panel="6" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">6 시뮬레이션으로 코드 검증하기</div><div class="mono n-anchor">§ #sec-sim-code-check</div></div>
+<div class="excerpt"><p>지금까지는 통계 이론을 시뮬레이션으로 확인했다. 같은 방법을 <strong>코드</strong>에도 쓸 수 있다. 참값을 정해 자료를 만들고, 함수가 그 참값을 되찾는지 본다. 정답표가 없는 함수를 검증하는 가장 일반적인 방법이다.</p></div>
+<ul class="subs"><li><a href="../preview/09-simulation.html#sec-bias-check"><span class="mono">6.1</span><span>한 번의 예제로는 보이지 않는 결함</span></a></li><li><a href="../preview/09-simulation.html#sec-sim-pitfalls"><span class="mono">6.2</span><span>시뮬레이션 코드의 흔한 실수</span></a></li></ul>
+<a class="more" href="../preview/09-simulation.html#sec-sim-code-check">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>이론을 확인하던 방법을 <strong>코드</strong>에 적용</p><p>참값을 정해 자료를 만들고, 함수가 <strong>그 참값을 되찾는지</strong> 확인</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 비교할 내장 함수가 없을 때 코드를 어떻게 검증하는가?</div>
+</div>
+</div>
+<div class="note" data-panel="7" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">7 AI와 함께: 시뮬레이션 코드의 검증</div><div class="mono n-anchor">§ #sec-ai-simulation</div></div>
+<div class="excerpt"><p><strong>이 절의 목표</strong>: AI 에게 1종 오류율을 추정하는 시뮬레이션 함수를 요청하고, 생성된 코드를 이 장의 검증 절차(답을 아는 경우와의 대조, 재현성, 독립 구현과의 대조)로 확인한다. 이어서 요청이 정하지 않은 부분을 AI 가 어떻게 채웠는지 찾아낸다.</p></div>
+<ul class="subs"><li><a href="../preview/09-simulation.html#sec-ai-simulation-spec"><span class="mono">7.1</span><span>작업 요구사항</span></a></li><li><a href="../preview/09-simulation.html#sec-ai-simulation-gen"><span class="mono">7.2</span><span>AI 가 생성한 코드</span></a></li><li><a href="../preview/09-simulation.html#sec-ai-simulation-verify"><span class="mono">7.3</span><span>검증</span></a></li><li><a href="../preview/09-simulation.html#sec-ai-simulation-gaps"><span class="mono">7.4</span><span>요구사항이 규정하지 않은 부분</span></a></li><li><a href="../preview/09-simulation.html#sec-ai-simulation-practice"><span class="mono">7.5</span><span>연습</span></a></li></ul>
+<a class="more" href="../preview/09-simulation.html#sec-ai-simulation">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>AI 가 만든 시뮬레이션 함수를 <strong>이 장의 절차</strong>로 검증</p><p>답을 아는 경우와 대조, 재현성, 독립 구현과 대조</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 검증을 통과한 코드는 내가 원한 질문에 답하는가?</div>
+</div>
+</div>
+      <nav class="decklist" aria-label="이 덱의 절">
+        <div class="mono decklist-h">이 덱의 절</div>
+        <a class="deckrow is-current" href="#s1" data-sec="1" aria-current="true"><span class="mono dr-range">S03–S10</span><span class="dr-title">1 시뮬레이션과 몬테카를로 방법</span><span class="mono dr-count">8장</span></a>
+        <a class="deckrow" href="#s2" data-sec="2"><span class="mono dr-range">S11–S16</span><span class="dr-title">2 확률과 기댓값의 추정</span><span class="mono dr-count">6장</span></a>
+        <a class="deckrow" href="#s3" data-sec="3"><span class="mono dr-range">S17–S23</span><span class="dr-title">3 몬테카를로 적분</span><span class="mono dr-count">7장</span></a>
+        <a class="deckrow" href="#s4" data-sec="4"><span class="mono dr-range">S24–S28</span><span class="dr-title">4 표본분포와 중심극한정리</span><span class="mono dr-count">5장</span></a>
+        <a class="deckrow" href="#s5" data-sec="5"><span class="mono dr-range">S29–S37</span><span class="dr-title">5 통계적 추론을 시뮬레이션으로 확인하기</span><span class="mono dr-count">9장</span></a>
+        <a class="deckrow" href="#s6" data-sec="6"><span class="mono dr-range">S38–S42</span><span class="dr-title">6 시뮬레이션으로 코드 검증하기</span><span class="mono dr-count">5장</span></a>
+        <a class="deckrow" href="#s7" data-sec="7"><span class="mono dr-range">S43–S47</span><span class="dr-title">7 AI와 함께: 시뮬레이션 코드의 검증</span><span class="mono dr-count">5장</span></a>
+        <div class="mono decklist-foot">S01–S02 표지 · 이 수업에서 다루는 것<br>S48 정리</div>
+      </nav>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="foot-col">
+      <span class="mono foot-h">강의 허브</span>
+      <a href="index.html">개편 교과 구성 전체 보기</a>
+    </div>
+    <div class="foot-col">
+      <span class="mono foot-h">만든 방법</span>
+      <span class="v">hub/topic-page.R 이 슬라이드·강의노트 렌더본에서 생성</span>
+    </div>
+    <div class="foot-col">
+      <span class="mono foot-h">마지막 갱신</span>
+      <span class="mono v">2026-09-12</span>
+    </div>
+  </footer>
+
+</div>
+<script>
+(() => {
+  const deck = document.getElementById('deck');
+  const view = deck.parentElement;
+  const fit = () => view.style.setProperty('--deck-scale', String(view.clientWidth / 1280));
+  fit();
+  if ('ResizeObserver' in window) new ResizeObserver(fit).observe(view); else window.addEventListener('resize', fit);
+  const panels = [...document.querySelectorAll('[data-panel]')];
+  const rows = [...document.querySelectorAll('.deckrow')];
+  const cards = [...document.querySelectorAll('.card')];
+  const byId = Object.fromEntries(cards.map(c => [c.dataset.id, c]));
+  const secs = rows.map(r => r.dataset.sec);
+  let cur = null;
+  const mark = c => cards.forEach(x => x.classList.toggle('is-current', x === c));
+  function show(k, move) {
+    if (!secs.includes(k)) k = secs[0];
+    cur = k;
+    panels.forEach(p => { p.hidden = p.dataset.panel !== k; });
+    rows.forEach(r => {
+      const on = r.dataset.sec === k;
+      r.classList.toggle('is-current', on);
+      if (on) r.setAttribute('aria-current', 'true'); else r.removeAttribute('aria-current');
+    });
+    if (move) {
+      const first = document.querySelector('.strip[data-panel="' + k + '"] .card');
+      if (first) { deck.src = first.href; mark(first); }
+    }
+  }
+  const fromHash = () => (location.hash.match(/^#s(\d+)$/) || [])[1];
+  window.addEventListener('hashchange', () => show(fromHash(), true));
+  document.addEventListener('click', e => { const c = e.target.closest('.card'); if (c) mark(c); });
+  // 같은 출처(GitHub Pages)면 미리보기 안에서 넘긴 슬라이드를 카드와 절 목록이 따라간다.
+  // file:// 로 열면 다른 출처로 취급되어 막히므로 조용히 건너뛴다.
+  function follow() {
+    try {
+      const R = deck.contentWindow.Reveal;
+      if (!R || R.__hubFollow) return;
+      R.__hubFollow = true;
+      const hook = () => R.on('slidechanged', e => {
+        const c = byId[e.currentSlide.id];
+        if (!c) return;
+        mark(c);
+        const k = c.closest('[data-panel]').dataset.panel;
+        if (k !== cur) { show(k, false); history.replaceState(null, '', '#s' + k); }
+      });
+      R.isReady() ? hook() : R.on('ready', hook);
+    } catch (err) { /* 다른 출처 */ }
+  }
+  deck.addEventListener('load', follow);
+  follow();
+  const k0 = fromHash();
+  show(k0 || secs[0], Boolean(k0));
+  if (!k0) mark(cards.find(c => !c.closest('[hidden]')));
+})();
+</script>
+</body>
+</html>
+
