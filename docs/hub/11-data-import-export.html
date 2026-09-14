@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11 데이터 입출력 — 강의 허브</title>
+<meta name="description" content="11 데이터 입출력 — 슬라이드와 대응하는 강의노트 절을 나란히 보는 주제 상세 화면.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&amp;display=swap">
+<!-- 이 파일은 hub/topic-page.R 이 만든다. 손으로 고치지 말고 다시 생성한다. -->
+<script>document.documentElement.classList.add("js");</script>
+<style>
+  :root {
+    color-scheme: light;
+    --bg:#FAF7F2; --ink:#241F1A; --prose:#5C554C; --muted:#6E665C;
+    --faint:#8C8479; --line:#E4DCD0; --line-2:#D5CABB;
+    --panel:#F3EEE5; --panel-line:#C9BCA9; --card-line:#DCD3C6; --sel:#EAE0D1;
+    --note:#A64B32; --note-hover:#7E3624; --slide:#1F6F7A; --slide-hover:#155059;
+  }
+  * { box-sizing:border-box; }
+  [hidden] { display:none !important; }
+  html { -webkit-text-size-adjust:100%; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    -webkit-font-smoothing:antialiased; text-wrap:pretty;
+  }
+  a { color:var(--note); text-decoration:none; }
+  a:hover { color:var(--note-hover); }
+  .mono { font-family:'IBM Plex Mono','SFMono-Regular',ui-monospace,'Malgun Gothic','Apple SD Gothic Neo',monospace; }
+  .disp { font-family:'Hahmlet','Nanum Myeongjo','Apple SD Gothic Neo',serif; }
+  .wrap { max-width:1440px; margin:0 auto; }
+  :focus-visible { outline:2px solid var(--note); outline-offset:2px; }
+
+  /* 경로 */
+  .crumbs {
+    display:flex; justify-content:space-between; align-items:center; gap:8px 16px; flex-wrap:wrap;
+    padding:18px 72px; border-bottom:1px solid var(--line);
+    font-size:12px; letter-spacing:0.1em; color:var(--muted);
+  }
+  .crumbs a { color:var(--muted); }
+  .crumbs a:hover { color:var(--ink); }
+  .crumbs .sep { color:#C0B5A5; margin:0 6px; }
+  .crumbs .here { color:var(--ink); }
+
+  /* 제목 줄 */
+  .t-head {
+    display:flex; justify-content:space-between; align-items:flex-end; gap:24px 48px; flex-wrap:wrap;
+    padding:34px 72px 26px;
+  }
+  .t-name { display:flex; align-items:baseline; gap:20px; }
+  .t-num { font-size:34px; color:var(--note); }
+  .t-name h1 { margin:0; font-size:38px; font-weight:700; letter-spacing:-0.02em; }
+  .t-meta { margin-top:8px; font-size:13.5px; color:var(--muted); }
+  .t-act { display:flex; flex-direction:column; align-items:flex-end; gap:9px; }
+  .t-btns { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .btn { display:inline-flex; align-items:center; gap:9px; padding:12px 20px; font-size:14px; font-weight:500; }
+  .btn-slide { background:var(--slide); color:var(--bg); }
+  .btn-slide:hover { background:var(--slide-hover); color:var(--bg); }
+  .btn-line { border:1px solid var(--slide); color:var(--slide); padding:11px 18px; }
+  .btn-line:hover { background:rgba(31,111,122,0.07); color:var(--slide-hover); }
+  .btn-text { padding:12px 4px; color:var(--note); }
+  .t-hint { font-size:12px; color:var(--muted); }
+
+  /* 본문 두 칸 */
+  .t-grid {
+    display:grid; grid-template-columns:minmax(0,1fr) 460px; gap:48px;
+    padding:6px 72px 48px; align-items:start;
+  }
+  .t-left { display:flex; flex-direction:column; gap:20px; min-width:0; }
+  .stage {
+    background:#FFFFFF; border:1px solid var(--card-line);
+    box-shadow:0 1px 0 #EDE6DA, 0 12px 28px -18px rgba(36,31,26,0.35);
+  }
+  .stage-bar { height:5px; background:var(--slide); }
+  .stage-view { position:relative; aspect-ratio:16 / 9; overflow:hidden; background:#FFFFFF; }
+  .stage-view iframe { display:block; width:100%; height:100%; border:0; background:#FFFFFF; }
+  /* 덱을 원래 크기(1280×720)로 그리고 칸 폭에 맞춰 줄인다. 좁은 iframe 에 그대로 넣으면
+     reveal.js 가 폭 435px 아래에서 스크롤 보기로 바뀌어 카드를 눌러도 슬라이드가 넘어가지 않는다. */
+  .js .stage-view iframe {
+    position:absolute; top:0; left:0; width:1280px; height:720px;
+    transform-origin:0 0; transform:scale(var(--deck-scale, 0.6));
+  }
+  .stage-foot {
+    display:flex; justify-content:space-between; gap:6px 16px; flex-wrap:wrap;
+    padding:10px 14px; border-top:1px solid var(--line); font-size:12px; color:var(--muted);
+  }
+  .strip { display:flex; flex-direction:column; gap:11px; }
+  .strip-head {
+    display:flex; justify-content:space-between; align-items:baseline; gap:6px 12px; flex-wrap:wrap;
+    font-size:11px; letter-spacing:0.12em; color:var(--muted);
+  }
+  .strip-nav a { color:var(--muted); }
+  .strip-nav a:hover { color:var(--ink); }
+  .strip-nav .off { color:#C9BFB0; }
+  .cards { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:10px; }
+  .card {
+    display:flex; flex-direction:column; gap:5px; min-height:76px; padding:9px 11px;
+    background:#FFFFFF; border:1px solid var(--card-line); color:var(--prose);
+  }
+  .card:hover { border-color:var(--slide); color:var(--ink); }
+  .card-n { display:flex; justify-content:space-between; gap:6px; font-size:11px; color:var(--faint); }
+  .card-tag { color:var(--slide); letter-spacing:0.06em; }
+  .card-t {
+    font-size:13px; line-height:1.45; overflow:hidden;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+  }
+  .card.is-sec { background:var(--panel); }
+  .card.is-predict { border-left:3px solid var(--slide); padding-left:9px; }
+  .card.is-current { border:2px solid var(--slide); padding:8px 10px; color:var(--ink); }
+
+  /* 오른쪽 칸 */
+  aside.t-side {
+    display:flex; flex-direction:column; gap:22px; padding:26px;
+    background:var(--panel); border:1px solid var(--line);
+  }
+  .note { display:flex; flex-direction:column; gap:16px; }
+  .kicker { display:flex; align-items:center; gap:9px; font-size:11px; letter-spacing:0.16em; }
+  .sq { display:block; width:9px; height:9px; flex-shrink:0; }
+  .sq-note { background:var(--note); }
+  .sq-slide { background:var(--slide); }
+  .note > .kicker { color:var(--note); }
+  .n-head { display:flex; flex-direction:column; gap:5px; }
+  .n-title { font-size:21px; font-weight:700; }
+  .n-anchor { font-size:11.5px; color:var(--faint); }
+  .excerpt {
+    display:flex; flex-direction:column; gap:11px; padding-left:14px; border-left:2px solid #D9BFB4;
+    font-size:14px; line-height:1.8; color:#3A342C;
+  }
+  .excerpt p, .s-intro p { margin:0; }
+  .excerpt code, .s-intro code {
+    font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:13px; background:var(--sel); padding:1px 5px;
+  }
+  .subs { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+  .subs a { display:flex; gap:10px; align-items:baseline; padding:5px 0; font-size:13.5px; color:var(--prose); }
+  .subs a:hover { color:var(--note); }
+  .subs .mono { font-size:12px; color:var(--note); min-width:30px; }
+  .more { display:inline-flex; align-items:center; gap:8px; font-size:13.5px; font-weight:500; }
+  .none { margin:0; font-size:13.5px; color:var(--faint); }
+  .s-intro {
+    display:flex; flex-direction:column; gap:10px; border-top:1px solid var(--line-2); padding-top:18px;
+    font-size:14px; line-height:1.75; color:#3A342C;
+  }
+  .s-intro .kicker { color:var(--slide); }
+  .question {
+    display:flex; flex-direction:column; gap:4px; padding:10px 12px;
+    background:rgba(31,111,122,0.07); border-left:3px solid var(--slide);
+    font-size:14px; line-height:1.6; color:var(--ink);
+  }
+  .question .mono { font-size:10.5px; letter-spacing:0.14em; color:var(--slide); }
+  .decklist { display:flex; flex-direction:column; border-top:1px solid var(--line-2); padding-top:18px; }
+  .decklist-h { font-size:11px; letter-spacing:0.16em; color:var(--muted); padding-bottom:6px; }
+  .deckrow {
+    display:grid; grid-template-columns:86px 1fr 40px; gap:12px; align-items:baseline;
+    padding:9px 0; border-top:1px solid var(--line); color:var(--prose);
+  }
+  .decklist-h + .deckrow { border-top:none; }
+  .deckrow:hover { color:var(--ink); }
+  .dr-range { font-size:12px; color:var(--slide); }
+  .dr-title { font-size:13.5px; }
+  .dr-count { font-size:11.5px; color:var(--faint); text-align:right; }
+  .deckrow.is-current { background:var(--sel); margin:0 -10px; padding:9px 10px; border-top-color:transparent; color:var(--ink); }
+  .deckrow.is-current .dr-title { font-weight:600; }
+  .deckrow.is-current + .deckrow { border-top-color:transparent; }
+  .decklist-foot { padding-top:10px; font-size:11.5px; line-height:1.7; color:var(--faint); }
+
+  /* 푸터 */
+  footer {
+    display:grid; grid-template-columns:1fr 1fr 240px; gap:48px;
+    padding:32px 72px 52px; border-top:1px solid var(--ink);
+  }
+  .foot-col { display:flex; flex-direction:column; gap:7px; min-width:0; }
+  .foot-col:last-child { text-align:right; }
+  .foot-h { font-size:11px; letter-spacing:0.14em; color:var(--faint); }
+  .foot-col a, .foot-col .v { font-size:14px; overflow-wrap:anywhere; }
+  .foot-col .v { color:var(--prose); }
+
+  /* 반응형 */
+  @media (max-width:1100px) {
+    .crumbs, .t-head, .t-grid, footer { padding-left:40px; padding-right:40px; }
+    .t-grid { grid-template-columns:minmax(0,1fr); gap:32px; }
+    .t-act { align-items:flex-start; }
+    footer { grid-template-columns:1fr 1fr; }
+    .foot-col:last-child { grid-column:1 / -1; text-align:left; }
+  }
+  @media (max-width:760px) {
+    .crumbs, .t-head, .t-grid, footer { padding-left:16px; padding-right:16px; }
+    .crumbs { padding-top:14px; padding-bottom:14px; }
+    .t-head { padding-top:24px; }
+    .t-name { gap:14px; }
+    .t-num { font-size:26px; }
+    .t-name h1 { font-size:30px; }
+    .btn { padding:11px 14px; }
+    .btn-line { padding:10px 13px; }
+    .cards { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    aside.t-side { padding:20px 16px; }
+    .deckrow { grid-template-columns:78px 1fr 34px; }
+    footer { grid-template-columns:1fr; gap:22px; padding-bottom:40px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="crumbs">
+    <div class="mono"><a href="index.html">강의 허브</a><span class="sep">/</span><a href="index.html#ch11">PART 2 · 데이터 다루기</a><span class="sep">/</span><span class="here">11 데이터 입출력</span></div>
+    <div class="mono">충남대학교 정보통계학과</div>
+  </div>
+
+  <header class="t-head">
+    <div class="t-name">
+      <span class="mono t-num">11</span>
+      <div>
+        <h1 class="disp">데이터 입출력</h1>
+        <div class="t-meta">슬라이드 54장 · 강의노트 7개 절 · 개편 초안</div>
+      </div>
+    </div>
+    <div class="t-act">
+      <div class="t-btns">
+        <a class="btn btn-slide" href="../preview/11-data-import-export-slides.html">슬라이드 열기 <span aria-hidden="true">&#8594;</span></a>
+        <a class="btn btn-line" href="../preview/11-data-import-export-slides.html?print-pdf" target="_blank" rel="noopener">PDF로 저장</a>
+        <a class="btn btn-text" href="../preview/11-data-import-export.html">강의노트에서 보기 <span aria-hidden="true">&#8594;</span></a>
+      </div>
+      <div class="t-hint">PDF로 저장: 인쇄용 화면이 열리면 Ctrl+P (맥은 ⌘P) → 대상을 ‘PDF로 저장’으로</div>
+    </div>
+  </header>
+
+  <div class="t-grid">
+    <div class="t-left">
+      <div class="stage">
+        <div class="stage-bar"></div>
+        <div class="stage-view"><iframe id="deck" name="deck" src="../preview/11-data-import-export-slides.html#/%ED%8C%8C%EC%9D%BC%EA%B3%BC-%EA%B2%BD%EB%A1%9C" title="슬라이드 미리보기" allow="fullscreen"></iframe></div>
+        <div class="stage-foot"><span>미리보기 — 화면을 한 번 누른 뒤 ← → 키로 넘긴다</span><span>아래 카드를 누르면 그 슬라이드로 간다</span></div>
+      </div>
+<div class="strip" data-panel="1">
+  <div class="strip-head"><span class="mono">1 파일과 경로 · S03–S07 · 5장</span><span class="mono strip-nav"><span class="off">&#9664; 이전 절</span> · <a href="#s2">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/11-data-import-export-slides.html#/%ED%8C%8C%EC%9D%BC%EA%B3%BC-%EA%B2%BD%EB%A1%9C" target="deck" data-id="파일과-경로"><span class="card-n mono"><span>S03</span><span class="card-tag">절 표지</span></span><span class="card-t">1 파일과 경로</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EC%A3%BC%EC%86%8C%EC%99%80-%EA%B8%B8-%EC%95%88%EB%82%B4-%EC%A0%88%EB%8C%80-%EA%B2%BD%EB%A1%9C%EC%99%80-%EC%83%81%EB%8C%80-%EA%B2%BD%EB%A1%9C" target="deck" data-id="주소와-길-안내-절대-경로와-상대-경로"><span class="card-n mono"><span>S04</span><span class="card-tag"></span></span><span class="card-t">1.1 주소와 길 안내: 절대 경로와 상대 경로</span></a>
+    <a class="card is-predict" href="../preview/11-data-import-export-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90" target="deck" data-id="예측해-보자"><span class="card-n mono"><span>S05</span><span class="card-tag">예측</span></span><span class="card-t">아래 코드가 성공하는 작업 디렉터리는?</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EC%9E%91%EC%97%85-%EB%94%94%EB%A0%89%ED%84%B0%EB%A6%AC%EC%99%80-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8" target="deck" data-id="작업-디렉터리와-프로젝트"><span class="card-n mono"><span>S06</span><span class="card-tag"></span></span><span class="card-t">1.2 작업 디렉터리와 프로젝트</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%ED%8C%8C%EC%9D%BC%EC%9D%80-%EB%B0%94%EC%9D%B4%ED%8A%B8%EB%8B%A4" target="deck" data-id="파일은-바이트다"><span class="card-n mono"><span>S07</span><span class="card-tag"></span></span><span class="card-t">1.3 파일은 바이트다</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="2" hidden>
+  <div class="strip-head"><span class="mono">2 텍스트 파일 읽기 · S08–S18 · 11장</span><span class="mono strip-nav"><a href="#s1">&#9664; 이전 절</a> · <a href="#s3">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/11-data-import-export-slides.html#/%ED%85%8D%EC%8A%A4%ED%8A%B8-%ED%8C%8C%EC%9D%BC-%EC%9D%BD%EA%B8%B0" target="deck" data-id="텍스트-파일-읽기"><span class="card-n mono"><span>S08</span><span class="card-tag">절 표지</span></span><span class="card-t">2 텍스트 파일 읽기</span></a>
+    <a class="card is-predict" href="../preview/11-data-import-export-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-1" target="deck" data-id="예측해-보자-1"><span class="card-n mono"><span>S09</span><span class="card-tag">예측</span></span><span class="card-t">동아리 총무가 보낸 장보기 내역, 둘째 줄은 쉼표로 몇 칸? read_csv() 는 이 줄을 어떻게 읽을까?</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EA%B5%AC%EB%B6%84%EC%9E%90-%EB%94%B0%EC%98%B4%ED%91%9C-%EB%A8%B8%EB%A6%AC%EB%A7%90" target="deck" data-id="구분자-따옴표-머리말"><span class="card-n mono"><span>S10</span><span class="card-tag"></span></span><span class="card-t">2.1 구분자, 따옴표, 머리말</span></a>
+    <a class="card is-predict" href="../preview/11-data-import-export-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-2" target="deck" data-id="예측해-보자-2"><span class="card-n mono"><span>S11</span><span class="card-tag">예측</span></span><span class="card-t">같은 텍스트를 두 함수로 읽으면, 열 이름 대출(권) 은? 끝에 공백이 있는 “경기” 는 “경기” 와 같다…</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/read.csv-%EC%99%80-read_csv" target="deck" data-id="read.csv-와-read_csv"><span class="card-n mono"><span>S12</span><span class="card-tag"></span></span><span class="card-t">2.2 read.csv() 와 read_csv()</span></a>
+    <a class="card is-predict" href="../preview/11-data-import-export-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-3" target="deck" data-id="예측해-보자-3"><span class="card-n mono"><span>S13</span><span class="card-tag">예측</span></span><span class="card-t">서울 도서관이 섞인 파일과 대전 도서관만 있는 파일, 우편번호 열의 유형은?</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EC%97%B4-%EC%9C%A0%ED%98%95%EC%9D%80-%EC%B6%94%EC%B8%A1%EC%9D%B4%EB%8B%A4" target="deck" data-id="열-유형은-추측이다"><span class="card-n mono"><span>S14</span><span class="card-tag"></span></span><span class="card-t">2.3 열 유형은 추측이다</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EA%B2%B0%EC%B8%A1%EA%B0%92%EA%B3%BC-%EC%88%AB%EC%9E%90-%ED%91%9C%EA%B8%B0" target="deck" data-id="결측값과-숫자-표기"><span class="card-n mono"><span>S15</span><span class="card-tag"></span></span><span class="card-t">2.4 결측값과 숫자 표기</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%ED%95%9C%EA%B8%80%EA%B3%BC-%EC%9D%B8%EC%BD%94%EB%94%A9-%EB%8B%B5%EC%95%88%EC%A7%80%EC%99%80-%EC%A0%95%EB%8B%B5%ED%91%9C" target="deck" data-id="한글과-인코딩-답안지와-정답표"><span class="card-n mono"><span>S16</span><span class="card-tag"></span></span><span class="card-t">2.5 한글과 인코딩: 답안지와 정답표</span></a>
+    <a class="card is-predict" href="../preview/11-data-import-export-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-4" target="deck" data-id="예측해-보자-4"><span class="card-n mono"><span>S17</span><span class="card-tag">예측</span></span><span class="card-t">CP949 파일을 인코딩을 알려 주지 않고 읽으면?</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EA%B9%A8%EC%A7%84-%EA%B2%B0%EA%B3%BC%EC%9D%98-%EC%A6%9D%EC%83%81%EA%B3%BC-%ED%95%B4%EA%B2%B0" target="deck" data-id="깨진-결과의-증상과-해결"><span class="card-n mono"><span>S18</span><span class="card-tag"></span></span><span class="card-t">2.5 깨진 결과의 증상과 해결</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="3" hidden>
+  <div class="strip-head"><span class="mono">3 읽은 결과 검증하기 · S19–S27 · 9장</span><span class="mono strip-nav"><a href="#s2">&#9664; 이전 절</a> · <a href="#s4">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/11-data-import-export-slides.html#/%EC%9D%BD%EC%9D%80-%EA%B2%B0%EA%B3%BC-%EA%B2%80%EC%A6%9D%ED%95%98%EA%B8%B0" target="deck" data-id="읽은-결과-검증하기"><span class="card-n mono"><span>S19</span><span class="card-tag">절 표지</span></span><span class="card-t">3 읽은 결과 검증하기</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EC%9B%90%EB%AC%B8-%EB%A8%BC%EC%A0%80-%EB%B3%B4%EA%B8%B0" target="deck" data-id="원문-먼저-보기"><span class="card-n mono"><span>S20</span><span class="card-tag"></span></span><span class="card-t">3.1 원문 먼저 보기</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EB%8B%A4%EC%84%AF-%EA%B0%80%EC%A7%80-%EB%8C%80%EC%A1%B0" target="deck" data-id="다섯-가지-대조"><span class="card-n mono"><span>S21</span><span class="card-tag"></span></span><span class="card-t">3.2 다섯 가지 대조</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EB%8C%80%EC%A1%B0-%EA%B2%B0%EA%B3%BC" target="deck" data-id="대조-결과"><span class="card-n mono"><span>S22</span><span class="card-tag"></span></span><span class="card-t">3.2 대조 결과</span></a>
+    <a class="card is-predict" href="../preview/11-data-import-export-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-5" target="deck" data-id="예측해-보자-5"><span class="card-n mono"><span>S23</span><span class="card-tag">예측</span></span><span class="card-t">합계 행을 지우지 않은 채 대출권수를 모두 더하면, 원래 합계의 몇 배?</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%ED%95%A9%EA%B3%84-%ED%96%89%EC%9D%80-%EC%B0%B8%EA%B0%92%EC%9D%B4%EB%8B%A4" target="deck" data-id="합계-행은-참값이다"><span class="card-n mono"><span>S24</span><span class="card-tag"></span></span><span class="card-t">3.3 합계 행은 참값이다</span></a>
+    <a class="card is-predict" href="../preview/11-data-import-export-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-6" target="deck" data-id="예측해-보자-6"><span class="card-n mono"><span>S25</span><span class="card-tag">예측</span></span><span class="card-t">대시를 결측으로 알려 주지 않고 유형만 지정하면, 여울도서관의 두 칸은?</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EC%9C%A0%ED%98%95%EC%9D%84-%EC%A7%80%EC%A0%95%ED%95%B4%EB%8F%84-%EA%B2%80%EC%A6%9D%EC%9D%80-%ED%95%84%EC%9A%94%ED%95%98%EB%8B%A4" target="deck" data-id="유형을-지정해도-검증은-필요하다"><span class="card-n mono"><span>S26</span><span class="card-tag"></span></span><span class="card-t">3.3 유형을 지정해도 검증은 필요하다</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EA%B2%80%EC%A6%9D%EC%9D%84-%EC%BD%94%EB%93%9C%EB%A1%9C-%EB%82%A8%EA%B8%B0%EA%B8%B0" target="deck" data-id="검증을-코드로-남기기"><span class="card-n mono"><span>S27</span><span class="card-tag"></span></span><span class="card-t">3.4 검증을 코드로 남기기</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="4" hidden>
+  <div class="strip-head"><span class="mono">4 파일 쓰기와 왕복 검사 · S28–S34 · 7장</span><span class="mono strip-nav"><a href="#s3">&#9664; 이전 절</a> · <a href="#s5">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/11-data-import-export-slides.html#/%ED%8C%8C%EC%9D%BC-%EC%93%B0%EA%B8%B0%EC%99%80-%EC%99%95%EB%B3%B5-%EA%B2%80%EC%82%AC" target="deck" data-id="파일-쓰기와-왕복-검사"><span class="card-n mono"><span>S28</span><span class="card-tag">절 표지</span></span><span class="card-t">4 파일 쓰기와 왕복 검사</span></a>
+    <a class="card is-predict" href="../preview/11-data-import-export-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-7" target="deck" data-id="예측해-보자-7"><span class="card-n mono"><span>S29</span><span class="card-tag">예측</span></span><span class="card-t">세 열짜리 표를 write.csv() 로 저장하고 read_csv() 로 다시 읽으면 열은 몇 개?</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/write.csv-%EC%99%80-write_csv" target="deck" data-id="write.csv-와-write_csv"><span class="card-n mono"><span>S30</span><span class="card-tag"></span></span><span class="card-t">4.1 write.csv() 와 write_csv()</span></a>
+    <a class="card is-predict" href="../preview/11-data-import-export-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-8" target="deck" data-id="예측해-보자-8"><span class="card-n mono"><span>S31</span><span class="card-tag">예측</span></span><span class="card-t">1/3 을 CSV 로 저장했다가 다시 읽으면 == 1/3 은 TRUE 일까?</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EC%99%95%EB%B3%B5-%EA%B2%80%EC%82%AC-13-%EC%9D%80-%EB%8F%8C%EC%95%84%EC%98%A4%EB%8A%94%EA%B0%80" target="deck" data-id="왕복-검사-13-은-돌아오는가"><span class="card-n mono"><span>S32</span><span class="card-tag"></span></span><span class="card-t">4.2 왕복 검사: 1/3 은 돌아오는가</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/csv-%EA%B0%80-%EC%9E%83%EB%8A%94-%EA%B2%83" target="deck" data-id="csv-가-잃는-것"><span class="card-n mono"><span>S33</span><span class="card-tag"></span></span><span class="card-t">4.2 CSV 가 잃는 것</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EC%97%91%EC%85%80%EC%97%90%EC%84%9C-%EC%97%B4-csv" target="deck" data-id="엑셀에서-열-csv"><span class="card-n mono"><span>S34</span><span class="card-tag"></span></span><span class="card-t">4.3 엑셀에서 열 CSV</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="5" hidden>
+  <div class="strip-head"><span class="mono">5 스프레드시트와 통계 패키지 파일 · S35–S40 · 6장</span><span class="mono strip-nav"><a href="#s4">&#9664; 이전 절</a> · <a href="#s6">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/11-data-import-export-slides.html#/%EC%8A%A4%ED%94%84%EB%A0%88%EB%93%9C%EC%8B%9C%ED%8A%B8%EC%99%80-%ED%86%B5%EA%B3%84-%ED%8C%A8%ED%82%A4%EC%A7%80-%ED%8C%8C%EC%9D%BC" target="deck" data-id="스프레드시트와-통계-패키지-파일"><span class="card-n mono"><span>S35</span><span class="card-tag">절 표지</span></span><span class="card-t">5 스프레드시트와 통계 패키지 파일</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/excel-%ED%8C%8C%EC%9D%BC-%EC%9D%BD%EA%B8%B0" target="deck" data-id="excel-파일-읽기"><span class="card-n mono"><span>S36</span><span class="card-tag"></span></span><span class="card-t">5.1 Excel 파일 읽기</span></a>
+    <a class="card is-predict" href="../preview/11-data-import-export-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-9" target="deck" data-id="예측해-보자-9"><span class="card-n mono"><span>S37</span><span class="card-tag">예측</span></span><span class="card-t">참가일 열은 날짜 대신 46266 같은 값으로 읽혔다. 왜일까?</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EB%82%A0%EC%A7%9C%EA%B0%80-%EC%88%AB%EC%9E%90%EB%A1%9C-%EB%B3%B4%EC%9D%BC-%EB%95%8C" target="deck" data-id="날짜가-숫자로-보일-때"><span class="card-n mono"><span>S38</span><span class="card-tag"></span></span><span class="card-t">5.2 날짜가 숫자로 보일 때</span></a>
+    <a class="card is-predict" href="../preview/11-data-import-export-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-10" target="deck" data-id="예측해-보자-10"><span class="card-n mono"><span>S39</span><span class="card-tag">예측</span></span><span class="card-t">같은 설문, SPSS 파일에서는 만족도 평균이 3.9. CSV 로 받은 파일에서 구하면?</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/spss-sas-stata-%ED%8C%8C%EC%9D%BC" target="deck" data-id="spss-sas-stata-파일"><span class="card-n mono"><span>S40</span><span class="card-tag"></span></span><span class="card-t">5.3 SPSS, SAS, Stata 파일</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="6" hidden>
+  <div class="strip-head"><span class="mono">6 저장 형식 고르기 · S41–S46 · 6장</span><span class="mono strip-nav"><a href="#s5">&#9664; 이전 절</a> · <a href="#s7">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/11-data-import-export-slides.html#/%EC%A0%80%EC%9E%A5-%ED%98%95%EC%8B%9D-%EA%B3%A0%EB%A5%B4%EA%B8%B0" target="deck" data-id="저장-형식-고르기"><span class="card-n mono"><span>S41</span><span class="card-tag">절 표지</span></span><span class="card-t">6 저장 형식 고르기</span></a>
+    <a class="card is-predict" href="../preview/11-data-import-export-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-11" target="deck" data-id="예측해-보자-11"><span class="card-n mono"><span>S42</span><span class="card-tag">예측</span></span><span class="card-t">아래 코드를 실행한 뒤 x 에는 무엇이 들어 있을까?</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/r-%EC%A0%84%EC%9A%A9-%ED%98%95%EC%8B%9D-rds-%EC%99%80-rdata" target="deck" data-id="r-전용-형식-rds-와-rdata"><span class="card-n mono"><span>S43</span><span class="card-tag"></span></span><span class="card-t">6.1 R 전용 형식: RDS 와 RData</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/parquet" target="deck" data-id="parquet"><span class="card-n mono"><span>S44</span><span class="card-tag"></span></span><span class="card-t">6.2 Parquet</span></a>
+    <a class="card is-predict" href="../preview/11-data-import-export-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-12" target="deck" data-id="예측해-보자-12"><span class="card-n mono"><span>S45</span><span class="card-tag">예측</span></span><span class="card-t">50만 행의 기상 관측 자료를 네 방식으로 저장하면 파일 크기는?</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%ED%98%95%EC%8B%9D%EB%B3%84-%EB%B9%84%EC%9A%A9-%EB%B9%84%EA%B5%90" target="deck" data-id="형식별-비용-비교"><span class="card-n mono"><span>S46</span><span class="card-tag"></span></span><span class="card-t">6.3 형식별 비용 비교</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="7" hidden>
+  <div class="strip-head"><span class="mono">7 AI와 함께: 파일 읽기 코드의 검증 · S47–S53 · 7장</span><span class="mono strip-nav"><a href="#s6">&#9664; 이전 절</a> · <span class="off">다음 절 &#9654;</span></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/11-data-import-export-slides.html#/ai%EC%99%80-%ED%95%A8%EA%BB%98-%ED%8C%8C%EC%9D%BC-%EC%9D%BD%EA%B8%B0-%EC%BD%94%EB%93%9C%EC%9D%98-%EA%B2%80%EC%A6%9D" target="deck" data-id="ai와-함께-파일-읽기-코드의-검증"><span class="card-n mono"><span>S47</span><span class="card-tag">절 표지</span></span><span class="card-t">7 AI와 함께: 파일 읽기 코드의 검증</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8-%EB%AC%B4%EC%97%87%EC%9D%84-%EB%B6%99%EC%97%AC-%EB%84%A3%EC%97%88%EB%82%98" target="deck" data-id="프롬프트-무엇을-붙여-넣었나"><span class="card-n mono"><span>S48</span><span class="card-tag"></span></span><span class="card-t">7.1 프롬프트: 무엇을 붙여 넣었나</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/ai-%EA%B0%80-%EC%83%9D%EC%84%B1%ED%95%9C-%EC%BD%94%EB%93%9C" target="deck" data-id="ai-가-생성한-코드"><span class="card-n mono"><span>S49</span><span class="card-tag"></span></span><span class="card-t">7.2 AI 가 생성한 코드</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EB%8B%A4%EC%84%AF-%EA%B0%80%EC%A7%80-%EB%8C%80%EC%A1%B0-1" target="deck" data-id="다섯-가지-대조-1"><span class="card-n mono"><span>S50</span><span class="card-tag"></span></span><span class="card-t">7.3 다섯 가지 대조</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%EC%82%AC%EB%9D%BC%EC%A7%84-%EB%AC%B8%EC%A0%9C-%EA%B8%B0%EB%A1%9D" target="deck" data-id="사라진-문제-기록"><span class="card-n mono"><span>S51</span><span class="card-tag"></span></span><span class="card-t">7.3 사라진 문제 기록</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/ai-%EA%B0%80-%EB%B3%B4%EC%A7%80-%EB%AA%BB%ED%95%9C-%EB%B6%80%EB%B6%84" target="deck" data-id="ai-가-보지-못한-부분"><span class="card-n mono"><span>S52</span><span class="card-tag"></span></span><span class="card-t">7.4 AI 가 보지 못한 부분</span></a>
+    <a class="card" href="../preview/11-data-import-export-slides.html#/%ED%8C%8C%EC%9D%BC-%EC%9D%BD%EA%B8%B0-%EC%BD%94%EB%93%9C%EC%97%90%EC%84%9C-%EC%9E%90%EC%A3%BC-%EB%82%98%ED%83%80%EB%82%98%EB%8A%94-%EC%98%A4%EB%A5%98" target="deck" data-id="파일-읽기-코드에서-자주-나타나는-오류"><span class="card-n mono"><span>S53</span><span class="card-tag"></span></span><span class="card-t">7.4 파일 읽기 코드에서 자주 나타나는 오류</span></a>
+  </div>
+</div>
+    </div>
+
+    <aside class="t-side">
+<div class="note" data-panel="1">
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">1 파일과 경로</div><div class="mono n-anchor">§ #sec-files-paths</div></div>
+<div class="excerpt"><p>파일을 읽으려면 먼저 파일이 <strong>어디에</strong> 있는지 R 에게 알려야 한다. 이 절은 경로를 적는 두 가지 방법과, 내 컴퓨터에서만 돌아가는 코드를 피하는 방법을 다룬다.</p></div>
+<ul class="subs"><li><a href="../preview/11-data-import-export.html#sec-paths"><span class="mono">1.1</span><span>주소와 길 안내: 절대 경로와 상대 경로</span></a></li><li><a href="../preview/11-data-import-export.html#sec-working-directory"><span class="mono">1.2</span><span>작업 디렉터리와 프로젝트</span></a></li><li><a href="../preview/11-data-import-export.html#sec-bytes"><span class="mono">1.3</span><span>파일은 바이트다</span></a></li></ul>
+<a class="more" href="../preview/11-data-import-export.html#sec-files-paths">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>파일이 <strong>어디에</strong> 있는지 R 에게 알려 주는 방법</p><p>내 컴퓨터에서만 돌아가는 코드를 피하는 방법</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 이 코드가 다른 사람의 컴퓨터에서도 돌아가는가?</div>
+</div>
+</div>
+<div class="note" data-panel="2" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">2 텍스트 파일 읽기</div><div class="mono n-anchor">§ #sec-read-text</div></div>
+<div class="excerpt"><p>데이터 파일 가운데 가장 흔한 것이 CSV(comma-separated values) 파일이다. 한 줄이 한 행이고, 쉼표가 값을 나눈다. 값을 나누는 기호를 <strong>구분자(delimiter)</strong> 라 하며, 탭을 쓰면 TSV 파일이 된다. 이 절은 base R 의 <code>read.csv()</code> 와 readr 패키지의 <code>read_csv()</code> 로 텍스트 파일을 읽을 때 함수가 세우는 가정을 하나씩 살펴본다.</p></div>
+<ul class="subs"><li><a href="../preview/11-data-import-export.html#sec-delimiter"><span class="mono">2.1</span><span>구분자, 따옴표, 머리말</span></a></li><li><a href="../preview/11-data-import-export.html#sec-base-vs-readr"><span class="mono">2.2</span><span>read.csv() 와 read_csv()</span></a></li><li><a href="../preview/11-data-import-export.html#sec-col-types"><span class="mono">2.3</span><span>열 유형은 추측이다</span></a></li><li><a href="../preview/11-data-import-export.html#sec-na-numbers"><span class="mono">2.4</span><span>결측값과 숫자 표기</span></a></li><li><a href="../preview/11-data-import-export.html#sec-encoding"><span class="mono">2.5</span><span>한글과 인코딩</span></a></li></ul>
+<a class="more" href="../preview/11-data-import-export.html#sec-read-text">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>CSV: 한 줄이 한 행, <strong>쉼표</strong>가 값을 나누는 텍스트 파일</p><p>읽기 함수가 파일에 대해 세우는 <strong>가정</strong>을 하나씩 확인</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 오류 없이 읽힌 표는 파일과 같은가?</div>
+</div>
+</div>
+<div class="note" data-panel="3" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">3 읽은 결과 검증하기</div><div class="mono n-anchor">§ #sec-verify-import</div></div>
+<div class="excerpt"><p>8장의 <code>rbinary_search()</code> 는 오류 없이 틀린 답을 냈고, 9장의 편향된 분산 함수도 그랬다. 파일 읽기도 같다. <strong>오류 없이 읽혔다는 사실은 제대로 읽혔다는 증거가 아니다.</strong> 앞 절에서 본 가정들이 하나라도 어긋나면 그럴듯한 표가 조용히 만들어진다. 파일 읽기의 참값은 <strong>원문</strong>이다. 이 절에서는 연습 파일 <code>library-loans.csv</code> 를 읽고 원문과 대조하는 절차를 세운다.</p></div>
+<ul class="subs"><li><a href="../preview/11-data-import-export.html#sec-look-raw"><span class="mono">3.1</span><span>원문 먼저 보기</span></a></li><li><a href="../preview/11-data-import-export.html#sec-five-checks"><span class="mono">3.2</span><span>다섯 가지 대조</span></a></li><li><a href="../preview/11-data-import-export.html#sec-total-row"><span class="mono">3.3</span><span>합계 행은 참값이다</span></a></li><li><a href="../preview/11-data-import-export.html#sec-import-assert"><span class="mono">3.4</span><span>검증을 코드로 남기기</span></a></li></ul>
+<a class="more" href="../preview/11-data-import-export.html#sec-verify-import">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>오류 없이 읽혔다 <strong>≠</strong> 제대로 읽혔다</p><p>파일 읽기의 참값은 <strong>원문</strong>: 읽은 표를 원문과 대조하는 절차</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 읽은 표가 원문과 같다는 근거는 무엇인가?</div>
+</div>
+</div>
+<div class="note" data-panel="4" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">4 파일 쓰기와 왕복 검사</div><div class="mono n-anchor">§ #sec-write</div></div>
+<div class="excerpt"><p>분석 결과를 파일로 남기는 일은 읽기의 반대 방향이다. 쓰기 함수도 가정을 세우고, 그 가정 때문에 <strong>정보를 잃는다.</strong> 무엇을 잃는지는 <strong>써 놓은 파일을 다시 읽어</strong> 원래 객체와 비교하면 알 수 있다.</p></div>
+<ul class="subs"><li><a href="../preview/11-data-import-export.html#sec-write-csv"><span class="mono">4.1</span><span>write.csv() 와 write_csv()</span></a></li><li><a href="../preview/11-data-import-export.html#sec-round-trip"><span class="mono">4.2</span><span>왕복 검사</span></a></li><li><a href="../preview/11-data-import-export.html#sec-excel-csv"><span class="mono">4.3</span><span>엑셀에서 열 CSV</span></a></li></ul>
+<a class="more" href="../preview/11-data-import-export.html#sec-write">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>쓰기 함수도 가정을 세우고 <strong>정보를 잃음</strong></p><p>써 놓은 파일을 <strong>다시 읽어</strong> 처음 객체와 비교하면 잃은 것이 보임</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 저장했다가 다시 읽은 표는 처음 표와 같은가?</div>
+</div>
+</div>
+<div class="note" data-panel="5" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">5 스프레드시트와 통계 패키지 파일</div><div class="mono n-anchor">§ #sec-spreadsheet-stat</div></div>
+<div class="excerpt"><p>텍스트 파일이 아닌 형식으로 받는 자료도 많다. 사람이 입력한 표는 Excel 파일로, 설문 조사 원자료는 SPSS 나 SAS 파일로 오는 경우가 흔하다. 이 절에서는 같은 설문 자료를 세 가지 형식으로 받아 읽는다.</p></div>
+<ul class="subs"><li><a href="../preview/11-data-import-export.html#sec-excel"><span class="mono">5.1</span><span>Excel 파일 읽기</span></a></li><li><a href="../preview/11-data-import-export.html#sec-excel-dates"><span class="mono">5.2</span><span>날짜가 숫자로 보일 때</span></a></li><li><a href="../preview/11-data-import-export.html#sec-haven"><span class="mono">5.3</span><span>SPSS, SAS, Stata 파일</span></a></li></ul>
+<a class="more" href="../preview/11-data-import-export.html#sec-spreadsheet-stat">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>같은 설문을 <strong>세 가지 형식</strong>(xlsx, sav, csv)으로 받았을 때</p><p>형식마다 <strong>담기는 정보</strong>가 다름: 날짜, 라벨, 결측 정의</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 형식이 바뀌면 평균도 바뀌는가?</div>
+</div>
+</div>
+<div class="note" data-panel="6" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">6 저장 형식 고르기</div><div class="mono n-anchor">§ #sec-formats</div></div>
+<div class="excerpt"><p>보고서를 보낼 때 한글(hwp) 파일로 보낼지 PDF 로 보낼지 고민해 본 적이 있을 것이다. 받는 사람이 고쳐 써야 하면 원본 파일을, 모양 그대로 보여 주기만 하면 되면 PDF 를 보낸다. 데이터 저장 형식도 <strong>받는 사람과 목적</strong>에 따라 고른다. 이 절에서는 R 전용 형식과 Parquet 을 살펴보고, 네 가지 방식의 비용을 잰다.</p></div>
+<ul class="subs"><li><a href="../preview/11-data-import-export.html#sec-rds"><span class="mono">6.1</span><span>R 전용 형식: RDS 와 RData</span></a></li><li><a href="../preview/11-data-import-export.html#sec-parquet"><span class="mono">6.2</span><span>Parquet</span></a></li><li><a href="../preview/11-data-import-export.html#sec-format-choice"><span class="mono">6.3</span><span>형식별 비용 비교</span></a></li></ul>
+<a class="more" href="../preview/11-data-import-export.html#sec-formats">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>보고서를 hwp 로 보낼까 PDF 로 보낼까: <strong>받는 사람과 목적</strong>으로 고르기</p><p>형식마다 <strong>지키는 정보</strong>와 <strong>치르는 비용</strong>이 다름</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 어떤 형식이 무엇을 지키고 얼마를 치르는가?</div>
+</div>
+</div>
+<div class="note" data-panel="7" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">7 AI와 함께: 파일 읽기 코드의 검증</div><div class="mono n-anchor">§ #sec-ai-import</div></div>
+<div class="excerpt"><p><strong>이 절의 목표</strong>: AI 에게 파일을 읽는 코드를 요청하고, 생성된 코드의 결과를 <a href="../preview/11-data-import-export.html#sec-verify-import">섹션 3</a> 의 다섯 가지 대조로 검증한다. AI 가 <strong>볼 수 없었던 부분</strong>이 결과에 어떤 흔적을 남기는지 찾아낸다.</p></div>
+<ul class="subs"><li><a href="../preview/11-data-import-export.html#sec-ai-import-spec"><span class="mono">7.1</span><span>작업 요구사항</span></a></li><li><a href="../preview/11-data-import-export.html#sec-ai-import-gen"><span class="mono">7.2</span><span>AI 가 생성한 코드</span></a></li><li><a href="../preview/11-data-import-export.html#sec-ai-import-verify"><span class="mono">7.3</span><span>검증</span></a></li><li><a href="../preview/11-data-import-export.html#sec-ai-import-gaps"><span class="mono">7.4</span><span>AI 가 보지 못한 부분</span></a></li><li><a href="../preview/11-data-import-export.html#sec-ai-import-practice"><span class="mono">7.5</span><span>연습</span></a></li></ul>
+<a class="more" href="../preview/11-data-import-export.html#sec-ai-import">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>AI 가 짠 파일 읽기 코드를 <strong>다섯 가지 대조</strong>로 검증</p><p>AI 가 <strong>볼 수 없었던 줄</strong>이 결과에 남긴 흔적 찾기</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: AI 는 파일의 몇 줄을 보았는가?</div>
+</div>
+</div>
+      <nav class="decklist" aria-label="이 덱의 절">
+        <div class="mono decklist-h">이 덱의 절</div>
+        <a class="deckrow is-current" href="#s1" data-sec="1" aria-current="true"><span class="mono dr-range">S03–S07</span><span class="dr-title">1 파일과 경로</span><span class="mono dr-count">5장</span></a>
+        <a class="deckrow" href="#s2" data-sec="2"><span class="mono dr-range">S08–S18</span><span class="dr-title">2 텍스트 파일 읽기</span><span class="mono dr-count">11장</span></a>
+        <a class="deckrow" href="#s3" data-sec="3"><span class="mono dr-range">S19–S27</span><span class="dr-title">3 읽은 결과 검증하기</span><span class="mono dr-count">9장</span></a>
+        <a class="deckrow" href="#s4" data-sec="4"><span class="mono dr-range">S28–S34</span><span class="dr-title">4 파일 쓰기와 왕복 검사</span><span class="mono dr-count">7장</span></a>
+        <a class="deckrow" href="#s5" data-sec="5"><span class="mono dr-range">S35–S40</span><span class="dr-title">5 스프레드시트와 통계 패키지 파일</span><span class="mono dr-count">6장</span></a>
+        <a class="deckrow" href="#s6" data-sec="6"><span class="mono dr-range">S41–S46</span><span class="dr-title">6 저장 형식 고르기</span><span class="mono dr-count">6장</span></a>
+        <a class="deckrow" href="#s7" data-sec="7"><span class="mono dr-range">S47–S53</span><span class="dr-title">7 AI와 함께: 파일 읽기 코드의 검증</span><span class="mono dr-count">7장</span></a>
+        <div class="mono decklist-foot">S01–S02 표지 · 이 수업에서 다루는 것<br>S54 정리</div>
+      </nav>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="foot-col">
+      <span class="mono foot-h">강의 허브</span>
+      <a href="index.html">개편 교과 구성 전체 보기</a>
+    </div>
+    <div class="foot-col">
+      <span class="mono foot-h">만든 방법</span>
+      <span class="v">hub/topic-page.R 이 슬라이드·강의노트 렌더본에서 생성</span>
+    </div>
+    <div class="foot-col">
+      <span class="mono foot-h">마지막 갱신</span>
+      <span class="mono v">2026-09-14</span>
+    </div>
+  </footer>
+
+</div>
+<script>
+(() => {
+  const deck = document.getElementById('deck');
+  const view = deck.parentElement;
+  const fit = () => view.style.setProperty('--deck-scale', String(view.clientWidth / 1280));
+  fit();
+  if ('ResizeObserver' in window) new ResizeObserver(fit).observe(view); else window.addEventListener('resize', fit);
+  const panels = [...document.querySelectorAll('[data-panel]')];
+  const rows = [...document.querySelectorAll('.deckrow')];
+  const cards = [...document.querySelectorAll('.card')];
+  const byId = Object.fromEntries(cards.map(c => [c.dataset.id, c]));
+  const secs = rows.map(r => r.dataset.sec);
+  let cur = null;
+  const mark = c => cards.forEach(x => x.classList.toggle('is-current', x === c));
+  function show(k, move) {
+    if (!secs.includes(k)) k = secs[0];
+    cur = k;
+    panels.forEach(p => { p.hidden = p.dataset.panel !== k; });
+    rows.forEach(r => {
+      const on = r.dataset.sec === k;
+      r.classList.toggle('is-current', on);
+      if (on) r.setAttribute('aria-current', 'true'); else r.removeAttribute('aria-current');
+    });
+    if (move) {
+      const first = document.querySelector('.strip[data-panel="' + k + '"] .card');
+      if (first) { deck.src = first.href; mark(first); }
+    }
+  }
+  const fromHash = () => (location.hash.match(/^#s(\d+)$/) || [])[1];
+  window.addEventListener('hashchange', () => show(fromHash(), true));
+  document.addEventListener('click', e => { const c = e.target.closest('.card'); if (c) mark(c); });
+  // 같은 출처(GitHub Pages)면 미리보기 안에서 넘긴 슬라이드를 카드와 절 목록이 따라간다.
+  // file:// 로 열면 다른 출처로 취급되어 막히므로 조용히 건너뛴다.
+  function follow() {
+    try {
+      const R = deck.contentWindow.Reveal;
+      if (!R || R.__hubFollow) return;
+      R.__hubFollow = true;
+      const hook = () => R.on('slidechanged', e => {
+        const c = byId[e.currentSlide.id];
+        if (!c) return;
+        mark(c);
+        const k = c.closest('[data-panel]').dataset.panel;
+        if (k !== cur) { show(k, false); history.replaceState(null, '', '#s' + k); }
+      });
+      R.isReady() ? hook() : R.on('ready', hook);
+    } catch (err) { /* 다른 출처 */ }
+  }
+  deck.addEventListener('load', follow);
+  follow();
+  const k0 = fromHash();
+  show(k0 || secs[0], Boolean(k0));
+  if (!k0) mark(cards.find(c => !c.closest('[hidden]')));
+})();
+</script>
+</body>
+</html>
+

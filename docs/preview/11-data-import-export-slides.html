@@ -1,0 +1,3512 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<script src="11-data-import-export-slides_files/libs/quarto-html/tabby.min.js"></script>
+<script src="11-data-import-export-slides_files/libs/quarto-html/popper.min.js"></script>
+<script src="11-data-import-export-slides_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="11-data-import-export-slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="11-data-import-export-slides_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="11-data-import-export-slides_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="구본초">
+  <meta name="dcterms.date" content="2026-09-14">
+  <title>데이터 입출력</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="11-data-import-export-slides_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="11-data-import-export-slides_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="11-data-import-export-slides_files/libs/revealjs/dist/theme/quarto-9bf995c864c0bc1a08d349580fc96e1d.css">
+  <link href="11-data-import-export-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="11-data-import-export-slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="11-data-import-export-slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="11-data-import-export-slides_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <style>
+  :root {
+    --deck-kicker: "CHAPTER 11";
+    --deck-course: "통계 패키지 활용";
+    --deck-chapter: "11 데이터 입출력";
+    --deck-footer: "통계 패키지 활용, 11 데이터 입출력";
+    --deck-watermark: "UTF-8";
+  }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-notes="<p>오늘은 11장 데이터 입출력입니다.</p>
+<p>분석은 파일을 읽는 한 줄에서 시작합니다. 그런데 그 한 줄이 조용히 틀리면, 뒤에서 아무리 정교하게 분석해도 숫자가 전부 틀립니다. 평균도 계산되고 그래프도 그려지는데 틀린 숫자로요.</p>
+<p>요즘은 파일 읽는 코드를 AI 가 금방 써 줍니다. 그런데 AI 는 여러분의 파일을 보지 못합니다. 여러분이 붙여 넣은 몇 줄만 봅니다. 그 코드가 파일을 제대로 읽었는지는 코드를 봐서는 모릅니다. 파일을 봐야 압니다.</p>
+<p>오늘의 목표는 두 가지입니다. 읽기 함수가 파일에 대해 어떤 가정을 하는지 알고 그 가정을 코드에 명시하는 것, 그리고 읽은 결과를 원문과 대조하는 절차를 몸에 익히는 것입니다.</p>" class="quarto-title-block">
+  <h1 class="title">데이터 입출력</h1>
+  <p class="subtitle">읽기 함수의 가정을 명시하고 원문과 대조하기</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+구본초 
+</div>
+        <p class="quarto-title-affiliation">
+            충남대학교 정보통계학과
+          </p>
+    </div>
+</div>
+
+  <p class="date">2026-09-14</p>
+</section>
+<section id="이-수업에서-다루는-것" class="slide level2">
+<h2>이 수업에서 다루는 것</h2>
+<div class="keypoint">
+<p>파일을 읽는 한 줄이 조용히 틀리면 뒤의 계산이 모두 틀림: 읽기 함수의 <strong>가정을 명시</strong>하고 <strong>원문과 대조</strong></p>
+</div>
+<p><br></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 36%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">절</th>
+<th style="text-align: left;">내용</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">파일과 경로</td>
+<td style="text-align: left;">절대 경로와 상대 경로, 프로젝트, 파일은 바이트</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">텍스트 파일 읽기</td>
+<td style="text-align: left;">구분자와 따옴표, 열 유형 추측, 결측 표기, 한글 인코딩</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">읽은 결과 검증하기</td>
+<td style="text-align: left;">원문 먼저 보기, 다섯 가지 대조, 합계 행은 참값</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">파일 쓰기와 왕복 검사</td>
+<td style="text-align: left;">write.csv() 와 write_csv(), 저장했다 다시 읽기</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">스프레드시트와 통계 패키지 파일</td>
+<td style="text-align: left;">Excel, 숫자로 보이는 날짜, SPSS 파일</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">저장 형식 고르기</td>
+<td style="text-align: left;">RDS 와 RData, Parquet, 형식별 비용</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">AI와 함께</td>
+<td style="text-align: left;">파일 읽기 코드의 검증</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<p>전체 지도를 먼저 보겠습니다.</p>
+<p>1절은 파일을 어디서 찾는지, 경로 이야기입니다. 내 컴퓨터에서만 돌아가는 코드를 피하는 방법을 봅니다.</p>
+<p>2절이 읽기 함수가 세우는 가정들입니다. 어디서 열이 나뉘는지, 각 열이 무슨 유형인지, 무엇이 결측인지, 어떤 바이트가 어떤 글자인지. 함수는 이걸 전부 추측합니다.</p>
+<p>3절이 오늘의 중심입니다. 읽은 결과를 원문과 대조하는 절차를 세웁니다. 9장에서 참값을 정해 두고 대조했지요. 파일 읽기에서는 원문이 참값입니다.</p>
+<p>4절부터 6절까지는 쓰기와 여러 형식입니다. 저장했다가 다시 읽으면 무엇을 잃는지를 직접 확인합니다.</p>
+<p>7절은 AI 가 짜 준 파일 읽기 코드를 3절의 절차로 검증합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section>
+<section id="파일과-경로" class="title-slide slide level1 section-title">
+<h1><span class="secno">1</span> 파일과 경로</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>파일이 <strong>어디에</strong> 있는지 R 에게 알려 주는 방법</p>
+<p>내 컴퓨터에서만 돌아가는 코드를 피하는 방법</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>주소와 길 안내: 절대 경로와 상대 경로</li>
+<li>작업 디렉터리와 프로젝트</li>
+<li>파일은 바이트다</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong>: 이 코드가 <strong>다른 사람의 컴퓨터에서도</strong> 돌아가는가?</p>
+</div>
+<aside class="notes">
+<p>1절입니다. 파일을 읽으려면 먼저 파일이 어디 있는지 알려야 합니다.</p>
+<p>별것 아닌 것 같지만, 과제로 받은 코드가 조교 컴퓨터에서 안 돌아가는 이유의 절반은 경로입니다. 이 절의 질문은 하나입니다. 이 코드가 다른 사람의 컴퓨터에서도 돌아가는가.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="주소와-길-안내-절대-경로와-상대-경로" class="slide level2">
+<h2><span class="secno">1.1</span> 주소와 길 안내: 절대 경로와 상대 경로</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">사람에게 길 알려 주기</span></p>
+<ul>
+<li><strong>주소 전체</strong>: “○○시 ○○구 대학로 99, 자연과학대학 301호” → 어디서 듣든 같은 곳</li>
+<li><strong>지금 여기 기준</strong>: “한 층 올라가서 오른쪽 첫 방” → 듣는 사람 위치에 따라 달라짐</li>
+</ul>
+<p><span class="label label-slide">컴퓨터의 경로</span></p>
+<ul>
+<li><strong>절대 경로</strong>: <code>C:/Users/홍길동/Documents/r-lecture/dataset/ch11/survey.csv</code></li>
+<li><strong>상대 경로</strong>: <code>dataset/ch11/survey.csv</code></li>
+<li>상대 경로의 기준: <strong>작업 디렉터리</strong>(working directory)</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">basename</span>(<span class="fu">getwd</span>())      <span class="co"># 지금 서 있는 폴더</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "cnu-r-programming-lecture-note"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">file.exists</span>(<span class="st">"dataset/ch11/survey.csv"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"dataset/ch11"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "library-loans.csv" "make-ch11-data.R" 
+[3] "README.md"         "survey.csv"       
+[5] "survey.sav"        "survey.xlsx"      </code></pre>
+</div>
+</div>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>주의</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Windows 탐색기 경로를 그대로 붙이면 오류</strong>: <code>"C:\Users\hong"</code> 의 역슬래시는 R 문자열에서 특수 문자 시작, 슬래시(<code>/</code>)로 적기</p>
+</div>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<p>처음 온 사람에게 학과 사무실 위치를 알려 준다고 해 봅시다. 방법이 두 가지 있지요.</p>
+<p>하나는 주소 전체를 알려 주는 겁니다. 대학로 99, 자연과학대학 301호. 이건 듣는 사람이 어디 있든 같은 곳을 가리킵니다.</p>
+<p>다른 하나는 “여기서 한 층 올라가서 오른쪽 첫 방” 입니다. 짧고 편한데, 듣는 사람이 다른 건물에 있으면 엉뚱한 방으로 갑니다.</p>
+<p>컴퓨터 경로도 똑같습니다. 주소 전체가 절대 경로, 지금 있는 곳 기준이 상대 경로입니다. 그리고 R 이 지금 서 있는 곳을 작업 디렉터리라고 부릅니다.</p>
+<p>오른쪽 코드를 보세요. 이 슬라이드는 강의 저장소 폴더에 서서 렌더했습니다. 그래서 dataset/ch11/survey.csv 라는 상대 경로로 파일이 보입니다.</p>
+<p>아래 경고 상자. Windows 탐색기에서 경로를 복사해 오면 역슬래시가 들어 있지요. R 문자열에서 역슬래시는 특수 문자를 시작하는 기호라 오류가 납니다. Windows 에서도 슬래시로 적으세요.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>아래 코드가 <strong>성공하는</strong> 작업 디렉터리는?</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"dataset/ch11/survey.csv"</span>)</span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 저장소 폴더에서만</p>
+</div>
+<div>
+<p><strong>B</strong> 저장소 폴더와 그 안의 dataset 폴더</p>
+</div>
+<div>
+<p><strong>C</strong> 어느 폴더에서 실행해도</p>
+</div>
+</div>
+<div class="why">
+<p>상대 경로는 <strong>작업 디렉터리에서 출발</strong>하는 길 안내</p>
+</div>
+<aside class="notes">
+<p>예측입니다. 이 코드는 작업 디렉터리가 어디일 때 성공할까요?</p>
+<p>힌트는 아래 줄입니다. 상대 경로는 작업 디렉터리에서 출발하는 길 안내입니다. dataset 폴더 안에 서서 “dataset 폴더로 들어가라”고 하면 어떻게 될까요?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="작업-디렉터리와-프로젝트" class="slide level2">
+<h2><span class="secno">1.2</span> 작업 디렉터리와 프로젝트</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">인터넷 예제와 AI 코드에 흔한 첫 줄</span></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/홍길동/Desktop/과제"</span>)</span>
+<span id="cb8-2"><a href="" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data.csv"</span>)</span></code></pre></div>
+<ul>
+<li>홍길동의 컴퓨터에서만 동작</li>
+<li>조원, 조교, 새 노트북에는 그 폴더가 없음</li>
+<li>“제 책상 오른쪽 서랍” 같은 길 안내</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">file.exists</span>(<span class="st">"ch11/survey.csv"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-slide">해결: 프로젝트 폴더</span></p>
+<ul>
+<li>코드, 데이터, 결과를 <strong>한 폴더</strong>에</li>
+<li>RStudio: 프로젝트 파일(.Rproj) 열기</li>
+<li>Positron: 폴더 열기(File &gt; Open Folder)</li>
+<li>작업 디렉터리가 그 폴더로 정해짐 → 경로는 <strong>프로젝트 기준 상대 경로</strong></li>
+</ul>
+<div class="keypoint">
+<p>정답은 <strong>A</strong>: dataset 폴더 안에서는 dataset/dataset/ch11 을 찾게 됨</p>
+<p>문서가 하위 폴더에 있으면 <code>here::here("dataset", "ch11", "survey.csv")</code> 로 프로젝트 기준 경로 만들기</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 A 입니다. dataset 폴더 안에 서서 dataset/ch11 로 가라고 하면, dataset 안의 dataset 을 찾으니까 없지요.</p>
+<p>왼쪽 위 코드는 인터넷 예제나 AI 가 준 코드에 정말 흔한 첫 줄입니다. setwd 로 작업 디렉터리를 바꾸는 겁니다. 이 코드는 홍길동의 컴퓨터에서만 돌아갑니다. 같은 조 친구 컴퓨터에도, 채점하는 조교 컴퓨터에도 그 폴더는 없습니다. “제 책상 오른쪽 서랍에 있어요” 라고 길을 알려 주는 셈이지요.</p>
+<p>해결책은 오른쪽입니다. 분석에 쓰는 코드, 데이터, 결과를 한 폴더에 모으고 편집기에서 그 폴더를 엽니다. RStudio 는 .Rproj 파일, Positron 은 폴더 열기입니다. 그러면 작업 디렉터리가 그 폴더로 정해집니다. 그다음부터 경로를 전부 프로젝트 기준 상대 경로로 적으면, 폴더째 누구에게 줘도 돌아갑니다.</p>
+<p>Quarto 문서를 하위 폴더에 두면 렌더할 때 작업 디렉터리가 그 문서 폴더가 됩니다. 그때는 here 패키지의 here 함수가 프로젝트 폴더를 찾아서 경로를 만들어 줍니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="파일은-바이트다" class="slide level2">
+<h2><span class="secno">1.3</span> 파일은 바이트다</h2>
+<div class="columns">
+<div class="column" style="width:52%;">
+<p><span class="label label-slide">텍스트 파일: survey.csv</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-hidden="true" tabindex="-1"></a>f_csv <span class="ot">&lt;-</span> <span class="st">"dataset/ch11/survey.csv"</span></span>
+<span id="cb11-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">readLines</span>(f_csv, <span class="at">n =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "\"응답번호\",\"성별\",\"학년\",\"참가일\",\"만족도\""
+[2] "1,1,2,\"2026-09-01\",4"                              </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">readBin</span>(f_csv, <span class="at">what =</span> <span class="st">"raw"</span>, <span class="at">n =</span> <span class="dv">8</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 22 ec 9d 91 eb 8b b5 eb</code></pre>
+</div>
+</div>
+<ul>
+<li>22 = 큰따옴표, ec 9d 91 = 한글 <strong>응</strong></li>
+<li>바이트를 글자로 바꾸는 약속만 알면 사람도 읽음</li>
+</ul>
+</div><div class="column" style="width:48%;">
+<p><span class="label label-note">이진 파일: survey.xlsx</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="" aria-hidden="true" tabindex="-1"></a>f_xlsx <span class="ot">&lt;-</span> <span class="st">"dataset/ch11/survey.xlsx"</span></span>
+<span id="cb15-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">rawToChar</span>(<span class="fu">readBin</span>(f_xlsx, <span class="st">"raw"</span>, <span class="at">n =</span> <span class="dv">2</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "PK"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">unzip</span>(f_xlsx, <span class="at">list =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>Name, <span class="dv">3</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "_rels/.rels"        
+[2] "[Content_Types].xml"
+[3] "docProps/app.xml"   </code></pre>
+</div>
+</div>
+<ul>
+<li>첫 두 바이트 PK: ZIP 압축 형식을 만든 필 카츠의 머리글자</li>
+<li><strong>xlsx = XML 파일들을 묶은 압축 파일</strong> → 전용 함수 필요</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p>읽기 함수는 바이트를 <strong>약속에 따라 해석</strong>: 약속이 어긋나면 오류로 멈추거나, <strong>그럴듯한 표를 내고 조용히 끝남</strong></p>
+</div>
+<aside class="notes">
+<p>모든 파일은 결국 바이트의 나열입니다. 0 부터 255 사이 숫자들이요. 보통 16진수 두 자리로 적습니다.</p>
+<p>왼쪽은 CSV 파일입니다. 줄 단위로 읽으면 글자가 나오고, 바이트로 읽으면 22, ec, 9d, 91 이렇게 나옵니다. 22 가 큰따옴표이고, ec 9d 91 세 바이트가 한글 ‘응’ 한 글자입니다. 이렇게 바이트를 글자로 바꾸는 약속만 알면 사람도 읽을 수 있는 파일을 텍스트 파일이라고 합니다.</p>
+<p>오른쪽은 엑셀 파일입니다. 첫 두 바이트가 PK 입니다. ZIP 압축 형식을 만든 필 카츠라는 사람의 머리글자예요. 엑셀 파일은 사실 XML 파일 여러 개를 묶은 압축 파일입니다. 메모장으로 열면 알아볼 수 없는 기호만 나오는 이유이고, 전용 함수가 필요한 이유입니다.</p>
+<p>아래 상자가 오늘 전체를 관통하는 문장입니다. 읽기 함수는 바이트를 약속에 따라 해석합니다. 약속이 어긋나면 해석이 틀립니다. 틀린 해석은 오류로 멈추기도 하지만, 그럴듯한 표를 내놓고 조용히 끝나기도 합니다. 뒤의 것이 무섭습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="텍스트-파일-읽기" class="title-slide slide level1 section-title">
+<h1><span class="secno">2</span> 텍스트 파일 읽기</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>CSV: 한 줄이 한 행, <strong>쉼표</strong>가 값을 나누는 텍스트 파일</p>
+<p>읽기 함수가 파일에 대해 세우는 <strong>가정</strong>을 하나씩 확인</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>구분자, 따옴표, 머리말</li>
+<li>read.csv() 와 read_csv()</li>
+<li>열 유형은 추측이다</li>
+<li>결측값과 숫자 표기</li>
+<li>한글과 인코딩</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong>: 오류 없이 읽힌 표는 <strong>파일과 같은가</strong>?</p>
+</div>
+<aside class="notes">
+<p>2절입니다. 가장 흔한 데이터 파일인 CSV 를 읽습니다. 한 줄이 한 행이고 쉼표가 값을 나눕니다.</p>
+<p>base R 의 read.csv 와 readr 패키지의 read_csv 두 함수를 같이 보면서, 함수가 파일에 대해 세우는 가정을 하나씩 확인합니다. 이 절의 질문은 오류 없이 읽힌 표가 정말 파일과 같은가입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-1" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>동아리 총무가 보낸 장보기 내역, <strong>둘째 줄</strong>은 쉼표로 몇 칸? read_csv() 는 이 줄을 어떻게 읽을까?</p>
+<pre><code>품목,가격,수량
+사과,3,000원,2
+배,"4,500원",1</code></pre>
+<div class="options">
+<div>
+<p><strong>A</strong> 3칸, 가격 열에 3,000원</p>
+</div>
+<div>
+<p><strong>B</strong> 4칸, 수량 열에 000원,2 가 붙음</p>
+</div>
+<div>
+<p><strong>C</strong> 칸 수가 맞지 않아 오류로 멈춤</p>
+</div>
+</div>
+<div class="why">
+<p>사람은 문맥으로 3,000원 을 한 값으로 읽지만, 함수는 <strong>쉼표에서 끊음</strong></p>
+</div>
+<aside class="notes">
+<p>동아리 총무가 장 본 내역을 이렇게 보냈습니다. 둘째 줄을 보세요. 사과, 3,000원, 두 개.</p>
+<p>사람은 3,000원 이 가격이라는 걸 바로 알지요. 그런데 함수는 쉼표에서 끊습니다. 둘째 줄은 몇 칸이 될까요? 그리고 read_csv 는 그 줄을 어떻게 읽을까요? 셋째 줄에는 따옴표가 있다는 것도 봐 두세요.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="구분자-따옴표-머리말" class="slide level2">
+<h2><span class="secno">2.1</span> 구분자, 따옴표, 머리말</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">count.fields</span>(memo_file, <span class="at">sep =</span> <span class="st">","</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 4 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="" aria-hidden="true" tabindex="-1"></a>memo <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(memo_file)</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">품목</th>
+<th style="text-align: left;">가격</th>
+<th style="text-align: left;">수량</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">사과</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">000원,2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">배</td>
+<td style="text-align: left;">4,500원</td>
+<td style="text-align: left;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">row</th>
+<th style="text-align: right;">col</th>
+<th style="text-align: left;">expected</th>
+<th style="text-align: left;">actual</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">3 columns</td>
+<td style="text-align: left;">4 columns</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-note">같은 파일, read.csv()</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">품목</th>
+<th style="text-align: left;">가격</th>
+<th style="text-align: right;">수량</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">사과</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">000원</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">배</td>
+<td style="text-align: left;">4,500원</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>경고 없음, 사과와 배가 <strong>행 이름</strong>으로 빠지고 값이 밀림</li>
+</ul>
+<div class="keypoint">
+<p>정답은 <strong>B</strong>: 값 안의 쉼표는 <strong>큰따옴표로 감싸기</strong>가 CSV 의 약속</p>
+<p>맨 위의 제목 줄은 <code>skip = 2</code> 처럼 건너뛰기</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 B 입니다. count.fields 가 줄마다 칸 수를 세어 줍니다. 3, 4, 3. 둘째 줄만 4칸이지요.</p>
+<p>read_csv 는 첫 줄 기준으로 열 3개를 만들고, 넘치는 조각을 마지막 열에 붙였습니다. 수량 열에 “000원,2” 가 들어갔지요. 대신 문제로 기록해 둡니다. 아래 표가 problems 로 본 기록입니다. 2번째 줄, 3칸이어야 하는데 4칸이다.</p>
+<p>셋째 줄은 따옴표 덕분에 4,500원 이 한 값으로 들어갔습니다. 이게 CSV 의 약속입니다. 값 안에 쉼표가 있으면 큰따옴표로 감쌉니다.</p>
+<p>오른쪽은 같은 파일을 read.csv 로 읽은 결과입니다. 오류도 경고도 없습니다. 그런데 사과와 배가 행 이름으로 빠지고 값이 한 칸씩 밀렸어요. 데이터 줄이 머리글보다 한 칸 많으면 첫 칸을 행 이름으로 쓰는 규칙 때문입니다.</p>
+<p>같은 파일을 두 함수가 다르게 틀립니다. 한쪽은 기록을 남기고, 한쪽은 조용히 밀어 넣습니다.</p>
+<p>공공기관 파일은 맨 위에 제목 줄이 붙어 오는 경우가 많습니다. 그런 줄은 skip 인수로 건너뜁니다. 3절에서 실제 파일로 해 봅니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-2" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>같은 텍스트를 두 함수로 읽으면, 열 이름 대출(권) 은? 끝에 공백이 있는 <strong>“경기”</strong> 는 “경기” 와 같다고 판정될까?</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="" aria-hidden="true" tabindex="-1"></a>mini <span class="ot">&lt;-</span> <span class="st">"도서관,시도,우편번호,개관일,대출(권),3월</span></span>
+<span id="cb23-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="st">누리도서관,서울,04157,2004-03-15,48215,12</span></span>
+<span id="cb23-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="st">가람도서관,경기 ,16489,2011-06-20,,7"</span></span>
+<span id="cb23-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="at">text =</span> mini)</span>
+<span id="cb23-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="fu">I</span>(mini))</span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 두 함수 모두 이름 그대로, 공백도 그대로</p>
+</div>
+<div>
+<p><strong>B</strong> read.csv() 만 이름을 고치고 공백을 남김</p>
+</div>
+<div>
+<p><strong>C</strong> 두 함수 모두 이름을 고치고 공백을 지움</p>
+</div>
+</div>
+<div class="why">
+<p>I() 로 감싼 문자열: 파일 경로가 아니라 <strong>파일의 내용</strong>으로 읽음</p>
+</div>
+<aside class="notes">
+<p>예측입니다. 짧은 텍스트 하나를 두 함수로 읽습니다. I 로 감싼 문자열은 파일 경로가 아니라 파일 내용으로 읽힙니다. 짧은 예를 시험할 때 편하지요.</p>
+<p>두 가지를 봅시다. 대출 괄호 권 이라는 열 이름이 어떻게 되는가. 그리고 둘째 행 시도에 “경기” 처럼 끝에 공백이 있는데, 이게 “경기” 와 같다고 판정되는가.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="read.csv-와-read_csv" class="slide level2">
+<h2><span class="secno">2.2</span> read.csv() 와 read_csv()</h2>
+<div class="columns">
+<div class="column" style="width:62%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">항목</th>
+<th style="text-align: left;">read.csv()</th>
+<th style="text-align: left;">read_csv()</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">열 이름 대출(권), 3월</td>
+<td style="text-align: left;">대출.권., X3월 로 고침</td>
+<td style="text-align: left;">그대로</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">값 끝의 공백 “경기”</td>
+<td style="text-align: left;">그대로</td>
+<td style="text-align: left;">지움</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">문자 열의 빈칸</td>
+<td style="text-align: left;">빈 문자열 “”</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2004-03-15</td>
+<td style="text-align: left;">문자</td>
+<td style="text-align: left;">날짜(Date)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">04157</td>
+<td style="text-align: left;">정수 4157</td>
+<td style="text-align: left;">문자 “04157”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">칸 수가 다른 줄</td>
+<td style="text-align: left;">밀리거나 오류</td>
+<td style="text-align: left;">problems() 에 기록</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:38%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="" aria-hidden="true" tabindex="-1"></a>base_df<span class="sc">$</span>시도 <span class="sc">==</span> <span class="st">"경기"</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="" aria-hidden="true" tabindex="-1"></a>readr_df<span class="sc">$</span>시도 <span class="sc">==</span> <span class="st">"경기"</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE  TRUE FALSE</code></pre>
+</div>
+</div>
+<div class="keypoint">
+<p>정답은 <strong>B</strong>: 차이는 모두 <strong>오류 없이</strong> 일어남</p>
+<p>“경기” 와 “경기” 는 시도별 합계에서 <strong>다른 지역</strong>으로 집계</p>
+</div>
+</div></div>
+<div class="keypoint teal">
+<p>이 강의는 <strong>read_csv()</strong> 가 기본: AI 코드에서 read.csv() 를 보면 이 표의 차이를 떠올리기</p>
+</div>
+<aside class="notes">
+<p>답은 B 입니다. 차이를 표로 모았습니다.</p>
+<p>read.csv 는 열 이름을 R 이 좋아하는 모양으로 고칩니다. 괄호가 점으로, 숫자로 시작하는 이름 앞에 X 가 붙습니다. read_csv 는 그대로 둡니다.</p>
+<p>값 끝의 공백은 read.csv 가 남기고 read_csv 가 지웁니다. 오른쪽 코드를 보세요. read.csv 로 읽은 쪽은 둘째 행이 “경기” 와 다르다고 FALSE 가 나왔습니다. 나중에 시도별로 합계를 내면 경기와 공백 붙은 경기가 서로 다른 지역으로 집계됩니다.</p>
+<p>빈칸, 날짜, 앞자리 0, 칸 수가 다른 줄. 표에 있는 차이 가운데 오류를 내는 건 하나도 없습니다. 전부 조용히 일어납니다.</p>
+<p>이 강의에서는 read_csv 를 기본으로 씁니다. 결과를 예측하기 쉽고, 문제가 생긴 줄을 기록해 주니까요. 그런데 인터넷 예제나 AI 가 준 코드에는 read.csv 가 자주 나옵니다. 그 코드를 받으면 이 표를 떠올리세요.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-3" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>서울 도서관이 섞인 파일과 <strong>대전 도서관만</strong> 있는 파일, 우편번호 열의 유형은?</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="" aria-hidden="true" tabindex="-1"></a>with_seoul   <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">I</span>(<span class="st">"도서관,우편번호</span><span class="sc">\n</span><span class="st">누리도서관,04157</span><span class="sc">\n</span><span class="st">다온도서관,34126"</span>))</span>
+<span id="cb28-2"><a href="" aria-hidden="true" tabindex="-1"></a>daejeon_only <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">I</span>(<span class="st">"도서관,우편번호</span><span class="sc">\n</span><span class="st">다온도서관,34126</span><span class="sc">\n</span><span class="st">마루도서관,35233"</span>))</span>
+<span id="cb28-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(with_seoul<span class="sc">$</span>우편번호)</span>
+<span id="cb28-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(daejeon_only<span class="sc">$</span>우편번호)</span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 두 파일 모두 문자</p>
+</div>
+<div>
+<p><strong>B</strong> 두 파일 모두 숫자</p>
+</div>
+<div>
+<p><strong>C</strong> 서울이 섞인 파일은 문자, 대전만 있는 파일은 숫자</p>
+</div>
+</div>
+<div class="why">
+<p>우편번호는 사람에게 <strong>번호표</strong>, 그러나 함수는 <strong>숫자처럼 생기면 숫자</strong>로 추측</p>
+</div>
+<aside class="notes">
+<p>예측입니다. 우편번호는 사람에게 번호표지 수가 아닙니다. 우편번호끼리 더하거나 평균 내는 사람은 없지요. 그런데 함수는 글자만 보고 숫자처럼 생겼으면 숫자로 추측합니다.</p>
+<p>서울 우편번호는 0 으로 시작합니다. 대전은 3 으로 시작하고요. 서울이 섞인 파일과 대전만 있는 파일을 각각 read_csv 로 읽으면, 우편번호 열은 같은 유형이 될까요?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="열-유형은-추측이다" class="slide level2">
+<h2><span class="secno">2.3</span> 열 유형은 추측이다</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(with_seoul<span class="sc">$</span>우편번호)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(daejeon_only<span class="sc">$</span>우편번호)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">spec</span>(daejeon_only)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>cols(
+  도서관 = col_character(),
+  우편번호 = col_double()
+)</code></pre>
+</div>
+</div>
+<ul>
+<li>정답은 <strong>C</strong>: 추측은 <strong>그 파일에 든 값</strong>을 보고 결정</li>
+<li>대전 파일로 짠 코드가 서울이 섞인 다음 달 파일에서 멈추거나, 반대로 <strong>0 이 사라짐</strong></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-slide">유형을 명시하기</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="" aria-hidden="true" tabindex="-1"></a>fixed <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb35-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">I</span>(<span class="st">"도서관,우편번호</span><span class="sc">\n</span><span class="st">다온도서관,34126"</span>),</span>
+<span id="cb35-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(우편번호 <span class="ot">=</span> <span class="fu">col_character</span>())</span>
+<span id="cb35-4"><a href="" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(fixed<span class="sc">$</span>우편번호)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<ul>
+<li>col_character, col_double, col_integer, col_number, col_date(format = ), col_factor</li>
+</ul>
+<div class="keypoint">
+<p>우편번호, 학번, 전화번호, 행정 코드처럼 <strong>계산하지 않는 번호는 문자로 명시</strong></p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 C 입니다. 서울이 섞인 파일은 문자, 대전만 있는 파일은 숫자가 되었습니다.</p>
+<p>read_csv 는 앞자리가 0 인 값이 섞여 있으면 0 을 지키려고 문자로 추측합니다. 그런데 0 으로 시작하는 값이 없으면 숫자로 추측합니다. 추측은 그 파일에 들어 있는 값을 보고 내리니까요.</p>
+<p>이게 왜 문제냐면, 대전 파일만 받아서 분석 코드를 짜 두었다가 다음 달에 서울이 섞인 파일을 받으면 유형이 바뀝니다. 코드가 멈추거나, 거꾸로 숫자로 읽혀서 0 이 사라집니다.</p>
+<p>해결은 오른쪽입니다. col_types 에 cols 로 열 이름과 유형을 짝지어 적습니다. 적지 않은 열은 계속 추측합니다. 자주 쓰는 유형 함수들이 아래 줄에 있습니다.</p>
+<p>아래 상자를 기억하세요. 우편번호, 학번, 전화번호, 행정 코드. 계산하지 않는 번호는 문자로 명시합니다. 그러면 파일이 바뀌어도 유형이 안 바뀝니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="결측값과-숫자-표기" class="slide level2">
+<h2><span class="secno">2.4</span> 결측값과 숫자 표기</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">설문지의 빈칸, 모름, 해당 없음, 대시</span></p>
+<ul>
+<li>사람: 모두 <strong>값이 없음</strong></li>
+<li>읽기 함수: <strong>빈칸과 NA 만</strong> 결측, 나머지는 글자</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="fu">I</span>(usage)) <span class="sc">|&gt;</span> <span class="fu">spec</span>()</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>cols(
+  도서관 = col_character(),
+  대출권수 = col_character(),
+  이용자수 = col_character()
+)</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-slide">결측 표기를 알려 주기</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="" aria-hidden="true" tabindex="-1"></a>usage_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">I</span>(usage), <span class="at">na =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"-"</span>))</span>
+<span id="cb39-2"><a href="" aria-hidden="true" tabindex="-1"></a>usage_df<span class="sc">$</span>대출권수</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 48215    NA 35108</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">spec</span>(usage_df)<span class="sc">$</span>cols<span class="sc">$</span>대출권수</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;collector_number&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="fu">c</span>(<span class="st">"48,215"</span>, <span class="st">"12.5%"</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 48215.0    12.5</code></pre>
+</div>
+</div>
+<div class="keypoint">
+<p>대시 하나 때문에 <strong>두 열이 통째로 문자</strong>: 결측 표기는 원문과 설명을 읽은 사람만 앎</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>설문지를 걷어 보면 빈칸, 모름, 해당 없음, 대시가 섞여 있지요. 사람은 전부 값이 없다고 읽습니다. 그런데 읽기 함수는 빈칸과 NA 만 결측으로 압니다. 나머지는 그냥 글자예요.</p>
+<p>왼쪽 예를 보세요. 휴관 중인 도서관 칸에 대시가 있습니다. 기본값으로 읽었더니 대출권수와 이용자수가 둘 다 문자가 되었습니다. 대시 하나 때문에 열이 통째로요.</p>
+<p>이 파일에서 대시가 결측이라는 사실은 원문과 설명을 읽은 사람만 압니다. 그 사실을 na 인수로 알려 줍니다. 오른쪽입니다. 대시를 결측으로 알려 주자 대출권수는 쉼표가 빠진 숫자가 되었지요. col_number 로 추측되었습니다.</p>
+<p>따옴표 안의 48,215 는 사람에게는 숫자지만 글자로는 쉼표가 섞인 문자열입니다. parse_number 와 col_number 가 숫자 사이의 쉼표나 퍼센트 기호를 지우고 수로 바꿔 줍니다.</p>
+<p>참고로 설문 조사 원자료는 무응답을 9, 99 같은 숫자로 적는 경우가 많습니다. 이건 5절에서 실제로 봅니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="한글과-인코딩-답안지와-정답표" class="slide level2">
+<h2><span class="secno">2.5</span> 한글과 인코딩: 답안지와 정답표</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">OMR 답안지</span></p>
+<ul>
+<li>칠한 칸은 그대로인데 <strong>다른 정답표</strong>로 채점하면 점수가 엉터리</li>
+<li>파일의 <strong>바이트</strong> = 칠한 칸</li>
+<li><strong>인코딩</strong>(encoding) = 바이트를 글자로 바꾸는 정답표</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">charToRaw</span>(<span class="st">"한글"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] ed 95 9c ea b8 80</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">charToRaw</span>(<span class="fu">iconv</span>(<span class="st">"한글"</span>, <span class="st">"UTF-8"</span>, <span class="st">"CP949"</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] c7 d1 b1 db</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 34%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">UTF-8</th>
+<th style="text-align: left;">CP949</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">한글 한 글자</td>
+<td style="text-align: left;">3바이트</td>
+<td style="text-align: left;">2바이트</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">쓰는 곳</td>
+<td style="text-align: left;">macOS, Linux, 웹, 최근 R</td>
+<td style="text-align: left;">한국어 Windows, 옛 Excel CSV, 공공기관 CSV</td>
+</tr>
+</tbody>
+</table>
+<div class="keypoint">
+<p>연습 파일 library-loans.csv 는 <strong>CP949</strong></p>
+<p>같은 두 글자가 UTF-8 로는 6바이트, CP949 로는 4바이트</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>이제 한글 이야기입니다. OMR 답안지를 떠올려 봅시다. 답안지에 칠한 칸은 그대로인데, A형 답안을 B형 정답표로 채점하면 점수가 엉터리가 되지요.</p>
+<p>파일도 똑같습니다. 파일의 바이트가 칠한 칸이고, 바이트를 글자로 바꾸는 정답표가 인코딩입니다. 같은 바이트를 어떤 정답표로 읽느냐에 따라 전혀 다른 글자가 됩니다.</p>
+<p>한글 파일에서 흔히 만나는 정답표는 두 가지입니다. UTF-8 은 전 세계 문자를 담는 표준이고 한글 한 글자에 3바이트를 씁니다. CP949 는 한국어 Windows 가 오래 써 온 방식이고 한 글자에 2바이트입니다. 한국어 엑셀에서 CSV 로 저장하거나 공공기관에서 받은 CSV 는 CP949 인 경우가 많습니다.</p>
+<p>코드를 보세요. 같은 ‘한글’ 두 글자가 UTF-8 로는 ed 95 9c ea b8 80 여섯 바이트, CP949 로는 c7 d1 b1 db 네 바이트입니다. 오늘 연습 파일이 CP949 로 저장되어 있습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-4" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>CP949 파일을 <strong>인코딩을 알려 주지 않고</strong> 읽으면?</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="" aria-hidden="true" tabindex="-1"></a>broken <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dataset/ch11/library-loans.csv"</span>, <span class="at">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 읽는 줄에서 오류로 멈춤</p>
+</div>
+<div>
+<p><strong>B</strong> 읽기는 끝나지만 글자가 깨짐</p>
+</div>
+<div>
+<p><strong>C</strong> 알아서 제대로 읽음</p>
+</div>
+</div>
+<div class="why">
+<p>read_csv() 의 기본 정답표는 <strong>UTF-8</strong></p>
+</div>
+<aside class="notes">
+<p>예측입니다. CP949 파일을 인코딩을 알려 주지 않고 read_csv 로 읽으면 어떻게 될까요? 앞의 제목 두 줄은 skip 으로 건너뛰었습니다.</p>
+<p>read_csv 의 기본 정답표는 UTF-8 입니다. 오류로 멈출까요, 읽기는 끝나고 글자가 깨질까요, 알아서 제대로 읽을까요?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="깨진-결과의-증상과-해결" class="slide level2">
+<h2><span class="secno">2.5</span> 깨진 결과의 증상과 해결</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<p><span class="label label-note">증상: 조용히 끝나고 나중에 멈춤</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(broken)</span>
+<span id="cb50-2"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">22</span></span>
+<span id="cb50-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(broken)[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb50-4"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"</span><span class="sc">\xb5\xb5\xbc\xad\xb0\xfc</span><span class="st">"</span></span>
+<span id="cb50-5"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>] <span class="st">"</span><span class="sc">\xbd</span><span class="st">õ</span><span class="sc">\xb5</span><span class="st">"</span>               </span>
+<span id="cb50-6"><a href="" aria-hidden="true" tabindex="-1"></a>broken<span class="sc">$</span>도서관</span>
+<span id="cb50-7"><a href="" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Unknown or uninitialised column<span class="sc">:</span></span>
+<span id="cb50-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">도서관</span><span class="st">`</span>.</span>
+<span id="cb50-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span></code></pre></div>
+</div>
+<ul>
+<li>정답은 <strong>B</strong>: 행 수는 그럴듯, 열 이름은 <strong>바이트 기호</strong></li>
+<li>표를 출력하면 invalid multibyte string 오류: <strong>멈춘 곳이 읽는 줄이 아님</strong></li>
+</ul>
+</div><div class="column" style="width:52%;">
+<p><span class="label label-slide">확인과 해결</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_encoding</span>(f)<span class="sc">$</span>encoding[<span class="dv">1</span>]</span>
+<span id="cb51-2"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"EUC-KR"</span></span>
+<span id="cb51-3"><a href="" aria-hidden="true" tabindex="-1"></a>ok <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(f, <span class="at">skip =</span> <span class="dv">2</span>,</span>
+<span id="cb51-4"><a href="" aria-hidden="true" tabindex="-1"></a>               <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"CP949"</span>))</span>
+<span id="cb51-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ok)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb51-6"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"도서관"</span>   <span class="st">"시도"</span>     <span class="st">"우편번호"</span></span></code></pre></div>
+</div>
+<ul>
+<li>base R: read.csv(f, skip = 2, <strong>fileEncoding</strong> = “CP949”)</li>
+<li>encoding = “CP949” 는 <strong>변환하지 않음</strong></li>
+<li>EUC-KR 로 짐작되어도 <strong>CP949</strong> 지정 (똠, 펲 포함)</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p>R 4.2.0 부터 최근 Windows 도 UTF-8 기본: 운영체제와 관계없이 <strong>인코딩은 늘 명시</strong></p>
+</div>
+<aside class="notes">
+<p>답은 B 입니다. 읽기는 오류 없이 끝났고 행 수도 22, 그럴듯합니다. 그런데 열 이름을 보세요. 역슬래시 x 로 시작하는 바이트 기호입니다. UTF-8 정답표로 CP949 바이트를 읽은 결과입니다.</p>
+<p>그러면 도서관 열을 꺼내 보면? NULL 과 경고가 나옵니다. 그런 이름의 열이 없다는 거지요. 열 이름이 ‘도서관’ 이 아니라 깨진 바이트니까요. 그리고 이 표를 출력하려고 하면 invalid multibyte string 이라는 오류로 멈춥니다. 여기서 중요한 건, 멈춘 곳이 파일을 읽는 줄이 아니라는 겁니다. 오류가 난 줄만 들여다보면 원인을 못 찾습니다.</p>
+<p>해결은 오른쪽입니다. 인코딩을 모르면 guess_encoding 으로 짐작하고, locale 에 인코딩을 알려 줍니다. 그러면 제대로 읽힙니다.</p>
+<p>base R 에서는 fileEncoding 인수를 씁니다. 여기서 함정이 하나 있습니다. read.csv 에는 encoding 이라는 비슷한 이름의 인수가 있는데, 이건 변환을 하지 않습니다. 인터넷 예제에서도 자주 헷갈리는 부분이에요.</p>
+<p>guess_encoding 이 EUC-KR 이라고 알려 줘도 CP949 를 지정하세요. CP949 가 EUC-KR 을 넓힌 방식이라, 똠이나 펲 같은 글자는 EUC-KR 에 없습니다.</p>
+<p>아래 상자. 예전에는 한국어 Windows 의 R 이 CP949 를 기본으로 써서 CP949 파일이 그냥 읽혔습니다. R 4.2.0 부터 최근 Windows 에서도 UTF-8 이 기본이 되었습니다. 그래서 인코딩을 안 적은 옛 예제가 이제는 Windows 에서도 깨집니다. 운영체제와 상관없이 인코딩은 늘 명시하세요.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="읽은-결과-검증하기" class="title-slide slide level1 section-title">
+<h1><span class="secno">3</span> 읽은 결과 검증하기</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>오류 없이 읽혔다 <strong>≠</strong> 제대로 읽혔다</p>
+<p>파일 읽기의 참값은 <strong>원문</strong>: 읽은 표를 원문과 대조하는 절차</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>원문 먼저 보기</li>
+<li>다섯 가지 대조</li>
+<li>합계 행은 참값이다</li>
+<li>유형을 지정해도 검증은 필요</li>
+<li>검증을 코드로 남기기</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong>: 읽은 표가 <strong>원문과 같다는 근거</strong>는 무엇인가?</p>
+</div>
+<aside class="notes">
+<p>3절이 오늘의 중심입니다.</p>
+<p>8장의 rbinary_search 는 오류 없이 틀린 답을 냈지요. 9장의 분산 함수도 그랬고요. 파일 읽기도 똑같습니다. 오류 없이 읽혔다는 건 제대로 읽혔다는 증거가 아닙니다.</p>
+<p>그러면 무엇과 대조하느냐. 파일 읽기의 참값은 원문입니다. 연습 파일 library-loans.csv 를 실제로 읽고 원문과 대조하는 절차를 세우겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="원문-먼저-보기" class="slide level2">
+<h2><span class="secno">3.1</span> 원문 먼저 보기</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="st">"dataset/ch11/library-loans.csv"</span></span>
+<span id="cb52-2"><a href="" aria-hidden="true" tabindex="-1"></a>raw_lines <span class="ot">&lt;-</span> <span class="fu">read_lines</span>(f, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"CP949"</span>))</span>
+<span id="cb52-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(raw_lines)</span>
+<span id="cb52-4"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">25</span></span>
+<span id="cb52-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">head</span>(raw_lines, <span class="dv">3</span>), <span class="st">"..."</span>, <span class="fu">tail</span>(raw_lines, <span class="dv">3</span>), <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb52-6"><a href="" aria-hidden="true" tabindex="-1"></a>전국 공공도서관 <span class="dv">2026</span>년 <span class="dv">8</span>월 대출 현황</span>
+<span id="cb52-7"><a href="" aria-hidden="true" tabindex="-1"></a>※ 교육용 가상 자료<span class="sc">:</span> 도서관 이름과 수치는 실제와 무관함</span>
+<span id="cb52-8"><a href="" aria-hidden="true" tabindex="-1"></a>도서관,시도,우편번호,개관일,열람석,대출권수,이용자수</span>
+<span id="cb52-9"><a href="" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb52-10"><a href="" aria-hidden="true" tabindex="-1"></a>청솔도서관,서울,<span class="dv">06267</span>,<span class="dv">2019</span>.<span class="fl">05.24</span>,<span class="dv">220</span>,<span class="st">"30,574"</span>,<span class="dv">8467</span></span>
+<span id="cb52-11"><a href="" aria-hidden="true" tabindex="-1"></a>합계,,,,<span class="dv">4790</span>,<span class="st">"610,448"</span>,<span class="dv">164887</span></span>
+<span id="cb52-12"><a href="" aria-hidden="true" tabindex="-1"></a>※ 휴관 중인 도서관은 <span class="st">'-'</span>로 표시함, 이용자수는 대출 회원 기준</span>
+<span id="cb52-13"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">count.fields</span>(f, <span class="at">sep =</span> <span class="st">","</span>))</span>
+<span id="cb52-14"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-15"><a href="" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">7</span> </span>
+<span id="cb52-16"><a href="" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span>  <span class="dv">1</span> <span class="dv">22</span> </span></code></pre></div>
+</div>
+<div class="keypoint">
+<p><strong>끝부분</strong>에 합계 행과 쉼표가 든 주석 행: 앞부분만 보면 평범한 표, 원문 25줄 = 제목 2 + 머리글 1 + <strong>도서관 20</strong> + 합계 1 + 주석 1</p>
+</div>
+<aside class="notes">
+<p>읽기 함수에 넘기기 전에 파일을 줄 단위 글자로 먼저 봅니다. 인코딩은 앞에서 CP949 로 확인했지요.</p>
+<p>25줄입니다. 앞 네 줄을 보세요. 제목, 설명, 머리글, 첫 도서관. 평범한 표입니다.</p>
+<p>그런데 끝 세 줄을 보면 두 가지가 더 있습니다. 모든 도서관을 더한 합계 행, 그리고 쉼표가 들어간 주석 행. 사람 눈에는 표의 요약과 설명이지만, 읽기 함수에게는 데이터와 똑같은 한 줄입니다.</p>
+<p>왼쪽 아래는 count.fields 로 줄마다 칸 수를 센 표입니다. 1칸짜리 2줄이 제목과 설명, 7칸짜리 22줄이 머리글과 도서관 20줄과 합계, 2칸짜리 1줄이 주석입니다.</p>
+<p>그러니까 도서관 행은 20줄이어야 합니다. 이 숫자가 뒤에서 참값이 됩니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="다섯-가지-대조" class="slide level2">
+<h2><span class="secno">3.2</span> 다섯 가지 대조</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-slide">지금까지 배운 것을 모두 반영</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="" aria-hidden="true" tabindex="-1"></a>loans_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb53-2"><a href="" aria-hidden="true" tabindex="-1"></a>  f,</span>
+<span id="cb53-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">skip =</span> <span class="dv">2</span>,</span>
+<span id="cb53-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">na =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"-"</span>),</span>
+<span id="cb53-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"CP949"</span>),</span>
+<span id="cb53-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(</span>
+<span id="cb53-7"><a href="" aria-hidden="true" tabindex="-1"></a>    우편번호 <span class="ot">=</span> <span class="fu">col_character</span>(),</span>
+<span id="cb53-8"><a href="" aria-hidden="true" tabindex="-1"></a>    개관일 <span class="ot">=</span> <span class="fu">col_date</span>(<span class="at">format =</span> <span class="st">"%Y.%m.%d"</span>)</span>
+<span id="cb53-9"><a href="" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb53-10"><a href="" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<ul>
+<li>오류 없이 끝남, 이제 원문과 대조</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="keypoint teal">
+<p><strong>읽은 결과를 원문과 대조하는 다섯 가지</strong></p>
+<ol type="1">
+<li><strong>행 수</strong>: 원문에서 센 데이터 줄 수와 같은가</li>
+<li><strong>열 이름과 개수</strong>: 기대한 이름이 모두 있는가</li>
+<li><strong>열 유형</strong>: 숫자 열은 숫자, 번호 열은 문자인가</li>
+<li><strong>결측 수</strong>: 원문의 빈칸, 결측 표기 수와 같은가</li>
+<li><strong>처음과 끝 행</strong>: 머리말, 꼬리말, 합계가 섞였는가</li>
+</ol>
+</div>
+</div></div>
+<aside class="notes">
+<p>지금까지 배운 걸 전부 반영해서 읽어 봅시다. 제목 두 줄 건너뛰고, 대시를 결측으로 알려 주고, 인코딩 알려 주고, 우편번호는 문자로, 점으로 적힌 개관일은 날짜 형식을 알려 줍니다.</p>
+<p>오류 없이 끝났습니다. 여기서 끝내면 안 되고, 원문과 대조합니다.</p>
+<p>오른쪽이 대조할 다섯 가지입니다. 행 수, 열 이름과 개수, 열 유형, 결측 수, 처음과 끝 행.</p>
+<p>이 다섯 개를 외우세요. 파일을 읽을 때마다, AI 가 읽어 줬을 때도, 이 다섯 개를 확인합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="대조-결과" class="slide level2">
+<h2><span class="secno">3.2</span> 대조 결과</h2>
+<div class="columns">
+<div class="column" style="width:46%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(읽은_행 <span class="ot">=</span> <span class="fu">nrow</span>(loans_raw),</span>
+<span id="cb54-2"><a href="" aria-hidden="true" tabindex="-1"></a>  원문_도서관 <span class="ot">=</span> <span class="fu">length</span>(raw_lines) <span class="sc">-</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    읽은_행 원문_도서관 
+         22          20 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(loans_raw))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  도서관     시도 우편번호   개관일   열람석 
+       0        1        2        2        1 
+대출권수 이용자수 
+       2        2 </code></pre>
+</div>
+</div>
+</div><div class="column" style="width:54%;">
+<p><span class="label label-note">끝 행 세 개와 문제 기록</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">도서관</th>
+<th style="text-align: left;">우편번호</th>
+<th style="text-align: right;">대출권수</th>
+<th style="text-align: right;">이용자수</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">청솔도서관</td>
+<td style="text-align: left;">06267</td>
+<td style="text-align: right;">30574</td>
+<td style="text-align: right;">8467</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">합계</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">610448</td>
+<td style="text-align: right;">164887</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">※ 휴관 중인 도서관은</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">row</th>
+<th style="text-align: right;">col</th>
+<th style="text-align: left;">expected</th>
+<th style="text-align: left;">actual</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">7 columns</td>
+<td style="text-align: left;">2 columns</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div>
+<div class="keypoint">
+<p>행 수 <strong>22 ≠ 20</strong>, 원문의 대시는 두 칸인데 NA 는 여러 열에, 끝의 두 행이 <strong>합계와 주석</strong>: 행 수와 끝 행만 봤어도 발견, head() 만 봤다면 <strong>못 찾음</strong></p>
+</div>
+<aside class="notes">
+<p>대조 결과입니다.</p>
+<p>행 수. 22행을 읽었는데 원문의 도서관 행은 20줄입니다. 두 줄이 더 들어왔지요.</p>
+<p>결측 수. 원문의 대시는 휴관 중인 여울도서관 두 칸뿐인데, NA 가 여러 열에 흩어져 있습니다.</p>
+<p>오른쪽 표가 끝 행 세 개입니다. 마지막 도서관, 그다음 합계, 그다음 주석 행. 주석 행은 쉼표에서 두 칸으로 나뉘어서 도서관 열과 시도 열에 들어갔고 나머지는 NA 입니다. problems 가 그 줄의 칸 수 문제를 기록해 뒀습니다.</p>
+<p>아래 상자. 행 수와 끝 행만 확인했어도 문제를 찾았을 겁니다. 반대로 head 로 앞부분만 봤다면 아무 문제도 안 보입니다. 우리가 보통 head 만 보지요. 그래서 tail 도 봐야 합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-5" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>합계 행을 <strong>지우지 않은 채</strong> 대출권수를 모두 더하면, 원래 합계의 몇 배?</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(loans_raw<span class="sc">$</span>대출권수, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 거의 같음</p>
+</div>
+<div>
+<p><strong>B</strong> 1.05배 정도</p>
+</div>
+<div>
+<p><strong>C</strong> 정확히 두 배</p>
+</div>
+</div>
+<div class="why">
+<p>합계 행은 <strong>20개 도서관의 합</strong>을 담은 한 행</p>
+</div>
+<aside class="notes">
+<p>예측입니다. 합계 행을 안 지우고 대출권수를 전부 더하면 원래 합계의 몇 배가 나올까요?</p>
+<p>행이 하나 늘었을 뿐이니 거의 같을까요? 스무 개에 하나가 더해졌으니 1.05배일까요? 힌트는 아래 줄입니다. 합계 행 한 행에 무엇이 들어 있지요?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="합계-행은-참값이다" class="slide level2">
+<h2><span class="secno">3.3</span> 합계 행은 참값이다</h2>
+<div class="columns">
+<div class="column" style="width:52%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(loans_raw<span class="sc">$</span>대출권수, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1220896</code></pre>
+</div>
+</div>
+<p><span class="label label-slide">도서관 행과 합계 행 나누기</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="" aria-hidden="true" tabindex="-1"></a>is_library <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">"^[0-9]{5}$"</span>,</span>
+<span id="cb61-2"><a href="" aria-hidden="true" tabindex="-1"></a>                    loans_raw<span class="sc">$</span>우편번호)</span>
+<span id="cb61-3"><a href="" aria-hidden="true" tabindex="-1"></a>loans <span class="ot">&lt;-</span> loans_raw[is_library, ]</span>
+<span id="cb61-4"><a href="" aria-hidden="true" tabindex="-1"></a>total <span class="ot">&lt;-</span> loans_raw[loans_raw<span class="sc">$</span>도서관 <span class="sc">==</span> <span class="st">"합계"</span>, ]</span>
+<span id="cb61-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(loans)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20</code></pre>
+</div>
+</div>
+<ul>
+<li>규칙: <strong>우편번호가 다섯 자리 숫자인 행</strong>만 도서관 (10장 정규표현식)</li>
+</ul>
+</div><div class="column" style="width:48%;">
+<p><span class="label label-note">가계부 합계와 영수증 합계 맞춰 보기</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">열</th>
+<th style="text-align: right;">계산</th>
+<th style="text-align: right;">합계_행</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">대출권수</td>
+<td style="text-align: right;">610,448</td>
+<td style="text-align: right;">610,448</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">이용자수</td>
+<td style="text-align: right;">164,887</td>
+<td style="text-align: right;">164,887</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">열람석</td>
+<td style="text-align: right;">4,790</td>
+<td style="text-align: right;">4,790</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="keypoint">
+<p>정답은 <strong>C</strong>: 합계 행은 <strong>빼야 할 행</strong>이지만 버릴 행이 아님, 계산과 <strong>대조할 참값</strong></p>
+<p>9장의 참값 대조를 파일이 스스로 들고 있음</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 C, 정확히 두 배입니다. 122만 권이 나왔지요. 합계 행 자체가 20개 도서관의 합이니까, 합계 행을 포함해서 더하면 두 번 더한 셈입니다.</p>
+<p>도서관 행과 합계 행을 나눕니다. 규칙은 우편번호가 다섯 자리 숫자인 행만 도서관으로 칩니다. 합계 행과 주석 행에는 우편번호가 없으니까요. 10장에서 배운 정규표현식을 씁니다. 20행이 남았습니다.</p>
+<p>가계부를 정리할 때 영수증 합계와 내가 더한 금액을 맞춰 보지요. 오른쪽 표가 그겁니다. 세 열 모두 우리가 계산한 합이 합계 행과 정확히 일치합니다.</p>
+<p>그러니까 합계 행은 데이터에서 빼야 할 행이지만 버릴 행은 아닙니다. 대조할 참값입니다. 9장에서는 참값을 우리가 정해 두고 대조했는데, 여기서는 파일이 스스로 참값을 들고 있는 겁니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-6" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>대시를 결측으로 알려 주지 않고 <strong>유형만 지정</strong>하면, 여울도서관의 두 칸은?</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="" aria-hidden="true" tabindex="-1"></a>loans_int <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(f, <span class="at">skip =</span> <span class="dv">2</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"CP949"</span>),</span>
+<span id="cb63-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(우편번호 <span class="ot">=</span> <span class="fu">col_character</span>(),</span>
+<span id="cb63-3"><a href="" aria-hidden="true" tabindex="-1"></a>                   대출권수 <span class="ot">=</span> <span class="fu">col_number</span>(),     <span class="co"># 쉼표가 섞인 숫자</span></span>
+<span id="cb63-4"><a href="" aria-hidden="true" tabindex="-1"></a>                   이용자수 <span class="ot">=</span> <span class="fu">col_integer</span>()))   <span class="co"># 정수</span></span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 두 열 모두 NA, 문제로 기록</p>
+</div>
+<div>
+<p><strong>B</strong> 대출권수는 NA 와 기록, 이용자수는 0 이고 기록 없음</p>
+</div>
+<div>
+<p><strong>C</strong> 두 열 모두 0</p>
+</div>
+</div>
+<div class="why">
+<p>유형을 <strong>직접 지정</strong>하면 검증을 덜 해도 될까?</p>
+</div>
+<aside class="notes">
+<p>또 예측입니다. 이번에는 대시를 결측으로 알려 주지 않고, 유형만 직접 지정했습니다. 대출권수는 쉼표가 섞인 숫자, 이용자수는 정수로요. 여울도서관은 두 열 다 대시입니다.</p>
+<p>숫자로 바꿀 수 없는 대시가 들어오면 어떻게 될까요? 상식적으로는 A 겠지요. 둘 다 NA 가 되고 문제로 기록된다. 정말 그런지 봅시다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="유형을-지정해도-검증은-필요하다" class="slide level2">
+<h2><span class="secno">3.3</span> 유형을 지정해도 검증은 필요하다</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">도서관</th>
+<th style="text-align: right;">대출권수</th>
+<th style="text-align: right;">이용자수</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">여울도서관</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">row</th>
+<th style="text-align: right;">col</th>
+<th style="text-align: left;">expected</th>
+<th style="text-align: left;">actual</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">a number</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">7 columns</td>
+<td style="text-align: left;">2 columns</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>정답은 <strong>B</strong>: readr 2.2.0 의 정수 해석기에서 대시가 <strong>0</strong>, 기록도 없음</li>
+<li>휴관이라 알 수 없는 값이 <strong>이용자 0명</strong>으로</li>
+</ul>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>주의</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>도구도 틀릴 수 있음</strong>: 이후 버전에서 고쳐져도 원문 대조 절차는 그대로</p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-slide">다섯 가지 대조에 걸리는가</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(lib_int<span class="sc">$</span>이용자수) <span class="sc">==</span> total<span class="sc">$</span>이용자수</span>
+<span id="cb64-2"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
+<span id="cb64-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(lib_int<span class="sc">$</span>이용자수))</span>
+<span id="cb64-4"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
+<span id="cb64-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">grepl</span>(<span class="st">",-$"</span>, raw_lines))</span>
+<span id="cb64-6"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb64-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(lib_int<span class="sc">$</span>이용자수)</span>
+<span id="cb64-8"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span></code></pre></div>
+</div>
+<div class="keypoint">
+<p><strong>합계 대조는 통과</strong> (0 을 더해도 합은 그대로), <strong>결측 수 대조는 실패</strong> (원문 1줄, NA 0개): 대조는 <strong>여러 가지를 함께</strong> (8장의 전수 검사와 경계 사례)</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 B 였습니다. 저도 처음에 이걸 보고 놀랐습니다.</p>
+<p>왼쪽 위 표를 보세요. 대출권수의 대시는 NA 가 되고, 아래 문제 기록에 6번째 열, 숫자여야 하는데 대시라고 남았습니다. 그런데 이용자수의 대시는 0 이 되었고, 기록이 없습니다. 이 슬라이드를 만든 readr 버전의 정수 해석기에서 이렇게 동작합니다. 휴관이라 알 수 없는 값이 이용자 0명이라는 그럴듯한 값으로 바뀐 거예요.</p>
+<p>그러면 다섯 가지 대조에 걸릴까요? 오른쪽입니다. 합계 대조는 TRUE, 통과합니다. 0 을 더해도 합은 안 바뀌니까요. 결측 수는 0 인데 원문에는 대시로 끝나는 줄이 1줄 있습니다. 여기서 걸립니다. 최솟값이 0 이라는 것도 수상하고요.</p>
+<p>아래 상자가 요점입니다. 합계 대조는 행이 빠지거나 겹친 걸 잡지만 결측이 0 으로 바뀐 건 못 잡습니다. 결측 수 대조는 그 반대고요. 하나로 모든 걸 잡을 수 없습니다. 8장에서 전수 검사와 경계 사례를 같이 쓴 이유와 같습니다.</p>
+<p>그리고 도구도 틀릴 수 있습니다. 이 동작은 나중 버전에서 고쳐질 수도 있어요. 그래도 원문과 대조하는 절차는 그대로 쓸 수 있습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="검증을-코드로-남기기" class="slide level2 dense">
+<h2><span class="secno">3.4</span> 검증을 코드로 남기기</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="" aria-hidden="true" tabindex="-1"></a>check_loans <span class="ot">&lt;-</span> <span class="cf">function</span>(d, raw_lines, total) {</span>
+<span id="cb65-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(</span>
+<span id="cb65-3"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="st">"도서관 행 수가 원문과 같다"</span> <span class="ot">=</span></span>
+<span id="cb65-4"><a href="" aria-hidden="true" tabindex="-1"></a>      <span class="fu">nrow</span>(d) <span class="sc">==</span> <span class="fu">length</span>(raw_lines) <span class="sc">-</span> <span class="dv">5</span>,</span>
+<span id="cb65-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="st">"우편번호는 다섯 자리 문자다"</span> <span class="ot">=</span></span>
+<span id="cb65-6"><a href="" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all</span>(<span class="fu">grepl</span>(<span class="st">"^[0-9]{5}$"</span>, d<span class="sc">$</span>우편번호)),</span>
+<span id="cb65-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="st">"대출권수 합이 합계 행과 같다"</span> <span class="ot">=</span></span>
+<span id="cb65-8"><a href="" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sum</span>(d<span class="sc">$</span>대출권수, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">==</span> total<span class="sc">$</span>대출권수,</span>
+<span id="cb65-9"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="st">"이용자수 합이 합계 행과 같다"</span> <span class="ot">=</span></span>
+<span id="cb65-10"><a href="" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sum</span>(d<span class="sc">$</span>이용자수, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">==</span> total<span class="sc">$</span>이용자수,</span>
+<span id="cb65-11"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="st">"이용자수 결측 수가 원문의 '-' 줄 수와 같다"</span> <span class="ot">=</span></span>
+<span id="cb65-12"><a href="" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sum</span>(<span class="fu">is.na</span>(d<span class="sc">$</span>이용자수)) <span class="sc">==</span> <span class="fu">sum</span>(<span class="fu">grepl</span>(<span class="st">",-$"</span>, raw_lines))</span>
+<span id="cb65-13"><a href="" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb65-14"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">invisible</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb65-15"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb65-16"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">check_loans</span>(loans, raw_lines, total)     <span class="co"># 통과: 출력 없음</span></span></code></pre></div>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">check_loans</span>(lib_int, raw_lines, total)</span></code></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in `check_loans()`:
+! 이용자수 결측 수가 원문의 '-' 줄 수와 같다</code></pre>
+</div>
+</div>
+<ul>
+<li>조건이 하나라도 거짓이면 <strong>멈추고</strong>, 붙인 이름을 메시지로</li>
+<li>다음 달 파일도 <strong>다시 실행만</strong> 하면 됨</li>
+<li>length(raw_lines) - 5 에 담긴 <strong>형식 가정</strong>이 바뀌면 첫 조건에서 멈춤: 조용히 틀리는 것보다 나음 (6장)</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>대조를 눈으로만 하면 다음 달 파일을 받았을 때 또 해야 합니다. 그래서 코드로 적어 둡니다.</p>
+<p>stopifnot 은 조건이 하나라도 거짓이면 멈추는 함수입니다. 조건에 이름을 붙여 두면 그 이름이 오류 메시지로 나옵니다. 왼쪽이 도서관 파일용 검증 함수입니다. 행 수, 우편번호 모양, 두 합계, 결측 수. 제대로 읽은 결과를 넣으면 아무것도 출력하지 않고 통과합니다.</p>
+<p>오른쪽은 대시가 0 이 된 결과를 넣었을 때입니다. 다섯 번째 조건, 이용자수 결측 수가 원문의 대시 줄 수와 같다, 여기서 멈추고 그 이름을 보여 줍니다.</p>
+<p>다음 달 파일을 받으면 파일만 바꾸고 다시 실행하면 됩니다.</p>
+<p>하나 더. length(raw_lines) - 5 에는 제목 2줄, 머리글, 합계, 주석이라는 파일 형식에 대한 가정이 들어 있습니다. 다음 달 파일에 주석이 한 줄 늘면 첫 조건에서 멈춥니다. 그게 맞습니다. 조용히 틀린 결과를 내는 것보다 멈추는 게 낫다, 6장에서 한 이야기입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="파일-쓰기와-왕복-검사" class="title-slide slide level1 section-title">
+<h1><span class="secno">4</span> 파일 쓰기와 왕복 검사</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>쓰기 함수도 가정을 세우고 <strong>정보를 잃음</strong></p>
+<p>써 놓은 파일을 <strong>다시 읽어</strong> 처음 객체와 비교하면 잃은 것이 보임</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>write.csv() 와 write_csv()</li>
+<li>왕복 검사: 1/3 은 돌아오는가</li>
+<li>CSV 가 잃는 것</li>
+<li>엑셀에서 열 CSV</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong>: 저장했다가 다시 읽은 표는 <strong>처음 표와 같은가</strong>?</p>
+</div>
+<aside class="notes">
+<p>4절은 쓰기입니다. 분석 결과를 파일로 남기는 건 읽기의 반대 방향이지요.</p>
+<p>쓰기 함수도 가정을 세우고, 그 가정 때문에 정보를 잃습니다. 무엇을 잃는지는 써 놓은 파일을 다시 읽어서 처음 객체와 비교하면 보입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-7" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>세 열짜리 표를 write.csv() 로 저장하고 read_csv() 로 다시 읽으면 <strong>열은 몇 개</strong>?</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="" aria-hidden="true" tabindex="-1"></a>small <span class="ot">&lt;-</span> loans[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="fu">c</span>(<span class="st">"도서관"</span>, <span class="st">"우편번호"</span>, <span class="st">"대출권수"</span>)]</span>
+<span id="cb68-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(small, out_base)</span>
+<span id="cb68-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">read_csv</span>(out_base))</span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 3개</p>
+</div>
+<div>
+<p><strong>B</strong> 4개</p>
+</div>
+<div>
+<p><strong>C</strong> 6개</p>
+</div>
+</div>
+<div class="why">
+<p>write.csv() 의 기본값이 파일에 <strong>무엇을 더</strong> 적는지 떠올리기</p>
+</div>
+<aside class="notes">
+<p>예측입니다. 도서관, 우편번호, 대출권수 세 열짜리 표를 write.csv 로 저장했다가 read_csv 로 다시 읽습니다. 열이 몇 개가 될까요?</p>
+<p>세 열을 저장했으니 당연히 셋이겠지요? 아래 힌트를 보세요. write.csv 의 기본값이 뭔가를 더 적습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="write.csv-와-write_csv" class="slide level2">
+<h2><span class="secno">4.1</span> write.csv() 와 write_csv()</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">write.csv(small, out_base)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">readLines</span>(out_base), <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>"","도서관","우편번호","대출권수"
+"1","누리도서관","04157",48215
+"2","한빛도서관","02831",61530
+"3","가람도서관","16489",35108</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">read_csv</span>(out_base))</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+• `` -&gt; `...1`</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "...1"     "도서관"   "우편번호"
+[4] "대출권수"</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-slide">write_csv(small, out_readr)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">readLines</span>(out_readr), <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>도서관,우편번호,대출권수
+누리도서관,04157,48215
+한빛도서관,02831,61530
+가람도서관,16489,35108</code></pre>
+</div>
+</div>
+<div class="keypoint">
+<p>정답은 <strong>B</strong>: write.csv() 는 기본값으로 <strong>행 이름</strong>(“1”, “2”, “3”)을 첫 열로 씀</p>
+<p>주고받을 때마다 이름 없는 열이 하나씩 늘기도 함 → row.names = FALSE 또는 write_csv()</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 B, 네 개입니다.</p>
+<p>왼쪽이 write.csv 로 쓴 파일의 원문입니다. 맨 앞에 빈 이름의 열이 있고, 값이 “1”, “2”, “3” 이지요. write.csv 는 기본값으로 행 이름을 첫 열로 함께 씁니다. 그래서 다시 읽으면 이름 없는 열이 하나 생기고, read_csv 가 그 열에 점점점1 이라는 이름을 붙였다고 메시지를 냅니다.</p>
+<p>이 파일을 다시 write.csv 로 저장하면 또 한 열이 늘어요. 파일을 주고받을 때마다 이름 없는 열이 하나씩 쌓이는 걸 실제로 봅니다.</p>
+<p>오른쪽 write_csv 는 행 이름을 안 씁니다. 따옴표도 필요한 곳에만 씁니다. write.csv 를 쓸 거면 row.names = FALSE 를 붙이세요.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-8" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>1/3 을 CSV 로 저장했다가 다시 읽으면 <strong>== 1/3</strong> 은 TRUE 일까?</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="" aria-hidden="true" tabindex="-1"></a>before <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(비율 <span class="ot">=</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">3</span>, ...)</span>
+<span id="cb76-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(before, rt_base, <span class="at">row.names =</span> <span class="cn">FALSE</span>); after_base  <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(rt_base)</span>
+<span id="cb76-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(before, rt_readr);                   after_readr <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(rt_readr)</span>
+<span id="cb76-4"><a href="" aria-hidden="true" tabindex="-1"></a>after_base<span class="sc">$</span>비율[<span class="dv">1</span>] <span class="sc">==</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">3</span></span>
+<span id="cb76-5"><a href="" aria-hidden="true" tabindex="-1"></a>after_readr<span class="sc">$</span>비율[<span class="dv">1</span>] <span class="sc">==</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">3</span></span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 둘 다 TRUE</p>
+</div>
+<div>
+<p><strong>B</strong> write.csv() 쪽만 FALSE</p>
+</div>
+<div>
+<p><strong>C</strong> 둘 다 FALSE</p>
+</div>
+</div>
+<div class="why">
+<p>비유: 번역기로 한국어를 영어로 옮겼다가 <strong>다시 한국어로</strong> 옮기면 처음 문장이 돌아오는가</p>
+</div>
+<aside class="notes">
+<p>번역기로 한국어 문장을 영어로 옮겼다가 다시 한국어로 옮겨 본 적 있지요. 돌아온 문장이 처음과 다르면 중간에 뭔가 빠진 겁니다.</p>
+<p>파일도 같은 방법으로 시험합니다. 객체를 파일로 쓰고, 다시 읽고, 처음 객체와 비교합니다. 이걸 왕복 검사라고 합니다.</p>
+<p>3분의 1 을 두 방법으로 저장했다가 다시 읽었습니다. 처음 값과 정확히 같을까요?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="왕복-검사-13-은-돌아오는가" class="slide level2">
+<h2><span class="secno">4.2</span> 왕복 검사: 1/3 은 돌아오는가</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="" aria-hidden="true" tabindex="-1"></a>after_base<span class="sc">$</span>비율[<span class="dv">1</span>] <span class="sc">==</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">3</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="" aria-hidden="true" tabindex="-1"></a>after_readr<span class="sc">$</span>비율[<span class="dv">1</span>] <span class="sc">==</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">3</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<ul>
+<li>정답은 <strong>B</strong></li>
+<li>write.csv(): <strong>유효숫자 15자리</strong>까지만, 0.333333333333333</li>
+<li>write_csv(): 되돌아올 만큼, 0.3333333333333333</li>
+<li>0.1 + 0.2 도 0.30000000000000004 로 적혀 정확히 돌아옴 (2장)</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-note">같은 값을 적은 두 파일의 둘째 줄</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">readLines</span>(rt_base)[<span class="dv">2</span>],</span>
+<span id="cb81-2"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">readLines</span>(rt_readr)[<span class="dv">2</span>], <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>"누리도서관",0.333333333333333,"중",2004-03-15,"04157"
+누리도서관,0.3333333333333333,중,2004-03-15,04157</code></pre>
+</div>
+</div>
+<div class="keypoint">
+<p>왕복 검사 = 처음 객체라는 <strong>참값을 아는 세계</strong>에서 저장 방법을 시험 (9장)</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 B 입니다. write.csv 쪽만 FALSE 입니다.</p>
+<p>write.csv 는 수를 유효숫자 15자리까지만 적습니다. 0.333333333333333. 3분의 1 에 아주 가깝지만 같지는 않습니다. write_csv 는 다시 읽었을 때 같은 수가 되도록 필요한 만큼 적습니다. 3이 하나 더 있지요.</p>
+<p>2장에서 본 0.1 + 0.2 도 0.30000000000000004 로 적혀서 정확히 돌아옵니다.</p>
+<p>오른쪽 아래 상자. 왕복 검사는 처음 객체를 우리가 알고 있으니까, 9장처럼 참값을 아는 세계에서 저장 방법을 시험하는 셈입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="csv-가-잃는-것" class="slide level2">
+<h2><span class="secno">4.2</span> CSV 가 잃는 것</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(before, after_base)[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">8</span>)]</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Component \"등급\": 'current' is not a factor"    
+[2] "Component \"개관일\": Modes: numeric, character"  
+[3] "Component \"우편번호\": Modes: character, numeric"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(before,</span>
+<span id="cb85-2"><a href="" aria-hidden="true" tabindex="-1"></a>          <span class="fu">as.data.frame</span>(after_readr),</span>
+<span id="cb85-3"><a href="" aria-hidden="true" tabindex="-1"></a>          <span class="at">check.attributes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Component \"등급\": 'current' is not a factor"</code></pre>
+</div>
+</div>
+<ul>
+<li>all.equal(): 아주 작은 수의 차이는 같다고 보고 <strong>무엇이 다른지</strong> 목록으로 (8장)</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">처음 객체의 정보</th>
+<th style="text-align: center;">write.csv</th>
+<th style="text-align: center;">write_csv</th>
+<th style="text-align: center;">RDS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1/3 의 자릿수</td>
+<td style="text-align: center;">잃음</td>
+<td style="text-align: center;">유지</td>
+<td style="text-align: center;">유지</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">요인 수준 순서</td>
+<td style="text-align: center;">문자</td>
+<td style="text-align: center;">문자</td>
+<td style="text-align: center;">유지</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">날짜 유형</td>
+<td style="text-align: center;">문자</td>
+<td style="text-align: center;">유지</td>
+<td style="text-align: center;">유지</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">앞자리 0</td>
+<td style="text-align: center;">잃음</td>
+<td style="text-align: center;">추측</td>
+<td style="text-align: center;">유지</td>
+</tr>
+</tbody>
+</table>
+<div class="keypoint teal">
+<p>CSV 는 <strong>글자만</strong> 담음: 수준 순서, 날짜라는 사실이 적히지 않아 <strong>다시 추측</strong> (Parquet 은 RDS 처럼 유지, 6절)</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>다른 열은 어떨까요? all.equal 이 무엇이 다른지 목록으로 알려 줍니다. 8장에서 회귀계수를 비교할 때 썼지요. 아주 작은 수의 차이는 같다고 봅니다.</p>
+<p>read.csv 쪽은 등급이 요인이 아니게 되었고, 개관일이 날짜가 아니게 되었고, 우편번호가 숫자가 되었습니다. 목록이 길어서 세 줄만 골라 보였습니다. read_csv 쪽은 등급 하나만 걸렸습니다.</p>
+<p>오른쪽 표로 정리했습니다. 맨 오른쪽 RDS 와 Parquet 은 6절에서 확인하는데, 전부 유지됩니다.</p>
+<p>아래 상자. CSV 는 글자만 담습니다. 등급이 하, 중, 상 순서를 가진 요인이었다는 사실, 개관일이 날짜였다는 사실은 글자로 적히지 않아서 다시 읽을 때 추측에 맡겨집니다. 누구나 열어 볼 수 있다는 장점의 대가입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="엑셀에서-열-csv" class="slide level2">
+<h2><span class="secno">4.3</span> 엑셀에서 열 CSV</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">증상</span></p>
+<ul>
+<li>R 에서 UTF-8 로 저장한 CSV 를 한국어 Windows 의 Excel 에서 열면 <strong>한글이 깨지는</strong> 경우가 많음</li>
+<li>아무 표시가 없는 CSV 를 Excel 이 시스템 기본 인코딩(CP949)으로 읽음</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">readBin</span>(out_excel, <span class="st">"raw"</span>, <span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] ef bb bf</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">readBin</span>(out_readr, <span class="st">"raw"</span>, <span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] eb 8f 84</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-slide">받는 사람에 맞춰 쓰기</span></p>
+<ul>
+<li><strong>Excel 로 열 사람</strong>: write_excel_csv(), 맨 앞 세 바이트 <strong>BOM</strong>(ef bb bf)이 “이 CSV 는 UTF-8” 이라고 알림 (readr 도움말)</li>
+<li><strong>CP949 만 받는 옛 프로그램</strong>: write.csv(…, fileEncoding = “CP949”)</li>
+<li><strong>R, Python 등으로 읽을 사람</strong>: write_csv() 그대로</li>
+</ul>
+<div class="keypoint">
+<p>어느 쪽이든 <strong>받은 사람이 열어 본 결과를 한 번은 확인</strong></p>
+</div>
+</div></div>
+<aside class="notes">
+<p>실무에서 정말 자주 받는 질문입니다. R 에서 저장한 CSV 를 엑셀로 열었더니 한글이 깨졌어요.</p>
+<p>R 은 UTF-8 로 저장하는데, 아무 표시가 없는 CSV 를 한국어 Windows 의 엑셀은 시스템 기본 인코딩인 CP949 로 읽기 때문입니다.</p>
+<p>오른쪽 첫 줄. 엑셀로 열 사람에게는 write_excel_csv 로 저장합니다. 맨 앞에 BOM 이라는 세 바이트, ef bb bf 를 붙여서 이 CSV 는 UTF-8 이라고 알려 줍니다. 왼쪽 코드에서 두 파일의 첫 세 바이트를 비교했습니다. write_excel_csv 는 ef bb bf, write_csv 는 바로 글자로 시작합니다.</p>
+<p>CP949 파일만 받는 옛 프로그램에 줘야 하면 fileEncoding 으로 변환해서 씁니다. R 이나 Python 으로 읽을 사람에게는 write_csv 그대로 주면 됩니다.</p>
+<p>어느 쪽이든 받은 사람이 열어 본 결과를 한 번은 확인하세요. 이것도 대조입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="스프레드시트와-통계-패키지-파일" class="title-slide slide level1 section-title">
+<h1><span class="secno">5</span> 스프레드시트와 통계 패키지 파일</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>같은 설문을 <strong>세 가지 형식</strong>(xlsx, sav, csv)으로 받았을 때</p>
+<p>형식마다 <strong>담기는 정보</strong>가 다름: 날짜, 라벨, 결측 정의</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>Excel 파일 읽기</li>
+<li>날짜가 숫자로 보일 때</li>
+<li>SPSS, SAS, Stata 파일</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong>: 형식이 바뀌면 <strong>평균도 바뀌는가</strong>?</p>
+</div>
+<aside class="notes">
+<p>5절입니다. 텍스트 파일이 아닌 형식으로 받는 자료도 많습니다. 사람이 입력한 표는 엑셀로, 설문 조사 원자료는 SPSS 나 SAS 파일로 오는 경우가 흔하지요.</p>
+<p>오늘은 같은 학과 행사 만족도 조사를 엑셀, SPSS, CSV 세 형식으로 받았다고 하겠습니다. 형식마다 담기는 정보가 다릅니다. 이 절의 질문은 형식이 바뀌면 평균도 바뀌는가입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="excel-파일-읽기" class="slide level2">
+<h2><span class="secno">5.1</span> Excel 파일 읽기</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb91-2"><a href="" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"dataset/ch11/survey.xlsx"</span></span>
+<span id="cb91-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">excel_sheets</span>(x)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "응답" "안내"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">read_excel</span>(x))[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2026 학과 행사 만족도 조사 (교육용 가상 자료)"
+[2] "...2"                                         </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="" aria-hidden="true" tabindex="-1"></a>survey_x <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(x, <span class="at">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
+</div>
+<ul>
+<li>첫 줄 제목이 <strong>열 이름</strong>이 됨: CSV 와 같은 머리말 문제 → skip</li>
+<li>칸 주소로 읽기: range = “A3:E15”</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">응답번호</th>
+<th style="text-align: right;">성별</th>
+<th style="text-align: right;">학년</th>
+<th style="text-align: left;">참가일</th>
+<th style="text-align: right;">만족도</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">46266</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">46266</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">46267</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">46267</td>
+<td style="text-align: right;">9</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">항목</th>
+<th style="text-align: left;">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">만족도</td>
+<td style="text-align: left;">1 = 매우 불만족 ~ 5 = 매우 만족</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">만족도 9</td>
+<td style="text-align: left;">무응답</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="keypoint">
+<p><strong>만족도 9 = 무응답</strong>은 안내 시트에만 있음: 시트를 <strong>모두</strong> 확인</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>엑셀 파일은 readxl 패키지의 read_excel 로 읽습니다. 한 파일에 시트가 여러 개일 수 있으니 시트 이름부터 봅니다. 응답, 안내 두 개가 있지요.</p>
+<p>그냥 읽으면 첫 시트를 읽는데, 열 이름을 보세요. 첫 줄의 제목이 열 이름이 되었습니다. CSV 에서 본 머리말 문제와 똑같습니다. skip 으로 두 줄 건너뜁니다.</p>
+<p>오른쪽 위가 제대로 읽은 앞부분입니다. 그런데 오른쪽 아래를 보세요. 안내 시트에 만족도 9 는 무응답이라고 적혀 있습니다. 이 사실은 응답 시트만 읽어서는 절대 모릅니다. 시트를 전부 확인해야 하는 이유입니다.</p>
+<p>그리고 참가일 열을 보세요. 날짜가 아니라 46266 같은 숫자가 보이지요. 다음 슬라이드에서 이야기합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-9" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>참가일 열은 날짜 대신 <strong>46266</strong> 같은 값으로 읽혔다. 왜일까?</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="" aria-hidden="true" tabindex="-1"></a>survey_x<span class="sc">$</span>참가일[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span>
+<span id="cb96-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; "46266" "46266" "46267" "46267" "미정" "46267"</span></span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 파일이 깨져서</p>
+</div>
+<div>
+<p><strong>B</strong> 날짜 사이에 <strong>글자 칸 하나</strong>가 섞여 열 전체가 문자로</p>
+</div>
+<div>
+<p><strong>C</strong> read_excel() 은 날짜를 원래 읽지 못해서</p>
+</div>
+</div>
+<div class="why">
+<p>비유: 수능 D-100 계산처럼 날짜를 <strong>기준일부터 센 날수</strong>로 바꾸면 빼기로 기간 계산</p>
+</div>
+<aside class="notes">
+<p>예측입니다. 참가일 열이 날짜 대신 46266 같은 값으로 읽혔습니다. 왜 그럴까요?</p>
+<p>힌트 하나. 수능 D-100 을 계산할 때 우리는 날짜를 어떤 기준일부터 센 날수로 바꿔서 뺍니다. 엑셀도 날짜를 이렇게 저장합니다. 그리고 다섯 번째 값을 보세요. 미정이라는 글자가 있지요.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="날짜가-숫자로-보일-때" class="slide level2">
+<h2><span class="secno">5.2</span> 날짜가 숫자로 보일 때</h2>
+<div class="columns">
+<div class="column" style="width:52%;">
+<ul>
+<li>정답은 <strong>B</strong>: 한 열에 유형은 하나, 날짜와 글자를 함께 담을 <strong>문자</strong> 선택</li>
+<li>Excel 의 날짜 = <strong>1899-12-30 부터 센 날수</strong></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="" aria-hidden="true" tabindex="-1"></a>참가일 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">as.numeric</span>(survey_x<span class="sc">$</span>참가일),</span>
+<span id="cb97-2"><a href="" aria-hidden="true" tabindex="-1"></a>                  <span class="at">origin =</span> <span class="st">"1899-12-30"</span>)</span>
+<span id="cb97-3"><a href="" aria-hidden="true" tabindex="-1"></a>Warning <span class="cf">in</span></span>
+<span id="cb97-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">as.Date</span>(<span class="fu">as.numeric</span>(survey_x<span class="sc">$</span>참가일), <span class="at">origin =</span></span>
+<span id="cb97-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="st">"1899-12-30"</span>)<span class="sc">:</span> NAs introduced by coercion</span>
+<span id="cb97-6"><a href="" aria-hidden="true" tabindex="-1"></a>참가일[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb97-7"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"2026-09-01"</span> <span class="st">"2026-09-01"</span> <span class="st">"2026-09-02"</span></span>
+<span id="cb97-8"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">4</span>] <span class="st">"2026-09-02"</span></span>
+<span id="cb97-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">sum</span>(<span class="fu">is.na</span>(참가일)), <span class="fu">sum</span>(survey_x<span class="sc">$</span>참가일 <span class="sc">==</span> <span class="st">"미정"</span>))</span>
+<span id="cb97-10"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">1</span></span></code></pre></div>
+</div>
+</div><div class="column" style="width:48%;">
+<p><span class="label label-slide">처음부터 날짜로 지정</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="" aria-hidden="true" tabindex="-1"></a>survey_d <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(x, <span class="at">skip =</span> <span class="dv">2</span>,</span>
+<span id="cb98-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">"numeric"</span>, <span class="st">"numeric"</span>, <span class="st">"numeric"</span>,</span>
+<span id="cb98-3"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="st">"date"</span>, <span class="st">"numeric"</span>))</span>
+<span id="cb98-4"><a href="" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Expecting date <span class="cf">in</span> D8 <span class="sc">/</span> R8C4<span class="sc">:</span> got</span>
+<span id="cb98-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="st">'미정'</span></span>
+<span id="cb98-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(survey_d<span class="sc">$</span>참가일)[<span class="dv">1</span>]</span>
+<span id="cb98-7"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"POSIXct"</span></span></code></pre></div>
+</div>
+<ul>
+<li>글자 칸마다 <strong>어느 칸인지</strong> 경고</li>
+<li>시간까지 담는 POSIXct: 날짜만 필요하면 as.Date()</li>
+</ul>
+<div class="keypoint teal">
+<p>경고 = 미정을 NA 로 만들었다는 뜻: <strong>NA 1개 = 미정 1칸</strong> 대조</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 B 입니다. 참가일 열에는 날짜 칸 사이에 미정이라는 글자 칸이 하나 섞여 있습니다. read_excel 은 한 열의 유형을 하나로 정해야 하니까, 날짜와 글자를 모두 담을 수 있는 문자를 골랐습니다. 그러면 날짜 칸은 속에 든 값이 글자로 나옵니다.</p>
+<p>엑셀 속의 날짜는 1899년 12월 30일부터 센 날수입니다. 왜 1900년 1월 1일이 아니냐면, 엑셀이 옛 프로그램과 맞추려고 1900년을 윤년으로 세는 버릇이 있어서 그렇습니다. 직접 변환할 때만 이 날짜를 기억하면 됩니다.</p>
+<p>as.Date 에 origin 을 주고 변환했습니다. 경고가 하나 나오지요. 미정을 숫자로 바꿀 수 없어서 NA 로 만들었다는 뜻입니다. 그러면 의도한 결과인지 대조합니다. NA 1개, 원래 미정 칸 1개. 맞습니다.</p>
+<p>오른쪽처럼 처음부터 날짜로 지정해도 됩니다. 이때는 글자 칸마다 어느 칸이 문제인지 칸 주소까지 경고로 알려 줍니다. 날짜와 시간을 함께 담는 유형으로 읽으니까, 날짜만 필요하면 as.Date 로 바꿉니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-10" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>같은 설문, SPSS 파일에서는 만족도 평균이 <strong>3.9</strong>. CSV 로 받은 파일에서 구하면?</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="" aria-hidden="true" tabindex="-1"></a>survey_csv <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dataset/ch11/survey.csv"</span>)</span>
+<span id="cb99-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(survey_csv<span class="sc">$</span>만족도)</span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 3.9 로 같음</p>
+</div>
+<div>
+<p><strong>B</strong> 3.9 보다 큼</p>
+</div>
+<div>
+<p><strong>C</strong> 3.9 보다 작음</p>
+</div>
+</div>
+<div class="why">
+<p>안내 시트: <strong>9 = 무응답</strong>, 만족도는 1점에서 5점</p>
+</div>
+<aside class="notes">
+<p>예측입니다. 같은 설문을 SPSS 파일로 받아서 만족도 평균을 구하면 3.9 입니다. 그런데 CSV 로 받은 파일에서 구하면 얼마일까요? 같은 자료니까 같을까요?</p>
+<p>아까 안내 시트에서 본 것을 떠올리세요. 9 는 무응답입니다. 그리고 만족도는 1점에서 5점 척도입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="spss-sas-stata-파일" class="slide level2">
+<h2><span class="secno">5.3</span> SPSS, SAS, Stata 파일</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-slide">SPSS: 값 라벨과 결측 정의를 담음</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb100-2"><a href="" aria-hidden="true" tabindex="-1"></a>survey_sav <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">"dataset/ch11/survey.sav"</span>)</span>
+<span id="cb100-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">as_factor</span>(survey_sav<span class="sc">$</span>성별)[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb100-4"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] 남 여 여 남</span>
+<span id="cb100-5"><a href="" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> 남 여</span>
+<span id="cb100-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">as_factor</span>(survey_sav<span class="sc">$</span>만족도)[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb100-7"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] 보통 <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span> 만족</span>
+<span id="cb100-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> Levels<span class="sc">:</span> 매우불만족 불만족 보통 ... 무응답</span>
+<span id="cb100-9"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(survey_sav<span class="sc">$</span>만족도, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb100-10"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.9</span></span></code></pre></div>
+</div>
+<ul>
+<li>4번째 응답의 9 는 파일에 담긴 결측 정의에 따라 <strong>NA</strong></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-note">CSV: 숫자 9 만 남음</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(survey_csv<span class="sc">$</span>만족도)</span>
+<span id="cb101-2"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">4.75</span></span>
+<span id="cb101-3"><a href="" aria-hidden="true" tabindex="-1"></a>wrong <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"dataset/ch11/survey.csv"</span>,</span>
+<span id="cb101-4"><a href="" aria-hidden="true" tabindex="-1"></a>                  <span class="at">na =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"9"</span>))</span>
+<span id="cb101-5"><a href="" aria-hidden="true" tabindex="-1"></a>wrong<span class="sc">$</span>응답번호[<span class="dv">8</span><span class="sc">:</span><span class="dv">10</span>]</span>
+<span id="cb101-6"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="dv">8</span> <span class="cn">NA</span> <span class="dv">10</span></span>
+<span id="cb101-7"><a href="" aria-hidden="true" tabindex="-1"></a>survey_csv<span class="sc">$</span>만족도[survey_csv<span class="sc">$</span>만족도 <span class="sc">==</span> <span class="dv">9</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb101-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(survey_csv<span class="sc">$</span>만족도, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb101-9"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.9</span></span></code></pre></div>
+</div>
+<ul>
+<li>정답은 <strong>B</strong>: 1점에서 5점 척도의 평균이 <strong>4.75</strong></li>
+<li>na = “9” 는 <strong>모든 열</strong>에 적용: 응답번호 9 까지 NA</li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>답은 B 입니다. CSV 에서 구한 평균은 4.75, 1점에서 5점 척도에서 크게 부풀었습니다.</p>
+<p>왼쪽 SPSS 파일은 값과 함께 라벨을 담습니다. 1 은 남, 2 는 여. 그리고 9 는 결측이라는 정의까지 담습니다. 그래서 read_sav 가 9 를 NA 로 바꿨고, 네 번째 응답이 NA 로 보이지요. as_factor 로 라벨을 수준으로 쓰는 요인으로 바꿀 수도 있습니다.</p>
+<p>오른쪽 CSV 에는 라벨도 결측 정의도 없고 숫자 9 만 남습니다. 무응답 두 명의 9 가 평균에 그대로 들어가서 4.75 가 되었습니다.</p>
+<p>그러면 na 인수에 9 를 넣으면 되겠네, 하고 싶지요. 조심하세요. na 는 모든 열에 적용됩니다. 9번 응답자의 응답번호까지 NA 가 되었습니다. 결측 코드가 한 열에만 해당하면 그 열에서만 바꿉니다. 그러면 3.9, SPSS 와 같아집니다.</p>
+<p>SAS 파일은 read_sas, Stata 파일은 read_dta 로 읽습니다. 통계 조사 원자료를 받을 일이 많을 테니 기억해 두세요.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="저장-형식-고르기" class="title-slide slide level1 section-title">
+<h1><span class="secno">6</span> 저장 형식 고르기</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>보고서를 hwp 로 보낼까 PDF 로 보낼까: <strong>받는 사람과 목적</strong>으로 고르기</p>
+<p>형식마다 <strong>지키는 정보</strong>와 <strong>치르는 비용</strong>이 다름</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>R 전용 형식: RDS 와 RData</li>
+<li>Parquet</li>
+<li>형식별 비용 비교</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong>: 어떤 형식이 <strong>무엇을 지키고 얼마를 치르는가</strong>?</p>
+</div>
+<aside class="notes">
+<p>6절입니다. 보고서를 보낼 때 한글 파일로 보낼지 PDF 로 보낼지 고민해 본 적 있지요. 받는 사람이 고쳐 써야 하면 원본 파일을, 모양 그대로 보여 주기만 하면 되면 PDF 를 보냅니다.</p>
+<p>데이터 저장 형식도 받는 사람과 목적에 따라 고릅니다. 형식마다 지키는 정보와 치르는 비용이 다릅니다. 8장에서 정의한 비용, 시간과 메모리가 여기서도 나옵니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-11" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>아래 코드를 실행한 뒤 x 에는 무엇이 들어 있을까?</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"지난주 결과"</span></span>
+<span id="cb102-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(x, <span class="at">file =</span> rdata_file)</span>
+<span id="cb102-3"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-4"><a href="" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"오늘 다시 계산한 결과"</span></span>
+<span id="cb102-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(rdata_file)</span>
+<span id="cb102-6"><a href="" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> “오늘 다시 계산한 결과”</p>
+</div>
+<div>
+<p><strong>B</strong> “지난주 결과”</p>
+</div>
+<div>
+<p><strong>C</strong> 이름이 겹친다는 오류</p>
+</div>
+</div>
+<div class="why">
+<p>save() 와 load(): 여러 객체를 <strong>저장할 때의 이름 그대로</strong> 저장하고 되살림</p>
+</div>
+<aside class="notes">
+<p>예측입니다. R 에는 객체를 그대로 저장하는 형식이 두 가지 있습니다. 그중 save 와 load 는 여러 객체를 저장할 때의 이름 그대로 저장하고 되살립니다.</p>
+<p>지난주 결과를 x 라는 이름으로 저장했습니다. 오늘 다시 계산해서 x 에 넣었고요. 그다음에 load 를 하면 x 에는 무엇이 들어 있을까요?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="r-전용-형식-rds-와-rdata" class="slide level2">
+<h2><span class="secno">6.1</span> R 전용 형식: RDS 와 RData</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="" aria-hidden="true" tabindex="-1"></a>rdata_file <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"old.RData"</span>)</span>
+<span id="cb103-2"><a href="" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"지난주 결과"</span></span>
+<span id="cb103-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(x, <span class="at">file =</span> rdata_file)</span>
+<span id="cb103-4"><a href="" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"오늘 다시 계산한 결과"</span></span>
+<span id="cb103-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(rdata_file)</span>
+<span id="cb103-6"><a href="" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "지난주 결과"</code></pre>
+</div>
+</div>
+<ul>
+<li>정답은 <strong>B</strong>: load() 가 같은 이름의 객체를 <strong>경고 없이 덮어씀</strong></li>
+<li>무엇이 되살아나는지 파일을 열기 전에는 모름</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-slide">RDS: 객체 하나, 이름은 내가 정함</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="" aria-hidden="true" tabindex="-1"></a>rds_file <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"before.rds"</span>)</span>
+<span id="cb105-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(before, rds_file)</span>
+<span id="cb105-3"><a href="" aria-hidden="true" tabindex="-1"></a>restored <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(rds_file)</span>
+<span id="cb105-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(before, restored)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<ul>
+<li>요인 수준, 날짜, 모든 자릿수 보존: <strong>왕복 검사 완전 통과</strong></li>
+<li>identical(): 한 비트라도 다르면 FALSE</li>
+</ul>
+<div class="keypoint">
+<p>이 강의에서는 <strong>RDS</strong> 를 씀</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답은 B, 지난주 결과입니다. load 가 저장할 때의 이름 그대로 x 를 되살리면서, 오늘 계산한 x 를 아무 경고 없이 덮어썼습니다.</p>
+<p>무섭지요. 게다가 파일 안에 무엇이 들어 있는지는 열어 보기 전에는 모릅니다. 남이 준 RData 파일을 load 하면 내 작업 공간의 어떤 객체가 바뀌는지 알 수 없어요.</p>
+<p>오른쪽 RDS 는 객체 하나를 저장하고, 읽을 때 이름을 내가 정합니다. restored 라는 이름으로 받았지요. 그리고 identical 로 비교했더니 TRUE 입니다. identical 은 한 비트라도 다르면 FALSE 를 주는 가장 엄격한 비교인데, 요인의 수준, 날짜, 모든 자릿수까지 그대로 돌아왔습니다.</p>
+<p>이 강의에서는 RDS 를 씁니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="parquet" class="slide level2">
+<h2><span class="secno">6.2</span> Parquet</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">학생 명부를 보관하는 두 방법</span></p>
+<ul>
+<li><strong>행 단위</strong>: 한 사람당 카드 한 장 (이름, 학번, 키)</li>
+<li><strong>열 단위</strong>: 이름 목록, 학번 목록, 키 목록을 따로</li>
+<li>“모든 학생의 키 평균” → 키 목록 한 장만 보면 됨</li>
+<li>같은 종류의 값이 이어져 <strong>압축이 잘 됨</strong></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb107-2"><a href="" aria-hidden="true" tabindex="-1"></a>pq_file <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"before.parquet"</span>)</span>
+<span id="cb107-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">write_parquet</span>(before, pq_file)</span>
+<span id="cb107-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(before,</span>
+<span id="cb107-5"><a href="" aria-hidden="true" tabindex="-1"></a>          <span class="fu">as.data.frame</span>(<span class="fu">read_parquet</span>(pq_file)))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>Parquet</strong>: 열 단위로 저장하는 대표 형식</li>
+<li>요인, 날짜, 앞자리 0 보존</li>
+<li>R, Python, DuckDB 등 <strong>여러 도구</strong>가 읽고 씀</li>
+<li>읽고 쓰기만 필요하면 가벼운 nanoparquet 패키지도 가능</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p>큰 데이터를 <strong>다른 도구, 다른 사람과</strong> 주고받을 때: Parquet</p>
+</div>
+<aside class="notes">
+<p>학생 명부를 보관하는 방법을 두 가지 생각해 봅시다. 한 사람당 카드 한 장에 이름, 학번, 키를 적는 방법. 이게 행 단위입니다. 그리고 이름 목록, 학번 목록, 키 목록을 따로 적는 방법. 이게 열 단위입니다.</p>
+<p>모든 학생의 키 평균을 구하려면 열 단위가 빠르지요. 키 목록 한 장만 보면 되니까요. 게다가 같은 종류의 값이 이어져 있으니 압축도 잘 됩니다.</p>
+<p>이렇게 열 단위로 저장하는 대표적인 형식이 Parquet 입니다. 오른쪽 코드를 보세요. arrow 패키지로 쓰고 읽었더니 identical 이 TRUE 입니다. 요인, 날짜, 앞자리 0 이 모두 보존됩니다.</p>
+<p>RDS 와 다른 점은, R 뿐 아니라 Python, DuckDB 같은 여러 도구가 읽고 쓴다는 겁니다. 그래서 큰 데이터를 다른 도구나 다른 사람과 주고받을 때 씁니다. arrow 패키지는 설치 파일이 큰 편이라, 읽고 쓰기만 필요하면 nanoparquet 이라는 가벼운 패키지도 있습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="예측해-보자-12" class="slide level2 predict">
+<h2>예측해 보자</h2>
+<p>50만 행의 기상 관측 자료를 네 방식으로 저장하면 <strong>파일 크기</strong>는?</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(weather, <span class="st">"w-base.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)   <span class="co"># 1</span></span>
+<span id="cb109-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(weather, <span class="st">"w-readr.csv"</span>)                     <span class="co"># 2</span></span>
+<span id="cb109-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(weather, <span class="st">"w.rds"</span>)                             <span class="co"># 3</span></span>
+<span id="cb109-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">write_parquet</span>(weather, <span class="st">"w.parquet"</span>)                   <span class="co"># 4</span></span></code></pre></div>
+<div class="options">
+<div>
+<p><strong>A</strong> 네 파일이 비슷</p>
+</div>
+<div>
+<p><strong>B</strong> RDS 와 Parquet 이 CSV 의 <strong>5분의 1 이하</strong></p>
+</div>
+<div>
+<p><strong>C</strong> 이진 파일이 CSV 보다 큼</p>
+</div>
+</div>
+<div class="why">
+<p>CSV 는 수 하나하나를 <strong>글자로</strong> 적음, RDS 와 Parquet 은 <strong>압축된 이진 파일</strong></p>
+</div>
+<aside class="notes">
+<p>예측입니다. 50만 행짜리 기상 관측 자료를 네 가지 방식으로 저장합니다. 파일 크기가 어떻게 될까요?</p>
+<p>CSV 는 수 하나하나를 글자로 적습니다. 기온 14.3 이면 네 글자지요. RDS 와 Parquet 은 압축된 이진 파일입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="형식별-비용-비교" class="slide level2">
+<h2><span class="secno">6.3</span> 형식별 비용 비교</h2>
+<div class="columns">
+<div class="column" style="width:58%;">
+<p><span class="label label-slide">50만 행, 5개 열 (이 슬라이드를 렌더한 컴퓨터)</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">방식</th>
+<th style="text-align: right;">크기_MB</th>
+<th style="text-align: right;">쓰기_초</th>
+<th style="text-align: right;">읽기_초</th>
+<th style="text-align: center;">그대로</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">write.csv, read.csv</td>
+<td style="text-align: right;">14.34</td>
+<td style="text-align: right;">1.82</td>
+<td style="text-align: right;">0.491</td>
+<td style="text-align: center;">아니오</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">write_csv, read_csv</td>
+<td style="text-align: right;">13.39</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">0.131</td>
+<td style="text-align: center;">아니오</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">saveRDS, readRDS</td>
+<td style="text-align: right;">2.85</td>
+<td style="text-align: right;">0.80</td>
+<td style="text-align: right;">0.048</td>
+<td style="text-align: center;">예</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Parquet</td>
+<td style="text-align: right;">1.99</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.013</td>
+<td style="text-align: center;">예</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>정답은 <strong>B</strong>: 초 단위는 컴퓨터마다 다르지만 <strong>크기와 복원 여부</strong>는 같음</li>
+<li>넓은 표(69행, 20,000열)에서는 Parquet 이 CSV 보다 <strong>커지기도</strong> 함 (강의노트 6.3)</li>
+</ul>
+</div><div class="column" style="width:42%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">형식</th>
+<th style="text-align: center;">사람이 열기</th>
+<th style="text-align: center;">유형 보존</th>
+<th style="text-align: left;">쓰임</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">CSV</td>
+<td style="text-align: center;">쉬움</td>
+<td style="text-align: center;">안 됨</td>
+<td style="text-align: left;">사람, 다른 프로그램에 건네기</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Excel</td>
+<td style="text-align: center;">쉬움</td>
+<td style="text-align: center;">일부</td>
+<td style="text-align: left;">사람이 보고 고칠 표</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">RDS</td>
+<td style="text-align: center;">안 됨</td>
+<td style="text-align: center;">완전</td>
+<td style="text-align: left;">내 분석의 중간 결과</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Parquet</td>
+<td style="text-align: center;">안 됨</td>
+<td style="text-align: center;">거의 완전</td>
+<td style="text-align: left;">큰 데이터를 여러 도구와 공유</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<div class="keypoint teal">
+<p>형식이 싸다는 말도 <strong>추측</strong>: 중요한 파일이면 <strong>내 자료로 직접 재어 보기</strong> (8장)</p>
+</div>
+<aside class="notes">
+<p>답은 B 입니다. 표를 보세요.</p>
+<p>CSV 두 개는 14MB, 13MB 정도입니다. RDS 는 3MB 가 안 되고, Parquet 은 2MB 정도입니다. 5분의 1 이하지요.</p>
+<p>시간을 보면 읽기에서 차이가 큽니다. read.csv 가 가장 느리고, read_csv, readRDS, read_parquet 순으로 빨라집니다. 초 단위 숫자는 컴퓨터마다 다릅니다. 이 컴퓨터는 꽤 빠른 편이라 여러분 노트북에서는 몇 배 더 걸릴 거예요. 그래도 크기와 복원 여부는 어느 컴퓨터에서나 같습니다.</p>
+<p>맨 오른쪽 열, 그대로 복원되었는가. CSV 둘은 아니오, RDS 와 Parquet 은 예. 4절에서 본 대로입니다.</p>
+<p>오른쪽 표가 네 형식의 성격입니다. CSV 는 누구나 열지만 유형이 안 남고, 엑셀은 사람이 고칠 표에, RDS 는 내 분석의 중간 결과에, Parquet 은 큰 데이터를 여러 도구와 공유할 때.</p>
+<p>그런데 왼쪽 아래 한 줄. 이건 행이 많은 긴 표에서의 이야기입니다. 강의노트에서 열이 2만 개인 넓은 표로 같은 비교를 해 보면 Parquet 파일이 오히려 CSV 보다 큽니다. 열마다 따로 적는 정보가 열 수만큼 쌓이거든요.</p>
+<p>그래서 아래 상자입니다. 어떤 형식이 싸다는 말도 추측입니다. 중요한 파일이면 8장에서처럼 내 자료로 직접 재어 보세요.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="ai와-함께-파일-읽기-코드의-검증" class="title-slide slide level1 section-title">
+<h1><span class="secno">7</span> AI와 함께: 파일 읽기 코드의 검증</h1>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p>AI 가 짠 파일 읽기 코드를 <strong>다섯 가지 대조</strong>로 검증</p>
+<p>AI 가 <strong>볼 수 없었던 줄</strong>이 결과에 남긴 흔적 찾기</p>
+</div><div class="column" style="width:46%;">
+<p><span class="label">이 절에서</span></p>
+<ul>
+<li>프롬프트: 무엇을 붙여 넣었나</li>
+<li>AI 가 생성한 코드</li>
+<li>다섯 가지 대조와 사라진 문제 기록</li>
+<li>AI 가 보지 못한 부분</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>이 절이 답하는 질문</strong>: AI 는 <strong>파일의 몇 줄을</strong> 보았는가?</p>
+</div>
+<aside class="notes">
+<p>7절입니다. AI 에게 파일 읽기 코드를 받아서 3절의 다섯 가지 대조로 검증합니다.</p>
+<p>이번 절의 질문은 조금 이상하게 들릴 수 있습니다. AI 는 파일의 몇 줄을 보았는가. 이게 핵심입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="프롬프트-무엇을-붙여-넣었나" class="slide level2 dense">
+<h2><span class="secno">7.1</span> 프롬프트: 무엇을 붙여 넣었나</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<p><span class="label label-note">학생이 붙여 넣은 것</span></p>
+<ul>
+<li>read.csv() 오류: more columns than column names</li>
+<li>read_csv() 출력: Rows: 24 Columns: 1, invalid multibyte string</li>
+<li>메모장으로 연 파일의 <strong>앞부분 7줄</strong></li>
+<li>요청: “제대로 읽어서 분석에 쓸 수 있는 데이터프레임으로 만드는 R 코드를 짜 줘”</li>
+</ul>
+<div class="keypoint">
+<p>AI 가 볼 수 있는 것은 <strong>붙여 넣은 7줄</strong>이 전부, 파일은 <strong>25줄</strong></p>
+</div>
+</div><div class="column" style="width:58%;">
+<p><span class="label label-slide">붙여 넣은 앞부분 7줄</span></p>
+<pre class="text"><code>전국 공공도서관 2026년 8월 대출 현황
+※ 교육용 가상 자료: 도서관 이름과 수치는 실제와 무관함
+도서관,시도,우편번호,개관일,열람석,대출권수,이용자수
+누리도서관,서울,04157,2004.03.15,320,"48,215",12904
+한빛도서관,서울,02831,1998.11.02,410,"61,530",15220
+가람도서관,경기,16489,2011.06.20,250,"35,108",9870
+솔빛도서관,인천,21554,2015.09.01,180,"22,764",6412</code></pre>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>경고</strong></p>
+</div>
+<div class="callout-content">
+<p>붙여 넣을 때 <strong>개인정보나 공개되지 않은 자료가 담긴 행은 넣지 않기</strong>: 필요한 것은 값이 아니라 <strong>파일의 모양</strong></p>
+</div>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<p>한 학생이 library-loans.csv 를 읽으려다 두 함수 모두에서 오류를 만났습니다. 그래서 AI 에게 물었어요.</p>
+<p>왼쪽이 붙여 넣은 것입니다. read.csv 의 오류 메시지, read_csv 의 출력, 그리고 메모장으로 연 파일의 앞부분 7줄. 오류 메시지는 이 파일을 R 에서 실제로 읽어서 얻은 그대로입니다. 프롬프트 전문은 강의노트에 있습니다.</p>
+<p>아주 흔한 질문 방식이지요. 오류 메시지 옮기고, 파일 모양 보여 주고. 좋은 질문입니다.</p>
+<p>그런데 왼쪽 아래 상자. AI 가 볼 수 있는 건 붙여 넣은 7줄이 전부입니다. 파일은 25줄이에요.</p>
+<p>오른쪽 아래 경고. 여러분이 실제 자료로 이렇게 물을 때, 개인정보나 공개되지 않은 연구 자료가 담긴 행은 붙여 넣지 마세요. 코드를 짜는 데 필요한 건 값이 아니라 파일의 모양입니다. 이름이나 번호를 가짜로 바꾼 몇 줄이면 충분합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="ai-가-생성한-코드" class="slide level2 dense">
+<h2><span class="secno">7.2</span> AI 가 생성한 코드</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-overflow-wrap"><code class="sourceCode r"><span id="cb111-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 생성: Claude Sonnet 5, 2026-09-14. 파일 경로 두 곳에 dataset/ch11/ 만 덧붙였고 나머지는 그대로 수록.</span></span>
+<span id="cb111-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb111-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb111-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 인코딩이 확실하지 않으면 먼저 추정</span></span>
+<span id="cb111-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_encoding</span>(<span class="st">"dataset/ch11/library-loans.csv"</span>)</span>
+<span id="cb111-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># confidence가 가장 높게 나온 인코딩을 아래 locale()에 넣으면 됩니다</span></span>
+<span id="cb111-8"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-9"><a href="" aria-hidden="true" tabindex="-1"></a>loans <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb111-10"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dataset/ch11/library-loans.csv"</span>,</span>
+<span id="cb111-11"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">skip =</span> <span class="dv">2</span>,                               <span class="co"># 제목 줄 + 설명 줄 2개 건너뛰기</span></span>
+<span id="cb111-12"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"CP949"</span>),    <span class="co"># 안 되면 "EUC-KR"도 시도</span></span>
+<span id="cb111-13"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(</span>
+<span id="cb111-14"><a href="" aria-hidden="true" tabindex="-1"></a>    우편번호 <span class="ot">=</span> <span class="fu">col_character</span>(),           <span class="co"># "04157"의 앞자리 0이 사라지지 않게</span></span>
+<span id="cb111-15"><a href="" aria-hidden="true" tabindex="-1"></a>    대출권수 <span class="ot">=</span> <span class="fu">col_number</span>(),              <span class="co"># "48,215" 같은 천단위 콤마 숫자를 바로 숫자로</span></span>
+<span id="cb111-16"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default =</span> <span class="fu">col_guess</span>()</span>
+<span id="cb111-17"><a href="" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb111-18"><a href="" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb111-19"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(개관일 <span class="ot">=</span> <span class="fu">as.Date</span>(개관일, <span class="at">format =</span> <span class="st">"%Y.%m.%d"</span>))  <span class="co"># "2004.03.15" -&gt; Date형</span></span>
+<span id="cb111-20"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-21"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(loans)</span></code></pre></div>
+</div>
+<div class="keypoint">
+<p><strong>응답이 잘한 것</strong>: 두 오류의 원인 진단, 2절의 처리 모두 반영, tail() 로 <strong>꼬리말 확인</strong> 조언</p>
+</div>
+<aside class="notes">
+<p>AI 가 생성한 코드입니다. Claude Sonnet 5 에게 오늘 날짜로 한 번 요청한 응답이고, 강의노트 저장소에 전문이 있습니다. 여기 실행하면서 바꾼 건 파일 경로 두 곳에 dataset/ch11 을 덧붙인 것뿐입니다. 학생 컴퓨터에서는 파일이 작업 디렉터리에 바로 있었지만, 이 슬라이드는 저장소 폴더에서 렌더하니까요. 1절의 경로 이야기입니다.</p>
+<p>코드를 읽어 봅시다. 인코딩을 먼저 짐작하고, 제목 두 줄 건너뛰고, CP949 로 읽고, 우편번호는 문자, 대출권수는 쉼표가 섞인 숫자, 나머지는 추측. 그리고 파이프로 mutate 해서 개관일을 날짜로 바꿉니다.</p>
+<p>아래 상자를 보세요. 좋은 응답입니다. 두 오류의 원인을 정확히 짚었습니다. 오늘 2절에서 배운 것을 전부 처리했고요. 게다가 파일 맨 아래에 꼬리말 줄이 있을 수 있으니 tail 로 확인하라는 조언까지 했습니다.</p>
+<p>실행해 보면 오류 없이 끝납니다. 경고가 하나 있는데, 무엇이 문제인지는 말해 주지 않습니다. 이제 검증합니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="다섯-가지-대조-1" class="slide level2">
+<h2><span class="secno">7.3</span> 다섯 가지 대조</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">check_loans</span>(loans, raw_lines, total)</span></code></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in `check_loans()`:
+! 도서관 행 수가 원문과 같다</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(읽은_행 <span class="ot">=</span> <span class="fu">nrow</span>(loans),</span>
+<span id="cb114-2"><a href="" aria-hidden="true" tabindex="-1"></a>  원문_도서관 <span class="ot">=</span> <span class="fu">length</span>(raw_lines) <span class="sc">-</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    읽은_행 원문_도서관 
+         22          20 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(loans<span class="sc">$</span>이용자수)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(계산 <span class="ot">=</span> <span class="fu">sum</span>(loans<span class="sc">$</span>대출권수, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb118-2"><a href="" aria-hidden="true" tabindex="-1"></a>  합계_행 <span class="ot">=</span> total<span class="sc">$</span>대출권수)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   계산 합계_행 
+1220896  610448 </code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-note">끝 행 세 개</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">도서관</th>
+<th style="text-align: right;">대출권수</th>
+<th style="text-align: left;">이용자수</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">청솔도서관</td>
+<td style="text-align: right;">30574</td>
+<td style="text-align: left;">8467</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">합계</td>
+<td style="text-align: right;">610448</td>
+<td style="text-align: left;">164887</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">※ 휴관 중인 도서관은</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><strong>행 수</strong> 22: 합계 행과 주석 행이 섞임</li>
+<li><strong>열 유형</strong>: 이용자수가 <strong>문자</strong>, 평균을 구하면 NA 와 경고</li>
+<li><strong>합계</strong>: 대출권수의 합이 합계 행의 <strong>정확히 두 배</strong></li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>3절에서 만든 검증 함수부터 실행합니다. 첫 조건에서 멈춥니다. 도서관 행 수가 원문과 같다, 거짓.</p>
+<p>stopifnot 은 처음 실패한 곳에서 멈추니까 하나씩 봅니다. 읽은 행은 22, 원문의 도서관 행은 20. 이용자수의 유형은 문자입니다. 대출권수의 합은 합계 행의 정확히 두 배고요.</p>
+<p>오른쪽 표가 끝 행 세 개입니다. 마지막 도서관, 합계, 주석. 3절에서 본 것과 똑같은 흔적이지요.</p>
+<p>이용자수가 왜 문자일까요? 휴관 도서관의 대시 때문입니다. 대시를 결측으로 알려 주지 않았으니 숫자로 추측되지 않은 거지요.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="사라진-문제-기록" class="slide level2">
+<h2><span class="secno">7.3</span> 사라진 문제 기록</h2>
+<div class="columns">
+<div class="column" style="width:46%;">
+<p><span class="label label-note">파이프로 가공한 뒤</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(<span class="fu">problems</span>(loans))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<ul>
+<li>경고는 있었는데 <strong>기록이 비어 있음</strong></li>
+<li>mutate() 가 새 표를 만들면서 read_csv() 가 붙여 둔 기록이 <strong>떨어져 나감</strong></li>
+</ul>
+</div><div class="column" style="width:54%;">
+<p><span class="label label-slide">읽은 직후</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="" aria-hidden="true" tabindex="-1"></a>before_mutate <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb122-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dataset/ch11/library-loans.csv"</span>, <span class="at">skip =</span> <span class="dv">2</span>,</span>
+<span id="cb122-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"CP949"</span>),</span>
+<span id="cb122-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(우편번호 <span class="ot">=</span> <span class="fu">col_character</span>(),</span>
+<span id="cb122-5"><a href="" aria-hidden="true" tabindex="-1"></a>                   대출권수 <span class="ot">=</span> <span class="fu">col_number</span>(),</span>
+<span id="cb122-6"><a href="" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.default =</span> <span class="fu">col_guess</span>()))</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">row</th>
+<th style="text-align: right;">col</th>
+<th style="text-align: left;">expected</th>
+<th style="text-align: left;">actual</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">a number</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">7 columns</td>
+<td style="text-align: left;">2 columns</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>대출권수의 대시(13번째 줄), 주석 행의 칸 수: <strong>두 문제가 기록</strong>되어 있었음</li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p><strong>problems() 는 가공하기 전에</strong>: 파이프로 이어 붙이면 확인할 기회가 사라짐</p>
+</div>
+<aside class="notes">
+<p>경고가 가리킨 문제를 problems 로 보려고 하면 이상한 일이 생깁니다. 기록이 0 행입니다. 비어 있어요.</p>
+<p>read_csv 는 문제를 결과에 붙여 두는데, 파이프로 이어진 mutate 가 새 표를 만들면서 그 기록이 떨어져 나갔습니다.</p>
+<p>오른쪽처럼 가공하기 전의 결과를 따로 받아서 보면 기록이 남아 있습니다. 두 개지요. 대출권수의 대시를 숫자로 못 바꿨다는 것, 그리고 주석 행의 칸 수가 다르다는 것.</p>
+<p>그러니까 아래 상자. problems 는 가공하기 전에 봐야 합니다. AI 코드처럼 읽자마자 파이프로 이어 붙이면, 확인할 기회 자체가 없어집니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="ai-가-보지-못한-부분" class="slide level2">
+<h2><span class="secno">7.4</span> AI 가 보지 못한 부분</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">붙여 넣은 7줄 밖의 세 줄</span></p>
+<ul>
+<li><strong>15번째 줄</strong>: 휴관 도서관의 대시 → na 인수가 없음, 이용자수가 문자</li>
+<li><strong>24번째 줄</strong>: 합계 행 → 모든 합이 두 배</li>
+<li><strong>25번째 줄</strong>: 주석 행 → tail() 확인은 <strong>사람의 몫</strong>으로 남음</li>
+</ul>
+<p><span class="label label-note">설명과 실제 동작의 차이</span></p>
+<ul>
+<li>“그냥 두면 04157 이 4157 로”: <strong>read.csv() 의 이야기</strong></li>
+<li>readr 2.2.0 는 7줄만 보고도 우편번호를 <strong>문자</strong>, 대출권수를 <strong>쉼표가 섞인 숫자</strong> 로 추측</li>
+<li>그래도 명시는 <strong>옳음</strong>: 추측은 파일마다 달라짐 (2.3)</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-slide">원문에서 확인한 사실을 더하기</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="" aria-hidden="true" tabindex="-1"></a>fixed_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb123-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dataset/ch11/library-loans.csv"</span>, <span class="at">skip =</span> <span class="dv">2</span>,</span>
+<span id="cb123-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">na =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>, <span class="st">"-"</span>),              <span class="co"># 추가</span></span>
+<span id="cb123-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"CP949"</span>),</span>
+<span id="cb123-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(우편번호 <span class="ot">=</span> <span class="fu">col_character</span>(),</span>
+<span id="cb123-6"><a href="" aria-hidden="true" tabindex="-1"></a>                   대출권수 <span class="ot">=</span> <span class="fu">col_number</span>(),</span>
+<span id="cb123-7"><a href="" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.default =</span> <span class="fu">col_guess</span>()))</span>
+<span id="cb123-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(<span class="fu">problems</span>(fixed_raw))             <span class="co"># 추가</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="" aria-hidden="true" tabindex="-1"></a>fixed <span class="ot">&lt;-</span> fixed_raw[<span class="fu">grepl</span>(<span class="st">"^[0-9]{5}$"</span>,</span>
+<span id="cb125-2"><a href="" aria-hidden="true" tabindex="-1"></a>                         fixed_raw<span class="sc">$</span>우편번호), ] <span class="sc">|&gt;</span></span>
+<span id="cb125-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(개관일 <span class="ot">=</span> <span class="fu">as.Date</span>(개관일, <span class="at">format =</span> <span class="st">"%Y.%m.%d"</span>))</span>
+<span id="cb125-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">check_loans</span>(fixed, raw_lines, total)</span>
+<span id="cb125-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(fixed<span class="sc">$</span>대출권수, loans_ok<span class="sc">$</span>대출권수)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<p>검증에서 드러난 결함은 전부 붙여 넣은 7줄 밖에 있습니다.</p>
+<p>15번째 줄, 휴관 도서관의 대시. 앞 7줄에는 결측 표기가 없었으니 코드에도 na 인수가 없습니다. 24번째 줄, 합계 행. 앞부분만 보고는 알 수가 없지요. 25번째 줄, 주석 행. AI 는 꼬리말이 있을 수 있다고 tail 로 확인하라고 했습니다. 좋은 조언인데, 확인은 코드에 없고 사람의 몫으로 남았습니다.</p>
+<p>왼쪽 아래는 응답의 설명 하나가 실제 동작과 달랐던 부분입니다. 응답은 그냥 두면 04157 이 4157 로 바뀐다고 했는데, 그건 read.csv 이야기입니다. readr 는 AI 가 본 7줄만 가지고도 우편번호를 문자로, 대출권수를 숫자로 추측합니다. 그렇다고 유형을 적은 코드가 틀린 건 아닙니다. 2.3 에서 봤듯이 추측은 파일마다 달라지니까 명시하는 게 옳습니다. 다만 설명을 사실로 받아들이기 전에 한 번 실행해 보면 이런 차이가 보인다는 겁니다.</p>
+<p>오른쪽이 원문에서 확인한 사실을 더한 코드입니다. 추가한 건 세 가지. 결측 표기, 가공 전에 문제 기록 보기, 도서관 행만 남기기. 검증 함수가 조용히 통과하고, 3절에서 따로 검증한 결과와도 값이 같습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="파일-읽기-코드에서-자주-나타나는-오류" class="slide level2">
+<h2><span class="secno">7.4</span> 파일 읽기 코드에서 자주 나타나는 오류</h2>
+<div class="columns">
+<div class="column" style="width:56%;">
+<p><span class="label label-note">사람이 짠 코드와 AI 가 짠 코드 모두</span></p>
+<ul>
+<li><strong>앞부분만 보고 전체를 가정</strong>: 합계 행, 주석 행, 뒤쪽에만 있는 결측 표기</li>
+<li><strong>경로를 내 컴퓨터에 묶음</strong>: setwd(), 절대 경로</li>
+<li><strong>인코딩을 기본값에 맡김</strong>: encoding 과 fileEncoding 혼동</li>
+<li><strong>확인을 사람에게 미룸</strong>: tail() 로 보라고만 하고 코드로 남기지 않음</li>
+<li><strong>가공한 뒤에 problems()</strong>: 파이프 뒤에는 기록이 없음</li>
+</ul>
+</div><div class="column" style="width:44%;">
+<div class="keypoint teal">
+<p>이번 응답의 코드: 첫째 유형, 파이프 때문에 다섯째 확인도 불가</p>
+<p>공통점: <strong>오류 메시지가 나오지 않음</strong></p>
+</div>
+<div class="keypoint">
+<p>AI 에게 물을 때 <strong>끝부분 몇 줄</strong>도 함께 붙이기</p>
+</div>
+</div></div>
+<div class="keypoint teal">
+<p><strong>받은 코드를 확인하는 순서</strong>: ① 원문의 처음과 끝 보기 ② 실행 직후 problems() ③ 다섯 가지 대조 ④ 검증 함수로 남기기</p>
+</div>
+<aside class="notes">
+<p>파일 읽기 코드에서 자주 나타나는 오류를 정리하겠습니다. 사람이 짠 코드든 AI 가 짠 코드든 똑같이 나타납니다.</p>
+<p>첫째, 앞부분만 보고 전체를 가정하는 것. 합계 행, 주석 행, 뒤쪽에만 있는 결측 표기를 놓칩니다. 둘째, 경로를 내 컴퓨터에 묶는 것. 셋째, 인코딩을 기본값에 맡기는 것. 넷째, 확인을 사람에게 미루고 코드로 남기지 않는 것. 다섯째, 가공한 뒤에 problems 를 보는 것.</p>
+<p>이번 응답의 코드는 첫째 유형이었고, 파이프 때문에 다섯째 확인도 할 수 없게 되어 있었습니다.</p>
+<p>모든 유형의 공통점은 오류 메시지가 안 나온다는 겁니다.</p>
+<p>그래서 오른쪽 아래. AI 에게 물을 때는 파일의 끝부분 몇 줄도 같이 붙이세요. 그리고 받은 코드는 다섯 가지 대조로 확인하세요. AI 를 쓰지 말라는 게 아닙니다. 받은 다음에 무엇을 해야 하는지 아는 사람이 되자는 겁니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="정리" class="slide level2">
+<h2>정리</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="label label-note">경로와 텍스트 파일</span></p>
+<ul>
+<li>경로는 <strong>프로젝트 기준 상대 경로</strong>, setwd() 쓰지 않기</li>
+<li>읽기 함수는 구분자, 유형, 결측, 인코딩을 <strong>추측</strong></li>
+<li>계산하지 않는 번호는 문자로, 결측 표기와 인코딩(<strong>CP949</strong>)은 명시</li>
+</ul>
+<p><span class="label label-note">쓰기와 형식</span></p>
+<ul>
+<li><strong>왕복 검사</strong>: 쓰고 다시 읽어 처음 객체와 비교</li>
+<li>CSV 는 글자만, RDS 와 Parquet 은 유형까지</li>
+<li>형식의 비용도 <strong>내 자료로 재어 보기</strong></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><span class="label label-slide">검증</span></p>
+<ul>
+<li>오류 없이 읽힘 <strong>≠</strong> 제대로 읽힘</li>
+<li><strong>다섯 가지 대조</strong>: 행 수, 열 이름, 유형, 결측 수, 처음과 끝 행</li>
+<li><strong>합계 행은 참값</strong>, 대조는 여러 가지를 함께</li>
+<li>검증은 <strong>코드로 남기기</strong></li>
+</ul>
+<p><span class="label label-slide">AI와 함께</span></p>
+<ul>
+<li>AI 는 <strong>붙여 넣은 줄만</strong> 봄</li>
+<li>problems() 는 가공하기 <strong>전에</strong></li>
+</ul>
+</div></div>
+<div class="keypoint teal">
+<p>다음 시간: 검증을 통과한 데이터로 <strong>데이터 핸들링</strong> (12장)</p>
+</div>
+<aside class="notes">
+<p>정리하겠습니다.</p>
+<p>왼쪽 위. 경로는 프로젝트 기준 상대 경로로, setwd 는 쓰지 않습니다. 읽기 함수는 구분자, 유형, 결측, 인코딩을 전부 추측합니다. 계산하지 않는 번호는 문자로, 결측 표기와 인코딩은 명시하세요.</p>
+<p>왼쪽 아래. 저장했으면 다시 읽어서 처음 객체와 비교하는 왕복 검사. CSV 는 글자만 담고, RDS 와 Parquet 은 유형까지 담습니다. 어떤 형식이 싼지도 내 자료로 재어 봐야 압니다.</p>
+<p>오른쪽 위가 오늘의 핵심입니다. 오류 없이 읽혔다고 제대로 읽힌 게 아닙니다. 다섯 가지 대조. 행 수, 열 이름, 유형, 결측 수, 처음과 끝 행. 합계 행이 있으면 참값으로 쓰고, 대조는 여러 가지를 함께 합니다. 그리고 검증은 코드로 남깁니다.</p>
+<p>오른쪽 아래. AI 는 붙여 넣은 줄만 봅니다. problems 는 가공하기 전에 봅니다.</p>
+<p>다음 시간에는 오늘 검증을 통과한 데이터로 데이터 핸들링을 합니다. 질문 받겠습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="11-data-import-export-slides_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="11-data-import-export-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="11-data-import-export-slides_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="11-data-import-export-slides_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="11-data-import-export-slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="11-data-import-export-slides_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="11-data-import-export-slides_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="11-data-import-export-slides_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="11-data-import-export-slides_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="11-data-import-export-slides_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // 쪽번호를 슬라이드 안(꼬리말 오른쪽)에 그리기 위해 각 슬라이드에 data-no 를 붙인다.
+    // revealjs 기본 쪽번호(.slide-number)는 화면 좌표에 떠 있어서, 슬라이드 비율과 창 비율이
+    // 다르면 원안의 꼬리말 선과 어긋난다. 그래서 slide-number: false 로 두고 여기서 매긴다.
+    window.addEventListener('load', function () {
+      function stamp() {
+        var s = Reveal.getSlides(), t = s.length;
+        s.forEach(function (el, i) { el.setAttribute('data-no', (i + 1) + ' / ' + t); });
+      }
+      if (Reveal.isReady()) stamp(); else Reveal.on('ready', stamp);
+    });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

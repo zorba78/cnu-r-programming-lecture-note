@@ -28,6 +28,7 @@
 | `15-references.Rmd` | 참고문헌 | 2 |
 | `08-algorithms.qmd` | **개편 새 8장 (Quarto 시범 전환).** 현행 `06-algorithms.Rmd` 를 재구성 (정렬 4종, 뉴턴-랩슨의 통계 최적화) | 2235 |
 | `09-simulation.qmd` | **개편 새 9장 (Quarto).** 현행 `07-simulation.Rmd` 를 검증의 도구로 재구성. 슬라이드 `09-simulation-slides.qmd` | 1307 |
+| `11-data-import-export.qmd` | **개편 새 11장 (Quarto).** 현행 `09-file-import-export.Rmd` 를 현행화하고 원문 대조 검증을 중심으로 강화. 슬라이드 `11-data-import-export-slides.qmd`, 연습 파일 `dataset/ch11/` | 1689 |
 
 지원 폴더:
 
@@ -108,6 +109,7 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
 |---|---|---|
 | 새 8장 알고리즘 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `08-algorithms.qmd`, 슬라이드 `08-algorithms-slides.qmd`. 렌더본은 `docs/preview/` 아래 두 개. 감사 `upgrade/audit/06-algorithms.md` (발견 100건, 치명 20). 2026-09-12 정렬 4종과 뉴턴-랩슨의 통계 최적화(회귀·로지스틱 회귀·경사하강법) 추가 |
 | 새 9장 시뮬레이션 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `09-simulation.qmd`, 슬라이드 `09-simulation-slides.qmd` (2026-09-12). 렌더본은 `docs/preview/`. 감사 `upgrade/audit/07-simulation.md` (치명 4, 중요 18, 경미 34). "AI와 함께" 절의 응답 원문은 `ai-transcripts/09-simulation/` |
+| 새 11장 데이터 입출력 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `11-data-import-export.qmd`, 슬라이드 `11-data-import-export-slides.qmd` (2026-09-14). 연습 파일은 `dataset/ch11/` (교육용 가상 자료, `make-ch11-data.R` 로 재생성). 감사 `upgrade/audit/09-file-import-export.md` (치명 1, 중요 10, 경미 28). "AI와 함께" 응답 원문은 `ai-transcripts/11-data-import-export/` |
 | 현 7장 (구 시뮬레이션) | **치명 4건 배포 중** | 새 9장으로 대체되기 전까지 공개 사이트에 남아 있음. DBP 영분포 시뮬레이션이 두 군 평균차가 아닌 전체 평균을 씀, '귀무가설이 참일 때'라는 신뢰구간 시뮬레이션이 평균 0.75/2.33 으로 생성(실은 검정력), 쌍체 자료 `sleep` 을 독립 이표본으로 분석, `icons` 청크 오류. 감사 A-1~A-4 |
 | 현 6장 (구 알고리즘) | **치명 버그 3건 배포 중** | 새 8장으로 대체되기 전까지 공개 사이트에 그대로 남아 있음. `1:5*n` 연산자 우선순위, `rbinary_search` 탈출 조건, `newton_raphson` 미정의 객체. 감사 보고서 A-1~A-3 |
 | 나머지 전체 | 감사 전 | `/audit-chapter` 로 장별 감사 보고서 생성 후 갱신 |
@@ -116,7 +118,7 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
 
 ### Quarto 전환 진행 상황 (2026-09-11)
 
-책 전체 전환은 아직 하지 않았다. **8장을 시범 전환**해 절차를 검증했고, 같은 방식으로 **9장 시뮬레이션**을 단독 렌더했다(2026-09-12, `bash upgrade/render-preview.sh 09-simulation.qmd` 와 `09-simulation-slides.qmd`).
+책 전체 전환은 아직 하지 않았다. **8장을 시범 전환**해 절차를 검증했고, 같은 방식으로 **9장 시뮬레이션**(2026-09-12)과 **11장 데이터 입출력**(2026-09-14)을 단독 렌더했다(`bash upgrade/render-preview.sh <장>.qmd` 와 `<장>-slides.qmd`).
 
 - `08-algorithms.qmd` 가 새 8장의 **원본**이다 (`.Rmd` 초안은 폐기). 현행 `06-algorithms.Rmd` 는 그대로 두었다.
 - **발표 슬라이드**: `08-algorithms-slides.qmd` (Quarto revealjs, 1280×720). 테마는 `upgrade/slides-theme.scss`.
@@ -166,6 +168,8 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
     (4) `upgrade/render-preview.sh` 가 `python` 을 부르면 `python3` 만 있는 기기에서 그림·동영상 경로 보정이 빠진 채 끝난다(오류 한 줄만 남음). `${PYTHON:-python3}` 로 고쳤다.
     (5) 디자인 시안(`upgrade/slides-design/*.dc.html`)의 아트보드 루트 `<div>` 에 `box-sizing:border-box` 가 없으면 `width:1280px; height:720px` 에 안쪽 여백이 더해져 1440×812 로 그려지고, 캔버스의 1280×720 틀이 오른쪽 160px 와 아래를 잘라 낸다. 오른쪽 칸 내용이 통째로 안 보였다(강사 지적, 2026-09-11). 새 아트보드도 루트에 이 속성을 넣는다.
     (6) 라벨(`[...]{.label}`) 안에 인라인 코드나 수식을 넣으면 15px 라벨 글자에서 한 번 더 줄어 코드 12.9px, 수식 위첨자 10.5px 까지 작아진다. 라벨은 일반 텍스트로 쓴다(`O(n²)` 처럼 유니코드 위첨자). 로지스틱 모형의 `e^{-(\beta_0+\beta_1 x_i)}` 처럼 위첨자 안에 아래첨자가 겹쳐도 11px 까지 줄어드므로 슬라이드에서는 `\exp\{\cdot\}` 로 쓴다(2026-09-12).
+    (7) 칸(`.column`)의 **직계 자식**으로 둔 코드 블록(실행하지 않는 ```` ```text ```` 등)이 오른쪽 칸에서 8px 샜다. Quarto 가 오른쪽 칸 직계 자식에 `margin-left: .5rem` 을 주는데, 테마가 출력 블록에 `width: 100%` 를 줘서 여백만큼 밀려났다. 테마를 `width: auto` 로 고쳤다(2026-09-14). 넘침 원인을 추측으로 고치지 말고 `getBoundingClientRect()` 로 **넘친 요소와 여백을 직접 재어** 찾는다.
+    (8) 코드와 출력 상자가 여러 개 쌓여 하단 680px 을 넘으면 청크에 `#| collapse: true` 를 주어 코드와 출력을 한 상자로 합친다. 글자를 줄이는 것보다 먼저 쓴다.
 - 단일 장 렌더·배치: `bash upgrade/render-preview.sh 08-algorithms.qmd` → `docs/preview/`. 살아 있는 bookdown 사이트(`docs/` 루트)는 건드리지 않는다.
 - `_quarto.yml` 은 아직 만들지 않았다. 만드는 순간 `output-dir: docs` 가 현행 사이트를 덮으므로, **`migrate-to-quarto` 스킬 0단계(legacy 보존)를 먼저** 해야 한다.
 - **`bookdown-archive-2026-09-10` 태그는 처음 만든 기기에만 있다** (커밋 `a27a058`, 원격에 푸시하지 않음). 다른 기기의 `git tag -l` 에는 보이지 않는다.
@@ -179,6 +183,9 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
 4. 목록 항목 안에 **들여쓴 실행 청크**를 두면 `::: {.cell}` 래퍼가 본문에 그대로 새어 나온다. 실행이 필요 없으면 일반 ```` ```r ```` 블록으로 쓴다.
 5. `.mp4` 는 `knitr::include_graphics()` 로 넣을 수 없다. `<video>` 태그를 쓴 `::: {#fig-...}` 블록으로 바꾼다.
 6. PDF 전용 `size` 청크 훅은 HTML 전환 시 뺀다. 출력을 LaTeX 글꼴 크기 명령으로 감싸던 훅이라 HTML 에서는 의미가 없다. `linewidth` 훅은 그대로 쓴다.
+7. **`linewidth` 훅은 지금 아무 일도 하지 않는다** (감사 `upgrade/audit/09-file-import-export.md`, 2026-09-14 재현). 훅은 **청크 옵션** `options$linewidth` 를 읽는데, 8·9·11장과 bookdown 판 모두 `options(linewidth = 60)` 으로 **R 전역 옵션**을 주었다. 124자 출력이 접히지 않고 그대로 나온다. 실제로 접으려면 `opts_chunk$set(linewidth = 60)` 이지만, 그러면 `strwrap()` 이 표 출력의 공백을 뭉개므로 켜기 전에 렌더 결과를 확인한다. 한꺼번에 정할 문제라 장마다 따로 고치지 않았다(강사 확인 필요).
+8. **readr 2.2.0(vroom 1.7.1)의 정수 해석기는 `-` 한 글자를 경고도 문제 기록도 없이 `0` 으로 읽는다.** `col_integer()` 에서만 그렇고 `col_double()`, `col_number()` 는 `NA` 와 문제 기록으로 처리한다(11장 @sec-total-row 에 교재로 씀). 결측 표기는 `na =` 로 먼저 알려 주고, 결측 수를 원문과 대조한다. readr 을 올리면 11장을 다시 렌더해 이 동작이 바뀌었는지 확인한다.
+9. `read_csv(...) |> mutate(...)` 처럼 읽자마자 가공하면 `problems()` 기록이 사라진다. 문제 기록은 가공 전 결과에서 본다.
 
 ### 결정된 사항 (2026-09-10, 강사)
 
@@ -190,7 +197,7 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
 - 발표 슬라이드 허브 페이지는 **A안(주제 목록형)** 으로 확정. 시안 https://claude.ai/code/artifact/3fadbdb9-8241-473c-8cad-13ca6285e9d8
   - **구현 완료 (2026-09-10)**: `hub/index.html` → `docs/hub/` 배포 → https://zorba78.github.io/cnu-r-programming-lecture-note/hub/
   - 허브 시안의 작업 파일은 `upgrade/hub-design/` (`*.dc.html` + `canvas.json`, 2026-09-11 게시본에서 추출). 고친 뒤 캔버스에 다시 게시한다. 슬라이드 시안의 `upgrade/slides-design/` 와 같은 역할.
-  - **주제 상세 화면** (시안 `Topic.dc.html`, 2026-09-11 구현, 강사 요청): 슬라이드와 새 노트가 모두 있는 장만 둔다. 지금은 8장 `hub/08-algorithms.html` 과 9장 `hub/09-simulation.html` 이고,
+  - **주제 상세 화면** (시안 `Topic.dc.html`, 2026-09-11 구현, 강사 요청): 슬라이드와 새 노트가 모두 있는 장만 둔다. 지금은 8장 `hub/08-algorithms.html`, 9장 `hub/09-simulation.html`, 11장 `hub/11-data-import-export.html` 이고,
     허브 8장 행을 펼치면 들어가는 링크가 있다. 제목 줄(슬라이드 열기 · PDF로 저장 · 강의노트에서 보기), 왼쪽 슬라이드 미리보기와 절별 슬라이드 카드,
     오른쪽 대응하는 강의노트 발췌 · 소절 목록 · 이 절의 슬라이드(절 표지의 의도와 질문) · 이 덱의 절 목록.
     - `Rscript hub/topic-page.R 08-algorithms` 가 `docs/preview/` 의 덱·노트 **렌더본**에서 절별 슬라이드 번호 구간과 발췌를 뽑아 만든다.
@@ -204,7 +211,7 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
   - 새 원고가 아직 없으므로 `강의노트` 열은 그 장의 **출처가 되는 현행 bookdown 노트**로 연결된다. 행을 펼치면 재구성안의 처리 방침과 출처 절 목록이 나온다. 확장은 `<details>` 라 JS 가 없다.
   - 제목 옆 태그는 재구성안의 `처리` 열(신설 / 재작성 / 재구성 / 강화 / 유지 / 슬림화 / 이동·압축 / 현행화 / 전환).
   - `02 전반`(새 2장) / `02 후반`(새 3장) 의 절 분배는 재구성안의 처리 설명을 근거로 **2.2·2.9 → 2장, 2.3~2.8 → 3장** 으로 읽었다. 강사 확인이 필요하다.
-  - 슬라이드 상태는 `예정`(기본) / `준비 중` / `초안 · N장` / `공개` 네 가지. 지금은 새 8장 알고리즘과 새 9장 시뮬레이션이 `공개`.
+  - 슬라이드 상태는 `예정`(기본) / `준비 중` / `초안 · N장` / `공개` 네 가지. 지금은 새 8장 알고리즘, 새 9장 시뮬레이션, 새 11장 데이터 입출력이 `공개`.
   - 허브 문구에서 **'발표 슬라이드'가 아니라 '슬라이드'** 로 적는다 (강사 지시, 2026-09-11).
   - **'비용'은 수행 시간과 메모리를 합쳐 부르는 말**로 8장 첫 절에서 정의하고 쓴다. 정의 없이
   "얼마나 비싼지" 같은 표현을 쓰면 시간인지 메모리인지 모호하다 (강사 지적, 2026-09-11).
@@ -255,6 +262,9 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
 - **Quarto 전환 착수 시점.** 절차·보존 방법은 확정됐으나 실행 여부는 아직 지시받지 않음.
 
 ## 알려진 문제 (감사 시 우선 확인)
+
+- **개인정보로 보이는 명단 파일이 공개 저장소에 있다** (2026-09-14 발견, 강사 확인 필요). `dataset/students.txt`(이름·학번·이메일 39명), `dataset/room-allocation.txt`(이름·학번·학과 35명), `dataset/StudentList.xls`(이름·학번 35명), `data/stat-students.xlsx`(이름·학번·이메일 25명). 실제 학생 자료인지 확인해 가상 자료로 바꾸거나 지우고, 필요하면 git 이력에서도 제거한다. **새 원고와 AI 프롬프트에는 이 파일들을 쓰지 않는다.**
+- `output/` 폴더의 `all_obj.Rdata`, `pulse.rds`, `sub_obj.Rdata` 가 git 으로 추적되고 있어, 현행 9장을 렌더할 때마다 바뀐 이진 파일이 커밋에 섞인다. 현행 10장이 `output/pulse.rds` 에 기대고 있다(감사 B-9).
 
 - 모든 장에 동일한 knitr hook 보일러플레이트 약 30줄이 반복됨. 공통 파일(`_common.R`)로 추출 후보.
 - `gather/spread` 15회, `mutate_at/_if/_all` 계열 29회, `qplot` 5회, `feather` 5회, `..density..` 3회 등 실제로 superseded 된 관용구. (`%>%` 는 여기 해당하지 않음)
