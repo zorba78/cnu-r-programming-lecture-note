@@ -7,6 +7,7 @@
 #   bottom  내용 하단(px, 슬라이드 좌표). 본문 슬라이드는 680 이하 — 꼬리말 선이 약 695px 이다.
 #   right   내용 오른쪽 끝. 1280 을 넘으면 칸 밖으로 샌 것이다.
 #   scroll  가로 스크롤이 생긴 코드·표의 개수. 0 이어야 한다(코드 줄이 칸보다 김).
+#   vscroll 세로 스크롤이 생긴 코드 상자의 개수. 0 이어야 한다(테마의 최대 높이에 걸려 출력 끝이 잘림).
 #   minfont 가장 작은 글자(px). MathJax 위첨자는 원래 작으므로 small 열에서 걸러 본다.
 # 필요: R 패키지 chromote, jsonlite / 크롬(google-chrome).
 suppressMessages(library(chromote))
@@ -27,7 +28,7 @@ idx <- if (which == "all") seq_len(n) else as.integer(strsplit(which, ",")[[1]])
 metric_js <- "
 (() => {
   const s = Reveal.getCurrentSlide(), sc = Reveal.getScale(), R = s.getBoundingClientRect();
-  let maxb = 0, maxr = 0, small = [], minf = 999, scroll = 0;
+  let maxb = 0, maxr = 0, small = [], minf = 999, scroll = 0, vscroll = 0;
   s.querySelectorAll('*').forEach(e => {
     if (e.closest('aside.notes') || e.closest('.slide-background')) return;
     const r = e.getBoundingClientRect(); if (!r.width || !r.height) return;
@@ -35,6 +36,8 @@ metric_js <- "
     maxb = Math.max(maxb, r.bottom); maxr = Math.max(maxr, r.right);
     if (['PRE','TABLE'].includes(e.tagName) || e.classList.contains('sourceCode'))
       if (e.scrollWidth > e.clientWidth + 1) scroll++;
+    if (e.tagName === 'PRE' || (e.tagName === 'CODE' && e.parentElement && e.parentElement.tagName === 'PRE'))
+      if (e.scrollHeight > e.clientHeight + 1 && ['auto','scroll'].includes(cs.overflowY)) vscroll++;
     const own = [...e.childNodes].some(c => c.nodeType === 3 && c.textContent.trim().length);
     if (own && !e.closest('mjx-container')) {
       const f = parseFloat(cs.fontSize); if (f < minf) minf = f;
@@ -47,21 +50,25 @@ metric_js <- "
   const title = (s.querySelector('h1,h2') || {}).textContent || '';
   return JSON.stringify({kind: kind, title: title.trim().slice(0, 26),
     bottom: Math.round((maxb - R.top) / sc), right: Math.round((maxr - R.left) / sc),
-    scroll: scroll, minfont: Math.round(minf * 10) / 10, small: [...new Set(small)].slice(0, 4)});
+    scroll: scroll, vscroll: vscroll, minfont: Math.round(minf * 10) / 10, small: [...new Set(small)].slice(0, 4)});
 })()"
 
 rows <- list()
 for (i in idx) {
   invisible(ev(sprintf("(()=>{const s=Reveal.getSlides()[%d]; const x=Reveal.getIndices(s); Reveal.slide(x.h, x.v); while (Reveal.nextFragment()) {}; return 1})()", i - 1)))
+  # reveal 은 그림을 슬라이드에 들어올 때 불러온다(data-src). 다 불러오기 전에 재면 높이를 적게 잰다.
+  invisible(ev("(async () => { const imgs = [...Reveal.getCurrentSlide().querySelectorAll('img')]; const t0 = Date.now();
+    while (Date.now() - t0 < 8000) { if (imgs.every(g => g.complete && g.naturalWidth > 0)) return 1;
+      await new Promise(r => setTimeout(r, 100)); } return 0; })()"))
   Sys.sleep(0.7)
   writeBin(jsonlite::base64_dec(b$Page$captureScreenshot(format = "png")$data), file.path(out, sprintf("s%02d.png", i)))
   m <- jsonlite::fromJSON(ev(metric_js))
   rows[[length(rows) + 1]] <- data.frame(n = i, kind = m$kind, title = m$title, bottom = m$bottom,
-    right = m$right, scroll = m$scroll, minfont = m$minfont, small = paste(m$small, collapse = " | "))
+    right = m$right, scroll = m$scroll, vscroll = m$vscroll, minfont = m$minfont, small = paste(m$small, collapse = " | "))
 }
 d <- do.call(rbind, rows)
 write.table(d, file.path(out, "metrics.tsv"), sep = "\t", row.names = FALSE, quote = FALSE)
-bad <- d[(d$kind == "content" & d$bottom > 680) | d$right > 1281 | d$scroll > 0, ]
+bad <- d[(d$kind == "content" & d$bottom > 680) | d$right > 1281 | d$scroll > 0 | d$vscroll > 0, ]
 cat(sprintf("슬라이드 %d장 점검 — 문제 %d장\n", nrow(d), nrow(bad)))
-if (nrow(bad)) print(bad[, c("n", "title", "bottom", "right", "scroll")], row.names = FALSE)
+if (nrow(bad)) print(bad[, c("n", "title", "bottom", "right", "scroll", "vscroll")], row.names = FALSE)
 b$close()

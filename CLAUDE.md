@@ -29,7 +29,7 @@
 | `08-algorithms.qmd` | **개편 새 8장 (Quarto 시범 전환).** 현행 `06-algorithms.Rmd` 를 재구성 (정렬 4종, 뉴턴-랩슨의 통계 최적화) | 2235 |
 | `09-simulation.qmd` | **개편 새 9장 (Quarto).** 현행 `07-simulation.Rmd` 를 검증의 도구로 재구성. 슬라이드 `09-simulation-slides.qmd` | 1307 |
 | `11-data-import-export.qmd` | **개편 새 11장 (Quarto).** 현행 `09-file-import-export.Rmd` 를 현행화하고 원문 대조 검증을 중심으로 강화. 슬라이드 `11-data-import-export-slides.qmd`, 연습 파일 `dataset/ch11/` | 1689 |
-| `12-data-handling.qmd` | **개편 새 12장 (Quarto).** 현행 `10-data-manupulation.Rmd` 를 dplyr 1.2 기준으로 현행화하고, 변환마다 보존되어야 할 것(행 수, 합계, 키)을 대조하는 검증 중심으로 재구성. 슬라이드 `12-data-handling-slides.qmd`, 연습 파일 `dataset/ch12/` | 1894 |
+| `12-data-handling.qmd` | **개편 새 12장 (Quarto).** 현행 `10-data-manupulation.Rmd` 를 dplyr 1.2 기준으로 현행화하고, 변환마다 보존되어야 할 것(행 수, 합계, 키)을 대조하는 검증 중심으로 재구성. 함수는 현행 10장의 예제와 그림(mpg, 타이타닉, nycflights13, tidyr 내장 자료)으로 익히고, 도서관 가상 자료와 Gapminder 공개 자료로 검증한다. 슬라이드 `12-data-handling-slides.qmd`, 연습 파일 `dataset/ch12/` | 3071 |
 
 지원 폴더:
 
@@ -40,7 +40,7 @@
 - `init-funs/`, `code/`, `demo/`, `examples/`, `test/`, `misc/` : 보조 스크립트·실험용. 책에 포함되지 않음.
 - `2020/` : 초기 버전 아카이브 (gitignore). **수정 금지.**
 - `docs/`, `_bookdown_files/` : **생성물. 직접 편집 금지.**
-- `docs/preview/` : 개편 원고를 단독 렌더해 올려 두는 자리. `bash upgrade/render-preview.sh <장.qmd>` 가 만든다. bookdown 이 건드리지 않으므로 현행 사이트와 공존한다.
+- `docs/preview/` : 개편 원고를 단독 렌더해 올려 두는 자리. `bash upgrade/render-preview.sh <장.qmd>` 가 만든다. bookdown 이 건드리지 않으므로 현행 사이트와 공존한다. 렌더본은 그림을 `../figures/` 로 가리키므로, 스크립트가 렌더본이 쓰는 `figures/`·`images/`·`video/` 파일을 `docs/` 사본과 비교해 없거나 다르면 복사한다(2026-09-17). 새로 넣었거나 고친 그림이 `docs/figures` 의 옛 사본으로 보이던 문제 때문이다.
 - `upgrade/` : 업그레이드 작업 산출물. **`upgrade/curriculum-plan.md` (교과 재구성안)**, 감사 보고서 `upgrade/audit/`, 렌더 로그 `upgrade/logs/`.
 - `hub/` : 슬라이드 허브 페이지의 **원본**. `index.html` 은 손으로 편집하고, 주제 상세 `<장>.html` 은 `hub/topic-page.R` 이 생성한다. `bash hub/sync.sh` 로 `docs/hub/` 에 복사해 배포한다. `docs/` 는 렌더 산출물 폴더라 Quarto 전환 때 비워질 수 있으므로 원본을 밖에 둔다 (`docs/legacy/` 와 같은 이유).
 
@@ -108,10 +108,10 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
 
 | 장 | 상태 | 비고 |
 |---|---|---|
-| 새 8장 알고리즘 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `08-algorithms.qmd`, 슬라이드 `08-algorithms-slides.qmd`. 렌더본은 `docs/preview/` 아래 두 개. 감사 `upgrade/audit/06-algorithms.md` (발견 100건, 치명 20). 2026-09-12 정렬 4종과 뉴턴-랩슨의 통계 최적화(회귀·로지스틱 회귀·경사하강법) 추가 |
+| 새 8장 알고리즘 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `08-algorithms.qmd`, 슬라이드 `08-algorithms-slides.qmd`. 렌더본은 `docs/preview/` 아래 두 개. 감사 `upgrade/audit/06-algorithms.md` (발견 100건, 치명 20). 2026-09-12 정렬 4종과 뉴턴-랩슨의 통계 최적화(회귀·로지스틱 회귀·경사하강법) 추가. 2026-09-17 경사하강법 소절에 뉴턴-랩슨과의 차이를 보이는 그림 두 개(한 걸음을 정하는 방법, 평균제곱오차 등고선 위의 경로)를 넣었다. 노트는 경로를 렌더할 때 만든 GIF 로, 슬라이드는 클릭할 때마다 한 장면씩 넘기는 2장으로 보인다(슬라이드 60장) |
 | 새 9장 시뮬레이션 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `09-simulation.qmd`, 슬라이드 `09-simulation-slides.qmd` (2026-09-12). 렌더본은 `docs/preview/`. 감사 `upgrade/audit/07-simulation.md` (치명 4, 중요 18, 경미 34). "AI와 함께" 절의 응답 원문은 `ai-transcripts/09-simulation/` |
 | 새 11장 데이터 입출력 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `11-data-import-export.qmd`, 슬라이드 `11-data-import-export-slides.qmd` (2026-09-14). 연습 파일은 `dataset/ch11/` (교육용 가상 자료, `make-ch11-data.R` 로 재생성). 감사 `upgrade/audit/09-file-import-export.md` (치명 1, 중요 10, 경미 28). "AI와 함께" 응답 원문은 `ai-transcripts/11-data-import-export/` |
-| 새 12장 데이터 핸들링 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `12-data-handling.qmd`, 슬라이드 `12-data-handling-slides.qmd` (2026-09-17, 53장). 연습 파일은 `dataset/ch12/` (11장 도서관 20곳을 이어받은 가상 자료, `make-ch12-data.R`). 감사 `upgrade/audit/10-data-manupulation.md` (치명 3, 중요 15, 경미 42). "AI와 함께" 응답 원문은 `ai-transcripts/12-data-handling/`. dplyr 1.2.0 의 `filter_out()`, `recode_values()`, `replace_values()`, `.unmatched` 를 쓰므로 학생 환경의 dplyr 버전 확인 필요 |
+| 새 12장 데이터 핸들링 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `12-data-handling.qmd`, 슬라이드 `12-data-handling-slides.qmd` (2026-09-17, 69장). 첫 초안이 새 예제만 써서, 같은 날 강사 지적에 따라 1~4절, 5.1~5.2절, 6절을 현행 10장의 예제와 그림 13개로 바꾸고 7절에 Gapminder 통합 사례(단순 평균 대 인구 가중 평균, 발표된 세계 값과 대조)를 더했다. 도서관 자료는 5.3절 이후 결합 검증, 7절, AI 절에만 쓴다. 연습 파일은 `dataset/ch12/` (도서관 가상 자료 `make-ch12-data.R`, Gapminder 추출 `make-gapminder-data.R`). 감사 `upgrade/audit/10-data-manupulation.md` (치명 3, 중요 15, 경미 42). "AI와 함께" 응답 원문은 `ai-transcripts/12-data-handling/`. dplyr 1.2.0 의 `filter_out()`, `recode_values()`, `replace_values()`, `.unmatched` 를 쓰므로 학생 환경의 dplyr 버전 확인 필요 |
 | 현 10장 (구 데이터 핸들링) | **치명 3건 배포 중** | 새 12장으로 대체되기 전까지 공개 사이트에 남아 있음. "자동/수동 변속기" 표가 `am = factor(vs, …)` 라 실제로는 엔진 형태별 수치(398–405), `mean_hwy = mean(cty)` 로 고속 연비 열에 시내 연비(1036), "group_by() 뒤 동사는 모두 그룹별" 설명이 arrange() 에는 틀림(867–877). 감사 A-1~A-3 |
 | 현 7장 (구 시뮬레이션) | **치명 4건 배포 중** | 새 9장으로 대체되기 전까지 공개 사이트에 남아 있음. DBP 영분포 시뮬레이션이 두 군 평균차가 아닌 전체 평균을 씀, '귀무가설이 참일 때'라는 신뢰구간 시뮬레이션이 평균 0.75/2.33 으로 생성(실은 검정력), 쌍체 자료 `sleep` 을 독립 이표본으로 분석, `icons` 청크 오류. 감사 A-1~A-4 |
 | 현 6장 (구 알고리즘) | **치명 버그 3건 배포 중** | 새 8장으로 대체되기 전까지 공개 사이트에 그대로 남아 있음. `1:5*n` 연산자 우선순위, `rbinary_search` 탈출 조건, `newton_raphson` 미정의 객체. 감사 보고서 A-1~A-3 |
@@ -155,10 +155,11 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
     대본은 학생에게 말하는 글이므로 `~습니다` 체를 쓴다 (본문의 평서체 규칙은 노트 본문에만 적용).
   - **강의노트의 그림·도식을 슬라이드에도 싣는다.** 8장 기준: `figures/big-o-explain.png`,
     `function-call.png`, `recursive-function-call.png`, `recursive-sum-flows.png`,
-    `hanoi-problem.gif`, `hanoi-solution.gif`, `video/newton-raphson-ex.mp4`, 복잡도 증가 그래프(R 청크).
+    `hanoi-problem.gif`, `hanoi-solution.gif`, `video/newton-raphson-ex.mp4`, 복잡도 증가 그래프(R 청크),
+    경사하강법과 뉴턴-랩슨의 한 걸음 비교 그림과 등고선 위 경로(R 청크, 2026-09-17).
   - **슬라이드 채움 목표는 720px 대비 70~85%.** 60% 아래면 내용을 더하거나 옆 슬라이드와 합친다.
     측정은 `Rscript upgrade/slides-check.R docs/preview/<덱>.html <출력폴더>` 로 한다. 슬라이드마다 화면 PNG 와
-    `metrics.tsv`(내용 하단 · 오른쪽 끝 · 가로 스크롤 · 최소 글자)를 남긴다. 본문 슬라이드는 **하단 680px 이내**(꼬리말 선이 약 695px).
+    `metrics.tsv`(내용 하단 · 오른쪽 끝 · 가로 스크롤 · 코드 상자 세로 스크롤 · 최소 글자)를 남긴다. 본문 슬라이드는 **하단 680px 이내**(꼬리말 선이 약 695px).
     절 표지는 제목만 두지 않는다 — 번호·제목·의도·소절 목록·"이 절이 답하는 질문" 띠를 넣는다.
     예측(PRIMM) 슬라이드에는 **묻는 대상 코드나 수식을 함께** 실어 슬라이드 하나로 완결시킨다.
   - **투영 대비**: 본문·꼬리말·쪽번호·코드 주석 모두 배경 대비 4.5 이상을 지킨다. `$faint`(#8C8479)는
@@ -175,6 +176,11 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
     (8) 코드와 출력 상자가 여러 개 쌓여 하단 680px 을 넘으면 청크에 `#| collapse: true` 를 주어 코드와 출력을 한 상자로 합친다. 글자를 줄이는 것보다 먼저 쓴다.
     (9) 청크의 `#| code-overflow: wrap` 이 슬라이드에서 효과가 없었다. reveal 기본값이 `code` 에 `white-space: pre` 를 주기 때문이다. 테마에 `.reveal pre.code-overflow-wrap code { white-space: pre-wrap }` 를 넣어 이 옵션을 준 청크만 접히게 했다(2026-09-17). AI 생성 코드처럼 줄을 바꾸면 안 되는 코드에 쓴다.
     (10) 경고와 메시지 출력은 `linewidth` 로 접히지 않아 한 줄이 길면 가로 스크롤이 생긴다. 슬라이드에서는 `#| warning: false` 로 숨기고 경고의 요지를 본문에 적는다.
+    (11) 번호 목록 바로 뒤에 글머리표 목록을 두면 reveal.js 기본값(`ol`, `ul` 이 `inline-block`)이라 항목이 짧을 때 두 목록이 **옆으로 나란히** 붙는다. 각 목록을 `::: {}` 로 감싼다(2026-09-17, 12장 1.2).
+    (12) 문단이나 목록 항목이 `(a) 는` 처럼 괄호 친 글자로 시작하면 Pandoc 이 **알파벳 번호 목록**(`<ol type="a">`)으로 바꾼다. 노트와 슬라이드 모두 해당한다. 앞에 낱말을 두어 문장을 시작한다(`나라별 평균 (a) 는`).
+    (13) 코드 상자는 테마가 `max-height: 520px` 를 주어 출력이 길면 상자 **안에서 세로로 스크롤**되고 뒷부분이 잘린다. 하단 680px 검사에는 걸리지 않으므로 `slides-check.R` 이 `vscroll`(세로 스크롤이 생긴 코드 상자 수)도 센다(2026-09-17). 출력은 `pull()`, `table()`, `nrow()` 처럼 짧은 형태로 줄인다.
+    (14) R 청크 그림이 슬라이드의 **직계 자식**이면 Quarto 가 `class="r-stretch"` 를 붙인다. reveal 은 그림을 슬라이드에 들어올 때 불러오는데(`data-src`), 먼 슬라이드로 **바로 이동하면**(허브의 슬라이드 카드, 개요 화면) 그림을 불러오기 전에 높이를 계산해 **높이 0 으로 사라진다**. 헤드리스 크롬에서 1번에서 51번으로 이동해 확인했다(2026-09-17). 청크를 `::: {}` 로 감싸 자동 늘이기를 끈다. 9장 덱의 그림 5개(`running-plot`, `clt-plot`, `clt-skew-plot`, `ci-plot`, `skew-ci-plot`)가 이 상태이며, `clt-plot` 과 `ci-plot` 은 바로 이동했을 때 높이 0 을 재현했다(아직 고치지 않음). `slides-check.R` 은 그림을 다 불러올 때까지 기다린 뒤 잰다.
+    (15) **움직이는 그림**: `video/` 에 mp4 를 새로 넣지 않는다(작업 규칙 9). 노트는 청크에 `#| fig-show: animate`, `#| animation-hook: gifski` 를 주어 렌더할 때 GIF 를 만든다(8장 경로 그림 267 KB). 슬라이드는 발표자가 속도를 조절하도록 장면마다 PNG 를 `knitr::fig_path()` 에 저장하고 `results: asis` 로 `::: {.r-stack}` 안에 `{.fragment fragment-index="k"}` 그림을 내보낸다. 오른쪽 칸의 설명 문단에 같은 `fragment-index` 를 주면 장면과 함께 나타난다(8장 5.7).
 - 단일 장 렌더·배치: `bash upgrade/render-preview.sh 08-algorithms.qmd` → `docs/preview/`. 살아 있는 bookdown 사이트(`docs/` 루트)는 건드리지 않는다.
 - `_quarto.yml` 은 아직 만들지 않았다. 만드는 순간 `output-dir: docs` 가 현행 사이트를 덮으므로, **`migrate-to-quarto` 스킬 0단계(legacy 보존)를 먼저** 해야 한다.
 - **`bookdown-archive-2026-09-10` 태그는 처음 만든 기기에만 있다** (커밋 `a27a058`, 원격에 푸시하지 않음). 다른 기기의 `git tag -l` 에는 보이지 않는다.
@@ -272,6 +278,7 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
 - **개인정보로 보이는 명단 파일이 공개 저장소에 있다** (2026-09-14 발견, 강사 확인 필요). `dataset/students.txt`(이름·학번·이메일 39명), `dataset/room-allocation.txt`(이름·학번·학과 35명), `dataset/StudentList.xls`(이름·학번 35명), `data/stat-students.xlsx`(이름·학번·이메일 25명). 실제 학생 자료인지 확인해 가상 자료로 바꾸거나 지우고, 필요하면 git 이력에서도 제거한다. **새 원고와 AI 프롬프트에는 이 파일들을 쓰지 않는다.**
 - `output/` 폴더의 `all_obj.Rdata`, `pulse.rds`, `sub_obj.Rdata` 가 git 으로 추적되고 있어, 현행 9장을 렌더할 때마다 바뀐 이진 파일이 커밋에 섞인다. 현행 10장이 `output/pulse.rds` 에 기대고 있다(감사 B-9).
 - 현행 10장을 렌더하면 180줄이 git 추적 파일 `dataset/pulse.feather`(12.5 MB)를 다시 쓴다(감사 `upgrade/audit/10-data-manupulation.md`). 같은 장이 `output/pulse.rds`(9장 산출물)와 `dataset.zip` 에 없는 파일(gapminder xlsx, `tidyr-wide-ex01.csv`)에 기대고 있어 학생 환경에서 일부 줄이 실패한다.
+- 현행 10장의 그림 두 장에 표기 오류가 있었다(2026-09-17 확인). `figures/tidyr-pivot_longer.png` 의 셋째 조각 머리글이 V3 이 아니라 V2 였다: 같은 그림의 V3 글자를 옮겨 붙여 고쳤다(bookdown 판도 다시 렌더하면 반영). `figures/tidyr-gap-ex-01.png` 은 한국 2002년 1인당 GDP 를 22887.09 로 적었으나 자료는 22997.09 다: 새 12장은 이 그림 대신 실제 출력을 싣는다.
 
 - 모든 장에 동일한 knitr hook 보일러플레이트 약 30줄이 반복됨. 공통 파일(`_common.R`)로 추출 후보.
 - `gather/spread` 15회, `mutate_at/_if/_all` 계열 29회, `qplot` 5회, `feather` 5회, `..density..` 3회 등 실제로 superseded 된 관용구. (`%>%` 는 여기 해당하지 않음)
