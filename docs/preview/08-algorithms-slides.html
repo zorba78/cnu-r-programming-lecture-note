@@ -805,8 +805,8 @@
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code>         방식    초
-1   사전 할당 0.003
-2 이어 붙이기 3.224</code></pre>
+1   사전 할당 0.004
+2 이어 붙이기 3.156</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -933,29 +933,36 @@
 <p><strong>노트</strong></p>
 </div>
 <div class="callout-content">
-<p><span class="math inline">\(x \geq k\)</span> 인 모든 <span class="math inline">\(x\)</span> 에 대해 <span class="math inline">\(|f(x)| \leq C|g(x)|\)</span> 를 만족하는 상수 <span class="math inline">\(k\)</span>, <span class="math inline">\(C\)</span> 가 존재 <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(f(x) = \mathcal{O}(g(x))\)</span></p>
+<p><strong>정의</strong>: 상수 <span class="math inline">\(C\)</span>, <span class="math inline">\(k\)</span> 가 존재해<br>
+<span class="math inline">\(x \geq k\)</span> 인 모든 <span class="math inline">\(x\)</span> 에서 <span class="math inline">\(|f(x)| \leq C|g(x)|\)</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(f(x) = \mathcal{O}(g(x))\)</span>, “<span class="math inline">\(f\)</span> 는 <span class="math inline">\(g\)</span> 의 빅오”</p>
 </div>
 </div>
 </div>
+<p><span class="label label-slide">그림 읽기</span></p>
 <ul>
-<li><span class="math inline">\(n\)</span> 이 충분히 커지면 <strong>저차항은 영향력 상실</strong></li>
-<li>증가율이 가장 큰 항만 남음</li>
-<li><span class="math inline">\(g\)</span> 는 <span class="math inline">\(f\)</span> 의 <strong>점근적 상한</strong></li>
+<li><span class="math inline">\(f(x)\)</span>: 알고리즘의 실제 연산 횟수</li>
+<li><span class="math inline">\(Cg(x)\)</span>: 기준 함수 <span class="math inline">\(g\)</span> 에 상수 <span class="math inline">\(C\)</span> 를 곱한 선</li>
+<li><span class="math inline">\(k\)</span> 이후 (파란 구간): <span class="math inline">\(f(x)\)</span> 가 <span class="math inline">\(Cg(x)\)</span> 아래에 머묾</li>
+<li><span class="math inline">\(k\)</span> 이전: <span class="math inline">\(f(x)\)</span> 가 위에 있어도 무관</li>
 </ul>
+<div class="keypoint">
+<p><span class="math inline">\(n\)</span> 이 충분히 커지면 <strong>저차항은 영향력 상실</strong>, 증가율이 가장 큰 항만 남음</p>
+<p><span class="math inline">\(g\)</span> 는 <span class="math inline">\(f\)</span> 의 <strong>점근적 상한</strong></p>
+</div>
 </div><div class="column" style="width:46%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../figures/big-o-explain.png" style="width:100.0%"></p>
-<figcaption>어떤 지점 <span class="math inline">\(k\)</span> 를 넘어서면 <span class="math inline">\(Cg(x)\)</span> 가 <span class="math inline">\(f(x)\)</span> 를 계속 위에서 덮음</figcaption>
+<p><img data-src="../figures/big-o-explain-plot.png" class="quarto-figure quarto-figure-center" height="510"></p>
 </figure>
 </div>
 </div></div>
 <aside class="notes">
 <p>빅오 표기법입니다. 정의부터 보시죠.</p>
-<p>수식이 좀 무섭게 생겼는데, 오른쪽 그림을 보면 한 줄로 정리됩니다.</p>
-<p>파란 선이 f(x), 우리가 재려는 알고리즘의 실제 연산 횟수입니다. 빨간 선이 Cg(x), 우리가 고른 기준 함수에 상수를 곱한 겁니다.</p>
-<p>x축의 k 지점을 보세요. 그 지점을 넘어가면 빨간 선이 파란 선보다 계속 위에 있습니다. 한 번도 안 내려옵니다. 이럴 때 “f는 g의 빅오다” 라고 합니다.</p>
-<p>즉 g는 천장입니다. 아무리 나빠도 이 천장은 안 뚫는다.</p>
+<p>수식이 좀 무섭게 생겼는데, 오른쪽 그림을 보면 한 줄로 정리됩니다. 그림은 johngrib.github.io 의 빅오 표기법 글에서 가져왔습니다.</p>
+<p>끝이 파랗게 칠해진 곡선이 f(x), 우리가 재려는 알고리즘의 실제 연산 횟수입니다. 그 위로 가장 가파르게 올라가는 검은 선이 Cg(x), 우리가 고른 기준 함수 g 에 상수 C 를 곱한 겁니다. 맨 아래 선이 g(x) 자체입니다. g 는 f 보다 낮아도 됩니다. 상수 C 를 곱해 위로 올리면 되니까요.</p>
+<p>x축의 k 지점을 보세요. 두 곡선이 거기서 만나고, 그 뒤로는 f(x) 가 Cg(x) 아래에 있습니다. 파랗게 칠한 부분이 그 구간입니다. 한 번도 위로 올라오지 않습니다. 이럴 때 “f는 g의 빅오다” 라고 합니다. k 앞에서는 f(x) 가 Cg(x) 보다 위에 있지요. 그래도 상관없습니다.</p>
+<p>즉 Cg 가 천장입니다. k 를 넘어서면 f 는 이 천장을 뚫지 않습니다.</p>
 <p>여기서 중요한 게 “x가 k보다 클 때” 라는 조건입니다. 작을 때는 상관없어요. n이 10일 때 뭐가 빠른지는 아무도 신경 안 씁니다. n이 백만일 때가 문제지요. 그래서 빅오는 <strong>충분히 커졌을 때의 증가 양상</strong>만 봅니다. 저차항을 버리는 이유가 이겁니다.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2321,23 +2328,23 @@
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">500</td>
-<td style="text-align: right;">0.025</td>
+<td style="text-align: right;">0.023</td>
 <td style="text-align: right;">0.015</td>
-<td style="text-align: right;">0.015</td>
+<td style="text-align: right;">0.016</td>
 <td style="text-align: right;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1,000</td>
-<td style="text-align: right;">0.065</td>
-<td style="text-align: right;">0.036</td>
+<td style="text-align: right;">0.066</td>
+<td style="text-align: right;">0.037</td>
 <td style="text-align: right;">0.008</td>
 <td style="text-align: right;">0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2,000</td>
-<td style="text-align: right;">0.275</td>
-<td style="text-align: right;">0.114</td>
-<td style="text-align: right;">0.016</td>
+<td style="text-align: right;">0.273</td>
+<td style="text-align: right;">0.115</td>
+<td style="text-align: right;">0.018</td>
 <td style="text-align: right;">0.003</td>
 </tr>
 </tbody>
