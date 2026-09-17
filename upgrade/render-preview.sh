@@ -27,15 +27,29 @@ mv "${base}.html" "docs/preview/${base}.html"
 [ -d "${base}_files" ] && mv "${base}_files" "docs/preview/${base}_files"
 
 # docs/preview/ 에서 한 단계 올라가야 docs/figures, docs/video 를 만난다
-"${PYTHON:-python3}" - "$root/docs/preview/${base}.html" <<'PY'
-import io, sys
-p = sys.argv[1]
+"${PYTHON:-python3}" - "$root/docs/preview/${base}.html" "$root" <<'PY'
+import filecmp, io, os, re, shutil, sys
+p, root = sys.argv[1], sys.argv[2]
 s = io.open(p, encoding='utf-8').read()
 before = s
 for a in ('figures/', 'video/', 'images/'):
     s = s.replace(f'src="{a}', f'src="../{a}').replace(f"src='{a}", f"src='../{a}")
 io.open(p, 'w', encoding='utf-8', newline='\n').write(s)
 print(f"   상대경로 수정: {'변경 있음' if s != before else '변경 없음'}")
+
+# docs/figures 등은 bookdown 렌더가 채운 사본이라, 새로 넣었거나 고친 그림은 빠져 있거나 옛 판이다.
+# 렌더본이 가리키는 파일을 원본 폴더에서 docs/ 로 맞춰 둔다.
+copied = []
+for rel in sorted(set(re.findall(r'''src=["']\.\./((?:figures|video|images)/[^"'?#]+)''', s))):
+    src, dst = os.path.join(root, rel), os.path.join(root, 'docs', rel)
+    if not os.path.exists(src):
+        print(f"   경고: 원본이 없다: {rel}")
+        continue
+    if not os.path.exists(dst) or not filecmp.cmp(src, dst, shallow=False):
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        shutil.copy2(src, dst)
+        copied.append(rel)
+print(f"   그림 동기화: {', '.join(copied) if copied else '변경 없음'}")
 PY
 
 # 허브에 이 장의 주제 상세 화면이 있으면 새 렌더본으로 다시 만든다.
