@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>12 데이터 핸들링 — 강의 허브</title>
+<meta name="description" content="12 데이터 핸들링 — 슬라이드와 대응하는 강의노트 절을 나란히 보는 주제 상세 화면.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&amp;display=swap">
+<!-- 이 파일은 hub/topic-page.R 이 만든다. 손으로 고치지 말고 다시 생성한다. -->
+<script>document.documentElement.classList.add("js");</script>
+<style>
+  :root {
+    color-scheme: light;
+    --bg:#FAF7F2; --ink:#241F1A; --prose:#5C554C; --muted:#6E665C;
+    --faint:#8C8479; --line:#E4DCD0; --line-2:#D5CABB;
+    --panel:#F3EEE5; --panel-line:#C9BCA9; --card-line:#DCD3C6; --sel:#EAE0D1;
+    --note:#A64B32; --note-hover:#7E3624; --slide:#1F6F7A; --slide-hover:#155059;
+  }
+  * { box-sizing:border-box; }
+  [hidden] { display:none !important; }
+  html { -webkit-text-size-adjust:100%; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    -webkit-font-smoothing:antialiased; text-wrap:pretty;
+  }
+  a { color:var(--note); text-decoration:none; }
+  a:hover { color:var(--note-hover); }
+  .mono { font-family:'IBM Plex Mono','SFMono-Regular',ui-monospace,'Malgun Gothic','Apple SD Gothic Neo',monospace; }
+  .disp { font-family:'Hahmlet','Nanum Myeongjo','Apple SD Gothic Neo',serif; }
+  .wrap { max-width:1440px; margin:0 auto; }
+  :focus-visible { outline:2px solid var(--note); outline-offset:2px; }
+
+  /* 경로 */
+  .crumbs {
+    display:flex; justify-content:space-between; align-items:center; gap:8px 16px; flex-wrap:wrap;
+    padding:18px 72px; border-bottom:1px solid var(--line);
+    font-size:12px; letter-spacing:0.1em; color:var(--muted);
+  }
+  .crumbs a { color:var(--muted); }
+  .crumbs a:hover { color:var(--ink); }
+  .crumbs .sep { color:#C0B5A5; margin:0 6px; }
+  .crumbs .here { color:var(--ink); }
+
+  /* 제목 줄 */
+  .t-head {
+    display:flex; justify-content:space-between; align-items:flex-end; gap:24px 48px; flex-wrap:wrap;
+    padding:34px 72px 26px;
+  }
+  .t-name { display:flex; align-items:baseline; gap:20px; }
+  .t-num { font-size:34px; color:var(--note); }
+  .t-name h1 { margin:0; font-size:38px; font-weight:700; letter-spacing:-0.02em; }
+  .t-meta { margin-top:8px; font-size:13.5px; color:var(--muted); }
+  .t-act { display:flex; flex-direction:column; align-items:flex-end; gap:9px; }
+  .t-btns { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .btn { display:inline-flex; align-items:center; gap:9px; padding:12px 20px; font-size:14px; font-weight:500; }
+  .btn-slide { background:var(--slide); color:var(--bg); }
+  .btn-slide:hover { background:var(--slide-hover); color:var(--bg); }
+  .btn-line { border:1px solid var(--slide); color:var(--slide); padding:11px 18px; }
+  .btn-line:hover { background:rgba(31,111,122,0.07); color:var(--slide-hover); }
+  .btn-text { padding:12px 4px; color:var(--note); }
+  .t-hint { font-size:12px; color:var(--muted); }
+
+  /* 본문 두 칸 */
+  .t-grid {
+    display:grid; grid-template-columns:minmax(0,1fr) 460px; gap:48px;
+    padding:6px 72px 48px; align-items:start;
+  }
+  .t-left { display:flex; flex-direction:column; gap:20px; min-width:0; }
+  .stage {
+    background:#FFFFFF; border:1px solid var(--card-line);
+    box-shadow:0 1px 0 #EDE6DA, 0 12px 28px -18px rgba(36,31,26,0.35);
+  }
+  .stage-bar { height:5px; background:var(--slide); }
+  .stage-view { position:relative; aspect-ratio:16 / 9; overflow:hidden; background:#FFFFFF; }
+  .stage-view iframe { display:block; width:100%; height:100%; border:0; background:#FFFFFF; }
+  /* 덱을 원래 크기(1280×720)로 그리고 칸 폭에 맞춰 줄인다. 좁은 iframe 에 그대로 넣으면
+     reveal.js 가 폭 435px 아래에서 스크롤 보기로 바뀌어 카드를 눌러도 슬라이드가 넘어가지 않는다. */
+  .js .stage-view iframe {
+    position:absolute; top:0; left:0; width:1280px; height:720px;
+    transform-origin:0 0; transform:scale(var(--deck-scale, 0.6));
+  }
+  .stage-foot {
+    display:flex; justify-content:space-between; gap:6px 16px; flex-wrap:wrap;
+    padding:10px 14px; border-top:1px solid var(--line); font-size:12px; color:var(--muted);
+  }
+  .strip { display:flex; flex-direction:column; gap:11px; }
+  .strip-head {
+    display:flex; justify-content:space-between; align-items:baseline; gap:6px 12px; flex-wrap:wrap;
+    font-size:11px; letter-spacing:0.12em; color:var(--muted);
+  }
+  .strip-nav a { color:var(--muted); }
+  .strip-nav a:hover { color:var(--ink); }
+  .strip-nav .off { color:#C9BFB0; }
+  .cards { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:10px; }
+  .card {
+    display:flex; flex-direction:column; gap:5px; min-height:76px; padding:9px 11px;
+    background:#FFFFFF; border:1px solid var(--card-line); color:var(--prose);
+  }
+  .card:hover { border-color:var(--slide); color:var(--ink); }
+  .card-n { display:flex; justify-content:space-between; gap:6px; font-size:11px; color:var(--faint); }
+  .card-tag { color:var(--slide); letter-spacing:0.06em; }
+  .card-t {
+    font-size:13px; line-height:1.45; overflow:hidden;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+  }
+  .card.is-sec { background:var(--panel); }
+  .card.is-predict { border-left:3px solid var(--slide); padding-left:9px; }
+  .card.is-current { border:2px solid var(--slide); padding:8px 10px; color:var(--ink); }
+
+  /* 오른쪽 칸 */
+  aside.t-side {
+    display:flex; flex-direction:column; gap:22px; padding:26px;
+    background:var(--panel); border:1px solid var(--line);
+  }
+  .note { display:flex; flex-direction:column; gap:16px; }
+  .kicker { display:flex; align-items:center; gap:9px; font-size:11px; letter-spacing:0.16em; }
+  .sq { display:block; width:9px; height:9px; flex-shrink:0; }
+  .sq-note { background:var(--note); }
+  .sq-slide { background:var(--slide); }
+  .note > .kicker { color:var(--note); }
+  .n-head { display:flex; flex-direction:column; gap:5px; }
+  .n-title { font-size:21px; font-weight:700; }
+  .n-anchor { font-size:11.5px; color:var(--faint); }
+  .excerpt {
+    display:flex; flex-direction:column; gap:11px; padding-left:14px; border-left:2px solid #D9BFB4;
+    font-size:14px; line-height:1.8; color:#3A342C;
+  }
+  .excerpt p, .s-intro p { margin:0; }
+  .excerpt code, .s-intro code {
+    font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:13px; background:var(--sel); padding:1px 5px;
+  }
+  .subs { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+  .subs a { display:flex; gap:10px; align-items:baseline; padding:5px 0; font-size:13.5px; color:var(--prose); }
+  .subs a:hover { color:var(--note); }
+  .subs .mono { font-size:12px; color:var(--note); min-width:30px; }
+  .more { display:inline-flex; align-items:center; gap:8px; font-size:13.5px; font-weight:500; }
+  .none { margin:0; font-size:13.5px; color:var(--faint); }
+  .s-intro {
+    display:flex; flex-direction:column; gap:10px; border-top:1px solid var(--line-2); padding-top:18px;
+    font-size:14px; line-height:1.75; color:#3A342C;
+  }
+  .s-intro .kicker { color:var(--slide); }
+  .question {
+    display:flex; flex-direction:column; gap:4px; padding:10px 12px;
+    background:rgba(31,111,122,0.07); border-left:3px solid var(--slide);
+    font-size:14px; line-height:1.6; color:var(--ink);
+  }
+  .question .mono { font-size:10.5px; letter-spacing:0.14em; color:var(--slide); }
+  .decklist { display:flex; flex-direction:column; border-top:1px solid var(--line-2); padding-top:18px; }
+  .decklist-h { font-size:11px; letter-spacing:0.16em; color:var(--muted); padding-bottom:6px; }
+  .deckrow {
+    display:grid; grid-template-columns:86px 1fr 40px; gap:12px; align-items:baseline;
+    padding:9px 0; border-top:1px solid var(--line); color:var(--prose);
+  }
+  .decklist-h + .deckrow { border-top:none; }
+  .deckrow:hover { color:var(--ink); }
+  .dr-range { font-size:12px; color:var(--slide); }
+  .dr-title { font-size:13.5px; }
+  .dr-count { font-size:11.5px; color:var(--faint); text-align:right; }
+  .deckrow.is-current { background:var(--sel); margin:0 -10px; padding:9px 10px; border-top-color:transparent; color:var(--ink); }
+  .deckrow.is-current .dr-title { font-weight:600; }
+  .deckrow.is-current + .deckrow { border-top-color:transparent; }
+  .decklist-foot { padding-top:10px; font-size:11.5px; line-height:1.7; color:var(--faint); }
+
+  /* 푸터 */
+  footer {
+    display:grid; grid-template-columns:1fr 1fr 240px; gap:48px;
+    padding:32px 72px 52px; border-top:1px solid var(--ink);
+  }
+  .foot-col { display:flex; flex-direction:column; gap:7px; min-width:0; }
+  .foot-col:last-child { text-align:right; }
+  .foot-h { font-size:11px; letter-spacing:0.14em; color:var(--faint); }
+  .foot-col a, .foot-col .v { font-size:14px; overflow-wrap:anywhere; }
+  .foot-col .v { color:var(--prose); }
+
+  /* 반응형 */
+  @media (max-width:1100px) {
+    .crumbs, .t-head, .t-grid, footer { padding-left:40px; padding-right:40px; }
+    .t-grid { grid-template-columns:minmax(0,1fr); gap:32px; }
+    .t-act { align-items:flex-start; }
+    footer { grid-template-columns:1fr 1fr; }
+    .foot-col:last-child { grid-column:1 / -1; text-align:left; }
+  }
+  @media (max-width:760px) {
+    .crumbs, .t-head, .t-grid, footer { padding-left:16px; padding-right:16px; }
+    .crumbs { padding-top:14px; padding-bottom:14px; }
+    .t-head { padding-top:24px; }
+    .t-name { gap:14px; }
+    .t-num { font-size:26px; }
+    .t-name h1 { font-size:30px; }
+    .btn { padding:11px 14px; }
+    .btn-line { padding:10px 13px; }
+    .cards { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    aside.t-side { padding:20px 16px; }
+    .deckrow { grid-template-columns:78px 1fr 34px; }
+    footer { grid-template-columns:1fr; gap:22px; padding-bottom:40px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="crumbs">
+    <div class="mono"><a href="index.html">강의 허브</a><span class="sep">/</span><a href="index.html#ch12">PART 2 · 데이터 다루기</a><span class="sep">/</span><span class="here">12 데이터 핸들링</span></div>
+    <div class="mono">충남대학교 정보통계학과</div>
+  </div>
+
+  <header class="t-head">
+    <div class="t-name">
+      <span class="mono t-num">12</span>
+      <div>
+        <h1 class="disp">데이터 핸들링</h1>
+        <div class="t-meta">슬라이드 53장 · 강의노트 8개 절 · 개편 초안</div>
+      </div>
+    </div>
+    <div class="t-act">
+      <div class="t-btns">
+        <a class="btn btn-slide" href="../preview/12-data-handling-slides.html">슬라이드 열기 <span aria-hidden="true">&#8594;</span></a>
+        <a class="btn btn-line" href="../preview/12-data-handling-slides.html?print-pdf" target="_blank" rel="noopener">PDF로 저장</a>
+        <a class="btn btn-text" href="../preview/12-data-handling.html">강의노트에서 보기 <span aria-hidden="true">&#8594;</span></a>
+      </div>
+      <div class="t-hint">PDF로 저장: 인쇄용 화면이 열리면 Ctrl+P (맥은 ⌘P) → 대상을 ‘PDF로 저장’으로</div>
+    </div>
+  </header>
+
+  <div class="t-grid">
+    <div class="t-left">
+      <div class="stage">
+        <div class="stage-bar"></div>
+        <div class="stage-view"><iframe id="deck" name="deck" src="../preview/12-data-handling-slides.html#/%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%EB%AA%A8%EC%96%91" title="슬라이드 미리보기" allow="fullscreen"></iframe></div>
+        <div class="stage-foot"><span>미리보기 — 화면을 한 번 누른 뒤 ← → 키로 넘긴다</span><span>아래 카드를 누르면 그 슬라이드로 간다</span></div>
+      </div>
+<div class="strip" data-panel="1">
+  <div class="strip-head"><span class="mono">1 데이터의 모양 · S03–S06 · 4장</span><span class="mono strip-nav"><span class="off">&#9664; 이전 절</span> · <a href="#s2">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/12-data-handling-slides.html#/%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%EB%AA%A8%EC%96%91" target="deck" data-id="데이터의-모양"><span class="card-n mono"><span>S03</span><span class="card-tag">절 표지</span></span><span class="card-t">1 데이터의 모양</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%ED%95%9C-%ED%96%89%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80" target="deck" data-id="한-행은-무엇인가"><span class="card-n mono"><span>S04</span><span class="card-tag"></span></span><span class="card-t">1.1 한 행은 무엇인가</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EA%B0%99%EC%9D%80-%EC%A0%95%EB%B3%B4-%EB%8B%A4%EB%A5%B8-%EB%AA%A8%EC%96%91" target="deck" data-id="같은-정보-다른-모양"><span class="card-n mono"><span>S05</span><span class="card-tag"></span></span><span class="card-t">1.2 같은 정보, 다른 모양</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EC%A0%88%EC%B0%A8%EB%A5%BC-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%A1%9C-%EC%A0%81%EA%B8%B0" target="deck" data-id="절차를-파이프로-적기"><span class="card-n mono"><span>S06</span><span class="card-tag"></span></span><span class="card-t">1.3 절차를 파이프로 적기</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="2" hidden>
+  <div class="strip-head"><span class="mono">2 행과 열 고르기 · S07–S12 · 6장</span><span class="mono strip-nav"><a href="#s1">&#9664; 이전 절</a> · <a href="#s3">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/12-data-handling-slides.html#/%ED%96%89%EA%B3%BC-%EC%97%B4-%EA%B3%A0%EB%A5%B4%EA%B8%B0" target="deck" data-id="행과-열-고르기"><span class="card-n mono"><span>S07</span><span class="card-tag">절 표지</span></span><span class="card-t">2 행과 열 고르기</span></a>
+    <a class="card is-predict" href="../preview/12-data-handling-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90" target="deck" data-id="예측해-보자"><span class="card-n mono"><span>S08</span><span class="card-tag">예측</span></span><span class="card-t">8월 자료 21행을 대출권수 3만 권을 기준으로 두 조각으로 나누면, 두 조각의 행 수 합은?</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/filter-%EB%8A%94-true-%EC%9D%B8-%ED%96%89%EB%A7%8C-%EB%82%A8%EA%B8%B4%EB%8B%A4" target="deck" data-id="filter-는-true-인-행만-남긴다"><span class="card-n mono"><span>S09</span><span class="card-tag"></span></span><span class="card-t">2.1 filter() 는 TRUE 인 행만 남긴다</span></a>
+    <a class="card is-predict" href="../preview/12-data-handling-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-1" target="deck" data-id="예측해-보자-1"><span class="card-n mono"><span>S10</span><span class="card-tag">예측</span></span><span class="card-t">서울 도서관 3곳과 대전 도서관 2곳을 고르려는 두 코드: 결과가 같을까?</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EC%97%AC%EB%9F%AC-%EA%B0%92-%EA%B0%80%EC%9A%B4%EB%8D%B0-%ED%95%98%EB%82%98%EB%8A%94-in" target="deck" data-id="여러-값-가운데-하나는-in"><span class="card-n mono"><span>S11</span><span class="card-tag"></span></span><span class="card-t">2.1 여러 값 가운데 하나는 %in%</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EC%97%B4-%EA%B3%A0%EB%A5%B4%EA%B8%B0%EC%99%80-%EC%A0%95%EB%A0%AC" target="deck" data-id="열-고르기와-정렬"><span class="card-n mono"><span>S12</span><span class="card-tag"></span></span><span class="card-t">2.2–2.3 열 고르기와 정렬</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="3" hidden>
+  <div class="strip-head"><span class="mono">3 열 만들고 바꾸기 · S13–S18 · 6장</span><span class="mono strip-nav"><a href="#s2">&#9664; 이전 절</a> · <a href="#s4">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/12-data-handling-slides.html#/%EC%97%B4-%EB%A7%8C%EB%93%A4%EA%B3%A0-%EB%B0%94%EA%BE%B8%EA%B8%B0" target="deck" data-id="열-만들고-바꾸기"><span class="card-n mono"><span>S13</span><span class="card-tag">절 표지</span></span><span class="card-t">3 열 만들고 바꾸기</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/mutate-%EC%99%80-if_else" target="deck" data-id="mutate-와-if_else"><span class="card-n mono"><span>S14</span><span class="card-tag"></span></span><span class="card-t">3.1–3.2 mutate() 와 if_else()</span></a>
+    <a class="card is-predict" href="../preview/12-data-handling-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-2" target="deck" data-id="예측해-보자-2"><span class="card-n mono"><span>S15</span><span class="card-tag">예측</span></span><span class="card-t">열람석 300석 이상은 대형(5곳), 200석 이상은 중형, 나머지는 소형: 대형은 몇 곳이 될까?</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/case_when-%EC%A2%81%EC%9D%80-%EC%A1%B0%EA%B1%B4%EB%B6%80%ED%84%B0" target="deck" data-id="case_when-좁은-조건부터"><span class="card-n mono"><span>S16</span><span class="card-tag"></span></span><span class="card-t">3.2 case_when(): 좁은 조건부터</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/recode_values-%EC%99%80-replace_values" target="deck" data-id="recode_values-와-replace_values"><span class="card-n mono"><span>S17</span><span class="card-tag"></span></span><span class="card-t">3.3 recode_values() 와 replace_values()</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/across-%EC%97%AC%EB%9F%AC-%EC%97%B4%EC%97%90-%ED%95%9C-%EB%B2%88%EC%97%90" target="deck" data-id="across-여러-열에-한-번에"><span class="card-n mono"><span>S18</span><span class="card-tag"></span></span><span class="card-t">3.4 across(): 여러 열에 한 번에</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="4" hidden>
+  <div class="strip-head"><span class="mono">4 집단별로 요약하기 · S19–S26 · 8장</span><span class="mono strip-nav"><a href="#s3">&#9664; 이전 절</a> · <a href="#s5">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/12-data-handling-slides.html#/%EC%A7%91%EB%8B%A8%EB%B3%84%EB%A1%9C-%EC%9A%94%EC%95%BD%ED%95%98%EA%B8%B0" target="deck" data-id="집단별로-요약하기"><span class="card-n mono"><span>S19</span><span class="card-tag">절 표지</span></span><span class="card-t">4 집단별로 요약하기</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/summarise-%EC%99%80-.by" target="deck" data-id="summarise-와-.by"><span class="card-n mono"><span>S20</span><span class="card-tag"></span></span><span class="card-t">4.1 summarise() 와 .by</span></a>
+    <a class="card is-predict" href="../preview/12-data-handling-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-3" target="deck" data-id="예측해-보자-3"><span class="card-n mono"><span>S21</span><span class="card-tag">예측</span></span><span class="card-t">각 도서관이 그 달 대출에서 차지한 비중을 구한 뒤, 전체 월 대출권수의 평균을 구함: 마지막 줄의 결과는…</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/group_by-%EB%8A%94-%EB%82%A8%EB%8A%94%EB%8B%A4" target="deck" data-id="group_by-는-남는다"><span class="card-n mono"><span>S22</span><span class="card-tag"></span></span><span class="card-t">4.2 group_by() 는 남는다</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EA%B0%9C%EC%88%98-%EC%84%B8%EA%B8%B0-n-%EC%99%80-count" target="deck" data-id="개수-세기-n-와-count"><span class="card-n mono"><span>S23</span><span class="card-tag"></span></span><span class="card-t">4.3 개수 세기: n() 와 count()</span></a>
+    <a class="card is-predict" href="../preview/12-data-handling-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-4" target="deck" data-id="예측해-보자-4"><span class="card-n mono"><span>S24</span><span class="card-tag">예측</span></span><span class="card-t">여울도서관의 분기별 대출권수와 값이 있는 달의 수를 한 번에: 값있는달 에는 어떤 수가?</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EC%95%9E%EC%97%90%EC%84%9C-%EB%A7%8C%EB%93%A0-%EC%9D%B4%EB%A6%84%EC%9D%80-%EB%92%A4%EC%97%90%EC%84%9C-%EC%83%88-%EA%B0%92" target="deck" data-id="앞에서-만든-이름은-뒤에서-새-값"><span class="card-n mono"><span>S25</span><span class="card-tag"></span></span><span class="card-t">4.3 앞에서 만든 이름은 뒤에서 새 값</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EA%B2%B0%EC%B8%A1%EA%B3%BC-%EC%9A%94%EC%95%BD" target="deck" data-id="결측과-요약"><span class="card-n mono"><span>S26</span><span class="card-tag"></span></span><span class="card-t">4.4 결측과 요약</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="5" hidden>
+  <div class="strip-head"><span class="mono">5 표 합치기 · S27–S36 · 10장</span><span class="mono strip-nav"><a href="#s4">&#9664; 이전 절</a> · <a href="#s6">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/12-data-handling-slides.html#/%ED%91%9C-%ED%95%A9%EC%B9%98%EA%B8%B0" target="deck" data-id="표-합치기"><span class="card-n mono"><span>S27</span><span class="card-tag">절 표지</span></span><span class="card-t">5 표 합치기</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%ED%82%A4-%ED%96%89%EC%9D%84-%EC%8B%9D%EB%B3%84%ED%95%98%EB%8A%94-%EC%97%B4" target="deck" data-id="키-행을-식별하는-열"><span class="card-n mono"><span>S28</span><span class="card-tag"></span></span><span class="card-t">5.1 키: 행을 식별하는 열</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EA%B2%B0%ED%95%A9%EC%9D%98-%EC%A2%85%EB%A5%98" target="deck" data-id="결합의-종류"><span class="card-n mono"><span>S29</span><span class="card-tag"></span></span><span class="card-t">5.2 결합의 종류</span></a>
+    <a class="card is-predict" href="../preview/12-data-handling-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-5" target="deck" data-id="예측해-보자-5"><span class="card-n mono"><span>S30</span><span class="card-tag">예측</span></span><span class="card-t">긴 대출 표(168행)에 기본 정보의 시도를 붙임: 두 결과는 각각 몇 행?</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/inner_join-%EC%9D%80-%EC%A1%B0%EC%9A%A9%ED%9E%88-%EB%B2%84%EB%A6%B0%EB%8B%A4" target="deck" data-id="inner_join-은-조용히-버린다"><span class="card-n mono"><span>S31</span><span class="card-tag"></span></span><span class="card-t">5.2 inner_join() 은 조용히 버린다</span></a>
+    <a class="card is-predict" href="../preview/12-data-handling-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-6" target="deck" data-id="예측해-보자-6"><span class="card-n mono"><span>S32</span><span class="card-tag">예측</span></span><span class="card-t">기본 정보 표(20행)에 인구 표를 붙임: 결과는 몇 행이고, 인구가 NA 인 행은 몇 개?</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EA%B2%B0%ED%95%A9%EC%9D%B4-%ED%96%89-%EC%88%98%EB%A5%BC-%EB%B0%94%EA%BE%B8%EB%8A%94-%EB%91%90-%EA%B2%BD%EC%9A%B0" target="deck" data-id="결합이-행-수를-바꾸는-두-경우"><span class="card-n mono"><span>S33</span><span class="card-tag"></span></span><span class="card-t">5.3 결합이 행 수를 바꾸는 두 경우</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EB%8A%98%EC%96%B4%EB%82%9C-%ED%96%89%EC%9D%80-%ED%95%A9%EA%B3%84%EB%A5%BC-%EB%B6%80%ED%92%80%EB%A6%B0%EB%8B%A4" target="deck" data-id="늘어난-행은-합계를-부풀린다"><span class="card-n mono"><span>S34</span><span class="card-tag"></span></span><span class="card-t">5.3 늘어난 행은 합계를 부풀린다</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EA%B0%80%EC%A0%95%EC%9D%84-%EC%BD%94%EB%93%9C%EC%97%90-%EC%A0%81%EA%B8%B0-relationship-%EA%B3%BC-unmatched" target="deck" data-id="가정을-코드에-적기-relationship-과-unmatched"><span class="card-n mono"><span>S35</span><span class="card-tag"></span></span><span class="card-t">5.4 가정을 코드에 적기: relationship 과 unmatched</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EA%B3%A0%EC%B9%98%EA%B3%A0-%EB%8B%A4%EC%8B%9C-%EA%B2%B0%ED%95%A9-%ED%96%89-%EB%B6%99%EC%9D%B4%EA%B8%B0" target="deck" data-id="고치고-다시-결합-행-붙이기"><span class="card-n mono"><span>S36</span><span class="card-tag"></span></span><span class="card-t">5.4–5.5 고치고 다시 결합, 행 붙이기</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="6" hidden>
+  <div class="strip-head"><span class="mono">6 모양 바꾸기 · S37–S41 · 5장</span><span class="mono strip-nav"><a href="#s5">&#9664; 이전 절</a> · <a href="#s7">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/12-data-handling-slides.html#/%EB%AA%A8%EC%96%91-%EB%B0%94%EA%BE%B8%EA%B8%B0" target="deck" data-id="모양-바꾸기"><span class="card-n mono"><span>S37</span><span class="card-tag">절 표지</span></span><span class="card-t">6 모양 바꾸기</span></a>
+    <a class="card is-predict" href="../preview/12-data-handling-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-7" target="deck" data-id="예측해-보자-7"><span class="card-n mono"><span>S38</span><span class="card-tag">예측</span></span><span class="card-t">열 이름 “2026.01” 을 점에서 나눠 연도와 월 두 열로: 첫 행의 연도 와 월 은?</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/pivot_longer-%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D%EA%B3%BC-%EA%B2%B0%EC%B8%A1" target="deck" data-id="pivot_longer-정규표현식과-결측"><span class="card-n mono"><span>S39</span><span class="card-tag"></span></span><span class="card-t">6.1 pivot_longer(): 정규표현식과 결측</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/pivot_wider-%EC%99%80-%ED%82%A4-%EC%A4%91%EB%B3%B5" target="deck" data-id="pivot_wider-와-키-중복"><span class="card-n mono"><span>S40</span><span class="card-tag"></span></span><span class="card-t">6.2 pivot_wider() 와 키 중복</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EC%99%95%EB%B3%B5-%EA%B2%80%EC%82%AC-%ED%95%9C-%EC%97%B4%EC%9D%84-%EB%82%98%EB%88%84%EA%B3%A0-%ED%95%A9%EC%B9%98%EA%B8%B0" target="deck" data-id="왕복-검사-한-열을-나누고-합치기"><span class="card-n mono"><span>S41</span><span class="card-tag"></span></span><span class="card-t">6.3–6.4 왕복 검사, 한 열을 나누고 합치기</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="7" hidden>
+  <div class="strip-head"><span class="mono">7 변환 절차 검증하기 · S42–S45 · 4장</span><span class="mono strip-nav"><a href="#s6">&#9664; 이전 절</a> · <a href="#s8">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/12-data-handling-slides.html#/%EB%B3%80%ED%99%98-%EC%A0%88%EC%B0%A8-%EA%B2%80%EC%A6%9D%ED%95%98%EA%B8%B0" target="deck" data-id="변환-절차-검증하기"><span class="card-n mono"><span>S42</span><span class="card-tag">절 표지</span></span><span class="card-t">7 변환 절차 검증하기</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EB%AC%B4%EC%97%87%EC%9D%B4-%EB%B3%B4%EC%A1%B4%EB%90%98%EC%96%B4%EC%95%BC-%ED%95%98%EB%8A%94%EA%B0%80-%EB%B6%88%EB%B3%80%EB%9F%89" target="deck" data-id="무엇이-보존되어야-하는가-불변량"><span class="card-n mono"><span>S43</span><span class="card-tag"></span></span><span class="card-t">7.1 무엇이 보존되어야 하는가: 불변량</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EB%8B%A8%EA%B3%84%EB%A7%88%EB%8B%A4-%EB%8C%80%EC%A1%B0%ED%95%98%EB%A9%B0-%EC%8B%9C%EB%8F%84%EB%B3%84-%ED%91%9C-%EB%A7%8C%EB%93%A4%EA%B8%B0" target="deck" data-id="단계마다-대조하며-시도별-표-만들기"><span class="card-n mono"><span>S44</span><span class="card-tag"></span></span><span class="card-t">7.2 단계마다 대조하며 시도별 표 만들기</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EA%B2%80%EC%A6%9D%EC%9D%84-%EC%BD%94%EB%93%9C%EB%A1%9C-%EB%82%A8%EA%B8%B0%EA%B8%B0" target="deck" data-id="검증을-코드로-남기기"><span class="card-n mono"><span>S45</span><span class="card-tag"></span></span><span class="card-t">7.3 검증을 코드로 남기기</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="8" hidden>
+  <div class="strip-head"><span class="mono">8 AI와 함께: 데이터 변환 코드의 검증 · S46–S52 · 7장</span><span class="mono strip-nav"><a href="#s7">&#9664; 이전 절</a> · <span class="off">다음 절 &#9654;</span></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/12-data-handling-slides.html#/ai%EC%99%80-%ED%95%A8%EA%BB%98-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B3%80%ED%99%98-%EC%BD%94%EB%93%9C%EC%9D%98-%EA%B2%80%EC%A6%9D" target="deck" data-id="ai와-함께-데이터-변환-코드의-검증"><span class="card-n mono"><span>S46</span><span class="card-tag">절 표지</span></span><span class="card-t">8 AI와 함께: 데이터 변환 코드의 검증</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EC%9E%91%EC%97%85-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%EB%AC%B4%EC%97%87%EC%9D%84-%EB%B6%99%EC%97%AC-%EB%84%A3%EC%97%88%EB%82%98" target="deck" data-id="작업-요구사항-무엇을-붙여-넣었나"><span class="card-n mono"><span>S47</span><span class="card-tag"></span></span><span class="card-t">8.1 작업 요구사항: 무엇을 붙여 넣었나</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/ai-%EA%B0%80-%EC%83%9D%EC%84%B1%ED%95%9C-%EC%BD%94%EB%93%9C" target="deck" data-id="ai-가-생성한-코드"><span class="card-n mono"><span>S48</span><span class="card-tag"></span></span><span class="card-t">8.2 AI 가 생성한 코드</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/ai-%EC%9D%98-%ED%99%95%EC%9D%B8-%ED%95%99%EC%83%9D%EC%9D%98-%EC%88%98%EC%A0%95" target="deck" data-id="ai-의-확인-학생의-수정"><span class="card-n mono"><span>S49</span><span class="card-tag"></span></span><span class="card-t">8.3 AI 의 확인, 학생의 수정</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EB%B6%88%EB%B3%80%EB%9F%89%EC%9C%BC%EB%A1%9C-%EB%8C%80%EC%A1%B0" target="deck" data-id="불변량으로-대조"><span class="card-n mono"><span>S50</span><span class="card-tag"></span></span><span class="card-t">8.3 불변량으로 대조</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/ai-%EA%B0%80-%EB%B3%B4%EC%A7%80-%EB%AA%BB%ED%95%9C-%EB%B6%80%EB%B6%84" target="deck" data-id="ai-가-보지-못한-부분"><span class="card-n mono"><span>S51</span><span class="card-tag"></span></span><span class="card-t">8.4 AI 가 보지 못한 부분</span></a>
+    <a class="card" href="../preview/12-data-handling-slides.html#/%EB%B0%9B%EC%9D%80-%EA%B2%B0%EA%B3%BC%ED%91%9C%EB%A5%BC-%ED%99%95%EC%9D%B8%ED%95%98%EB%8A%94-%EC%88%9C%EC%84%9C" target="deck" data-id="받은-결과표를-확인하는-순서"><span class="card-n mono"><span>S52</span><span class="card-tag"></span></span><span class="card-t">8.4 받은 결과표를 확인하는 순서</span></a>
+  </div>
+</div>
+    </div>
+
+    <aside class="t-side">
+<div class="note" data-panel="1">
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">1 데이터의 모양</div><div class="mono n-anchor">§ #sec-data-shape</div></div>
+<div class="excerpt"><p>변환을 시작하기 전에 표가 어떻게 생겼는지부터 정한다. 같은 정보도 여러 모양의 표에 담을 수 있고, 모양에 따라 쉬운 계산과 어려운 계산이 갈린다.</p></div>
+<ul class="subs"><li><a href="../preview/12-data-handling.html#sec-row-unit"><span class="mono">1.1</span><span>한 행은 무엇인가</span></a></li><li><a href="../preview/12-data-handling.html#sec-tidy"><span class="mono">1.2</span><span>같은 정보, 다른 모양</span></a></li><li><a href="../preview/12-data-handling.html#sec-pipe"><span class="mono">1.3</span><span>절차를 파이프로 적기</span></a></li></ul>
+<a class="more" href="../preview/12-data-handling.html#sec-data-shape">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>표를 바꾸기 전에 <strong>한 행이 무엇인지</strong> 정하기</p><p>같은 정보를 담는 <strong>넓은 표와 긴 표</strong></p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 이 표의 한 행은 무엇이고, 그 말이 맞는가?</div>
+</div>
+</div>
+<div class="note" data-panel="2" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">2 행과 열 고르기</div><div class="mono n-anchor">§ #sec-rows-cols</div></div>
+<div class="excerpt"><p>표에서 필요한 부분만 남기는 함수들이다. <code>filter()</code> 는 행을, <code>select()</code> 는 열을 고르고, <code>arrange()</code> 는 행의 순서를 바꾼다. 이 가운데 <strong>행 수를 바꾸는 것은 <code>filter()</code> 뿐</strong>이므로 조용히 틀리는 곳도 대부분 여기서 생긴다.</p></div>
+<ul class="subs"><li><a href="../preview/12-data-handling.html#sec-filter"><span class="mono">2.1</span><span>filter(): 조건에 맞는 행</span></a></li><li><a href="../preview/12-data-handling.html#sec-select"><span class="mono">2.2</span><span>select() 와 rename(): 열 고르기</span></a></li><li><a href="../preview/12-data-handling.html#arrange-와-slice_-정렬과-상위-행-sec-arrange"><span class="mono">2.3</span><span>arrange() 와 slice_*(): 정렬과 상위 행 {#sec-arrange}</span></a></li></ul>
+<a class="more" href="../preview/12-data-handling.html#sec-rows-cols">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>필요한 행과 열만 남기기</p><p><strong>행 수를 바꾸는 함수는 filter() 뿐</strong>: 조용한 오류도 여기서</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 조건으로 나눈 조각들의 행 수를 더하면 원래 행 수인가?</div>
+</div>
+</div>
+<div class="note" data-panel="3" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">3 열 만들고 바꾸기</div><div class="mono n-anchor">§ #sec-mutate</div></div>
+<div class="excerpt"><p><code>mutate()</code> 는 기존 열로 새 열을 만들거나 기존 열을 바꾼다. 행 수는 바뀌지 않지만, 값을 정하는 규칙이 틀리면 모든 행이 조용히 틀린다.</p></div>
+<ul class="subs"><li><a href="../preview/12-data-handling.html#sec-mutate-basic"><span class="mono">3.1</span><span>mutate()</span></a></li><li><a href="../preview/12-data-handling.html#sec-case-when"><span class="mono">3.2</span><span>조건에 따라 값 정하기: if_else() 와 case_when()</span></a></li><li><a href="../preview/12-data-handling.html#sec-recode"><span class="mono">3.3</span><span>값을 다른 값으로: recode_values() 와 replace_values()</span></a></li><li><a href="../preview/12-data-handling.html#sec-across"><span class="mono">3.4</span><span>여러 열에 한 번에: across()</span></a></li></ul>
+<a class="more" href="../preview/12-data-handling.html#sec-mutate">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>기존 열로 <strong>새 열</strong>을 만들거나 바꾸기</p><p>행 수는 그대로, 규칙이 틀리면 <strong>모든 행이</strong> 조용히 틀림</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 조건을 적은 순서와 빠뜨린 경우가 결과를 어떻게 바꾸는가?</div>
+</div>
+</div>
+<div class="note" data-panel="4" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">4 집단별로 요약하기</div><div class="mono n-anchor">§ #sec-summarise</div></div>
+<div class="excerpt"><p><code>summarise()</code> 는 여러 행을 한 행으로 줄인다. 집단을 지정하면 집단마다 한 행이 된다. 요약은 행을 줄이므로, <strong>줄어든 행들이 원래 행을 빠짐없이 한 번씩 대표하는지</strong> 확인하는 일이 중요하다.</p></div>
+<ul class="subs"><li><a href="../preview/12-data-handling.html#sec-summarise-by"><span class="mono">4.1</span><span>summarise() 와 .by</span></a></li><li><a href="../preview/12-data-handling.html#sec-group-by"><span class="mono">4.2</span><span>group_by() 는 남는다</span></a></li><li><a href="../preview/12-data-handling.html#sec-count"><span class="mono">4.3</span><span>개수 세기: n() 와 count()</span></a></li><li><a href="../preview/12-data-handling.html#sec-na-summary"><span class="mono">4.4</span><span>결측과 요약</span></a></li><li><a href="../preview/12-data-handling.html#sec-reframe"><span class="mono">4.5</span><span>한 집단에서 여러 행: reframe()</span></a></li></ul>
+<a class="more" href="../preview/12-data-handling.html#sec-summarise">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>여러 행을 <strong>한 행으로</strong> 줄이기</p><p>줄어든 행이 원래 행을 <strong>빠짐없이 한 번씩</strong> 대표하는가</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 집단 합계의 합은 전체 합계인가?</div>
+</div>
+</div>
+<div class="note" data-panel="5" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">5 표 합치기</div><div class="mono n-anchor">§ #sec-joins</div></div>
+<div class="excerpt"><p>시도별 인구 1만 명당 대출권수를 구하려면 대출(대출 표), 소속 시도(기본 정보 표), 인구(인구 표)가 모두 필요하다. 세 정보는 서로 다른 표에 있다. 두 표를 <strong>키</strong>로 짝지어 한 표로 만드는 것을 <strong>결합</strong>(join)이라 한다. 결합은 데이터 핸들링에서 행 수가 가장 크게, 가장 조용히 바뀌는 곳이다.</p></div>
+<ul class="subs"><li><a href="../preview/12-data-handling.html#sec-keys"><span class="mono">5.1</span><span>키: 행을 식별하는 열</span></a></li><li><a href="../preview/12-data-handling.html#sec-join-types"><span class="mono">5.2</span><span>결합의 종류</span></a></li><li><a href="../preview/12-data-handling.html#sec-join-rows"><span class="mono">5.3</span><span>결합이 행 수를 바꾸는 두 경우</span></a></li><li><a href="../preview/12-data-handling.html#sec-join-assert"><span class="mono">5.4</span><span>가정을 코드에 적기: relationship 과 unmatched</span></a></li><li><a href="../preview/12-data-handling.html#sec-bind-rows"><span class="mono">5.5</span><span>행 붙이기: bind_rows()</span></a></li></ul>
+<a class="more" href="../preview/12-data-handling.html#sec-joins">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p><strong>키</strong>로 두 표를 짝지어 열을 붙이기</p><p>행 수가 <strong>가장 크게, 가장 조용히</strong> 바뀌는 곳</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 합친 뒤의 행 수는 왜 달라졌는가?</div>
+</div>
+</div>
+<div class="note" data-panel="6" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">6 모양 바꾸기</div><div class="mono n-anchor">§ #sec-pivot</div></div>
+<div class="excerpt"><p><a href="../preview/12-data-handling.html#sec-tidy">섹션 1.2</a> 에서 넓은 표를 긴 표로 한 번 바꾸었다. 이 절에서는 두 방향의 변환을 자세히 보고, 모양을 바꾼 뒤 정보가 그대로인지 확인하는 방법을 다룬다.</p></div>
+<ul class="subs"><li><a href="../preview/12-data-handling.html#sec-pivot-longer"><span class="mono">6.1</span><span>넓은 표를 긴 표로: pivot_longer()</span></a></li><li><a href="../preview/12-data-handling.html#sec-pivot-wider"><span class="mono">6.2</span><span>긴 표를 넓은 표로: pivot_wider()</span></a></li><li><a href="../preview/12-data-handling.html#sec-pivot-roundtrip"><span class="mono">6.3</span><span>왕복 검사</span></a></li><li><a href="../preview/12-data-handling.html#sec-separate"><span class="mono">6.4</span><span>한 열을 나누고 합치기</span></a></li></ul>
+<a class="more" href="../preview/12-data-handling.html#sec-pivot">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>넓은 표와 긴 표 사이를 <strong>오가기</strong></p><p>모양을 바꾼 뒤 <strong>정보가 그대로인지</strong> 왕복으로 확인</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 되돌린 표는 처음 표와 같은가?</div>
+</div>
+</div>
+<div class="note" data-panel="7" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">7 변환 절차 검증하기</div><div class="mono n-anchor">§ #sec-verify-transform</div></div>
+<div class="excerpt"><p>지금까지 변환마다 <strong>보존되어야 할 것</strong>을 정하고 대조했다. 이 절에서는 그 대조를 모아 하나의 절차로 만든다. 목표는 “시도별 2026년 1~8월 총 대출권수와 인구 1만 명당 대출권수” 표다.</p></div>
+<ul class="subs"><li><a href="../preview/12-data-handling.html#sec-invariants"><span class="mono">7.1</span><span>무엇이 보존되어야 하는가</span></a></li><li><a href="../preview/12-data-handling.html#sec-step-checks"><span class="mono">7.2</span><span>단계마다 대조하며 시도별 표 만들기</span></a></li><li><a href="../preview/12-data-handling.html#sec-transform-assert"><span class="mono">7.3</span><span>검증을 코드로 남기기</span></a></li></ul>
+<a class="more" href="../preview/12-data-handling.html#sec-verify-transform">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>변환마다 <strong>보존되어야 할 것</strong>을 모아 하나의 절차로</p><p>목표: 시도별 <strong>인구 1만 명당 대출권수</strong></p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 결과표가 맞는지 무엇으로 아는가?</div>
+</div>
+</div>
+<div class="note" data-panel="8" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">8 AI와 함께: 데이터 변환 코드의 검증</div><div class="mono n-anchor">§ #sec-ai-handling</div></div>
+<div class="excerpt"><p><strong>이 절의 목표</strong>: AI 에게 여러 표를 합쳐 요약하는 코드를 요청하고, 생성된 코드의 결과를 <a href="../preview/12-data-handling.html#sec-verify-transform">섹션 7</a> 의 불변량으로 검증한다. AI 가 넣어 준 확인 코드가 <strong>무엇을 확인하지 않는지</strong> 찾아낸다.</p></div>
+<ul class="subs"><li><a href="../preview/12-data-handling.html#sec-ai-handling-spec"><span class="mono">8.1</span><span>작업 요구사항</span></a></li><li><a href="../preview/12-data-handling.html#sec-ai-handling-gen"><span class="mono">8.2</span><span>AI 가 생성한 코드</span></a></li><li><a href="../preview/12-data-handling.html#sec-ai-handling-verify"><span class="mono">8.3</span><span>검증</span></a></li><li><a href="../preview/12-data-handling.html#sec-ai-handling-gaps"><span class="mono">8.4</span><span>AI 가 보지 못한 부분</span></a></li><li><a href="../preview/12-data-handling.html#sec-ai-handling-practice"><span class="mono">8.5</span><span>연습</span></a></li></ul>
+<a class="more" href="../preview/12-data-handling.html#sec-ai-handling">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>AI 가 짠 변환 코드를 <strong>불변량</strong>으로 검증</p><p>AI 가 넣어 준 <strong>확인 코드가 확인하지 않는 것</strong> 찾기</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: AI 의 확인을 통과한 결과는 맞는가?</div>
+</div>
+</div>
+      <nav class="decklist" aria-label="이 덱의 절">
+        <div class="mono decklist-h">이 덱의 절</div>
+        <a class="deckrow is-current" href="#s1" data-sec="1" aria-current="true"><span class="mono dr-range">S03–S06</span><span class="dr-title">1 데이터의 모양</span><span class="mono dr-count">4장</span></a>
+        <a class="deckrow" href="#s2" data-sec="2"><span class="mono dr-range">S07–S12</span><span class="dr-title">2 행과 열 고르기</span><span class="mono dr-count">6장</span></a>
+        <a class="deckrow" href="#s3" data-sec="3"><span class="mono dr-range">S13–S18</span><span class="dr-title">3 열 만들고 바꾸기</span><span class="mono dr-count">6장</span></a>
+        <a class="deckrow" href="#s4" data-sec="4"><span class="mono dr-range">S19–S26</span><span class="dr-title">4 집단별로 요약하기</span><span class="mono dr-count">8장</span></a>
+        <a class="deckrow" href="#s5" data-sec="5"><span class="mono dr-range">S27–S36</span><span class="dr-title">5 표 합치기</span><span class="mono dr-count">10장</span></a>
+        <a class="deckrow" href="#s6" data-sec="6"><span class="mono dr-range">S37–S41</span><span class="dr-title">6 모양 바꾸기</span><span class="mono dr-count">5장</span></a>
+        <a class="deckrow" href="#s7" data-sec="7"><span class="mono dr-range">S42–S45</span><span class="dr-title">7 변환 절차 검증하기</span><span class="mono dr-count">4장</span></a>
+        <a class="deckrow" href="#s8" data-sec="8"><span class="mono dr-range">S46–S52</span><span class="dr-title">8 AI와 함께: 데이터 변환 코드의 검증</span><span class="mono dr-count">7장</span></a>
+        <div class="mono decklist-foot">S01–S02 표지 · 이 수업에서 다루는 것<br>S53 정리</div>
+      </nav>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="foot-col">
+      <span class="mono foot-h">강의 허브</span>
+      <a href="index.html">개편 교과 구성 전체 보기</a>
+    </div>
+    <div class="foot-col">
+      <span class="mono foot-h">만든 방법</span>
+      <span class="v">hub/topic-page.R 이 슬라이드·강의노트 렌더본에서 생성</span>
+    </div>
+    <div class="foot-col">
+      <span class="mono foot-h">마지막 갱신</span>
+      <span class="mono v">2026-09-17</span>
+    </div>
+  </footer>
+
+</div>
+<script>
+(() => {
+  const deck = document.getElementById('deck');
+  const view = deck.parentElement;
+  const fit = () => view.style.setProperty('--deck-scale', String(view.clientWidth / 1280));
+  fit();
+  if ('ResizeObserver' in window) new ResizeObserver(fit).observe(view); else window.addEventListener('resize', fit);
+  const panels = [...document.querySelectorAll('[data-panel]')];
+  const rows = [...document.querySelectorAll('.deckrow')];
+  const cards = [...document.querySelectorAll('.card')];
+  const byId = Object.fromEntries(cards.map(c => [c.dataset.id, c]));
+  const secs = rows.map(r => r.dataset.sec);
+  let cur = null;
+  const mark = c => cards.forEach(x => x.classList.toggle('is-current', x === c));
+  function show(k, move) {
+    if (!secs.includes(k)) k = secs[0];
+    cur = k;
+    panels.forEach(p => { p.hidden = p.dataset.panel !== k; });
+    rows.forEach(r => {
+      const on = r.dataset.sec === k;
+      r.classList.toggle('is-current', on);
+      if (on) r.setAttribute('aria-current', 'true'); else r.removeAttribute('aria-current');
+    });
+    if (move) {
+      const first = document.querySelector('.strip[data-panel="' + k + '"] .card');
+      if (first) { deck.src = first.href; mark(first); }
+    }
+  }
+  const fromHash = () => (location.hash.match(/^#s(\d+)$/) || [])[1];
+  window.addEventListener('hashchange', () => show(fromHash(), true));
+  document.addEventListener('click', e => { const c = e.target.closest('.card'); if (c) mark(c); });
+  // 같은 출처(GitHub Pages)면 미리보기 안에서 넘긴 슬라이드를 카드와 절 목록이 따라간다.
+  // file:// 로 열면 다른 출처로 취급되어 막히므로 조용히 건너뛴다.
+  function follow() {
+    try {
+      const R = deck.contentWindow.Reveal;
+      if (!R || R.__hubFollow) return;
+      R.__hubFollow = true;
+      const hook = () => R.on('slidechanged', e => {
+        const c = byId[e.currentSlide.id];
+        if (!c) return;
+        mark(c);
+        const k = c.closest('[data-panel]').dataset.panel;
+        if (k !== cur) { show(k, false); history.replaceState(null, '', '#s' + k); }
+      });
+      R.isReady() ? hook() : R.on('ready', hook);
+    } catch (err) { /* 다른 출처 */ }
+  }
+  deck.addEventListener('load', follow);
+  follow();
+  const k0 = fromHash();
+  show(k0 || secs[0], Boolean(k0));
+  if (!k0) mark(cards.find(c => !c.closest('[hidden]')));
+})();
+</script>
+</body>
+</html>
+

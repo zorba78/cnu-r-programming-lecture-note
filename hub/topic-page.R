@@ -15,7 +15,8 @@ suppressMessages(library(xml2))
 chapters <- list(
   "08-algorithms" = list(num = "08", part = "PART 1 · 프로그래밍 입문", anchor = "ch8", status = "개편 초안"),
   "09-simulation" = list(num = "09", part = "PART 1 · 프로그래밍 입문", anchor = "ch9", status = "개편 초안"),
-  "11-data-import-export" = list(num = "11", part = "PART 2 · 데이터 다루기", anchor = "ch11", status = "개편 초안")
+  "11-data-import-export" = list(num = "11", part = "PART 2 · 데이터 다루기", anchor = "ch11", status = "개편 초안"),
+  "12-data-handling" = list(num = "12", part = "PART 2 · 데이터 다루기", anchor = "ch12", status = "개편 초안")
 )
 
 key <- commandArgs(TRUE)[1]
