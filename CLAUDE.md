@@ -153,7 +153,7 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
     표에서 '값 없음'을 줄표로 표시하던 칸은 뜻을 적는다(`발산`, 실제 크기 `9.9e+301029`).
   - **강의 대본은 `::: {.notes}` 블록**에 슬라이드마다 넣는다. 발표 화면에서 `S` 키로 열린다.
     대본은 학생에게 말하는 글이므로 `~습니다` 체를 쓴다 (본문의 평서체 규칙은 노트 본문에만 적용).
-  - **강의노트의 그림·도식을 슬라이드에도 싣는다.** 8장 기준: `figures/big-o-explain.png`,
+  - **강의노트의 그림·도식을 슬라이드에도 싣는다.** 8장 기준: `figures/big-o-explain.png`(슬라이드는 곡선 부분만 잘라 낸 `big-o-explain-plot.png`),
     `function-call.png`, `recursive-function-call.png`, `recursive-sum-flows.png`,
     `hanoi-problem.gif`, `hanoi-solution.gif`, `video/newton-raphson-ex.mp4`, 복잡도 증가 그래프(R 청크),
     경사하강법과 뉴턴-랩슨의 한 걸음 비교 그림과 등고선 위 경로(R 청크, 2026-09-17).
@@ -181,6 +181,7 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
     (13) 코드 상자는 테마가 `max-height: 520px` 를 주어 출력이 길면 상자 **안에서 세로로 스크롤**되고 뒷부분이 잘린다. 하단 680px 검사에는 걸리지 않으므로 `slides-check.R` 이 `vscroll`(세로 스크롤이 생긴 코드 상자 수)도 센다(2026-09-17). 출력은 `pull()`, `table()`, `nrow()` 처럼 짧은 형태로 줄인다.
     (14) R 청크 그림이 슬라이드의 **직계 자식**이면 Quarto 가 `class="r-stretch"` 를 붙인다. reveal 은 그림을 슬라이드에 들어올 때 불러오는데(`data-src`), 먼 슬라이드로 **바로 이동하면**(허브의 슬라이드 카드, 개요 화면) 그림을 불러오기 전에 높이를 계산해 **높이 0 으로 사라진다**. 헤드리스 크롬에서 1번에서 51번으로 이동해 확인했다(2026-09-17). 청크를 `::: {}` 로 감싸 자동 늘이기를 끈다. 9장 덱의 그림 5개(`running-plot`, `clt-plot`, `clt-skew-plot`, `ci-plot`, `skew-ci-plot`)가 이 상태이며, `clt-plot` 과 `ci-plot` 은 바로 이동했을 때 높이 0 을 재현했다(아직 고치지 않음). `slides-check.R` 은 그림을 다 불러올 때까지 기다린 뒤 잰다.
     (15) **움직이는 그림**: `video/` 에 mp4 를 새로 넣지 않는다(작업 규칙 9). 노트는 청크에 `#| fig-show: animate`, `#| animation-hook: gifski` 를 주어 렌더할 때 GIF 를 만든다(8장 경로 그림 267 KB). 슬라이드는 발표자가 속도를 조절하도록 장면마다 PNG 를 `knitr::fig_path()` 에 저장하고 `results: asis` 로 `::: {.r-stack}` 안에 `{.fragment fragment-index="k"}` 그림을 내보낸다. 오른쪽 칸의 설명 문단에 같은 `fragment-index` 를 주면 장면과 함께 나타난다(8장 5.7).
+    (16) 교재나 웹에서 가져온 그림은 영어 설명과 "FIGURE 2" 같은 캡션까지 한 파일에 들어 있어, 칸 폭에 맞추면 **정작 곡선이 작아진다**. 8장 빅오 그림(842×536)은 절반이 설명 글이라 46% 칸에서 곡선이 250px 남짓으로 보였다(강사 지적, 2026-09-17). 슬라이드에는 내용 부분만 잘라 낸 사본(`figures/<이름>-plot.png`)을 높이 기준(`{height="510px"}`)으로 싣고, 잘라 낸 설명은 한국어 목록으로 옮긴다. `slides-check.R` 화면 PNG 는 reveal 축소 비율(약 0.9배)이 적용된 크기라 `metrics.tsv` 의 슬라이드 좌표보다 작게 보인다.
 - 단일 장 렌더·배치: `bash upgrade/render-preview.sh 08-algorithms.qmd` → `docs/preview/`. 살아 있는 bookdown 사이트(`docs/` 루트)는 건드리지 않는다.
 - `_quarto.yml` 은 아직 만들지 않았다. 만드는 순간 `output-dir: docs` 가 현행 사이트를 덮으므로, **`migrate-to-quarto` 스킬 0단계(legacy 보존)를 먼저** 해야 한다.
 - **`bookdown-archive-2026-09-10` 태그는 처음 만든 기기에만 있다** (커밋 `a27a058`, 원격에 푸시하지 않음). 다른 기기의 `git tag -l` 에는 보이지 않는다.
