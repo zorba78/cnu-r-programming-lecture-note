@@ -1903,6 +1903,66 @@ $$
 한다. 뉴턴-랩슨과 비교하면 헤세 행렬의 역행렬 $\mathbf{H}^{-1}$ 자리에 상수 $\eta$ 가 들어간
 형태다. 곡률을 이용해 보폭을 정하는 대신 **보폭을 사람이 정한다.**
 
+
+```{r fig-gd-nr-step}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 4.5
+#| fig-cap: '한 걸음을 정하는 방법. 같은 출발점 $x_0 = 3.5$ 에서 뉴턴-랩슨은 기울기와 곡률이 같은 포물선의 꼭짓점으로 가고(왼쪽), 경사하강법은 기울기에 학습률 $\eta$ 를 곱한 만큼 간다(오른쪽).'
+local({
+  brick <- "#A64B32"; teal <- "#1F6F7A"; ink <- "#241F1A"
+  f   <- function(x) 5 * x^3 - 7 * x^2 - 40 * x + 100
+  fp  <- function(x) 15 * x^2 - 14 * x - 40
+  fpp <- function(x) 30 * x - 14
+  x0 <- 3.5
+  xs <- seq(1.3, 3.8, length.out = 300)
+  op <- par(mfrow = c(1, 2), mar = c(4.2, 4.2, 3.2, 1))
+  on.exit(par(op))
+
+  # 왼쪽: 뉴턴-랩슨. x0 에서 f 와 기울기, 곡률이 같은 포물선의 꼭짓점으로 간다
+  plot(xs, f(xs), type = "l", lwd = 2.5, col = ink, ylim = c(10, 105), xlab = "x", ylab = "f(x)",
+       bty = "l", main = "뉴턴-랩슨: 포물선으로 근사해 꼭짓점으로", font.main = 1)
+  q <- function(x) f(x0) + fp(x0) * (x - x0) + fpp(x0) / 2 * (x - x0)^2
+  xq <- seq(1.85, 3.75, length.out = 200)
+  lines(xq, q(xq), lty = 2, lwd = 2, col = brick)
+  x1 <- x0 - fp(x0) / fpp(x0)
+  segments(x1, q(x1), x1, f(x1), lty = 3, col = brick)
+  points(x1, q(x1), pch = 1, col = brick, cex = 1.5, lwd = 2)
+  points(c(x0, x1), f(c(x0, x1)), pch = 19, col = c(ink, brick), cex = 1.4)
+  text(x0, f(x0), "출발점", pos = 4)
+  segments(x1, q(x1) + 1.5, 2.25, 62, col = brick)
+  text(2.25, 62, "포물선의 꼭짓점 = 다음 위치", pos = 3, col = brick)
+  arrows(x0, 16, x1, 16, length = 0.1, lwd = 2, col = brick)
+  text(1.3, 100, "보폭 = f '(x) ÷ f ''(x): 곡률이 정함", pos = 4, col = brick)
+
+  # 오른쪽: 경사하강법. 기울기에 학습률을 곱한 만큼 간다
+  plot(xs, f(xs), type = "l", lwd = 2.5, col = ink, ylim = c(10, 105), xlab = "x", ylab = "f(x)",
+       bty = "l", main = "경사하강법: 기울기에 학습률 η 를 곱한 만큼", font.main = 1)
+  xt <- seq(x0 - 0.3, x0 + 0.15, length.out = 20)
+  lines(xt, f(x0) + fp(x0) * (xt - x0), lty = 2, lwd = 2, col = teal)
+  x_small <- x0 - 0.005 * fp(x0)
+  x_big <- x0 - 0.02 * fp(x0)
+  points(c(x0, x_small, x_big), f(c(x0, x_small, x_big)), pch = 19, col = c(ink, teal, teal), cex = 1.4)
+  text(x0, f(x0), "출발점", pos = 4)
+  text(x_small, f(x_small), "η = 0.005", pos = 4, col = teal)
+  text(1.32, 58, "η = 0.02:\n최소점을 넘어감", pos = 4, col = teal)
+  arrows(x0, 22, x_small, 22, length = 0.1, lwd = 2, col = teal)
+  arrows(x0, 14, x_big, 14, length = 0.1, lwd = 2, col = teal)
+  text(1.3, 100, "보폭 = η × f '(x): 사람이 정함", pos = 4, col = teal)
+})
+
+```
+
+
+@fig-gd-nr-step 은 @sec-nr-optimization 의 $f(x) = 5x^3 - 7x^2 - 40x + 100$ 에서 극소점 $x \approx 2.165$ 를 찾는
+첫 걸음이다. 출발점은 $x_0 = 3.5$ 다. 뉴턴-랩슨은 출발점에서 함수값, 기울기, 곡률($f''$)이 모두 같은 포물선을
+그리고 그 꼭짓점으로 옮겨 간다. 곡선이 휜 정도를 알고 있으므로 보폭이 저절로 정해지고, 네 걸음이면 극소점과의
+차이가 $10^{-8}$ 보다 작아진다. 경사하강법은 기울기만 쓰므로 보폭은 학습률이 정한다. 같은 출발점에서 극소점과의
+차이가 $10^{-6}$ 보다 작아질 때까지 $\eta = 0.005$ 는 47걸음, $\eta = 0.02$ 는 5걸음이 걸린다(첫 걸음에 극소점을
+넘어갔다가 되돌아온다). $\eta = 0.04$ 이면 극소점 양쪽의 두 점(1.81 과 2.46)을 끝없이 오가고, $\eta = 0.05$ 이면
+왼쪽으로 튕겨 나가 한없이 작아지는 쪽으로 발산한다. 이 $f$ 는 전체 최소가 없는 함수라는 @sec-nr-optimization 의
+주의가 여기서도 드러난다.
+
 @sec-nr-regression 의 회귀계수를 경사하강법으로 구해 보자. 목적함수는 잔차제곱합을 $n$ 으로 나눈
 평균제곱오차로 둔다. 최소점은 같고 기울기의 크기만 작아진다.
 
@@ -1936,6 +1996,70 @@ t(sapply(c(0.01, 0.05, 0.08, 0.09), function(eta) gd_ls(X, y, eta)))
 학습률이 알맞으면 `lm()` 과 같은 값에 도착하지만 **1,000걸음이 넘게** 걸린다. 학습률을 줄이면
 걸음이 더 늘고, 조금만 키워도(0.09) 골짜기를 넘나들며 점점 멀어져 발산한다. 알맞은 학습률의
 범위는 문제마다 다르므로 대개 여러 값을 시험해 정한다.
+
+걸음이 왜 이렇게 많은지는 두 알고리즘이 지나간 길을 그려 보면 보인다(@fig-gd-path). 등고선은 평균제곱오차가
+같은 $(\beta_0, \beta_1)$ 를 이은 선이고, × 가 최소점(`lm()` 의 결과)이다. 등고선이 가늘고 길게 기울어 있으므로
+최소점 둘레는 **좁고 긴 골짜기**다.
+
+
+```{r fig-gd-path}
+#| echo: false
+#| fig-width: 8.5
+#| fig-height: 4.8
+#| fig-show: animate
+#| animation-hook: gifski
+#| interval: 0.6
+#| fig-cap: '평균제곱오차의 등고선 위에서 본 두 알고리즘의 경로. 뉴턴-랩슨은 한 걸음에 최소점으로 가고, 경사하강법($\eta = 0.08$)은 골짜기를 가로질러 지그재그로 1,272걸음을 간다. 마지막 장면은 학습률을 $\eta = 0.09$ 로 키웠을 때다.'
+local({
+  brick <- "#A64B32"; teal <- "#1F6F7A"; ink <- "#241F1A"
+  X <- cbind(1, mtcars$wt); y <- mtcars$mpg; n <- nrow(X)
+  grad <- function(b) as.vector(-2 / n * t(X) %*% (y - X %*% b))
+  b_hat <- as.vector(solve(t(X) %*% X, t(X) %*% y))
+  walk <- function(eta, steps) {                      # 경사하강법이 지나간 점들
+    path <- matrix(0, steps + 1, 2)
+    for (k in seq_len(steps)) path[k + 1, ] <- path[k, ] - eta * grad(path[k, ])
+    path
+  }
+  b0 <- seq(-5, 45, length.out = 150)
+  b1 <- seq(-12, 18, length.out = 150)
+  mse <- outer(b0, b1, Vectorize(function(a, b) mean((y - a - b * mtcars$wt)^2)))
+
+  draw <- function(path, k, eta, note = "") {
+    op <- par(mar = c(4.2, 4.2, 3, 1))
+    on.exit(par(op))
+    contour(b0, b1, mse, levels = c(9, 10, 12, 16, 25, 40, 70, 120, 200, 350, 600, 1000),
+            drawlabels = FALSE, col = "#D5CABB", bty = "l",
+            xlab = expression(beta[0] * " (절편)"), ylab = expression(beta[1] * " (기울기)"))
+    title(main = sprintf("경사하강법 (η = %s): %s걸음%s", eta, format(k, big.mark = ","), note),
+          col.main = teal, font.main = 1, adj = 0)
+    arrows(0, 0, b_hat[1], b_hat[2], length = 0.12, lwd = 2.5, col = brick)
+    text(15, -3.6, "뉴턴-랩슨: 1걸음", col = brick)
+    if (k > 0) {
+      lines(path[1:(k + 1), 1], path[1:(k + 1), 2], col = teal, lwd = 1.4)
+      points(path[2:(k + 1), 1], path[2:(k + 1), 2], col = teal, pch = 19, cex = 0.55)
+      points(path[k + 1, 1], path[k + 1, 2], col = teal, pch = 19, cex = 1.3)
+    }
+    points(0, 0, pch = 19, col = ink, cex = 1.3)
+    text(0, 0, "출발 (0, 0)", pos = 1)
+    points(b_hat[1], b_hat[2], pch = 4, col = ink, cex = 1.8, lwd = 2.5)
+  }
+
+  path08 <- walk(0.08, 1272)
+  for (k in c(0, 1, 2, 3, 4, 5, 6, 8, 10, 15, 20, 30, 50, 100, 200, 400, 700, rep(1272, 4))) {
+    draw(path08, k, "0.08")
+  }
+  path09 <- walk(0.09, 7)
+  for (k in c(1:7, 7, 7)) draw(path09, k, "0.09", ", 튀는 폭이 점점 커짐")
+})
+
+```
+
+
+뉴턴-랩슨은 헤세 행렬로 골짜기의 모양(곡률)을 알고 있으므로 한 걸음에 최소점으로 간다. 경사하강법은 매 걸음 그
+자리에서 가장 가파르게 내려가는 방향으로 가는데, 좁은 골짜기에서 그 방향은 최소점이 아니라 **맞은편 벽**을
+향한다. 그래서 첫 걸음에 $\beta_1$ 이 9.5 근처로 튀어 오르고, 이후 골짜기를 가로질러 지그재그로 튀면서 조금씩
+최소점 쪽으로 내려간다. 학습률이 알맞으면(0.08) 튀는 폭이 조금씩 줄어 결국 도착하지만, 0.09 로 키우면 튀는 폭이
+걸음마다 커져 일곱 걸음 만에 그림 밖으로 벗어난다. 앞의 표에서 본 발산이다.
 
 걸음이 이렇게 많은데도 경사하강법을 쓰는 이유는 **한 걸음의 비용**에 있다.
 
