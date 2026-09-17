@@ -9,7 +9,7 @@
   <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="구본초">
-  <meta name="dcterms.date" content="2026-09-14">
+  <meta name="dcterms.date" content="2026-09-17">
   <title>알고리즘</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -98,7 +98,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="08-algorithms-slides_files/libs/revealjs/dist/theme/quarto-9bf995c864c0bc1a08d349580fc96e1d.css">
+  <link rel="stylesheet" href="08-algorithms-slides_files/libs/revealjs/dist/theme/quarto-ddad32183803e7df03a8db6d2a385392.css">
   <link href="08-algorithms-slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="08-algorithms-slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="08-algorithms-slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -221,7 +221,7 @@
     </div>
 </div>
 
-  <p class="date">2026-09-14</p>
+  <p class="date">2026-09-17</p>
 </section>
 <section id="이-수업에서-다루는-것" class="slide level2">
 <h2>이 수업에서 다루는 것</h2>
@@ -806,7 +806,7 @@
 <div class="cell-output cell-output-stdout">
 <pre><code>         방식    초
 1   사전 할당 0.003
-2 이어 붙이기 3.184</code></pre>
+2 이어 붙이기 3.224</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -2321,23 +2321,23 @@
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">500</td>
-<td style="text-align: right;">0.024</td>
+<td style="text-align: right;">0.025</td>
 <td style="text-align: right;">0.015</td>
-<td style="text-align: right;">0.016</td>
+<td style="text-align: right;">0.015</td>
 <td style="text-align: right;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1,000</td>
 <td style="text-align: right;">0.065</td>
-<td style="text-align: right;">0.037</td>
+<td style="text-align: right;">0.036</td>
 <td style="text-align: right;">0.008</td>
-<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2,000</td>
 <td style="text-align: right;">0.275</td>
-<td style="text-align: right;">0.119</td>
-<td style="text-align: right;">0.017</td>
+<td style="text-align: right;">0.114</td>
+<td style="text-align: right;">0.016</td>
 <td style="text-align: right;">0.003</td>
 </tr>
 </tbody>
@@ -3028,6 +3028,47 @@ $iter
           display:block!important;
       }</style></aside>
 </section>
+<section id="경사하강법-한-걸음을-정하는-방법" class="slide level2">
+<h2><span class="secno">5.7</span> 경사하강법: 한 걸음을 정하는 방법</h2>
+<div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="08-algorithms-slides_files/figure-revealjs/gd-nr-step-1.png" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="keypoint">
+<p><strong>뉴턴-랩슨</strong>: 곡률(f’’)을 알아 보폭이 <strong>저절로</strong> 정해짐, <strong>4걸음</strong></p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="keypoint teal">
+<p><strong>경사하강법</strong>: 보폭은 <strong>학습률 η</strong>, 0.005 는 47걸음, 0.04 는 도착 못 함</p>
+</div>
+</div></div>
+<aside class="notes">
+<p>뉴턴-랩슨과 비교할 방법이 하나 더 있습니다. 경사하강법입니다. 두 방법이 한 걸음을 어떻게 정하는지부터 보겠습니다.</p>
+<p>그림은 5.4 에서 극값을 찾았던 3차 함수입니다. 오른쪽 위 3.5 에서 출발해 아래쪽 극소점을 찾습니다.</p>
+<p>왼쪽이 뉴턴-랩슨입니다. 출발점에서 함수값, 기울기, 휜 정도가 모두 같은 포물선을 그립니다. 점선이지요. 그리고 그 포물선의 꼭짓점으로 곧장 갑니다. 곡선이 얼마나 휘었는지, 곧 2계 도함수를 알고 있으니까 보폭이 저절로 정해집니다. 이렇게 네 걸음이면 극소점에 붙습니다.</p>
+<p>오른쪽이 경사하강법입니다. 휜 정도는 모르고 기울기만 압니다. 그래서 기울기에 에타라는 수를 곱한 만큼 갑니다. 에타가 0.005 면 조금 가고, 0.02 면 극소점을 넘어 반대편까지 갑니다. 보폭을 사람이 정하는 겁니다. 이 에타를 학습률이라고 부릅니다.</p>
+<p>같은 함수에서 에타가 0.005 면 47걸음이 걸리고, 0.04 로 키우면 극소점 양쪽을 끝없이 오가면서 도착하지 못합니다. 학습률은 너무 작아도, 너무 커도 안 됩니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="예측해-보자-6" class="slide level2 predict">
 <h2>예측해 보자</h2>
 <p>뉴턴-랩슨이 <strong>한 걸음</strong>에 푼 회귀계수: 경사하강법으로는 몇 걸음?</p>
@@ -3058,6 +3099,62 @@ $iter
 <p>예측입니다. 이번엔 같은 회귀 문제를 다른 방법으로 풉니다. 경사하강법이라는 방법입니다.</p>
 <p>식을 보세요. 뉴턴-랩슨 식에서 헤세 행렬의 역행렬 자리에 에타라는 상수가 들어가 있습니다. 아래 두 줄이 그 차이를 코드로 쓴 겁니다. 뉴턴-랩슨은 <code>solve(H, g)</code>, 경사하강법은 <code>eta * g</code> 입니다. 곡률로 보폭을 정하지 않고, 보폭을 사람이 정해 두는 겁니다.</p>
 <p>뉴턴-랩슨은 한 걸음이었습니다. 경사하강법은 몇 걸음이 필요할까요? A, B, C.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="같은-출발점-다른-경로" class="slide level2">
+<h2><span class="secno">5.7</span> 같은 출발점, 다른 경로</h2>
+<div class="columns">
+<div class="column" style="width:64%;">
+<div class="r-stack">
+<p><img data-src="08-algorithms-slides_files/figure-revealjs/gd-path-frames-1.frame-01.png" style="width:100.0%"></p>
+<p><img data-src="08-algorithms-slides_files/figure-revealjs/gd-path-frames-1.frame-02.png" class="fragment" style="width:100.0%" data-fragment-index="1"></p>
+<p><img data-src="08-algorithms-slides_files/figure-revealjs/gd-path-frames-1.frame-03.png" class="fragment" style="width:100.0%" data-fragment-index="2"></p>
+<p><img data-src="08-algorithms-slides_files/figure-revealjs/gd-path-frames-1.frame-04.png" class="fragment" style="width:100.0%" data-fragment-index="3"></p>
+<p><img data-src="08-algorithms-slides_files/figure-revealjs/gd-path-frames-1.frame-05.png" class="fragment" style="width:100.0%" data-fragment-index="4"></p>
+<p><img data-src="08-algorithms-slides_files/figure-revealjs/gd-path-frames-1.frame-06.png" class="fragment" style="width:100.0%" data-fragment-index="5"></p>
+<p><img data-src="08-algorithms-slides_files/figure-revealjs/gd-path-frames-1.frame-07.png" class="fragment" style="width:100.0%" data-fragment-index="6"></p>
+<p><img data-src="08-algorithms-slides_files/figure-revealjs/gd-path-frames-1.frame-08.png" class="fragment" style="width:100.0%" data-fragment-index="7"></p>
+<p><img data-src="08-algorithms-slides_files/figure-revealjs/gd-path-frames-1.frame-09.png" class="fragment" style="width:100.0%" data-fragment-index="8"></p>
+<p><img data-src="08-algorithms-slides_files/figure-revealjs/gd-path-frames-1.frame-10.png" class="fragment" style="width:100.0%" data-fragment-index="9"></p>
+<p><img data-src="08-algorithms-slides_files/figure-revealjs/gd-path-frames-1.frame-11.png" class="fragment" style="width:100.0%" data-fragment-index="10"></p>
+<p><img data-src="08-algorithms-slides_files/figure-revealjs/gd-path-frames-1.frame-12.png" class="fragment" style="width:100.0%" data-fragment-index="11"></p>
+</div>
+</div><div class="column" style="width:36%;">
+<p><span class="label label-slide">같은 회귀, 평균제곱오차의 등고선, × 는 최소점</span></p>
+<p><strong>뉴턴-랩슨</strong>: 곡률로 골짜기 모양을 알아 <strong>1걸음</strong></p>
+<div class="fragment" data-fragment-index="1">
+<p><strong>경사하강법 1걸음</strong>: 가장 가파른 방향은 최소점이 아니라 <strong>맞은편 벽</strong></p>
+</div>
+<div class="fragment" data-fragment-index="4">
+<p>좁은 골짜기를 <strong>지그재그로</strong> 가로지르며 조금씩</p>
+</div>
+<div class="fragment" data-fragment-index="8">
+<div class="keypoint teal">
+<p><strong>1,272걸음</strong> 만에 도착: 정답은 <strong>C</strong></p>
+</div>
+</div>
+<div class="fragment" data-fragment-index="9">
+<p>η 를 0.09 로 조금만 키우면 튀는 폭이 <strong>점점 커져</strong> 7걸음 만에 그림 밖으로: <strong>발산</strong></p>
+</div>
+</div></div>
+<aside class="notes">
+<p>답을 경로로 확인해 보겠습니다. 그림은 5.5 의 회귀 문제입니다. 가로축이 절편, 세로축이 기울기이고, 등고선은 평균제곱오차가 같은 점을 이은 선입니다. 가운데 가위표가 lm() 이 구한 최소점입니다. 등고선이 가늘고 길게 기울어 있지요. 좁고 긴 골짜기입니다.</p>
+<p>빨간 화살표가 뉴턴-랩슨입니다. 헤세 행렬로 골짜기의 모양을 알고 있으니까 원점에서 한 걸음에 최소점으로 갑니다.</p>
+<p>(클릭) 경사하강법 첫 걸음입니다. 위로 튀었지요. 그 자리에서 가장 가파르게 내려가는 방향은 최소점 쪽이 아니라 맞은편 벽 쪽입니다.</p>
+<p>(클릭) 두 걸음. (클릭) 다섯 걸음. 벽에서 벽으로 튀고 있습니다. (클릭) 열 걸음. 골짜기를 지그재그로 가로지르면서 아주 조금씩 최소점 쪽으로 내려갑니다.</p>
+<p>(클릭) 서른 걸음, (클릭) 백 걸음, (클릭) 사백 걸음. 튀는 폭은 줄었는데 골짜기 바닥이 거의 평평해서 한 걸음이 아주 짧습니다.</p>
+<p>(클릭) 1,272 걸음 만에 도착합니다. 예측의 답은 C 였습니다.</p>
+<p>(클릭) 이번에는 학습률을 0.09 로 조금만 키웠습니다. 두 걸음. (클릭) 네 걸음. 튀는 폭이 오히려 커집니다. (클릭) 일곱 걸음 만에 그림 밖으로 나갔습니다. 발산입니다. 0.08 과 0.09 는 거의 같은 수인데 결과는 완전히 다릅니다.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -3161,9 +3258,9 @@ $iter
 </div>
 </div></div>
 <aside class="notes">
-<p>답은 C입니다. 학습률을 잘 골라도 1,272걸음, 작게 잡으면 만 걸음이 넘습니다. 뉴턴-랩슨은 한 걸음이었지요.</p>
+<p>방금 본 경로를 표로 정리했습니다. 학습률을 잘 골라도 1,272걸음, 작게 잡으면 만 걸음이 넘습니다. 뉴턴-랩슨은 한 걸음이었지요.</p>
 <p>경사하강법은 안개 낀 산에서 골짜기로 내려가는 것과 같습니다. 멀리는 안 보이고 발밑 경사만 느껴집니다. 가장 가파르게 내려가는 쪽으로 한 걸음, 거기서 다시 경사를 느끼고 또 한 걸음. 에타가 보폭입니다. 학습률이라고 부릅니다.</p>
-<p>왼쪽 표를 보세요. 학습률 0.01이면 만 걸음이 넘고, 0.05면 이천 걸음 남짓, 0.08이면 천이백 걸음 남짓입니다. 그런데 0.09로 조금만 키우면 발산합니다. 골짜기를 넘어 반대편 벽으로 튀고, 또 튀면서 점점 멀어지는 거예요. 학습률은 너무 작아도, 너무 커도 안 됩니다.</p>
+<p>왼쪽 표를 보세요. 학습률 0.01이면 만 걸음이 넘고, 0.05면 이천 걸음 남짓, 0.08이면 천이백 걸음 남짓입니다. 그런데 0.09로 조금만 키우면 발산합니다. 방금 그림에서 본 것처럼 반대편 벽으로 튀고, 또 튀면서 점점 멀어지는 거예요. 학습률은 너무 작아도, 너무 커도 안 됩니다.</p>
 <p>그럼 왜 이렇게 느린 걸 쓰느냐. 오른쪽 표입니다. 한 걸음의 비용이 다릅니다. 뉴턴-랩슨은 모수가 p개면 p×p 헤세 행렬을 만들고 연립방정식을 풀어야 합니다. 경사하강법은 길이 p인 기울기 벡터 하나면 됩니다.</p>
 <p>모수가 두세 개인 통계모형이면 뉴턴-랩슨이 압도적입니다. glm()이 그래서 뉴턴-랩슨 계열을 씁니다. 그런데 여러분이 쓰는 LLM 은 모수가 수십억 개입니다. 헤세 행렬은 그 제곱 개라 저장조차 못 합니다. 그래서 딥러닝 모형은 경사하강법의 변형으로 학습합니다.</p>
 <p>1절에서 비용은 시간과 메모리 두 가지라고 했지요. 걸음 수가 적은 알고리즘과 한 걸음이 싼 알고리즘 중에 무엇이 나은지는 문제의 크기가 정합니다.</p>

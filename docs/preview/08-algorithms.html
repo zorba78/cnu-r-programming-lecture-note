@@ -150,7 +150,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">공개</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026년 9월 12일</p>
+      <p class="date">2026년 9월 17일</p>
     </div>
   </div>
   
@@ -464,7 +464,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["방식"],"name":[1],"type":["chr"],"align":["left"]},{"label":["초"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"사전 할당","2":"0.002"},{"1":"이어 붙이기","2":"3.451"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["방식"],"name":[1],"type":["chr"],"align":["left"]},{"label":["초"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"사전 할당","2":"0.003"},{"1":"이어 붙이기","2":"3.274"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -1663,7 +1663,7 @@ n \times (n-1)!, &amp; n \geq 1 \\
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["n"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["버블"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["삽입"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["병합"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["퀵"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"500","2":"0.016","3":"0.007","4":"0.003","5":"0.001"},{"1":"1000","2":"0.078","3":"0.031","4":"0.008","5":"0.002"},{"1":"2000","2":"0.277","3":"0.116","4":"0.017","5":"0.003"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["n"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["버블"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["삽입"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["병합"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["퀵"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"500","2":"0.017","3":"0.009","4":"0.004","5":"0.001"},{"1":"1000","2":"0.065","3":"0.033","4":"0.009","5":"0.002"},{"1":"2000","2":"0.293","3":"0.115","4":"0.017","5":"0.004"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -2158,6 +2158,21 @@ p_i = P(y_i = 1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_i)}}
 \boldsymbol\theta_{n+1} = \boldsymbol\theta_n - \eta \, \nabla f(\boldsymbol\theta_n)
 \]</span></p>
 <p>기울기의 반대 방향으로 기울기의 <span class="math inline">\(\eta\)</span> 배만큼 이동한다. <span class="math inline">\(\eta\)</span> 를 <strong>학습률(learning rate)</strong> 이라 한다. 뉴턴-랩슨과 비교하면 헤세 행렬의 역행렬 <span class="math inline">\(\mathbf{H}^{-1}\)</span> 자리에 상수 <span class="math inline">\(\eta\)</span> 가 들어간 형태다. 곡률을 이용해 보폭을 정하는 대신 <strong>보폭을 사람이 정한다.</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-gd-nr-step" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-gd-nr-step-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="08-algorithms_files/figure-html/fig-gd-nr-step-1.png" class="img-fluid figure-img" width="960">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gd-nr-step-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;13: 한 걸음을 정하는 방법. 같은 출발점 <span class="math inline">\(x_0 = 3.5\)</span> 에서 뉴턴-랩슨은 기울기와 곡률이 같은 포물선의 꼭짓점으로 가고(왼쪽), 경사하강법은 기울기에 학습률 <span class="math inline">\(\eta\)</span> 를 곱한 만큼 간다(오른쪽).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-gd-nr-step" class="quarto-xref">그림&nbsp;13</a> 은 <a href="#sec-nr-optimization" class="quarto-xref">섹션&nbsp;5.4</a> 의 <span class="math inline">\(f(x) = 5x^3 - 7x^2 - 40x + 100\)</span> 에서 극소점 <span class="math inline">\(x \approx 2.165\)</span> 를 찾는 첫 걸음이다. 출발점은 <span class="math inline">\(x_0 = 3.5\)</span> 다. 뉴턴-랩슨은 출발점에서 함수값, 기울기, 곡률(<span class="math inline">\(f''\)</span>)이 모두 같은 포물선을 그리고 그 꼭짓점으로 옮겨 간다. 곡선이 휜 정도를 알고 있으므로 보폭이 저절로 정해지고, 네 걸음이면 극소점과의 차이가 <span class="math inline">\(10^{-8}\)</span> 보다 작아진다. 경사하강법은 기울기만 쓰므로 보폭은 학습률이 정한다. 같은 출발점에서 극소점과의 차이가 <span class="math inline">\(10^{-6}\)</span> 보다 작아질 때까지 <span class="math inline">\(\eta = 0.005\)</span> 는 47걸음, <span class="math inline">\(\eta = 0.02\)</span> 는 5걸음이 걸린다(첫 걸음에 극소점을 넘어갔다가 되돌아온다). <span class="math inline">\(\eta = 0.04\)</span> 이면 극소점 양쪽의 두 점(1.81 과 2.46)을 끝없이 오가고, <span class="math inline">\(\eta = 0.05\)</span> 이면 왼쪽으로 튕겨 나가 한없이 작아지는 쪽으로 발산한다. 이 <span class="math inline">\(f\)</span> 는 전체 최소가 없는 함수라는 <a href="#sec-nr-optimization" class="quarto-xref">섹션&nbsp;5.4</a> 의 주의가 여기서도 드러난다.</p>
 <p><a href="#sec-nr-regression" class="quarto-xref">섹션&nbsp;5.5</a> 의 회귀계수를 경사하강법으로 구해 보자. 목적함수는 잔차제곱합을 <span class="math inline">\(n\)</span> 으로 나눈 평균제곱오차로 둔다. 최소점은 같고 기울기의 크기만 작아진다.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -2196,6 +2211,22 @@ p_i = P(y_i = 1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_i)}}
 </div>
 </div>
 <p>학습률이 알맞으면 <code>lm()</code> 과 같은 값에 도착하지만 <strong>1,000걸음이 넘게</strong> 걸린다. 학습률을 줄이면 걸음이 더 늘고, 조금만 키워도(0.09) 골짜기를 넘나들며 점점 멀어져 발산한다. 알맞은 학습률의 범위는 문제마다 다르므로 대개 여러 값을 시험해 정한다.</p>
+<p>걸음이 왜 이렇게 많은지는 두 알고리즘이 지나간 길을 그려 보면 보인다(<a href="#fig-gd-path" class="quarto-xref">그림&nbsp;14</a>). 등고선은 평균제곱오차가 같은 <span class="math inline">\((\beta_0, \beta_1)\)</span> 를 이은 선이고, × 가 최소점(<code>lm()</code> 의 결과)이다. 등고선이 가늘고 길게 기울어 있으므로 최소점 둘레는 <strong>좁고 긴 골짜기</strong>다.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-gd-path" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-gd-path-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="08-algorithms_files/figure-html/fig-gd-path-.gif" class="img-fluid figure-img" width="816">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gd-path-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;14: 평균제곱오차의 등고선 위에서 본 두 알고리즘의 경로. 뉴턴-랩슨은 한 걸음에 최소점으로 가고, 경사하강법(<span class="math inline">\(\eta = 0.08\)</span>)은 골짜기를 가로질러 지그재그로 1,272걸음을 간다. 마지막 장면은 학습률을 <span class="math inline">\(\eta = 0.09\)</span> 로 키웠을 때다.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>뉴턴-랩슨은 헤세 행렬로 골짜기의 모양(곡률)을 알고 있으므로 한 걸음에 최소점으로 간다. 경사하강법은 매 걸음 그 자리에서 가장 가파르게 내려가는 방향으로 가는데, 좁은 골짜기에서 그 방향은 최소점이 아니라 <strong>맞은편 벽</strong>을 향한다. 그래서 첫 걸음에 <span class="math inline">\(\beta_1\)</span> 이 9.5 근처로 튀어 오르고, 이후 골짜기를 가로질러 지그재그로 튀면서 조금씩 최소점 쪽으로 내려간다. 학습률이 알맞으면(0.08) 튀는 폭이 조금씩 줄어 결국 도착하지만, 0.09 로 키우면 튀는 폭이 걸음마다 커져 일곱 걸음 만에 그림 밖으로 벗어난다. 앞의 표에서 본 발산이다.</p>
 <p>걸음이 이렇게 많은데도 경사하강법을 쓰는 이유는 <strong>한 걸음의 비용</strong>에 있다.</p>
 <table class="caption-top table">
 <colgroup>
@@ -4836,336 +4867,460 @@ p_i = P(y_i = 1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_i)}}
 <span id="cb152-1903"><a href="#cb152-1903" aria-hidden="true" tabindex="-1"></a>한다. 뉴턴-랩슨과 비교하면 헤세 행렬의 역행렬 $\mathbf{H}^{-1}$ 자리에 상수 $\eta$ 가 들어간</span>
 <span id="cb152-1904"><a href="#cb152-1904" aria-hidden="true" tabindex="-1"></a>형태다. 곡률을 이용해 보폭을 정하는 대신 **보폭을 사람이 정한다.**</span>
 <span id="cb152-1905"><a href="#cb152-1905" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1906"><a href="#cb152-1906" aria-hidden="true" tabindex="-1"></a>@sec-nr-regression 의 회귀계수를 경사하강법으로 구해 보자. 목적함수는 잔차제곱합을 $n$ 으로 나눈</span>
-<span id="cb152-1907"><a href="#cb152-1907" aria-hidden="true" tabindex="-1"></a>평균제곱오차로 둔다. 최소점은 같고 기울기의 크기만 작아진다.</span>
-<span id="cb152-1908"><a href="#cb152-1908" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1909"><a href="#cb152-1909" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1910"><a href="#cb152-1910" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb152-1911"><a href="#cb152-1911" aria-hidden="true" tabindex="-1"></a>**예측해 보자**: 뉴턴-랩슨은 이 문제를 한 걸음에 풀었다. 경사하강법은 몇 걸음이 필요하겠는가?</span>
-<span id="cb152-1912"><a href="#cb152-1912" aria-hidden="true" tabindex="-1"></a>10걸음 안쪽, 100걸음 안쪽, 1,000걸음 이상 가운데 골라 보자.</span>
-<span id="cb152-1913"><a href="#cb152-1913" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1914"><a href="#cb152-1914" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb152-1915"><a href="#cb152-1915" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1916"><a href="#cb152-1916" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1917"><a href="#cb152-1917" aria-hidden="true" tabindex="-1"></a><span class="in">```{r gd-ls}</span></span>
-<span id="cb152-1918"><a href="#cb152-1918" aria-hidden="true" tabindex="-1"></a>gd_ls <span class="ot">&lt;-</span> <span class="cf">function</span>(X, y, eta, <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">tol =</span> <span class="fl">1e-6</span>, <span class="at">max_iters =</span> <span class="fl">1e5</span>) {</span>
-<span id="cb152-1919"><a href="#cb152-1919" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
-<span id="cb152-1920"><a href="#cb152-1920" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (iter <span class="cf">in</span> <span class="fu">seq_len</span>(max_iters)) {</span>
-<span id="cb152-1921"><a href="#cb152-1921" aria-hidden="true" tabindex="-1"></a>    g <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">/</span> n <span class="sc">*</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> (y <span class="sc">-</span> X <span class="sc">%*%</span> beta))   <span class="co"># 평균제곱오차의 기울기</span></span>
-<span id="cb152-1922"><a href="#cb152-1922" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">sqrt</span>(<span class="fu">sum</span>(g<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">&lt;</span> tol) <span class="cf">break</span>        <span class="co"># 기울기가 거의 0 이면 도착</span></span>
-<span id="cb152-1923"><a href="#cb152-1923" aria-hidden="true" tabindex="-1"></a>    beta <span class="ot">&lt;-</span> beta <span class="sc">-</span> eta <span class="sc">*</span> g                 <span class="co"># 기울기 반대 방향으로 eta 배만큼</span></span>
-<span id="cb152-1924"><a href="#cb152-1924" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">max</span>(<span class="fu">abs</span>(beta)) <span class="sc">&gt;</span> <span class="fl">1e6</span>) {            <span class="co"># 값이 끝없이 커지면 발산</span></span>
-<span id="cb152-1925"><a href="#cb152-1925" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">c</span>(학습률 <span class="ot">=</span> eta, 반복 <span class="ot">=</span> iter, <span class="at">b0 =</span> <span class="cn">NA</span>, <span class="at">b1 =</span> <span class="cn">NA</span>))</span>
-<span id="cb152-1926"><a href="#cb152-1926" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb152-1927"><a href="#cb152-1927" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb152-1928"><a href="#cb152-1928" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(학습률 <span class="ot">=</span> eta, 반복 <span class="ot">=</span> iter, <span class="at">b0 =</span> beta[<span class="dv">1</span>], <span class="at">b1 =</span> beta[<span class="dv">2</span>])</span>
-<span id="cb152-1929"><a href="#cb152-1929" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb152-1930"><a href="#cb152-1930" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1931"><a href="#cb152-1931" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">sapply</span>(<span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.08</span>, <span class="fl">0.09</span>), <span class="cf">function</span>(eta) <span class="fu">gd_ls</span>(X, y, eta)))</span>
-<span id="cb152-1932"><a href="#cb152-1932" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1933"><a href="#cb152-1933" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb152-1934"><a href="#cb152-1934" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1935"><a href="#cb152-1935" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1936"><a href="#cb152-1936" aria-hidden="true" tabindex="-1"></a>학습률이 알맞으면 <span class="in">`lm()`</span> 과 같은 값에 도착하지만 **1,000걸음이 넘게** 걸린다. 학습률을 줄이면</span>
-<span id="cb152-1937"><a href="#cb152-1937" aria-hidden="true" tabindex="-1"></a>걸음이 더 늘고, 조금만 키워도(0.09) 골짜기를 넘나들며 점점 멀어져 발산한다. 알맞은 학습률의</span>
-<span id="cb152-1938"><a href="#cb152-1938" aria-hidden="true" tabindex="-1"></a>범위는 문제마다 다르므로 대개 여러 값을 시험해 정한다.</span>
-<span id="cb152-1939"><a href="#cb152-1939" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1940"><a href="#cb152-1940" aria-hidden="true" tabindex="-1"></a>걸음이 이렇게 많은데도 경사하강법을 쓰는 이유는 **한 걸음의 비용**에 있다.</span>
-<span id="cb152-1941"><a href="#cb152-1941" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1942"><a href="#cb152-1942" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="pp">|</span> 뉴턴-랩슨 <span class="pp">|</span> 경사하강법 <span class="pp">|</span></span>
-<span id="cb152-1943"><a href="#cb152-1943" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span></span>
-<span id="cb152-1944"><a href="#cb152-1944" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 쓰는 도함수 <span class="pp">|</span> 1계와 2계 (기울기 벡터, 헤세 행렬) <span class="pp">|</span> 1계 (기울기 벡터)만 <span class="pp">|</span></span>
-<span id="cb152-1945"><a href="#cb152-1945" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 한 걸음의 비용 <span class="pp">|</span> 모수가 $p$ 개이면 $p \times p$ 행렬을 저장하고 연립방정식을 푼다 <span class="pp">|</span> 길이 $p$ 인 벡터 하나를 계산한다 <span class="pp">|</span></span>
-<span id="cb152-1946"><a href="#cb152-1946" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 걸음 수 <span class="pp">|</span> 적다 (회귀 1회, 로지스틱 8회) <span class="pp">|</span> 많다 (위 회귀에서 1,000회 이상) <span class="pp">|</span></span>
-<span id="cb152-1947"><a href="#cb152-1947" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 정해야 할 값 <span class="pp">|</span> 초기값 <span class="pp">|</span> 초기값, 학습률 <span class="pp">|</span></span>
-<span id="cb152-1948"><a href="#cb152-1948" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 주로 쓰는 곳 <span class="pp">|</span> 모수가 적은 통계모형 (<span class="in">`glm()`</span> 등) <span class="pp">|</span> 모수가 매우 많은 기계학습·딥러닝 <span class="pp">|</span></span>
-<span id="cb152-1949"><a href="#cb152-1949" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1950"><a href="#cb152-1950" aria-hidden="true" tabindex="-1"></a>: {tbl-colwidths="<span class="co">[</span><span class="ot">18,41,41</span><span class="co">]</span>"}</span>
-<span id="cb152-1951"><a href="#cb152-1951" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1952"><a href="#cb152-1952" aria-hidden="true" tabindex="-1"></a>모수가 1,000만 개라면 헤세 행렬의 원소는 $10^{14}$ 개로, 저장하는 것조차 불가능하다. 대규모 언어</span>
-<span id="cb152-1953"><a href="#cb152-1953" aria-hidden="true" tabindex="-1"></a>모형(LLM)을 비롯한 딥러닝 모형은 수십억 개가 넘는 모수를 가지며, 경사하강법을 변형한 방법(확률적</span>
-<span id="cb152-1954"><a href="#cb152-1954" aria-hidden="true" tabindex="-1"></a>경사하강법, Adam 등)으로 학습한다. **걸음 수가 적은 알고리즘과 한 걸음이 싼 알고리즘 가운데 어느</span>
-<span id="cb152-1955"><a href="#cb152-1955" aria-hidden="true" tabindex="-1"></a>쪽이 나은지는 문제의 크기가 정한다.** 이 장 첫 절에서 말한 비용, 곧 수행 시간과 메모리를 함께</span>
-<span id="cb152-1956"><a href="#cb152-1956" aria-hidden="true" tabindex="-1"></a>따지는 판단이다.</span>
-<span id="cb152-1957"><a href="#cb152-1957" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1958"><a href="#cb152-1958" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1959"><a href="#cb152-1959" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb152-1960"><a href="#cb152-1960" aria-hidden="true" tabindex="-1"></a>이 소절은 경사하강법이라는 방법이 **있다는 것**과 뉴턴-랩슨과의 차이를 소개하는 데 그친다.</span>
-<span id="cb152-1961"><a href="#cb152-1961" aria-hidden="true" tabindex="-1"></a>학습률을 자동으로 조정하는 방법, 자료의 일부만으로 기울기를 계산하는 확률적 경사하강법 등은</span>
-<span id="cb152-1962"><a href="#cb152-1962" aria-hidden="true" tabindex="-1"></a>기계학습을 다루는 과목에서 배운다. R 에서 일반적인 최적화 문제는 <span class="in">`optim()`</span> 으로 풀 수 있으며,</span>
-<span id="cb152-1963"><a href="#cb152-1963" aria-hidden="true" tabindex="-1"></a><span class="in">`method`</span> 인수로 헤세 행렬을 근사해 쓰는 준뉴턴법(<span class="in">`"BFGS"`</span>)이나 기울기만 쓰는 켤레기울기법(<span class="in">`"CG"`</span>)</span>
-<span id="cb152-1964"><a href="#cb152-1964" aria-hidden="true" tabindex="-1"></a>등을 고를 수 있다.</span>
+<span id="cb152-1906"><a href="#cb152-1906" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-1907"><a href="#cb152-1907" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-gd-nr-step}</span></span>
+<span id="cb152-1908"><a href="#cb152-1908" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb152-1909"><a href="#cb152-1909" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb152-1910"><a href="#cb152-1910" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4.5</span></span>
+<span id="cb152-1911"><a href="#cb152-1911" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: '한 걸음을 정하는 방법. 같은 출발점 $x_0 = 3.5$ 에서 뉴턴-랩슨은 기울기와 곡률이 같은 포물선의 꼭짓점으로 가고(왼쪽), 경사하강법은 기울기에 학습률 $\eta$ 를 곱한 만큼 간다(오른쪽).'</span></span>
+<span id="cb152-1912"><a href="#cb152-1912" aria-hidden="true" tabindex="-1"></a><span class="fu">local</span>({</span>
+<span id="cb152-1913"><a href="#cb152-1913" aria-hidden="true" tabindex="-1"></a>  brick <span class="ot">&lt;-</span> <span class="st">"#A64B32"</span>; teal <span class="ot">&lt;-</span> <span class="st">"#1F6F7A"</span>; ink <span class="ot">&lt;-</span> <span class="st">"#241F1A"</span></span>
+<span id="cb152-1914"><a href="#cb152-1914" aria-hidden="true" tabindex="-1"></a>  f   <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">5</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">7</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">40</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="dv">100</span></span>
+<span id="cb152-1915"><a href="#cb152-1915" aria-hidden="true" tabindex="-1"></a>  fp  <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">15</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">14</span> <span class="sc">*</span> x <span class="sc">-</span> <span class="dv">40</span></span>
+<span id="cb152-1916"><a href="#cb152-1916" aria-hidden="true" tabindex="-1"></a>  fpp <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">30</span> <span class="sc">*</span> x <span class="sc">-</span> <span class="dv">14</span></span>
+<span id="cb152-1917"><a href="#cb152-1917" aria-hidden="true" tabindex="-1"></a>  x0 <span class="ot">&lt;-</span> <span class="fl">3.5</span></span>
+<span id="cb152-1918"><a href="#cb152-1918" aria-hidden="true" tabindex="-1"></a>  xs <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">1.3</span>, <span class="fl">3.8</span>, <span class="at">length.out =</span> <span class="dv">300</span>)</span>
+<span id="cb152-1919"><a href="#cb152-1919" aria-hidden="true" tabindex="-1"></a>  op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">4.2</span>, <span class="fl">4.2</span>, <span class="fl">3.2</span>, <span class="dv">1</span>))</span>
+<span id="cb152-1920"><a href="#cb152-1920" aria-hidden="true" tabindex="-1"></a>  <span class="fu">on.exit</span>(<span class="fu">par</span>(op))</span>
+<span id="cb152-1921"><a href="#cb152-1921" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-1922"><a href="#cb152-1922" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 왼쪽: 뉴턴-랩슨. x0 에서 f 와 기울기, 곡률이 같은 포물선의 꼭짓점으로 간다</span></span>
+<span id="cb152-1923"><a href="#cb152-1923" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(xs, <span class="fu">f</span>(xs), <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lwd =</span> <span class="fl">2.5</span>, <span class="at">col =</span> ink, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">105</span>), <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"f(x)"</span>,</span>
+<span id="cb152-1924"><a href="#cb152-1924" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"l"</span>, <span class="at">main =</span> <span class="st">"뉴턴-랩슨: 포물선으로 근사해 꼭짓점으로"</span>, <span class="at">font.main =</span> <span class="dv">1</span>)</span>
+<span id="cb152-1925"><a href="#cb152-1925" aria-hidden="true" tabindex="-1"></a>  q <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">f</span>(x0) <span class="sc">+</span> <span class="fu">fp</span>(x0) <span class="sc">*</span> (x <span class="sc">-</span> x0) <span class="sc">+</span> <span class="fu">fpp</span>(x0) <span class="sc">/</span> <span class="dv">2</span> <span class="sc">*</span> (x <span class="sc">-</span> x0)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb152-1926"><a href="#cb152-1926" aria-hidden="true" tabindex="-1"></a>  xq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">1.85</span>, <span class="fl">3.75</span>, <span class="at">length.out =</span> <span class="dv">200</span>)</span>
+<span id="cb152-1927"><a href="#cb152-1927" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(xq, <span class="fu">q</span>(xq), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> brick)</span>
+<span id="cb152-1928"><a href="#cb152-1928" aria-hidden="true" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> x0 <span class="sc">-</span> <span class="fu">fp</span>(x0) <span class="sc">/</span> <span class="fu">fpp</span>(x0)</span>
+<span id="cb152-1929"><a href="#cb152-1929" aria-hidden="true" tabindex="-1"></a>  <span class="fu">segments</span>(x1, <span class="fu">q</span>(x1), x1, <span class="fu">f</span>(x1), <span class="at">lty =</span> <span class="dv">3</span>, <span class="at">col =</span> brick)</span>
+<span id="cb152-1930"><a href="#cb152-1930" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(x1, <span class="fu">q</span>(x1), <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">col =</span> brick, <span class="at">cex =</span> <span class="fl">1.5</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb152-1931"><a href="#cb152-1931" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(<span class="fu">c</span>(x0, x1), <span class="fu">f</span>(<span class="fu">c</span>(x0, x1)), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">c</span>(ink, brick), <span class="at">cex =</span> <span class="fl">1.4</span>)</span>
+<span id="cb152-1932"><a href="#cb152-1932" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(x0, <span class="fu">f</span>(x0), <span class="st">"출발점"</span>, <span class="at">pos =</span> <span class="dv">4</span>)</span>
+<span id="cb152-1933"><a href="#cb152-1933" aria-hidden="true" tabindex="-1"></a>  <span class="fu">segments</span>(x1, <span class="fu">q</span>(x1) <span class="sc">+</span> <span class="fl">1.5</span>, <span class="fl">2.25</span>, <span class="dv">62</span>, <span class="at">col =</span> brick)</span>
+<span id="cb152-1934"><a href="#cb152-1934" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="fl">2.25</span>, <span class="dv">62</span>, <span class="st">"포물선의 꼭짓점 = 다음 위치"</span>, <span class="at">pos =</span> <span class="dv">3</span>, <span class="at">col =</span> brick)</span>
+<span id="cb152-1935"><a href="#cb152-1935" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrows</span>(x0, <span class="dv">16</span>, x1, <span class="dv">16</span>, <span class="at">length =</span> <span class="fl">0.1</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> brick)</span>
+<span id="cb152-1936"><a href="#cb152-1936" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="fl">1.3</span>, <span class="dv">100</span>, <span class="st">"보폭 = f '(x) ÷ f ''(x): 곡률이 정함"</span>, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">col =</span> brick)</span>
+<span id="cb152-1937"><a href="#cb152-1937" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-1938"><a href="#cb152-1938" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 오른쪽: 경사하강법. 기울기에 학습률을 곱한 만큼 간다</span></span>
+<span id="cb152-1939"><a href="#cb152-1939" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(xs, <span class="fu">f</span>(xs), <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lwd =</span> <span class="fl">2.5</span>, <span class="at">col =</span> ink, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">105</span>), <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"f(x)"</span>,</span>
+<span id="cb152-1940"><a href="#cb152-1940" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"l"</span>, <span class="at">main =</span> <span class="st">"경사하강법: 기울기에 학습률 η 를 곱한 만큼"</span>, <span class="at">font.main =</span> <span class="dv">1</span>)</span>
+<span id="cb152-1941"><a href="#cb152-1941" aria-hidden="true" tabindex="-1"></a>  xt <span class="ot">&lt;-</span> <span class="fu">seq</span>(x0 <span class="sc">-</span> <span class="fl">0.3</span>, x0 <span class="sc">+</span> <span class="fl">0.15</span>, <span class="at">length.out =</span> <span class="dv">20</span>)</span>
+<span id="cb152-1942"><a href="#cb152-1942" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(xt, <span class="fu">f</span>(x0) <span class="sc">+</span> <span class="fu">fp</span>(x0) <span class="sc">*</span> (xt <span class="sc">-</span> x0), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> teal)</span>
+<span id="cb152-1943"><a href="#cb152-1943" aria-hidden="true" tabindex="-1"></a>  x_small <span class="ot">&lt;-</span> x0 <span class="sc">-</span> <span class="fl">0.005</span> <span class="sc">*</span> <span class="fu">fp</span>(x0)</span>
+<span id="cb152-1944"><a href="#cb152-1944" aria-hidden="true" tabindex="-1"></a>  x_big <span class="ot">&lt;-</span> x0 <span class="sc">-</span> <span class="fl">0.02</span> <span class="sc">*</span> <span class="fu">fp</span>(x0)</span>
+<span id="cb152-1945"><a href="#cb152-1945" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(<span class="fu">c</span>(x0, x_small, x_big), <span class="fu">f</span>(<span class="fu">c</span>(x0, x_small, x_big)), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">c</span>(ink, teal, teal), <span class="at">cex =</span> <span class="fl">1.4</span>)</span>
+<span id="cb152-1946"><a href="#cb152-1946" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(x0, <span class="fu">f</span>(x0), <span class="st">"출발점"</span>, <span class="at">pos =</span> <span class="dv">4</span>)</span>
+<span id="cb152-1947"><a href="#cb152-1947" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(x_small, <span class="fu">f</span>(x_small), <span class="st">"η = 0.005"</span>, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">col =</span> teal)</span>
+<span id="cb152-1948"><a href="#cb152-1948" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="fl">1.32</span>, <span class="dv">58</span>, <span class="st">"η = 0.02:</span><span class="sc">\n</span><span class="st">최소점을 넘어감"</span>, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">col =</span> teal)</span>
+<span id="cb152-1949"><a href="#cb152-1949" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrows</span>(x0, <span class="dv">22</span>, x_small, <span class="dv">22</span>, <span class="at">length =</span> <span class="fl">0.1</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> teal)</span>
+<span id="cb152-1950"><a href="#cb152-1950" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrows</span>(x0, <span class="dv">14</span>, x_big, <span class="dv">14</span>, <span class="at">length =</span> <span class="fl">0.1</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> teal)</span>
+<span id="cb152-1951"><a href="#cb152-1951" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="fl">1.3</span>, <span class="dv">100</span>, <span class="st">"보폭 = η × f '(x): 사람이 정함"</span>, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">col =</span> teal)</span>
+<span id="cb152-1952"><a href="#cb152-1952" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb152-1953"><a href="#cb152-1953" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-1954"><a href="#cb152-1954" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb152-1955"><a href="#cb152-1955" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-1956"><a href="#cb152-1956" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-1957"><a href="#cb152-1957" aria-hidden="true" tabindex="-1"></a>@fig-gd-nr-step 은 @sec-nr-optimization 의 $f(x) = 5x^3 - 7x^2 - 40x + 100$ 에서 극소점 $x \approx 2.165$ 를 찾는</span>
+<span id="cb152-1958"><a href="#cb152-1958" aria-hidden="true" tabindex="-1"></a>첫 걸음이다. 출발점은 $x_0 = 3.5$ 다. 뉴턴-랩슨은 출발점에서 함수값, 기울기, 곡률($f''$)이 모두 같은 포물선을</span>
+<span id="cb152-1959"><a href="#cb152-1959" aria-hidden="true" tabindex="-1"></a>그리고 그 꼭짓점으로 옮겨 간다. 곡선이 휜 정도를 알고 있으므로 보폭이 저절로 정해지고, 네 걸음이면 극소점과의</span>
+<span id="cb152-1960"><a href="#cb152-1960" aria-hidden="true" tabindex="-1"></a>차이가 $10^{-8}$ 보다 작아진다. 경사하강법은 기울기만 쓰므로 보폭은 학습률이 정한다. 같은 출발점에서 극소점과의</span>
+<span id="cb152-1961"><a href="#cb152-1961" aria-hidden="true" tabindex="-1"></a>차이가 $10^{-6}$ 보다 작아질 때까지 $\eta = 0.005$ 는 47걸음, $\eta = 0.02$ 는 5걸음이 걸린다(첫 걸음에 극소점을</span>
+<span id="cb152-1962"><a href="#cb152-1962" aria-hidden="true" tabindex="-1"></a>넘어갔다가 되돌아온다). $\eta = 0.04$ 이면 극소점 양쪽의 두 점(1.81 과 2.46)을 끝없이 오가고, $\eta = 0.05$ 이면</span>
+<span id="cb152-1963"><a href="#cb152-1963" aria-hidden="true" tabindex="-1"></a>왼쪽으로 튕겨 나가 한없이 작아지는 쪽으로 발산한다. 이 $f$ 는 전체 최소가 없는 함수라는 @sec-nr-optimization 의</span>
+<span id="cb152-1964"><a href="#cb152-1964" aria-hidden="true" tabindex="-1"></a>주의가 여기서도 드러난다.</span>
 <span id="cb152-1965"><a href="#cb152-1965" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1966"><a href="#cb152-1966" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb152-1967"><a href="#cb152-1967" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-1966"><a href="#cb152-1966" aria-hidden="true" tabindex="-1"></a>@sec-nr-regression 의 회귀계수를 경사하강법으로 구해 보자. 목적함수는 잔차제곱합을 $n$ 으로 나눈</span>
+<span id="cb152-1967"><a href="#cb152-1967" aria-hidden="true" tabindex="-1"></a>평균제곱오차로 둔다. 최소점은 같고 기울기의 크기만 작아진다.</span>
 <span id="cb152-1968"><a href="#cb152-1968" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1969"><a href="#cb152-1969" aria-hidden="true" tabindex="-1"></a><span class="fu">## AI와 함께: 생성 코드의 검증 {#sec-ai-algorithms}</span></span>
-<span id="cb152-1970"><a href="#cb152-1970" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1971"><a href="#cb152-1971" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1972"><a href="#cb152-1972" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb152-1973"><a href="#cb152-1973" aria-hidden="true" tabindex="-1"></a>**이 절의 목표**: LLM 에 재귀 이진 탐색 함수의 생성을 요청하고, 생성된 코드를</span>
-<span id="cb152-1974"><a href="#cb152-1974" aria-hidden="true" tabindex="-1"></a>전수 검사와 경계 사례로 검증한다. @sec-search-verification 에서 사람이 작성한 코드에</span>
-<span id="cb152-1975"><a href="#cb152-1975" aria-hidden="true" tabindex="-1"></a>적용한 절차를 동일하게 AI 생성 코드에 적용한다.</span>
+<span id="cb152-1969"><a href="#cb152-1969" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-1970"><a href="#cb152-1970" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb152-1971"><a href="#cb152-1971" aria-hidden="true" tabindex="-1"></a>**예측해 보자**: 뉴턴-랩슨은 이 문제를 한 걸음에 풀었다. 경사하강법은 몇 걸음이 필요하겠는가?</span>
+<span id="cb152-1972"><a href="#cb152-1972" aria-hidden="true" tabindex="-1"></a>10걸음 안쪽, 100걸음 안쪽, 1,000걸음 이상 가운데 골라 보자.</span>
+<span id="cb152-1973"><a href="#cb152-1973" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-1974"><a href="#cb152-1974" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb152-1975"><a href="#cb152-1975" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-1976"><a href="#cb152-1976" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1977"><a href="#cb152-1977" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb152-1978"><a href="#cb152-1978" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1979"><a href="#cb152-1979" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1980"><a href="#cb152-1980" aria-hidden="true" tabindex="-1"></a><span class="fu">### 작업 요구사항 {#sec-ai-algorithms-spec}</span></span>
-<span id="cb152-1981"><a href="#cb152-1981" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1982"><a href="#cb152-1982" aria-hidden="true" tabindex="-1"></a>프롬프트는 곧 요구사항이다. 요구사항이 불완전하면 그 부분은 구현자의 임의 판단으로</span>
-<span id="cb152-1983"><a href="#cb152-1983" aria-hidden="true" tabindex="-1"></a>채워진다. 아래는 의도적으로 **통상적인 수준으로만** 작성한 요구사항이다.</span>
-<span id="cb152-1984"><a href="#cb152-1984" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1985"><a href="#cb152-1985" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 오름차순으로 정렬된 수치형 벡터 </span><span class="in">`vec`</span><span class="at"> 과 값 </span><span class="in">`target`</span><span class="at"> 을 받아,</span></span>
-<span id="cb152-1986"><a href="#cb152-1986" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`target`</span><span class="at"> 이 있으면 그 위치(인덱스)를, 없으면 </span><span class="in">`NA`</span><span class="at"> 를 반환하는</span></span>
-<span id="cb152-1987"><a href="#cb152-1987" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 재귀 이진 탐색 함수를 R 로 작성하라.</span></span>
-<span id="cb152-1988"><a href="#cb152-1988" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1989"><a href="#cb152-1989" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1990"><a href="#cb152-1990" aria-hidden="true" tabindex="-1"></a><span class="fu">### AI 가 생성한 코드 {#sec-ai-algorithms-gen}</span></span>
-<span id="cb152-1991"><a href="#cb152-1991" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1992"><a href="#cb152-1992" aria-hidden="true" tabindex="-1"></a>아래는 위 요구사항으로 실제 생성된 응답이며 **수정 없이 그대로 수록했다.**</span>
-<span id="cb152-1993"><a href="#cb152-1993" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-1977"><a href="#cb152-1977" aria-hidden="true" tabindex="-1"></a><span class="in">```{r gd-ls}</span></span>
+<span id="cb152-1978"><a href="#cb152-1978" aria-hidden="true" tabindex="-1"></a>gd_ls <span class="ot">&lt;-</span> <span class="cf">function</span>(X, y, eta, <span class="at">beta =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">tol =</span> <span class="fl">1e-6</span>, <span class="at">max_iters =</span> <span class="fl">1e5</span>) {</span>
+<span id="cb152-1979"><a href="#cb152-1979" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
+<span id="cb152-1980"><a href="#cb152-1980" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (iter <span class="cf">in</span> <span class="fu">seq_len</span>(max_iters)) {</span>
+<span id="cb152-1981"><a href="#cb152-1981" aria-hidden="true" tabindex="-1"></a>    g <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">/</span> n <span class="sc">*</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> (y <span class="sc">-</span> X <span class="sc">%*%</span> beta))   <span class="co"># 평균제곱오차의 기울기</span></span>
+<span id="cb152-1982"><a href="#cb152-1982" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">sqrt</span>(<span class="fu">sum</span>(g<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">&lt;</span> tol) <span class="cf">break</span>        <span class="co"># 기울기가 거의 0 이면 도착</span></span>
+<span id="cb152-1983"><a href="#cb152-1983" aria-hidden="true" tabindex="-1"></a>    beta <span class="ot">&lt;-</span> beta <span class="sc">-</span> eta <span class="sc">*</span> g                 <span class="co"># 기울기 반대 방향으로 eta 배만큼</span></span>
+<span id="cb152-1984"><a href="#cb152-1984" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">max</span>(<span class="fu">abs</span>(beta)) <span class="sc">&gt;</span> <span class="fl">1e6</span>) {            <span class="co"># 값이 끝없이 커지면 발산</span></span>
+<span id="cb152-1985"><a href="#cb152-1985" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">c</span>(학습률 <span class="ot">=</span> eta, 반복 <span class="ot">=</span> iter, <span class="at">b0 =</span> <span class="cn">NA</span>, <span class="at">b1 =</span> <span class="cn">NA</span>))</span>
+<span id="cb152-1986"><a href="#cb152-1986" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb152-1987"><a href="#cb152-1987" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb152-1988"><a href="#cb152-1988" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(학습률 <span class="ot">=</span> eta, 반복 <span class="ot">=</span> iter, <span class="at">b0 =</span> beta[<span class="dv">1</span>], <span class="at">b1 =</span> beta[<span class="dv">2</span>])</span>
+<span id="cb152-1989"><a href="#cb152-1989" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb152-1990"><a href="#cb152-1990" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-1991"><a href="#cb152-1991" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">sapply</span>(<span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.05</span>, <span class="fl">0.08</span>, <span class="fl">0.09</span>), <span class="cf">function</span>(eta) <span class="fu">gd_ls</span>(X, y, eta)))</span>
+<span id="cb152-1992"><a href="#cb152-1992" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-1993"><a href="#cb152-1993" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb152-1994"><a href="#cb152-1994" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-1995"><a href="#cb152-1995" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-generated}</span></span>
-<span id="cb152-1996"><a href="#cb152-1996" aria-hidden="true" tabindex="-1"></a><span class="co"># 생성: Claude Opus 5, 2026-09-11. 수정 없이 그대로 수록.</span></span>
-<span id="cb152-1997"><a href="#cb152-1997" aria-hidden="true" tabindex="-1"></a>binary_search_rec <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, target, <span class="at">lo =</span> <span class="dv">1</span>, <span class="at">hi =</span> <span class="fu">length</span>(vec)) {</span>
-<span id="cb152-1998"><a href="#cb152-1998" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (lo <span class="sc">&gt;</span> hi) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)</span>
-<span id="cb152-1999"><a href="#cb152-1999" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span></span>
-<span id="cb152-2000"><a href="#cb152-2000" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (vec[mid] <span class="sc">==</span> target) {</span>
-<span id="cb152-2001"><a href="#cb152-2001" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(mid)</span>
-<span id="cb152-2002"><a href="#cb152-2002" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (vec[mid] <span class="sc">&gt;</span> target) {</span>
-<span id="cb152-2003"><a href="#cb152-2003" aria-hidden="true" tabindex="-1"></a>    <span class="fu">binary_search_rec</span>(vec, target, lo, mid <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb152-2004"><a href="#cb152-2004" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb152-2005"><a href="#cb152-2005" aria-hidden="true" tabindex="-1"></a>    <span class="fu">binary_search_rec</span>(vec, target, mid <span class="sc">+</span> <span class="dv">1</span>, hi)</span>
-<span id="cb152-2006"><a href="#cb152-2006" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb152-2007"><a href="#cb152-2007" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb152-2008"><a href="#cb152-2008" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2009"><a href="#cb152-2009" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb152-2010"><a href="#cb152-2010" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2011"><a href="#cb152-2011" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2012"><a href="#cb152-2012" aria-hidden="true" tabindex="-1"></a>앞 절에서 수정한 구현과 동일한 구조이며, 종료 조건도 <span class="in">`lo &gt; hi`</span> 로 올바르게 지정되어</span>
-<span id="cb152-2013"><a href="#cb152-2013" aria-hidden="true" tabindex="-1"></a>있다. 그럼에도 검증 절차를 수행한다.</span>
-<span id="cb152-2014"><a href="#cb152-2014" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2015"><a href="#cb152-2015" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2016"><a href="#cb152-2016" aria-hidden="true" tabindex="-1"></a><span class="fu">### 검증 {#sec-ai-algorithms-verify}</span></span>
-<span id="cb152-2017"><a href="#cb152-2017" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2018"><a href="#cb152-2018" aria-hidden="true" tabindex="-1"></a>**검증 1. 전수 검사** — 벡터의 모든 원소를 목표값으로 입력한다.</span>
-<span id="cb152-2019"><a href="#cb152-2019" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2020"><a href="#cb152-2020" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2021"><a href="#cb152-2021" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-verify-exhaustive}</span></span>
-<span id="cb152-2022"><a href="#cb152-2022" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">40</span>, <span class="at">by =</span> <span class="dv">3</span>)</span>
-<span id="cb152-2023"><a href="#cb152-2023" aria-hidden="true" tabindex="-1"></a>found <span class="ot">&lt;-</span> <span class="fu">vapply</span>(<span class="fu">seq_along</span>(x), <span class="cf">function</span>(i) {</span>
-<span id="cb152-2024"><a href="#cb152-2024" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.integer</span>(<span class="fu">binary_search_rec</span>(x, x[i]))</span>
-<span id="cb152-2025"><a href="#cb152-2025" aria-hidden="true" tabindex="-1"></a>}, <span class="fu">integer</span>(<span class="dv">1</span>))</span>
+<span id="cb152-1995"><a href="#cb152-1995" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-1996"><a href="#cb152-1996" aria-hidden="true" tabindex="-1"></a>학습률이 알맞으면 <span class="in">`lm()`</span> 과 같은 값에 도착하지만 **1,000걸음이 넘게** 걸린다. 학습률을 줄이면</span>
+<span id="cb152-1997"><a href="#cb152-1997" aria-hidden="true" tabindex="-1"></a>걸음이 더 늘고, 조금만 키워도(0.09) 골짜기를 넘나들며 점점 멀어져 발산한다. 알맞은 학습률의</span>
+<span id="cb152-1998"><a href="#cb152-1998" aria-hidden="true" tabindex="-1"></a>범위는 문제마다 다르므로 대개 여러 값을 시험해 정한다.</span>
+<span id="cb152-1999"><a href="#cb152-1999" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2000"><a href="#cb152-2000" aria-hidden="true" tabindex="-1"></a>걸음이 왜 이렇게 많은지는 두 알고리즘이 지나간 길을 그려 보면 보인다(@fig-gd-path). 등고선은 평균제곱오차가</span>
+<span id="cb152-2001"><a href="#cb152-2001" aria-hidden="true" tabindex="-1"></a>같은 $(\beta_0, \beta_1)$ 를 이은 선이고, × 가 최소점(<span class="in">`lm()`</span> 의 결과)이다. 등고선이 가늘고 길게 기울어 있으므로</span>
+<span id="cb152-2002"><a href="#cb152-2002" aria-hidden="true" tabindex="-1"></a>최소점 둘레는 **좁고 긴 골짜기**다.</span>
+<span id="cb152-2003"><a href="#cb152-2003" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2004"><a href="#cb152-2004" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2005"><a href="#cb152-2005" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-gd-path}</span></span>
+<span id="cb152-2006"><a href="#cb152-2006" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb152-2007"><a href="#cb152-2007" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 8.5</span></span>
+<span id="cb152-2008"><a href="#cb152-2008" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4.8</span></span>
+<span id="cb152-2009"><a href="#cb152-2009" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-show: animate</span></span>
+<span id="cb152-2010"><a href="#cb152-2010" aria-hidden="true" tabindex="-1"></a><span class="co">#| animation-hook: gifski</span></span>
+<span id="cb152-2011"><a href="#cb152-2011" aria-hidden="true" tabindex="-1"></a><span class="co">#| interval: 0.6</span></span>
+<span id="cb152-2012"><a href="#cb152-2012" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: '평균제곱오차의 등고선 위에서 본 두 알고리즘의 경로. 뉴턴-랩슨은 한 걸음에 최소점으로 가고, 경사하강법($\eta = 0.08$)은 골짜기를 가로질러 지그재그로 1,272걸음을 간다. 마지막 장면은 학습률을 $\eta = 0.09$ 로 키웠을 때다.'</span></span>
+<span id="cb152-2013"><a href="#cb152-2013" aria-hidden="true" tabindex="-1"></a><span class="fu">local</span>({</span>
+<span id="cb152-2014"><a href="#cb152-2014" aria-hidden="true" tabindex="-1"></a>  brick <span class="ot">&lt;-</span> <span class="st">"#A64B32"</span>; teal <span class="ot">&lt;-</span> <span class="st">"#1F6F7A"</span>; ink <span class="ot">&lt;-</span> <span class="st">"#241F1A"</span></span>
+<span id="cb152-2015"><a href="#cb152-2015" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, mtcars<span class="sc">$</span>wt); y <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg; n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
+<span id="cb152-2016"><a href="#cb152-2016" aria-hidden="true" tabindex="-1"></a>  grad <span class="ot">&lt;-</span> <span class="cf">function</span>(b) <span class="fu">as.vector</span>(<span class="sc">-</span><span class="dv">2</span> <span class="sc">/</span> n <span class="sc">*</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> (y <span class="sc">-</span> X <span class="sc">%*%</span> b))</span>
+<span id="cb152-2017"><a href="#cb152-2017" aria-hidden="true" tabindex="-1"></a>  b_hat <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X, <span class="fu">t</span>(X) <span class="sc">%*%</span> y))</span>
+<span id="cb152-2018"><a href="#cb152-2018" aria-hidden="true" tabindex="-1"></a>  walk <span class="ot">&lt;-</span> <span class="cf">function</span>(eta, steps) {                      <span class="co"># 경사하강법이 지나간 점들</span></span>
+<span id="cb152-2019"><a href="#cb152-2019" aria-hidden="true" tabindex="-1"></a>    path <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, steps <span class="sc">+</span> <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb152-2020"><a href="#cb152-2020" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (k <span class="cf">in</span> <span class="fu">seq_len</span>(steps)) path[k <span class="sc">+</span> <span class="dv">1</span>, ] <span class="ot">&lt;-</span> path[k, ] <span class="sc">-</span> eta <span class="sc">*</span> <span class="fu">grad</span>(path[k, ])</span>
+<span id="cb152-2021"><a href="#cb152-2021" aria-hidden="true" tabindex="-1"></a>    path</span>
+<span id="cb152-2022"><a href="#cb152-2022" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb152-2023"><a href="#cb152-2023" aria-hidden="true" tabindex="-1"></a>  b0 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">45</span>, <span class="at">length.out =</span> <span class="dv">150</span>)</span>
+<span id="cb152-2024"><a href="#cb152-2024" aria-hidden="true" tabindex="-1"></a>  b1 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">12</span>, <span class="dv">18</span>, <span class="at">length.out =</span> <span class="dv">150</span>)</span>
+<span id="cb152-2025"><a href="#cb152-2025" aria-hidden="true" tabindex="-1"></a>  mse <span class="ot">&lt;-</span> <span class="fu">outer</span>(b0, b1, <span class="fu">Vectorize</span>(<span class="cf">function</span>(a, b) <span class="fu">mean</span>((y <span class="sc">-</span> a <span class="sc">-</span> b <span class="sc">*</span> mtcars<span class="sc">$</span>wt)<span class="sc">^</span><span class="dv">2</span>)))</span>
 <span id="cb152-2026"><a href="#cb152-2026" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2027"><a href="#cb152-2027" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(found <span class="sc">==</span> <span class="fu">seq_along</span>(x))</span>
-<span id="cb152-2028"><a href="#cb152-2028" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2029"><a href="#cb152-2029" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb152-2030"><a href="#cb152-2030" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2031"><a href="#cb152-2031" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2032"><a href="#cb152-2032" aria-hidden="true" tabindex="-1"></a>**검증 2. 경계 사례** — 빈 벡터, 길이가 1인 벡터, 존재하지 않는 값.</span>
-<span id="cb152-2033"><a href="#cb152-2033" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2034"><a href="#cb152-2034" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2035"><a href="#cb152-2035" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-verify-edge}</span></span>
-<span id="cb152-2036"><a href="#cb152-2036" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(빈벡터 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(<span class="fu">numeric</span>(<span class="dv">0</span>), <span class="dv">5</span>),</span>
-<span id="cb152-2037"><a href="#cb152-2037" aria-hidden="true" tabindex="-1"></a>  길이1적중 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(<span class="dv">7</span>, <span class="dv">7</span>),</span>
-<span id="cb152-2038"><a href="#cb152-2038" aria-hidden="true" tabindex="-1"></a>  길이1불발 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(<span class="dv">7</span>, <span class="dv">9</span>),</span>
-<span id="cb152-2039"><a href="#cb152-2039" aria-hidden="true" tabindex="-1"></a>  없는값 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(x, <span class="dv">2</span>))</span>
-<span id="cb152-2040"><a href="#cb152-2040" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2041"><a href="#cb152-2041" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb152-2042"><a href="#cb152-2042" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2043"><a href="#cb152-2043" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2044"><a href="#cb152-2044" aria-hidden="true" tabindex="-1"></a>**검증 3. 무작위 대조** — 정답이 알려진 <span class="in">`which()`</span> 와 500회 대조한다.</span>
-<span id="cb152-2045"><a href="#cb152-2045" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2027"><a href="#cb152-2027" aria-hidden="true" tabindex="-1"></a>  draw <span class="ot">&lt;-</span> <span class="cf">function</span>(path, k, eta, <span class="at">note =</span> <span class="st">""</span>) {</span>
+<span id="cb152-2028"><a href="#cb152-2028" aria-hidden="true" tabindex="-1"></a>    op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">4.2</span>, <span class="fl">4.2</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb152-2029"><a href="#cb152-2029" aria-hidden="true" tabindex="-1"></a>    <span class="fu">on.exit</span>(<span class="fu">par</span>(op))</span>
+<span id="cb152-2030"><a href="#cb152-2030" aria-hidden="true" tabindex="-1"></a>    <span class="fu">contour</span>(b0, b1, mse, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">16</span>, <span class="dv">25</span>, <span class="dv">40</span>, <span class="dv">70</span>, <span class="dv">120</span>, <span class="dv">200</span>, <span class="dv">350</span>, <span class="dv">600</span>, <span class="dv">1000</span>),</span>
+<span id="cb152-2031"><a href="#cb152-2031" aria-hidden="true" tabindex="-1"></a>            <span class="at">drawlabels =</span> <span class="cn">FALSE</span>, <span class="at">col =</span> <span class="st">"#D5CABB"</span>, <span class="at">bty =</span> <span class="st">"l"</span>,</span>
+<span id="cb152-2032"><a href="#cb152-2032" aria-hidden="true" tabindex="-1"></a>            <span class="at">xlab =</span> <span class="fu">expression</span>(beta[<span class="dv">0</span>] <span class="sc">*</span> <span class="st">" (절편)"</span>), <span class="at">ylab =</span> <span class="fu">expression</span>(beta[<span class="dv">1</span>] <span class="sc">*</span> <span class="st">" (기울기)"</span>))</span>
+<span id="cb152-2033"><a href="#cb152-2033" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="at">main =</span> <span class="fu">sprintf</span>(<span class="st">"경사하강법 (η = %s): %s걸음%s"</span>, eta, <span class="fu">format</span>(k, <span class="at">big.mark =</span> <span class="st">","</span>), note),</span>
+<span id="cb152-2034"><a href="#cb152-2034" aria-hidden="true" tabindex="-1"></a>          <span class="at">col.main =</span> teal, <span class="at">font.main =</span> <span class="dv">1</span>, <span class="at">adj =</span> <span class="dv">0</span>)</span>
+<span id="cb152-2035"><a href="#cb152-2035" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, b_hat[<span class="dv">1</span>], b_hat[<span class="dv">2</span>], <span class="at">length =</span> <span class="fl">0.12</span>, <span class="at">lwd =</span> <span class="fl">2.5</span>, <span class="at">col =</span> brick)</span>
+<span id="cb152-2036"><a href="#cb152-2036" aria-hidden="true" tabindex="-1"></a>    <span class="fu">text</span>(<span class="dv">15</span>, <span class="sc">-</span><span class="fl">3.6</span>, <span class="st">"뉴턴-랩슨: 1걸음"</span>, <span class="at">col =</span> brick)</span>
+<span id="cb152-2037"><a href="#cb152-2037" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (k <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb152-2038"><a href="#cb152-2038" aria-hidden="true" tabindex="-1"></a>      <span class="fu">lines</span>(path[<span class="dv">1</span><span class="sc">:</span>(k <span class="sc">+</span> <span class="dv">1</span>), <span class="dv">1</span>], path[<span class="dv">1</span><span class="sc">:</span>(k <span class="sc">+</span> <span class="dv">1</span>), <span class="dv">2</span>], <span class="at">col =</span> teal, <span class="at">lwd =</span> <span class="fl">1.4</span>)</span>
+<span id="cb152-2039"><a href="#cb152-2039" aria-hidden="true" tabindex="-1"></a>      <span class="fu">points</span>(path[<span class="dv">2</span><span class="sc">:</span>(k <span class="sc">+</span> <span class="dv">1</span>), <span class="dv">1</span>], path[<span class="dv">2</span><span class="sc">:</span>(k <span class="sc">+</span> <span class="dv">1</span>), <span class="dv">2</span>], <span class="at">col =</span> teal, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.55</span>)</span>
+<span id="cb152-2040"><a href="#cb152-2040" aria-hidden="true" tabindex="-1"></a>      <span class="fu">points</span>(path[k <span class="sc">+</span> <span class="dv">1</span>, <span class="dv">1</span>], path[k <span class="sc">+</span> <span class="dv">1</span>, <span class="dv">2</span>], <span class="at">col =</span> teal, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">1.3</span>)</span>
+<span id="cb152-2041"><a href="#cb152-2041" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb152-2042"><a href="#cb152-2042" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> ink, <span class="at">cex =</span> <span class="fl">1.3</span>)</span>
+<span id="cb152-2043"><a href="#cb152-2043" aria-hidden="true" tabindex="-1"></a>    <span class="fu">text</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="st">"출발 (0, 0)"</span>, <span class="at">pos =</span> <span class="dv">1</span>)</span>
+<span id="cb152-2044"><a href="#cb152-2044" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(b_hat[<span class="dv">1</span>], b_hat[<span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">4</span>, <span class="at">col =</span> ink, <span class="at">cex =</span> <span class="fl">1.8</span>, <span class="at">lwd =</span> <span class="fl">2.5</span>)</span>
+<span id="cb152-2045"><a href="#cb152-2045" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb152-2046"><a href="#cb152-2046" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2047"><a href="#cb152-2047" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-verify-random}</span></span>
-<span id="cb152-2048"><a href="#cb152-2048" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260911</span>)</span>
-<span id="cb152-2049"><a href="#cb152-2049" aria-hidden="true" tabindex="-1"></a>n_fail <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb152-2050"><a href="#cb152-2050" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>) {</span>
-<span id="cb152-2051"><a href="#cb152-2051" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>, <span class="dv">1</span>)</span>
-<span id="cb152-2052"><a href="#cb152-2052" aria-hidden="true" tabindex="-1"></a>  v <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, n))</span>
-<span id="cb152-2053"><a href="#cb152-2053" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> <span class="fl">0.7</span>) <span class="fu">sample</span>(v, <span class="dv">1</span>) <span class="cf">else</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="dv">1</span>)</span>
-<span id="cb152-2054"><a href="#cb152-2054" aria-hidden="true" tabindex="-1"></a>  got <span class="ot">&lt;-</span> <span class="fu">binary_search_rec</span>(v, k)</span>
-<span id="cb152-2055"><a href="#cb152-2055" aria-hidden="true" tabindex="-1"></a>  want <span class="ot">&lt;-</span> <span class="fu">which</span>(v <span class="sc">==</span> k)</span>
-<span id="cb152-2056"><a href="#cb152-2056" aria-hidden="true" tabindex="-1"></a>  ok <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">length</span>(want) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">is.na</span>(got) <span class="cf">else</span> (<span class="sc">!</span><span class="fu">is.na</span>(got) <span class="sc">&amp;&amp;</span> got <span class="sc">%in%</span> want)</span>
-<span id="cb152-2057"><a href="#cb152-2057" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>ok) n_fail <span class="ot">&lt;-</span> n_fail <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb152-2058"><a href="#cb152-2058" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb152-2059"><a href="#cb152-2059" aria-hidden="true" tabindex="-1"></a>n_fail</span>
-<span id="cb152-2060"><a href="#cb152-2060" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2061"><a href="#cb152-2061" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb152-2062"><a href="#cb152-2062" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2047"><a href="#cb152-2047" aria-hidden="true" tabindex="-1"></a>  path08 <span class="ot">&lt;-</span> <span class="fu">walk</span>(<span class="fl">0.08</span>, <span class="dv">1272</span>)</span>
+<span id="cb152-2048"><a href="#cb152-2048" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (k <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">400</span>, <span class="dv">700</span>, <span class="fu">rep</span>(<span class="dv">1272</span>, <span class="dv">4</span>))) {</span>
+<span id="cb152-2049"><a href="#cb152-2049" aria-hidden="true" tabindex="-1"></a>    <span class="fu">draw</span>(path08, k, <span class="st">"0.08"</span>)</span>
+<span id="cb152-2050"><a href="#cb152-2050" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb152-2051"><a href="#cb152-2051" aria-hidden="true" tabindex="-1"></a>  path09 <span class="ot">&lt;-</span> <span class="fu">walk</span>(<span class="fl">0.09</span>, <span class="dv">7</span>)</span>
+<span id="cb152-2052"><a href="#cb152-2052" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (k <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">7</span>)) <span class="fu">draw</span>(path09, k, <span class="st">"0.09"</span>, <span class="st">", 튀는 폭이 점점 커짐"</span>)</span>
+<span id="cb152-2053"><a href="#cb152-2053" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb152-2054"><a href="#cb152-2054" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2055"><a href="#cb152-2055" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb152-2056"><a href="#cb152-2056" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2057"><a href="#cb152-2057" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2058"><a href="#cb152-2058" aria-hidden="true" tabindex="-1"></a>뉴턴-랩슨은 헤세 행렬로 골짜기의 모양(곡률)을 알고 있으므로 한 걸음에 최소점으로 간다. 경사하강법은 매 걸음 그</span>
+<span id="cb152-2059"><a href="#cb152-2059" aria-hidden="true" tabindex="-1"></a>자리에서 가장 가파르게 내려가는 방향으로 가는데, 좁은 골짜기에서 그 방향은 최소점이 아니라 **맞은편 벽**을</span>
+<span id="cb152-2060"><a href="#cb152-2060" aria-hidden="true" tabindex="-1"></a>향한다. 그래서 첫 걸음에 $\beta_1$ 이 9.5 근처로 튀어 오르고, 이후 골짜기를 가로질러 지그재그로 튀면서 조금씩</span>
+<span id="cb152-2061"><a href="#cb152-2061" aria-hidden="true" tabindex="-1"></a>최소점 쪽으로 내려간다. 학습률이 알맞으면(0.08) 튀는 폭이 조금씩 줄어 결국 도착하지만, 0.09 로 키우면 튀는 폭이</span>
+<span id="cb152-2062"><a href="#cb152-2062" aria-hidden="true" tabindex="-1"></a>걸음마다 커져 일곱 걸음 만에 그림 밖으로 벗어난다. 앞의 표에서 본 발산이다.</span>
 <span id="cb152-2063"><a href="#cb152-2063" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2064"><a href="#cb152-2064" aria-hidden="true" tabindex="-1"></a>세 가지 검증을 모두 통과했다. **요구사항의 범위 안에서는** 이 코드가 옳다.</span>
-<span id="cb152-2065"><a href="#cb152-2065" aria-hidden="true" tabindex="-1"></a>문제는 요구사항이 규정하지 않은 영역에서 발생한다.</span>
-<span id="cb152-2066"><a href="#cb152-2066" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2067"><a href="#cb152-2067" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2068"><a href="#cb152-2068" aria-hidden="true" tabindex="-1"></a><span class="fu">### 요구사항이 규정하지 않은 부분 {#sec-ai-algorithms-gaps}</span></span>
-<span id="cb152-2069"><a href="#cb152-2069" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2070"><a href="#cb152-2070" aria-hidden="true" tabindex="-1"></a>**미규정 1. 중복값이 있으면 어느 위치를 반환하는가?**</span>
-<span id="cb152-2071"><a href="#cb152-2071" aria-hidden="true" tabindex="-1"></a>요구사항에 규정되어 있지 않으므로 구현이 임의로 결정한다.</span>
-<span id="cb152-2072"><a href="#cb152-2072" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2064"><a href="#cb152-2064" aria-hidden="true" tabindex="-1"></a>걸음이 이렇게 많은데도 경사하강법을 쓰는 이유는 **한 걸음의 비용**에 있다.</span>
+<span id="cb152-2065"><a href="#cb152-2065" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2066"><a href="#cb152-2066" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="pp">|</span> 뉴턴-랩슨 <span class="pp">|</span> 경사하강법 <span class="pp">|</span></span>
+<span id="cb152-2067"><a href="#cb152-2067" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span>:--<span class="pp">|</span></span>
+<span id="cb152-2068"><a href="#cb152-2068" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 쓰는 도함수 <span class="pp">|</span> 1계와 2계 (기울기 벡터, 헤세 행렬) <span class="pp">|</span> 1계 (기울기 벡터)만 <span class="pp">|</span></span>
+<span id="cb152-2069"><a href="#cb152-2069" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 한 걸음의 비용 <span class="pp">|</span> 모수가 $p$ 개이면 $p \times p$ 행렬을 저장하고 연립방정식을 푼다 <span class="pp">|</span> 길이 $p$ 인 벡터 하나를 계산한다 <span class="pp">|</span></span>
+<span id="cb152-2070"><a href="#cb152-2070" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 걸음 수 <span class="pp">|</span> 적다 (회귀 1회, 로지스틱 8회) <span class="pp">|</span> 많다 (위 회귀에서 1,000회 이상) <span class="pp">|</span></span>
+<span id="cb152-2071"><a href="#cb152-2071" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 정해야 할 값 <span class="pp">|</span> 초기값 <span class="pp">|</span> 초기값, 학습률 <span class="pp">|</span></span>
+<span id="cb152-2072"><a href="#cb152-2072" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 주로 쓰는 곳 <span class="pp">|</span> 모수가 적은 통계모형 (<span class="in">`glm()`</span> 등) <span class="pp">|</span> 모수가 매우 많은 기계학습·딥러닝 <span class="pp">|</span></span>
 <span id="cb152-2073"><a href="#cb152-2073" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2074"><a href="#cb152-2074" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-gap-duplicates}</span></span>
-<span id="cb152-2075"><a href="#cb152-2075" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
-<span id="cb152-2076"><a href="#cb152-2076" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2077"><a href="#cb152-2077" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(d, <span class="dv">3</span>)    <span class="co"># 이 구현이 반환한 위치</span></span>
-<span id="cb152-2078"><a href="#cb152-2078" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(d <span class="sc">==</span> <span class="dv">3</span>)              <span class="co"># 3이 존재하는 모든 위치</span></span>
-<span id="cb152-2079"><a href="#cb152-2079" aria-hidden="true" tabindex="-1"></a><span class="fu">match</span>(<span class="dv">3</span>, d)                <span class="co"># R 의 관례: 가장 앞</span></span>
-<span id="cb152-2080"><a href="#cb152-2080" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2081"><a href="#cb152-2081" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb152-2074"><a href="#cb152-2074" aria-hidden="true" tabindex="-1"></a>: {tbl-colwidths="<span class="co">[</span><span class="ot">18,41,41</span><span class="co">]</span>"}</span>
+<span id="cb152-2075"><a href="#cb152-2075" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2076"><a href="#cb152-2076" aria-hidden="true" tabindex="-1"></a>모수가 1,000만 개라면 헤세 행렬의 원소는 $10^{14}$ 개로, 저장하는 것조차 불가능하다. 대규모 언어</span>
+<span id="cb152-2077"><a href="#cb152-2077" aria-hidden="true" tabindex="-1"></a>모형(LLM)을 비롯한 딥러닝 모형은 수십억 개가 넘는 모수를 가지며, 경사하강법을 변형한 방법(확률적</span>
+<span id="cb152-2078"><a href="#cb152-2078" aria-hidden="true" tabindex="-1"></a>경사하강법, Adam 등)으로 학습한다. **걸음 수가 적은 알고리즘과 한 걸음이 싼 알고리즘 가운데 어느</span>
+<span id="cb152-2079"><a href="#cb152-2079" aria-hidden="true" tabindex="-1"></a>쪽이 나은지는 문제의 크기가 정한다.** 이 장 첫 절에서 말한 비용, 곧 수행 시간과 메모리를 함께</span>
+<span id="cb152-2080"><a href="#cb152-2080" aria-hidden="true" tabindex="-1"></a>따지는 판단이다.</span>
+<span id="cb152-2081"><a href="#cb152-2081" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-2082"><a href="#cb152-2082" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2083"><a href="#cb152-2083" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2084"><a href="#cb152-2084" aria-hidden="true" tabindex="-1"></a>R 의 <span class="in">`match()`</span> 는 가장 앞의 위치를 반환하지만, 이 구현은 중간 위치를 반환한다.</span>
-<span id="cb152-2085"><a href="#cb152-2085" aria-hidden="true" tabindex="-1"></a>어느 쪽도 그 자체로 오류는 아니나, **호출하는 쪽이 앞의 위치를 기대했다면 오류가 된다.**</span>
-<span id="cb152-2086"><a href="#cb152-2086" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2087"><a href="#cb152-2087" aria-hidden="true" tabindex="-1"></a>**미규정 2. 정렬되지 않은 입력이 들어오면 어떻게 되는가?**</span>
-<span id="cb152-2088"><a href="#cb152-2088" aria-hidden="true" tabindex="-1"></a>요구사항은 "정렬된 벡터"를 전제했으나, 그 전제가 성립하지 않을 때의 동작은 규정하지 않았다.</span>
+<span id="cb152-2083"><a href="#cb152-2083" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb152-2084"><a href="#cb152-2084" aria-hidden="true" tabindex="-1"></a>이 소절은 경사하강법이라는 방법이 **있다는 것**과 뉴턴-랩슨과의 차이를 소개하는 데 그친다.</span>
+<span id="cb152-2085"><a href="#cb152-2085" aria-hidden="true" tabindex="-1"></a>학습률을 자동으로 조정하는 방법, 자료의 일부만으로 기울기를 계산하는 확률적 경사하강법 등은</span>
+<span id="cb152-2086"><a href="#cb152-2086" aria-hidden="true" tabindex="-1"></a>기계학습을 다루는 과목에서 배운다. R 에서 일반적인 최적화 문제는 <span class="in">`optim()`</span> 으로 풀 수 있으며,</span>
+<span id="cb152-2087"><a href="#cb152-2087" aria-hidden="true" tabindex="-1"></a><span class="in">`method`</span> 인수로 헤세 행렬을 근사해 쓰는 준뉴턴법(<span class="in">`"BFGS"`</span>)이나 기울기만 쓰는 켤레기울기법(<span class="in">`"CG"`</span>)</span>
+<span id="cb152-2088"><a href="#cb152-2088" aria-hidden="true" tabindex="-1"></a>등을 고를 수 있다.</span>
 <span id="cb152-2089"><a href="#cb152-2089" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2090"><a href="#cb152-2090" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2091"><a href="#cb152-2091" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-gap-unsorted}</span></span>
-<span id="cb152-2092"><a href="#cb152-2092" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">15</span>, <span class="dv">10</span>)      <span class="co"># 정렬되어 있지 않은 벡터</span></span>
-<span id="cb152-2093"><a href="#cb152-2093" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2094"><a href="#cb152-2094" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(u, <span class="dv">19</span>)      <span class="co"># 19 는 1번 위치에 존재한다</span></span>
-<span id="cb152-2095"><a href="#cb152-2095" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(u <span class="sc">==</span> <span class="dv">19</span>)</span>
-<span id="cb152-2096"><a href="#cb152-2096" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2097"><a href="#cb152-2097" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb152-2098"><a href="#cb152-2098" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2099"><a href="#cb152-2099" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2100"><a href="#cb152-2100" aria-hidden="true" tabindex="-1"></a>오류나 경고 없이 값이 존재하지 않는다고 반환한다.</span>
-<span id="cb152-2101"><a href="#cb152-2101" aria-hidden="true" tabindex="-1"></a>**오류 없이 잘못된 결과를 반환하는 편이 명시적으로 실패하는 편보다 훨씬 위험하다.**</span>
+<span id="cb152-2090"><a href="#cb152-2090" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb152-2091"><a href="#cb152-2091" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2092"><a href="#cb152-2092" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2093"><a href="#cb152-2093" aria-hidden="true" tabindex="-1"></a><span class="fu">## AI와 함께: 생성 코드의 검증 {#sec-ai-algorithms}</span></span>
+<span id="cb152-2094"><a href="#cb152-2094" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2095"><a href="#cb152-2095" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2096"><a href="#cb152-2096" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb152-2097"><a href="#cb152-2097" aria-hidden="true" tabindex="-1"></a>**이 절의 목표**: LLM 에 재귀 이진 탐색 함수의 생성을 요청하고, 생성된 코드를</span>
+<span id="cb152-2098"><a href="#cb152-2098" aria-hidden="true" tabindex="-1"></a>전수 검사와 경계 사례로 검증한다. @sec-search-verification 에서 사람이 작성한 코드에</span>
+<span id="cb152-2099"><a href="#cb152-2099" aria-hidden="true" tabindex="-1"></a>적용한 절차를 동일하게 AI 생성 코드에 적용한다.</span>
+<span id="cb152-2100"><a href="#cb152-2100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2101"><a href="#cb152-2101" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb152-2102"><a href="#cb152-2102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2103"><a href="#cb152-2103" aria-hidden="true" tabindex="-1"></a>**미규정 3. `NA` 가 포함되어 있으면 어떻게 되는가?**</span>
-<span id="cb152-2104"><a href="#cb152-2104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2103"><a href="#cb152-2103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2104"><a href="#cb152-2104" aria-hidden="true" tabindex="-1"></a><span class="fu">### 작업 요구사항 {#sec-ai-algorithms-spec}</span></span>
 <span id="cb152-2105"><a href="#cb152-2105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2106"><a href="#cb152-2106" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-gap-na, error=TRUE}</span></span>
-<span id="cb152-2107"><a href="#cb152-2107" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="cn">NA</span>, <span class="dv">7</span>), <span class="dv">7</span>)</span>
+<span id="cb152-2106"><a href="#cb152-2106" aria-hidden="true" tabindex="-1"></a>프롬프트는 곧 요구사항이다. 요구사항이 불완전하면 그 부분은 구현자의 임의 판단으로</span>
+<span id="cb152-2107"><a href="#cb152-2107" aria-hidden="true" tabindex="-1"></a>채워진다. 아래는 의도적으로 **통상적인 수준으로만** 작성한 요구사항이다.</span>
 <span id="cb152-2108"><a href="#cb152-2108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2109"><a href="#cb152-2109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb152-2110"><a href="#cb152-2110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2111"><a href="#cb152-2111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2112"><a href="#cb152-2112" aria-hidden="true" tabindex="-1"></a>이 경우에는 오류가 발생하며 실행이 중단된다. 앞의 두 경우보다 오히려 바람직하다.</span>
-<span id="cb152-2113"><a href="#cb152-2113" aria-hidden="true" tabindex="-1"></a>결함을 즉시 인지할 수 있기 때문이다.</span>
-<span id="cb152-2114"><a href="#cb152-2114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2115"><a href="#cb152-2115" aria-hidden="true" tabindex="-1"></a>요구사항의 전제를 강제하도록 방어 코드를 추가하면 다음과 같다.</span>
-<span id="cb152-2116"><a href="#cb152-2116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2109"><a href="#cb152-2109" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 오름차순으로 정렬된 수치형 벡터 </span><span class="in">`vec`</span><span class="at"> 과 값 </span><span class="in">`target`</span><span class="at"> 을 받아,</span></span>
+<span id="cb152-2110"><a href="#cb152-2110" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`target`</span><span class="at"> 이 있으면 그 위치(인덱스)를, 없으면 </span><span class="in">`NA`</span><span class="at"> 를 반환하는</span></span>
+<span id="cb152-2111"><a href="#cb152-2111" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 재귀 이진 탐색 함수를 R 로 작성하라.</span></span>
+<span id="cb152-2112"><a href="#cb152-2112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2113"><a href="#cb152-2113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2114"><a href="#cb152-2114" aria-hidden="true" tabindex="-1"></a><span class="fu">### AI 가 생성한 코드 {#sec-ai-algorithms-gen}</span></span>
+<span id="cb152-2115"><a href="#cb152-2115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2116"><a href="#cb152-2116" aria-hidden="true" tabindex="-1"></a>아래는 위 요구사항으로 실제 생성된 응답이며 **수정 없이 그대로 수록했다.**</span>
 <span id="cb152-2117"><a href="#cb152-2117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2118"><a href="#cb152-2118" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-gap-fixed}</span></span>
-<span id="cb152-2119"><a href="#cb152-2119" aria-hidden="true" tabindex="-1"></a>binary_search_safe <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, target) {</span>
-<span id="cb152-2120"><a href="#cb152-2120" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(vec), <span class="fu">length</span>(target) <span class="sc">==</span> <span class="dv">1</span>L)</span>
-<span id="cb152-2121"><a href="#cb152-2121" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">anyNA</span>(vec)) <span class="fu">stop</span>(<span class="st">"vec 에 NA 가 포함되어 있다."</span>)</span>
-<span id="cb152-2122"><a href="#cb152-2122" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.unsorted</span>(vec)) <span class="fu">stop</span>(<span class="st">"vec 이 오름차순으로 정렬되어 있지 않다."</span>)</span>
-<span id="cb152-2123"><a href="#cb152-2123" aria-hidden="true" tabindex="-1"></a>  <span class="fu">binary_search_rec</span>(vec, target)</span>
-<span id="cb152-2124"><a href="#cb152-2124" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb152-2125"><a href="#cb152-2125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2126"><a href="#cb152-2126" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_safe</span>(x, x[<span class="dv">5</span>])</span>
-<span id="cb152-2127"><a href="#cb152-2127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2128"><a href="#cb152-2128" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb152-2129"><a href="#cb152-2129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2130"><a href="#cb152-2130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2131"><a href="#cb152-2131" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-gap-fixed-error, error=TRUE}</span></span>
-<span id="cb152-2132"><a href="#cb152-2132" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_safe</span>(u, <span class="dv">19</span>)</span>
-<span id="cb152-2133"><a href="#cb152-2133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2134"><a href="#cb152-2134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb152-2118"><a href="#cb152-2118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2119"><a href="#cb152-2119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-generated}</span></span>
+<span id="cb152-2120"><a href="#cb152-2120" aria-hidden="true" tabindex="-1"></a><span class="co"># 생성: Claude Opus 5, 2026-09-11. 수정 없이 그대로 수록.</span></span>
+<span id="cb152-2121"><a href="#cb152-2121" aria-hidden="true" tabindex="-1"></a>binary_search_rec <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, target, <span class="at">lo =</span> <span class="dv">1</span>, <span class="at">hi =</span> <span class="fu">length</span>(vec)) {</span>
+<span id="cb152-2122"><a href="#cb152-2122" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (lo <span class="sc">&gt;</span> hi) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)</span>
+<span id="cb152-2123"><a href="#cb152-2123" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span></span>
+<span id="cb152-2124"><a href="#cb152-2124" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (vec[mid] <span class="sc">==</span> target) {</span>
+<span id="cb152-2125"><a href="#cb152-2125" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(mid)</span>
+<span id="cb152-2126"><a href="#cb152-2126" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (vec[mid] <span class="sc">&gt;</span> target) {</span>
+<span id="cb152-2127"><a href="#cb152-2127" aria-hidden="true" tabindex="-1"></a>    <span class="fu">binary_search_rec</span>(vec, target, lo, mid <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb152-2128"><a href="#cb152-2128" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb152-2129"><a href="#cb152-2129" aria-hidden="true" tabindex="-1"></a>    <span class="fu">binary_search_rec</span>(vec, target, mid <span class="sc">+</span> <span class="dv">1</span>, hi)</span>
+<span id="cb152-2130"><a href="#cb152-2130" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb152-2131"><a href="#cb152-2131" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb152-2132"><a href="#cb152-2132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2133"><a href="#cb152-2133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb152-2134"><a href="#cb152-2134" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-2135"><a href="#cb152-2135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2136"><a href="#cb152-2136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2137"><a href="#cb152-2137" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution}</span>
-<span id="cb152-2138"><a href="#cb152-2138" aria-hidden="true" tabindex="-1"></a>**AI 생성 코드에서 자주 나타나는 오류 유형**</span>
+<span id="cb152-2136"><a href="#cb152-2136" aria-hidden="true" tabindex="-1"></a>앞 절에서 수정한 구현과 동일한 구조이며, 종료 조건도 <span class="in">`lo &gt; hi`</span> 로 올바르게 지정되어</span>
+<span id="cb152-2137"><a href="#cb152-2137" aria-hidden="true" tabindex="-1"></a>있다. 그럼에도 검증 절차를 수행한다.</span>
+<span id="cb152-2138"><a href="#cb152-2138" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-2139"><a href="#cb152-2139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2140"><a href="#cb152-2140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**경계 조건**: <span class="in">`&lt;`</span> 와 <span class="in">`&lt;=`</span>, <span class="in">`mid`</span> 와 <span class="in">`mid - 1`</span> 을 혼동한다. 이 장의</span>
-<span id="cb152-2141"><a href="#cb152-2141" aria-hidden="true" tabindex="-1"></a><span class="in">`rbinary_search()`</span> 가 정확히 이 유형이며, 사람이 작성한 코드에서도 동일하게 나타난다.</span>
-<span id="cb152-2142"><a href="#cb152-2142" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**전제 미검사**: "정렬되어 있다", "<span class="in">`NA`</span> 가 없다"와 같은 전제를 확인하지 않는다.</span>
-<span id="cb152-2143"><a href="#cb152-2143" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**빈 입력**: 길이가 0인 벡터에서 인덱스 1을 참조한다.</span>
-<span id="cb152-2144"><a href="#cb152-2144" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**요구사항의 공백**: 중복값이나 동점 처리와 같이 요구사항이 규정하지 않은 부분을</span>
-<span id="cb152-2145"><a href="#cb152-2145" aria-hidden="true" tabindex="-1"></a>임의로 결정하고, 그 선택을 명시하지 않는다.</span>
-<span id="cb152-2146"><a href="#cb152-2146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2147"><a href="#cb152-2147" aria-hidden="true" tabindex="-1"></a>이 유형들의 공통점은 **오류 메시지가 출력되지 않는다**는 점이다. 따라서 실행해 보는</span>
-<span id="cb152-2148"><a href="#cb152-2148" aria-hidden="true" tabindex="-1"></a>것만으로는 부족하며 별도의 검증 절차가 필요하다.</span>
-<span id="cb152-2149"><a href="#cb152-2149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2150"><a href="#cb152-2150" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb152-2151"><a href="#cb152-2151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2140"><a href="#cb152-2140" aria-hidden="true" tabindex="-1"></a><span class="fu">### 검증 {#sec-ai-algorithms-verify}</span></span>
+<span id="cb152-2141"><a href="#cb152-2141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2142"><a href="#cb152-2142" aria-hidden="true" tabindex="-1"></a>**검증 1. 전수 검사** — 벡터의 모든 원소를 목표값으로 입력한다.</span>
+<span id="cb152-2143"><a href="#cb152-2143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2144"><a href="#cb152-2144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2145"><a href="#cb152-2145" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-verify-exhaustive}</span></span>
+<span id="cb152-2146"><a href="#cb152-2146" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">40</span>, <span class="at">by =</span> <span class="dv">3</span>)</span>
+<span id="cb152-2147"><a href="#cb152-2147" aria-hidden="true" tabindex="-1"></a>found <span class="ot">&lt;-</span> <span class="fu">vapply</span>(<span class="fu">seq_along</span>(x), <span class="cf">function</span>(i) {</span>
+<span id="cb152-2148"><a href="#cb152-2148" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.integer</span>(<span class="fu">binary_search_rec</span>(x, x[i]))</span>
+<span id="cb152-2149"><a href="#cb152-2149" aria-hidden="true" tabindex="-1"></a>}, <span class="fu">integer</span>(<span class="dv">1</span>))</span>
+<span id="cb152-2150"><a href="#cb152-2150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2151"><a href="#cb152-2151" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(found <span class="sc">==</span> <span class="fu">seq_along</span>(x))</span>
 <span id="cb152-2152"><a href="#cb152-2152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2153"><a href="#cb152-2153" aria-hidden="true" tabindex="-1"></a><span class="fu">### 연습 {#sec-ai-algorithms-practice}</span></span>
+<span id="cb152-2153"><a href="#cb152-2153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb152-2154"><a href="#cb152-2154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2155"><a href="#cb152-2155" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>위 요구사항에 "중복값이 있으면 **가장 앞** 위치를 반환한다"는 조건을 추가하여 다시</span>
-<span id="cb152-2156"><a href="#cb152-2156" aria-hidden="true" tabindex="-1"></a>요청하고, 생성된 코드가 그 조건을 충족하는지 <span class="in">`match()`</span> 와 대조해 확인하시오.</span>
-<span id="cb152-2157"><a href="#cb152-2157" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>두 사람이 코드를 교환한다. 상대의 <span class="in">`binary_search_rec()`</span> 에 결함을 하나 삽입해</span>
-<span id="cb152-2158"><a href="#cb152-2158" aria-hidden="true" tabindex="-1"></a>돌려주고, 서로 전수 검사로 찾아내시오. 몇 번째 검증에서 발견했는지 기록하시오.</span>
-<span id="cb152-2159"><a href="#cb152-2159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2160"><a href="#cb152-2160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2161"><a href="#cb152-2161" aria-hidden="true" tabindex="-1"></a><span class="fu">## 연습문제 {#sec-ex-algorithms .unnumbered}</span></span>
-<span id="cb152-2162"><a href="#cb152-2162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2163"><a href="#cb152-2163" aria-hidden="true" tabindex="-1"></a>**읽기 문항** (실행하지 말고 답을 먼저 적은 뒤 확인할 것)</span>
+<span id="cb152-2155"><a href="#cb152-2155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2156"><a href="#cb152-2156" aria-hidden="true" tabindex="-1"></a>**검증 2. 경계 사례** — 빈 벡터, 길이가 1인 벡터, 존재하지 않는 값.</span>
+<span id="cb152-2157"><a href="#cb152-2157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2158"><a href="#cb152-2158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2159"><a href="#cb152-2159" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-verify-edge}</span></span>
+<span id="cb152-2160"><a href="#cb152-2160" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(빈벡터 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(<span class="fu">numeric</span>(<span class="dv">0</span>), <span class="dv">5</span>),</span>
+<span id="cb152-2161"><a href="#cb152-2161" aria-hidden="true" tabindex="-1"></a>  길이1적중 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(<span class="dv">7</span>, <span class="dv">7</span>),</span>
+<span id="cb152-2162"><a href="#cb152-2162" aria-hidden="true" tabindex="-1"></a>  길이1불발 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(<span class="dv">7</span>, <span class="dv">9</span>),</span>
+<span id="cb152-2163"><a href="#cb152-2163" aria-hidden="true" tabindex="-1"></a>  없는값 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(x, <span class="dv">2</span>))</span>
 <span id="cb152-2164"><a href="#cb152-2164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2165"><a href="#cb152-2165" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>다음 각 코드의 시간 복잡도를 빅오로 나타내시오.</span>
+<span id="cb152-2165"><a href="#cb152-2165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb152-2166"><a href="#cb152-2166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2167"><a href="#cb152-2167" aria-hidden="true" tabindex="-1"></a>   a) 길이가 $n$ 인 벡터를 한 번 순회하여 최댓값을 찾는 코드</span>
-<span id="cb152-2168"><a href="#cb152-2168" aria-hidden="true" tabindex="-1"></a>   b) 길이가 $n$ 인 벡터의 모든 두 원소 쌍을 비교하는 이중 반복문</span>
-<span id="cb152-2169"><a href="#cb152-2169" aria-hidden="true" tabindex="-1"></a>   c) 길이가 $n$ 인 벡터의 탐색 범위를 절반씩 줄여 나가는 코드</span>
-<span id="cb152-2170"><a href="#cb152-2170" aria-hidden="true" tabindex="-1"></a>   d) 길이가 $n$ 인 벡터에 대해 반복문 안에서 <span class="in">`x &lt;- c(x, i)`</span> 로 결과를 누적하는 코드</span>
-<span id="cb152-2171"><a href="#cb152-2171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2172"><a href="#cb152-2172" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>아래 함수는 <span class="in">`n`</span> 번째 피보나치 수를 구한다. 실행하기 전에 답하시오.</span>
-<span id="cb152-2173"><a href="#cb152-2173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2174"><a href="#cb152-2174" aria-hidden="true" tabindex="-1"></a>    <span class="in">```r</span></span>
-<span id="cb152-2175"><a href="#cb152-2175" aria-hidden="true" tabindex="-1"></a>    fib <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb152-2176"><a href="#cb152-2176" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (n <span class="sc">&lt;=</span> <span class="dv">2</span>) <span class="fu">return</span>(<span class="dv">1</span>)</span>
-<span id="cb152-2177"><a href="#cb152-2177" aria-hidden="true" tabindex="-1"></a>      <span class="fu">fib</span>(n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">fib</span>(n <span class="sc">-</span> <span class="dv">2</span>)</span>
-<span id="cb152-2178"><a href="#cb152-2178" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb152-2179"><a href="#cb152-2179" aria-hidden="true" tabindex="-1"></a>    <span class="in">```</span></span>
-<span id="cb152-2180"><a href="#cb152-2180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2181"><a href="#cb152-2181" aria-hidden="true" tabindex="-1"></a>   a) <span class="in">`fib(6)`</span> 의 값은 얼마인가?</span>
-<span id="cb152-2182"><a href="#cb152-2182" aria-hidden="true" tabindex="-1"></a>   b) <span class="in">`fib(0)`</span> 은 무엇을 반환하는가? 그 값이 타당한지 판단하시오.</span>
-<span id="cb152-2183"><a href="#cb152-2183" aria-hidden="true" tabindex="-1"></a>   c) <span class="in">`fib(30)`</span> 의 수행 시간이 긴 이유를 호출 횟수의 증가율을 근거로 설명하시오.</span>
+<span id="cb152-2167"><a href="#cb152-2167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2168"><a href="#cb152-2168" aria-hidden="true" tabindex="-1"></a>**검증 3. 무작위 대조** — 정답이 알려진 <span class="in">`which()`</span> 와 500회 대조한다.</span>
+<span id="cb152-2169"><a href="#cb152-2169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2170"><a href="#cb152-2170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2171"><a href="#cb152-2171" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-verify-random}</span></span>
+<span id="cb152-2172"><a href="#cb152-2172" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260911</span>)</span>
+<span id="cb152-2173"><a href="#cb152-2173" aria-hidden="true" tabindex="-1"></a>n_fail <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb152-2174"><a href="#cb152-2174" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>) {</span>
+<span id="cb152-2175"><a href="#cb152-2175" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>, <span class="dv">1</span>)</span>
+<span id="cb152-2176"><a href="#cb152-2176" aria-hidden="true" tabindex="-1"></a>  v <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, n))</span>
+<span id="cb152-2177"><a href="#cb152-2177" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> <span class="fl">0.7</span>) <span class="fu">sample</span>(v, <span class="dv">1</span>) <span class="cf">else</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="dv">1</span>)</span>
+<span id="cb152-2178"><a href="#cb152-2178" aria-hidden="true" tabindex="-1"></a>  got <span class="ot">&lt;-</span> <span class="fu">binary_search_rec</span>(v, k)</span>
+<span id="cb152-2179"><a href="#cb152-2179" aria-hidden="true" tabindex="-1"></a>  want <span class="ot">&lt;-</span> <span class="fu">which</span>(v <span class="sc">==</span> k)</span>
+<span id="cb152-2180"><a href="#cb152-2180" aria-hidden="true" tabindex="-1"></a>  ok <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">length</span>(want) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">is.na</span>(got) <span class="cf">else</span> (<span class="sc">!</span><span class="fu">is.na</span>(got) <span class="sc">&amp;&amp;</span> got <span class="sc">%in%</span> want)</span>
+<span id="cb152-2181"><a href="#cb152-2181" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>ok) n_fail <span class="ot">&lt;-</span> n_fail <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb152-2182"><a href="#cb152-2182" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb152-2183"><a href="#cb152-2183" aria-hidden="true" tabindex="-1"></a>n_fail</span>
 <span id="cb152-2184"><a href="#cb152-2184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2185"><a href="#cb152-2185" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>@sec-search-verification 의 <span class="in">`rbinary_search()`</span> 는 <span class="in">`maxL &lt;= minL`</span> 에서 탐색을</span>
-<span id="cb152-2186"><a href="#cb152-2186" aria-hidden="true" tabindex="-1"></a>종료한다. 길이가 4인 벡터 <span class="in">`c(2, 4, 6, 8)`</span> 에서 <span class="in">`target = 4`</span> 를 탐색할 때 <span class="in">`minL`</span> 과</span>
-<span id="cb152-2187"><a href="#cb152-2187" aria-hidden="true" tabindex="-1"></a><span class="in">`maxL`</span> 이 어떻게 변하는지 단계별로 추적하고, 어느 단계에서 정답을 놓치는지 기술하시오.</span>
-<span id="cb152-2188"><a href="#cb152-2188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2189"><a href="#cb152-2189" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>다음 주장은 참인가 거짓인가. 근거를 대시오.</span>
-<span id="cb152-2190"><a href="#cb152-2190" aria-hidden="true" tabindex="-1"></a>"이진 탐색은 선형 탐색보다 항상 빠르므로 값을 찾을 일이 있으면 먼저 정렬해야 한다."</span>
+<span id="cb152-2185"><a href="#cb152-2185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb152-2186"><a href="#cb152-2186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2187"><a href="#cb152-2187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2188"><a href="#cb152-2188" aria-hidden="true" tabindex="-1"></a>세 가지 검증을 모두 통과했다. **요구사항의 범위 안에서는** 이 코드가 옳다.</span>
+<span id="cb152-2189"><a href="#cb152-2189" aria-hidden="true" tabindex="-1"></a>문제는 요구사항이 규정하지 않은 영역에서 발생한다.</span>
+<span id="cb152-2190"><a href="#cb152-2190" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-2191"><a href="#cb152-2191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2192"><a href="#cb152-2192" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>@sec-everyday-algorithm 의 <span class="in">`clean_room()`</span> 에 대해 실행하지 말고 답하시오.</span>
+<span id="cb152-2192"><a href="#cb152-2192" aria-hidden="true" tabindex="-1"></a><span class="fu">### 요구사항이 규정하지 않은 부분 {#sec-ai-algorithms-gaps}</span></span>
 <span id="cb152-2193"><a href="#cb152-2193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2194"><a href="#cb152-2194" aria-hidden="true" tabindex="-1"></a>   a) <span class="in">`clean_room(3, 5)`</span> 에서 3행 5열 칸은 몇 번째로 청소되는가?</span>
-<span id="cb152-2195"><a href="#cb152-2195" aria-hidden="true" tabindex="-1"></a>   b) 방 가운데에 가구가 놓인 경우를 이 함수로 표현할 수 있는가? 알고리즘의 다섯 조건 가운데</span>
-<span id="cb152-2196"><a href="#cb152-2196" aria-hidden="true" tabindex="-1"></a>      어느 조건과 관련되는지 설명하시오.</span>
+<span id="cb152-2194"><a href="#cb152-2194" aria-hidden="true" tabindex="-1"></a>**미규정 1. 중복값이 있으면 어느 위치를 반환하는가?**</span>
+<span id="cb152-2195"><a href="#cb152-2195" aria-hidden="true" tabindex="-1"></a>요구사항에 규정되어 있지 않으므로 구현이 임의로 결정한다.</span>
+<span id="cb152-2196"><a href="#cb152-2196" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb152-2197"><a href="#cb152-2197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2198"><a href="#cb152-2198" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>오름차순으로 정렬된 1,000개의 값에서 마지막 두 원소만 자리가 바뀌어 있다. @sec-sorting 의</span>
-<span id="cb152-2199"><a href="#cb152-2199" aria-hidden="true" tabindex="-1"></a>네 정렬 함수 가운데 비교 횟수가 가장 적은 것과 가장 많은 것을 고르고, 각 알고리즘의 동작으로</span>
-<span id="cb152-2200"><a href="#cb152-2200" aria-hidden="true" tabindex="-1"></a>그 이유를 설명하시오.</span>
-<span id="cb152-2201"><a href="#cb152-2201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2202"><a href="#cb152-2202" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>@sec-nr-regression 에서는 뉴턴-랩슨 알고리즘이 한 걸음에 수렴했지만 @sec-nr-logistic 에서는</span>
-<span id="cb152-2203"><a href="#cb152-2203" aria-hidden="true" tabindex="-1"></a>여러 번 반복했다. 두 경우의 헤세 행렬을 비교하여 그 차이를 설명하시오.</span>
+<span id="cb152-2198"><a href="#cb152-2198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-gap-duplicates}</span></span>
+<span id="cb152-2199"><a href="#cb152-2199" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
+<span id="cb152-2200"><a href="#cb152-2200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2201"><a href="#cb152-2201" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(d, <span class="dv">3</span>)    <span class="co"># 이 구현이 반환한 위치</span></span>
+<span id="cb152-2202"><a href="#cb152-2202" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(d <span class="sc">==</span> <span class="dv">3</span>)              <span class="co"># 3이 존재하는 모든 위치</span></span>
+<span id="cb152-2203"><a href="#cb152-2203" aria-hidden="true" tabindex="-1"></a><span class="fu">match</span>(<span class="dv">3</span>, d)                <span class="co"># R 의 관례: 가장 앞</span></span>
 <span id="cb152-2204"><a href="#cb152-2204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2205"><a href="#cb152-2205" aria-hidden="true" tabindex="-1"></a>**쓰기 문항**</span>
+<span id="cb152-2205"><a href="#cb152-2205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb152-2206"><a href="#cb152-2206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2207"><a href="#cb152-2207" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span><span class="in">`bubble_sort()`</span> 를 수정하여, 한 번 순회하는 동안 교환이 한 번도 발생하지 않으면</span>
-<span id="cb152-2208"><a href="#cb152-2208" aria-hidden="true" tabindex="-1"></a>즉시 종료하도록 하시오. 이미 정렬된 입력에 대해 시간 복잡도가 어떻게 달라지는지</span>
-<span id="cb152-2209"><a href="#cb152-2209" aria-hidden="true" tabindex="-1"></a>설명하고, <span class="in">`system.time()`</span> 으로 확인하시오.</span>
+<span id="cb152-2207"><a href="#cb152-2207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2208"><a href="#cb152-2208" aria-hidden="true" tabindex="-1"></a>R 의 <span class="in">`match()`</span> 는 가장 앞의 위치를 반환하지만, 이 구현은 중간 위치를 반환한다.</span>
+<span id="cb152-2209"><a href="#cb152-2209" aria-hidden="true" tabindex="-1"></a>어느 쪽도 그 자체로 오류는 아니나, **호출하는 쪽이 앞의 위치를 기대했다면 오류가 된다.**</span>
 <span id="cb152-2210"><a href="#cb152-2210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2211"><a href="#cb152-2211" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span><span class="in">`merge_sort()`</span> 가 내림차순으로 정렬하도록 수정하시오. <span class="in">`smerge()`</span> 의 어느 부분을</span>
-<span id="cb152-2212"><a href="#cb152-2212" aria-hidden="true" tabindex="-1"></a>변경해야 하는지 설명하고, 중복값이 있는 벡터에서 안정성이 유지되는지 확인하시오.</span>
+<span id="cb152-2211"><a href="#cb152-2211" aria-hidden="true" tabindex="-1"></a>**미규정 2. 정렬되지 않은 입력이 들어오면 어떻게 되는가?**</span>
+<span id="cb152-2212"><a href="#cb152-2212" aria-hidden="true" tabindex="-1"></a>요구사항은 "정렬된 벡터"를 전제했으나, 그 전제가 성립하지 않을 때의 동작은 규정하지 않았다.</span>
 <span id="cb152-2213"><a href="#cb152-2213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2214"><a href="#cb152-2214" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span><span class="in">`quick_sort()`</span> 가 첫 원소 대신 가운데 원소 <span class="in">`x[(length(x) + 1) %/% 2]`</span> 를 기준값으로 삼도록</span>
-<span id="cb152-2215"><a href="#cb152-2215" aria-hidden="true" tabindex="-1"></a>수정하시오. <span class="in">`quick_count()`</span> 도 같은 방식으로 고친 뒤, 정렬된 입력 <span class="in">`1:1000`</span> 과 무작위 입력</span>
-<span id="cb152-2216"><a href="#cb152-2216" aria-hidden="true" tabindex="-1"></a><span class="in">`sample(1000)`</span> 에서 원래 구현과 비교 횟수를 비교하시오. 기준값 규칙을 바꾸어도 비교 횟수가</span>
-<span id="cb152-2217"><a href="#cb152-2217" aria-hidden="true" tabindex="-1"></a>$n(n-1)/2$ 가 되는 입력이 여전히 존재하는 이유를 설명하시오.</span>
-<span id="cb152-2218"><a href="#cb152-2218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2219"><a href="#cb152-2219" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span><span class="in">`newton_raphson()`</span> 에 수렴 실패를 알리는 기능을 추가하시오. 최대 반복 횟수에</span>
-<span id="cb152-2220"><a href="#cb152-2220" aria-hidden="true" tabindex="-1"></a>도달했음에도 $|f(x)| &gt; $ <span class="in">`tol`</span> 인 경우 경고를 출력하고 <span class="in">`converged = FALSE`</span> 를 함께</span>
-<span id="cb152-2221"><a href="#cb152-2221" aria-hidden="true" tabindex="-1"></a>반환하도록 한다. 실근이 존재하지 않는 $f(x) = x^2 + 1$ 로 동작을 확인하시오.</span>
+<span id="cb152-2214"><a href="#cb152-2214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2215"><a href="#cb152-2215" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-gap-unsorted}</span></span>
+<span id="cb152-2216"><a href="#cb152-2216" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">15</span>, <span class="dv">10</span>)      <span class="co"># 정렬되어 있지 않은 벡터</span></span>
+<span id="cb152-2217"><a href="#cb152-2217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2218"><a href="#cb152-2218" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(u, <span class="dv">19</span>)      <span class="co"># 19 는 1번 위치에 존재한다</span></span>
+<span id="cb152-2219"><a href="#cb152-2219" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(u <span class="sc">==</span> <span class="dv">19</span>)</span>
+<span id="cb152-2220"><a href="#cb152-2220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2221"><a href="#cb152-2221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb152-2222"><a href="#cb152-2222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2223"><a href="#cb152-2223" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span><span class="in">`logistic_nr()`</span> 로 설명변수가 두 개인 모형 <span class="in">`am ~ wt + hp`</span> 의 계수를 구하고 <span class="in">`glm()`</span> 의 결과와</span>
-<span id="cb152-2224"><a href="#cb152-2224" aria-hidden="true" tabindex="-1"></a><span class="in">`all.equal()`</span> 로 대조하시오. <span class="in">`X`</span> 를 어떻게 만들었는지, <span class="in">`logistic_nr()`</span> 에서 고쳐야 할 곳이</span>
-<span id="cb152-2225"><a href="#cb152-2225" aria-hidden="true" tabindex="-1"></a>있었는지 함께 설명하시오.</span>
+<span id="cb152-2223"><a href="#cb152-2223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2224"><a href="#cb152-2224" aria-hidden="true" tabindex="-1"></a>오류나 경고 없이 값이 존재하지 않는다고 반환한다.</span>
+<span id="cb152-2225"><a href="#cb152-2225" aria-hidden="true" tabindex="-1"></a>**오류 없이 잘못된 결과를 반환하는 편이 명시적으로 실패하는 편보다 훨씬 위험하다.**</span>
 <span id="cb152-2226"><a href="#cb152-2226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2227"><a href="#cb152-2227" aria-hidden="true" tabindex="-1"></a><span class="ss">13. </span>길이가 $n$ 인 정렬된 벡터에서 <span class="in">`target`</span> **이상인 첫 번째 위치**를 반환하는 함수를</span>
-<span id="cb152-2228"><a href="#cb152-2228" aria-hidden="true" tabindex="-1"></a>이진 탐색으로 작성하시오(해당 위치가 없으면 <span class="in">`length(vec) + 1`</span> 을 반환한다).</span>
-<span id="cb152-2229"><a href="#cb152-2229" aria-hidden="true" tabindex="-1"></a>전수 검사와 경계 사례(빈 벡터, 모든 값이 <span class="in">`target`</span> 보다 작은 경우)로 검증하고,</span>
-<span id="cb152-2230"><a href="#cb152-2230" aria-hidden="true" tabindex="-1"></a>검증 코드도 함께 제출하시오.</span>
-<span id="cb152-2231"><a href="#cb152-2231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb152-2232"><a href="#cb152-2232" aria-hidden="true" tabindex="-1"></a><span class="ss">14. </span>일상의 절차 하나(라면 끓이기, 도서관에서 책 찾기, 처음 가는 강의실 찾아가기 등)를 골라</span>
-<span id="cb152-2233"><a href="#cb152-2233" aria-hidden="true" tabindex="-1"></a>다섯 조건을 모두 만족하도록 단계별로 기술하시오. 처음 쓴 절차에서 "적당히", "다 익으면"처럼</span>
-<span id="cb152-2234"><a href="#cb152-2234" aria-hidden="true" tabindex="-1"></a>모호한 표현을 찾아 어떻게 고쳤는지도 함께 적으시오. 이 작업은 @sec-ai-algorithms 에서 AI 에게</span>
-<span id="cb152-2235"><a href="#cb152-2235" aria-hidden="true" tabindex="-1"></a>요구사항을 적는 일과 같다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb152-2227"><a href="#cb152-2227" aria-hidden="true" tabindex="-1"></a>**미규정 3. `NA` 가 포함되어 있으면 어떻게 되는가?**</span>
+<span id="cb152-2228"><a href="#cb152-2228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2229"><a href="#cb152-2229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2230"><a href="#cb152-2230" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-gap-na, error=TRUE}</span></span>
+<span id="cb152-2231"><a href="#cb152-2231" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="cn">NA</span>, <span class="dv">7</span>), <span class="dv">7</span>)</span>
+<span id="cb152-2232"><a href="#cb152-2232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2233"><a href="#cb152-2233" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb152-2234"><a href="#cb152-2234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2235"><a href="#cb152-2235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2236"><a href="#cb152-2236" aria-hidden="true" tabindex="-1"></a>이 경우에는 오류가 발생하며 실행이 중단된다. 앞의 두 경우보다 오히려 바람직하다.</span>
+<span id="cb152-2237"><a href="#cb152-2237" aria-hidden="true" tabindex="-1"></a>결함을 즉시 인지할 수 있기 때문이다.</span>
+<span id="cb152-2238"><a href="#cb152-2238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2239"><a href="#cb152-2239" aria-hidden="true" tabindex="-1"></a>요구사항의 전제를 강제하도록 방어 코드를 추가하면 다음과 같다.</span>
+<span id="cb152-2240"><a href="#cb152-2240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2241"><a href="#cb152-2241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2242"><a href="#cb152-2242" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-gap-fixed}</span></span>
+<span id="cb152-2243"><a href="#cb152-2243" aria-hidden="true" tabindex="-1"></a>binary_search_safe <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, target) {</span>
+<span id="cb152-2244"><a href="#cb152-2244" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.numeric</span>(vec), <span class="fu">length</span>(target) <span class="sc">==</span> <span class="dv">1</span>L)</span>
+<span id="cb152-2245"><a href="#cb152-2245" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">anyNA</span>(vec)) <span class="fu">stop</span>(<span class="st">"vec 에 NA 가 포함되어 있다."</span>)</span>
+<span id="cb152-2246"><a href="#cb152-2246" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.unsorted</span>(vec)) <span class="fu">stop</span>(<span class="st">"vec 이 오름차순으로 정렬되어 있지 않다."</span>)</span>
+<span id="cb152-2247"><a href="#cb152-2247" aria-hidden="true" tabindex="-1"></a>  <span class="fu">binary_search_rec</span>(vec, target)</span>
+<span id="cb152-2248"><a href="#cb152-2248" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb152-2249"><a href="#cb152-2249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2250"><a href="#cb152-2250" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_safe</span>(x, x[<span class="dv">5</span>])</span>
+<span id="cb152-2251"><a href="#cb152-2251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2252"><a href="#cb152-2252" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb152-2253"><a href="#cb152-2253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2254"><a href="#cb152-2254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2255"><a href="#cb152-2255" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-gap-fixed-error, error=TRUE}</span></span>
+<span id="cb152-2256"><a href="#cb152-2256" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_safe</span>(u, <span class="dv">19</span>)</span>
+<span id="cb152-2257"><a href="#cb152-2257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2258"><a href="#cb152-2258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb152-2259"><a href="#cb152-2259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2260"><a href="#cb152-2260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2261"><a href="#cb152-2261" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution}</span>
+<span id="cb152-2262"><a href="#cb152-2262" aria-hidden="true" tabindex="-1"></a>**AI 생성 코드에서 자주 나타나는 오류 유형**</span>
+<span id="cb152-2263"><a href="#cb152-2263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2264"><a href="#cb152-2264" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**경계 조건**: <span class="in">`&lt;`</span> 와 <span class="in">`&lt;=`</span>, <span class="in">`mid`</span> 와 <span class="in">`mid - 1`</span> 을 혼동한다. 이 장의</span>
+<span id="cb152-2265"><a href="#cb152-2265" aria-hidden="true" tabindex="-1"></a><span class="in">`rbinary_search()`</span> 가 정확히 이 유형이며, 사람이 작성한 코드에서도 동일하게 나타난다.</span>
+<span id="cb152-2266"><a href="#cb152-2266" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**전제 미검사**: "정렬되어 있다", "<span class="in">`NA`</span> 가 없다"와 같은 전제를 확인하지 않는다.</span>
+<span id="cb152-2267"><a href="#cb152-2267" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**빈 입력**: 길이가 0인 벡터에서 인덱스 1을 참조한다.</span>
+<span id="cb152-2268"><a href="#cb152-2268" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**요구사항의 공백**: 중복값이나 동점 처리와 같이 요구사항이 규정하지 않은 부분을</span>
+<span id="cb152-2269"><a href="#cb152-2269" aria-hidden="true" tabindex="-1"></a>임의로 결정하고, 그 선택을 명시하지 않는다.</span>
+<span id="cb152-2270"><a href="#cb152-2270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2271"><a href="#cb152-2271" aria-hidden="true" tabindex="-1"></a>이 유형들의 공통점은 **오류 메시지가 출력되지 않는다**는 점이다. 따라서 실행해 보는</span>
+<span id="cb152-2272"><a href="#cb152-2272" aria-hidden="true" tabindex="-1"></a>것만으로는 부족하며 별도의 검증 절차가 필요하다.</span>
+<span id="cb152-2273"><a href="#cb152-2273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2274"><a href="#cb152-2274" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb152-2275"><a href="#cb152-2275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2276"><a href="#cb152-2276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2277"><a href="#cb152-2277" aria-hidden="true" tabindex="-1"></a><span class="fu">### 연습 {#sec-ai-algorithms-practice}</span></span>
+<span id="cb152-2278"><a href="#cb152-2278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2279"><a href="#cb152-2279" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>위 요구사항에 "중복값이 있으면 **가장 앞** 위치를 반환한다"는 조건을 추가하여 다시</span>
+<span id="cb152-2280"><a href="#cb152-2280" aria-hidden="true" tabindex="-1"></a>요청하고, 생성된 코드가 그 조건을 충족하는지 <span class="in">`match()`</span> 와 대조해 확인하시오.</span>
+<span id="cb152-2281"><a href="#cb152-2281" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>두 사람이 코드를 교환한다. 상대의 <span class="in">`binary_search_rec()`</span> 에 결함을 하나 삽입해</span>
+<span id="cb152-2282"><a href="#cb152-2282" aria-hidden="true" tabindex="-1"></a>돌려주고, 서로 전수 검사로 찾아내시오. 몇 번째 검증에서 발견했는지 기록하시오.</span>
+<span id="cb152-2283"><a href="#cb152-2283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2284"><a href="#cb152-2284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2285"><a href="#cb152-2285" aria-hidden="true" tabindex="-1"></a><span class="fu">## 연습문제 {#sec-ex-algorithms .unnumbered}</span></span>
+<span id="cb152-2286"><a href="#cb152-2286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2287"><a href="#cb152-2287" aria-hidden="true" tabindex="-1"></a>**읽기 문항** (실행하지 말고 답을 먼저 적은 뒤 확인할 것)</span>
+<span id="cb152-2288"><a href="#cb152-2288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2289"><a href="#cb152-2289" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>다음 각 코드의 시간 복잡도를 빅오로 나타내시오.</span>
+<span id="cb152-2290"><a href="#cb152-2290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2291"><a href="#cb152-2291" aria-hidden="true" tabindex="-1"></a>   a) 길이가 $n$ 인 벡터를 한 번 순회하여 최댓값을 찾는 코드</span>
+<span id="cb152-2292"><a href="#cb152-2292" aria-hidden="true" tabindex="-1"></a>   b) 길이가 $n$ 인 벡터의 모든 두 원소 쌍을 비교하는 이중 반복문</span>
+<span id="cb152-2293"><a href="#cb152-2293" aria-hidden="true" tabindex="-1"></a>   c) 길이가 $n$ 인 벡터의 탐색 범위를 절반씩 줄여 나가는 코드</span>
+<span id="cb152-2294"><a href="#cb152-2294" aria-hidden="true" tabindex="-1"></a>   d) 길이가 $n$ 인 벡터에 대해 반복문 안에서 <span class="in">`x &lt;- c(x, i)`</span> 로 결과를 누적하는 코드</span>
+<span id="cb152-2295"><a href="#cb152-2295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2296"><a href="#cb152-2296" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>아래 함수는 <span class="in">`n`</span> 번째 피보나치 수를 구한다. 실행하기 전에 답하시오.</span>
+<span id="cb152-2297"><a href="#cb152-2297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2298"><a href="#cb152-2298" aria-hidden="true" tabindex="-1"></a>    <span class="in">```r</span></span>
+<span id="cb152-2299"><a href="#cb152-2299" aria-hidden="true" tabindex="-1"></a>    fib <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb152-2300"><a href="#cb152-2300" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (n <span class="sc">&lt;=</span> <span class="dv">2</span>) <span class="fu">return</span>(<span class="dv">1</span>)</span>
+<span id="cb152-2301"><a href="#cb152-2301" aria-hidden="true" tabindex="-1"></a>      <span class="fu">fib</span>(n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">fib</span>(n <span class="sc">-</span> <span class="dv">2</span>)</span>
+<span id="cb152-2302"><a href="#cb152-2302" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb152-2303"><a href="#cb152-2303" aria-hidden="true" tabindex="-1"></a>    <span class="in">```</span></span>
+<span id="cb152-2304"><a href="#cb152-2304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2305"><a href="#cb152-2305" aria-hidden="true" tabindex="-1"></a>   a) <span class="in">`fib(6)`</span> 의 값은 얼마인가?</span>
+<span id="cb152-2306"><a href="#cb152-2306" aria-hidden="true" tabindex="-1"></a>   b) <span class="in">`fib(0)`</span> 은 무엇을 반환하는가? 그 값이 타당한지 판단하시오.</span>
+<span id="cb152-2307"><a href="#cb152-2307" aria-hidden="true" tabindex="-1"></a>   c) <span class="in">`fib(30)`</span> 의 수행 시간이 긴 이유를 호출 횟수의 증가율을 근거로 설명하시오.</span>
+<span id="cb152-2308"><a href="#cb152-2308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2309"><a href="#cb152-2309" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>@sec-search-verification 의 <span class="in">`rbinary_search()`</span> 는 <span class="in">`maxL &lt;= minL`</span> 에서 탐색을</span>
+<span id="cb152-2310"><a href="#cb152-2310" aria-hidden="true" tabindex="-1"></a>종료한다. 길이가 4인 벡터 <span class="in">`c(2, 4, 6, 8)`</span> 에서 <span class="in">`target = 4`</span> 를 탐색할 때 <span class="in">`minL`</span> 과</span>
+<span id="cb152-2311"><a href="#cb152-2311" aria-hidden="true" tabindex="-1"></a><span class="in">`maxL`</span> 이 어떻게 변하는지 단계별로 추적하고, 어느 단계에서 정답을 놓치는지 기술하시오.</span>
+<span id="cb152-2312"><a href="#cb152-2312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2313"><a href="#cb152-2313" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>다음 주장은 참인가 거짓인가. 근거를 대시오.</span>
+<span id="cb152-2314"><a href="#cb152-2314" aria-hidden="true" tabindex="-1"></a>"이진 탐색은 선형 탐색보다 항상 빠르므로 값을 찾을 일이 있으면 먼저 정렬해야 한다."</span>
+<span id="cb152-2315"><a href="#cb152-2315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2316"><a href="#cb152-2316" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>@sec-everyday-algorithm 의 <span class="in">`clean_room()`</span> 에 대해 실행하지 말고 답하시오.</span>
+<span id="cb152-2317"><a href="#cb152-2317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2318"><a href="#cb152-2318" aria-hidden="true" tabindex="-1"></a>   a) <span class="in">`clean_room(3, 5)`</span> 에서 3행 5열 칸은 몇 번째로 청소되는가?</span>
+<span id="cb152-2319"><a href="#cb152-2319" aria-hidden="true" tabindex="-1"></a>   b) 방 가운데에 가구가 놓인 경우를 이 함수로 표현할 수 있는가? 알고리즘의 다섯 조건 가운데</span>
+<span id="cb152-2320"><a href="#cb152-2320" aria-hidden="true" tabindex="-1"></a>      어느 조건과 관련되는지 설명하시오.</span>
+<span id="cb152-2321"><a href="#cb152-2321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2322"><a href="#cb152-2322" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>오름차순으로 정렬된 1,000개의 값에서 마지막 두 원소만 자리가 바뀌어 있다. @sec-sorting 의</span>
+<span id="cb152-2323"><a href="#cb152-2323" aria-hidden="true" tabindex="-1"></a>네 정렬 함수 가운데 비교 횟수가 가장 적은 것과 가장 많은 것을 고르고, 각 알고리즘의 동작으로</span>
+<span id="cb152-2324"><a href="#cb152-2324" aria-hidden="true" tabindex="-1"></a>그 이유를 설명하시오.</span>
+<span id="cb152-2325"><a href="#cb152-2325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2326"><a href="#cb152-2326" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>@sec-nr-regression 에서는 뉴턴-랩슨 알고리즘이 한 걸음에 수렴했지만 @sec-nr-logistic 에서는</span>
+<span id="cb152-2327"><a href="#cb152-2327" aria-hidden="true" tabindex="-1"></a>여러 번 반복했다. 두 경우의 헤세 행렬을 비교하여 그 차이를 설명하시오.</span>
+<span id="cb152-2328"><a href="#cb152-2328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2329"><a href="#cb152-2329" aria-hidden="true" tabindex="-1"></a>**쓰기 문항**</span>
+<span id="cb152-2330"><a href="#cb152-2330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2331"><a href="#cb152-2331" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span><span class="in">`bubble_sort()`</span> 를 수정하여, 한 번 순회하는 동안 교환이 한 번도 발생하지 않으면</span>
+<span id="cb152-2332"><a href="#cb152-2332" aria-hidden="true" tabindex="-1"></a>즉시 종료하도록 하시오. 이미 정렬된 입력에 대해 시간 복잡도가 어떻게 달라지는지</span>
+<span id="cb152-2333"><a href="#cb152-2333" aria-hidden="true" tabindex="-1"></a>설명하고, <span class="in">`system.time()`</span> 으로 확인하시오.</span>
+<span id="cb152-2334"><a href="#cb152-2334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2335"><a href="#cb152-2335" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span><span class="in">`merge_sort()`</span> 가 내림차순으로 정렬하도록 수정하시오. <span class="in">`smerge()`</span> 의 어느 부분을</span>
+<span id="cb152-2336"><a href="#cb152-2336" aria-hidden="true" tabindex="-1"></a>변경해야 하는지 설명하고, 중복값이 있는 벡터에서 안정성이 유지되는지 확인하시오.</span>
+<span id="cb152-2337"><a href="#cb152-2337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2338"><a href="#cb152-2338" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span><span class="in">`quick_sort()`</span> 가 첫 원소 대신 가운데 원소 <span class="in">`x[(length(x) + 1) %/% 2]`</span> 를 기준값으로 삼도록</span>
+<span id="cb152-2339"><a href="#cb152-2339" aria-hidden="true" tabindex="-1"></a>수정하시오. <span class="in">`quick_count()`</span> 도 같은 방식으로 고친 뒤, 정렬된 입력 <span class="in">`1:1000`</span> 과 무작위 입력</span>
+<span id="cb152-2340"><a href="#cb152-2340" aria-hidden="true" tabindex="-1"></a><span class="in">`sample(1000)`</span> 에서 원래 구현과 비교 횟수를 비교하시오. 기준값 규칙을 바꾸어도 비교 횟수가</span>
+<span id="cb152-2341"><a href="#cb152-2341" aria-hidden="true" tabindex="-1"></a>$n(n-1)/2$ 가 되는 입력이 여전히 존재하는 이유를 설명하시오.</span>
+<span id="cb152-2342"><a href="#cb152-2342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2343"><a href="#cb152-2343" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span><span class="in">`newton_raphson()`</span> 에 수렴 실패를 알리는 기능을 추가하시오. 최대 반복 횟수에</span>
+<span id="cb152-2344"><a href="#cb152-2344" aria-hidden="true" tabindex="-1"></a>도달했음에도 $|f(x)| &gt; $ <span class="in">`tol`</span> 인 경우 경고를 출력하고 <span class="in">`converged = FALSE`</span> 를 함께</span>
+<span id="cb152-2345"><a href="#cb152-2345" aria-hidden="true" tabindex="-1"></a>반환하도록 한다. 실근이 존재하지 않는 $f(x) = x^2 + 1$ 로 동작을 확인하시오.</span>
+<span id="cb152-2346"><a href="#cb152-2346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2347"><a href="#cb152-2347" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span><span class="in">`logistic_nr()`</span> 로 설명변수가 두 개인 모형 <span class="in">`am ~ wt + hp`</span> 의 계수를 구하고 <span class="in">`glm()`</span> 의 결과와</span>
+<span id="cb152-2348"><a href="#cb152-2348" aria-hidden="true" tabindex="-1"></a><span class="in">`all.equal()`</span> 로 대조하시오. <span class="in">`X`</span> 를 어떻게 만들었는지, <span class="in">`logistic_nr()`</span> 에서 고쳐야 할 곳이</span>
+<span id="cb152-2349"><a href="#cb152-2349" aria-hidden="true" tabindex="-1"></a>있었는지 함께 설명하시오.</span>
+<span id="cb152-2350"><a href="#cb152-2350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2351"><a href="#cb152-2351" aria-hidden="true" tabindex="-1"></a><span class="ss">13. </span>길이가 $n$ 인 정렬된 벡터에서 <span class="in">`target`</span> **이상인 첫 번째 위치**를 반환하는 함수를</span>
+<span id="cb152-2352"><a href="#cb152-2352" aria-hidden="true" tabindex="-1"></a>이진 탐색으로 작성하시오(해당 위치가 없으면 <span class="in">`length(vec) + 1`</span> 을 반환한다).</span>
+<span id="cb152-2353"><a href="#cb152-2353" aria-hidden="true" tabindex="-1"></a>전수 검사와 경계 사례(빈 벡터, 모든 값이 <span class="in">`target`</span> 보다 작은 경우)로 검증하고,</span>
+<span id="cb152-2354"><a href="#cb152-2354" aria-hidden="true" tabindex="-1"></a>검증 코드도 함께 제출하시오.</span>
+<span id="cb152-2355"><a href="#cb152-2355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-2356"><a href="#cb152-2356" aria-hidden="true" tabindex="-1"></a><span class="ss">14. </span>일상의 절차 하나(라면 끓이기, 도서관에서 책 찾기, 처음 가는 강의실 찾아가기 등)를 골라</span>
+<span id="cb152-2357"><a href="#cb152-2357" aria-hidden="true" tabindex="-1"></a>다섯 조건을 모두 만족하도록 단계별로 기술하시오. 처음 쓴 절차에서 "적당히", "다 익으면"처럼</span>
+<span id="cb152-2358"><a href="#cb152-2358" aria-hidden="true" tabindex="-1"></a>모호한 표현을 찾아 어떻게 고쳤는지도 함께 적으시오. 이 작업은 @sec-ai-algorithms 에서 AI 에게</span>
+<span id="cb152-2359"><a href="#cb152-2359" aria-hidden="true" tabindex="-1"></a>요구사항을 적는 일과 같다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
