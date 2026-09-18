@@ -120,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">공개</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026년 9월 14일</p>
+      <p class="date">2026년 9월 18일</p>
     </div>
   </div>
   
@@ -153,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 </div>
-<p>분석은 파일을 읽는 한 줄에서 시작한다. 그 한 줄이 조용히 틀리면 뒤따르는 모든 계산이 틀린다. 평균은 계산되고 그래프도 그려지지만 숫자가 틀려 있다. 파일을 읽는 코드는 AI 가 순식간에 써 주지만, AI 는 <strong>여러분의 파일을 보지 못한다.</strong> 붙여 넣은 몇 줄만 보고 나머지를 짐작할 뿐이다. 그 코드가 파일을 제대로 읽었는지는 코드를 들여다봐서는 알 수 없고, <strong>파일의 원문과 대조해야</strong> 알 수 있다.</p>
+<p>분석은 파일을 읽는 한 줄에서 시작한다. 그 한 줄이 조용히 틀리면 뒤따르는 모든 계산이 틀린다. 평균은 계산되고 그래프도 그려지지만 숫자가 틀려 있다. 파일을 읽는 코드는 AI 가 써 주지만, AI 는 <strong>여러분의 파일을 보지 못한다.</strong> 붙여 넣은 몇 줄만 보고 나머지를 짐작할 뿐이다. 그 코드가 파일을 제대로 읽었는지는 코드를 들여다봐서는 알 수 없고, <strong>파일의 원문과 대조해야</strong> 알 수 있다.</p>
 <p>이 장은 파일을 읽고 쓰는 방법을 다루되, 중심은 함수 이름이 아니라 <strong>읽기 함수가 파일에 대해 세우는 가정</strong>에 있다. 어디서 열이 나뉘는지, 어떤 바이트가 어떤 글자인지, 무엇이 결측인지, 각 열이 무슨 유형인지를 함수는 추측한다. 추측이 틀린 곳을 찾아내는 일이 이 장에서 익힐 기술이다. 6장의 대조 습관과 9장의 ’참값을 아는 세계’가 여기서 다시 쓰인다.</p>
 <p>이 장의 연습 파일은 강의 저장소의 <code>dataset/ch11/</code> 폴더에 있다 (<a href="https://github.com/zorba78/cnu-r-programming-lecture-note/tree/master/dataset/ch11">GitHub 에서 보기</a>). 모두 교육용 가상 자료이며, 파일마다 일부러 넣어 둔 함정이 있다.</p>
 <section id="sec-files-paths" class="level2" data-number="1">
@@ -287,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="sec-bytes" class="level3" data-number="1.3">
 <h3 data-number="1.3" class="anchored" data-anchor-id="sec-bytes"><span class="header-section-number">1.3</span> 파일은 바이트다</h3>
-<p>모든 파일은 결국 <strong>바이트(byte)의 나열</strong>이다. 바이트 하나는 0 부터 255 사이의 수이며, 흔히 두 자리 16진수(<code>00</code> ~ <code>ff</code>)로 적는다. 읽기 함수는 이 바이트들을 약속에 따라 해석해 글자와 표로 바꾼다.</p>
+<p>모든 파일은 <strong>바이트(byte)의 나열</strong>이다. 바이트 하나는 0 부터 255 사이의 수이며, 흔히 두 자리 16진수(<code>00</code> ~ <code>ff</code>)로 적는다. 읽기 함수는 이 바이트들을 약속에 따라 해석해 글자와 표로 바꾼다.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>f_csv <span class="ot">&lt;-</span> <span class="st">"dataset/ch11/survey.csv"</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">file.size</span>(f_csv)                        <span class="co"># 파일의 바이트 수</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
@@ -801,7 +801,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>“Windows 에서는 그냥 읽힌다”는 옛이야기다.</strong> R 4.1 까지 한국어 Windows 의 R 은 CP949 를 기본으로 써서 CP949 파일이 인코딩 지정 없이 읽혔다. R 4.2.0 부터는 최근 Windows(10 버전 1903 이상)에서도 UTF-8 이 기본이 되었다(R NEWS). 그래서 인코딩을 적지 않은 옛 예제가 이제는 Windows 에서도 깨진다. <strong>운영체제와 관계없이 인코딩을 명시</strong>하는 습관이 필요하다.</p>
+<p><strong>“Windows 에서는 그냥 읽힌다”는 이제 맞지 않는다.</strong> R 4.1 까지 한국어 Windows 의 R 은 CP949 를 기본으로 써서 CP949 파일이 인코딩 지정 없이 읽혔다. R 4.2.0 부터는 최근 Windows(10 버전 1903 이상)에서도 UTF-8 이 기본이 되었다(R NEWS). 그래서 인코딩을 적지 않은 옛 예제가 이제는 Windows 에서도 깨진다. <strong>운영체제와 관계없이 인코딩을 명시</strong>하는 습관이 필요하다.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -1345,7 +1345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>첫 줄의 제목이 열 이름이 되고, 진짜 머리글은 데이터의 둘째 행으로 들어갔다. CSV 와 똑같은 머리말 문제다.</p>
+<p>첫 줄의 제목이 열 이름이 되고, 실제 머리글은 데이터의 둘째 행으로 들어갔다. CSV 와 똑같은 머리말 문제다.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a>survey_x <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(x, <span class="at">skip =</span> <span class="dv">2</span>)</span>
 <span id="cb159-2"><a href="#cb159-2" aria-hidden="true" tabindex="-1"></a>survey_x</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1663,7 +1663,7 @@ Labels:
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["방식"],"name":[1],"type":["chr"],"align":["left"]},{"label":["크기_MB"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["쓰기_초"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["읽기_초"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["그대로_복원"],"name":[5],"type":["lgl"],"align":["right"]}],"data":[{"1":"write.csv / read.csv","2":"14.34","3":"1.936","4":"0.513","5":"FALSE"},{"1":"write_csv / read_csv","2":"13.39","3":"0.895","4":"0.144","5":"FALSE"},{"1":"saveRDS / readRDS","2":"2.85","3":"0.800","4":"0.046","5":"TRUE"},{"1":"Parquet","2":"1.99","3":"0.082","4":"0.013","5":"TRUE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["방식"],"name":[1],"type":["chr"],"align":["left"]},{"label":["크기_MB"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["쓰기_초"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["읽기_초"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["그대로_복원"],"name":[5],"type":["lgl"],"align":["right"]}],"data":[{"1":"write.csv / read.csv","2":"14.34","3":"1.840","4":"0.488","5":"FALSE"},{"1":"write_csv / read_csv","2":"13.39","3":"0.905","4":"0.148","5":"FALSE"},{"1":"saveRDS / readRDS","2":"2.85","3":"0.808","4":"0.047","5":"TRUE"},{"1":"Parquet","2":"1.99","3":"0.075","4":"0.012","5":"TRUE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -1723,7 +1723,7 @@ Labels:
 </tr>
 </tbody>
 </table>
-<p>표의 ’작고 매우 빠름’은 위와 같이 <strong>행이 많은 긴 표</strong>에서의 이야기다. 형식의 비용은 자료의 모양에 따라 달라진다. 열이 2만 개인 넓은 표로 같은 비교를 해 보자. <code>dataset/pulse.csv</code> 는 69행, 20,000열이다.</p>
+<p>표의 ’작고 매우 빠름’은 위와 같이 <strong>행이 많은 긴 표</strong>에서의 결과다. 형식의 비용은 자료의 모양에 따라 달라진다. 열이 2만 개인 넓은 표로 같은 비교를 해 보자. <code>dataset/pulse.csv</code> 는 69행, 20,000열이다.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb202"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb202-1"><a href="#cb202-1" aria-hidden="true" tabindex="-1"></a>pulse <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"dataset/pulse.csv"</span>)</span>
 <span id="cb202-2"><a href="#cb202-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(pulse)</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1935,7 +1935,7 @@ numeric or logical: returning NA</code></pre>
 <li><strong>열 유형</strong>: 이용자수가 <strong>문자</strong>다. 휴관 도서관의 <code>-</code> 때문에 숫자로 추측되지 않았다. 평균을 구하면 <code>NA</code> 와 경고만 나온다.</li>
 <li><strong>합계</strong>: 대출권수의 합이 합계 행의 <strong>정확히 두 배</strong>다. 합계 행이 데이터에 섞였기 때문이다.</li>
 </ul>
-<p>경고가 가리킨 문제를 <code>problems()</code> 로 보려 하면 이상한 일이 생긴다.</p>
+<p>경고가 가리킨 문제를 <code>problems()</code> 로 확인해 보자.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb226"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb226-1"><a href="#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">problems</span>(loans)</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1968,7 +1968,7 @@ numeric or logical: returning NA</code></pre>
 <p><strong>보지 못한 줄 1. 휴관 도서관의 <code>-</code></strong> (원문 15번째 줄). 앞의 7줄에는 결측 표기가 없었으므로 코드에도 <code>na</code> 인수가 없다. 그 결과 이용자수는 문자가 되고, 대출권수의 <code>-</code> 는 문제 기록과 함께 <code>NA</code> 가 되었다.</p>
 <p><strong>보지 못한 줄 2. 합계 행</strong> (24번째 줄). 앞부분만 보고는 알 수 없다. 합계 행이 섞이면 모든 합이 두 배가 된다.</p>
 <p><strong>보지 못한 줄 3. 주석 행</strong> (25번째 줄). 응답은 꼬리말이 <strong>있을 수 있다</strong>며 <code>tail()</code> 로 확인하라고 조언했다. 좋은 조언이지만 확인은 코드에 들어 있지 않고 <strong>사람의 몫으로</strong> 남았다.</p>
-<p>응답의 설명 가운데 하나는 실제 동작과 달랐다. “그냥 두면 <code>04157</code> 이 <code>4157</code> 로 바뀐다”, “대출권수는 그냥 읽으면 텍스트로 들어온다”는 설명은 <code>read.csv()</code> 에 맞는 이야기다. AI 가 본 7줄만으로 <code>read_csv()</code> 의 추측을 확인해 보자.</p>
+<p>응답의 설명 가운데 하나는 실제 동작과 달랐다. “그냥 두면 <code>04157</code> 이 <code>4157</code> 로 바뀐다”, “대출권수는 그냥 읽으면 텍스트로 들어온다”는 설명은 <code>read.csv()</code> 에 맞는다. AI 가 본 7줄만으로 <code>read_csv()</code> 의 추측을 확인해 보자.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb228"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb228-1"><a href="#cb228-1" aria-hidden="true" tabindex="-1"></a>seen <span class="ot">&lt;-</span> <span class="st">"도서관,시도,우편번호,개관일,열람석,대출권수,이용자수</span></span>
 <span id="cb228-2"><a href="#cb228-2" aria-hidden="true" tabindex="-1"></a><span class="st">누리도서관,서울,04157,2004.03.15,320,</span><span class="sc">\"</span><span class="st">48,215</span><span class="sc">\"</span><span class="st">,12904</span></span>
@@ -2606,7 +2606,7 @@ numeric or logical: returning NA</code></pre>
 <span id="cb234-68"><a href="#cb234-68" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-69"><a href="#cb234-69" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-70"><a href="#cb234-70" aria-hidden="true" tabindex="-1"></a>분석은 파일을 읽는 한 줄에서 시작한다. 그 한 줄이 조용히 틀리면 뒤따르는 모든 계산이 틀린다.</span>
-<span id="cb234-71"><a href="#cb234-71" aria-hidden="true" tabindex="-1"></a>평균은 계산되고 그래프도 그려지지만 숫자가 틀려 있다. 파일을 읽는 코드는 AI 가 순식간에 써 주지만,</span>
+<span id="cb234-71"><a href="#cb234-71" aria-hidden="true" tabindex="-1"></a>평균은 계산되고 그래프도 그려지지만 숫자가 틀려 있다. 파일을 읽는 코드는 AI 가 써 주지만,</span>
 <span id="cb234-72"><a href="#cb234-72" aria-hidden="true" tabindex="-1"></a>AI 는 **여러분의 파일을 보지 못한다.** 붙여 넣은 몇 줄만 보고 나머지를 짐작할 뿐이다. 그 코드가 파일을</span>
 <span id="cb234-73"><a href="#cb234-73" aria-hidden="true" tabindex="-1"></a>제대로 읽었는지는 코드를 들여다봐서는 알 수 없고, **파일의 원문과 대조해야** 알 수 있다.</span>
 <span id="cb234-74"><a href="#cb234-74" aria-hidden="true" tabindex="-1"></a></span>
@@ -2736,7 +2736,7 @@ numeric or logical: returning NA</code></pre>
 <span id="cb234-198"><a href="#cb234-198" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-199"><a href="#cb234-199" aria-hidden="true" tabindex="-1"></a><span class="fu">### 파일은 바이트다 {#sec-bytes}</span></span>
 <span id="cb234-200"><a href="#cb234-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb234-201"><a href="#cb234-201" aria-hidden="true" tabindex="-1"></a>모든 파일은 결국 **바이트(byte)의 나열**이다. 바이트 하나는 0 부터 255 사이의 수이며, 흔히 두 자리</span>
+<span id="cb234-201"><a href="#cb234-201" aria-hidden="true" tabindex="-1"></a>모든 파일은 **바이트(byte)의 나열**이다. 바이트 하나는 0 부터 255 사이의 수이며, 흔히 두 자리</span>
 <span id="cb234-202"><a href="#cb234-202" aria-hidden="true" tabindex="-1"></a>16진수(<span class="in">`00`</span> ~ <span class="in">`ff`</span>)로 적는다. 읽기 함수는 이 바이트들을 약속에 따라 해석해 글자와 표로 바꾼다.</span>
 <span id="cb234-203"><a href="#cb234-203" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-204"><a href="#cb234-204" aria-hidden="true" tabindex="-1"></a></span>
@@ -3150,7 +3150,7 @@ numeric or logical: returning NA</code></pre>
 <span id="cb234-612"><a href="#cb234-612" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-613"><a href="#cb234-613" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-614"><a href="#cb234-614" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb234-615"><a href="#cb234-615" aria-hidden="true" tabindex="-1"></a>**"Windows 에서는 그냥 읽힌다"는 옛이야기다.** R 4.1 까지 한국어 Windows 의 R 은 CP949 를 기본으로 써서</span>
+<span id="cb234-615"><a href="#cb234-615" aria-hidden="true" tabindex="-1"></a>**"Windows 에서는 그냥 읽힌다"는 이제 맞지 않는다.** R 4.1 까지 한국어 Windows 의 R 은 CP949 를 기본으로 써서</span>
 <span id="cb234-616"><a href="#cb234-616" aria-hidden="true" tabindex="-1"></a>CP949 파일이 인코딩 지정 없이 읽혔다. R 4.2.0 부터는 최근 Windows(10 버전 1903 이상)에서도 UTF-8 이 기본이</span>
 <span id="cb234-617"><a href="#cb234-617" aria-hidden="true" tabindex="-1"></a>되었다(R NEWS). 그래서 인코딩을 적지 않은 옛 예제가 이제는 Windows 에서도 깨진다. **운영체제와 관계없이</span>
 <span id="cb234-618"><a href="#cb234-618" aria-hidden="true" tabindex="-1"></a>인코딩을 명시**하는 습관이 필요하다.</span>
@@ -3576,7 +3576,7 @@ numeric or logical: returning NA</code></pre>
 <span id="cb234-1038"><a href="#cb234-1038" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb234-1039"><a href="#cb234-1039" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-1040"><a href="#cb234-1040" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb234-1041"><a href="#cb234-1041" aria-hidden="true" tabindex="-1"></a>첫 줄의 제목이 열 이름이 되고, 진짜 머리글은 데이터의 둘째 행으로 들어갔다. CSV 와 똑같은 머리말 문제다.</span>
+<span id="cb234-1041"><a href="#cb234-1041" aria-hidden="true" tabindex="-1"></a>첫 줄의 제목이 열 이름이 되고, 실제 머리글은 데이터의 둘째 행으로 들어갔다. CSV 와 똑같은 머리말 문제다.</span>
 <span id="cb234-1042"><a href="#cb234-1042" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-1043"><a href="#cb234-1043" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-1044"><a href="#cb234-1044" aria-hidden="true" tabindex="-1"></a><span class="in">```{r excel-skip}</span></span>
@@ -3884,7 +3884,7 @@ numeric or logical: returning NA</code></pre>
 <span id="cb234-1346"><a href="#cb234-1346" aria-hidden="true" tabindex="-1"></a>: {tbl-colwidths="<span class="co">[</span><span class="ot">12,14,16,12,16,30</span><span class="co">]</span>"}</span>
 <span id="cb234-1347"><a href="#cb234-1347" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-1348"><a href="#cb234-1348" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb234-1349"><a href="#cb234-1349" aria-hidden="true" tabindex="-1"></a>표의 '작고 매우 빠름'은 위와 같이 **행이 많은 긴 표**에서의 이야기다. 형식의 비용은 자료의 모양에 따라 달라진다.</span>
+<span id="cb234-1349"><a href="#cb234-1349" aria-hidden="true" tabindex="-1"></a>표의 '작고 매우 빠름'은 위와 같이 **행이 많은 긴 표**에서의 결과다. 형식의 비용은 자료의 모양에 따라 달라진다.</span>
 <span id="cb234-1350"><a href="#cb234-1350" aria-hidden="true" tabindex="-1"></a>열이 2만 개인 넓은 표로 같은 비교를 해 보자. <span class="in">`dataset/pulse.csv`</span> 는 69행, 20,000열이다.</span>
 <span id="cb234-1351"><a href="#cb234-1351" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-1352"><a href="#cb234-1352" aria-hidden="true" tabindex="-1"></a></span>
@@ -4061,7 +4061,7 @@ numeric or logical: returning NA</code></pre>
 <span id="cb234-1523"><a href="#cb234-1523" aria-hidden="true" tabindex="-1"></a>  <span class="in">`NA`</span> 와 경고만 나온다.</span>
 <span id="cb234-1524"><a href="#cb234-1524" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**합계**: 대출권수의 합이 합계 행의 **정확히 두 배**다. 합계 행이 데이터에 섞였기 때문이다.</span>
 <span id="cb234-1525"><a href="#cb234-1525" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb234-1526"><a href="#cb234-1526" aria-hidden="true" tabindex="-1"></a>경고가 가리킨 문제를 <span class="in">`problems()`</span> 로 보려 하면 이상한 일이 생긴다.</span>
+<span id="cb234-1526"><a href="#cb234-1526" aria-hidden="true" tabindex="-1"></a>경고가 가리킨 문제를 <span class="in">`problems()`</span> 로 확인해 보자.</span>
 <span id="cb234-1527"><a href="#cb234-1527" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-1528"><a href="#cb234-1528" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-1529"><a href="#cb234-1529" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-problems-lost}</span></span>
@@ -4106,7 +4106,7 @@ numeric or logical: returning NA</code></pre>
 <span id="cb234-1568"><a href="#cb234-1568" aria-hidden="true" tabindex="-1"></a>조언이지만 확인은 코드에 들어 있지 않고 **사람의 몫으로** 남았다.</span>
 <span id="cb234-1569"><a href="#cb234-1569" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-1570"><a href="#cb234-1570" aria-hidden="true" tabindex="-1"></a>응답의 설명 가운데 하나는 실제 동작과 달랐다. "그냥 두면 <span class="in">`04157`</span> 이 <span class="in">`4157`</span> 로 바뀐다", "대출권수는 그냥 읽으면 텍스트로</span>
-<span id="cb234-1571"><a href="#cb234-1571" aria-hidden="true" tabindex="-1"></a>들어온다"는 설명은 <span class="in">`read.csv()`</span> 에 맞는 이야기다. AI 가 본 7줄만으로 <span class="in">`read_csv()`</span> 의 추측을 확인해 보자.</span>
+<span id="cb234-1571"><a href="#cb234-1571" aria-hidden="true" tabindex="-1"></a>들어온다"는 설명은 <span class="in">`read.csv()`</span> 에 맞는다. AI 가 본 7줄만으로 <span class="in">`read_csv()`</span> 의 추측을 확인해 보자.</span>
 <span id="cb234-1572"><a href="#cb234-1572" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-1573"><a href="#cb234-1573" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb234-1574"><a href="#cb234-1574" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-seen-guess}</span></span>
