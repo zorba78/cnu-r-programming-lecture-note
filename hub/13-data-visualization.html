@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>13 데이터 시각화 — 강의 허브</title>
+<meta name="description" content="13 데이터 시각화 — 슬라이드와 대응하는 강의노트 절을 나란히 보는 주제 상세 화면.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&amp;display=swap">
+<!-- 이 파일은 hub/topic-page.R 이 만든다. 손으로 고치지 말고 다시 생성한다. -->
+<script>document.documentElement.classList.add("js");</script>
+<style>
+  :root {
+    color-scheme: light;
+    --bg:#FAF7F2; --ink:#241F1A; --prose:#5C554C; --muted:#6E665C;
+    --faint:#8C8479; --line:#E4DCD0; --line-2:#D5CABB;
+    --panel:#F3EEE5; --panel-line:#C9BCA9; --card-line:#DCD3C6; --sel:#EAE0D1;
+    --note:#A64B32; --note-hover:#7E3624; --slide:#1F6F7A; --slide-hover:#155059;
+  }
+  * { box-sizing:border-box; }
+  [hidden] { display:none !important; }
+  html { -webkit-text-size-adjust:100%; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    -webkit-font-smoothing:antialiased; text-wrap:pretty;
+  }
+  a { color:var(--note); text-decoration:none; }
+  a:hover { color:var(--note-hover); }
+  .mono { font-family:'IBM Plex Mono','SFMono-Regular',ui-monospace,'Malgun Gothic','Apple SD Gothic Neo',monospace; }
+  .disp { font-family:'Hahmlet','Nanum Myeongjo','Apple SD Gothic Neo',serif; }
+  .wrap { max-width:1440px; margin:0 auto; }
+  :focus-visible { outline:2px solid var(--note); outline-offset:2px; }
+
+  /* 경로 */
+  .crumbs {
+    display:flex; justify-content:space-between; align-items:center; gap:8px 16px; flex-wrap:wrap;
+    padding:18px 72px; border-bottom:1px solid var(--line);
+    font-size:12px; letter-spacing:0.1em; color:var(--muted);
+  }
+  .crumbs a { color:var(--muted); }
+  .crumbs a:hover { color:var(--ink); }
+  .crumbs .sep { color:#C0B5A5; margin:0 6px; }
+  .crumbs .here { color:var(--ink); }
+
+  /* 제목 줄 */
+  .t-head {
+    display:flex; justify-content:space-between; align-items:flex-end; gap:24px 48px; flex-wrap:wrap;
+    padding:34px 72px 26px;
+  }
+  .t-name { display:flex; align-items:baseline; gap:20px; }
+  .t-num { font-size:34px; color:var(--note); }
+  .t-name h1 { margin:0; font-size:38px; font-weight:700; letter-spacing:-0.02em; }
+  .t-meta { margin-top:8px; font-size:13.5px; color:var(--muted); }
+  .t-act { display:flex; flex-direction:column; align-items:flex-end; gap:9px; }
+  .t-btns { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .btn { display:inline-flex; align-items:center; gap:9px; padding:12px 20px; font-size:14px; font-weight:500; }
+  .btn-slide { background:var(--slide); color:var(--bg); }
+  .btn-slide:hover { background:var(--slide-hover); color:var(--bg); }
+  .btn-line { border:1px solid var(--slide); color:var(--slide); padding:11px 18px; }
+  .btn-line:hover { background:rgba(31,111,122,0.07); color:var(--slide-hover); }
+  .btn-text { padding:12px 4px; color:var(--note); }
+  .t-hint { font-size:12px; color:var(--muted); }
+
+  /* 본문 두 칸 */
+  .t-grid {
+    display:grid; grid-template-columns:minmax(0,1fr) 460px; gap:48px;
+    padding:6px 72px 48px; align-items:start;
+  }
+  .t-left { display:flex; flex-direction:column; gap:20px; min-width:0; }
+  .stage {
+    background:#FFFFFF; border:1px solid var(--card-line);
+    box-shadow:0 1px 0 #EDE6DA, 0 12px 28px -18px rgba(36,31,26,0.35);
+  }
+  .stage-bar { height:5px; background:var(--slide); }
+  .stage-view { position:relative; aspect-ratio:16 / 9; overflow:hidden; background:#FFFFFF; }
+  .stage-view iframe { display:block; width:100%; height:100%; border:0; background:#FFFFFF; }
+  /* 덱을 원래 크기(1280×720)로 그리고 칸 폭에 맞춰 줄인다. 좁은 iframe 에 그대로 넣으면
+     reveal.js 가 폭 435px 아래에서 스크롤 보기로 바뀌어 카드를 눌러도 슬라이드가 넘어가지 않는다. */
+  .js .stage-view iframe {
+    position:absolute; top:0; left:0; width:1280px; height:720px;
+    transform-origin:0 0; transform:scale(var(--deck-scale, 0.6));
+  }
+  .stage-foot {
+    display:flex; justify-content:space-between; gap:6px 16px; flex-wrap:wrap;
+    padding:10px 14px; border-top:1px solid var(--line); font-size:12px; color:var(--muted);
+  }
+  .strip { display:flex; flex-direction:column; gap:11px; }
+  .strip-head {
+    display:flex; justify-content:space-between; align-items:baseline; gap:6px 12px; flex-wrap:wrap;
+    font-size:11px; letter-spacing:0.12em; color:var(--muted);
+  }
+  .strip-nav a { color:var(--muted); }
+  .strip-nav a:hover { color:var(--ink); }
+  .strip-nav .off { color:#C9BFB0; }
+  .cards { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:10px; }
+  .card {
+    display:flex; flex-direction:column; gap:5px; min-height:76px; padding:9px 11px;
+    background:#FFFFFF; border:1px solid var(--card-line); color:var(--prose);
+  }
+  .card:hover { border-color:var(--slide); color:var(--ink); }
+  .card-n { display:flex; justify-content:space-between; gap:6px; font-size:11px; color:var(--faint); }
+  .card-tag { color:var(--slide); letter-spacing:0.06em; }
+  .card-t {
+    font-size:13px; line-height:1.45; overflow:hidden;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+  }
+  .card.is-sec { background:var(--panel); }
+  .card.is-predict { border-left:3px solid var(--slide); padding-left:9px; }
+  .card.is-current { border:2px solid var(--slide); padding:8px 10px; color:var(--ink); }
+
+  /* 오른쪽 칸 */
+  aside.t-side {
+    display:flex; flex-direction:column; gap:22px; padding:26px;
+    background:var(--panel); border:1px solid var(--line);
+  }
+  .note { display:flex; flex-direction:column; gap:16px; }
+  .kicker { display:flex; align-items:center; gap:9px; font-size:11px; letter-spacing:0.16em; }
+  .sq { display:block; width:9px; height:9px; flex-shrink:0; }
+  .sq-note { background:var(--note); }
+  .sq-slide { background:var(--slide); }
+  .note > .kicker { color:var(--note); }
+  .n-head { display:flex; flex-direction:column; gap:5px; }
+  .n-title { font-size:21px; font-weight:700; }
+  .n-anchor { font-size:11.5px; color:var(--faint); }
+  .excerpt {
+    display:flex; flex-direction:column; gap:11px; padding-left:14px; border-left:2px solid #D9BFB4;
+    font-size:14px; line-height:1.8; color:#3A342C;
+  }
+  .excerpt p, .s-intro p { margin:0; }
+  .excerpt code, .s-intro code {
+    font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:13px; background:var(--sel); padding:1px 5px;
+  }
+  .subs { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+  .subs a { display:flex; gap:10px; align-items:baseline; padding:5px 0; font-size:13.5px; color:var(--prose); }
+  .subs a:hover { color:var(--note); }
+  .subs .mono { font-size:12px; color:var(--note); min-width:30px; }
+  .more { display:inline-flex; align-items:center; gap:8px; font-size:13.5px; font-weight:500; }
+  .none { margin:0; font-size:13.5px; color:var(--faint); }
+  .s-intro {
+    display:flex; flex-direction:column; gap:10px; border-top:1px solid var(--line-2); padding-top:18px;
+    font-size:14px; line-height:1.75; color:#3A342C;
+  }
+  .s-intro .kicker { color:var(--slide); }
+  .question {
+    display:flex; flex-direction:column; gap:4px; padding:10px 12px;
+    background:rgba(31,111,122,0.07); border-left:3px solid var(--slide);
+    font-size:14px; line-height:1.6; color:var(--ink);
+  }
+  .question .mono { font-size:10.5px; letter-spacing:0.14em; color:var(--slide); }
+  .decklist { display:flex; flex-direction:column; border-top:1px solid var(--line-2); padding-top:18px; }
+  .decklist-h { font-size:11px; letter-spacing:0.16em; color:var(--muted); padding-bottom:6px; }
+  .deckrow {
+    display:grid; grid-template-columns:86px 1fr 40px; gap:12px; align-items:baseline;
+    padding:9px 0; border-top:1px solid var(--line); color:var(--prose);
+  }
+  .decklist-h + .deckrow { border-top:none; }
+  .deckrow:hover { color:var(--ink); }
+  .dr-range { font-size:12px; color:var(--slide); }
+  .dr-title { font-size:13.5px; }
+  .dr-count { font-size:11.5px; color:var(--faint); text-align:right; }
+  .deckrow.is-current { background:var(--sel); margin:0 -10px; padding:9px 10px; border-top-color:transparent; color:var(--ink); }
+  .deckrow.is-current .dr-title { font-weight:600; }
+  .deckrow.is-current + .deckrow { border-top-color:transparent; }
+  .decklist-foot { padding-top:10px; font-size:11.5px; line-height:1.7; color:var(--faint); }
+
+  /* 푸터 */
+  footer {
+    display:grid; grid-template-columns:1fr 1fr 240px; gap:48px;
+    padding:32px 72px 52px; border-top:1px solid var(--ink);
+  }
+  .foot-col { display:flex; flex-direction:column; gap:7px; min-width:0; }
+  .foot-col:last-child { text-align:right; }
+  .foot-h { font-size:11px; letter-spacing:0.14em; color:var(--faint); }
+  .foot-col a, .foot-col .v { font-size:14px; overflow-wrap:anywhere; }
+  .foot-col .v { color:var(--prose); }
+
+  /* 반응형 */
+  @media (max-width:1100px) {
+    .crumbs, .t-head, .t-grid, footer { padding-left:40px; padding-right:40px; }
+    .t-grid { grid-template-columns:minmax(0,1fr); gap:32px; }
+    .t-act { align-items:flex-start; }
+    footer { grid-template-columns:1fr 1fr; }
+    .foot-col:last-child { grid-column:1 / -1; text-align:left; }
+  }
+  @media (max-width:760px) {
+    .crumbs, .t-head, .t-grid, footer { padding-left:16px; padding-right:16px; }
+    .crumbs { padding-top:14px; padding-bottom:14px; }
+    .t-head { padding-top:24px; }
+    .t-name { gap:14px; }
+    .t-num { font-size:26px; }
+    .t-name h1 { font-size:30px; }
+    .btn { padding:11px 14px; }
+    .btn-line { padding:10px 13px; }
+    .cards { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    aside.t-side { padding:20px 16px; }
+    .deckrow { grid-template-columns:78px 1fr 34px; }
+    footer { grid-template-columns:1fr; gap:22px; padding-bottom:40px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="crumbs">
+    <div class="mono"><a href="index.html">강의 허브</a><span class="sep">/</span><a href="index.html#ch13">PART 2 · 데이터 다루기</a><span class="sep">/</span><span class="here">13 데이터 시각화</span></div>
+    <div class="mono">충남대학교 정보통계학과</div>
+  </div>
+
+  <header class="t-head">
+    <div class="t-name">
+      <span class="mono t-num">13</span>
+      <div>
+        <h1 class="disp">데이터 시각화</h1>
+        <div class="t-meta">슬라이드 68장 · 강의노트 10개 절 · 개편 초안</div>
+      </div>
+    </div>
+    <div class="t-act">
+      <div class="t-btns">
+        <a class="btn btn-slide" href="../preview/13-data-visualization-slides.html">슬라이드 열기 <span aria-hidden="true">&#8594;</span></a>
+        <a class="btn btn-line" href="../preview/13-data-visualization-slides.html?print-pdf" target="_blank" rel="noopener">PDF로 저장</a>
+        <a class="btn btn-text" href="../preview/13-data-visualization.html">강의노트에서 보기 <span aria-hidden="true">&#8594;</span></a>
+      </div>
+      <div class="t-hint">PDF로 저장: 인쇄용 화면이 열리면 Ctrl+P (맥은 ⌘P) → 대상을 ‘PDF로 저장’으로</div>
+    </div>
+  </header>
+
+  <div class="t-grid">
+    <div class="t-left">
+      <div class="stage">
+        <div class="stage-bar"></div>
+        <div class="stage-view"><iframe id="deck" name="deck" src="../preview/13-data-visualization-slides.html#/%EA%B7%B8%EB%A6%BC%EC%9C%BC%EB%A1%9C-%EC%9E%90%EB%A3%8C-%EB%B3%B4%EA%B8%B0" title="슬라이드 미리보기" allow="fullscreen"></iframe></div>
+        <div class="stage-foot"><span>미리보기 — 화면을 한 번 누른 뒤 ← → 키로 넘긴다</span><span>아래 카드를 누르면 그 슬라이드로 간다</span></div>
+      </div>
+<div class="strip" data-panel="1">
+  <div class="strip-head"><span class="mono">1 그림으로 자료 보기 · S03–S06 · 4장</span><span class="mono strip-nav"><span class="off">&#9664; 이전 절</span> · <a href="#s2">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/13-data-visualization-slides.html#/%EA%B7%B8%EB%A6%BC%EC%9C%BC%EB%A1%9C-%EC%9E%90%EB%A3%8C-%EB%B3%B4%EA%B8%B0" target="deck" data-id="그림으로-자료-보기"><span class="card-n mono"><span>S03</span><span class="card-tag">절 표지</span></span><span class="card-t">1 그림으로 자료 보기</span></a>
+    <a class="card is-predict" href="../preview/13-data-visualization-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90" target="deck" data-id="예측해-보자"><span class="card-n mono"><span>S04</span><span class="card-tag">예측</span></span><span class="card-t">Anscombe 의 네 쌍: 요약 통계량과 기울기가 소수 둘째 자리까지 같음. 네 쌍의 산점도도 비슷할까?</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EC%9A%94%EC%95%BD-%ED%86%B5%EA%B3%84%EB%9F%89%EC%9D%B4-%EA%B0%99%EC%9D%80-%EB%84%A4-%EC%9E%90%EB%A3%8C" target="deck" data-id="요약-통계량이-같은-네-자료"><span class="card-n mono"><span>S05</span><span class="card-tag"></span></span><span class="card-t">1.1 요약 통계량이 같은 네 자료</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EA%B7%B8%EB%A6%BC%EC%9D%84-%EA%B7%B8%EB%A6%AC%EB%8A%94-%EB%91%90-%EC%B2%B4%EA%B3%84" target="deck" data-id="그림을-그리는-두-체계"><span class="card-n mono"><span>S06</span><span class="card-tag"></span></span><span class="card-t">1.2 그림을 그리는 두 체계</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="2" hidden>
+  <div class="strip-head"><span class="mono">2 기본 그래픽: 고수준 함수 · S07–S13 · 7장</span><span class="mono strip-nav"><a href="#s1">&#9664; 이전 절</a> · <a href="#s3">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/13-data-visualization-slides.html#/%EA%B8%B0%EB%B3%B8-%EA%B7%B8%EB%9E%98%ED%94%BD-%EA%B3%A0%EC%88%98%EC%A4%80-%ED%95%A8%EC%88%98" target="deck" data-id="기본-그래픽-고수준-함수"><span class="card-n mono"><span>S07</span><span class="card-tag">절 표지</span></span><span class="card-t">2 기본 그래픽: 고수준 함수</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/plot-%EC%9D%80-%EB%B0%9B%EC%9D%80-%EA%B0%9D%EC%B2%B4%EC%97%90-%EB%94%B0%EB%9D%BC-%EB%8B%A4%EB%A5%B4%EA%B2%8C-%EA%B7%B8%EB%A6%B0%EB%8B%A4" target="deck" data-id="plot-은-받은-객체에-따라-다르게-그린다"><span class="card-n mono"><span>S08</span><span class="card-tag"></span></span><span class="card-t">2.1 plot() 은 받은 객체에 따라 다르게 그린다</span></a>
+    <a class="card is-predict" href="../preview/13-data-visualization-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-1" target="deck" data-id="예측해-보자-1"><span class="card-n mono"><span>S09</span><span class="card-tag">예측</span></span><span class="card-t">x &lt;- c(1, 2, 2, 1, 3, 3, 1, 5) 일 때 hist(x) 와 barplot(x) 의 막…</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%ED%9E%88%EC%8A%A4%ED%86%A0%EA%B7%B8%EB%9E%A8%EC%9D%80-%EC%84%B8%EA%B3%A0-%EB%A7%89%EB%8C%80%EA%B7%B8%EB%A6%BC%EC%9D%80-%EA%B0%92%EC%9D%84-%EA%B7%B8%EB%A6%BC" target="deck" data-id="히스토그램은-세고-막대그림은-값을-그림"><span class="card-n mono"><span>S10</span><span class="card-tag"></span></span><span class="card-t">2.2 히스토그램은 세고, 막대그림은 값을 그림</span></a>
+    <a class="card is-predict" href="../preview/13-data-visualization-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-2" target="deck" data-id="예측해-보자-2"><span class="card-n mono"><span>S11</span><span class="card-tag">예측</span></span><span class="card-t">위 수염 끝은 항상 max(x) 일까? x 에 값 5 하나를 더한 x2 의 상자그림에서 위 수염 끝과 5 …</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EC%88%98%EC%97%BC-%EB%81%9D%EC%9D%80-%ED%95%9C%EA%B3%84-%EC%95%88%EC%9D%98-%EA%B0%80%EC%9E%A5-%EB%A8%BC-%EA%B4%80%EC%B8%A1%EA%B0%92" target="deck" data-id="수염-끝은-한계-안의-가장-먼-관측값"><span class="card-n mono"><span>S12</span><span class="card-tag"></span></span><span class="card-t">2.3 수염 끝은 한계 안의 가장 먼 관측값</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EB%B2%94%EC%A3%BC%ED%98%95-%EC%9E%90%EB%A3%8C%EC%9D%98-%EB%AA%A8%EC%9E%90%EC%9D%B4%ED%81%AC-%EA%B7%B8%EB%A6%BC" target="deck" data-id="범주형-자료의-모자이크-그림"><span class="card-n mono"><span>S13</span><span class="card-tag"></span></span><span class="card-t">2.4 범주형 자료의 모자이크 그림</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="3" hidden>
+  <div class="strip-head"><span class="mono">3 덧그리기와 그래픽 상태 · S14–S20 · 7장</span><span class="mono strip-nav"><a href="#s2">&#9664; 이전 절</a> · <a href="#s4">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/13-data-visualization-slides.html#/%EB%8D%A7%EA%B7%B8%EB%A6%AC%EA%B8%B0%EC%99%80-%EA%B7%B8%EB%9E%98%ED%94%BD-%EC%83%81%ED%83%9C" target="deck" data-id="덧그리기와-그래픽-상태"><span class="card-n mono"><span>S14</span><span class="card-tag">절 표지</span></span><span class="card-t">3 덧그리기와 그래픽 상태</span></a>
+    <a class="card is-predict" href="../preview/13-data-visualization-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-3" target="deck" data-id="예측해-보자-3"><span class="card-n mono"><span>S15</span><span class="card-tag">예측</span></span><span class="card-t">회귀직선, 연비 평균의 가로선, 마력 평균의 세로선: 세 직선은 한 점에서 만날까?</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EA%B7%B8%EB%A6%BC-%EC%9C%84%EC%97%90-%EB%8D%A7%EA%B7%B8%EB%A6%AC%EA%B8%B0" target="deck" data-id="그림-위에-덧그리기"><span class="card-n mono"><span>S16</span><span class="card-tag"></span></span><span class="card-t">3.1 그림 위에 덧그리기</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EA%B7%B8%EB%A6%BC-%EC%98%81%EC%97%AD%EA%B3%BC-%EC%97%AC%EB%B0%B1" target="deck" data-id="그림-영역과-여백"><span class="card-n mono"><span>S17</span><span class="card-tag"></span></span><span class="card-t">3.2 그림 영역과 여백</span></a>
+    <a class="card is-predict" href="../preview/13-data-visualization-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-4" target="deck" data-id="예측해-보자-4"><span class="card-n mono"><span>S18</span><span class="card-tag">예측</span></span><span class="card-t">이전 판 강의노트의 코드: 위쪽 제목은 “mfrow = c(2, 3)”. 그림은 몇 행 몇 열일까?</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EC%B9%B8-%EB%82%98%EB%88%84%EA%B8%B0-mfrow-%EC%99%80-mfcol" target="deck" data-id="칸-나누기-mfrow-와-mfcol"><span class="card-n mono"><span>S19</span><span class="card-tag"></span></span><span class="card-t">3.2 칸 나누기: mfrow 와 mfcol</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EA%B7%B8%EB%9E%98%ED%94%BD-%EC%83%81%ED%83%9C-%EC%9E%A5%EC%B9%98%EC%97%90-%EB%82%A8%EB%8A%94-%EC%84%A4%EC%A0%95" target="deck" data-id="그래픽-상태-장치에-남는-설정"><span class="card-n mono"><span>S20</span><span class="card-tag"></span></span><span class="card-t">3.3 그래픽 상태: 장치에 남는 설정</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="4" hidden>
+  <div class="strip-head"><span class="mono">4 ggplot2 의 문법 · S21–S28 · 8장</span><span class="mono strip-nav"><a href="#s3">&#9664; 이전 절</a> · <a href="#s5">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/13-data-visualization-slides.html#/ggplot2-%EC%9D%98-%EB%AC%B8%EB%B2%95" target="deck" data-id="ggplot2-의-문법"><span class="card-n mono"><span>S21</span><span class="card-tag">절 표지</span></span><span class="card-t">4 ggplot2 의 문법</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EA%B0%99%EC%9D%80-%EA%B7%B8%EB%A6%BC%EC%9D%84-%EB%91%90-%EC%B2%B4%EA%B3%84%EB%A1%9C" target="deck" data-id="같은-그림을-두-체계로"><span class="card-n mono"><span>S22</span><span class="card-tag"></span></span><span class="card-t">4.1 같은 그림을 두 체계로</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EB%A7%A4%ED%95%91-%EC%97%B4%EC%9D%84-%EA%B7%B8%EB%A6%BC%EC%9D%98-%EC%86%8D%EC%84%B1%EC%97%90-%EB%8C%80%EC%9D%91%EC%8B%9C%ED%82%A4%EA%B8%B0" target="deck" data-id="매핑-열을-그림의-속성에-대응시키기"><span class="card-n mono"><span>S23</span><span class="card-tag"></span></span><span class="card-t">4.2 매핑: 열을 그림의 속성에 대응시키기</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EB%A0%88%EC%9D%B4%EC%96%B4%EB%A5%BC-%ED%95%98%EB%82%98%EC%94%A9-%EB%8D%94%ED%95%98%EA%B8%B0" target="deck" data-id="레이어를-하나씩-더하기"><span class="card-n mono"><span>S24</span><span class="card-tag"></span></span><span class="card-t">4.2 레이어를 하나씩 더하기</span></a>
+    <a class="card is-predict" href="../preview/13-data-visualization-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-5" target="deck" data-id="예측해-보자-5"><span class="card-n mono"><span>S25</span><span class="card-tag">예측</span></span><span class="card-t">셋째 줄의 점은 무슨 색이고, 범례에는 무엇이 적힐까?</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EB%A7%A4%ED%95%91%EA%B3%BC-%EC%84%A4%EC%A0%95-aes-%EC%95%88%EA%B3%BC-%EB%B0%96" target="deck" data-id="매핑과-설정-aes-안과-밖"><span class="card-n mono"><span>S26</span><span class="card-tag"></span></span><span class="card-t">4.3 매핑과 설정: aes() 안과 밖</span></a>
+    <a class="card is-predict" href="../preview/13-data-visualization-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-6" target="deck" data-id="예측해-보자-6"><span class="card-n mono"><span>S27</span><span class="card-tag">예측</span></span><span class="card-t">아시아 50개 나라의 2000~2020년 기대수명을 아래 코드로 그리면 어떤 모양일까?</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EC%84%A0%EC%9C%BC%EB%A1%9C-%EC%9E%87%EA%B8%B0-group-%EA%B3%BC-%EC%88%9C%EC%84%9C" target="deck" data-id="선으로-잇기-group-과-순서"><span class="card-n mono"><span>S28</span><span class="card-tag"></span></span><span class="card-t">4.4 선으로 잇기: group 과 순서</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="5" hidden>
+  <div class="strip-head"><span class="mono">5 geom 과 stat: 그림이 계산한 값 · S29–S36 · 8장</span><span class="mono strip-nav"><a href="#s4">&#9664; 이전 절</a> · <a href="#s6">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/13-data-visualization-slides.html#/geom-%EA%B3%BC-stat-%EA%B7%B8%EB%A6%BC%EC%9D%B4-%EA%B3%84%EC%82%B0%ED%95%9C-%EA%B0%92" target="deck" data-id="geom-과-stat-그림이-계산한-값"><span class="card-n mono"><span>S29</span><span class="card-tag">절 표지</span></span><span class="card-t">5 geom 과 stat: 그림이 계산한 값</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EA%B0%9C%EC%88%98%EB%A5%BC-%EC%84%B8%EB%8A%94-%EB%A7%89%EB%8C%80%EC%99%80-%EA%B0%92%EC%9D%84-%EA%B7%B8%EB%A6%AC%EB%8A%94-%EB%A7%89%EB%8C%80" target="deck" data-id="개수를-세는-막대와-값을-그리는-막대"><span class="card-n mono"><span>S30</span><span class="card-tag"></span></span><span class="card-t">5.1 개수를 세는 막대와 값을 그리는 막대</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%ED%9E%88%EC%8A%A4%ED%86%A0%EA%B7%B8%EB%9E%A8%EA%B3%BC-%EB%B0%80%EB%8F%84-%EA%B3%A1%EC%84%A0" target="deck" data-id="히스토그램과-밀도-곡선"><span class="card-n mono"><span>S31</span><span class="card-tag"></span></span><span class="card-t">5.2 히스토그램과 밀도 곡선</span></a>
+    <a class="card is-predict" href="../preview/13-data-visualization-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-7" target="deck" data-id="예측해-보자-7"><span class="card-n mono"><span>S32</span><span class="card-tag">예측</span></span><span class="card-t">mpg 의 suv 62대 가운데 시내 연비 19 인 차 한 대: 두 체계의 상자그림에서 같은 곳(수염 끝 …</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EC%83%81%EC%9E%90%EA%B7%B8%EB%A6%BC-%EB%91%90-%EC%B2%B4%EA%B3%84%EC%9D%98-%EC%88%98%EC%97%BC-%ED%95%9C%EA%B3%84" target="deck" data-id="상자그림-두-체계의-수염-한계"><span class="card-n mono"><span>S33</span><span class="card-tag"></span></span><span class="card-t">5.3 상자그림: 두 체계의 수염 한계</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EB%B0%94%EC%9D%B4%EC%98%AC%EB%A6%B0%EC%9D%80-%EB%B0%80%EB%8F%84%EB%A5%BC-%ED%8F%89%ED%99%9C%EC%84%A0%EC%9D%80-%EB%AA%A8%ED%98%95%EC%9D%84-%EA%B7%B8%EB%A6%BC" target="deck" data-id="바이올린은-밀도를-평활선은-모형을-그림"><span class="card-n mono"><span>S34</span><span class="card-tag"></span></span><span class="card-t">5.3–5.4 바이올린은 밀도를, 평활선은 모형을 그림</span></a>
+    <a class="card is-predict" href="../preview/13-data-visualization-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-8" target="deck" data-id="예측해-보자-8"><span class="card-n mono"><span>S35</span><span class="card-tag">예측</span></span><span class="card-t">컷 5가지와 색 7가지 조합의 캐럿 평균과 95% 신뢰구간: 오차 막대에만 position_dodge(0.…</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%ED%8F%89%EA%B7%A0%EA%B3%BC-%EC%98%A4%EC%B0%A8-%EB%A7%89%EB%8C%80" target="deck" data-id="평균과-오차-막대"><span class="card-n mono"><span>S36</span><span class="card-tag"></span></span><span class="card-t">5.5 평균과 오차 막대</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="6" hidden>
+  <div class="strip-head"><span class="mono">6 위치 조정: 쌓기, 나란히, 겹치기 · S37–S41 · 5장</span><span class="mono strip-nav"><a href="#s5">&#9664; 이전 절</a> · <a href="#s7">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/13-data-visualization-slides.html#/%EC%9C%84%EC%B9%98-%EC%A1%B0%EC%A0%95-%EC%8C%93%EA%B8%B0-%EB%82%98%EB%9E%80%ED%9E%88-%EA%B2%B9%EC%B9%98%EA%B8%B0" target="deck" data-id="위치-조정-쌓기-나란히-겹치기"><span class="card-n mono"><span>S37</span><span class="card-tag">절 표지</span></span><span class="card-t">6 위치 조정: 쌓기, 나란히, 겹치기</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EC%8C%93%EA%B8%B0%EC%99%80-%EB%82%98%EB%9E%80%ED%9E%88" target="deck" data-id="쌓기와-나란히"><span class="card-n mono"><span>S38</span><span class="card-tag"></span></span><span class="card-t">6.1 쌓기와 나란히</span></a>
+    <a class="card is-predict" href="../preview/13-data-visualization-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-9" target="deck" data-id="예측해-보자-9"><span class="card-n mono"><span>S39</span><span class="card-tag">예측</span></span><span class="card-t">붓꽃 세 종의 꽃잎 길이 히스토그램: 막대는 겹칠까, 쌓일까? y 를 밀도로 바꾸면 막대 넓이의 합은?</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%ED%9E%88%EC%8A%A4%ED%86%A0%EA%B7%B8%EB%9E%A8%EC%9D%98-%EA%B8%B0%EB%B3%B8-%EC%9C%84%EC%B9%98" target="deck" data-id="히스토그램의-기본-위치"><span class="card-n mono"><span>S40</span><span class="card-tag"></span></span><span class="card-t">6.2 히스토그램의 기본 위치</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EA%B2%B9%EC%B9%9C-%EC%A0%90-%ED%88%AC%EB%AA%85%EB%8F%84%EC%99%80-%ED%9D%A9%EB%9C%A8%EB%A6%AC%EA%B8%B0" target="deck" data-id="겹친-점-투명도와-흩뜨리기"><span class="card-n mono"><span>S41</span><span class="card-tag"></span></span><span class="card-t">6.3 겹친 점: 투명도와 흩뜨리기</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="7" hidden>
+  <div class="strip-head"><span class="mono">7 척도, 좌표, 글자 · S42–S49 · 8장</span><span class="mono strip-nav"><a href="#s6">&#9664; 이전 절</a> · <a href="#s8">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/13-data-visualization-slides.html#/%EC%B2%99%EB%8F%84-%EC%A2%8C%ED%91%9C-%EA%B8%80%EC%9E%90" target="deck" data-id="척도-좌표-글자"><span class="card-n mono"><span>S42</span><span class="card-tag">절 표지</span></span><span class="card-t">7 척도, 좌표, 글자</span></a>
+    <a class="card is-predict" href="../preview/13-data-visualization-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-10" target="deck" data-id="예측해-보자-10"><span class="card-n mono"><span>S43</span><span class="card-tag">예측</span></span><span class="card-t">차급별 고속도로 연비 상자그림: ylim(15, 30) 을 더한 그림과 coord_cartesian(yli…</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EC%B2%99%EB%8F%84-%ED%95%9C%EA%B3%84%EC%99%80-%EC%A2%8C%ED%91%9C-%ED%99%95%EB%8C%80" target="deck" data-id="척도-한계와-좌표-확대"><span class="card-n mono"><span>S44</span><span class="card-tag"></span></span><span class="card-t">7.1 척도 한계와 좌표 확대</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EB%A1%9C%EA%B7%B8-%EC%B2%99%EB%8F%84" target="deck" data-id="로그-척도"><span class="card-n mono"><span>S45</span><span class="card-tag"></span></span><span class="card-t">7.2 로그 척도</span></a>
+    <a class="card is-predict" href="../preview/13-data-visualization-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-11" target="deck" data-id="예측해-보자-11"><span class="card-n mono"><span>S46</span><span class="card-tag">예측</span></span><span class="card-t">2015년 인구 최대 중국(1,406,847,868명)과 최소 마셜제도(57,444명)는 24,491배. …</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%ED%81%AC%EA%B8%B0%EC%99%80-%EC%83%89-%EC%9D%B8%EC%BD%94%EB%94%A9" target="deck" data-id="크기와-색-인코딩"><span class="card-n mono"><span>S47</span><span class="card-tag"></span></span><span class="card-t">7.3 크기와 색 인코딩</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EC%A0%9C%EB%AA%A9-%EC%B6%95-%EC%9D%B4%EB%A6%84-%EC%A3%BC%EC%84%9D-%EA%B8%80%EC%9E%90" target="deck" data-id="제목-축-이름-주석-글자"><span class="card-n mono"><span>S48</span><span class="card-tag"></span></span><span class="card-t">7.4 제목, 축 이름, 주석 글자</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EC%9E%90%EB%8F%99%EC%B0%A8-%EC%9D%B4%EB%A6%84-%EA%B2%B9%EC%B9%9C-%EA%B8%80%EC%9E%90%EC%99%80-%EC%9D%B4%EB%A6%84-%EC%83%81%EC%9E%90" target="deck" data-id="자동차-이름-겹친-글자와-이름-상자"><span class="card-n mono"><span>S49</span><span class="card-tag"></span></span><span class="card-t">7.4 자동차 이름: 겹친 글자와 이름 상자</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="8" hidden>
+  <div class="strip-head"><span class="mono">8 나누어 그리기, 배치, 테마, 저장 · S50–S54 · 5장</span><span class="mono strip-nav"><a href="#s7">&#9664; 이전 절</a> · <a href="#s9">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/13-data-visualization-slides.html#/%EB%82%98%EB%88%84%EC%96%B4-%EA%B7%B8%EB%A6%AC%EA%B8%B0-%EB%B0%B0%EC%B9%98-%ED%85%8C%EB%A7%88-%EC%A0%80%EC%9E%A5" target="deck" data-id="나누어-그리기-배치-테마-저장"><span class="card-n mono"><span>S50</span><span class="card-tag">절 표지</span></span><span class="card-t">8 나누어 그리기, 배치, 테마, 저장</span></a>
+    <a class="card is-predict" href="../preview/13-data-visualization-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-12" target="deck" data-id="예측해-보자-12"><span class="card-n mono"><span>S51</span><span class="card-tag">예측</span></span><span class="card-t">경제 지표 다섯 개를 scales = “free_y” 로 나눔. 두 패널의 선 높이로 “실업자 수가 개인저…</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EC%9E%91%EC%9D%80-%EB%8B%A4%EC%A4%91-%EA%B7%B8%EB%A6%BC-facet" target="deck" data-id="작은-다중-그림-facet"><span class="card-n mono"><span>S52</span><span class="card-tag"></span></span><span class="card-t">8.1 작은 다중 그림: facet</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EC%97%AC%EB%9F%AC-%EA%B7%B8%EB%A6%BC-%EB%B6%99%EC%9D%B4%EA%B8%B0%EC%99%80-%ED%85%8C%EB%A7%88" target="deck" data-id="여러-그림-붙이기와-테마"><span class="card-n mono"><span>S53</span><span class="card-tag"></span></span><span class="card-t">8.2–8.3 여러 그림 붙이기와 테마</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EA%B7%B8%EB%A6%BC-%EC%A0%80%EC%9E%A5" target="deck" data-id="그림-저장"><span class="card-n mono"><span>S54</span><span class="card-tag"></span></span><span class="card-t">8.4 그림 저장</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="9" hidden>
+  <div class="strip-head"><span class="mono">9 그림 검증하기 · S55–S60 · 6장</span><span class="mono strip-nav"><a href="#s8">&#9664; 이전 절</a> · <a href="#s10">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/13-data-visualization-slides.html#/%EA%B7%B8%EB%A6%BC-%EA%B2%80%EC%A6%9D%ED%95%98%EA%B8%B0" target="deck" data-id="그림-검증하기"><span class="card-n mono"><span>S55</span><span class="card-tag">절 표지</span></span><span class="card-t">9 그림 검증하기</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EA%B7%B8%EB%A6%BC%EC%9D%B4-%EA%B7%B8%EB%A6%B0-%EA%B2%83%EC%9D%84-%ED%99%95%EC%9D%B8%ED%95%98%EB%8A%94-%EC%A0%88%EC%B0%A8" target="deck" data-id="그림이-그린-것을-확인하는-절차"><span class="card-n mono"><span>S56</span><span class="card-tag"></span></span><span class="card-t">9.1 그림이 그린 것을 확인하는 절차</span></a>
+    <a class="card is-predict" href="../preview/13-data-visualization-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-13" target="deck" data-id="예측해-보자-13"><span class="card-n mono"><span>S57</span><span class="card-tag">예측</span></span><span class="card-t">이전 판 강의노트의 정규분포 그림: 둘째 곡선의 정점 높이 0.282, 그림 글자는 “μ = 0, σ = …</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EA%B7%B8%EB%A6%BC-%EC%86%8D-%EA%B8%80%EC%9E%90%EC%99%80-%EC%BD%94%EB%93%9C-%EB%8C%80%EC%A1%B0" target="deck" data-id="그림-속-글자와-코드-대조"><span class="card-n mono"><span>S58</span><span class="card-tag"></span></span><span class="card-t">9.2 그림 속 글자와 코드 대조</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%ED%99%95%EC%9D%B8%EC%9D%84-%EC%BD%94%EB%93%9C%EB%A1%9C-%EB%82%A8%EA%B8%B0%EA%B8%B0" target="deck" data-id="확인을-코드로-남기기"><span class="card-n mono"><span>S59</span><span class="card-tag"></span></span><span class="card-t">9.3 확인을 코드로 남기기</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%ED%86%B5%ED%95%A9-%EC%82%AC%EB%A1%80-%EB%8C%80%EB%A5%99%EB%B3%84-%EA%B8%B0%EB%8C%80%EC%88%98%EB%AA%85-%EC%B6%94%EC%9D%B4" target="deck" data-id="통합-사례-대륙별-기대수명-추이"><span class="card-n mono"><span>S60</span><span class="card-tag"></span></span><span class="card-t">9.4 통합 사례: 대륙별 기대수명 추이</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="10" hidden>
+  <div class="strip-head"><span class="mono">10 AI와 함께: 거품 그림 코드의 검증 · S61–S67 · 7장</span><span class="mono strip-nav"><a href="#s9">&#9664; 이전 절</a> · <span class="off">다음 절 &#9654;</span></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/13-data-visualization-slides.html#/ai%EC%99%80-%ED%95%A8%EA%BB%98-%EA%B1%B0%ED%92%88-%EA%B7%B8%EB%A6%BC-%EC%BD%94%EB%93%9C%EC%9D%98-%EA%B2%80%EC%A6%9D" target="deck" data-id="ai와-함께-거품-그림-코드의-검증"><span class="card-n mono"><span>S61</span><span class="card-tag">절 표지</span></span><span class="card-t">10 AI와 함께: 거품 그림 코드의 검증</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EC%9E%91%EC%97%85-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD" target="deck" data-id="작업-요구사항"><span class="card-n mono"><span>S62</span><span class="card-tag"></span></span><span class="card-t">10.1 작업 요구사항</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/ai-%EA%B0%80-%EC%83%9D%EC%84%B1%ED%95%9C-%EC%BD%94%EB%93%9C" target="deck" data-id="ai-가-생성한-코드"><span class="card-n mono"><span>S63</span><span class="card-tag"></span></span><span class="card-t">10.2 AI 가 생성한 코드</span></a>
+    <a class="card is-predict" href="../preview/13-data-visualization-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-14" target="deck" data-id="예측해-보자-14"><span class="card-n mono"><span>S64</span><span class="card-tag">예측</span></span><span class="card-t">AI 코드는 오류 없이 그림을 그림. 7.3 의 기준 자료처럼 2015년 189개 나라가 모두, 대륙별 5…</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%EA%B2%80%EC%A6%9D-%EA%B8%B0%EC%A4%80-%EC%9E%90%EB%A3%8C%EC%99%80-%EB%82%98%EB%9D%BC%EB%B3%84-%EB%8C%80%EC%A1%B0" target="deck" data-id="검증-기준-자료와-나라별-대조"><span class="card-n mono"><span>S65</span><span class="card-tag"></span></span><span class="card-t">10.3 검증: 기준 자료와 나라별 대조</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/%ED%81%AC%EA%B8%B0-%EB%B2%94%EB%A1%80-%EA%B7%B8%EB%A6%BC%EC%9D%84-%EC%A7%81%EC%A0%91-%EB%B3%B4%EA%B8%B0" target="deck" data-id="크기-범례-그림을-직접-보기"><span class="card-n mono"><span>S66</span><span class="card-tag"></span></span><span class="card-t">10.3 크기 범례: 그림을 직접 보기</span></a>
+    <a class="card" href="../preview/13-data-visualization-slides.html#/ai-%EA%B0%80-%EB%B3%B4%EC%A7%80-%EB%AA%BB%ED%95%9C-%EB%B6%80%EB%B6%84%EA%B3%BC-%EC%97%B0%EC%8A%B5" target="deck" data-id="ai-가-보지-못한-부분과-연습"><span class="card-n mono"><span>S67</span><span class="card-tag"></span></span><span class="card-t">10.4 AI 가 보지 못한 부분과 연습</span></a>
+  </div>
+</div>
+    </div>
+
+    <aside class="t-side">
+<div class="note" data-panel="1">
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">1 그림으로 자료 보기</div><div class="mono n-anchor">§ #sec-why-plot</div></div>
+<div class="excerpt"><p>자료를 평균, 표준편차, 상관계수 같은 몇 개의 수로 줄이면 비교하기 쉬워진다. 줄이는 과정에서 무엇이 빠지는지는 그림을 그려야 보인다. 이 절에서는 요약 통계량이 같은 네 자료를 그려 보고, R 에서 그림을 그리는 두 체계를 구분한다.</p></div>
+<ul class="subs"><li><a href="../preview/13-data-visualization.html#sec-anscombe"><span class="mono">1.1</span><span>요약 통계량이 같은 네 자료</span></a></li><li><a href="../preview/13-data-visualization.html#sec-two-systems"><span class="mono">1.2</span><span>그림을 그리는 두 체계와 그래픽 장치</span></a></li></ul>
+<a class="more" href="../preview/13-data-visualization.html#sec-why-plot">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>자료를 몇 개의 수로 줄일 때 <strong>빠지는 것</strong> 확인하기</p><p>R 의 <strong>두 그림 체계</strong>와 그림이 그려지는 곳</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 요약 통계량이 같으면 그림도 같은가?</div>
+</div>
+</div>
+<div class="note" data-panel="2" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">2 기본 그래픽: 고수준 함수</div><div class="mono n-anchor">§ #sec-base-graphics</div></div>
+<div class="excerpt"><p><strong>고수준 함수</strong>(high-level plotting function)는 부를 때마다 새 그림을 시작하고 축, 눈금, 축 이름까지 한 번에 그린다. <code>plot()</code>, <code>hist()</code>, <code>barplot()</code>, <code>boxplot()</code>, <code>mosaicplot()</code> 이 여기에 속한다. 이미 그린 그림 위에 점, 선, 글자를 더하는 <strong>저수준 함수</strong>(low-level plotting function)는 <a href="../preview/13-data-visualization.html#sec-base-state">섹션 3</a> 에서 다룬다.</p></div>
+<ul class="subs"><li><a href="../preview/13-data-visualization.html#sec-plot-generic"><span class="mono">2.1</span><span>plot() 은 받은 객체에 따라 다르게 그린다</span></a></li><li><a href="../preview/13-data-visualization.html#sec-hist-barplot"><span class="mono">2.2</span><span>히스토그램과 막대그림</span></a></li><li><a href="../preview/13-data-visualization.html#sec-boxplot-whisker"><span class="mono">2.3</span><span>상자그림의 수염</span></a></li><li><a href="../preview/13-data-visualization.html#sec-mosaic"><span class="mono">2.4</span><span>범주형 자료의 모자이크 그림</span></a></li></ul>
+<a class="more" href="../preview/13-data-visualization.html#sec-base-graphics">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>부를 때마다 <strong>새 그림</strong>을 시작하고 축과 눈금까지 그리는 함수</p><p>막대 높이와 수염 끝은 <strong>함수가 계산한 값</strong></p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 막대 높이와 수염 끝은 자료의 어느 값인가?</div>
+</div>
+</div>
+<div class="note" data-panel="3" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">3 덧그리기와 그래픽 상태</div><div class="mono n-anchor">§ #sec-base-state</div></div>
+<div class="excerpt"><p>기본 그래픽은 그림을 장치에 차례로 덧그린다. 고수준 함수가 축과 좌표를 정하면, 저수준 함수(<code>points()</code>, <code>lines()</code>, <code>abline()</code>, <code>text()</code>, <code>legend()</code>, <code>polygon()</code>)가 그 좌표 위에 점, 선, 글자, 도형을 더한다. 여백과 칸 나누기 같은 설정은 장치에 걸려 있어 다음 그림에도 남는다.</p></div>
+<ul class="subs"><li><a href="../preview/13-data-visualization.html#sec-add-layers"><span class="mono">3.1</span><span>그림 위에 덧그리기</span></a></li><li><a href="../preview/13-data-visualization.html#sec-plot-regions"><span class="mono">3.2</span><span>그림 영역과 칸 나누기</span></a></li><li><a href="../preview/13-data-visualization.html#sec-graphics-state"><span class="mono">3.3</span><span>그래픽 상태</span></a></li></ul>
+<a class="more" href="../preview/13-data-visualization.html#sec-base-state">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>고수준 함수가 정한 <strong>좌표 위에</strong> 점, 선, 글자를 더하기</p><p>par() 로 바꾼 설정은 <strong>장치에 남음</strong></p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 같은 코드가 왜 한 번은 그려지고 한 번은 오류인가?</div>
+</div>
+</div>
+<div class="note" data-panel="4" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">4 ggplot2 의 문법</div><div class="mono n-anchor">§ #sec-ggplot-grammar</div></div>
+<div class="excerpt"><p>ggplot2 는 Leland Wilkinson 의 그래픽 문법(grammar of graphics)을 R 에 옮긴 패키지로, 2007년 CRAN 에 처음 배포되었다. 그림 하나를 자료, 매핑, 기하 객체 같은 부품의 조합으로 적는다. 이 절은 기본 그래픽과 같은 그림을 그려 두 체계의 차이를 보고, 부품의 이름과 쓰는 법을 익힌다.</p></div>
+<ul class="subs"><li><a href="../preview/13-data-visualization.html#sec-base-vs-ggplot"><span class="mono">4.1</span><span>같은 그림을 두 체계로</span></a></li><li><a href="../preview/13-data-visualization.html#sec-aes-mapping"><span class="mono">4.2</span><span>매핑: 열을 그림의 속성에 대응시키기</span></a></li><li><a href="../preview/13-data-visualization.html#sec-aes-setting"><span class="mono">4.3</span><span>매핑과 설정: aes() 안과 밖</span></a></li><li><a href="../preview/13-data-visualization.html#sec-group-order"><span class="mono">4.4</span><span>선으로 잇기: group 과 순서</span></a></li></ul>
+<a class="more" href="../preview/13-data-visualization.html#sec-ggplot-grammar">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>그림 하나를 자료, 매핑, geom 같은 <strong>부품의 조합</strong>으로 적기</p><p>그리기 전에 <strong>열과 그림 속성의 대응</strong>을 명세</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 그림의 각 속성은 자료의 어느 열에서 왔는가?</div>
+</div>
+</div>
+<div class="note" data-panel="5" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">5 geom 과 stat: 그림이 계산한 값</div><div class="mono n-anchor">§ #sec-geom-stat</div></div>
+<div class="excerpt"><p>출석부 한 줄이 학생 한 명일 때 반별 인원 막대의 높이는 출석부에 적힌 값이 아니라 반마다 센 값이다. 반별 평균 점수가 적힌 표로 그린 막대는 적힌 값을 그대로 높이로 쓴다. 두 막대는 그림만 보아서는 구별되지 않는다. ggplot2 는 이 차이를 레이어의 두 부분, geom(그리는 모양)과 stat(그리기 전에 하는 계산)으로 나눈다. <code>geom_point()</code> 는 값을 그대로 쓰고, <code>geom_bar()</code> 는 개수를, <code>geom_histogram()</code> 은 구간마다 개수를, <code>geom_boxplot()</code> 은 사분위수를 계산한다.</p></div>
+<ul class="subs"><li><a href="../preview/13-data-visualization.html#sec-bar-count"><span class="mono">5.1</span><span>개수를 세는 막대와 값을 그리는 막대</span></a></li><li><a href="../preview/13-data-visualization.html#sec-hist-density"><span class="mono">5.2</span><span>히스토그램과 밀도 곡선</span></a></li><li><a href="../preview/13-data-visualization.html#sec-box-violin"><span class="mono">5.3</span><span>상자그림, 바이올린, 관측값 점</span></a></li><li><a href="../preview/13-data-visualization.html#sec-smooth"><span class="mono">5.4</span><span>평활선: geom_smooth() 의 기본 방법</span></a></li><li><a href="../preview/13-data-visualization.html#sec-errorbar"><span class="mono">5.5</span><span>평균과 오차 막대</span></a></li></ul>
+<a class="more" href="../preview/13-data-visualization.html#sec-geom-stat">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>레이어는 geom(그리는 모양)과 stat(<strong>그리기 전 계산</strong>)의 짝</p><p>layer_data() 로 계산한 표를 꺼내 <strong>직접 계산한 값과 대조</strong></p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 막대 높이는 누가 계산했는가?</div>
+</div>
+</div>
+<div class="note" data-panel="6" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">6 위치 조정: 쌓기, 나란히, 겹치기</div><div class="mono n-anchor">§ #sec-position</div></div>
+<div class="excerpt"><p>반별 출석 인원을 남녀로 나눠 한 막대에 쌓으면 꼭대기는 반 전체 인원이다. 남녀 막대를 옆에 나란히 놓으면 막대마다 꼭대기가 그 성별의 인원이고, 같은 자리에 반투명하게 겹치면 보이는 꼭대기는 둘 중 큰 쪽이다. 같은 개수를 어디에 놓을지 정하는 이 단계를 위치 조정(position adjustment)이라 한다. 위치 조정은 stat 이 통계량을 계산한 뒤 그림 요소를 놓을 자리를 정한다.</p></div>
+<ul class="subs"><li><a href="../preview/13-data-visualization.html#sec-stack-dodge"><span class="mono">6.1</span><span>쌓기와 나란히</span></a></li><li><a href="../preview/13-data-visualization.html#sec-hist-stack"><span class="mono">6.2</span><span>히스토그램의 기본 위치</span></a></li><li><a href="../preview/13-data-visualization.html#sec-overplotting"><span class="mono">6.3</span><span>겹친 점: 투명도와 흩뜨리기</span></a></li></ul>
+<a class="more" href="../preview/13-data-visualization.html#sec-position">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>통계량을 계산한 <strong>뒤</strong> 그림 요소를 놓을 자리를 정하는 단계</p><p>같은 막대라도 놓는 자리에 따라 <strong>꼭대기의 뜻</strong>이 바뀜</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 막대 꼭대기는 무엇의 값인가?</div>
+</div>
+</div>
+<div class="note" data-panel="7" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">7 척도, 좌표, 글자</div><div class="mono n-anchor">§ #sec-scales</div></div>
+<div class="excerpt"><p>단체 사진에서 가운데를 확대해 보면 가장자리 사람은 화면 밖으로 나갈 뿐 사진에서 지워지지 않는다. 사진 가장자리를 잘라 낸 뒤 남은 사람만으로 평균 키를 내면 평균이 바뀐다. ggplot2 에서 앞의 것은 좌표계(coordinate system)의 확대이고, 뒤의 것은 척도(scale)의 한계다. 척도는 자료의 값을 위치·크기·색으로 대응시키고, 좌표계는 계산을 마친 그림에서 어느 범위를 보여 줄지 정한다.</p></div>
+<ul class="subs"><li><a href="../preview/13-data-visualization.html#sec-limits-zoom"><span class="mono">7.1</span><span>척도 한계와 좌표 확대</span></a></li><li><a href="../preview/13-data-visualization.html#sec-log-scale"><span class="mono">7.2</span><span>로그 척도</span></a></li><li><a href="../preview/13-data-visualization.html#sec-size-color"><span class="mono">7.3</span><span>크기와 색 인코딩</span></a></li><li><a href="../preview/13-data-visualization.html#sec-labels-text"><span class="mono">7.4</span><span>제목, 축 이름, 주석 글자</span></a></li></ul>
+<a class="more" href="../preview/13-data-visualization.html#sec-scales">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>척도는 자료의 값을 <strong>위치, 크기, 색</strong>으로 바꾸는 규칙</p><p>좌표계는 계산한 그림의 <strong>보이는 범위</strong>를 정함</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 축을 좁히면 통계량이 바뀌는가?</div>
+</div>
+</div>
+<div class="note" data-panel="8" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">8 나누어 그리기, 배치, 테마, 저장</div><div class="mono n-anchor">§ #sec-facet-layout</div></div>
+<div class="excerpt"><p>이 절은 그림을 집단별 패널로 나누기(facet), 여러 그림을 한 장에 붙이기(patchwork), 글자와 바탕 바꾸기(테마), 파일로 저장하기를 다룬다.</p></div>
+<ul class="subs"><li><a href="../preview/13-data-visualization.html#sec-facets"><span class="mono">8.1</span><span>작은 다중 그림: facet</span></a></li><li><a href="../preview/13-data-visualization.html#sec-patchwork"><span class="mono">8.2</span><span>여러 그림 붙이기: patchwork</span></a></li><li><a href="../preview/13-data-visualization.html#sec-themes"><span class="mono">8.3</span><span>테마</span></a></li><li><a href="../preview/13-data-visualization.html#sec-save-plot"><span class="mono">8.4</span><span>그림 저장</span></a></li></ul>
+<a class="more" href="../preview/13-data-visualization.html#sec-facet-layout">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>같은 그림을 집단별 <strong>패널</strong>로 나누기</p><p>그림을 붙이고, 비자료 요소를 바꾸고, <strong>파일로 저장</strong>한 뒤 다시 읽기</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 패널 사이의 높이를 비교해도 되는가?</div>
+</div>
+</div>
+<div class="note" data-panel="9" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">9 그림 검증하기</div><div class="mono n-anchor">§ #sec-verify-plot</div></div>
+<div class="excerpt"><p>그림에 넣은 표가 맞아도 위치 조정, 척도, 글자가 잘못되면 다른 의미로 읽힌다. 12장에서 변환 전후의 행 수와 합계를 대조했듯이, 여기서는 입력 자료와 레이어가 그린 값을 대조한다.</p></div>
+<ul class="subs"><li><a href="../preview/13-data-visualization.html#sec-plot-checklist"><span class="mono">9.1</span><span>그림이 그린 것을 확인하는 절차</span></a></li><li><a href="../preview/13-data-visualization.html#sec-labels-vs-code"><span class="mono">9.2</span><span>그림 속 글자와 코드 대조</span></a></li><li><a href="../preview/13-data-visualization.html#sec-plot-assert"><span class="mono">9.3</span><span>확인을 코드로 남기기</span></a></li><li><a href="../preview/13-data-visualization.html#sec-gapminder-trend-case"><span class="mono">9.4</span><span>통합 사례: 대륙별 기대수명 추이</span></a></li></ul>
+<a class="more" href="../preview/13-data-visualization.html#sec-verify-plot">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>12장의 대조를 그림에: 입력 자료와 <strong>레이어가 그린 값</strong>을 대조</p><p>AI 가 쓴 코드에도 사람이 쓴 코드에도 <strong>같은 절차</strong></p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 이 그림이 그린 것은 무엇인가?</div>
+</div>
+</div>
+<div class="note" data-panel="10" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">10 AI와 함께: 거품 그림 코드의 검증</div><div class="mono n-anchor">§ #sec-ai-visualization</div></div>
+<div class="excerpt"><p>AI 가 생성한 거품 그림 코드에 <a href="../preview/13-data-visualization.html#sec-plot-checklist">섹션 9.1</a> 의 확인 절차를 적용한다. 대조 기준은 <a href="../preview/13-data-visualization.html#sec-size-color">섹션 7.3</a> 에서 남긴 <code>ref_bubble_data</code>(189개 나라)이다.</p></div>
+<ul class="subs"><li><a href="../preview/13-data-visualization.html#sec-ai-visualization-spec"><span class="mono">10.1</span><span>작업 요구사항</span></a></li><li><a href="../preview/13-data-visualization.html#sec-ai-visualization-gen"><span class="mono">10.2</span><span>AI가 생성한 코드</span></a></li><li><a href="../preview/13-data-visualization.html#sec-ai-visualization-verify"><span class="mono">10.3</span><span>검증</span></a></li><li><a href="../preview/13-data-visualization.html#sec-ai-visualization-gaps"><span class="mono">10.4</span><span>AI가 보지 못한 부분</span></a></li><li><a href="../preview/13-data-visualization.html#sec-ai-visualization-practice"><span class="mono">10.5</span><span>연습</span></a></li></ul>
+<a class="more" href="../preview/13-data-visualization.html#sec-ai-visualization">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>AI 가 생성한 거품 그림 코드를 <strong>9.1 의 절차</strong>로 검증</p><p>7.3 에서 만든 <strong>기준 자료</strong>(189개 나라)와 나라별 대조</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 오류 없이 그려진 그림은 명세대로 그려졌는가?</div>
+</div>
+</div>
+      <nav class="decklist" aria-label="이 덱의 절">
+        <div class="mono decklist-h">이 덱의 절</div>
+        <a class="deckrow is-current" href="#s1" data-sec="1" aria-current="true"><span class="mono dr-range">S03–S06</span><span class="dr-title">1 그림으로 자료 보기</span><span class="mono dr-count">4장</span></a>
+        <a class="deckrow" href="#s2" data-sec="2"><span class="mono dr-range">S07–S13</span><span class="dr-title">2 기본 그래픽: 고수준 함수</span><span class="mono dr-count">7장</span></a>
+        <a class="deckrow" href="#s3" data-sec="3"><span class="mono dr-range">S14–S20</span><span class="dr-title">3 덧그리기와 그래픽 상태</span><span class="mono dr-count">7장</span></a>
+        <a class="deckrow" href="#s4" data-sec="4"><span class="mono dr-range">S21–S28</span><span class="dr-title">4 ggplot2 의 문법</span><span class="mono dr-count">8장</span></a>
+        <a class="deckrow" href="#s5" data-sec="5"><span class="mono dr-range">S29–S36</span><span class="dr-title">5 geom 과 stat: 그림이 계산한 값</span><span class="mono dr-count">8장</span></a>
+        <a class="deckrow" href="#s6" data-sec="6"><span class="mono dr-range">S37–S41</span><span class="dr-title">6 위치 조정: 쌓기, 나란히, 겹치기</span><span class="mono dr-count">5장</span></a>
+        <a class="deckrow" href="#s7" data-sec="7"><span class="mono dr-range">S42–S49</span><span class="dr-title">7 척도, 좌표, 글자</span><span class="mono dr-count">8장</span></a>
+        <a class="deckrow" href="#s8" data-sec="8"><span class="mono dr-range">S50–S54</span><span class="dr-title">8 나누어 그리기, 배치, 테마, 저장</span><span class="mono dr-count">5장</span></a>
+        <a class="deckrow" href="#s9" data-sec="9"><span class="mono dr-range">S55–S60</span><span class="dr-title">9 그림 검증하기</span><span class="mono dr-count">6장</span></a>
+        <a class="deckrow" href="#s10" data-sec="10"><span class="mono dr-range">S61–S67</span><span class="dr-title">10 AI와 함께: 거품 그림 코드의 검증</span><span class="mono dr-count">7장</span></a>
+        <div class="mono decklist-foot">S01–S02 표지 · 이 수업에서 다루는 것<br>S68 정리</div>
+      </nav>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="foot-col">
+      <span class="mono foot-h">강의 허브</span>
+      <a href="index.html">개편 교과 구성 전체 보기</a>
+    </div>
+    <div class="foot-col">
+      <span class="mono foot-h">만든 방법</span>
+      <span class="v">hub/topic-page.R 이 슬라이드·강의노트 렌더본에서 생성</span>
+    </div>
+    <div class="foot-col">
+      <span class="mono foot-h">마지막 갱신</span>
+      <span class="mono v">2026-10-17</span>
+    </div>
+  </footer>
+
+</div>
+<script>
+(() => {
+  const deck = document.getElementById('deck');
+  const view = deck.parentElement;
+  const fit = () => view.style.setProperty('--deck-scale', String(view.clientWidth / 1280));
+  fit();
+  if ('ResizeObserver' in window) new ResizeObserver(fit).observe(view); else window.addEventListener('resize', fit);
+  const panels = [...document.querySelectorAll('[data-panel]')];
+  const rows = [...document.querySelectorAll('.deckrow')];
+  const cards = [...document.querySelectorAll('.card')];
+  const byId = Object.fromEntries(cards.map(c => [c.dataset.id, c]));
+  const secs = rows.map(r => r.dataset.sec);
+  let cur = null;
+  const mark = c => cards.forEach(x => x.classList.toggle('is-current', x === c));
+  function show(k, move) {
+    if (!secs.includes(k)) k = secs[0];
+    cur = k;
+    panels.forEach(p => { p.hidden = p.dataset.panel !== k; });
+    rows.forEach(r => {
+      const on = r.dataset.sec === k;
+      r.classList.toggle('is-current', on);
+      if (on) r.setAttribute('aria-current', 'true'); else r.removeAttribute('aria-current');
+    });
+    if (move) {
+      const first = document.querySelector('.strip[data-panel="' + k + '"] .card');
+      if (first) { deck.src = first.href; mark(first); }
+    }
+  }
+  const fromHash = () => (location.hash.match(/^#s(\d+)$/) || [])[1];
+  window.addEventListener('hashchange', () => show(fromHash(), true));
+  document.addEventListener('click', e => { const c = e.target.closest('.card'); if (c) mark(c); });
+  // 같은 출처(GitHub Pages)면 미리보기 안에서 넘긴 슬라이드를 카드와 절 목록이 따라간다.
+  // file:// 로 열면 다른 출처로 취급되어 막히므로 조용히 건너뛴다.
+  function follow() {
+    try {
+      const R = deck.contentWindow.Reveal;
+      if (!R || R.__hubFollow) return;
+      R.__hubFollow = true;
+      const hook = () => R.on('slidechanged', e => {
+        const c = byId[e.currentSlide.id];
+        if (!c) return;
+        mark(c);
+        const k = c.closest('[data-panel]').dataset.panel;
+        if (k !== cur) { show(k, false); history.replaceState(null, '', '#s' + k); }
+      });
+      R.isReady() ? hook() : R.on('ready', hook);
+    } catch (err) { /* 다른 출처 */ }
+  }
+  deck.addEventListener('load', follow);
+  follow();
+  const k0 = fromHash();
+  show(k0 || secs[0], Boolean(k0));
+  if (!k0) mark(cards.find(c => !c.closest('[hidden]')));
+})();
+</script>
+</body>
+</html>
+

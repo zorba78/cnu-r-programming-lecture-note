@@ -43,7 +43,7 @@ metric_js <- "
       const f = parseFloat(cs.fontSize); if (f < minf) minf = f;
       if (f < 18) small.push(Math.round(f*10)/10 + 'px ' + e.tagName.toLowerCase() +
         (typeof e.className === 'string' && e.className ? '.' + e.className.split(' ')[0] : '') +
-        ' \"' + e.textContent.trim().slice(0, 18) + '\"');
+        ' \"' + e.textContent.trim().replace(/\\s+/g, ' ').slice(0, 18) + '\"');
     }
   });
   const kind = s.id === 'title-slide' ? 'title' : s.classList.contains('section-title') ? 'section' : 'content';

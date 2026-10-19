@@ -40,6 +40,8 @@
 | `09-simulation.qmd` | **개편 새 9장 (Quarto).** 현행 `07-simulation.Rmd` 를 검증의 도구로 재구성. 슬라이드 `09-simulation-slides.qmd` | 1307 |
 | `11-data-import-export.qmd` | **개편 새 11장 (Quarto).** 현행 `09-file-import-export.Rmd` 를 현행화하고 원문 대조 검증을 중심으로 강화. 슬라이드 `11-data-import-export-slides.qmd`, 연습 파일 `dataset/ch11/` | 1689 |
 | `12-data-handling.qmd` | **개편 새 12장 (Quarto).** 현행 `10-data-manupulation.Rmd` 를 dplyr 1.2 기준으로 현행화하고, 변환마다 보존되어야 할 것(행 수, 합계, 키)을 대조하는 검증 중심으로 재구성. 함수는 현행 10장의 예제와 그림(mpg, 타이타닉, nycflights13, tidyr 내장 자료)으로 익히고, 도서관 가상 자료와 Gapminder 공개 자료로 검증한다. 슬라이드 `12-data-handling-slides.qmd`, 연습 파일 `dataset/ch12/` | 3071 |
+| `13-data-visualization.qmd` | **개편 새 13장 (Quarto).** 현행 `11-data-visualization.Rmd` 를 ggplot2 4.x 기준으로 현행화하고, 그림이 계산한 값(`layer_data()`)과 그려진 행 수·범례·축 글자를 코드와 대조하는 검증 중심으로 재구성. 슬라이드 `13-data-visualization-slides.qmd` | 2687 |
+| `14-basic-stat-analysis.qmd` | **개편 새 14장 (Quarto).** 현행 `12-basic-stat-analysis.Rmd` 를 자료 구조로 검정 고르기, 직접 계산·내장 함수·`lm()` 세 경로 대조, 다중비교, 범주형 검정과 상관, broom 정리로 재구성. 슬라이드 `14-basic-stat-analysis-slides.qmd`, 연습 파일 `dataset/ch14/` | 2442 |
 
 지원 폴더:
 
@@ -123,6 +125,8 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
 | 새 9장 시뮬레이션 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `09-simulation.qmd`, 슬라이드 `09-simulation-slides.qmd` (2026-09-12). 렌더본은 `docs/preview/`. 감사 `upgrade/audit/07-simulation.md` (치명 4, 중요 18, 경미 34). "AI와 함께" 절의 응답 원문은 `ai-transcripts/09-simulation/` |
 | 새 11장 데이터 입출력 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `11-data-import-export.qmd`, 슬라이드 `11-data-import-export-slides.qmd` (2026-09-14). 연습 파일은 `dataset/ch11/` (교육용 가상 자료, `make-ch11-data.R` 로 재생성). 감사 `upgrade/audit/09-file-import-export.md` (치명 1, 중요 10, 경미 28). "AI와 함께" 응답 원문은 `ai-transcripts/11-data-import-export/` |
 | 새 12장 데이터 핸들링 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `12-data-handling.qmd`, 슬라이드 `12-data-handling-slides.qmd` (2026-09-17, 69장). 첫 초안이 새 예제만 써서, 같은 날 강사 지적에 따라 1~4절, 5.1~5.2절, 6절을 현행 10장의 예제와 그림 13개로 바꾸고 7절에 Gapminder 통합 사례(단순 평균 대 인구 가중 평균, 발표된 세계 값과 대조)를 더했다. 도서관 자료는 5.3절 이후 결합 검증, 7절, AI 절에만 쓴다. 연습 파일은 `dataset/ch12/` (도서관 가상 자료 `make-ch12-data.R`, Gapminder 추출 `make-gapminder-data.R`). 감사 `upgrade/audit/10-data-manupulation.md` (치명 3, 중요 15, 경미 42). "AI와 함께" 응답 원문은 `ai-transcripts/12-data-handling/`. dplyr 1.2.0 의 `filter_out()`, `recode_values()`, `replace_values()`, `.unmatched` 를 쓰므로 학생 환경의 dplyr 버전 확인 필요 |
+| 새 13장 데이터 시각화 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `13-data-visualization.qmd`, 슬라이드 `13-data-visualization-slides.qmd` (2026-10-17, 68장). `chapter-orchestrator` 파이프라인으로 만든 첫 장. 감사 `upgrade/audit/11-data-visualization.md` (치명 3, 중요 20, 경미 41), 설계 `upgrade/plans/data-visualization.md`, 노트 검수 중요 11·경미 18 반영. 새 연습 자료 없음(mpg, diamonds, iris, Gapminder 등 이전 판 자료). "AI와 함께" 응답 원문은 `ai-transcripts/13-data-visualization/`. 100줄 넘는 소절 2.1, 3.2, 4.4, 9.4 는 슬라이드 번호 때문에 나누지 않음 |
+| 새 14장 기초통계 분석 | **원고 초안 + 슬라이드 (Quarto)** | 노트 `14-basic-stat-analysis.qmd`, 슬라이드 `14-basic-stat-analysis-slides.qmd` (2026-10-17, 69장). 감사 `upgrade/audit/12-basic-stat-analysis.md` (치명 2, 중요 21, 경미 22), 노트 검수 치명 1·중요 7·경미 20 반영. 연습 파일 `dataset/ch14/sleep-drug.csv` (`make-ch14-data.R`, 같은 환자의 반복 측정을 숨긴 가상 자료). "AI와 함께" 응답 원문은 `ai-transcripts/14-basic-stat-analysis/`. **R 4.4.0 이상 필요**(formula 와 `paired = TRUE` 를 함께 쓰면 오류, 노트가 이를 다룸). 강사 확인: DBP B 군 = 위약군의 근거, 월경통 자료의 1차 변수 |
 | 현 10장 (구 데이터 핸들링) | **치명 3건 배포 중** | 새 12장으로 대체되기 전까지 공개 사이트에 남아 있음. "자동/수동 변속기" 표가 `am = factor(vs, …)` 라 실제로는 엔진 형태별 수치(398–405), `mean_hwy = mean(cty)` 로 고속 연비 열에 시내 연비(1036), "group_by() 뒤 동사는 모두 그룹별" 설명이 arrange() 에는 틀림(867–877). 감사 A-1~A-3 |
 | 현 7장 (구 시뮬레이션) | **치명 4건 배포 중** | 새 9장으로 대체되기 전까지 공개 사이트에 남아 있음. DBP 영분포 시뮬레이션이 두 군 평균차가 아닌 전체 평균을 씀, '귀무가설이 참일 때'라는 신뢰구간 시뮬레이션이 평균 0.75/2.33 으로 생성(실은 검정력), 쌍체 자료 `sleep` 을 독립 이표본으로 분석, `icons` 청크 오류. 감사 A-1~A-4 |
 | 현 6장 (구 알고리즘) | **치명 버그 3건 배포 중** | 새 8장으로 대체되기 전까지 공개 사이트에 그대로 남아 있음. `1:5*n` 연산자 우선순위, `rbinary_search` 탈출 조건, `newton_raphson` 미정의 객체. 감사 보고서 A-1~A-3 |
@@ -193,6 +197,7 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
     (14) R 청크 그림이 슬라이드의 **직계 자식**이면 Quarto 가 `class="r-stretch"` 를 붙인다. reveal 은 그림을 슬라이드에 들어올 때 불러오는데(`data-src`), 먼 슬라이드로 **바로 이동하면**(허브의 슬라이드 카드, 개요 화면) 그림을 불러오기 전에 높이를 계산해 **높이 0 으로 사라진다**. 헤드리스 크롬에서 1번에서 51번으로 이동해 확인했다(2026-09-17). 청크를 `::: {}` 로 감싸 자동 늘이기를 끈다. 9장 덱의 그림 5개(`running-plot`, `clt-plot`, `clt-skew-plot`, `ci-plot`, `skew-ci-plot`)가 이 상태이며, `clt-plot` 과 `ci-plot` 은 바로 이동했을 때 높이 0 을 재현했다(아직 고치지 않음). `slides-check.R` 은 그림을 다 불러올 때까지 기다린 뒤 잰다.
     (15) **움직이는 그림**: `video/` 에 mp4 를 새로 넣지 않는다(작업 규칙 9). 노트는 청크에 `#| fig-show: animate`, `#| animation-hook: gifski` 를 주어 렌더할 때 GIF 를 만든다(8장 경로 그림 267 KB). 슬라이드는 발표자가 속도를 조절하도록 장면마다 PNG 를 `knitr::fig_path()` 에 저장하고 `results: asis` 로 `::: {.r-stack}` 안에 `{.fragment fragment-index="k"}` 그림을 내보낸다. 오른쪽 칸의 설명 문단에 같은 `fragment-index` 를 주면 장면과 함께 나타난다(8장 5.7).
     (16) 교재나 웹에서 가져온 그림은 영어 설명과 "FIGURE 2" 같은 캡션까지 한 파일에 들어 있어, 칸 폭에 맞추면 **정작 곡선이 작아진다**. 8장 빅오 그림(842×536)은 절반이 설명 글이라 46% 칸에서 곡선이 250px 남짓으로 보였다(강사 지적, 2026-09-17). 슬라이드에는 내용 부분만 잘라 낸 사본(`figures/<이름>-plot.png`)을 높이 기준(`{height="510px"}`)으로 싣고, 잘라 낸 설명은 한국어 목록으로 옮긴다. `slides-check.R` 화면 PNG 는 reveal 축소 비율(약 0.9배)이 적용된 크기라 `metrics.tsv` 의 슬라이드 좌표보다 작게 보인다.
+    (17) `slides-check.R` 의 글자 발췌에 코드 줄바꿈이 그대로 들어가 `metrics.tsv` 한 행이 두 줄로 갈라지고, awk 검사에 `"` 한 줄이 남았다(14장 63번, 2026-10-17). 발췌의 공백을 하나로 바꾸도록 고쳤다. 측정값은 바뀌지 않는다.
 - 단일 장 렌더·배치: `bash upgrade/render-preview.sh 08-algorithms.qmd` → `docs/preview/`. 살아 있는 bookdown 사이트(`docs/` 루트)는 건드리지 않는다.
 - `_quarto.yml` 은 아직 만들지 않았다. 만드는 순간 `output-dir: docs` 가 현행 사이트를 덮으므로, **`migrate-to-quarto` 스킬 0단계(legacy 보존)를 먼저** 해야 한다.
 - **`bookdown-archive-2026-09-10` 태그는 처음 만든 기기에만 있다** (커밋 `a27a058`, 원격에 푸시하지 않음). 다른 기기의 `git tag -l` 에는 보이지 않는다.
@@ -220,7 +225,7 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
 - 발표 슬라이드 허브 페이지는 **A안(주제 목록형)** 으로 확정. 시안 https://claude.ai/code/artifact/3fadbdb9-8241-473c-8cad-13ca6285e9d8
   - **구현 완료 (2026-09-10)**: `hub/index.html` → `docs/hub/` 배포 → https://zorba78.github.io/cnu-r-programming-lecture-note/hub/
   - 허브 시안의 작업 파일은 `upgrade/hub-design/` (`*.dc.html` + `canvas.json`, 2026-09-11 게시본에서 추출). 고친 뒤 캔버스에 다시 게시한다. 슬라이드 시안의 `upgrade/slides-design/` 와 같은 역할.
-  - **주제 상세 화면** (시안 `Topic.dc.html`, 2026-09-11 구현, 강사 요청): 슬라이드와 새 노트가 모두 있는 장만 둔다. 지금은 8장 `hub/08-algorithms.html`, 9장 `hub/09-simulation.html`, 11장 `hub/11-data-import-export.html`, 12장 `hub/12-data-handling.html` 이고,
+  - **주제 상세 화면** (시안 `Topic.dc.html`, 2026-09-11 구현, 강사 요청): 슬라이드와 새 노트가 모두 있는 장만 둔다. 지금은 8장 `hub/08-algorithms.html`, 9장 `hub/09-simulation.html`, 11장 `hub/11-data-import-export.html`, 12장 `hub/12-data-handling.html`, 13장 `hub/13-data-visualization.html`, 14장 `hub/14-basic-stat-analysis.html` 이고,
     허브 8장 행을 펼치면 들어가는 링크가 있다. 제목 줄(슬라이드 열기 · PDF로 저장 · 강의노트에서 보기), 왼쪽 슬라이드 미리보기와 절별 슬라이드 카드,
     오른쪽 대응하는 강의노트 발췌 · 소절 목록 · 이 절의 슬라이드(절 표지의 의도와 질문) · 이 덱의 절 목록.
     - `Rscript hub/topic-page.R 08-algorithms` 가 `docs/preview/` 의 덱·노트 **렌더본**에서 절별 슬라이드 번호 구간과 발췌를 뽑아 만든다.
@@ -235,7 +240,7 @@ Rscript hub/topic-page.R 08-algorithms && bash hub/sync.sh
   - **펼친 칸의 요약(`panel-plan`)은 학생이 읽는 장 소개**다. "현행 N장을 재구성한다" 같은 개편 기록을 쓰지 않고, 그 장에서 무엇을 배우는지 두세 문장으로 쓴다 (강사, 2026-09-17). 행 부제(`row-sub`)도 주제 목록으로만 쓴다.
   - 제목 옆 태그는 재구성안의 `처리` 열(신설 / 재작성 / 재구성 / 강화 / 유지 / 슬림화 / 이동·압축 / 현행화 / 전환).
   - `02 전반`(새 2장) / `02 후반`(새 3장) 의 절 분배는 재구성안의 처리 설명을 근거로 **2.2·2.9 → 2장, 2.3~2.8 → 3장** 으로 읽었다. 강사 확인이 필요하다.
-  - 슬라이드 상태는 `예정`(기본) / `준비 중` / `초안 · N장` / `공개` 네 가지. 지금은 새 8장 알고리즘, 새 9장 시뮬레이션, 새 11장 데이터 입출력, 새 12장 데이터 핸들링이 `공개`.
+  - 슬라이드 상태는 `예정`(기본) / `준비 중` / `초안 · N장` / `공개` 네 가지. 지금은 새 8장 알고리즘, 새 9장 시뮬레이션, 새 11장 데이터 입출력, 새 12장 데이터 핸들링, 새 13장 데이터 시각화, 새 14장 기초통계 분석이 `공개`.
   - 허브 문구에서 **'발표 슬라이드'가 아니라 '슬라이드'** 로 적는다 (강사 지시, 2026-09-11).
   - **'비용'은 수행 시간과 메모리를 합쳐 부르는 말**로 8장 첫 절에서 정의하고 쓴다. 정의 없이
   "얼마나 비싼지" 같은 표현을 쓰면 시간인지 메모리인지 모호하다 (강사 지적, 2026-09-11).

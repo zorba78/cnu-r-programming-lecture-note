@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>14 기초통계 분석 — 강의 허브</title>
+<meta name="description" content="14 기초통계 분석 — 슬라이드와 대응하는 강의노트 절을 나란히 보는 주제 상세 화면.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&amp;display=swap">
+<!-- 이 파일은 hub/topic-page.R 이 만든다. 손으로 고치지 말고 다시 생성한다. -->
+<script>document.documentElement.classList.add("js");</script>
+<style>
+  :root {
+    color-scheme: light;
+    --bg:#FAF7F2; --ink:#241F1A; --prose:#5C554C; --muted:#6E665C;
+    --faint:#8C8479; --line:#E4DCD0; --line-2:#D5CABB;
+    --panel:#F3EEE5; --panel-line:#C9BCA9; --card-line:#DCD3C6; --sel:#EAE0D1;
+    --note:#A64B32; --note-hover:#7E3624; --slide:#1F6F7A; --slide-hover:#155059;
+  }
+  * { box-sizing:border-box; }
+  [hidden] { display:none !important; }
+  html { -webkit-text-size-adjust:100%; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    -webkit-font-smoothing:antialiased; text-wrap:pretty;
+  }
+  a { color:var(--note); text-decoration:none; }
+  a:hover { color:var(--note-hover); }
+  .mono { font-family:'IBM Plex Mono','SFMono-Regular',ui-monospace,'Malgun Gothic','Apple SD Gothic Neo',monospace; }
+  .disp { font-family:'Hahmlet','Nanum Myeongjo','Apple SD Gothic Neo',serif; }
+  .wrap { max-width:1440px; margin:0 auto; }
+  :focus-visible { outline:2px solid var(--note); outline-offset:2px; }
+
+  /* 경로 */
+  .crumbs {
+    display:flex; justify-content:space-between; align-items:center; gap:8px 16px; flex-wrap:wrap;
+    padding:18px 72px; border-bottom:1px solid var(--line);
+    font-size:12px; letter-spacing:0.1em; color:var(--muted);
+  }
+  .crumbs a { color:var(--muted); }
+  .crumbs a:hover { color:var(--ink); }
+  .crumbs .sep { color:#C0B5A5; margin:0 6px; }
+  .crumbs .here { color:var(--ink); }
+
+  /* 제목 줄 */
+  .t-head {
+    display:flex; justify-content:space-between; align-items:flex-end; gap:24px 48px; flex-wrap:wrap;
+    padding:34px 72px 26px;
+  }
+  .t-name { display:flex; align-items:baseline; gap:20px; }
+  .t-num { font-size:34px; color:var(--note); }
+  .t-name h1 { margin:0; font-size:38px; font-weight:700; letter-spacing:-0.02em; }
+  .t-meta { margin-top:8px; font-size:13.5px; color:var(--muted); }
+  .t-act { display:flex; flex-direction:column; align-items:flex-end; gap:9px; }
+  .t-btns { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .btn { display:inline-flex; align-items:center; gap:9px; padding:12px 20px; font-size:14px; font-weight:500; }
+  .btn-slide { background:var(--slide); color:var(--bg); }
+  .btn-slide:hover { background:var(--slide-hover); color:var(--bg); }
+  .btn-line { border:1px solid var(--slide); color:var(--slide); padding:11px 18px; }
+  .btn-line:hover { background:rgba(31,111,122,0.07); color:var(--slide-hover); }
+  .btn-text { padding:12px 4px; color:var(--note); }
+  .t-hint { font-size:12px; color:var(--muted); }
+
+  /* 본문 두 칸 */
+  .t-grid {
+    display:grid; grid-template-columns:minmax(0,1fr) 460px; gap:48px;
+    padding:6px 72px 48px; align-items:start;
+  }
+  .t-left { display:flex; flex-direction:column; gap:20px; min-width:0; }
+  .stage {
+    background:#FFFFFF; border:1px solid var(--card-line);
+    box-shadow:0 1px 0 #EDE6DA, 0 12px 28px -18px rgba(36,31,26,0.35);
+  }
+  .stage-bar { height:5px; background:var(--slide); }
+  .stage-view { position:relative; aspect-ratio:16 / 9; overflow:hidden; background:#FFFFFF; }
+  .stage-view iframe { display:block; width:100%; height:100%; border:0; background:#FFFFFF; }
+  /* 덱을 원래 크기(1280×720)로 그리고 칸 폭에 맞춰 줄인다. 좁은 iframe 에 그대로 넣으면
+     reveal.js 가 폭 435px 아래에서 스크롤 보기로 바뀌어 카드를 눌러도 슬라이드가 넘어가지 않는다. */
+  .js .stage-view iframe {
+    position:absolute; top:0; left:0; width:1280px; height:720px;
+    transform-origin:0 0; transform:scale(var(--deck-scale, 0.6));
+  }
+  .stage-foot {
+    display:flex; justify-content:space-between; gap:6px 16px; flex-wrap:wrap;
+    padding:10px 14px; border-top:1px solid var(--line); font-size:12px; color:var(--muted);
+  }
+  .strip { display:flex; flex-direction:column; gap:11px; }
+  .strip-head {
+    display:flex; justify-content:space-between; align-items:baseline; gap:6px 12px; flex-wrap:wrap;
+    font-size:11px; letter-spacing:0.12em; color:var(--muted);
+  }
+  .strip-nav a { color:var(--muted); }
+  .strip-nav a:hover { color:var(--ink); }
+  .strip-nav .off { color:#C9BFB0; }
+  .cards { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:10px; }
+  .card {
+    display:flex; flex-direction:column; gap:5px; min-height:76px; padding:9px 11px;
+    background:#FFFFFF; border:1px solid var(--card-line); color:var(--prose);
+  }
+  .card:hover { border-color:var(--slide); color:var(--ink); }
+  .card-n { display:flex; justify-content:space-between; gap:6px; font-size:11px; color:var(--faint); }
+  .card-tag { color:var(--slide); letter-spacing:0.06em; }
+  .card-t {
+    font-size:13px; line-height:1.45; overflow:hidden;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+  }
+  .card.is-sec { background:var(--panel); }
+  .card.is-predict { border-left:3px solid var(--slide); padding-left:9px; }
+  .card.is-current { border:2px solid var(--slide); padding:8px 10px; color:var(--ink); }
+
+  /* 오른쪽 칸 */
+  aside.t-side {
+    display:flex; flex-direction:column; gap:22px; padding:26px;
+    background:var(--panel); border:1px solid var(--line);
+  }
+  .note { display:flex; flex-direction:column; gap:16px; }
+  .kicker { display:flex; align-items:center; gap:9px; font-size:11px; letter-spacing:0.16em; }
+  .sq { display:block; width:9px; height:9px; flex-shrink:0; }
+  .sq-note { background:var(--note); }
+  .sq-slide { background:var(--slide); }
+  .note > .kicker { color:var(--note); }
+  .n-head { display:flex; flex-direction:column; gap:5px; }
+  .n-title { font-size:21px; font-weight:700; }
+  .n-anchor { font-size:11.5px; color:var(--faint); }
+  .excerpt {
+    display:flex; flex-direction:column; gap:11px; padding-left:14px; border-left:2px solid #D9BFB4;
+    font-size:14px; line-height:1.8; color:#3A342C;
+  }
+  .excerpt p, .s-intro p { margin:0; }
+  .excerpt code, .s-intro code {
+    font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:13px; background:var(--sel); padding:1px 5px;
+  }
+  .subs { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+  .subs a { display:flex; gap:10px; align-items:baseline; padding:5px 0; font-size:13.5px; color:var(--prose); }
+  .subs a:hover { color:var(--note); }
+  .subs .mono { font-size:12px; color:var(--note); min-width:30px; }
+  .more { display:inline-flex; align-items:center; gap:8px; font-size:13.5px; font-weight:500; }
+  .none { margin:0; font-size:13.5px; color:var(--faint); }
+  .s-intro {
+    display:flex; flex-direction:column; gap:10px; border-top:1px solid var(--line-2); padding-top:18px;
+    font-size:14px; line-height:1.75; color:#3A342C;
+  }
+  .s-intro .kicker { color:var(--slide); }
+  .question {
+    display:flex; flex-direction:column; gap:4px; padding:10px 12px;
+    background:rgba(31,111,122,0.07); border-left:3px solid var(--slide);
+    font-size:14px; line-height:1.6; color:var(--ink);
+  }
+  .question .mono { font-size:10.5px; letter-spacing:0.14em; color:var(--slide); }
+  .decklist { display:flex; flex-direction:column; border-top:1px solid var(--line-2); padding-top:18px; }
+  .decklist-h { font-size:11px; letter-spacing:0.16em; color:var(--muted); padding-bottom:6px; }
+  .deckrow {
+    display:grid; grid-template-columns:86px 1fr 40px; gap:12px; align-items:baseline;
+    padding:9px 0; border-top:1px solid var(--line); color:var(--prose);
+  }
+  .decklist-h + .deckrow { border-top:none; }
+  .deckrow:hover { color:var(--ink); }
+  .dr-range { font-size:12px; color:var(--slide); }
+  .dr-title { font-size:13.5px; }
+  .dr-count { font-size:11.5px; color:var(--faint); text-align:right; }
+  .deckrow.is-current { background:var(--sel); margin:0 -10px; padding:9px 10px; border-top-color:transparent; color:var(--ink); }
+  .deckrow.is-current .dr-title { font-weight:600; }
+  .deckrow.is-current + .deckrow { border-top-color:transparent; }
+  .decklist-foot { padding-top:10px; font-size:11.5px; line-height:1.7; color:var(--faint); }
+
+  /* 푸터 */
+  footer {
+    display:grid; grid-template-columns:1fr 1fr 240px; gap:48px;
+    padding:32px 72px 52px; border-top:1px solid var(--ink);
+  }
+  .foot-col { display:flex; flex-direction:column; gap:7px; min-width:0; }
+  .foot-col:last-child { text-align:right; }
+  .foot-h { font-size:11px; letter-spacing:0.14em; color:var(--faint); }
+  .foot-col a, .foot-col .v { font-size:14px; overflow-wrap:anywhere; }
+  .foot-col .v { color:var(--prose); }
+
+  /* 반응형 */
+  @media (max-width:1100px) {
+    .crumbs, .t-head, .t-grid, footer { padding-left:40px; padding-right:40px; }
+    .t-grid { grid-template-columns:minmax(0,1fr); gap:32px; }
+    .t-act { align-items:flex-start; }
+    footer { grid-template-columns:1fr 1fr; }
+    .foot-col:last-child { grid-column:1 / -1; text-align:left; }
+  }
+  @media (max-width:760px) {
+    .crumbs, .t-head, .t-grid, footer { padding-left:16px; padding-right:16px; }
+    .crumbs { padding-top:14px; padding-bottom:14px; }
+    .t-head { padding-top:24px; }
+    .t-name { gap:14px; }
+    .t-num { font-size:26px; }
+    .t-name h1 { font-size:30px; }
+    .btn { padding:11px 14px; }
+    .btn-line { padding:10px 13px; }
+    .cards { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    aside.t-side { padding:20px 16px; }
+    .deckrow { grid-template-columns:78px 1fr 34px; }
+    footer { grid-template-columns:1fr; gap:22px; padding-bottom:40px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="crumbs">
+    <div class="mono"><a href="index.html">강의 허브</a><span class="sep">/</span><a href="index.html#ch14">PART 2 · 데이터 다루기</a><span class="sep">/</span><span class="here">14 기초통계 분석</span></div>
+    <div class="mono">충남대학교 정보통계학과</div>
+  </div>
+
+  <header class="t-head">
+    <div class="t-name">
+      <span class="mono t-num">14</span>
+      <div>
+        <h1 class="disp">기초통계 분석</h1>
+        <div class="t-meta">슬라이드 69장 · 강의노트 8개 절 · 개편 초안</div>
+      </div>
+    </div>
+    <div class="t-act">
+      <div class="t-btns">
+        <a class="btn btn-slide" href="../preview/14-basic-stat-analysis-slides.html">슬라이드 열기 <span aria-hidden="true">&#8594;</span></a>
+        <a class="btn btn-line" href="../preview/14-basic-stat-analysis-slides.html?print-pdf" target="_blank" rel="noopener">PDF로 저장</a>
+        <a class="btn btn-text" href="../preview/14-basic-stat-analysis.html">강의노트에서 보기 <span aria-hidden="true">&#8594;</span></a>
+      </div>
+      <div class="t-hint">PDF로 저장: 인쇄용 화면이 열리면 Ctrl+P (맥은 ⌘P) → 대상을 ‘PDF로 저장’으로</div>
+    </div>
+  </header>
+
+  <div class="t-grid">
+    <div class="t-left">
+      <div class="stage">
+        <div class="stage-bar"></div>
+        <div class="stage-view"><iframe id="deck" name="deck" src="../preview/14-basic-stat-analysis-slides.html#/%EA%B2%80%EC%A0%95%EC%9D%84-%EA%B3%A0%EB%A5%B4%EA%B8%B0-%EC%A0%84%EC%97%90" title="슬라이드 미리보기" allow="fullscreen"></iframe></div>
+        <div class="stage-foot"><span>미리보기 — 화면을 한 번 누른 뒤 ← → 키로 넘긴다</span><span>아래 카드를 누르면 그 슬라이드로 간다</span></div>
+      </div>
+<div class="strip" data-panel="1">
+  <div class="strip-head"><span class="mono">1 검정을 고르기 전에 · S03–S07 · 5장</span><span class="mono strip-nav"><span class="off">&#9664; 이전 절</span> · <a href="#s2">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/14-basic-stat-analysis-slides.html#/%EA%B2%80%EC%A0%95%EC%9D%84-%EA%B3%A0%EB%A5%B4%EA%B8%B0-%EC%A0%84%EC%97%90" target="deck" data-id="검정을-고르기-전에"><span class="card-n mono"><span>S03</span><span class="card-tag">절 표지</span></span><span class="card-t">1 검정을 고르기 전에</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90" target="deck" data-id="예측해-보자"><span class="card-n mono"><span>S04</span><span class="card-tag">예측</span></span><span class="card-t">두 표 가운데 두 집단에 짝이 있는 표는? 어디를 보면 아는가?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EA%B0%99%EC%9D%80-%ED%95%99%EC%83%9D%EC%9D%84-%EB%91%90-%EB%B2%88-%EC%9E%B0-%ED%91%9C" target="deck" data-id="같은-학생을-두-번-잰-표"><span class="card-n mono"><span>S05</span><span class="card-tag"></span></span><span class="card-t">1.1 같은 학생을 두 번 잰 표</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EA%B8%B0%EC%B4%88%ED%86%B5%EA%B3%84-%EC%9A%A9%EC%96%B4-%EB%8B%A4%EC%8B%9C-%EB%B3%B4%EA%B8%B0" target="deck" data-id="기초통계-용어-다시-보기"><span class="card-n mono"><span>S06</span><span class="card-tag"></span></span><span class="card-t">1.2 기초통계 용어 다시 보기</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EC%9E%90%EB%A3%8C-%EA%B5%AC%EC%A1%B0%EB%A1%9C-%EA%B2%80%EC%A0%95-%EA%B3%A0%EB%A5%B4%EA%B8%B0" target="deck" data-id="자료-구조로-검정-고르기"><span class="card-n mono"><span>S07</span><span class="card-tag"></span></span><span class="card-t">1.3 자료 구조로 검정 고르기</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="2" hidden>
+  <div class="strip-head"><span class="mono">2 분포 확인: 분위수와 Q-Q plot · S08–S18 · 11장</span><span class="mono strip-nav"><a href="#s1">&#9664; 이전 절</a> · <a href="#s3">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/14-basic-stat-analysis-slides.html#/%EB%B6%84%ED%8F%AC-%ED%99%95%EC%9D%B8-%EB%B6%84%EC%9C%84%EC%88%98%EC%99%80-q-q-plot" target="deck" data-id="분포-확인-분위수와-q-q-plot"><span class="card-n mono"><span>S08</span><span class="card-tag">절 표지</span></span><span class="card-t">2 분포 확인: 분위수와 Q-Q plot</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-1" target="deck" data-id="예측해-보자-1"><span class="card-n mono"><span>S09</span><span class="card-tag">예측</span></span><span class="card-t">1 부터 10 까지 열 개의 수에서 0.25 분위수는?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EB%B6%84%EC%9C%84%EC%88%98-%EA%B3%84%EC%82%B0-%EB%B0%A9%EB%B2%95%EC%9D%B4-%EC%95%84%ED%99%89-%EA%B0%80%EC%A7%80" target="deck" data-id="분위수-계산-방법이-아홉-가지"><span class="card-n mono"><span>S10</span><span class="card-tag"></span></span><span class="card-t">2.1 분위수: 계산 방법이 아홉 가지</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-2" target="deck" data-id="예측해-보자-2"><span class="card-n mono"><span>S11</span><span class="card-tag">예측</span></span><span class="card-t">5% 와 95% 에서 맞은 이전 판 함수: 0.1%, 50%, 99.9% 에서도 맞을까?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EC%9D%B4%EC%A0%84-%ED%8C%90-%ED%95%A8%EC%88%98%EB%8A%94-%EC%96%91-%EB%81%9D%EC%97%90%EC%84%9C-%ED%8B%80%EB%A6%BC" target="deck" data-id="이전-판-함수는-양-끝에서-틀림"><span class="card-n mono"><span>S12</span><span class="card-tag"></span></span><span class="card-t">2.2 이전 판 함수는 양 끝에서 틀림</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/q-q-plot-%EC%A7%81%EC%A0%91-%EA%B7%B8%EB%A6%AC%EA%B8%B0" target="deck" data-id="q-q-plot-직접-그리기"><span class="card-n mono"><span>S13</span><span class="card-tag"></span></span><span class="card-t">2.3 Q-Q plot 직접 그리기</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EC%A0%90%EC%9D%B4-%EC%A7%81%EC%84%A0%EC%97%90%EC%84%9C-%EB%B2%97%EC%96%B4%EB%82%98%EB%8A%94-%EB%B0%A9%ED%96%A5" target="deck" data-id="점이-직선에서-벗어나는-방향"><span class="card-n mono"><span>S14</span><span class="card-tag"></span></span><span class="card-t">2.3 점이 직선에서 벗어나는 방향</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-3" target="deck" data-id="예측해-보자-3"><span class="card-n mono"><span>S15</span><span class="card-tag">예측</span></span><span class="card-t">이름을 가린 네 Q-Q plot: 꼬리가 두꺼운 것과 오른쪽으로 치우친 것은?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EB%84%A4-%EA%B0%80%EC%A7%80-%EB%AA%A8%EC%96%91-%EB%B0%80%EB%8F%84%EB%A1%9C-%ED%99%95%EC%9D%B8" target="deck" data-id="네-가지-모양-밀도로-확인"><span class="card-n mono"><span>S16</span><span class="card-tag"></span></span><span class="card-t">2.4 네 가지 모양: 밀도로 확인</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-4" target="deck" data-id="예측해-보자-4"><span class="card-n mono"><span>S17</span><span class="card-tag">예측</span></span><span class="card-t">표본 20개짜리 Q-Q plot 아홉 개 가운데 지수분포에서 뽑은 하나는?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/lineup-%EC%9D%98-%EB%8B%B5%EA%B3%BC-%EC%A0%95%EA%B7%9C%EC%84%B1-%EA%B2%80%EC%A0%95%EC%9D%98-%EA%B2%80%EC%A0%95%EB%A0%A5" target="deck" data-id="lineup-의-답과-정규성-검정의-검정력"><span class="card-n mono"><span>S18</span><span class="card-tag"></span></span><span class="card-t">2.5–2.6 lineup 의 답과 정규성 검정의 검정력</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="3" hidden>
+  <div class="strip-head"><span class="mono">3 두 집단 비교: t 검정 · S19–S31 · 13장</span><span class="mono strip-nav"><a href="#s2">&#9664; 이전 절</a> · <a href="#s4">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/14-basic-stat-analysis-slides.html#/%EB%91%90-%EC%A7%91%EB%8B%A8-%EB%B9%84%EA%B5%90-t-%EA%B2%80%EC%A0%95" target="deck" data-id="두-집단-비교-t-검정"><span class="card-n mono"><span>S19</span><span class="card-tag">절 표지</span></span><span class="card-t">3 두 집단 비교: t 검정</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EB%8C%80%EC%9D%91-%ED%91%9C%EB%B3%B8-%EC%B0%A8%EC%9D%B4%EB%A5%BC-%ED%95%9C-%ED%91%9C%EB%B3%B8%EC%9C%BC%EB%A1%9C" target="deck" data-id="대응-표본-차이를-한-표본으로"><span class="card-n mono"><span>S20</span><span class="card-tag"></span></span><span class="card-t">3.1 대응 표본: 차이를 한 표본으로</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-5" target="deck" data-id="예측해-보자-5"><span class="card-n mono"><span>S21</span><span class="card-tag">예측</span></span><span class="card-t">차이를 DBP1 - DBP2 로 바꾸어 t 가 양수 7.49 가 되면, 이전 판 식의 p 는?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%ED%99%95%EB%A5%A0%EC%9D%B4-1-%EC%9D%84-%EB%84%98%EC%9D%80-p%EA%B0%92" target="deck" data-id="확률이-1-을-넘은-p값"><span class="card-n mono"><span>S22</span><span class="card-tag"></span></span><span class="card-t">3.1 확률이 1 을 넘은 p값</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-6" target="deck" data-id="예측해-보자-6"><span class="card-n mono"><span>S23</span><span class="card-tag">예측</span></span><span class="card-t">시험약 군의 혈압이 1개월 뒤 유의하게 떨어졌다. 위약군의 혈압은?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EC%9C%84%EC%95%BD%EA%B5%B0%EB%8F%84-%EB%96%A8%EC%96%B4%EC%A7%90-%EB%B3%80%ED%99%94%EB%9F%89%EC%9D%84-%EA%B5%B0%EB%81%BC%EB%A6%AC-%EB%B9%84%EA%B5%90" target="deck" data-id="위약군도-떨어짐-변화량을-군끼리-비교"><span class="card-n mono"><span>S24</span><span class="card-tag"></span></span><span class="card-t">3.2 위약군도 떨어짐: 변화량을 군끼리 비교</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-7" target="deck" data-id="예측해-보자-7"><span class="card-n mono"><span>S25</span><span class="card-tag">예측</span></span><span class="card-t">이전 판 노트의 sleep 분석: 오류 없이 p = 0.079. 이 분석은 맞는가?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EB%8C%80%EC%9D%91-%ED%91%9C%EB%B3%B8-%EC%8C%8D%EC%B2%B4-%EB%B6%84%EC%84%9D-%EB%91%90-%EB%B0%A9%EB%B2%95" target="deck" data-id="대응-표본-쌍체-분석-두-방법"><span class="card-n mono"><span>S26</span><span class="card-tag"></span></span><span class="card-t">3.3 대응 표본: 쌍체 분석 두 방법</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EA%B2%B0%EB%A1%A0%EC%9D%B4-%EB%B0%94%EB%80%90-%EC%9D%B4%EC%9C%A0-%ED%99%98%EC%9E%90%EB%A7%88%EB%8B%A4-%EC%A7%9D-%EC%84%A0" target="deck" data-id="결론이-바뀐-이유-환자마다-짝-선"><span class="card-n mono"><span>S27</span><span class="card-tag"></span></span><span class="card-t">3.3 결론이 바뀐 이유: 환자마다 짝 선</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EC%A7%9D%EC%9D%80-%EC%9C%84%EC%B9%98%EA%B0%80-%EC%95%84%EB%8B%88%EB%9D%BC-%ED%82%A4%EB%A1%9C" target="deck" data-id="짝은-위치가-아니라-키로"><span class="card-n mono"><span>S28</span><span class="card-tag"></span></span><span class="card-t">3.3 짝은 위치가 아니라 키로</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-8" target="deck" data-id="예측해-보자-8"><span class="card-n mono"><span>S29</span><span class="card-tag">예측</span></span><span class="card-t">이전 판 indep_t_test() 와 t.test(): 결과가 다른 원소는?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EC%84%B8-%EA%B2%BD%EB%A1%9C-%EB%8C%80%EC%A1%B0-conf.int-%EC%99%80-lm-%EC%9D%98-%EB%B6%80%ED%98%B8" target="deck" data-id="세-경로-대조-conf.int-와-lm-의-부호"><span class="card-n mono"><span>S30</span><span class="card-tag"></span></span><span class="card-t">3.4–3.5 세 경로 대조: conf.int 와 lm() 의 부호</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%ED%95%B4%EC%84%9D-%EB%AC%B8%EC%9E%A5-%EA%B2%B0%EA%B3%BC%EB%8A%94-%EB%A6%AC%EC%8A%A4%ED%8A%B8" target="deck" data-id="해석-문장-결과는-리스트"><span class="card-n mono"><span>S31</span><span class="card-tag"></span></span><span class="card-t">3.5–3.6 해석 문장, 결과는 리스트</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="4" hidden>
+  <div class="strip-head"><span class="mono">4 셋 이상 집단: 분산분석의 원리 · S32–S41 · 10장</span><span class="mono strip-nav"><a href="#s3">&#9664; 이전 절</a> · <a href="#s5">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/14-basic-stat-analysis-slides.html#/%EC%85%8B-%EC%9D%B4%EC%83%81-%EC%A7%91%EB%8B%A8-%EB%B6%84%EC%82%B0%EB%B6%84%EC%84%9D%EC%9D%98-%EC%9B%90%EB%A6%AC" target="deck" data-id="셋-이상-집단-분산분석의-원리"><span class="card-n mono"><span>S32</span><span class="card-tag">절 표지</span></span><span class="card-t">4 셋 이상 집단: 분산분석의 원리</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-9" target="deck" data-id="예측해-보자-9"><span class="card-n mono"><span>S33</span><span class="card-tag">예측</span></span><span class="card-t">모평균이 같은 세 집단(각 20명)에서 쌍마다 t 검정 세 번: 하나 이상 ’유의’일 확률은?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EC%8C%8D%EB%B3%84-%EA%B2%80%EC%A0%95%EC%9D%80-0.12-f-%EA%B2%80%EC%A0%95%EC%9D%80-0.05" target="deck" data-id="쌍별-검정은-0.12-f-검정은-0.05"><span class="card-n mono"><span>S34</span><span class="card-tag"></span></span><span class="card-t">4.1 쌍별 검정은 0.12, F 검정은 0.05</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EC%B2%98%EB%A6%AC-%ED%9A%A8%EA%B3%BC%EC%99%80-%ED%8E%B8%EC%B0%A8%EC%9D%98-%EB%B6%84%ED%95%B4" target="deck" data-id="처리-효과와-편차의-분해"><span class="card-n mono"><span>S35</span><span class="card-tag"></span></span><span class="card-t">4.2–4.3 처리 효과와 편차의 분해</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-10" target="deck" data-id="예측해-보자-10"><span class="card-n mono"><span>S36</span><span class="card-tag">예측</span></span><span class="card-t">이전 판 노트의 집단 안 제곱합 식: coagulation 의 anova() 와 같을까?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EC%8B%9D%EC%9D%84-%EC%88%98%EC%B9%98%EB%A1%9C-%EB%8C%80%EC%A1%B0" target="deck" data-id="식을-수치로-대조"><span class="card-n mono"><span>S37</span><span class="card-tag"></span></span><span class="card-t">4.3 식을 수치로 대조</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/f-%ED%86%B5%EA%B3%84%EB%9F%89%EA%B3%BC-%EB%B6%84%EC%82%B0%EB%B6%84%EC%84%9D-%ED%91%9C" target="deck" data-id="f-통계량과-분산분석-표"><span class="card-n mono"><span>S38</span><span class="card-tag"></span></span><span class="card-t">4.4 F 통계량과 분산분석 표</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-11" target="deck" data-id="예측해-보자-11"><span class="card-n mono"><span>S39</span><span class="card-tag">예측</span></span><span class="card-t">모평균 (−1, 0, 1) 은 그대로, 표준편차만 1 에서 3 으로: F 와 MSW 는?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EC%A7%91%EB%8B%A8-%EC%95%88%EC%9D%98-%EB%B3%80%EB%8F%99%EC%9D%B4-%EC%BB%A4%EC%A7%80%EB%A9%B4-f-%EA%B0%80-%EC%9E%91%EC%95%84%EC%A7%90" target="deck" data-id="집단-안의-변동이-커지면-f-가-작아짐"><span class="card-n mono"><span>S40</span><span class="card-tag"></span></span><span class="card-t">4.5 집단 안의 변동이 커지면 F 가 작아짐</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EB%B6%84%EC%82%B0%EB%B6%84%EC%84%9D%EB%8F%84-%ED%9A%8C%EA%B7%80%EB%AA%A8%ED%98%95%EC%9D%B4%EB%8B%A4" target="deck" data-id="분산분석도-회귀모형이다"><span class="card-n mono"><span>S41</span><span class="card-tag"></span></span><span class="card-t">4.6 분산분석도 회귀모형이다</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="5" hidden>
+  <div class="strip-head"><span class="mono">5 분산분석 사례와 다중비교 · S42–S48 · 7장</span><span class="mono strip-nav"><a href="#s4">&#9664; 이전 절</a> · <a href="#s6">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/14-basic-stat-analysis-slides.html#/%EB%B6%84%EC%82%B0%EB%B6%84%EC%84%9D-%EC%82%AC%EB%A1%80%EC%99%80-%EB%8B%A4%EC%A4%91%EB%B9%84%EA%B5%90" target="deck" data-id="분산분석-사례와-다중비교"><span class="card-n mono"><span>S42</span><span class="card-tag">절 표지</span></span><span class="card-t">5 분산분석 사례와 다중비교</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-12" target="deck" data-id="예측해-보자-12"><span class="card-n mono"><span>S43</span><span class="card-tag">예측</span></span><span class="card-t">상자그림만 보고: 평균 응고 시간이 다르다고 생각되는 먹이 쌍은?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EA%B0%80%EC%A0%95-%ED%99%95%EC%9D%B8-%EC%9E%94%EC%B0%A8%EB%A1%9C-%EB%B3%B8%EB%8B%A4" target="deck" data-id="가정-확인-잔차로-본다"><span class="card-n mono"><span>S44</span><span class="card-tag"></span></span><span class="card-t">5.2 가정 확인: 잔차로 본다</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EB%93%B1%EB%B6%84%EC%82%B0-%ED%99%95%EC%9D%B8%EA%B3%BC-f-%EA%B2%80%EC%A0%95-%EA%B2%B0%EA%B3%BC-%EC%9D%BD%EA%B8%B0" target="deck" data-id="등분산-확인과-f-검정-결과-읽기"><span class="card-n mono"><span>S45</span><span class="card-tag"></span></span><span class="card-t">5.2–5.3 등분산 확인과 F 검정 결과 읽기</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/tukey-%EC%82%AC%ED%9B%84%EA%B2%80%EC%A0%95" target="deck" data-id="tukey-사후검정"><span class="card-n mono"><span>S46</span><span class="card-tag"></span></span><span class="card-t">5.4 Tukey 사후검정</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-13" target="deck" data-id="예측해-보자-13"><span class="card-n mono"><span>S47</span><span class="card-tag">예측</span></span><span class="card-t">이전 판 노트가 적은 보수적인 순서: 임계값을 계산하면 맞는가?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EC%9E%84%EA%B3%84%EA%B0%92%EA%B3%BC-%EA%B0%80%EC%A1%B1%EC%98%A4%EB%A5%98%EC%9C%A8" target="deck" data-id="임계값과-가족오류율"><span class="card-n mono"><span>S48</span><span class="card-tag"></span></span><span class="card-t">5.5 임계값과 가족오류율</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="6" hidden>
+  <div class="strip-head"><span class="mono">6 범주형 자료와 상관 · S49–S55 · 7장</span><span class="mono strip-nav"><a href="#s5">&#9664; 이전 절</a> · <a href="#s7">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/14-basic-stat-analysis-slides.html#/%EB%B2%94%EC%A3%BC%ED%98%95-%EC%9E%90%EB%A3%8C%EC%99%80-%EC%83%81%EA%B4%80" target="deck" data-id="범주형-자료와-상관"><span class="card-n mono"><span>S49</span><span class="card-tag">절 표지</span></span><span class="card-t">6 범주형 자료와 상관</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-14" target="deck" data-id="예측해-보자-14"><span class="card-n mono"><span>S50</span><span class="card-tag">예측</span></span><span class="card-t">객실 등급과 생존이 무관하다면 3등석 승객 709명 가운데 생존자는?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EA%B8%B0%EB%8C%80%EB%8F%84%EC%88%98%EC%99%80-%EC%B9%B4%EC%9D%B4%EC%A0%9C%EA%B3%B1-%EA%B2%80%EC%A0%95" target="deck" data-id="기대도수와-카이제곱-검정"><span class="card-n mono"><span>S51</span><span class="card-tag"></span></span><span class="card-t">6.1 기대도수와 카이제곱 검정</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-15" target="deck" data-id="예측해-보자-15"><span class="card-n mono"><span>S52</span><span class="card-tag">예측</span></span><span class="card-t">맛을 구별하지 못하고 아무렇게나 골라도 8잔 가운데 6잔 이상 맞힐 확률은?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EC%B9%B8%EC%9D%B4-%EC%9E%91%EC%9D%84-%EB%95%8C-fisher-%EC%A0%95%ED%99%95%EA%B2%80%EC%A0%95" target="deck" data-id="칸이-작을-때-fisher-정확검정"><span class="card-n mono"><span>S53</span><span class="card-tag"></span></span><span class="card-t">6.2 칸이 작을 때: Fisher 정확검정</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-16" target="deck" data-id="예측해-보자-16"><span class="card-n mono"><span>S54</span><span class="card-tag">예측</span></span><span class="card-t">연비와 무게의 상관 검정 t 와 회귀 기울기 t 는 같은가?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EC%83%81%EA%B4%80-%EA%B2%80%EC%A0%95%EA%B3%BC-%ED%9A%8C%EA%B7%80-%EA%B8%B0%EC%9A%B8%EA%B8%B0-%EA%B2%80%EC%A0%95%EC%9D%80-%EA%B0%99%EC%9D%80-t" target="deck" data-id="상관-검정과-회귀-기울기-검정은-같은-t"><span class="card-n mono"><span>S55</span><span class="card-tag"></span></span><span class="card-t">6.3 상관 검정과 회귀 기울기 검정은 같은 t</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="7" hidden>
+  <div class="strip-head"><span class="mono">7 결과를 표로 정리하기 · S56–S60 · 5장</span><span class="mono strip-nav"><a href="#s6">&#9664; 이전 절</a> · <a href="#s8">다음 절 &#9654;</a></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/14-basic-stat-analysis-slides.html#/%EA%B2%B0%EA%B3%BC%EB%A5%BC-%ED%91%9C%EB%A1%9C-%EC%A0%95%EB%A6%AC%ED%95%98%EA%B8%B0" target="deck" data-id="결과를-표로-정리하기"><span class="card-n mono"><span>S56</span><span class="card-tag">절 표지</span></span><span class="card-t">7 결과를 표로 정리하기</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/broom-%EA%B2%B0%EA%B3%BC%EB%A5%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%94%84%EB%A0%88%EC%9E%84%EC%9C%BC%EB%A1%9C" target="deck" data-id="broom-결과를-데이터-프레임으로"><span class="card-n mono"><span>S57</span><span class="card-tag"></span></span><span class="card-t">7.1 broom: 결과를 데이터 프레임으로</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-17" target="deck" data-id="예측해-보자-17"><span class="card-n mono"><span>S58</span><span class="card-tag">예측</span></span><span class="card-t">p값 순으로 정렬한 결과표에 이름표를 위치로 붙이면?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EC%97%AC%EB%9F%AC-%EB%B3%80%EC%88%98%EB%A5%BC-%ED%95%9C-%EB%B2%88%EC%97%90-%EA%B2%80%EC%A0%95%ED%95%98%EA%B8%B0" target="deck" data-id="여러-변수를-한-번에-검정하기"><span class="card-n mono"><span>S59</span><span class="card-tag"></span></span><span class="card-t">7.2 여러 변수를 한 번에 검정하기</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EA%B5%B0%EB%B3%84-%ED%8A%B9%EC%84%B1%ED%91%9C%EC%99%80-%EB%8B%A4%EC%A4%91%EC%84%B1" target="deck" data-id="군별-특성표와-다중성"><span class="card-n mono"><span>S60</span><span class="card-tag"></span></span><span class="card-t">7.3 군별 특성표와 다중성</span></a>
+  </div>
+</div>
+<div class="strip" data-panel="8" hidden>
+  <div class="strip-head"><span class="mono">8 AI와 함께: AI 가 고른 검정 검증하기 · S61–S68 · 8장</span><span class="mono strip-nav"><a href="#s7">&#9664; 이전 절</a> · <span class="off">다음 절 &#9654;</span></span></div>
+  <div class="cards">
+    <a class="card is-sec" href="../preview/14-basic-stat-analysis-slides.html#/ai%EC%99%80-%ED%95%A8%EA%BB%98-ai-%EA%B0%80-%EA%B3%A0%EB%A5%B8-%EA%B2%80%EC%A0%95-%EA%B2%80%EC%A6%9D%ED%95%98%EA%B8%B0" target="deck" data-id="ai와-함께-ai-가-고른-검정-검증하기"><span class="card-n mono"><span>S61</span><span class="card-tag">절 표지</span></span><span class="card-t">8 AI와 함께: AI 가 고른 검정 검증하기</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EA%B3%BC%EC%A0%9C-%EB%AA%85%EC%84%B8%EC%99%80-%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8" target="deck" data-id="과제-명세와-프롬프트"><span class="card-n mono"><span>S62</span><span class="card-tag"></span></span><span class="card-t">8.1 과제 명세와 프롬프트</span></a>
+    <a class="card is-predict" href="../preview/14-basic-stat-analysis-slides.html#/%EC%98%88%EC%B8%A1%ED%95%B4-%EB%B3%B4%EC%9E%90-18" target="deck" data-id="예측해-보자-18"><span class="card-n mono"><span>S63</span><span class="card-tag">예측</span></span><span class="card-t">이 요청을 받은 AI 는 어떤 검정을 고를까?</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/ai-%EA%B0%80-%EC%83%9D%EC%84%B1%ED%95%9C-%EC%BD%94%EB%93%9C" target="deck" data-id="ai-가-생성한-코드"><span class="card-n mono"><span>S64</span><span class="card-tag"></span></span><span class="card-t">8.2 AI 가 생성한 코드</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EA%B2%80%EC%A6%9D-%EC%9E%90%EB%A3%8C-%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%A7%9D" target="deck" data-id="검증-자료-구조와-짝"><span class="card-n mono"><span>S65</span><span class="card-tag"></span></span><span class="card-t">8.3 검증: 자료 구조와 짝</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EA%B2%80%EC%A6%9D-%EC%84%B8-%EA%B2%BD%EB%A1%9C%EC%99%80-%EC%B0%A8%EC%9D%B4%EC%9D%98-%EC%A0%95%EA%B7%9C%EC%84%B1" target="deck" data-id="검증-세-경로와-차이의-정규성"><span class="card-n mono"><span>S66</span><span class="card-tag"></span></span><span class="card-t">8.3 검증: 세 경로와 차이의 정규성</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/%EB%AF%BC%EA%B0%90%EB%8F%84-%ED%99%95%EC%9D%B8-%EC%A0%95%EA%B7%9C%EB%B6%84%ED%8F%AC%EB%A5%BC-%EA%B0%80%EC%A0%95%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%B0%A9%EB%B2%95" target="deck" data-id="민감도-확인-정규분포를-가정하지-않는-방법"><span class="card-n mono"><span>S67</span><span class="card-tag"></span></span><span class="card-t">8.3 민감도 확인: 정규분포를 가정하지 않는 방법</span></a>
+    <a class="card" href="../preview/14-basic-stat-analysis-slides.html#/ai-%EA%B0%80-%EB%B3%B4%EC%A7%80-%EB%AA%BB%ED%95%9C-%EB%B6%80%EB%B6%84%EA%B3%BC-%EC%97%B0%EC%8A%B5" target="deck" data-id="ai-가-보지-못한-부분과-연습"><span class="card-n mono"><span>S68</span><span class="card-tag"></span></span><span class="card-t">8.4–8.5 AI 가 보지 못한 부분과 연습</span></a>
+  </div>
+</div>
+    </div>
+
+    <aside class="t-side">
+<div class="note" data-panel="1">
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">1 검정을 고르기 전에</div><div class="mono n-anchor">§ #sec-test-choice</div></div>
+<div class="excerpt"><p>검정 이름을 떠올리기 전에 자료가 어떻게 생겼는지부터 본다. 같은 대상을 두 번 쟀는지, 반응 변수와 설명 변수가 연속형인지 범주형인지에 따라 쓸 검정이 정해진다. 이 절의 마지막 표가 장 전체의 기준이 된다.</p></div>
+<ul class="subs"><li><a href="../preview/14-basic-stat-analysis.html#sec-paired-or-independent"><span class="mono">1.1</span><span>같은 사람을 두 번 쟀는가</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-stat-terms"><span class="mono">1.2</span><span>기초통계 용어 다시 보기</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-choose-test"><span class="mono">1.3</span><span>자료 구조로 검정 고르기</span></a></li></ul>
+<a class="more" href="../preview/14-basic-stat-analysis.html#sec-test-choice">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>검정 이름보다 <strong>자료 구조</strong>를 먼저 보기</p><p>같은 대상을 두 번 쟀는지, 변수가 <strong>연속형인지 범주형인지</strong>로 검정이 정해짐</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 이 자료에서 같은 대상이 두 번 측정되었는가?</div>
+</div>
+</div>
+<div class="note" data-panel="2" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">2 분포 확인: 분위수와 Q-Q plot</div><div class="mono n-anchor">§ #sec-quantile-qq</div></div>
+<div class="excerpt"><p>t 검정과 분산분석은 자료(정확히는 오차)가 정규분포를 따른다고 가정한다. 이 절에서는 자료의 분포가 정규분포와 어디서 다른지 그림으로 확인하는 Q-Q plot 을 직접 만들고 읽는다. Q-Q plot 은 분위수끼리 비교하는 그림이므로 분위수부터 정한다. 이 절의 읽는 법은 <a href="../preview/14-basic-stat-analysis.html#sec-anova-case">섹션 5</a> 에서 분산분석의 잔차를 확인할 때 다시 쓴다.</p></div>
+<ul class="subs"><li><a href="../preview/14-basic-stat-analysis.html#sec-sample-quantile"><span class="mono">2.1</span><span>분위수</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-my-quantile"><span class="mono">2.2</span><span>분위수 함수 직접 만들기</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-qq-manual"><span class="mono">2.3</span><span>Q-Q plot 직접 그리기</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-qq-shapes"><span class="mono">2.4</span><span>Q-Q plot 의 네 가지 모양</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-normality-check"><span class="mono">2.5</span><span>작은 표본의 Q-Q plot 과 lineup</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-normality-power"><span class="mono">2.6</span><span>정규성 검정의 검정력</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-iris-qq"><span class="mono">2.7</span><span>실제 자료의 Q-Q plot: iris</span></a></li></ul>
+<a class="more" href="../preview/14-basic-stat-analysis.html#sec-quantile-qq">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>t 검정과 분산분석의 가정: 오차가 <strong>정규분포</strong></p><p>Q-Q plot 을 <strong>직접 만들어 읽고</strong>, 작은 표본에서 그림과 검정이 <strong>표본마다 얼마나 달라지는지</strong> 확인</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 자료의 분포가 정규분포와 어디서 다른가?</div>
+</div>
+</div>
+<div class="note" data-panel="3" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">3 두 집단 비교: t 검정</div><div class="mono n-anchor">§ #sec-two-group-tests</div></div>
+<div class="excerpt"><p>두 집단의 평균을 비교할 때는 먼저 두 집단이 같은 대상인지(대응) 다른 대상인지(독립)를 정한다(<a href="../preview/14-basic-stat-analysis.html#sec-paired-or-independent">섹션 1.1</a>). 이 절은 두 경우의 t 검정을 직접 계산, <code>t.test()</code>, <code>lm()</code> 으로 구해 대조한다. 이전 판 노트의 코드 세 개(<code>2 * pt()</code>, <code>sleep</code> 분석, <code>indep_t_test()</code>)에 결함이 하나씩 있다. 그 결함을 찾는 일이 이 절의 확인 연습이다.</p></div>
+<ul class="subs"><li><a href="../preview/14-basic-stat-analysis.html#sec-paired-t"><span class="mono">3.1</span><span>대응 표본: 차이를 한 표본으로</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-placebo"><span class="mono">3.2</span><span>위약군과 비교하기</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-sleep-paired"><span class="mono">3.3</span><span>sleep: 짝은 키로 맞춘다</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-indep-t"><span class="mono">3.4</span><span>독립 이표본: 합동분산 t 검정과 이전 판 함수</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-indep-lm"><span class="mono">3.5</span><span>회귀모형으로 계산하고 결과 쓰기</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-htest"><span class="mono">3.6</span><span>검정 결과는 리스트다</span></a></li></ul>
+<a class="more" href="../preview/14-basic-stat-analysis.html#sec-two-group-tests">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>먼저 두 집단이 <strong>대응인지 독립인지</strong> 정하기</p><p>계산은 <strong>직접 계산, t.test(), lm()</strong> 세 경로로 대조, 이전 판 노트의 코드 세 개에서 <strong>결함 찾기</strong></p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 두 집단의 차이를 어떤 짝으로 계산하는가?</div>
+</div>
+</div>
+<div class="note" data-panel="4" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">4 셋 이상 집단: 분산분석의 원리</div><div class="mono n-anchor">§ #sec-oneway-anova</div></div>
+<div class="excerpt"><p>집단이 셋 이상이면 두 집단씩 t 검정을 되풀이하지 않고 분산분석으로 한 번에 검정한다. 이 절은 그 이유를 시뮬레이션으로 확인하고, 분산분석의 제곱합과 F 를 직접 계산해 <code>anova()</code> 와 대조한다.</p></div>
+<ul class="subs"><li><a href="../preview/14-basic-stat-analysis.html#sec-multiple-testing"><span class="mono">4.1</span><span>t 검정을 여러 번 하면</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-anova-model"><span class="mono">4.2</span><span>모형과 처리 효과</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-ss-decomposition"><span class="mono">4.3</span><span>변동분해</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-anova-f-test"><span class="mono">4.4</span><span>F 통계량과 분산분석 표</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-anova-sim"><span class="mono">4.5</span><span>시뮬레이션으로 보는 F</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-anova-as-lm"><span class="mono">4.6</span><span>분산분석도 회귀모형이다</span></a></li></ul>
+<a class="more" href="../preview/14-basic-stat-analysis.html#sec-oneway-anova">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>집단이 셋 이상: 두 집단씩 t 검정을 <strong>되풀이하지 않고</strong> 분산분석 한 번</p><p>제곱합과 F 를 <strong>직접 계산</strong>해 <code>anova()</code> 와 대조</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 왜 t 검정을 여러 번 하지 않는가?</div>
+</div>
+</div>
+<div class="note" data-panel="5" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">5 분산분석 사례와 다중비교</div><div class="mono n-anchor">§ #sec-anova-case</div></div>
+<div class="excerpt"><p>자료 하나로 탐색, 가정 확인, F 검정, 사후검정, 해석 문장까지 차례로 한다. 자료는 <code>coagulation</code> 이다.</p></div>
+<ul class="subs"><li><a href="../preview/14-basic-stat-analysis.html#sec-coagulation"><span class="mono">5.1</span><span>coagulation 자료</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-anova-assumption"><span class="mono">5.2</span><span>가정 확인: 잔차로 본다</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-anova-result"><span class="mono">5.3</span><span>F 검정 결과 읽기</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-tukey-hsd"><span class="mono">5.4</span><span>Tukey 사후검정</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-posthoc-compare"><span class="mono">5.5</span><span>Bonferroni 와 방법별 비교</span></a></li></ul>
+<a class="more" href="../preview/14-basic-stat-analysis.html#sec-anova-case">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>자료 하나로 <strong>탐색, 가정 확인, F 검정, 사후검정, 해석 문장</strong>까지 차례로</p><p>출력마다 그 수치가 뜻하는 바를 <strong>문장으로</strong></p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 어느 먹이끼리 다른가?</div>
+</div>
+</div>
+<div class="note" data-panel="6" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">6 범주형 자료와 상관</div><div class="mono n-anchor">§ #sec-categorical-correlation</div></div>
+<div class="excerpt"><p><a href="../preview/14-basic-stat-analysis.html#sec-choose-test">섹션 1.3</a> 표의 마지막 두 행, 범주형 변수 두 개의 관계와 연속형 변수 두 개의 관계를 검정한다. 검정마다 무엇을 비교하는지(기대도수, 직선 관계)를 수치로 확인한다.</p></div>
+<ul class="subs"><li><a href="../preview/14-basic-stat-analysis.html#sec-chisq-test"><span class="mono">6.1</span><span>분할표와 카이제곱 검정</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-fisher-exact"><span class="mono">6.2</span><span>칸이 작을 때: Fisher 정확검정</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-cor-test"><span class="mono">6.3</span><span>상관계수와 검정</span></a></li></ul>
+<a class="more" href="../preview/14-basic-stat-analysis.html#sec-categorical-correlation">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>1.3 표의 마지막 두 행: 범주형 변수 두 개, 연속형 변수 두 개의 관계</p><p>검정마다 <strong>무엇을 비교하는지</strong>(기대도수, 직선 관계)를 수치로 확인</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 범주와 범주, 연속과 연속의 관계는 어떻게 검정하는가?</div>
+</div>
+</div>
+<div class="note" data-panel="7" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">7 결과를 표로 정리하기</div><div class="mono n-anchor">§ #sec-tidy-results</div></div>
+<div class="excerpt"><p><a href="../preview/14-basic-stat-analysis.html#sec-htest">섹션 3.6</a> 에서 보았듯이 검정 결과는 리스트이고, 원소의 이름은 함수마다 다르다. 여러 검정의 결과를 한 표에 모으려면 같은 모양의 데이터 프레임으로 꺼내야 한다. 이 절은 broom 패키지로 결과를 꺼내고, 이름표를 위치가 아니라 키로 붙이고, 여러 검정을 한 표에 둘 때의 다중성을 확인한다.</p></div>
+<ul class="subs"><li><a href="../preview/14-basic-stat-analysis.html#sec-broom"><span class="mono">7.1</span><span>broom: 결과를 데이터 프레임으로</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-many-tests"><span class="mono">7.2</span><span>여러 변수를 한 번에 검정하기</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-baseline-table"><span class="mono">7.3</span><span>군별 특성표와 다중성</span></a></li></ul>
+<a class="more" href="../preview/14-basic-stat-analysis.html#sec-tidy-results">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>검정 결과를 같은 모양의 <strong>데이터 프레임</strong>으로 꺼내 여러 변수를 한 표에</p><p>이름표는 <strong>위치가 아니라 키</strong>로, 여러 검정을 한 표에 둘 때의 <strong>다중성</strong></p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: 여러 검정 결과를 한 표에 둘 때 무엇을 확인하는가?</div>
+</div>
+</div>
+<div class="note" data-panel="8" hidden>
+<div class="kicker mono"><i class="sq sq-note"></i>대응하는 강의노트</div>
+<div class="n-head"><div class="disp n-title">8 AI와 함께: AI 가 고른 검정 검증하기</div><div class="mono n-anchor">§ #sec-ai-basic-stat</div></div>
+<div class="excerpt"><p><strong>이 절의 목표</strong>: AI 에게 두 약의 효과를 비교하는 검정을 요청하고, 고른 검정과 짝을 맞추는 코드가 자료 구조에 맞는지 확인한다.</p></div>
+<ul class="subs"><li><a href="../preview/14-basic-stat-analysis.html#sec-ai-basic-stat-spec"><span class="mono">8.1</span><span>과제 명세와 프롬프트</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-ai-basic-stat-gen"><span class="mono">8.2</span><span>AI 가 생성한 코드</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-ai-basic-stat-verify"><span class="mono">8.3</span><span>검증</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-ai-basic-stat-gaps"><span class="mono">8.4</span><span>AI 가 보지 못한 부분</span></a></li><li><a href="../preview/14-basic-stat-analysis.html#sec-ai-basic-stat-practice"><span class="mono">8.5</span><span>연습</span></a></li></ul>
+<a class="more" href="../preview/14-basic-stat-analysis.html#sec-ai-basic-stat">강의노트에서 이어 읽기 <span aria-hidden="true">&#8594;</span></a>
+<div class="s-intro">
+<div class="kicker mono"><i class="sq sq-slide"></i>이 절의 슬라이드</div>
+<p>AI 에게 두 약의 효과 비교를 요청: <strong>고른 검정</strong>과 <strong>짝을 맞추는 코드</strong>가 자료 구조에 맞는지 확인</p><p>1.3 의 표와 3.3 의 확인을 그대로 적용</p>
+<div class="question"><span class="mono">이 절이 답하는 질문</span>이 절이 답하는 질문: AI 가 고른 검정은 자료에 맞는가?</div>
+</div>
+</div>
+      <nav class="decklist" aria-label="이 덱의 절">
+        <div class="mono decklist-h">이 덱의 절</div>
+        <a class="deckrow is-current" href="#s1" data-sec="1" aria-current="true"><span class="mono dr-range">S03–S07</span><span class="dr-title">1 검정을 고르기 전에</span><span class="mono dr-count">5장</span></a>
+        <a class="deckrow" href="#s2" data-sec="2"><span class="mono dr-range">S08–S18</span><span class="dr-title">2 분포 확인: 분위수와 Q-Q plot</span><span class="mono dr-count">11장</span></a>
+        <a class="deckrow" href="#s3" data-sec="3"><span class="mono dr-range">S19–S31</span><span class="dr-title">3 두 집단 비교: t 검정</span><span class="mono dr-count">13장</span></a>
+        <a class="deckrow" href="#s4" data-sec="4"><span class="mono dr-range">S32–S41</span><span class="dr-title">4 셋 이상 집단: 분산분석의 원리</span><span class="mono dr-count">10장</span></a>
+        <a class="deckrow" href="#s5" data-sec="5"><span class="mono dr-range">S42–S48</span><span class="dr-title">5 분산분석 사례와 다중비교</span><span class="mono dr-count">7장</span></a>
+        <a class="deckrow" href="#s6" data-sec="6"><span class="mono dr-range">S49–S55</span><span class="dr-title">6 범주형 자료와 상관</span><span class="mono dr-count">7장</span></a>
+        <a class="deckrow" href="#s7" data-sec="7"><span class="mono dr-range">S56–S60</span><span class="dr-title">7 결과를 표로 정리하기</span><span class="mono dr-count">5장</span></a>
+        <a class="deckrow" href="#s8" data-sec="8"><span class="mono dr-range">S61–S68</span><span class="dr-title">8 AI와 함께: AI 가 고른 검정 검증하기</span><span class="mono dr-count">8장</span></a>
+        <div class="mono decklist-foot">S01–S02 표지 · 이 수업에서 다루는 것<br>S69 정리</div>
+      </nav>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="foot-col">
+      <span class="mono foot-h">강의 허브</span>
+      <a href="index.html">개편 교과 구성 전체 보기</a>
+    </div>
+    <div class="foot-col">
+      <span class="mono foot-h">만든 방법</span>
+      <span class="v">hub/topic-page.R 이 슬라이드·강의노트 렌더본에서 생성</span>
+    </div>
+    <div class="foot-col">
+      <span class="mono foot-h">마지막 갱신</span>
+      <span class="mono v">2026-10-17</span>
+    </div>
+  </footer>
+
+</div>
+<script>
+(() => {
+  const deck = document.getElementById('deck');
+  const view = deck.parentElement;
+  const fit = () => view.style.setProperty('--deck-scale', String(view.clientWidth / 1280));
+  fit();
+  if ('ResizeObserver' in window) new ResizeObserver(fit).observe(view); else window.addEventListener('resize', fit);
+  const panels = [...document.querySelectorAll('[data-panel]')];
+  const rows = [...document.querySelectorAll('.deckrow')];
+  const cards = [...document.querySelectorAll('.card')];
+  const byId = Object.fromEntries(cards.map(c => [c.dataset.id, c]));
+  const secs = rows.map(r => r.dataset.sec);
+  let cur = null;
+  const mark = c => cards.forEach(x => x.classList.toggle('is-current', x === c));
+  function show(k, move) {
+    if (!secs.includes(k)) k = secs[0];
+    cur = k;
+    panels.forEach(p => { p.hidden = p.dataset.panel !== k; });
+    rows.forEach(r => {
+      const on = r.dataset.sec === k;
+      r.classList.toggle('is-current', on);
+      if (on) r.setAttribute('aria-current', 'true'); else r.removeAttribute('aria-current');
+    });
+    if (move) {
+      const first = document.querySelector('.strip[data-panel="' + k + '"] .card');
+      if (first) { deck.src = first.href; mark(first); }
+    }
+  }
+  const fromHash = () => (location.hash.match(/^#s(\d+)$/) || [])[1];
+  window.addEventListener('hashchange', () => show(fromHash(), true));
+  document.addEventListener('click', e => { const c = e.target.closest('.card'); if (c) mark(c); });
+  // 같은 출처(GitHub Pages)면 미리보기 안에서 넘긴 슬라이드를 카드와 절 목록이 따라간다.
+  // file:// 로 열면 다른 출처로 취급되어 막히므로 조용히 건너뛴다.
+  function follow() {
+    try {
+      const R = deck.contentWindow.Reveal;
+      if (!R || R.__hubFollow) return;
+      R.__hubFollow = true;
+      const hook = () => R.on('slidechanged', e => {
+        const c = byId[e.currentSlide.id];
+        if (!c) return;
+        mark(c);
+        const k = c.closest('[data-panel]').dataset.panel;
+        if (k !== cur) { show(k, false); history.replaceState(null, '', '#s' + k); }
+      });
+      R.isReady() ? hook() : R.on('ready', hook);
+    } catch (err) { /* 다른 출처 */ }
+  }
+  deck.addEventListener('load', follow);
+  follow();
+  const k0 = fromHash();
+  show(k0 || secs[0], Boolean(k0));
+  if (!k0) mark(cards.find(c => !c.closest('[hidden]')));
+})();
+</script>
+</body>
+</html>
+
