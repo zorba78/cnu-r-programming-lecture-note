@@ -129,7 +129,7 @@ car 를 붙이면 car 의 `recode()` 가 dplyr 의 `recode()` 를 가린다.
 ## 검정을 고르기 전에 {#sec-test-choice}
 
 검정 이름을 떠올리기 전에 자료가 어떻게 생겼는지부터 본다. 같은 대상을 두 번 쟀는지, 반응 변수와 설명 변수가
-연속형인지 범주형인지에 따라 쓸 검정이 정해진다. 이 절의 마지막 표가 장 전체의 기준이 된다.
+연속형인지 범주형인지에 따라 쓸 검정이 정해진다. 이 절의 마지막 표(자료 구조별 검정)로 장 전체에서 검정을 고른다.
 
 ### 같은 사람을 두 번 쟀는가 {#sec-paired-or-independent}
 
@@ -226,7 +226,7 @@ cor(academy_wide$전, academy_wide$후)
 
 ### 기초통계 용어 다시 보기 {#sec-stat-terms}
 
-검정을 고르고 결과를 해석하려면 용어의 뜻이 정확해야 한다. 9장에서 시뮬레이션으로 확인한 용어를 한 표로 모은다.
+검정을 고르고 결과를 해석할 때 쓰는 용어를, 9장에서 시뮬레이션으로 확인한 곳과 함께 한 표로 모은다.
 
 ::: {.callout-tip}
 **예측해 보자**: 어떤 검정에서 p값이 0.03 이 나왔다. 귀무가설이 참일 확률이 3% 라는 뜻인가?
@@ -258,7 +258,7 @@ p값은 귀무가설이 참일 확률이 아니며, 1종 오류를 범할 확률
 p < 0.05 가 약 5% 나왔다. 귀무가설이 참이어도 p = 0.03 은 나올 수 있다.
 
 반대 방향의 오해도 있다. 귀무가설을 기각하지 못했다는 것은 '차이가 없다'는 증거가 아니다. 표본이 작아 검정력이
-낮으면 실제 차이가 있어도 기각하지 못한다. 이 사실은 @sec-normality-power 의 정규성 검정에서 수치로 다시 본다.
+낮으면 실제 차이가 있어도 기각하지 못할 확률(1 − 검정력)이 크다. 이 사실은 @sec-normality-power 의 정규성 검정에서 수치로 다시 본다.
 
 ### 자료 구조로 검정 고르기 {#sec-choose-test}
 
@@ -320,7 +320,7 @@ coagulation |> count(diet)
 - 요인이 둘인 이원배치 분산분석과 같은 대상을 세 번 이상 잰 반복측정 분산분석은 이 장의 범위 밖이다. 반응이
   0 과 1 인 자료의 회귀는 8장 [로지스틱 회귀](08-algorithms.html#sec-nr-logistic)에서 다루었다.
 - 혈압강하제 임상시험처럼 투약 전 값(`DBP1`)이 있는 무작위 시험에서는 투약 전 값을 공변량으로 넣는
-  공분산분석(analysis of covariance, ANCOVA)으로 두 군을 비교하는 방법도 널리 쓴다. 이 장의 범위 밖이며, 이 장은
+  공분산분석(analysis of covariance, ANCOVA)으로 두 군을 비교하는 방법도 있다. 이 장의 범위 밖이며, 이 장은
   변화량의 t 검정으로 비교한다.
 
 예측의 답을 표로 확인한다.
@@ -578,8 +578,11 @@ all.equal(sort(qq_r$y), qq_manual$표본)
 분위수의 1사분위수 점과 3사분위수 점을 잇는 직선이다. 그래서 표준화하지 않은 자료에서도 쓸 수 있다. 표준화하지
 않으면 점들은 절편이 평균, 기울기가 표준편차인 직선 근처에 놓인다.
 
-양 끝의 몇 점이 직선에서 조금 떨어진 것은 정규분포에서 뽑은 자료에서도 흔하다. 양 끝은 값이 드물어 표본마다
-달라지는 정도가 크다(@sec-normality-check).
+양 끝 근처의 점은 직선에서 떨어져 있다. `head(qq_manual, 3)` 과 `tail(qq_manual, 3)` 의 출력에서 2번째 점은 이론
+분위수 `r sprintf("%.2f", qq_manual$이론[2])` 에 표본 분위수 `r sprintf("%.2f", qq_manual$표본[2])` 으로
+`r sprintf("%.2f", abs(qq_manual$표본[2] - qq_manual$이론[2]))`, 499번째 점은 `r sprintf("%.2f", qq_manual$이론[499])` 에
+`r sprintf("%.2f", qq_manual$표본[499])` 로 `r sprintf("%.2f", abs(qq_manual$표본[499] - qq_manual$이론[499]))` 차이
+난다. 정규분포에서 뽑은 자료에서도 양 끝은 값이 드물어 표본마다 달라지는 정도가 크다(@sec-normality-check).
 
 점이 직선에서 벗어나는 방향은 무엇을 뜻하는가? 표본 분위수를 $Q_E$(empirical), 정규분포의 분위수를
 $Q_T$(theoretical)라 하자. 이전 판 노트의 손그림 두 장(@fig-qq-tail-thin, @fig-qq-tail-thick)이 오른쪽 꼬리에서
@@ -713,7 +716,8 @@ qqline(y_chisq, distribution = function(p) qchisq(p, df = 3))
 
 ### 작은 표본의 Q-Q plot 과 lineup {#sec-normality-check}
 
-지금까지 본 표본은 500개, 10,000개였다. 실제 분석에서 집단 하나의 표본은 10~30개인 경우가 많다. 표본이 작으면
+지금까지 본 표본은 500개, 10,000개였다. 이 장의 예제에서 집단 하나의 표본은 4~24개다(`coagulation` 4~8마리,
+`sleep` 10명, 혈압강하제 임상시험 20명, 월경통 자료 23명과 24명). 표본이 작으면
 Q-Q plot 은 표본마다 얼마나 달라지는가?
 
 ```{r fig-lineup}
@@ -751,7 +755,7 @@ round(sapply(lineup, \(v) shapiro.test(v)$p.value), 3) # 그림마다 Shapiro-Wi
 `r round(max(scale(lineup[[pos]])), 1)` 이고 나머지 점들은 1 이하다. 이 그림의 직선이 다른 그림보다 완만한 것도 그 큰 값 하나가 표준편차를 키워 표준화한 값들이 가운데로
 모였기 때문이다. 그런데 정규분포에서 뽑은 표본에도 직선에서 벗어난 그림이 있다. 6번은 오른쪽 끝 두 점이 직선
 위로 떠 있고, 7번은 왼쪽 끝 한 점이 직선 아래로 떨어져 있다. 표본 20개짜리 Q-Q plot 은 정규분포에서 뽑아도
-이만큼 직선에서 벗어난다. 그래서 작은 표본의 Q-Q plot 은 직선에서 조금 벗어났다고 바로
+이만큼 직선에서 벗어난다. 그래서 작은 표본의 Q-Q plot 은 6번, 7번 정도로 직선에서 벗어났다고 바로
 '정규분포가 아니다'로 읽지 않는다. 이렇게 정규분포에서 뽑은 그림 여럿 사이에 확인할 그림을 섞어 놓고 골라낼 수
 있는지 보는 방법을 **lineup** 이라 한다. 골라낼 수 없다면 그 정도의 벗어남은 표본 변동으로 설명된다.
 @sec-anova-case 에서 분산분석의 잔차를 이 방법으로 확인한다.
@@ -759,7 +763,7 @@ round(sapply(lineup, \(v) shapiro.test(v)$p.value), 3) # 그림마다 Shapiro-Wi
 ### 정규성 검정의 검정력 {#sec-normality-power}
 
 자료가 정규분포를 따르는지 검정하는 방법도 있다. Shapiro–Wilk 검정(`shapiro.test()`), Kolmogorov–Smirnov 검정
-(`ks.test()`), Anderson–Darling 검정(nortest 패키지의 `ad.test()`)이 대표적이고, 귀무가설은 '자료가 정규분포를
+(`ks.test()`), Anderson–Darling 검정(nortest 패키지의 `ad.test()`) 등이 있고, 귀무가설은 '자료가 정규분포를
 따른다'이다. 앞 소절의 출력에서 지수분포 표본의 p값은 0.05 보다 작고 나머지 여덟 개는 0.05 보다 크다. 이번에는
 검정이 지수분포를 잡아냈다. 그러나 한 번의 결과다. 이 검정이 정규성 위반을 얼마나 자주 잡아내는지, 곧 검정력을
 시뮬레이션으로 재어 보자([9장 '검정력'](09-simulation.html#sec-power)).
@@ -801,8 +805,8 @@ swr <- function(d, m) round(sw_cases$기각률[sw_cases$분포 == d & sw_cases$n
 `r swr("지수분포", 6)` 의 비율로만 기각한다. 표본 4개이면 열 번 가운데 약
 `r round(10 * (1 - swr("지수분포", 4)))`번, 6개이면 약 `r round(10 * (1 - swr("지수분포", 6)))`번은 정규성을
 기각하지 못한다. 표본이 20개이면 `r swr("지수분포", 20)`, 100개이면 `r swr("지수분포", 100)` 이다. 반대로 자유도
-30 인 t 분포는 정규분포와 거의 같아 t 검정이나 분산분석에 주는 영향이 작은데도, 표본이 5,000개이면
-`r swr("t 분포(자유도 30)", 5000)` 의 비율로 기각한다. 같은 5,000개라도 정규분포에서 뽑으면 기각률은
+30 인 t 분포는 표본 20개에서 기각률이 `r swr("t 분포(자유도 30)", 20)` 로, 정규분포에서 뽑았을 때의 0.05 와
+0.01 도 차이 나지 않는다. 그런데 표본이 5,000개이면 `r swr("t 분포(자유도 30)", 5000)` 의 비율로 기각한다. 같은 5,000개라도 정규분포에서 뽑으면 기각률은
 `r swr("정규분포", 5000)` 이고 유의수준 0.05 를 넘지 않는다. t 분포의 기각률은 검정이 t 분포와 정규분포의 작은 차이를
 잡아낸 결과다. 앞의 lineup 에서 지수분포를 잡아낸 것은 표본 20개에서 기각률이 `r swr("지수분포", 20)` 인 경우의
 한 번이었다.
@@ -836,7 +840,7 @@ iris |>
   theme(legend.position = "none")
 ```
 
-점이 가로로 늘어선 계단 모양이 많다. 길이와 너비를 0.1 cm 단위로 기록해 같은 값이 여러 번 나오기 때문이다.
+열두 칸 모두에 점이 가로로 늘어선 계단이 있다. 길이와 너비를 0.1 cm 단위로 기록해 같은 값이 여러 번 나오기 때문이다.
 계단이 가장 긴 setosa 의 꽃잎 너비(`Petal.Width`)를 세어 보자.
 
 ```{r iris-setosa-width}
@@ -845,10 +849,9 @@ iris |> filter(Species == "setosa") |> count(Petal.Width)
 
 50개가 0.1~0.6 cm 의 여섯 값뿐이고 그 가운데 0.2 cm 가 29개다. 계단은 기록 단위 때문에 생기므로, 분포의 모양은
 계단의 양 끝이 직선에서 어느 쪽으로 벗어나는지로 읽는다. 이 칸은 오른쪽 끝 두 점(0.5 cm, 0.6 cm)이 직선 위로
-떨어져 있어 오른쪽 꼬리가 길다. 나머지 칸은 대체로 직선을 따르고, setosa 의 꽃받침 너비(`Sepal.Width`)처럼 한쪽
-끝 한 점만 떨어진 칸이 있다. 정규분포에서 뽑은 표본도 끝 한두 점은 이 정도로 벗어나므로(@sec-normality-check
-의 lineup), 그 한 점만으로
-정규분포가 아니라고 단정하지 않는다.
+떨어져 있어 오른쪽 꼬리가 길다. 나머지 칸에서는 계단의 가운데 부분이 직선을 따르고, 직선에서 벗어난 점은 양 끝에
+있다. setosa 의 꽃받침 너비(`Sepal.Width`)는 왼쪽 끝 한 점만 직선 아래로 떨어져 있다. 정규분포에서 뽑은 표본도 끝
+한두 점은 이 정도로 벗어나므로(@sec-normality-check 의 lineup), 그 한 점만으로 정규분포가 아니라고 단정하지 않는다.
 
 ## 두 집단 비교: t 검정 {#sec-two-group-tests}
 
@@ -974,7 +977,7 @@ t.test(d4 ~ TRT, data = dbp_change)
 ```
 
 4개월 뒤 변화량은 시험약 군 −15.2 mmHg, 위약군 −4.8 mmHg 이고, 시험약 군이 10.4 mmHg 더 낮아졌다(95% 신뢰구간
-8.66~12.14 mmHg, t = −12.15, p = 2.1×10⁻¹⁴). 이것이 약효의 근거다. 이 검정은 독립 이표본 t 검정이며 계산은
+8.66~12.14 mmHg, t = −12.15, p = 2.1×10⁻¹⁴). 위약군보다 더 낮아진 이 10.4 mmHg 가 약효의 근거다. 이 검정은 독립 이표본 t 검정이며 계산은
 @sec-indep-t 에서 다룬다.
 
 ### sleep: 짝은 키로 맞춘다 {#sec-sleep-paired}
@@ -1059,7 +1062,8 @@ rbind(검정력 = power_hat, 표준오차 = sqrt(power_hat * (1 - power_hat) / 4
 ```
 
 같은 자료를 독립으로 분석하면 실제 차이를 `r round(power_hat[["독립"]], 3)` 의 비율로만 알아채고, 쌍체로 분석하면
-`r round(power_hat[["쌍체"]], 3)` 의 비율로 알아챈다. 짝이 있는 자료를 독립으로 분석하면 검정력을 잃는다.
+`r round(power_hat[["쌍체"]], 3)` 의 비율로 알아챈다. 개인차가 있어 같은 환자의 두 측정값이 양의 상관을 갖는 짝
+자료를 독립으로 분석하면 검정력을 잃는다.
 
 쌍체 분석의 정규성 가정은 두 약 각각이 아니라 환자별 차이에 대한 것이다. `sleep` 에서는 환자
 `r with(sleep_wide, as.character(ID[which.max(drug2 - drug1)]))` 의 차이(`r with(sleep_wide, max(drug2 - drug1))`시간)가
@@ -1171,8 +1175,8 @@ res_old$conf.int
 res_tt$conf.int
 ```
 
-`conf.int` 만 다르다. 이전 판 함수는 `c(ucl, lcl)` 로 **상한을 먼저** 돌려준다. 두 수가 모두 출력되어 눈으로
-비교하면 놓친다. 그 밖에 기본 인수 `y = y, group = group` 은 자기 자신을 가리켜 기본값 구실을 하지 못하고(인수 없이
+`conf.int` 만 다르다. 이전 판 함수는 `c(ucl, lcl)` 로 **상한을 먼저** 돌려준다. 하한과 상한의 두 값은 모두
+들어 있어 출력을 눈으로 훑으면 순서가 바뀐 것을 놓치기 쉽고, `all.equal()` 은 순서까지 비교해 `FALSE` 를 낸다. 그 밖에 기본 인수 `y = y, group = group` 은 자기 자신을 가리켜 기본값 구실을 하지 못하고(인수 없이
 부르면 `promise already under evaluation` 오류), `na.rm` 인수는 받기만 하고 쓰지 않는다. 고친 함수는 다음과 같다.
 
 ```{r indep-t-fixed}
@@ -1216,7 +1220,8 @@ unique(model.matrix(~ pidyn, data = dysmenorrhea))   # 집단마다 설계행렬
 t = `r round(res_tt$statistic, 3)` 과 크기가 같고 부호가 반대다. `t.test()` 는 첫 수준 − 둘째 수준(Control −
 Dysmenorrhea)을, `lm()` 의 계수는 둘째 수준 − 기준 수준(Dysmenorrhea − Control)을 계산하기 때문이다. p값은 같다.
 설계행렬은 절편 열(모두 1)과 Dysmenorrhea 이면 1 인 열로 이루어진다. 8장
-[회귀계수와 정규방정식](08-algorithms.html#sec-nr-regression)의 $\mathbf{X}$ 와 같은 모양이다.
+[회귀계수와 정규방정식](08-algorithms.html#sec-nr-regression)의 $\mathbf{X}$ 도 첫 열이 1 인 두 열 행렬이고, 둘째
+열이 0/1 이 아니라 무게(`wt`)라는 점만 다르다.
 
 ```{r fig-pdi-box}
 #| fig-cap: "두 집단의 PDI. 상자그림 위에 관측 47개를 점으로 겹쳤다"
@@ -1240,7 +1245,8 @@ t = `r sprintf("%.2f", res_tt$statistic)`, 자유도 `r res_tt$parameter`, p = `
 unlist(t.test(pdi ~ pidyn, data = dysmenorrhea)[c("statistic", "parameter", "p.value")])
 ```
 
-이 자료에서는 Welch 검정의 결과도 거의 같다.
+이 자료에서 Welch 검정은 t = 2.70, 자유도 44.0, p = 0.0098 이고, 등분산 t 검정은 t = `r sprintf("%.2f", res_tt$statistic)`,
+자유도 `r res_tt$parameter`, p = `r sprintf("%.4f", res_tt$p.value)` 이다. 두 검정 모두 유의수준 0.05 에서 기각한다.
 
 ### 검정 결과는 리스트다 {#sec-htest}
 
@@ -1323,8 +1329,9 @@ rbind(기각률 = fam_rate, 표준오차 = sqrt(fam_rate * (1 - fam_rate) / R_fa
 ### 모형과 처리 효과 {#sec-anova-model}
 
 세 반의 시험 점수를 비교한다고 하자. 반 평균끼리 얼마나 다른가(반 사이)와 같은 반 학생끼리 얼마나 다른가(반 안)를
-견주어, 반 사이의 차이가 반 안의 차이보다 충분히 크면 반 평균이 다르다고 본다. 이것이 분산분석(analysis of
-variance, ANOVA)의 생각이다. 일원배치 분산분석(one-way ANOVA)의 모형은 다음과 같다.
+견주어, 반 사이의 차이가 반 안의 차이에 비해 크면 반 평균이 다르다고 본다. 얼마나 커야 하는지는 두 차이의 비
+F 와 그 분포로 정한다(@sec-anova-f-test). 분산분석(analysis of variance, ANOVA)은 이렇게 두 변동을 비교한다.
+일원배치 분산분석(one-way ANOVA)의 모형은 다음과 같다.
 
 $$
 y_{ij} = \mu + \alpha_i + \epsilon_{ij}, \qquad \epsilon_{ij} \sim N(0, \sigma^2)\ \text{(서로 독립)}
@@ -1498,7 +1505,8 @@ c(MSB = a_case1$"Mean Sq"[1],
 MSB(`r sprintf("%.3f", a_case1$"Mean Sq"[1])`)는 집단 평균들의 분산(`r sprintf("%.4f", var(tapply(y_case1, g_case1, mean)))`)이
 아니라 그 20배다. 균형 설계에서 $MSB = n \times$(집단 평균들의 분산)이다. 표본평균의 분산이 $\sigma^2/n$ 이므로
 $n$ 을 곱해야 $\sigma^2$ 의 추정값이 된다. F(`r sprintf("%.2f", a_case1$"F value"[1])`)는 1 보다 작고
-p 는 `r sprintf("%.2f", a_case1$"Pr(>F)"[1])` 이다. 모평균이 같은 자료에서 기대한 결과다.
+p 는 `r sprintf("%.2f", a_case1$"Pr(>F)"[1])` 로 귀무가설을 기각하지 않는다. 모평균이 같게 만든 자료이므로 맞는
+결론이다.
 
 ### 시뮬레이션으로 보는 F {#sec-anova-sim}
 
@@ -1577,12 +1585,13 @@ plot_anova_data(case_data[[4]], "경우 3-b: sigma = 3")
 
 모평균의 차이가 같아도 표준편차가 1 에서 3 이 되면 F 는 `r sprintf("%.1f", case_tab[[3]]$F[1])` 에서
 `r sprintf("%.2f", case_tab[[4]]$F[1])` 로 줄고 p 는 `r sprintf("%.4f", case_tab[[4]]$p[1])` 로 0.05 경계에 가까워진다.
-집단 안의 분산이 커져 MSW 가 커지므로, 같은 평균 차이에서도 F 가 작아지기 때문이다. 경우 2 처럼 모평균이 멀리 떨어지면 F 는
+집단 안의 분산이 커져 MSW 가 커지므로, 같은 평균 차이에서도 F 가 작아지기 때문이다. 경우 2 처럼 모평균이 −5, 0, 5
+로 표준편차(1)의 5배씩 떨어지면 F 는
 `r sprintf("%.0f", case_tab[[2]]$F[1])` 에 이른다. MSW 는 $\sigma^2$ 의 추정값이므로 경우 1~3-a 에서
 `r sprintf("%.2f", case_tab[[1]]$평균제곱[2])` 로 1 근처이고(같은 시드라 세 경우의 잡음이 같다), 경우 3-b 에서는 9 근처인
 `r sprintf("%.2f", case_tab[[4]]$평균제곱[2])` 이다. 이전
-판 노트는 경우 3-b 를 $\sigma^2 = 3$ 이라고 적었지만 코드는 `sd = 3`, 곧 $\sigma^2 = 9$ 다. 캡션의 숫자는 MSW 를
-보고 확인할 수 있다.
+판 노트는 경우 3-b 를 $\sigma^2 = 3$ 이라고 적었지만 코드는 `sd = 3`, 곧 $\sigma^2 = 9$ 다. 경우 3-b 의 MSW 가
+3 이 아니라 9 에 가까운 것으로 이전 판의 서술이 틀렸음을 확인할 수 있다.
 
 ### 분산분석도 회귀모형이다 {#sec-anova-as-lm}
 
@@ -1616,8 +1625,9 @@ coef(lm(coag ~ diet, data = coagulation))
 ```
 
 절편 61 은 기준 수준 A 의 평균이고, `dietB` 5 는 B − A, `dietC` 7 은 C − A, `dietD` 는 D − A 로 0 이다(출력의
-$10^{-15}$ 은 부동소수점 오차). 8장 [회귀계수와 정규방정식](08-algorithms.html#sec-nr-regression)이 이런
-$\mathbf{X}$ 로 계수를 구했다. t 검정(집단 2개)과 일원배치 분산분석(집단 3개 이상)은 설명 변수가 범주형인 선형모형
+$10^{-15}$ 은 부동소수점 오차). 8장 [회귀계수와 정규방정식](08-algorithms.html#sec-nr-regression)은 첫 열이 1,
+둘째 열이 무게(`wt`)인 $\mathbf{X}$ 로 계수를 구했다. 여기서는 둘째 열부터가 가변수이고, 계수를 구하는 식
+$(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}$ 는 같다. t 검정(집단 2개)과 일원배치 분산분석(집단 3개 이상)은 설명 변수가 범주형인 선형모형
 하나의 틀이고, @sec-anova-result 에서 `lm()` 과 `aov()` 가 같은 표를 내는 것으로 다시 확인한다.
 
 ## 분산분석 사례와 다중비교 {#sec-anova-case}
@@ -1628,8 +1638,8 @@ $\mathbf{X}$ 로 계수를 구했다. t 검정(집단 2개)과 일원배치 분�
 
 `coagulation` 은 동물 24마리를 네 가지 먹이(A, B, C, D)에 무작위로 배정하고 혈액 응고 시간(`coag`, 초)을 잰
 실험 자료다(`?faraway::coagulation`). 먹이마다 열 하나인 넓은 표로 펴 보자. 이전 판 노트는 행 번호를
-`c(1:4, 1:6, 1:6, 1:8)` 로 직접 적었다. 먹이마다 번호를 매기는 `row_number()` 와 `.by` 를 쓰면 행 순서가 바뀌어도
-맞는다.
+`c(1:4, 1:6, 1:6, 1:8)` 로 직접 적었다. `row_number()` 와 `.by = diet` 를 쓰면 행 순서가 바뀌거나 먹이별 동물 수가
+달라져도 먹이마다 1 부터 번호가 매겨진다.
 
 ```{r coag-wide}
 coagulation |>
@@ -1674,7 +1684,8 @@ tapply(coagulation$coag, coagulation$diet, \(v) shapiro.test(v)$p.value)
 :::
 
 할 수 없다. @sec-normality-power 의 검정력 표에서, 지수분포에서 뽑은 표본 4개를 이 검정이 기각하는 비율은
-`r swr("지수분포", 4)` 였다. 표본이 이만큼 작으면 '기각하지 못했다'는 정보가 거의 없다. 모형의 오차는 먹이와
+`r swr("지수분포", 4)` 였다. 지수분포 자료도 열 번 가운데 약 `r round(10 * (1 - swr("지수분포", 4)))`번은 기각하지
+못하므로, 표본이 이만큼 작을 때의 '기각하지 못했다'로는 정규성을 판단할 수 없다. 모형의 오차는 먹이와
 상관없이 같은 분포를 가정하므로, 관측에서 집단 평균을 뺀 **잔차**(residual) $e_{ij} = y_{ij} - \bar y_{i.}$ 24개를
 한데 모아 본다. @sec-normality-check 처럼 정규분포에서 뽑은 24개짜리 Q-Q plot 여덟 개 사이에 잔차의 Q-Q plot 을
 섞었다.
@@ -1706,7 +1717,7 @@ shapiro.test(resid(fit_coag))$p.value     # 보조로만 본다
 
 잔차의 Q-Q plot 은 `r pos_resid`번이다. 응고 시간이 정수 초로 기록되어 같은 값이 여러 번 나오므로 점이 가로 계단
 모양으로 놓이고, 그 계단 때문에 골라낼 수는 있다. 그러나 계단의 양 끝을 이어 보면 점들이 직선을 따라가고, 정규분포에서
-뽑은 1번처럼 오른쪽 끝이 직선 위로 크게 휜 그림보다 직선에 가깝다. 계단은 기록 단위 때문이고 꼬리나 치우침을
+뽑았는데도 오른쪽 끝 다섯 점이 직선 위로 떨어진 1번보다 직선에 가깝다. 계단은 기록 단위 때문이고 꼬리나 치우침을
 뜻하지 않는다(@sec-iris-qq). 잔차 24개의 Shapiro–Wilk 검정
 p값(`r sprintf("%.3f", shapiro.test(resid(fit_coag))$p.value)`)은 이 판단을 보조할 뿐이다.
 
@@ -1730,7 +1741,7 @@ fligner.test(coag ~ diet, data = coagulation)$p.value
 적혀 있다. 이전 판 노트는 이것을 "Levene's test (SPSS)" 라고 적었는데, 평균을 쓰는 원래 Levene 검정은
 `center = mean` 을 주어야 한다. 두 결과(p = 0.593, 0.560)와 Fligner–Killeen 검정 모두 등분산 가정을 기각하지 않는다.
 등분산이 의심되면 등분산을 가정하지 않는 Welch 의 분산분석 `oneway.test(coag ~ diet, data = coagulation)` 을 쓴다.
-t 검정의 Welch 와 같은 생각이다([9장 '가정이 깨지면'](09-simulation.html#sec-assumption)).
+집단마다 분산을 따로 추정한다는 점에서 t 검정의 Welch 검정과 같다([9장 '가정이 깨지면'](09-simulation.html#sec-assumption)).
 
 ### F 검정 결과 읽기 {#sec-anova-result}
 
@@ -1782,8 +1793,8 @@ plot(tukey_coag, las = 1)
 ```
 
 B − A(5초, 95% 신뢰구간 0.72~9.28, 수정 p = 0.018), C − A(7초, p < 0.001), D − B(−5초, p = 0.004), D − C(−7초,
-p < 0.001)는 신뢰구간이 0 을 포함하지 않는다. D − A(0초)와 C − B(2초, p = 0.48)는 0 을 포함한다. 먹이 A 와 D, B 와
-C 가 각각 비슷하고, B 와 C 가 A 와 D 보다 응고 시간이 5~7초 길다. 이전 판 노트의 사후검정 설명은 "F 검정 결과
+p < 0.001)는 신뢰구간이 0 을 포함하지 않는다. D − A(0초)와 C − B(2초, p = 0.48)는 0 을 포함한다. 먹이 A 와 D 는
+평균이 같고(61초), B 와 C 는 2초 차이를 유의하다고 판단할 수 없으며, B 와 C 가 A 와 D 보다 응고 시간이 5~7초 길다. 이전 판 노트의 사후검정 설명은 "F 검정 결과
 집단 간 평균이 다르다는 결론을 얻은 경우"에 쓴다고 적었지만, Tukey HSD 는 F 검정의 결과와 상관없이 1종 오류를
 조절한다. F 검정을 먼저 통과해야 하는 방법은 Fisher 의 LSD 다.
 
@@ -1850,7 +1861,9 @@ rbind(가족오류율 = fwer, 표준오차 = sqrt(fwer * (1 - fwer) / R_fw))
 보정 없이 비교하면 한 번 이상 잘못 기각하는 비율이 `r sprintf("%.3f", fwer[4])` 이고 0.05 의 약 네 배다.
 Tukey(`r sprintf("%.3f", fwer[3])`)는 균형 설계에서 0.05 를 맞추므로 '매우 보수적'이 아니다.
 Bonferroni(`r sprintf("%.3f", fwer[2])`)와 Scheffé(`r sprintf("%.3f", fwer[1])`)는 0.05 보다 작아 그만큼 보수적이다. 모든 쌍을
-비교할 때는 Tukey 를 쓰고, 미리 정한 몇 쌍만 비교할 때는 Bonferroni 를 쓴다.
+비교할 때는 Tukey 를 쓴다. 미리 정한 몇 쌍만 비교할 때는 Bonferroni 를 쓴다. 비교 횟수가 줄면 Bonferroni 의 임계값이
+낮아지기 때문이다. 두 쌍이면 `qt(1 - 0.05 / 4, 20)` = `r sprintf("%.3f", qt(1 - 0.05 / 4, 20))` 로 Tukey 의
+`r sprintf("%.3f", crit[3])` 보다 작다.
 
 ## 범주형 자료와 상관 {#sec-categorical-correlation}
 
@@ -1904,8 +1917,8 @@ c(기본값 = unname(chisq.test(tab_sex)$statistic),
   correct_FALSE = unname(chisq.test(tab_sex, correct = FALSE)$statistic))
 ```
 
-다르다. 2×2 표에서는 `chisq.test()` 가 기본으로 Yates 의 연속성 수정을 한다. $|O - E|$ 에서 0.5 를 뺀 뒤 제곱해
-통계량이 조금 작아진다. 출력 제목에 `with Yates' continuity correction` 이 붙는다. 앞의 3×2 표처럼 2×2 가 아닌
+다르다. 2×2 표에서는 `chisq.test()` 가 기본으로 Yates 의 연속성 수정을 한다. $|O - E|$ 에서 0.5 를 뺀 뒤 제곱하므로
+통계량이 작아진다. 이 표에서는 365.89 가 363.62 로 줄었다. 출력 제목에 `with Yates' continuity correction` 이 붙는다. 앞의 3×2 표처럼 2×2 가 아닌
 표에서는 수정하지 않는다.
 
 ### 칸이 작을 때: Fisher 정확검정 {#sec-fisher-exact}
@@ -1931,7 +1944,7 @@ tea_chi$expected
 tea_chi$p.value
 ```
 
-기대도수가 모두 2 다. 카이제곱 분포는 기대도수가 충분히 클 때의 근사라서 `chisq.test()` 가
+기대도수가 모두 2 다. 카이제곱 분포는 기대도수가 클 때 맞는 근사라서(기준은 이 소절 끝에 적었다) `chisq.test()` 가
 `Chi-squared approximation may be incorrect` 경고를 낸다. Fisher 정확검정은 근사 없이 확률을 직접 계산한다.
 
 ```{r tea-fisher}
@@ -1942,8 +1955,8 @@ sum(dhyper(3:4, m = 4, n = 4, k = 4))                 # 우유 먼저 4잔 중 3
 
 8잔에서 4잔을 고르는 방법은 ${}_8\mathrm{C}_4 = 70$ 가지이고, 그 가운데 3잔 이상 맞는 방법은 16 + 1 = 17 가지다.
 17/70 = 0.243 이 단측 p값이다(초기하분포 `dhyper()` 로 계산한 값과 같다). 해석: 8잔 가운데 6잔을 맞힌 결과는
-우연으로도 네 번에 한 번꼴로 나오므로 맛을 구별한다는 근거가 되지 못한다(단측 p = 0.243). 흔히 쓰는 기준은
-기대도수가 5 미만인 칸이 전체 칸의 20% 를 넘거나 1 미만인 칸이 있으면 카이제곱 근사 대신 Fisher 정확검정을 쓰는
+우연으로도 네 번에 한 번꼴로 나오므로 맛을 구별한다는 근거가 되지 못한다(단측 p = 0.243). 카이제곱 근사를 쓸지
+정하는 경험 규칙은 기대도수가 5 미만인 칸이 전체 칸의 20% 를 넘거나 1 미만인 칸이 있으면 카이제곱 근사 대신 Fisher 정확검정을 쓰는
 것이다. `chisq.test()` 는 5 미만인 칸이 하나만 있어도 경고를 낸다.
 
 ### 상관계수와 검정 {#sec-cor-test}
@@ -1951,7 +1964,8 @@ sum(dhyper(3:4, m = 4, n = 4, k = 4))                 # 우유 먼저 4잔 중 3
 두 연속형 변수의 **피어슨 상관계수**(Pearson correlation coefficient)
 $r = \sum (x_i - \bar x)(y_i - \bar y) / \sqrt{\sum (x_i - \bar x)^2 \sum (y_i - \bar y)^2}$ 는 −1 과 1 사이의 값으로
 **직선 관계**의 방향과 세기를 잰다. 13장 [요약 통계량이 같은 네 자료](13-data-visualization.html#sec-anscombe)에서
-본 `anscombe` 의 네 쌍은 산점도가 직선, 곡선, 이상점 하나, x 가 거의 한 값으로 서로 다른 모양이었다.
+본 `anscombe` 의 네 쌍은 산점도가 직선, 곡선, 이상점 하나, x 가 한 점만 `r max(anscombe$x4)` 이고 나머지
+`r sum(anscombe$x4 == min(anscombe$x4))`개가 `r min(anscombe$x4)` 인 모양으로 서로 달랐다.
 
 ```{r anscombe-cor}
 sapply(1:4, \(i) cor(anscombe[[paste0("x", i)]], anscombe[[paste0("y", i)]]))
@@ -2125,8 +2139,8 @@ Holm 방법은 p값을 작은 것부터 늘어놓고 가장 작은 것에 9, 다
 연구 계획서로 확인한다. pdi 하나를 미리 정했다면 보정하지 않은 p 를 읽고, 9개를 둘러본 뒤 고른 것이라면 Holm 보정
 p 를 읽는다.
 
-이 표의 t 검정은 Welch 검정이라 pdi 의 p 가 @sec-indep-t 의 등분산 t 검정(p =
-`r sprintf("%.4f", res_tt$p.value)`)과 조금 다르다. `sprintf()` 같은 표기 함수는 표를 출력하기 직전에만 쓴다. 이전 판
+이 표의 t 검정은 Welch 검정이라 pdi 의 p(`r sprintf("%.4f", baseline$p.value[baseline$variable == "pdi"])`)가
+@sec-indep-t 의 등분산 t 검정(p = `r sprintf("%.4f", res_tt$p.value)`)과 다르다. `sprintf()` 같은 표기 함수는 표를 출력하기 직전에만 쓴다. 이전 판
 노트의 `mutate_if(is.numeric, format, digits = 4)` 는 자유도와 p값까지 문자로 바꾸어, 그 뒤에 p값을 비교하거나
 보정하는 계산을 할 수 없게 했다.
 
