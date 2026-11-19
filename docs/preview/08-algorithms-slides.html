@@ -9,7 +9,7 @@
   <meta name="generator" content="quarto-1.10.19">
 
   <meta name="author" content="구본초">
-  <meta name="dcterms.date" content="2026-11-19">
+  <meta name="dcterms.date" content="2026-11-20">
   <title>알고리즘</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -224,7 +224,7 @@
     </div>
 </div>
 
-  <p class="date">2026-11-19</p>
+  <p class="date">2026-11-20</p>
 </section>
 <section id="이-수업에서-다루는-것" class="slide level2">
 <h2>이 수업에서 다루는 것</h2>
@@ -808,8 +808,8 @@
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code>         방식    초
-1   사전 할당 0.002
-2 이어 붙이기 3.205</code></pre>
+1   사전 할당 0.003
+2 이어 붙이기 3.142</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -3771,17 +3771,17 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 </tr>
 <tr class="even">
 <td style="text-align: right;">1,000</td>
-<td style="text-align: right;">0.066</td>
-<td style="text-align: right;">0.030</td>
-<td style="text-align: right;">0.007</td>
+<td style="text-align: right;">0.070</td>
+<td style="text-align: right;">0.032</td>
+<td style="text-align: right;">0.008</td>
 <td style="text-align: right;">0.002</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2,000</td>
-<td style="text-align: right;">0.261</td>
-<td style="text-align: right;">0.119</td>
-<td style="text-align: right;">0.015</td>
-<td style="text-align: right;">0.004</td>
+<td style="text-align: right;">0.276</td>
+<td style="text-align: right;">0.126</td>
+<td style="text-align: right;">0.018</td>
+<td style="text-align: right;">0.003</td>
 </tr>
 </tbody>
 </table>
@@ -3946,9 +3946,10 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 <li>곡선 대신 접선의 해, 점화식</li>
 <li>의사코드와 R: 입력, 멈추는 조건 둘, 반환값</li>
 <li>해의 검증과 초기값</li>
+<li>최소점 찾기: 왜 f′ ÷ f″ 인가</li>
+<li>모수가 둘일 때: 왜 행렬이 필요한가, 헤시안 행렬</li>
 <li>같은 <code>newton()</code> 으로 극값, 회귀, 로지스틱 회귀</li>
-<li>모수가 둘일 때: 기울기 벡터와 헤세 행렬</li>
-<li>경사하강법: 헤세 행렬 없이 기울기만으로</li>
+<li>경사하강법: 헤시안 행렬 없이 기울기만으로</li>
 </ul>
 </div></div>
 <div class="keypoint teal">
@@ -3957,7 +3958,7 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 <aside class="notes">
 <p>5절입니다. 앞의 절들은 벡터에서 값을 찾고 정렬했습니다. 이번엔 방정식의 해를 반복 계산으로 구하는 알고리즘입니다. glm() 이 로지스틱 회귀의 계수를 구할 때 하는 계산이 이 알고리즘과 같습니다.</p>
 <p>통계에서 추정이라고 부르는 일은 대부분 최적화입니다. 최소제곱은 잔차제곱합을 가장 작게, 최대가능도는 가능도를 가장 크게 만드는 값을 찾지요. 가장 작거나 가장 큰 곳에서는 도함수가 0입니다. 그러니 결국 방정식의 해를 찾는 문제가 됩니다.</p>
-<p>5.1절에서 곡선의 해를 직선의 해로 바꿔 구하는 생각과 그 결과인 점화식을 보고, 5.2절에서 2절부터 해 온 대로 그 절차를 의사코드로 옮긴 다음 R 함수 newton() 으로 옮깁니다. 5.3절에서 그 결과를 검증하고, 5.4절부터 5.6절까지는 같은 newton() 에 넣는 두 함수만 바꿔 극값, 회귀계수, 로지스틱 회귀계수를 구해 D(), lm(), glm() 의 결과와 대조합니다. 모수가 둘이 되는 5.5절 앞에서 기울기 벡터와 헤세 행렬을 설명합니다. 5.7절에서 헤세 행렬을 쓰지 않는 경사하강법을 뉴턴-랩슨과 비교합니다.</p>
+<p>5.1절에서 곡선의 해를 직선의 해로 바꿔 구하는 생각과 그 결과인 점화식을 보고, 5.2절에서 2절부터 해 온 대로 그 절차를 의사코드로 옮긴 다음 R 함수 newton() 으로 옮깁니다. 5.3절에서 그 결과를 검증하고, 5.4절부터 5.6절까지는 같은 newton() 에 넣는 두 함수만 바꿔 극값, 회귀계수, 로지스틱 회귀계수를 구해 D(), lm(), glm() 의 결과와 대조합니다. 5.4절에서는 최소점을 찾을 때 왜 f′ 를 f″ 로 나누는지 먼저 보고, 모수가 둘이 되는 5.5절 앞에서 왜 헤시안 행렬(Hessian matrix)이 필요한지와 그 정의를 설명합니다. 5.7절에서 헤시안 행렬을 쓰지 않는 경사하강법을 뉴턴-랩슨과 비교합니다.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -4267,12 +4268,71 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
           display:block!important;
       }</style></aside>
 </section>
+<section id="최소점-찾기-왜-f-f-인가" class="slide level2 dense">
+<h2><span class="secno">5.4</span> 최소점 찾기: 왜 f′ ÷ f″ 인가</h2>
+<div class="columns">
+<div class="column" style="width:47%;">
+<p><span class="label label-note">생각 1: 기울기를 0 으로 만드는 갱신량</span></p>
+<ul>
+<li>최소점에서 기울기 f′ = 0</li>
+<li>f″: x 를 1 옮길 때 <strong>기울기가 바뀌는 비율</strong></li>
+<li>비율이 그대로라면 기울기를 0 으로 만드는 갱신량: <strong>f′ ÷ f″</strong></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="" aria-hidden="true" tabindex="-1"></a>fpp <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">30</span> <span class="sc">*</span> x <span class="sc">-</span> <span class="dv">14</span>         <span class="co"># f''</span></span>
+<span id="cb94-2"><a href="" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="fl">3.5</span>; d1 <span class="ot">&lt;-</span> <span class="fu">fp</span>(x0) <span class="sc">/</span> <span class="fu">fpp</span>(x0)      <span class="co"># d1: 갱신량</span></span>
+<span id="cb94-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(기울기 <span class="ot">=</span> <span class="fu">fp</span>(x0), 변화율 <span class="ot">=</span> <span class="fu">fpp</span>(x0), 갱신량 <span class="ot">=</span> d1)</span>
+<span id="cb94-4"><a href="" aria-hidden="true" tabindex="-1"></a>   기울기    변화율    갱신량 </span>
+<span id="cb94-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fl">94.750000</span> <span class="fl">91.000000</span>  <span class="fl">1.041209</span> </span>
+<span id="cb94-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(새위치 <span class="ot">=</span> x0 <span class="sc">-</span> d1, 기울기 <span class="ot">=</span> <span class="fu">fp</span>(x0 <span class="sc">-</span> d1), 변화율 <span class="ot">=</span> <span class="fu">fpp</span>(x0 <span class="sc">-</span> d1))</span>
+<span id="cb94-7"><a href="" aria-hidden="true" tabindex="-1"></a>   새위치    기울기    변화율 </span>
+<span id="cb94-8"><a href="" aria-hidden="true" tabindex="-1"></a> <span class="fl">2.458791</span> <span class="fl">16.261736</span> <span class="fl">59.763736</span> </span></code></pre></div>
+</div>
+<div class="keypoint teal">
+<p>새 위치의 기울기는 0 이 아님: f″ 도 x 에 따라 바뀜 → <strong>반복</strong></p>
+</div>
+</div><div class="column" style="width:53%;">
+<p><span class="label label-slide">생각 2: 직선 대신 포물선</span></p>
+<p>직선에는 최소점이 없음 → 휜 정도까지 같은 <strong>포물선</strong>의 꼭짓점</p>
+<div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="08-algorithms-slides_files/figure-revealjs/nr-parabola-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><strong>f′</strong>: 어느 쪽으로 갈지(부호), <strong>f″</strong>: 얼마나 갈지<br> 많이 휜 곳은 조금, 완만한 곳은 멀리: 기울기만으로는 거리를 못 정함 → 5.7</p>
+</div></div>
+<aside class="notes">
+<p>5.4 의 극값 계산에 들어가기 전에, 최소점을 찾을 때 왜 f′ 를 f″ 으로 나눈 만큼 옮기는지 보겠습니다. 이 슬라이드에서 가져갈 것은 하나입니다. f′ 는 어느 쪽으로 갈지를, f″ 는 얼마나 갈지를 정합니다.</p>
+<p>생각 1 입니다. 최소점에서는 기울기가 0 입니다. 지금 위치의 기울기는 f′ 이고, f″ 는 x 를 1 옮길 때 기울기가 얼마나 바뀌는지, 곧 기울기의 변화율입니다. 이 변화율이 그대로라고 보면, 기울기 f′ 를 0 으로 만들려면 f′ 나누기 f″ 만큼 옮기면 됩니다. 지금 위치에서 이 갱신량을 뺍니다. 5.2 의 newton() 이 x 에서 step 을 빼는 것과 같습니다.</p>
+<p>숫자로 확인합니다. 5.2 의 f 에서 x = 3.5 입니다. 왼쪽 출력에서 기울기는 94.75, 변화율은 91 입니다. 갱신량은 94.75 나누기 91, 약 1.04 이고, 새 위치는 2.459 입니다. 그런데 새 위치의 기울기는 16.26 으로 줄었지만 0 은 아닙니다. 옮기는 동안 변화율 f″ 도 91 에서 59.76 으로 바뀌었기 때문입니다. 그래서 한 번에 끝나지 않고 반복합니다. 왼쪽 아래 상자입니다.</p>
+<p>생각 2 는 같은 식을 그림으로 본 것입니다. 5.1 에서는 곡선을 접선, 곧 직선으로 바꿔 그 직선의 해를 구했습니다. 그런데 직선에는 최소점이 없습니다. 최소점이 있는 가장 단순한 곡선이 포물선입니다. 그래서 3.5 에서 함숫값, 기울기, 휜 정도가 모두 같은 포물선을 그립니다. 점선입니다. 그 꼭짓점의 위치가 x 빼기 f′ 나누기 f″, 곧 2.459 로 생각 1 과 같습니다. 가위표의 실제 최소점 2.165 까지는 아직 거리가 있습니다.</p>
+<p>틀리기 쉬운 곳은 두 가지입니다. 첫째, 갱신량은 더하지 않고 뺍니다. 기울기가 양수면 왼쪽으로 가야 하니까요. 둘째, f″ 이 0 에 가까운 곳에서는 갱신량이 커집니다. 5.3 에서 기울기가 0 에 가까운 곳에서 -90 까지 튄 것과 같은 일입니다.</p>
+<p>오른쪽 아래. 많이 휜 곳은 f″ 이 커서 최소점이 가까우므로 조금 가고, 완만한 곳은 멀리 갑니다. 기울기만 알면 방향은 알지만 거리는 모릅니다. 5.7 의 경사하강법이 학습률을 사람이 정하는 이유가 여기 있습니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="같은-newton-에-f-와-f-넣기-극값" class="slide level2">
 <h2><span class="secno">5.4</span> 같은 newton() 에 f′ 와 f″ 넣기: 극값</h2>
 <div class="columns">
 <div class="column" style="width:44%;">
-<p>극값에서 접선은 <strong>수평</strong> → <span class="math inline">\(f'(x) = 0\)</span> 의 근 찾기</p>
+<p>앞 슬라이드의 갱신량을 반복해 <strong>f′(x) = 0 의 근</strong> 찾기</p>
 <p><span class="math display">\[x_{n+1} = x_n - \frac{f'(x_n)}{f''(x_n)}\]</span></p>
+<p><strong>최대화도 같은 식</strong>: 포물선이 아래로 열릴 뿐(f″ &lt; 0), 5.6 이 최대화</p>
 <p><span class="label">newton() 에 넣는 두 함수</span></p>
 <table class="caption-top">
 <colgroup>
@@ -4301,31 +4361,30 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 <tr class="odd">
 <td style="text-align: left;">5.5 회귀</td>
 <td style="text-align: left;">기울기 ∇S</td>
-<td style="text-align: left;">헤세 행렬 H</td>
+<td style="text-align: left;">헤시안 H</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">5.6 로지스틱</td>
 <td style="text-align: left;">기울기 ∇ℓ</td>
-<td style="text-align: left;">헤세 행렬 H</td>
+<td style="text-align: left;">헤시안 H</td>
 </tr>
 </tbody>
 </table>
 </div><div class="column" style="width:56%;">
 <p><span class="label label-slide">같은 f 의 극값, 초기값 다섯 개</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="" aria-hidden="true" tabindex="-1"></a>fpp <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">30</span> <span class="sc">*</span> x <span class="sc">-</span> <span class="dv">14</span>       <span class="co"># 손으로 구한 f''</span></span>
-<span id="cb94-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">D</span>(<span class="fu">D</span>(<span class="fu">body</span>(f), <span class="st">"x"</span>), <span class="st">"x"</span>)              <span class="co"># 기호 미분과 대조</span></span>
-<span id="cb94-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">*</span> (<span class="dv">3</span> <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">*</span> x)) <span class="sc">-</span> <span class="dv">7</span> <span class="sc">*</span> <span class="dv">2</span></span>
-<span id="cb94-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">sapply</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">5</span>), <span class="cf">function</span>(x0) {</span>
-<span id="cb94-5"><a href="" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">&lt;-</span> <span class="fu">newton</span>(fp, fpp, x0)           <span class="co"># f, fp 자리에 fp, fpp</span></span>
-<span id="cb94-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">x0 =</span> x0, <span class="at">x =</span> r<span class="sc">$</span>x, <span class="at">iter =</span> r<span class="sc">$</span>iter, <span class="at">f2 =</span> <span class="fu">fpp</span>(r<span class="sc">$</span>x))</span>
-<span id="cb94-7"><a href="" aria-hidden="true" tabindex="-1"></a>}))</span>
-<span id="cb94-8"><a href="" aria-hidden="true" tabindex="-1"></a>     x0         x iter        f2</span>
-<span id="cb94-9"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,] <span class="sc">-</span><span class="dv">5</span> <span class="sc">-</span><span class="fl">1.231699</span>    <span class="dv">6</span> <span class="sc">-</span><span class="fl">50.95096</span></span>
-<span id="cb94-10"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="fl">1.231699</span>    <span class="dv">4</span> <span class="sc">-</span><span class="fl">50.95096</span></span>
-<span id="cb94-11"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,]  <span class="dv">0</span> <span class="sc">-</span><span class="fl">1.231699</span>    <span class="dv">7</span> <span class="sc">-</span><span class="fl">50.95096</span></span>
-<span id="cb94-12"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">4</span>,]  <span class="dv">1</span>  <span class="fl">2.165032</span>    <span class="dv">6</span>  <span class="fl">50.95096</span></span>
-<span id="cb94-13"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">5</span>,]  <span class="dv">5</span>  <span class="fl">2.165032</span>    <span class="dv">6</span>  <span class="fl">50.95096</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">D</span>(<span class="fu">D</span>(<span class="fu">body</span>(f), <span class="st">"x"</span>), <span class="st">"x"</span>)              <span class="co"># 앞 슬라이드의 fpp 와 대조</span></span>
+<span id="cb95-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">*</span> (<span class="dv">3</span> <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">*</span> x)) <span class="sc">-</span> <span class="dv">7</span> <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb95-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">sapply</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">5</span>), <span class="cf">function</span>(x0) {</span>
+<span id="cb95-4"><a href="" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">&lt;-</span> <span class="fu">newton</span>(fp, fpp, x0)           <span class="co"># f, fp 자리에 fp, fpp</span></span>
+<span id="cb95-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">x0 =</span> x0, <span class="at">x =</span> r<span class="sc">$</span>x, <span class="at">iter =</span> r<span class="sc">$</span>iter, <span class="at">f2 =</span> <span class="fu">fpp</span>(r<span class="sc">$</span>x))</span>
+<span id="cb95-6"><a href="" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb95-7"><a href="" aria-hidden="true" tabindex="-1"></a>     x0         x iter        f2</span>
+<span id="cb95-8"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,] <span class="sc">-</span><span class="dv">5</span> <span class="sc">-</span><span class="fl">1.231699</span>    <span class="dv">6</span> <span class="sc">-</span><span class="fl">50.95096</span></span>
+<span id="cb95-9"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="fl">1.231699</span>    <span class="dv">4</span> <span class="sc">-</span><span class="fl">50.95096</span></span>
+<span id="cb95-10"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,]  <span class="dv">0</span> <span class="sc">-</span><span class="fl">1.231699</span>    <span class="dv">7</span> <span class="sc">-</span><span class="fl">50.95096</span></span>
+<span id="cb95-11"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">4</span>,]  <span class="dv">1</span>  <span class="fl">2.165032</span>    <span class="dv">6</span>  <span class="fl">50.95096</span></span>
+<span id="cb95-12"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">5</span>,]  <span class="dv">5</span>  <span class="fl">2.165032</span>    <span class="dv">6</span>  <span class="fl">50.95096</span></span></code></pre></div>
 </div>
 <div class="callout callout-caution callout-titled callout-style-default">
 <div class="callout-body">
@@ -4342,10 +4401,10 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 </div>
 </div></div>
 <aside class="notes">
-<p>이제 방정식의 해 찾기를 최적화로 바꿉니다. 함수를 새로 만들지 않고, 같은 newton() 에 넣는 두 함수만 바꿉니다.</p>
-<p>함수가 가장 작거나 가장 큰 곳, 극값에서는 접선이 수평입니다. 기울기가 0이지요. f’(x) = 0. 그러면 f’ 의 근을 찾으면 됩니다. 5.1 의 점화식에서 f 자리에 f’, f’ 자리에 f’’ 을 넣은 게 위의 식입니다.</p>
-<p>왼쪽 아래 표가 이 절에서 newton() 에 넣는 두 함수의 목록입니다. 방정식의 해에는 f 와 f’, 극값에는 f’ 와 f’’, 회귀와 로지스틱 회귀에는 기울기 벡터와 헤세 행렬을 넣습니다. 아래 두 줄의 기울기 벡터와 헤세 행렬은 다음 슬라이드에서 설명합니다.</p>
-<p>오른쪽 코드. 5.2 에서 쓴 f 와 fp 를 그대로 쓰고, 2계 도함수 fpp 만 손으로 구해 새로 만듭니다. 맞게 미분했는지 D() 를 두 번 써서 확인합니다. R 이 기호로 미분해 주는 함수입니다. 출력 5 * (3 * (2 * x)) - 7 * 2 를 정리하면 30x - 14 로 같습니다. 이것도 대조입니다.</p>
+<p>앞 슬라이드의 갱신량을 반복하면 f′ 의 근, 곧 기울기가 0 인 점을 찾게 됩니다. 5.1 의 점화식에서 f 자리에 f′, f′ 자리에 f″ 을 넣은 게 위의 식입니다. 함수를 새로 만들지 않고, 같은 newton() 에 넣는 두 함수만 바꿉니다.</p>
+<p>최대점을 찾을 때도 식은 같습니다. 그 자리에서 맞닿는 포물선이 아래로 열려 있고, 꼭짓점이 가장 높은 점일 뿐입니다. 5.6 의 로지스틱 회귀가 로그가능도를 최대화하는 문제라서 이 점이 필요합니다.</p>
+<p>왼쪽 아래 표가 이 절에서 newton() 에 넣는 두 함수의 목록입니다. 방정식의 해에는 f 와 f’, 극값에는 f’ 와 f’’, 회귀와 로지스틱 회귀에는 기울기 벡터와 헤시안 행렬을 넣습니다. 아래 두 줄의 기울기 벡터와 헤시안 행렬은 다음 두 슬라이드에서 설명합니다.</p>
+<p>오른쪽 코드. 5.2 의 fp 와 앞 슬라이드에서 손으로 구한 fpp 를 그대로 씁니다. fpp 를 맞게 미분했는지 D() 를 두 번 써서 확인합니다. R 이 기호로 미분해 주는 함수입니다. 출력 5 * (3 * (2 * x)) - 7 * 2 를 정리하면 30x - 14 로 같습니다. 이것도 대조입니다.</p>
 <p>그리고 newton() 의 f 자리에 fp, fp 자리에 fpp 를 넣습니다. 출력을 보세요. 초기값 다섯 개가 두 곳으로 갈라집니다. 2.165 쪽은 f’’ 이 양수라 극소, -1.232 쪽은 f’’ 이 음수라 극대입니다. 알고리즘은 기울기가 0 인 곳을 찾을 뿐, 거기가 극소인지 극대인지는 알려 주지 않습니다. 마지막 열처럼 2계 도함수의 부호를 따로 계산해 확인합니다.</p>
 <p>게다가 극소라고 해서 전체에서 제일 작은 값은 아닙니다. 이 f 는 x가 작아지면 끝없이 내려갑니다. 로그가능도에 봉우리가 여러 개면 초기값에 따라 다른 봉우리에 올라갑니다. 초기값이 도달하는 해를 정한다는 5.3절의 내용이 최적화에서도 성립합니다.</p>
 <style type="text/css">
@@ -4360,11 +4419,89 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
           display:block!important;
       }</style></aside>
 </section>
-<section id="모수가-둘일-때-기울기-벡터와-헤세-행렬" class="slide level2 dense">
-<h2><span class="secno">5.4</span> 모수가 둘일 때: 기울기 벡터와 헤세 행렬</h2>
+<section id="모수가-둘일-때-왜-행렬이-필요한가" class="slide level2 dense">
+<h2><span class="secno">5.4</span> 모수가 둘일 때: 왜 행렬이 필요한가</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<p>회귀는 절편과 기울기, <strong>모수가 둘</strong> → 기울기도 둘, <strong>둘 다 0</strong> 으로</p>
+<p><span class="label label-note">예: S(a, b) = a² + ab + 2b² − 4a − 9b, 출발 (3, 4)</span></p>
+<ul>
+<li>a 방향 기울기 (b 고정, a 로만 미분): 2a + b − 4 = <strong>6</strong></li>
+<li>b 방향 기울기 (a 고정, b 로만 미분): a + 4b − 9 = <strong>10</strong></li>
+</ul>
+<p><span class="label label-note">한 모수를 1 옮기면 두 기울기가 함께 바뀜</span></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 30%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">바뀌는 기울기</th>
+<th style="text-align: center;">a 를 1 옮김</th>
+<th style="text-align: center;">b 를 1 옮김</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">a 방향</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">b 방향</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">4</td>
+</tr>
+</tbody>
+</table>
+<p>이 표 = <strong>헤시안 행렬</strong>(Hessian matrix): 기울기의 변화율을 모은 표, 모수 하나일 때 f″ 의 일</p>
+<div class="keypoint teal">
+<p>모수마다 따로 f′ ÷ f″: ab 항 때문에 a 를 옮기면 b 방향 기울기도 바뀜 → 0 이 안 됨</p>
+</div>
+</div><div class="column" style="width:52%;">
+<p><span class="label label-slide">두 기울기를 함께 0 으로: 연립방정식</span></p>
+<p><span class="math display">\[2d_a + d_b = 6, \qquad d_a + 4d_b = 10\]</span></p>
+<p>해 (2, 2), 새 위치 (3, 4) − (2, 2) = (1, 2): 행렬로 쓰면 <span class="math inline">\(\mathbf{H}\mathbf{d} = \nabla S\)</span>, R 의 <code>solve(H, g)</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="" aria-hidden="true" tabindex="-1"></a>grad_ab <span class="ot">&lt;-</span> <span class="cf">function</span>(ab) <span class="fu">c</span>(<span class="dv">2</span> <span class="sc">*</span> ab[<span class="dv">1</span>] <span class="sc">+</span> ab[<span class="dv">2</span>] <span class="sc">-</span> <span class="dv">4</span>,   <span class="co"># a 방향</span></span>
+<span id="cb96-2"><a href="" aria-hidden="true" tabindex="-1"></a>                          ab[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> ab[<span class="dv">2</span>] <span class="sc">-</span> <span class="dv">9</span>)   <span class="co"># b 방향</span></span>
+<span id="cb96-3"><a href="" aria-hidden="true" tabindex="-1"></a>H_ab <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb96-4"><a href="" aria-hidden="true" tabindex="-1"></a>g_ab <span class="ot">&lt;-</span> <span class="fu">grad_ab</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>)); g_ab</span>
+<span id="cb96-5"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="dv">6</span> <span class="dv">10</span></span>
+<span id="cb96-6"><a href="" aria-hidden="true" tabindex="-1"></a>d_both <span class="ot">&lt;-</span> <span class="fu">solve</span>(H_ab, g_ab); d_both     <span class="co"># 함께 풀기</span></span>
+<span id="cb96-7"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">2</span></span>
+<span id="cb96-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">grad_ab</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>) <span class="sc">-</span> d_both)               <span class="co"># 새 위치의 기울기</span></span>
+<span id="cb96-9"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span> <span class="dv">0</span></span>
+<span id="cb96-10"><a href="" aria-hidden="true" tabindex="-1"></a>d_sep <span class="ot">&lt;-</span> g_ab <span class="sc">/</span> <span class="fu">diag</span>(H_ab); d_sep       <span class="co"># 모수마다 따로 나누기</span></span>
+<span id="cb96-11"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.0</span> <span class="fl">2.5</span></span>
+<span id="cb96-12"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">grad_ab</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>) <span class="sc">-</span> d_sep)                <span class="co"># 새 위치의 기울기</span></span>
+<span id="cb96-13"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">2.5</span> <span class="sc">-</span><span class="fl">3.0</span></span></code></pre></div>
+</div>
+</div></div>
+<aside class="notes">
+<p>앞에서 모수가 하나일 때는 기울기 f′ 를 변화율 f″ 로 나눠 갱신량을 얻었습니다. 회귀는 절편과 기울기, 모수가 둘입니다. 이 슬라이드에서 가져갈 것은 하나입니다. 모수가 둘이면 한 모수를 옮길 때 두 기울기가 함께 바뀌므로, 나눗셈 두 번이 아니라 연립방정식을 풀어야 합니다. 그 연립방정식의 계수를 모은 표가 헤시안 행렬입니다.</p>
+<p>예는 S(a, b) 이고 출발점은 (3, 4) 입니다. 모수가 둘이면 기울기도 둘입니다. b 를 고정하고 a 로만 미분한 a 방향 기울기, a 를 고정하고 b 로만 미분한 b 방향 기울기입니다. (3, 4) 에서 각각 6 과 10 이고, 최소점에서는 둘 다 0 이어야 합니다.</p>
+<p>왼쪽 표를 보세요. a 를 1 옮기면 a 방향 기울기는 2, b 방향 기울기는 1 바뀝니다. b 를 1 옮기면 각각 1, 4 바뀝니다. 한 모수만 옮겨도 두 기울기가 함께 바뀝니다. 이 네 숫자를 모은 표가 헤시안 행렬이고, 모수가 하나일 때 f″ 가 하던 일, 기울기의 변화율을 담습니다.</p>
+<p>그래서 오른쪽 위 연립방정식입니다. a 에서 d_a, b 에서 d_b 를 빼서 두 기울기를 동시에 0 으로 만들려면 2 d_a + d_b = 6 과 d_a + 4 d_b = 10 을 함께 풀어야 합니다. 코드 출력에서 해는 (2, 2) 이고, 새 위치 (1, 2) 의 기울기는 (0, 0) 입니다. 이 연립방정식을 행렬로 쓴 것이 H d = ∇S 이고, 5.2 의 newton() 이 나눗셈 대신 solve() 를 쓴 이유입니다.</p>
+<p>틀리기 쉬운 곳은 모수마다 따로 나누는 것입니다. 마지막 두 줄이 그 계산입니다. 6 나누기 2 는 3, 10 나누기 4 는 2.5 이고, 이만큼 빼면 새 위치가 (0, 1.5) 입니다. 그곳의 기울기는 (−2.5, −3) 으로 0 이 아닙니다. S 에 ab 항이 있어 a 를 옮기면 b 방향 기울기도 바뀌는데, 따로 나누면 이 영향을 빼먹기 때문입니다. 왼쪽 아래 상자입니다.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="모수가-둘일-때-기울기-벡터와-헤시안-행렬" class="slide level2 dense">
+<h2><span class="secno">5.4</span> 모수가 둘일 때: 기울기 벡터와 헤시안 행렬</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p>회귀는 절편과 기울기, <strong>모수가 둘</strong>: f′ 와 f″ 자리에 무엇이 오는가</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 18%">
@@ -4387,7 +4524,7 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 <tr class="even">
 <td style="text-align: left;">2계</td>
 <td style="text-align: left;">f″(x): 수 하나</td>
-<td style="text-align: left;">헤세 행렬 H: 2 × 2</td>
+<td style="text-align: left;">헤시안 행렬 H: 2 × 2</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">갱신량</td>
@@ -4399,37 +4536,32 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 <ul>
 <li><strong>편미분</strong>: 다른 모수를 상수로 놓고 한 모수로만 미분</li>
 <li><strong>기울기 벡터</strong>(gradient): 모수마다 편미분한 값을 모은 벡터</li>
-<li><strong>헤세 행렬</strong>(Hessian matrix): 기울기 벡터의 각 성분을 다시 모수마다 편미분한 값을 모은 행렬, 곡면이 <strong>방향마다 휜 정도</strong></li>
+<li><strong>헤시안 행렬</strong>(Hessian matrix): 기울기 벡터의 각 성분을 다시 모수마다 편미분한 값을 모은 행렬, 앞 슬라이드의 기울기 변화율 표, 곡면이 <strong>방향마다 휜 정도</strong></li>
 </ul>
 <div class="keypoint teal">
-<p>오른쪽 예: <strong>한 번의 반복</strong>으로 최소점 (1, 2)<br> S 가 2차 함수라 헤세 행렬이 상수 → 5.5 의 예고</p>
+<p>모수가 둘이면 포물선 대신 <strong>2차 곡면</strong>으로 근사, 그 휜 정도가 헤시안 행렬<br> S 는 원래 2차 함수 → 근사가 정확해 <strong>한 번의 반복</strong>으로 (1, 2), 5.5 의 예고</p>
 </div>
 </div><div class="column" style="width:50%;">
 <p><span class="label label-slide">예: S(a, b) = a² + ab + 2b² − 4a − 9b</span></p>
 <p>∂S/∂a = 2a + b − 4, ∂S/∂b = a + 4b − 9</p>
 <p><span class="math display">\[\mathbf{H} = \begin{pmatrix} 2 &amp; 1 \\ 1 &amp; 4 \end{pmatrix}\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="" aria-hidden="true" tabindex="-1"></a>grad_ab <span class="ot">&lt;-</span> <span class="cf">function</span>(ab) {</span>
-<span id="cb95-2"><a href="" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> ab[<span class="dv">1</span>]; b <span class="ot">&lt;-</span> ab[<span class="dv">2</span>]</span>
-<span id="cb95-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">2</span> <span class="sc">*</span> a <span class="sc">+</span> b <span class="sc">-</span> <span class="dv">4</span>,             <span class="co"># ∂S/∂a</span></span>
-<span id="cb95-4"><a href="" aria-hidden="true" tabindex="-1"></a>    a <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> b <span class="sc">-</span> <span class="dv">9</span>)             <span class="co"># ∂S/∂b</span></span>
-<span id="cb95-5"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb95-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 헤세 행렬: a, b 가 들어 있지 않은 상수 행렬</span></span>
-<span id="cb95-7"><a href="" aria-hidden="true" tabindex="-1"></a>hess_ab <span class="ot">&lt;-</span> <span class="cf">function</span>(ab) <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb95-8"><a href="" aria-hidden="true" tabindex="-1"></a>r_ab <span class="ot">&lt;-</span> <span class="fu">newton</span>(grad_ab, hess_ab, <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
-<span id="cb95-9"><a href="" aria-hidden="true" tabindex="-1"></a>r_ab<span class="sc">$</span>path                      <span class="co"># 0, 1, 2번째 위치</span></span>
-<span id="cb95-10"><a href="" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
-<span id="cb95-11"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">0</span>    <span class="dv">0</span></span>
-<span id="cb95-12"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">1</span>    <span class="dv">2</span></span>
-<span id="cb95-13"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,]    <span class="dv">1</span>    <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 헤시안 행렬: a, b 가 들어 있지 않은 상수 행렬</span></span>
+<span id="cb97-2"><a href="" aria-hidden="true" tabindex="-1"></a>hess_ab <span class="ot">&lt;-</span> <span class="cf">function</span>(ab) <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb97-3"><a href="" aria-hidden="true" tabindex="-1"></a>r_ab <span class="ot">&lt;-</span> <span class="fu">newton</span>(grad_ab, hess_ab, <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))   <span class="co"># grad_ab: 앞 슬라이드</span></span>
+<span id="cb97-4"><a href="" aria-hidden="true" tabindex="-1"></a>r_ab<span class="sc">$</span>path                                   <span class="co"># 0, 1, 2번째 위치</span></span>
+<span id="cb97-5"><a href="" aria-hidden="true" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
+<span id="cb97-6"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">3</span>    <span class="dv">4</span></span>
+<span id="cb97-7"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">1</span>    <span class="dv">2</span></span>
+<span id="cb97-8"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,]    <span class="dv">1</span>    <span class="dv">2</span></span></code></pre></div>
 </div>
 </div></div>
 <aside class="notes">
-<p>5.5 의 회귀로 가기 전에 낱말 두 개를 정리합니다. 이 슬라이드에서 가져갈 것은, 모수가 둘이 되면 f′ 자리에 기울기 벡터가, f″ 자리에 헤세 행렬이 온다는 것입니다.</p>
-<p>왜 필요한지부터 보겠습니다. 5.4 의 f 는 x 하나의 함수라 f′ 와 f″ 가 수 하나였습니다. 그런데 회귀는 절편과 기울기, 모수가 둘입니다. 그러면 미분도 모수마다 따로 해야 합니다. 다른 모수를 상수로 놓고 한 모수로만 미분하는 것을 편미분이라고 합니다. 모수마다 한 번씩 편미분한 값을 모으면 길이 2 인 벡터가 되고, 이것이 기울기 벡터입니다. f′ 의 자리입니다. 기울기 벡터의 두 성분을 다시 각 모수로 편미분하면 숫자 네 개가 나오고, 이것을 2 × 2 로 모은 것이 헤세 행렬입니다. f″ 의 자리입니다. f″ 이 곡선이 휜 정도였듯이, 헤세 행렬은 곡면이 방향마다 휜 정도를 담습니다.</p>
-<p>오른쪽 예로 확인합니다. S(a, b) 를 a 로 편미분할 때는 b 를 상수로 보므로 a² 은 2a, ab 는 b, 4a 는 4 가 되어 2a + b − 4 입니다. b 로 편미분하면 a + 4b − 9 입니다. 2a + b − 4 를 a 로 미분하면 2, b 로 미분하면 1 이고, a + 4b − 9 를 a 로 미분하면 1, b 로 미분하면 4 입니다. 그래서 헤세 행렬의 첫 행이 2, 1, 둘째 행이 1, 4 이고 a, b 가 들어 있지 않습니다.</p>
-<p>이 두 함수를 5.2 의 newton() 에 넣고 (0, 0) 에서 출발합니다. 함수는 고치지 않았습니다. path 의 둘째 줄이 한 번의 반복 뒤 위치로, 최소점 (1, 2) 입니다. 셋째 줄은 갱신량이 0 이라 멈춘 것을 보여 줍니다. S 가 a, b 의 2차 함수라 헤세 행렬이 상수이고, 그래서 한 번의 반복으로 끝납니다. 다음 슬라이드의 회귀도 같은 이유로 한 번에 끝납니다.</p>
-<p>왼쪽 표의 마지막 줄이 점화식의 대응입니다. 모수가 하나일 때는 f′ 를 f″ 으로 나누었습니다. 모수가 둘이면 행렬로 나눌 수 없으므로 연립방정식 H d = ∇S 를 풀어 갱신량 d 를 얻습니다. 5.2 에서 나눗셈 대신 solve() 를 쓴 이유가 이것입니다.</p>
+<p>앞 슬라이드의 생각에 이름을 붙입니다. 이 슬라이드에서 가져갈 것은, 모수가 둘이 되면 f′ 자리에 기울기 벡터가, f″ 자리에 헤시안 행렬이 온다는 것입니다. 왼쪽 위 표가 그 대응입니다.</p>
+<p>다른 모수를 상수로 놓고 한 모수로만 미분하는 것을 편미분이라고 합니다. 앞 슬라이드의 a 방향 기울기, b 방향 기울기가 편미분입니다. 모수마다 편미분한 값을 모은 길이 2 인 벡터가 기울기 벡터입니다. 기울기 벡터의 두 성분을 다시 각 모수로 편미분하면 숫자 네 개가 나오고, 이것을 2 × 2 로 모은 것이 헤시안 행렬입니다. 앞 슬라이드의 기울기 변화율 표와 같은 것입니다. f″ 이 곡선이 휜 정도였듯이, 헤시안 행렬은 곡면이 방향마다 휜 정도를 담습니다.</p>
+<p>오른쪽 예로 확인합니다. S(a, b) 를 a 로 편미분할 때는 b 를 상수로 보므로 a² 은 2a, ab 는 b, 4a 는 4 가 되어 2a + b − 4 입니다. b 로 편미분하면 a + 4b − 9 입니다. 2a + b − 4 를 a 로 미분하면 2, b 로 미분하면 1 이고, a + 4b − 9 를 a 로 미분하면 1, b 로 미분하면 4 입니다. 그래서 헤시안 행렬의 첫 행이 2, 1, 둘째 행이 1, 4 이고 a, b 가 들어 있지 않습니다.</p>
+<p>코드는 앞 슬라이드의 grad_ab 와 헤시안 행렬을 돌려주는 hess_ab 를 5.2 의 newton() 에 넣고 (3, 4) 에서 출발합니다. newton() 은 고치지 않았습니다. path 의 둘째 줄이 한 번의 반복 뒤 위치로, 최소점 (1, 2) 입니다. 앞 슬라이드에서 연립방정식을 풀어 얻은 위치와 같습니다. 셋째 줄은 갱신량이 0 이라 멈춘 것을 보여 줍니다.</p>
+<p>왜 한 번에 끝날까요. 왼쪽 아래 상자입니다. 모수가 하나일 때는 포물선으로 근사했지요. 모수가 둘이면 2차 곡면으로 근사하고, 그 곡면의 휜 정도를 정하는 것이 헤시안 행렬입니다. S 는 원래 a, b 의 2차 함수라 근사가 정확하므로 한 번의 반복으로 끝납니다. 다음 슬라이드의 회귀도 같은 이유로 한 번에 끝납니다.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -4453,28 +4585,28 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 <p>점화식에 대입하면 초기값이 <strong>소거</strong>됨</p>
 <p><span class="math display">\[\boldsymbol\beta_1 = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{y}\]</span></p>
 <div class="keypoint">
-<p><strong>정규방정식</strong> <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\boldsymbol\beta = \mathbf{X}^\top\mathbf{y}\)</span> 의 해: S 가 2차 함수이므로 <strong>한 번의 반복</strong>으로 끝남</p>
+<p><strong>정규방정식</strong> <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\boldsymbol\beta = \mathbf{X}^\top\mathbf{y}\)</span> 의 해: 잔차제곱합은 원래 <strong>2차 곡면</strong>이라 근사가 정확해 <strong>한 번의 반복</strong>으로 끝남</p>
 </div>
 </div><div class="column" style="width:56%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, mtcars<span class="sc">$</span>wt)                 <span class="co"># 첫 열 = 절편</span></span>
-<span id="cb96-2"><a href="" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg</span>
-<span id="cb96-3"><a href="" aria-hidden="true" tabindex="-1"></a>grad_S <span class="ot">&lt;-</span> <span class="cf">function</span>(b) <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> (y <span class="sc">-</span> X <span class="sc">%*%</span> b)</span>
-<span id="cb96-4"><a href="" aria-hidden="true" tabindex="-1"></a>hess_S <span class="ot">&lt;-</span> <span class="cf">function</span>(b) <span class="dv">2</span> <span class="sc">*</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> X     <span class="co"># b 가 없다</span></span>
-<span id="cb96-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">hess_S</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))                          <span class="co"># 헤세 행렬의 숫자</span></span>
-<span id="cb96-6"><a href="" aria-hidden="true" tabindex="-1"></a>        [,<span class="dv">1</span>]     [,<span class="dv">2</span>]</span>
-<span id="cb96-7"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]  <span class="fl">64.000</span> <span class="fl">205.9040</span></span>
-<span id="cb96-8"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="fl">205.904</span> <span class="fl">721.8021</span></span>
-<span id="cb96-9"><a href="" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">newton</span>(grad_S, hess_S, <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
-<span id="cb96-10"><a href="" aria-hidden="true" tabindex="-1"></a>r<span class="sc">$</span>path                                   <span class="co"># 0, 1, 2번째 위치</span></span>
-<span id="cb96-11"><a href="" aria-hidden="true" tabindex="-1"></a>         [,<span class="dv">1</span>]      [,<span class="dv">2</span>]</span>
-<span id="cb96-12"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]  <span class="fl">0.00000</span>  <span class="fl">0.000000</span></span>
-<span id="cb96-13"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="fl">37.28513</span> <span class="sc">-</span><span class="fl">5.344472</span></span>
-<span id="cb96-14"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,] <span class="fl">37.28513</span> <span class="sc">-</span><span class="fl">5.344472</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, mtcars<span class="sc">$</span>wt)                 <span class="co"># 첫 열 = 절편</span></span>
+<span id="cb98-2"><a href="" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg</span>
+<span id="cb98-3"><a href="" aria-hidden="true" tabindex="-1"></a>grad_S <span class="ot">&lt;-</span> <span class="cf">function</span>(b) <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> (y <span class="sc">-</span> X <span class="sc">%*%</span> b)</span>
+<span id="cb98-4"><a href="" aria-hidden="true" tabindex="-1"></a>hess_S <span class="ot">&lt;-</span> <span class="cf">function</span>(b) <span class="dv">2</span> <span class="sc">*</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> X     <span class="co"># b 가 없다</span></span>
+<span id="cb98-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">hess_S</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))                          <span class="co"># 헤시안 행렬의 숫자</span></span>
+<span id="cb98-6"><a href="" aria-hidden="true" tabindex="-1"></a>        [,<span class="dv">1</span>]     [,<span class="dv">2</span>]</span>
+<span id="cb98-7"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]  <span class="fl">64.000</span> <span class="fl">205.9040</span></span>
+<span id="cb98-8"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="fl">205.904</span> <span class="fl">721.8021</span></span>
+<span id="cb98-9"><a href="" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">newton</span>(grad_S, hess_S, <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb98-10"><a href="" aria-hidden="true" tabindex="-1"></a>r<span class="sc">$</span>path                                   <span class="co"># 0, 1, 2번째 위치</span></span>
+<span id="cb98-11"><a href="" aria-hidden="true" tabindex="-1"></a>         [,<span class="dv">1</span>]      [,<span class="dv">2</span>]</span>
+<span id="cb98-12"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]  <span class="fl">0.00000</span>  <span class="fl">0.000000</span></span>
+<span id="cb98-13"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="fl">37.28513</span> <span class="sc">-</span><span class="fl">5.344472</span></span>
+<span id="cb98-14"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,] <span class="fl">37.28513</span> <span class="sc">-</span><span class="fl">5.344472</span></span></code></pre></div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)          wt 
   37.285126   -5.344472 </code></pre>
@@ -4485,10 +4617,10 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 </div></div>
 <aside class="notes">
 <p>이제 통계 문제입니다. mtcars 에서 연비 mpg 를 차량 중량 wt 의 직선으로 나타내는 단순선형회귀입니다. wt 의 단위는 1,000 파운드입니다. 최소제곱은 잔차제곱합을 최소로 만드는 계수를 찾는 겁니다. 행렬로 쓰면 왼쪽 위 식이고, X 는 첫 열이 전부 1 인 행렬입니다. 절편 때문입니다.</p>
-<p>모수가 절편과 기울기 둘이므로 앞 슬라이드처럼 기울기 벡터와 헤세 행렬이 필요합니다. 그 아래 두 식은 S 를 정의대로 편미분한 결과이고, 유도는 생략합니다. 오른쪽 코드에서 이 두 식을 그대로 함수 grad_S 와 hess_S 로 옮겼습니다. hess_S(c(0, 0)) 의 출력이 헤세 행렬의 실제 숫자입니다. 2 × 2 이고, 첫 칸 64 는 자료 32 개에 2 를 곱한 값입니다. 2X’X 에는 베타가 들어 있지 않으므로 어느 위치에서 계산해도 같은 숫자입니다. 그래서 hess_S 는 인수 b 를 받기만 하고 쓰지 않습니다.</p>
+<p>모수가 절편과 기울기 둘이므로 앞 슬라이드처럼 기울기 벡터와 헤시안 행렬이 필요합니다. 그 아래 두 식은 S 를 정의대로 편미분한 결과이고, 유도는 생략합니다. 오른쪽 코드에서 이 두 식을 그대로 함수 grad_S 와 hess_S 로 옮겼습니다. hess_S(c(0, 0)) 의 출력이 헤시안 행렬의 실제 숫자입니다. 2 × 2 이고, 첫 칸 64 는 자료 32 개에 2 를 곱한 값입니다. 2X’X 에는 베타가 들어 있지 않으므로 어느 위치에서 계산해도 같은 숫자입니다. 그래서 hess_S 는 인수 b 를 받기만 하고 쓰지 않습니다.</p>
 <p>그리고 5.2 의 newton() 에서 f 자리에 grad_S, fp 자리에 hess_S 를 넣고 (0, 0) 에서 출발합니다. 함수는 한 줄도 고치지 않았습니다. solve() 가 2×2 연립방정식을 풉니다. r$path 를 보세요. 첫 줄이 출발점 (0, 0), 둘째 줄이 한 번의 반복 뒤 37.29, -5.34, 셋째 줄도 같습니다. 한 번의 반복으로 도착했고, 두 번째 반복은 갱신량의 크기가 0 에 가까워 수렴 조건으로 멈췄습니다.</p>
 <p>(클릭) lm() 과 대조하면 같습니다. 기울기 -5.34 는 차량 중량이 1,000 파운드 늘 때 연비가 약 5.3 마일/갤런 줄어든다는 뜻입니다.</p>
-<p>왜 한 번의 반복일까요? 왼쪽 가운데. 점화식에 대입하면 초기값이 지워지고 (X’X)⁻¹X’y 만 남습니다. 회귀분석에서 배우는 최소제곱추정량 공식, 정규방정식의 해 그대로입니다. 잔차제곱합이 베타의 2차 함수라서 그렇습니다. 앞 슬라이드의 S(a, b) 와 같은 이유입니다. 뉴턴-랩슨은 반복마다 함수를 2차 함수로 근사하는데, 원래 함수가 2차 함수면 근사한 함수가 원래 함수와 같으므로 한 번의 반복으로 최소점에 닿습니다.</p>
+<p>왜 한 번의 반복일까요? 왼쪽 가운데. 점화식에 대입하면 초기값이 지워지고 (X’X)⁻¹X’y 만 남습니다. 회귀분석에서 배우는 최소제곱추정량 공식, 정규방정식의 해 그대로입니다. 잔차제곱합이 베타의 2차 함수, 곧 원래 2차 곡면이라서 그렇습니다. 앞 슬라이드의 S(a, b) 와 같은 이유입니다. 뉴턴-랩슨은 반복마다 함수를 2차 곡면으로 근사하는데, 원래 함수가 2차 곡면이면 근사한 곡면이 원래 함수와 같으므로 한 번의 반복으로 최소점에 닿습니다.</p>
 <p>그러니까 여러분이 배운 정규방정식은, 뉴턴-랩슨이 한 번의 반복으로 끝나는 특별한 경우라고 볼 수 있습니다. 참고로 lm()은 정규방정식을 그대로 풀지 않고 QR 분해를 씁니다. X’X 를 직접 만들어 풀 때보다 반올림 오차가 작습니다.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -4502,8 +4634,8 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
           display:block!important;
       }</style></aside>
 </section>
-<section id="로지스틱-회귀-모형-기울기-벡터-헤세-행렬" class="slide level2">
-<h2><span class="secno">5.6</span> 로지스틱 회귀: 모형, 기울기 벡터, 헤세 행렬</h2>
+<section id="로지스틱-회귀-모형-기울기-벡터-헤시안-행렬" class="slide level2">
+<h2><span class="secno">5.6</span> 로지스틱 회귀: 모형, 기울기 벡터, 헤시안 행렬</h2>
 <div class="columns">
 <div class="column" style="width:52%;">
 <p><code>am</code>: 자동 0, 수동 1 → 수동 변속기일 확률이 차량 중량에 따라 달라지는 정도를 식으로 나타냄</p>
@@ -4513,7 +4645,7 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 <p>정의대로 편미분한 결과 (유도 생략)</p>
 <p><span class="math display">\[\nabla\ell = \mathbf{X}^\top(\mathbf{y} - \mathbf{p}), \quad \mathbf{H} = -\mathbf{X}^\top\mathbf{W}\mathbf{X}\]</span></p>
 <div class="keypoint">
-<p>5.5 의 <span class="math inline">\(2\mathbf{X}^\top\mathbf{X}\)</span> 와 같은 모양에 <span class="math inline">\(\mathbf{W}\)</span> 가 끼어듦<br> <span class="math inline">\(\mathbf{W}\)</span> 안에 <span class="math inline">\(p_i\)</span> 가 있음 → 반복마다 <span class="math inline">\(\mathbf{H}\)</span> 의 숫자가 바뀜 → <strong>반복 필요</strong></p>
+<p>5.5 의 <span class="math inline">\(2\mathbf{X}^\top\mathbf{X}\)</span> 와 같은 모양에 <span class="math inline">\(\mathbf{W}\)</span> 가 끼어듦<br> <span class="math inline">\(\mathbf{W}\)</span> 안에 <span class="math inline">\(p_i\)</span> 가 있음 → 반복마다 <span class="math inline">\(\mathbf{H}\)</span> 의 숫자가 바뀜 → 반복마다 <strong>2차 곡면 근사를 다시</strong> 함</p>
 </div>
 </div><div class="column" style="width:48%;">
 <p><span class="label label-slide">W 의 형태: n × n 대각행렬, mtcars 는 32 × 32</span></p>
@@ -4527,9 +4659,9 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 </div></div>
 <aside class="notes">
 <p>이번엔 반응변수가 0 아니면 1 인 경우입니다. 합격과 불합격, 발병 여부 같은 것이지요. mtcars 의 am 은 자동 변속기면 0, 수동이면 1 입니다. 로지스틱 회귀모형은 수동 변속기일 확률이 차량 중량에 따라 달라지는 정도를 식으로 나타냅니다. 위의 식처럼 확률을 S자 곡선으로 놓고, 계수는 로그가능도를 최대로 만드는 값으로 정합니다.</p>
-<p>기울기 벡터와 헤세 행렬은 5.5 처럼 정의대로 편미분한 결과만 적었습니다. 헤세 행렬 -X’WX 는 5.5 의 2X’X 와 같은 모양이고, 가운데에 W 가 끼어 있습니다. 이 W 가 이 슬라이드의 중심입니다.</p>
+<p>기울기 벡터와 헤시안 행렬은 5.5 처럼 정의대로 편미분한 결과만 적었습니다. 헤시안 행렬 -X’WX 는 5.5 의 2X’X 와 같은 모양이고, 가운데에 W 가 끼어 있습니다. 이 W 가 이 슬라이드의 중심입니다.</p>
 <p>오른쪽이 W 의 형태입니다. W 는 n 행 n 열의 대각행렬입니다. 대각선의 i 번째 원소가 w_i 이고, 나머지 원소는 모두 0 입니다. mtcars 는 자동차가 32 대라 32 × 32 입니다. w_i 는 i 번째 자동차의 p_i 곱하기 1 빼기 p_i 입니다. 이 값은 0 또는 1 인 반응의 분산입니다. p 가 0.5 일 때 0.25 로 가장 크고, p 가 0 이나 1 에 가까우면 0 에 가깝습니다. 출발점 (0, 0) 에서는 모든 p 가 0.5 이므로 W 는 0.25 곱하기 단위행렬입니다.</p>
-<p>왼쪽 아래 상자. 5.5 의 회귀와 다른 점은 헤세 행렬 안에 p 가 있다는 것입니다. p 는 계수의 함수이므로, 계수가 바뀌는 반복마다 헤세 행렬의 숫자가 바뀝니다. 그래서 한 번의 반복으로 끝나지 않고, 정규방정식처럼 한 번에 계산하는 공식도 없습니다. 다음 슬라이드에서 그 숫자를 직접 봅니다.</p>
+<p>왼쪽 아래 상자. 5.5 의 회귀와 다른 점은 헤시안 행렬 안에 p 가 있다는 것입니다. p 는 계수의 함수이므로, 계수가 바뀌는 반복마다 헤시안 행렬의 숫자가 바뀝니다. 곧 2차 곡면으로 근사한 모양이 반복마다 달라지므로, 반복할 때마다 그 자리에서 근사를 다시 합니다. 그래서 한 번의 반복으로 끝나지 않고, 정규방정식처럼 한 번에 계산하는 공식도 없습니다. 다음 슬라이드에서 그 숫자를 직접 봅니다.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -4548,50 +4680,50 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 <div class="column" style="width:55%;">
 <p><span class="label label-note">W 를 만들지 않는 이유: WX 는 X 의 각 행에 대각 원소를 곱한 것</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="" aria-hidden="true" tabindex="-1"></a>X3 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">3</span>)            <span class="co"># 3 × 2</span></span>
-<span id="cb99-2"><a href="" aria-hidden="true" tabindex="-1"></a>w3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>)                 <span class="co"># W 의 대각 원소</span></span>
-<span id="cb99-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">diag</span>(w3) <span class="sc">%*%</span> X3, X3 <span class="sc">*</span> w3)</span>
-<span id="cb99-4"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="" aria-hidden="true" tabindex="-1"></a>X3 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">3</span>)            <span class="co"># 3 × 2</span></span>
+<span id="cb101-2"><a href="" aria-hidden="true" tabindex="-1"></a>w3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>)                 <span class="co"># W 의 대각 원소</span></span>
+<span id="cb101-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">diag</span>(w3) <span class="sc">%*%</span> X3, X3 <span class="sc">*</span> w3)</span>
+<span id="cb101-4"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span></code></pre></div>
 </div>
-<p><span class="label label-slide">기울기와 헤세 행렬만 새로 작성</span></p>
+<p><span class="label label-slide">기울기와 헤시안 행렬만 새로 작성</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="" aria-hidden="true" tabindex="-1"></a>am <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>am</span>
-<span id="cb100-2"><a href="" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="cf">function</span>(b) <span class="fu">as.vector</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>X <span class="sc">%*%</span> b)))</span>
-<span id="cb100-3"><a href="" aria-hidden="true" tabindex="-1"></a>grad_l <span class="ot">&lt;-</span> <span class="cf">function</span>(b) <span class="fu">t</span>(X) <span class="sc">%*%</span> (am <span class="sc">-</span> <span class="fu">prob</span>(b))      <span class="co"># 기울기 벡터</span></span>
-<span id="cb100-4"><a href="" aria-hidden="true" tabindex="-1"></a>hess_l <span class="ot">&lt;-</span> <span class="cf">function</span>(b) {                            <span class="co"># 헤세 행렬</span></span>
-<span id="cb100-5"><a href="" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">prob</span>(b)</span>
-<span id="cb100-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="sc">-</span><span class="fu">t</span>(X) <span class="sc">%*%</span> (X <span class="sc">*</span> (p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p)))   <span class="co"># X * w = WX, 32 × 32 W 없이</span></span>
-<span id="cb100-7"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb100-8"><a href="" aria-hidden="true" tabindex="-1"></a>r_logit <span class="ot">&lt;-</span> <span class="fu">newton</span>(grad_l, hess_l, <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
-<span id="cb100-9"><a href="" aria-hidden="true" tabindex="-1"></a>r_logit<span class="sc">$</span>x</span>
-<span id="cb100-10"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">12.04037</span> <span class="sc">-</span><span class="fl">4.02397</span></span>
-<span id="cb100-11"><a href="" aria-hidden="true" tabindex="-1"></a>r_logit<span class="sc">$</span>iter</span>
-<span id="cb100-12"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">8</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="" aria-hidden="true" tabindex="-1"></a>am <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>am</span>
+<span id="cb102-2"><a href="" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="cf">function</span>(b) <span class="fu">as.vector</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>X <span class="sc">%*%</span> b)))</span>
+<span id="cb102-3"><a href="" aria-hidden="true" tabindex="-1"></a>grad_l <span class="ot">&lt;-</span> <span class="cf">function</span>(b) <span class="fu">t</span>(X) <span class="sc">%*%</span> (am <span class="sc">-</span> <span class="fu">prob</span>(b))      <span class="co"># 기울기 벡터</span></span>
+<span id="cb102-4"><a href="" aria-hidden="true" tabindex="-1"></a>hess_l <span class="ot">&lt;-</span> <span class="cf">function</span>(b) {                            <span class="co"># 헤시안 행렬</span></span>
+<span id="cb102-5"><a href="" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">prob</span>(b)</span>
+<span id="cb102-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="sc">-</span><span class="fu">t</span>(X) <span class="sc">%*%</span> (X <span class="sc">*</span> (p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p)))   <span class="co"># X * w = WX, 32 × 32 W 없이</span></span>
+<span id="cb102-7"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb102-8"><a href="" aria-hidden="true" tabindex="-1"></a>r_logit <span class="ot">&lt;-</span> <span class="fu">newton</span>(grad_l, hess_l, <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb102-9"><a href="" aria-hidden="true" tabindex="-1"></a>r_logit<span class="sc">$</span>x</span>
+<span id="cb102-10"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">12.04037</span> <span class="sc">-</span><span class="fl">4.02397</span></span>
+<span id="cb102-11"><a href="" aria-hidden="true" tabindex="-1"></a>r_logit<span class="sc">$</span>iter</span>
+<span id="cb102-12"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">8</span></span></code></pre></div>
 </div>
 </div><div class="column" style="width:45%;">
 <p><span class="label">H 의 숫자: 첫째, 둘째 반복의 위치에서</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">hess_l</span>(r_logit<span class="sc">$</span>path[<span class="dv">1</span>, ])   <span class="co"># (0, 0)</span></span>
-<span id="cb101-2"><a href="" aria-hidden="true" tabindex="-1"></a>        [,<span class="dv">1</span>]      [,<span class="dv">2</span>]</span>
-<span id="cb101-3"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]  <span class="sc">-</span><span class="fl">8.000</span> <span class="sc">-</span><span class="fl">25.73800</span></span>
-<span id="cb101-4"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="sc">-</span><span class="fl">25.738</span> <span class="sc">-</span><span class="fl">90.22527</span></span>
-<span id="cb101-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">hess_l</span>(r_logit<span class="sc">$</span>path[<span class="dv">2</span>, ])   <span class="co"># (4.17, −1.41)</span></span>
-<span id="cb101-6"><a href="" aria-hidden="true" tabindex="-1"></a>           [,<span class="dv">1</span>]      [,<span class="dv">2</span>]</span>
-<span id="cb101-7"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]  <span class="sc">-</span><span class="fl">5.959612</span> <span class="sc">-</span><span class="fl">18.39803</span></span>
-<span id="cb101-8"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="sc">-</span><span class="fl">18.398026</span> <span class="sc">-</span><span class="fl">59.63112</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">hess_l</span>(r_logit<span class="sc">$</span>path[<span class="dv">1</span>, ])   <span class="co"># (0, 0)</span></span>
+<span id="cb103-2"><a href="" aria-hidden="true" tabindex="-1"></a>        [,<span class="dv">1</span>]      [,<span class="dv">2</span>]</span>
+<span id="cb103-3"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]  <span class="sc">-</span><span class="fl">8.000</span> <span class="sc">-</span><span class="fl">25.73800</span></span>
+<span id="cb103-4"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="sc">-</span><span class="fl">25.738</span> <span class="sc">-</span><span class="fl">90.22527</span></span>
+<span id="cb103-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">hess_l</span>(r_logit<span class="sc">$</span>path[<span class="dv">2</span>, ])   <span class="co"># (4.17, −1.41)</span></span>
+<span id="cb103-6"><a href="" aria-hidden="true" tabindex="-1"></a>           [,<span class="dv">1</span>]      [,<span class="dv">2</span>]</span>
+<span id="cb103-7"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,]  <span class="sc">-</span><span class="fl">5.959612</span> <span class="sc">-</span><span class="fl">18.39803</span></span>
+<span id="cb103-8"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="sc">-</span><span class="fl">18.398026</span> <span class="sc">-</span><span class="fl">59.63112</span></span></code></pre></div>
 </div>
 <p><span class="label">수렴한 계수에서 대각 원소 p(1 − p), 앞 여섯 대</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="" aria-hidden="true" tabindex="-1"></a>p_hat <span class="ot">&lt;-</span> <span class="fu">prob</span>(r_logit<span class="sc">$</span>x)</span>
-<span id="cb102-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">head</span>(p_hat <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p_hat)), <span class="dv">4</span>)</span>
-<span id="cb102-3"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1494</span> <span class="fl">0.2366</span> <span class="fl">0.0588</span> <span class="fl">0.2058</span> <span class="fl">0.1215</span> <span class="fl">0.1146</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="" aria-hidden="true" tabindex="-1"></a>p_hat <span class="ot">&lt;-</span> <span class="fu">prob</span>(r_logit<span class="sc">$</span>x)</span>
+<span id="cb104-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">head</span>(p_hat <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p_hat)), <span class="dv">4</span>)</span>
+<span id="cb104-3"><a href="" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1494</span> <span class="fl">0.2366</span> <span class="fl">0.0588</span> <span class="fl">0.2058</span> <span class="fl">0.1215</span> <span class="fl">0.1146</span></span></code></pre></div>
 </div>
 </div></div>
 <aside class="notes">
-<p>앞 슬라이드의 식을 코드로 옮깁니다. 이 슬라이드에서 가져갈 것은 둘입니다. 식의 W 를 코드에서는 만들지 않는다는 것, 그리고 헤세 행렬의 숫자가 반복마다 바뀐다는 것입니다.</p>
+<p>앞 슬라이드의 식을 코드로 옮깁니다. 이 슬라이드에서 가져갈 것은 둘입니다. 식의 W 를 코드에서는 만들지 않는다는 것, 그리고 헤시안 행렬의 숫자가 반복마다 바뀐다는 것입니다.</p>
 <p>왼쪽 위. W 는 대각선 밖이 0 이므로, W 에 X 를 곱하면 X 의 i 번째 행에 w_i 를 곱한 것과 같습니다. 3 × 2 행렬과 길이 3 벡터로 확인했습니다. diag() 로 대각행렬을 만들어 곱한 결과와 X3 * w3 처럼 벡터를 곱한 결과가 같아 TRUE 입니다. R 은 행렬에 길이가 행 수와 같은 벡터를 곱하면 열을 따라 되풀이해 곱하므로, i 번째 행 전체에 w_i 가 곱해집니다. 그래서 hess_l 은 32 × 32 행렬을 만들지 않고 X * (p * (1 - p)) 를 씁니다. 원소 1,024 개 가운데 0 이 아닌 32 개만 쓰는 셈입니다.</p>
 <p>왼쪽 아래 코드에서 새로 쓴 것은 세 함수뿐입니다. prob 은 계수 b 에서 확률 p 를 계산하고, grad_l 과 hess_l 은 앞 슬라이드의 두 식을 옮긴 것입니다. 반복은 newton() 의 for 문이 맡습니다. 결과는 12.04 와 -4.02, 8번 반복했습니다. 최대 반복 50 번보다 작으니 수렴 조건으로 멈춘 것입니다.</p>
-<p>오른쪽 위가 헤세 행렬이 바뀌는 모습입니다. 첫째 반복의 위치 (0, 0) 에서는 모든 p 가 0.5 라 W 가 0.25 곱하기 단위행렬이고, 헤세 행렬은 -8, -25.7, -90.2 입니다. 5.5 의 hess_S 숫자 64, 205.9, 721.8 에 -1/8 을 곱한 값입니다. 2X’X 와 -0.25 X’X 의 차이입니다. 둘째 반복의 위치 (4.17, -1.41) 에서는 p 가 자동차마다 달라져 -5.96, -18.4, -59.6 으로 바뀝니다. 5.5 의 회귀는 헤세 행렬이 늘 같아서 한 번의 반복으로 끝났고, 여기서는 반복마다 바뀌므로 여러 번 반복합니다.</p>
+<p>오른쪽 위가 헤시안 행렬이 바뀌는 모습입니다. 첫째 반복의 위치 (0, 0) 에서는 모든 p 가 0.5 라 W 가 0.25 곱하기 단위행렬이고, 헤시안 행렬은 -8, -25.7, -90.2 입니다. 5.5 의 hess_S 숫자 64, 205.9, 721.8 에 -1/8 을 곱한 값입니다. 2X’X 와 -0.25 X’X 의 차이입니다. 둘째 반복의 위치 (4.17, -1.41) 에서는 p 가 자동차마다 달라져 -5.96, -18.4, -59.6 으로 바뀝니다. 5.5 의 회귀는 헤시안 행렬이 늘 같아서 한 번의 반복으로 끝났고, 여기서는 반복마다 바뀌므로 여러 번 반복합니다.</p>
 <p>오른쪽 아래는 수렴한 계수에서 계산한 w_i 입니다. 앞 여섯 대가 0.1494, 0.2366, 0.0588, 0.2058, 0.1215, 0.1146 으로 모두 0.25 보다 작습니다. 수동 변속기일 확률이 0.5 에서 먼 차일수록 w_i 가 작습니다. 세 번째 차는 확률이 0.94 라 w_i 가 0.0588 입니다.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -4692,9 +4824,9 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 </div>
 </div><div class="column" style="width:44%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(am <span class="sc">~</span> wt, <span class="at">family =</span> binomial,</span>
-<span id="cb103-2"><a href="" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> mtcars)</span>
-<span id="cb103-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(am <span class="sc">~</span> wt, <span class="at">family =</span> binomial,</span>
+<span id="cb105-2"><a href="" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> mtcars)</span>
+<span id="cb105-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit)</span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -4726,12 +4858,12 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
           display:block!important;
       }</style></aside>
 </section>
-<section id="경사하강법-헤세-행렬-없이-기울기만으로" class="slide level2">
-<h2><span class="secno">5.7</span> 경사하강법: 헤세 행렬 없이 기울기만으로</h2>
+<section id="경사하강법-헤시안-행렬-없이-기울기만으로" class="slide level2">
+<h2><span class="secno">5.7</span> 경사하강법: 헤시안 행렬 없이 기울기만으로</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><span class="label">뉴턴-랩슨에 드는 것</span></p>
-<p>반복마다 <strong>헤세 행렬</strong>을 만들고 연립방정식 <span class="math inline">\(\mathbf{H}\mathbf{d} = \nabla f\)</span> 풀기</p>
+<p>반복마다 <strong>헤시안 행렬</strong>을 만들고 연립방정식 <span class="math inline">\(\mathbf{H}\mathbf{d} = \nabla f\)</span> 풀기</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 40%">
@@ -4741,7 +4873,7 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 <thead>
 <tr class="header">
 <th style="text-align: left;">모수 개수</th>
-<th style="text-align: right;">헤세 행렬 원소 수</th>
+<th style="text-align: right;">헤시안 원소 수</th>
 <th style="text-align: right;">메모리</th>
 </tr>
 </thead>
@@ -4766,13 +4898,13 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 <p><span class="tiny">메모리: 원소 하나에 8바이트로 계산</span></p>
 <p>모형이 복잡하면 2계 도함수를 식으로 구하는 일부터 어려움</p>
 <div class="keypoint teal">
-<p>LLM 의 모수는 수십억 개 이상: 헤세 행렬을 저장할 수 없음<br> <strong>헤세 행렬 없이 기울기 벡터만으로</strong> 최소점에 갈 수 있는가?</p>
+<p>LLM 의 모수는 수십억 개 이상: 헤시안 행렬을 저장할 수 없음<br> <strong>헤시안 행렬 없이 기울기 벡터만으로</strong> 최소점에 갈 수 있는가?</p>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="fragment">
 <p><span class="label label-slide">생각</span></p>
 <p>기울기 벡터의 <strong>반대 방향</strong>: 그 자리에서 함숫값이 가장 빨리 줄어드는 방향</p>
-<p>방향은 기울기에서 얻음, <strong>얼마나 갈지</strong>는 기울기만으로 정해지지 않음 → 기울기에 곱할 수 <span class="math inline">\(\eta\)</span> 를 사람이 정함</p>
+<p>방향은 기울기에서 얻음, <strong>얼마나 갈지</strong>는 헤시안 행렬이 정하던 것 → 헤시안 행렬이 없으면 알 수 없어 기울기에 곱할 수 <span class="math inline">\(\eta\)</span> 를 사람이 정함</p>
 <p><span class="math display">\[\boldsymbol\beta \leftarrow \boldsymbol\beta - \eta\,\nabla f(\boldsymbol\beta)\]</span></p>
 <p><span class="math inline">\(\eta\)</span>: <strong>학습률(learning rate)</strong>, 갱신량 <span class="math inline">\(\eta\,\nabla f\)</span> 는 기울기에 따라 반복마다 달라짐</p>
 <div class="keypoint">
@@ -4782,9 +4914,9 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 </div></div>
 <aside class="notes">
 <p>5.7 은 뉴턴-랩슨과 다른 방법 하나를 소개합니다. 왜 다른 방법이 필요한지부터 보겠습니다.</p>
-<p>뉴턴-랩슨은 반복마다 헤세 행렬을 만들고 연립방정식을 풉니다. 모수가 p 개면 헤세 행렬의 원소는 p 의 제곱 개입니다. 5.6 의 로지스틱 회귀는 모수가 둘이라 원소 4 개, 32 바이트면 됩니다. 표의 아래 두 줄을 보세요. 모수가 1,000 개면 원소가 100만 개, 8 메가바이트입니다. 모수가 10억 개면 원소가 10의 18승 개, 8 엑사바이트라 메모리에 담을 수 없습니다. 여러분이 쓰는 LLM 은 모수가 수십억 개가 넘습니다. 게다가 모형이 복잡하면 2계 도함수를 식으로 구하는 일부터 어렵습니다.</p>
-<p>그래서 아래 상자의 질문입니다. 헤세 행렬 없이 기울기 벡터만으로 최소점에 갈 수 있는가.</p>
-<p>(클릭) 기울기 벡터는 그 자리에서 함숫값이 가장 빨리 커지는 방향을 가리킵니다. 그러니 그 반대 방향이 가장 빨리 줄어드는 방향입니다. 방향은 이렇게 기울기에서 얻습니다. 그런데 그 방향으로 얼마나 갈지는 기울기만으로 정해지지 않습니다. 뉴턴-랩슨에서는 헤세 행렬이 그것을 정했지요. 그래서 기울기에 곱할 수 에타를 사람이 정합니다. 에타를 학습률이라고 부르고, 이 방법을 경사하강법이라고 합니다. 사람이 정하는 것은 에타 하나입니다. 갱신량은 에타 곱하기 기울기라서, 기울기가 바뀌면 반복마다 달라집니다.</p>
+<p>뉴턴-랩슨은 반복마다 헤시안 행렬을 만들고 연립방정식을 풉니다. 모수가 p 개면 헤시안 행렬의 원소는 p 의 제곱 개입니다. 5.6 의 로지스틱 회귀는 모수가 둘이라 원소 4 개, 32 바이트면 됩니다. 표의 아래 두 줄을 보세요. 모수가 1,000 개면 원소가 100만 개, 8 메가바이트입니다. 모수가 10억 개면 원소가 10의 18승 개, 8 엑사바이트라 메모리에 담을 수 없습니다. 여러분이 쓰는 LLM 은 모수가 수십억 개가 넘습니다. 게다가 모형이 복잡하면 2계 도함수를 식으로 구하는 일부터 어렵습니다.</p>
+<p>그래서 아래 상자의 질문입니다. 헤시안 행렬 없이 기울기 벡터만으로 최소점에 갈 수 있는가.</p>
+<p>(클릭) 기울기 벡터는 그 자리에서 함숫값이 가장 빨리 커지는 방향을 가리킵니다. 그러니 그 반대 방향이 가장 빨리 줄어드는 방향입니다. 방향은 이렇게 기울기에서 얻습니다. 그런데 그 방향으로 얼마나 갈지는 기울기만으로 정해지지 않습니다. 5.4 에서 f″ 가, 모수가 둘일 때는 헤시안 행렬이 그것을 정했지요. 헤시안 행렬이 없으면 얼마나 갈지를 알 수 없습니다. 그래서 기울기에 곱할 수 에타를 사람이 정합니다. 에타를 학습률이라고 부르고, 이 방법을 경사하강법이라고 합니다. 사람이 정하는 것은 에타 하나입니다. 갱신량은 에타 곱하기 기울기라서, 기울기가 바뀌면 반복마다 달라집니다.</p>
 <p>아래 상자는 비유입니다. 짙은 안개가 낀 산에서 골짜기로 내려간다고 해 봅시다. 멀리는 안 보이고 발밑의 경사만 느껴집니다. 가장 가파르게 내려가는 쪽으로 한 걸음 옮기고, 그 자리에서 다시 경사를 느껴 내려갈 쪽을 정합니다. 이 비유에서 발밑의 경사가 기울기 벡터이고, 한 걸음의 길이가 갱신량입니다.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -4824,7 +4956,7 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 <aside class="notes">
 <p>앞 슬라이드의 생각을 그림으로 확인합니다. 두 방법은 갱신량을 계산하는 방법이 다릅니다.</p>
 <p>그림은 5.4 에서 극값을 찾았던 3차 함수입니다. 오른쪽 위 3.5 에서 출발해 아래쪽 극소점 2.165 를 찾습니다.</p>
-<p>왼쪽이 뉴턴-랩슨입니다. 출발점에서 함숫값, 기울기, 2계 도함수 값이 모두 같은 포물선을 그립니다. 점선이지요. 그 포물선의 꼭짓점이 다음 위치입니다. 그래서 갱신량이 f’(x) 나누기 f’’(x) 로, 2계 도함수까지 써서 계산됩니다. 극소점과의 차이가 10의 −8승보다 작아질 때까지 반복 4번이면 됩니다.</p>
+<p>왼쪽이 뉴턴-랩슨입니다. 5.4 에서 본 포물선입니다. 출발점에서 함숫값, 기울기, 2계 도함수 값이 모두 같은 포물선을 그리고, 그 꼭짓점이 다음 위치입니다. 그래서 갱신량이 f’(x) 나누기 f’’(x) 로, 2계 도함수까지 써서 계산됩니다. 극소점과의 차이가 10의 −8승보다 작아질 때까지 반복 4번이면 됩니다.</p>
 <p>오른쪽이 경사하강법입니다. 기울기만 씁니다. 갱신량은 학습률 에타에 기울기를 곱한 값입니다. 출발점의 기울기가 94.75 라서, 에타가 0.005 면 갱신량이 0.47 이라 3.03 에 닿고, 0.02 면 갱신량이 1.9 라 극소점을 지나 1.6 에 닿습니다. 사람이 정한 것은 에타뿐인데 갱신량이 네 배 차이 납니다.</p>
 <p>같은 함수에서 극소점과의 차이가 10의 −6승보다 작아질 때까지, 에타가 0.005 면 반복 47번, 0.02 면 첫 번째 반복에서 극소점을 넘어갔다가 되돌아와 반복 5번입니다. 0.04 로 키우면 극소점 양쪽의 1.81 과 2.46 두 점을 끝없이 오가면서 도착하지 못합니다.</p>
 <p>오른쪽 상자의 마지막 줄을 보세요. 갱신량은 기울기에 비례하니까, 극소점에 가까워져 기울기가 작아지면 갱신량도 작아집니다. 경사하강법이 최소점 근처에서 느려지는 이유입니다. 다음 슬라이드부터 회귀 문제에서 이것을 봅니다.</p>
@@ -4847,10 +4979,10 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><span class="label label-note">뉴턴-랩슨, 반복 1번</span></p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> beta <span class="sc">-</span> <span class="fu">solve</span>(H, g)   <span class="co"># 헤세 행렬로 갱신량 계산</span></span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> beta <span class="sc">-</span> <span class="fu">solve</span>(H, g)   <span class="co"># 헤시안 행렬로 갱신량 계산</span></span></code></pre></div>
 </div><div class="column" style="width:50%;">
 <p><span class="label label-slide">경사하강법, 반복 몇 번?</span></p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> beta <span class="sc">-</span> eta <span class="sc">*</span> g       <span class="co"># eta 는 사람이 정함</span></span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> beta <span class="sc">-</span> eta <span class="sc">*</span> g       <span class="co"># eta 는 사람이 정함</span></span></code></pre></div>
 </div></div>
 <div class="options">
 <div>
@@ -4864,11 +4996,11 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 </div>
 </div>
 <div class="why">
-<p>경사하강법: 헤세 행렬(<span class="math inline">\(\mathbf{H}\)</span>)을 쓰지 않고, 기울기의 반대 방향으로 <strong>학습률 <span class="math inline">\(\eta\)</span> 에 기울기를 곱한 만큼</strong>씩 이동</p>
+<p>경사하강법: 헤시안 행렬(<span class="math inline">\(\mathbf{H}\)</span>)을 쓰지 않고, 기울기의 반대 방향으로 <strong>학습률 <span class="math inline">\(\eta\)</span> 에 기울기를 곱한 만큼</strong>씩 이동</p>
 </div>
 <aside class="notes">
 <p>예측입니다. 이번엔 5.5 의 mpg ~ wt 회귀를 경사하강법으로 풉니다. 목적함수는 잔차제곱합을 자료 수 32 로 나눈 평균제곱오차입니다. 최소점은 같습니다.</p>
-<p>식을 보세요. 뉴턴-랩슨 식에서 헤세 행렬의 역행렬 자리에 학습률 에타가 들어가 있습니다. 아래 두 줄이 그 차이를 코드로 쓴 겁니다. 뉴턴-랩슨은 solve(H, g) 로 헤세 행렬을 써서 갱신량을 계산하고, 경사하강법은 eta * g 입니다. 에타는 사람이 정합니다.</p>
+<p>식을 보세요. 뉴턴-랩슨 식에서 헤시안 행렬의 역행렬 자리에 학습률 에타가 들어가 있습니다. 아래 두 줄이 그 차이를 코드로 쓴 겁니다. 뉴턴-랩슨은 solve(H, g) 로 헤시안 행렬을 써서 갱신량을 계산하고, 경사하강법은 eta * g 입니다. 에타는 사람이 정합니다.</p>
 <p>뉴턴-랩슨은 한 번의 반복으로 끝났습니다. 경사하강법은 반복 몇 번이 필요할까요? A, B, C.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -4902,7 +5034,7 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 </div>
 </div><div class="column" style="width:36%;">
 <p><span class="label label-slide">같은 회귀, 평균제곱오차의 등고선, × 는 최소점</span></p>
-<p><strong>뉴턴-랩슨</strong>: 헤세 행렬로 곡면이 방향마다 휜 정도를 알아 <strong>반복 1번</strong></p>
+<p><strong>뉴턴-랩슨</strong>: 헤시안 행렬로 곡면이 방향마다 휜 정도를 알아 <strong>반복 1번</strong></p>
 <div class="fragment" data-fragment-index="1">
 <p><strong>경사하강법 첫 번째 반복</strong>: 가장 가파른 방향은 최소점이 아니라 <strong>맞은편 벽</strong></p>
 </div>
@@ -4920,7 +5052,7 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 </div></div>
 <aside class="notes">
 <p>답을 경로로 확인합니다. 그림은 5.5 의 회귀 문제입니다. 가로축이 절편, 세로축이 기울기이고, 등고선은 평균제곱오차가 같은 점을 이은 선입니다. 가운데 가위표가 lm() 이 구한 최소점입니다. 등고선이 가늘고 길게 기울어 있지요. 좁고 긴 골짜기입니다.</p>
-<p>빨간 화살표가 뉴턴-랩슨입니다. 헤세 행렬은 곡면이 방향마다 휜 정도를 담고 있어서, 원점에서 한 번의 반복으로 최소점에 갑니다.</p>
+<p>빨간 화살표가 뉴턴-랩슨입니다. 헤시안 행렬은 곡면이 방향마다 휜 정도를 담고 있어서, 원점에서 한 번의 반복으로 최소점에 갑니다.</p>
 <p>(클릭) 경사하강법의 첫 번째 반복입니다. 기울기 계수가 9.5 근처로 위로 튀었지요. 그 자리에서 가장 가파르게 내려가는 방향은 최소점 쪽이 아니라 맞은편 벽 쪽입니다.</p>
 <p>(클릭) 반복 2번. (클릭) 반복 5번. 벽에서 벽으로 튀고 있습니다. (클릭) 반복 10번. 골짜기를 지그재그로 가로지르면서 최소점 쪽으로 내려가는데, 반복 10번 뒤에도 최소점까지 거리는 처음 37.7 에서 33.2 로 12% 줄었을 뿐입니다.</p>
 <p>(클릭) 반복 30번, (클릭) 100번, (클릭) 400번. 튀는 폭은 줄었는데 골짜기 바닥은 기울기가 작습니다. 400번째 반복에서는 기울기 크기가 출발점의 약 3천분의 1 이라, 갱신량도 0.003 으로 첫 번째 반복의 갱신량 10 의 약 3천분의 1 입니다. 앞에서 본 대로 기울기가 작아지면 갱신량도 작아집니다.</p>
@@ -5028,13 +5160,13 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 </table>
 </div></div>
 <div class="keypoint teal">
-<p><strong>반복 횟수</strong> 대 <strong>반복 한 번의 계산량과 메모리</strong><br> 모수가 적으면 반복 횟수가 적은 뉴턴-랩슨, 헤세 행렬을 저장할 수 없을 만큼 많으면 반복 한 번의 계산량이 적은 경사하강법</p>
+<p><strong>반복 횟수</strong> 대 <strong>반복 한 번의 계산량과 메모리</strong><br> 모수가 적으면 반복 횟수가 적은 뉴턴-랩슨, 헤시안 행렬을 저장할 수 없을 만큼 많으면 반복 한 번의 계산량이 적은 경사하강법</p>
 </div>
 <aside class="notes">
 <p>방금 본 경로를 표로 정리합니다. 이 슬라이드에서 가져갈 것은 하나입니다. 두 방법은 반복 횟수와 반복 한 번의 비용을 맞바꿉니다.</p>
 <p>왼쪽 표는 학습률을 바꿔 가며 같은 회귀를 경사하강법으로 푼 결과입니다. 학습률 0.01이면 반복 10,224번, 0.05면 2,040번, 0.08이면 1,272번이고, 도착한 값은 모두 lm() 과 같습니다. 0.09로 0.01 키우면 발산합니다. 방금 그림에서 본 것처럼 맞은편 벽으로 튀고, 또 튀면서 점점 멀어지는 겁니다. 뉴턴-랩슨은 반복 1번이었지요.</p>
-<p>반복이 1,272번이나 드는 방법을 쓰는 이유는 오른쪽 표의 둘째 줄, 반복 한 번의 비용에 있습니다. 뉴턴-랩슨은 모수가 p개면 p×p 헤세 행렬을 만들어 저장하고 연립방정식을 풀어야 합니다. 경사하강법은 길이 p인 기울기 벡터 하나면 됩니다.</p>
-<p>모수가 두세 개인 통계모형이면 헤세 행렬이 2×2, 3×3 이라 반복 한 번의 계산이 작고, 반복 횟수가 적은 뉴턴-랩슨이 전체 계산량도 적습니다. glm()이 그래서 뉴턴-랩슨 계열을 씁니다. 5.7 첫 슬라이드에서 본 것처럼 모수가 10억 개면 헤세 행렬을 저장할 수 없으니, LLM 같은 딥러닝 모형은 경사하강법의 변형으로 학습합니다.</p>
+<p>반복이 1,272번이나 드는 방법을 쓰는 이유는 오른쪽 표의 둘째 줄, 반복 한 번의 비용에 있습니다. 뉴턴-랩슨은 모수가 p개면 p×p 헤시안 행렬을 만들어 저장하고 연립방정식을 풀어야 합니다. 경사하강법은 길이 p인 기울기 벡터 하나면 됩니다.</p>
+<p>모수가 두세 개인 통계모형이면 헤시안 행렬이 2×2, 3×3 이라 반복 한 번의 계산이 작고, 반복 횟수가 적은 뉴턴-랩슨이 전체 계산량도 적습니다. glm()이 그래서 뉴턴-랩슨 계열을 씁니다. 5.7 첫 슬라이드에서 본 것처럼 모수가 10억 개면 헤시안 행렬을 저장할 수 없으니, LLM 같은 딥러닝 모형은 경사하강법의 변형으로 학습합니다.</p>
 <p>1절에서 비용은 시간과 메모리 두 가지라고 했지요. 전체 계산량은 반복 횟수 곱하기 반복 한 번의 계산량이고, 뉴턴-랩슨은 반복마다 p×p 행렬을 저장할 메모리도 필요합니다. 아래 상자가 그 정리입니다.</p>
 <p>이 수업에서 경사하강법은 여기까지 다룹니다. 학습률을 자동으로 조절하는 방법은 기계학습을 다루는 과목에서 배웁니다.</p>
 <style type="text/css">
@@ -5101,14 +5233,14 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 생성: Claude Opus 5, 2026-09-11. 수정 없이 그대로 수록.</span></span>
-<span id="cb107-2"><a href="" aria-hidden="true" tabindex="-1"></a>binary_search_rec <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, target, <span class="at">lo =</span> <span class="dv">1</span>, <span class="at">hi =</span> <span class="fu">length</span>(vec)) {</span>
-<span id="cb107-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (lo <span class="sc">&gt;</span> hi) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)</span>
-<span id="cb107-4"><a href="" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span></span>
-<span id="cb107-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (vec[mid] <span class="sc">==</span> target) <span class="fu">return</span>(mid)</span>
-<span id="cb107-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (vec[mid] <span class="sc">&gt;</span> target) <span class="fu">binary_search_rec</span>(vec, target, lo, mid <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb107-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">binary_search_rec</span>(vec, target, mid <span class="sc">+</span> <span class="dv">1</span>, hi)</span>
-<span id="cb107-8"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 생성: Claude Opus 5, 2026-09-11. 수정 없이 그대로 수록.</span></span>
+<span id="cb109-2"><a href="" aria-hidden="true" tabindex="-1"></a>binary_search_rec <span class="ot">&lt;-</span> <span class="cf">function</span>(vec, target, <span class="at">lo =</span> <span class="dv">1</span>, <span class="at">hi =</span> <span class="fu">length</span>(vec)) {</span>
+<span id="cb109-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (lo <span class="sc">&gt;</span> hi) <span class="fu">return</span>(<span class="cn">NA_integer_</span>)</span>
+<span id="cb109-4"><a href="" aria-hidden="true" tabindex="-1"></a>  mid <span class="ot">&lt;-</span> (lo <span class="sc">+</span> hi) <span class="sc">%/%</span> <span class="dv">2</span></span>
+<span id="cb109-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (vec[mid] <span class="sc">==</span> target) <span class="fu">return</span>(mid)</span>
+<span id="cb109-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="cf">if</span> (vec[mid] <span class="sc">&gt;</span> target) <span class="fu">binary_search_rec</span>(vec, target, lo, mid <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb109-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">binary_search_rec</span>(vec, target, mid <span class="sc">+</span> <span class="dv">1</span>, hi)</span>
+<span id="cb109-8"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <ul>
 <li>3.3절에서 수정한 <code>rbinary_search2()</code> 와 <strong>동일한 구조</strong></li>
@@ -5138,22 +5270,22 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 <section id="세-가지-검증" class="slide level2 dense">
 <h2><span class="secno">6.3</span> 세 가지 검증</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">40</span>, <span class="at">by =</span> <span class="dv">3</span>)</span>
-<span id="cb108-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 전수 검사</span></span>
-<span id="cb108-3"><a href="" aria-hidden="true" tabindex="-1"></a>c1 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">vapply</span>(<span class="fu">seq_along</span>(v), <span class="cf">function</span>(i) <span class="fu">as.integer</span>(<span class="fu">binary_search_rec</span>(v, v[i])),</span>
-<span id="cb108-4"><a href="" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">integer</span>(<span class="dv">1</span>)) <span class="sc">==</span> <span class="fu">seq_along</span>(v))</span>
-<span id="cb108-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 경계 사례: 빈 벡터, 길이 1인 벡터, 존재하지 않는 값</span></span>
-<span id="cb108-6"><a href="" aria-hidden="true" tabindex="-1"></a>c2 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(<span class="fu">binary_search_rec</span>(<span class="fu">numeric</span>(<span class="dv">0</span>), <span class="dv">5</span>), <span class="fu">binary_search_rec</span>(<span class="dv">7</span>, <span class="dv">9</span>))))</span>
-<span id="cb108-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 무작위 대조: 정답이 알려진 which() 와 500회 대조</span></span>
-<span id="cb108-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260911</span>)</span>
-<span id="cb108-9"><a href="" aria-hidden="true" tabindex="-1"></a>c3 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">replicate</span>(<span class="dv">500</span>, {</span>
-<span id="cb108-10"><a href="" aria-hidden="true" tabindex="-1"></a>  w <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>, <span class="dv">1</span>)))</span>
-<span id="cb108-11"><a href="" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="dv">1</span>)</span>
-<span id="cb108-12"><a href="" aria-hidden="true" tabindex="-1"></a>  got <span class="ot">&lt;-</span> <span class="fu">binary_search_rec</span>(w, k); want <span class="ot">&lt;-</span> <span class="fu">which</span>(w <span class="sc">==</span> k)</span>
-<span id="cb108-13"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(want) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">is.na</span>(got) <span class="cf">else</span> (<span class="sc">!</span><span class="fu">is.na</span>(got) <span class="sc">&amp;&amp;</span> got <span class="sc">%in%</span> want)</span>
-<span id="cb108-14"><a href="" aria-hidden="true" tabindex="-1"></a>}))</span>
-<span id="cb108-15"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb108-16"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(전수검사 <span class="ot">=</span> c1, 경계사례 <span class="ot">=</span> c2, 무작위대조 <span class="ot">=</span> c3)</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">40</span>, <span class="at">by =</span> <span class="dv">3</span>)</span>
+<span id="cb110-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 전수 검사</span></span>
+<span id="cb110-3"><a href="" aria-hidden="true" tabindex="-1"></a>c1 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">vapply</span>(<span class="fu">seq_along</span>(v), <span class="cf">function</span>(i) <span class="fu">as.integer</span>(<span class="fu">binary_search_rec</span>(v, v[i])),</span>
+<span id="cb110-4"><a href="" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">integer</span>(<span class="dv">1</span>)) <span class="sc">==</span> <span class="fu">seq_along</span>(v))</span>
+<span id="cb110-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 경계 사례: 빈 벡터, 길이 1인 벡터, 존재하지 않는 값</span></span>
+<span id="cb110-6"><a href="" aria-hidden="true" tabindex="-1"></a>c2 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(<span class="fu">binary_search_rec</span>(<span class="fu">numeric</span>(<span class="dv">0</span>), <span class="dv">5</span>), <span class="fu">binary_search_rec</span>(<span class="dv">7</span>, <span class="dv">9</span>))))</span>
+<span id="cb110-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 무작위 대조: 정답이 알려진 which() 와 500회 대조</span></span>
+<span id="cb110-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260911</span>)</span>
+<span id="cb110-9"><a href="" aria-hidden="true" tabindex="-1"></a>c3 <span class="ot">&lt;-</span> <span class="fu">all</span>(<span class="fu">replicate</span>(<span class="dv">500</span>, {</span>
+<span id="cb110-10"><a href="" aria-hidden="true" tabindex="-1"></a>  w <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>, <span class="dv">1</span>)))</span>
+<span id="cb110-11"><a href="" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>, <span class="dv">1</span>)</span>
+<span id="cb110-12"><a href="" aria-hidden="true" tabindex="-1"></a>  got <span class="ot">&lt;-</span> <span class="fu">binary_search_rec</span>(w, k); want <span class="ot">&lt;-</span> <span class="fu">which</span>(w <span class="sc">==</span> k)</span>
+<span id="cb110-13"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(want) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">is.na</span>(got) <span class="cf">else</span> (<span class="sc">!</span><span class="fu">is.na</span>(got) <span class="sc">&amp;&amp;</span> got <span class="sc">%in%</span> want)</span>
+<span id="cb110-14"><a href="" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb110-15"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-16"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(전수검사 <span class="ot">=</span> c1, 경계사례 <span class="ot">=</span> c2, 무작위대조 <span class="ot">=</span> c3)</span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -5188,16 +5320,16 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 <section id="요구사항이-규정하지-않은-부분" class="slide level2">
 <h2><span class="secno">6.4</span> 요구사항이 규정하지 않은 부분</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
-<span id="cb110-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(이_구현 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(d, <span class="dv">3</span>), R의<span class="at">_match =</span> <span class="fu">match</span>(<span class="dv">3</span>, d))   <span class="co"># 중복값</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
+<span id="cb112-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(이_구현 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(d, <span class="dv">3</span>), R의<span class="at">_match =</span> <span class="fu">match</span>(<span class="dv">3</span>, d))   <span class="co"># 중복값</span></span></code></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code>  이_구현 R의_match 
         3         2 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">15</span>, <span class="dv">10</span>)                                        <span class="co"># 정렬 안 된 입력</span></span>
-<span id="cb112-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(반환 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(u, <span class="dv">19</span>), 실제_위치 <span class="ot">=</span> <span class="fu">which</span>(u <span class="sc">==</span> <span class="dv">19</span>))</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">15</span>, <span class="dv">10</span>)                                        <span class="co"># 정렬 안 된 입력</span></span>
+<span id="cb114-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(반환 <span class="ot">=</span> <span class="fu">binary_search_rec</span>(u, <span class="dv">19</span>), 실제_위치 <span class="ot">=</span> <span class="fu">which</span>(u <span class="sc">==</span> <span class="dv">19</span>))</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     반환 실제_위치 
        NA         1 </code></pre>
@@ -5264,17 +5396,17 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 </div>
 </div><div class="column" style="width:48%;">
 <p><span class="label label-note">각 유형이 실제로 나타나는 모양</span></p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (maxL <span class="sc">&lt;=</span> minL) <span class="fu">return</span>(<span class="cn">NA</span>)   <span class="co"># 경계 조건</span></span>
-<span id="cb114-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">#     ^^ minL &gt; maxL 이어야 함</span></span>
-<span id="cb114-3"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(u, <span class="dv">19</span>)       <span class="co"># 전제 미검사</span></span>
-<span id="cb114-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># u 가 정렬 안 됨 → 조용히 NA</span></span>
-<span id="cb114-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-7"><a href="" aria-hidden="true" tabindex="-1"></a>vec[<span class="dv">1</span>]                         <span class="co"># 빈 입력</span></span>
-<span id="cb114-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># length(vec) == 0 이면 NA</span></span>
-<span id="cb114-9"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(d, <span class="dv">3</span>)  <span class="co"># 3    # 요구사항 공백</span></span>
-<span id="cb114-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">match</span>(<span class="dv">3</span>, d)              <span class="co"># 2    # 어느 쪽이 맞는가?</span></span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (maxL <span class="sc">&lt;=</span> minL) <span class="fu">return</span>(<span class="cn">NA</span>)   <span class="co"># 경계 조건</span></span>
+<span id="cb116-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">#     ^^ minL &gt; maxL 이어야 함</span></span>
+<span id="cb116-3"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(u, <span class="dv">19</span>)       <span class="co"># 전제 미검사</span></span>
+<span id="cb116-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># u 가 정렬 안 됨 → 조용히 NA</span></span>
+<span id="cb116-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-7"><a href="" aria-hidden="true" tabindex="-1"></a>vec[<span class="dv">1</span>]                         <span class="co"># 빈 입력</span></span>
+<span id="cb116-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># length(vec) == 0 이면 NA</span></span>
+<span id="cb116-9"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-10"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">binary_search_rec</span>(d, <span class="dv">3</span>)  <span class="co"># 3    # 요구사항 공백</span></span>
+<span id="cb116-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">match</span>(<span class="dv">3</span>, d)              <span class="co"># 2    # 어느 쪽이 맞는가?</span></span></code></pre></div>
 <p><span class="tiny">첫 줄은 <strong>사람이 쓴</strong> 이 수업의 코드. AI만의 문제가 아님</span></p>
 </div></div>
 <table class="caption-top">
@@ -5369,7 +5501,7 @@ n! = \begin{cases} n \times (n-1)!, &amp; n \geq 1 \\ 1, &amp; n = 0 \end{cases}
 <p>왼쪽 위. 비용은 수행 시간과 메모리 두 가지입니다. “비싸다” 고 할 때는 연산 횟수인지 메모리인지 함께 말합니다. 그리고 비교할 때는 한 번 잰 값보다 n 이 커질 때 연산 횟수가 늘어나는 비율, 곧 <strong>증가율</strong>을 봅니다.</p>
 <p>같은 알고리즘도 입력에 따라 비교 횟수가 다릅니다. 퀵 정렬은 무작위 입력 1,000개에서 10,569번 비교했지만 이미 정렬된 입력에서는 버블 정렬과 같은 499,500번 비교했습니다.</p>
 <p>왼쪽 가운데. 재귀는 종료 조건과 재귀 단계 두 부분입니다. 종료 조건은 경계 바로 바깥의 입력으로 확인합니다. recursive_sum 은 n = 0 에서 멈추지 않았고, <code>n == 1</code> 을 <code>n &lt;= 1</code> 로 고쳐서 멈췄습니다. 호출 깊이가 n 이면 스택 프레임 n 개를 쓰고, R 의 기본 설정에서는 깊이 5000 에서 오류가 납니다.</p>
-<p>왼쪽 아래. 통계의 추정은 최적화이고, 최적화는 결국 도함수의 근을 찾는 일입니다. 뉴턴-랩슨은 반복 횟수가 적고, 경사하강법은 반복 한 번의 계산량이 적습니다. 이 장의 회귀에서는 반복 1번 대 1,272번이었습니다. 뉴턴-랩슨은 반복마다 p×p 헤세 행렬을 저장하고 연립방정식을 풀어야 해서, 여기서도 비용은 시간과 메모리 두 가지입니다.</p>
+<p>왼쪽 아래. 통계의 추정은 최적화이고, 최적화는 결국 도함수의 근을 찾는 일입니다. 뉴턴-랩슨은 반복 횟수가 적고, 경사하강법은 반복 한 번의 계산량이 적습니다. 이 장의 회귀에서는 반복 1번 대 1,272번이었습니다. 뉴턴-랩슨은 반복마다 p×p 헤시안 행렬을 저장하고 연립방정식을 풀어야 해서, 여기서도 비용은 시간과 메모리 두 가지입니다.</p>
 <p>오른쪽 위는 검증입니다. 예제 몇 개 통과한 건 정확성의 근거가 아닙니다. rbinary_search() 는 저자가 고른 예제를 통과했지만 20개 중 8개를 못 찾았습니다. 코드를 받으면 전수 검사, 경계 사례, 대조 세 가지를 돌립니다.</p>
 <p>오른쪽 아래. 프롬프트는 요구사항입니다. 그리고 요구사항에 적지 않은 경우는 구현마다 다르게 정해집니다. 중복값에서 이 구현은 3번, match() 는 2번 자리를 돌려줬습니다. 결과가 갈릴 수 있는 경우는 AI에게 시킬 때 요구사항에 적습니다.</p>
 <p>다음 시간에는 시뮬레이션을 합니다. 오늘 배운 검증을, 답을 모르는 문제로 확장합니다. 정답이 알려진 함수와 대조하는 게 오늘 방법이었다면, 다음 시간에는 참값을 정해 두고 자료를 <strong>만들어서</strong> 대조합니다.</p>
